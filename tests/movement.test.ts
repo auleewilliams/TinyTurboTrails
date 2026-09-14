@@ -57,12 +57,14 @@ describe('Henry movement', () => {
   });
 
   it('spring launch is reusable and preserves horizontal momentum', () => {
-    const player = createPlayer(20, flat);
-    player.vx = 180;
-    launchSpring(player, 620);
-    expect(player.vy).toBe(-620);
-    expect(player.vx).toBe(180);
-    expect(player.onGround).toBe(false);
+    for (const horizontal of [0, 120, DEFAULT_MOVEMENT.maxSpeed, -120]) {
+      const player = createPlayer(20, flat);
+      player.vx = horizontal;
+      launchSpring(player, 620);
+      expect(player.vy).toBe(-620);
+      expect(player.vx).toBe(horizontal);
+      expect(player.onGround).toBe(false);
+    }
   });
 
   it('adds downhill acceleration from explicit terrain slope geometry', () => {
