@@ -124,3 +124,42 @@ test('adventure screen starts and shows a replayable title flow', async ({ page 
   await page.keyboard.press('Escape');
   await expect(page.locator('canvas')).toHaveAttribute('width', '426');
 });
+
+test('adventure accepts a standard controller Start pause and D-pad movement', async ({ page }) => {
+  await page.addInitScript(() => {
+    const buttons = Array.from({ length: 17 }, () => ({ pressed: false, touched: false, value: 0 }));
+    const pad = {
+      id: 'browser-smoke-controller', index: 0, connected: true, mapping: 'standard', timestamp: 0,
+      axes: [0, 0, 0, 0], buttons, vibrationActuator: null,
+    };
+    Object.defineProperty(navigator, 'getGamepads', { configurable: true, value: () => [pad] });
+    Object.assign(window, { smokeController: pad });
+  });
+  await page.goto('/?scene=adventure');
+  await expect(page.locator('#status')).toContainText('Adventure preview');
+  await page.keyboard.press('Space');
+  await page.waitForTimeout(80);
+  await page.evaluate(() => {
+    const pad = (window as unknown as { smokeController: { axes: number[]; buttons: { pressed: boolean }[] } }).smokeController;
+    pad.axes[0] = 1;
+    pad.buttons[15].pressed = true;
+  });
+  await page.waitForTimeout(120);
+  await page.evaluate(() => {
+    const pad = (window as unknown as { smokeController: { axes: number[]; buttons: { pressed: boolean }[] } }).smokeController;
+    pad.axes[0] = 0;
+    pad.buttons[15].pressed = false;
+    pad.buttons[9].pressed = true;
+  });
+  await expect(page.locator('#status')).toHaveText('Paused · Escape to resume');
+  await page.evaluate(() => {
+    const pad = (window as unknown as { smokeController: { buttons: { pressed: boolean }[] } }).smokeController;
+    pad.buttons[9].pressed = false;
+  });
+  await page.waitForTimeout(40);
+  await page.evaluate(() => {
+    const pad = (window as unknown as { smokeController: { buttons: { pressed: boolean }[] } }).smokeController;
+    pad.buttons[9].pressed = true;
+  });
+  await expect(page.locator('#status')).toContainText('Adventure preview');
+});
