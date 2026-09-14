@@ -16,8 +16,8 @@ this launch step. A production bundle can be served with `npm run build` and
 
 The checked commands are `npm run typecheck`, `npm test`, `npm run build` and
 `npm run test:browser`. `npm test` currently covers 47 unit tests in 10 files.
-The hosted run [34898451770](https://github.com/auleewilliams/TinyTurboTrails/actions/runs/34898451770)
-passed the build and 44 of 45 browser checks across Chromium 153.0.8010.12,
+The hosted run [34899235586](https://github.com/auleewilliams/TinyTurboTrails/actions/runs/34899235586)
+passed the build and 47 of 48 browser checks across Chromium 153.0.8010.12,
 Firefox 155.0 and WebKit 26.6, with one explicit Firefox native-audio skip
 because the runner had no usable audio backend.
 

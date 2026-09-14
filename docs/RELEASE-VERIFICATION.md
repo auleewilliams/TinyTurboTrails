@@ -13,12 +13,12 @@ from manual checks that still require a desktop host and a physical controller.
 | `npm run build` | Passed: TypeScript and Vite production build |
 | Chromium 153.0.8010.12 on Linux | Passed: foundation, assets, movement, world, interactions, adventure and audio checks |
 | Firefox 155.0 on Linux | Passed: all non-native-audio checks; native AudioContext check explicitly skipped because the host has no usable audio backend |
-| WebKit 26.6 on hosted Ubuntu CI | Passed: hosted candidate run 34898451770 |
+| WebKit 26.6 on hosted Ubuntu CI | Passed: hosted candidate run 34899235586 |
 | WebKit 26.6 in this local container | Cannot launch: required GTK/GStreamer/libopus/libsoup libraries are absent |
 | Standard-controller adventure smoke test | Passed in hosted Chromium, Firefox and WebKit with a standard-mapped controller fixture; physical-controller behavior remains manual |
 
-The hosted candidate run [34898451770](https://github.com/auleewilliams/TinyTurboTrails/actions/runs/34898451770)
-passed 44 of 45 browser tests with one explicit Firefox native-audio skip across
+The hosted candidate run [34899235586](https://github.com/auleewilliams/TinyTurboTrails/actions/runs/34899235586)
+passed 47 of 48 browser tests with one explicit Firefox native-audio skip across
 Chromium 153.0.8010.12, Firefox 155.0 and WebKit 26.6. The browser suite checks
 asset loading and transparency, manifest frame bounds,
 keyboard and standard-controller movement/pause input, world/camera preview,
