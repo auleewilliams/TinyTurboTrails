@@ -10,6 +10,7 @@ import { ArtPreviewScene } from './art/preview-scene';
 import { MovementPreviewScene } from './game/movement-preview';
 import { loadWorldAssets } from './world/assets';
 import { WorldPreviewScene } from './world/preview-scene';
+import { GameplayPreviewScene, loadGameplayAssets } from './game/gameplay-preview';
 
 const canvas = document.querySelector<HTMLCanvasElement>('#game')!;
 const status = document.querySelector<HTMLParagraphElement>('#status')!;
@@ -31,7 +32,8 @@ if (!context) {
   const artPreview = requestedScene === 'art';
   const movementPreview = requestedScene === 'movement';
   const worldPreview = requestedScene === 'world';
-  let assetState: 'loading' | 'ready' | 'failed' = artPreview || movementPreview || worldPreview ? 'loading' : 'ready';
+  const gameplayPreview = requestedScene === 'gameplay';
+  let assetState: 'loading' | 'ready' | 'failed' = artPreview || movementPreview || worldPreview || gameplayPreview ? 'loading' : 'ready';
   let disposed = false;
 
   const refreshPause = (): void => {
@@ -47,7 +49,7 @@ if (!context) {
       : assetState === 'loading' ? 'Loading artwork…'
       : !focused ? 'Paused · Return to the game to continue'
       : userPaused ? 'Paused · Escape to resume'
-      : `${artPreview ? 'Art' : movementPreview ? 'Movement' : worldPreview ? 'World' : 'Foundation'} preview · Escape to pause · ${muted ? 'Muted · M to unmute' : 'M to mute'}`;
+      : `${artPreview ? 'Art' : movementPreview ? 'Movement' : worldPreview ? 'World' : gameplayPreview ? 'Gameplay' : 'Foundation'} preview · Escape to pause · ${muted ? 'Muted · M to unmute' : 'M to mute'}`;
   };
 
   const resize = (): void => {
@@ -88,7 +90,18 @@ if (!context) {
   window.addEventListener('focus', focus);
   document.addEventListener('visibilitychange', visibility);
   scenes.change(new FoundationScene());
-  if (worldPreview) {
+  if (gameplayPreview) {
+    void loadGameplayAssets().then((assets) => {
+      if (disposed) return;
+      scenes.change(new GameplayPreviewScene(assets.henry, assets.world, audio));
+      assetState = 'ready';
+      refreshPause();
+    }).catch(() => {
+      if (disposed) return;
+      assetState = 'failed';
+      refreshPause();
+    });
+  } else if (worldPreview) {
     void loadWorldAssets().then((assets) => {
       if (disposed) return;
       scenes.change(new WorldPreviewScene(assets));
