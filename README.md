@@ -39,8 +39,10 @@ In the foundation preview, **Escape** pauses/resumes and **M** toggles the mute
 state. Music unlocks after keyboard, controller or canvas pointer interaction
 (subject to browser audio policy). Switching away pauses audio and freezes the
 simulation; returning discards elapsed time and preserves a deliberate pause.
-Open `/?audio` to preview all six effects and start/stop music; see the
-[audio guide](docs/AUDIO.md) for integration and verification details.
+Open `/?audio` to preview all six effects and start/stop music. The gameplay
+previews at `/?scene=gameplay` and `/?scene=adventure` also connect accepted
+gem, checkpoint, spring and damage events to local synthesis; see the [audio
+guide](docs/AUDIO.md) for integration and verification details.
 
 Planned release controls (input bindings exist; movement arrives in issue #3):
 
