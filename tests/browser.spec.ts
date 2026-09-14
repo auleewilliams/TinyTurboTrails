@@ -219,6 +219,17 @@ test('adventure can complete the forgiving route and replay from a fresh title',
   }
   await page.keyboard.up('ArrowRight');
   await expect(page.locator('#status')).toContainText('Adventure preview · Finish', { timeout: 5000 });
+  const celebrationPixels = await page.locator('canvas').evaluate((element) => {
+    const canvas = element as HTMLCanvasElement;
+    const ctx = canvas.getContext('2d')!;
+    const pixels = ctx.getImageData(150, 135, 130, 70).data;
+    let matches = 0;
+    for (let i = 0; i < pixels.length; i += 4) {
+      if (pixels[i] === 255 && pixels[i + 1] === 218 && pixels[i + 2] === 117 && pixels[i + 3] > 0) matches++;
+    }
+    return matches;
+  });
+  expect(celebrationPixels).toBeGreaterThan(20);
   await page.keyboard.press('Space');
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
 });
