@@ -33,9 +33,8 @@ both oscillator and gain nodes.
 The `/?scene=gameplay` and `/?scene=adventure` previews now wire accepted gem,
 checkpoint, spring and damage events to these effects. Title and finish screens
 remain silent until a user interaction unlocks the context, as required by
-browser autoplay policy. Completion audio will be connected when the finish
-celebration is expanded; the `complete` effect remains available through the
-preview and interface.
+browser autoplay policy. Reaching the finish plays the `complete` effect once;
+the effect also remains available through the preview and interface.
 
 ## Verification (2026-09-14)
 
