@@ -80,3 +80,15 @@ test('starter atlas contains real transparency and every frame stays within its 
     expect(result.edge).toBe(0);
   }
 });
+
+test('movement preview accepts keyboard movement and jump input', async ({ page }) => {
+  await page.goto('/?scene=movement');
+  await expect(page.locator('#status')).toContainText('Movement preview');
+  await page.keyboard.down('ArrowRight');
+  await page.waitForTimeout(180);
+  await page.keyboard.up('ArrowRight');
+  await expect(page.locator('canvas')).toHaveAttribute('width', '426');
+  await page.keyboard.press('Space');
+  await page.waitForTimeout(40);
+  await expect(page.locator('#status')).toContainText('Movement preview');
+});
