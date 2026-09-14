@@ -94,14 +94,23 @@ export class AdventureScene implements Scene {
   }
 
   private drawHenry(ctx: CanvasRenderingContext2D): void {
-    const name = animationFor(this.player);
+    const hurt = this.run.invulnerableSeconds > 0;
+    const name = hurt ? 'fall' : animationFor(this.player);
     const clip = this.henry.manifest.animations[name];
     const frame = this.henry.manifest.frames[animationFrame(clip, this.elapsed)];
     const offset = this.camera.position;
+    const shake = hurt ? Math.sin(this.elapsed * 42) * 2 : 0;
+    ctx.save();
+    ctx.translate(shake, 0);
     ctx.drawImage(this.henry.atlas, frame.x, frame.y, frame.width, frame.height,
       this.player.x - offset.x - this.henry.manifest.anchor.x,
       this.player.y - offset.y + 34 - this.henry.manifest.anchor.y,
       48, 48);
+    if (hurt) {
+      ctx.fillStyle = '#ff5d5d88';
+      ctx.fillRect(this.player.x - offset.x - 22, this.player.y - offset.y - 12, 44, 50);
+    }
+    ctx.restore();
   }
 
   private drawCelebration(ctx: CanvasRenderingContext2D): void {
