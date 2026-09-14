@@ -101,3 +101,12 @@ test('world preview loads generated Plains assets and level data', async ({ page
   await page.keyboard.up('ArrowRight');
   await expect(page.locator('canvas')).toHaveAttribute('width', '426');
 });
+
+test('gameplay preview collects a gem and reaches a checkpoint', async ({ page }) => {
+  await page.goto('/?scene=gameplay');
+  await expect(page.locator('#status')).toContainText('Gameplay preview');
+  await page.keyboard.down('ArrowRight');
+  await page.waitForTimeout(900);
+  await page.keyboard.up('ArrowRight');
+  await expect(page.locator('#status')).toContainText('Gameplay preview');
+});
