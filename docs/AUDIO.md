@@ -30,8 +30,8 @@ are capped at 24 (oldest voice is removed when full). The master gain is 0.075;
 with maximum voice gain 0.48, even 24 aligned peaks sum to 0.864, below clipping. Natural completion releases
 both oscillator and gain nodes.
 
-The `/?scene=gameplay` and `/?scene=adventure` previews now wire accepted gem,
-checkpoint, spring and damage events to these effects. Title and finish screens
+The `/?scene=gameplay` and `/?scene=adventure` previews now wire accepted jump,
+gem, checkpoint, spring and damage events to these effects. Title and finish screens
 remain silent until a user interaction unlocks the context, as required by
 browser autoplay policy. Reaching the finish plays the `complete` effect once;
 the effect also remains available through the preview and interface.
