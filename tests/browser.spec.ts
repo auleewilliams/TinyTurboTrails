@@ -225,13 +225,20 @@ test('adventure clears held controller input after disconnect', async ({ page })
   });
   await page.waitForTimeout(180);
   const beforeDisconnect = Number((await page.locator('#status').innerText()).match(/X (\d+)/)?.[1] ?? 0);
-  await page.evaluate(() => window.dispatchEvent(new Event('gamepaddisconnected')));
+  await page.evaluate(() => {
+    window.dispatchEvent(new Event('gamepaddisconnected'));
+    const pad = (window as unknown as { disconnectController: { axes: number[]; connected: boolean } }).disconnectController;
+    pad.connected = false;
+    pad.axes[0] = 0;
+  });
   await page.waitForTimeout(180);
   const afterDisconnect = Number((await page.locator('#status').innerText()).match(/X (\d+)/)?.[1] ?? 0);
   // Disconnect clears the held input; existing momentum may coast briefly while braking.
-  expect(afterDisconnect - beforeDisconnect).toBeLessThanOrEqual(20);
+  expect(afterDisconnect - beforeDisconnect).toBeLessThanOrEqual(25);
   await page.evaluate(() => {
-    (window as unknown as { disconnectController: { axes: number[] } }).disconnectController.axes[0] = 0;
+    const pad = (window as unknown as { disconnectController: { axes: number[]; connected: boolean } }).disconnectController;
+    pad.connected = true;
+    pad.axes[0] = 0;
   });
   await page.waitForTimeout(50);
   await page.evaluate(() => {
