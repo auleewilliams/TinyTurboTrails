@@ -140,6 +140,20 @@ test('adventure mute control updates the audio state', async ({ page }) => {
   await expect(page.locator('#status')).not.toContainText('Muted');
 });
 
+test('adventure keeps its letterbox and pauses on focus loss', async ({ page }) => {
+  await page.goto('/?scene=adventure');
+  await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
+  await page.keyboard.press('Space');
+  await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
+  const canvas = page.locator('canvas');
+  await page.setViewportSize({ width: 900, height: 600 });
+  await expect.poll(async () => (await canvas.boundingBox())?.width).toBe(852);
+  await page.evaluate(() => window.dispatchEvent(new Event('blur')));
+  await expect(page.locator('#status')).toHaveText('Paused · Return to the game to continue');
+  await page.evaluate(() => window.dispatchEvent(new Event('focus')));
+  await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
+});
+
 test('adventure can complete the forgiving route and replay from a fresh title', async ({ page }) => {
   await page.goto('/?scene=adventure&debug=1');
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
