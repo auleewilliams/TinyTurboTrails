@@ -17,6 +17,7 @@ import { AdventureScene } from './game/adventure-scene';
 const canvas = document.querySelector<HTMLCanvasElement>('#game')!;
 const status = document.querySelector<HTMLParagraphElement>('#status')!;
 const muteButton = document.querySelector<HTMLButtonElement>('#mute')!;
+const retryButton = document.querySelector<HTMLButtonElement>('#retry')!;
 const context = canvas.getContext('2d');
 
 if (!context) {
@@ -69,6 +70,7 @@ if (!context) {
     muteButton.textContent = muted ? 'Unmute' : 'Mute';
     muteButton.setAttribute('aria-label', muted ? 'Unmute' : 'Mute');
     muteButton.setAttribute('aria-pressed', String(muted));
+    retryButton.hidden = assetState !== 'failed';
   };
 
   const resize = (): void => {
@@ -80,6 +82,7 @@ if (!context) {
   const focus = (): void => { focused = !document.hidden; refreshPause(); };
   const visibility = (): void => { focused = !document.hidden && document.hasFocus(); refreshPause(); };
   const toggleMute = (): void => { muted = !muted; audio.setMuted(muted); refreshPause(); };
+  const retryLoading = (): void => { location.reload(); };
 
   const frame = (now: number): void => {
     const controls: InputFrame = input.poll();
@@ -112,6 +115,7 @@ if (!context) {
   document.addEventListener('visibilitychange', visibility);
   canvas.addEventListener('pointerdown', unlockAudio);
   muteButton.addEventListener('click', toggleMute);
+  retryButton.addEventListener('click', retryLoading);
   scenes.change(new FoundationScene());
   audio.startMusic();
   if (adventure) {
@@ -176,6 +180,7 @@ if (!context) {
     scenes.dispose();
     canvas.removeEventListener('pointerdown', unlockAudio);
     muteButton.removeEventListener('click', toggleMute);
+    retryButton.removeEventListener('click', retryLoading);
     removeAudioPreview();
     audio.dispose();
   });

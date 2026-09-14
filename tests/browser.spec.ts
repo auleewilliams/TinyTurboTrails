@@ -47,6 +47,10 @@ test('art preview loads local assets and reports a missing atlas', async ({ page
   await page.route('**/assets/henry/starter.png', (route) => route.abort());
   await page.reload();
   await expect(page.locator('#status')).toHaveText('Artwork could not load. Reload to retry.');
+  await expect(page.locator('#retry')).toBeVisible();
+  await page.unroute('**/assets/henry/starter.png');
+  await page.locator('#retry').click();
+  await expect(page.locator('#status')).toContainText('Art preview', { timeout: 15000 });
 });
 
 test('starter atlas contains real transparency and every frame stays within its cell', async ({ page }) => {
