@@ -176,12 +176,11 @@ test('adventure pause freezes progress and reload starts a fresh in-memory run',
   expect(progressedX).toBeGreaterThan(0);
   await page.keyboard.press('Escape');
   await expect(page.locator('#status')).toHaveText('Paused · Escape to resume');
+  const pausedImage = await page.locator('canvas').evaluate((element) => (element as HTMLCanvasElement).toDataURL());
   await page.waitForTimeout(250);
+  expect(await page.locator('canvas').evaluate((element) => (element as HTMLCanvasElement).toDataURL())).toBe(pausedImage);
   await page.keyboard.press('Escape');
   await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
-  const resumed = await page.locator('#status').innerText();
-  const resumedX = Number(resumed.match(/X (\d+)/)?.[1] ?? 0);
-  expect(resumedX - progressedX).toBeLessThanOrEqual(5);
   await page.reload();
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
 });
