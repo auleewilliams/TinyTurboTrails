@@ -9,6 +9,14 @@ it('has stable unique entity IDs and traversable terrain data', () => {
   expect(PLAINS_LEVEL.checkpoints).toHaveLength(3);
   expect(PLAINS_LEVEL.finish.x).toBeGreaterThan(PLAINS_LEVEL.start.x);
 });
+it('keeps terrain segments joined and provides elevated optional gem routes', () => {
+  for (let index = 1; index < PLAINS_LEVEL.surfaces.length; index++) {
+    expect(PLAINS_LEVEL.surfaces[index - 1].x2).toBe(PLAINS_LEVEL.surfaces[index].x1);
+  }
+  const elevatedGems = PLAINS_LEVEL.entities.filter((entity) => entity.kind === 'gem' && entity.y < 110);
+  expect(elevatedGems.map((entity) => entity.id)).toEqual(['gem-006']);
+  expect(elevatedGems[0].x).toBeGreaterThan(PLAINS_LEVEL.checkpoints[1].x);
+});
 it('follows a player inside a bounded dead zone without jitter', () => {
   const camera = new Camera({ width: 426, height: 240, worldWidth: 2400, worldHeight: 240 });
   camera.update(100, 90);
