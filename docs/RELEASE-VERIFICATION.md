@@ -13,16 +13,16 @@ from manual checks that still require a desktop host and a physical controller.
 | `npm run build` | Passed: TypeScript and Vite production build |
 | Chromium 153.0.8010.12 on Linux | Passed: foundation, assets, movement, world, interactions, adventure and audio checks |
 | Firefox 155.0 on Linux | Passed: all non-native-audio checks; native AudioContext check explicitly skipped because the host has no usable audio backend |
-| WebKit 26.6 on hosted Ubuntu CI | Passed: hosted candidate run 34888129254 |
+| WebKit 26.6 on hosted Ubuntu CI | Passed: hosted candidate run 34890553981 |
 | WebKit 26.6 in this local container | Cannot launch: required GTK/GStreamer/libopus/libsoup libraries are absent |
 | Standard-controller adventure smoke test | Passed in hosted Chromium, Firefox and WebKit with a standard-mapped controller fixture; physical-controller behavior remains manual |
 
-The hosted candidate run [34888129254](https://github.com/auleewilliams/TinyTurboTrails/actions/runs/34888129254)
-passed 29 of 30 browser tests with one explicit Firefox native-audio skip across
+The hosted candidate run [34890553981](https://github.com/auleewilliams/TinyTurboTrails/actions/runs/34890553981)
+passed 32 of 33 browser tests with one explicit Firefox native-audio skip across
 Chromium 153.0.8010.12, Firefox 155.0 and WebKit 26.6. The browser suite checks
 asset loading and transparency, manifest frame bounds,
 keyboard and standard-controller movement/pause input, world/camera preview,
-interaction preview, title/start/pause screen flow, mute/unavailable-audio
+interaction preview, title/start/pause/finish/replay screen flow, mute/unavailable-audio
 behavior, and audio effect lifecycle. It does
 not prove audible output on speakers when the host has no audio device.
 
