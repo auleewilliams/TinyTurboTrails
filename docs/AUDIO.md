@@ -38,11 +38,13 @@ the effect also remains available through the preview and interface.
 
 ## Verification (2026-09-14)
 
-- `npm test`: 17 tests pass, including 9 audio tests for lazy unlock, rejected API
+- `npm test`: 48 tests pass, including 9 audio tests for lazy unlock, rejected API
   operations, mute, pause, bounded voices, maximum burst amplitude, looping, scene stop and disposal races.
 - `npm run build`: typecheck and production bundle pass.
-- Browser audio tests: Chromium real Web Audio lifecycle passes. Chromium and
-  Firefox unavailable-API interaction checks pass. Firefox real audio is skipped
+- Hosted browser audio and adventure-fallback checks pass in Chromium, Firefox and
+  WebKit; the full hosted suite reports 53 of 54 checks passed in run
+  [34902763600](https://github.com/auleewilliams/TinyTurboTrails/actions/runs/34902763600).
+  Firefox real audio is skipped
   when a separate native-context probe cannot start its clock; this host also
   reproduced the failure on a minimal button-only page, outside the game.
 - WebKit could not launch locally because required shared libraries are absent.
