@@ -84,7 +84,8 @@ export class AdventureScene implements Scene {
     } else if (this.screens.state === 'title') {
       this.panel(ctx, 'TINY TURBO TRAILS', 'Press Space to start');
     } else if (this.screens.state === 'finish') {
-      this.panel(ctx, 'TRAIL COMPLETE!', `Gems ${this.screens.gems} · Space to replay`);
+      this.panel(ctx, 'TRAIL COMPLETE!', `Gems ${this.screens.gems} · Henry celebrates · Space to replay`);
+      this.drawCelebration(ctx);
     } else if (this.screens.state === 'error') {
       this.panel(ctx, 'LOADING ERROR', `${this.screens.error} · Reload to retry`);
     }
@@ -99,6 +100,21 @@ export class AdventureScene implements Scene {
       this.player.x - offset.x - this.henry.manifest.anchor.x,
       this.player.y - offset.y + 34 - this.henry.manifest.anchor.y,
       48, 48);
+  }
+
+  private drawCelebration(ctx: CanvasRenderingContext2D): void {
+    const clip = this.henry.manifest.animations.idle;
+    const frame = this.henry.manifest.frames[animationFrame(clip, this.elapsed)];
+    const bob = Math.sin(this.elapsed * 10) * 3;
+    const x = 213 - this.henry.manifest.anchor.x;
+    const y = 164 - this.henry.manifest.anchor.y + bob;
+    ctx.drawImage(this.henry.atlas, frame.x, frame.y, frame.width, frame.height, x, y, 48, 48);
+    ctx.fillStyle = '#ffda75';
+    for (const [starX, starY] of [[174, 158], [252, 150], [269, 181]] as const) {
+      ctx.fillRect(starX, starY + Math.round(bob), 4, 4);
+      ctx.fillRect(starX + 2, starY - 2 + Math.round(bob), 1, 8);
+      ctx.fillRect(starX - 2, starY + 1 + Math.round(bob), 8, 1);
+    }
   }
 
   private panel(ctx: CanvasRenderingContext2D, title: string, subtitle: string): void {
