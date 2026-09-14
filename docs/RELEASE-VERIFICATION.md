@@ -16,7 +16,7 @@ from manual checks that still require a desktop host and a physical controller.
 | WebKit 26.6 on hosted Ubuntu CI | Passed: hosted candidate run 34886036182 |
 | WebKit 26.6 in this local container | Cannot launch: required GTK/GStreamer/libopus/libsoup libraries are absent |
 
-The hosted candidate run [34886036182](https://github.com/auleewilliams/TinyTurboTrails/actions/runs/34886036182)
+The hosted candidate run [34887106613](https://github.com/auleewilliams/TinyTurboTrails/actions/runs/34887106613)
 passed 26 browser tests with one explicit Firefox native-audio skip across
 Chromium 153.0.8010.12, Firefox 155.0 and WebKit 26.6. The browser suite checks
 asset loading and transparency, manifest frame bounds,
