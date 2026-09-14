@@ -164,6 +164,42 @@ test('adventure exposes retry when a required asset fails to load', async ({ pag
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
 });
 
+test('adventure clears held controller input after disconnect', async ({ page }) => {
+  await page.addInitScript(() => {
+    const buttons = Array.from({ length: 17 }, () => ({ pressed: false, touched: false, value: 0 }));
+    const pad = {
+      id: 'disconnect-controller', index: 0, connected: true, mapping: 'standard', timestamp: 0,
+      axes: [0, 0, 0, 0], buttons, vibrationActuator: null,
+    };
+    Object.defineProperty(navigator, 'getGamepads', { configurable: true, value: () => [pad] });
+    Object.assign(window, { disconnectController: pad });
+  });
+  await page.goto('/?scene=adventure&debug=1');
+  await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
+  await page.keyboard.press('Space');
+  await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
+  await page.evaluate(() => {
+    (window as unknown as { disconnectController: { axes: number[] } }).disconnectController.axes[0] = 1;
+  });
+  await page.waitForTimeout(180);
+  const beforeDisconnect = Number((await page.locator('#status').innerText()).match(/X (\d+)/)?.[1] ?? 0);
+  await page.evaluate(() => window.dispatchEvent(new Event('gamepaddisconnected')));
+  await page.waitForTimeout(180);
+  const afterDisconnect = Number((await page.locator('#status').innerText()).match(/X (\d+)/)?.[1] ?? 0);
+  // Disconnect clears the held input; existing momentum may coast briefly while braking.
+  expect(afterDisconnect - beforeDisconnect).toBeLessThanOrEqual(20);
+  await page.evaluate(() => {
+    (window as unknown as { disconnectController: { axes: number[] } }).disconnectController.axes[0] = 0;
+  });
+  await page.waitForTimeout(50);
+  await page.evaluate(() => {
+    (window as unknown as { disconnectController: { axes: number[] } }).disconnectController.axes[0] = 1;
+  });
+  await page.waitForTimeout(150);
+  const afterRelease = Number((await page.locator('#status').innerText()).match(/X (\d+)/)?.[1] ?? 0);
+  expect(afterRelease).toBeGreaterThan(afterDisconnect);
+});
+
 test('adventure can complete the forgiving route and replay from a fresh title', async ({ page }) => {
   await page.goto('/?scene=adventure&debug=1');
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
