@@ -26,7 +26,8 @@ changes. A new scene/replay must call `startMusic()` after changing scenes.
 Stop old scene audio before playing the completion cue. Dispose on teardown.
 Mute and pause clear active/future notes; resume starts scheduling again without
 replaying effects or catching up an old backlog. Voices have short envelopes and
-are capped at 24 (oldest voice is removed when full). Natural completion releases
+are capped at 24 (oldest voice is removed when full). The master gain is 0.075;
+with maximum voice gain 0.48, even 24 aligned peaks sum to 0.864, below clipping. Natural completion releases
 both oscillator and gain nodes.
 
 Actual gameplay event wiring depends on #5; title/playing/completion UI behavior
@@ -34,8 +35,8 @@ depends on #6. The opt-in preview is temporary integration scaffolding.
 
 ## Verification (2026-09-14)
 
-- `npm test`: 16 tests pass, including 8 audio tests for lazy unlock, rejected API
-  operations, mute, pause, bounded voices, looping, scene stop and disposal races.
+- `npm test`: 17 tests pass, including 9 audio tests for lazy unlock, rejected API
+  operations, mute, pause, bounded voices, maximum burst amplitude, looping, scene stop and disposal races.
 - `npm run build`: typecheck and production bundle pass.
 - Browser audio tests: Chromium real Web Audio lifecycle passes. Chromium and
   Firefox unavailable-API interaction checks pass. Firefox real audio is skipped

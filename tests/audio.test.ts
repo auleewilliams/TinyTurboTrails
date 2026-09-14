@@ -3,8 +3,9 @@ import { RetroAudio } from '../src/core/retro-audio';
 
 class Param {
   value = 0;
+  peak = 0;
   setValueAtTime(value: number) { this.value = value; }
-  linearRampToValueAtTime(value: number) { this.value = value; }
+  linearRampToValueAtTime(value: number) { this.value = value; this.peak = Math.max(this.peak, value); }
   exponentialRampToValueAtTime(value: number) { this.value = value; }
 }
 class Node {
@@ -24,10 +25,11 @@ class Context {
   currentTime = 0;
   destination = new Node();
   oscillators: Node[] = [];
+  gains: Node[] = [];
   resume = vi.fn(async () => { this.state = 'running'; });
   suspend = vi.fn(async () => { this.state = 'suspended'; });
   close = vi.fn(async () => { this.state = 'closed'; });
-  createGain() { return new Node(); }
+  createGain() { const node = new Node(); this.gains.push(node); return node; }
   createOscillator() { const node = new Node(); this.oscillators.push(node); return node; }
 }
 function setup() {
@@ -77,6 +79,14 @@ describe('RetroAudio lifecycle', () => {
     expect(context.oscillators.filter(node => !node.stopped).length).toBeLessThanOrEqual(24);
     audio.dispose();
     expect(context.oscillators.every(node => node.disconnected)).toBe(true);
+  });
+  it('keeps worst-case summed amplitude below full scale during an effect burst', async () => {
+    const { audio, context } = setup(); await audio.unlock();
+    for (let i = 0; i < 100; i++) audio.play('jump');
+    const activeGains = context.gains.slice(1).filter(node => !node.disconnected);
+    const worstPeak = activeGains.reduce((sum, node) => sum + node.gain.peak, 0) * context.gains[0].gain.value;
+    expect(worstPeak).toBeLessThan(1);
+    audio.dispose();
   });
   it('clears the music scheduler and all scheduled notes on scene stop', async () => {
     vi.useFakeTimers();

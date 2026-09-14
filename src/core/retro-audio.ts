@@ -15,6 +15,8 @@ const MELODY = [72, 76, 79, 76, 81, 79, 76, 74, 77, 81, 84, 81, 79, 77, 76, 72,
 const BASS = [48, 53, 45, 55];
 const STEP = 60 / 132 / 2;
 const VOICE_LIMIT = 24;
+// 24 simultaneous voices × 0.48 maximum voice gain × 0.075 = 0.864 peak.
+const MASTER_GAIN = 0.075;
 const frequency = (midi: number): number => 440 * 2 ** ((midi - 69) / 12);
 
 function browserContext(): AudioContext {
@@ -48,7 +50,7 @@ export class RetroAudio implements GameAudio {
       if (!this.context) {
         this.context = this.createContext();
         this.master = this.context.createGain();
-        this.master.gain.value = this.muted || this.suspended ? 0 : 0.22;
+        this.master.gain.value = this.muted || this.suspended ? 0 : MASTER_GAIN;
         this.master.connect(this.context.destination);
       }
       // Invoke resume synchronously so the browser can associate it with the gesture.
@@ -97,7 +99,7 @@ export class RetroAudio implements GameAudio {
   }
 
   private updateGain(): void {
-    if (this.master) this.master.gain.value = this.muted || this.suspended ? 0 : 0.22;
+    if (this.master) this.master.gain.value = this.muted || this.suspended ? 0 : MASTER_GAIN;
   }
 
   private get audible(): boolean {
