@@ -9,7 +9,8 @@ simulation; Space on the finish screen creates a fresh run and returns to title.
 The HUD reports the current run's gems and checkpoint. Checkpoint recovery keeps
 gems, while replay constructs a new run and clears entity state. Reaching the
 construction finish arch stops normal route progression and displays the current
-gem total. Henry's atlas animation follows the movement state throughout.
+gem total. Henry's atlas animation follows the movement state throughout, then
+uses a bouncing idle pose with sparkles for the finish celebration.
 
 The route is data-driven and currently includes meadow, wooded hillside and
 cave-themed sections, an easy main path, optional gem elevations, three safe
