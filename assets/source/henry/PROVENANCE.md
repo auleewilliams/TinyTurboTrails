@@ -11,9 +11,10 @@ workflow was used. The game never calls the generator.
 - `transparency-attempt.png`: rejected background-removal attempt, retained to
   explain the processing decision. Exact request: `transparency-attempt-prompt.txt`.
 
-Both atlas outputs have RGB color type 2, not RGBA, and contain a baked gray
-checkerboard. They are source material only and must not be shipped directly as
-transparent sprites. Local background removal/packing is pending user approval.
+The generated atlas outputs have RGB color type 2, not RGBA, and contain a baked
+gray checkerboard. `scripts/process_sprite_atlas.py` removes the border-connected
+neutral background and packs the normalized 48 × 48 RGBA runtime atlas at
+`public/assets/henry/starter.png`; source files remain available for review.
 
 The reference includes a detailed human child (brown hair, yellow hard hat,
 orange reflective vest, blue clothing, brown boots) and a chunky Plains vignette.
