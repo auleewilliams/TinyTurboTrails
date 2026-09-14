@@ -29,7 +29,7 @@ The preview is selected with `?scene=art`. It shows each clip at gameplay size
 and doubled size against dark/light backgrounds, with a baseline and center
 anchor guide. Escape pauses it, including animation time. The default foundation
 preview remains available without the query parameter. A failed image or
-manifest load produces a readable reload-to-retry message.
+manifest load produces a readable error and a visible Retry loading control.
 
 ## Processing record
 
