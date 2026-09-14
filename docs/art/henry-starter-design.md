@@ -10,8 +10,9 @@ reference/style sheet followed by a transparent starter atlas using that image
 as the identity reference. Preserve original tool outputs and exact prompts.
 
 Use uniform 48 × 48 logical animation cells, right-facing poses, and a shared
-bottom-center anchor. Inspect actual generated frame bounds before finalizing
-source rectangles and per-frame offsets; do not assume generator grid accuracy.
+bottom-center anchor. The local processing step measures each generated frame's
+actual opaque bounds, then writes source rectangles and offsets into the
+manifest; do not assume generator grid accuracy.
 Document the final layout and timings for issue #3. Collision remains separate.
 
 Add a query-selected asset preview to the existing scene lifecycle. Show idle,

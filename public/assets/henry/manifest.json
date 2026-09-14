@@ -1,0 +1,29 @@
+{
+  "image": "starter.png",
+  "logicalSize": { "width": 48, "height": 48 },
+  "anchor": { "x": 24, "y": 44 },
+  "frames": [
+    { "x": 0, "y": 0, "width": 48, "height": 48 },
+    { "x": 48, "y": 0, "width": 48, "height": 48 },
+    { "x": 96, "y": 0, "width": 48, "height": 48 },
+    { "x": 144, "y": 0, "width": 48, "height": 48 },
+    { "x": 0, "y": 48, "width": 48, "height": 48 },
+    { "x": 48, "y": 48, "width": 48, "height": 48 },
+    { "x": 96, "y": 48, "width": 48, "height": 48 },
+    { "x": 144, "y": 48, "width": 48, "height": 48 },
+    { "x": 0, "y": 96, "width": 48, "height": 48 },
+    { "x": 48, "y": 96, "width": 48, "height": 48 },
+    { "x": 96, "y": 96, "width": 48, "height": 48 },
+    { "x": 144, "y": 96, "width": 48, "height": 48 },
+    { "x": 0, "y": 144, "width": 48, "height": 48 },
+    { "x": 48, "y": 144, "width": 48, "height": 48 },
+    { "x": 96, "y": 144, "width": 48, "height": 48 },
+    { "x": 144, "y": 144, "width": 48, "height": 48 }
+  ],
+  "animations": {
+    "idle": { "frames": [0, 1, 2, 3], "frameSeconds": 0.18, "loop": true },
+    "run": { "frames": [4, 5, 6, 7], "frameSeconds": 0.10, "loop": true },
+    "jump": { "frames": [8, 9, 10, 11], "frameSeconds": 0.11, "loop": false },
+    "fall": { "frames": [12, 13, 14, 15], "frameSeconds": 0.12, "loop": false }
+  }
+}
