@@ -1,7 +1,25 @@
 import { describe, expect, it } from 'vitest';
+import { AdventureScene } from '../src/game/adventure-scene';
+import type { GameAudio } from '../src/core/audio';
+import { PLAINS_LEVEL } from '../src/world/level';
 import { ScreenController } from '../src/game/screens';
 
 describe('game screen flow', () => {
+  it('plays the completion effect once when the adventure reaches the finish', () => {
+    const effects: string[] = [];
+    const audio: GameAudio = {
+      unlock: async () => {}, setMuted: () => {}, setSuspended: () => {}, startMusic: () => {},
+      play: (effect) => effects.push(effect), stop: () => {}, dispose: () => {},
+    };
+    const scene = new AdventureScene({} as never, {} as never, audio);
+    scene.enter();
+    scene.update(1 / 60, { horizontal: 0, jumpHeld: false, jumpPressed: true, pausePressed: false, mutePressed: false });
+    (scene as unknown as { player: { x: number } }).player.x = PLAINS_LEVEL.finish.x;
+    scene.update(1 / 60, { horizontal: 0, jumpHeld: false, jumpPressed: false, pausePressed: false, mutePressed: false });
+    scene.update(1 / 60, { horizontal: 0, jumpHeld: false, jumpPressed: false, pausePressed: false, mutePressed: false });
+    expect(effects.filter((effect) => effect === 'complete')).toHaveLength(1);
+  });
+
   it('moves title through loading and gameplay, then finish and replay', () => {
     const screens = new ScreenController();
     expect(screens.state).toBe('title');

@@ -58,7 +58,10 @@ export class AdventureScene implements Scene {
       else if (entity.kind === 'slime' || entity.kind === 'hazard') damagePlayer(this.run, this.player, entity.x - this.player.x, this.events, entity.id);
     }
     if (this.player.y > PLAINS_LEVEL.height + 80) recoverFromFall(this.run, this.player, this.events, PLAINS_LEVEL);
-    if (this.player.x >= PLAINS_LEVEL.finish.x) this.screens.complete(this.run.collectedGems.size);
+    if (this.player.x >= PLAINS_LEVEL.finish.x && this.screens.state === 'playing') {
+      this.screens.complete(this.run.collectedGems.size);
+      this.audio.play('complete');
+    }
     for (const event of this.events) {
       if (event.type === 'gem') this.audio.play('gem');
       else if (event.type === 'checkpoint') this.audio.play('checkpoint');
