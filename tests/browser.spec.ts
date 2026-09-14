@@ -129,6 +129,17 @@ test('adventure screen starts and shows a replayable title flow', async ({ page 
   await expect(page.locator('canvas')).toHaveAttribute('width', '426');
 });
 
+test('adventure mute control updates the audio state', async ({ page }) => {
+  await page.goto('/?scene=adventure');
+  await expect(page.locator('#status')).toContainText('Adventure preview', { timeout: 15000 });
+  await page.locator('#mute').click();
+  await expect(page.locator('#mute')).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.locator('#status')).toContainText('Muted');
+  await page.locator('#mute').click();
+  await expect(page.locator('#mute')).toHaveAttribute('aria-pressed', 'false');
+  await expect(page.locator('#status')).not.toContainText('Muted');
+});
+
 test('adventure can complete the forgiving route and replay from a fresh title', async ({ page }) => {
   await page.goto('/?scene=adventure&debug=1');
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
