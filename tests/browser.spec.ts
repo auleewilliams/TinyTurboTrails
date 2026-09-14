@@ -163,6 +163,29 @@ test('adventure can complete the forgiving route and replay from a fresh title',
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
 });
 
+test('adventure pause freezes progress and reload starts a fresh in-memory run', async ({ page }) => {
+  await page.goto('/?scene=adventure&debug=1');
+  await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
+  await page.keyboard.press('Space');
+  await expect(page.locator('#status')).toContainText('Adventure preview · Playing', { timeout: 15000 });
+  await page.keyboard.down('ArrowRight');
+  await page.waitForTimeout(220);
+  await page.keyboard.up('ArrowRight');
+  const progressed = await page.locator('#status').innerText();
+  const progressedX = Number(progressed.match(/X (\d+)/)?.[1] ?? 0);
+  expect(progressedX).toBeGreaterThan(0);
+  await page.keyboard.press('Escape');
+  await expect(page.locator('#status')).toHaveText('Paused · Escape to resume');
+  await page.waitForTimeout(250);
+  await page.keyboard.press('Escape');
+  await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
+  const resumed = await page.locator('#status').innerText();
+  const resumedX = Number(resumed.match(/X (\d+)/)?.[1] ?? 0);
+  expect(resumedX).toBe(progressedX);
+  await page.reload();
+  await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
+});
+
 test('adventure accepts a standard controller Start pause and D-pad movement', async ({ page }) => {
   await page.addInitScript(() => {
     const buttons = Array.from({ length: 17 }, () => ({ pressed: false, touched: false, value: 0 }));
