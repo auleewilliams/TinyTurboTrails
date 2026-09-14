@@ -1,9 +1,10 @@
 # Tiny Turbo Trails
 
-A sidescrolling 16-bit platformer for Henry. The repository currently contains
-issue #1's browser foundation: a diagnostic canvas with a moving timing marker,
-pause/focus handling, plus original retro music and sound effects from issue #7.
-It is not a playable level yet.
+A sidescrolling 16-bit platformer for Henry. The current build includes the
+Plains world, Henry's starter art, movement, gems, hazards, checkpoints, local
+music/effects and a title-to-adventure shell. Release certification remains open
+until the manual browser/controller matrix in `docs/RELEASE-VERIFICATION.md` is
+completed.
 
 ## Run locally
 
@@ -22,11 +23,11 @@ No credentials, backend or image-generation service are needed to run the app.
 
 ```sh
 npm run typecheck     # TypeScript checks
-npm test              # Simulation clock and viewport regression tests
+npm test              # Unit tests for runtime, movement, world and interactions
 npm run build         # Type-check and create dist/
 npm run preview       # Serve dist/ locally (build first)
 npx playwright install --with-deps chromium firefox webkit
-npm run test:browser  # Smoke-test the production build in three engines
+npm run test:browser  # Smoke-test the production build in installed engines
 ```
 
 The lockfile fixes dependency versions. `dist/` is a static build that needs an
@@ -35,28 +36,31 @@ same checks on pushes and pull requests.
 
 ## Controls
 
-In the foundation preview, **Escape** pauses/resumes and **M** toggles the mute
-state. Music unlocks after keyboard, controller or canvas pointer interaction
-(subject to browser audio policy). Switching away pauses audio and freezes the
-simulation; returning discards elapsed time and preserves a deliberate pause.
-Open `/?audio` to preview all six effects and start/stop music. The gameplay
-previews at `/?scene=gameplay` and `/?scene=adventure` also connect accepted
-gem, checkpoint, spring and damage events to local synthesis; see the [audio
-guide](docs/AUDIO.md) for integration and verification details.
+Open `/` for the foundation screen or `/?scene=adventure` for the title,
+gameplay, pause, finish and replay shell. Music unlocks after keyboard,
+controller or canvas pointer interaction (subject to browser audio policy).
+Switching away pauses audio and freezes the simulation; returning discards
+elapsed time and preserves a deliberate pause. `/?audio` previews all six
+effects and start/stop music. `/?scene=gameplay` exercises interaction events.
+See the [audio guide](docs/AUDIO.md) and [adventure guide](docs/plains-adventure.md).
 
-Planned release controls (input bindings exist; movement arrives in issue #3):
+Current release controls:
 
 | Action | Keyboard | Standard controller |
 | --- | --- | --- |
 | Move | Left/Right arrows or A/D | D-pad or left stick |
 | Jump | Space | Primary face button |
 | Pause/resume | Escape | Start |
-| Mute | M | On-screen control in issue #6 |
+| Mute | M | M |
 
 Only standard-mapped controllers are read. Input clears on focus loss and
 controller disconnect; release held controller controls before resuming.
 
-## Foundation layout
+Progress is in memory only. Checkpoint retries preserve collected gems; replay,
+reload or closing the page starts a fresh run. No browser storage, server save,
+public hosting or runtime generation call is used.
+
+## Project layout
 
 - `src/core/clock.ts`: 60 Hz simulation, at most six catch-up updates per frame.
   Pausing clears both the timestamp and partial-step remainder. Updates receive
@@ -70,12 +74,14 @@ controller disconnect; release held controller controls before resuming.
 - `src/core/audio.ts`: shared audio interface and silent fallback.
 - `src/core/retro-audio.ts`: local music/effect synthesis with bounded voices.
 - `src/main.ts`: browser focus, sizing and animation lifecycle, including HMR cleanup.
-- `src/foundation-scene.ts`: diagnostic drawing, replaced by later game scenes.
+- `src/game/`: movement, interactions, screen state and adventure previews.
+- `src/world/`: level data, camera, asset manifest and renderer.
+- `src/foundation-scene.ts`: diagnostic drawing for the foundation screen.
 
-Illustrated assets arrive through the built-in image generator in issues #2/#4.
-The diagnostic grid and marker are not final game artwork.
+Illustrated assets were generated with the built-in image generator and processed
+into project-local atlases. See [Henry art](docs/art/README.md) and [Plains world](docs/plains-world.md).
 
-All future run progress must remain in memory: checkpoint retries preserve gems,
-while replay, reload or closing the page starts fresh. No browser storage or
-server save is used. See [canonical requirements](docs/REQUIREMENTS.md) for scope
-and [verification record](docs/VERIFICATION.md) for tested and untested browsers.
+Known limitations and out of scope: public hosting, touch controls, extra biomes,
+mining/building/crafting and persistent saves. The full current/previous-major
+browser matrix, Safari on macOS, physical controller listening and final manual
+route certification remain pending; see [release verification](docs/RELEASE-VERIFICATION.md).
