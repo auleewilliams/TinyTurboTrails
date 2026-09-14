@@ -72,4 +72,22 @@ describe('in-memory run interactions', () => {
     expect(henry.vy).toBe(0);
     expect(henry.onGround).toBe(true);
   });
+
+  it('recovers safely from every Plains checkpoint and keeps collected gems', () => {
+    for (const checkpoint of PLAINS_LEVEL.checkpoints) {
+      const run = createRun(PLAINS_LEVEL);
+      const henry = player();
+      const log = events();
+      collectGem(run, 'gem-001', log);
+      activateCheckpoint(run, checkpoint.id, log);
+      henry.x = checkpoint.x + 200; henry.y = PLAINS_LEVEL.height + 100; henry.vx = 240; henry.vy = 900;
+      recoverFromFall(run, henry, log, PLAINS_LEVEL);
+      expect(henry.x).toBe(checkpoint.x);
+      expect(henry.y).toBe(checkpoint.y - DEFAULT_MOVEMENT.height);
+      expect(henry.vx).toBe(0);
+      expect(henry.vy).toBe(0);
+      expect(henry.onGround).toBe(true);
+      expect(run.collectedGems.has('gem-001')).toBe(true);
+    }
+  });
 });
