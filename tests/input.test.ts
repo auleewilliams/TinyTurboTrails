@@ -40,3 +40,19 @@ it('maps a standard controller D-pad, face button and Start to gameplay actions'
   expect(input.poll()).toMatchObject({ horizontal: 0, jumpHeld: false, jumpPressed: false, pausePressed: false });
   input.dispose();
 });
+
+it('clears held controller input after disconnect until the controller is released', () => {
+  const buttons = Array.from({ length: 17 }, () => ({ pressed: false, touched: false, value: 0 }));
+  const pad = { id: 'disconnect', index: 0, connected: true, mapping: 'standard', timestamp: 0,
+    axes: [1, 0, 0, 0], buttons, vibrationActuator: null };
+  const target = Object.assign(new EventTarget(), { navigator: { getGamepads: () => [pad] } });
+  const input = new BrowserInput(target as unknown as Window, () => {});
+  expect(input.poll().horizontal).toBe(1);
+  target.dispatchEvent(new Event('gamepaddisconnected'));
+  expect(input.poll()).toMatchObject({ horizontal: 0, jumpHeld: false, jumpPressed: false, pausePressed: false });
+  pad.axes[0] = 0;
+  input.poll();
+  pad.axes[0] = 1;
+  expect(input.poll().horizontal).toBe(1);
+  input.dispose();
+});
