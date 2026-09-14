@@ -1,7 +1,7 @@
 # Release verification — issue #8
 
-Run date: 2026-09-14. Candidate branch: `chore/release-verification`, based on
-the integrated adventure/audio branch. This record separates automated evidence
+Run date: 2026-09-14. Candidate branch: `test-controller-adventure-smoke`, based on
+the integrated first-playable release branch. This record separates automated evidence
 from manual checks that still require a desktop host and a physical controller.
 
 ## Automated checks
@@ -13,11 +13,11 @@ from manual checks that still require a desktop host and a physical controller.
 | `npm run build` | Passed: TypeScript and Vite production build |
 | Chromium 153.0.8010.12 on Linux | Passed: foundation, assets, movement, world, interactions, adventure and audio checks |
 | Firefox 155.0 on Linux | Passed: all non-native-audio checks; native AudioContext check explicitly skipped because the host has no usable audio backend |
-| WebKit 26.6 on hosted Ubuntu CI | Passed: hosted candidate run 34894312807 |
+| WebKit 26.6 on hosted Ubuntu CI | Passed: hosted candidate run 34894905871 |
 | WebKit 26.6 in this local container | Cannot launch: required GTK/GStreamer/libopus/libsoup libraries are absent |
 | Standard-controller adventure smoke test | Passed in hosted Chromium, Firefox and WebKit with a standard-mapped controller fixture; physical-controller behavior remains manual |
 
-The hosted candidate run [34894312807](https://github.com/auleewilliams/TinyTurboTrails/actions/runs/34894312807)
+The hosted candidate run [34894905871](https://github.com/auleewilliams/TinyTurboTrails/actions/runs/34894905871)
 passed 35 of 36 browser tests with one explicit Firefox native-audio skip across
 Chromium 153.0.8010.12, Firefox 155.0 and WebKit 26.6. The browser suite checks
 asset loading and transparency, manifest frame bounds,
