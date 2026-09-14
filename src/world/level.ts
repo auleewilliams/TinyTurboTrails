@@ -5,6 +5,8 @@ export interface WorldEntity { id: string; kind: WorldEntityKind; x: number; y: 
 export interface LevelData {
   width: number;
   height: number;
+  minX: number;
+  maxX: number;
   start: { x: number; y: number };
   finish: { x: number; y: number; asset: string };
   surfaces: readonly Surface[];
@@ -15,6 +17,8 @@ export interface LevelData {
 export const PLAINS_LEVEL: LevelData = {
   width: 2400,
   height: 240,
+  minX: 0,
+  maxX: 2400,
   start: { x: 48, y: 150 },
   finish: { x: 2310, y: 166, asset: 'finish-arch' },
   surfaces: [
