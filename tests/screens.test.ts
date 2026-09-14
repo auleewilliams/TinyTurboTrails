@@ -14,6 +14,8 @@ describe('game screen flow', () => {
     const scene = new AdventureScene({} as never, {} as never, audio);
     scene.enter();
     scene.update(1 / 60, { horizontal: 0, jumpHeld: false, jumpPressed: true, pausePressed: false, mutePressed: false });
+    scene.update(1 / 60, { horizontal: 0, jumpHeld: true, jumpPressed: true, pausePressed: false, mutePressed: false });
+    expect(effects.filter((effect) => effect === 'jump')).toHaveLength(1);
     (scene as unknown as { player: { x: number } }).player.x = PLAINS_LEVEL.finish.x;
     scene.update(1 / 60, { horizontal: 0, jumpHeld: false, jumpPressed: false, pausePressed: false, mutePressed: false });
     scene.update(1 / 60, { horizontal: 0, jumpHeld: false, jumpPressed: false, pausePressed: false, mutePressed: false });

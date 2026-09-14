@@ -3,7 +3,7 @@ import type { InputFrame } from '../core/input';
 import type { Scene } from '../core/scene';
 import { animationFrame } from '../art/animation';
 import type { HenryAssets } from '../art/henry';
-import { animationFor, createPlayer, simulatePlayer, type Player } from './movement';
+import { animationFor, createPlayer, simulatePlayer, DEFAULT_MOVEMENT, type Player } from './movement';
 import { activateCheckpoint, applySpring, collectGem, createRun, damagePlayer, recoverFromFall, tickRun, type RunEvent, type RunState } from './interactions';
 import { ScreenController } from './screens';
 import { PLAINS_LEVEL } from '../world/level';
@@ -47,7 +47,9 @@ export class AdventureScene implements Scene {
 
   private stepGameplay(seconds: number, input: InputFrame): void {
     tickRun(this.run, seconds);
+    const previousVelocityY = this.player.vy;
     simulatePlayer(this.player, input, PLAINS_LEVEL, seconds);
+    if (previousVelocityY >= 0 && this.player.vy < -DEFAULT_MOVEMENT.jumpVelocity * 0.75) this.audio.play('jump');
     this.events = [];
     for (const entity of PLAINS_LEVEL.entities) {
       const state = this.run.entities.find((candidate) => candidate.id === entity.id);
