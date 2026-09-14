@@ -154,6 +154,16 @@ test('adventure keeps its letterbox and pauses on focus loss', async ({ page }) 
   await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
 });
 
+test('adventure exposes retry when a required asset fails to load', async ({ page }) => {
+  await page.route('**/assets/henry/starter.png', (route) => route.abort());
+  await page.goto('/?scene=adventure');
+  await expect(page.locator('#status')).toHaveText('Artwork could not load. Reload to retry.', { timeout: 15000 });
+  await expect(page.locator('#retry')).toBeVisible();
+  await page.unroute('**/assets/henry/starter.png');
+  await page.locator('#retry').click();
+  await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
+});
+
 test('adventure can complete the forgiving route and replay from a fresh title', async ({ page }) => {
   await page.goto('/?scene=adventure&debug=1');
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
