@@ -118,6 +118,30 @@ test('gameplay preview collects a gem and reaches a checkpoint', async ({ page }
   await expect(page.locator('#status')).toContainText('Gameplay preview');
 });
 
+test('adventure renders hurt feedback after hazard contact', async ({ page }) => {
+  await page.goto('/?scene=adventure&debug=1');
+  await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
+  await page.keyboard.press('Space');
+  await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
+  await page.keyboard.down('ArrowRight');
+  for (let step = 0; step < 30; step++) {
+    const x = Number((await page.locator('#status').innerText()).match(/X (\d+)/)?.[1] ?? 0);
+    if (x >= 405) break;
+    await page.waitForTimeout(100);
+  }
+  await page.keyboard.up('ArrowRight');
+  await page.waitForTimeout(80);
+  const redFeedbackPixels = await page.locator('canvas').evaluate((element) => {
+    const pixels = (element as HTMLCanvasElement).getContext('2d')!.getImageData(0, 0, 426, 240).data;
+    let matches = 0;
+    for (let i = 0; i < pixels.length; i += 4) {
+      if (pixels[i] > 180 && pixels[i + 1] < 150 && pixels[i + 2] < 150 && pixels[i + 3] > 0) matches++;
+    }
+    return matches;
+  });
+  expect(redFeedbackPixels).toBeGreaterThan(20);
+});
+
 test('adventure screen starts and shows a replayable title flow', async ({ page }) => {
   await page.goto('/?scene=adventure');
   await expect(page.locator('#status')).toContainText('Adventure preview', { timeout: 15000 });
