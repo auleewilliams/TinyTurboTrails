@@ -140,6 +140,24 @@ test('adventure mute control updates the audio state', async ({ page }) => {
   await expect(page.locator('#status')).not.toContainText('Muted');
 });
 
+test('adventure remains playable when Web Audio is unavailable', async ({ page }) => {
+  const errors: string[] = [];
+  page.on('pageerror', (error) => errors.push(error.message));
+  await page.addInitScript(() => {
+    Object.defineProperty(window, 'AudioContext', { value: class { constructor() { throw Error('Unavailable'); } } });
+  });
+  await page.goto('/?scene=adventure');
+  await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
+  await page.keyboard.press('Space');
+  await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
+  await page.keyboard.down('ArrowRight');
+  await page.waitForTimeout(180);
+  await page.keyboard.up('ArrowRight');
+  await page.keyboard.press('Escape');
+  await expect(page.locator('#status')).toHaveText('Paused · Escape to resume');
+  expect(errors).toEqual([]);
+});
+
 test('adventure keeps its letterbox and pauses on focus loss', async ({ page }) => {
   await page.goto('/?scene=adventure');
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
