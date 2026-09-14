@@ -268,6 +268,8 @@ test('adventure can complete the forgiving route and replay from a fresh title',
   }
   await page.keyboard.up('ArrowRight');
   await expect(page.locator('#status')).toContainText('Adventure preview · Finish', { timeout: 5000 });
+  const finishStatus = await page.locator('#status').innerText();
+  expect(finishStatus).toMatch(/Gems [1-9]\d*/);
   const celebrationPixels = await page.locator('canvas').evaluate((element) => {
     const canvas = element as HTMLCanvasElement;
     const ctx = canvas.getContext('2d')!;
