@@ -1,5 +1,6 @@
 import './style.css';
-import { SilentAudio } from './core/audio';
+import { RetroAudio } from './core/retro-audio';
+import { mountAudioPreview } from './audio-preview';
 import { SimulationClock } from './core/clock';
 import { BrowserInput, type InputFrame } from './core/input';
 import { SceneHost } from './core/scene';
@@ -14,7 +15,9 @@ if (!context) {
   status.textContent = 'Canvas 2D is unavailable. Please open this preview in a supported desktop browser.';
 } else {
   const clock = new SimulationClock();
-  const audio = new SilentAudio();
+  const audio = new RetroAudio();
+  const removeAudioPreview = mountAudioPreview(audio);
+  const unlockAudio = (): void => { void audio.unlock(); };
   const input = new BrowserInput(window, () => { void audio.unlock().catch(() => {}); });
   const scenes = new SceneHost(() => audio.stop());
   let focused = !document.hidden && document.hasFocus();
@@ -70,11 +73,13 @@ if (!context) {
     request = requestAnimationFrame(frame);
   };
 
+  canvas.addEventListener('pointerdown', unlockAudio);
   window.addEventListener('resize', resize);
   window.addEventListener('blur', blur);
   window.addEventListener('focus', focus);
   document.addEventListener('visibilitychange', visibility);
   scenes.change(new FoundationScene());
+  audio.startMusic();
   resize();
   refreshPause();
   request = requestAnimationFrame(frame);
@@ -87,6 +92,8 @@ if (!context) {
     document.removeEventListener('visibilitychange', visibility);
     input.dispose();
     scenes.dispose();
+    canvas.removeEventListener('pointerdown', unlockAudio);
+    removeAudioPreview();
     audio.dispose();
   });
 }
