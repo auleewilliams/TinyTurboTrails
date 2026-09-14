@@ -5,7 +5,7 @@ These results cover the foundation preview, not the future playable release.
 
 | Check | Result |
 | --- | --- |
-| Lockfile reinstall (`npm ci --offline`, populated local cache) | Passed |
+| Fresh-worktree install (`npm ci --offline`, populated local cache) | Passed |
 | `npm run typecheck` | Passed |
 | `npm test` | 8 passed: clock, sizing, controller focus recovery |
 | `npm run build` | Passed, Vite 8.3.0 / TypeScript 7.0.2 |
@@ -57,7 +57,9 @@ preview, resize, inspect pixel sharpness, switch applications/tabs for at least
 pause survives switching away. Exercise a physical standard controller's Start
 button and release-after-focus behavior. Record failures and workarounds here.
 
-The checks above used a lockfile reinstall in the working directory, not a fresh
-clone on a separate clean machine. A fresh-checkout setup check remains pending.
+Setup was subsequently repeated in a fresh Git worktree with no node_modules or
+build output: lockfile installation from a populated npm cache, production build
+and all eight tests passed. This verifies a fresh checkout on the same Linux
+host, not setup on a separate clean machine.
 Issue #1 stays open until its remaining acceptance checks pass; #2 depends on
 completion and integration of #1.
