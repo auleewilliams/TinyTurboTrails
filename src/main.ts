@@ -16,6 +16,7 @@ import { AdventureScene } from './game/adventure-scene';
 
 const canvas = document.querySelector<HTMLCanvasElement>('#game')!;
 const status = document.querySelector<HTMLParagraphElement>('#status')!;
+const muteButton = document.querySelector<HTMLButtonElement>('#mute')!;
 const context = canvas.getContext('2d');
 
 if (!context) {
@@ -55,6 +56,9 @@ if (!context) {
       : !focused ? 'Paused · Return to the game to continue'
       : userPaused ? 'Paused · Escape to resume'
       : `${artPreview ? 'Art' : movementPreview ? 'Movement' : worldPreview ? 'World' : gameplayPreview ? 'Gameplay' : adventure ? 'Adventure' : 'Foundation'} preview · Escape to pause · ${muted ? 'Muted · M to unmute' : 'M to mute'}`;
+    muteButton.textContent = muted ? 'Unmute' : 'Mute';
+    muteButton.setAttribute('aria-label', muted ? 'Unmute' : 'Mute');
+    muteButton.setAttribute('aria-pressed', String(muted));
   };
 
   const resize = (): void => {
@@ -65,6 +69,7 @@ if (!context) {
   const blur = (): void => { focused = false; refreshPause(); };
   const focus = (): void => { focused = !document.hidden; refreshPause(); };
   const visibility = (): void => { focused = !document.hidden && document.hasFocus(); refreshPause(); };
+  const toggleMute = (): void => { muted = !muted; audio.setMuted(muted); refreshPause(); };
 
   const frame = (now: number): void => {
     const controls: InputFrame = input.poll();
@@ -95,6 +100,7 @@ if (!context) {
   window.addEventListener('focus', focus);
   document.addEventListener('visibilitychange', visibility);
   canvas.addEventListener('pointerdown', unlockAudio);
+  muteButton.addEventListener('click', toggleMute);
   scenes.change(new FoundationScene());
   audio.startMusic();
   if (adventure) {
@@ -158,6 +164,7 @@ if (!context) {
     input.dispose();
     scenes.dispose();
     canvas.removeEventListener('pointerdown', unlockAudio);
+    muteButton.removeEventListener('click', toggleMute);
     removeAudioPreview();
     audio.dispose();
   });
