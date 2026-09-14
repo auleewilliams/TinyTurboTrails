@@ -89,7 +89,9 @@ def is_background(pixel: tuple[int, int, int, int]) -> bool:
     r, g, b, _ = pixel
     # The generated checkerboard is neutral gray. Keep colored character pixels,
     # while allowing connected neutral regions to cross its tile boundaries.
-    return max(r, g, b) - min(r, g, b) <= 10 and min(r, g, b) >= 95
+    neutral_gray = max(r, g, b) - min(r, g, b) <= 10 and min(r, g, b) >= 95
+    warm_paper = max(r, g, b) - min(r, g, b) <= 45 and min(r, g, b) >= 190
+    return neutral_gray or warm_paper
 
 
 def remove_background(width: int, height: int, pixels: list[tuple[int, int, int, int]]) -> None:
