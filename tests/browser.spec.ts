@@ -110,3 +110,14 @@ test('gameplay preview collects a gem and reaches a checkpoint', async ({ page }
   await page.keyboard.up('ArrowRight');
   await expect(page.locator('#status')).toContainText('Gameplay preview');
 });
+
+test('adventure screen starts and shows a replayable title flow', async ({ page }) => {
+  await page.goto('/?scene=adventure');
+  await expect(page.locator('#status')).toContainText('Adventure preview');
+  await page.keyboard.press('Space');
+  await page.waitForTimeout(80);
+  await page.keyboard.press('Escape');
+  await expect(page.locator('#status')).toContainText('Paused');
+  await page.keyboard.press('Escape');
+  await expect(page.locator('canvas')).toHaveAttribute('width', '426');
+});
