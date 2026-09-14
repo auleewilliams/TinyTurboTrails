@@ -7,9 +7,10 @@ import { ScreenController } from '../src/game/screens';
 describe('game screen flow', () => {
   it('plays the completion effect once when the adventure reaches the finish', () => {
     const effects: string[] = [];
+    let stops = 0;
     const audio: GameAudio = {
       unlock: async () => {}, setMuted: () => {}, setSuspended: () => {}, startMusic: () => {},
-      play: (effect) => effects.push(effect), stop: () => {}, dispose: () => {},
+      play: (effect) => effects.push(effect), stop: () => { stops++; }, dispose: () => {},
     };
     const scene = new AdventureScene({} as never, {} as never, audio);
     scene.enter();
@@ -20,6 +21,8 @@ describe('game screen flow', () => {
     scene.update(1 / 60, { horizontal: 0, jumpHeld: false, jumpPressed: false, pausePressed: false, mutePressed: false });
     scene.update(1 / 60, { horizontal: 0, jumpHeld: false, jumpPressed: false, pausePressed: false, mutePressed: false });
     expect(effects.filter((effect) => effect === 'complete')).toHaveLength(1);
+    scene.exit();
+    expect(stops).toBe(1);
   });
 
   it('moves title through loading and gameplay, then finish and replay', () => {
