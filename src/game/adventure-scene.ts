@@ -19,6 +19,11 @@ export class AdventureScene implements Scene {
   private elapsed = 0;
   private events: RunEvent[] = [];
   constructor(private readonly henry: HenryAssets, private readonly world: WorldAssets, private readonly audio: GameAudio) {}
+  get screenState(): ScreenController['state'] { return this.screens.state; }
+  get gemTotal(): number { return this.screens.gems; }
+  get playerX(): number { return this.player.x; }
+  get playerY(): number { return this.player.y; }
+  get playerVelocityX(): number { return this.player.vx; }
   enter(): void { this.elapsed = 0; }
   exit(): void { this.audio.stop(); }
 

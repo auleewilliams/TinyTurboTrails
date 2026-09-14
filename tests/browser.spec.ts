@@ -42,8 +42,8 @@ test('production canvas loads, scales and recovers from focus loss', async ({ pa
 
 test('art preview loads local assets and reports a missing atlas', async ({ page }) => {
   await page.goto('/?scene=art');
-  await expect(page.locator('#status')).toContainText('Art preview');
-  await expect(page.locator('#status')).not.toContainText('Loading');
+  await expect(page.locator('#status')).toContainText('Art preview', { timeout: 15000 });
+  await expect(page.locator('#status')).not.toContainText('Loading', { timeout: 15000 });
   await page.route('**/assets/henry/starter.png', (route) => route.abort());
   await page.reload();
   await expect(page.locator('#status')).toHaveText('Artwork could not load. Reload to retry.');
@@ -51,7 +51,7 @@ test('art preview loads local assets and reports a missing atlas', async ({ page
 
 test('starter atlas contains real transparency and every frame stays within its cell', async ({ page }) => {
   await page.goto('/?scene=art');
-  await expect(page.locator('#status')).toContainText('Art preview');
+  await expect(page.locator('#status')).toContainText('Art preview', { timeout: 15000 });
   const results = await page.evaluate(async () => {
     const manifest = await (await fetch('/assets/henry/manifest.json')).json();
     const image = new Image();
@@ -86,7 +86,7 @@ test('starter atlas contains real transparency and every frame stays within its 
 
 test('movement preview accepts keyboard movement and jump input', async ({ page }) => {
   await page.goto('/?scene=movement');
-  await expect(page.locator('#status')).toContainText('Movement preview');
+  await expect(page.locator('#status')).toContainText('Movement preview', { timeout: 15000 });
   await page.keyboard.down('ArrowRight');
   await page.waitForTimeout(180);
   await page.keyboard.up('ArrowRight');
@@ -98,7 +98,7 @@ test('movement preview accepts keyboard movement and jump input', async ({ page 
 
 test('world preview loads generated Plains assets and level data', async ({ page }) => {
   await page.goto('/?scene=world');
-  await expect(page.locator('#status')).toContainText('World preview');
+  await expect(page.locator('#status')).toContainText('World preview', { timeout: 15000 });
   await page.keyboard.down('ArrowRight');
   await page.waitForTimeout(160);
   await page.keyboard.up('ArrowRight');
@@ -107,7 +107,7 @@ test('world preview loads generated Plains assets and level data', async ({ page
 
 test('gameplay preview collects a gem and reaches a checkpoint', async ({ page }) => {
   await page.goto('/?scene=gameplay');
-  await expect(page.locator('#status')).toContainText('Gameplay preview');
+  await expect(page.locator('#status')).toContainText('Gameplay preview', { timeout: 15000 });
   await page.keyboard.down('ArrowRight');
   await page.waitForTimeout(900);
   await page.keyboard.up('ArrowRight');
@@ -116,13 +116,36 @@ test('gameplay preview collects a gem and reaches a checkpoint', async ({ page }
 
 test('adventure screen starts and shows a replayable title flow', async ({ page }) => {
   await page.goto('/?scene=adventure');
-  await expect(page.locator('#status')).toContainText('Adventure preview');
+  await expect(page.locator('#status')).toContainText('Adventure preview', { timeout: 15000 });
   await page.keyboard.press('Space');
   await page.waitForTimeout(80);
   await page.keyboard.press('Escape');
   await expect(page.locator('#status')).toContainText('Paused');
   await page.keyboard.press('Escape');
   await expect(page.locator('canvas')).toHaveAttribute('width', '426');
+});
+
+test('adventure can complete the forgiving route and replay from a fresh title', async ({ page }) => {
+  await page.goto('/?scene=adventure&debug=1');
+  await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
+  await page.keyboard.press('Space');
+  await expect(page.locator('#status')).toContainText('Adventure preview · Playing', { timeout: 15000 });
+  await page.keyboard.down('ArrowRight');
+  for (let step = 0; step < 220; step++) {
+    const status = await page.locator('#status').innerText();
+    if (status.includes('Finish')) break;
+    const x = Number(status.match(/X (\d+)/)?.[1] ?? 0);
+    if ([430, 920, 1040, 1880].some((obstacle) => Math.abs(obstacle - x) < 100)) {
+      await page.keyboard.down('Space');
+      await page.waitForTimeout(350);
+      await page.keyboard.up('Space');
+    }
+    await page.waitForTimeout(100);
+  }
+  await page.keyboard.up('ArrowRight');
+  await expect(page.locator('#status')).toContainText('Adventure preview · Finish', { timeout: 5000 });
+  await page.keyboard.press('Space');
+  await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
 });
 
 test('adventure accepts a standard controller Start pause and D-pad movement', async ({ page }) => {

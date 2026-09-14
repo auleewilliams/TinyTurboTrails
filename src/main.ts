@@ -39,8 +39,18 @@ if (!context) {
   const worldPreview = requestedScene === 'world';
   const gameplayPreview = requestedScene === 'gameplay';
   const adventure = requestedScene === 'adventure';
+  const debugAdventure = new URLSearchParams(location.search).get('debug') === '1';
   let assetState: 'loading' | 'ready' | 'failed' = artPreview || movementPreview || worldPreview || gameplayPreview || adventure ? 'loading' : 'ready';
   let disposed = false;
+
+  const adventureStatus = (): string => {
+    const scene = scenes.activeScene;
+    if (!(scene instanceof AdventureScene)) return '';
+    const state = scene.screenState[0].toUpperCase() + scene.screenState.slice(1);
+    return ` · ${state}${scene.screenState === 'finish' ? ` · Gems ${scene.gemTotal}` : ''}${debugAdventure ? ` · X ${Math.round(scene.playerX)} Y ${Math.round(scene.playerY)} V ${Math.round(scene.playerVelocityX)}` : ''}`;
+  };
+
+  const previewStatus = (): string => `${artPreview ? 'Art' : movementPreview ? 'Movement' : worldPreview ? 'World' : gameplayPreview ? 'Gameplay' : adventure ? 'Adventure' : 'Foundation'} preview${adventure ? adventureStatus() : ''} · Escape to pause · ${muted ? 'Muted · M to unmute' : 'M to mute'}`;
 
   const refreshPause = (): void => {
     input.setFocused(focused);
@@ -55,7 +65,7 @@ if (!context) {
       : assetState === 'loading' ? 'Loading artwork…'
       : !focused ? 'Paused · Return to the game to continue'
       : userPaused ? 'Paused · Escape to resume'
-      : `${artPreview ? 'Art' : movementPreview ? 'Movement' : worldPreview ? 'World' : gameplayPreview ? 'Gameplay' : adventure ? 'Adventure' : 'Foundation'} preview · Escape to pause · ${muted ? 'Muted · M to unmute' : 'M to mute'}`;
+      : previewStatus();
     muteButton.textContent = muted ? 'Unmute' : 'Mute';
     muteButton.setAttribute('aria-label', muted ? 'Unmute' : 'Mute');
     muteButton.setAttribute('aria-pressed', String(muted));
@@ -82,6 +92,7 @@ if (!context) {
       scenes.update(seconds, { ...controls, jumpPressed: pendingJump });
       pendingJump = false;
     });
+    if (assetState === 'ready' && focused && !userPaused && adventure) status.textContent = previewStatus();
     context.imageSmoothingEnabled = false;
     scenes.render(context);
     if (!focused || userPaused) {

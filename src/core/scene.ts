@@ -12,6 +12,8 @@ export class SceneHost {
 
   constructor(private readonly stopAudio: () => void) {}
 
+  get activeScene(): Scene | undefined { return this.current; }
+
   change(next: Scene): void {
     this.current?.exit();
     this.stopAudio();
