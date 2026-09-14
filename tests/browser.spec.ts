@@ -289,6 +289,7 @@ test('adventure pause freezes progress and reload starts a fresh in-memory run',
   expect(progressedX).toBeGreaterThan(0);
   await page.keyboard.press('Escape');
   await expect(page.locator('#status')).toHaveText('Paused · Escape to resume');
+  await page.evaluate(() => new Promise<void>((resolve) => requestAnimationFrame(() => resolve())));
   const pausedImage = await page.locator('canvas').evaluate((element) => (element as HTMLCanvasElement).toDataURL());
   await page.waitForTimeout(250);
   expect(await page.locator('canvas').evaluate((element) => (element as HTMLCanvasElement).toDataURL())).toBe(pausedImage);
