@@ -7,7 +7,7 @@ These results cover the foundation preview, not the future playable release.
 | --- | --- |
 | Fresh-clone lockfile install (`npm ci`) | Passed in a fresh shallow clone with registry access |
 | `npm run typecheck` | Passed |
-| `npm test` | 47 passed in 10 files |
+| `npm test` | 48 passed in 10 files |
 | `npm run build` | Passed, Vite 8.3.0 / TypeScript 7.0.2 |
 | Playwright Chromium 153.0.8010.12, Linux | Passed |
 | Playwright Firefox 155.0, Linux | Passed |
@@ -16,7 +16,7 @@ These results cover the foundation preview, not the future playable release.
 | Stable Firefox and immediately preceding major | Not verified as a release pair |
 | Stable Safari and immediately preceding major, macOS | Not run; no macOS host |
 | Physical standard controller | Not run; synthetic input regression only |
-| GitHub Actions | Passed: hosted run [34897656623](https://github.com/auleewilliams/TinyTurboTrails/actions/runs/34897656623) |
+| GitHub Actions | Passed: hosted run [34902767463](https://github.com/auleewilliams/TinyTurboTrails/actions/runs/34902767463) |
 
 The production browser smoke test checks canvas backing dimensions, integer
 scaling at 1366 × 768 and 900 × 600, keyboard pause/resume, unchanged canvas pixels
@@ -52,7 +52,7 @@ pause survives switching away. Exercise a physical standard controller's Start
 button and release-after-focus behavior. Record failures and workarounds here.
 
 The setup check now includes a fresh shallow clone of the candidate branch,
-registry-backed `npm ci`, 47 unit tests and a production build. The offline
+registry-backed `npm ci`, 48 unit tests and a production build. The offline
 variant was not claimed because this environment does not have every package
 tarball cached. Issue #1 stays open until its remaining browser/platform and
 physical-controller checks pass; #2 depends on completion and integration of #1.
