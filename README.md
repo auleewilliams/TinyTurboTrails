@@ -93,17 +93,40 @@ route certification remain pending; see [release verification](docs/RELEASE-VERI
 
 ## Verification and known defects
 
-On **2026-09-15**, a fresh local clone on **Ubuntu 26.04.1 LTS**, Node **22.22.1**
-and npm **9.2.0** passed cached dependency installation, type-checking, **48 unit
-tests**, production build and a development-server adventure launch. Production
-browser results: **Chromium 153.0.8010.12: 18 passed**; **Firefox 155.0: 17 passed,
-1 native-audio skip**; **WebKit: all 18 cases blocked at launch by missing host
-libraries**. Keyboard/pointer and simulated standard-controller inputs were used;
-no physical controller was tested. This was not a clean-machine installation.
+Latest run: **2026-09-16** on macOS **26.6.2 (25G83)** arm64, Node **22.23.2** and
+npm **10.9.8**, after integrating checkpoint fix
+[#41](https://github.com/auleewilliams/TinyTurboTrails/pull/41). Type-checking,
+**57 unit tests**, the production build and the browser suite all passed:
+**57 browser checks, 0 skipped and 0 failed**, 19 in each of the bundled
+Chromium **153.0.8010.12**, Firefox **155.0** and WebKit **26.6**. This was an
+isolated checkout using the existing npm cache — not a clean-machine or
+network-install verification. A physical Xbox controller over Bluetooth was
+reported working in an embedded browser, on the pre-#41 candidate; that is a
+user report, not an independently recorded session. The earlier
+**2026-09-15** Ubuntu run is retained as history in the reports below.
 
-Known blocking defect: [#26 — checkpoints sit above the ground](https://github.com/auleewilliams/TinyTurboTrails/issues/26),
-affecting grounded activation and recovery placement. No open non-blocking
-defect was identified in the issue inventory reviewed on 2026-09-15. Certification
-and issue #9 closeout remain pending the checkpoint fix and full manual matrix.
-See [release evidence and limits](docs/RELEASE-VERIFICATION.md) and the
+**Certification is still open.** Playwright's bundled engines are not the
+installed browsers the requirements name, and the current/previous-major Chrome,
+Firefox and Safari matrix has not been run on either keyboard or a physical
+controller. Checkpoint recovery is verified by simulation rather than a real
+fall, because the Plains route currently has no pit to fall into.
+
+Open defects, all found during the 2026-09-16 run:
+
+| Issue | Triage | Effect |
+| --- | --- | --- |
+| [#42](https://github.com/auleewilliams/TinyTurboTrails/issues/42) | **Blocking** | Henry's shipped sprites have a baked gray checkerboard behind every pose. |
+| [#45](https://github.com/auleewilliams/TinyTurboTrails/issues/45) | **Blocking** | The route takes about 11 seconds against the agreed 3–5 minutes. |
+| [#43](https://github.com/auleewilliams/TinyTurboTrails/issues/43) | Non-blocking | Henry keeps facing right while running left. |
+| [#44](https://github.com/auleewilliams/TinyTurboTrails/issues/44) | Non-blocking | Collected gems are still drawn in the world. |
+| [#46](https://github.com/auleewilliams/TinyTurboTrails/issues/46) | Non-blocking | HUD text is clipped after pause and resume. |
+| [#47](https://github.com/auleewilliams/TinyTurboTrails/issues/47) | Non-blocking | Trees and slimes float above the terrain. |
+| [#48](https://github.com/auleewilliams/TinyTurboTrails/issues/48) | Non-blocking | Thin seams appear between terrain polygons while scrolling. |
+| [#49](https://github.com/auleewilliams/TinyTurboTrails/issues/49) | Non-blocking | The finish celebration overlaps its own subtitle. |
+
+[#26 — checkpoints sat above the ground](https://github.com/auleewilliams/TinyTurboTrails/issues/26)
+is fixed and retested. Certification and issue #9 closeout remain pending the two
+blocking defects and the full manual matrix. See the
+[2026-09-16 macOS report](docs/RELEASE-VERIFICATION-2026-09-16.md),
+[release evidence and limits](docs/RELEASE-VERIFICATION.md) and the
 [manual worksheet](docs/RELEASE-MANUAL-CHECKLIST.md).
