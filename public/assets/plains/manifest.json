@@ -1,0 +1,22 @@
+{
+  "image": "environment.png",
+  "cellSize": 48,
+  "assets": {
+    "terrain-flat": 0,
+    "terrain-left": 1,
+    "terrain-right": 2,
+    "terrain-ramp": 3,
+    "stone": 4,
+    "cave": 5,
+    "tree": 6,
+    "flowers": 7,
+    "gem": 8,
+    "spring": 9,
+    "slime": 10,
+    "checkpoint": 11,
+    "finish-arch": 12,
+    "dust": 13,
+    "hills": 14,
+    "bush": 15
+  }
+}

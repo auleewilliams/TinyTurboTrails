@@ -8,6 +8,8 @@ import { FoundationScene } from './foundation-scene';
 import { loadHenry } from './art/henry';
 import { ArtPreviewScene } from './art/preview-scene';
 import { MovementPreviewScene } from './game/movement-preview';
+import { loadWorldAssets } from './world/assets';
+import { WorldPreviewScene } from './world/preview-scene';
 
 const canvas = document.querySelector<HTMLCanvasElement>('#game')!;
 const status = document.querySelector<HTMLParagraphElement>('#status')!;
@@ -28,7 +30,8 @@ if (!context) {
   const requestedScene = new URLSearchParams(location.search).get('scene');
   const artPreview = requestedScene === 'art';
   const movementPreview = requestedScene === 'movement';
-  let assetState: 'loading' | 'ready' | 'failed' = artPreview || movementPreview ? 'loading' : 'ready';
+  const worldPreview = requestedScene === 'world';
+  let assetState: 'loading' | 'ready' | 'failed' = artPreview || movementPreview || worldPreview ? 'loading' : 'ready';
   let disposed = false;
 
   const refreshPause = (): void => {
@@ -44,7 +47,7 @@ if (!context) {
       : assetState === 'loading' ? 'Loading artwork…'
       : !focused ? 'Paused · Return to the game to continue'
       : userPaused ? 'Paused · Escape to resume'
-      : `${artPreview ? 'Art' : movementPreview ? 'Movement' : 'Foundation'} preview · Escape to pause · ${muted ? 'Muted · M to unmute' : 'M to mute'}`;
+      : `${artPreview ? 'Art' : movementPreview ? 'Movement' : worldPreview ? 'World' : 'Foundation'} preview · Escape to pause · ${muted ? 'Muted · M to unmute' : 'M to mute'}`;
   };
 
   const resize = (): void => {
@@ -85,7 +88,18 @@ if (!context) {
   window.addEventListener('focus', focus);
   document.addEventListener('visibilitychange', visibility);
   scenes.change(new FoundationScene());
-  if (artPreview || movementPreview) {
+  if (worldPreview) {
+    void loadWorldAssets().then((assets) => {
+      if (disposed) return;
+      scenes.change(new WorldPreviewScene(assets));
+      assetState = 'ready';
+      refreshPause();
+    }).catch(() => {
+      if (disposed) return;
+      assetState = 'failed';
+      refreshPause();
+    });
+  } else if (artPreview || movementPreview) {
     void loadHenry().then((assets) => {
       if (disposed) return;
       scenes.change(artPreview ? new ArtPreviewScene(assets) : new MovementPreviewScene(assets));

@@ -92,3 +92,12 @@ test('movement preview accepts keyboard movement and jump input', async ({ page 
   await page.waitForTimeout(40);
   await expect(page.locator('#status')).toContainText('Movement preview');
 });
+
+test('world preview loads generated Plains assets and level data', async ({ page }) => {
+  await page.goto('/?scene=world');
+  await expect(page.locator('#status')).toContainText('World preview');
+  await page.keyboard.down('ArrowRight');
+  await page.waitForTimeout(160);
+  await page.keyboard.up('ArrowRight');
+  await expect(page.locator('canvas')).toHaveAttribute('width', '426');
+});
