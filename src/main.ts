@@ -7,6 +7,7 @@ import { fitViewport } from './core/viewport';
 import { FoundationScene } from './foundation-scene';
 import { loadHenry } from './art/henry';
 import { ArtPreviewScene } from './art/preview-scene';
+import { MovementPreviewScene } from './game/movement-preview';
 
 const canvas = document.querySelector<HTMLCanvasElement>('#game')!;
 const status = document.querySelector<HTMLParagraphElement>('#status')!;
@@ -24,8 +25,10 @@ if (!context) {
   let muted = false;
   let request = 0;
   let pendingJump = false;
-  const artPreview = new URLSearchParams(location.search).get('scene') === 'art';
-  let assetState: 'loading' | 'ready' | 'failed' = artPreview ? 'loading' : 'ready';
+  const requestedScene = new URLSearchParams(location.search).get('scene');
+  const artPreview = requestedScene === 'art';
+  const movementPreview = requestedScene === 'movement';
+  let assetState: 'loading' | 'ready' | 'failed' = artPreview || movementPreview ? 'loading' : 'ready';
   let disposed = false;
 
   const refreshPause = (): void => {
@@ -41,7 +44,7 @@ if (!context) {
       : assetState === 'loading' ? 'Loading artwork…'
       : !focused ? 'Paused · Return to the game to continue'
       : userPaused ? 'Paused · Escape to resume'
-      : `${artPreview ? 'Art' : 'Foundation'} preview · Escape to pause · ${muted ? 'Muted · M to unmute' : 'M to mute'}`;
+      : `${artPreview ? 'Art' : movementPreview ? 'Movement' : 'Foundation'} preview · Escape to pause · ${muted ? 'Muted · M to unmute' : 'M to mute'}`;
   };
 
   const resize = (): void => {
@@ -82,10 +85,10 @@ if (!context) {
   window.addEventListener('focus', focus);
   document.addEventListener('visibilitychange', visibility);
   scenes.change(new FoundationScene());
-  if (artPreview) {
+  if (artPreview || movementPreview) {
     void loadHenry().then((assets) => {
       if (disposed) return;
-      scenes.change(new ArtPreviewScene(assets));
+      scenes.change(artPreview ? new ArtPreviewScene(assets) : new MovementPreviewScene(assets));
       assetState = 'ready';
       refreshPause();
     }).catch(() => {
