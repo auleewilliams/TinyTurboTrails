@@ -2,7 +2,8 @@
 
 A sidescrolling 16-bit platformer for Henry. The repository currently contains
 issue #1's browser foundation: a diagnostic canvas with a moving timing marker,
-pause/focus handling and a silent audio interface. It is not a playable level yet.
+pause/focus handling, plus original retro music and sound effects from issue #7.
+It is not a playable level yet.
 
 ## Run locally
 
@@ -35,8 +36,13 @@ same checks on pushes and pull requests.
 ## Controls
 
 In the foundation preview, **Escape** pauses/resumes and **M** toggles the mute
-state. Audio is intentionally silent until issue #7. Switching away freezes the
+state. Music unlocks after keyboard, controller or canvas pointer interaction
+(subject to browser audio policy). Switching away pauses audio and freezes the
 simulation; returning discards elapsed time and preserves a deliberate pause.
+Open `/?audio` to preview all six effects and start/stop music. The gameplay
+previews at `/?scene=gameplay` and `/?scene=adventure` also connect accepted
+gem, checkpoint, spring and damage events to local synthesis; see the [audio
+guide](docs/AUDIO.md) for integration and verification details.
 
 Planned release controls (input bindings exist; movement arrives in issue #3):
 
@@ -61,7 +67,8 @@ controller disconnect; release held controller controls before resuming.
   centered letterboxing. Windows smaller than the logical canvas shrink to fit;
   fractional downscaling cannot preserve uniform physical pixel sizes.
 - `src/core/scene.ts`: enter/exit/update/render lifecycle. Scene changes stop audio.
-- `src/core/audio.ts`: safe silent implementation; issue #7 adds local synthesis.
+- `src/core/audio.ts`: shared audio interface and silent fallback.
+- `src/core/retro-audio.ts`: local music/effect synthesis with bounded voices.
 - `src/main.ts`: browser focus, sizing and animation lifecycle, including HMR cleanup.
 - `src/foundation-scene.ts`: diagnostic drawing, replaced by later game scenes.
 

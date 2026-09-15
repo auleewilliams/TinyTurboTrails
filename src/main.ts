@@ -1,5 +1,6 @@
 import './style.css';
-import { SilentAudio } from './core/audio';
+import { RetroAudio } from './core/retro-audio';
+import { mountAudioPreview } from './audio-preview';
 import { SimulationClock } from './core/clock';
 import { BrowserInput, type InputFrame } from './core/input';
 import { SceneHost } from './core/scene';
@@ -21,7 +22,9 @@ if (!context) {
   status.textContent = 'Canvas 2D is unavailable. Please open this preview in a supported desktop browser.';
 } else {
   const clock = new SimulationClock();
-  const audio = new SilentAudio();
+  const audio = new RetroAudio();
+  const removeAudioPreview = mountAudioPreview(audio);
+  const unlockAudio = (): void => { void audio.unlock(); };
   const input = new BrowserInput(window, () => { void audio.unlock().catch(() => {}); });
   const scenes = new SceneHost(() => audio.stop());
   let focused = !document.hidden && document.hasFocus();
@@ -91,11 +94,14 @@ if (!context) {
   window.addEventListener('blur', blur);
   window.addEventListener('focus', focus);
   document.addEventListener('visibilitychange', visibility);
+  canvas.addEventListener('pointerdown', unlockAudio);
   scenes.change(new FoundationScene());
+  audio.startMusic();
   if (adventure) {
     void loadGameplayAssets().then((assets) => {
       if (disposed) return;
       scenes.change(new AdventureScene(assets.henry, assets.world, audio));
+      audio.startMusic();
       assetState = 'ready';
       refreshPause();
     }).catch(() => {
@@ -107,6 +113,7 @@ if (!context) {
     void loadGameplayAssets().then((assets) => {
       if (disposed) return;
       scenes.change(new GameplayPreviewScene(assets.henry, assets.world, audio));
+      audio.startMusic();
       assetState = 'ready';
       refreshPause();
     }).catch(() => {
@@ -150,6 +157,8 @@ if (!context) {
     document.removeEventListener('visibilitychange', visibility);
     input.dispose();
     scenes.dispose();
+    canvas.removeEventListener('pointerdown', unlockAudio);
+    removeAudioPreview();
     audio.dispose();
   });
 }
