@@ -1,6 +1,10 @@
 name: Foundation checks
 on:
+  # Scoped to main so a commit on a branch with an open pull request is checked
+  # once. An unscoped push trigger runs these checks a second time on every such
+  # commit. Pull request runs test the merge result, which is the useful one.
   push:
+    branches: [main]
   pull_request:
 permissions:
   contents: read
