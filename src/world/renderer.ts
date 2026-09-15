@@ -1,8 +1,12 @@
 import type { Camera } from './camera';
-import type { LevelData } from './level';
+import type { LevelData, WorldEntity } from './level';
 import type { WorldAsset, WorldAssets } from './assets';
 
-export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, level: LevelData, camera: Camera): void {
+/** Scenes without run state draw the whole entity list; a run hides what it has consumed. */
+export type EntityFilter = (entity: WorldEntity) => boolean;
+
+export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, level: LevelData, camera: Camera,
+  isVisible: EntityFilter = () => true): void {
   const offset = camera.position;
   const { atlas, manifest } = assets;
   const cell = manifest.cellSize;
@@ -26,7 +30,10 @@ export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, le
     ctx.lineTo(surface.x2 - offset.x, surface.y2 - offset.y);
     ctx.stroke();
   }
-  for (const entity of level.entities) drawAsset(ctx, assets, entity.asset as WorldAsset, entity.x - offset.x, entity.y - offset.y, 1);
+  for (const entity of level.entities) {
+    if (!isVisible(entity)) continue;
+    drawAsset(ctx, assets, entity.asset as WorldAsset, entity.x - offset.x, entity.y - offset.y, 1);
+  }
   drawAsset(ctx, assets, level.finish.asset as WorldAsset, level.finish.x - offset.x, level.finish.y - offset.y, 2);
   // Keep the draw source referenced so a bad cell size cannot silently pass.
   void atlas;

@@ -4,7 +4,7 @@ import type { Scene } from '../core/scene';
 import { animationFrame } from '../art/animation';
 import { loadHenry, type HenryAssets } from '../art/henry';
 import { animationFor, createPlayer, simulatePlayer, DEFAULT_MOVEMENT, type Player } from './movement';
-import { activateCheckpoint, applySpring, collectGem, createRun, damagePlayer, recoverFromFall, tickRun, type RunEvent, type RunState } from './interactions';
+import { activateCheckpoint, applySpring, collectGem, createRun, damagePlayer, isEntityActive, recoverFromFall, tickRun, type RunEvent, type RunState } from './interactions';
 import { PLAINS_LEVEL } from '../world/level';
 import { Camera } from '../world/camera';
 import { drawWorld } from '../world/renderer';
@@ -46,7 +46,7 @@ export class GameplayPreviewScene implements Scene {
   }
 
   render(ctx: CanvasRenderingContext2D): void {
-    drawWorld(ctx, this.world, PLAINS_LEVEL, this.camera);
+    drawWorld(ctx, this.world, PLAINS_LEVEL, this.camera, (entity) => isEntityActive(this.run, entity.id));
     const hurt = this.run.invulnerableSeconds > 0;
     const name = hurt ? 'fall' : animationFor(this.player);
     const clip = this.henry.manifest.animations[name];

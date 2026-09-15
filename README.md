@@ -118,15 +118,16 @@ Open defects, all found during the 2026-09-16 run:
 | [#42](https://github.com/auleewilliams/TinyTurboTrails/issues/42) | **Blocking** | Henry's shipped sprites have a baked gray checkerboard behind every pose. |
 | [#45](https://github.com/auleewilliams/TinyTurboTrails/issues/45) | **Blocking** | The route takes about 11 seconds against the agreed 3–5 minutes. |
 | [#43](https://github.com/auleewilliams/TinyTurboTrails/issues/43) | Non-blocking | Henry keeps facing right while running left. |
-| [#44](https://github.com/auleewilliams/TinyTurboTrails/issues/44) | Non-blocking | Collected gems are still drawn in the world. |
-| [#46](https://github.com/auleewilliams/TinyTurboTrails/issues/46) | Non-blocking | HUD text is clipped after pause and resume. |
 | [#47](https://github.com/auleewilliams/TinyTurboTrails/issues/47) | Non-blocking | Trees and slimes float above the terrain. |
 | [#48](https://github.com/auleewilliams/TinyTurboTrails/issues/48) | Non-blocking | Thin seams appear between terrain polygons while scrolling. |
 | [#49](https://github.com/auleewilliams/TinyTurboTrails/issues/49) | Non-blocking | The finish celebration overlaps its own subtitle. |
 
 [#26 — checkpoints sat above the ground](https://github.com/auleewilliams/TinyTurboTrails/issues/26)
-is fixed and retested. Certification and issue #9 closeout remain pending the two
-blocking defects and the full manual matrix. See the
+is fixed and retested, as are
+[#44 — collected gems stayed in the world](https://github.com/auleewilliams/TinyTurboTrails/issues/44)
+and [#46 — the HUD lost its left alignment after pause](https://github.com/auleewilliams/TinyTurboTrails/issues/46).
+Certification and issue #9 closeout remain pending the two blocking defects and
+the full manual matrix. See the
 [2026-09-16 macOS report](docs/RELEASE-VERIFICATION-2026-09-16.md),
 [release evidence and limits](docs/RELEASE-VERIFICATION.md) and the
 [manual worksheet](docs/RELEASE-MANUAL-CHECKLIST.md).

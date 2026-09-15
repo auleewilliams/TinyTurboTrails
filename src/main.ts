@@ -99,12 +99,15 @@ if (!context) {
     context.imageSmoothingEnabled = false;
     scenes.render(context);
     if (!focused || userPaused) {
+      // Save/restore so the centered overlay cannot leak into the next frame's scene HUD.
+      context.save();
       context.fillStyle = '#0c1922cc';
       context.fillRect(0, 0, 426, 240);
       context.fillStyle = '#ffda75';
       context.textAlign = 'center';
       context.font = 'bold 20px monospace';
       context.fillText('PAUSED', 213, 116);
+      context.restore();
     }
     request = requestAnimationFrame(frame);
   };

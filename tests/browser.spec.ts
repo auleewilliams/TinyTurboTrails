@@ -408,3 +408,83 @@ test('all checkpoints activate along the ground route and render planted markers
   }
   await page.keyboard.up('ArrowRight');
 });
+
+// Record how the HUD is actually drawn, the way #46 was measured, without test-only game state.
+const recordHudDraws = async (page: import('@playwright/test').Page): Promise<void> => {
+  await page.addInitScript(() => {
+    const fillText = CanvasRenderingContext2D.prototype.fillText;
+    CanvasRenderingContext2D.prototype.fillText = function (text, x, y, maxWidth) {
+      if (text.startsWith('GEMS ')) document.querySelector('canvas')?.setAttribute('data-test-hud-draw', `${this.textAlign} ${x} ${text}`);
+      if (maxWidth === undefined) fillText.call(this, text, x, y);
+      else fillText.call(this, text, x, y, maxWidth);
+    };
+  });
+};
+
+test('adventure HUD stays left-aligned through keyboard pause and focus loss', async ({ page }) => {
+  await recordHudDraws(page);
+  await page.goto('/?scene=adventure');
+  await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
+  await page.keyboard.press('Space');
+  await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
+  const canvas = page.locator('canvas');
+  await expect(canvas).toHaveAttribute('data-test-hud-draw', /^left 10 /);
+  const resample = async (): Promise<void> => {
+    await page.evaluate(() => document.querySelector('canvas')?.removeAttribute('data-test-hud-draw'));
+  };
+  await page.keyboard.press('Escape');
+  await expect(page.locator('#status')).toHaveText('Paused · Escape to resume');
+  await resample();
+  await page.keyboard.press('Escape');
+  await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
+  await expect(canvas).toHaveAttribute('data-test-hud-draw', /^left 10 /);
+  await page.evaluate(() => window.dispatchEvent(new Event('blur')));
+  await expect(page.locator('#status')).toHaveText('Paused · Return to the game to continue');
+  await resample();
+  await page.evaluate(() => window.dispatchEvent(new Event('focus')));
+  await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
+  await expect(canvas).toHaveAttribute('data-test-hud-draw', /^left 10 /);
+  // Left-aligned at x=10, the longest HUD line must still end inside its panel at x=210.
+  const rightEdge = await canvas.evaluate((element) => {
+    const ctx = (element as HTMLCanvasElement).getContext('2d')!;
+    ctx.font = '8px monospace';
+    return 10 + ctx.measureText('GEMS 0   CHECKPOINT checkpoint-hillside').width;
+  });
+  expect(rightEdge).toBeLessThan(210);
+});
+
+test('a collected gem stops being drawn where it stood', async ({ page }, info) => {
+  await recordHudDraws(page);
+  await page.goto('/?scene=adventure&debug=1');
+  await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
+  await page.keyboard.press('Space');
+  await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
+  const canvas = page.locator('canvas');
+  const gem = PLAINS_LEVEL.entities.find((entity) => entity.id === 'gem-001')!;
+  // Near the start the camera is clamped to 0, so the gem's cell keeps one screen rect.
+  const cell = { x: gem.x - 24, y: gem.y - 48, size: 48 };
+  const readCell = async (): Promise<number[]> => canvas.evaluate((element, rect) =>
+    Array.from((element as HTMLCanvasElement).getContext('2d')!.getImageData(rect.x, rect.y, rect.size, rect.size).data), cell);
+  const playerX = async (): Promise<number> => Number((await page.locator('#status').innerText()).match(/X (\d+)/)?.[1] ?? 0);
+  const before = await readCell();
+  await expect(canvas).toHaveAttribute('data-test-hud-draw', /GEMS 0/);
+  await page.keyboard.down('ArrowRight');
+  for (let step = 0; step < 40 && (await playerX()) < 100; step++) await page.waitForTimeout(50);
+  // Jump before the gem and stay airborne across it, as #44 reproduced it.
+  await page.keyboard.down('Space');
+  await page.waitForTimeout(300);
+  await page.keyboard.up('Space');
+  for (let step = 0; step < 40 && (await playerX()) < gem.x + 40; step++) await page.waitForTimeout(50);
+  await page.keyboard.up('ArrowRight');
+  await expect(canvas).toHaveAttribute('data-test-hud-draw', /GEMS 1/);
+  // Walk back so Henry cannot be standing over the gem's cell when it is sampled.
+  await page.keyboard.down('ArrowLeft');
+  for (let step = 0; step < 40 && (await playerX()) > 60; step++) await page.waitForTimeout(50);
+  await page.keyboard.up('ArrowLeft');
+  await page.waitForTimeout(150);
+  await expect(canvas).toHaveAttribute('data-test-hud-draw', /GEMS 1/);
+  const after = await readCell();
+  const changed = before.filter((value, index) => value !== after[index]).length;
+  expect(changed, 'the collected gem is still drawn').toBeGreaterThan(200);
+  await info.attach('gem-001-collected', { body: await canvas.screenshot(), contentType: 'image/png' });
+});
