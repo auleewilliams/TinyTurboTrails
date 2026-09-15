@@ -34,7 +34,7 @@ if (!context) {
   let muted = false;
   let request = 0;
   let pendingJump = false;
-  const requestedScene = new URLSearchParams(location.search).get('scene');
+  const requestedScene = new URLSearchParams(location.search).get('scene') ?? 'adventure';
   const artPreview = requestedScene === 'art';
   const movementPreview = requestedScene === 'movement';
   const worldPreview = requestedScene === 'world';
