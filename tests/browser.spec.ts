@@ -29,6 +29,9 @@ test('production canvas loads, scales and recovers from focus loss', async ({ pa
   await expect(page.locator('#status')).toContainText('Foundation preview');
   await page.keyboard.press('m');
   await expect(page.locator('#status')).toContainText('Muted');
+  await expect(page.locator('#mute')).toHaveAttribute('aria-label', 'Unmute');
+  await page.locator('#mute').click();
+  await expect(page.locator('#status')).not.toContainText('Muted');
   await page.reload();
   await expect(page.locator('#status')).toHaveText('Foundation preview · Escape to pause · M to mute');
   expect(errors).toEqual([]);

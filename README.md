@@ -51,7 +51,7 @@ Current release controls:
 | Move | Left/Right arrows or A/D | D-pad or left stick |
 | Jump | Space | Primary face button |
 | Pause/resume | Escape | Start |
-| Mute | M | M |
+| Mute | M or on-screen Mute button | On-screen Mute button |
 
 Only standard-mapped controllers are read. Input clears on focus loss and
 controller disconnect; release held controller controls before resuming.

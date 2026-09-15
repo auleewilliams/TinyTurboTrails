@@ -9,14 +9,14 @@ from manual checks that still require a desktop host and a physical controller.
 | Check | Result |
 | --- | --- |
 | `npm ci --offline` from a fresh worktree | Passed on Ubuntu 26.04.1, Node 22.22.1 |
-| `npm test` | Passed: 43 tests in 10 files |
+| `npm test` | Passed: 44 tests in 10 files |
 | `npm run build` | Passed: TypeScript and Vite production build |
 | Chromium 153.0.8010.12 on Linux | Passed: foundation, assets, movement, world, interactions, adventure and audio checks |
 | Firefox 155.0 on Linux | Passed: all non-native-audio checks; native AudioContext check explicitly skipped because the host has no usable audio backend |
 | WebKit 26.6 on hosted Ubuntu CI | Passed: hosted candidate run 34886036182 |
 | WebKit 26.6 in this local container | Cannot launch: required GTK/GStreamer/libopus/libsoup libraries are absent |
 
-The hosted candidate run [34886036182](https://github.com/auleewilliams/TinyTurboTrails/actions/runs/34886036182)
+The hosted candidate run [34887106613](https://github.com/auleewilliams/TinyTurboTrails/actions/runs/34887106613)
 passed 26 browser tests with one explicit Firefox native-audio skip across
 Chromium 153.0.8010.12, Firefox 155.0 and WebKit 26.6. The browser suite checks
 asset loading and transparency, manifest frame bounds,
