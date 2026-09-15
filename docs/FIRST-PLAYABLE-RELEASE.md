@@ -1,8 +1,10 @@
 # Tiny Turbo Trails — first playable release
 
-This document describes the current first-playable candidate. It is written for
-someone returning to the repository or launching it for Henry, without needing
-to reconstruct decisions from issue history.
+This document describes the accepted MVP baseline. It is written for someone
+returning to the repository or launching it for Henry, without needing to
+reconstruct decisions from issue history. The MVP is playable, but it is not a
+claim that every bug or release-certification check is complete; defects found
+after acceptance should be tracked as follow-up issues.
 
 ## Launch
 
@@ -15,11 +17,11 @@ this launch step. A production bundle can be served with `npm run build` and
 `npm run preview`.
 
 The checked commands are `npm run typecheck`, `npm test`, `npm run build` and
-`npm run test:browser`. `npm test` currently covers 44 unit tests in 10 files.
-The hosted run [34887106613](https://github.com/auleewilliams/TinyTurboTrails/actions/runs/34887106613)
-passed the build and 26 browser checks across Chromium 153.0.8010.12, Firefox
-155.0 and WebKit 26.6, with one explicit Firefox native-audio skip because the
-runner had no usable audio backend.
+`npm run test:browser`. `npm test` currently covers 48 unit tests in 10 files.
+The hosted run [34901386427](https://github.com/auleewilliams/TinyTurboTrails/actions/runs/34901386427)
+passed the build and 53 of 54 browser checks across Chromium 153.0.8010.12,
+Firefox 155.0 and WebKit 26.6, with one explicit Firefox native-audio skip
+because the runner had no usable audio backend.
 
 ## Controls
 

@@ -3,7 +3,7 @@ import type { InputFrame } from '../core/input';
 import type { Scene } from '../core/scene';
 import { animationFrame } from '../art/animation';
 import { loadHenry, type HenryAssets } from '../art/henry';
-import { animationFor, createPlayer, simulatePlayer, type Player } from './movement';
+import { animationFor, createPlayer, simulatePlayer, DEFAULT_MOVEMENT, type Player } from './movement';
 import { activateCheckpoint, applySpring, collectGem, createRun, damagePlayer, recoverFromFall, tickRun, type RunEvent, type RunState } from './interactions';
 import { PLAINS_LEVEL } from '../world/level';
 import { Camera } from '../world/camera';
@@ -23,7 +23,9 @@ export class GameplayPreviewScene implements Scene {
   update(seconds: number, input: InputFrame): void {
     this.elapsed += seconds;
     tickRun(this.run, seconds);
+    const previousVelocityY = this.player.vy;
     simulatePlayer(this.player, input, PLAINS_LEVEL, seconds);
+    if (previousVelocityY >= 0 && this.player.vy < -DEFAULT_MOVEMENT.jumpVelocity * 0.75) this.audio.play('jump');
     this.events = [];
     for (const entity of PLAINS_LEVEL.entities) {
       const state = this.run.entities.find((candidate) => candidate.id === entity.id);
@@ -45,14 +47,23 @@ export class GameplayPreviewScene implements Scene {
 
   render(ctx: CanvasRenderingContext2D): void {
     drawWorld(ctx, this.world, PLAINS_LEVEL, this.camera);
-    const name = animationFor(this.player);
+    const hurt = this.run.invulnerableSeconds > 0;
+    const name = hurt ? 'fall' : animationFor(this.player);
     const clip = this.henry.manifest.animations[name];
     const frame = this.henry.manifest.frames[animationFrame(clip, this.elapsed)];
     const offset = this.camera.position;
+    const shake = hurt ? Math.sin(this.elapsed * 42) * 2 : 0;
+    ctx.save();
+    ctx.translate(shake, 0);
     ctx.drawImage(this.henry.atlas, frame.x, frame.y, frame.width, frame.height,
       this.player.x - offset.x - this.henry.manifest.anchor.x,
       this.player.y - offset.y + 34 - this.henry.manifest.anchor.y,
       48, 48);
+    if (hurt) {
+      ctx.fillStyle = '#ff5d5d88';
+      ctx.fillRect(this.player.x - offset.x - 22, this.player.y - offset.y - 12, 44, 50);
+    }
+    ctx.restore();
     ctx.fillStyle = '#10252cdd';
     ctx.fillRect(5, 5, 160, 25);
     ctx.fillStyle = '#e9f2df';

@@ -30,20 +30,21 @@ are capped at 24 (oldest voice is removed when full). The master gain is 0.075;
 with maximum voice gain 0.48, even 24 aligned peaks sum to 0.864, below clipping. Natural completion releases
 both oscillator and gain nodes.
 
-The `/?scene=gameplay` and `/?scene=adventure` previews now wire accepted gem,
-checkpoint, spring and damage events to these effects. Title and finish screens
+The `/?scene=gameplay` and `/?scene=adventure` previews now wire accepted jump,
+gem, checkpoint, spring and damage events to these effects. Title and finish screens
 remain silent until a user interaction unlocks the context, as required by
-browser autoplay policy. Completion audio will be connected when the finish
-celebration is expanded; the `complete` effect remains available through the
-preview and interface.
+browser autoplay policy. Reaching the finish plays the `complete` effect once;
+the effect also remains available through the preview and interface.
 
 ## Verification (2026-09-14)
 
-- `npm test`: 17 tests pass, including 9 audio tests for lazy unlock, rejected API
+- `npm test`: 48 tests pass, including 9 audio tests for lazy unlock, rejected API
   operations, mute, pause, bounded voices, maximum burst amplitude, looping, scene stop and disposal races.
 - `npm run build`: typecheck and production bundle pass.
-- Browser audio tests: Chromium real Web Audio lifecycle passes. Chromium and
-  Firefox unavailable-API interaction checks pass. Firefox real audio is skipped
+- Hosted browser audio and adventure-fallback checks pass in Chromium, Firefox and
+  WebKit; the full hosted suite reports 53 of 54 checks passed in run
+  [34902763600](https://github.com/auleewilliams/TinyTurboTrails/actions/runs/34902763600).
+  Firefox real audio is skipped
   when a separate native-context probe cannot start its clock; this host also
   reproduced the failure on a minimal button-only page, outside the game.
 - WebKit could not launch locally because required shared libraries are absent.

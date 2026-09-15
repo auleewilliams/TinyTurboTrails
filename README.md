@@ -1,10 +1,11 @@
 # Tiny Turbo Trails
 
-A sidescrolling 16-bit platformer for Henry. The current build includes the
-Plains world, Henry's starter art, movement, gems, hazards, checkpoints, local
-music/effects and a title-to-adventure shell. Release certification remains open
-until the manual browser/controller matrix in `docs/RELEASE-VERIFICATION.md` is
-completed.
+A sidescrolling 16-bit platformer for Henry. The current build is the accepted
+MVP baseline: it includes the Plains world, Henry's starter art, movement, gems,
+hazards, checkpoints, local music/effects and a title-to-adventure shell.
+Known defects and polish work continue as follow-up issues. Release
+certification remains open until the manual browser/controller matrix in
+`docs/RELEASE-VERIFICATION.md` is completed.
 
 ## Run locally
 

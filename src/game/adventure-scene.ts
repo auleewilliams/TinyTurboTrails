@@ -3,7 +3,7 @@ import type { InputFrame } from '../core/input';
 import type { Scene } from '../core/scene';
 import { animationFrame } from '../art/animation';
 import type { HenryAssets } from '../art/henry';
-import { animationFor, createPlayer, simulatePlayer, type Player } from './movement';
+import { animationFor, createPlayer, simulatePlayer, DEFAULT_MOVEMENT, type Player } from './movement';
 import { activateCheckpoint, applySpring, collectGem, createRun, damagePlayer, recoverFromFall, tickRun, type RunEvent, type RunState } from './interactions';
 import { ScreenController } from './screens';
 import { PLAINS_LEVEL } from '../world/level';
@@ -19,6 +19,11 @@ export class AdventureScene implements Scene {
   private elapsed = 0;
   private events: RunEvent[] = [];
   constructor(private readonly henry: HenryAssets, private readonly world: WorldAssets, private readonly audio: GameAudio) {}
+  get screenState(): ScreenController['state'] { return this.screens.state; }
+  get gemTotal(): number { return this.screens.gems; }
+  get playerX(): number { return this.player.x; }
+  get playerY(): number { return this.player.y; }
+  get playerVelocityX(): number { return this.player.vx; }
   enter(): void { this.elapsed = 0; }
   exit(): void { this.audio.stop(); }
 
@@ -42,7 +47,9 @@ export class AdventureScene implements Scene {
 
   private stepGameplay(seconds: number, input: InputFrame): void {
     tickRun(this.run, seconds);
+    const previousVelocityY = this.player.vy;
     simulatePlayer(this.player, input, PLAINS_LEVEL, seconds);
+    if (previousVelocityY >= 0 && this.player.vy < -DEFAULT_MOVEMENT.jumpVelocity * 0.75) this.audio.play('jump');
     this.events = [];
     for (const entity of PLAINS_LEVEL.entities) {
       const state = this.run.entities.find((candidate) => candidate.id === entity.id);
@@ -53,7 +60,10 @@ export class AdventureScene implements Scene {
       else if (entity.kind === 'slime' || entity.kind === 'hazard') damagePlayer(this.run, this.player, entity.x - this.player.x, this.events, entity.id);
     }
     if (this.player.y > PLAINS_LEVEL.height + 80) recoverFromFall(this.run, this.player, this.events, PLAINS_LEVEL);
-    if (this.player.x >= PLAINS_LEVEL.finish.x) this.screens.complete(this.run.collectedGems.size);
+    if (this.player.x >= PLAINS_LEVEL.finish.x && this.screens.state === 'playing') {
+      this.screens.complete(this.run.collectedGems.size);
+      this.audio.play('complete');
+    }
     for (const event of this.events) {
       if (event.type === 'gem') this.audio.play('gem');
       else if (event.type === 'checkpoint') this.audio.play('checkpoint');
@@ -76,21 +86,46 @@ export class AdventureScene implements Scene {
     } else if (this.screens.state === 'title') {
       this.panel(ctx, 'TINY TURBO TRAILS', 'Press Space to start');
     } else if (this.screens.state === 'finish') {
-      this.panel(ctx, 'TRAIL COMPLETE!', `Gems ${this.screens.gems} · Space to replay`);
+      this.panel(ctx, 'TRAIL COMPLETE!', `Gems ${this.screens.gems} · Henry celebrates · Space to replay`);
+      this.drawCelebration(ctx);
     } else if (this.screens.state === 'error') {
       this.panel(ctx, 'LOADING ERROR', `${this.screens.error} · Reload to retry`);
     }
   }
 
   private drawHenry(ctx: CanvasRenderingContext2D): void {
-    const name = animationFor(this.player);
+    const hurt = this.run.invulnerableSeconds > 0;
+    const name = hurt ? 'fall' : animationFor(this.player);
     const clip = this.henry.manifest.animations[name];
     const frame = this.henry.manifest.frames[animationFrame(clip, this.elapsed)];
     const offset = this.camera.position;
+    const shake = hurt ? Math.sin(this.elapsed * 42) * 2 : 0;
+    ctx.save();
+    ctx.translate(shake, 0);
     ctx.drawImage(this.henry.atlas, frame.x, frame.y, frame.width, frame.height,
       this.player.x - offset.x - this.henry.manifest.anchor.x,
       this.player.y - offset.y + 34 - this.henry.manifest.anchor.y,
       48, 48);
+    if (hurt) {
+      ctx.fillStyle = '#ff5d5d88';
+      ctx.fillRect(this.player.x - offset.x - 22, this.player.y - offset.y - 12, 44, 50);
+    }
+    ctx.restore();
+  }
+
+  private drawCelebration(ctx: CanvasRenderingContext2D): void {
+    const clip = this.henry.manifest.animations.idle;
+    const frame = this.henry.manifest.frames[animationFrame(clip, this.elapsed)];
+    const bob = Math.sin(this.elapsed * 10) * 3;
+    const x = 213 - this.henry.manifest.anchor.x;
+    const y = 164 - this.henry.manifest.anchor.y + bob;
+    ctx.drawImage(this.henry.atlas, frame.x, frame.y, frame.width, frame.height, x, y, 48, 48);
+    ctx.fillStyle = '#ffda75';
+    for (const [starX, starY] of [[174, 158], [252, 150], [269, 181]] as const) {
+      ctx.fillRect(starX, starY + Math.round(bob), 4, 4);
+      ctx.fillRect(starX + 2, starY - 2 + Math.round(bob), 1, 8);
+      ctx.fillRect(starX - 2, starY + 1 + Math.round(bob), 8, 1);
+    }
   }
 
   private panel(ctx: CanvasRenderingContext2D, title: string, subtitle: string): void {
