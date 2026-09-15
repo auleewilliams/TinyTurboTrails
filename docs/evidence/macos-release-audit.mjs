@@ -7,12 +7,14 @@ import { execFileSync } from 'node:child_process';
 import { resolve } from 'node:path';
 
 const output = resolve(process.argv[2] ?? 'docs/evidence/2026-09-16-macos');
+const groundedCheckpoints = process.argv.includes('--grounded-checkpoints');
 await mkdir(output, { recursive: true });
 const report = {
   startedAt: new Date().toISOString(),
   candidateCommit: execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(),
   os: execFileSync('sw_vers', [], { encoding: 'utf8' }).trim(),
   input: 'Playwright keyboard events; no physical input',
+  groundedCheckpoints,
   method: 'Unmodified production build. Canvas wrappers only observe HUD text and draw calls. Gamepad polling returns no devices to isolate scripted keyboard input from concurrent physical playtesting.',
   browsers: [],
 };
@@ -83,9 +85,13 @@ for (const [name, engine] of Object.entries({ chromium, firefox, webkit })) {
     result.collectedGem = await snapshot();
     await shot('collected-gem');
     await page.waitForFunction(() => Number(document.querySelector('#status').textContent.match(/X (\d+)/)?.[1]) > 520);
-    await page.keyboard.down('Space');
-    await page.waitForTimeout(250);
-    await page.keyboard.up('Space');
+    if (groundedCheckpoints) {
+      await page.waitForFunction(() => Number(document.querySelector('#status').textContent.match(/X (\d+)/)?.[1]) > 590);
+    } else {
+      await page.keyboard.down('Space');
+      await page.waitForTimeout(250);
+      await page.keyboard.up('Space');
+    }
     await page.keyboard.up('ArrowRight');
     await page.waitForTimeout(250);
     const state = await snapshot();

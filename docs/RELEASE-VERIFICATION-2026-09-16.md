@@ -2,18 +2,21 @@
 
 ## Result: certification remains blocked
 
-The production build, 48 unit tests and all 54 browser checks pass on this Mac.
+After integrating checkpoint fix #41, the production build, **57 unit tests**
+and **57 browser checks** pass on this Mac. The original pre-fix run below
+passed 48 unit tests and 54 browser checks; both candidates' evidence is retained.
 Supplemental keyboard runs finish in every bundled engine. The user reports
 successful physical-controller/audio checks in the Codex in-app browser.
 These results do **not** complete the required current/previous-major native
-Chrome, Firefox and Safari matrix. Keep #8 open: checkpoint placement, Henry's
-background, route duration and remaining manual coverage still block certification.
+Chrome, Firefox and Safari matrix. Keep #8 open: Henry's background, route
+duration and remaining manual coverage still block certification. #26 has been
+fixed and retested; see the final section.
 
 Eight new findings were filed separately. This change contains verification
 evidence, not game fixes. The [earlier Linux report](RELEASE-VERIFICATION.md)
 remains historical evidence.
 
-## Candidate and environment
+## Original candidate and environment
 
 - Date: **2026-09-16 Australia/Brisbane**; JSON execution timestamps use **2026-09-15 UTC**.
 - Candidate: `2a5c496f2cb14ca388d9a9ce4d5183edfce750ea`, `origin/main` at worktree creation.
@@ -26,7 +29,7 @@ remains historical evidence.
 The new worktree used the existing npm cache. This is an isolated checkout,
 not clean-machine or network-install verification. Preview served its fresh build.
 
-## Automated results
+## Original automated results
 
 | Command | Result |
 | --- | --- |
@@ -118,12 +121,13 @@ child-specific timing/clarity.
 
 ## Defects and triage
 
-All are open at this run's closeout. **Blocking** means blocking certification,
+This table retains the initial findings. #26 was subsequently closed and
+retested below; #42–#49 remain open. **Blocking** means blocking certification,
 not necessarily preventing completion of the level.
 
 | Issue | Triage | Evidence and required retest |
 | --- | --- | --- |
-| [#26 — Ground checkpoints](https://github.com/auleewilliams/TinyTurboTrails/issues/26) | **Blocking** | All grounded crossings leave HUD at START. Pending [PR #41](https://github.com/auleewilliams/TinyTurboTrails/pull/41) is not integrated here. Retest activation, terrain-aligned recovery, zero velocity and gem preservation at all three after integration. |
+| [#26 — Ground checkpoints](https://github.com/auleewilliams/TinyTurboTrails/issues/26) | Initially blocking; **fixed and retested** | Original grounded crossings left HUD at START. [PR #41](https://github.com/auleewilliams/TinyTurboTrails/pull/41) merged during this audit. See final retest below. |
 | [#42 — Henry checkerboard](https://github.com/auleewilliams/TinyTurboTrails/issues/42) | **Blocking** | Opaque backdrop in idle/run/jump/fall and celebration. Inspect every frame on contrasting backgrounds. |
 | [#43 — Left-facing Henry](https://github.com/auleewilliams/TinyTurboTrails/issues/43) | Non-blocking | Negative velocity still draws right-facing frames. Retest both directions, including airborne changes. |
 | [#44 — Collected gems remain visible](https://github.com/auleewilliams/TinyTurboTrails/issues/44) | Non-blocking | Count updates, but static renderer still draws the gem. Retest collection, revisiting, recovery and replay. |
@@ -135,13 +139,15 @@ not necessarily preventing completion of the level.
 
 Screenshots directly support Chromium visual failures; equivalent draw/state
 observations elsewhere are identified in individual issues. Do not infer that
-every visual defect was independently reviewed in every browser. No fix or
-post-fix retest is claimed here.
+every visual defect was independently reviewed in every browser. The only
+post-fix retest in this report is the integrated #26 fix described below.
 
 ## Manual coverage and remaining matrix
 
-Statuses follow the [manual worksheet](RELEASE-MANUAL-CHECKLIST.md). Partial
-evidence does not substitute for a complete manual run per target.
+Statuses below describe the original candidate and follow the
+[manual worksheet](RELEASE-MANUAL-CHECKLIST.md). The final retest updates scenario
+8 for bundled-engine activation and simulation recovery. Partial evidence does
+not substitute for a complete manual run per target.
 
 | Scenario | Status for this run |
 | --- | --- |
@@ -180,3 +186,58 @@ blocking findings are resolved and affected scenarios pass on integrated fixes.
 - [Leftward](evidence/2026-09-16-macos/chromium-facing-left.png), [rightward](evidence/2026-09-16-macos/chromium-facing-right.png)
 - [Art](evidence/2026-09-16-macos/chromium-art-3.png), [small window](evidence/2026-09-16-macos/chromium-small-viewport.png)
 - Finish: [Chromium](evidence/2026-09-16-macos/chromium-no-jump-finish.png), [Firefox](evidence/2026-09-16-macos/firefox-no-jump-finish.png), [WebKit](evidence/2026-09-16-macos/webkit-no-jump-finish.png)
+
+## Integrated checkpoint fix — final retest
+
+[PR #41](https://github.com/auleewilliams/TinyTurboTrails/pull/41) merged at
+**2026-09-15 20:04:25 UTC**, closing #26. This worktree was rebased onto runtime
+commit `c46aaa2065ab5c649a73be06da81151ac63e6e3f`. The retest ran at documentation
+commit `4ad2732d25def8c19f31c0bd8d514637d8b31249`, with no further runtime changes.
+OS, Node/npm and browser versions are unchanged from the original run above.
+
+| Check | Fresh result after integration |
+| --- | --- |
+| `npm test` | **57 passed in 11 files** |
+| `npm run typecheck` | Pass |
+| `npm run build` | Pass; new production JS `index-DXd_UZOO.js` |
+| `npm run test:browser -- --workers=2 --reporter=json` | **57 passed, 0 skipped, 0 failed, 0 flaky**; 19 per engine |
+| New grounded-checkpoint browser test | Pass in Chromium, Firefox and WebKit; rendered HUD and contact height checked for all three checkpoints |
+| Marker visual inspection | All three marker bases inspected in each engine's screenshots; planted at terrain, including hillside |
+| All-checkpoint recovery simulation | Pass: forced out-of-level position/velocity, recovery feet at actual terrain, zero velocity, preserved gem and valid ground contact after another simulation step |
+| No-jump production route | Pass in all engines; sequential HUD activation of meadow, hillside and cave |
+| Jumping route / finish / replay | Pass in all engines |
+| Reload and close/reopen after real gem + checkpoint acquisition | Pass in all engines: fresh run at X=48, 0 gems, START checkpoint |
+| Supplemental route errors/network | No uncaught/console errors, failed requests or external requests |
+
+Recovery evidence is explicitly a simulation test calling `recoverFromFall`,
+not a natural fall or forced fall inside the production browser. The browser
+cases verify grounded activation and placement. The user controller playtest
+was on the original candidate and was not repeated after #41.
+
+The supplemental rerun uses a grounded acquisition path for the now-grounded
+meadow marker; the default mode retains the original floating-marker probe:
+
+```sh
+node docs/evidence/macos-release-audit.mjs /tmp/ttt-checkpoint-retest --grounded-checkpoints
+```
+
+| Bundled engine | No-jump completion | Jumping completion |
+| --- | --- | --- |
+| Chromium 153.0.8010.12 | 11.006 s | 11.734 s |
+| Firefox 155.0 | 11.007 s | 12.429 s |
+| WebKit 26.6 | 10.997 s | 11.795 s |
+
+The duration concern remains. #42–#49 remain unresolved, and the native-browser
+matrix above remains unexecuted. This retest removes #26 from the open blocker
+list; it does not certify the release.
+
+Evidence: [per-test browser report](evidence/2026-09-16-checkpoint-retest/browser-results.json)
+and [compact supplemental observations](evidence/2026-09-16-checkpoint-retest/audit-summary.json).
+The compact file retains all route samples, checkpoint HUD states, reset probes
+and network/error observations; redundant canvas draw calls are omitted.
+
+| Engine | Meadow | Hillside | Cave |
+| --- | --- | --- | --- |
+| Chromium | [Image](evidence/2026-09-16-checkpoint-retest/chromium-checkpoint-meadow.png) | [Image](evidence/2026-09-16-checkpoint-retest/chromium-checkpoint-hillside.png) | [Image](evidence/2026-09-16-checkpoint-retest/chromium-checkpoint-cave.png) |
+| Firefox | [Image](evidence/2026-09-16-checkpoint-retest/firefox-checkpoint-meadow.png) | [Image](evidence/2026-09-16-checkpoint-retest/firefox-checkpoint-hillside.png) | [Image](evidence/2026-09-16-checkpoint-retest/firefox-checkpoint-cave.png) |
+| WebKit | [Image](evidence/2026-09-16-checkpoint-retest/webkit-checkpoint-meadow.png) | [Image](evidence/2026-09-16-checkpoint-retest/webkit-checkpoint-hillside.png) | [Image](evidence/2026-09-16-checkpoint-retest/webkit-checkpoint-cave.png) |

@@ -24,9 +24,10 @@ served with `npm run build` and `npm run preview`.
 ## Verification status — 2026-09-15
 
 **Update, 2026-09-16:** the [macOS verification report](RELEASE-VERIFICATION-2026-09-16.md)
-records 48 passing unit tests, 54/54 passing browser checks and a user-reported
-Xbox Bluetooth playtest in the Codex in-app browser. Certification remains
-blocked by #26, [sprite-background defect #42](https://github.com/auleewilliams/TinyTurboTrails/issues/42),
+records 57 passing unit tests and 57/57 passing browser checks after checkpoint
+fix #41, plus a user-reported Xbox Bluetooth playtest of the original candidate
+in the Codex in-app browser. #26 is fixed and retested. Certification remains
+blocked by [sprite-background defect #42](https://github.com/auleewilliams/TinyTurboTrails/issues/42),
 [duration tuning #45](https://github.com/auleewilliams/TinyTurboTrails/issues/45),
 and the incomplete native-browser matrix. The Linux results below are historical.
 
@@ -80,10 +81,11 @@ deliberately out of scope. The generated source art and processed atlases are
 project-local; the running game loads assets locally and makes no generation or
 external API calls.
 
-Known blocking defect: [#26 — Place checkpoints on the ground](https://github.com/auleewilliams/TinyTurboTrails/issues/26).
-The configured marker/recovery coordinates sit above terrain; grounded activation
-and ground-aligned recovery need a fix and retest before certification. No open
-non-blocking defect was identified in the issue inventory reviewed on 2026-09-15.
+Former blocking defect [#26 — Place checkpoints on the ground](https://github.com/auleewilliams/TinyTurboTrails/issues/26)
+was fixed by PR #41. The 2026-09-16 retest verifies grounded activation in all
+three bundled engines and terrain-aligned recovery with retained gems in the
+simulation suite. Natural browser fall/recovery and the native-browser matrix
+remain manual coverage gaps.
 
 New non-blocking findings from the 2026-09-16 run are
 [left-facing animation #43](https://github.com/auleewilliams/TinyTurboTrails/issues/43),

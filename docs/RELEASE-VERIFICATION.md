@@ -1,8 +1,9 @@
 # Release verification — issue #8
 
 **Latest run:** [2026-09-16 macOS verification](RELEASE-VERIFICATION-2026-09-16.md)
-records 54/54 passing browser checks, progress-reset/route evidence, a reported
-Xbox Bluetooth playtest and new defects. Certification remains blocked. The
+records 57/57 passing browser checks after integrating checkpoint fix #41,
+progress-reset/route evidence, a reported Xbox Bluetooth playtest on the original
+candidate, and new defects. Certification remains blocked. The
 report below preserves the **2026-09-15 Linux run**; its environment limitations
 and issue inventory describe that earlier candidate.
 
