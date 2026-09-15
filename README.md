@@ -37,8 +37,10 @@ same checks on pushes and pull requests.
 
 ## Controls
 
-Open `/` for the foundation screen or `/?scene=adventure` for the title,
-gameplay, pause, finish and replay shell. Music unlocks after keyboard,
+Open `/` for the adventure title screen, then press Space or the controller's
+primary face button to start the Plains level. `/?scene=adventure` opens the same
+game; `/?scene=foundation` opens the diagnostic foundation preview.
+Music unlocks after keyboard,
 controller or canvas pointer interaction (subject to browser audio policy).
 Switching away pauses audio and freezes the simulation; returning discards
 elapsed time and preserves a deliberate pause. `/?audio` previews all six
@@ -49,6 +51,7 @@ Current release controls:
 
 | Action | Keyboard | Standard controller |
 | --- | --- | --- |
+| Start / replay | Space | Primary face button |
 | Move | Left/Right arrows or A/D | D-pad or left stick |
 | Jump | Space | Primary face button |
 | Pause/resume | Escape | Start |

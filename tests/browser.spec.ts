@@ -4,7 +4,7 @@ test('production canvas loads, scales and recovers from focus loss', async ({ pa
   const errors: string[] = [];
   page.on('pageerror', (error) => errors.push(error.message));
   page.on('console', (message) => { if (message.type() === 'error') errors.push(message.text()); });
-  await page.goto('/');
+  await page.goto('/?scene=foundation');
   await expect(page.locator('#status')).toHaveText('Foundation preview · Escape to pause · M to mute');
   const canvas = page.locator('canvas');
   await expect(canvas).toHaveAttribute('width', '426');
@@ -142,15 +142,17 @@ test('adventure renders hurt feedback after hazard contact', async ({ page }) =>
   expect(redFeedbackPixels).toBeGreaterThan(20);
 });
 
-test('adventure screen starts and shows a replayable title flow', async ({ page }) => {
-  await page.goto('/?scene=adventure');
-  await expect(page.locator('#status')).toContainText('Adventure preview', { timeout: 15000 });
+test('default main menu starts the Plains level with Space', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
   await page.keyboard.press('Space');
-  await page.waitForTimeout(80);
+  await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
   await page.keyboard.press('Escape');
-  await expect(page.locator('#status')).toContainText('Paused');
+  await expect(page.locator('#status')).toHaveText('Paused · Escape to resume');
   await page.keyboard.press('Escape');
-  await expect(page.locator('canvas')).toHaveAttribute('width', '426');
+  await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
+  await page.reload();
+  await expect(page.locator('#status')).toContainText('Adventure preview · Title');
 });
 
 test('adventure mute control updates the audio state', async ({ page }) => {
@@ -308,7 +310,7 @@ test('adventure pause freezes progress and reload starts a fresh in-memory run',
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
 });
 
-test('adventure accepts a standard controller Start pause and D-pad movement', async ({ page }) => {
+test('default main menu accepts controller primary-button start, Start pause and D-pad movement', async ({ page }) => {
   await page.addInitScript(() => {
     const buttons = Array.from({ length: 17 }, () => ({ pressed: false, touched: false, value: 0 }));
     const pad = {
@@ -318,12 +320,16 @@ test('adventure accepts a standard controller Start pause and D-pad movement', a
     Object.defineProperty(navigator, 'getGamepads', { configurable: true, value: () => [pad] });
     Object.assign(window, { smokeController: pad });
   });
-  await page.goto('/?scene=adventure');
-  await expect(page.locator('#status')).toContainText('Adventure preview');
-  await page.keyboard.press('Space');
-  await page.waitForTimeout(80);
+  await page.goto('/');
+  await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
+  await page.evaluate(() => {
+    const pad = (window as unknown as { smokeController: { buttons: { pressed: boolean }[] } }).smokeController;
+    pad.buttons[0].pressed = true;
+  });
+  await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
   await page.evaluate(() => {
     const pad = (window as unknown as { smokeController: { axes: number[]; buttons: { pressed: boolean }[] } }).smokeController;
+    pad.buttons[0].pressed = false;
     pad.axes[0] = 1;
     pad.buttons[15].pressed = true;
   });

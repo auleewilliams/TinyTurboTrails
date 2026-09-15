@@ -1,7 +1,7 @@
 # Plains adventure and screens — issue #6
 
-Open `/?scene=adventure` for the complete first-play shell. The title screen
-starts with Space, the loading state is entered before local assets are ready,
+Open `/` (or `/?scene=adventure`) for the complete first-play shell. The title screen
+starts with Space or the controller's primary face button, the loading state is entered before local assets are ready,
 and the playable route uses the issue #4 level, issue #3 movement and issue #5
 run interactions. Escape uses the foundation pause gate, freezing the fixed-step
 simulation; Space on the finish screen creates a fresh run and returns to title.
