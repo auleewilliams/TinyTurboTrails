@@ -29,10 +29,11 @@ export const PLAINS_LEVEL: LevelData = {
     { x1: 1700, x2: 2030, y1: 198, y2: 198 }, { x1: 2030, x2: 2140, y1: 198, y2: 170 },
     { x1: 2140, x2: 2400, y1: 170, y2: 170 },
   ],
+  // Y is the terrain height at X (including ramps), shared with Henry’s recovery feet.
   checkpoints: [
-    { id: 'checkpoint-meadow', x: 570, y: 124 },
-    { id: 'checkpoint-hillside', x: 1220, y: 108 },
-    { id: 'checkpoint-cave', x: 1780, y: 164 },
+    { id: 'checkpoint-meadow', x: 570, y: 158 },
+    { id: 'checkpoint-hillside', x: 1220, y: 163 },
+    { id: 'checkpoint-cave', x: 1780, y: 198 },
   ],
   entities: [
     { id: 'gem-001', kind: 'gem', x: 150, y: 150, asset: 'gem', layer: 'world' },
@@ -52,9 +53,9 @@ export const PLAINS_LEVEL: LevelData = {
     { id: 'tree-001', kind: 'decoration', x: 300, y: 74, asset: 'tree', layer: 'back' },
     { id: 'tree-002', kind: 'decoration', x: 980, y: 74, asset: 'tree', layer: 'back' },
     { id: 'tree-003', kind: 'decoration', x: 1640, y: 74, asset: 'tree', layer: 'back' },
-    { id: 'checkpoint-meadow', kind: 'checkpoint', x: 570, y: 124, asset: 'checkpoint', layer: 'world' },
-    { id: 'checkpoint-hillside', kind: 'checkpoint', x: 1220, y: 108, asset: 'checkpoint', layer: 'world' },
-    { id: 'checkpoint-cave', kind: 'checkpoint', x: 1780, y: 164, asset: 'checkpoint', layer: 'world' },
+    { id: 'checkpoint-meadow', kind: 'checkpoint', x: 570, y: 158, asset: 'checkpoint', layer: 'world' },
+    { id: 'checkpoint-hillside', kind: 'checkpoint', x: 1220, y: 163, asset: 'checkpoint', layer: 'world' },
+    { id: 'checkpoint-cave', kind: 'checkpoint', x: 1780, y: 198, asset: 'checkpoint', layer: 'world' },
   ],
 };
 

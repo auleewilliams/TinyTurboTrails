@@ -22,3 +22,11 @@ processed RGBA atlas is under `public/assets/plains/`. The source remains
 available for review and can be regenerated with the atlas-processing script.
 Full route traversal, collision interaction, enemy behavior and final visual
 contrast tuning continue in issues #5, #6 and #8.
+
+Checkpoint coordinates are terrain foot positions: meadow `(570, 158)`, hillside
+`(1220, 163)` and cave `(1780, 198)`. The hillside Y follows the slope between
+`(1120, 198)` and `(1280, 142)`. Entity placement and recovery use these same
+coordinates. Atlas metadata supplies a checkpoint anchor `(20, 44)` to account
+for the post position and transparent bottom padding; other assets retain the
+bottom-center default. Regression tests cover ground activation in the adventure,
+recovery at every checkpoint with gems retained, and scaled sprite anchoring.

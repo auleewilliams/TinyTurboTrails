@@ -352,3 +352,56 @@ test('default main menu accepts controller primary-button start, Start pause and
   });
   await expect(page.locator('#status')).toContainText('Adventure preview');
 });
+
+test('all checkpoints activate along the ground route and render planted markers', async ({ page }, info) => {
+  test.setTimeout(60000);
+  // Observe the visible HUD without adding test-only state to the game.
+  await page.addInitScript(() => {
+    const fillText = CanvasRenderingContext2D.prototype.fillText;
+    CanvasRenderingContext2D.prototype.fillText = function (text, x, y, maxWidth) {
+      if (text.startsWith('GEMS ')) document.querySelector('canvas')?.setAttribute('data-test-hud', text);
+      if (maxWidth === undefined) fillText.call(this, text, x, y);
+      else fillText.call(this, text, x, y, maxWidth);
+    };
+  });
+  await page.goto('/?scene=adventure&debug=1');
+  await expect(page.locator('#status')).toContainText('Adventure preview · Title');
+  await page.keyboard.press('Space');
+  await page.keyboard.down('ArrowRight');
+  const checkpoints = [
+    { id: 'checkpoint-meadow', x: 570, ground: 158 },
+    { id: 'checkpoint-hillside', x: 1220, ground: 163 },
+    { id: 'checkpoint-cave', x: 1780, ground: 198 },
+  ];
+  const jumped = new Set<number>();
+  for (const checkpoint of checkpoints) {
+    for (let step = 0; step < 300; step++) {
+      const status = await page.locator('#status').innerText();
+      const x = Number(status.match(/X (\d+)/)?.[1] ?? 0);
+      const obstacle = [430, 920, 1040].find((candidate) => x > candidate - 95 && x < candidate && !jumped.has(candidate));
+      if (obstacle !== undefined) {
+        jumped.add(obstacle);
+        await page.keyboard.down('Space');
+        await page.waitForTimeout(250);
+        await page.keyboard.up('Space');
+      }
+      const hud = await page.locator('canvas').getAttribute('data-test-hud');
+      if (hud?.includes(checkpoint.id)) {
+        // On the hillside the contact point is up to 18px left of the flag.
+        const y = Number(status.match(/Y (\d+)/)?.[1] ?? 0);
+        expect(Math.abs(y + 34 - checkpoint.ground)).toBeLessThanOrEqual(7);
+        // Walk just past the flag so Henry does not obscure its base in the evidence.
+        await page.waitForTimeout(300);
+        await page.keyboard.up('ArrowRight');
+        await page.waitForTimeout(150);
+        await info.attach(checkpoint.id, { body: await page.locator('canvas').screenshot(), contentType: 'image/png' });
+        await page.keyboard.down('ArrowRight');
+        break;
+      }
+      expect(x, `passed ${checkpoint.id} without activation`).toBeLessThan(checkpoint.x + 35);
+      await page.waitForTimeout(50);
+    }
+    await expect(page.locator('canvas')).toHaveAttribute('data-test-hud', new RegExp(checkpoint.id));
+  }
+  await page.keyboard.up('ArrowRight');
+});

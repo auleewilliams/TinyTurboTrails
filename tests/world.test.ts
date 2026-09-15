@@ -1,5 +1,6 @@
 import { expect, it } from 'vitest';
 import { PLAINS_LEVEL, validateLevel } from '../src/world/level';
+import { surfaceY } from '../src/game/movement';
 import { Camera } from '../src/world/camera';
 
 it('has stable unique entity IDs and traversable terrain data', () => {
@@ -33,4 +34,12 @@ it('keeps camera at both world bounds', () => {
   expect(camera.position).toEqual({ x: 0, y: 0 });
   camera.update(1000, 1000);
   expect(camera.position).toEqual({ x: 374, y: 160 });
+});
+
+it.each(PLAINS_LEVEL.checkpoints)('plants $id and its recovery point on the terrain', (checkpoint) => {
+  const ground = surfaceY(PLAINS_LEVEL, checkpoint.x);
+  expect(checkpoint.y).toBe(ground);
+  expect(PLAINS_LEVEL.entities.find((entity) => entity.id === checkpoint.id)).toMatchObject({
+    kind: 'checkpoint', x: checkpoint.x, y: ground,
+  });
 });

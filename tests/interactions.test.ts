@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { DEFAULT_MOVEMENT, createPlayer, type Player } from '../src/game/movement';
+import { DEFAULT_MOVEMENT, createPlayer, simulatePlayer, surfaceY, type Player } from '../src/game/movement';
 import { PLAINS_LEVEL } from '../src/world/level';
 import { applySpring, activateCheckpoint, collectGem, createRun, damagePlayer, recoverFromFall, startNewRun, tickRun, type RunEvent } from '../src/game/interactions';
 
@@ -83,11 +83,16 @@ describe('in-memory run interactions', () => {
       henry.x = checkpoint.x + 200; henry.y = PLAINS_LEVEL.height + 100; henry.vx = 240; henry.vy = 900;
       recoverFromFall(run, henry, log, PLAINS_LEVEL);
       expect(henry.x).toBe(checkpoint.x);
-      expect(henry.y).toBe(checkpoint.y - DEFAULT_MOVEMENT.height);
+      expect(henry.y + DEFAULT_MOVEMENT.height).toBe(surfaceY(PLAINS_LEVEL, checkpoint.x));
       expect(henry.vx).toBe(0);
       expect(henry.vy).toBe(0);
       expect(henry.onGround).toBe(true);
       expect(run.collectedGems.has('gem-001')).toBe(true);
+      expect(collectGem(run, 'gem-001', log)).toBe(false);
+      simulatePlayer(henry, { horizontal: 0, jumpPressed: false, jumpHeld: false }, PLAINS_LEVEL, 1 / 60);
+      expect(henry.y + DEFAULT_MOVEMENT.height).toBe(surfaceY(PLAINS_LEVEL, henry.x));
+      expect(henry.vy).toBe(0);
+      expect(henry.onGround).toBe(true);
     }
   });
 });
