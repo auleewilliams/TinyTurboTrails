@@ -1,4 +1,6 @@
 import { expect, test } from '@playwright/test';
+import { PLAINS_LEVEL } from '../src/world/level';
+import { DEFAULT_MOVEMENT, surfaceY } from '../src/game/movement';
 
 test('production canvas loads, scales and recovers from focus loss', async ({ page, browser }, info) => {
   const errors: string[] = [];
@@ -368,11 +370,9 @@ test('all checkpoints activate along the ground route and render planted markers
   await expect(page.locator('#status')).toContainText('Adventure preview · Title');
   await page.keyboard.press('Space');
   await page.keyboard.down('ArrowRight');
-  const checkpoints = [
-    { id: 'checkpoint-meadow', x: 570, ground: 158 },
-    { id: 'checkpoint-hillside', x: 1220, ground: 163 },
-    { id: 'checkpoint-cave', x: 1780, ground: 198 },
-  ];
+  // Terrain heights come from surfaceY rather than being restated here, so the check
+  // cannot drift from the level data the way the coordinates in #26 did.
+  const checkpoints = PLAINS_LEVEL.checkpoints;
   const jumped = new Set<number>();
   for (const checkpoint of checkpoints) {
     for (let step = 0; step < 300; step++) {
@@ -387,9 +387,12 @@ test('all checkpoints activate along the ground route and render planted markers
       }
       const hud = await page.locator('canvas').getAttribute('data-test-hud');
       if (hud?.includes(checkpoint.id)) {
-        // On the hillside the contact point is up to 18px left of the flag.
+        // Activation is detected anywhere in the 18px window around the flag, so compare
+        // Henry's feet to the terrain beneath him rather than to the flag's own height:
+        // the hillside marker sits on a ramp, where those two differ by the slope alone.
+        // X and Y come from one status sample, so they describe the same frame.
         const y = Number(status.match(/Y (\d+)/)?.[1] ?? 0);
-        expect(Math.abs(y + 34 - checkpoint.ground)).toBeLessThanOrEqual(7);
+        expect(Math.abs(y + DEFAULT_MOVEMENT.height - surfaceY(PLAINS_LEVEL, x))).toBeLessThanOrEqual(2);
         // Walk just past the flag so Henry does not obscure its base in the evidence.
         await page.waitForTimeout(300);
         await page.keyboard.up('ArrowRight');
