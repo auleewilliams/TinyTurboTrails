@@ -15,12 +15,19 @@ Install Node.js 22.12 or newer (Node 22 LTS is used in CI), then:
 git clone https://github.com/auleewilliams/TinyTurboTrails.git
 cd TinyTurboTrails
 npm ci
-npm run dev
+npm run play
 ```
 
-Open the local URL printed by Vite. Stop the server with Ctrl+C. An adult must
-start the server and open the page for Henry; public hosting is out of scope.
+`npm run play` starts the local server and opens `/?scene=adventure` in your
+default browser on Windows, macOS and Linux. Press Space or the controller's
+primary face button at the title screen to begin. If the browser does not open,
+open the local URL printed by Vite and append `/?scene=adventure`; Vite may use
+another port if its default is busy. Stop the server with Ctrl+C.
+
+An adult must run the launch command for Henry; public hosting is out of scope.
 No credentials, backend or image-generation service are needed to run the app.
+For development, `npm run dev` still starts the local server without opening a
+browser; open the printed URL or your preferred diagnostic route manually.
 
 ```sh
 npm run typecheck     # TypeScript checks

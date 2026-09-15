@@ -9,12 +9,17 @@ after acceptance should be tracked as follow-up issues.
 ## Launch
 
 An adult or developer installs Node.js 22.12 or newer, runs `npm ci`, then runs
-`npm run dev` from the repository. Open the local Vite URL in a desktop browser.
-For Henry, an adult starts the server and opens the adventure URL:
-`http://localhost:5173/?scene=adventure`. The game has no public hosting or
-backend service; a player who cannot start a dev server needs an adult to do
-this launch step. A production bundle can be served with `npm run build` and
-`npm run preview`.
+`npm run play` from the repository. On Windows, macOS and Linux, this starts the
+local server and opens `/?scene=adventure` in the default browser for Henry.
+Press Space or the controller's primary face button at the title screen to
+begin. If the browser does not open, use the local URL printed by Vite and append
+`/?scene=adventure`. Use the printed port, since Vite chooses another if the
+default is busy. Stop the server with Ctrl+C.
+
+For development, `npm run dev` still starts the server without opening a browser.
+The game has no public hosting or backend service; a player who cannot start a
+dev server needs an adult to do this launch step. A production bundle can be
+served with `npm run build` and `npm run preview`.
 
 The checked commands are `npm run typecheck`, `npm test`, `npm run build` and
 `npm run test:browser`. `npm test` currently covers 48 unit tests in 10 files.
