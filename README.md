@@ -15,19 +15,15 @@ Install Node.js 22.12 or newer (Node 22 LTS is used in CI), then:
 git clone https://github.com/auleewilliams/TinyTurboTrails.git
 cd TinyTurboTrails
 npm ci
-npm run play
+npm run dev
 ```
 
-`npm run play` starts the local server and opens `/?scene=adventure` in your
-default browser on Windows, macOS and Linux. Press Space or the controller's
-primary face button at the title screen to begin. If the browser does not open,
-open the local URL printed by Vite and append `/?scene=adventure`; Vite may use
-another port if its default is busy. Stop the server with Ctrl+C.
-
-An adult must run the launch command for Henry; public hosting is out of scope.
+Open the URL printed by Vite with `?scene=adventure` appended (normally
+`http://127.0.0.1:5173/?scene=adventure`). Press **Space** or the controller’s
+**primary face button** to start. The bare `/` URL opens a diagnostic screen.
+Stop the server with Ctrl+C. An adult must start the server and open the adventure
+page for Henry; public hosting is out of scope.
 No credentials, backend or image-generation service are needed to run the app.
-For development, `npm run dev` still starts the local server without opening a
-browser; open the printed URL or your preferred diagnostic route manually.
 
 ```sh
 npm run typecheck     # TypeScript checks
@@ -44,10 +40,8 @@ same checks on pushes and pull requests.
 
 ## Controls
 
-Open `/` for the adventure title screen, then press Space or the controller's
-primary face button to start the Plains level. `/?scene=adventure` opens the same
-game; `/?scene=foundation` opens the diagnostic foundation preview.
-Music unlocks after keyboard,
+Open `/` for the foundation screen or `/?scene=adventure` for the title,
+gameplay, pause, finish and replay shell. Music unlocks after keyboard,
 controller or canvas pointer interaction (subject to browser audio policy).
 Switching away pauses audio and freezes the simulation; returning discards
 elapsed time and preserves a deliberate pause. `/?audio` previews all six
@@ -96,3 +90,20 @@ Known limitations and out of scope: public hosting, touch controls, extra biomes
 mining/building/crafting and persistent saves. The full current/previous-major
 browser matrix, Safari on macOS, physical controller listening and final manual
 route certification remain pending; see [release verification](docs/RELEASE-VERIFICATION.md).
+
+## Verification and known defects
+
+On **2026-09-15**, a fresh local clone on **Ubuntu 26.04.1 LTS**, Node **22.22.1**
+and npm **9.2.0** passed cached dependency installation, type-checking, **48 unit
+tests**, production build and a development-server adventure launch. Production
+browser results: **Chromium 153.0.8010.12: 18 passed**; **Firefox 155.0: 17 passed,
+1 native-audio skip**; **WebKit: all 18 cases blocked at launch by missing host
+libraries**. Keyboard/pointer and simulated standard-controller inputs were used;
+no physical controller was tested. This was not a clean-machine installation.
+
+Known blocking defect: [#26 — checkpoints sit above the ground](https://github.com/auleewilliams/TinyTurboTrails/issues/26),
+affecting grounded activation and recovery placement. No open non-blocking
+defect was identified in the issue inventory reviewed on 2026-09-15. Certification
+and issue #9 closeout remain pending the checkpoint fix and full manual matrix.
+See [release evidence and limits](docs/RELEASE-VERIFICATION.md) and the
+[manual worksheet](docs/RELEASE-MANUAL-CHECKLIST.md).
