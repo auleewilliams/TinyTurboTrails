@@ -1,8 +1,10 @@
 # Tiny Turbo Trails — first playable release
 
-This document describes the current first-playable candidate. It is written for
-someone returning to the repository or launching it for Henry, without needing
-to reconstruct decisions from issue history.
+This document describes the accepted MVP baseline. It is written for someone
+returning to the repository or launching it for Henry, without needing to
+reconstruct decisions from issue history. The MVP is playable, but it is not a
+claim that every bug or release-certification check is complete; defects found
+after acceptance should be tracked as follow-up issues.
 
 ## Launch
 
