@@ -1,0 +1,95 @@
+export interface InputFrame {
+  horizontal: number;
+  jumpHeld: boolean;
+  jumpPressed: boolean;
+  pausePressed: boolean;
+  mutePressed: boolean;
+}
+
+const KEYS = new Set(['ArrowLeft', 'ArrowRight', 'KeyA', 'KeyD', 'Space', 'Escape', 'KeyM']);
+
+/** Polled every rendered frame, even while simulation is paused. */
+export class BrowserInput {
+  private held = new Set<string>();
+  private pressed = new Set<string>();
+  private previousPadJump = false;
+  private previousPadPause = false;
+  private blockedPads = false;
+  private focused = true;
+
+  constructor(private readonly target: Window, private readonly interact: () => void) {
+    target.addEventListener('keydown', this.keyDown);
+    target.addEventListener('keyup', this.keyUp);
+    target.addEventListener('gamepaddisconnected', this.clear);
+  }
+
+  private keyDown = (event: KeyboardEvent): void => {
+    if (!this.focused) return;
+    if (!KEYS.has(event.code)) return;
+    event.preventDefault();
+    if (event.repeat) return;
+    if (!this.held.has(event.code)) this.pressed.add(event.code);
+    this.held.add(event.code);
+    this.interact();
+  };
+
+  private keyUp = (event: KeyboardEvent): void => {
+    this.held.delete(event.code);
+  };
+
+  clear = (): void => {
+    this.held.clear();
+    this.pressed.clear();
+    this.previousPadJump = false;
+    this.previousPadPause = false;
+    // Require release after focus recovery before accepting held controller input.
+    this.blockedPads = true;
+  };
+
+  setFocused(focused: boolean): void {
+    if (focused !== this.focused) this.clear();
+    this.focused = focused;
+  }
+
+  poll(): InputFrame {
+    if (!this.focused) {
+      return { horizontal: 0, jumpHeld: false, jumpPressed: false, pausePressed: false, mutePressed: false };
+    }
+    const pads = this.target.navigator.getGamepads?.() ?? [];
+    const pad = Array.from(pads).find((item) => item?.connected && item.mapping === 'standard');
+    let axis = pad?.axes[0] ?? 0;
+    if (Math.abs(axis) < 0.2) axis = 0;
+    let left = pad?.buttons[14]?.pressed ?? false;
+    let right = pad?.buttons[15]?.pressed ?? false;
+    let jump = pad?.buttons[0]?.pressed ?? false;
+    let pause = pad?.buttons[9]?.pressed ?? false;
+    if (this.blockedPads) {
+      if (!axis && !left && !right && !jump && !pause) this.blockedPads = false;
+      axis = 0;
+      left = right = jump = pause = false;
+    }
+    const padJumpPressed = jump && !this.previousPadJump;
+    const padPausePressed = pause && !this.previousPadPause;
+    if (padJumpPressed || padPausePressed) this.interact();
+    const keyboardAxis = Number(this.held.has('ArrowRight') || this.held.has('KeyD'))
+      - Number(this.held.has('ArrowLeft') || this.held.has('KeyA'));
+    const frame = {
+      horizontal: Math.max(-1, Math.min(1, keyboardAxis + axis + Number(right) - Number(left))),
+      jumpHeld: this.held.has('Space') || jump,
+      jumpPressed: this.pressed.has('Space') || padJumpPressed,
+      pausePressed: this.pressed.has('Escape') || padPausePressed,
+      mutePressed: this.pressed.has('KeyM'),
+    };
+    this.pressed.clear();
+    this.previousPadJump = jump;
+    this.previousPadPause = pause;
+    return frame;
+  }
+
+  dispose(): void {
+    this.target.removeEventListener('keydown', this.keyDown);
+    this.target.removeEventListener('keyup', this.keyUp);
+    this.target.removeEventListener('gamepaddisconnected', this.clear);
+    this.clear();
+  }
+}
