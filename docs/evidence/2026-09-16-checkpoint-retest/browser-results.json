@@ -1,0 +1,383 @@
+{
+  "candidateCommit": "4ad2732d25def8c19f31c0bd8d514637d8b31249",
+  "runtimeCommit": "c46aaa2065ab5c649a73be06da81151ac63e6e3f",
+  "fixPullRequest": 41,
+  "os": "macOS 26.6.2 (25G83), arm64",
+  "node": "v22.23.2",
+  "npm": "10.9.8",
+  "playwright": "1.63.0",
+  "command": "npm run test:browser -- --workers=2 --reporter=json",
+  "exitCode": 0,
+  "browserVersions": {
+    "chromium": "153.0.8010.12",
+    "firefox": "155.0",
+    "webkit": "26.6"
+  },
+  "stats": {
+    "startTime": "2026-09-15T20:11:12.707Z",
+    "duration": 57996.573,
+    "expected": 57,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "results": [
+    {
+      "project": "chromium",
+      "test": "audio stays locked until interaction and supports all effects, mute, pause and stop",
+      "status": "passed",
+      "durationMs": 1215
+    },
+    {
+      "project": "chromium",
+      "test": "game remains interactive when Web Audio is unavailable",
+      "status": "passed",
+      "durationMs": 178
+    },
+    {
+      "project": "firefox",
+      "test": "audio stays locked until interaction and supports all effects, mute, pause and stop",
+      "status": "passed",
+      "durationMs": 2301
+    },
+    {
+      "project": "firefox",
+      "test": "game remains interactive when Web Audio is unavailable",
+      "status": "passed",
+      "durationMs": 282
+    },
+    {
+      "project": "webkit",
+      "test": "audio stays locked until interaction and supports all effects, mute, pause and stop",
+      "status": "passed",
+      "durationMs": 1574
+    },
+    {
+      "project": "webkit",
+      "test": "game remains interactive when Web Audio is unavailable",
+      "status": "passed",
+      "durationMs": 266
+    },
+    {
+      "project": "chromium",
+      "test": "production canvas loads, scales and recovers from focus loss",
+      "status": "passed",
+      "durationMs": 598
+    },
+    {
+      "project": "chromium",
+      "test": "art preview loads local assets and reports a missing atlas",
+      "status": "passed",
+      "durationMs": 144
+    },
+    {
+      "project": "chromium",
+      "test": "starter atlas contains real transparency and every frame stays within its cell",
+      "status": "passed",
+      "durationMs": 74
+    },
+    {
+      "project": "chromium",
+      "test": "movement preview accepts keyboard movement and jump input",
+      "status": "passed",
+      "durationMs": 284
+    },
+    {
+      "project": "chromium",
+      "test": "world preview loads generated Plains assets and level data",
+      "status": "passed",
+      "durationMs": 217
+    },
+    {
+      "project": "chromium",
+      "test": "gameplay preview collects a gem and reaches a checkpoint",
+      "status": "passed",
+      "durationMs": 961
+    },
+    {
+      "project": "chromium",
+      "test": "adventure renders hurt feedback after hazard contact",
+      "status": "passed",
+      "durationMs": 2029
+    },
+    {
+      "project": "chromium",
+      "test": "default main menu starts the Plains level with Space",
+      "status": "passed",
+      "durationMs": 156
+    },
+    {
+      "project": "chromium",
+      "test": "adventure mute control updates the audio state",
+      "status": "passed",
+      "durationMs": 130
+    },
+    {
+      "project": "chromium",
+      "test": "adventure remains playable when Web Audio is unavailable",
+      "status": "passed",
+      "durationMs": 344
+    },
+    {
+      "project": "chromium",
+      "test": "adventure keeps its letterbox and pauses on focus loss",
+      "status": "passed",
+      "durationMs": 104
+    },
+    {
+      "project": "chromium",
+      "test": "adventure exposes retry when a required asset fails to load",
+      "status": "passed",
+      "durationMs": 108
+    },
+    {
+      "project": "chromium",
+      "test": "adventure clears held controller input after disconnect",
+      "status": "passed",
+      "durationMs": 711
+    },
+    {
+      "project": "chromium",
+      "test": "adventure can complete the forgiving route and replay from a fresh title",
+      "status": "passed",
+      "durationMs": 11360
+    },
+    {
+      "project": "chromium",
+      "test": "adventure pause freezes progress and reload starts a fresh in-memory run",
+      "status": "passed",
+      "durationMs": 656
+    },
+    {
+      "project": "chromium",
+      "test": "default main menu accepts controller primary-button start, Start pause and D-pad movement",
+      "status": "passed",
+      "durationMs": 347
+    },
+    {
+      "project": "chromium",
+      "test": "all checkpoints activate along the ground route and render planted markers",
+      "status": "passed",
+      "durationMs": 9053,
+      "screenshots": [
+        "chromium-checkpoint-meadow.png",
+        "chromium-checkpoint-hillside.png",
+        "chromium-checkpoint-cave.png"
+      ]
+    },
+    {
+      "project": "firefox",
+      "test": "production canvas loads, scales and recovers from focus loss",
+      "status": "passed",
+      "durationMs": 406
+    },
+    {
+      "project": "firefox",
+      "test": "art preview loads local assets and reports a missing atlas",
+      "status": "passed",
+      "durationMs": 298
+    },
+    {
+      "project": "firefox",
+      "test": "starter atlas contains real transparency and every frame stays within its cell",
+      "status": "passed",
+      "durationMs": 138
+    },
+    {
+      "project": "firefox",
+      "test": "movement preview accepts keyboard movement and jump input",
+      "status": "passed",
+      "durationMs": 386
+    },
+    {
+      "project": "firefox",
+      "test": "world preview loads generated Plains assets and level data",
+      "status": "passed",
+      "durationMs": 304
+    },
+    {
+      "project": "firefox",
+      "test": "gameplay preview collects a gem and reaches a checkpoint",
+      "status": "passed",
+      "durationMs": 1077
+    },
+    {
+      "project": "firefox",
+      "test": "adventure renders hurt feedback after hazard contact",
+      "status": "passed",
+      "durationMs": 2038
+    },
+    {
+      "project": "firefox",
+      "test": "default main menu starts the Plains level with Space",
+      "status": "passed",
+      "durationMs": 488
+    },
+    {
+      "project": "firefox",
+      "test": "adventure mute control updates the audio state",
+      "status": "passed",
+      "durationMs": 232
+    },
+    {
+      "project": "firefox",
+      "test": "adventure remains playable when Web Audio is unavailable",
+      "status": "passed",
+      "durationMs": 396
+    },
+    {
+      "project": "firefox",
+      "test": "adventure keeps its letterbox and pauses on focus loss",
+      "status": "passed",
+      "durationMs": 193
+    },
+    {
+      "project": "firefox",
+      "test": "adventure exposes retry when a required asset fails to load",
+      "status": "passed",
+      "durationMs": 213
+    },
+    {
+      "project": "firefox",
+      "test": "adventure clears held controller input after disconnect",
+      "status": "passed",
+      "durationMs": 742
+    },
+    {
+      "project": "firefox",
+      "test": "adventure can complete the forgiving route and replay from a fresh title",
+      "status": "passed",
+      "durationMs": 11317
+    },
+    {
+      "project": "firefox",
+      "test": "adventure pause freezes progress and reload starts a fresh in-memory run",
+      "status": "passed",
+      "durationMs": 759
+    },
+    {
+      "project": "firefox",
+      "test": "default main menu accepts controller primary-button start, Start pause and D-pad movement",
+      "status": "passed",
+      "durationMs": 357
+    },
+    {
+      "project": "firefox",
+      "test": "all checkpoints activate along the ground route and render planted markers",
+      "status": "passed",
+      "durationMs": 8980,
+      "screenshots": [
+        "firefox-checkpoint-meadow.png",
+        "firefox-checkpoint-hillside.png",
+        "firefox-checkpoint-cave.png"
+      ]
+    },
+    {
+      "project": "webkit",
+      "test": "production canvas loads, scales and recovers from focus loss",
+      "status": "passed",
+      "durationMs": 451
+    },
+    {
+      "project": "webkit",
+      "test": "art preview loads local assets and reports a missing atlas",
+      "status": "passed",
+      "durationMs": 220
+    },
+    {
+      "project": "webkit",
+      "test": "starter atlas contains real transparency and every frame stays within its cell",
+      "status": "passed",
+      "durationMs": 167
+    },
+    {
+      "project": "webkit",
+      "test": "movement preview accepts keyboard movement and jump input",
+      "status": "passed",
+      "durationMs": 371
+    },
+    {
+      "project": "webkit",
+      "test": "world preview loads generated Plains assets and level data",
+      "status": "passed",
+      "durationMs": 311
+    },
+    {
+      "project": "webkit",
+      "test": "gameplay preview collects a gem and reaches a checkpoint",
+      "status": "passed",
+      "durationMs": 1047
+    },
+    {
+      "project": "webkit",
+      "test": "adventure renders hurt feedback after hazard contact",
+      "status": "passed",
+      "durationMs": 2029
+    },
+    {
+      "project": "webkit",
+      "test": "default main menu starts the Plains level with Space",
+      "status": "passed",
+      "durationMs": 243
+    },
+    {
+      "project": "webkit",
+      "test": "adventure mute control updates the audio state",
+      "status": "passed",
+      "durationMs": 194
+    },
+    {
+      "project": "webkit",
+      "test": "adventure remains playable when Web Audio is unavailable",
+      "status": "passed",
+      "durationMs": 374
+    },
+    {
+      "project": "webkit",
+      "test": "adventure keeps its letterbox and pauses on focus loss",
+      "status": "passed",
+      "durationMs": 184
+    },
+    {
+      "project": "webkit",
+      "test": "adventure exposes retry when a required asset fails to load",
+      "status": "passed",
+      "durationMs": 199
+    },
+    {
+      "project": "webkit",
+      "test": "adventure clears held controller input after disconnect",
+      "status": "passed",
+      "durationMs": 741
+    },
+    {
+      "project": "webkit",
+      "test": "adventure can complete the forgiving route and replay from a fresh title",
+      "status": "passed",
+      "durationMs": 11347
+    },
+    {
+      "project": "webkit",
+      "test": "adventure pause freezes progress and reload starts a fresh in-memory run",
+      "status": "passed",
+      "durationMs": 739
+    },
+    {
+      "project": "webkit",
+      "test": "default main menu accepts controller primary-button start, Start pause and D-pad movement",
+      "status": "passed",
+      "durationMs": 380
+    },
+    {
+      "project": "webkit",
+      "test": "all checkpoints activate along the ground route and render planted markers",
+      "status": "passed",
+      "durationMs": 9053,
+      "screenshots": [
+        "webkit-checkpoint-meadow.png",
+        "webkit-checkpoint-hillside.png",
+        "webkit-checkpoint-cave.png"
+      ]
+    }
+  ]
+}

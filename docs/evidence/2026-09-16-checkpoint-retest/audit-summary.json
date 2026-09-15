@@ -1,0 +1,3961 @@
+{
+  "startedAt": "2026-09-15T20:11:13.870Z",
+  "candidateCommit": "4ad2732d25def8c19f31c0bd8d514637d8b31249",
+  "runtimeCommit": "c46aaa2065ab5c649a73be06da81151ac63e6e3f",
+  "fixPullRequest": 41,
+  "os": "ProductName:\t\tmacOS\nProductVersion:\t\t26.6.2\nBuildVersion:\t\t25G83",
+  "input": "Playwright keyboard events; no physical input",
+  "method": "Unmodified production build. Canvas wrappers only observe HUD text and draw calls. Gamepad polling returns no devices to isolate scripted keyboard input from concurrent physical playtesting.",
+  "groundedCheckpoints": true,
+  "browsers": [
+    {
+      "name": "chromium",
+      "version": "153.0.8010.12",
+      "errors": [],
+      "failedRequests": [],
+      "requests": [
+        "http://127.0.0.1:4173/?scene=adventure&debug=1",
+        "http://127.0.0.1:4173/assets/index-DXd_UZOO.js",
+        "http://127.0.0.1:4173/assets/index-qi-cmGDo.css",
+        "http://127.0.0.1:4173/assets/plains/manifest.json",
+        "http://127.0.0.1:4173/assets/henry/manifest.json",
+        "http://127.0.0.1:4173/assets/plains/environment.png",
+        "http://127.0.0.1:4173/assets/henry/starter.png",
+        "http://127.0.0.1:4173/assets/henry/reference.png",
+        "http://127.0.0.1:4173/?scene=art"
+      ],
+      "routes": [
+        {
+          "mode": "no-jump",
+          "elapsedMs": 11006,
+          "finish": {
+            "status": "Adventure preview · Finish · Gems 0 · X 2310 Y 136 V 220 · Escape to pause · M to mute",
+            "hud": "GEMS 0   CHECKPOINT checkpoint-cave",
+            "localStorage": [],
+            "sessionStorage": []
+          },
+          "afterReplay": {
+            "status": "Adventure preview · Playing · X 48 Y 164 V 0 · Escape to pause · M to mute",
+            "hud": "GEMS 0   CHECKPOINT START",
+            "localStorage": [],
+            "sessionStorage": []
+          },
+          "captures": [
+            {
+              "checkpointX": 570,
+              "status": "Adventure preview · Playing · X 605 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow",
+              "localStorage": [],
+              "sessionStorage": []
+            },
+            {
+              "checkpointX": 1220,
+              "status": "Adventure preview · Playing · X 1255 Y 117 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside",
+              "localStorage": [],
+              "sessionStorage": []
+            },
+            {
+              "checkpointX": 1780,
+              "status": "Adventure preview · Playing · X 1812 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave",
+              "localStorage": [],
+              "sessionStorage": []
+            }
+          ],
+          "samples": [
+            {
+              "ms": 3,
+              "status": "Adventure preview · Playing · X 48 Y 164 V 0 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 81,
+              "status": "Adventure preview · Playing · X 52 Y 164 V 77 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 158,
+              "status": "Adventure preview · Playing · X 60 Y 164 V 138 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 237,
+              "status": "Adventure preview · Playing · X 75 Y 164 V 215 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 315,
+              "status": "Adventure preview · Playing · X 93 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 392,
+              "status": "Adventure preview · Playing · X 108 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 469,
+              "status": "Adventure preview · Playing · X 126 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 548,
+              "status": "Adventure preview · Playing · X 145 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 625,
+              "status": "Adventure preview · Playing · X 159 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 704,
+              "status": "Adventure preview · Playing · X 177 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 782,
+              "status": "Adventure preview · Playing · X 196 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 860,
+              "status": "Adventure preview · Playing · X 214 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 938,
+              "status": "Adventure preview · Playing · X 229 Y 161 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1015,
+              "status": "Adventure preview · Playing · X 247 Y 156 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1093,
+              "status": "Adventure preview · Playing · X 265 Y 151 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1171,
+              "status": "Adventure preview · Playing · X 280 Y 147 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1249,
+              "status": "Adventure preview · Playing · X 298 Y 142 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1327,
+              "status": "Adventure preview · Playing · X 316 Y 137 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1406,
+              "status": "Adventure preview · Playing · X 331 Y 132 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1483,
+              "status": "Adventure preview · Playing · X 349 Y 127 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1561,
+              "status": "Adventure preview · Playing · X 367 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1639,
+              "status": "Adventure preview · Playing · X 382 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1716,
+              "status": "Adventure preview · Playing · X 400 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1794,
+              "status": "Adventure preview · Playing · X 418 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1872,
+              "status": "Adventure preview · Playing · X 433 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1950,
+              "status": "Adventure preview · Playing · X 451 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 2028,
+              "status": "Adventure preview · Playing · X 470 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 2106,
+              "status": "Adventure preview · Playing · X 484 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 2184,
+              "status": "Adventure preview · Playing · X 503 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 2262,
+              "status": "Adventure preview · Playing · X 521 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 2339,
+              "status": "Adventure preview · Playing · X 536 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 2416,
+              "status": "Adventure preview · Playing · X 554 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 2494,
+              "status": "Adventure preview · Playing · X 572 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 2572,
+              "status": "Adventure preview · Playing · X 587 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 2650,
+              "status": "Adventure preview · Playing · X 605 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 2764,
+              "status": "Adventure preview · Playing · X 631 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 2842,
+              "status": "Adventure preview · Playing · X 646 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 2919,
+              "status": "Adventure preview · Playing · X 664 Y 128 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 2996,
+              "status": "Adventure preview · Playing · X 682 Y 134 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 3074,
+              "status": "Adventure preview · Playing · X 697 Y 96 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 3152,
+              "status": "Adventure preview · Playing · X 715 Y 62 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 3230,
+              "status": "Adventure preview · Playing · X 734 Y 45 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 3308,
+              "status": "Adventure preview · Playing · X 748 Y 43 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 3386,
+              "status": "Adventure preview · Playing · X 767 Y 52 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 3464,
+              "status": "Adventure preview · Playing · X 785 Y 70 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 3542,
+              "status": "Adventure preview · Playing · X 800 Y 92 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 3620,
+              "status": "Adventure preview · Playing · X 818 Y 130 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 3697,
+              "status": "Adventure preview · Playing · X 836 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 3775,
+              "status": "Adventure preview · Playing · X 851 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 3852,
+              "status": "Adventure preview · Playing · X 869 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 3930,
+              "status": "Adventure preview · Playing · X 888 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 4008,
+              "status": "Adventure preview · Playing · X 902 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 4086,
+              "status": "Adventure preview · Playing · X 921 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 4164,
+              "status": "Adventure preview · Playing · X 939 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 4242,
+              "status": "Adventure preview · Playing · X 954 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 4319,
+              "status": "Adventure preview · Playing · X 972 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 4396,
+              "status": "Adventure preview · Playing · X 990 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 4473,
+              "status": "Adventure preview · Playing · X 1005 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 4551,
+              "status": "Adventure preview · Playing · X 1023 Y 164 V -220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 4628,
+              "status": "Adventure preview · Playing · X 1008 Y 155 V -168 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 4706,
+              "status": "Adventure preview · Playing · X 998 Y 158 V -127 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 4784,
+              "status": "Adventure preview · Playing · X 990 Y 164 V -65 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 4862,
+              "status": "Adventure preview · Playing · X 989 Y 164 V 11 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 4940,
+              "status": "Adventure preview · Playing · X 992 Y 164 V 73 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 5018,
+              "status": "Adventure preview · Playing · X 1002 Y 164 V 149 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 5095,
+              "status": "Adventure preview · Playing · X 1018 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 5173,
+              "status": "Adventure preview · Playing · X 1033 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 5251,
+              "status": "Adventure preview · Playing · X 1051 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 5329,
+              "status": "Adventure preview · Playing · X 1070 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 5407,
+              "status": "Adventure preview · Playing · X 1084 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 5485,
+              "status": "Adventure preview · Playing · X 1103 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 5563,
+              "status": "Adventure preview · Playing · X 1121 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 5641,
+              "status": "Adventure preview · Playing · X 1135 Y 159 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 5719,
+              "status": "Adventure preview · Playing · X 1154 Y 152 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 5797,
+              "status": "Adventure preview · Playing · X 1172 Y 146 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 5875,
+              "status": "Adventure preview · Playing · X 1186 Y 141 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 5953,
+              "status": "Adventure preview · Playing · X 1204 Y 134 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 6030,
+              "status": "Adventure preview · Playing · X 1223 Y 128 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 6108,
+              "status": "Adventure preview · Playing · X 1237 Y 123 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 6185,
+              "status": "Adventure preview · Playing · X 1255 Y 117 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 6296,
+              "status": "Adventure preview · Playing · X 1281 Y 108 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 6375,
+              "status": "Adventure preview · Playing · X 1295 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 6453,
+              "status": "Adventure preview · Playing · X 1314 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 6530,
+              "status": "Adventure preview · Playing · X 1332 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 6609,
+              "status": "Adventure preview · Playing · X 1347 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 6687,
+              "status": "Adventure preview · Playing · X 1365 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 6765,
+              "status": "Adventure preview · Playing · X 1383 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 6844,
+              "status": "Adventure preview · Playing · X 1398 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 6922,
+              "status": "Adventure preview · Playing · X 1416 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 7000,
+              "status": "Adventure preview · Playing · X 1435 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 7078,
+              "status": "Adventure preview · Playing · X 1453 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 7156,
+              "status": "Adventure preview · Playing · X 1468 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 7234,
+              "status": "Adventure preview · Playing · X 1486 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 7312,
+              "status": "Adventure preview · Playing · X 1504 Y 78 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 7390,
+              "status": "Adventure preview · Playing · X 1519 Y 41 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 7468,
+              "status": "Adventure preview · Playing · X 1537 Y 7 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 7547,
+              "status": "Adventure preview · Playing · X 1556 Y -10 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 7625,
+              "status": "Adventure preview · Playing · X 1570 Y -12 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 7702,
+              "status": "Adventure preview · Playing · X 1589 Y -4 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 7781,
+              "status": "Adventure preview · Playing · X 1607 Y 15 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 7858,
+              "status": "Adventure preview · Playing · X 1622 Y 37 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 7937,
+              "status": "Adventure preview · Playing · X 1640 Y 74 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 8015,
+              "status": "Adventure preview · Playing · X 1658 Y 121 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 8092,
+              "status": "Adventure preview · Playing · X 1673 Y 151 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 8170,
+              "status": "Adventure preview · Playing · X 1691 Y 160 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 8248,
+              "status": "Adventure preview · Playing · X 1710 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 8325,
+              "status": "Adventure preview · Playing · X 1724 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 8402,
+              "status": "Adventure preview · Playing · X 1743 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 8479,
+              "status": "Adventure preview · Playing · X 1761 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 8557,
+              "status": "Adventure preview · Playing · X 1776 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 8634,
+              "status": "Adventure preview · Playing · X 1794 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 8711,
+              "status": "Adventure preview · Playing · X 1812 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 8829,
+              "status": "Adventure preview · Playing · X 1838 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 8907,
+              "status": "Adventure preview · Playing · X 1853 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 8985,
+              "status": "Adventure preview · Playing · X 1871 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 9062,
+              "status": "Adventure preview · Playing · X 1889 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 9140,
+              "status": "Adventure preview · Playing · X 1904 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 9218,
+              "status": "Adventure preview · Playing · X 1922 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 9296,
+              "status": "Adventure preview · Playing · X 1941 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 9373,
+              "status": "Adventure preview · Playing · X 1955 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 9451,
+              "status": "Adventure preview · Playing · X 1974 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 9529,
+              "status": "Adventure preview · Playing · X 1992 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 9606,
+              "status": "Adventure preview · Playing · X 2007 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 9684,
+              "status": "Adventure preview · Playing · X 2025 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 9761,
+              "status": "Adventure preview · Playing · X 2043 Y 161 V 219 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 9838,
+              "status": "Adventure preview · Playing · X 2058 Y 157 V 219 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 9916,
+              "status": "Adventure preview · Playing · X 2076 Y 152 V 219 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 9994,
+              "status": "Adventure preview · Playing · X 2094 Y 148 V 219 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 10072,
+              "status": "Adventure preview · Playing · X 2109 Y 144 V 219 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 10150,
+              "status": "Adventure preview · Playing · X 2127 Y 139 V 219 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 10228,
+              "status": "Adventure preview · Playing · X 2145 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 10306,
+              "status": "Adventure preview · Playing · X 2160 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 10383,
+              "status": "Adventure preview · Playing · X 2178 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 10461,
+              "status": "Adventure preview · Playing · X 2197 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 10539,
+              "status": "Adventure preview · Playing · X 2211 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 10616,
+              "status": "Adventure preview · Playing · X 2230 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 10694,
+              "status": "Adventure preview · Playing · X 2248 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 10772,
+              "status": "Adventure preview · Playing · X 2263 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 10850,
+              "status": "Adventure preview · Playing · X 2281 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 10927,
+              "status": "Adventure preview · Playing · X 2299 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 11005,
+              "status": "Adventure preview · Finish · Gems 0 · X 2310 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            }
+          ]
+        },
+        {
+          "mode": "jump-route",
+          "elapsedMs": 11734,
+          "finish": {
+            "status": "Adventure preview · Finish · Gems 4 · X 2310 Y 136 V 220 · Escape to pause · M to mute",
+            "hud": "GEMS 4   CHECKPOINT START",
+            "localStorage": [],
+            "sessionStorage": []
+          },
+          "afterReplay": {
+            "status": "Adventure preview · Playing · X 48 Y 164 V 0 · Escape to pause · M to mute",
+            "hud": "GEMS 0   CHECKPOINT START",
+            "localStorage": [],
+            "sessionStorage": []
+          },
+          "captures": [
+            {
+              "checkpointX": 570,
+              "status": "Adventure preview · Playing · X 659 Y 126 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 1   CHECKPOINT START",
+              "localStorage": [],
+              "sessionStorage": []
+            },
+            {
+              "checkpointX": 1220,
+              "status": "Adventure preview · Playing · X 1278 Y 109 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START",
+              "localStorage": [],
+              "sessionStorage": []
+            },
+            {
+              "checkpointX": 1780,
+              "status": "Adventure preview · Playing · X 1839 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START",
+              "localStorage": [],
+              "sessionStorage": []
+            }
+          ],
+          "samples": [
+            {
+              "ms": 2,
+              "status": "Adventure preview · Playing · X 48 Y 164 V 0 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 81,
+              "status": "Adventure preview · Playing · X 51 Y 164 V 61 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 159,
+              "status": "Adventure preview · Playing · X 60 Y 164 V 138 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 237,
+              "status": "Adventure preview · Playing · X 75 Y 164 V 215 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 315,
+              "status": "Adventure preview · Playing · X 90 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 393,
+              "status": "Adventure preview · Playing · X 108 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 471,
+              "status": "Adventure preview · Playing · X 126 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 550,
+              "status": "Adventure preview · Playing · X 141 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 628,
+              "status": "Adventure preview · Playing · X 159 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 707,
+              "status": "Adventure preview · Playing · X 177 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 785,
+              "status": "Adventure preview · Playing · X 196 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 863,
+              "status": "Adventure preview · Playing · X 210 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 941,
+              "status": "Adventure preview · Playing · X 229 Y 161 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1020,
+              "status": "Adventure preview · Playing · X 247 Y 156 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1098,
+              "status": "Adventure preview · Playing · X 262 Y 152 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1175,
+              "status": "Adventure preview · Playing · X 280 Y 147 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1253,
+              "status": "Adventure preview · Playing · X 298 Y 142 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1332,
+              "status": "Adventure preview · Playing · X 312 Y 138 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1410,
+              "status": "Adventure preview · Playing · X 331 Y 132 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1488,
+              "status": "Adventure preview · Playing · X 349 Y 127 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1565,
+              "status": "Adventure preview · Playing · X 363 Y 124 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1643,
+              "status": "Adventure preview · Playing · X 382 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1963,
+              "status": "Adventure preview · Playing · X 388 Y 53 V -117 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 2284,
+              "status": "Adventure preview · Playing · X 385 Y 124 V 105 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 2605,
+              "status": "Adventure preview · Playing · X 446 Y 44 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 2926,
+              "status": "Adventure preview · Playing · X 516 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 1   CHECKPOINT START"
+            },
+            {
+              "ms": 3246,
+              "status": "Adventure preview · Playing · X 586 Y 43 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 1   CHECKPOINT START"
+            },
+            {
+              "ms": 3566,
+              "status": "Adventure preview · Playing · X 659 Y 126 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 1   CHECKPOINT START"
+            },
+            {
+              "ms": 3690,
+              "status": "Adventure preview · Playing · X 685 Y 134 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 1   CHECKPOINT START"
+            },
+            {
+              "ms": 3768,
+              "status": "Adventure preview · Playing · X 703 Y 88 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 1   CHECKPOINT START"
+            },
+            {
+              "ms": 3846,
+              "status": "Adventure preview · Playing · X 718 Y 62 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 1   CHECKPOINT START"
+            },
+            {
+              "ms": 3924,
+              "status": "Adventure preview · Playing · X 736 Y 45 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 1   CHECKPOINT START"
+            },
+            {
+              "ms": 4002,
+              "status": "Adventure preview · Playing · X 754 Y 44 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 1   CHECKPOINT START"
+            },
+            {
+              "ms": 4079,
+              "status": "Adventure preview · Playing · X 769 Y 52 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 1   CHECKPOINT START"
+            },
+            {
+              "ms": 4157,
+              "status": "Adventure preview · Playing · X 787 Y 70 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 1   CHECKPOINT START"
+            },
+            {
+              "ms": 4235,
+              "status": "Adventure preview · Playing · X 806 Y 99 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 1   CHECKPOINT START"
+            },
+            {
+              "ms": 4312,
+              "status": "Adventure preview · Playing · X 820 Y 130 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 1   CHECKPOINT START"
+            },
+            {
+              "ms": 4390,
+              "status": "Adventure preview · Playing · X 839 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 4469,
+              "status": "Adventure preview · Playing · X 857 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 4789,
+              "status": "Adventure preview · Playing · X 927 Y 84 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 5110,
+              "status": "Adventure preview · Playing · X 996 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 5431,
+              "status": "Adventure preview · Playing · X 1066 Y 83 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 5751,
+              "status": "Adventure preview · Playing · X 1139 Y 157 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 6071,
+              "status": "Adventure preview · Playing · X 1209 Y 77 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 6391,
+              "status": "Adventure preview · Playing · X 1278 Y 109 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 6504,
+              "status": "Adventure preview · Playing · X 1304 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 6582,
+              "status": "Adventure preview · Playing · X 1319 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 6660,
+              "status": "Adventure preview · Playing · X 1337 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 6738,
+              "status": "Adventure preview · Playing · X 1355 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 6816,
+              "status": "Adventure preview · Playing · X 1370 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 6894,
+              "status": "Adventure preview · Playing · X 1388 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 6973,
+              "status": "Adventure preview · Playing · X 1407 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 7051,
+              "status": "Adventure preview · Playing · X 1425 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 7129,
+              "status": "Adventure preview · Playing · X 1440 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 7207,
+              "status": "Adventure preview · Playing · X 1458 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 7285,
+              "status": "Adventure preview · Playing · X 1476 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 7363,
+              "status": "Adventure preview · Playing · X 1491 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 7441,
+              "status": "Adventure preview · Playing · X 1509 Y 68 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 7519,
+              "status": "Adventure preview · Playing · X 1528 Y 25 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 7597,
+              "status": "Adventure preview · Playing · X 1542 Y 2 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 7675,
+              "status": "Adventure preview · Playing · X 1561 Y -12 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 7753,
+              "status": "Adventure preview · Playing · X 1579 Y -10 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 7832,
+              "status": "Adventure preview · Playing · X 1594 Y -1 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 7910,
+              "status": "Adventure preview · Playing · X 1612 Y 20 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 7988,
+              "status": "Adventure preview · Playing · X 1630 Y 51 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 8066,
+              "status": "Adventure preview · Playing · X 1645 Y 83 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 8145,
+              "status": "Adventure preview · Playing · X 1663 Y 132 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 8223,
+              "status": "Adventure preview · Playing · X 1682 Y 154 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 8301,
+              "status": "Adventure preview · Playing · X 1700 Y 163 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 8619,
+              "status": "Adventure preview · Playing · X 1770 Y 82 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 8939,
+              "status": "Adventure preview · Playing · X 1839 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 9294,
+              "status": "Adventure preview · Playing · X 1832 Y 120 V -75 · Escape to pause · M to mute",
+              "hud": "GEMS 4   CHECKPOINT START"
+            },
+            {
+              "ms": 9614,
+              "status": "Adventure preview · Playing · X 1843 Y 164 V 161 · Escape to pause · M to mute",
+              "hud": "GEMS 4   CHECKPOINT START"
+            },
+            {
+              "ms": 9935,
+              "status": "Adventure preview · Playing · X 1915 Y 83 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 4   CHECKPOINT START"
+            },
+            {
+              "ms": 10256,
+              "status": "Adventure preview · Playing · X 1985 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 4   CHECKPOINT START"
+            },
+            {
+              "ms": 10334,
+              "status": "Adventure preview · Playing · X 2003 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 4   CHECKPOINT START"
+            },
+            {
+              "ms": 10412,
+              "status": "Adventure preview · Playing · X 2018 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 4   CHECKPOINT START"
+            },
+            {
+              "ms": 10490,
+              "status": "Adventure preview · Playing · X 2036 Y 163 V 219 · Escape to pause · M to mute",
+              "hud": "GEMS 4   CHECKPOINT START"
+            },
+            {
+              "ms": 10568,
+              "status": "Adventure preview · Playing · X 2054 Y 158 V 219 · Escape to pause · M to mute",
+              "hud": "GEMS 4   CHECKPOINT START"
+            },
+            {
+              "ms": 10646,
+              "status": "Adventure preview · Playing · X 2069 Y 154 V 219 · Escape to pause · M to mute",
+              "hud": "GEMS 4   CHECKPOINT START"
+            },
+            {
+              "ms": 10724,
+              "status": "Adventure preview · Playing · X 2087 Y 150 V 219 · Escape to pause · M to mute",
+              "hud": "GEMS 4   CHECKPOINT START"
+            },
+            {
+              "ms": 10801,
+              "status": "Adventure preview · Playing · X 2105 Y 145 V 219 · Escape to pause · M to mute",
+              "hud": "GEMS 4   CHECKPOINT START"
+            },
+            {
+              "ms": 10879,
+              "status": "Adventure preview · Playing · X 2120 Y 141 V 219 · Escape to pause · M to mute",
+              "hud": "GEMS 4   CHECKPOINT START"
+            },
+            {
+              "ms": 10957,
+              "status": "Adventure preview · Playing · X 2138 Y 137 V 219 · Escape to pause · M to mute",
+              "hud": "GEMS 4   CHECKPOINT START"
+            },
+            {
+              "ms": 11034,
+              "status": "Adventure preview · Playing · X 2156 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 4   CHECKPOINT START"
+            },
+            {
+              "ms": 11112,
+              "status": "Adventure preview · Playing · X 2171 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 4   CHECKPOINT START"
+            },
+            {
+              "ms": 11190,
+              "status": "Adventure preview · Playing · X 2189 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 4   CHECKPOINT START"
+            },
+            {
+              "ms": 11267,
+              "status": "Adventure preview · Playing · X 2208 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 4   CHECKPOINT START"
+            },
+            {
+              "ms": 11346,
+              "status": "Adventure preview · Playing · X 2222 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 4   CHECKPOINT START"
+            },
+            {
+              "ms": 11423,
+              "status": "Adventure preview · Playing · X 2241 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 4   CHECKPOINT START"
+            },
+            {
+              "ms": 11500,
+              "status": "Adventure preview · Playing · X 2259 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 4   CHECKPOINT START"
+            },
+            {
+              "ms": 11578,
+              "status": "Adventure preview · Playing · X 2274 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 4   CHECKPOINT START"
+            },
+            {
+              "ms": 11656,
+              "status": "Adventure preview · Playing · X 2292 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 4   CHECKPOINT START"
+            },
+            {
+              "ms": 11734,
+              "status": "Adventure preview · Finish · Gems 4 · X 2310 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 4   CHECKPOINT START"
+            }
+          ]
+        }
+      ],
+      "beforeReload": {
+        "status": "Adventure preview · Playing · X 609 Y 124 V 0 · Escape to pause · M to mute",
+        "hud": "GEMS 1   CHECKPOINT checkpoint-meadow",
+        "localStorage": [],
+        "sessionStorage": []
+      },
+      "afterReload": {
+        "status": "Adventure preview · Playing · X 48 Y 164 V 0 · Escape to pause · M to mute",
+        "hud": "GEMS 0   CHECKPOINT START",
+        "localStorage": [],
+        "sessionStorage": []
+      },
+      "beforeClose": {
+        "status": "Adventure preview · Playing · X 609 Y 124 V 0 · Escape to pause · M to mute",
+        "hud": "GEMS 1   CHECKPOINT checkpoint-meadow",
+        "localStorage": [],
+        "sessionStorage": []
+      },
+      "afterReopen": {
+        "status": "Adventure preview · Playing · X 48 Y 164 V 0 · Escape to pause · M to mute",
+        "hud": "GEMS 0   CHECKPOINT START",
+        "localStorage": [],
+        "sessionStorage": []
+      },
+      "artFrames": [
+        "0,0",
+        "0,48",
+        "0,96",
+        "0,144",
+        "48,48",
+        "48,96",
+        "48,144",
+        "48,0",
+        "96,48",
+        "96,96",
+        "96,144",
+        "144,48",
+        "144,96",
+        "96,0",
+        "144,144",
+        "144,0"
+      ]
+    },
+    {
+      "name": "firefox",
+      "version": "155.0",
+      "errors": [],
+      "failedRequests": [],
+      "requests": [
+        "http://127.0.0.1:4173/?scene=adventure&debug=1",
+        "http://127.0.0.1:4173/assets/index-DXd_UZOO.js",
+        "http://127.0.0.1:4173/assets/index-qi-cmGDo.css",
+        "http://127.0.0.1:4173/assets/plains/manifest.json",
+        "http://127.0.0.1:4173/assets/henry/manifest.json",
+        "http://127.0.0.1:4173/assets/plains/environment.png",
+        "http://127.0.0.1:4173/assets/henry/starter.png",
+        "http://127.0.0.1:4173/assets/henry/reference.png",
+        "http://127.0.0.1:4173/?scene=art"
+      ],
+      "routes": [
+        {
+          "mode": "no-jump",
+          "elapsedMs": 11007,
+          "finish": {
+            "status": "Adventure preview · Finish · Gems 0 · X 2310 Y 136 V 220 · Escape to pause · M to mute",
+            "hud": "GEMS 0   CHECKPOINT checkpoint-cave",
+            "localStorage": [],
+            "sessionStorage": []
+          },
+          "afterReplay": {
+            "status": "Adventure preview · Playing · X 48 Y 164 V 0 · Escape to pause · M to mute",
+            "hud": "GEMS 0   CHECKPOINT START",
+            "localStorage": [],
+            "sessionStorage": []
+          },
+          "captures": [
+            {
+              "checkpointX": 570,
+              "status": "Adventure preview · Playing · X 594 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow",
+              "localStorage": [],
+              "sessionStorage": []
+            },
+            {
+              "checkpointX": 1220,
+              "status": "Adventure preview · Playing · X 1252 Y 118 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside",
+              "localStorage": [],
+              "sessionStorage": []
+            },
+            {
+              "checkpointX": 1780,
+              "status": "Adventure preview · Playing · X 1805 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave",
+              "localStorage": [],
+              "sessionStorage": []
+            }
+          ],
+          "samples": [
+            {
+              "ms": 4,
+              "status": "Adventure preview · Playing · X 48 Y 164 V 0 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 82,
+              "status": "Adventure preview · Playing · X 52 Y 164 V 77 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 159,
+              "status": "Adventure preview · Playing · X 62 Y 164 V 153 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 237,
+              "status": "Adventure preview · Playing · X 75 Y 164 V 215 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 316,
+              "status": "Adventure preview · Playing · X 93 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 394,
+              "status": "Adventure preview · Playing · X 108 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 474,
+              "status": "Adventure preview · Playing · X 130 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 553,
+              "status": "Adventure preview · Playing · X 145 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 633,
+              "status": "Adventure preview · Playing · X 163 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 712,
+              "status": "Adventure preview · Playing · X 181 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 790,
+              "status": "Adventure preview · Playing · X 196 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 869,
+              "status": "Adventure preview · Playing · X 214 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 949,
+              "status": "Adventure preview · Playing · X 232 Y 160 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1027,
+              "status": "Adventure preview · Playing · X 247 Y 156 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1107,
+              "status": "Adventure preview · Playing · X 265 Y 151 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1187,
+              "status": "Adventure preview · Playing · X 283 Y 146 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1267,
+              "status": "Adventure preview · Playing · X 302 Y 141 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1347,
+              "status": "Adventure preview · Playing · X 320 Y 135 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1425,
+              "status": "Adventure preview · Playing · X 338 Y 130 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1503,
+              "status": "Adventure preview · Playing · X 353 Y 126 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1582,
+              "status": "Adventure preview · Playing · X 371 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1660,
+              "status": "Adventure preview · Playing · X 389 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1738,
+              "status": "Adventure preview · Playing · X 404 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1816,
+              "status": "Adventure preview · Playing · X 422 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1893,
+              "status": "Adventure preview · Playing · X 437 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1972,
+              "status": "Adventure preview · Playing · X 455 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 2051,
+              "status": "Adventure preview · Playing · X 473 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 2130,
+              "status": "Adventure preview · Playing · X 488 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 2208,
+              "status": "Adventure preview · Playing · X 510 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 2286,
+              "status": "Adventure preview · Playing · X 525 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 2364,
+              "status": "Adventure preview · Playing · X 543 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 2443,
+              "status": "Adventure preview · Playing · X 561 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 2521,
+              "status": "Adventure preview · Playing · X 576 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 2599,
+              "status": "Adventure preview · Playing · X 594 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 2685,
+              "status": "Adventure preview · Playing · X 613 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 2763,
+              "status": "Adventure preview · Playing · X 627 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 2841,
+              "status": "Adventure preview · Playing · X 646 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 2920,
+              "status": "Adventure preview · Playing · X 664 Y 128 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 3000,
+              "status": "Adventure preview · Playing · X 682 Y 134 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 3078,
+              "status": "Adventure preview · Playing · X 701 Y 88 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 3157,
+              "status": "Adventure preview · Playing · X 719 Y 58 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 3235,
+              "status": "Adventure preview · Playing · X 734 Y 45 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 3315,
+              "status": "Adventure preview · Playing · X 752 Y 44 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 3393,
+              "status": "Adventure preview · Playing · X 770 Y 55 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 3471,
+              "status": "Adventure preview · Playing · X 785 Y 70 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 3550,
+              "status": "Adventure preview · Playing · X 803 Y 99 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 3629,
+              "status": "Adventure preview · Playing · X 822 Y 138 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 3707,
+              "status": "Adventure preview · Playing · X 840 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 3786,
+              "status": "Adventure preview · Playing · X 855 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 3865,
+              "status": "Adventure preview · Playing · X 869 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 3944,
+              "status": "Adventure preview · Playing · X 888 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 4024,
+              "status": "Adventure preview · Playing · X 906 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 4103,
+              "status": "Adventure preview · Playing · X 924 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 4183,
+              "status": "Adventure preview · Playing · X 943 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 4262,
+              "status": "Adventure preview · Playing · X 961 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 4343,
+              "status": "Adventure preview · Playing · X 979 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 4422,
+              "status": "Adventure preview · Playing · X 994 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 4500,
+              "status": "Adventure preview · Playing · X 1012 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 4579,
+              "status": "Adventure preview · Playing · X 1020 Y 161 V -210 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 4658,
+              "status": "Adventure preview · Playing · X 1005 Y 155 V -158 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 4736,
+              "status": "Adventure preview · Playing · X 994 Y 162 V -106 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 4816,
+              "status": "Adventure preview · Playing · X 989 Y 164 V -35 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 4894,
+              "status": "Adventure preview · Playing · X 990 Y 164 V 42 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 4973,
+              "status": "Adventure preview · Playing · X 995 Y 164 V 103 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 5052,
+              "status": "Adventure preview · Playing · X 1008 Y 164 V 180 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 5131,
+              "status": "Adventure preview · Playing · X 1026 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 5212,
+              "status": "Adventure preview · Playing · X 1044 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 5292,
+              "status": "Adventure preview · Playing · X 1062 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 5373,
+              "status": "Adventure preview · Playing · X 1077 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 5453,
+              "status": "Adventure preview · Playing · X 1095 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 5534,
+              "status": "Adventure preview · Playing · X 1114 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 5615,
+              "status": "Adventure preview · Playing · X 1132 Y 160 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 5694,
+              "status": "Adventure preview · Playing · X 1150 Y 154 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 5773,
+              "status": "Adventure preview · Playing · X 1164 Y 148 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 5852,
+              "status": "Adventure preview · Playing · X 1183 Y 142 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 5930,
+              "status": "Adventure preview · Playing · X 1197 Y 137 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 6010,
+              "status": "Adventure preview · Playing · X 1219 Y 129 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 6090,
+              "status": "Adventure preview · Playing · X 1234 Y 124 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 6170,
+              "status": "Adventure preview · Playing · X 1252 Y 118 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 6260,
+              "status": "Adventure preview · Playing · X 1270 Y 112 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 6338,
+              "status": "Adventure preview · Playing · X 1288 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 6416,
+              "status": "Adventure preview · Playing · X 1306 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 6495,
+              "status": "Adventure preview · Playing · X 1321 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 6573,
+              "status": "Adventure preview · Playing · X 1339 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 6652,
+              "status": "Adventure preview · Playing · X 1358 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 6734,
+              "status": "Adventure preview · Playing · X 1376 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 6815,
+              "status": "Adventure preview · Playing · X 1394 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 6894,
+              "status": "Adventure preview · Playing · X 1409 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 6974,
+              "status": "Adventure preview · Playing · X 1427 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 7053,
+              "status": "Adventure preview · Playing · X 1446 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 7134,
+              "status": "Adventure preview · Playing · X 1464 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 7214,
+              "status": "Adventure preview · Playing · X 1479 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 7293,
+              "status": "Adventure preview · Playing · X 1497 Y 98 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 7375,
+              "status": "Adventure preview · Playing · X 1515 Y 49 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 7453,
+              "status": "Adventure preview · Playing · X 1534 Y 12 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 7532,
+              "status": "Adventure preview · Playing · X 1552 Y -8 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 7647,
+              "status": "Adventure preview · Playing · X 1574 Y -11 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 7725,
+              "status": "Adventure preview · Playing · X 1592 Y -1 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 7804,
+              "status": "Adventure preview · Playing · X 1611 Y 20 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 7883,
+              "status": "Adventure preview · Playing · X 1629 Y 51 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 7962,
+              "status": "Adventure preview · Playing · X 1647 Y 92 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 8041,
+              "status": "Adventure preview · Playing · X 1666 Y 143 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 8119,
+              "status": "Adventure preview · Playing · X 1680 Y 153 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 8201,
+              "status": "Adventure preview · Playing · X 1699 Y 162 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 8283,
+              "status": "Adventure preview · Playing · X 1717 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 8363,
+              "status": "Adventure preview · Playing · X 1732 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 8442,
+              "status": "Adventure preview · Playing · X 1754 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 8523,
+              "status": "Adventure preview · Playing · X 1768 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 8602,
+              "status": "Adventure preview · Playing · X 1787 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 8685,
+              "status": "Adventure preview · Playing · X 1805 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 8779,
+              "status": "Adventure preview · Playing · X 1827 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 8859,
+              "status": "Adventure preview · Playing · X 1845 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 8938,
+              "status": "Adventure preview · Playing · X 1860 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 9018,
+              "status": "Adventure preview · Playing · X 1878 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 9098,
+              "status": "Adventure preview · Playing · X 1897 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 9178,
+              "status": "Adventure preview · Playing · X 1915 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 9259,
+              "status": "Adventure preview · Playing · X 1933 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 9338,
+              "status": "Adventure preview · Playing · X 1948 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 9418,
+              "status": "Adventure preview · Playing · X 1966 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 9497,
+              "status": "Adventure preview · Playing · X 1985 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 9576,
+              "status": "Adventure preview · Playing · X 2003 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 9655,
+              "status": "Adventure preview · Playing · X 2018 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 9734,
+              "status": "Adventure preview · Playing · X 2036 Y 162 V 219 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 9815,
+              "status": "Adventure preview · Playing · X 2051 Y 159 V 219 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 9894,
+              "status": "Adventure preview · Playing · X 2072 Y 153 V 219 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 9973,
+              "status": "Adventure preview · Playing · X 2087 Y 149 V 219 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 10052,
+              "status": "Adventure preview · Playing · X 2105 Y 145 V 219 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 10131,
+              "status": "Adventure preview · Playing · X 2123 Y 140 V 219 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 10210,
+              "status": "Adventure preview · Playing · X 2138 Y 136 V 219 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 10289,
+              "status": "Adventure preview · Playing · X 2156 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 10367,
+              "status": "Adventure preview · Playing · X 2175 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 10445,
+              "status": "Adventure preview · Playing · X 2193 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 10524,
+              "status": "Adventure preview · Playing · X 2211 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 10603,
+              "status": "Adventure preview · Playing · X 2226 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 10685,
+              "status": "Adventure preview · Playing · X 2244 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 10765,
+              "status": "Adventure preview · Playing · X 2263 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 10845,
+              "status": "Adventure preview · Playing · X 2281 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 10926,
+              "status": "Adventure preview · Playing · X 2299 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 11006,
+              "status": "Adventure preview · Finish · Gems 0 · X 2310 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            }
+          ]
+        },
+        {
+          "mode": "jump-route",
+          "elapsedMs": 12429,
+          "finish": {
+            "status": "Adventure preview · Finish · Gems 3 · X 2314 Y 136 V 220 · Escape to pause · M to mute",
+            "hud": "GEMS 3   CHECKPOINT START",
+            "localStorage": [],
+            "sessionStorage": []
+          },
+          "afterReplay": {
+            "status": "Adventure preview · Playing · X 48 Y 164 V 0 · Escape to pause · M to mute",
+            "hud": "GEMS 0   CHECKPOINT START",
+            "localStorage": [],
+            "sessionStorage": []
+          },
+          "captures": [
+            {
+              "checkpointX": 570,
+              "status": "Adventure preview · Playing · X 657 Y 126 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 1   CHECKPOINT START",
+              "localStorage": [],
+              "sessionStorage": []
+            },
+            {
+              "checkpointX": 1220,
+              "status": "Adventure preview · Playing · X 1285 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START",
+              "localStorage": [],
+              "sessionStorage": []
+            },
+            {
+              "checkpointX": 1780,
+              "status": "Adventure preview · Playing · X 1846 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START",
+              "localStorage": [],
+              "sessionStorage": []
+            }
+          ],
+          "samples": [
+            {
+              "ms": 2,
+              "status": "Adventure preview · Playing · X 48 Y 164 V 0 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 81,
+              "status": "Adventure preview · Playing · X 51 Y 164 V 61 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 159,
+              "status": "Adventure preview · Playing · X 60 Y 164 V 138 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 239,
+              "status": "Adventure preview · Playing · X 75 Y 164 V 215 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 320,
+              "status": "Adventure preview · Playing · X 93 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 400,
+              "status": "Adventure preview · Playing · X 112 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 481,
+              "status": "Adventure preview · Playing · X 126 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 560,
+              "status": "Adventure preview · Playing · X 145 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 641,
+              "status": "Adventure preview · Playing · X 163 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 721,
+              "status": "Adventure preview · Playing · X 181 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 800,
+              "status": "Adventure preview · Playing · X 199 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 880,
+              "status": "Adventure preview · Playing · X 214 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 959,
+              "status": "Adventure preview · Playing · X 232 Y 160 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1040,
+              "status": "Adventure preview · Playing · X 251 Y 155 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1120,
+              "status": "Adventure preview · Playing · X 269 Y 150 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1199,
+              "status": "Adventure preview · Playing · X 283 Y 146 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1279,
+              "status": "Adventure preview · Playing · X 302 Y 141 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1360,
+              "status": "Adventure preview · Playing · X 320 Y 135 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1440,
+              "status": "Adventure preview · Playing · X 338 Y 130 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1519,
+              "status": "Adventure preview · Playing · X 353 Y 126 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1598,
+              "status": "Adventure preview · Playing · X 371 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1924,
+              "status": "Adventure preview · Playing · X 444 Y 44 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 2249,
+              "status": "Adventure preview · Playing · X 514 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 1   CHECKPOINT START"
+            },
+            {
+              "ms": 2572,
+              "status": "Adventure preview · Playing · X 587 Y 44 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 1   CHECKPOINT START"
+            },
+            {
+              "ms": 2897,
+              "status": "Adventure preview · Playing · X 657 Y 126 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 1   CHECKPOINT START"
+            },
+            {
+              "ms": 2990,
+              "status": "Adventure preview · Playing · X 679 Y 132 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 1   CHECKPOINT START"
+            },
+            {
+              "ms": 3069,
+              "status": "Adventure preview · Playing · X 693 Y 104 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 1   CHECKPOINT START"
+            },
+            {
+              "ms": 3149,
+              "status": "Adventure preview · Playing · X 712 Y 67 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 1   CHECKPOINT START"
+            },
+            {
+              "ms": 3229,
+              "status": "Adventure preview · Playing · X 730 Y 47 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 1   CHECKPOINT START"
+            },
+            {
+              "ms": 3308,
+              "status": "Adventure preview · Playing · X 748 Y 43 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 1   CHECKPOINT START"
+            },
+            {
+              "ms": 3387,
+              "status": "Adventure preview · Playing · X 767 Y 51 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 1   CHECKPOINT START"
+            },
+            {
+              "ms": 3466,
+              "status": "Adventure preview · Playing · X 785 Y 70 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 1   CHECKPOINT START"
+            },
+            {
+              "ms": 3545,
+              "status": "Adventure preview · Playing · X 800 Y 92 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 1   CHECKPOINT START"
+            },
+            {
+              "ms": 3623,
+              "status": "Adventure preview · Playing · X 818 Y 129 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 1   CHECKPOINT START"
+            },
+            {
+              "ms": 3700,
+              "status": "Adventure preview · Playing · X 833 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 1   CHECKPOINT START"
+            },
+            {
+              "ms": 3779,
+              "status": "Adventure preview · Playing · X 851 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 1   CHECKPOINT START"
+            },
+            {
+              "ms": 3857,
+              "status": "Adventure preview · Playing · X 869 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 1   CHECKPOINT START"
+            },
+            {
+              "ms": 4178,
+              "status": "Adventure preview · Playing · X 875 Y 94 V -117 · Escape to pause · M to mute",
+              "hud": "GEMS 1   CHECKPOINT START"
+            },
+            {
+              "ms": 4500,
+              "status": "Adventure preview · Playing · X 872 Y 164 V 95 · Escape to pause · M to mute",
+              "hud": "GEMS 1   CHECKPOINT START"
+            },
+            {
+              "ms": 4821,
+              "status": "Adventure preview · Playing · X 934 Y 83 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 1   CHECKPOINT START"
+            },
+            {
+              "ms": 5142,
+              "status": "Adventure preview · Playing · X 1004 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 1   CHECKPOINT START"
+            },
+            {
+              "ms": 5464,
+              "status": "Adventure preview · Playing · X 989 Y 120 V -75 · Escape to pause · M to mute",
+              "hud": "GEMS 1   CHECKPOINT START"
+            },
+            {
+              "ms": 5786,
+              "status": "Adventure preview · Playing · X 1004 Y 164 V 176 · Escape to pause · M to mute",
+              "hud": "GEMS 1   CHECKPOINT START"
+            },
+            {
+              "ms": 6110,
+              "status": "Adventure preview · Playing · X 1072 Y 84 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 1   CHECKPOINT START"
+            },
+            {
+              "ms": 6433,
+              "status": "Adventure preview · Playing · X 1142 Y 156 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 1   CHECKPOINT START"
+            },
+            {
+              "ms": 6755,
+              "status": "Adventure preview · Playing · X 1215 Y 76 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 7075,
+              "status": "Adventure preview · Playing · X 1285 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 7163,
+              "status": "Adventure preview · Playing · X 1303 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 7242,
+              "status": "Adventure preview · Playing · X 1322 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 7320,
+              "status": "Adventure preview · Playing · X 1336 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 7399,
+              "status": "Adventure preview · Playing · X 1355 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 7477,
+              "status": "Adventure preview · Playing · X 1373 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 7557,
+              "status": "Adventure preview · Playing · X 1391 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 7635,
+              "status": "Adventure preview · Playing · X 1410 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 7714,
+              "status": "Adventure preview · Playing · X 1424 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 7792,
+              "status": "Adventure preview · Playing · X 1443 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 7871,
+              "status": "Adventure preview · Playing · X 1457 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 7949,
+              "status": "Adventure preview · Playing · X 1479 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 8028,
+              "status": "Adventure preview · Playing · X 1494 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 8108,
+              "status": "Adventure preview · Playing · X 1512 Y 58 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 8187,
+              "status": "Adventure preview · Playing · X 1531 Y 18 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 8266,
+              "status": "Adventure preview · Playing · X 1545 Y -2 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 8345,
+              "status": "Adventure preview · Playing · X 1564 Y -12 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 8425,
+              "status": "Adventure preview · Playing · X 1582 Y -8 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 8506,
+              "status": "Adventure preview · Playing · X 1600 Y 6 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 8585,
+              "status": "Adventure preview · Playing · X 1615 Y 25 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 8664,
+              "status": "Adventure preview · Playing · X 1633 Y 58 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 8743,
+              "status": "Adventure preview · Playing · X 1652 Y 101 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 8822,
+              "status": "Adventure preview · Playing · X 1666 Y 143 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 8901,
+              "status": "Adventure preview · Playing · X 1688 Y 157 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 8981,
+              "status": "Adventure preview · Playing · X 1703 Y 163 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 9303,
+              "status": "Adventure preview · Playing · X 1773 Y 82 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 9626,
+              "status": "Adventure preview · Playing · X 1846 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 9961,
+              "status": "Adventure preview · Playing · X 1830 Y 122 V -65 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 10284,
+              "status": "Adventure preview · Playing · X 1849 Y 164 V 192 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 10605,
+              "status": "Adventure preview · Playing · X 1915 Y 83 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 10926,
+              "status": "Adventure preview · Playing · X 1988 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 11005,
+              "status": "Adventure preview · Playing · X 2006 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 11084,
+              "status": "Adventure preview · Playing · X 2025 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 11162,
+              "status": "Adventure preview · Playing · X 2039 Y 162 V 219 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 11241,
+              "status": "Adventure preview · Playing · X 2058 Y 157 V 219 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 11320,
+              "status": "Adventure preview · Playing · X 2072 Y 153 V 219 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 11400,
+              "status": "Adventure preview · Playing · X 2094 Y 148 V 219 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 11478,
+              "status": "Adventure preview · Playing · X 2109 Y 144 V 219 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 11557,
+              "status": "Adventure preview · Playing · X 2127 Y 139 V 219 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 11636,
+              "status": "Adventure preview · Playing · X 2141 Y 136 V 219 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 11715,
+              "status": "Adventure preview · Playing · X 2160 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 11794,
+              "status": "Adventure preview · Playing · X 2178 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 11875,
+              "status": "Adventure preview · Playing · X 2196 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 11955,
+              "status": "Adventure preview · Playing · X 2215 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 12033,
+              "status": "Adventure preview · Playing · X 2233 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 12112,
+              "status": "Adventure preview · Playing · X 2248 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 12192,
+              "status": "Adventure preview · Playing · X 2266 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 12270,
+              "status": "Adventure preview · Playing · X 2281 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 12349,
+              "status": "Adventure preview · Playing · X 2299 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 12428,
+              "status": "Adventure preview · Finish · Gems 3 · X 2314 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            }
+          ]
+        }
+      ],
+      "beforeReload": {
+        "status": "Adventure preview · Playing · X 609 Y 124 V 0 · Escape to pause · M to mute",
+        "hud": "GEMS 1   CHECKPOINT checkpoint-meadow",
+        "localStorage": [],
+        "sessionStorage": []
+      },
+      "afterReload": {
+        "status": "Adventure preview · Playing · X 48 Y 164 V 0 · Escape to pause · M to mute",
+        "hud": "GEMS 0   CHECKPOINT START",
+        "localStorage": [],
+        "sessionStorage": []
+      },
+      "beforeClose": {
+        "status": "Adventure preview · Playing · X 609 Y 124 V 0 · Escape to pause · M to mute",
+        "hud": "GEMS 1   CHECKPOINT checkpoint-meadow",
+        "localStorage": [],
+        "sessionStorage": []
+      },
+      "afterReopen": {
+        "status": "Adventure preview · Playing · X 48 Y 164 V 0 · Escape to pause · M to mute",
+        "hud": "GEMS 0   CHECKPOINT START",
+        "localStorage": [],
+        "sessionStorage": []
+      },
+      "artFrames": [
+        "0,0",
+        "0,48",
+        "0,96",
+        "0,144",
+        "48,48",
+        "48,96",
+        "48,144",
+        "48,0",
+        "96,48",
+        "96,96",
+        "96,144",
+        "144,48",
+        "144,96",
+        "96,0",
+        "144,144",
+        "144,0"
+      ]
+    },
+    {
+      "name": "webkit",
+      "version": "26.6",
+      "errors": [],
+      "failedRequests": [],
+      "requests": [
+        "http://127.0.0.1:4173/?scene=adventure&debug=1",
+        "http://127.0.0.1:4173/assets/index-DXd_UZOO.js",
+        "http://127.0.0.1:4173/assets/index-qi-cmGDo.css",
+        "http://127.0.0.1:4173/assets/plains/manifest.json",
+        "http://127.0.0.1:4173/assets/henry/manifest.json",
+        "http://127.0.0.1:4173/assets/plains/environment.png",
+        "http://127.0.0.1:4173/assets/henry/starter.png",
+        "http://127.0.0.1:4173/assets/henry/reference.png",
+        "http://127.0.0.1:4173/?scene=art"
+      ],
+      "routes": [
+        {
+          "mode": "no-jump",
+          "elapsedMs": 10997,
+          "finish": {
+            "status": "Adventure preview · Finish · Gems 0 · X 2310 Y 136 V 220 · Escape to pause · M to mute",
+            "hud": "GEMS 0   CHECKPOINT checkpoint-cave",
+            "localStorage": [],
+            "sessionStorage": []
+          },
+          "afterReplay": {
+            "status": "Adventure preview · Playing · X 48 Y 164 V 0 · Escape to pause · M to mute",
+            "hud": "GEMS 0   CHECKPOINT START",
+            "localStorage": [],
+            "sessionStorage": []
+          },
+          "captures": [
+            {
+              "checkpointX": 570,
+              "status": "Adventure preview · Playing · X 594 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow",
+              "localStorage": [],
+              "sessionStorage": []
+            },
+            {
+              "checkpointX": 1220,
+              "status": "Adventure preview · Playing · X 1244 Y 120 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside",
+              "localStorage": [],
+              "sessionStorage": []
+            },
+            {
+              "checkpointX": 1780,
+              "status": "Adventure preview · Playing · X 1805 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave",
+              "localStorage": [],
+              "sessionStorage": []
+            }
+          ],
+          "samples": [
+            {
+              "ms": 1,
+              "status": "Adventure preview · Playing · X 48 Y 164 V 0 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 79,
+              "status": "Adventure preview · Playing · X 51 Y 164 V 61 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 157,
+              "status": "Adventure preview · Playing · X 60 Y 164 V 138 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 235,
+              "status": "Adventure preview · Playing · X 75 Y 164 V 215 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 314,
+              "status": "Adventure preview · Playing · X 93 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 394,
+              "status": "Adventure preview · Playing · X 108 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 473,
+              "status": "Adventure preview · Playing · X 126 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 553,
+              "status": "Adventure preview · Playing · X 145 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 632,
+              "status": "Adventure preview · Playing · X 163 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 710,
+              "status": "Adventure preview · Playing · X 177 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 789,
+              "status": "Adventure preview · Playing · X 196 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 868,
+              "status": "Adventure preview · Playing · X 214 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 949,
+              "status": "Adventure preview · Playing · X 229 Y 161 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1028,
+              "status": "Adventure preview · Playing · X 247 Y 156 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1107,
+              "status": "Adventure preview · Playing · X 265 Y 151 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1186,
+              "status": "Adventure preview · Playing · X 283 Y 146 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1264,
+              "status": "Adventure preview · Playing · X 298 Y 142 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1343,
+              "status": "Adventure preview · Playing · X 316 Y 137 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1423,
+              "status": "Adventure preview · Playing · X 334 Y 131 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1502,
+              "status": "Adventure preview · Playing · X 353 Y 126 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1581,
+              "status": "Adventure preview · Playing · X 367 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1660,
+              "status": "Adventure preview · Playing · X 385 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1739,
+              "status": "Adventure preview · Playing · X 404 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1819,
+              "status": "Adventure preview · Playing · X 422 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1898,
+              "status": "Adventure preview · Playing · X 440 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1976,
+              "status": "Adventure preview · Playing · X 455 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 2055,
+              "status": "Adventure preview · Playing · X 473 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 2134,
+              "status": "Adventure preview · Playing · X 492 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 2213,
+              "status": "Adventure preview · Playing · X 506 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 2292,
+              "status": "Adventure preview · Playing · X 525 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 2372,
+              "status": "Adventure preview · Playing · X 543 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 2450,
+              "status": "Adventure preview · Playing · X 561 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 2530,
+              "status": "Adventure preview · Playing · X 576 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 2608,
+              "status": "Adventure preview · Playing · X 594 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 2696,
+              "status": "Adventure preview · Playing · X 616 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 2775,
+              "status": "Adventure preview · Playing · X 631 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 2853,
+              "status": "Adventure preview · Playing · X 649 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 2932,
+              "status": "Adventure preview · Playing · X 668 Y 129 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 3011,
+              "status": "Adventure preview · Playing · X 682 Y 134 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 3089,
+              "status": "Adventure preview · Playing · X 701 Y 88 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 3167,
+              "status": "Adventure preview · Playing · X 719 Y 58 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 3246,
+              "status": "Adventure preview · Playing · X 734 Y 45 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 3325,
+              "status": "Adventure preview · Playing · X 752 Y 44 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 3403,
+              "status": "Adventure preview · Playing · X 770 Y 55 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 3481,
+              "status": "Adventure preview · Playing · X 789 Y 75 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 3559,
+              "status": "Adventure preview · Playing · X 803 Y 99 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 3639,
+              "status": "Adventure preview · Playing · X 822 Y 138 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 3717,
+              "status": "Adventure preview · Playing · X 840 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 3795,
+              "status": "Adventure preview · Playing · X 855 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 3872,
+              "status": "Adventure preview · Playing · X 873 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 3951,
+              "status": "Adventure preview · Playing · X 891 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 4031,
+              "status": "Adventure preview · Playing · X 906 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 4110,
+              "status": "Adventure preview · Playing · X 924 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 4189,
+              "status": "Adventure preview · Playing · X 943 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 4266,
+              "status": "Adventure preview · Playing · X 961 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 4344,
+              "status": "Adventure preview · Playing · X 976 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 4422,
+              "status": "Adventure preview · Playing · X 994 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 4499,
+              "status": "Adventure preview · Playing · X 1012 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 4577,
+              "status": "Adventure preview · Playing · X 1020 Y 161 V -210 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 4655,
+              "status": "Adventure preview · Playing · X 1005 Y 155 V -158 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 4733,
+              "status": "Adventure preview · Playing · X 994 Y 162 V -106 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 4811,
+              "status": "Adventure preview · Playing · X 990 Y 164 V -50 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 4888,
+              "status": "Adventure preview · Playing · X 989 Y 164 V 27 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 4967,
+              "status": "Adventure preview · Playing · X 995 Y 164 V 103 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 5045,
+              "status": "Adventure preview · Playing · X 1005 Y 164 V 165 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 5122,
+              "status": "Adventure preview · Playing · X 1022 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 5200,
+              "status": "Adventure preview · Playing · X 1040 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 5278,
+              "status": "Adventure preview · Playing · X 1055 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 5355,
+              "status": "Adventure preview · Playing · X 1073 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 5432,
+              "status": "Adventure preview · Playing · X 1092 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 5510,
+              "status": "Adventure preview · Playing · X 1106 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 5588,
+              "status": "Adventure preview · Playing · X 1125 Y 162 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 5665,
+              "status": "Adventure preview · Playing · X 1143 Y 156 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 5743,
+              "status": "Adventure preview · Playing · X 1157 Y 151 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 5821,
+              "status": "Adventure preview · Playing · X 1175 Y 145 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 5899,
+              "status": "Adventure preview · Playing · X 1194 Y 138 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-meadow"
+            },
+            {
+              "ms": 5978,
+              "status": "Adventure preview · Playing · X 1208 Y 133 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 6056,
+              "status": "Adventure preview · Playing · X 1226 Y 127 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 6134,
+              "status": "Adventure preview · Playing · X 1244 Y 120 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 6225,
+              "status": "Adventure preview · Playing · X 1263 Y 114 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 6305,
+              "status": "Adventure preview · Playing · X 1281 Y 108 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 6384,
+              "status": "Adventure preview · Playing · X 1299 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 6464,
+              "status": "Adventure preview · Playing · X 1317 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 6542,
+              "status": "Adventure preview · Playing · X 1332 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 6622,
+              "status": "Adventure preview · Playing · X 1350 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 6700,
+              "status": "Adventure preview · Playing · X 1369 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 6780,
+              "status": "Adventure preview · Playing · X 1383 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 6859,
+              "status": "Adventure preview · Playing · X 1402 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 6940,
+              "status": "Adventure preview · Playing · X 1420 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 7019,
+              "status": "Adventure preview · Playing · X 1438 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 7099,
+              "status": "Adventure preview · Playing · X 1457 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 7178,
+              "status": "Adventure preview · Playing · X 1471 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 7256,
+              "status": "Adventure preview · Playing · X 1490 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 7335,
+              "status": "Adventure preview · Playing · X 1508 Y 68 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 7415,
+              "status": "Adventure preview · Playing · X 1526 Y 25 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 7495,
+              "status": "Adventure preview · Playing · X 1541 Y 2 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 7573,
+              "status": "Adventure preview · Playing · X 1559 Y -12 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 7653,
+              "status": "Adventure preview · Playing · X 1578 Y -10 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 7731,
+              "status": "Adventure preview · Playing · X 1596 Y 2 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 7811,
+              "status": "Adventure preview · Playing · X 1611 Y 20 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 7891,
+              "status": "Adventure preview · Playing · X 1629 Y 51 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 7971,
+              "status": "Adventure preview · Playing · X 1647 Y 92 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 8050,
+              "status": "Adventure preview · Playing · X 1666 Y 143 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 8129,
+              "status": "Adventure preview · Playing · X 1680 Y 153 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 8209,
+              "status": "Adventure preview · Playing · X 1699 Y 162 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 8288,
+              "status": "Adventure preview · Playing · X 1717 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 8367,
+              "status": "Adventure preview · Playing · X 1735 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 8447,
+              "status": "Adventure preview · Playing · X 1750 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-hillside"
+            },
+            {
+              "ms": 8526,
+              "status": "Adventure preview · Playing · X 1768 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 8604,
+              "status": "Adventure preview · Playing · X 1787 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 8683,
+              "status": "Adventure preview · Playing · X 1805 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 8777,
+              "status": "Adventure preview · Playing · X 1823 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 8857,
+              "status": "Adventure preview · Playing · X 1842 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 8936,
+              "status": "Adventure preview · Playing · X 1860 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 9015,
+              "status": "Adventure preview · Playing · X 1878 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 9094,
+              "status": "Adventure preview · Playing · X 1893 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 9173,
+              "status": "Adventure preview · Playing · X 1911 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 9251,
+              "status": "Adventure preview · Playing · X 1930 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 9330,
+              "status": "Adventure preview · Playing · X 1944 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 9409,
+              "status": "Adventure preview · Playing · X 1963 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 9489,
+              "status": "Adventure preview · Playing · X 1981 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 9568,
+              "status": "Adventure preview · Playing · X 1999 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 9649,
+              "status": "Adventure preview · Playing · X 2014 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 9727,
+              "status": "Adventure preview · Playing · X 2032 Y 163 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 9806,
+              "status": "Adventure preview · Playing · X 2051 Y 159 V 219 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 9885,
+              "status": "Adventure preview · Playing · X 2069 Y 154 V 219 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 9964,
+              "status": "Adventure preview · Playing · X 2083 Y 150 V 219 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 10044,
+              "status": "Adventure preview · Playing · X 2102 Y 146 V 219 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 10123,
+              "status": "Adventure preview · Playing · X 2120 Y 141 V 219 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 10202,
+              "status": "Adventure preview · Playing · X 2138 Y 136 V 219 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 10282,
+              "status": "Adventure preview · Playing · X 2156 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 10361,
+              "status": "Adventure preview · Playing · X 2171 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 10441,
+              "status": "Adventure preview · Playing · X 2189 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 10521,
+              "status": "Adventure preview · Playing · X 2208 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 10600,
+              "status": "Adventure preview · Playing · X 2226 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 10678,
+              "status": "Adventure preview · Playing · X 2241 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 10757,
+              "status": "Adventure preview · Playing · X 2259 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 10836,
+              "status": "Adventure preview · Playing · X 2277 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 10917,
+              "status": "Adventure preview · Playing · X 2296 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            },
+            {
+              "ms": 10996,
+              "status": "Adventure preview · Finish · Gems 0 · X 2310 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT checkpoint-cave"
+            }
+          ]
+        },
+        {
+          "mode": "jump-route",
+          "elapsedMs": 11795,
+          "finish": {
+            "status": "Adventure preview · Finish · Gems 3 · X 2313 Y 136 V 220 · Escape to pause · M to mute",
+            "hud": "GEMS 3   CHECKPOINT START",
+            "localStorage": [],
+            "sessionStorage": []
+          },
+          "afterReplay": {
+            "status": "Adventure preview · Playing · X 48 Y 164 V 0 · Escape to pause · M to mute",
+            "hud": "GEMS 0   CHECKPOINT START",
+            "localStorage": [],
+            "sessionStorage": []
+          },
+          "captures": [
+            {
+              "checkpointX": 570,
+              "status": "Adventure preview · Playing · X 653 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 1   CHECKPOINT START",
+              "localStorage": [],
+              "sessionStorage": []
+            },
+            {
+              "checkpointX": 1220,
+              "status": "Adventure preview · Playing · X 1287 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START",
+              "localStorage": [],
+              "sessionStorage": []
+            },
+            {
+              "checkpointX": 1780,
+              "status": "Adventure preview · Playing · X 1852 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START",
+              "localStorage": [],
+              "sessionStorage": []
+            }
+          ],
+          "samples": [
+            {
+              "ms": 2,
+              "status": "Adventure preview · Playing · X 48 Y 164 V 0 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 80,
+              "status": "Adventure preview · Playing · X 51 Y 164 V 61 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 159,
+              "status": "Adventure preview · Playing · X 60 Y 164 V 138 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 238,
+              "status": "Adventure preview · Playing · X 75 Y 164 V 215 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 318,
+              "status": "Adventure preview · Playing · X 93 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 397,
+              "status": "Adventure preview · Playing · X 108 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 475,
+              "status": "Adventure preview · Playing · X 126 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 555,
+              "status": "Adventure preview · Playing · X 145 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 634,
+              "status": "Adventure preview · Playing · X 163 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 712,
+              "status": "Adventure preview · Playing · X 177 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 792,
+              "status": "Adventure preview · Playing · X 196 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 870,
+              "status": "Adventure preview · Playing · X 214 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 950,
+              "status": "Adventure preview · Playing · X 232 Y 160 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1029,
+              "status": "Adventure preview · Playing · X 247 Y 156 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1109,
+              "status": "Adventure preview · Playing · X 265 Y 151 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1188,
+              "status": "Adventure preview · Playing · X 283 Y 146 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1268,
+              "status": "Adventure preview · Playing · X 302 Y 141 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1348,
+              "status": "Adventure preview · Playing · X 316 Y 137 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1427,
+              "status": "Adventure preview · Playing · X 334 Y 131 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1506,
+              "status": "Adventure preview · Playing · X 353 Y 126 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1585,
+              "status": "Adventure preview · Playing · X 371 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 1908,
+              "status": "Adventure preview · Playing · X 440 Y 44 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 0   CHECKPOINT START"
+            },
+            {
+              "ms": 2230,
+              "status": "Adventure preview · Playing · X 510 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 1   CHECKPOINT START"
+            },
+            {
+              "ms": 2553,
+              "status": "Adventure preview · Playing · X 583 Y 44 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 1   CHECKPOINT START"
+            },
+            {
+              "ms": 2875,
+              "status": "Adventure preview · Playing · X 653 Y 124 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 1   CHECKPOINT START"
+            },
+            {
+              "ms": 2967,
+              "status": "Adventure preview · Playing · X 675 Y 131 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 1   CHECKPOINT START"
+            },
+            {
+              "ms": 3045,
+              "status": "Adventure preview · Playing · X 690 Y 114 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 1   CHECKPOINT START"
+            },
+            {
+              "ms": 3125,
+              "status": "Adventure preview · Playing · X 708 Y 74 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 1   CHECKPOINT START"
+            },
+            {
+              "ms": 3204,
+              "status": "Adventure preview · Playing · X 726 Y 50 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 1   CHECKPOINT START"
+            },
+            {
+              "ms": 3283,
+              "status": "Adventure preview · Playing · X 745 Y 43 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 1   CHECKPOINT START"
+            },
+            {
+              "ms": 3363,
+              "status": "Adventure preview · Playing · X 759 Y 47 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 1   CHECKPOINT START"
+            },
+            {
+              "ms": 3443,
+              "status": "Adventure preview · Playing · X 778 Y 62 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 1   CHECKPOINT START"
+            },
+            {
+              "ms": 3523,
+              "status": "Adventure preview · Playing · X 796 Y 86 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 1   CHECKPOINT START"
+            },
+            {
+              "ms": 3601,
+              "status": "Adventure preview · Playing · X 814 Y 121 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 1   CHECKPOINT START"
+            },
+            {
+              "ms": 3680,
+              "status": "Adventure preview · Playing · X 829 Y 157 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 1   CHECKPOINT START"
+            },
+            {
+              "ms": 3761,
+              "status": "Adventure preview · Playing · X 847 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 1   CHECKPOINT START"
+            },
+            {
+              "ms": 3840,
+              "status": "Adventure preview · Playing · X 866 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 1   CHECKPOINT START"
+            },
+            {
+              "ms": 4162,
+              "status": "Adventure preview · Playing · X 935 Y 83 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 1   CHECKPOINT START"
+            },
+            {
+              "ms": 4484,
+              "status": "Adventure preview · Playing · X 1009 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 1   CHECKPOINT START"
+            },
+            {
+              "ms": 4807,
+              "status": "Adventure preview · Playing · X 989 Y 129 V -65 · Escape to pause · M to mute",
+              "hud": "GEMS 1   CHECKPOINT START"
+            },
+            {
+              "ms": 5129,
+              "status": "Adventure preview · Playing · X 1006 Y 164 V 181 · Escape to pause · M to mute",
+              "hud": "GEMS 1   CHECKPOINT START"
+            },
+            {
+              "ms": 5450,
+              "status": "Adventure preview · Playing · X 1079 Y 83 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 1   CHECKPOINT START"
+            },
+            {
+              "ms": 5772,
+              "status": "Adventure preview · Playing · X 1148 Y 154 V 218 · Escape to pause · M to mute",
+              "hud": "GEMS 1   CHECKPOINT START"
+            },
+            {
+              "ms": 6093,
+              "status": "Adventure preview · Playing · X 1218 Y 74 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 6414,
+              "status": "Adventure preview · Playing · X 1287 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 6509,
+              "status": "Adventure preview · Playing · X 1309 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 6588,
+              "status": "Adventure preview · Playing · X 1328 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 6667,
+              "status": "Adventure preview · Playing · X 1342 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 6747,
+              "status": "Adventure preview · Playing · X 1361 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 6826,
+              "status": "Adventure preview · Playing · X 1379 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 6905,
+              "status": "Adventure preview · Playing · X 1397 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 6984,
+              "status": "Adventure preview · Playing · X 1416 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 7064,
+              "status": "Adventure preview · Playing · X 1430 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 7142,
+              "status": "Adventure preview · Playing · X 1449 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 7222,
+              "status": "Adventure preview · Playing · X 1467 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 7301,
+              "status": "Adventure preview · Playing · X 1485 Y 108 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 7381,
+              "status": "Adventure preview · Playing · X 1500 Y 88 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 7459,
+              "status": "Adventure preview · Playing · X 1518 Y 41 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 7539,
+              "status": "Adventure preview · Playing · X 1537 Y 7 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 7619,
+              "status": "Adventure preview · Playing · X 1555 Y -10 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 7699,
+              "status": "Adventure preview · Playing · X 1570 Y -12 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 7778,
+              "status": "Adventure preview · Playing · X 1588 Y -4 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 7857,
+              "status": "Adventure preview · Playing · X 1606 Y 15 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 7936,
+              "status": "Adventure preview · Playing · X 1625 Y 44 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 8016,
+              "status": "Adventure preview · Playing · X 1639 Y 74 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 8095,
+              "status": "Adventure preview · Playing · X 1658 Y 121 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 8175,
+              "status": "Adventure preview · Playing · X 1676 Y 152 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 8254,
+              "status": "Adventure preview · Playing · X 1694 Y 162 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 8333,
+              "status": "Adventure preview · Playing · X 1713 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 8656,
+              "status": "Adventure preview · Playing · X 1782 Y 84 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 8979,
+              "status": "Adventure preview · Playing · X 1852 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 9319,
+              "status": "Adventure preview · Playing · X 1826 Y 161 V -34 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 9641,
+              "status": "Adventure preview · Playing · X 1850 Y 84 V 167 · Escape to pause · M to mute",
+              "hud": "GEMS 2   CHECKPOINT START"
+            },
+            {
+              "ms": 9963,
+              "status": "Adventure preview · Playing · X 1918 Y 164 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 10286,
+              "status": "Adventure preview · Playing · X 1991 Y 84 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 10367,
+              "status": "Adventure preview · Playing · X 2006 Y 90 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 10446,
+              "status": "Adventure preview · Playing · X 2024 Y 107 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 10525,
+              "status": "Adventure preview · Playing · X 2042 Y 134 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 10604,
+              "status": "Adventure preview · Playing · X 2061 Y 156 V 219 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 10684,
+              "status": "Adventure preview · Playing · X 2079 Y 152 V 219 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 10764,
+              "status": "Adventure preview · Playing · X 2093 Y 148 V 219 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 10843,
+              "status": "Adventure preview · Playing · X 2112 Y 143 V 219 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 10923,
+              "status": "Adventure preview · Playing · X 2130 Y 139 V 219 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 11002,
+              "status": "Adventure preview · Playing · X 2148 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 11081,
+              "status": "Adventure preview · Playing · X 2163 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 11161,
+              "status": "Adventure preview · Playing · X 2181 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 11241,
+              "status": "Adventure preview · Playing · X 2199 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 11320,
+              "status": "Adventure preview · Playing · X 2218 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 11400,
+              "status": "Adventure preview · Playing · X 2232 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 11480,
+              "status": "Adventure preview · Playing · X 2251 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 11559,
+              "status": "Adventure preview · Playing · X 2269 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 11639,
+              "status": "Adventure preview · Playing · X 2287 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 11717,
+              "status": "Adventure preview · Playing · X 2306 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            },
+            {
+              "ms": 11795,
+              "status": "Adventure preview · Finish · Gems 3 · X 2313 Y 136 V 220 · Escape to pause · M to mute",
+              "hud": "GEMS 3   CHECKPOINT START"
+            }
+          ]
+        }
+      ],
+      "beforeReload": {
+        "status": "Adventure preview · Playing · X 609 Y 124 V 0 · Escape to pause · M to mute",
+        "hud": "GEMS 1   CHECKPOINT checkpoint-meadow",
+        "localStorage": [],
+        "sessionStorage": []
+      },
+      "afterReload": {
+        "status": "Adventure preview · Playing · X 48 Y 164 V 0 · Escape to pause · M to mute",
+        "hud": "GEMS 0   CHECKPOINT START",
+        "localStorage": [],
+        "sessionStorage": []
+      },
+      "beforeClose": {
+        "status": "Adventure preview · Playing · X 609 Y 124 V 0 · Escape to pause · M to mute",
+        "hud": "GEMS 1   CHECKPOINT checkpoint-meadow",
+        "localStorage": [],
+        "sessionStorage": []
+      },
+      "afterReopen": {
+        "status": "Adventure preview · Playing · X 48 Y 164 V 0 · Escape to pause · M to mute",
+        "hud": "GEMS 0   CHECKPOINT START",
+        "localStorage": [],
+        "sessionStorage": []
+      },
+      "artFrames": [
+        "0,0",
+        "0,48",
+        "0,96",
+        "0,144",
+        "48,48",
+        "48,96",
+        "48,144",
+        "48,0",
+        "96,48",
+        "96,96",
+        "96,144",
+        "144,48",
+        "144,96",
+        "96,0",
+        "144,144",
+        "144,0"
+      ]
+    }
+  ]
+}

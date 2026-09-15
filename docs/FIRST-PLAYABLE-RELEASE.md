@@ -23,6 +23,14 @@ served with `npm run build` and `npm run preview`.
 
 ## Verification status — 2026-09-15
 
+**Update, 2026-09-16:** the [macOS verification report](RELEASE-VERIFICATION-2026-09-16.md)
+records 57 passing unit tests and 57/57 passing browser checks after checkpoint
+fix #41, plus a user-reported Xbox Bluetooth playtest of the original candidate
+in the Codex in-app browser. #26 is fixed and retested. Certification remains
+blocked by [sprite-background defect #42](https://github.com/auleewilliams/TinyTurboTrails/issues/42),
+[duration tuning #45](https://github.com/auleewilliams/TinyTurboTrails/issues/45),
+and the incomplete native-browser matrix. The Linux results below are historical.
+
 Issue #9 remains a draft closeout until issue #8 is complete and integrated.
 On Ubuntu 26.04.1 LTS (Node 22.22.1, npm 9.2.0), a fresh local clone passed
 `npm ci --offline`, `npm run typecheck`, all 48 unit tests, `npm run build`, and
@@ -73,10 +81,20 @@ deliberately out of scope. The generated source art and processed atlases are
 project-local; the running game loads assets locally and makes no generation or
 external API calls.
 
-Known blocking defect: [#26 — Place checkpoints on the ground](https://github.com/auleewilliams/TinyTurboTrails/issues/26).
-The configured marker/recovery coordinates sit above terrain; grounded activation
-and ground-aligned recovery need a fix and retest before certification. No open
-non-blocking defect was identified in the issue inventory reviewed on 2026-09-15.
+Former blocking defect [#26 — Place checkpoints on the ground](https://github.com/auleewilliams/TinyTurboTrails/issues/26)
+was fixed by PR #41. The 2026-09-16 retest verifies grounded activation in all
+three bundled engines and terrain-aligned recovery with retained gems in the
+simulation suite. Natural browser fall/recovery and the native-browser matrix
+remain manual coverage gaps.
+
+New non-blocking findings from the 2026-09-16 run are
+[left-facing animation #43](https://github.com/auleewilliams/TinyTurboTrails/issues/43),
+[collected-gem rendering #44](https://github.com/auleewilliams/TinyTurboTrails/issues/44),
+[HUD alignment after pause #46](https://github.com/auleewilliams/TinyTurboTrails/issues/46),
+[scenery/slime anchors #47](https://github.com/auleewilliams/TinyTurboTrails/issues/47),
+[terrain seams #48](https://github.com/auleewilliams/TinyTurboTrails/issues/48), and
+[finish composition #49](https://github.com/auleewilliams/TinyTurboTrails/issues/49).
+These remain known limitations; the verification PR does not fix them.
 
 Automated Linux browser checks do not replace physical speakers, a controller,
 Safari on macOS or every current/previous-major browser pair. Those checks,
