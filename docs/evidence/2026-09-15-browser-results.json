@@ -1,0 +1,313 @@
+{
+  "candidateCommit": "94a35a63575b5205c45b4d2810f0de75efd9d27d",
+  "date": "2026-09-15",
+  "os": "Ubuntu 26.04.1 LTS x86_64",
+  "node": "22.22.1",
+  "npm": "9.2.0",
+  "command": "npm run test:browser -- --workers=2 --reporter=json",
+  "exitCode": 1,
+  "browserVersions": {
+    "chromium": "153.0.8010.12",
+    "firefox": "155.0",
+    "webkit": "not launched"
+  },
+  "stats": {
+    "startTime": "2026-09-15T05:30:16.278Z",
+    "duration": 61514.419,
+    "expected": 35,
+    "skipped": 1,
+    "unexpected": 18,
+    "flaky": 0
+  },
+  "results": [
+    {
+      "project": "chromium",
+      "test": "audio stays locked until interaction and supports all effects, mute, pause and stop",
+      "status": "passed"
+    },
+    {
+      "project": "chromium",
+      "test": "game remains interactive when Web Audio is unavailable",
+      "status": "passed"
+    },
+    {
+      "project": "firefox",
+      "test": "audio stays locked until interaction and supports all effects, mute, pause and stop",
+      "status": "skipped",
+      "reason": "Native AudioContext cannot run on this host; requires an audio backend."
+    },
+    {
+      "project": "firefox",
+      "test": "game remains interactive when Web Audio is unavailable",
+      "status": "passed"
+    },
+    {
+      "project": "webkit",
+      "test": "audio stays locked until interaction and supports all effects, mute, pause and stop",
+      "status": "failed",
+      "reason": "Browser launch blocked: missing WebKit host libraries"
+    },
+    {
+      "project": "webkit",
+      "test": "game remains interactive when Web Audio is unavailable",
+      "status": "failed",
+      "reason": "Browser launch blocked: missing WebKit host libraries"
+    },
+    {
+      "project": "chromium",
+      "test": "production canvas loads, scales and recovers from focus loss",
+      "status": "passed"
+    },
+    {
+      "project": "chromium",
+      "test": "art preview loads local assets and reports a missing atlas",
+      "status": "passed"
+    },
+    {
+      "project": "chromium",
+      "test": "starter atlas contains real transparency and every frame stays within its cell",
+      "status": "passed"
+    },
+    {
+      "project": "chromium",
+      "test": "movement preview accepts keyboard movement and jump input",
+      "status": "passed"
+    },
+    {
+      "project": "chromium",
+      "test": "world preview loads generated Plains assets and level data",
+      "status": "passed"
+    },
+    {
+      "project": "chromium",
+      "test": "gameplay preview collects a gem and reaches a checkpoint",
+      "status": "passed"
+    },
+    {
+      "project": "chromium",
+      "test": "adventure renders hurt feedback after hazard contact",
+      "status": "passed"
+    },
+    {
+      "project": "chromium",
+      "test": "adventure screen starts and shows a replayable title flow",
+      "status": "passed"
+    },
+    {
+      "project": "chromium",
+      "test": "adventure mute control updates the audio state",
+      "status": "passed"
+    },
+    {
+      "project": "chromium",
+      "test": "adventure remains playable when Web Audio is unavailable",
+      "status": "passed"
+    },
+    {
+      "project": "chromium",
+      "test": "adventure keeps its letterbox and pauses on focus loss",
+      "status": "passed"
+    },
+    {
+      "project": "chromium",
+      "test": "adventure exposes retry when a required asset fails to load",
+      "status": "passed"
+    },
+    {
+      "project": "chromium",
+      "test": "adventure clears held controller input after disconnect",
+      "status": "passed"
+    },
+    {
+      "project": "chromium",
+      "test": "adventure can complete the forgiving route and replay from a fresh title",
+      "status": "passed"
+    },
+    {
+      "project": "chromium",
+      "test": "adventure pause freezes progress and reload starts a fresh in-memory run",
+      "status": "passed"
+    },
+    {
+      "project": "chromium",
+      "test": "adventure accepts a standard controller Start pause and D-pad movement",
+      "status": "passed"
+    },
+    {
+      "project": "firefox",
+      "test": "production canvas loads, scales and recovers from focus loss",
+      "status": "passed"
+    },
+    {
+      "project": "firefox",
+      "test": "art preview loads local assets and reports a missing atlas",
+      "status": "passed"
+    },
+    {
+      "project": "firefox",
+      "test": "starter atlas contains real transparency and every frame stays within its cell",
+      "status": "passed"
+    },
+    {
+      "project": "firefox",
+      "test": "movement preview accepts keyboard movement and jump input",
+      "status": "passed"
+    },
+    {
+      "project": "firefox",
+      "test": "world preview loads generated Plains assets and level data",
+      "status": "passed"
+    },
+    {
+      "project": "firefox",
+      "test": "gameplay preview collects a gem and reaches a checkpoint",
+      "status": "passed"
+    },
+    {
+      "project": "firefox",
+      "test": "adventure renders hurt feedback after hazard contact",
+      "status": "passed"
+    },
+    {
+      "project": "firefox",
+      "test": "adventure screen starts and shows a replayable title flow",
+      "status": "passed"
+    },
+    {
+      "project": "firefox",
+      "test": "adventure mute control updates the audio state",
+      "status": "passed"
+    },
+    {
+      "project": "firefox",
+      "test": "adventure remains playable when Web Audio is unavailable",
+      "status": "passed"
+    },
+    {
+      "project": "firefox",
+      "test": "adventure keeps its letterbox and pauses on focus loss",
+      "status": "passed"
+    },
+    {
+      "project": "firefox",
+      "test": "adventure exposes retry when a required asset fails to load",
+      "status": "passed"
+    },
+    {
+      "project": "firefox",
+      "test": "adventure clears held controller input after disconnect",
+      "status": "passed"
+    },
+    {
+      "project": "firefox",
+      "test": "adventure can complete the forgiving route and replay from a fresh title",
+      "status": "passed"
+    },
+    {
+      "project": "firefox",
+      "test": "adventure pause freezes progress and reload starts a fresh in-memory run",
+      "status": "passed"
+    },
+    {
+      "project": "firefox",
+      "test": "adventure accepts a standard controller Start pause and D-pad movement",
+      "status": "passed"
+    },
+    {
+      "project": "webkit",
+      "test": "production canvas loads, scales and recovers from focus loss",
+      "status": "failed",
+      "reason": "Browser launch blocked: missing WebKit host libraries"
+    },
+    {
+      "project": "webkit",
+      "test": "art preview loads local assets and reports a missing atlas",
+      "status": "failed",
+      "reason": "Browser launch blocked: missing WebKit host libraries"
+    },
+    {
+      "project": "webkit",
+      "test": "starter atlas contains real transparency and every frame stays within its cell",
+      "status": "failed",
+      "reason": "Browser launch blocked: missing WebKit host libraries"
+    },
+    {
+      "project": "webkit",
+      "test": "movement preview accepts keyboard movement and jump input",
+      "status": "failed",
+      "reason": "Browser launch blocked: missing WebKit host libraries"
+    },
+    {
+      "project": "webkit",
+      "test": "world preview loads generated Plains assets and level data",
+      "status": "failed",
+      "reason": "Browser launch blocked: missing WebKit host libraries"
+    },
+    {
+      "project": "webkit",
+      "test": "gameplay preview collects a gem and reaches a checkpoint",
+      "status": "failed",
+      "reason": "Browser launch blocked: missing WebKit host libraries"
+    },
+    {
+      "project": "webkit",
+      "test": "adventure renders hurt feedback after hazard contact",
+      "status": "failed",
+      "reason": "Browser launch blocked: missing WebKit host libraries"
+    },
+    {
+      "project": "webkit",
+      "test": "adventure screen starts and shows a replayable title flow",
+      "status": "failed",
+      "reason": "Browser launch blocked: missing WebKit host libraries"
+    },
+    {
+      "project": "webkit",
+      "test": "adventure mute control updates the audio state",
+      "status": "failed",
+      "reason": "Browser launch blocked: missing WebKit host libraries"
+    },
+    {
+      "project": "webkit",
+      "test": "adventure remains playable when Web Audio is unavailable",
+      "status": "failed",
+      "reason": "Browser launch blocked: missing WebKit host libraries"
+    },
+    {
+      "project": "webkit",
+      "test": "adventure keeps its letterbox and pauses on focus loss",
+      "status": "failed",
+      "reason": "Browser launch blocked: missing WebKit host libraries"
+    },
+    {
+      "project": "webkit",
+      "test": "adventure exposes retry when a required asset fails to load",
+      "status": "failed",
+      "reason": "Browser launch blocked: missing WebKit host libraries"
+    },
+    {
+      "project": "webkit",
+      "test": "adventure clears held controller input after disconnect",
+      "status": "failed",
+      "reason": "Browser launch blocked: missing WebKit host libraries"
+    },
+    {
+      "project": "webkit",
+      "test": "adventure can complete the forgiving route and replay from a fresh title",
+      "status": "failed",
+      "reason": "Browser launch blocked: missing WebKit host libraries"
+    },
+    {
+      "project": "webkit",
+      "test": "adventure pause freezes progress and reload starts a fresh in-memory run",
+      "status": "failed",
+      "reason": "Browser launch blocked: missing WebKit host libraries"
+    },
+    {
+      "project": "webkit",
+      "test": "adventure accepts a standard controller Start pause and D-pad movement",
+      "status": "failed",
+      "reason": "Browser launch blocked: missing WebKit host libraries"
+    }
+  ]
+}
