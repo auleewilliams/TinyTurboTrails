@@ -36,3 +36,47 @@ test('production canvas loads, scales and recovers from focus loss', async ({ pa
   console.log(`${info.project.name}: ${browser.version()}`);
   await page.screenshot({ path: info.outputPath('foundation.png') });
 });
+
+test('art preview loads local assets and reports a missing atlas', async ({ page }) => {
+  await page.goto('/?scene=art');
+  await expect(page.locator('#status')).toContainText('Art preview');
+  await expect(page.locator('#status')).not.toContainText('Loading');
+  await page.route('**/assets/henry/starter.png', (route) => route.abort());
+  await page.reload();
+  await expect(page.locator('#status')).toHaveText('Artwork could not load. Reload to retry.');
+});
+
+test('starter atlas contains real transparency and every frame stays within its cell', async ({ page }) => {
+  await page.goto('/?scene=art');
+  await expect(page.locator('#status')).toContainText('Art preview');
+  const results = await page.evaluate(async () => {
+    const manifest = await (await fetch('/assets/henry/manifest.json')).json();
+    const image = new Image();
+    image.src = '/assets/henry/' + manifest.image;
+    await image.decode();
+    const canvas = document.createElement('canvas');
+    canvas.width = image.width;
+    canvas.height = image.height;
+    const ctx = canvas.getContext('2d')!;
+    ctx.drawImage(image, 0, 0);
+    return manifest.frames.map((frame: { x: number; y: number; width: number; height: number }) => {
+      const pixels = ctx.getImageData(frame.x, frame.y, frame.width, frame.height).data;
+      let opaque = 0;
+      let clear = 0;
+      let edge = 0;
+      for (let y = 0; y < frame.height; y++) for (let x = 0; x < frame.width; x++) {
+        const alpha = pixels[(y * frame.width + x) * 4 + 3];
+        if (alpha === 0) clear++;
+        else opaque++;
+        if ((x === 0 || y === 0 || x === frame.width - 1 || y === frame.height - 1) && alpha) edge++;
+      }
+      return { opaque, clear, edge };
+    });
+  });
+  expect(results).toHaveLength(16);
+  for (const result of results) {
+    expect(result.opaque).toBeGreaterThan(150);
+    expect(result.clear).toBeGreaterThan(500);
+    expect(result.edge).toBe(0);
+  }
+});

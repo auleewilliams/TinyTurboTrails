@@ -5,6 +5,8 @@ import { BrowserInput, type InputFrame } from './core/input';
 import { SceneHost } from './core/scene';
 import { fitViewport } from './core/viewport';
 import { FoundationScene } from './foundation-scene';
+import { loadHenry } from './art/henry';
+import { ArtPreviewScene } from './art/preview-scene';
 
 const canvas = document.querySelector<HTMLCanvasElement>('#game')!;
 const status = document.querySelector<HTMLParagraphElement>('#status')!;
@@ -22,6 +24,9 @@ if (!context) {
   let muted = false;
   let request = 0;
   let pendingJump = false;
+  const artPreview = new URLSearchParams(location.search).get('scene') === 'art';
+  let assetState: 'loading' | 'ready' | 'failed' = artPreview ? 'loading' : 'ready';
+  let disposed = false;
 
   const refreshPause = (): void => {
     input.setFocused(focused);
@@ -32,9 +37,11 @@ if (!context) {
       input.clear();
       pendingJump = false;
     }
-    status.textContent = !focused ? 'Paused · Return to the game to continue'
+    status.textContent = assetState === 'failed' ? 'Artwork could not load. Reload to retry.'
+      : assetState === 'loading' ? 'Loading artwork…'
+      : !focused ? 'Paused · Return to the game to continue'
       : userPaused ? 'Paused · Escape to resume'
-      : `Foundation preview · Escape to pause · ${muted ? 'Muted · M to unmute' : 'M to mute'}`;
+      : `${artPreview ? 'Art' : 'Foundation'} preview · Escape to pause · ${muted ? 'Muted · M to unmute' : 'M to mute'}`;
   };
 
   const resize = (): void => {
@@ -75,11 +82,24 @@ if (!context) {
   window.addEventListener('focus', focus);
   document.addEventListener('visibilitychange', visibility);
   scenes.change(new FoundationScene());
+  if (artPreview) {
+    void loadHenry().then((assets) => {
+      if (disposed) return;
+      scenes.change(new ArtPreviewScene(assets));
+      assetState = 'ready';
+      refreshPause();
+    }).catch(() => {
+      if (disposed) return;
+      assetState = 'failed';
+      refreshPause();
+    });
+  }
   resize();
   refreshPause();
   request = requestAnimationFrame(frame);
 
   if (import.meta.hot) import.meta.hot.dispose(() => {
+    disposed = true;
     cancelAnimationFrame(request);
     window.removeEventListener('resize', resize);
     window.removeEventListener('blur', blur);
