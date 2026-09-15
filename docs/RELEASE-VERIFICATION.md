@@ -1,5 +1,11 @@
 # Release verification — issue #8
 
+**Latest run:** [2026-09-16 macOS verification](RELEASE-VERIFICATION-2026-09-16.md)
+records 54/54 passing browser checks, progress-reset/route evidence, a reported
+Xbox Bluetooth playtest and new defects. Certification remains blocked. The
+report below preserves the **2026-09-15 Linux run**; its environment limitations
+and issue inventory describe that earlier candidate.
+
 ## Status: certification blocked
 
 Run date: **2026-09-15 UTC**. Branch: `release/issues-8-9-verification`.

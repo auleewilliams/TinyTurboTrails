@@ -1,0 +1,20 @@
+[
+  {
+    "browser": "chromium",
+    "version": "153.0.8010.12",
+    "beforePause": "left",
+    "afterResume": "center"
+  },
+  {
+    "browser": "firefox",
+    "version": "155.0",
+    "beforePause": "left",
+    "afterResume": "center"
+  },
+  {
+    "browser": "webkit",
+    "version": "26.6",
+    "beforePause": "left",
+    "afterResume": "center"
+  }
+]

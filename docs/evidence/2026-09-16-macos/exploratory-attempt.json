@@ -1,0 +1,73 @@
+{
+  "status": "Exploratory attempt superseded by isolated keyboard audit",
+  "reason": "A physical controller was being playtested concurrently; navigator.getGamepads was not isolated. Chromium recorded pauses and then lost its held keyboard movement. Attribution to physical input is inferred, not proven.",
+  "browser": "chromium",
+  "version": "153.0.8010.12",
+  "startedAt": "2026-09-15T19:52:41.729Z",
+  "routes": [
+    {
+      "mode": "no-jump",
+      "elapsedMs": 11843,
+      "finish": "Adventure preview · Finish · Gems 6 · X 2311 Y 136 V 220 · Escape to pause · M to mute",
+      "pausedSamples": []
+    },
+    {
+      "mode": "jump-route",
+      "elapsedMs": 102268,
+      "finish": "Adventure preview · Playing · X 939 Y 84 V 0 · Escape to pause · M to mute",
+      "pausedSamples": [
+        {
+          "ms": 4157,
+          "status": "Paused · Escape to resume",
+          "hud": "GEMS 1   CHECKPOINT START"
+        },
+        {
+          "ms": 4234,
+          "status": "Paused · Escape to resume",
+          "hud": "GEMS 1   CHECKPOINT START"
+        },
+        {
+          "ms": 4311,
+          "status": "Paused · Escape to resume",
+          "hud": "GEMS 1   CHECKPOINT START"
+        },
+        {
+          "ms": 4388,
+          "status": "Paused · Escape to resume",
+          "hud": "GEMS 1   CHECKPOINT START"
+        },
+        {
+          "ms": 4466,
+          "status": "Paused · Escape to resume",
+          "hud": "GEMS 1   CHECKPOINT START"
+        },
+        {
+          "ms": 4543,
+          "status": "Paused · Escape to resume",
+          "hud": "GEMS 1   CHECKPOINT START"
+        },
+        {
+          "ms": 4621,
+          "status": "Paused · Escape to resume",
+          "hud": "GEMS 1   CHECKPOINT START"
+        },
+        {
+          "ms": 4699,
+          "status": "Paused · Escape to resume",
+          "hud": "GEMS 1   CHECKPOINT START"
+        },
+        {
+          "ms": 4776,
+          "status": "Paused · Escape to resume",
+          "hud": "GEMS 1   CHECKPOINT START"
+        },
+        {
+          "ms": 4854,
+          "status": "Paused · Escape to resume",
+          "hud": "GEMS 1   CHECKPOINT START"
+        }
+      ]
+    }
+  ],
+  "auditError": "Error: jump-route failed to finish within audit budget"
+}
