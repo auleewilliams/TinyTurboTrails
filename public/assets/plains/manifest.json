@@ -18,5 +18,11 @@
     "dust": 13,
     "hills": 14,
     "bush": 15
+  },
+  "anchors": {
+    "checkpoint": {
+      "x": 20,
+      "y": 44
+    }
   }
 }

@@ -38,5 +38,6 @@ export function drawAsset(ctx: CanvasRenderingContext2D, assets: WorldAssets, as
   const cell = assets.manifest.cellSize;
   const sourceX = (index % 4) * cell;
   const sourceY = Math.floor(index / 4) * cell;
-  ctx.drawImage(assets.atlas, sourceX, sourceY, cell, cell, x - cell * scale / 2, y - cell * scale, cell * scale, cell * scale);
+  const anchor = assets.manifest.anchors?.[asset] ?? { x: cell / 2, y: cell };
+  ctx.drawImage(assets.atlas, sourceX, sourceY, cell, cell, x - anchor.x * scale, y - anchor.y * scale, cell * scale, cell * scale);
 }

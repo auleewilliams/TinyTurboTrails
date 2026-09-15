@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { createPlayer } from '../src/game/movement';
 import { AdventureScene } from '../src/game/adventure-scene';
 import type { GameAudio } from '../src/core/audio';
 import { PLAINS_LEVEL } from '../src/world/level';
@@ -60,4 +61,20 @@ describe('game screen flow', () => {
     screens.complete(0); screens.update(() => updates++);
     expect(updates).toBe(2);
   });
+});
+
+// Exercise the adventure's actual proximity checks while walking, without jumping.
+it.each(PLAINS_LEVEL.checkpoints)('activates $id from the ground', (checkpoint) => {
+  const effects: string[] = [];
+  const audio: GameAudio = {
+    unlock: async () => {}, setMuted: () => {}, setSuspended: () => {}, startMusic: () => {},
+    play: (effect) => effects.push(effect), stop: () => {}, dispose: () => {},
+  };
+  const scene = new AdventureScene({} as never, {} as never, audio);
+  const input = { horizontal: 0, jumpHeld: false, jumpPressed: false, pausePressed: false, mutePressed: false };
+  scene.update(1 / 60, { ...input, jumpPressed: true });
+  Object.assign(scene, { player: createPlayer(checkpoint.x - 50, PLAINS_LEVEL) });
+  for (let frame = 0; frame < 40; frame++) scene.update(1 / 60, { ...input, horizontal: 1 });
+  expect(scene.playerX).toBeGreaterThan(checkpoint.x);
+  expect(effects.filter((effect) => effect === 'checkpoint')).toHaveLength(1);
 });

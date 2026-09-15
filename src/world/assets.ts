@@ -4,7 +4,12 @@ export const WORLD_ASSETS = [
   'finish-arch', 'dust', 'hills', 'bush',
 ] as const;
 export type WorldAsset = typeof WORLD_ASSETS[number];
-export interface WorldManifest { image: string; cellSize: number; assets: Record<WorldAsset, number> }
+export interface WorldManifest {
+  image: string;
+  cellSize: number;
+  assets: Record<WorldAsset, number>;
+  anchors?: Partial<Record<WorldAsset, { x: number; y: number }>>;
+}
 export interface WorldAssets { atlas: HTMLImageElement; manifest: WorldManifest }
 
 export async function loadWorldAssets(): Promise<WorldAssets> {
