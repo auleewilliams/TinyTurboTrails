@@ -87,9 +87,11 @@ def write_png(path: Path, width: int, height: int, pixels: list[tuple[int, int, 
 
 def is_background(pixel: tuple[int, int, int, int]) -> bool:
     r, g, b, _ = pixel
-    # The generated checkerboard is neutral gray. Keep colored character pixels,
-    # while allowing connected neutral regions to cross its tile boundaries.
-    neutral_gray = max(r, g, b) - min(r, g, b) <= 10 and min(r, g, b) >= 95
+    # The source checkerboard is slightly blue-gray, not neutral: measured
+    # border pixels have RGB channel spreads up to 16. Leave some tolerance
+    # for its softened tile edges, while retaining the colored/dark outline.
+    # Only border-connected pixels are removed, preserving enclosed highlights.
+    neutral_gray = max(r, g, b) - min(r, g, b) <= 20 and min(r, g, b) >= 95
     warm_paper = max(r, g, b) - min(r, g, b) <= 45 and min(r, g, b) >= 190
     return neutral_gray or warm_paper
 
