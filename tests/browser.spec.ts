@@ -144,6 +144,23 @@ test('adventure renders hurt feedback after hazard contact', async ({ page }) =>
   expect(redFeedbackPixels).toBeGreaterThan(20);
 });
 
+test('Henry faces the direction of travel, including after reversing while moving', async ({ page }) => {
+  await page.goto('/?scene=adventure&debug=1');
+  await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
+  await page.keyboard.press('Space');
+  await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
+  const facing = async () => Number((await page.locator('#status').innerText()).match(/F (-?\d+)/)?.[1] ?? 0);
+  const velocity = async () => Number((await page.locator('#status').innerText()).match(/V (-?\d+)/)?.[1] ?? 0);
+  await page.keyboard.down('ArrowRight');
+  await expect.poll(velocity).toBeGreaterThan(0);
+  expect(await facing()).toBe(1);
+  await page.keyboard.up('ArrowRight');
+  await page.keyboard.down('ArrowLeft');
+  await expect.poll(velocity, { timeout: 3000 }).toBeLessThan(0);
+  expect(await facing()).toBe(-1);
+  await page.keyboard.up('ArrowLeft');
+});
+
 test('default main menu starts the Plains level with Space', async ({ page }) => {
   await page.goto('/');
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });

@@ -84,6 +84,24 @@ describe('Henry movement', () => {
     expect(player.y + DEFAULT_MOVEMENT.height).toBe(180);
   });
 
+  it('faces the direction of travel and keeps the last heading while braking through zero', () => {
+    const player = createPlayer(20, flat);
+    expect(player.facing).toBe(1);
+    for (let i = 0; i < 60; i++) simulatePlayer(player, input(1), flat, 1 / 60);
+    expect(player.facing).toBe(1);
+    for (let i = 0; i < 60; i++) simulatePlayer(player, input(-1), flat, 1 / 60);
+    expect(player.vx).toBeLessThan(0);
+    expect(player.facing).toBe(-1);
+    while (player.vx < -1) {
+      simulatePlayer(player, input(0), flat, 1 / 60);
+      expect(player.facing).toBe(-1);
+    }
+    expect(player.facing).toBe(-1);
+    for (let i = 0; i < 60; i++) simulatePlayer(player, input(1), flat, 1 / 60);
+    expect(player.vx).toBeGreaterThan(1);
+    expect(player.facing).toBe(1);
+  });
+
   it('selects animation states from movement', () => {
     const player = createPlayer(20, flat);
     expect(animationFor(player)).toBe('idle');
