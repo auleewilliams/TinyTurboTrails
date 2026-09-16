@@ -58,6 +58,28 @@ function recordingContext(): { ctx: CanvasRenderingContext2D; images: unknown[][
 }
 
 const worldAssets: WorldAssets = { atlas: {} as HTMLImageElement, manifest };
+
+it('fills joined slopes without interior edges and preserves gaps between ground contours', () => {
+  const { ctx } = recordingContext();
+  const fills: number[][][] = [];
+  let path: number[][] = [];
+  ctx.beginPath = () => { path = []; };
+  ctx.moveTo = ctx.lineTo = (x, y) => { path.push([x, y]); };
+  ctx.fill = () => { fills.push(path); };
+  const level = { ...PLAINS_LEVEL, surfaces: [
+    { x1: 0, y1: 198, x2: 220, y2: 198 },
+    { x1: 220, y1: 198, x2: 360, y2: 158 },
+    { x1: 400, y1: 158, x2: 650, y2: 158 },
+  ] };
+  const camera = new Camera({ width: 426, height: 240, worldWidth: level.width, worldHeight: level.height });
+  camera.update(250.25, 132);
+  drawWorld(ctx, worldAssets, level, camera);
+  expect(fills).toEqual([
+    [[-0.25, 198], [219.75, 198], [359.75, 158], [359.75, 240], [-0.25, 240]],
+    [[399.75, 158], [649.75, 158], [649.75, 240], [399.75, 240]],
+  ]);
+});
+
 const henryAssets = {
   atlas: {} as HTMLImageElement,
   manifest: JSON.parse(readFileSync(new URL('../public/assets/henry/manifest.json', import.meta.url), 'utf8')),

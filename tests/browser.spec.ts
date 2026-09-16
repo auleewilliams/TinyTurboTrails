@@ -1,6 +1,57 @@
 import { expect, test } from '@playwright/test';
+import { writeFile } from 'node:fs/promises';
 import { PLAINS_LEVEL } from '../src/world/level';
 import { DEFAULT_MOVEMENT, surfaceY } from '../src/game/movement';
+import { drawAsset, drawWorld } from '../src/world/renderer';
+
+test('terrain joins stay solid while scrolling in both directions at integer and fractional scales', async ({ page }, info) => {
+  await page.goto('/?scene=foundation');
+  // Run the real renderer on a separate canvas so sprites and HUD cannot hide seams.
+  await page.addScriptTag({ content: `${drawAsset.toString()}\nwindow.drawTerrainTestWorld = ${drawWorld.toString()};` });
+  const result = await page.evaluate(async ({ level, maxSpeed }) => {
+    const manifest = await (await fetch('/assets/plains/manifest.json')).json();
+    const atlas = new Image();
+    atlas.src = `/assets/plains/${manifest.image}`;
+    await atlas.decode();
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d')!;
+    const render = (window as unknown as { drawTerrainTestWorld: typeof drawWorld }).drawTerrainTestWorld;
+    const failures: string[] = [];
+    let frames = 0;
+    let evidence = '';
+    for (const scale of [1, 1.25, 1.5, 2]) {
+      canvas.width = Math.ceil(426 * scale);
+      canvas.height = Math.ceil(240 * scale);
+      ctx.setTransform(scale, 0, 0, scale, 0, 0);
+      for (const direction of [-1, 1]) {
+        for (const surface of level.surfaces.slice(0, -1)) {
+          for (let frame = 0; frame < 12; frame++) {
+            const x = surface.x2 - 213 + 0.25 + direction * frame * maxSpeed / 60;
+            const camera = { position: { x, y: 0 } } as Parameters<typeof drawWorld>[3];
+            render(ctx, { atlas, manifest }, level, camera, () => false);
+            // Every terrain surface is above y=200; the finish arch also ends above this strip.
+            const joinX = Math.floor((surface.x2 - x) * scale);
+            const pixels = ctx.getImageData(joinX - 1, Math.ceil(210 * scale), 3, Math.floor(20 * scale)).data;
+            for (let i = 0; i < pixels.length; i += 4) {
+              if (pixels[i] !== 134 || pixels[i + 1] !== 80 || pixels[i + 2] !== 47 || pixels[i + 3] !== 255) {
+                if (failures.length < 10) failures.push(`join ${surface.x2}, scale ${scale}, direction ${direction}, frame ${frame}: ${Array.from(pixels.slice(i, i + 4))}`);
+                break;
+              }
+            }
+            frames++;
+            if (surface.x2 === 650 && scale === 2 && direction === 1 && frame === 0) evidence = canvas.toDataURL();
+          }
+        }
+      }
+    }
+    return { failures, frames, evidence };
+  }, { level: PLAINS_LEVEL, maxSpeed: DEFAULT_MOVEMENT.maxSpeed });
+  const evidencePath = info.outputPath('terrain-join-650.png');
+  await writeFile(evidencePath, Buffer.from(result.evidence.split(',')[1], 'base64'));
+  await info.attach('terrain-join-650', { path: evidencePath, contentType: 'image/png' });
+  expect(result.frames).toBe((PLAINS_LEVEL.surfaces.length - 1) * 4 * 2 * 12);
+  expect(result.failures).toEqual([]);
+});
 
 test('production canvas loads, scales and recovers from focus loss', async ({ page, browser }, info) => {
   const errors: string[] = [];
