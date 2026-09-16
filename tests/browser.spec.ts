@@ -73,13 +73,18 @@ test('starter atlas contains real transparency and every frame stays within its 
       let opaque = 0;
       let clear = 0;
       let edge = 0;
+      let cornerBackground = 0;
       for (let y = 0; y < frame.height; y++) for (let x = 0; x < frame.width; x++) {
         const alpha = pixels[(y * frame.width + x) * 4 + 3];
         if (alpha === 0) clear++;
         else opaque++;
         if ((x === 0 || y === 0 || x === frame.width - 1 || y === frame.height - 1) && alpha) edge++;
+        // Inspect inside the normalization margin: a transparent cell border
+        // alone also passes for an opaque checkerboard rectangle (#42).
+        if (((x >= 4 && x < 8) || (x >= 40 && x < 44)) &&
+            ((y >= 4 && y < 8) || (y >= 40 && y < 44)) && alpha) cornerBackground++;
       }
-      return { opaque, clear, edge };
+      return { opaque, clear, edge, cornerBackground };
     });
   });
   expect(results).toHaveLength(16);
@@ -87,6 +92,7 @@ test('starter atlas contains real transparency and every frame stays within its 
     expect(result.opaque).toBeGreaterThan(150);
     expect(result.clear).toBeGreaterThan(500);
     expect(result.edge).toBe(0);
+    expect(result.cornerBackground).toBe(0);
   }
 });
 
