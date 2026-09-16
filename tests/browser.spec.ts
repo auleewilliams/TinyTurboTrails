@@ -302,7 +302,7 @@ test('adventure can complete the forgiving route and replay from a fresh title',
   const celebrationPixels = await page.locator('canvas').evaluate((element) => {
     const canvas = element as HTMLCanvasElement;
     const ctx = canvas.getContext('2d')!;
-    const pixels = ctx.getImageData(150, 135, 130, 70).data;
+    const pixels = ctx.getImageData(150, 95, 130, 55).data;
     let matches = 0;
     for (let i = 0; i < pixels.length; i += 4) {
       if (pixels[i] === 255 && pixels[i + 1] === 218 && pixels[i + 2] === 117 && pixels[i + 3] > 0) matches++;
