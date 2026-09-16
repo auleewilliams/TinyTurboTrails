@@ -14,15 +14,28 @@ export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, le
   ctx.fillRect(0, 0, 426, 240);
   drawAsset(ctx, assets, 'hills', 180 - offset.x * 0.18, 70 - offset.y * 0.1, 3);
   drawAsset(ctx, assets, 'hills', 700 - offset.x * 0.18, 70 - offset.y * 0.1, 3);
-  for (const surface of level.surfaces) {
-    ctx.fillStyle = '#86502f';
+  ctx.fillStyle = '#86502f';
+  // Fill each connected ground contour once: separately antialiased polygon
+  // edges leave the background showing through at fractional camera offsets.
+  for (let i = 0; i < level.surfaces.length; i++) {
+    const first = level.surfaces[i];
+    let last = first;
     ctx.beginPath();
-    ctx.moveTo(surface.x1 - offset.x, surface.y1 - offset.y);
-    ctx.lineTo(surface.x2 - offset.x, surface.y2 - offset.y);
-    ctx.lineTo(surface.x2 - offset.x, 240);
-    ctx.lineTo(surface.x1 - offset.x, 240);
+    ctx.moveTo(first.x1 - offset.x, first.y1 - offset.y);
+    ctx.lineTo(last.x2 - offset.x, last.y2 - offset.y);
+    while (i + 1 < level.surfaces.length) {
+      const next = level.surfaces[i + 1];
+      if (next.x1 !== last.x2 || next.y1 !== last.y2) break;
+      last = next;
+      i++;
+      ctx.lineTo(last.x2 - offset.x, last.y2 - offset.y);
+    }
+    ctx.lineTo(last.x2 - offset.x, 240);
+    ctx.lineTo(first.x1 - offset.x, 240);
     ctx.closePath();
     ctx.fill();
+  }
+  for (const surface of level.surfaces) {
     ctx.strokeStyle = '#8bd348';
     ctx.lineWidth = 4;
     ctx.beginPath();
