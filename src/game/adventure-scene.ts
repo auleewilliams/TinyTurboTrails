@@ -12,6 +12,44 @@ import { Camera } from '../world/camera';
 import { drawWorld } from '../world/renderer';
 import type { WorldAssets } from '../world/assets';
 
+export interface Rect { x: number; y: number; width: number; height: number }
+
+/** Finish-screen composition: title, gem total, celebration band and replay prompt stacked without overlap. */
+export const FINISH_LAYOUT = {
+  centerX: 213,
+  panel: { x: 44, y: 34, width: 338, height: 172 },
+  title: { baseline: 66, size: 20 },
+  gems: { baseline: 88, size: 10 },
+  // Henry's feet rest on this line; the bob keeps his whole frame inside the band.
+  celebration: { baseline: 147, bobAmplitude: 3, stars: [[168, 110], [250, 104], [264, 134]] as const },
+  replay: { baseline: 180, size: 10 },
+} as const;
+
+export const FINISH_REPLAY_TEXT = 'Press Space to replay';
+export const CELEBRATION_SIZE = 48;
+
+export function finishGemsText(gems: number): string {
+  return `${gems} ${gems === 1 ? 'gem' : 'gems'} collected`;
+}
+
+export function celebrationBob(elapsed: number): number {
+  return Math.round(Math.sin(elapsed * 10) * FINISH_LAYOUT.celebration.bobAmplitude);
+}
+
+export function celebrationHenryRect(anchor: { x: number; y: number }, bob: number): Rect {
+  return {
+    x: FINISH_LAYOUT.centerX - anchor.x,
+    y: FINISH_LAYOUT.celebration.baseline - anchor.y + bob,
+    width: CELEBRATION_SIZE,
+    height: CELEBRATION_SIZE,
+  };
+}
+
+/** Bounding boxes of the 8x8 sparkle stars, which bob with Henry. */
+export function celebrationStarRects(bob: number): Rect[] {
+  return FINISH_LAYOUT.celebration.stars.map(([x, y]) => ({ x: x - 2, y: y - 2 + bob, width: 8, height: 8 }));
+}
+
 export class AdventureScene implements Scene {
   private readonly screens = new ScreenController();
   private player: Player = createPlayer(PLAINS_LEVEL.start.x, PLAINS_LEVEL);
@@ -89,8 +127,7 @@ export class AdventureScene implements Scene {
     } else if (this.screens.state === 'title') {
       this.panel(ctx, 'TINY TURBO TRAILS', 'Press Space to start');
     } else if (this.screens.state === 'finish') {
-      this.panel(ctx, 'TRAIL COMPLETE!', `Gems ${this.screens.gems} · Henry celebrates · Space to replay`);
-      this.drawCelebration(ctx);
+      this.drawFinish(ctx);
     } else if (this.screens.state === 'error') {
       this.panel(ctx, 'LOADING ERROR', `${this.screens.error} · Reload to retry`);
     }
@@ -116,18 +153,36 @@ export class AdventureScene implements Scene {
     ctx.restore();
   }
 
+  private drawFinish(ctx: CanvasRenderingContext2D): void {
+    const { panel, title, gems, replay } = FINISH_LAYOUT;
+    ctx.fillStyle = '#10252cee';
+    ctx.fillRect(panel.x, panel.y, panel.width, panel.height);
+    ctx.strokeStyle = '#ffda75';
+    ctx.strokeRect(panel.x + 2, panel.y + 2, panel.width - 4, panel.height - 4);
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#ffda75';
+    ctx.font = `bold ${title.size}px monospace`;
+    ctx.fillText('TRAIL COMPLETE!', FINISH_LAYOUT.centerX, title.baseline);
+    ctx.fillStyle = '#e9f2df';
+    ctx.font = `${gems.size}px monospace`;
+    ctx.fillText(finishGemsText(this.screens.gems), FINISH_LAYOUT.centerX, gems.baseline);
+    ctx.font = `${replay.size}px monospace`;
+    ctx.fillText(FINISH_REPLAY_TEXT, FINISH_LAYOUT.centerX, replay.baseline);
+    ctx.textAlign = 'left';
+    this.drawCelebration(ctx);
+  }
+
   private drawCelebration(ctx: CanvasRenderingContext2D): void {
     const clip = this.henry.manifest.animations.idle;
     const frame = this.henry.manifest.frames[animationFrame(clip, this.elapsed)];
-    const bob = Math.sin(this.elapsed * 10) * 3;
-    const x = 213 - this.henry.manifest.anchor.x;
-    const y = 164 - this.henry.manifest.anchor.y + bob;
-    ctx.drawImage(this.henry.atlas, frame.x, frame.y, frame.width, frame.height, x, y, 48, 48);
+    const bob = celebrationBob(this.elapsed);
+    const henry = celebrationHenryRect(this.henry.manifest.anchor, bob);
+    ctx.drawImage(this.henry.atlas, frame.x, frame.y, frame.width, frame.height, henry.x, henry.y, henry.width, henry.height);
     ctx.fillStyle = '#ffda75';
-    for (const [starX, starY] of [[174, 158], [252, 150], [269, 181]] as const) {
-      ctx.fillRect(starX, starY + Math.round(bob), 4, 4);
-      ctx.fillRect(starX + 2, starY - 2 + Math.round(bob), 1, 8);
-      ctx.fillRect(starX - 2, starY + 1 + Math.round(bob), 8, 1);
+    for (const star of celebrationStarRects(bob)) {
+      ctx.fillRect(star.x + 2, star.y + 2, 4, 4);
+      ctx.fillRect(star.x + 4, star.y, 1, 8);
+      ctx.fillRect(star.x, star.y + 3, 8, 1);
     }
   }
 

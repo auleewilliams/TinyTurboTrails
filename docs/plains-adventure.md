@@ -10,7 +10,10 @@ The HUD reports the current run's gems and checkpoint. Checkpoint recovery keeps
 gems, while replay constructs a new run and clears entity state. Reaching the
 construction finish arch stops normal route progression and displays the current
 gem total. Henry's atlas animation follows the movement state throughout, then
-uses a bouncing idle pose with sparkles for the finish celebration.
+uses a bouncing idle pose with sparkles for the finish celebration. The finish
+panel stacks the title, gem total, celebration band and replay prompt in separate
+rows (`FINISH_LAYOUT`); `tests/finish-layout.test.ts` checks the full bob cycle
+stays clear of the text.
 
 The route is data-driven and currently includes six sections — meadow, wooded
 hillside, canyon, cave, orchard and summit (issue #45) — an easy main path,
