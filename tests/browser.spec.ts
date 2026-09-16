@@ -134,7 +134,7 @@ test('adventure renders hurt feedback after hazard contact', async ({ page }) =>
   await page.keyboard.down('ArrowRight');
   for (let step = 0; step < 30; step++) {
     const x = Number((await page.locator('#status').innerText()).match(/X (\d+)/)?.[1] ?? 0);
-    if (x >= 405) break;
+    if (x >= 280) break;
     await page.waitForTimeout(100);
   }
   await page.keyboard.up('ArrowRight');
@@ -277,21 +277,23 @@ test('adventure clears held controller input after disconnect', async ({ page })
 });
 
 test('adventure can complete the forgiving route and replay from a fresh title', async ({ page }) => {
+  test.setTimeout(150_000);
   await page.goto('/?scene=adventure&debug=1');
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
   await page.keyboard.press('Space');
   await expect(page.locator('#status')).toContainText('Adventure preview · Playing', { timeout: 15000 });
   await page.keyboard.down('ArrowRight');
-  for (let step = 0; step < 220; step++) {
+  // The extended route (issue #45) takes well over a minute of held-right real time;
+  // jump periodically for coverage of jump input mid-run rather than at hardcoded obstacle spots.
+  for (let step = 0; step < 600; step++) {
     const status = await page.locator('#status').innerText();
     if (status.includes('Finish')) break;
-    const x = Number(status.match(/X (\d+)/)?.[1] ?? 0);
-    if ([430, 920, 1040, 1880].some((obstacle) => Math.abs(obstacle - x) < 100)) {
+    if (step % 12 === 0) {
       await page.keyboard.down('Space');
-      await page.waitForTimeout(350);
+      await page.waitForTimeout(250);
       await page.keyboard.up('Space');
     }
-    await page.waitForTimeout(100);
+    await page.waitForTimeout(150);
   }
   await page.keyboard.up('ArrowRight');
   await expect(page.locator('#status')).toContainText('Adventure preview · Finish', { timeout: 5000 });
@@ -379,7 +381,10 @@ test('default main menu accepts controller primary-button start, Start pause and
 });
 
 test('all checkpoints activate along the ground route and render planted markers', async ({ page }, info) => {
-  test.setTimeout(60000);
+  // The extended route (issue #45) spreads six checkpoints across ~9,800px real
+  // held-right travel, so this needs a much larger budget than the original
+  // three-checkpoint level did.
+  test.setTimeout(200_000);
   // Observe the visible HUD without adding test-only state to the game.
   await page.addInitScript(() => {
     const fillText = CanvasRenderingContext2D.prototype.fillText;
@@ -396,18 +401,10 @@ test('all checkpoints activate along the ground route and render planted markers
   // Terrain heights come from surfaceY rather than being restated here, so the check
   // cannot drift from the level data the way the coordinates in #26 did.
   const checkpoints = PLAINS_LEVEL.checkpoints;
-  const jumped = new Set<number>();
   for (const checkpoint of checkpoints) {
-    for (let step = 0; step < 300; step++) {
+    for (let step = 0; step < 600; step++) {
       const status = await page.locator('#status').innerText();
       const x = Number(status.match(/X (\d+)/)?.[1] ?? 0);
-      const obstacle = [430, 920, 1040].find((candidate) => x > candidate - 95 && x < candidate && !jumped.has(candidate));
-      if (obstacle !== undefined) {
-        jumped.add(obstacle);
-        await page.keyboard.down('Space');
-        await page.waitForTimeout(250);
-        await page.keyboard.up('Space');
-      }
       const hud = await page.locator('canvas').getAttribute('data-test-hud');
       if (hud?.includes(checkpoint.id)) {
         // Activation is detected anywhere in the 18px window around the flag, so compare
@@ -425,7 +422,7 @@ test('all checkpoints activate along the ground route and render planted markers
         break;
       }
       expect(x, `passed ${checkpoint.id} without activation`).toBeLessThan(checkpoint.x + 35);
-      await page.waitForTimeout(50);
+      await page.waitForTimeout(60);
     }
     await expect(page.locator('canvas')).toHaveAttribute('data-test-hud', new RegExp(checkpoint.id));
   }

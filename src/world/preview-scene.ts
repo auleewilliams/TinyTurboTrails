@@ -26,6 +26,6 @@ export class WorldPreviewScene implements Scene {
     ctx.fillText('PLAINS WORLD DATA PREVIEW', 12, 18);
     ctx.font = '8px monospace';
     ctx.fillText('Arrows/A-D move camera · generated atlas + level data', 12, 31);
-    ctx.fillText(`camera ${Math.round(this.camera.position.x)} / 2400`, 12, 232);
+    ctx.fillText(`camera ${Math.round(this.camera.position.x)} / ${PLAINS_LEVEL.width}`, 12, 232);
   }
 }
