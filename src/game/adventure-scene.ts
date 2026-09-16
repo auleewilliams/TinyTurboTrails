@@ -4,7 +4,7 @@ import type { Scene } from '../core/scene';
 import { animationFrame } from '../art/animation';
 import type { HenryAssets } from '../art/henry';
 import { animationFor, createPlayer, simulatePlayer, DEFAULT_MOVEMENT, type Player } from './movement';
-import { activateCheckpoint, applySpring, collectGem, createRun, damagePlayer, recoverFromFall, tickRun, type RunEvent, type RunState } from './interactions';
+import { activateCheckpoint, applySpring, collectGem, createRun, damagePlayer, isEntityActive, recoverFromFall, tickRun, type RunEvent, type RunState } from './interactions';
 import { ScreenController } from './screens';
 import { PLAINS_LEVEL } from '../world/level';
 import { Camera } from '../world/camera';
@@ -74,12 +74,13 @@ export class AdventureScene implements Scene {
   }
 
   render(ctx: CanvasRenderingContext2D): void {
-    drawWorld(ctx, this.world, PLAINS_LEVEL, this.camera);
+    drawWorld(ctx, this.world, PLAINS_LEVEL, this.camera, (entity) => isEntityActive(this.run, entity.id));
     if (this.screens.state === 'playing') this.drawHenry(ctx);
     ctx.fillStyle = '#10252cdd';
     ctx.fillRect(5, 5, 205, 25);
     ctx.fillStyle = '#e9f2df';
     ctx.font = '8px monospace';
+    ctx.textAlign = 'left';
     if (this.screens.state === 'playing') {
       ctx.fillText(`GEMS ${this.run.collectedGems.size}   CHECKPOINT ${this.run.checkpointId ?? 'START'}`, 10, 16);
       ctx.fillText('Arrows/A-D move · Space jump · Esc pause', 10, 26);

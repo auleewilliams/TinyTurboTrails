@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { DEFAULT_MOVEMENT, createPlayer, simulatePlayer, surfaceY, type Player } from '../src/game/movement';
 import { PLAINS_LEVEL } from '../src/world/level';
-import { applySpring, activateCheckpoint, collectGem, createRun, damagePlayer, recoverFromFall, startNewRun, tickRun, type RunEvent } from '../src/game/interactions';
+import { applySpring, activateCheckpoint, collectGem, createRun, damagePlayer, isEntityActive, recoverFromFall, startNewRun, tickRun, type RunEvent } from '../src/game/interactions';
 
 const terrain = { minX: 0, maxX: 400, surfaces: [{ x1: 0, x2: 400, y1: 180, y2: 180 }] };
 function player(): Player { return createPlayer(60, terrain); }
@@ -18,6 +18,19 @@ describe('in-memory run interactions', () => {
     expect(run.collectedGems.has('gem-001')).toBe(true);
     expect(run.checkpointId).toBe('checkpoint-meadow');
     expect(log.map((event) => event.type)).toEqual(['gem', 'checkpoint', 'recover']);
+  });
+
+  it('keeps a collected gem out of the world until a new run restores it', () => {
+    const run = createRun(PLAINS_LEVEL);
+    const log = events();
+    expect(isEntityActive(run, 'gem-001')).toBe(true);
+    collectGem(run, 'gem-001', log);
+    expect(isEntityActive(run, 'gem-001')).toBe(false);
+    recoverFromFall(run, player(), log);
+    expect(isEntityActive(run, 'gem-001')).toBe(false);
+    expect(isEntityActive(run, 'gem-002')).toBe(true);
+    startNewRun(run, PLAINS_LEVEL);
+    expect(isEntityActive(run, 'gem-001')).toBe(true);
   });
 
   it('applies knockback and invulnerability, preventing damage traps', () => {

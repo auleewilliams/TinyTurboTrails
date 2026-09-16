@@ -40,6 +40,11 @@ export function collectGem(run: RunState, entityId: string, events: RunEvent[]):
   return true;
 }
 
+/** Entities the run has consumed stop being drawn; unknown IDs stay visible. */
+export function isEntityActive(run: RunState, entityId: string): boolean {
+  return run.entities.find((candidate) => candidate.id === entityId)?.active ?? true;
+}
+
 export function activateCheckpoint(run: RunState, entityId: string, events: RunEvent[]): boolean {
   const entity = run.entities.find((candidate) => candidate.id === entityId);
   if (!entity || !entity.active || run.checkpointId === entityId) return false;
