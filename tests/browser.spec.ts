@@ -431,6 +431,45 @@ test('default main menu accepts controller primary-button start, Start pause and
   await expect(page.locator('#status')).toContainText('Adventure preview');
 });
 
+test('controller jump works mid-gameplay via any face button, not just at the title screen (#62)', async ({ page }) => {
+  await page.addInitScript(() => {
+    const buttons = Array.from({ length: 17 }, () => ({ pressed: false, touched: false, value: 0 }));
+    const pad = {
+      id: 'jump-controller', index: 0, connected: true, mapping: 'standard', timestamp: 0,
+      axes: [0, 0, 0, 0], buttons, vibrationActuator: null,
+    };
+    Object.defineProperty(navigator, 'getGamepads', { configurable: true, value: () => [pad] });
+    Object.assign(window, { jumpController: pad });
+  });
+  await page.goto('/?scene=adventure&debug=1');
+  await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
+  const readY = async (): Promise<number> =>
+    Number((await page.locator('#status').innerText()).match(/Y (\d+)/)?.[1] ?? 0);
+  // Start with A (button 0), as the existing controller smoke test does.
+  await page.evaluate(() => {
+    const pad = (window as unknown as { jumpController: { buttons: { pressed: boolean }[] } }).jumpController;
+    pad.buttons[0].pressed = true;
+  });
+  await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
+  await page.evaluate(() => {
+    const pad = (window as unknown as { jumpController: { buttons: { pressed: boolean }[] } }).jumpController;
+    pad.buttons[0].pressed = false;
+  });
+  await page.waitForTimeout(150); // Let the player settle on the ground.
+  const groundedY = await readY();
+  // Jump with B (button 1) once gameplay is running, exercising the broadened jump mapping.
+  await page.evaluate(() => {
+    const pad = (window as unknown as { jumpController: { buttons: { pressed: boolean }[] } }).jumpController;
+    pad.buttons[1].pressed = true;
+  });
+  await page.waitForTimeout(80);
+  await page.evaluate(() => {
+    const pad = (window as unknown as { jumpController: { buttons: { pressed: boolean }[] } }).jumpController;
+    pad.buttons[1].pressed = false;
+  });
+  await expect.poll(readY).toBeLessThan(groundedY);
+});
+
 test('all checkpoints activate along the ground route and render planted markers', async ({ page }, info) => {
   // The extended route (issue #45) spreads six checkpoints across ~9,800px real
   // held-right travel, so this needs a much larger budget than the original

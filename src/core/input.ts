@@ -7,6 +7,9 @@ export interface InputFrame {
 }
 
 const KEYS = new Set(['ArrowLeft', 'ArrowRight', 'KeyA', 'KeyD', 'Space', 'Escape', 'KeyM']);
+/** Standard-mapping face cluster (A/B/X/Y): accept any of them for jump, since some
+ * controllers/browsers don't land the primary action on button 0 as expected. */
+const JUMP_BUTTONS = [0, 1, 2, 3];
 
 /** Polled every rendered frame, even while simulation is paused. */
 export class BrowserInput {
@@ -61,7 +64,7 @@ export class BrowserInput {
     if (Math.abs(axis) < 0.2) axis = 0;
     let left = pad?.buttons[14]?.pressed ?? false;
     let right = pad?.buttons[15]?.pressed ?? false;
-    let jump = pad?.buttons[0]?.pressed ?? false;
+    let jump = JUMP_BUTTONS.some((index) => pad?.buttons[index]?.pressed);
     let pause = pad?.buttons[9]?.pressed ?? false;
     if (this.blockedPads) {
       if (!axis && !left && !right && !jump && !pause) this.blockedPads = false;

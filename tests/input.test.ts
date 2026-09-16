@@ -41,6 +41,21 @@ it('maps a standard controller D-pad, face button and Start to gameplay actions'
   input.dispose();
 });
 
+it('accepts any standard face button (A/B/X/Y) as jump, not just button 0', () => {
+  const buttons = Array.from({ length: 17 }, () => ({ pressed: false, touched: false, value: 0 }));
+  const pad = { id: 'face-buttons', index: 0, connected: true, mapping: 'standard', timestamp: 0,
+    axes: [0, 0, 0, 0], buttons, vibrationActuator: null };
+  const target = Object.assign(new EventTarget(), { navigator: { getGamepads: () => [pad] } });
+  const input = new BrowserInput(target as unknown as Window, () => {});
+  for (const index of [1, 2, 3]) {
+    buttons[index].pressed = true;
+    expect(input.poll()).toMatchObject({ jumpHeld: true, jumpPressed: true });
+    buttons[index].pressed = false;
+    expect(input.poll()).toMatchObject({ jumpHeld: false, jumpPressed: false });
+  }
+  input.dispose();
+});
+
 it('clears held controller input after disconnect until the controller is released', () => {
   const buttons = Array.from({ length: 17 }, () => ({ pressed: false, touched: false, value: 0 }));
   const pad = { id: 'disconnect', index: 0, connected: true, mapping: 'standard', timestamp: 0,
