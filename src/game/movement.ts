@@ -17,6 +17,7 @@ export const DEFAULT_MOVEMENT = {
 export interface Surface { x1: number; x2: number; y1: number; y2: number }
 export interface Terrain { minX: number; maxX: number; surfaces: readonly Surface[] }
 export interface MovementInput { horizontal: number; jumpPressed: boolean; jumpHeld: boolean }
+export type Facing = 1 | -1;
 export interface Player {
   x: number;
   y: number;
@@ -25,6 +26,7 @@ export interface Player {
   onGround: boolean;
   coyoteSeconds: number;
   jumpBufferSeconds: number;
+  facing: Facing;
 }
 
 export type MovementAnimation = 'idle' | 'run' | 'jump' | 'fall';
@@ -46,7 +48,7 @@ function surfaceSlope(terrain: Terrain, x: number): number {
 
 export function createPlayer(x: number, terrain: Terrain): Player {
   return { x, y: surfaceY(terrain, x) - DEFAULT_MOVEMENT.height, vx: 0, vy: 0,
-    onGround: true, coyoteSeconds: DEFAULT_MOVEMENT.coyoteSeconds, jumpBufferSeconds: 0 };
+    onGround: true, coyoteSeconds: DEFAULT_MOVEMENT.coyoteSeconds, jumpBufferSeconds: 0, facing: 1 };
 }
 
 function approach(value: number, target: number, amount: number): number {
@@ -70,6 +72,8 @@ export function simulatePlayer(player: Player, input: MovementInput, terrain: Te
     player.vx += surfaceSlope(terrain, player.x) * DEFAULT_MOVEMENT.downhillAcceleration * dt;
     player.vx = Math.max(-DEFAULT_MOVEMENT.maxSpeed, Math.min(DEFAULT_MOVEMENT.maxSpeed, player.vx));
   }
+  if (player.vx > 1) player.facing = 1;
+  else if (player.vx < -1) player.facing = -1;
 
   if (player.jumpBufferSeconds > 0 && (player.onGround || player.coyoteSeconds > 0)) {
     player.vy = -DEFAULT_MOVEMENT.jumpVelocity;

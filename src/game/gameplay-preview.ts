@@ -3,6 +3,7 @@ import type { InputFrame } from '../core/input';
 import type { Scene } from '../core/scene';
 import { animationFrame } from '../art/animation';
 import { loadHenry, type HenryAssets } from '../art/henry';
+import { drawFacingSprite } from '../art/sprite';
 import { animationFor, createPlayer, simulatePlayer, DEFAULT_MOVEMENT, type Player } from './movement';
 import { activateCheckpoint, applySpring, collectGem, createRun, damagePlayer, isEntityActive, recoverFromFall, tickRun, type RunEvent, type RunState } from './interactions';
 import { PLAINS_LEVEL } from '../world/level';
@@ -55,10 +56,10 @@ export class GameplayPreviewScene implements Scene {
     const shake = hurt ? Math.sin(this.elapsed * 42) * 2 : 0;
     ctx.save();
     ctx.translate(shake, 0);
-    ctx.drawImage(this.henry.atlas, frame.x, frame.y, frame.width, frame.height,
+    drawFacingSprite(ctx, this.henry.atlas, frame,
       this.player.x - offset.x - this.henry.manifest.anchor.x,
       this.player.y - offset.y + 34 - this.henry.manifest.anchor.y,
-      48, 48);
+      48, 48, this.player.facing);
     if (hurt) {
       ctx.fillStyle = '#ff5d5d88';
       ctx.fillRect(this.player.x - offset.x - 22, this.player.y - offset.y - 12, 44, 50);

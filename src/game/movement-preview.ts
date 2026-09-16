@@ -2,6 +2,7 @@ import type { Scene } from '../core/scene';
 import { animationFrame } from '../art/animation';
 import { animationFor, createPlayer, launchSpring, simulatePlayer, DEFAULT_MOVEMENT, type Player, type Terrain } from './movement';
 import type { HenryAssets } from '../art/henry';
+import { drawFacingSprite } from '../art/sprite';
 import type { InputFrame } from '../core/input';
 
 const COURSE: Terrain = {
@@ -70,8 +71,8 @@ export class MovementPreviewScene implements Scene {
     const clip = manifest.animations[name];
     const id = animationFrame(clip, this.elapsed);
     const frame = manifest.frames[id];
-    ctx.drawImage(atlas, frame.x, frame.y, frame.width, frame.height,
+    drawFacingSprite(ctx, atlas, frame,
       this.player.x - manifest.anchor.x, this.player.y + DEFAULT_MOVEMENT.height - manifest.anchor.y,
-      manifest.logicalSize.width, manifest.logicalSize.height);
+      manifest.logicalSize.width, manifest.logicalSize.height, this.player.facing);
   }
 }
