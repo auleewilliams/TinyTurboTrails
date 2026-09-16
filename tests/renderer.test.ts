@@ -53,6 +53,7 @@ const silentAudio: GameAudio = {
   play: () => {}, stop: () => {}, dispose: () => {},
 };
 const gem = PLAINS_LEVEL.entities.find((entity) => entity.id === 'gem-001')!;
+const otherGem = PLAINS_LEVEL.entities.find((entity) => entity.id === 'gem-002')!;
 const start = { horizontal: 0, jumpHeld: false, jumpPressed: true, pausePressed: false, mutePressed: false };
 
 it('omits entities the run has consumed and keeps the rest', () => {
@@ -62,7 +63,7 @@ it('omits entities the run has consumed and keeps the rest', () => {
   const drawnAt = (x: number, y: number): boolean =>
     images.some((call) => call[5] === x - 24 && call[6] === y - 48);
   expect(drawnAt(gem.x, gem.y)).toBe(false);
-  expect(drawnAt(285, 122)).toBe(true);
+  expect(drawnAt(otherGem.x, otherGem.y)).toBe(true);
 });
 
 it('draws every entity when a scene supplies no run state', () => {

@@ -78,7 +78,7 @@ describe('in-memory run interactions', () => {
     activateCheckpoint(run, 'checkpoint-cave', log);
     henry.x = 2000; henry.y = -300; henry.vx = 200; henry.vy = 900;
     recoverFromFall(run, henry, log);
-    const checkpoint = PLAINS_LEVEL.checkpoints[2];
+    const checkpoint = PLAINS_LEVEL.checkpoints.find((candidate) => candidate.id === 'checkpoint-cave')!;
     expect(henry.x).toBe(checkpoint.x);
     expect(henry.y).toBe(checkpoint.y - DEFAULT_MOVEMENT.height);
     expect(henry.vx).toBe(0);
