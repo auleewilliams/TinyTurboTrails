@@ -1,4 +1,4 @@
-import type { Surface } from '../game/movement';
+import { surfaceY, type Surface } from '../game/movement';
 
 export type WorldEntityKind = 'gem' | 'slime' | 'spring' | 'checkpoint' | 'hazard' | 'decoration';
 export interface WorldEntity { id: string; kind: WorldEntityKind; x: number; y: number; asset: string; layer: 'back' | 'world' | 'front' }
@@ -14,13 +14,9 @@ export interface LevelData {
   entities: readonly WorldEntity[];
 }
 
-export const PLAINS_LEVEL: LevelData = {
-  width: 9980,
-  height: 240,
+const plainsTerrain = {
   minX: 0,
   maxX: 9980,
-  start: { x: 60, y: 198 },
-  finish: { x: 9880, y: 166, asset: 'finish-arch' },
   surfaces: [
     { x1: 0, x2: 220, y1: 198, y2: 198 }, { x1: 220, x2: 360, y1: 198, y2: 158 },
     { x1: 360, x2: 650, y1: 158, y2: 158 }, { x1: 650, x2: 780, y1: 158, y2: 190 },
@@ -51,6 +47,21 @@ export const PLAINS_LEVEL: LevelData = {
     { x1: 9350, x2: 9560, y1: 112, y2: 112 }, { x1: 9560, x2: 9720, y1: 112, y2: 166 },
     { x1: 9720, x2: 9980, y1: 166, y2: 166 },
   ],
+};
+
+// Grounded art uses its visible-base manifest anchor at the terrain contact point.
+function groundedEntity(entity: Omit<WorldEntity, 'y'>): WorldEntity {
+  return { ...entity, y: surfaceY(plainsTerrain, entity.x) };
+}
+
+export const PLAINS_LEVEL: LevelData = {
+  width: 9980,
+  height: 240,
+  minX: plainsTerrain.minX,
+  maxX: plainsTerrain.maxX,
+  start: { x: 60, y: 198 },
+  finish: { x: 9880, y: 166, asset: 'finish-arch' },
+  surfaces: plainsTerrain.surfaces,
   // Y is the terrain height at X (including ramps), shared with Henry’s recovery feet.
   checkpoints: [
     { id: 'checkpoint-meadow', x: 551, y: 158 },
@@ -106,20 +117,20 @@ export const PLAINS_LEVEL: LevelData = {
     { id: 'gem-042', kind: 'gem', x: 9260, y: 157, asset: 'gem', layer: 'world' },
     { id: 'gem-043', kind: 'gem', x: 9520, y: 92, asset: 'gem', layer: 'world' },
     { id: 'gem-044', kind: 'gem', x: 9780, y: 142, asset: 'gem', layer: 'world' },
-    { id: 'slime-001', kind: 'slime', x: 260, y: 167, asset: 'slime', layer: 'world' },
-    { id: 'slime-002', kind: 'slime', x: 960, y: 170, asset: 'slime', layer: 'world' },
-    { id: 'slime-003', kind: 'slime', x: 1660, y: 178, asset: 'slime', layer: 'world' },
-    { id: 'slime-004', kind: 'slime', x: 2160, y: 144, asset: 'slime', layer: 'world' },
-    { id: 'slime-005', kind: 'slime', x: 2860, y: 88, asset: 'slime', layer: 'world' },
-    { id: 'slime-006', kind: 'slime', x: 3560, y: 178, asset: 'slime', layer: 'world' },
-    { id: 'slime-007', kind: 'slime', x: 3980, y: 145, asset: 'slime', layer: 'world' },
-    { id: 'slime-008', kind: 'slime', x: 4680, y: 119, asset: 'slime', layer: 'world' },
-    { id: 'slime-009', kind: 'slime', x: 5700, y: 158, asset: 'slime', layer: 'world' },
-    { id: 'slime-010', kind: 'slime', x: 6400, y: 144, asset: 'slime', layer: 'world' },
-    { id: 'slime-011', kind: 'slime', x: 7440, y: 131, asset: 'slime', layer: 'world' },
-    { id: 'slime-012', kind: 'slime', x: 8140, y: 136, asset: 'slime', layer: 'world' },
-    { id: 'slime-013', kind: 'slime', x: 8910, y: 144, asset: 'slime', layer: 'world' },
-    { id: 'slime-014', kind: 'slime', x: 9610, y: 109, asset: 'slime', layer: 'world' },
+    groundedEntity({ id: 'slime-001', kind: 'slime', x: 260, asset: 'slime', layer: 'world' }),
+    groundedEntity({ id: 'slime-002', kind: 'slime', x: 960, asset: 'slime', layer: 'world' }),
+    groundedEntity({ id: 'slime-003', kind: 'slime', x: 1660, asset: 'slime', layer: 'world' }),
+    groundedEntity({ id: 'slime-004', kind: 'slime', x: 2160, asset: 'slime', layer: 'world' }),
+    groundedEntity({ id: 'slime-005', kind: 'slime', x: 2860, asset: 'slime', layer: 'world' }),
+    groundedEntity({ id: 'slime-006', kind: 'slime', x: 3560, asset: 'slime', layer: 'world' }),
+    groundedEntity({ id: 'slime-007', kind: 'slime', x: 3980, asset: 'slime', layer: 'world' }),
+    groundedEntity({ id: 'slime-008', kind: 'slime', x: 4680, asset: 'slime', layer: 'world' }),
+    groundedEntity({ id: 'slime-009', kind: 'slime', x: 5700, asset: 'slime', layer: 'world' }),
+    groundedEntity({ id: 'slime-010', kind: 'slime', x: 6400, asset: 'slime', layer: 'world' }),
+    groundedEntity({ id: 'slime-011', kind: 'slime', x: 7440, asset: 'slime', layer: 'world' }),
+    groundedEntity({ id: 'slime-012', kind: 'slime', x: 8140, asset: 'slime', layer: 'world' }),
+    groundedEntity({ id: 'slime-013', kind: 'slime', x: 8910, asset: 'slime', layer: 'world' }),
+    groundedEntity({ id: 'slime-014', kind: 'slime', x: 9610, asset: 'slime', layer: 'world' }),
     { id: 'spring-001', kind: 'spring', x: 1558, y: 186, asset: 'spring', layer: 'world' },
     { id: 'spring-002', kind: 'spring', x: 3392, y: 186, asset: 'spring', layer: 'world' },
     { id: 'spring-003', kind: 'spring', x: 5130, y: 186, asset: 'spring', layer: 'world' },
@@ -132,18 +143,18 @@ export const PLAINS_LEVEL: LevelData = {
     { id: 'hazard-004', kind: 'hazard', x: 6397, y: 143, asset: 'stone', layer: 'world' },
     { id: 'hazard-005', kind: 'hazard', x: 7989, y: 136, asset: 'stone', layer: 'world' },
     { id: 'hazard-006', kind: 'hazard', x: 9382, y: 92, asset: 'stone', layer: 'world' },
-    { id: 'deco-001', kind: 'decoration', x: 475, y: 74, asset: 'tree', layer: 'back' },
-    { id: 'deco-002', kind: 'decoration', x: 1330, y: 74, asset: 'flowers', layer: 'back' },
-    { id: 'deco-003', kind: 'decoration', x: 2355, y: 74, asset: 'tree', layer: 'back' },
-    { id: 'deco-004', kind: 'decoration', x: 3174, y: 74, asset: 'bush', layer: 'back' },
-    { id: 'deco-005', kind: 'decoration', x: 4150, y: 74, asset: 'stone', layer: 'back' },
-    { id: 'deco-006', kind: 'decoration', x: 4924, y: 74, asset: 'bush', layer: 'back' },
-    { id: 'deco-007', kind: 'decoration', x: 5875, y: 74, asset: 'cave', layer: 'back' },
-    { id: 'deco-008', kind: 'decoration', x: 6658, y: 74, asset: 'stone', layer: 'back' },
-    { id: 'deco-009', kind: 'decoration', x: 7548, y: 74, asset: 'tree', layer: 'back' },
-    { id: 'deco-010', kind: 'decoration', x: 8209, y: 74, asset: 'flowers', layer: 'back' },
-    { id: 'deco-011', kind: 'decoration', x: 8983, y: 74, asset: 'tree', layer: 'back' },
-    { id: 'deco-012', kind: 'decoration', x: 9581, y: 74, asset: 'cave', layer: 'back' },
+    groundedEntity({ id: 'deco-001', kind: 'decoration', x: 475, asset: 'tree', layer: 'back' }),
+    groundedEntity({ id: 'deco-002', kind: 'decoration', x: 1330, asset: 'flowers', layer: 'back' }),
+    groundedEntity({ id: 'deco-003', kind: 'decoration', x: 2355, asset: 'tree', layer: 'back' }),
+    groundedEntity({ id: 'deco-004', kind: 'decoration', x: 3174, asset: 'bush', layer: 'back' }),
+    groundedEntity({ id: 'deco-005', kind: 'decoration', x: 4150, asset: 'stone', layer: 'back' }),
+    groundedEntity({ id: 'deco-006', kind: 'decoration', x: 4924, asset: 'bush', layer: 'back' }),
+    groundedEntity({ id: 'deco-007', kind: 'decoration', x: 5875, asset: 'cave', layer: 'back' }),
+    groundedEntity({ id: 'deco-008', kind: 'decoration', x: 6658, asset: 'stone', layer: 'back' }),
+    groundedEntity({ id: 'deco-009', kind: 'decoration', x: 7548, asset: 'tree', layer: 'back' }),
+    groundedEntity({ id: 'deco-010', kind: 'decoration', x: 8209, asset: 'flowers', layer: 'back' }),
+    groundedEntity({ id: 'deco-011', kind: 'decoration', x: 8983, asset: 'tree', layer: 'back' }),
+    groundedEntity({ id: 'deco-012', kind: 'decoration', x: 9581, asset: 'cave', layer: 'back' }),
     { id: 'checkpoint-meadow', kind: 'checkpoint', x: 551, y: 158, asset: 'checkpoint', layer: 'world' },
     { id: 'checkpoint-hillside', kind: 'checkpoint', x: 2422, y: 198, asset: 'checkpoint', layer: 'world' },
     { id: 'checkpoint-canyon', kind: 'checkpoint', x: 4905, y: 178, asset: 'checkpoint', layer: 'world' },

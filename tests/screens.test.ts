@@ -78,3 +78,25 @@ it.each(PLAINS_LEVEL.checkpoints)('activates $id from the ground', (checkpoint) 
   expect(scene.playerX).toBeGreaterThan(checkpoint.x);
   expect(effects.filter((effect) => effect === 'checkpoint')).toHaveLength(1);
 });
+
+it('can walk past grounded slimes and finish without repeated damage traps', () => {
+  const effects: string[] = [];
+  const audio: GameAudio = {
+    unlock: async () => {}, setMuted: () => {}, setSuspended: () => {}, startMusic: () => {},
+    play: (effect) => effects.push(effect), stop: () => {}, dispose: () => {},
+  };
+  const scene = new AdventureScene({} as never, {} as never, audio);
+  const input = { horizontal: 1, jumpHeld: false, jumpPressed: false, pausePressed: false, mutePressed: false };
+  scene.update(1 / 60, { ...input, jumpPressed: true });
+  for (let frame = 0; frame < 60 * 90 && scene.screenState !== 'finish'; frame++) {
+    scene.update(1 / 60, input);
+  }
+  expect(scene.screenState).toBe('finish');
+  expect(scene.gemTotal).toBeGreaterThan(0);
+  expect(effects.filter((effect) => effect === 'checkpoint')).toHaveLength(PLAINS_LEVEL.checkpoints.length);
+  const damageCount = effects.filter((effect) => effect === 'damage').length;
+  expect(damageCount).toBeGreaterThan(0);
+  expect(damageCount).toBeLessThanOrEqual(PLAINS_LEVEL.entities.filter(
+    (entity) => entity.kind === 'slime' || entity.kind === 'hazard',
+  ).length);
+});
