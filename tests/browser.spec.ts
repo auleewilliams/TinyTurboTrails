@@ -508,3 +508,56 @@ test('a collected gem stops being drawn where it stood', async ({ page }, info) 
   expect(changed, 'the collected gem is still drawn').toBeGreaterThan(200);
   await info.attach('gem-001-collected', { body: await canvas.screenshot(), contentType: 'image/png' });
 });
+
+test('ground scenery and slimes draw their opaque bases at terrain height', async ({ page }, info) => {
+  await page.addInitScript(() => {
+    const drawImage = CanvasRenderingContext2D.prototype.drawImage;
+    CanvasRenderingContext2D.prototype.drawImage = function (this: CanvasRenderingContext2D, ...args: unknown[]) {
+      const [image, sx, sy] = args;
+      if (image instanceof HTMLImageElement && image.src.includes('/assets/plains/')) {
+        const canvas = this.canvas;
+        // The parallax hills precede the entity pass each frame.
+        const calls = sx === 96 && sy === 144 ? [] : JSON.parse(canvas.dataset.worldDraws ?? '[]');
+        if (!(sx === 96 && sy === 144)) calls.push(args.slice(1));
+        canvas.dataset.worldDraws = JSON.stringify(calls);
+      }
+      Reflect.apply(drawImage, this, args);
+    } as typeof drawImage;
+  });
+  await page.goto('/?scene=adventure&debug=1');
+  await expect(page.locator('#status')).toContainText('Adventure preview · Title');
+  await page.keyboard.press('Space');
+  const bases = await page.evaluate(async () => {
+    const manifest = await (await fetch('/assets/plains/manifest.json')).json();
+    const image = new Image();
+    image.src = '/assets/plains/' + manifest.image;
+    await image.decode();
+    const canvas = document.createElement('canvas');
+    canvas.width = image.width;
+    canvas.height = image.height;
+    const ctx = canvas.getContext('2d')!;
+    ctx.drawImage(image, 0, 0);
+    const bases: Record<string, number> = {};
+    for (const [asset, index] of Object.entries(manifest.assets) as [string, number][]) {
+      const pixels = ctx.getImageData(index % 4 * 48, Math.floor(index / 4) * 48, 48, 48).data;
+      bases[asset] = 0;
+      for (let y = 0; y < 48; y++) for (let x = 0; x < 48; x++) {
+        if (pixels[(y * 48 + x) * 4 + 3]) bases[asset] = y + 1;
+      }
+    }
+    return bases;
+  });
+  const calls = JSON.parse(await page.locator('canvas').getAttribute('data-world-draws') ?? '[]') as number[][];
+  expect(calls).toHaveLength(PLAINS_LEVEL.entities.length + 1);
+  PLAINS_LEVEL.entities.forEach((entity, index) => {
+    if (entity.kind !== 'decoration' && entity.kind !== 'slime') return;
+    expect(calls[index][5] + bases[entity.asset], entity.id).toBeCloseTo(surfaceY(PLAINS_LEVEL, entity.x), 5);
+  });
+  // Frame the first slime on its ramp and the first tree on the meadow.
+  await page.keyboard.down('ArrowRight');
+  await expect.poll(async () => Number((await page.locator('#status').innerText()).match(/X (\d+)/)?.[1] ?? 0),
+    { timeout: 5000, intervals: [30] }).toBeGreaterThan(320);
+  await page.keyboard.up('ArrowRight');
+  await page.waitForTimeout(900);
+  await info.attach('grounded-slime-and-tree', { body: await page.locator('canvas').screenshot(), contentType: 'image/png' });
+});

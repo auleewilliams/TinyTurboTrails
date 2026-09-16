@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { expect, it, vi } from 'vitest';
 import { drawAsset, drawWorld } from '../src/world/renderer';
-import type { WorldAssets } from '../src/world/assets';
+import type { WorldAsset, WorldAssets } from '../src/world/assets';
 import type { HenryAssets } from '../src/art/henry';
 import type { GameAudio } from '../src/core/audio';
 import { AdventureScene } from '../src/game/adventure-scene';
@@ -10,6 +10,20 @@ import { Camera } from '../src/world/camera';
 import { PLAINS_LEVEL } from '../src/world/level';
 
 const manifest = JSON.parse(readFileSync(new URL('../public/assets/plains/manifest.json', import.meta.url), 'utf8'));
+
+it.each(['tree', 'slime', 'flowers', 'bush', 'stone', 'cave'] as WorldAsset[])(
+  'anchors the visible base of %s, excluding atlas padding', (asset) => {
+    for (const scale of [1, 2]) {
+      const drawImage = vi.fn();
+      const assets: WorldAssets = { atlas: {} as HTMLImageElement, manifest };
+      drawAsset({ drawImage } as unknown as CanvasRenderingContext2D, assets, asset, 300, 180, scale);
+      const call = drawImage.mock.calls[0];
+      // All six cells end on row 43; rows 44–47 are transparent.
+      expect(call[5]).toBe(300 - 24 * scale);
+      expect(call[6] + 44 * scale).toBe(180);
+    }
+  },
+);
 
 it.each([1, 2])('anchors the checkpoint post and visible base at its world position at scale %s', (scale) => {
   const drawImage = vi.fn();

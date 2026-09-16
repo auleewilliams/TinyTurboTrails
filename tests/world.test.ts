@@ -60,3 +60,9 @@ it.each(PLAINS_LEVEL.checkpoints)('plants $id and its recovery point on the terr
     kind: 'checkpoint', x: checkpoint.x, y: ground,
   });
 });
+
+it.each(PLAINS_LEVEL.entities.filter((entity) => entity.kind === 'decoration' || entity.kind === 'slime'))(
+  'plants $id on the terrain beneath its visible base', (entity) => {
+    expect(entity.y).toBe(surfaceY(PLAINS_LEVEL, entity.x));
+  },
+);
