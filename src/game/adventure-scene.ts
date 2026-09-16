@@ -40,6 +40,7 @@ export class AdventureScene implements Scene {
       if (input.jumpPressed) {
         this.run = createRun(PLAINS_LEVEL);
         this.player = createPlayer(PLAINS_LEVEL.start.x, PLAINS_LEVEL);
+        this.camera.reset();
         this.screens.replay();
       }
       return;
@@ -55,10 +56,14 @@ export class AdventureScene implements Scene {
     this.events = [];
     for (const entity of PLAINS_LEVEL.entities) {
       const state = this.run.entities.find((candidate) => candidate.id === entity.id);
-      if (!state?.active || Math.abs(entity.x - this.player.x) > 18 || Math.abs(entity.y - (this.player.y + 34)) > 28) continue;
+      const touching = Math.abs(entity.x - this.player.x) <= 18 && Math.abs(entity.y - (this.player.y + 34)) <= 28;
+      if (entity.kind === 'spring') {
+        applySpring(this.run, this.player, entity.id, this.events, touching);
+        continue;
+      }
+      if (!state?.active || !touching) continue;
       if (entity.kind === 'gem') collectGem(this.run, entity.id, this.events);
       else if (entity.kind === 'checkpoint') activateCheckpoint(this.run, entity.id, this.events);
-      else if (entity.kind === 'spring') applySpring(this.run, this.player, entity.id, this.events);
       else if (entity.kind === 'slime' || entity.kind === 'hazard') damagePlayer(this.run, this.player, entity.x - this.player.x, this.events, entity.id);
     }
     if (this.player.y > PLAINS_LEVEL.height + 80) recoverFromFall(this.run, this.player, this.events, PLAINS_LEVEL);

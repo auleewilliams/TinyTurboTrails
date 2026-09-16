@@ -10,18 +10,20 @@ export type RunEvent =
 
 export interface RunState {
   collectedGems: Set<string>;
+  springContacts: Set<string>;
   checkpointId: string | null;
   invulnerableSeconds: number;
   entities: { id: string; active: boolean }[];
 }
 
 export function createRun(level: LevelData): RunState {
-  return { collectedGems: new Set(), checkpointId: null, invulnerableSeconds: 0,
+  return { collectedGems: new Set(), springContacts: new Set(), checkpointId: null, invulnerableSeconds: 0,
     entities: level.entities.map((entity) => ({ id: entity.id, active: true })) };
 }
 
 export function startNewRun(run: RunState, level: LevelData): void {
   run.collectedGems.clear();
+  run.springContacts.clear();
   run.checkpointId = null;
   run.invulnerableSeconds = 0;
   run.entities = level.entities.map((entity) => ({ id: entity.id, active: true }));
@@ -64,13 +66,21 @@ export function damagePlayer(run: RunState, player: Player, direction: number, e
   return true;
 }
 
-export function applySpring(run: RunState, player: Player, entityId: string, events: RunEvent[]): void {
+/** Call every step, including separation, so each contact launches exactly once. */
+export function applySpring(run: RunState, player: Player, entityId: string, events: RunEvent[], touching = true): void {
+  if (!touching) {
+    run.springContacts.delete(entityId);
+    return;
+  }
+  if (run.springContacts.has(entityId)) return;
   if (!run.entities.some((entity) => entity.id === entityId && entity.active)) return;
+  run.springContacts.add(entityId);
   launchSpring(player, DEFAULT_MOVEMENT.springVelocity);
   events.push({ type: 'spring', entityId });
 }
 
 export function recoverFromFall(run: RunState, player: Player, events: RunEvent[], level: LevelData = defaultLevel): void {
+  run.springContacts.clear();
   const checkpoint = run.checkpointId ? level.checkpoints.find((candidate) => candidate.id === run.checkpointId) : undefined;
   const spawn = checkpoint ?? level.start;
   player.x = spawn.x;

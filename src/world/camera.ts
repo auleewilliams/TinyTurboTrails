@@ -5,6 +5,7 @@ export class Camera {
   private y = 0;
   private readonly deadZone = { left: 110, right: 250, top: 74, bottom: 166 };
   constructor(private readonly bounds: CameraBounds) {}
+  reset(): void { this.x = 0; this.y = 0; }
   update(targetX: number, targetY: number): void {
     const screenX = targetX - this.x;
     const screenY = targetY - this.y;
