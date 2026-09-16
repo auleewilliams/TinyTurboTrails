@@ -327,10 +327,11 @@ test('adventure clears held controller input after disconnect', async ({ page })
   expect(afterRelease).toBeGreaterThan(afterDisconnect);
 });
 
-test('adventure can complete the forgiving route and replay from a fresh title', async ({ page }) => {
+test('adventure can complete the forgiving route and replay from a fresh title', async ({ page }, info) => {
   test.setTimeout(150_000);
   await page.goto('/?scene=adventure&debug=1');
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
+  const initialTitle = await page.locator('canvas').evaluate((element) => (element as HTMLCanvasElement).toDataURL());
   await page.keyboard.press('Space');
   await expect(page.locator('#status')).toContainText('Adventure preview · Playing', { timeout: 15000 });
   await page.keyboard.down('ArrowRight');
@@ -363,6 +364,8 @@ test('adventure can complete the forgiving route and replay from a fresh title',
   expect(celebrationPixels).toBeGreaterThan(20);
   await page.keyboard.press('Space');
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
+  await expect.poll(() => page.locator('canvas').evaluate((element) => (element as HTMLCanvasElement).toDataURL())).toBe(initialTitle);
+  await info.attach('replay-starting-view', { body: await page.locator('canvas').screenshot({ path: info.outputPath('replay-starting-view.png') }), contentType: 'image/png' });
 });
 
 test('adventure pause freezes progress and reload starts a fresh in-memory run', async ({ page }) => {

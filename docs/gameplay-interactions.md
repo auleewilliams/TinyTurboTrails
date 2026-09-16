@@ -10,7 +10,10 @@ storage or a server.
 Damage gives Henry a short knockback and one second of invulnerability. Repeated
 contact during that window is ignored, so a slime or hazard cannot create a
 damage trap. Spring activation delegates to the movement launch response and
-preserves horizontal speed. Fall recovery places Henry at the latest checkpoint
+preserves horizontal speed. Each continuous contact emits one launch/event; both
+gameplay scenes report separation to rearm the spring. Contact state is per spring
+and clears on recovery or a new run. Replay also resets the camera before returning
+to the title. Fall recovery places Henry at the latest checkpoint
 or the start, clears both velocities and gives a short safe-protection window.
 
 Every accepted interaction emits a small event (`gem`, `checkpoint`, `damage`,

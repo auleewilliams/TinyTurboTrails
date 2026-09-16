@@ -58,13 +58,46 @@ describe('in-memory run interactions', () => {
     expect(log[0]).toEqual({ type: 'spring', entityId: 'spring-001' });
   });
 
+  it('launches only once during sustained contact and rearms after separation', () => {
+    const run = createRun(PLAINS_LEVEL);
+    const henry = player();
+    const log = events();
+    applySpring(run, henry, 'spring-001', log);
+    henry.vy = -100;
+    for (let step = 0; step < 10; step++) applySpring(run, henry, 'spring-001', log);
+    expect(log).toEqual([{ type: 'spring', entityId: 'spring-001' }]);
+    expect(henry.vy).toBe(-100);
+    applySpring(run, henry, 'spring-001', log, false);
+    expect(log).toHaveLength(1);
+    applySpring(run, henry, 'spring-001', log);
+    expect(log).toHaveLength(2);
+    expect(henry.vy).toBe(-DEFAULT_MOVEMENT.springVelocity);
+    expect(isEntityActive(run, 'spring-001')).toBe(true);
+  });
+
+  it('tracks springs independently and clears contact when recovering', () => {
+    const run = createRun(PLAINS_LEVEL);
+    const henry = player();
+    const log = events();
+    applySpring(run, henry, 'spring-001', log);
+    applySpring(run, henry, 'spring-002', log);
+    applySpring(run, henry, 'spring-001', log);
+    expect(log.map((event) => event.type)).toEqual(['spring', 'spring']);
+    recoverFromFall(run, henry, log, PLAINS_LEVEL);
+    applySpring(run, henry, 'spring-001', log);
+    expect(log.map((event) => event.type)).toEqual(['spring', 'spring', 'recover', 'spring']);
+  });
+
   it('new runs clear gems, checkpoints, protection and entity state', () => {
     const run = createRun(PLAINS_LEVEL);
     const log = events();
     collectGem(run, 'gem-001', log);
     activateCheckpoint(run, 'checkpoint-meadow', log);
     run.invulnerableSeconds = 0.8;
+    applySpring(run, player(), 'spring-001', log);
     startNewRun(run, PLAINS_LEVEL);
+    applySpring(run, player(), 'spring-001', log);
+    expect(log.filter((event) => event.type === 'spring')).toHaveLength(2);
     expect(run.collectedGems.size).toBe(0);
     expect(run.checkpointId).toBeNull();
     expect(run.invulnerableSeconds).toBe(0);
