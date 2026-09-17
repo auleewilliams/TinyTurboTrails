@@ -231,6 +231,17 @@ test('default main menu starts the Plains level with Space', async ({ page }) =>
   await expect(page.locator('#status')).toContainText('Adventure preview · Title');
 });
 
+test('title picker selects Quarry Run and starts the selected route', async ({ page }) => {
+  await page.goto('/?scene=adventure&debug=1');
+  await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
+  await page.keyboard.press('ArrowRight');
+  await page.keyboard.press('Space');
+  await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
+  await page.keyboard.down('ArrowRight');
+  await expect.poll(() => page.locator('#status').innerText(), { timeout: 20000 }).toContain('Adventure preview · Finish');
+  await page.keyboard.up('ArrowRight');
+});
+
 test('adventure mute control updates the audio state', async ({ page }) => {
   await page.goto('/?scene=adventure');
   await expect(page.locator('#status')).toContainText('Adventure preview', { timeout: 15000 });

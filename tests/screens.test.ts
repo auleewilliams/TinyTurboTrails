@@ -5,6 +5,7 @@ import { GameplayPreviewScene } from '../src/game/gameplay-preview';
 import { AdventureScene } from '../src/game/adventure-scene';
 import type { GameAudio } from '../src/core/audio';
 import { PLAINS_LEVEL } from '../src/world/level';
+import { QUARRY_RUN } from '../src/world/levels';
 import { ScreenController } from '../src/game/screens';
 
 const alternateLevel = { ...PLAINS_LEVEL,
@@ -20,6 +21,29 @@ describe('game screen flow', () => {
     };
     const scene = new AdventureScene({} as never, {} as never, audio, alternateLevel);
     expect(scene.playerX).toBe(alternateLevel.start.x);
+  });
+
+  it('selects one level per horizontal input edge and starts the selection', () => {
+    const audio: GameAudio = {
+      unlock: async () => {}, setMuted: () => {}, setSuspended: () => {}, startMusic: () => {},
+      play: () => {}, stop: () => {}, dispose: () => {},
+    };
+    const scene = new AdventureScene({} as never, {} as never, audio, PLAINS_LEVEL);
+    const neutral = { horizontal: 0, jumpHeld: false, jumpPressed: false, pausePressed: false, mutePressed: false };
+    expect(scene.selectedLevelName).toBe('PLAINS');
+    scene.update(1 / 60, { ...neutral, horizontal: 1 });
+    expect(scene.selectedLevelName).toBe(QUARRY_RUN.name);
+    scene.update(1 / 60, { ...neutral, horizontal: 1 });
+    expect(scene.selectedLevelName).toBe(QUARRY_RUN.name);
+    scene.update(1 / 60, neutral);
+    scene.update(1 / 60, { ...neutral, horizontal: -1 });
+    expect(scene.selectedLevelName).toBe('PLAINS');
+    scene.update(1 / 60, neutral);
+    scene.update(1 / 60, { ...neutral, horizontal: -1 });
+    expect(scene.selectedLevelName).toBe(QUARRY_RUN.name);
+    scene.update(1 / 60, { ...neutral, jumpPressed: true });
+    expect(scene.screenState).toBe('playing');
+    expect(scene.playerX).toBe(QUARRY_RUN.start.x);
   });
 
   it('plays the completion effect once when the adventure reaches the finish', () => {
@@ -88,7 +112,7 @@ it.each(PLAINS_LEVEL.checkpoints)('activates $id from the ground', (checkpoint) 
   };
   const scene = new AdventureScene({} as never, {} as never, audio, PLAINS_LEVEL);
   const input = { horizontal: 0, jumpHeld: false, jumpPressed: false, pausePressed: false, mutePressed: false };
-  scene.update(1 / 60, { ...input, jumpPressed: true });
+  scene.update(1 / 60, { ...input, horizontal: 0, jumpPressed: true });
   Object.assign(scene, { player: createPlayer(checkpoint.x - 50, PLAINS_LEVEL) });
   for (let frame = 0; frame < 40; frame++) scene.update(1 / 60, { ...input, horizontal: 1 });
   expect(scene.playerX).toBeGreaterThan(checkpoint.x);
@@ -103,7 +127,7 @@ it('can walk past grounded slimes and finish without repeated damage traps', () 
   };
   const scene = new AdventureScene({} as never, {} as never, audio, PLAINS_LEVEL);
   const input = { horizontal: 1, jumpHeld: false, jumpPressed: false, pausePressed: false, mutePressed: false };
-  scene.update(1 / 60, { ...input, jumpPressed: true });
+  scene.update(1 / 60, { ...input, horizontal: 0, jumpPressed: true });
   for (let frame = 0; frame < 60 * 90 && scene.screenState !== 'finish'; frame++) {
     scene.update(1 / 60, input);
   }
@@ -167,7 +191,7 @@ for (const SceneClass of [AdventureScene, GameplayPreviewScene]) {
     };
     const scene = new SceneClass({} as never, {} as never, audio, PLAINS_LEVEL);
     const input = { horizontal, jumpHeld: false, jumpPressed: false, pausePressed: false, mutePressed: false };
-    if (scene instanceof AdventureScene) scene.update(1 / 60, { ...input, jumpPressed: true });
+    if (scene instanceof AdventureScene) scene.update(1 / 60, { ...input, horizontal: 0, jumpPressed: true });
     const spring = PLAINS_LEVEL.entities.find((entity) => entity.id === 'spring-001')!;
     const henry = createPlayer(spring.x, PLAINS_LEVEL);
     henry.vx = horizontal * 200;
