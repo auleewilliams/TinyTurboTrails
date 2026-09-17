@@ -54,7 +54,7 @@ Current release controls:
 | Action | Keyboard | Standard controller |
 | --- | --- | --- |
 | Select level | Left/Right arrows | D-pad or left stick |
-| Start / replay | Space | Primary face button |
+| Start / replay | Space | Any face button (A/B/X/Y) |
 | Move | Left/Right arrows or A/D | D-pad or left stick |
 | Jump | Space | Any face button (A/B/X/Y) |
 | Pause/resume | Escape | Start |
@@ -96,7 +96,7 @@ rather than run; see [Verification](#verification) below.
 
 ## Verification
 
-Latest run: **2026-09-17** on Ubuntu **26.04.1 LTS** x86_64, Node **22.22.1**
+Latest pre-picker verification run: **2026-09-17** on Ubuntu **26.04.1 LTS** x86_64, Node **22.22.1**
 and npm **9.2.0**, at commit
 [`76c7504`](https://github.com/auleewilliams/TinyTurboTrails/commit/76c7504a97d6dfd4ff030687f9215682f8c84a54).
 Type-checking, **127 unit tests**, the production build and the browser suite

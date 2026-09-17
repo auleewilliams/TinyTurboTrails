@@ -81,8 +81,8 @@ Run progress exists in memory only and does not survive a reload — this is
 deliberate behavior, not a bug. Collected gems survive a checkpoint recovery
 within the current run. Replay, reload and closing the page clear gems,
 checkpoints, velocity and entity state. No localStorage, IndexedDB, cookies or
-server save is used, and the last selected level is not remembered. The main
-route is forgiving and uses three safe checkpoints;
+server save is used, and the last selected level is not remembered. The Plains
+route is forgiving and uses six safe checkpoints;
 optional gem routes, springs, slimes and hazards are defined by local level data.
 
 Music and effects are synthesized locally after browser interaction. Mute and

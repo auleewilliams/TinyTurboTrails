@@ -34,7 +34,7 @@ issue 01 onward rather than only at release.
 ## Out of scope for this release
 
 No mining, building, crafting, loops, charged dashes, new biome artwork, touch
-controls or public hosting.
+controls, public hosting or persistent progress.
 
 ## Asset generation
 
