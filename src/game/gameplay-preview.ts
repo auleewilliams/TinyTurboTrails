@@ -5,7 +5,7 @@ import { animationFrame } from '../art/animation';
 import { loadHenry, type HenryAssets } from '../art/henry';
 import { drawFacingSprite } from '../art/sprite';
 import { animationFor, createPlayer, simulatePlayer, DEFAULT_MOVEMENT, type Player } from './movement';
-import { activateCheckpoint, applySpring, collectGem, createRun, damagePlayer, isEntityActive, recoverFromFall, tickRun, type RunEvent, type RunState } from './interactions';
+import { createRun, entityPosition, isEntityActive, recoverFromFall, stepEntities, tickRun, type RunEvent, type RunState } from './interactions';
 import { DEFAULT_LEVEL } from '../world/levels';
 import type { LevelData } from '../world/level';
 import { Camera } from '../world/camera';
@@ -33,18 +33,7 @@ export class GameplayPreviewScene implements Scene {
     simulatePlayer(this.player, input, this.level, seconds);
     if (previousVelocityY >= 0 && this.player.vy < -DEFAULT_MOVEMENT.jumpVelocity * 0.75) this.audio.play('jump');
     this.events = [];
-    for (const entity of this.level.entities) {
-      const state = this.run.entities.find((candidate) => candidate.id === entity.id);
-      const touching = Math.abs(entity.x - this.player.x) <= 18 && Math.abs(entity.y - (this.player.y + 34)) <= 28;
-      if (entity.kind === 'spring') {
-        applySpring(this.run, this.player, entity.id, this.events, touching);
-        continue;
-      }
-      if (!state?.active || !touching) continue;
-      if (entity.kind === 'gem') collectGem(this.run, entity.id, this.events);
-      else if (entity.kind === 'checkpoint') activateCheckpoint(this.run, entity.id, this.events);
-      else if (entity.kind === 'slime' || entity.kind === 'hazard') damagePlayer(this.run, this.player, entity.x - this.player.x, this.events, entity.id);
-    }
+    stepEntities(this.run, this.level, this.player, seconds, this.events);
     if (this.player.y > this.level.height + 80) recoverFromFall(this.run, this.player, this.events, this.level);
     for (const event of this.events) {
       if (event.type === 'gem') this.audio.play('gem');
@@ -56,7 +45,8 @@ export class GameplayPreviewScene implements Scene {
   }
 
   render(ctx: CanvasRenderingContext2D): void {
-    drawWorld(ctx, this.world, this.level, this.camera, (entity) => isEntityActive(this.run, entity.id));
+    drawWorld(ctx, this.world, this.level, this.camera,
+      (entity) => isEntityActive(this.run, entity.id), (entity) => entityPosition(this.run, entity));
     const hurt = this.run.invulnerableSeconds > 0;
     const name = hurt ? 'fall' : animationFor(this.player);
     const clip = this.henry.manifest.animations[name];

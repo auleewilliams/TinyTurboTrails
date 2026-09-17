@@ -1,4 +1,4 @@
-import { DEFAULT_MOVEMENT, launchSpring, type Player } from './movement';
+import { DEFAULT_MOVEMENT, launchSpring, surfaceY, type Player } from './movement';
 import type { LevelData, WorldEntity } from '../world/level';
 
 export type RunEvent =
@@ -8,17 +8,27 @@ export type RunEvent =
   | { type: 'spring'; entityId: string }
   | { type: 'recover' };
 
+/** Live position of a level entity. Patrolling entities move; the rest keep their level position. */
+export interface EntityState { id: string; active: boolean; x: number; y: number; direction: 1 | -1 }
+
 export interface RunState {
   collectedGems: Set<string>;
   springContacts: Set<string>;
   checkpointId: string | null;
   invulnerableSeconds: number;
-  entities: { id: string; active: boolean }[];
+  entities: EntityState[];
+}
+
+/** Henry's sprite stands 34px below his origin; entity anchors sit on the terrain. */
+const CONTACT = { x: 18, y: 28, feet: 34 } as const;
+
+function placeEntities(level: LevelData): EntityState[] {
+  return level.entities.map((entity) => ({ id: entity.id, active: true, x: entity.x, y: entity.y, direction: 1 }));
 }
 
 export function createRun(level: LevelData): RunState {
   return { collectedGems: new Set(), springContacts: new Set(), checkpointId: null, invulnerableSeconds: 0,
-    entities: level.entities.map((entity) => ({ id: entity.id, active: true })) };
+    entities: placeEntities(level) };
 }
 
 export function startNewRun(run: RunState, level: LevelData): void {
@@ -26,7 +36,53 @@ export function startNewRun(run: RunState, level: LevelData): void {
   run.springContacts.clear();
   run.checkpointId = null;
   run.invulnerableSeconds = 0;
-  run.entities = level.entities.map((entity) => ({ id: entity.id, active: true }));
+  run.entities = placeEntities(level);
+}
+
+export function entityState(run: RunState, entityId: string): EntityState | undefined {
+  return run.entities.find((candidate) => candidate.id === entityId);
+}
+
+/** Where the entity is right now, for contact tests and drawing. */
+export function entityPosition(run: RunState, entity: WorldEntity): { x: number; y: number } {
+  const state = entityState(run, entity.id);
+  return state ? { x: state.x, y: state.y } : { x: entity.x, y: entity.y };
+}
+
+export function touchesPlayer(player: Player, x: number, y: number): boolean {
+  return Math.abs(x - player.x) <= CONTACT.x && Math.abs(y - (player.y + CONTACT.feet)) <= CONTACT.y;
+}
+
+/** Walk patrolling entities between their bounds, hugging the terrain they stand on. */
+export function advancePatrols(run: RunState, level: LevelData, seconds: number): void {
+  const dt = Math.max(0, Math.min(seconds, 0.1));
+  for (const entity of level.entities) {
+    const patrol = entity.patrol;
+    const state = entityState(run, entity.id);
+    if (!patrol || !state) continue;
+    state.x += patrol.speed * state.direction * dt;
+    if (state.x <= patrol.minX) { state.x = patrol.minX; state.direction = 1; }
+    else if (state.x >= patrol.maxX) { state.x = patrol.maxX; state.direction = -1; }
+    state.y = surfaceY(level, state.x);
+  }
+}
+
+/** One gameplay step of the world against Henry: patrols move, then contacts resolve. */
+export function stepEntities(run: RunState, level: LevelData, player: Player, seconds: number, events: RunEvent[]): void {
+  advancePatrols(run, level, seconds);
+  for (const entity of level.entities) {
+    const state = entityState(run, entity.id);
+    const { x, y } = state ?? entity;
+    const touching = touchesPlayer(player, x, y);
+    if (entity.kind === 'spring') {
+      applySpring(run, player, entity.id, events, touching);
+      continue;
+    }
+    if (!state?.active || !touching) continue;
+    if (entity.kind === 'gem') collectGem(run, entity.id, events);
+    else if (entity.kind === 'checkpoint') activateCheckpoint(run, entity.id, events);
+    else if (entity.kind === 'slime' || entity.kind === 'hazard') damagePlayer(run, player, x - player.x, events, entity.id);
+  }
 }
 
 export function tickRun(run: RunState, seconds: number): void {
@@ -34,7 +90,7 @@ export function tickRun(run: RunState, seconds: number): void {
 }
 
 export function collectGem(run: RunState, entityId: string, events: RunEvent[]): boolean {
-  const entity = run.entities.find((candidate) => candidate.id === entityId);
+  const entity = entityState(run, entityId);
   if (!entity || !entity.active || run.collectedGems.has(entityId)) return false;
   run.collectedGems.add(entityId);
   entity.active = false;
@@ -44,11 +100,11 @@ export function collectGem(run: RunState, entityId: string, events: RunEvent[]):
 
 /** Entities the run has consumed stop being drawn; unknown IDs stay visible. */
 export function isEntityActive(run: RunState, entityId: string): boolean {
-  return run.entities.find((candidate) => candidate.id === entityId)?.active ?? true;
+  return entityState(run, entityId)?.active ?? true;
 }
 
 export function activateCheckpoint(run: RunState, entityId: string, events: RunEvent[]): boolean {
-  const entity = run.entities.find((candidate) => candidate.id === entityId);
+  const entity = entityState(run, entityId);
   if (!entity || !entity.active || run.checkpointId === entityId) return false;
   run.checkpointId = entityId;
   events.push({ type: 'checkpoint', entityId });

@@ -16,6 +16,19 @@ and clears on recovery or a new run. Replay also resets the camera before return
 to the title. Fall recovery places Henry at the latest checkpoint
 or the start, clears both velocities and gives a short safe-protection window.
 
+Slimes can patrol. A level entity may carry `patrol: { minX, maxX, speed }`; the
+run — not the level — owns where that entity currently is, so replay and
+`startNewRun` put every slime back where the level planted it. `advancePatrols`
+walks each patroller between its bounds at the given speed, turns it around at
+each end, and re-plants it on the terrain under its new X, so a slime on a ramp
+walks up the ramp. The per-frame delta is clamped like Henry's own step, so a
+long frame cannot teleport a slime past him. Both gameplay scenes share one
+`stepEntities` pass — patrols first, then the single contact window that used to
+be copied into each scene — and the renderer draws each entity at its run
+position. `validateLevel` rejects a patrol that leaves the level, excludes its
+own slime, crosses ground steeper than 45 degrees, or moves faster than half of
+Henry's top speed, so a patrolling slime is never unavoidable.
+
 Every accepted interaction emits a small event (`gem`, `checkpoint`, `damage`,
 `spring` or `recover`). The `/?scene=gameplay` preview consumes those events to
 exercise the HUD-facing path and maps them to the future audio interface. The
@@ -23,6 +36,6 @@ preview uses the Plains level and generated atlases; title, pause/result screens
 finish handling and complete route tuning arrive in issue #6.
 
 Unit tests cover stable identity, checkpoint preservation, reset semantics,
-invulnerability, knockback, spring momentum and safe recovery. Chromium and
+invulnerability, knockback, spring momentum, patrol bounds and safe recovery. Chromium and
 Firefox smoke checks exercise the local gameplay preview; physical controller
 and full manual route checks remain release verification.

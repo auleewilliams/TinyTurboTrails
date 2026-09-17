@@ -144,6 +144,21 @@ it('stops drawing a gem once the adventure collects it', () => {
   expect(gemCalls(after.images)).toBe(0);
 });
 
+it('draws a patrolling slime where the run has walked it, not where the level planted it', () => {
+  const scene = new AdventureScene(henryAssets, worldAssets, silentAudio, PLAINS_LEVEL);
+  scene.enter();
+  scene.update(1 / 60, start);
+  const slime = PLAINS_LEVEL.entities.find((entity) => entity.patrol)!;
+  const patrol = slime.patrol!;
+  for (let step = 0; step < 60; step++) scene.update(1 / 60, { ...start, jumpPressed: false });
+  const { ctx, images } = recordingContext();
+  scene.render(ctx);
+  // The camera is still at x=0 while Henry stands at the start, so drawn X is world X.
+  const drawnX = images.map((call) => (call[5] as number) + 24);
+  expect(drawnX).not.toContain(slime.x);
+  expect(drawnX.some((x) => x > slime.x && x <= patrol.maxX)).toBe(true);
+});
+
 it('keeps the HUD left-aligned even after a centered overlay ran', () => {
   const scene = new AdventureScene(henryAssets, worldAssets, silentAudio, PLAINS_LEVEL);
   scene.enter();
