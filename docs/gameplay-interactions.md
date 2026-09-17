@@ -36,6 +36,6 @@ preview uses the Plains level and generated atlases; title, pause/result screens
 finish handling and complete route tuning arrive in issue #6.
 
 Unit tests cover stable identity, checkpoint preservation, reset semantics,
-invulnerability, knockback, spring momentum, patrol bounds and safe recovery. Chromium and
-Firefox smoke checks exercise the local gameplay preview; physical controller
-and full manual route checks remain release verification.
+invulnerability, knockback, spring momentum, patrol bounds and safe recovery.
+Chromium and Firefox smoke checks exercise the local gameplay preview; physical
+controller and full manual route checks remain release verification.
