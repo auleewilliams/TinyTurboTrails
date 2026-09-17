@@ -7,7 +7,21 @@ import type { GameAudio } from '../src/core/audio';
 import { PLAINS_LEVEL } from '../src/world/level';
 import { ScreenController } from '../src/game/screens';
 
+const alternateLevel = { ...PLAINS_LEVEL,
+  id: 'alternate', name: 'ALTERNATE', start: { x: 120, y: 198 },
+  finish: { ...PLAINS_LEVEL.finish, x: 180 },
+};
+
 describe('game screen flow', () => {
+  it('starts the adventure from the supplied level data', () => {
+    const audio: GameAudio = {
+      unlock: async () => {}, setMuted: () => {}, setSuspended: () => {}, startMusic: () => {},
+      play: () => {}, stop: () => {}, dispose: () => {},
+    };
+    const scene = new AdventureScene({} as never, {} as never, audio, alternateLevel);
+    expect(scene.playerX).toBe(alternateLevel.start.x);
+  });
+
   it('plays the completion effect once when the adventure reaches the finish', () => {
     const effects: string[] = [];
     let stops = 0;
@@ -15,7 +29,7 @@ describe('game screen flow', () => {
       unlock: async () => {}, setMuted: () => {}, setSuspended: () => {}, startMusic: () => {},
       play: (effect) => effects.push(effect), stop: () => { stops++; }, dispose: () => {},
     };
-    const scene = new AdventureScene({} as never, {} as never, audio);
+    const scene = new AdventureScene({} as never, {} as never, audio, PLAINS_LEVEL);
     scene.enter();
     scene.update(1 / 60, { horizontal: 0, jumpHeld: false, jumpPressed: true, pausePressed: false, mutePressed: false });
     scene.update(1 / 60, { horizontal: 0, jumpHeld: true, jumpPressed: true, pausePressed: false, mutePressed: false });
@@ -72,7 +86,7 @@ it.each(PLAINS_LEVEL.checkpoints)('activates $id from the ground', (checkpoint) 
     unlock: async () => {}, setMuted: () => {}, setSuspended: () => {}, startMusic: () => {},
     play: (effect) => effects.push(effect), stop: () => {}, dispose: () => {},
   };
-  const scene = new AdventureScene({} as never, {} as never, audio);
+  const scene = new AdventureScene({} as never, {} as never, audio, PLAINS_LEVEL);
   const input = { horizontal: 0, jumpHeld: false, jumpPressed: false, pausePressed: false, mutePressed: false };
   scene.update(1 / 60, { ...input, jumpPressed: true });
   Object.assign(scene, { player: createPlayer(checkpoint.x - 50, PLAINS_LEVEL) });
@@ -87,7 +101,7 @@ it('can walk past grounded slimes and finish without repeated damage traps', () 
     unlock: async () => {}, setMuted: () => {}, setSuspended: () => {}, startMusic: () => {},
     play: (effect) => effects.push(effect), stop: () => {}, dispose: () => {},
   };
-  const scene = new AdventureScene({} as never, {} as never, audio);
+  const scene = new AdventureScene({} as never, {} as never, audio, PLAINS_LEVEL);
   const input = { horizontal: 1, jumpHeld: false, jumpPressed: false, pausePressed: false, mutePressed: false };
   scene.update(1 / 60, { ...input, jumpPressed: true });
   for (let frame = 0; frame < 60 * 90 && scene.screenState !== 'finish'; frame++) {
@@ -108,7 +122,7 @@ it.each(['keyboard', 'controller'])('%s replay immediately restores the initial 
     unlock: async () => {}, setMuted: () => {}, setSuspended: () => {}, startMusic: () => {},
     play: () => {}, stop: () => {}, dispose: () => {},
   };
-  const scene = new AdventureScene({} as never, {} as never, audio);
+  const scene = new AdventureScene({} as never, {} as never, audio, PLAINS_LEVEL);
   const state = scene as unknown as {
     player: import('../src/game/movement').Player;
     run: import('../src/game/interactions').RunState;
@@ -151,7 +165,7 @@ for (const SceneClass of [AdventureScene, GameplayPreviewScene]) {
       unlock: async () => {}, setMuted: () => {}, setSuspended: () => {}, startMusic: () => {},
       play: (effect) => effects.push(effect), stop: () => {}, dispose: () => {},
     };
-    const scene = new SceneClass({} as never, {} as never, audio);
+    const scene = new SceneClass({} as never, {} as never, audio, PLAINS_LEVEL);
     const input = { horizontal, jumpHeld: false, jumpPressed: false, pausePressed: false, mutePressed: false };
     if (scene instanceof AdventureScene) scene.update(1 / 60, { ...input, jumpPressed: true });
     const spring = PLAINS_LEVEL.entities.find((entity) => entity.id === 'spring-001')!;
