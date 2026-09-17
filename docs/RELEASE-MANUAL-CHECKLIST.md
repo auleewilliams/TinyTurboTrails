@@ -1,5 +1,16 @@
 # Manual release worksheet
 
+**Waived for the certified release.** On 2026-09-17 the project owner reviewed
+this worksheet and the automated coverage in
+[RELEASE-VERIFICATION-2026-09-17.md](RELEASE-VERIFICATION-2026-09-17.md) and
+decided the scenarios below would not be executed for the first playable
+release; automated coverage was accepted as sufficient. Every row remains
+**Not run** deliberately — that is not a gap to close, it is the recorded
+decision. Keep this worksheet for any future release that does want a manual
+pass, or for anyone investigating a defect in an area it covers (physical
+controller hardware, Safari on macOS, previous-major browsers, audible output,
+firsthand route/timing inspection).
+
 Copy this worksheet for each browser/version and input combination in the
 [release matrix](RELEASE-VERIFICATION.md#target-matrix-and-remaining-manual-work).
 This blank worksheet is not verification evidence. Use **Pass**, **Fail**, or

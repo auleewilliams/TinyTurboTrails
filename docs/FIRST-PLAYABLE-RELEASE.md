@@ -1,10 +1,11 @@
 # Tiny Turbo Trails — first playable release
 
-This document describes the accepted MVP baseline. It is written for someone
-returning to the repository or launching it for Henry, without needing to
-reconstruct decisions from issue history. The MVP is playable, but it is not a
-claim that every bug or release-certification check is complete; defects found
-after acceptance should be tracked as follow-up issues.
+This document describes the **certified first playable release**. It is
+written for someone returning to the repository or launching it for Henry,
+without needing to reconstruct decisions from issue history. Certification
+(issue #8) is closed and this release documentation (issue #9) reflects that
+closeout. Any defect found after this point should be tracked as a new
+follow-up issue; it does not reopen this release.
 
 ## Launch
 
@@ -21,29 +22,36 @@ The game has no public hosting or backend service; a player who cannot start a
 dev server needs an adult to do this launch step. A production bundle can be
 served with `npm run build` and `npm run preview`.
 
-## Verification status — 2026-09-15
+## Verification status — certified 2026-09-17
 
-**Update, 2026-09-16:** the [macOS verification report](RELEASE-VERIFICATION-2026-09-16.md)
-records 57 passing unit tests and 57/57 passing browser checks after checkpoint
-fix #41, plus a user-reported Xbox Bluetooth playtest of the original candidate
-in the Codex in-app browser. #26 is fixed and retested. Certification remains
-blocked by [sprite-background defect #42](https://github.com/auleewilliams/TinyTurboTrails/issues/42),
-[duration tuning #45](https://github.com/auleewilliams/TinyTurboTrails/issues/45),
-and the incomplete native-browser matrix. The Linux results below are historical.
+The [2026-09-17 certification report](RELEASE-VERIFICATION-2026-09-17.md)
+records, on Ubuntu 26.04.1 LTS (Node 22.22.1, npm 9.2.0) at commit
+`76c7504`: `npm run typecheck` passing, **127 unit tests** passing, `npm run
+build` passing, and the browser suite passing **74 of 75 checks** (25 each in
+Chromium 153.0.8010.12, Firefox 155.0 and WebKit 26.6), with one documented
+Firefox native-audio skip and zero failures. This was an isolated checkout
+using the existing npm cache, not a clean-machine or network-install
+verification.
 
-Issue #9 remains a draft closeout until issue #8 is complete and integrated.
-On Ubuntu 26.04.1 LTS (Node 22.22.1, npm 9.2.0), a fresh local clone passed
-`npm ci --offline`, `npm run typecheck`, all 48 unit tests, `npm run build`, and
-the development adventure launch. Cached installation on this existing host is
-not clean-machine verification.
+Every defect found across all prior verification runs is fixed, closed and
+covered by a regression test — see the
+[defect inventory](RELEASE-VERIFICATION-2026-09-17.md#defect-inventory-closed-since-the-last-dated-report)
+for the full list and fixing PRs. No open defect is known against this
+candidate.
 
-The production browser suite returned exit 1: Chromium 153.0.8010.12 passed all
-18 checks; Firefox 155.0 passed 17 with one native-audio skip; all 18 WebKit
-checks failed at browser launch because host libraries are absent. Input was
-automated keyboard/pointer plus simulated standard gamepads; no physical
-controller or audible listening check was performed. Full evidence, earlier
-hosted results, and remaining matrix entries are in the
-[release verification record](RELEASE-VERIFICATION.md).
+**The remaining manual matrix was waived, not run.** Physical
+standard-controller hardware, audible speaker output, Safari on macOS,
+installed current/previous-major Chrome and Firefox releases, and firsthand
+human inspection of the route and animations are all untested. The project
+owner reviewed this gap on 2026-09-17 and decided automated coverage was
+sufficient for this release rather than executing the
+[manual worksheet](RELEASE-MANUAL-CHECKLIST.md). Anyone who finds a defect in
+one of these untested areas should file it as a new issue.
+
+Superseded historical runs (2026-09-15 Linux, 2026-09-16 macOS) and their
+now-fixed defect findings are preserved in
+[release verification](RELEASE-VERIFICATION.md) and
+[RELEASE-VERIFICATION-2026-09-16.md](RELEASE-VERIFICATION-2026-09-16.md).
 
 ## Controls
 
@@ -51,18 +59,23 @@ hosted results, and remaining matrix entries are in the
 | --- | --- | --- |
 | Start / replay | Space | Primary face button |
 | Move | Left/Right arrows or A/D | D-pad or left stick |
-| Jump | Space | Primary face button |
-| Pause/resume | Escape | Start equivalent |
+| Jump | Space | Any face button (A/B/X/Y) |
+| Pause/resume | Escape | Start |
 | Mute | M or on-screen Mute button | On-screen Mute button |
 
 The adventure title starts with Space or the primary controller face button.
-Finish shows the current run's gem total; the same control returns to a fresh title.
-Focus loss clears held input, pauses the fixed-step simulation and discards elapsed wall time before resuming. Only standard-mapped
-controllers are read. Touch input is out of scope.
+Jump accepts any standard-mapping face button, not only the primary one, as a
+compatibility hedge across controller/browser combinations (see
+[#62](https://github.com/auleewilliams/TinyTurboTrails/issues/62)). Finish
+shows the current run's gem total; the same control returns to a fresh title.
+Focus loss clears held input, pauses the fixed-step simulation and discards
+elapsed wall time before resuming. Only standard-mapped controllers are read.
+Touch input is out of scope.
 
 ## Progress and behavior
 
-Run progress exists in memory only. Collected gems survive a checkpoint recovery
+Run progress exists in memory only and does not survive a reload — this is
+deliberate behavior, not a bug. Collected gems survive a checkpoint recovery
 within the current run. Replay, reload and closing the page clear gems,
 checkpoints, velocity and entity state. No localStorage, IndexedDB, cookies or
 server save is used. The main route is forgiving and uses three safe checkpoints;
@@ -75,34 +88,17 @@ Web Audio cannot start. `/?audio` previews the six effects and the music loop.
 ## Scope and limitations
 
 The release scope is one desktop-browser Plains route with meadow, wooded
-hillside and cave-themed scenery. Mining, building, crafting, loops, charged
-dashes, touch controls, extra biomes, public hosting and persistent progress are
+hillside and cave-themed scenery, tuned to roughly 3–5 minutes for a forgiving
+first playthrough. Mining, building, crafting, loops, charged dashes, touch
+controls, extra biomes, public hosting and persistent progress are
 deliberately out of scope. The generated source art and processed atlases are
 project-local; the running game loads assets locally and makes no generation or
 external API calls.
 
-Former blocking defect [#26 — Place checkpoints on the ground](https://github.com/auleewilliams/TinyTurboTrails/issues/26)
-was fixed by PR #41. The 2026-09-16 retest verifies grounded activation in all
-three bundled engines and terrain-aligned recovery with retained gems in the
-simulation suite. Natural browser fall/recovery and the native-browser matrix
-remain manual coverage gaps.
-
-New non-blocking findings from the 2026-09-16 run are
-[left-facing animation #43](https://github.com/auleewilliams/TinyTurboTrails/issues/43),
-[collected-gem rendering #44](https://github.com/auleewilliams/TinyTurboTrails/issues/44),
-[HUD alignment after pause #46](https://github.com/auleewilliams/TinyTurboTrails/issues/46),
-[scenery/slime anchors #47](https://github.com/auleewilliams/TinyTurboTrails/issues/47),
-[terrain seams #48](https://github.com/auleewilliams/TinyTurboTrails/issues/48), and
-[finish composition #49](https://github.com/auleewilliams/TinyTurboTrails/issues/49).
-These remain known limitations; the verification PR does not fix them.
-
-Automated Linux browser checks do not replace physical speakers, a controller,
-Safari on macOS or every current/previous-major browser pair. Those checks,
-maximum-speed traversal, every checkpoint recovery, easy-route completion,
-finish/replay inspection, terrain seam review and final contrast review remain
-the manual evidence required before issue #8 and this release documentation can
-be closed as certified. Any defect found there must be filed separately with
-reproduction steps, browser/OS and blocking triage.
+Known, deliberately untested combinations (not defects — see Verification
+status above): physical controller hardware, audible speaker output, Safari on
+macOS, installed current/previous-major Chrome and Firefox releases, and
+firsthand human route/animation inspection.
 
 See [canonical requirements](REQUIREMENTS.md), [release verification](RELEASE-VERIFICATION.md),
 [movement tuning](gameplay-movement.md), [interaction behavior](gameplay-interactions.md),
