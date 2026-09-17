@@ -1,5 +1,6 @@
 import { expect, it } from 'vitest';
 import { PLAINS_LEVEL, validateLevel } from '../src/world/level';
+import { DEFAULT_LEVEL, LEVELS, levelById } from '../src/world/levels';
 import { surfaceY } from '../src/game/movement';
 import { Camera } from '../src/world/camera';
 
@@ -12,16 +13,31 @@ it('has stable unique entity IDs and traversable terrain data', () => {
   expect(PLAINS_LEVEL.checkpoints.length).toBeGreaterThanOrEqual(1);
   expect(PLAINS_LEVEL.finish.x).toBeGreaterThan(PLAINS_LEVEL.start.x);
 });
-it('keeps terrain segments joined and lands every checkpoint on the ground beneath it', () => {
-  for (let index = 1; index < PLAINS_LEVEL.surfaces.length; index++) {
-    expect(PLAINS_LEVEL.surfaces[index - 1].x2).toBe(PLAINS_LEVEL.surfaces[index].x1);
-    expect(PLAINS_LEVEL.surfaces[index - 1].y2).toBe(PLAINS_LEVEL.surfaces[index].y1);
+it('registers Plains as the default runtime level', () => {
+  expect(DEFAULT_LEVEL).toBe(PLAINS_LEVEL);
+  expect(LEVELS).toContain(PLAINS_LEVEL);
+  expect(levelById('plains')).toBe(PLAINS_LEVEL);
+  expect(levelById('missing')).toBeUndefined();
+});
+it.each(LEVELS)('$id satisfies generic level invariants', (level) => {
+  expect(() => validateLevel(level)).not.toThrow();
+  for (let index = 1; index < level.surfaces.length; index++) {
+    expect(level.surfaces[index - 1].x2).toBe(level.surfaces[index].x1);
+    expect(level.surfaces[index - 1].y2).toBe(level.surfaces[index].y1);
   }
-  const terrain = { minX: PLAINS_LEVEL.minX, maxX: PLAINS_LEVEL.maxX, surfaces: PLAINS_LEVEL.surfaces };
-  for (const checkpoint of PLAINS_LEVEL.checkpoints) {
-    expect(checkpoint.y).toBeCloseTo(surfaceY(terrain, checkpoint.x), 5);
-    expect(checkpoint.x).toBeLessThan(PLAINS_LEVEL.finish.x);
+  for (const checkpoint of level.checkpoints) {
+    expect(checkpoint.y).toBeCloseTo(surfaceY(level, checkpoint.x), 5);
+    expect(checkpoint.x).toBeLessThan(level.finish.x);
   }
+});
+it('rejects non-contiguous surfaces and unplanted checkpoints', () => {
+  expect(() => validateLevel({ ...PLAINS_LEVEL, surfaces: [
+    { x1: 0, x2: 10, y1: 198, y2: 198 },
+    { x1: 11, x2: PLAINS_LEVEL.maxX, y1: 198, y2: 198 },
+  ] })).toThrow(/contiguous/);
+  expect(() => validateLevel({ ...PLAINS_LEVEL, checkpoints: [
+    { id: 'checkpoint-meadow', x: 100, y: surfaceY(PLAINS_LEVEL, 100) },
+  ] })).toThrow(/checkpoint/);
 });
 it('keeps gems, hazards, slimes and springs reachable while walking, aside from optional elevated bonus gems', () => {
   const terrain = { minX: PLAINS_LEVEL.minX, maxX: PLAINS_LEVEL.maxX, surfaces: PLAINS_LEVEL.surfaces };

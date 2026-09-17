@@ -3,6 +3,9 @@ import { surfaceY, type Surface } from '../game/movement';
 export type WorldEntityKind = 'gem' | 'slime' | 'spring' | 'checkpoint' | 'hazard' | 'decoration';
 export interface WorldEntity { id: string; kind: WorldEntityKind; x: number; y: number; asset: string; layer: 'back' | 'world' | 'front' }
 export interface LevelData {
+  id: string;
+  name: string;
+  atlas: string;
   width: number;
   height: number;
   minX: number;
@@ -55,6 +58,9 @@ function groundedEntity(entity: Omit<WorldEntity, 'y'>): WorldEntity {
 }
 
 export const PLAINS_LEVEL: LevelData = {
+  id: 'plains',
+  name: 'PLAINS',
+  atlas: 'plains',
   width: 9980,
   height: 240,
   minX: plainsTerrain.minX,
@@ -166,13 +172,27 @@ export const PLAINS_LEVEL: LevelData = {
 
 export function validateLevel(level: LevelData): void {
   if (level.width <= 0 || level.height <= 0 || level.surfaces.length === 0) throw new Error('invalid level dimensions');
+  if (level.surfaces[0].x1 !== level.minX || level.surfaces[level.surfaces.length - 1].x2 !== level.maxX) {
+    throw new Error('surfaces must span level bounds');
+  }
+  for (let index = 1; index < level.surfaces.length; index++) {
+    const previous = level.surfaces[index - 1];
+    const current = level.surfaces[index];
+    if (previous.x2 !== current.x1 || previous.y2 !== current.y1) throw new Error('surfaces must be contiguous');
+  }
   const ids = new Set<string>();
   for (const entity of level.entities) {
     if (!entity.id || ids.has(entity.id)) throw new Error(`duplicate entity id: ${entity.id}`);
     ids.add(entity.id);
-    if (entity.x < 0 || entity.x > level.width) throw new Error(`entity outside level: ${entity.id}`);
+    if (entity.x < level.minX || entity.x > level.maxX) throw new Error(`entity outside level: ${entity.id}`);
   }
-  if (level.checkpoints.length === 0) throw new Error('Plains requires at least one checkpoint');
-  for (const checkpoint of level.checkpoints) if (!ids.has(checkpoint.id)) throw new Error(`checkpoint missing entity: ${checkpoint.id}`);
+  if (level.checkpoints.length === 0) throw new Error('level requires at least one checkpoint');
+  for (const checkpoint of level.checkpoints) {
+    const entity = level.entities.find((candidate) => candidate.id === checkpoint.id);
+    if (!entity || entity.kind !== 'checkpoint' || entity.x !== checkpoint.x || entity.y !== checkpoint.y) {
+      throw new Error(`checkpoint is not planted on terrain: ${checkpoint.id}`);
+    }
+    if (checkpoint.y !== surfaceY(level, checkpoint.x)) throw new Error(`checkpoint is not planted on terrain: ${checkpoint.id}`);
+  }
   if (level.finish.x <= level.start.x || level.finish.x > level.width) throw new Error('finish must follow start');
 }
