@@ -62,6 +62,7 @@ test('production canvas loads, scales and recovers from focus loss', async ({ pa
   const canvas = page.locator('canvas');
   await expect(canvas).toHaveAttribute('width', '426');
   await expect(canvas).toHaveAttribute('height', '240');
+  expect(await page.evaluate(() => getComputedStyle(document.documentElement).backgroundColor)).toBe('rgb(139, 208, 202)');
   expect(await canvas.boundingBox()).toMatchObject({ width: 1278, height: 720 });
   await page.setViewportSize({ width: 900, height: 600 });
   await expect.poll(async () => (await canvas.boundingBox())?.width).toBe(852);

@@ -1,4 +1,4 @@
-:root { color-scheme: dark; font-family: monospace; background: #0c1922; color: #e9f2df; }
+:root { color-scheme: dark; font-family: monospace; background: #8bd0ca; color: #e9f2df; }
 * { box-sizing: border-box; }
 body { margin: 0; }
 main { width: 100vw; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; }
