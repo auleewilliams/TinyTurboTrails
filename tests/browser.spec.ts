@@ -510,29 +510,24 @@ test('all checkpoints activate along the ground route and render planted markers
   // cannot drift from the level data the way the coordinates in #26 did.
   const checkpoints = PLAINS_LEVEL.checkpoints;
   for (const checkpoint of checkpoints) {
-    for (let step = 0; step < 600; step++) {
-      const status = await page.locator('#status').innerText();
-      const x = Number(status.match(/X (\d+)/)?.[1] ?? 0);
-      const hud = await page.locator('canvas').getAttribute('data-test-hud');
-      if (hud?.includes(checkpoint.id)) {
-        // Activation is detected anywhere in the 18px window around the flag, so compare
-        // Henry's feet to the terrain beneath him rather than to the flag's own height:
-        // the hillside marker sits on a ramp, where those two differ by the slope alone.
-        // X and Y come from one status sample, so they describe the same frame.
-        const y = Number(status.match(/Y (\d+)/)?.[1] ?? 0);
-        expect(Math.abs(y + DEFAULT_MOVEMENT.height - surfaceY(PLAINS_LEVEL, x))).toBeLessThanOrEqual(2);
-        // Walk just past the flag so Henry does not obscure its base in the evidence.
-        await page.waitForTimeout(300);
-        await page.keyboard.up('ArrowRight');
-        await page.waitForTimeout(150);
-        await info.attach(checkpoint.id, { body: await page.locator('canvas').screenshot(), contentType: 'image/png' });
-        await page.keyboard.down('ArrowRight');
-        break;
-      }
-      expect(x, `passed ${checkpoint.id} without activation`).toBeLessThan(checkpoint.x + 50);
-      await page.waitForTimeout(30);
-    }
-    await expect(page.locator('canvas')).toHaveAttribute('data-test-hud', new RegExp(checkpoint.id));
+    await expect.poll(
+      () => page.locator('canvas').getAttribute('data-test-hud'),
+      { timeout: 25_000 },
+    ).toContain(checkpoint.id);
+    // Activation is detected anywhere in the 18px window around the flag, so compare
+    // Henry's feet to the terrain beneath him rather than to the flag's own height:
+    // the hillside marker sits on a ramp, where those two differ by the slope alone.
+    // X and Y come from one status sample, so they describe the same frame.
+    const status = await page.locator('#status').innerText();
+    const x = Number(status.match(/X (\d+)/)?.[1] ?? 0);
+    const y = Number(status.match(/Y (\d+)/)?.[1] ?? 0);
+    expect(Math.abs(y + DEFAULT_MOVEMENT.height - surfaceY(PLAINS_LEVEL, x))).toBeLessThanOrEqual(2);
+    // Walk just past the flag so Henry does not obscure its base in the evidence.
+    await page.waitForTimeout(300);
+    await page.keyboard.up('ArrowRight');
+    await page.waitForTimeout(150);
+    await info.attach(checkpoint.id, { body: await page.locator('canvas').screenshot(), contentType: 'image/png' });
+    await page.keyboard.down('ArrowRight');
   }
   await page.keyboard.up('ArrowRight');
 });
