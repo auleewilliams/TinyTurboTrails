@@ -2,7 +2,7 @@
 
 Open `/` (or `/?scene=adventure`) for the complete first-play shell. The title
 screen uses Left/Right to select Plains or Quarry Run, then starts with Space or
-the controller's primary face button. The loading state is entered before local
+any standard controller face button (A/B/X/Y). The loading state is entered before local
 assets are ready, and each playable route uses the shared movement and run
 interaction systems. Escape uses the foundation pause gate, freezing the
 fixed-step simulation; Space on the finish screen creates a fresh run and

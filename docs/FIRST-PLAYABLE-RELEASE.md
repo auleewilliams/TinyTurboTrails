@@ -12,8 +12,8 @@ follow-up issue; it does not reopen this release.
 An adult or developer installs Node.js 22.12 or newer, runs `npm ci`, then runs
 `npm run play` from the repository. On Windows, macOS and Linux, this starts the
 local server and opens `/?scene=adventure` in the default browser for Henry.
-Use Left/Right to choose Plains or Quarry Run, then press Space or the
-controller's primary face button at the title screen to begin. If the browser
+Use Left/Right to choose Plains or Quarry Run, then press Space or any standard
+face button (A/B/X/Y) at the title screen to begin. If the browser
 does not open, use the local URL printed by Vite and append
 `/?scene=adventure`. Use the printed port, since Vite chooses another if the
 default is busy. Stop the server with Ctrl+C.
@@ -59,14 +59,14 @@ now-fixed defect findings are preserved in
 | Action | Keyboard | Standard controller |
 | --- | --- | --- |
 | Select level | Left/Right arrows | D-pad or left stick |
-| Start / replay | Space | Primary face button |
+| Start / replay | Space | Any face button (A/B/X/Y) |
 | Move | Left/Right arrows or A/D | D-pad or left stick |
 | Jump | Space | Any face button (A/B/X/Y) |
 | Pause/resume | Escape | Start |
 | Mute | M or on-screen Mute button | On-screen Mute button |
 
 The adventure title selects Plains or Quarry Run with Left/Right, then starts
-with Space or the primary controller face button.
+with Space or any standard controller face button (A/B/X/Y).
 Jump accepts any standard-mapping face button, not only the primary one, as a
 compatibility hedge across controller/browser combinations (see
 [#62](https://github.com/auleewilliams/TinyTurboTrails/issues/62)). Finish
