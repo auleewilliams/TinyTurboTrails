@@ -50,6 +50,7 @@ function recordingContext(): { ctx: CanvasRenderingContext2D; images: unknown[][
   const ctx = {
     fillStyle: '', strokeStyle: '', lineWidth: 0, font: '', textAlign: 'left' as CanvasTextAlign,
     fillRect: noop, beginPath: noop, moveTo: noop, lineTo: noop, closePath: noop, fill: noop, stroke: noop,
+    strokeRect: noop,
     translate: noop, save: noop, restore: noop,
     drawImage: (...args: unknown[]) => { images.push(args); },
     fillText: (text: string, x: number) => { texts.push({ text, x, textAlign: ctx.textAlign }); },
@@ -152,4 +153,11 @@ it('keeps the HUD left-aligned even after a centered overlay ran', () => {
   scene.render(ctx);
   expect(texts).not.toHaveLength(0);
   for (const drawn of texts) expect(drawn).toMatchObject({ x: 10, textAlign: 'left' });
+});
+
+it('draws the selected level name on the title screen', () => {
+  const scene = new AdventureScene(henryAssets, worldAssets, silentAudio, PLAINS_LEVEL);
+  const { ctx, texts } = recordingContext();
+  scene.render(ctx);
+  expect(texts.some(({ text }) => text === '◀ PLAINS ▶')).toBe(true);
 });

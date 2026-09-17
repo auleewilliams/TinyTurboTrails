@@ -8,6 +8,7 @@ import { animationFor, createPlayer, simulatePlayer, DEFAULT_MOVEMENT, type Faci
 import { activateCheckpoint, applySpring, collectGem, createRun, damagePlayer, isEntityActive, recoverFromFall, tickRun, type RunEvent, type RunState } from './interactions';
 import { ScreenController } from './screens';
 import type { LevelData } from '../world/level';
+import { LEVELS } from '../world/levels';
 import { Camera } from '../world/camera';
 import { drawWorld } from '../world/renderer';
 import type { WorldAssets } from '../world/assets';
@@ -58,8 +59,12 @@ export class AdventureScene implements Scene {
   private camera: Camera;
   private elapsed = 0;
   private events: RunEvent[] = [];
+  private selectedIndex: number;
+  private selectionDirection = 0;
   constructor(private readonly henry: HenryAssets, private readonly world: WorldAssets, private readonly audio: GameAudio, level: LevelData) {
     this.level = level;
+    const levelIndex = LEVELS.indexOf(level);
+    this.selectedIndex = levelIndex >= 0 ? levelIndex : 0;
     this.player = createPlayer(level.start.x, level);
     this.run = createRun(level);
     this.camera = new Camera({ width: 426, height: 240, worldWidth: level.width, worldHeight: level.height });
@@ -70,19 +75,26 @@ export class AdventureScene implements Scene {
   get playerY(): number { return this.player.y; }
   get playerVelocityX(): number { return this.player.vx; }
   get playerFacing(): Facing { return this.player.facing; }
+  get selectedLevelName(): string { return LEVELS[this.selectedIndex].name; }
   enter(): void { this.elapsed = 0; }
   exit(): void { this.audio.stop(); }
 
   update(seconds: number, input: InputFrame): void {
     this.elapsed += seconds;
-    if (this.screens.state === 'title' && (input.jumpPressed || input.pausePressed)) {
-      this.screens.start();
-      this.screens.loaded();
+    if (this.screens.state === 'title') {
+      this.updateSelection(input.horizontal);
+      if (input.jumpPressed) {
+        this.loadLevel(LEVELS[this.selectedIndex]);
+        this.selectionDirection = 0;
+        this.screens.start();
+        this.screens.loaded();
+      }
       return;
     }
     if (this.screens.state === 'finish') {
       if (input.jumpPressed) {
         this.loadLevel(this.level);
+        this.selectionDirection = Math.sign(input.horizontal);
         this.screens.replay();
       }
       return;
@@ -134,7 +146,12 @@ export class AdventureScene implements Scene {
       ctx.fillText(`GEMS ${this.run.collectedGems.size}   CHECKPOINT ${this.run.checkpointId ?? 'START'}`, 10, 16);
       ctx.fillText('Arrows/A-D move · Space jump · Esc pause', 10, 26);
     } else if (this.screens.state === 'title') {
-      this.panel(ctx, 'TINY TURBO TRAILS', 'Press Space to start');
+      this.panel(ctx, 'TINY TURBO TRAILS', `◀ ${this.selectedLevelName} ▶`);
+      ctx.fillStyle = '#e9f2df';
+      ctx.font = '10px monospace';
+      ctx.textAlign = 'center';
+      ctx.fillText('Press Space to start', 213, 150);
+      ctx.textAlign = 'left';
     } else if (this.screens.state === 'finish') {
       this.drawFinish(ctx);
     } else if (this.screens.state === 'error') {
@@ -167,6 +184,17 @@ export class AdventureScene implements Scene {
     this.player = createPlayer(level.start.x, level);
     this.run = createRun(level);
     this.camera = new Camera({ width: 426, height: 240, worldWidth: level.width, worldHeight: level.height });
+  }
+
+  private updateSelection(horizontal: number): void {
+    const direction = Math.sign(horizontal);
+    if (direction === 0) {
+      this.selectionDirection = 0;
+      return;
+    }
+    if (direction === this.selectionDirection) return;
+    this.selectedIndex = (this.selectedIndex + direction + LEVELS.length) % LEVELS.length;
+    this.selectionDirection = direction;
   }
 
   private drawFinish(ctx: CanvasRenderingContext2D): void {
