@@ -1,13 +1,18 @@
 import { expect, test } from '@playwright/test';
 import { writeFile } from 'node:fs/promises';
 import { PLAINS_LEVEL } from '../src/world/level';
+import { QUARRY_RUN } from '../src/world/levels';
 import { DEFAULT_MOVEMENT, surfaceY } from '../src/game/movement';
-import { drawAsset, drawWorld } from '../src/world/renderer';
+import { platformBodyAt } from '../src/game/platforms';
+import { drawAsset, drawPlatformPath, drawPlatforms, drawWorld } from '../src/world/renderer';
+
+/** The renderer is injected as plain functions, so every helper it calls has to travel with it. */
+const RENDERER_SOURCE = [drawAsset, drawPlatformPath, drawPlatforms].map((helper) => helper.toString()).join('\n');
 
 test('terrain joins stay solid while scrolling in both directions at integer and fractional scales', async ({ page }, info) => {
   await page.goto('/?scene=foundation');
   // Run the real renderer on a separate canvas so sprites and HUD cannot hide seams.
-  await page.addScriptTag({ content: `${drawAsset.toString()}\nwindow.drawTerrainTestWorld = ${drawWorld.toString()};` });
+  await page.addScriptTag({ content: `${RENDERER_SOURCE}\nwindow.drawTerrainTestWorld = ${drawWorld.toString()};` });
   const result = await page.evaluate(async ({ level, maxSpeed }) => {
     const manifest = await (await fetch('/assets/plains/manifest.json')).json();
     const atlas = new Image();
@@ -51,6 +56,83 @@ test('terrain joins stay solid while scrolling in both directions at integer and
   await info.attach('terrain-join-650', { path: evidencePath, contentType: 'image/png' });
   expect(result.frames).toBe((PLAINS_LEVEL.surfaces.length - 1) * 4 * 2 * 12);
   expect(result.failures).toEqual([]);
+});
+
+test('moving platform slabs and their telegraphed paths draw on the real canvas', async ({ page }, info) => {
+  await page.goto('/?scene=foundation');
+  await page.addScriptTag({ content: `${RENDERER_SOURCE}\nwindow.drawTerrainTestWorld = ${drawWorld.toString()};` });
+  const platforms = QUARRY_RUN.platforms ?? [];
+  // At two seconds in, the lift is parked at the top of its path and the ferry is
+  // mid-crossing, so one sample covers both a parked and a travelling slab.
+  const views = platforms.map((platform) => ({
+    id: platform.id,
+    body: platformBodyAt(platform, 2),
+  }));
+  const rgb = (hex: string): number[] => [1, 3, 5].map((start) => parseInt(hex.slice(start, start + 2), 16));
+  const theme = { edge: rgb(QUARRY_RUN.theme.edge), ground: rgb(QUARRY_RUN.theme.ground) };
+  const results = await page.evaluate(async ({ level, views: sampled, theme: colors }) => {
+    const manifest = await (await fetch('/assets/plains/manifest.json')).json();
+    const atlas = new Image();
+    atlas.src = `/assets/plains/${manifest.image}`;
+    await atlas.decode();
+    const canvas = document.createElement('canvas');
+    canvas.width = 426;
+    canvas.height = 240;
+    const ctx = canvas.getContext('2d')!;
+    const render = (window as unknown as { drawTerrainTestWorld: typeof drawWorld }).drawTerrainTestWorld;
+    const bare = { ...level, platforms: [] };
+    return sampled.map(({ id, body }) => {
+      const offset = { x: body.x - 150, y: 0 };
+      const camera = { position: offset } as Parameters<typeof drawWorld>[3];
+      // The same frame without any platform data, to prove what the telegraph itself draws.
+      ctx.clearRect(0, 0, 426, 240);
+      render(ctx, { atlas, manifest }, bare, camera, () => true, (entity) => entity, []);
+      const before = ctx.getImageData(0, 0, 426, 240).data;
+      ctx.clearRect(0, 0, 426, 240);
+      render(ctx, { atlas, manifest }, level, camera, () => true, (entity) => entity, [body]);
+      const after = ctx.getImageData(0, 0, 426, 240).data;
+      // Everything outside the deck is identical between the two frames except the telegraph,
+      // so counting changed pixels there counts exactly the pips and their end markers.
+      let telegraphed = 0;
+      for (let y = 0; y < 240; y++) {
+        for (let x = 0; x < 426; x++) {
+          if (x >= 150 && x <= 150 + body.width && y >= body.y - 3 && y <= body.y + body.height) continue;
+          const pixel = (y * 426 + x) * 4;
+          if (before[pixel] !== after[pixel] || before[pixel + 1] !== after[pixel + 1]) telegraphed++;
+        }
+      }
+      // Count along the whole deck rather than sampling one pixel: entity art, such as the
+      // bonus gem hanging over the lift, legitimately covers part of it.
+      const run = (y: number, colour: number[]): number => {
+        const data = ctx.getImageData(150, Math.round(y), Math.round(body.width), 1).data;
+        let matches = 0;
+        for (let index = 0; index < data.length; index += 4) {
+          if (data[index] === colour[0] && data[index + 1] === colour[1] && data[index + 2] === colour[2]) matches++;
+        }
+        return matches;
+      };
+      return {
+        id,
+        width: body.width,
+        cap: run(body.y + 1, colors.edge),
+        slab: run(body.y + 6, colors.ground),
+        telegraphed,
+        image: canvas.toDataURL(),
+      };
+    });
+  }, { level: QUARRY_RUN, views, theme });
+  expect(results.map(({ id }) => id)).toEqual(platforms.map((platform) => platform.id));
+  for (const result of results) {
+    // A quarter of the deck is a conservative floor: entity art legitimately covers the rest,
+    // such as the bonus gem hanging over the lift or the hazards the ferry passes.
+    expect(result.cap).toBeGreaterThan(result.width / 4);
+    expect(result.slab).toBeGreaterThan(result.width / 4);
+    // Pips mark the route away from the deck, whatever the ride happens to pass in front of.
+    expect(result.telegraphed).toBeGreaterThan(20);
+    const evidence = info.outputPath(`${result.id}.png`);
+    await writeFile(evidence, Buffer.from(result.image.split(',')[1], 'base64'));
+    await info.attach(result.id, { path: evidence, contentType: 'image/png' });
+  }
 });
 
 test('production canvas loads, scales and recovers from focus loss', async ({ page, browser }, info) => {

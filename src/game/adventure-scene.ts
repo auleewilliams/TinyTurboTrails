@@ -4,7 +4,8 @@ import type { Scene } from '../core/scene';
 import { animationFrame } from '../art/animation';
 import type { HenryAssets } from '../art/henry';
 import { drawFacingSprite } from '../art/sprite';
-import { animationFor, createPlayer, simulatePlayer, DEFAULT_MOVEMENT, type Facing, type Player } from './movement';
+import { animationFor, createPlayer, simulatePlayer, DEFAULT_MOVEMENT, type Facing, type PlatformBody, type Player } from './movement';
+import { platformBodiesAt } from './platforms';
 import { createRun, entityPosition, isEntityActive, recoverFromFall, stepEntities, tickRun, type RunEvent, type RunState } from './interactions';
 import { ScreenController } from './screens';
 import type { LevelData } from '../world/level';
@@ -57,6 +58,7 @@ export class AdventureScene implements Scene {
   private player: Player;
   private run: RunState;
   private camera: Camera;
+  private platforms: PlatformBody[];
   private elapsed = 0;
   private events: RunEvent[] = [];
   private selectedIndex: number;
@@ -68,6 +70,7 @@ export class AdventureScene implements Scene {
     this.player = createPlayer(level.start.x, level);
     this.run = createRun(level);
     this.camera = new Camera({ width: 426, height: 240, worldWidth: level.width, worldHeight: level.height });
+    this.platforms = platformBodiesAt(level.platforms, 0);
   }
   get screenState(): ScreenController['state'] { return this.screens.state; }
   get gemTotal(): number { return this.screens.gems; }
@@ -103,9 +106,11 @@ export class AdventureScene implements Scene {
   }
 
   private stepGameplay(seconds: number, input: InputFrame): void {
-    tickRun(this.run, seconds);
+    // Platforms advance first: movement then collides with where they are now, not where they were.
+    const step = tickRun(this.run, seconds);
+    this.platforms = platformBodiesAt(this.level.platforms, this.run.seconds, step);
     const previousVelocityY = this.player.vy;
-    simulatePlayer(this.player, input, this.level, seconds);
+    simulatePlayer(this.player, input, this.level, seconds, this.platforms);
     if (previousVelocityY >= 0 && this.player.vy < -DEFAULT_MOVEMENT.jumpVelocity * 0.75) this.audio.play('jump');
     this.events = [];
     stepEntities(this.run, this.level, this.player, seconds, this.events);
@@ -125,7 +130,7 @@ export class AdventureScene implements Scene {
 
   render(ctx: CanvasRenderingContext2D): void {
     drawWorld(ctx, this.world, this.level, this.camera,
-      (entity) => isEntityActive(this.run, entity.id), (entity) => entityPosition(this.run, entity));
+      (entity) => isEntityActive(this.run, entity.id), (entity) => entityPosition(this.run, entity), this.platforms);
     if (this.screens.state === 'playing') this.drawHenry(ctx);
     ctx.fillStyle = '#10252cdd';
     ctx.fillRect(5, 5, 205, 25);
@@ -174,6 +179,7 @@ export class AdventureScene implements Scene {
     this.player = createPlayer(level.start.x, level);
     this.run = createRun(level);
     this.camera = new Camera({ width: 426, height: 240, worldWidth: level.width, worldHeight: level.height });
+    this.platforms = platformBodiesAt(level.platforms, 0);
   }
 
   private updateSelection(horizontal: number): void {

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { DEFAULT_MOVEMENT, createPlayer, simulatePlayer, surfaceY, type Player } from '../src/game/movement';
+import { DEFAULT_MOVEMENT, MAX_STEP_SECONDS, createPlayer, simulatePlayer, surfaceY, type Player } from '../src/game/movement';
 import { PLAINS_LEVEL } from '../src/world/level';
 import { advancePatrols, applySpring, activateCheckpoint, collectGem, createRun, damagePlayer, entityPosition, entityState, isEntityActive, recoverFromFall, startNewRun, stepEntities, tickRun, touchesPlayer, type RunEvent } from '../src/game/interactions';
 import type { LevelData, WorldEntity } from '../src/world/level';
@@ -142,6 +142,31 @@ describe('in-memory run interactions', () => {
       expect(henry.vy).toBe(0);
       expect(henry.onGround).toBe(true);
     }
+  });
+
+  it('ends the ride when a knockback or a recovery moves Henry, and times platforms from the run clock', () => {
+    const run = createRun(PLAINS_LEVEL);
+    const log = events();
+    tickRun(run, 1 / 60);
+    tickRun(run, 1 / 60);
+    expect(run.seconds).toBeCloseTo(2 / 60, 6);
+    // A stalled frame advances the clock no further than movement integrates it.
+    tickRun(run, 5);
+    expect(run.seconds).toBeCloseTo(2 / 60 + MAX_STEP_SECONDS, 6);
+    const hurt = player();
+    hurt.platformId = 'ferry';
+    hurt.groundVelocityX = 50;
+    damagePlayer(run, hurt, -1, log);
+    expect(hurt.platformId).toBeNull();
+    expect(hurt.groundVelocityX).toBe(0);
+    const fallen = player();
+    fallen.platformId = 'ferry';
+    fallen.groundVelocityX = 50;
+    recoverFromFall(run, fallen, log, PLAINS_LEVEL);
+    expect(fallen.platformId).toBeNull();
+    expect(fallen.groundVelocityX).toBe(0);
+    startNewRun(run, PLAINS_LEVEL);
+    expect(run.seconds).toBe(0);
   });
 });
 

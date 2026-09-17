@@ -4,7 +4,8 @@ import type { Scene } from '../core/scene';
 import { animationFrame } from '../art/animation';
 import { loadHenry, type HenryAssets } from '../art/henry';
 import { drawFacingSprite } from '../art/sprite';
-import { animationFor, createPlayer, simulatePlayer, DEFAULT_MOVEMENT, type Player } from './movement';
+import { animationFor, createPlayer, simulatePlayer, DEFAULT_MOVEMENT, type PlatformBody, type Player } from './movement';
+import { platformBodiesAt } from './platforms';
 import { createRun, entityPosition, isEntityActive, recoverFromFall, stepEntities, tickRun, type RunEvent, type RunState } from './interactions';
 import { DEFAULT_LEVEL } from '../world/levels';
 import type { LevelData } from '../world/level';
@@ -17,6 +18,7 @@ export class GameplayPreviewScene implements Scene {
   private readonly run: RunState;
   private readonly camera: Camera;
   private elapsed = 0;
+  private platforms: PlatformBody[] = [];
   private events: RunEvent[] = [];
   constructor(private readonly henry: HenryAssets, private readonly world: WorldAssets, private readonly audio: GameAudio, private readonly level: LevelData = DEFAULT_LEVEL) {
     this.player = createPlayer(level.start.x, level);
@@ -28,9 +30,10 @@ export class GameplayPreviewScene implements Scene {
 
   update(seconds: number, input: InputFrame): void {
     this.elapsed += seconds;
-    tickRun(this.run, seconds);
+    const step = tickRun(this.run, seconds);
+    this.platforms = platformBodiesAt(this.level.platforms, this.run.seconds, step);
     const previousVelocityY = this.player.vy;
-    simulatePlayer(this.player, input, this.level, seconds);
+    simulatePlayer(this.player, input, this.level, seconds, this.platforms);
     if (previousVelocityY >= 0 && this.player.vy < -DEFAULT_MOVEMENT.jumpVelocity * 0.75) this.audio.play('jump');
     this.events = [];
     stepEntities(this.run, this.level, this.player, seconds, this.events);
@@ -46,7 +49,7 @@ export class GameplayPreviewScene implements Scene {
 
   render(ctx: CanvasRenderingContext2D): void {
     drawWorld(ctx, this.world, this.level, this.camera,
-      (entity) => isEntityActive(this.run, entity.id), (entity) => entityPosition(this.run, entity));
+      (entity) => isEntityActive(this.run, entity.id), (entity) => entityPosition(this.run, entity), this.platforms);
     const hurt = this.run.invulnerableSeconds > 0;
     const name = hurt ? 'fall' : animationFor(this.player);
     const clip = this.henry.manifest.animations[name];
