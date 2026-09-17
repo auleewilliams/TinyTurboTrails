@@ -20,8 +20,12 @@ stays clear of the text.
 The Plains route is data-driven and currently includes six sections — meadow,
 wooded hillside, canyon, cave, orchard and summit (issue #45) — an easy main
 path, optional elevated gems, six safe checkpoints and a construction finish
-arch. Quarry Run is a shorter cave-and-stone route with ramps, springs, gems,
-checkpoints, a hazard and a recoverable pit. It reuses the Plains atlas, so the
+arch. Quarry Run is a cave-and-stone route of similar length with six sections
+— quarry entrance, stone terraces, deep pit, mine tunnels, crusher yard and
+summit exit (issue #73). It has spring steps and spring-cleared pits that
+recover to the section checkpoint, slimes and grouped stone hazards, one
+jump-only bonus gem per section (two float above pits and need a jump timed
+with the spring launch) and seven checkpoints. It reuses the Plains atlas, so the
 second route introduces no new biome artwork. Control prompts are short and
 visual enough for the intended six-year-old player. The preview uses the
 selected level's local assets and displays a readable loading failure in the
