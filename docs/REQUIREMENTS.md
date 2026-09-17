@@ -21,9 +21,10 @@ is a detailed child in a blocky world — not a cuboid Minecraft avatar.
 ## Scope of the first release
 
 Multiple desktop-browser levels selected from a title-screen picker, including
-the Plains route and Quarry Run. Each route is roughly 3–5 minutes, with
-momentum, slopes and springs. Keyboard and standard-controller support. Quarry
-Run reuses the Plains atlas and introduces no new biome artwork.
+the Plains route and the shorter Quarry Run. The Plains route targets roughly
+3–5 minutes, with momentum, slopes and springs; Quarry Run is a shorter route
+with the same movement features. Keyboard and standard-controller support.
+Quarry Run reuses the Plains atlas and introduces no new biome artwork.
 
 ## Target browsers
 
