@@ -202,6 +202,24 @@ test('adventure renders hurt feedback after hazard contact', async ({ page }) =>
   expect(redFeedbackPixels).toBeGreaterThan(20);
 });
 
+test('a patrolling slime keeps moving while Henry stands still', async ({ page }) => {
+  await page.goto('/?scene=adventure&debug=1');
+  await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
+  await page.keyboard.press('Space');
+  await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
+  // Henry never moves, so the camera stays at x=0 and only slime-001's patrol
+  // (230-345 on the first ramp) can change this strip of the frame.
+  const signature = async (): Promise<number> => page.locator('canvas').evaluate((element) => {
+    const pixels = (element as HTMLCanvasElement).getContext('2d')!.getImageData(200, 110, 180, 90).data;
+    let sum = 0;
+    for (let i = 0; i < pixels.length; i += 4) sum += pixels[i] * 3 + pixels[i + 1] * 5 + pixels[i + 2] * 7;
+    return sum;
+  });
+  const before = await signature();
+  await expect.poll(signature, { timeout: 5000 }).not.toBe(before);
+  expect(Number((await page.locator('#status').innerText()).match(/X (\d+)/)?.[1] ?? -1)).toBe(60);
+});
+
 test('Henry faces the direction of travel, including after reversing while moving', async ({ page }) => {
   await page.goto('/?scene=adventure&debug=1');
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
@@ -658,7 +676,16 @@ test('ground scenery and slimes draw their opaque bases at terrain height', asyn
   expect(calls).toHaveLength(PLAINS_LEVEL.entities.length + 1);
   PLAINS_LEVEL.entities.forEach((entity, index) => {
     if (entity.kind !== 'decoration' && entity.kind !== 'slime') return;
-    expect(calls[index][5] + bases[entity.asset], entity.id).toBeCloseTo(surfaceY(PLAINS_LEVEL, entity.x), 5);
+    // Ground art anchors at its horizontal centre, 24px into the 48px cell. A patrolling
+    // slime has already walked away from its level X, so check the ground under where it is.
+    const drawnX = calls[index][4] + 24;
+    if (entity.patrol) {
+      expect(drawnX, entity.id).toBeGreaterThanOrEqual(entity.patrol.minX);
+      expect(drawnX, entity.id).toBeLessThanOrEqual(entity.patrol.maxX);
+    } else {
+      expect(drawnX, entity.id).toBeCloseTo(entity.x, 5);
+    }
+    expect(calls[index][5] + bases[entity.asset], entity.id).toBeCloseTo(surfaceY(PLAINS_LEVEL, drawnX), 5);
   });
   // Frame the first slime on its ramp and the first tree on the meadow.
   await page.keyboard.down('ArrowRight');

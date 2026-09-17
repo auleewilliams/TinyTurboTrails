@@ -4,9 +4,11 @@ import type { WorldAsset, WorldAssets } from './assets';
 
 /** Scenes without run state draw the whole entity list; a run hides what it has consumed. */
 export type EntityFilter = (entity: WorldEntity) => boolean;
+/** Patrolling entities live in run state, so a run places them; level data is the fallback. */
+export type EntityPosition = (entity: WorldEntity) => { x: number; y: number };
 
 export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, level: LevelData, camera: Camera,
-  isVisible: EntityFilter = () => true): void {
+  isVisible: EntityFilter = () => true, positionOf: EntityPosition = (entity) => entity): void {
   const offset = camera.position;
   const { atlas, manifest } = assets;
   const cell = manifest.cellSize;
@@ -47,7 +49,8 @@ export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, le
   }
   for (const entity of level.entities) {
     if (!isVisible(entity)) continue;
-    drawAsset(ctx, assets, entity.asset as WorldAsset, entity.x - offset.x, entity.y - offset.y, 1);
+    const position = positionOf(entity);
+    drawAsset(ctx, assets, entity.asset as WorldAsset, position.x - offset.x, position.y - offset.y, 1);
   }
   drawAsset(ctx, assets, level.finish.asset as WorldAsset, level.finish.x - offset.x, level.finish.y - offset.y, 2);
   // Keep the draw source referenced so a bad cell size cannot silently pass.

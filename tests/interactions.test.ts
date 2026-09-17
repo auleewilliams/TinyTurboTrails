@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { DEFAULT_MOVEMENT, createPlayer, simulatePlayer, surfaceY, type Player } from '../src/game/movement';
 import { PLAINS_LEVEL } from '../src/world/level';
-import { applySpring, activateCheckpoint, collectGem, createRun, damagePlayer, isEntityActive, recoverFromFall, startNewRun, tickRun, type RunEvent } from '../src/game/interactions';
+import { advancePatrols, applySpring, activateCheckpoint, collectGem, createRun, damagePlayer, entityPosition, entityState, isEntityActive, recoverFromFall, startNewRun, stepEntities, tickRun, touchesPlayer, type RunEvent } from '../src/game/interactions';
+import type { LevelData, WorldEntity } from '../src/world/level';
 
 const terrain = { minX: 0, maxX: 400, surfaces: [{ x1: 0, x2: 400, y1: 180, y2: 180 }] };
 function player(): Player { return createPlayer(60, terrain); }
@@ -101,7 +102,8 @@ describe('in-memory run interactions', () => {
     expect(run.collectedGems.size).toBe(0);
     expect(run.checkpointId).toBeNull();
     expect(run.invulnerableSeconds).toBe(0);
-    expect(run.entities).toEqual(PLAINS_LEVEL.entities.map((entity) => ({ id: entity.id, active: true })));
+    expect(run.entities).toEqual(PLAINS_LEVEL.entities.map((entity) =>
+      ({ id: entity.id, active: true, x: entity.x, y: entity.y, direction: 1 })));
   });
 
   it('recovers safely at the latest checkpoint with no falling velocity', () => {
@@ -140,5 +142,103 @@ describe('in-memory run interactions', () => {
       expect(henry.vy).toBe(0);
       expect(henry.onGround).toBe(true);
     }
+  });
+});
+
+const patrolLevel: LevelData = {
+  ...PLAINS_LEVEL,
+  minX: 0,
+  maxX: 400,
+  width: 400,
+  start: { x: 20, y: 180 },
+  finish: { x: 380, y: 180, asset: 'finish-arch' },
+  surfaces: terrain.surfaces,
+  checkpoints: [{ id: 'patrol-checkpoint', x: 20, y: 180 }],
+  entities: [
+    { id: 'patrol-checkpoint', kind: 'checkpoint', x: 20, y: 180, asset: 'checkpoint', layer: 'world' },
+    { id: 'walker', kind: 'slime', x: 200, y: 180, asset: 'slime', layer: 'world',
+      patrol: { minX: 100, maxX: 300, speed: 50 } },
+    { id: 'sitter', kind: 'slime', x: 350, y: 180, asset: 'slime', layer: 'world' },
+  ],
+};
+const walker = patrolLevel.entities.find((entity) => entity.id === 'walker') as WorldEntity;
+
+describe('patrolling entities', () => {
+  it('walks between its bounds and turns around at each end', () => {
+    const run = createRun(patrolLevel);
+    advancePatrols(run, patrolLevel, 1 / 60);
+    expect(entityState(run, 'walker')!.x).toBeGreaterThan(walker.x);
+    let direction = 1;
+    let turns = 0;
+    let lowest = Infinity;
+    let highest = -Infinity;
+    for (let step = 0; step < 600; step++) {
+      advancePatrols(run, patrolLevel, 1 / 60);
+      const state = entityState(run, 'walker')!;
+      lowest = Math.min(lowest, state.x);
+      highest = Math.max(highest, state.x);
+      if (state.direction !== direction) { turns++; direction = state.direction; }
+    }
+    // Ten seconds at 50px/s covers the 200px lane several times over.
+    expect(lowest).toBe(100);
+    expect(highest).toBe(300);
+    expect(turns).toBeGreaterThanOrEqual(2);
+  });
+
+  it('leaves level data untouched and static entities where they stand', () => {
+    const run = createRun(patrolLevel);
+    for (let step = 0; step < 120; step++) advancePatrols(run, patrolLevel, 1 / 60);
+    expect(walker.x).toBe(200);
+    expect(entityPosition(run, walker).x).not.toBe(200);
+    const sitter = patrolLevel.entities.find((entity) => entity.id === 'sitter')!;
+    expect(entityPosition(run, sitter)).toEqual({ x: sitter.x, y: sitter.y });
+  });
+
+  it('keeps a patrolling slime standing on the terrain it crosses', () => {
+    const ramped: LevelData = { ...patrolLevel, surfaces: [
+      { x1: 0, x2: 100, y1: 180, y2: 180 },
+      { x1: 100, x2: 300, y1: 180, y2: 120 },
+      { x1: 300, x2: 400, y1: 120, y2: 120 },
+    ] };
+    const run = createRun(ramped);
+    for (let step = 0; step < 60; step++) advancePatrols(run, ramped, 1 / 60);
+    const state = entityState(run, 'walker')!;
+    expect(state.x).toBeCloseTo(250, 5);
+    expect(state.y).toBeCloseTo(surfaceY(ramped, state.x), 5);
+  });
+
+  it('damages Henry when the slime walks into him, not only when he walks into it', () => {
+    const run = createRun(patrolLevel);
+    const henry = player();
+    henry.x = 290;
+    henry.y = 180 - DEFAULT_MOVEMENT.height;
+    const log = events();
+    stepEntities(run, patrolLevel, henry, 1 / 60, log);
+    expect(log).toEqual([]);
+    for (let step = 0; step < 120 && log.length === 0; step++) stepEntities(run, patrolLevel, henry, 1 / 60, log);
+    expect(log).toEqual([{ type: 'damage', entityId: 'walker' }]);
+    // The slime caught him from the left, so the knockback throws him right.
+    expect(henry.vx).toBeGreaterThan(0);
+  });
+
+  it('restarts every patrol at its level position for a new run', () => {
+    const run = createRun(patrolLevel);
+    advancePatrols(run, patrolLevel, 1.5);
+    expect(entityState(run, 'walker')?.x).not.toBe(walker.x);
+    startNewRun(run, patrolLevel);
+    expect(entityState(run, 'walker')).toEqual({ id: 'walker', active: true, x: walker.x, y: walker.y, direction: 1 });
+  });
+
+  it('clamps a long frame so a patrol cannot tunnel past Henry', () => {
+    const run = createRun(patrolLevel);
+    advancePatrols(run, patrolLevel, 10);
+    expect(entityState(run, 'walker')?.x).toBe(205);
+  });
+
+  it('shares one contact window between the scenes', () => {
+    const henry = player();
+    expect(touchesPlayer(henry, henry.x, henry.y + 34)).toBe(true);
+    expect(touchesPlayer(henry, henry.x + 19, henry.y + 34)).toBe(false);
+    expect(touchesPlayer(henry, henry.x, henry.y + 34 + 29)).toBe(false);
   });
 });

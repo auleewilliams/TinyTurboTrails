@@ -5,7 +5,7 @@ import { animationFrame } from '../art/animation';
 import type { HenryAssets } from '../art/henry';
 import { drawFacingSprite } from '../art/sprite';
 import { animationFor, createPlayer, simulatePlayer, DEFAULT_MOVEMENT, type Facing, type Player } from './movement';
-import { activateCheckpoint, applySpring, collectGem, createRun, damagePlayer, isEntityActive, recoverFromFall, tickRun, type RunEvent, type RunState } from './interactions';
+import { createRun, entityPosition, isEntityActive, recoverFromFall, stepEntities, tickRun, type RunEvent, type RunState } from './interactions';
 import { ScreenController } from './screens';
 import type { LevelData } from '../world/level';
 import { LEVELS } from '../world/levels';
@@ -108,18 +108,7 @@ export class AdventureScene implements Scene {
     simulatePlayer(this.player, input, this.level, seconds);
     if (previousVelocityY >= 0 && this.player.vy < -DEFAULT_MOVEMENT.jumpVelocity * 0.75) this.audio.play('jump');
     this.events = [];
-    for (const entity of this.level.entities) {
-      const state = this.run.entities.find((candidate) => candidate.id === entity.id);
-      const touching = Math.abs(entity.x - this.player.x) <= 18 && Math.abs(entity.y - (this.player.y + 34)) <= 28;
-      if (entity.kind === 'spring') {
-        applySpring(this.run, this.player, entity.id, this.events, touching);
-        continue;
-      }
-      if (!state?.active || !touching) continue;
-      if (entity.kind === 'gem') collectGem(this.run, entity.id, this.events);
-      else if (entity.kind === 'checkpoint') activateCheckpoint(this.run, entity.id, this.events);
-      else if (entity.kind === 'slime' || entity.kind === 'hazard') damagePlayer(this.run, this.player, entity.x - this.player.x, this.events, entity.id);
-    }
+    stepEntities(this.run, this.level, this.player, seconds, this.events);
     if (this.player.y > this.level.height + 80) recoverFromFall(this.run, this.player, this.events, this.level);
     if (this.player.x >= this.level.finish.x && this.screens.state === 'playing') {
       this.screens.complete(this.run.collectedGems.size);
@@ -135,7 +124,8 @@ export class AdventureScene implements Scene {
   }
 
   render(ctx: CanvasRenderingContext2D): void {
-    drawWorld(ctx, this.world, this.level, this.camera, (entity) => isEntityActive(this.run, entity.id));
+    drawWorld(ctx, this.world, this.level, this.camera,
+      (entity) => isEntityActive(this.run, entity.id), (entity) => entityPosition(this.run, entity));
     if (this.screens.state === 'playing') this.drawHenry(ctx);
     ctx.fillStyle = '#10252cdd';
     ctx.fillRect(5, 5, 205, 25);
