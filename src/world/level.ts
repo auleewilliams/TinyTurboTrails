@@ -1,11 +1,19 @@
 import { surfaceY, type Surface } from '../game/movement';
+import type { WorldAsset } from './assets';
 
 export type WorldEntityKind = 'gem' | 'slime' | 'spring' | 'checkpoint' | 'hazard' | 'decoration';
 export interface WorldEntity { id: string; kind: WorldEntityKind; x: number; y: number; asset: string; layer: 'back' | 'world' | 'front' }
+export interface LevelTheme {
+  sky: string;
+  ground: string;
+  edge: string;
+  parallax: readonly { asset: WorldAsset; x: number; y: number; scale: number }[];
+}
 export interface LevelData {
   id: string;
   name: string;
   atlas: string;
+  theme: LevelTheme;
   width: number;
   height: number;
   minX: number;
@@ -61,6 +69,15 @@ export const PLAINS_LEVEL: LevelData = {
   id: 'plains',
   name: 'PLAINS',
   atlas: 'plains',
+  theme: {
+    sky: '#8bd0ca',
+    ground: '#86502f',
+    edge: '#8bd348',
+    parallax: [
+      { asset: 'hills', x: 180, y: 70, scale: 3 },
+      { asset: 'hills', x: 700, y: 70, scale: 3 },
+    ],
+  },
   width: 9980,
   height: 240,
   minX: plainsTerrain.minX,

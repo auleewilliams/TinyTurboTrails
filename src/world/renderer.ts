@@ -10,11 +10,13 @@ export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, le
   const offset = camera.position;
   const { atlas, manifest } = assets;
   const cell = manifest.cellSize;
-  ctx.fillStyle = '#8bd0ca';
+  ctx.fillStyle = level.theme.sky;
   ctx.fillRect(0, 0, 426, 240);
-  drawAsset(ctx, assets, 'hills', 180 - offset.x * 0.18, 70 - offset.y * 0.1, 3);
-  drawAsset(ctx, assets, 'hills', 700 - offset.x * 0.18, 70 - offset.y * 0.1, 3);
-  ctx.fillStyle = '#86502f';
+  for (const parallax of level.theme.parallax) {
+    drawAsset(ctx, assets, parallax.asset,
+      parallax.x - offset.x * 0.18, parallax.y - offset.y * 0.1, parallax.scale);
+  }
+  ctx.fillStyle = level.theme.ground;
   // Fill each connected ground contour once: separately antialiased polygon
   // edges leave the background showing through at fractional camera offsets.
   for (let i = 0; i < level.surfaces.length; i++) {
@@ -36,7 +38,7 @@ export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, le
     ctx.fill();
   }
   for (const surface of level.surfaces) {
-    ctx.strokeStyle = '#8bd348';
+    ctx.strokeStyle = level.theme.edge;
     ctx.lineWidth = 4;
     ctx.beginPath();
     ctx.moveTo(surface.x1 - offset.x, surface.y1 - offset.y);

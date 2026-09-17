@@ -83,7 +83,7 @@ export class GameplayPreviewScene implements Scene {
   }
 }
 
-export async function loadGameplayAssets(): Promise<{ henry: HenryAssets; world: WorldAssets }> {
-  const [world, henry] = await Promise.all([loadWorldAssets(), loadHenry()]);
+export async function loadGameplayAssets(level: LevelData = DEFAULT_LEVEL): Promise<{ henry: HenryAssets; world: WorldAssets }> {
+  const [world, henry] = await Promise.all([loadWorldAssets(level.atlas), loadHenry()]);
   return { henry, world };
 }
