@@ -6,18 +6,23 @@ import { loadHenry, type HenryAssets } from '../art/henry';
 import { drawFacingSprite } from '../art/sprite';
 import { animationFor, createPlayer, simulatePlayer, DEFAULT_MOVEMENT, type Player } from './movement';
 import { activateCheckpoint, applySpring, collectGem, createRun, damagePlayer, isEntityActive, recoverFromFall, tickRun, type RunEvent, type RunState } from './interactions';
-import { PLAINS_LEVEL } from '../world/level';
+import { DEFAULT_LEVEL } from '../world/levels';
+import type { LevelData } from '../world/level';
 import { Camera } from '../world/camera';
 import { drawWorld } from '../world/renderer';
 import { loadWorldAssets, type WorldAssets } from '../world/assets';
 
 export class GameplayPreviewScene implements Scene {
-  private readonly player: Player = createPlayer(PLAINS_LEVEL.start.x, PLAINS_LEVEL);
-  private readonly run: RunState = createRun(PLAINS_LEVEL);
-  private readonly camera = new Camera({ width: 426, height: 240, worldWidth: PLAINS_LEVEL.width, worldHeight: PLAINS_LEVEL.height });
+  private readonly player: Player;
+  private readonly run: RunState;
+  private readonly camera: Camera;
   private elapsed = 0;
   private events: RunEvent[] = [];
-  constructor(private readonly henry: HenryAssets, private readonly world: WorldAssets, private readonly audio: GameAudio) {}
+  constructor(private readonly henry: HenryAssets, private readonly world: WorldAssets, private readonly audio: GameAudio, private readonly level: LevelData = DEFAULT_LEVEL) {
+    this.player = createPlayer(level.start.x, level);
+    this.run = createRun(level);
+    this.camera = new Camera({ width: 426, height: 240, worldWidth: level.width, worldHeight: level.height });
+  }
   enter(): void { this.elapsed = 0; }
   exit(): void { this.audio.stop(); }
 
@@ -25,10 +30,10 @@ export class GameplayPreviewScene implements Scene {
     this.elapsed += seconds;
     tickRun(this.run, seconds);
     const previousVelocityY = this.player.vy;
-    simulatePlayer(this.player, input, PLAINS_LEVEL, seconds);
+    simulatePlayer(this.player, input, this.level, seconds);
     if (previousVelocityY >= 0 && this.player.vy < -DEFAULT_MOVEMENT.jumpVelocity * 0.75) this.audio.play('jump');
     this.events = [];
-    for (const entity of PLAINS_LEVEL.entities) {
+    for (const entity of this.level.entities) {
       const state = this.run.entities.find((candidate) => candidate.id === entity.id);
       const touching = Math.abs(entity.x - this.player.x) <= 18 && Math.abs(entity.y - (this.player.y + 34)) <= 28;
       if (entity.kind === 'spring') {
@@ -40,7 +45,7 @@ export class GameplayPreviewScene implements Scene {
       else if (entity.kind === 'checkpoint') activateCheckpoint(this.run, entity.id, this.events);
       else if (entity.kind === 'slime' || entity.kind === 'hazard') damagePlayer(this.run, this.player, entity.x - this.player.x, this.events, entity.id);
     }
-    if (this.player.y > PLAINS_LEVEL.height + 80) recoverFromFall(this.run, this.player, this.events, PLAINS_LEVEL);
+    if (this.player.y > this.level.height + 80) recoverFromFall(this.run, this.player, this.events, this.level);
     for (const event of this.events) {
       if (event.type === 'gem') this.audio.play('gem');
       else if (event.type === 'checkpoint') this.audio.play('checkpoint');
@@ -51,7 +56,7 @@ export class GameplayPreviewScene implements Scene {
   }
 
   render(ctx: CanvasRenderingContext2D): void {
-    drawWorld(ctx, this.world, PLAINS_LEVEL, this.camera, (entity) => isEntityActive(this.run, entity.id));
+    drawWorld(ctx, this.world, this.level, this.camera, (entity) => isEntityActive(this.run, entity.id));
     const hurt = this.run.invulnerableSeconds > 0;
     const name = hurt ? 'fall' : animationFor(this.player);
     const clip = this.henry.manifest.animations[name];

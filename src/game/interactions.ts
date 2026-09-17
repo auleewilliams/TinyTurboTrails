@@ -79,7 +79,7 @@ export function applySpring(run: RunState, player: Player, entityId: string, eve
   events.push({ type: 'spring', entityId });
 }
 
-export function recoverFromFall(run: RunState, player: Player, events: RunEvent[], level: LevelData = defaultLevel): void {
+export function recoverFromFall(run: RunState, player: Player, events: RunEvent[], level: LevelData): void {
   run.springContacts.clear();
   const checkpoint = run.checkpointId ? level.checkpoints.find((candidate) => candidate.id === run.checkpointId) : undefined;
   const spawn = checkpoint ?? level.start;
@@ -93,9 +93,6 @@ export function recoverFromFall(run: RunState, player: Player, events: RunEvent[
   run.invulnerableSeconds = 1;
   events.push({ type: 'recover' });
 }
-
-// Kept as a lazy import-free default so tests and the runtime share one level.
-import { PLAINS_LEVEL as defaultLevel } from '../world/level';
 
 export function entityAt(level: LevelData, id: string): WorldEntity | undefined {
   return level.entities.find((entity) => entity.id === id);

@@ -14,7 +14,7 @@ describe('in-memory run interactions', () => {
     expect(collectGem(run, 'gem-001', log)).toBe(true);
     expect(collectGem(run, 'gem-001', log)).toBe(false);
     activateCheckpoint(run, 'checkpoint-meadow', log);
-    recoverFromFall(run, player(), log);
+    recoverFromFall(run, player(), log, PLAINS_LEVEL);
     expect(run.collectedGems.has('gem-001')).toBe(true);
     expect(run.checkpointId).toBe('checkpoint-meadow');
     expect(log.map((event) => event.type)).toEqual(['gem', 'checkpoint', 'recover']);
@@ -26,7 +26,7 @@ describe('in-memory run interactions', () => {
     expect(isEntityActive(run, 'gem-001')).toBe(true);
     collectGem(run, 'gem-001', log);
     expect(isEntityActive(run, 'gem-001')).toBe(false);
-    recoverFromFall(run, player(), log);
+    recoverFromFall(run, player(), log, PLAINS_LEVEL);
     expect(isEntityActive(run, 'gem-001')).toBe(false);
     expect(isEntityActive(run, 'gem-002')).toBe(true);
     startNewRun(run, PLAINS_LEVEL);
@@ -110,7 +110,7 @@ describe('in-memory run interactions', () => {
     const log = events();
     activateCheckpoint(run, 'checkpoint-cave', log);
     henry.x = 2000; henry.y = -300; henry.vx = 200; henry.vy = 900;
-    recoverFromFall(run, henry, log);
+    recoverFromFall(run, henry, log, PLAINS_LEVEL);
     const checkpoint = PLAINS_LEVEL.checkpoints.find((candidate) => candidate.id === 'checkpoint-cave')!;
     expect(henry.x).toBe(checkpoint.x);
     expect(henry.y).toBe(checkpoint.y - DEFAULT_MOVEMENT.height);

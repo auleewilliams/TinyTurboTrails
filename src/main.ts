@@ -13,6 +13,7 @@ import { loadWorldAssets } from './world/assets';
 import { WorldPreviewScene } from './world/preview-scene';
 import { GameplayPreviewScene, loadGameplayAssets } from './game/gameplay-preview';
 import { AdventureScene } from './game/adventure-scene';
+import { DEFAULT_LEVEL } from './world/levels';
 
 const canvas = document.querySelector<HTMLCanvasElement>('#game')!;
 const status = document.querySelector<HTMLParagraphElement>('#status')!;
@@ -124,7 +125,7 @@ if (!context) {
   if (adventure) {
     void loadGameplayAssets().then((assets) => {
       if (disposed) return;
-      scenes.change(new AdventureScene(assets.henry, assets.world, audio));
+      scenes.change(new AdventureScene(assets.henry, assets.world, audio, DEFAULT_LEVEL));
       audio.startMusic();
       assetState = 'ready';
       refreshPause();

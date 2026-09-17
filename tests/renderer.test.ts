@@ -111,7 +111,7 @@ it('draws every entity when a scene supplies no run state', () => {
 });
 
 it('stops drawing a gem once the adventure collects it', () => {
-  const scene = new AdventureScene(henryAssets, worldAssets, silentAudio);
+  const scene = new AdventureScene(henryAssets, worldAssets, silentAudio, PLAINS_LEVEL);
   scene.enter();
   scene.update(1 / 60, start);
   const before = recordingContext();
@@ -128,7 +128,7 @@ it('stops drawing a gem once the adventure collects it', () => {
 });
 
 it('keeps the HUD left-aligned even after a centered overlay ran', () => {
-  const scene = new AdventureScene(henryAssets, worldAssets, silentAudio);
+  const scene = new AdventureScene(henryAssets, worldAssets, silentAudio, PLAINS_LEVEL);
   scene.enter();
   scene.update(1 / 60, start);
   const { ctx, texts } = recordingContext();

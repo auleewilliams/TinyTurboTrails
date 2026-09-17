@@ -7,7 +7,7 @@ import { drawFacingSprite } from '../art/sprite';
 import { animationFor, createPlayer, simulatePlayer, DEFAULT_MOVEMENT, type Facing, type Player } from './movement';
 import { activateCheckpoint, applySpring, collectGem, createRun, damagePlayer, isEntityActive, recoverFromFall, tickRun, type RunEvent, type RunState } from './interactions';
 import { ScreenController } from './screens';
-import { PLAINS_LEVEL } from '../world/level';
+import type { LevelData } from '../world/level';
 import { Camera } from '../world/camera';
 import { drawWorld } from '../world/renderer';
 import type { WorldAssets } from '../world/assets';
@@ -52,12 +52,18 @@ export function celebrationStarRects(bob: number): Rect[] {
 
 export class AdventureScene implements Scene {
   private readonly screens = new ScreenController();
-  private player: Player = createPlayer(PLAINS_LEVEL.start.x, PLAINS_LEVEL);
-  private run: RunState = createRun(PLAINS_LEVEL);
-  private readonly camera = new Camera({ width: 426, height: 240, worldWidth: PLAINS_LEVEL.width, worldHeight: PLAINS_LEVEL.height });
+  private level: LevelData;
+  private player: Player;
+  private run: RunState;
+  private camera: Camera;
   private elapsed = 0;
   private events: RunEvent[] = [];
-  constructor(private readonly henry: HenryAssets, private readonly world: WorldAssets, private readonly audio: GameAudio) {}
+  constructor(private readonly henry: HenryAssets, private readonly world: WorldAssets, private readonly audio: GameAudio, level: LevelData) {
+    this.level = level;
+    this.player = createPlayer(level.start.x, level);
+    this.run = createRun(level);
+    this.camera = new Camera({ width: 426, height: 240, worldWidth: level.width, worldHeight: level.height });
+  }
   get screenState(): ScreenController['state'] { return this.screens.state; }
   get gemTotal(): number { return this.screens.gems; }
   get playerX(): number { return this.player.x; }
@@ -76,9 +82,7 @@ export class AdventureScene implements Scene {
     }
     if (this.screens.state === 'finish') {
       if (input.jumpPressed) {
-        this.run = createRun(PLAINS_LEVEL);
-        this.player = createPlayer(PLAINS_LEVEL.start.x, PLAINS_LEVEL);
-        this.camera.reset();
+        this.loadLevel(this.level);
         this.screens.replay();
       }
       return;
@@ -89,10 +93,10 @@ export class AdventureScene implements Scene {
   private stepGameplay(seconds: number, input: InputFrame): void {
     tickRun(this.run, seconds);
     const previousVelocityY = this.player.vy;
-    simulatePlayer(this.player, input, PLAINS_LEVEL, seconds);
+    simulatePlayer(this.player, input, this.level, seconds);
     if (previousVelocityY >= 0 && this.player.vy < -DEFAULT_MOVEMENT.jumpVelocity * 0.75) this.audio.play('jump');
     this.events = [];
-    for (const entity of PLAINS_LEVEL.entities) {
+    for (const entity of this.level.entities) {
       const state = this.run.entities.find((candidate) => candidate.id === entity.id);
       const touching = Math.abs(entity.x - this.player.x) <= 18 && Math.abs(entity.y - (this.player.y + 34)) <= 28;
       if (entity.kind === 'spring') {
@@ -104,8 +108,8 @@ export class AdventureScene implements Scene {
       else if (entity.kind === 'checkpoint') activateCheckpoint(this.run, entity.id, this.events);
       else if (entity.kind === 'slime' || entity.kind === 'hazard') damagePlayer(this.run, this.player, entity.x - this.player.x, this.events, entity.id);
     }
-    if (this.player.y > PLAINS_LEVEL.height + 80) recoverFromFall(this.run, this.player, this.events, PLAINS_LEVEL);
-    if (this.player.x >= PLAINS_LEVEL.finish.x && this.screens.state === 'playing') {
+    if (this.player.y > this.level.height + 80) recoverFromFall(this.run, this.player, this.events, this.level);
+    if (this.player.x >= this.level.finish.x && this.screens.state === 'playing') {
       this.screens.complete(this.run.collectedGems.size);
       this.audio.play('complete');
     }
@@ -119,7 +123,7 @@ export class AdventureScene implements Scene {
   }
 
   render(ctx: CanvasRenderingContext2D): void {
-    drawWorld(ctx, this.world, PLAINS_LEVEL, this.camera, (entity) => isEntityActive(this.run, entity.id));
+    drawWorld(ctx, this.world, this.level, this.camera, (entity) => isEntityActive(this.run, entity.id));
     if (this.screens.state === 'playing') this.drawHenry(ctx);
     ctx.fillStyle = '#10252cdd';
     ctx.fillRect(5, 5, 205, 25);
@@ -156,6 +160,13 @@ export class AdventureScene implements Scene {
       ctx.fillRect(this.player.x - offset.x - 22, this.player.y - offset.y - 12, 44, 50);
     }
     ctx.restore();
+  }
+
+  private loadLevel(level: LevelData): void {
+    this.level = level;
+    this.player = createPlayer(level.start.x, level);
+    this.run = createRun(level);
+    this.camera = new Camera({ width: 426, height: 240, worldWidth: level.width, worldHeight: level.height });
   }
 
   private drawFinish(ctx: CanvasRenderingContext2D): void {
