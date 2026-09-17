@@ -1,9 +1,9 @@
 # Tiny Turbo Trails
 
 A sidescrolling 16-bit platformer for Henry. This is the **certified first
-playable release**: it includes the Plains world, Henry's starter art,
-movement, gems, hazards, checkpoints, local music/effects and a
-title-to-adventure shell. Release certification (issue #8) is closed; see
+playable release**: it includes the Plains and Quarry Run worlds, Henry's
+starter art, movement, gems, hazards, checkpoints, local music/effects and a
+title-to-adventure shell with a level picker. Release certification (issue #8) is closed; see
 [Verification](#verification) below for what was checked and what was
 deliberately waived.
 
@@ -19,8 +19,9 @@ npm run dev
 ```
 
 Open the URL printed by Vite with `?scene=adventure` appended (normally
-`http://127.0.0.1:5173/?scene=adventure`). Press **Space** or the controller’s
-**primary face button** to start. The bare `/` URL opens a diagnostic screen.
+`http://127.0.0.1:5173/?scene=adventure`). Use **Left/Right** to choose Plains
+or Quarry Run, then press **Space** or the controller’s **primary face button**
+to start. The bare `/` URL opens a diagnostic screen.
 Stop the server with Ctrl+C. An adult must start the server and open the adventure
 page for Henry; public hosting is out of scope.
 No credentials, backend or image-generation service are needed to run the app.
@@ -52,6 +53,7 @@ Current release controls:
 
 | Action | Keyboard | Standard controller |
 | --- | --- | --- |
+| Select level | Left/Right arrows | D-pad or left stick |
 | Start / replay | Space | Primary face button |
 | Move | Left/Right arrows or A/D | D-pad or left stick |
 | Jump | Space | Any face button (A/B/X/Y) |
@@ -62,8 +64,9 @@ Only standard-mapped controllers are read. Input clears on focus loss and
 controller disconnect; release held controller controls before resuming.
 
 Progress is in memory only. Checkpoint retries preserve collected gems; replay,
-reload or closing the page starts a fresh run. No browser storage, server save,
-public hosting or runtime generation call is used.
+reload or closing the page starts a fresh run. The last selected level is not
+remembered. No browser storage, server save, public hosting or runtime
+generation call is used.
 
 ## Project layout
 
@@ -80,13 +83,13 @@ public hosting or runtime generation call is used.
 - `src/core/retro-audio.ts`: local music/effect synthesis with bounded voices.
 - `src/main.ts`: browser focus, sizing and animation lifecycle, including HMR cleanup.
 - `src/game/`: movement, interactions, screen state and adventure previews.
-- `src/world/`: level data, camera, asset manifest and renderer.
+- `src/world/`: level registry and data, camera, asset manifests and renderer.
 - `src/foundation-scene.ts`: diagnostic drawing for the foundation screen.
 
 Illustrated assets were generated with the built-in image generator and processed
 into project-local atlases. See [Henry art](docs/art/README.md) and [Plains world](docs/plains-world.md).
 
-Known limitations and out of scope: public hosting, touch controls, extra biomes,
+Known limitations and out of scope: public hosting, touch controls, new biome artwork,
 mining/building/crafting and persistent saves. The full current/previous-major
 browser matrix, Safari on macOS and physical-controller listening were waived
 rather than run; see [Verification](#verification) below.

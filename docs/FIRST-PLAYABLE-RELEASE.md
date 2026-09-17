@@ -12,8 +12,9 @@ follow-up issue; it does not reopen this release.
 An adult or developer installs Node.js 22.12 or newer, runs `npm ci`, then runs
 `npm run play` from the repository. On Windows, macOS and Linux, this starts the
 local server and opens `/?scene=adventure` in the default browser for Henry.
-Press Space or the controller's primary face button at the title screen to
-begin. If the browser does not open, use the local URL printed by Vite and append
+Use Left/Right to choose Plains or Quarry Run, then press Space or the
+controller's primary face button at the title screen to begin. If the browser
+does not open, use the local URL printed by Vite and append
 `/?scene=adventure`. Use the printed port, since Vite chooses another if the
 default is busy. Stop the server with Ctrl+C.
 
@@ -57,17 +58,19 @@ now-fixed defect findings are preserved in
 
 | Action | Keyboard | Standard controller |
 | --- | --- | --- |
+| Select level | Left/Right arrows | D-pad or left stick |
 | Start / replay | Space | Primary face button |
 | Move | Left/Right arrows or A/D | D-pad or left stick |
 | Jump | Space | Any face button (A/B/X/Y) |
 | Pause/resume | Escape | Start |
 | Mute | M or on-screen Mute button | On-screen Mute button |
 
-The adventure title starts with Space or the primary controller face button.
+The adventure title selects Plains or Quarry Run with Left/Right, then starts
+with Space or the primary controller face button.
 Jump accepts any standard-mapping face button, not only the primary one, as a
 compatibility hedge across controller/browser combinations (see
 [#62](https://github.com/auleewilliams/TinyTurboTrails/issues/62)). Finish
-shows the current run's gem total; the same control returns to a fresh title.
+shows the current run's gem total; the same control returns to a fresh picker.
 Focus loss clears held input, pauses the fixed-step simulation and discards
 elapsed wall time before resuming. Only standard-mapped controllers are read.
 Touch input is out of scope.
@@ -78,7 +81,8 @@ Run progress exists in memory only and does not survive a reload — this is
 deliberate behavior, not a bug. Collected gems survive a checkpoint recovery
 within the current run. Replay, reload and closing the page clear gems,
 checkpoints, velocity and entity state. No localStorage, IndexedDB, cookies or
-server save is used. The main route is forgiving and uses three safe checkpoints;
+server save is used, and the last selected level is not remembered. The main
+route is forgiving and uses three safe checkpoints;
 optional gem routes, springs, slimes and hazards are defined by local level data.
 
 Music and effects are synthesized locally after browser interaction. Mute and
@@ -87,13 +91,13 @@ Web Audio cannot start. `/?audio` previews the six effects and the music loop.
 
 ## Scope and limitations
 
-The release scope is one desktop-browser Plains route with meadow, wooded
-hillside and cave-themed scenery, tuned to roughly 3–5 minutes for a forgiving
-first playthrough. Mining, building, crafting, loops, charged dashes, touch
-controls, extra biomes, public hosting and persistent progress are
-deliberately out of scope. The generated source art and processed atlases are
-project-local; the running game loads assets locally and makes no generation or
-external API calls.
+The certified release documented here covered one desktop-browser Plains route
+with meadow, wooded hillside and cave-themed scenery. The current build also
+offers Quarry Run through the title picker; it reuses the Plains atlas and adds
+no new biome artwork. Mining, building, crafting, loops, charged dashes, touch
+controls, public hosting and persistent progress remain deliberately out of
+scope. The generated source art and processed atlases are project-local; the
+running game loads assets locally and makes no generation or external API calls.
 
 Known, deliberately untested combinations (not defects — see Verification
 status above): physical controller hardware, audible speaker output, Safari on

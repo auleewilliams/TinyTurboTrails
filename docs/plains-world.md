@@ -6,7 +6,8 @@ A/D move the preview camera through the meadow, wooded hillside and cave-themed
 sections. Terrain is rendered from the same segment data consumed by collision;
 entity positions use stable IDs for later interaction and checkpoint systems.
 
-`src/world/level.ts` owns the 9,980 × 240 route (issue #45): six biomes
+`src/world/level.ts` owns the Plains route, while `src/world/levels.ts` registers
+it with the other playable levels. The 9,980 × 240 Plains route (issue #45) has six biomes
 (meadow, hillside, canyon, cave, orchard, summit) built from 55 flat/ramp
 surfaces, 45 gems, 14 slimes, 6 springs, 6 hazards, 6 checkpoints and
 back-layer decoration. Main-route gems, hazards, slimes and springs sit within
