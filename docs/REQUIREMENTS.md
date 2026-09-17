@@ -22,10 +22,12 @@ is a detailed child in a blocky world — not a cuboid Minecraft avatar.
 
 Multiple desktop-browser levels selected from a title-screen picker, including
 the Plains route and Quarry Run. Both routes target roughly 3–5 minutes, with
-momentum, slopes and springs; Quarry Run adds spring pits, stepped terraces and
-grouped stone hazards using the same movement features. Keyboard and
+momentum, slopes and springs; Quarry Run adds spring pits, stepped terraces,
+grouped stone hazards and two slow moving platforms using the same movement
+features. Both rides are optional; no route depends on timing one. Keyboard and
 standard-controller support.
-Quarry Run reuses the Plains atlas and introduces no new biome artwork.
+Quarry Run reuses the Plains atlas and introduces no new biome artwork;
+platforms are drawn from the level's own theme colors.
 
 ## Target browsers
 

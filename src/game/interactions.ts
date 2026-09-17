@@ -1,4 +1,4 @@
-import { DEFAULT_MOVEMENT, launchSpring, surfaceY, type Player } from './movement';
+import { DEFAULT_MOVEMENT, MAX_STEP_SECONDS, detachFromGround, launchSpring, surfaceY, type Player } from './movement';
 import type { LevelData, WorldEntity } from '../world/level';
 
 export type RunEvent =
@@ -12,6 +12,8 @@ export type RunEvent =
 export interface EntityState { id: string; active: boolean; x: number; y: number; direction: 1 | -1 }
 
 export interface RunState {
+  /** Run clock in seconds; moving platforms are a pure function of it. */
+  seconds: number;
   collectedGems: Set<string>;
   springContacts: Set<string>;
   checkpointId: string | null;
@@ -27,11 +29,12 @@ function placeEntities(level: LevelData): EntityState[] {
 }
 
 export function createRun(level: LevelData): RunState {
-  return { collectedGems: new Set(), springContacts: new Set(), checkpointId: null, invulnerableSeconds: 0,
+  return { seconds: 0, collectedGems: new Set(), springContacts: new Set(), checkpointId: null, invulnerableSeconds: 0,
     entities: placeEntities(level) };
 }
 
 export function startNewRun(run: RunState, level: LevelData): void {
+  run.seconds = 0;
   run.collectedGems.clear();
   run.springContacts.clear();
   run.checkpointId = null;
@@ -55,7 +58,7 @@ export function touchesPlayer(player: Player, x: number, y: number): boolean {
 
 /** Walk patrolling entities between their bounds, hugging the terrain they stand on. */
 export function advancePatrols(run: RunState, level: LevelData, seconds: number): void {
-  const dt = Math.max(0, Math.min(seconds, 0.1));
+  const dt = Math.max(0, Math.min(seconds, MAX_STEP_SECONDS));
   for (const entity of level.entities) {
     const patrol = entity.patrol;
     const state = entityState(run, entity.id);
@@ -85,8 +88,13 @@ export function stepEntities(run: RunState, level: LevelData, player: Player, se
   }
 }
 
-export function tickRun(run: RunState, seconds: number): void {
+/** Advances the run clock and returns the step it took: clamped like the movement step, so a
+ * stalled frame cannot slide a platform out from under its rider. */
+export function tickRun(run: RunState, seconds: number): number {
+  const step = Math.min(Math.max(0, seconds), MAX_STEP_SECONDS);
+  run.seconds += step;
   run.invulnerableSeconds = Math.max(0, run.invulnerableSeconds - Math.max(0, seconds));
+  return step;
 }
 
 export function collectGem(run: RunState, entityId: string, events: RunEvent[]): boolean {
@@ -117,6 +125,7 @@ export function damagePlayer(run: RunState, player: Player, direction: number, e
   player.vx = away * -220;
   player.vy = -220;
   player.onGround = false;
+  detachFromGround(player);
   run.invulnerableSeconds = 1;
   events.push({ type: 'damage', entityId });
   return true;
@@ -146,6 +155,7 @@ export function recoverFromFall(run: RunState, player: Player, events: RunEvent[
   player.onGround = true;
   player.coyoteSeconds = DEFAULT_MOVEMENT.coyoteSeconds;
   player.jumpBufferSeconds = 0;
+  detachFromGround(player);
   run.invulnerableSeconds = 1;
   events.push({ type: 'recover' });
 }

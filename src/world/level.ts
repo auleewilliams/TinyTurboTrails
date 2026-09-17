@@ -1,4 +1,5 @@
 import { DEFAULT_MOVEMENT, surfaceY, type Surface } from '../game/movement';
+import { PLATFORM_MAX_SPEED, platformSpeed, type MovingPlatform } from '../game/platforms';
 import type { WorldAsset } from './assets';
 
 export type WorldEntityKind = 'gem' | 'slime' | 'spring' | 'checkpoint' | 'hazard' | 'decoration';
@@ -33,6 +34,8 @@ export interface LevelData {
   surfaces: readonly Surface[];
   checkpoints: readonly { id: string; x: number; y: number }[];
   entities: readonly WorldEntity[];
+  /** Slabs that move on a fixed path. Omitted by levels built from terrain alone. */
+  platforms?: readonly MovingPlatform[];
 }
 
 const plainsTerrain = {
@@ -244,4 +247,25 @@ export function validateLevel(level: LevelData): void {
     if (checkpoint.y !== surfaceY(level, checkpoint.x)) throw new Error(`checkpoint is not planted on terrain: ${checkpoint.id}`);
   }
   if (level.finish.x <= level.start.x || level.finish.x > level.width) throw new Error('finish must follow start');
+  validatePlatforms(level, ids);
+}
+
+function validatePlatforms(level: LevelData, entityIds: ReadonlySet<string>): void {
+  const ids = new Set<string>();
+  for (const platform of level.platforms ?? []) {
+    if (!platform.id || ids.has(platform.id) || entityIds.has(platform.id)) throw new Error(`duplicate platform id: ${platform.id}`);
+    ids.add(platform.id);
+    const numbers = [platform.width, platform.seconds, platform.pause ?? 0, platform.offset ?? 0,
+      platform.from.x, platform.from.y, platform.to.x, platform.to.y];
+    if (!numbers.every(Number.isFinite)) throw new Error(`invalid platform timing: ${platform.id}`);
+    if (platform.width <= 0 || platform.seconds <= 0 || (platform.pause ?? 0) < 0) throw new Error(`invalid platform timing: ${platform.id}`);
+    // Slow and predictable beats clever: a platform Henry cannot read is a platform he cannot use.
+    if (platformSpeed(platform) > PLATFORM_MAX_SPEED) throw new Error(`platform is too fast to read: ${platform.id}`);
+    for (const end of [platform.from, platform.to]) {
+      if (end.x < level.minX || end.x + platform.width > level.maxX) throw new Error(`platform outside level: ${platform.id}`);
+      if (end.y < 0 || end.y > level.height) throw new Error(`platform outside level: ${platform.id}`);
+      // A slab parked under the ground can never be boarded, so treat it as level data rot.
+      if (end.y > surfaceY(level, end.x + platform.width / 2) + 1) throw new Error(`platform is buried in terrain: ${platform.id}`);
+    }
+  }
 }

@@ -8,6 +8,7 @@ import { AdventureScene } from '../src/game/adventure-scene';
 import { createPlayer } from '../src/game/movement';
 import { Camera } from '../src/world/camera';
 import { PLAINS_LEVEL } from '../src/world/level';
+import { platformBodyAt } from '../src/game/platforms';
 
 const manifest = JSON.parse(readFileSync(new URL('../public/assets/plains/manifest.json', import.meta.url), 'utf8'));
 
@@ -175,4 +176,22 @@ it('draws the selected level name on the title screen', () => {
   const { ctx, texts } = recordingContext();
   scene.render(ctx);
   expect(texts.some(({ text }) => text === '◀ PLAINS ▶')).toBe(true);
+});
+
+it('draws each slab in the level palette and telegraphs its whole path', () => {
+  const { ctx } = recordingContext();
+  const rects: { style: string; args: number[] }[] = [];
+  ctx.fillRect = (...args: number[]) => { rects.push({ style: String(ctx.fillStyle), args }); };
+  const platform = { id: 'ferry', from: { x: 600, y: 150 }, to: { x: 700, y: 120 }, width: 48, seconds: 2 };
+  const level = { ...PLAINS_LEVEL, platforms: [platform] };
+  const camera = new Camera({ width: 426, height: 240, worldWidth: level.width, worldHeight: level.height });
+  const body = platformBodyAt(platform, 1);
+  drawWorld(ctx, worldAssets, level, camera, () => true, (entity) => entity, [body]);
+  expect(rects).toContainEqual({ style: level.theme.ground, args: [body.x, body.y, body.width, body.height] });
+  expect(rects).toContainEqual({ style: level.theme.edge, args: [body.x, body.y, body.width, 3] });
+  const path = rects.filter((rect) => rect.style === '#ffffff66');
+  // Pips along the path plus a marker at each end.
+  expect(path.length).toBeGreaterThan(4);
+  expect(path.map((rect) => rect.args[0]).some((x) => x <= platform.from.x + platform.width / 2)).toBe(true);
+  expect(path.map((rect) => rect.args[0]).some((x) => x >= platform.to.x + platform.width / 2 - 4)).toBe(true);
 });
