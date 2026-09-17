@@ -232,6 +232,8 @@ test('default main menu starts the Plains level with Space', async ({ page }) =>
 });
 
 test('title picker selects Quarry Run and starts the selected route', async ({ page }) => {
+  // The extended Quarry Run (issue #73) takes about a minute of held-right real time.
+  test.setTimeout(150_000);
   await page.goto('/?scene=adventure&debug=1');
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
   // Hold the selection key long enough for a simulation frame to consume it
@@ -242,7 +244,7 @@ test('title picker selects Quarry Run and starts the selected route', async ({ p
   await page.keyboard.press('Space');
   await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
   await page.keyboard.down('ArrowRight');
-  await expect.poll(() => page.locator('#status').innerText(), { timeout: 20000 }).toContain('Adventure preview · Finish');
+  await expect.poll(() => page.locator('#status').innerText(), { timeout: 120_000 }).toContain('Adventure preview · Finish');
   await page.keyboard.up('ArrowRight');
 });
 
