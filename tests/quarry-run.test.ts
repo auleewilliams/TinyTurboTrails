@@ -51,7 +51,7 @@ it('can complete Quarry Run while holding right', () => {
   };
   const scene = new AdventureScene({} as never, {} as never, audio, QUARRY_RUN);
   const input = { horizontal: 1, jumpHeld: false, jumpPressed: false, pausePressed: false, mutePressed: false };
-  scene.update(1 / 60, { ...input, jumpPressed: true });
+  scene.update(1 / 60, { ...input, horizontal: 0, jumpPressed: true });
   for (let frame = 0; frame < 60 * 30 && scene.screenState !== 'finish'; frame++) scene.update(1 / 60, input);
   expect(scene.screenState).toBe('finish');
   expect(effects.filter((effect) => effect === 'spring')).toHaveLength(2);

@@ -59,10 +59,12 @@ export class AdventureScene implements Scene {
   private camera: Camera;
   private elapsed = 0;
   private events: RunEvent[] = [];
-  private selectedIndex = 0;
+  private selectedIndex: number;
   private selectionDirection = 0;
   constructor(private readonly henry: HenryAssets, private readonly world: WorldAssets, private readonly audio: GameAudio, level: LevelData) {
     this.level = level;
+    const levelIndex = LEVELS.indexOf(level);
+    this.selectedIndex = levelIndex >= 0 ? levelIndex : 0;
     this.player = createPlayer(level.start.x, level);
     this.run = createRun(level);
     this.camera = new Camera({ width: 426, height: 240, worldWidth: level.width, worldHeight: level.height });
@@ -92,7 +94,7 @@ export class AdventureScene implements Scene {
     if (this.screens.state === 'finish') {
       if (input.jumpPressed) {
         this.loadLevel(this.level);
-        this.selectionDirection = 0;
+        this.selectionDirection = Math.sign(input.horizontal);
         this.screens.replay();
       }
       return;

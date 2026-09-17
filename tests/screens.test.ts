@@ -46,6 +46,36 @@ describe('game screen flow', () => {
     expect(scene.playerX).toBe(QUARRY_RUN.start.x);
   });
 
+  it('starts the supplied registered level without requiring picker input', () => {
+    const audio: GameAudio = {
+      unlock: async () => {}, setMuted: () => {}, setSuspended: () => {}, startMusic: () => {},
+      play: () => {}, stop: () => {}, dispose: () => {},
+    };
+    const scene = new AdventureScene({} as never, {} as never, audio, QUARRY_RUN);
+    const input = { horizontal: 0, jumpHeld: false, jumpPressed: true, pausePressed: false, mutePressed: false };
+    expect(scene.selectedLevelName).toBe(QUARRY_RUN.name);
+    scene.update(1 / 60, input);
+    expect(scene.screenState).toBe('playing');
+    expect(scene.playerX).toBe(QUARRY_RUN.start.x);
+  });
+
+  it('does not advance the picker when replaying with a held direction', () => {
+    const audio: GameAudio = {
+      unlock: async () => {}, setMuted: () => {}, setSuspended: () => {}, startMusic: () => {},
+      play: () => {}, stop: () => {}, dispose: () => {},
+    };
+    const scene = new AdventureScene({} as never, {} as never, audio, PLAINS_LEVEL);
+    const input = { horizontal: 0, jumpHeld: false, jumpPressed: true, pausePressed: false, mutePressed: false };
+    scene.update(1 / 60, input);
+    (scene as unknown as { player: { x: number } }).player.x = PLAINS_LEVEL.finish.x;
+    scene.update(1 / 60, { ...input, jumpPressed: false });
+    scene.update(1 / 60, { ...input, horizontal: 1 });
+    expect(scene.screenState).toBe('title');
+    expect(scene.selectedLevelName).toBe(PLAINS_LEVEL.name);
+    scene.update(1 / 60, { ...input, jumpPressed: false, horizontal: 1 });
+    expect(scene.selectedLevelName).toBe(PLAINS_LEVEL.name);
+  });
+
   it('plays the completion effect once when the adventure reaches the finish', () => {
     const effects: string[] = [];
     let stops = 0;
