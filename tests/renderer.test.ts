@@ -80,6 +80,22 @@ it('fills joined slopes without interior edges and preserves gaps between ground
   ]);
 });
 
+it('uses the level theme for sky, terrain and parallax placement', () => {
+  const { ctx, images } = recordingContext();
+  const fills: CanvasRenderingContext2D['fillStyle'][] = [];
+  ctx.fillRect = () => { fills.push(ctx.fillStyle); };
+  ctx.fill = () => { fills.push(ctx.fillStyle); };
+  const level = { ...PLAINS_LEVEL, theme: {
+    sky: '#010203', ground: '#040506', edge: '#070809',
+    parallax: [{ asset: 'cave' as WorldAsset, x: 90, y: 55, scale: 2 }],
+  }};
+  drawWorld(ctx, worldAssets, level, new Camera({ width: 426, height: 240, worldWidth: level.width, worldHeight: level.height }));
+  expect(fills[0]).toBe('#010203');
+  expect(fills).toContain('#040506');
+  expect(images[0][5]).toBe(42);
+  expect(images[0][6]).toBe(-33);
+});
+
 const henryAssets = {
   atlas: {} as HTMLImageElement,
   manifest: JSON.parse(readFileSync(new URL('../public/assets/henry/manifest.json', import.meta.url), 'utf8')),
