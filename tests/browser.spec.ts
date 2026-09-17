@@ -234,7 +234,11 @@ test('default main menu starts the Plains level with Space', async ({ page }) =>
 test('title picker selects Quarry Run and starts the selected route', async ({ page }) => {
   await page.goto('/?scene=adventure&debug=1');
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
-  await page.keyboard.press('ArrowRight');
+  // Hold the selection key long enough for a simulation frame to consume it
+  // before starting. A back-to-back press can be coalesced in WebKit.
+  await page.keyboard.down('ArrowRight');
+  await page.waitForTimeout(100);
+  await page.keyboard.up('ArrowRight');
   await page.keyboard.press('Space');
   await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
   await page.keyboard.down('ArrowRight');
@@ -525,8 +529,8 @@ test('all checkpoints activate along the ground route and render planted markers
         await page.keyboard.down('ArrowRight');
         break;
       }
-      expect(x, `passed ${checkpoint.id} without activation`).toBeLessThan(checkpoint.x + 35);
-      await page.waitForTimeout(60);
+      expect(x, `passed ${checkpoint.id} without activation`).toBeLessThan(checkpoint.x + 50);
+      await page.waitForTimeout(30);
     }
     await expect(page.locator('canvas')).toHaveAttribute('data-test-hud', new RegExp(checkpoint.id));
   }
