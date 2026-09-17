@@ -505,6 +505,7 @@ test('all checkpoints activate along the ground route and render planted markers
   await page.goto('/?scene=adventure&debug=1');
   await expect(page.locator('#status')).toContainText('Adventure preview · Title');
   await page.keyboard.press('Space');
+  await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
   await page.keyboard.down('ArrowRight');
   // Terrain heights come from surfaceY rather than being restated here, so the check
   // cannot drift from the level data the way the coordinates in #26 did.
