@@ -1,11 +1,11 @@
 # Tiny Turbo Trails
 
-A sidescrolling 16-bit platformer for Henry. The current build is the accepted
-MVP baseline: it includes the Plains world, Henry's starter art, movement, gems,
-hazards, checkpoints, local music/effects and a title-to-adventure shell.
-Known defects and polish work continue as follow-up issues. Release
-certification remains open until the manual browser/controller matrix in
-`docs/RELEASE-VERIFICATION.md` is completed.
+A sidescrolling 16-bit platformer for Henry. This is the **certified first
+playable release**: it includes the Plains world, Henry's starter art,
+movement, gems, hazards, checkpoints, local music/effects and a
+title-to-adventure shell. Release certification (issue #8) is closed; see
+[Verification](#verification) below for what was checked and what was
+deliberately waived.
 
 ## Run locally
 
@@ -54,7 +54,7 @@ Current release controls:
 | --- | --- | --- |
 | Start / replay | Space | Primary face button |
 | Move | Left/Right arrows or A/D | D-pad or left stick |
-| Jump | Space | Primary face button |
+| Jump | Space | Any face button (A/B/X/Y) |
 | Pause/resume | Escape | Start |
 | Mute | M or on-screen Mute button | On-screen Mute button |
 
@@ -88,46 +88,36 @@ into project-local atlases. See [Henry art](docs/art/README.md) and [Plains worl
 
 Known limitations and out of scope: public hosting, touch controls, extra biomes,
 mining/building/crafting and persistent saves. The full current/previous-major
-browser matrix, Safari on macOS, physical controller listening and final manual
-route certification remain pending; see [release verification](docs/RELEASE-VERIFICATION.md).
+browser matrix, Safari on macOS and physical-controller listening were waived
+rather than run; see [Verification](#verification) below.
 
-## Verification and known defects
+## Verification
 
-Latest run: **2026-09-16** on macOS **26.6.2 (25G83)** arm64, Node **22.23.2** and
-npm **10.9.8**, after integrating checkpoint fix
-[#41](https://github.com/auleewilliams/TinyTurboTrails/pull/41). Type-checking,
-**57 unit tests**, the production build and the browser suite all passed:
-**57 browser checks, 0 skipped and 0 failed**, 19 in each of the bundled
-Chromium **153.0.8010.12**, Firefox **155.0** and WebKit **26.6**. This was an
-isolated checkout using the existing npm cache — not a clean-machine or
-network-install verification. A physical Xbox controller over Bluetooth was
-reported working in an embedded browser, on the pre-#41 candidate; that is a
-user report, not an independently recorded session. The earlier
-**2026-09-15** Ubuntu run is retained as history in the reports below.
+Latest run: **2026-09-17** on Ubuntu **26.04.1 LTS** x86_64, Node **22.22.1**
+and npm **9.2.0**, at commit
+[`76c7504`](https://github.com/auleewilliams/TinyTurboTrails/commit/76c7504a97d6dfd4ff030687f9215682f8c84a54).
+Type-checking, **127 unit tests**, the production build and the browser suite
+all passed: **74 of 75 browser checks**, 1 documented skip and 0 failed,
+25 in each of the bundled Chromium **153.0.8010.12**, Firefox **155.0** and
+WebKit **26.6**. The one skip is the documented Firefox native-audio probe
+(this sandbox has no usable audio backend). This was an isolated checkout
+using the existing npm cache, not a clean-machine or network-install
+verification.
 
-**Certification is still open.** Playwright's bundled engines are not the
-installed browsers the requirements name, and the current/previous-major Chrome,
-Firefox and Safari matrix has not been run on either keyboard or a physical
-controller. Checkpoint recovery is verified by simulation rather than a real
-fall, because the Plains route currently has no pit to fall into.
+**Issue #8 is closed and this release is certified.** Every defect found
+during prior verification runs (checkpoints off the ground, sprite
+checkerboard, facing direction, gem/HUD rendering, route duration, terrain
+seams/scenery anchoring, finish-screen overlap, spring/camera state on
+replay, and the Xbox controller jump button) is fixed, closed and covered by
+a regression test — see the [defect inventory](docs/RELEASE-VERIFICATION-2026-09-17.md#defect-inventory-closed-since-the-last-dated-report).
+No open defect is known against this candidate.
 
-Open defects, all found during the 2026-09-16 run:
-
-| Issue | Triage | Effect |
-| --- | --- | --- |
-| [#42](https://github.com/auleewilliams/TinyTurboTrails/issues/42) | **Blocking** | Henry's shipped sprites have a baked gray checkerboard behind every pose. |
-| [#45](https://github.com/auleewilliams/TinyTurboTrails/issues/45) | **Blocking** | The route takes about 11 seconds against the agreed 3–5 minutes. |
-| [#43](https://github.com/auleewilliams/TinyTurboTrails/issues/43) | Non-blocking | Henry keeps facing right while running left. |
-| [#47](https://github.com/auleewilliams/TinyTurboTrails/issues/47) | Non-blocking | Trees and slimes float above the terrain. |
-| [#48](https://github.com/auleewilliams/TinyTurboTrails/issues/48) | Non-blocking | Thin seams appear between terrain polygons while scrolling. |
-| [#49](https://github.com/auleewilliams/TinyTurboTrails/issues/49) | Non-blocking | The finish celebration overlaps its own subtitle. |
-
-[#26 — checkpoints sat above the ground](https://github.com/auleewilliams/TinyTurboTrails/issues/26)
-is fixed and retested, as are
-[#44 — collected gems stayed in the world](https://github.com/auleewilliams/TinyTurboTrails/issues/44)
-and [#46 — the HUD lost its left alignment after pause](https://github.com/auleewilliams/TinyTurboTrails/issues/46).
-Certification and issue #9 closeout remain pending the two blocking defects and
-the full manual matrix. See the
-[2026-09-16 macOS report](docs/RELEASE-VERIFICATION-2026-09-16.md),
-[release evidence and limits](docs/RELEASE-VERIFICATION.md) and the
-[manual worksheet](docs/RELEASE-MANUAL-CHECKLIST.md).
+The remaining manual matrix — physical standard-controller hardware, audible
+speaker output, Safari on macOS, installed current/previous-major Chrome and
+Firefox releases, and firsthand human inspection of the route — was
+**explicitly waived by the project owner** rather than executed; automated
+coverage was accepted as sufficient for this release. See the
+[2026-09-17 certification report](docs/RELEASE-VERIFICATION-2026-09-17.md),
+[release evidence and history](docs/RELEASE-VERIFICATION.md) and the
+[manual worksheet](docs/RELEASE-MANUAL-CHECKLIST.md) (kept for reference; its
+scenarios were waived, not run).

@@ -1,13 +1,22 @@
-# Release verification — issue #8
+# Release verification — issue #8 (closed)
 
-**Latest run:** [2026-09-16 macOS verification](RELEASE-VERIFICATION-2026-09-16.md)
-records 57/57 passing browser checks after integrating checkpoint fix #41,
-progress-reset/route evidence, a reported Xbox Bluetooth playtest on the original
-candidate, and new defects. Certification remains blocked. The
-report below preserves the **2026-09-15 Linux run**; its environment limitations
-and issue inventory describe that earlier candidate.
+**Certified:** [2026-09-17 certification report](RELEASE-VERIFICATION-2026-09-17.md)
+records 74/75 passing browser checks (1 documented Firefox native-audio skip),
+127 unit tests, typecheck and build all green, and every known defect fixed and
+closed. The project owner waived the remaining manual matrix (physical
+controller, Safari on macOS, previous-major browsers, human route inspection)
+as sufficiently covered by automated testing. Issue #8 is closed on this basis.
 
-## Status: certification blocked
+Everything below this point is **historical evidence from superseded runs**,
+kept for the record of how certification was reached. The
+[2026-09-16 macOS report](RELEASE-VERIFICATION-2026-09-16.md) records 57/57
+passing browser checks after checkpoint fix #41 and the defects found that day
+(#42–#49), all since fixed. The status section immediately below describes the
+**2026-09-15 Linux run**, whose environment limitations and issue inventory
+(centered on #26, since fixed) describe that earlier, no-longer-current
+candidate.
+
+## Status: certification blocked (historical — 2026-09-15 run)
 
 Run date: **2026-09-15 UTC**. Branch: `release/issues-8-9-verification`.
 Tested game commit: `94a35a63575b5205c45b4d2810f0de75efd9d27d`.
