@@ -20,8 +20,11 @@ is a detailed child in a blocky world — not a cuboid Minecraft avatar.
 
 ## Scope of the first release
 
-One desktop-browser Plains level, roughly 3–5 minutes, with momentum, slopes and
-springs. Keyboard and standard-controller support.
+Multiple desktop-browser levels selected from a title-screen picker, including
+the Plains route and the shorter Quarry Run. The Plains route targets roughly
+3–5 minutes, with momentum, slopes and springs; Quarry Run is a shorter route
+with the same movement features. Keyboard and standard-controller support.
+Quarry Run reuses the Plains atlas and introduces no new biome artwork.
 
 ## Target browsers
 
@@ -31,8 +34,8 @@ issue 01 onward rather than only at release.
 
 ## Out of scope for this release
 
-No mining, building, crafting, loops, charged dashes, extra biomes, touch
-controls or public hosting.
+No mining, building, crafting, loops, charged dashes, new biome artwork, touch
+controls, public hosting or persistent progress.
 
 ## Asset generation
 

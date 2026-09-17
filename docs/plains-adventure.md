@@ -1,10 +1,12 @@
-# Plains adventure and screens — issue #6
+# Adventure screens and levels — issue #6
 
-Open `/` (or `/?scene=adventure`) for the complete first-play shell. The title screen
-starts with Space or the controller's primary face button, the loading state is entered before local assets are ready,
-and the playable route uses the issue #4 level, issue #3 movement and issue #5
-run interactions. Escape uses the foundation pause gate, freezing the fixed-step
-simulation; Space on the finish screen creates a fresh run and returns to title.
+Open `/` (or `/?scene=adventure`) for the complete first-play shell. The title
+screen uses Left/Right to select Plains or Quarry Run, then starts with Space or
+any standard controller face button (A/B/X/Y). The loading state is entered before local
+assets are ready, and each playable route uses the shared movement and run
+interaction systems. Escape uses the foundation pause gate, freezing the
+fixed-step simulation; Space on the finish screen creates a fresh run and
+returns to the picker.
 
 The HUD reports the current run's gems and checkpoint. Checkpoint recovery keeps
 gems, while replay constructs a new run and clears entity state. Reaching the
@@ -15,14 +17,17 @@ panel stacks the title, gem total, celebration band and replay prompt in separat
 rows (`FINISH_LAYOUT`); `tests/finish-layout.test.ts` checks the full bob cycle
 stays clear of the text.
 
-The route is data-driven and currently includes six sections — meadow, wooded
-hillside, canyon, cave, orchard and summit (issue #45) — an easy main path,
-optional elevated gems, six safe checkpoints and a construction finish arch.
-Control prompts are short and visual enough for the intended six-year-old
-player. The preview uses generated local assets and displays a readable
-loading failure in the main shell.
+The Plains route is data-driven and currently includes six sections — meadow,
+wooded hillside, canyon, cave, orchard and summit (issue #45) — an easy main
+path, optional elevated gems, six safe checkpoints and a construction finish
+arch. Quarry Run is a shorter cave-and-stone route with ramps, springs, gems,
+checkpoints, a hazard and a recoverable pit. It reuses the Plains atlas, so the
+second route introduces no new biome artwork. Control prompts are short and
+visual enough for the intended six-year-old player. The preview uses the
+selected level's local assets and displays a readable loading failure in the
+main shell.
 
-The route is long enough that an automated hold-right traversal (no jumping,
+The Plains route is long enough that an automated hold-right traversal (no jumping,
 `npm run test:browser`) now takes roughly 50-55 seconds across Chromium,
 Firefox and WebKit, up from the original route's ~11 seconds — the route
 itself is about 4.3x longer, and knockback from the added hazards/slimes adds
@@ -34,9 +39,9 @@ collecting bonus gems, occasional retries) and still needs to be confirmed
 with an actual playtest of the intended player — that has not been done as
 part of this change.
 
-The screen controller is unit-tested for title → loading → play → pause → finish
-→ replay and retryable load errors. Chromium and Firefox checks exercise asset
-loading, start, pause and the adventure shell. Audio event calls remain behind
-the `GameAudio` boundary and gain synthesized content when issue #7 is integrated.
-Full manual easy-route completion, controller playtesting and the release matrix
-remain issue #8 evidence.
+The screen controller is unit-tested for picker → loading → play → pause → finish
+→ picker and retryable load errors. Chromium, Firefox and WebKit checks exercise
+asset loading, level selection, start, pause and the adventure shell. Audio event
+calls remain behind the `GameAudio` boundary and gain synthesized content when
+issue #7 is integrated. Full manual route completion, controller playtesting and
+the release matrix remain issue #8 evidence.

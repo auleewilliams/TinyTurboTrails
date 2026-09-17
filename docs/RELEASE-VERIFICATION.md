@@ -7,6 +7,11 @@ closed. The project owner waived the remaining manual matrix (physical
 controller, Safari on macOS, previous-major browsers, human route inspection)
 as sufficiently covered by automated testing. Issue #8 is closed on this basis.
 
+This certification record predates the multi-level picker and describes the
+Plains candidate tested for issue #8. Current product scope and the Quarry Run
+route are documented in the README, canonical requirements and adventure guide;
+the dated counts below remain historical evidence.
+
 Everything below this point is **historical evidence from superseded runs**,
 kept for the record of how certification was reached. The
 [2026-09-16 macOS report](RELEASE-VERIFICATION-2026-09-16.md) records 57/57
