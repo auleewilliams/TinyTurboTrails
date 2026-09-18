@@ -308,13 +308,13 @@ test('Quarry crumbling ledge warns, disappears and returns after fall recovery',
   await page.keyboard.down('ArrowRight');
   await expect.poll(async () => Number(await canvas.getAttribute('data-ledge-cracks') ?? 0), { timeout: 100_000 })
     .toBeGreaterThan(0);
+  await page.keyboard.up('ArrowRight');
   await info.attach('crumbling-ledge-warning', {
     body: await canvas.screenshot({ path: info.outputPath('crumbling-ledge-warning.png') }),
     contentType: 'image/png',
   });
   await expect.poll(async () => Number(await canvas.getAttribute('data-ledge-tiles') ?? 0), { timeout: 5_000 })
     .toBe(6);
-  await page.keyboard.up('ArrowRight');
 
   await page.keyboard.down('ArrowLeft');
   await expect.poll(async () => Number(await canvas.getAttribute('data-ledge-tiles') ?? 0), { timeout: 20_000 })
