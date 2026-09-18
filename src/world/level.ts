@@ -1,7 +1,7 @@
 import { DEFAULT_MOVEMENT, surfaceY, type Surface } from '../game/movement';
 import type { WorldAsset } from './assets';
 
-export type WorldEntityKind = 'gem' | 'slime' | 'spring' | 'checkpoint' | 'hazard' | 'decoration';
+export type WorldEntityKind = 'gem' | 'slime' | 'spring' | 'checkpoint' | 'hazard' | 'decoration' | 'crumbling-ledge';
 /** Back-and-forth walk between two X bounds. The run owns the position; level data stays immutable. */
 export interface EntityPatrol { minX: number; maxX: number; speed: number }
 export interface WorldEntity {
@@ -12,6 +12,7 @@ export interface WorldEntity {
   asset: string;
   layer: 'back' | 'world' | 'front';
   patrol?: EntityPatrol;
+  width?: number;
 }
 export interface LevelTheme {
   sky: string;
@@ -218,6 +219,25 @@ function validatePatrol(level: LevelData, entity: WorldEntity): void {
   }
 }
 
+const MIN_LEDGE_CLEARANCE = DEFAULT_MOVEMENT.height + 2;
+
+function validateCrumblingLedge(level: LevelData, entity: WorldEntity): void {
+  if (entity.kind !== 'crumbling-ledge') return;
+  if (entity.width === undefined || entity.width <= 0) throw new Error(`ledge width must be positive: ${entity.id}`);
+  const left = entity.x - entity.width / 2;
+  const right = entity.x + entity.width / 2;
+  if (left < level.minX || right > level.maxX) throw new Error(`ledge leaves the level: ${entity.id}`);
+  for (const x of [left, entity.x, right]) {
+    const ground = surfaceY(level, x);
+    if (ground - entity.y < MIN_LEDGE_CLEARANCE) throw new Error(`ledge clearance is too small: ${entity.id}`);
+    if (ground - DEFAULT_MOVEMENT.height > level.height + 80) throw new Error(`ledge fall is unsafe: ${entity.id}`);
+  }
+  const blocker = level.entities.find((candidate) => candidate.id !== entity.id
+    && (candidate.kind === 'checkpoint' || candidate.kind === 'spring')
+    && candidate.x >= left && candidate.x <= right);
+  if (blocker) throw new Error(`ledge overlaps ${blocker.kind}: ${entity.id}`);
+}
+
 export function validateLevel(level: LevelData): void {
   if (level.width <= 0 || level.height <= 0 || level.surfaces.length === 0) throw new Error('invalid level dimensions');
   if (level.surfaces[0].x1 !== level.minX || level.surfaces[level.surfaces.length - 1].x2 !== level.maxX) {
@@ -234,6 +254,7 @@ export function validateLevel(level: LevelData): void {
     ids.add(entity.id);
     if (entity.x < level.minX || entity.x > level.maxX) throw new Error(`entity outside level: ${entity.id}`);
     validatePatrol(level, entity);
+    validateCrumblingLedge(level, entity);
   }
   if (level.checkpoints.length === 0) throw new Error('level requires at least one checkpoint');
   for (const checkpoint of level.checkpoints) {

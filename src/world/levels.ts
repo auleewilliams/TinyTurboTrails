@@ -49,6 +49,10 @@ function quarryThing(kind: 'slime' | 'spring' | 'hazard', id: string, x: number)
   return quarryGrounded({ id, kind, x, asset, layer: 'world' });
 }
 
+function quarryLedge(id: string, x: number, y: number): WorldEntity {
+  return { id, kind: 'crumbling-ledge', x, y, width: 72, asset: 'stone', layer: 'world' };
+}
+
 // Quarry scenery avoids the stone sprite so it never reads as a hazard.
 function quarryDecoration(id: string, x: number, asset: 'cave' | 'bush'): WorldEntity {
   return quarryGrounded({ id, kind: 'decoration', x, asset, layer: 'back' });
@@ -138,6 +142,7 @@ export const QUARRY_RUN: LevelData = {
     quarryThing('slime', 'quarry-slime-005', 6100),
     quarryGem('quarry-gem-020', 6250),
     quarryThing('spring', 'quarry-spring-006', 6480),
+    quarryLedge('quarry-ledge-001', 6700, 164),
     quarryGem('quarry-gem-021', 6720),
     quarryGem('quarry-gem-022', 6840),
     quarryDecoration('quarry-deco-007', 5500, 'cave'),
@@ -152,6 +157,7 @@ export const QUARRY_RUN: LevelData = {
     quarryThing('hazard', 'quarry-hazard-006', 7660),
     quarryThing('spring', 'quarry-spring-007', 7780),
     quarryGem('quarry-bonus-005', 7860, 120, 7780),
+    quarryLedge('quarry-ledge-002', 8040, 154),
     quarryGem('quarry-gem-025', 8040),
     quarryThing('hazard', 'quarry-hazard-007', 8120),
     quarryThing('hazard', 'quarry-hazard-008', 8180),
@@ -168,6 +174,7 @@ export const QUARRY_RUN: LevelData = {
     quarryGem('quarry-bonus-006', 9420, 50),
     quarryThing('spring', 'quarry-spring-008', 9480),
     quarryThing('spring', 'quarry-spring-009', 9680),
+    quarryLedge('quarry-ledge-003', 9900, 96),
     quarryGem('quarry-gem-030', 9900),
     quarryThing('slime', 'quarry-slime-009', 9960),
     quarryGem('quarry-gem-031', 10040),

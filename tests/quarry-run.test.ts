@@ -78,6 +78,7 @@ it('is a long route split into six checkpointed sections', () => {
   expect(ofKind('slime').length).toBeGreaterThanOrEqual(8);
   expect(ofKind('hazard').length).toBeGreaterThanOrEqual(8);
   expect(ofKind('hazard').every(({ asset }) => asset === 'stone')).toBe(true);
+  expect(ofKind('crumbling-ledge')).toHaveLength(3);
   expect(pits.length).toBeGreaterThanOrEqual(5);
   for (const { from, to } of bySection) {
     const inSection = (entity: WorldEntity) => entity.x >= from && entity.x < to;
@@ -87,7 +88,7 @@ it('is a long route split into six checkpointed sections', () => {
 
 it('places the main route inside the walkable activation window and one jump-only bonus gem per section', () => {
   for (const entity of QUARRY_RUN.entities) {
-    if (entity.kind === 'decoration' || isBonus(entity)) continue;
+    if (entity.kind === 'decoration' || entity.kind === 'crumbling-ledge' || isBonus(entity)) continue;
     expect(Math.abs(lift(entity)), entity.id).toBeLessThanOrEqual(ACTIVATION_WINDOW);
   }
   const bonus = ofKind('gem').filter(isBonus);
@@ -98,6 +99,17 @@ it('places the main route inside the walkable activation window and one jump-onl
   }
   for (const gem of ofKind('gem')) {
     expect(gem.y - GEM_ART_HEIGHT, gem.id).toBeGreaterThanOrEqual(HUD_BOTTOM);
+  }
+});
+
+it('places crumbling ledges over safe ordinary terrain', () => {
+  for (const ledge of ofKind('crumbling-ledge')) {
+    expect(ledge.width).toBe(72);
+    for (const x of [ledge.x - 36, ledge.x, ledge.x + 36]) {
+      const ground = surfaceY(QUARRY_RUN, x);
+      expect(ground - ledge.y, ledge.id).toBeGreaterThanOrEqual(36);
+      expect(ground - DEFAULT_MOVEMENT.height, ledge.id).toBeLessThanOrEqual(FALL_Y);
+    }
   }
 });
 

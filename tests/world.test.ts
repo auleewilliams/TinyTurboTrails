@@ -1,6 +1,6 @@
 import { expect, it } from 'vitest';
 import { MAX_PATROL_SPEED, PLAINS_LEVEL, validateLevel, type WorldEntity } from '../src/world/level';
-import { DEFAULT_LEVEL, LEVELS, levelById } from '../src/world/levels';
+import { DEFAULT_LEVEL, LEVELS, QUARRY_RUN, levelById } from '../src/world/levels';
 import { surfaceY } from '../src/game/movement';
 import { Camera } from '../src/world/camera';
 
@@ -38,6 +38,26 @@ it('rejects non-contiguous surfaces and unplanted checkpoints', () => {
   expect(() => validateLevel({ ...PLAINS_LEVEL, checkpoints: [
     { id: 'checkpoint-meadow', x: 100, y: surfaceY(PLAINS_LEVEL, 100) },
   ] })).toThrow(/checkpoint/);
+});
+
+it('rejects malformed or unsafe crumbling ledges', () => {
+  const ledge = {
+    id: 'test-ledge', kind: 'crumbling-ledge', x: 500, y: 100,
+    width: 72, asset: 'stone', layer: 'world',
+  } as WorldEntity;
+  const withLedge = (entity: WorldEntity) => ({ ...PLAINS_LEVEL, entities: [...PLAINS_LEVEL.entities, entity] });
+
+  expect(() => validateLevel(withLedge({ ...ledge, width: undefined }))).toThrow(/ledge width/);
+  expect(() => validateLevel(withLedge({ ...ledge, width: 0 }))).toThrow(/ledge width/);
+  expect(() => validateLevel(withLedge({ ...ledge, x: 20 }))).toThrow(/ledge leaves the level/);
+  expect(() => validateLevel(withLedge({ ...ledge, y: 140 }))).toThrow(/ledge clearance/);
+  expect(() => validateLevel(withLedge({ ...ledge, x: 551, y: 100 }))).toThrow(/ledge overlaps/);
+
+  const unsafe = {
+    id: 'unsafe-ledge', kind: 'crumbling-ledge', x: 3786, y: 330,
+    width: 32, asset: 'stone', layer: 'world',
+  } as WorldEntity;
+  expect(() => validateLevel({ ...QUARRY_RUN, entities: [...QUARRY_RUN.entities, unsafe] })).toThrow(/ledge fall/);
 });
 it('keeps gems, hazards, slimes and springs reachable while walking, aside from optional elevated bonus gems', () => {
   const terrain = { minX: PLAINS_LEVEL.minX, maxX: PLAINS_LEVEL.maxX, surfaces: PLAINS_LEVEL.surfaces };
