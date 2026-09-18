@@ -1,4 +1,4 @@
-import { DEFAULT_MOVEMENT, launchSpring, surfaceY, type Player } from './movement';
+import { DEFAULT_MOVEMENT, launchSpring, surfaceY, type CollisionPlatform, type Player } from './movement';
 import type { LevelData, WorldEntity } from '../world/level';
 
 export type RunEvent =
@@ -8,8 +8,19 @@ export type RunEvent =
   | { type: 'spring'; entityId: string }
   | { type: 'recover' };
 
-/** Live position of a level entity. Patrolling entities move; the rest keep their level position. */
-export interface EntityState { id: string; active: boolean; x: number; y: number; direction: 1 | -1 }
+export const CRUMBLE_WARNING_SECONDS = 0.75;
+export type CrumblingLedgePhase = 'stable' | 'warning' | 'crumbled';
+
+/** Live position and transient behavior of a level entity. */
+export interface EntityState {
+  id: string;
+  active: boolean;
+  x: number;
+  y: number;
+  direction: 1 | -1;
+  ledgePhase?: CrumblingLedgePhase;
+  ledgeSeconds?: number;
+}
 
 export interface RunState {
   collectedGems: Set<string>;
@@ -23,7 +34,10 @@ export interface RunState {
 const CONTACT = { x: 18, y: 28, feet: 34 } as const;
 
 function placeEntities(level: LevelData): EntityState[] {
-  return level.entities.map((entity) => ({ id: entity.id, active: true, x: entity.x, y: entity.y, direction: 1 }));
+  return level.entities.map((entity) => ({
+    id: entity.id, active: true, x: entity.x, y: entity.y, direction: 1,
+    ...(entity.kind === 'crumbling-ledge' ? { ledgePhase: 'stable' as const, ledgeSeconds: 0 } : {}),
+  }));
 }
 
 export function createRun(level: LevelData): RunState {
@@ -41,6 +55,21 @@ export function startNewRun(run: RunState, level: LevelData): void {
 
 export function entityState(run: RunState, entityId: string): EntityState | undefined {
   return run.entities.find((candidate) => candidate.id === entityId);
+}
+
+export function activeLedgePlatforms(run: RunState, level: LevelData): CollisionPlatform[] {
+  return level.entities.flatMap((entity) => {
+    if (entity.kind !== 'crumbling-ledge' || entity.width === undefined) return [];
+    const state = entityState(run, entity.id);
+    if (!state?.active || state.ledgePhase === 'crumbled') return [];
+    return [{ id: entity.id, x1: entity.x - entity.width / 2, x2: entity.x + entity.width / 2, y: entity.y }];
+  });
+}
+
+export function ledgeWarningProgress(run: RunState, entityId: string): number {
+  const state = entityState(run, entityId);
+  if (state?.ledgePhase !== 'warning') return state?.ledgePhase === 'crumbled' ? 1 : 0;
+  return Math.max(0, Math.min(1, 1 - (state.ledgeSeconds ?? 0) / CRUMBLE_WARNING_SECONDS));
 }
 
 /** Where the entity is right now, for contact tests and drawing. */
@@ -74,6 +103,16 @@ export function stepEntities(run: RunState, level: LevelData, player: Player, se
     const state = entityState(run, entity.id);
     const { x, y } = state ?? entity;
     const touching = touchesPlayer(player, x, y);
+    if (entity.kind === 'crumbling-ledge') {
+      const halfWidth = (entity.width ?? 0) / 2;
+      const standing = player.onGround && Math.abs(player.y + DEFAULT_MOVEMENT.height - y) < 0.01
+        && player.x >= x - halfWidth && player.x <= x + halfWidth;
+      if (state?.active && state.ledgePhase === 'stable' && standing) {
+        state.ledgePhase = 'warning';
+        state.ledgeSeconds = CRUMBLE_WARNING_SECONDS;
+      }
+      continue;
+    }
     if (entity.kind === 'spring') {
       applySpring(run, player, entity.id, events, touching);
       continue;
@@ -86,7 +125,16 @@ export function stepEntities(run: RunState, level: LevelData, player: Player, se
 }
 
 export function tickRun(run: RunState, seconds: number): void {
-  run.invulnerableSeconds = Math.max(0, run.invulnerableSeconds - Math.max(0, seconds));
+  const dt = Math.max(0, seconds);
+  run.invulnerableSeconds = Math.max(0, run.invulnerableSeconds - dt);
+  for (const state of run.entities) {
+    if (state.ledgePhase !== 'warning') continue;
+    state.ledgeSeconds = Math.max(0, (state.ledgeSeconds ?? 0) - dt);
+    if (state.ledgeSeconds === 0) {
+      state.ledgePhase = 'crumbled';
+      state.active = false;
+    }
+  }
 }
 
 export function collectGem(run: RunState, entityId: string, events: RunEvent[]): boolean {
@@ -137,6 +185,12 @@ export function applySpring(run: RunState, player: Player, entityId: string, eve
 
 export function recoverFromFall(run: RunState, player: Player, events: RunEvent[], level: LevelData): void {
   run.springContacts.clear();
+  for (const state of run.entities) {
+    if (state.ledgePhase === undefined) continue;
+    state.active = true;
+    state.ledgePhase = 'stable';
+    state.ledgeSeconds = 0;
+  }
   const checkpoint = run.checkpointId ? level.checkpoints.find((candidate) => candidate.id === run.checkpointId) : undefined;
   const spawn = checkpoint ?? level.start;
   player.x = spawn.x;
