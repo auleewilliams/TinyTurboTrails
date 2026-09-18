@@ -1,5 +1,5 @@
 import { expect, it } from 'vitest';
-import { PLAINS_LEVEL, validateLevel } from '../src/world/level';
+import { MAX_PATROL_SPEED, PLAINS_LEVEL, validateLevel, type WorldEntity } from '../src/world/level';
 import { DEFAULT_LEVEL, LEVELS, levelById } from '../src/world/levels';
 import { surfaceY } from '../src/game/movement';
 import { Camera } from '../src/world/camera';
@@ -51,6 +51,44 @@ it('keeps gems, hazards, slimes and springs reachable while walking, aside from 
     expect(Math.abs(entity.y - surfaceY(terrain, entity.x))).toBeLessThanOrEqual(ACTIVATION_WINDOW);
   }
 });
+const patroller = PLAINS_LEVEL.entities.find((entity) => entity.patrol)!;
+// One patrolling slime under test, keeping the checkpoint entities the level requires.
+function withPatrol(patrol: WorldEntity['patrol']): typeof PLAINS_LEVEL {
+  const checkpoints = PLAINS_LEVEL.entities.filter((entity) => entity.kind === 'checkpoint');
+  return { ...PLAINS_LEVEL, entities: [{ ...patroller, patrol }, ...checkpoints] };
+}
+
+it('gives Plains slimes patrols that stay on walkable ground under Henry\'s top speed', () => {
+  const patrols = PLAINS_LEVEL.entities.filter((entity) => entity.patrol);
+  expect(patrols.length).toBeGreaterThan(0);
+  for (const entity of patrols) {
+    const patrol = entity.patrol!;
+    expect(entity.kind).toBe('slime');
+    expect(patrol.speed).toBeLessThanOrEqual(MAX_PATROL_SPEED);
+    expect(patrol.minX).toBeLessThan(patrol.maxX);
+    expect(entity.y).toBe(surfaceY(PLAINS_LEVEL, entity.x));
+    // The lane is walkable end to end: no cliff for the slime to hang off.
+    const rise = surfaceY(PLAINS_LEVEL, patrol.maxX) - surfaceY(PLAINS_LEVEL, patrol.minX);
+    expect(Math.abs(rise / (patrol.maxX - patrol.minX))).toBeLessThanOrEqual(1);
+  }
+});
+
+it('rejects patrols that leave the level, exclude their slime, outrun Henry or cross a cliff', () => {
+  const lane = { minX: patroller.patrol!.minX, maxX: patroller.patrol!.maxX };
+  expect(() => validateLevel(withPatrol({ minX: -20, maxX: 300, speed: 40 }))).toThrow(/leaves the level/);
+  expect(() => validateLevel(withPatrol({ minX: 0, maxX: PLAINS_LEVEL.maxX + 1, speed: 40 }))).toThrow(/leaves the level/);
+  expect(() => validateLevel(withPatrol({ minX: 300, maxX: 300, speed: 40 }))).toThrow(/bounds are empty/);
+  expect(() => validateLevel(withPatrol({ minX: 0, maxX: 100, speed: 40 }))).toThrow(/excludes its own entity/);
+  expect(() => validateLevel(withPatrol({ ...lane, speed: MAX_PATROL_SPEED + 1 }))).toThrow(/catchable/);
+  expect(() => validateLevel(withPatrol({ ...lane, speed: 0 }))).toThrow(/catchable/);
+  expect(() => validateLevel({ ...withPatrol({ ...lane, speed: 40 }), surfaces: [
+    { x1: 0, x2: 300, y1: 198, y2: 198 },
+    { x1: 300, x2: 310, y1: 198, y2: 20 },
+    { x1: 310, x2: PLAINS_LEVEL.maxX, y1: 20, y2: 20 },
+  ] })).toThrow(/unwalkable/);
+  expect(() => validateLevel(withPatrol(undefined))).not.toThrow();
+});
+
 it('follows a player inside a bounded dead zone without jitter', () => {
   const camera = new Camera({ width: 426, height: 240, worldWidth: 2400, worldHeight: 240 });
   camera.update(100, 90);

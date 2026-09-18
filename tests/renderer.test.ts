@@ -10,6 +10,7 @@ import { createPlayer } from '../src/game/movement';
 import { Camera } from '../src/world/camera';
 import { PLAINS_LEVEL } from '../src/world/level';
 import { QUARRY_RUN } from '../src/world/levels';
+import { platformBodyAt } from '../src/game/platforms';
 
 const manifest = JSON.parse(readFileSync(new URL('../public/assets/plains/manifest.json', import.meta.url), 'utf8'));
 
@@ -204,6 +205,25 @@ it('stops drawing a gem once the adventure collects it', () => {
   expect(gemCalls(after.images)).toBe(0);
 });
 
+it.each([
+  { name: 'original atlas', assets: worldAssets },
+  { name: 'generated scenery', assets: sceneryAssets },
+])('draws the runtime slime position with $name', ({ assets }) => {
+  const scene = new AdventureScene(henryAssets, assets, silentAudio, PLAINS_LEVEL);
+  scene.enter();
+  scene.update(1 / 60, start);
+  const slime = PLAINS_LEVEL.entities.find((entity) => entity.patrol)!;
+  const patrol = slime.patrol!;
+  for (let step = 0; step < 60; step++) scene.update(1 / 60, { ...start, jumpPressed: false });
+  const { ctx, images } = recordingContext();
+  scene.render(ctx);
+  // The camera is still at x=0 while Henry stands at the start, so drawn X is world X.
+  const drawnX = images.filter((call) => call[0] === assets.atlas && call[1] === 96 && call[2] === 96)
+    .map((call) => (call[5] as number) + 24);
+  expect(drawnX).not.toContain(slime.x);
+  expect(drawnX.some((x) => x > slime.x && x <= patrol.maxX)).toBe(true);
+});
+
 it('keeps the HUD left-aligned even after a centered overlay ran', () => {
   const scene = new AdventureScene(henryAssets, worldAssets, silentAudio, PLAINS_LEVEL);
   scene.enter();
@@ -220,4 +240,22 @@ it('draws the selected level name on the title screen', () => {
   const { ctx, texts } = recordingContext();
   scene.render(ctx);
   expect(texts.some(({ text }) => text === '◀ PLAINS ▶')).toBe(true);
+});
+
+it('draws each slab in the level palette and telegraphs its whole path', () => {
+  const { ctx } = recordingContext();
+  const rects: { style: string; args: number[] }[] = [];
+  ctx.fillRect = (...args: number[]) => { rects.push({ style: String(ctx.fillStyle), args }); };
+  const platform = { id: 'ferry', from: { x: 600, y: 150 }, to: { x: 700, y: 120 }, width: 48, seconds: 2 };
+  const level = { ...PLAINS_LEVEL, platforms: [platform] };
+  const camera = new Camera({ width: 426, height: 240, worldWidth: level.width, worldHeight: level.height });
+  const body = platformBodyAt(platform, 1);
+  drawWorld(ctx, worldAssets, level, camera, () => true, (entity) => entity, [body]);
+  expect(rects).toContainEqual({ style: level.theme.ground, args: [body.x, body.y, body.width, body.height] });
+  expect(rects).toContainEqual({ style: level.theme.edge, args: [body.x, body.y, body.width, 3] });
+  const path = rects.filter((rect) => rect.style === '#ffffff66');
+  // Pips along the path plus a marker at each end.
+  expect(path.length).toBeGreaterThan(4);
+  expect(path.map((rect) => rect.args[0]).some((x) => x <= platform.from.x + platform.width / 2)).toBe(true);
+  expect(path.map((rect) => rect.args[0]).some((x) => x >= platform.to.x + platform.width / 2 - 4)).toBe(true);
 });

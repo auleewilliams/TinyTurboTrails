@@ -1,4 +1,5 @@
 import { surfaceY, type Surface, type Terrain } from '../game/movement';
+import type { MovingPlatform } from '../game/platforms';
 import { PLAINS_LEVEL, type LevelData, type WorldEntity } from './level';
 
 // Quarry Run is authored as one contour of [x, y] points, split into six named
@@ -64,6 +65,22 @@ const quarryCheckpoints = [
   { id: 'quarry-checkpoint-summit', x: 8700 },
 ].map(({ id, x }) => ({ id, x, y: surfaceY(quarryTerrain, x) }));
 
+/**
+ * Quarry Run's two rides. Both are slow, park at each end, and are drawn with their whole
+ * path so the next move is visible before Henry commits to it. Both are optional and both
+ * dock on a section's walkable flat, so a missed boarding costs a landing, never a life:
+ * the spring pits keep their springs, because a ride Henry has to time is no way to cross one.
+ */
+const quarryPlatforms: readonly MovingPlatform[] = [
+  // Stone terraces: docks flush with the terrace between the two stone hazards, under the
+  // section's bonus gem, so waiting on the dock is a second, forgiving way up to a gem that
+  // otherwise needs a well-aimed jump.
+  { id: 'quarry-lift-terraces', from: { x: 2356, y: 120 }, to: { x: 2356, y: 66 }, width: 48, seconds: 2, pause: 1, offset: 0.25 },
+  // Crusher yard: 42px above the flat, clearing the paired stone hazards it carries riders over.
+  // A tapped jump reaches the deck, so boarding never needs a held jump.
+  { id: 'quarry-ferry-crusher', from: { x: 7130, y: 176 }, to: { x: 7262, y: 176 }, width: 48, seconds: 2.2, pause: 0.8 },
+];
+
 export const QUARRY_RUN: LevelData = {
   id: 'quarry',
   name: 'QUARRY RUN',
@@ -89,6 +106,7 @@ export const QUARRY_RUN: LevelData = {
   finish: { x: 10100, y: 150, asset: 'finish-arch' },
   surfaces: quarryTerrain.surfaces,
   checkpoints: quarryCheckpoints,
+  platforms: quarryPlatforms,
   entities: [
     // Quarry entrance
     quarryGem('quarry-gem-001', 200),

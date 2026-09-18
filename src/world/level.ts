@@ -1,8 +1,19 @@
-import { surfaceY, type Surface } from '../game/movement';
+import { DEFAULT_MOVEMENT, surfaceY, type Surface } from '../game/movement';
+import { PLATFORM_MAX_SPEED, platformSpeed, type MovingPlatform } from '../game/platforms';
 import type { WorldAsset } from './assets';
 
 export type WorldEntityKind = 'gem' | 'slime' | 'spring' | 'checkpoint' | 'hazard' | 'decoration';
-export interface WorldEntity { id: string; kind: WorldEntityKind; x: number; y: number; asset: string; layer: 'back' | 'world' | 'front' }
+/** Back-and-forth walk between two X bounds. The run owns the position; level data stays immutable. */
+export interface EntityPatrol { minX: number; maxX: number; speed: number }
+export interface WorldEntity {
+  id: string;
+  kind: WorldEntityKind;
+  x: number;
+  y: number;
+  asset: string;
+  layer: 'back' | 'world' | 'front';
+  patrol?: EntityPatrol;
+}
 export interface LevelTheme {
   scenery?: boolean;
   sky: string;
@@ -24,6 +35,8 @@ export interface LevelData {
   surfaces: readonly Surface[];
   checkpoints: readonly { id: string; x: number; y: number }[];
   entities: readonly WorldEntity[];
+  /** Slabs that move on a fixed path. Omitted by levels built from terrain alone. */
+  platforms?: readonly MovingPlatform[];
 }
 
 const plainsTerrain = {
@@ -142,18 +155,18 @@ export const PLAINS_LEVEL: LevelData = {
     { id: 'gem-042', kind: 'gem', x: 9260, y: 157, asset: 'gem', layer: 'world' },
     { id: 'gem-043', kind: 'gem', x: 9520, y: 92, asset: 'gem', layer: 'world' },
     { id: 'gem-044', kind: 'gem', x: 9780, y: 142, asset: 'gem', layer: 'world' },
-    groundedEntity({ id: 'slime-001', kind: 'slime', x: 260, asset: 'slime', layer: 'world' }),
-    groundedEntity({ id: 'slime-002', kind: 'slime', x: 960, asset: 'slime', layer: 'world' }),
-    groundedEntity({ id: 'slime-003', kind: 'slime', x: 1660, asset: 'slime', layer: 'world' }),
+    groundedEntity({ id: 'slime-001', kind: 'slime', x: 260, asset: 'slime', layer: 'world', patrol: { minX: 230, maxX: 345, speed: 36 } }),
+    groundedEntity({ id: 'slime-002', kind: 'slime', x: 960, asset: 'slime', layer: 'world', patrol: { minX: 810, maxX: 985, speed: 34 } }),
+    groundedEntity({ id: 'slime-003', kind: 'slime', x: 1660, asset: 'slime', layer: 'world', patrol: { minX: 1570, maxX: 1740, speed: 42 } }),
     groundedEntity({ id: 'slime-004', kind: 'slime', x: 2160, asset: 'slime', layer: 'world' }),
-    groundedEntity({ id: 'slime-005', kind: 'slime', x: 2860, asset: 'slime', layer: 'world' }),
-    groundedEntity({ id: 'slime-006', kind: 'slime', x: 3560, asset: 'slime', layer: 'world' }),
+    groundedEntity({ id: 'slime-005', kind: 'slime', x: 2860, asset: 'slime', layer: 'world', patrol: { minX: 2700, maxX: 2860, speed: 38 } }),
+    groundedEntity({ id: 'slime-006', kind: 'slime', x: 3560, asset: 'slime', layer: 'world', patrol: { minX: 3400, maxX: 3570, speed: 46 } }),
     groundedEntity({ id: 'slime-007', kind: 'slime', x: 3980, asset: 'slime', layer: 'world' }),
     groundedEntity({ id: 'slime-008', kind: 'slime', x: 4680, asset: 'slime', layer: 'world' }),
     groundedEntity({ id: 'slime-009', kind: 'slime', x: 5700, asset: 'slime', layer: 'world' }),
     groundedEntity({ id: 'slime-010', kind: 'slime', x: 6400, asset: 'slime', layer: 'world' }),
     groundedEntity({ id: 'slime-011', kind: 'slime', x: 7440, asset: 'slime', layer: 'world' }),
-    groundedEntity({ id: 'slime-012', kind: 'slime', x: 8140, asset: 'slime', layer: 'world' }),
+    groundedEntity({ id: 'slime-012', kind: 'slime', x: 8140, asset: 'slime', layer: 'world', patrol: { minX: 7960, maxX: 8140, speed: 40 } }),
     groundedEntity({ id: 'slime-013', kind: 'slime', x: 8910, asset: 'slime', layer: 'world' }),
     groundedEntity({ id: 'slime-014', kind: 'slime', x: 9610, asset: 'slime', layer: 'world' }),
     { id: 'spring-001', kind: 'spring', x: 1558, y: 186, asset: 'spring', layer: 'world' },
@@ -189,6 +202,27 @@ export const PLAINS_LEVEL: LevelData = {
   ],
 };
 
+// Patrol slimes walk the ground they are given: bounds must stay inside the level, on
+// walkable (<=45 degrees) terrain, and slow enough that Henry can always outrun them.
+export const MAX_PATROL_SPEED = DEFAULT_MOVEMENT.maxSpeed / 2;
+const MAX_PATROL_SLOPE = 1;
+
+function validatePatrol(level: LevelData, entity: WorldEntity): void {
+  const patrol = entity.patrol;
+  if (!patrol) return;
+  if (!(patrol.minX < patrol.maxX)) throw new Error(`patrol bounds are empty: ${entity.id}`);
+  if (patrol.minX < level.minX || patrol.maxX > level.maxX) throw new Error(`patrol leaves the level: ${entity.id}`);
+  if (entity.x < patrol.minX || entity.x > patrol.maxX) throw new Error(`patrol excludes its own entity: ${entity.id}`);
+  if (patrol.speed <= 0 || patrol.speed > MAX_PATROL_SPEED) throw new Error(`patrol speed must stay catchable: ${entity.id}`);
+  for (const surface of level.surfaces) {
+    if (surface.x2 <= patrol.minX || surface.x1 >= patrol.maxX) continue;
+    const span = surface.x2 - surface.x1;
+    if (span <= 0 || Math.abs((surface.y2 - surface.y1) / span) > MAX_PATROL_SLOPE) {
+      throw new Error(`patrol crosses unwalkable ground: ${entity.id}`);
+    }
+  }
+}
+
 export function validateLevel(level: LevelData): void {
   if (level.width <= 0 || level.height <= 0 || level.surfaces.length === 0) throw new Error('invalid level dimensions');
   if (level.surfaces[0].x1 !== level.minX || level.surfaces[level.surfaces.length - 1].x2 !== level.maxX) {
@@ -204,6 +238,7 @@ export function validateLevel(level: LevelData): void {
     if (!entity.id || ids.has(entity.id)) throw new Error(`duplicate entity id: ${entity.id}`);
     ids.add(entity.id);
     if (entity.x < level.minX || entity.x > level.maxX) throw new Error(`entity outside level: ${entity.id}`);
+    validatePatrol(level, entity);
   }
   if (level.checkpoints.length === 0) throw new Error('level requires at least one checkpoint');
   for (const checkpoint of level.checkpoints) {
@@ -214,4 +249,25 @@ export function validateLevel(level: LevelData): void {
     if (checkpoint.y !== surfaceY(level, checkpoint.x)) throw new Error(`checkpoint is not planted on terrain: ${checkpoint.id}`);
   }
   if (level.finish.x <= level.start.x || level.finish.x > level.width) throw new Error('finish must follow start');
+  validatePlatforms(level, ids);
+}
+
+function validatePlatforms(level: LevelData, entityIds: ReadonlySet<string>): void {
+  const ids = new Set<string>();
+  for (const platform of level.platforms ?? []) {
+    if (!platform.id || ids.has(platform.id) || entityIds.has(platform.id)) throw new Error(`duplicate platform id: ${platform.id}`);
+    ids.add(platform.id);
+    const numbers = [platform.width, platform.seconds, platform.pause ?? 0, platform.offset ?? 0,
+      platform.from.x, platform.from.y, platform.to.x, platform.to.y];
+    if (!numbers.every(Number.isFinite)) throw new Error(`invalid platform timing: ${platform.id}`);
+    if (platform.width <= 0 || platform.seconds <= 0 || (platform.pause ?? 0) < 0) throw new Error(`invalid platform timing: ${platform.id}`);
+    // Slow and predictable beats clever: a platform Henry cannot read is a platform he cannot use.
+    if (platformSpeed(platform) > PLATFORM_MAX_SPEED) throw new Error(`platform is too fast to read: ${platform.id}`);
+    for (const end of [platform.from, platform.to]) {
+      if (end.x < level.minX || end.x + platform.width > level.maxX) throw new Error(`platform outside level: ${platform.id}`);
+      if (end.y < 0 || end.y > level.height) throw new Error(`platform outside level: ${platform.id}`);
+      // A slab parked under the ground can never be boarded, so treat it as level data rot.
+      if (end.y > surfaceY(level, end.x + platform.width / 2) + 1) throw new Error(`platform is buried in terrain: ${platform.id}`);
+    }
+  }
 }

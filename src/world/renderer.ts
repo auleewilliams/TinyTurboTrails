@@ -1,13 +1,18 @@
 import type { Camera } from './camera';
 import type { LevelData, WorldEntity } from './level';
+import type { PlatformBody } from '../game/movement';
+import type { MovingPlatform } from '../game/platforms';
 import type { WorldAsset, WorldAssets } from './assets';
 import { drawSceneryBackground, drawScenerySprite, foregroundPlacements, sceneryForDecoration } from './scenery';
 
 /** Scenes without run state draw the whole entity list; a run hides what it has consumed. */
 export type EntityFilter = (entity: WorldEntity) => boolean;
+/** Patrolling entities live in run state, so a run places them; level data is the fallback. */
+export type EntityPosition = (entity: WorldEntity) => { x: number; y: number };
 
 export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, level: LevelData, camera: Camera,
-  isVisible: EntityFilter = () => true): void {
+  isVisible: EntityFilter = () => true, positionOf: EntityPosition = (entity) => entity,
+  platforms: readonly PlatformBody[] = []): void {
   const offset = camera.position;
   const { atlas, manifest } = assets;
   const cell = manifest.cellSize;
@@ -48,14 +53,16 @@ export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, le
     ctx.lineTo(surface.x2 - offset.x, surface.y2 - offset.y);
     ctx.stroke();
   }
+  drawPlatforms(ctx, level, offset, platforms);
   // Decorative silhouettes sit behind every collectible, hazard and checkpoint.
   const entities = scenery ? [...level.entities.filter((entity) => entity.kind === 'decoration'),
     ...level.entities.filter((entity) => entity.kind !== 'decoration')] : level.entities;
   for (const entity of entities) {
     if (!isVisible(entity)) continue;
+    const position = positionOf(entity);
     const sprite = scenery && sceneryForDecoration(entity);
-    if (scenery && sprite) drawScenerySprite(ctx, scenery, sprite, entity.x - offset.x, entity.y - offset.y);
-    else drawAsset(ctx, assets, entity.asset as WorldAsset, entity.x - offset.x, entity.y - offset.y, 1);
+    if (scenery && sprite) drawScenerySprite(ctx, scenery, sprite, position.x - offset.x, position.y - offset.y);
+    else drawAsset(ctx, assets, entity.asset as WorldAsset, position.x - offset.x, position.y - offset.y, 1);
   }
   drawAsset(ctx, assets, level.finish.asset as WorldAsset, level.finish.x - offset.x, level.finish.y - offset.y, 2);
   // Keep the draw source referenced so a bad cell size cannot silently pass.
@@ -71,6 +78,34 @@ export function drawWorldForeground(ctx: CanvasRenderingContext2D, assets: World
     if (x < -48 || x > 474) continue;
     drawScenerySprite(ctx, assets.scenery, prop.sprite, x, prop.y - camera.position.y);
   }
+}
+
+/** Paths are drawn before the slabs so a rider always sees where the ride goes next. */
+export function drawPlatforms(ctx: CanvasRenderingContext2D, level: LevelData, offset: { x: number; y: number },
+  platforms: readonly PlatformBody[]): void {
+  for (const platform of level.platforms ?? []) {
+    drawPlatformPath(ctx, platform, offset);
+    const body = platforms.find((candidate) => candidate.id === platform.id);
+    if (!body) continue;
+    ctx.fillStyle = level.theme.ground;
+    ctx.fillRect(body.x - offset.x, body.y - offset.y, body.width, body.height);
+    ctx.fillStyle = level.theme.edge;
+    ctx.fillRect(body.x - offset.x, body.y - offset.y, body.width, 3);
+  }
+}
+
+export function drawPlatformPath(ctx: CanvasRenderingContext2D, platform: MovingPlatform, offset: { x: number; y: number }): void {
+  const fromX = platform.from.x + platform.width / 2 - offset.x;
+  const fromY = platform.from.y - offset.y;
+  const toX = platform.to.x + platform.width / 2 - offset.x;
+  const toY = platform.to.y - offset.y;
+  const pips = Math.max(2, Math.round(Math.hypot(toX - fromX, toY - fromY) / 12));
+  ctx.fillStyle = '#ffffff66';
+  for (let pip = 0; pip <= pips; pip++) {
+    const progress = pip / pips;
+    ctx.fillRect(Math.round(fromX + (toX - fromX) * progress) - 1, Math.round(fromY + (toY - fromY) * progress) - 1, 2, 2);
+  }
+  for (const [x, y] of [[fromX, fromY], [toX, toY]]) ctx.fillRect(x - 4, y - 2, 8, 2);
 }
 
 export function drawAsset(ctx: CanvasRenderingContext2D, assets: WorldAssets, asset: WorldAsset, x: number, y: number, scale = 1): void {

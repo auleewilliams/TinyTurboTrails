@@ -20,6 +20,8 @@ in issues #5 and #6.
 | coyote time | 100 ms | ledge grace |
 | jump buffer | 120 ms | press just before landing |
 | spring velocity | 620 px/s | reusable launch response |
+| platform top speed | 90 px/s | readable ride, enforced by level validation |
+| platform ride snap | 6 px | vertical slack that keeps a rider planted |
 
 The simulation receives seconds and is intended to run from the foundation's
 fixed 60 Hz clock. A movement update subdivides any displacement above four
@@ -33,6 +35,12 @@ section and a spring marker. Boundary clamps stop Henry at the course edges.
 `animationFor` maps vertical velocity to jump/fall and grounded horizontal
 velocity to idle/run. It does not infer collision from artwork. The shared
 48 × 48 atlas anchor places the sprite's boot baseline at the collision feet.
+
+Moving platforms are the one thing terrain cannot express, because `surfaceY`
+allows only one ground height per x. They are separate level data with their own
+collision pass, resolved after terrain inside the same substeps, and they gave
+the movement step the ground velocity it previously lacked. See
+[moving platforms](moving-platforms.md).
 
 Collision, input and animation tests cover acceleration caps, braking, variable
 jumps, jump buffering, coyote time, slope following, downhill acceleration,
