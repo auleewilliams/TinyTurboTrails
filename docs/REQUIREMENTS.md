@@ -20,18 +20,20 @@ is a detailed child in a blocky world — not a cuboid Minecraft avatar.
 
 ## Scope of the first release
 
-Three desktop-browser levels selected from a title-screen picker: Plains,
-Quarry Run and Treetop Timbers. All routes target roughly 3–5 minutes, with
+Four desktop-browser levels selected from a title-screen picker: Plains,
+Quarry Run, Treetop Timbers and Sunset Site. All routes target roughly 3–5 minutes, with
 momentum, slopes and springs. Quarry Run adds spring pits, stepped terraces,
 grouped stone hazards and two slow moving platforms; both rides are optional
 and no route depends on timing one. Treetop Timbers adds plank trails, shallow
 rope-bridge contours, crane-hook springs and sawhorse hazards without changing
-the single-height terrain model. Keyboard and standard-controller support.
+the single-height terrain model. Sunset Site adds a construction yard at dusk,
+patrolling slimes, spring-cleared pits and one optional crane ferry. Keyboard
+and standard-controller support.
 Henry starts each run with three visible health pips. Each unblocked slime or
 hazard hit removes one pip; losing the last pip returns him to the latest
 checkpoint, or the level start, and refills all three. Pit recovery also refills
 health without costing a pip, while activating a checkpoint does not heal him.
-Quarry Run reuses the Plains atlas; Treetop Timbers ships its own project-local
+Quarry Run and Sunset Site reuse the Plains atlas; Treetop Timbers ships its own project-local
 16-cell atlas. Moving platforms are drawn from the level's own theme colors.
 
 ## Target browsers

@@ -505,6 +505,21 @@ test('title picker renders Treetop Timbers with its own atlas', async ({ page },
   await info.attach('treetop-timbers', { path: screenshot, contentType: 'image/png' });
 });
 
+test('title picker wraps back to Sunset Site and starts it', async ({ page }) => {
+  await page.goto('/?scene=adventure&debug=1');
+  await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
+  // Left from Plains wraps to the last registered level.
+  await page.keyboard.down('ArrowLeft');
+  await page.waitForTimeout(100);
+  await page.keyboard.up('ArrowLeft');
+  await page.keyboard.press('Space');
+  await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
+  await page.keyboard.down('ArrowRight');
+  await page.waitForTimeout(600);
+  await page.keyboard.up('ArrowRight');
+  await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
+});
+
 test('adventure mute control updates the audio state', async ({ page }) => {
   await page.goto('/?scene=adventure');
   await expect(page.locator('#status')).toContainText('Adventure preview', { timeout: 15000 });

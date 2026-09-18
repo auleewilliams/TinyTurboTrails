@@ -1,7 +1,7 @@
 # Tiny Turbo Trails
 
 A sidescrolling 16-bit platformer for Henry. This is the **certified first
-playable release**: it includes the Plains, Quarry Run and Treetop Timbers
+playable release**: it includes the Plains, Quarry Run, Treetop Timbers and Sunset Site
 worlds, Henry's starter art, movement, gems, hazards, checkpoints, Quarry
 Run's moving platforms, local music/effects and a title-to-adventure shell
 with a level picker. Release certification (issue #8) is closed; see
@@ -21,7 +21,7 @@ npm run dev
 
 Open the URL printed by Vite with `?scene=adventure` appended (normally
 `http://127.0.0.1:5173/?scene=adventure`). Use **Left/Right** to choose Plains,
-Quarry Run or Treetop Timbers, then press **Space** or any standard face button
+Quarry Run, Treetop Timbers or Sunset Site, then press **Space** or any standard face button
 (A/B/X/Y) to start. The bare `/` URL opens a diagnostic screen.
 Stop the server with Ctrl+C. An adult must start the server and open the adventure
 page for Henry; public hosting is out of scope.

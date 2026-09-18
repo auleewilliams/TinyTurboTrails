@@ -15,6 +15,8 @@ export interface WorldEntity {
   patrol?: EntityPatrol;
   width?: number;
 }
+/** A low sun drawn behind the parallax; it drifts at a fraction of the camera so it feels far away. */
+export interface LevelSun { x: number; y: number; radius: number; color: string; glow: string }
 export interface LevelTheme {
   scenery?: boolean;
   /** Draw the shared terrain cells over the solid collision contour. */
@@ -22,6 +24,7 @@ export interface LevelTheme {
   sky: string;
   ground: string;
   edge: string;
+  sun?: LevelSun;
   parallax: readonly { asset: WorldAsset; x: number; y: number; scale: number }[];
 }
 export interface LevelData {

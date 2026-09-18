@@ -1,7 +1,7 @@
 # Adventure screens and levels — issue #6
 
 Open `/` (or `/?scene=adventure`) for the complete first-play shell. The title
-screen uses Left/Right to select Plains or Quarry Run, then starts with Space or
+screen uses Left/Right to select Plains, Quarry Run or Sunset Site, then starts with Space or
 any standard controller face button (A/B/X/Y). The loading state is entered before local
 assets are ready, and each playable route uses the shared movement and run
 interaction systems. Escape uses the foundation pause gate, freezing the
@@ -26,7 +26,14 @@ summit exit (issue #73). It has spring steps and spring-cleared pits that
 recover to the section checkpoint, slimes and grouped stone hazards, one
 jump-only bonus gem per section (two float above pits and need a jump timed
 with the spring launch) and seven checkpoints. It reuses the Plains atlas, so the
-second route introduces no new biome artwork. Control prompts are short and
+second route introduces no new biome artwork. Sunset Site (issue #33) is a
+construction-yard route at dusk with the same six-section shape — site gate,
+girder stairs, cement yard, trench, scaffold climb and sunset summit — plus a
+late checkpoint before its closing double pit (seven in all). It has stepped
+ramps, patrolling slimes, four spring-cleared pits, paired stone hazards and
+one optional crane ferry over the yard's hazards. Its theme adds a low
+`sun` (a stepped pixel disc drawn behind the ground) and a warm palette that
+keeps the grass-green edge, and it also reuses the Plains atlas. Control prompts are short and
 visual enough for the intended six-year-old player. The preview uses the
 selected level's local assets and displays a readable loading failure in the
 main shell.

@@ -5,7 +5,7 @@ import { GameplayPreviewScene } from '../src/game/gameplay-preview';
 import { AdventureScene } from '../src/game/adventure-scene';
 import type { GameAudio } from '../src/core/audio';
 import { PLAINS_LEVEL } from '../src/world/level';
-import { QUARRY_RUN, TREETOP_TIMBERS } from '../src/world/levels';
+import { QUARRY_RUN, SUNSET_SITE } from '../src/world/levels';
 import { ScreenController } from '../src/game/screens';
 
 const alternateLevel = { ...PLAINS_LEVEL,
@@ -48,11 +48,11 @@ describe('game screen flow', () => {
     expect(scene.selectedLevelName).toBe('PLAINS');
     scene.update(1 / 60, neutral);
     scene.update(1 / 60, { ...neutral, horizontal: -1 });
-    expect(scene.selectedLevelName).toBe(TREETOP_TIMBERS.name);
+    expect(scene.selectedLevelName).toBe(SUNSET_SITE.name);
     (scene as unknown as { run: { health: number } }).run.health = 1;
     scene.update(1 / 60, { ...neutral, jumpPressed: true });
     expect(scene.screenState).toBe('playing');
-    expect(scene.playerX).toBe(TREETOP_TIMBERS.start.x);
+    expect(scene.playerX).toBe(SUNSET_SITE.start.x);
     expect((scene as unknown as { run: { health: number } }).run.health).toBe(3);
   });
 
