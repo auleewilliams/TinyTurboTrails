@@ -39,6 +39,14 @@ The lockfile fixes dependency versions. `dist/` is a static build that needs an
 HTTP server; opening index.html directly as a file is not supported. CI runs the
 same checks on pushes and pull requests.
 
+## Deployment
+
+The game also runs as a small Docker/nginx container on the home Proxmox
+server, so Henry can play from any machine on the LAN without an adult
+running `npm run dev` first. This stays LAN-only — no TLS, no public DNS.
+See [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md) for first-time setup,
+deploying an update and rolling back.
+
 ## Controls
 
 Open `/` for the foundation screen or `/?scene=adventure` for the title,

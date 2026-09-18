@@ -36,7 +36,11 @@ issue 01 onward rather than only at release.
 ## Out of scope for this release
 
 No mining, building, crafting, loops, charged dashes, new biome artwork, touch
-controls, public hosting or persistent progress.
+controls, public hosting or persistent progress. Public hosting means a public
+domain, TLS or exposure beyond the home LAN; running the built container on a
+home server for LAN-only access (issue #77) is self-hosting, not public
+hosting, and is in scope. Nothing about progress or persistence changes: the
+game remains in-memory only when self-hosted.
 
 ## Asset generation
 
