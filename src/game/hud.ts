@@ -14,8 +14,8 @@ export function drawGameplayHud(ctx: CanvasRenderingContext2D, run: RunState, co
 
   for (let index = 0; index < MAX_HEALTH; index++) {
     const full = index < run.health;
-    const flashing = index === run.health && run.healthFlashSeconds > 0;
-    ctx.fillStyle = full ? '#ff5d5d' : flashing ? '#ffda75' : '#31434a';
+    const flashing = index === run.healthFlashPip && run.healthFlashSeconds > 0;
+    ctx.fillStyle = flashing ? '#ffda75' : full ? '#ff5d5d' : '#31434a';
     const x = PIP.startX + index * (PIP.size + PIP.gap);
     ctx.fillRect(x, PIP.y, PIP.size, PIP.size);
     ctx.strokeStyle = '#e9f2df';

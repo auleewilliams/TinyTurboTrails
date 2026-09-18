@@ -14,9 +14,11 @@ describe('in-memory run interactions', () => {
     const run = createRun(PLAINS_LEVEL);
     expect(run.health).toBe(3);
     run.health = 1;
+    run.healthFlashPip = 1;
     run.healthFlashSeconds = 0.2;
     startNewRun(run, PLAINS_LEVEL);
     expect(run.health).toBe(3);
+    expect(run.healthFlashPip).toBeNull();
     expect(run.healthFlashSeconds).toBe(0);
   });
 
@@ -59,6 +61,7 @@ describe('in-memory run interactions', () => {
     const log = events();
     expect(damagePlayer(run, henry, 1, log, PLAINS_LEVEL)).toBe(true);
     expect(run.health).toBe(2);
+    expect(run.healthFlashPip).toBe(2);
     expect(run.healthFlashSeconds).toBeGreaterThan(0);
     expect(henry.vx).toBeLessThan(0);
     expect(henry.vy).toBeLessThan(0);
@@ -66,6 +69,7 @@ describe('in-memory run interactions', () => {
     expect(damagePlayer(run, henry, 1, log, PLAINS_LEVEL)).toBe(false);
     expect(run.health).toBe(2);
     tickRun(run, 1.1);
+    expect(run.healthFlashPip).toBeNull();
     expect(run.healthFlashSeconds).toBe(0);
     expect(damagePlayer(run, henry, -1, log, PLAINS_LEVEL)).toBe(true);
     expect(run.health).toBe(1);
@@ -151,6 +155,7 @@ describe('in-memory run interactions', () => {
     run.health = 1;
     recoverFromFall(run, henry, log, PLAINS_LEVEL);
     expect(run.health).toBe(3);
+    expect(run.healthFlashPip).toBeNull();
     expect(log).toEqual([{ type: 'recover' }]);
   });
 
@@ -167,6 +172,8 @@ describe('in-memory run interactions', () => {
     expect(henry.x).toBe(checkpoint.x);
     expect(henry.y).toBe(checkpoint.y - DEFAULT_MOVEMENT.height);
     expect(run.health).toBe(3);
+    expect(run.healthFlashPip).toBe(0);
+    expect(run.healthFlashSeconds).toBeGreaterThan(0);
     expect(log.slice(-2)).toEqual([
       { type: 'damage', entityId: 'hazard-test' },
       { type: 'recover' },

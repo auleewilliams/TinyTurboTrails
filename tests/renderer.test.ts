@@ -245,6 +245,7 @@ function renderedHealthPips(scene: AdventureScene | GameplayPreviewScene, health
   if (scene instanceof AdventureScene) scene.update(1 / 60, start);
   const run = (scene as unknown as { run: RunState }).run;
   run.health = health;
+  run.healthFlashPip = healthFlashSeconds > 0 ? health : null;
   run.healthFlashSeconds = healthFlashSeconds;
   const { ctx, rects } = recordingContext();
   scene.render(ctx);
@@ -266,6 +267,19 @@ it.each([
 it('briefly highlights the pip most recently lost', () => {
   const pips = renderedHealthPips(new AdventureScene(henryAssets, worldAssets, silentAudio, PLAINS_LEVEL), 2, 0.2);
   expect(pips.map(({ fillStyle }) => fillStyle)).toEqual(['#ff5d5d', '#ff5d5d', '#ffda75']);
+});
+
+it('briefly highlights the final lost pip after lethal damage refills health', () => {
+  const scene = new AdventureScene(henryAssets, worldAssets, silentAudio, PLAINS_LEVEL);
+  scene.update(1 / 60, start);
+  const state = scene as unknown as { player: ReturnType<typeof createPlayer>; run: RunState };
+  state.run.health = 1;
+  damagePlayer(state.run, state.player, 1, [], PLAINS_LEVEL);
+
+  const { ctx, rects } = recordingContext();
+  scene.render(ctx);
+  const pips = rects.filter(({ y, width, height }) => y === 10 && width === 6 && height === 6);
+  expect(pips.map(({ fillStyle }) => fillStyle)).toEqual(['#ffda75', '#ff5d5d', '#ff5d5d']);
 });
 
 it('draws the selected level name on the title screen', () => {
