@@ -1,0 +1,16 @@
+# Reverse proxy for Tiny Turbo Trails. Not wired in yet — see the
+# commented-out `caddy` service in docker-compose.yml. LAN access today goes
+# straight to the tiny-turbo-trails container on HOST_PORT; this file is
+# ready for when a LAN hostname or public HTTPS is wanted, without changing
+# the game image itself.
+
+http://{$LAN_HOSTNAME:tinyturbotrails.lan} {
+	reverse_proxy tiny-turbo-trails:80
+}
+
+# To move this past the LAN later:
+# 1. Point a real domain's DNS record at this host.
+# 2. Replace the address above with that domain, dropping the `http://`
+#    prefix — Caddy then issues and renews a Let's Encrypt certificate for
+#    it automatically.
+# 3. Publish 443 on the `caddy` service in docker-compose.yml.

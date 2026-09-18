@@ -1,0 +1,36 @@
+services:
+  tiny-turbo-trails:
+    image: ghcr.io/auleewilliams/tiny-turbo-trails:latest
+    restart: unless-stopped
+    ports:
+      - "${HOST_PORT:-8080}:80"
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "-", "http://localhost/healthz"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+
+  # Add a reverse proxy in front of tiny-turbo-trails when the game needs to
+  # leave the LAN, so HTTPS and a public hostname are a config change rather
+  # than a rebuild of this image. The Caddyfile alongside this file is ready
+  # to use once this block and the `caddy` port on tiny-turbo-trails (change
+  # "${HOST_PORT:-8080}:80" above to "127.0.0.1:${HOST_PORT:-8080}:80" so
+  # only Caddy is reachable from outside the host) are uncommented:
+  #
+  # caddy:
+  #   image: caddy:alpine
+  #   restart: unless-stopped
+  #   environment:
+  #     - LAN_HOSTNAME=${LAN_HOSTNAME:-tinyturbotrails.lan}
+  #   ports:
+  #     - "80:80"
+  #     - "443:443"
+  #   volumes:
+  #     - ./Caddyfile:/etc/caddy/Caddyfile
+  #     - caddy_data:/data
+  #   depends_on:
+  #     - tiny-turbo-trails
+  #
+  # volumes:
+  #   caddy_data:
