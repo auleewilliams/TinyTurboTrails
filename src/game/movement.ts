@@ -16,6 +16,7 @@ export const DEFAULT_MOVEMENT = {
 
 export interface Surface { x1: number; x2: number; y1: number; y2: number }
 export interface Terrain { minX: number; maxX: number; surfaces: readonly Surface[] }
+export interface CollisionPlatform { id: string; x1: number; x2: number; y: number }
 export interface MovementInput { horizontal: number; jumpPressed: boolean; jumpHeld: boolean }
 export type Facing = 1 | -1;
 export interface Player {
@@ -56,7 +57,8 @@ function approach(value: number, target: number, amount: number): number {
 }
 
 /** Fixed-step friendly movement. Collision is resolved in <=4px substeps. */
-export function simulatePlayer(player: Player, input: MovementInput, terrain: Terrain, seconds: number): void {
+export function simulatePlayer(player: Player, input: MovementInput, terrain: Terrain, seconds: number,
+  platforms: readonly CollisionPlatform[] = []): void {
   const dt = Math.max(0, Math.min(seconds, 0.1));
   if (input.jumpPressed) player.jumpBufferSeconds = DEFAULT_MOVEMENT.jumpBufferSeconds;
   else player.jumpBufferSeconds = Math.max(0, player.jumpBufferSeconds - dt);
@@ -91,11 +93,19 @@ export function simulatePlayer(player: Player, input: MovementInput, terrain: Te
 
     if (!input.jumpHeld && player.vy < 0) player.vy += DEFAULT_MOVEMENT.gravity * (1 - DEFAULT_MOVEMENT.jumpCutMultiplier) * step;
     player.vy += DEFAULT_MOVEMENT.gravity * step;
+    const previousFeet = player.y + DEFAULT_MOVEMENT.height;
     player.y += player.vy * step;
     const ground = surfaceY(terrain, player.x);
     const feet = player.y + DEFAULT_MOVEMENT.height;
-    if (player.vy >= 0 && feet >= ground) {
-      player.y = ground - DEFAULT_MOVEMENT.height;
+    let landingY = feet >= ground ? ground : Number.POSITIVE_INFINITY;
+    if (player.vy >= 0) {
+      for (const platform of platforms) {
+        const inside = player.x >= platform.x1 && player.x <= platform.x2;
+        if (inside && previousFeet <= platform.y && feet >= platform.y) landingY = Math.min(landingY, platform.y);
+      }
+    }
+    if (player.vy >= 0 && Number.isFinite(landingY)) {
+      player.y = landingY - DEFAULT_MOVEMENT.height;
       player.vy = 0;
       player.onGround = true;
       player.coyoteSeconds = DEFAULT_MOVEMENT.coyoteSeconds;
