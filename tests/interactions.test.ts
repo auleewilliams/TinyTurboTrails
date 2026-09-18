@@ -227,7 +227,7 @@ describe('in-memory run interactions', () => {
     const hurt = player();
     hurt.platformId = 'ferry';
     hurt.groundVelocityX = 50;
-    damagePlayer(run, hurt, -1, log);
+    damagePlayer(run, hurt, -1, log, PLAINS_LEVEL);
     expect(hurt.platformId).toBeNull();
     expect(hurt.groundVelocityX).toBe(0);
     const fallen = player();
