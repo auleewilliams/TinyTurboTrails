@@ -41,7 +41,7 @@ const checkpoints = kit.checkpoints([
 
 /**
  * One optional crane ferry over the yard's paired hazards: slow, parked at both ends and
- * docked on the walkable flat, so a missed boarding costs a landing, never a life.
+ * docked over the walkable flat, so a missed boarding costs a landing, never a life.
  */
 const platforms: readonly MovingPlatform[] = [
   { id: 'site-crane-ferry', from: { x: 4330, y: 156 }, to: { x: 4462, y: 156 }, width: 48, seconds: 2.2, pause: 0.8 },
@@ -124,7 +124,8 @@ export const SUNSET_SITE: LevelData = {
     thing('spring', 'site-spring-004', 9280),
     thing('spring', 'site-spring-005', 9520),
     gem('site-bonus-006', 9600, 120, 9520),
-    thing('slime', 'site-slime-009', 9720, { minX: 9660, maxX: 9780, speed: 32 }),
+    // Past the spring's landing zone (9640–9720), so the launch never ends in a knockback into the pit.
+    thing('slime', 'site-slime-009', 9770, { minX: 9740, maxX: 9800, speed: 32 }),
     decoration('site-deco-011', 8850, 'cave'),
     decoration('site-deco-012', 9980, 'bush'),
     ...kit.checkpointEntities(checkpoints),

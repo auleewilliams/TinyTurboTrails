@@ -3,7 +3,7 @@
 A sidescrolling 16-bit platformer for Henry. This is the **certified first
 playable release**: it includes the Plains, Quarry Run, Treetop Timbers and Sunset Site
 worlds, Henry's starter art, movement, gems, hazards, checkpoints, Quarry
-Run's moving platforms, local music/effects and a title-to-adventure shell
+Run's and Sunset Site's moving platforms, local music/effects and a title-to-adventure shell
 with a level picker. Release certification (issue #8) is closed; see
 [Verification](#verification) below for what was checked and what was
 deliberately waived.

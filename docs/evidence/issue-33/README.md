@@ -16,3 +16,15 @@ holding Right on the Sunset Site route, after choosing it with Left from the Pla
   the requirements currently list new biome artwork as out of scope.
 - Long shadows are not drawn; the low sun and warm palette carry the sunset feel.
 - Whether cones would read as "avoid" or "hurt" to a six-year-old is untested for the same reason.
+
+## Validation
+
+Linux, Node 22.22.1, Playwright 1.63.0 (Chromium, Firefox, WebKit).
+
+- `npm run typecheck`, `npm test` (316 passed) and `npm run build`: passed.
+- Browser suite against this build on a private port (another checkout held 4173): 91 passed,
+  1 skipped (the existing Firefox native-audio probe), 1 failed — the WebKit terrain-join pixel
+  test hit its 30 s timeout under parallel load and passed alone in 18 s on rerun.
+- Independent review found the last summit slime landing inside the second pit's spring landing
+  zone (a knockback sent Henry back into the pit). The slime now patrols 9740–9800, and the
+  hold-Right and bonus-gem tests fail on any respawn, which caught the old placement.

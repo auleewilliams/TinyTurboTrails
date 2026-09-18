@@ -43,6 +43,21 @@ function startScene() {
   return { scene, effects, collected };
 }
 
+/**
+ * A fall recovery teleports Henry back to a checkpoint. The scene plays no 'recover' sound,
+ * so a backward jump of more than a knockback's worth is the only observable respawn.
+ */
+const RESPAWN_JUMP = 150;
+function respawnWatch(scene: AdventureScene): () => number {
+  let previous = scene.playerX;
+  let respawns = 0;
+  return () => {
+    if (previous - scene.playerX > RESPAWN_JUMP) respawns++;
+    previous = scene.playerX;
+    return respawns;
+  };
+}
+
 interface Jump { x: number; press: boolean }
 
 function playSite(jump?: Jump) {
@@ -50,6 +65,7 @@ function playSite(jump?: Jump) {
   let frame = 0;
   let jumpFrames = 0;
   let pending = jump;
+  const respawns = respawnWatch(scene);
   for (; frame < 60 * 120 && scene.screenState !== 'finish'; frame++) {
     let jumpPressed = false;
     if (pending && scene.playerX >= pending.x) {
@@ -58,8 +74,9 @@ function playSite(jump?: Jump) {
       pending = undefined;
     }
     scene.update(1 / 60, { ...neutral, horizontal: 1, jumpPressed, jumpHeld: jumpFrames-- > 0 });
+    respawns();
   }
-  return { scene, effects, seconds: frame / 60, collected };
+  return { scene, effects, seconds: frame / 60, collected, respawns: respawns() };
 }
 
 it('registers a playable Sunset Site after Plains and Quarry Run', () => {
@@ -158,13 +175,13 @@ it.each(pits.map((pit) => ({ ...pit, name: `${pit.x1}-${pit.x2}` })))('recovers 
 });
 
 it('can complete Sunset Site while holding right at a Plains-like pace', () => {
-  const { scene, effects, seconds, collected } = playSite();
+  const { scene, effects, seconds, collected, respawns } = playSite();
   expect(scene.screenState).toBe('finish');
   expect(seconds).toBeGreaterThanOrEqual(50);
   expect(effects.filter((effect) => effect === 'checkpoint')).toHaveLength(7);
   expect(effects).toContain('spring');
   expect(effects).toContain('damage');
-  expect(effects).not.toContain('recover');
+  expect(respawns).toBe(0);
   const mainGems = ofKind('gem').filter((gem) => !isBonus(gem));
   expect([...collected].sort()).toEqual(mainGems.map(({ id }) => id).sort());
   expect(scene.gemTotal).toBe(mainGems.length);
@@ -180,9 +197,10 @@ it.each([
   { id: 'site-bonus-005', x: 7255, press: true },
   { id: 'site-bonus-006', x: 9490, press: false },
 ])('collects $id with a jump and still finishes', ({ id, x, press }) => {
-  const { scene, collected } = playSite({ x, press });
+  const { scene, collected, respawns } = playSite({ x, press });
   expect(collected.has(id)).toBe(true);
   expect(scene.screenState).toBe('finish');
+  expect(respawns).toBe(0);
 });
 
 const FERRY = (SUNSET_SITE.platforms ?? []).find((platform) => platform.id === 'site-crane-ferry')!;
@@ -206,14 +224,16 @@ it('ferries a hopping Henry over the paired yard hazards', () => {
   const deck = (): boolean => Math.abs(scene.playerY + DEFAULT_MOVEMENT.height - FERRY.from.y) < 1;
   // Hop on the spot until the deck comes back around: no timing to read, just keep jumping.
   let carried = 0;
+  const respawns = respawnWatch(scene);
   for (let frame = 0; frame < 60 * 14; frame++) {
     const grounded = scene.playerY + DEFAULT_MOVEMENT.height >= surfaceY(SUNSET_SITE, scene.playerX) - 1;
     scene.update(1 / 60, { ...neutral, jumpPressed: grounded });
+    respawns();
     if (deck()) carried = Math.max(carried, scene.playerX);
   }
   const hazards = ofKind('hazard').filter((hazard) => hazard.x > FERRY.from.x && hazard.x < FERRY.to.x + FERRY.width);
   expect(hazards).toHaveLength(2);
   expect(carried).toBeGreaterThan(Math.max(...hazards.map((hazard) => hazard.x)));
   expect(effects).not.toContain('damage');
-  expect(effects).not.toContain('recover');
+  expect(respawns()).toBe(0);
 });
