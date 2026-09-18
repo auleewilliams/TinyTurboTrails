@@ -3,6 +3,7 @@ import type { LevelData, WorldEntity } from './level';
 import type { PlatformBody } from '../game/movement';
 import type { MovingPlatform } from '../game/platforms';
 import type { WorldAsset, WorldAssets } from './assets';
+import { drawSceneryBackground, drawScenerySprite, foregroundPlacements, sceneryForDecoration } from './scenery';
 
 /** Scenes without run state draw the whole entity list; a run hides what it has consumed. */
 export type EntityFilter = (entity: WorldEntity) => boolean;
@@ -17,7 +18,9 @@ export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, le
   const cell = manifest.cellSize;
   ctx.fillStyle = level.theme.sky;
   ctx.fillRect(0, 0, 426, 240);
-  for (const parallax of level.theme.parallax) {
+  const scenery = level.theme.scenery ? assets.scenery : undefined;
+  if (scenery) drawSceneryBackground(ctx, scenery, level, offset.x);
+  else for (const parallax of level.theme.parallax) {
     drawAsset(ctx, assets, parallax.asset,
       parallax.x - offset.x * 0.18, parallax.y - offset.y * 0.1, parallax.scale);
   }
@@ -51,15 +54,30 @@ export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, le
     ctx.stroke();
   }
   drawPlatforms(ctx, level, offset, platforms);
-  for (const entity of level.entities) {
+  // Decorative silhouettes sit behind every collectible, hazard and checkpoint.
+  const entities = scenery ? [...level.entities.filter((entity) => entity.kind === 'decoration'),
+    ...level.entities.filter((entity) => entity.kind !== 'decoration')] : level.entities;
+  for (const entity of entities) {
     if (!isVisible(entity)) continue;
     const position = positionOf(entity);
-    drawAsset(ctx, assets, entity.asset as WorldAsset, position.x - offset.x, position.y - offset.y, 1);
+    const sprite = scenery && sceneryForDecoration(entity);
+    if (scenery && sprite) drawScenerySprite(ctx, scenery, sprite, position.x - offset.x, position.y - offset.y);
+    else drawAsset(ctx, assets, entity.asset as WorldAsset, position.x - offset.x, position.y - offset.y, 1);
   }
   drawAsset(ctx, assets, level.finish.asset as WorldAsset, level.finish.x - offset.x, level.finish.y - offset.y, 2);
   // Keep the draw source referenced so a bad cell size cannot silently pass.
   void atlas;
   void cell;
+}
+
+/** Draw after the player, before the HUD; only low, non-interactive edge plants. */
+export function drawWorldForeground(ctx: CanvasRenderingContext2D, assets: WorldAssets, level: LevelData, camera: Camera): void {
+  if (!assets.scenery || !level.theme.scenery) return;
+  for (const prop of foregroundPlacements(level)) {
+    const x = prop.x - camera.position.x;
+    if (x < -48 || x > 474) continue;
+    drawScenerySprite(ctx, assets.scenery, prop.sprite, x, prop.y - camera.position.y);
+  }
 }
 
 /** Paths are drawn before the slabs so a rider always sees where the ride goes next. */

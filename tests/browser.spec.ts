@@ -721,7 +721,9 @@ test('ground scenery and slimes draw their opaque bases at terrain height', asyn
     const drawImage = CanvasRenderingContext2D.prototype.drawImage;
     CanvasRenderingContext2D.prototype.drawImage = function (this: CanvasRenderingContext2D, ...args: unknown[]) {
       const [image, sx, sy] = args;
-      if (image instanceof HTMLImageElement && image.src.includes('/assets/plains/')) {
+      if (image instanceof HTMLImageElement && image.src.endsWith('/scenery/background.png')) {
+        this.canvas.dataset.worldDraws = '[]';
+      } else if (image instanceof HTMLImageElement && image.src.endsWith('/assets/plains/environment.png')) {
         const canvas = this.canvas;
         // The parallax hills precede the entity pass each frame.
         const calls = sx === 96 && sy === 144 ? [] : JSON.parse(canvas.dataset.worldDraws ?? '[]');
@@ -755,19 +757,29 @@ test('ground scenery and slimes draw their opaque bases at terrain height', asyn
     return bases;
   });
   const calls = JSON.parse(await page.locator('canvas').getAttribute('data-world-draws') ?? '[]') as number[][];
-  expect(calls).toHaveLength(PLAINS_LEVEL.entities.length + 1);
-  PLAINS_LEVEL.entities.forEach((entity, index) => {
+  PLAINS_LEVEL.entities.forEach((entity) => {
     if (entity.kind !== 'decoration' && entity.kind !== 'slime') return;
+    // Generated decorative trees/plants/rocks are covered by the scenery test.
+    if (entity.kind === 'decoration' && entity.asset !== 'cave') return;
+    const call = calls.find((args) => {
+      const drawnX = args[4] + 24;
+      if (entity.patrol) {
+        return args[0] === 96 && args[1] === 96 &&
+          drawnX >= entity.patrol.minX && drawnX <= entity.patrol.maxX;
+      }
+      return drawnX === entity.x && args[6] === 48;
+    })!;
+    expect(call, entity.id).toBeDefined();
     // Ground art anchors at its horizontal centre, 24px into the 48px cell. A patrolling
     // slime has already walked away from its level X, so check the ground under where it is.
-    const drawnX = calls[index][4] + 24;
+    const drawnX = call[4] + 24;
     if (entity.patrol) {
       expect(drawnX, entity.id).toBeGreaterThanOrEqual(entity.patrol.minX);
       expect(drawnX, entity.id).toBeLessThanOrEqual(entity.patrol.maxX);
     } else {
       expect(drawnX, entity.id).toBeCloseTo(entity.x, 5);
     }
-    expect(calls[index][5] + bases[entity.asset], entity.id).toBeCloseTo(surfaceY(PLAINS_LEVEL, drawnX), 5);
+    expect(call[5] + bases[entity.asset], entity.id).toBeCloseTo(surfaceY(PLAINS_LEVEL, drawnX), 5);
   });
   // Frame the first slime on its ramp and the first tree on the meadow.
   await page.keyboard.down('ArrowRight');
@@ -775,5 +787,71 @@ test('ground scenery and slimes draw their opaque bases at terrain height', asyn
     { timeout: 5000, intervals: [30] }).toBeGreaterThan(320);
   await page.keyboard.up('ArrowRight');
   await page.waitForTimeout(900);
-  await info.attach('grounded-slime-and-tree', { body: await page.locator('canvas').screenshot(), contentType: 'image/png' });
+  const screenshot = info.outputPath('grounded-slime-and-tree.png');
+  await page.locator('canvas').screenshot({ path: screenshot });
+  await info.attach('grounded-slime-and-tree', { path: screenshot, contentType: 'image/png' });
+});
+
+test('Plains renders its panorama and transparent scenery, and Quarry keeps its own backdrop', async ({ page }, info) => {
+  await page.addInitScript(() => {
+    const original = CanvasRenderingContext2D.prototype.drawImage;
+    CanvasRenderingContext2D.prototype.drawImage = function (this: CanvasRenderingContext2D, ...args: unknown[]) {
+      const image = args[0];
+      if (image instanceof HTMLImageElement) {
+        const source = image.src;
+        if (source.endsWith('/scenery/background.png') || (source.endsWith('/environment.png') && args[1] === 48 && args[2] === 48 && Number(args[7]) > 48)) {
+          this.canvas.dataset.sceneryDraws = '[]';
+        }
+        const calls = JSON.parse(this.canvas.dataset.sceneryDraws ?? '[]');
+        calls.push({ source, args: args.slice(1) });
+        this.canvas.dataset.sceneryDraws = JSON.stringify(calls);
+      }
+      Reflect.apply(original, this, args);
+    } as typeof original;
+  });
+  await page.goto('/?scene=adventure&debug=1');
+  await expect(page.locator('#status')).toContainText('Adventure preview · Title');
+  await page.keyboard.press('Space');
+  await expect(page.locator('#status')).toContainText('Playing');
+  const calls = JSON.parse(await page.locator('canvas').getAttribute('data-scenery-draws') ?? '[]') as { source: string; args: number[] }[];
+  expect(calls[0].source).toContain('/scenery/background.png');
+  const tree = calls.find((call) => call.source.endsWith('/foreground.png') && call.args[0] === 29 && call.args[4] > 400)!;
+  expect(tree).toBeDefined();
+  expect(tree.args[5] + tree.args[7]).toBe(158);
+  const henryIndex = calls.findIndex((call) => call.source.includes('/henry/'));
+  expect(henryIndex).toBeGreaterThan(0);
+  expect(calls.slice(henryIndex + 1).some((call) => call.source.endsWith('/foreground.png'))).toBe(true);
+  const transparent = await page.evaluate(async () => {
+    const image = new Image(); image.src = '/assets/plains/scenery/foreground.png'; await image.decode();
+    const canvas = document.createElement('canvas'); canvas.width = image.width; canvas.height = image.height;
+    const ctx = canvas.getContext('2d')!; ctx.drawImage(image, 0, 0);
+    return ctx.getImageData(0, 0, 1, 1).data[3];
+  });
+  expect(transparent).toBe(0);
+  const screenshot = info.outputPath('plains-scenery-start.png');
+  await page.locator('canvas').screenshot({ path: screenshot });
+  await info.attach('plains-scenery-start', { path: screenshot, contentType: 'image/png' });
+  await page.goto('/?scene=adventure&debug=1');
+  await expect(page.locator('#status')).toContainText('Title');
+  await page.keyboard.down('ArrowRight');
+  // Selection changes the title text; the world changes only when Space starts it.
+  await page.waitForTimeout(100);
+  await page.keyboard.up('ArrowRight');
+  await page.keyboard.press('Space');
+  await expect(page.locator('#status')).toContainText('Playing');
+  const quarryCalls = JSON.parse(await page.locator('canvas').getAttribute('data-scenery-draws') ?? '[]') as { source: string }[];
+  expect(quarryCalls.length).toBeGreaterThan(0);
+  expect(quarryCalls.some((call) => call.source.includes('/scenery/'))).toBe(false);
+});
+
+test('a failed scenery image exposes Retry loading and recovers', async ({ page }) => {
+  await page.route('**/assets/plains/scenery/foreground.png', (route) => route.abort());
+  await page.goto('/?scene=adventure');
+  await expect(page.locator('#status')).toHaveText('Artwork could not load. Reload to retry.');
+  await expect(page.locator('#retry')).toBeVisible();
+  await page.unroute('**/assets/plains/scenery/foreground.png');
+  await page.locator('#retry').click();
+  await expect(page.locator('#status')).toContainText('Adventure preview · Title');
+  await expect(page.locator('#retry')).toBeHidden();
+  await expect(page.locator('canvas')).toBeVisible();
 });

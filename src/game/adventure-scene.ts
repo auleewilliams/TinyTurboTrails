@@ -11,7 +11,7 @@ import { ScreenController } from './screens';
 import type { LevelData } from '../world/level';
 import { LEVELS } from '../world/levels';
 import { Camera } from '../world/camera';
-import { drawWorld } from '../world/renderer';
+import { drawWorld, drawWorldForeground } from '../world/renderer';
 import type { WorldAssets } from '../world/assets';
 
 export interface Rect { x: number; y: number; width: number; height: number }
@@ -132,6 +132,7 @@ export class AdventureScene implements Scene {
     drawWorld(ctx, this.world, this.level, this.camera,
       (entity) => isEntityActive(this.run, entity.id), (entity) => entityPosition(this.run, entity), this.platforms);
     if (this.screens.state === 'playing') this.drawHenry(ctx);
+    drawWorldForeground(ctx, this.world, this.level, this.camera);
     ctx.fillStyle = '#10252cdd';
     ctx.fillRect(5, 5, 205, 25);
     ctx.fillStyle = '#e9f2df';

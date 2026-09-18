@@ -23,6 +23,15 @@ the world bounds. `src/world/renderer.ts` draws parallax hills, terrain, entitie
 and the construction finish arch using atlas cells. The asset manifest maps all
 16 source cells to named assets, and the browser checks confirm local loading.
 
+Plains additionally loads `public/assets/plains/scenery/manifest.json` through
+the world manifest. Its generated panorama replaces the old hill cells, using
+a bounded, aspect-correct crop to avoid repeat seams. New trees, bushes, flowers
+and decorative rocks sit behind interactions; low foreground plants draw after
+Henry with clearance from gameplay entities. The art is enabled by the Plains
+theme only. Source PNGs, exact prompts and generation notes are preserved under
+`assets/source/plains/scenery/`. Missing scenery participates in the existing
+loading error and retry flow.
+
 The generated source sheet and prompt are under `assets/source/plains/`; the
 processed RGBA atlas is under `public/assets/plains/`. The source remains
 available for review and can be regenerated with the atlas-processing script.

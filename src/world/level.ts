@@ -15,6 +15,7 @@ export interface WorldEntity {
   patrol?: EntityPatrol;
 }
 export interface LevelTheme {
+  scenery?: boolean;
   sky: string;
   ground: string;
   edge: string;
@@ -83,6 +84,7 @@ export const PLAINS_LEVEL: LevelData = {
   name: 'PLAINS',
   atlas: 'plains',
   theme: {
+    scenery: true,
     sky: '#8bd0ca',
     ground: '#86502f',
     edge: '#8bd348',

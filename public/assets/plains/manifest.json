@@ -1,5 +1,6 @@
 {
   "image": "environment.png",
+  "scenery": "scenery/manifest.json",
   "cellSize": 48,
   "assets": {
     "terrain-flat": 0,

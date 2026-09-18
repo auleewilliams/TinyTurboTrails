@@ -17,6 +17,18 @@ Use the generated reference swatches for visual matching. Prefer restrained
 background contrast so Henry and hazards remain legible at speed. UI text is
 rendered separately from illustrated assets.
 
+## Additional plains scenery
+
+The generated [plains scenery pack](../../assets/source/plains/scenery/PROVENANCE.md)
+contains a wide background and a transparent sheet with eight foreground props.
+Project assets and measured crop/anchor metadata are in
+`public/assets/plains/scenery/`; exact generation prompts and original PNGs are
+in `assets/source/plains/scenery/`. Plains uses the panorama and generated
+decoration in adventure and both world/gameplay previews. Low foreground plants
+sit on safe flat ledges; gameplay sprites and collision remain unchanged.
+Quarry keeps its original scenery. The background pans within its image bounds
+instead of repeating, because the generated edges are not certified seamless.
+
 ## Runtime contract
 
 The preview loader reads `public/assets/henry/manifest.json` and a local atlas.
