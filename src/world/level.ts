@@ -4,6 +4,7 @@ import type { WorldAsset } from './assets';
 export type WorldEntityKind = 'gem' | 'slime' | 'spring' | 'checkpoint' | 'hazard' | 'decoration';
 export interface WorldEntity { id: string; kind: WorldEntityKind; x: number; y: number; asset: string; layer: 'back' | 'world' | 'front' }
 export interface LevelTheme {
+  scenery?: boolean;
   sky: string;
   ground: string;
   edge: string;
@@ -70,6 +71,7 @@ export const PLAINS_LEVEL: LevelData = {
   name: 'PLAINS',
   atlas: 'plains',
   theme: {
+    scenery: true,
     sky: '#8bd0ca',
     ground: '#86502f',
     edge: '#8bd348',

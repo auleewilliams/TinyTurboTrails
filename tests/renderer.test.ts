@@ -5,9 +5,11 @@ import type { WorldAsset, WorldAssets } from '../src/world/assets';
 import type { HenryAssets } from '../src/art/henry';
 import type { GameAudio } from '../src/core/audio';
 import { AdventureScene } from '../src/game/adventure-scene';
+import { GameplayPreviewScene } from '../src/game/gameplay-preview';
 import { createPlayer } from '../src/game/movement';
 import { Camera } from '../src/world/camera';
 import { PLAINS_LEVEL } from '../src/world/level';
+import { QUARRY_RUN } from '../src/world/levels';
 
 const manifest = JSON.parse(readFileSync(new URL('../public/assets/plains/manifest.json', import.meta.url), 'utf8'));
 
@@ -60,6 +62,50 @@ function recordingContext(): { ctx: CanvasRenderingContext2D; images: unknown[][
 
 const worldAssets: WorldAssets = { atlas: {} as HTMLImageElement, manifest };
 
+const sceneryAssets = {
+  ...worldAssets,
+  scenery: {
+    background: {} as HTMLImageElement,
+    foreground: {} as HTMLImageElement,
+    manifest: JSON.parse(readFileSync(new URL('../public/assets/plains/scenery/manifest.json', import.meta.url), 'utf8')),
+  },
+};
+
+it('pans the plains background within its source bounds over the entire route', () => {
+  const crops: number[] = [];
+  for (const x of [0, 4000, PLAINS_LEVEL.width - 426]) {
+    const { ctx, images } = recordingContext();
+    drawWorld(ctx, sceneryAssets, PLAINS_LEVEL, { position: { x, y: 0 } } as Camera);
+    const background = images.find((call) => call[0] === sceneryAssets.scenery.background);
+    expect(background).toBeDefined();
+    const [, sx, sy, sw, sh, dx, dy, dw, dh] = background as number[];
+    expect(sx).toBeGreaterThanOrEqual(0);
+    expect(sx + sw).toBeLessThanOrEqual(1536);
+    expect(sy + sh).toBeLessThanOrEqual(1024);
+    expect([dx, dy, dw, dh]).toEqual([0, 0, 426, 240]);
+    expect(sw / sh).toBeCloseTo(426 / 240);
+    crops.push(sx);
+  }
+  expect(crops[1]).toBeGreaterThan(crops[0]);
+  expect(crops[2]).toBeGreaterThan(crops[1]);
+});
+
+it('uses new art only for Plains decoration, keeping hazards distinct and Quarry unchanged', () => {
+  const { ctx, images } = recordingContext();
+  const camera = new Camera({ width: 426, height: 240, worldWidth: PLAINS_LEVEL.width, worldHeight: 240 });
+  drawWorld(ctx, sceneryAssets, PLAINS_LEVEL, camera);
+  const trees = images.filter((call) => call[0] === sceneryAssets.scenery.foreground && call[1] === 29);
+  expect(trees.length).toBeGreaterThan(0);
+  const tree = trees.find((call) => Number(call[5]) > 400)!;
+  expect(Number(tree[6]) + Number(tree[8])).toBe(158);
+  const hazard = images.find((call) => call[0] === worldAssets.atlas && call[5] === 1045 - 24);
+  expect(hazard).toBeDefined();
+  expect(images.indexOf(tree)).toBeLessThan(images.indexOf(hazard!));
+  const quarry = recordingContext();
+  drawWorld(quarry.ctx, sceneryAssets, QUARRY_RUN, camera);
+  expect(quarry.images.every((call) => call[0] === worldAssets.atlas)).toBe(true);
+});
+
 it('fills joined slopes without interior edges and preserves gaps between ground contours', () => {
   const { ctx } = recordingContext();
   const fills: number[][][] = [];
@@ -108,6 +154,20 @@ const silentAudio: GameAudio = {
 const gem = PLAINS_LEVEL.entities.find((entity) => entity.id === 'gem-001')!;
 const otherGem = PLAINS_LEVEL.entities.find((entity) => entity.id === 'gem-002')!;
 const start = { horizontal: 0, jumpHeld: false, jumpPressed: true, pausePressed: false, mutePressed: false };
+
+it('draws low foreground plants after Henry in both playable scenes', () => {
+  const adventure = new AdventureScene(henryAssets, sceneryAssets, silentAudio, PLAINS_LEVEL);
+  adventure.enter();
+  adventure.update(1 / 60, start);
+  const preview = new GameplayPreviewScene(henryAssets, sceneryAssets, silentAudio, PLAINS_LEVEL);
+  for (const scene of [adventure, preview]) {
+    const { ctx, images } = recordingContext();
+    scene.render(ctx);
+    const henryIndex = images.findIndex((call) => call[0] === henryAssets.atlas);
+    expect(henryIndex).toBeGreaterThan(0);
+    expect(images.slice(henryIndex + 1).some((call) => call[0] === sceneryAssets.scenery.foreground)).toBe(true);
+  }
+});
 
 it('omits entities the run has consumed and keeps the rest', () => {
   const { ctx, images } = recordingContext();

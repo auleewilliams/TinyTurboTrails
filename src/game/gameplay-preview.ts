@@ -9,7 +9,7 @@ import { activateCheckpoint, applySpring, collectGem, createRun, damagePlayer, i
 import { DEFAULT_LEVEL } from '../world/levels';
 import type { LevelData } from '../world/level';
 import { Camera } from '../world/camera';
-import { drawWorld } from '../world/renderer';
+import { drawWorld, drawWorldForeground } from '../world/renderer';
 import { loadWorldAssets, type WorldAssets } from '../world/assets';
 
 export class GameplayPreviewScene implements Scene {
@@ -74,6 +74,7 @@ export class GameplayPreviewScene implements Scene {
       ctx.fillRect(this.player.x - offset.x - 22, this.player.y - offset.y - 12, 44, 50);
     }
     ctx.restore();
+    drawWorldForeground(ctx, this.world, this.level, this.camera);
     ctx.fillStyle = '#10252cdd';
     ctx.fillRect(5, 5, 160, 25);
     ctx.fillStyle = '#e9f2df';

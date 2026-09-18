@@ -1,0 +1,145 @@
+{
+  "version": 1,
+  "background": {
+    "image": "background.png",
+    "width": 1536,
+    "height": 1024,
+    "seamless": false
+  },
+  "foreground": {
+    "image": "foreground.png",
+    "width": 1536,
+    "height": 1024,
+    "boundsAlphaThreshold": 16,
+    "sprites": {
+      "oak-round": {
+        "source": {
+          "x": 29,
+          "y": 164,
+          "width": 363,
+          "height": 448
+        },
+        "anchor": {
+          "x": 182,
+          "y": 448
+        },
+        "logicalSize": {
+          "width": 65,
+          "height": 80
+        }
+      },
+      "oak-young": {
+        "source": {
+          "x": 452,
+          "y": 142,
+          "width": 285,
+          "height": 469
+        },
+        "anchor": {
+          "x": 142,
+          "y": 469
+        },
+        "logicalSize": {
+          "width": 49,
+          "height": 80
+        }
+      },
+      "bush-round": {
+        "source": {
+          "x": 805,
+          "y": 405,
+          "width": 280,
+          "height": 205
+        },
+        "anchor": {
+          "x": 140,
+          "y": 205
+        },
+        "logicalSize": {
+          "width": 44,
+          "height": 32
+        }
+      },
+      "bush-wide": {
+        "source": {
+          "x": 1156,
+          "y": 446,
+          "width": 351,
+          "height": 164
+        },
+        "anchor": {
+          "x": 176,
+          "y": 164
+        },
+        "logicalSize": {
+          "width": 60,
+          "height": 28
+        }
+      },
+      "grass": {
+        "source": {
+          "x": 80,
+          "y": 839,
+          "width": 247,
+          "height": 131
+        },
+        "anchor": {
+          "x": 124,
+          "y": 131
+        },
+        "logicalSize": {
+          "width": 34,
+          "height": 18
+        }
+      },
+      "daisies": {
+        "source": {
+          "x": 444,
+          "y": 794,
+          "width": 260,
+          "height": 174
+        },
+        "anchor": {
+          "x": 130,
+          "y": 174
+        },
+        "logicalSize": {
+          "width": 39,
+          "height": 26
+        }
+      },
+      "mossy-rock": {
+        "source": {
+          "x": 799,
+          "y": 819,
+          "width": 300,
+          "height": 153
+        },
+        "anchor": {
+          "x": 150,
+          "y": 153
+        },
+        "logicalSize": {
+          "width": 47,
+          "height": 24
+        }
+      },
+      "pebbles": {
+        "source": {
+          "x": 1200,
+          "y": 854,
+          "width": 273,
+          "height": 118
+        },
+        "anchor": {
+          "x": 136,
+          "y": 118
+        },
+        "logicalSize": {
+          "width": 46,
+          "height": 20
+        }
+      }
+    }
+  }
+}
