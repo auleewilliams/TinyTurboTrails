@@ -8,6 +8,9 @@ export type RunEvent =
   | { type: 'spring'; entityId: string }
   | { type: 'recover' };
 
+export const MAX_HEALTH = 3;
+export const HEALTH_FLASH_SECONDS = 0.35;
+
 /** Live position of a level entity. Patrolling entities move; the rest keep their level position. */
 export interface EntityState { id: string; active: boolean; x: number; y: number; direction: 1 | -1 }
 
@@ -17,6 +20,9 @@ export interface RunState {
   collectedGems: Set<string>;
   springContacts: Set<string>;
   checkpointId: string | null;
+  health: number;
+  healthFlashPip: number | null;
+  healthFlashSeconds: number;
   invulnerableSeconds: number;
   entities: EntityState[];
 }
@@ -29,7 +35,8 @@ function placeEntities(level: LevelData): EntityState[] {
 }
 
 export function createRun(level: LevelData): RunState {
-  return { seconds: 0, collectedGems: new Set(), springContacts: new Set(), checkpointId: null, invulnerableSeconds: 0,
+  return { seconds: 0, collectedGems: new Set(), springContacts: new Set(), checkpointId: null,
+    health: MAX_HEALTH, healthFlashPip: null, healthFlashSeconds: 0, invulnerableSeconds: 0,
     entities: placeEntities(level) };
 }
 
@@ -38,6 +45,9 @@ export function startNewRun(run: RunState, level: LevelData): void {
   run.collectedGems.clear();
   run.springContacts.clear();
   run.checkpointId = null;
+  run.health = MAX_HEALTH;
+  run.healthFlashPip = null;
+  run.healthFlashSeconds = 0;
   run.invulnerableSeconds = 0;
   run.entities = placeEntities(level);
 }
@@ -84,7 +94,7 @@ export function stepEntities(run: RunState, level: LevelData, player: Player, se
     if (!state?.active || !touching) continue;
     if (entity.kind === 'gem') collectGem(run, entity.id, events);
     else if (entity.kind === 'checkpoint') activateCheckpoint(run, entity.id, events);
-    else if (entity.kind === 'slime' || entity.kind === 'hazard') damagePlayer(run, player, x - player.x, events, entity.id);
+    else if (entity.kind === 'slime' || entity.kind === 'hazard') damagePlayer(run, player, x - player.x, events, level, entity.id);
   }
 }
 
@@ -94,6 +104,8 @@ export function tickRun(run: RunState, seconds: number): number {
   const step = Math.min(Math.max(0, seconds), MAX_STEP_SECONDS);
   run.seconds += step;
   run.invulnerableSeconds = Math.max(0, run.invulnerableSeconds - Math.max(0, seconds));
+  run.healthFlashSeconds = Math.max(0, run.healthFlashSeconds - Math.max(0, seconds));
+  if (run.healthFlashSeconds === 0) run.healthFlashPip = null;
   return step;
 }
 
@@ -119,8 +131,11 @@ export function activateCheckpoint(run: RunState, entityId: string, events: RunE
   return true;
 }
 
-export function damagePlayer(run: RunState, player: Player, direction: number, events: RunEvent[], entityId?: string): boolean {
+export function damagePlayer(run: RunState, player: Player, direction: number, events: RunEvent[], level: LevelData,
+  entityId?: string): boolean {
   if (run.invulnerableSeconds > 0) return false;
+  run.health--;
+  const lostPip = run.health;
   const away = Math.sign(direction) || (player.vx >= 0 ? -1 : 1);
   player.vx = away * -220;
   player.vy = -220;
@@ -128,6 +143,9 @@ export function damagePlayer(run: RunState, player: Player, direction: number, e
   detachFromGround(player);
   run.invulnerableSeconds = 1;
   events.push({ type: 'damage', entityId });
+  if (run.health === 0) recoverFromFall(run, player, events, level);
+  run.healthFlashPip = lostPip;
+  run.healthFlashSeconds = HEALTH_FLASH_SECONDS;
   return true;
 }
 
@@ -146,6 +164,9 @@ export function applySpring(run: RunState, player: Player, entityId: string, eve
 
 export function recoverFromFall(run: RunState, player: Player, events: RunEvent[], level: LevelData): void {
   run.springContacts.clear();
+  run.health = MAX_HEALTH;
+  run.healthFlashPip = null;
+  run.healthFlashSeconds = 0;
   const checkpoint = run.checkpointId ? level.checkpoints.find((candidate) => candidate.id === run.checkpointId) : undefined;
   const spawn = checkpoint ?? level.start;
   player.x = spawn.x;

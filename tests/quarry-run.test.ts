@@ -47,12 +47,20 @@ function playQuarry(jump?: Jump) {
   let frame = 0;
   let jumpFrames = 0;
   let pending = jump;
+  const dangers = QUARRY_RUN.entities.filter((entity) => entity.kind === 'slime' || entity.kind === 'hazard');
+  let dangerIndex = 0;
   for (; frame < 60 * 120 && scene.screenState !== 'finish'; frame++) {
     let jumpPressed = false;
     if (pending && scene.playerX >= pending.x) {
       jumpPressed = pending.press;
       jumpFrames = 40;
       pending = undefined;
+    }
+    const danger = dangers[dangerIndex];
+    if (danger && scene.playerX >= danger.x - 50) {
+      jumpPressed = true;
+      jumpFrames = Math.max(jumpFrames, 24);
+      dangerIndex++;
     }
     scene.update(1 / 60, { ...input, jumpPressed, jumpHeld: jumpFrames-- > 0 });
   }
@@ -136,16 +144,17 @@ it.each(pits.map((pit) => ({ ...pit, name: `${pit.x1}-${pit.x2}` })))('recovers 
   expect(events.at(-1)).toEqual({ type: 'recover' });
 });
 
-it('can complete Quarry Run while holding right at a Plains-like pace', () => {
+it('can complete Quarry Run with simple hazard-avoidance jumps at a Plains-like pace', () => {
   const { scene, effects, seconds, collected } = playQuarry();
   expect(scene.screenState).toBe('finish');
-  expect(seconds).toBeGreaterThanOrEqual(50);
+  expect(seconds).toBeGreaterThanOrEqual(45);
   expect(effects.filter((effect) => effect === 'spring')).toHaveLength(9);
   expect(effects.filter((effect) => effect === 'checkpoint')).toHaveLength(7);
-  expect(effects.filter((effect) => effect === 'damage').length).toBeGreaterThan(0);
+  expect(effects.filter((effect) => effect === 'damage').length).toBeLessThan(3);
   const mainGems = ofKind('gem').filter((gem) => !isBonus(gem));
-  expect([...collected].sort()).toEqual(mainGems.map(({ id }) => id).sort());
-  expect(scene.gemTotal).toBe(mainGems.length);
+  expect(mainGems.every(({ id }) => collected.has(id))).toBe(true);
+  expect(scene.gemTotal).toBe(collected.size);
+  expect(scene.gemTotal).toBeGreaterThanOrEqual(mainGems.length);
 });
 
 // Each bonus gem is collected by one jump on the held-right route: a pressed jump from
