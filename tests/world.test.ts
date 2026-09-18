@@ -49,6 +49,7 @@ it('rejects malformed or unsafe crumbling ledges', () => {
 
   expect(() => validateLevel(withLedge({ ...ledge, width: undefined }))).toThrow(/ledge width/);
   expect(() => validateLevel(withLedge({ ...ledge, width: 0 }))).toThrow(/ledge width/);
+  expect(() => validateLevel(withLedge({ ...ledge, width: Number.NaN }))).toThrow(/ledge width/);
   expect(() => validateLevel(withLedge({ ...ledge, x: 20 }))).toThrow(/ledge leaves the level/);
   expect(() => validateLevel(withLedge({ ...ledge, y: 140 }))).toThrow(/ledge clearance/);
   expect(() => validateLevel(withLedge({ ...ledge, x: 551, y: 100 }))).toThrow(/ledge overlaps/);

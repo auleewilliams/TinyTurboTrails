@@ -71,7 +71,8 @@ export function simulatePlayer(player: Player, input: MovementInput, terrain: Te
   const rate = input.horizontal === 0 ? DEFAULT_MOVEMENT.braking : acceleration;
   player.vx = approach(player.vx, target, rate * dt);
   if (player.onGround) {
-    player.vx += surfaceSlope(terrain, player.x) * DEFAULT_MOVEMENT.downhillAcceleration * dt;
+    const standingOnTerrain = Math.abs(player.y + DEFAULT_MOVEMENT.height - surfaceY(terrain, player.x)) < 0.01;
+    if (standingOnTerrain) player.vx += surfaceSlope(terrain, player.x) * DEFAULT_MOVEMENT.downhillAcceleration * dt;
     player.vx = Math.max(-DEFAULT_MOVEMENT.maxSpeed, Math.min(DEFAULT_MOVEMENT.maxSpeed, player.vx));
   }
   if (player.vx > 1) player.facing = 1;

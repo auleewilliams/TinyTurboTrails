@@ -223,7 +223,9 @@ const MIN_LEDGE_CLEARANCE = DEFAULT_MOVEMENT.height + 2;
 
 function validateCrumblingLedge(level: LevelData, entity: WorldEntity): void {
   if (entity.kind !== 'crumbling-ledge') return;
-  if (entity.width === undefined || entity.width <= 0) throw new Error(`ledge width must be positive: ${entity.id}`);
+  if (entity.width === undefined || !Number.isFinite(entity.width) || entity.width <= 0) {
+    throw new Error(`ledge width must be positive: ${entity.id}`);
+  }
   const left = entity.x - entity.width / 2;
   const right = entity.x + entity.width / 2;
   if (left < level.minX || right > level.maxX) throw new Error(`ledge leaves the level: ${entity.id}`);

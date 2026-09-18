@@ -116,6 +116,25 @@ describe('Henry movement', () => {
     expect(player.onGround).toBe(true);
   });
 
+  it('does not inherit the hidden terrain slope while supported by a platform', () => {
+    const drop: Terrain = { minX: 0, maxX: 200, surfaces: [
+      { x1: 0, x2: 80, y1: 120, y2: 120 },
+      { x1: 80, x2: 81, y1: 120, y2: 180 },
+      { x1: 81, x2: 200, y1: 180, y2: 180 },
+    ] };
+    const bridge: CollisionPlatform = { id: 'bridge', x1: 70, x2: 152, y: 120 };
+    const player = createPlayer(80.5, drop);
+    player.y = bridge.y - DEFAULT_MOVEMENT.height;
+    player.vx = 0;
+    player.onGround = true;
+
+    simulatePlayer(player, input(), drop, 1 / 60, [bridge]);
+
+    expect(player.vx).toBe(0);
+    expect(player.y + DEFAULT_MOVEMENT.height).toBe(bridge.y);
+    expect(player.onGround).toBe(true);
+  });
+
   it('passes upward through a one-way platform', () => {
     const player = createPlayer(116, flat);
     player.y = 105;
