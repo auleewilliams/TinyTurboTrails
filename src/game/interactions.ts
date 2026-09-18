@@ -72,10 +72,13 @@ export function ledgeWarningProgress(run: RunState, entityId: string): number {
   return Math.max(0, Math.min(1, 1 - (state.ledgeSeconds ?? 0) / CRUMBLE_WARNING_SECONDS));
 }
 
-/** Where the entity is right now, for contact tests and drawing. */
-export function entityPosition(run: RunState, entity: WorldEntity): { x: number; y: number } {
+/** Where the entity is right now, plus deterministic presentation state for drawing. */
+export function entityPosition(run: RunState, entity: WorldEntity): { x: number; y: number; warningProgress?: number } {
   const state = entityState(run, entity.id);
-  return state ? { x: state.x, y: state.y } : { x: entity.x, y: entity.y };
+  const position = state ? { x: state.x, y: state.y } : { x: entity.x, y: entity.y };
+  return entity.kind === 'crumbling-ledge'
+    ? { ...position, warningProgress: ledgeWarningProgress(run, entity.id) }
+    : position;
 }
 
 export function touchesPlayer(player: Player, x: number, y: number): boolean {
