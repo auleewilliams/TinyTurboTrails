@@ -274,7 +274,7 @@ test('Quarry crumbling ledge warns, disappears and returns after fall recovery',
     const drawImage = CanvasRenderingContext2D.prototype.drawImage;
     const stroke = CanvasRenderingContext2D.prototype.stroke;
     CanvasRenderingContext2D.prototype.fillRect = function (x, y, width, height) {
-      if (x === 0 && y === 0 && width === 426 && height === 240) {
+      if (x === 0 && y === 0 && width === 426 && height === 240 && this.fillStyle === '#657b8c') {
         this.canvas.dataset.ledgeTiles = '0';
         this.canvas.dataset.ledgeCracks = '0';
       }
