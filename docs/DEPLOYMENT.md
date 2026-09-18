@@ -3,8 +3,12 @@
 Tiny Turbo Trails runs on the home network as a static build served by nginx
 inside a Docker container, on an LXC container on the Proxmox host. This is
 LAN-only: no TLS, no port forwarding, no public DNS. `docker-compose.yml`
-leaves room for a reverse proxy (Caddy or Traefik) to be added later for
-HTTPS and a public hostname, without rebuilding the image.
+leaves room for a reverse proxy to be added later for HTTPS and a public
+hostname, without rebuilding the image: a ready-to-use `Caddyfile` sits
+alongside it, wired up by uncommenting the `caddy` service in
+`docker-compose.yml` (see the comment there for the one line change that
+routes external traffic through Caddy instead of straight to the game).
+Not needed, and not enabled, for the current LAN-only deploy below.
 
 The Proxmox host itself never needs Node.js or a checkout of the source.
 GitHub Actions builds the image and pushes it to GHCR on every push to

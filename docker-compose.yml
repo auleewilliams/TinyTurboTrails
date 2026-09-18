@@ -13,11 +13,16 @@ services:
 
   # Add a reverse proxy in front of tiny-turbo-trails when the game needs to
   # leave the LAN, so HTTPS and a public hostname are a config change rather
-  # than a rebuild of this image. Example with Caddy:
+  # than a rebuild of this image. The Caddyfile alongside this file is ready
+  # to use once this block and the `caddy` port on tiny-turbo-trails (change
+  # "${HOST_PORT:-8080}:80" above to "127.0.0.1:${HOST_PORT:-8080}:80" so
+  # only Caddy is reachable from outside the host) are uncommented:
   #
   # caddy:
   #   image: caddy:alpine
   #   restart: unless-stopped
+  #   environment:
+  #     - LAN_HOSTNAME=${LAN_HOSTNAME:-tinyturbotrails.lan}
   #   ports:
   #     - "80:80"
   #     - "443:443"
