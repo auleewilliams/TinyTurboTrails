@@ -291,6 +291,11 @@ test('Quarry crumbling ledge warns, disappears and returns after fall recovery',
       if (this.strokeStyle === '#49362d') {
         const count = Number(this.canvas.dataset.ledgeCracks ?? 0);
         this.canvas.dataset.ledgeCracks = String(count + 1);
+        if (!this.canvas.dataset.ledgeAutoPaused) {
+          this.canvas.dataset.ledgeAutoPaused = 'true';
+          window.dispatchEvent(new KeyboardEvent('keydown', { code: 'Escape' }));
+          window.dispatchEvent(new KeyboardEvent('keyup', { code: 'Escape' }));
+        }
       }
       Reflect.apply(stroke, this, path ? [path] : []);
     };
@@ -306,13 +311,15 @@ test('Quarry crumbling ledge warns, disappears and returns after fall recovery',
   await expect(canvas).toHaveAttribute('data-ledge-tiles', '9');
 
   await page.keyboard.down('ArrowRight');
-  await expect.poll(async () => Number(await canvas.getAttribute('data-ledge-cracks') ?? 0), { timeout: 100_000 })
-    .toBeGreaterThan(0);
+  await expect(page.locator('#status')).toHaveText('Paused · Escape to resume', { timeout: 100_000 });
   await page.keyboard.up('ArrowRight');
+  expect(Number(await canvas.getAttribute('data-ledge-cracks') ?? 0)).toBeGreaterThan(0);
   await info.attach('crumbling-ledge-warning', {
     body: await canvas.screenshot({ path: info.outputPath('crumbling-ledge-warning.png') }),
     contentType: 'image/png',
   });
+  await page.keyboard.press('Escape');
+  await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
   await expect.poll(async () => Number(await canvas.getAttribute('data-ledge-tiles') ?? 0), { timeout: 5_000 })
     .toBe(6);
 
