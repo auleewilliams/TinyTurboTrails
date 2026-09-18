@@ -100,7 +100,8 @@ export function simulatePlayer(player: Player, input: MovementInput, terrain: Te
     let landingY = feet >= ground ? ground : Number.POSITIVE_INFINITY;
     if (player.vy >= 0) {
       for (const platform of platforms) {
-        const inside = player.x >= platform.x1 && player.x <= platform.x2;
+        const halfWidth = DEFAULT_MOVEMENT.width / 2;
+        const inside = player.x + halfWidth >= platform.x1 && player.x - halfWidth <= platform.x2;
         if (inside && previousFeet <= platform.y && feet >= platform.y) landingY = Math.min(landingY, platform.y);
       }
     }

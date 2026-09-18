@@ -15,14 +15,17 @@ const quarryContour: readonly (readonly [number, number])[] = [
   [3992, 380], [4060, 380], [4072, 222], [4400, 222], [4500, 198], [4600, 160], [5200, 160],
   // Mine tunnels (5200–6900): a long downhill run through slime burrows.
   [5300, 160], [5400, 130], [5600, 130], [6300, 206], [6500, 206],
-  [6512, 380], [6580, 380], [6592, 218], [6900, 218],
+  [6512, 380], [6580, 380], [6592, 218], [6611, 218], [6612, 254],
+  [6684, 254], [6685, 218], [6900, 218],
   // Crusher yard (6900–8600): grouped stone hazards around a spring pit.
   [7300, 218], [7400, 196], [7800, 196], [7812, 380], [7880, 380],
-  [7892, 208], [8300, 208], [8400, 198], [8600, 198],
+  [7892, 208], [7999, 208], [8000, 244], [8072, 244], [8073, 208],
+  [8300, 208], [8400, 198], [8600, 198],
   // Summit exit (8600–10200): switchback climb, a final double pit and the arch.
   [8900, 198], [9000, 160], [9080, 176], [9180, 136], [9260, 150],
   [9340, 126], [9500, 126], [9512, 380], [9580, 380], [9592, 138],
-  [9700, 138], [9712, 380], [9780, 380], [9792, 150], [10200, 150],
+  [9700, 138], [9712, 380], [9780, 380], [9792, 150], [9859, 150],
+  [9860, 186], [9932, 186], [9933, 150], [10200, 150],
 ];
 
 const quarryTerrain: Terrain = {
@@ -142,7 +145,7 @@ export const QUARRY_RUN: LevelData = {
     quarryThing('slime', 'quarry-slime-005', 6100),
     quarryGem('quarry-gem-020', 6250),
     quarryThing('spring', 'quarry-spring-006', 6480),
-    quarryLedge('quarry-ledge-001', 6700, 164),
+    quarryLedge('quarry-ledge-001', 6648, 218),
     quarryGem('quarry-gem-021', 6720),
     quarryGem('quarry-gem-022', 6840),
     quarryDecoration('quarry-deco-007', 5500, 'cave'),
@@ -157,7 +160,7 @@ export const QUARRY_RUN: LevelData = {
     quarryThing('hazard', 'quarry-hazard-006', 7660),
     quarryThing('spring', 'quarry-spring-007', 7780),
     quarryGem('quarry-bonus-005', 7860, 120, 7780),
-    quarryLedge('quarry-ledge-002', 8040, 154),
+    quarryLedge('quarry-ledge-002', 8036, 208),
     quarryGem('quarry-gem-025', 8040),
     quarryThing('hazard', 'quarry-hazard-007', 8120),
     quarryThing('hazard', 'quarry-hazard-008', 8180),
@@ -174,7 +177,7 @@ export const QUARRY_RUN: LevelData = {
     quarryGem('quarry-bonus-006', 9420, 50),
     quarryThing('spring', 'quarry-spring-008', 9480),
     quarryThing('spring', 'quarry-spring-009', 9680),
-    quarryLedge('quarry-ledge-003', 9900, 96),
+    quarryLedge('quarry-ledge-003', 9896, 150),
     quarryGem('quarry-gem-030', 9900),
     quarryThing('slime', 'quarry-slime-009', 9960),
     quarryGem('quarry-gem-031', 10040),

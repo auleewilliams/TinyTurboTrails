@@ -102,6 +102,20 @@ describe('Henry movement', () => {
     expect(player.onGround).toBe(true);
   });
 
+  it('catches a platform edge when Henry\'s body overlaps before his center', () => {
+    const player = createPlayer(70, flat);
+    player.y = platform.y - DEFAULT_MOVEMENT.height;
+    player.vx = DEFAULT_MOVEMENT.maxSpeed;
+    player.onGround = true;
+
+    simulatePlayer(player, input(1), flat, 1 / 60, [platform]);
+
+    expect(player.x).toBeLessThan(platform.x1);
+    expect(player.x + DEFAULT_MOVEMENT.width / 2).toBeGreaterThan(platform.x1);
+    expect(player.y + DEFAULT_MOVEMENT.height).toBe(platform.y);
+    expect(player.onGround).toBe(true);
+  });
+
   it('passes upward through a one-way platform', () => {
     const player = createPlayer(116, flat);
     player.y = 105;
@@ -119,7 +133,9 @@ describe('Henry movement', () => {
     player.y = platform.y - DEFAULT_MOVEMENT.height;
     player.onGround = true;
 
-    while (player.x <= platform.x2 + 1) simulatePlayer(player, input(1), flat, 1 / 60, [platform]);
+    while (player.x - DEFAULT_MOVEMENT.width / 2 <= platform.x2 + 1) {
+      simulatePlayer(player, input(1), flat, 1 / 60, [platform]);
+    }
 
     expect(player.y + DEFAULT_MOVEMENT.height).toBeLessThan(180);
     expect(player.onGround).toBe(false);

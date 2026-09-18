@@ -46,6 +46,8 @@ function playQuarry(jump?: Jump) {
   let frame = 0;
   let jumpFrames = 0;
   let pending = jump;
+  const ledges = ofKind('crumbling-ledge');
+  const ledgeApproaches = new Map(ledges.map((ledge) => [ledge.id, { distance: Infinity, x: 0, feet: 0 }]));
   for (; frame < 60 * 120 && scene.screenState !== 'finish'; frame++) {
     let jumpPressed = false;
     if (pending && scene.playerX >= pending.x) {
@@ -54,9 +56,17 @@ function playQuarry(jump?: Jump) {
       pending = undefined;
     }
     scene.update(1 / 60, { ...input, jumpPressed, jumpHeld: jumpFrames-- > 0 });
+    for (const ledge of ledges) {
+      if (Math.abs(scene.playerX - ledge.x) > (ledge.width ?? 0) / 2) continue;
+      const feet = scene.playerY + DEFAULT_MOVEMENT.height;
+      const closest = ledgeApproaches.get(ledge.id)!;
+      if (Math.abs(feet - ledge.y) < closest.distance) {
+        ledgeApproaches.set(ledge.id, { distance: Math.abs(feet - ledge.y), x: scene.playerX, feet });
+      }
+    }
   }
-  const collected = (scene as unknown as { run: { collectedGems: Set<string> } }).run.collectedGems;
-  return { scene, effects, seconds: frame / 60, collected };
+  const run = (scene as unknown as { run: ReturnType<typeof createRun> }).run;
+  return { scene, effects, seconds: frame / 60, collected: run.collectedGems, run, ledgeApproaches };
 }
 
 it('registers a playable Quarry Run', () => {
@@ -157,6 +167,14 @@ it('can complete Quarry Run while holding right at a Plains-like pace', () => {
   const mainGems = ofKind('gem').filter((gem) => !isBonus(gem));
   expect([...collected].sort()).toEqual(mainGems.map(({ id }) => id).sort());
   expect(scene.gemTotal).toBe(mainGems.length);
+});
+
+it('naturally lands on a crumbling ledge during the held-right route', () => {
+  const { run, ledgeApproaches } = playQuarry();
+  const triggered = run.entities.filter((entity) => entity.ledgePhase !== undefined && entity.ledgePhase !== 'stable');
+  expect(triggered.map(({ id }) => id), JSON.stringify(Object.fromEntries(ledgeApproaches))).toEqual([
+    'quarry-ledge-001', 'quarry-ledge-002', 'quarry-ledge-003',
+  ]);
 });
 
 // Each bonus gem is collected by one jump on the held-right route: a pressed jump from

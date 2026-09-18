@@ -109,7 +109,8 @@ export function stepEntities(run: RunState, level: LevelData, player: Player, se
     if (entity.kind === 'crumbling-ledge') {
       const halfWidth = (entity.width ?? 0) / 2;
       const standing = player.onGround && Math.abs(player.y + DEFAULT_MOVEMENT.height - y) < 0.01
-        && player.x >= x - halfWidth && player.x <= x + halfWidth;
+        && player.x + DEFAULT_MOVEMENT.width / 2 >= x - halfWidth
+        && player.x - DEFAULT_MOVEMENT.width / 2 <= x + halfWidth;
       if (state?.active && state.ledgePhase === 'stable' && standing) {
         state.ledgePhase = 'warning';
         state.ledgeSeconds = CRUMBLE_WARNING_SECONDS;
