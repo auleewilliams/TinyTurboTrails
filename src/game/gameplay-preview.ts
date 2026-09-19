@@ -4,19 +4,22 @@ import type { Scene } from '../core/scene';
 import { animationFrame } from '../art/animation';
 import { loadHenry, type HenryAssets } from '../art/henry';
 import { drawFacingSprite } from '../art/sprite';
-import { animationFor, createPlayer, simulatePlayer, DEFAULT_MOVEMENT, type Player } from './movement';
+import { animationFor, createPlayer, simulatePlayer, DEFAULT_MOVEMENT, type PlatformBody, type Player } from './movement';
+import { platformBodiesAt } from './platforms';
 import { activeLedgePlatforms, createRun, entityPosition, isEntityActive, recoverFromFall, stepEntities, tickRun, type RunEvent, type RunState } from './interactions';
 import { DEFAULT_LEVEL } from '../world/levels';
 import type { LevelData } from '../world/level';
 import { Camera } from '../world/camera';
-import { drawWorld } from '../world/renderer';
+import { drawWorld, drawWorldForeground } from '../world/renderer';
 import { loadWorldAssets, type WorldAssets } from '../world/assets';
+import { drawGameplayHud } from './hud';
 
 export class GameplayPreviewScene implements Scene {
   private readonly player: Player;
   private readonly run: RunState;
   private readonly camera: Camera;
   private elapsed = 0;
+  private platforms: PlatformBody[] = [];
   private events: RunEvent[] = [];
   constructor(private readonly henry: HenryAssets, private readonly world: WorldAssets, private readonly audio: GameAudio, private readonly level: LevelData = DEFAULT_LEVEL) {
     this.player = createPlayer(level.start.x, level);
@@ -28,9 +31,10 @@ export class GameplayPreviewScene implements Scene {
 
   update(seconds: number, input: InputFrame): void {
     this.elapsed += seconds;
-    tickRun(this.run, seconds);
+    const step = tickRun(this.run, seconds);
+    this.platforms = platformBodiesAt(this.level.platforms, this.run.seconds, step);
     const previousVelocityY = this.player.vy;
-    simulatePlayer(this.player, input, this.level, seconds, activeLedgePlatforms(this.run, this.level));
+    simulatePlayer(this.player, input, this.level, seconds, [...this.platforms, ...activeLedgePlatforms(this.run, this.level)]);
     if (previousVelocityY >= 0 && this.player.vy < -DEFAULT_MOVEMENT.jumpVelocity * 0.75) this.audio.play('jump');
     this.events = [];
     stepEntities(this.run, this.level, this.player, seconds, this.events);
@@ -46,7 +50,7 @@ export class GameplayPreviewScene implements Scene {
 
   render(ctx: CanvasRenderingContext2D): void {
     drawWorld(ctx, this.world, this.level, this.camera,
-      (entity) => isEntityActive(this.run, entity.id), (entity) => entityPosition(this.run, entity));
+      (entity) => isEntityActive(this.run, entity.id), (entity) => entityPosition(this.run, entity), this.platforms);
     const hurt = this.run.invulnerableSeconds > 0;
     const name = hurt ? 'fall' : animationFor(this.player);
     const clip = this.henry.manifest.animations[name];
@@ -64,12 +68,8 @@ export class GameplayPreviewScene implements Scene {
       ctx.fillRect(this.player.x - offset.x - 22, this.player.y - offset.y - 12, 44, 50);
     }
     ctx.restore();
-    ctx.fillStyle = '#10252cdd';
-    ctx.fillRect(5, 5, 160, 25);
-    ctx.fillStyle = '#e9f2df';
-    ctx.font = '8px monospace';
-    ctx.fillText(`GEMS ${this.run.collectedGems.size}   CHECKPOINT ${this.run.checkpointId ?? 'START'}`, 10, 16);
-    ctx.fillText('Arrows/A-D · Space · Esc pause', 10, 26);
+    drawWorldForeground(ctx, this.world, this.level, this.camera);
+    drawGameplayHud(ctx, this.run, 'Arrows/A-D · Space · Esc pause');
   }
 }
 

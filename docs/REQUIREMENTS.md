@@ -22,10 +22,16 @@ is a detailed child in a blocky world — not a cuboid Minecraft avatar.
 
 Multiple desktop-browser levels selected from a title-screen picker, including
 the Plains route and Quarry Run. Both routes target roughly 3–5 minutes, with
-momentum, slopes and springs; Quarry Run adds spring pits, stepped terraces and
-grouped stone hazards using the same movement features. Keyboard and
-standard-controller support.
-Quarry Run reuses the Plains atlas and introduces no new biome artwork.
+momentum, slopes and springs; Quarry Run adds spring pits, stepped terraces,
+grouped stone hazards and two slow moving platforms using the same movement
+features. Both rides are optional; no route depends on timing one. Keyboard and
+standard-controller support. Henry starts each run with three visible health
+pips. Each unblocked slime or hazard hit removes one pip; losing the last pip
+returns him to the latest checkpoint, or the level start, and refills all three.
+Pit recovery also refills health without costing a pip, while activating a
+checkpoint does not heal him.
+Quarry Run reuses the Plains atlas and introduces no new biome artwork;
+platforms are drawn from the level's own theme colors.
 
 ## Target browsers
 
@@ -36,7 +42,11 @@ issue 01 onward rather than only at release.
 ## Out of scope for this release
 
 No mining, building, crafting, loops, charged dashes, new biome artwork, touch
-controls, public hosting or persistent progress.
+controls, public hosting or persistent progress. Public hosting means a public
+domain, TLS or exposure beyond the home LAN; running the built container on a
+home server for LAN-only access (issue #77) is self-hosting, not public
+hosting, and is in scope. Nothing about progress or persistence changes: the
+game remains in-memory only when self-hosted.
 
 ## Asset generation
 
@@ -47,5 +57,6 @@ dependency — the shipped game never calls an image generator.
 ## Progress and persistence
 
 Progress exists only in memory during the current run. Checkpoint retries
-preserve collected gems; replay, reload or closing the page starts a fresh run.
-Do not persist checkpoints or gems in browser storage.
+preserve collected gems. Current health is also memory-only and resets on
+respawn, replay and level selection. Replay, reload or closing the page starts a
+fresh run. Do not persist checkpoints, gems or health in browser storage.

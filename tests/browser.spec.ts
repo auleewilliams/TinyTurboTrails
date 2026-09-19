@@ -1,13 +1,43 @@
-import { expect, test } from '@playwright/test';
+import { expect, test, type Page } from '@playwright/test';
 import { writeFile } from 'node:fs/promises';
 import { PLAINS_LEVEL } from '../src/world/level';
+import { QUARRY_RUN } from '../src/world/levels';
 import { DEFAULT_MOVEMENT, surfaceY } from '../src/game/movement';
-import { drawAsset, drawWorld } from '../src/world/renderer';
+import { platformBodyAt } from '../src/game/platforms';
+import { drawAsset, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawWorld } from '../src/world/renderer';
+
+/** The renderer is injected as plain functions, so every helper it calls has to travel with it. */
+const RENDERER_SOURCE = [drawAsset, drawCrumblingLedge, drawPlatformPath, drawPlatforms].map((helper) => helper.toString()).join('\n');
+
+const dangerXs = (level: typeof PLAINS_LEVEL): number[] => level.entities
+  .filter((entity) => entity.kind === 'slime' || entity.kind === 'hazard')
+  .map(({ x }) => x);
+
+async function advancePastDanger(page: Page, dangers: readonly number[], progress: { index: number; lastX?: number }): Promise<string> {
+  const status = await page.locator('#status').innerText();
+  const x = Number(status.match(/X (\d+)/)?.[1] ?? 0);
+  if (progress.lastX !== undefined && x < progress.lastX - 100) {
+    const retryIndex = dangers.findIndex((dangerX) => dangerX >= x - 40);
+    progress.index = retryIndex < 0 ? dangers.length : retryIndex;
+  }
+  progress.lastX = x;
+  while (dangers[progress.index] !== undefined && dangers[progress.index] < x - 40) progress.index++;
+  if (dangers[progress.index] !== undefined && x >= dangers[progress.index] - 60) {
+    await page.keyboard.down('Space');
+    await page.waitForTimeout(350);
+    await page.keyboard.up('Space');
+    progress.index++;
+  } else {
+    await page.waitForTimeout(100);
+  }
+  return status;
+}
 
 test('terrain joins stay solid while scrolling in both directions at integer and fractional scales', async ({ page }, info) => {
+  test.setTimeout(60_000);
   await page.goto('/?scene=foundation');
   // Run the real renderer on a separate canvas so sprites and HUD cannot hide seams.
-  await page.addScriptTag({ content: `${drawAsset.toString()}\nwindow.drawTerrainTestWorld = ${drawWorld.toString()};` });
+  await page.addScriptTag({ content: `${RENDERER_SOURCE}\nwindow.drawTerrainTestWorld = ${drawWorld.toString()};` });
   const result = await page.evaluate(async ({ level, maxSpeed }) => {
     const manifest = await (await fetch('/assets/plains/manifest.json')).json();
     const atlas = new Image();
@@ -51,6 +81,83 @@ test('terrain joins stay solid while scrolling in both directions at integer and
   await info.attach('terrain-join-650', { path: evidencePath, contentType: 'image/png' });
   expect(result.frames).toBe((PLAINS_LEVEL.surfaces.length - 1) * 4 * 2 * 12);
   expect(result.failures).toEqual([]);
+});
+
+test('moving platform slabs and their telegraphed paths draw on the real canvas', async ({ page }, info) => {
+  await page.goto('/?scene=foundation');
+  await page.addScriptTag({ content: `${RENDERER_SOURCE}\nwindow.drawTerrainTestWorld = ${drawWorld.toString()};` });
+  const platforms = QUARRY_RUN.platforms ?? [];
+  // At two seconds in, the lift is parked at the top of its path and the ferry is
+  // mid-crossing, so one sample covers both a parked and a travelling slab.
+  const views = platforms.map((platform) => ({
+    id: platform.id,
+    body: platformBodyAt(platform, 2),
+  }));
+  const rgb = (hex: string): number[] => [1, 3, 5].map((start) => parseInt(hex.slice(start, start + 2), 16));
+  const theme = { edge: rgb(QUARRY_RUN.theme.edge), ground: rgb(QUARRY_RUN.theme.ground) };
+  const results = await page.evaluate(async ({ level, views: sampled, theme: colors }) => {
+    const manifest = await (await fetch('/assets/plains/manifest.json')).json();
+    const atlas = new Image();
+    atlas.src = `/assets/plains/${manifest.image}`;
+    await atlas.decode();
+    const canvas = document.createElement('canvas');
+    canvas.width = 426;
+    canvas.height = 240;
+    const ctx = canvas.getContext('2d')!;
+    const render = (window as unknown as { drawTerrainTestWorld: typeof drawWorld }).drawTerrainTestWorld;
+    const bare = { ...level, platforms: [] };
+    return sampled.map(({ id, body }) => {
+      const offset = { x: body.x - 150, y: 0 };
+      const camera = { position: offset } as Parameters<typeof drawWorld>[3];
+      // The same frame without any platform data, to prove what the telegraph itself draws.
+      ctx.clearRect(0, 0, 426, 240);
+      render(ctx, { atlas, manifest }, bare, camera, () => true, (entity) => entity, []);
+      const before = ctx.getImageData(0, 0, 426, 240).data;
+      ctx.clearRect(0, 0, 426, 240);
+      render(ctx, { atlas, manifest }, level, camera, () => true, (entity) => entity, [body]);
+      const after = ctx.getImageData(0, 0, 426, 240).data;
+      // Everything outside the deck is identical between the two frames except the telegraph,
+      // so counting changed pixels there counts exactly the pips and their end markers.
+      let telegraphed = 0;
+      for (let y = 0; y < 240; y++) {
+        for (let x = 0; x < 426; x++) {
+          if (x >= 150 && x <= 150 + body.width && y >= body.y - 3 && y <= body.y + body.height) continue;
+          const pixel = (y * 426 + x) * 4;
+          if (before[pixel] !== after[pixel] || before[pixel + 1] !== after[pixel + 1]) telegraphed++;
+        }
+      }
+      // Count along the whole deck rather than sampling one pixel: entity art, such as the
+      // bonus gem hanging over the lift, legitimately covers part of it.
+      const run = (y: number, colour: number[]): number => {
+        const data = ctx.getImageData(150, Math.round(y), Math.round(body.width), 1).data;
+        let matches = 0;
+        for (let index = 0; index < data.length; index += 4) {
+          if (data[index] === colour[0] && data[index + 1] === colour[1] && data[index + 2] === colour[2]) matches++;
+        }
+        return matches;
+      };
+      return {
+        id,
+        width: body.width,
+        cap: run(body.y + 1, colors.edge),
+        slab: run(body.y + 6, colors.ground),
+        telegraphed,
+        image: canvas.toDataURL(),
+      };
+    });
+  }, { level: QUARRY_RUN, views, theme });
+  expect(results.map(({ id }) => id)).toEqual(platforms.map((platform) => platform.id));
+  for (const result of results) {
+    // A quarter of the deck is a conservative floor: entity art legitimately covers the rest,
+    // such as the bonus gem hanging over the lift or the hazards the ferry passes.
+    expect(result.cap).toBeGreaterThan(result.width / 4);
+    expect(result.slab).toBeGreaterThan(result.width / 4);
+    // Pips mark the route away from the deck, whatever the ride happens to pass in front of.
+    expect(result.telegraphed).toBeGreaterThan(20);
+    const evidence = info.outputPath(`${result.id}.png`);
+    await writeFile(evidence, Buffer.from(result.image.split(',')[1], 'base64'));
+    await info.attach(result.id, { path: evidence, contentType: 'image/png' });
+  }
 });
 
 test('production canvas loads, scales and recovers from focus loss', async ({ page, browser }, info) => {
@@ -202,6 +309,27 @@ test('adventure renders hurt feedback after hazard contact', async ({ page }) =>
   expect(redFeedbackPixels).toBeGreaterThan(20);
 });
 
+test('adventure HUD shows three health pips and empties one after damage', async ({ page }) => {
+  await page.goto('/?scene=adventure&debug=1');
+  await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
+  await page.keyboard.press('Space');
+  await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
+  const canvas = page.locator('canvas');
+  const readPips = async (): Promise<number[][]> => canvas.evaluate((element) => {
+    const ctx = (element as HTMLCanvasElement).getContext('2d')!;
+    return [47, 56, 65].map((x) => Array.from(ctx.getImageData(x, 13, 1, 1).data));
+  });
+  const full = [255, 93, 93, 255];
+  expect(await readPips()).toEqual([full, full, full]);
+
+  await page.keyboard.down('ArrowRight');
+  await expect.poll(async () => (await readPips()).filter((pip) => pip[0] === 255 && pip[1] === 93 && pip[2] === 93).length,
+    { timeout: 5000 }).toBe(2);
+  await page.keyboard.up('ArrowRight');
+  const damaged = await readPips();
+  expect(new Set(damaged.map((pip) => pip.join(','))).size).toBeGreaterThan(1);
+});
+
 test('a patrolling slime keeps moving while Henry stands still', async ({ page }) => {
   await page.goto('/?scene=adventure&debug=1');
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
@@ -252,7 +380,8 @@ test('default main menu starts the Plains level with Space', async ({ page }) =>
 
 test('title picker selects Quarry Run and starts the selected route', async ({ page }) => {
   // The extended Quarry Run (issue #73) takes about a minute of held-right real time.
-  test.setTimeout(150_000);
+  // Issue #74 makes walking through every hazard fatal, so jump near each danger.
+  test.setTimeout(200_000);
   await page.goto('/?scene=adventure&debug=1');
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
   // Hold the selection key long enough for a simulation frame to consume it
@@ -263,8 +392,13 @@ test('title picker selects Quarry Run and starts the selected route', async ({ p
   await page.keyboard.press('Space');
   await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
   await page.keyboard.down('ArrowRight');
-  await expect.poll(() => page.locator('#status').innerText(), { timeout: 120_000 }).toContain('Adventure preview · Finish');
+  const progress = { index: 0 };
+  const dangers = dangerXs(QUARRY_RUN);
+  for (let step = 0; step < 1100; step++) {
+    if ((await advancePastDanger(page, dangers, progress)).includes('Finish')) break;
+  }
   await page.keyboard.up('ArrowRight');
+  await expect(page.locator('#status')).toContainText('Adventure preview · Finish', { timeout: 5000 });
 });
 
 test('Quarry crumbling ledge warns, disappears and returns after fall recovery', async ({ page }, info) => {
@@ -310,8 +444,14 @@ test('Quarry crumbling ledge warns, disappears and returns after fall recovery',
   const canvas = page.locator('canvas');
   await expect(canvas).toHaveAttribute('data-ledge-tiles', '9');
 
+  const dangerProgress = { index: 0 };
+  const dangers = dangerXs(QUARRY_RUN);
   await page.keyboard.down('ArrowRight');
-  await expect(page.locator('#status')).toHaveText('Paused · Escape to resume', { timeout: 100_000 });
+  for (let step = 0; step < 1_000; step++) {
+    const status = await advancePastDanger(page, dangers, dangerProgress);
+    if (status.includes('Paused')) break;
+  }
+  await expect(page.locator('#status')).toHaveText('Paused · Escape to resume', { timeout: 5_000 });
   await page.keyboard.up('ArrowRight');
   expect(Number(await canvas.getAttribute('data-ledge-cracks') ?? 0)).toBeGreaterThan(0);
   await info.attach('crumbling-ledge-warning', {
@@ -427,24 +567,20 @@ test('adventure clears held controller input after disconnect', async ({ page })
 });
 
 test('adventure can complete the forgiving route and replay from a fresh title', async ({ page }, info) => {
-  test.setTimeout(150_000);
+  test.setTimeout(200_000);
   await page.goto('/?scene=adventure&debug=1');
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
   const initialTitle = await page.locator('canvas').evaluate((element) => (element as HTMLCanvasElement).toDataURL());
   await page.keyboard.press('Space');
   await expect(page.locator('#status')).toContainText('Adventure preview · Playing', { timeout: 15000 });
   await page.keyboard.down('ArrowRight');
-  // The extended route (issue #45) takes well over a minute of held-right real time;
-  // jump periodically for coverage of jump input mid-run rather than at hardcoded obstacle spots.
-  for (let step = 0; step < 600; step++) {
-    const status = await page.locator('#status').innerText();
+  // The extended route (issue #45) takes well over a minute of held-right real time.
+  // Jump near hazards so health loss does not intentionally return the run to a checkpoint.
+  const progress = { index: 0 };
+  const dangers = dangerXs(PLAINS_LEVEL);
+  for (let step = 0; step < 1100; step++) {
+    const status = await advancePastDanger(page, dangers, progress);
     if (status.includes('Finish')) break;
-    if (step % 12 === 0) {
-      await page.keyboard.down('Space');
-      await page.waitForTimeout(250);
-      await page.keyboard.up('Space');
-    }
-    await page.waitForTimeout(150);
   }
   await page.keyboard.up('ArrowRight');
   await expect(page.locator('#status')).toContainText('Adventure preview · Finish', { timeout: 5000 });
@@ -594,11 +730,18 @@ test('all checkpoints activate along the ground route and render planted markers
   // Terrain heights come from surfaceY rather than being restated here, so the check
   // cannot drift from the level data the way the coordinates in #26 did.
   const checkpoints = PLAINS_LEVEL.checkpoints;
+  const dangers = dangerXs(PLAINS_LEVEL);
+  const progress = { index: 0 };
   for (const checkpoint of checkpoints) {
-    await expect.poll(
-      () => page.locator('canvas').getAttribute('data-test-hud'),
-      { timeout: 25_000 },
-    ).toContain(checkpoint.id);
+    let activated = false;
+    for (let step = 0; step < 400; step++) {
+      if ((await page.locator('canvas').getAttribute('data-test-hud'))?.includes(checkpoint.id)) {
+        activated = true;
+        break;
+      }
+      await advancePastDanger(page, dangers, progress);
+    }
+    expect(activated, checkpoint.id).toBe(true);
     // Activation is detected anywhere in the 18px window around the flag, so compare
     // Henry's feet to the terrain beneath him rather than to the flag's own height:
     // the hillside marker sits on a ramp, where those two differ by the slope alone.
@@ -652,13 +795,13 @@ test('adventure HUD stays left-aligned through keyboard pause and focus loss', a
   await page.evaluate(() => window.dispatchEvent(new Event('focus')));
   await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
   await expect(canvas).toHaveAttribute('data-test-hud-draw', /^left 10 /);
-  // Left-aligned at x=10, the longest HUD line must still end inside its panel at x=210.
+  // Left-aligned at x=10, the longest HUD line must still end inside its panel at x=275.
   const rightEdge = await canvas.evaluate((element) => {
     const ctx = (element as HTMLCanvasElement).getContext('2d')!;
     ctx.font = '8px monospace';
-    return 10 + ctx.measureText('GEMS 0   CHECKPOINT checkpoint-hillside').width;
+    return 10 + ctx.measureText('GEMS 99       CHECKPOINT quarry-checkpoint-terraces').width;
   });
-  expect(rightEdge).toBeLessThan(210);
+  expect(rightEdge).toBeLessThan(275);
 });
 
 test('a collected gem stops being drawn where it stood', async ({ page }, info) => {
@@ -702,7 +845,9 @@ test('ground scenery and slimes draw their opaque bases at terrain height', asyn
     const drawImage = CanvasRenderingContext2D.prototype.drawImage;
     CanvasRenderingContext2D.prototype.drawImage = function (this: CanvasRenderingContext2D, ...args: unknown[]) {
       const [image, sx, sy] = args;
-      if (image instanceof HTMLImageElement && image.src.includes('/assets/plains/')) {
+      if (image instanceof HTMLImageElement && image.src.endsWith('/scenery/background.png')) {
+        this.canvas.dataset.worldDraws = '[]';
+      } else if (image instanceof HTMLImageElement && image.src.endsWith('/assets/plains/environment.png')) {
         const canvas = this.canvas;
         // The parallax hills precede the entity pass each frame.
         const calls = sx === 96 && sy === 144 ? [] : JSON.parse(canvas.dataset.worldDraws ?? '[]');
@@ -736,19 +881,29 @@ test('ground scenery and slimes draw their opaque bases at terrain height', asyn
     return bases;
   });
   const calls = JSON.parse(await page.locator('canvas').getAttribute('data-world-draws') ?? '[]') as number[][];
-  expect(calls).toHaveLength(PLAINS_LEVEL.entities.length + 1);
-  PLAINS_LEVEL.entities.forEach((entity, index) => {
+  PLAINS_LEVEL.entities.forEach((entity) => {
     if (entity.kind !== 'decoration' && entity.kind !== 'slime') return;
+    // Generated decorative trees/plants/rocks are covered by the scenery test.
+    if (entity.kind === 'decoration' && entity.asset !== 'cave') return;
+    const call = calls.find((args) => {
+      const drawnX = args[4] + 24;
+      if (entity.patrol) {
+        return args[0] === 96 && args[1] === 96 &&
+          drawnX >= entity.patrol.minX && drawnX <= entity.patrol.maxX;
+      }
+      return drawnX === entity.x && args[6] === 48;
+    })!;
+    expect(call, entity.id).toBeDefined();
     // Ground art anchors at its horizontal centre, 24px into the 48px cell. A patrolling
     // slime has already walked away from its level X, so check the ground under where it is.
-    const drawnX = calls[index][4] + 24;
+    const drawnX = call[4] + 24;
     if (entity.patrol) {
       expect(drawnX, entity.id).toBeGreaterThanOrEqual(entity.patrol.minX);
       expect(drawnX, entity.id).toBeLessThanOrEqual(entity.patrol.maxX);
     } else {
       expect(drawnX, entity.id).toBeCloseTo(entity.x, 5);
     }
-    expect(calls[index][5] + bases[entity.asset], entity.id).toBeCloseTo(surfaceY(PLAINS_LEVEL, drawnX), 5);
+    expect(call[5] + bases[entity.asset], entity.id).toBeCloseTo(surfaceY(PLAINS_LEVEL, drawnX), 5);
   });
   // Frame the first slime on its ramp and the first tree on the meadow.
   await page.keyboard.down('ArrowRight');
@@ -756,5 +911,71 @@ test('ground scenery and slimes draw their opaque bases at terrain height', asyn
     { timeout: 5000, intervals: [30] }).toBeGreaterThan(320);
   await page.keyboard.up('ArrowRight');
   await page.waitForTimeout(900);
-  await info.attach('grounded-slime-and-tree', { body: await page.locator('canvas').screenshot(), contentType: 'image/png' });
+  const screenshot = info.outputPath('grounded-slime-and-tree.png');
+  await page.locator('canvas').screenshot({ path: screenshot });
+  await info.attach('grounded-slime-and-tree', { path: screenshot, contentType: 'image/png' });
+});
+
+test('Plains renders its panorama and transparent scenery, and Quarry keeps its own backdrop', async ({ page }, info) => {
+  await page.addInitScript(() => {
+    const original = CanvasRenderingContext2D.prototype.drawImage;
+    CanvasRenderingContext2D.prototype.drawImage = function (this: CanvasRenderingContext2D, ...args: unknown[]) {
+      const image = args[0];
+      if (image instanceof HTMLImageElement) {
+        const source = image.src;
+        if (source.endsWith('/scenery/background.png') || (source.endsWith('/environment.png') && args[1] === 48 && args[2] === 48 && Number(args[7]) > 48)) {
+          this.canvas.dataset.sceneryDraws = '[]';
+        }
+        const calls = JSON.parse(this.canvas.dataset.sceneryDraws ?? '[]');
+        calls.push({ source, args: args.slice(1) });
+        this.canvas.dataset.sceneryDraws = JSON.stringify(calls);
+      }
+      Reflect.apply(original, this, args);
+    } as typeof original;
+  });
+  await page.goto('/?scene=adventure&debug=1');
+  await expect(page.locator('#status')).toContainText('Adventure preview · Title');
+  await page.keyboard.press('Space');
+  await expect(page.locator('#status')).toContainText('Playing');
+  const calls = JSON.parse(await page.locator('canvas').getAttribute('data-scenery-draws') ?? '[]') as { source: string; args: number[] }[];
+  expect(calls[0].source).toContain('/scenery/background.png');
+  const tree = calls.find((call) => call.source.endsWith('/foreground.png') && call.args[0] === 29 && call.args[4] > 400)!;
+  expect(tree).toBeDefined();
+  expect(tree.args[5] + tree.args[7]).toBe(158);
+  const henryIndex = calls.findIndex((call) => call.source.includes('/henry/'));
+  expect(henryIndex).toBeGreaterThan(0);
+  expect(calls.slice(henryIndex + 1).some((call) => call.source.endsWith('/foreground.png'))).toBe(true);
+  const transparent = await page.evaluate(async () => {
+    const image = new Image(); image.src = '/assets/plains/scenery/foreground.png'; await image.decode();
+    const canvas = document.createElement('canvas'); canvas.width = image.width; canvas.height = image.height;
+    const ctx = canvas.getContext('2d')!; ctx.drawImage(image, 0, 0);
+    return ctx.getImageData(0, 0, 1, 1).data[3];
+  });
+  expect(transparent).toBe(0);
+  const screenshot = info.outputPath('plains-scenery-start.png');
+  await page.locator('canvas').screenshot({ path: screenshot });
+  await info.attach('plains-scenery-start', { path: screenshot, contentType: 'image/png' });
+  await page.goto('/?scene=adventure&debug=1');
+  await expect(page.locator('#status')).toContainText('Title');
+  await page.keyboard.down('ArrowRight');
+  // Selection changes the title text; the world changes only when Space starts it.
+  await page.waitForTimeout(100);
+  await page.keyboard.up('ArrowRight');
+  await page.keyboard.press('Space');
+  await expect(page.locator('#status')).toContainText('Playing');
+  const quarryCalls = JSON.parse(await page.locator('canvas').getAttribute('data-scenery-draws') ?? '[]') as { source: string }[];
+  expect(quarryCalls.length).toBeGreaterThan(0);
+  expect(quarryCalls.some((call) => call.source.includes('/scenery/'))).toBe(false);
+});
+
+test('a failed scenery image exposes Retry loading and recovers', async ({ page }) => {
+  await page.route('**/assets/plains/scenery/foreground.png', (route) => route.abort());
+  await page.goto('/?scene=adventure');
+  await expect(page.locator('#status')).toHaveText('Artwork could not load. Reload to retry.');
+  await expect(page.locator('#retry')).toBeVisible();
+  await page.unroute('**/assets/plains/scenery/foreground.png');
+  await page.locator('#retry').click();
+  await expect(page.locator('#status')).toContainText('Adventure preview · Title');
+  await expect(page.locator('#retry')).toBeHidden();
+  await expect(page.locator('canvas')).toBeVisible();
 });

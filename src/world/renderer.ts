@@ -1,6 +1,9 @@
 import type { Camera } from './camera';
 import type { LevelData, WorldEntity } from './level';
+import type { PlatformBody } from '../game/movement';
+import type { MovingPlatform } from '../game/platforms';
 import type { WorldAsset, WorldAssets } from './assets';
+import { drawSceneryBackground, drawScenerySprite, foregroundPlacements, sceneryForDecoration } from './scenery';
 
 /** Scenes without run state draw the whole entity list; a run hides what it has consumed. */
 export type EntityFilter = (entity: WorldEntity) => boolean;
@@ -8,13 +11,16 @@ export type EntityFilter = (entity: WorldEntity) => boolean;
 export type EntityPosition = (entity: WorldEntity) => { x: number; y: number; warningProgress?: number };
 
 export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, level: LevelData, camera: Camera,
-  isVisible: EntityFilter = () => true, positionOf: EntityPosition = (entity) => entity): void {
+  isVisible: EntityFilter = () => true, positionOf: EntityPosition = (entity) => entity,
+  platforms: readonly PlatformBody[] = []): void {
   const offset = camera.position;
   const { atlas, manifest } = assets;
   const cell = manifest.cellSize;
   ctx.fillStyle = level.theme.sky;
   ctx.fillRect(0, 0, 426, 240);
-  for (const parallax of level.theme.parallax) {
+  const scenery = level.theme.scenery ? assets.scenery : undefined;
+  if (scenery) drawSceneryBackground(ctx, scenery, level, offset.x);
+  else for (const parallax of level.theme.parallax) {
     drawAsset(ctx, assets, parallax.asset,
       parallax.x - offset.x * 0.18, parallax.y - offset.y * 0.1, parallax.scale);
   }
@@ -47,11 +53,17 @@ export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, le
     ctx.lineTo(surface.x2 - offset.x, surface.y2 - offset.y);
     ctx.stroke();
   }
-  for (const entity of level.entities) {
+  drawPlatforms(ctx, level, offset, platforms);
+  // Decorative silhouettes sit behind every collectible, hazard and checkpoint.
+  const entities = scenery ? [...level.entities.filter((entity) => entity.kind === 'decoration'),
+    ...level.entities.filter((entity) => entity.kind !== 'decoration')] : level.entities;
+  for (const entity of entities) {
     if (!isVisible(entity)) continue;
     const position = positionOf(entity);
     if (entity.kind === 'crumbling-ledge') {
       drawCrumblingLedge(ctx, assets, entity, position.x - offset.x, position.y - offset.y, position.warningProgress ?? 0);
+    } else if (scenery && sceneryForDecoration(entity)) {
+      drawScenerySprite(ctx, scenery, sceneryForDecoration(entity)!, position.x - offset.x, position.y - offset.y);
     } else {
       drawAsset(ctx, assets, entity.asset as WorldAsset, position.x - offset.x, position.y - offset.y, 1);
     }
@@ -85,6 +97,44 @@ export function drawCrumblingLedge(ctx: CanvasRenderingContext2D, assets: WorldA
     ctx.stroke();
   }
   ctx.restore();
+}
+
+/** Draw after the player, before the HUD; only low, non-interactive edge plants. */
+export function drawWorldForeground(ctx: CanvasRenderingContext2D, assets: WorldAssets, level: LevelData, camera: Camera): void {
+  if (!assets.scenery || !level.theme.scenery) return;
+  for (const prop of foregroundPlacements(level)) {
+    const x = prop.x - camera.position.x;
+    if (x < -48 || x > 474) continue;
+    drawScenerySprite(ctx, assets.scenery, prop.sprite, x, prop.y - camera.position.y);
+  }
+}
+
+/** Paths are drawn before the slabs so a rider always sees where the ride goes next. */
+export function drawPlatforms(ctx: CanvasRenderingContext2D, level: LevelData, offset: { x: number; y: number },
+  platforms: readonly PlatformBody[]): void {
+  for (const platform of level.platforms ?? []) {
+    drawPlatformPath(ctx, platform, offset);
+    const body = platforms.find((candidate) => candidate.id === platform.id);
+    if (!body) continue;
+    ctx.fillStyle = level.theme.ground;
+    ctx.fillRect(body.x - offset.x, body.y - offset.y, body.width, body.height);
+    ctx.fillStyle = level.theme.edge;
+    ctx.fillRect(body.x - offset.x, body.y - offset.y, body.width, 3);
+  }
+}
+
+export function drawPlatformPath(ctx: CanvasRenderingContext2D, platform: MovingPlatform, offset: { x: number; y: number }): void {
+  const fromX = platform.from.x + platform.width / 2 - offset.x;
+  const fromY = platform.from.y - offset.y;
+  const toX = platform.to.x + platform.width / 2 - offset.x;
+  const toY = platform.to.y - offset.y;
+  const pips = Math.max(2, Math.round(Math.hypot(toX - fromX, toY - fromY) / 12));
+  ctx.fillStyle = '#ffffff66';
+  for (let pip = 0; pip <= pips; pip++) {
+    const progress = pip / pips;
+    ctx.fillRect(Math.round(fromX + (toX - fromX) * progress) - 1, Math.round(fromY + (toY - fromY) * progress) - 1, 2, 2);
+  }
+  for (const [x, y] of [[fromX, fromY], [toX, toY]]) ctx.fillRect(x - 4, y - 2, 8, 2);
 }
 
 export function drawAsset(ctx: CanvasRenderingContext2D, assets: WorldAssets, asset: WorldAsset, x: number, y: number, scale = 1): void {

@@ -2,8 +2,9 @@
 
 A sidescrolling 16-bit platformer for Henry. This is the **certified first
 playable release**: it includes the Plains and Quarry Run worlds, Henry's
-starter art, movement, gems, hazards, checkpoints, local music/effects and a
-title-to-adventure shell with a level picker. Release certification (issue #8) is closed; see
+starter art, movement, gems, hazards, checkpoints, Quarry Run's moving
+platforms, local music/effects and a title-to-adventure shell with a level
+picker. Release certification (issue #8) is closed; see
 [Verification](#verification) below for what was checked and what was
 deliberately waived.
 
@@ -39,6 +40,14 @@ The lockfile fixes dependency versions. `dist/` is a static build that needs an
 HTTP server; opening index.html directly as a file is not supported. CI runs the
 same checks on pushes and pull requests.
 
+## Deployment
+
+The game also runs as a small Docker/nginx container on the home Proxmox
+server, so Henry can play from any machine on the LAN without an adult
+running `npm run dev` first. This stays LAN-only — no TLS, no public DNS.
+See [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md) for first-time setup,
+deploying an update and rolling back.
+
 ## Controls
 
 Open `/` for the foundation screen or `/?scene=adventure` for the title,
@@ -63,6 +72,12 @@ Current release controls:
 Only standard-mapped controllers are read. Input clears on focus loss and
 controller disconnect; release held controller controls before resuming.
 
+Quarry Run has two slow rides: a lift up to the stone-terrace bonus gem and a
+ferry over the crusher yard's stone hazards. Their dotted path shows where they travel;
+hop aboard, then let go of the direction key until the ride parks. Both are
+optional, and both dock on walkable ground. See
+[moving platforms](docs/moving-platforms.md).
+
 Progress is in memory only. Checkpoint retries preserve collected gems; replay,
 reload or closing the page starts a fresh run. The last selected level is not
 remembered. No browser storage, server save, public hosting or runtime
@@ -82,7 +97,8 @@ generation call is used.
 - `src/core/audio.ts`: shared audio interface and silent fallback.
 - `src/core/retro-audio.ts`: local music/effect synthesis with bounded voices.
 - `src/main.ts`: browser focus, sizing and animation lifecycle, including HMR cleanup.
-- `src/game/`: movement, interactions, screen state and adventure previews.
+- `src/game/`: movement, moving platforms, interactions, screen state and
+  adventure previews.
 - `src/world/`: level registry and data, camera, asset manifests and renderer.
 - `src/foundation-scene.ts`: diagnostic drawing for the foundation screen.
 

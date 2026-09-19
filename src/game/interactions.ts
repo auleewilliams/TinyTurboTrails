@@ -1,4 +1,4 @@
-import { DEFAULT_MOVEMENT, launchSpring, surfaceY, type CollisionPlatform, type Player } from './movement';
+import { DEFAULT_MOVEMENT, MAX_STEP_SECONDS, detachFromGround, launchSpring, surfaceY, type CollisionPlatform, type Player } from './movement';
 import type { LevelData, WorldEntity } from '../world/level';
 
 export type RunEvent =
@@ -10,6 +10,8 @@ export type RunEvent =
 
 export const CRUMBLE_WARNING_SECONDS = 0.75;
 export type CrumblingLedgePhase = 'stable' | 'warning' | 'crumbled';
+export const MAX_HEALTH = 3;
+export const HEALTH_FLASH_SECONDS = 0.35;
 
 /** Live position and transient behavior of a level entity. */
 export interface EntityState {
@@ -23,9 +25,14 @@ export interface EntityState {
 }
 
 export interface RunState {
+  /** Run clock in seconds; moving platforms are a pure function of it. */
+  seconds: number;
   collectedGems: Set<string>;
   springContacts: Set<string>;
   checkpointId: string | null;
+  health: number;
+  healthFlashPip: number | null;
+  healthFlashSeconds: number;
   invulnerableSeconds: number;
   entities: EntityState[];
 }
@@ -41,14 +48,19 @@ function placeEntities(level: LevelData): EntityState[] {
 }
 
 export function createRun(level: LevelData): RunState {
-  return { collectedGems: new Set(), springContacts: new Set(), checkpointId: null, invulnerableSeconds: 0,
+  return { seconds: 0, collectedGems: new Set(), springContacts: new Set(), checkpointId: null,
+    health: MAX_HEALTH, healthFlashPip: null, healthFlashSeconds: 0, invulnerableSeconds: 0,
     entities: placeEntities(level) };
 }
 
 export function startNewRun(run: RunState, level: LevelData): void {
+  run.seconds = 0;
   run.collectedGems.clear();
   run.springContacts.clear();
   run.checkpointId = null;
+  run.health = MAX_HEALTH;
+  run.healthFlashPip = null;
+  run.healthFlashSeconds = 0;
   run.invulnerableSeconds = 0;
   run.entities = placeEntities(level);
 }
@@ -87,7 +99,7 @@ export function touchesPlayer(player: Player, x: number, y: number): boolean {
 
 /** Walk patrolling entities between their bounds, hugging the terrain they stand on. */
 export function advancePatrols(run: RunState, level: LevelData, seconds: number): void {
-  const dt = Math.max(0, Math.min(seconds, 0.1));
+  const dt = Math.max(0, Math.min(seconds, MAX_STEP_SECONDS));
   for (const entity of level.entities) {
     const patrol = entity.patrol;
     const state = entityState(run, entity.id);
@@ -124,13 +136,18 @@ export function stepEntities(run: RunState, level: LevelData, player: Player, se
     if (!state?.active || !touching) continue;
     if (entity.kind === 'gem') collectGem(run, entity.id, events);
     else if (entity.kind === 'checkpoint') activateCheckpoint(run, entity.id, events);
-    else if (entity.kind === 'slime' || entity.kind === 'hazard') damagePlayer(run, player, x - player.x, events, entity.id);
+    else if (entity.kind === 'slime' || entity.kind === 'hazard') damagePlayer(run, player, x - player.x, events, level, entity.id);
   }
 }
 
-export function tickRun(run: RunState, seconds: number): void {
+/** Advances the run clock and updates transient run state. */
+export function tickRun(run: RunState, seconds: number): number {
+  const step = Math.min(Math.max(0, seconds), MAX_STEP_SECONDS);
   const dt = Math.max(0, seconds);
+  run.seconds += step;
   run.invulnerableSeconds = Math.max(0, run.invulnerableSeconds - dt);
+  run.healthFlashSeconds = Math.max(0, run.healthFlashSeconds - dt);
+  if (run.healthFlashSeconds === 0) run.healthFlashPip = null;
   for (const state of run.entities) {
     if (state.ledgePhase !== 'warning') continue;
     state.ledgeSeconds = Math.max(0, (state.ledgeSeconds ?? 0) - dt);
@@ -139,6 +156,7 @@ export function tickRun(run: RunState, seconds: number): void {
       state.active = false;
     }
   }
+  return step;
 }
 
 export function collectGem(run: RunState, entityId: string, events: RunEvent[]): boolean {
@@ -163,14 +181,21 @@ export function activateCheckpoint(run: RunState, entityId: string, events: RunE
   return true;
 }
 
-export function damagePlayer(run: RunState, player: Player, direction: number, events: RunEvent[], entityId?: string): boolean {
+export function damagePlayer(run: RunState, player: Player, direction: number, events: RunEvent[], level: LevelData,
+  entityId?: string): boolean {
   if (run.invulnerableSeconds > 0) return false;
+  run.health--;
+  const lostPip = run.health;
   const away = Math.sign(direction) || (player.vx >= 0 ? -1 : 1);
   player.vx = away * -220;
   player.vy = -220;
   player.onGround = false;
+  detachFromGround(player);
   run.invulnerableSeconds = 1;
   events.push({ type: 'damage', entityId });
+  if (run.health === 0) recoverFromFall(run, player, events, level);
+  run.healthFlashPip = lostPip;
+  run.healthFlashSeconds = HEALTH_FLASH_SECONDS;
   return true;
 }
 
@@ -195,6 +220,9 @@ export function recoverFromFall(run: RunState, player: Player, events: RunEvent[
     state.ledgePhase = 'stable';
     state.ledgeSeconds = 0;
   }
+  run.health = MAX_HEALTH;
+  run.healthFlashPip = null;
+  run.healthFlashSeconds = 0;
   const checkpoint = run.checkpointId ? level.checkpoints.find((candidate) => candidate.id === run.checkpointId) : undefined;
   const spawn = checkpoint ?? level.start;
   player.x = spawn.x;
@@ -204,6 +232,7 @@ export function recoverFromFall(run: RunState, player: Player, events: RunEvent[
   player.onGround = true;
   player.coyoteSeconds = DEFAULT_MOVEMENT.coyoteSeconds;
   player.jumpBufferSeconds = 0;
+  detachFromGround(player);
   run.invulnerableSeconds = 1;
   events.push({ type: 'recover' });
 }

@@ -3,6 +3,7 @@ import { DEFAULT_MOVEMENT, createPlayer, simulatePlayer, surfaceY } from '../src
 import { activateCheckpoint, createRun, recoverFromFall, type RunEvent } from '../src/game/interactions';
 import type { GameAudio } from '../src/core/audio';
 import { AdventureScene } from '../src/game/adventure-scene';
+import { PLATFORM_MAX_SPEED, platformBodyAt, platformCycleSeconds, platformSpeed } from '../src/game/platforms';
 import { validateLevel, type WorldEntity } from '../src/world/level';
 import { LEVELS, QUARRY_RUN, levelById } from '../src/world/levels';
 
@@ -48,12 +49,20 @@ function playQuarry(jump?: Jump) {
   let pending = jump;
   const ledges = ofKind('crumbling-ledge');
   const ledgeApproaches = new Map(ledges.map((ledge) => [ledge.id, { distance: Infinity, x: 0, feet: 0 }]));
+  const dangers = QUARRY_RUN.entities.filter((entity) => entity.kind === 'slime' || entity.kind === 'hazard');
+  let dangerIndex = 0;
   for (; frame < 60 * 120 && scene.screenState !== 'finish'; frame++) {
     let jumpPressed = false;
     if (pending && scene.playerX >= pending.x) {
       jumpPressed = pending.press;
       jumpFrames = 40;
       pending = undefined;
+    }
+    const danger = dangers[dangerIndex];
+    if (danger && scene.playerX >= danger.x - 50) {
+      jumpPressed = true;
+      jumpFrames = Math.max(jumpFrames, 24);
+      dangerIndex++;
     }
     scene.update(1 / 60, { ...input, jumpPressed, jumpHeld: jumpFrames-- > 0 });
     for (const ledge of ledges) {
@@ -157,16 +166,17 @@ it.each(pits.map((pit) => ({ ...pit, name: `${pit.x1}-${pit.x2}` })))('recovers 
   expect(events.at(-1)).toEqual({ type: 'recover' });
 });
 
-it('can complete Quarry Run while holding right at a Plains-like pace', () => {
+it('can complete Quarry Run with simple hazard-avoidance jumps at a Plains-like pace', () => {
   const { scene, effects, seconds, collected } = playQuarry();
   expect(scene.screenState).toBe('finish');
-  expect(seconds).toBeGreaterThanOrEqual(50);
+  expect(seconds).toBeGreaterThanOrEqual(45);
   expect(effects.filter((effect) => effect === 'spring')).toHaveLength(9);
   expect(effects.filter((effect) => effect === 'checkpoint')).toHaveLength(7);
-  expect(effects.filter((effect) => effect === 'damage').length).toBeGreaterThan(0);
+  expect(effects.filter((effect) => effect === 'damage').length).toBeLessThan(3);
   const mainGems = ofKind('gem').filter((gem) => !isBonus(gem));
-  expect([...collected].sort()).toEqual(mainGems.map(({ id }) => id).sort());
-  expect(scene.gemTotal).toBe(mainGems.length);
+  expect(mainGems.every(({ id }) => collected.has(id))).toBe(true);
+  expect(scene.gemTotal).toBe(collected.size);
+  expect(scene.gemTotal).toBeGreaterThanOrEqual(mainGems.length);
 });
 
 it('naturally lands on a crumbling ledge during the held-right route', () => {
@@ -190,4 +200,83 @@ it.each([
   const { scene, collected } = playQuarry({ x, press });
   expect(collected.has(id)).toBe(true);
   expect(scene.screenState).toBe('finish');
+});
+
+const PLATFORMS = QUARRY_RUN.platforms ?? [];
+const LIFT = PLATFORMS.find((platform) => platform.id === 'quarry-lift-terraces')!;
+const FERRY = PLATFORMS.find((platform) => platform.id === 'quarry-ferry-crusher')!;
+
+/** Drives the real scene from a chosen spot, the way a player who walked there would ride. */
+function rideFrom(x: number) {
+  const effects: string[] = [];
+  const audio: GameAudio = {
+    unlock: async () => {}, setMuted: () => {}, setSuspended: () => {}, startMusic: () => {},
+    play: (effect) => effects.push(effect), stop: () => {}, dispose: () => {},
+  };
+  const scene = new AdventureScene({} as never, {} as never, audio, QUARRY_RUN);
+  scene.update(1 / 60, { horizontal: 0, jumpHeld: false, jumpPressed: true, pausePressed: false, mutePressed: false });
+  Object.assign(scene, { player: createPlayer(x, QUARRY_RUN) });
+  const collected = (scene as unknown as { run: { collectedGems: Set<string> } }).run.collectedGems;
+  const step = (horizontal = 0, jumpPressed = false): void => {
+    scene.update(1 / 60, { horizontal, jumpPressed, jumpHeld: false, pausePressed: false, mutePressed: false });
+  };
+  return { scene, effects, collected, step };
+}
+
+it('rides slowly along a telegraphed path and parks at both ends', () => {
+  expect(PLATFORMS).toHaveLength(2);
+  for (const platform of PLATFORMS) {
+    expect(platformSpeed(platform)).toBeLessThanOrEqual(PLATFORM_MAX_SPEED);
+    expect(platform.pause ?? 0).toBeGreaterThan(0);
+    const path = Array.from({ length: 61 }, (_, tick) => platformBodyAt(platform, (tick / 60) * platformCycleSeconds(platform)));
+    expect(Math.min(...path.map((body) => body.x))).toBeCloseTo(Math.min(platform.from.x, platform.to.x), 4);
+    expect(Math.max(...path.map((body) => body.x))).toBeCloseTo(Math.max(platform.from.x, platform.to.x), 4);
+    expect(Math.min(...path.map((body) => body.y))).toBeCloseTo(Math.min(platform.from.y, platform.to.y), 4);
+    expect(Math.max(...path.map((body) => body.y))).toBeCloseTo(Math.max(platform.from.y, platform.to.y), 4);
+    // Both rides dock on walkable ground, so a missed boarding is a landing rather than a fall.
+    for (const end of [platform.from, platform.to]) {
+      expect(surfaceY(QUARRY_RUN, end.x + platform.width / 2)).toBeLessThan(FALL_Y);
+    }
+  }
+});
+
+it('lifts a waiting Henry to the terraces bonus gem', () => {
+  const { scene, effects, collected, step } = rideFrom(LIFT.from.x + LIFT.width / 2);
+  let highest = scene.playerY;
+  for (let frame = 0; frame < 60 * 12; frame++) {
+    step();
+    highest = Math.min(highest, scene.playerY);
+  }
+  expect(highest + DEFAULT_MOVEMENT.height).toBeCloseTo(LIFT.to.y, 4);
+  // The bonus gem of this section otherwise needs a well-aimed jump; the ride is the calm way up.
+  expect(collected.has('quarry-bonus-002')).toBe(true);
+  expect(effects).not.toContain('damage');
+});
+
+it('ferries a hopping Henry over the paired crusher hazards', () => {
+  const { scene, effects, step } = rideFrom(FERRY.from.x + FERRY.width / 2);
+  const deck = (): boolean => Math.abs(scene.playerY + DEFAULT_MOVEMENT.height - FERRY.from.y) < 1;
+  // Hop on the spot until the deck comes back around: no timing to read, just keep jumping.
+  let carried = 0;
+  for (let frame = 0; frame < 60 * 14; frame++) {
+    const grounded = scene.playerY + DEFAULT_MOVEMENT.height >= surfaceY(QUARRY_RUN, scene.playerX) - 1;
+    step(0, grounded);
+    if (deck()) carried = Math.max(carried, scene.playerX);
+  }
+  const hazards = ofKind('hazard').filter((hazard) => hazard.x > FERRY.from.x && hazard.x < FERRY.to.x + FERRY.width);
+  expect(hazards).toHaveLength(2);
+  expect(carried).toBeGreaterThan(Math.max(...hazards.map((hazard) => hazard.x)));
+  expect(effects).not.toContain('damage');
+  expect(effects).not.toContain('recover');
+});
+
+it('keeps platform phase on the run clock, so a paused adventure resumes in place', () => {
+  const played = rideFrom(LIFT.from.x + LIFT.width / 2);
+  const paused = rideFrom(LIFT.from.x + LIFT.width / 2);
+  for (let frame = 0; frame < 300; frame++) played.step();
+  for (let frame = 0; frame < 150; frame++) paused.step();
+  // A pause simply stops updating the scene; wall-clock time passing must not move the lift.
+  for (let frame = 0; frame < 150; frame++) paused.step();
+  expect(paused.scene.playerX).toBeCloseTo(played.scene.playerX, 6);
+  expect(paused.scene.playerY).toBeCloseTo(played.scene.playerY, 6);
 });

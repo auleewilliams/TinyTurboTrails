@@ -3,7 +3,8 @@ import type { InputFrame } from '../core/input';
 import { Camera } from './camera';
 import { DEFAULT_LEVEL } from './levels';
 import type { LevelData } from './level';
-import { drawWorld } from './renderer';
+import { drawWorld, drawWorldForeground } from './renderer';
+import { platformBodiesAt } from '../game/platforms';
 import type { WorldAssets } from './assets';
 
 export class WorldPreviewScene implements Scene {
@@ -25,7 +26,9 @@ export class WorldPreviewScene implements Scene {
     this.camera.update(this.targetX, this.targetY);
   }
   render(ctx: CanvasRenderingContext2D): void {
-    drawWorld(ctx, this.assets, this.level, this.camera);
+    drawWorld(ctx, this.assets, this.level, this.camera, () => true, (entity) => entity,
+      platformBodiesAt(this.level.platforms, this.elapsed));
+    drawWorldForeground(ctx, this.assets, this.level, this.camera);
     ctx.fillStyle = '#e9f2df';
     ctx.font = 'bold 12px monospace';
     ctx.fillText('PLAINS WORLD DATA PREVIEW', 12, 18);

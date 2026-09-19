@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { DEFAULT_MOVEMENT, createPlayer, simulatePlayer, surfaceY, type Player } from '../src/game/movement';
+import { DEFAULT_MOVEMENT, MAX_STEP_SECONDS, createPlayer, simulatePlayer, surfaceY, type Player } from '../src/game/movement';
 import { PLAINS_LEVEL } from '../src/world/level';
 import {
   CRUMBLE_WARNING_SECONDS, activeLedgePlatforms, advancePatrols, applySpring, activateCheckpoint,
@@ -8,12 +8,32 @@ import {
   type RunEvent,
 } from '../src/game/interactions';
 import type { LevelData, WorldEntity } from '../src/world/level';
+import { QUARRY_RUN } from '../src/world/levels';
 
 const terrain = { minX: 0, maxX: 400, surfaces: [{ x1: 0, x2: 400, y1: 180, y2: 180 }] };
 function player(): Player { return createPlayer(60, terrain); }
 function events(): RunEvent[] { return []; }
 
 describe('in-memory run interactions', () => {
+  it('starts and resets a run with three health pips', () => {
+    const run = createRun(PLAINS_LEVEL);
+    expect(run.health).toBe(3);
+    run.health = 1;
+    run.healthFlashPip = 1;
+    run.healthFlashSeconds = 0.2;
+    startNewRun(run, PLAINS_LEVEL);
+    expect(run.health).toBe(3);
+    expect(run.healthFlashPip).toBeNull();
+    expect(run.healthFlashSeconds).toBe(0);
+  });
+
+  it('does not heal when a checkpoint is activated', () => {
+    const run = createRun(PLAINS_LEVEL);
+    run.health = 1;
+    expect(activateCheckpoint(run, 'checkpoint-meadow', events())).toBe(true);
+    expect(run.health).toBe(1);
+  });
+
   it('collects each stable gem ID once and preserves it after recovery', () => {
     const run = createRun(PLAINS_LEVEL);
     const log = events();
@@ -44,13 +64,20 @@ describe('in-memory run interactions', () => {
     const henry = player();
     henry.vx = 30;
     const log = events();
-    expect(damagePlayer(run, henry, 1, log)).toBe(true);
+    expect(damagePlayer(run, henry, 1, log, PLAINS_LEVEL)).toBe(true);
+    expect(run.health).toBe(2);
+    expect(run.healthFlashPip).toBe(2);
+    expect(run.healthFlashSeconds).toBeGreaterThan(0);
     expect(henry.vx).toBeLessThan(0);
     expect(henry.vy).toBeLessThan(0);
     expect(run.invulnerableSeconds).toBeGreaterThan(0);
-    expect(damagePlayer(run, henry, 1, log)).toBe(false);
+    expect(damagePlayer(run, henry, 1, log, PLAINS_LEVEL)).toBe(false);
+    expect(run.health).toBe(2);
     tickRun(run, 1.1);
-    expect(damagePlayer(run, henry, -1, log)).toBe(true);
+    expect(run.healthFlashPip).toBeNull();
+    expect(run.healthFlashSeconds).toBe(0);
+    expect(damagePlayer(run, henry, -1, log, PLAINS_LEVEL)).toBe(true);
+    expect(run.health).toBe(1);
   });
 
   it('launches from springs with a distinct event and keeps lateral speed', () => {
@@ -126,6 +153,50 @@ describe('in-memory run interactions', () => {
     expect(henry.onGround).toBe(true);
   });
 
+  it('refills health on fall recovery without charging a health pip', () => {
+    const run = createRun(PLAINS_LEVEL);
+    const henry = player();
+    const log = events();
+    run.health = 1;
+    recoverFromFall(run, henry, log, PLAINS_LEVEL);
+    expect(run.health).toBe(3);
+    expect(run.healthFlashPip).toBeNull();
+    expect(log).toEqual([{ type: 'recover' }]);
+  });
+
+  it.each([PLAINS_LEVEL, QUARRY_RUN])('losing the last pip respawns at a checkpoint in $name', (level) => {
+    const run = createRun(level);
+    const henry = createPlayer(level.start.x, level);
+    const log = events();
+    const checkpoint = level.checkpoints[0];
+    activateCheckpoint(run, checkpoint.id, log);
+    run.health = 1;
+    henry.x = checkpoint.x + 200;
+    henry.y = -200;
+    expect(damagePlayer(run, henry, 1, log, level, 'hazard-test')).toBe(true);
+    expect(henry.x).toBe(checkpoint.x);
+    expect(henry.y).toBe(checkpoint.y - DEFAULT_MOVEMENT.height);
+    expect(run.health).toBe(3);
+    expect(run.healthFlashPip).toBe(0);
+    expect(run.healthFlashSeconds).toBeGreaterThan(0);
+    expect(log.slice(-2)).toEqual([
+      { type: 'damage', entityId: 'hazard-test' },
+      { type: 'recover' },
+    ]);
+  });
+
+  it.each([PLAINS_LEVEL, QUARRY_RUN])('losing the last pip without a checkpoint respawns at the start in $name', (level) => {
+    const run = createRun(level);
+    const henry = createPlayer(level.start.x + 300, level);
+    const log = events();
+    run.health = 1;
+    expect(damagePlayer(run, henry, -1, log, level)).toBe(true);
+    expect(henry.x).toBe(level.start.x);
+    expect(henry.y).toBe(level.start.y - DEFAULT_MOVEMENT.height);
+    expect(run.health).toBe(3);
+    expect(log.map((event) => event.type)).toEqual(['damage', 'recover']);
+  });
+
   it('recovers safely from every Plains checkpoint and keeps collected gems', () => {
     for (const checkpoint of PLAINS_LEVEL.checkpoints) {
       const run = createRun(PLAINS_LEVEL);
@@ -147,6 +218,31 @@ describe('in-memory run interactions', () => {
       expect(henry.vy).toBe(0);
       expect(henry.onGround).toBe(true);
     }
+  });
+
+  it('ends the ride when a knockback or a recovery moves Henry, and times platforms from the run clock', () => {
+    const run = createRun(PLAINS_LEVEL);
+    const log = events();
+    tickRun(run, 1 / 60);
+    tickRun(run, 1 / 60);
+    expect(run.seconds).toBeCloseTo(2 / 60, 6);
+    // A stalled frame advances the clock no further than movement integrates it.
+    tickRun(run, 5);
+    expect(run.seconds).toBeCloseTo(2 / 60 + MAX_STEP_SECONDS, 6);
+    const hurt = player();
+    hurt.platformId = 'ferry';
+    hurt.groundVelocityX = 50;
+    damagePlayer(run, hurt, -1, log, PLAINS_LEVEL);
+    expect(hurt.platformId).toBeNull();
+    expect(hurt.groundVelocityX).toBe(0);
+    const fallen = player();
+    fallen.platformId = 'ferry';
+    fallen.groundVelocityX = 50;
+    recoverFromFall(run, fallen, log, PLAINS_LEVEL);
+    expect(fallen.platformId).toBeNull();
+    expect(fallen.groundVelocityX).toBe(0);
+    startNewRun(run, PLAINS_LEVEL);
+    expect(run.seconds).toBe(0);
   });
 });
 

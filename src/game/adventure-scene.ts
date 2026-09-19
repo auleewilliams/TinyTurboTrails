@@ -4,14 +4,16 @@ import type { Scene } from '../core/scene';
 import { animationFrame } from '../art/animation';
 import type { HenryAssets } from '../art/henry';
 import { drawFacingSprite } from '../art/sprite';
-import { animationFor, createPlayer, simulatePlayer, DEFAULT_MOVEMENT, type Facing, type Player } from './movement';
+import { animationFor, createPlayer, simulatePlayer, DEFAULT_MOVEMENT, type Facing, type PlatformBody, type Player } from './movement';
+import { platformBodiesAt } from './platforms';
 import { activeLedgePlatforms, createRun, entityPosition, isEntityActive, recoverFromFall, stepEntities, tickRun, type RunEvent, type RunState } from './interactions';
 import { ScreenController } from './screens';
 import type { LevelData } from '../world/level';
 import { LEVELS } from '../world/levels';
 import { Camera } from '../world/camera';
-import { drawWorld } from '../world/renderer';
+import { drawWorld, drawWorldForeground } from '../world/renderer';
 import type { WorldAssets } from '../world/assets';
+import { drawGameplayHud } from './hud';
 
 export interface Rect { x: number; y: number; width: number; height: number }
 
@@ -57,6 +59,7 @@ export class AdventureScene implements Scene {
   private player: Player;
   private run: RunState;
   private camera: Camera;
+  private platforms: PlatformBody[];
   private elapsed = 0;
   private events: RunEvent[] = [];
   private selectedIndex: number;
@@ -68,6 +71,7 @@ export class AdventureScene implements Scene {
     this.player = createPlayer(level.start.x, level);
     this.run = createRun(level);
     this.camera = new Camera({ width: 426, height: 240, worldWidth: level.width, worldHeight: level.height });
+    this.platforms = platformBodiesAt(level.platforms, 0);
   }
   get screenState(): ScreenController['state'] { return this.screens.state; }
   get gemTotal(): number { return this.screens.gems; }
@@ -103,9 +107,11 @@ export class AdventureScene implements Scene {
   }
 
   private stepGameplay(seconds: number, input: InputFrame): void {
-    tickRun(this.run, seconds);
+    // Platforms advance first: movement then collides with where they are now, not where they were.
+    const step = tickRun(this.run, seconds);
+    this.platforms = platformBodiesAt(this.level.platforms, this.run.seconds, step);
     const previousVelocityY = this.player.vy;
-    simulatePlayer(this.player, input, this.level, seconds, activeLedgePlatforms(this.run, this.level));
+    simulatePlayer(this.player, input, this.level, seconds, [...this.platforms, ...activeLedgePlatforms(this.run, this.level)]);
     if (previousVelocityY >= 0 && this.player.vy < -DEFAULT_MOVEMENT.jumpVelocity * 0.75) this.audio.play('jump');
     this.events = [];
     stepEntities(this.run, this.level, this.player, seconds, this.events);
@@ -125,16 +131,11 @@ export class AdventureScene implements Scene {
 
   render(ctx: CanvasRenderingContext2D): void {
     drawWorld(ctx, this.world, this.level, this.camera,
-      (entity) => isEntityActive(this.run, entity.id), (entity) => entityPosition(this.run, entity));
+      (entity) => isEntityActive(this.run, entity.id), (entity) => entityPosition(this.run, entity), this.platforms);
     if (this.screens.state === 'playing') this.drawHenry(ctx);
-    ctx.fillStyle = '#10252cdd';
-    ctx.fillRect(5, 5, 205, 25);
-    ctx.fillStyle = '#e9f2df';
-    ctx.font = '8px monospace';
-    ctx.textAlign = 'left';
+    drawWorldForeground(ctx, this.world, this.level, this.camera);
     if (this.screens.state === 'playing') {
-      ctx.fillText(`GEMS ${this.run.collectedGems.size}   CHECKPOINT ${this.run.checkpointId ?? 'START'}`, 10, 16);
-      ctx.fillText('Arrows/A-D move · Space jump · Esc pause', 10, 26);
+      drawGameplayHud(ctx, this.run, 'Arrows/A-D move · Space jump · Esc pause');
     } else if (this.screens.state === 'title') {
       this.panel(ctx, 'TINY TURBO TRAILS', `◀ ${this.selectedLevelName} ▶`);
       ctx.fillStyle = '#e9f2df';
@@ -174,6 +175,7 @@ export class AdventureScene implements Scene {
     this.player = createPlayer(level.start.x, level);
     this.run = createRun(level);
     this.camera = new Camera({ width: 426, height: 240, worldWidth: level.width, worldHeight: level.height });
+    this.platforms = platformBodiesAt(level.platforms, 0);
   }
 
   private updateSelection(horizontal: number): void {
