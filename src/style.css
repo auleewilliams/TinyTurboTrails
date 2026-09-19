@@ -1,12 +1,12 @@
-:root { color-scheme: dark; font-family: monospace; background: #8bd0ca; color: #e9f2df; }
+:root { --ui-panel: #0c1922; --ui-ink: #e9f2df; --ui-accent: #ffda75; color-scheme: dark; font-family: monospace; background: #8bd0ca; color: #e9f2df; }
 * { box-sizing: border-box; }
 body { margin: 0; }
 main { width: 100vw; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; }
 canvas { display: block; flex-shrink: 0; image-rendering: pixelated; image-rendering: crisp-edges; }
-#status { position: absolute; bottom: 0; margin: 0; padding: 4px 8px; font-size: 11px; text-align: center; background: #0c1922; }
-#mute, #retry { position: absolute; right: 8px; bottom: 8px; border: 1px solid #bfd5ce; background: #17333b; color: #e9f2df; padding: 4px 8px; font: 11px monospace; }
-#retry { right: auto; left: 8px; background: #8b3a3a; }
-#mute:focus-visible, #retry:focus-visible { outline: 2px solid #ffda75; outline-offset: 2px; }
+#status { position: absolute; left: 8px; bottom: 8px; max-width: calc(100vw - 88px); overflow: hidden; white-space: nowrap; text-overflow: ellipsis; margin: 0; padding: 4px 8px; font-size: 11px; text-align: center; background: var(--ui-panel); }
+#mute, #retry { position: absolute; right: 8px; bottom: 8px; border: 1px solid #bfd5ce; background: #17333b; color: var(--ui-ink); padding: 4px 8px; font: 11px monospace; }
+#retry { right: auto; left: 8px; bottom: 40px; background: #8b3a3a; }
+#mute:focus-visible, #retry:focus-visible { outline: 2px solid var(--ui-accent); outline-offset: 2px; }
 
 .audio-preview {
   position: fixed;
