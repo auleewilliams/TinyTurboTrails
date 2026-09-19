@@ -3,6 +3,8 @@ import { BrowserInput, type InputFrame } from '../src/core/input';
 import { SimulationClock } from '../src/core/clock';
 import { AdventureScene } from '../src/game/adventure-scene';
 import { PLAINS_LEVEL } from '../src/world/level';
+
+const worlds = { plains: {} as never, timbers: {} as never };
 import type { GameAudio } from '../src/core/audio';
 
 // Earlier browser-controller coverage only pressed the face button at the title screen
@@ -20,7 +22,7 @@ it('a controller jump mid-gameplay actually launches the player, not just at the
     unlock: async () => {}, setMuted: () => {}, setSuspended: () => {}, startMusic: () => {},
     play: () => {}, stop: () => {}, dispose: () => {},
   };
-  const scene = new AdventureScene({} as never, {} as never, audio, PLAINS_LEVEL);
+  const scene = new AdventureScene({} as never, worlds, audio, PLAINS_LEVEL);
   scene.enter();
 
   let pendingJump = false;

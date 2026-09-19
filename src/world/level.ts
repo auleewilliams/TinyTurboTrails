@@ -17,6 +17,8 @@ export interface WorldEntity {
 }
 export interface LevelTheme {
   scenery?: boolean;
+  /** Draw the shared terrain cells over the solid collision contour. */
+  texturedTerrain?: boolean;
   sky: string;
   ground: string;
   edge: string;

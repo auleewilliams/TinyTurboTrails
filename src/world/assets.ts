@@ -12,8 +12,10 @@ export interface WorldManifest {
   cellSize: number;
   assets: Record<WorldAsset, number>;
   anchors?: Partial<Record<WorldAsset, { x: number; y: number }>>;
+  terrainTops?: Partial<Record<WorldAsset, { left: number; right: number }>>;
 }
 export interface WorldAssets { atlas: HTMLImageElement; manifest: WorldManifest; scenery?: SceneryAssets }
+export type WorldAssetMap = Readonly<Record<string, WorldAssets>>;
 
 async function loadImage(url: string, label: string): Promise<HTMLImageElement> {
   const image = new Image();
@@ -46,4 +48,10 @@ export async function loadWorldAssets(directory = 'plains'): Promise<WorldAssets
     loadImage(`${sceneryBase}${sceneryManifest.foreground.image}`, 'scenery foreground'),
   ]);
   return { atlas, manifest, scenery: { background, foreground, manifest: sceneryManifest } };
+}
+
+export async function loadWorldAssetMap(directories: readonly string[]): Promise<WorldAssetMap> {
+  const unique = [...new Set(directories)];
+  const loaded = await Promise.all(unique.map(loadWorldAssets));
+  return Object.fromEntries(unique.map((directory, index) => [directory, loaded[index]]));
 }

@@ -9,11 +9,11 @@ import { FoundationScene } from './foundation-scene';
 import { loadHenry } from './art/henry';
 import { ArtPreviewScene } from './art/preview-scene';
 import { MovementPreviewScene } from './game/movement-preview';
-import { loadWorldAssets } from './world/assets';
+import { loadWorldAssetMap, loadWorldAssets } from './world/assets';
 import { WorldPreviewScene } from './world/preview-scene';
 import { GameplayPreviewScene, loadGameplayAssets } from './game/gameplay-preview';
 import { AdventureScene } from './game/adventure-scene';
-import { DEFAULT_LEVEL } from './world/levels';
+import { DEFAULT_LEVEL, LEVELS } from './world/levels';
 
 const canvas = document.querySelector<HTMLCanvasElement>('#game')!;
 const status = document.querySelector<HTMLParagraphElement>('#status')!;
@@ -123,9 +123,12 @@ if (!context) {
   scenes.change(new FoundationScene());
   audio.startMusic();
   if (adventure) {
-    void loadGameplayAssets().then((assets) => {
+    void Promise.all([
+      loadHenry(),
+      loadWorldAssetMap(LEVELS.map(({ atlas }) => atlas)),
+    ]).then(([henry, worlds]) => {
       if (disposed) return;
-      scenes.change(new AdventureScene(assets.henry, assets.world, audio, DEFAULT_LEVEL));
+      scenes.change(new AdventureScene(henry, worlds, audio, DEFAULT_LEVEL));
       audio.startMusic();
       assetState = 'ready';
       refreshPause();

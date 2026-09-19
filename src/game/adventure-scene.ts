@@ -12,7 +12,7 @@ import type { LevelData } from '../world/level';
 import { LEVELS } from '../world/levels';
 import { Camera } from '../world/camera';
 import { drawWorld, drawWorldForeground } from '../world/renderer';
-import type { WorldAssets } from '../world/assets';
+import type { WorldAssetMap, WorldAssets } from '../world/assets';
 import { drawGameplayHud } from './hud';
 
 export interface Rect { x: number; y: number; width: number; height: number }
@@ -64,7 +64,10 @@ export class AdventureScene implements Scene {
   private events: RunEvent[] = [];
   private selectedIndex: number;
   private selectionDirection = 0;
-  constructor(private readonly henry: HenryAssets, private readonly world: WorldAssets, private readonly audio: GameAudio, level: LevelData) {
+  constructor(private readonly henry: HenryAssets, private readonly worlds: WorldAssetMap, private readonly audio: GameAudio, level: LevelData) {
+    const missing = [...new Set(LEVELS.map((candidate) => candidate.atlas))]
+      .filter((atlas) => !worlds[atlas]);
+    if (missing.length > 0) throw new Error(`Missing world assets: ${missing.join(', ')}`);
     this.level = level;
     const levelIndex = LEVELS.indexOf(level);
     this.selectedIndex = levelIndex >= 0 ? levelIndex : 0;
@@ -80,6 +83,7 @@ export class AdventureScene implements Scene {
   get playerVelocityX(): number { return this.player.vx; }
   get playerFacing(): Facing { return this.player.facing; }
   get selectedLevelName(): string { return LEVELS[this.selectedIndex].name; }
+  private get world(): WorldAssets { return this.worlds[this.level.atlas]; }
   enter(): void { this.elapsed = 0; }
   exit(): void { this.audio.stop(); }
 

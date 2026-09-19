@@ -470,6 +470,41 @@ test('Quarry crumbling ledge warns, disappears and returns after fall recovery',
   expect(await page.locator('#status').innerText()).toContain('Playing');
 });
 
+test('title picker renders Treetop Timbers with its own atlas', async ({ page }, info) => {
+  await page.addInitScript(() => {
+    const original = CanvasRenderingContext2D.prototype.drawImage;
+    CanvasRenderingContext2D.prototype.drawImage = function (this: CanvasRenderingContext2D,
+      ...args: Parameters<typeof original>) {
+      const image = args[0];
+      if (image instanceof HTMLImageElement && image.src.endsWith('/assets/timbers/environment.png')) {
+        this.canvas.dataset.timberAtlas = image.src;
+      }
+      Reflect.apply(original, this, args);
+    } as typeof original;
+  });
+  await page.goto('/?scene=adventure&debug=1');
+  await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
+  for (let index = 0; index < 2; index++) {
+    await page.keyboard.down('ArrowRight');
+    await page.waitForTimeout(100);
+    await page.keyboard.up('ArrowRight');
+    await page.waitForTimeout(50);
+  }
+  await page.keyboard.press('Space');
+  await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
+  await expect(page.locator('canvas')).toHaveAttribute(
+    'data-timber-atlas', /\/assets\/timbers\/environment\.png$/,
+  );
+  await page.keyboard.down('ArrowRight');
+  await expect.poll(async () => Number(
+    (await page.locator('#status').innerText()).match(/X (\d+)/)?.[1] ?? 0,
+  ), { timeout: 10000 }).toBeGreaterThan(1000);
+  await page.keyboard.up('ArrowRight');
+  const screenshot = info.outputPath('treetop-timbers.png');
+  await page.locator('canvas').screenshot({ path: screenshot });
+  await info.attach('treetop-timbers', { path: screenshot, contentType: 'image/png' });
+});
+
 test('adventure mute control updates the audio state', async ({ page }) => {
   await page.goto('/?scene=adventure');
   await expect(page.locator('#status')).toContainText('Adventure preview', { timeout: 15000 });
