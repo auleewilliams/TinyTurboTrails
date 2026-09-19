@@ -5,10 +5,10 @@ import { QUARRY_RUN } from '../src/world/levels';
 import { DEFAULT_MOVEMENT, surfaceY } from '../src/game/movement';
 import { platformBodyAt } from '../src/game/platforms';
 import { drawSurfaceMaterials } from '../src/world/surface-materials';
-import { drawAsset, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawWorld } from '../src/world/renderer';
+import { drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawWorld } from '../src/world/renderer';
 
 /** The renderer is injected as plain functions, so every helper it calls has to travel with it. */
-const RENDERER_SOURCE = [drawAsset, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawSurfaceMaterials].map((helper) => helper.toString()).join('\n');
+const RENDERER_SOURCE = [drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawSurfaceMaterials].map((helper) => helper.toString()).join('\n');
 
 const dangerXs = (level: typeof PLAINS_LEVEL): number[] => level.entities
   .filter((entity) => entity.kind === 'slime' || entity.kind === 'hazard')
@@ -504,6 +504,39 @@ test('title picker renders Treetop Timbers with its own atlas', async ({ page },
   const screenshot = info.outputPath('treetop-timbers.png');
   await page.locator('canvas').screenshot({ path: screenshot });
   await info.attach('treetop-timbers', { path: screenshot, contentType: 'image/png' });
+});
+
+test('title picker wraps back to Sunset Site and renders its terrain atlas', async ({ page }) => {
+  await page.addInitScript(() => {
+    const original = CanvasRenderingContext2D.prototype.drawImage;
+    CanvasRenderingContext2D.prototype.drawImage = function (this: CanvasRenderingContext2D,
+      ...args: Parameters<typeof original>) {
+      const image = args[0];
+      if (image instanceof HTMLImageElement && image.src.endsWith('/assets/site/environment.png')
+        && args.length === 9 && Number(args[2]) === 0) {
+        this.canvas.dataset.siteTerrainAtlas = image.src;
+      }
+      Reflect.apply(original, this, args);
+    } as typeof original;
+  });
+  await page.goto('/?scene=adventure&debug=1');
+  await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
+  // Wrap from Plains through Sandy Cove and Frost Ridge to Sunset Site.
+  for (let step = 0; step < 3; step++) {
+    await page.keyboard.down('ArrowLeft');
+    await page.waitForTimeout(100);
+    await page.keyboard.up('ArrowLeft');
+    await page.waitForTimeout(50);
+  }
+  await page.keyboard.press('Space');
+  await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
+  await expect(page.locator('canvas')).toHaveAttribute(
+    'data-site-terrain-atlas', /\/assets\/site\/environment\.png$/,
+  );
+  await page.keyboard.down('ArrowRight');
+  await page.waitForTimeout(600);
+  await page.keyboard.up('ArrowRight');
+  await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
 });
 
 test('adventure mute control updates the audio state', async ({ page }) => {
@@ -1016,7 +1049,7 @@ test('a failed scenery image exposes Retry loading and recovers', async ({ page 
   await expect(page.locator('canvas')).toBeVisible();
 });
 
-for (const [biome, pickerSteps] of [['frost', 3], ['cove', 4]] as const) {
+for (const [biome, pickerSteps] of [['frost', 4], ['cove', 5]] as const) {
   test(`${biome} trail renders its material, completes and replays`, async ({ page }, info) => {
     test.setTimeout(120_000);
     await page.addInitScript(() => {
@@ -1089,3 +1122,29 @@ for (const [biome, pickerSteps] of [['frost', 3], ['cove', 4]] as const) {
     await expect(page.locator('#status')).toContainText('Adventure preview · Title');
   });
 }
+
+test('movement preview shows distinct friction cues and remains controllable', async ({ page }, info) => {
+  await page.goto('/?scene=movement');
+  const canvas = page.locator('canvas');
+  await expect(canvas).toBeVisible();
+  await expect.poll(() => page.evaluate(() => {
+    const canvas = document.querySelector('canvas')!;
+    const ctx = canvas.getContext('2d')!;
+    const pixels = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+    let cyan = 0;
+    let ochre = 0;
+    for (let i = 0; i < pixels.length; i += 4) {
+      if (pixels[i] === 128 && pixels[i + 1] === 219 && pixels[i + 2] === 234) cyan++;
+      if (pixels[i] === 214 && pixels[i + 1] === 172 && pixels[i + 2] === 99) ochre++;
+    }
+    return cyan > 10 && ochre > 10;
+  })).toBe(true);
+  const before = await canvas.screenshot();
+  await page.keyboard.down('ArrowRight');
+  await page.waitForTimeout(700);
+  await page.keyboard.up('ArrowRight');
+  expect((await canvas.screenshot()).equals(before)).toBe(false);
+  await page.goto('/?scene=movement');
+  await page.waitForTimeout(300);
+  await canvas.screenshot({ path: info.outputPath('surface-friction.png') });
+});

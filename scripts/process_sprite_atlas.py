@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Remove the generated checkerboard and normalize a 4x4 Henry source atlas.
+"""Remove generated backgrounds and normalize a 4x4 source atlas.
 
 This deliberately uses only the Python standard library so the processing step
-is reproducible in a clean checkout. It accepts RGB or RGBA PNG produced by the
-built-in image generator and writes a small RGBA, nearest-neighbour atlas.
+is reproducible in a clean checkout. It accepts an RGB or RGBA PNG produced by
+the built-in image generator and writes a small RGBA, nearest-neighbour atlas.
 """
 from __future__ import annotations
 
@@ -12,6 +12,8 @@ import collections
 import struct
 import zlib
 from pathlib import Path
+
+VISIBLE_ALPHA = 128
 
 
 def read_png(path: Path) -> tuple[int, int, list[tuple[int, int, int, int]]]:
@@ -28,8 +30,8 @@ def read_png(path: Path) -> tuple[int, int, list[tuple[int, int, int, int]]]:
         pos += 12 + size
         if kind == b"IHDR":
             width, height, bit_depth, color_type, comp, filt, interlace = struct.unpack(">IIBBBBB", chunk)
-            if (bit_depth, comp, filt, interlace) != (8, 0, 0, 0) or color_type not in (2, 6):
-                raise ValueError("expected 8-bit RGB or RGBA, non-interlaced PNG")
+            if bit_depth != 8 or color_type not in (2, 6) or (comp, filt, interlace) != (0, 0, 0):
+                raise ValueError("expected 8-bit RGB/RGBA, non-interlaced PNG")
         elif kind == b"IDAT":
             packed.extend(chunk)
         elif kind == b"IEND":
@@ -119,7 +121,7 @@ def remove_background(width: int, height: int, pixels: list[tuple[int, int, int,
         if y + 1 < height: queue.append(index + width)
 
 
-def process(source: Path, destination: Path) -> None:
+def process(source: Path, destination: Path, *, hard_alpha: bool = False) -> None:
     source_width, source_height, source_pixels = read_png(source)
     if source_width < 1000 or source_height < 1000:
         raise ValueError("source atlas is unexpectedly small")
@@ -127,6 +129,11 @@ def process(source: Path, destination: Path) -> None:
     # them can erase white snow connected to transparent white border pixels.
     if all(pixel[3] == 255 for pixel in source_pixels):
         remove_background(source_width, source_height, source_pixels)
+    # Site uses hard alpha so invisible fringe cannot shift sprite bounds.
+    # Other transparent sheets retain their authored translucent edges.
+    if hard_alpha:
+        source_pixels = [(r, g, b, 255 if alpha >= VISIBLE_ALPHA else 0)
+                         for r, g, b, alpha in source_pixels]
     output_width = output_height = 48 * 4
     output = [(0, 0, 0, 0)] * (output_width * output_height)
     boundaries = [round(i * source_width / 4) for i in range(5)]
@@ -149,10 +156,24 @@ def process(source: Path, destination: Path) -> None:
             x_offset = column * 48 + (48 - target_width) // 2
             y_offset = row * 48 + 44 - target_height
             for dy in range(target_height):
-                sy = min_y + min(frame_height - 1, round(dy * frame_height / target_height))
+                sy = min_y + round(dy * (frame_height - 1) / max(1, target_height - 1))
                 for dx in range(target_width):
-                    sx = min_x + min(frame_width - 1, round(dx * frame_width / target_width))
+                    sx = min_x + round(dx * (frame_width - 1) / max(1, target_width - 1))
                     output[(y_offset + dy) * output_width + x_offset + dx] = source_pixels[sy * source_width + sx]
+            # Downsampling can miss a sparse pixel on the source's last row. Normalize the
+            # actual sampled artwork—not only its source bounds—to the shared row-43 base.
+            frame_top = row * 48
+            frame_left = column * 48
+            sampled_bottom = max(y for y in range(frame_top, frame_top + 48)
+                                 for x in range(frame_left, frame_left + 48)
+                                 if output[y * output_width + x][3])
+            shift = frame_top + 43 - sampled_bottom
+            if shift:
+                for y in range(frame_top + 47, frame_top - 1, -1):
+                    for x in range(frame_left, frame_left + 48):
+                        source_y = y - shift
+                        output[y * output_width + x] = (output[source_y * output_width + x]
+                                                        if source_y >= frame_top else (0, 0, 0, 0))
     destination.parent.mkdir(parents=True, exist_ok=True)
     write_png(destination, output_width, output_height, output)
 
@@ -161,5 +182,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("source", type=Path)
     parser.add_argument("destination", type=Path)
+    parser.add_argument("--hard-alpha", action="store_true", help="make visible pixels fully opaque")
     args = parser.parse_args()
-    process(args.source, args.destination)
+    process(args.source, args.destination, hard_alpha=args.hard_alpha)

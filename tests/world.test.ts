@@ -141,3 +141,13 @@ it.each(PLAINS_LEVEL.entities.filter((entity) => entity.kind === 'decoration' ||
     expect(entity.y).toBe(surfaceY(PLAINS_LEVEL, entity.x));
   },
 );
+
+it.each([0, -1, 0.59, 1.41, NaN, Infinity])('rejects unsafe surface friction %s', (friction) => {
+  expect(() => validateLevel({ ...PLAINS_LEVEL, surfaces: PLAINS_LEVEL.surfaces.map((surface) => ({ ...surface, friction })) }))
+    .toThrow(/friction/);
+});
+
+it.each([undefined, 0.6, 1, 1.4])('accepts surface friction %s', (friction) => {
+  expect(() => validateLevel({ ...PLAINS_LEVEL, surfaces: PLAINS_LEVEL.surfaces.map((surface) => ({ ...surface, friction })) }))
+    .not.toThrow();
+});

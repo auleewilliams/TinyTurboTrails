@@ -53,7 +53,7 @@ it('can finish Treetop Timbers with simple hazard-avoidance jumps', () => {
     play: (effect) => effects.push(effect), stop: () => {}, dispose: () => {},
   };
   const scene = new AdventureScene({} as never,
-    { plains: {} as never, timbers: {} as never, frost: {} as never, cove: {} as never }, audio, TREETOP_TIMBERS);
+    { plains: {} as never, timbers: {} as never, site: {} as never, frost: {} as never, cove: {} as never }, audio, TREETOP_TIMBERS);
   const input = { horizontal: 1, jumpPressed: false, jumpHeld: false, pausePressed: false, mutePressed: false };
   scene.update(1 / 60, { ...input, horizontal: 0, jumpPressed: true });
   const dangers = TREETOP_TIMBERS.entities

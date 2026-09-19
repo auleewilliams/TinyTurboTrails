@@ -1,0 +1,7 @@
+Use case: precise-object-edit
+Asset type: 4 by 4 pixel-art game environment source atlas
+Input images: the original generated Site environment sheet is the edit target
+Primary request: change ONLY the cell in row 4, column 3 (the construction skyline with cranes). Remove its colored rectangular sky, clouds, hills, and sun. Replace that cell with an isolated low silhouette cluster of distant cranes, half-built structures, and dusty mauve hills on the same uniform pale cream sheet background used in the gutters. The silhouette should have a transparent-ready clean cream surround and no rectangular background block. It must complement a separate sun drawn by the game.
+Style/medium: preserve the exact chunky detailed pixel-art style, pixel scale, palette, 4 by 4 layout, spacing, and resolution of the input
+Composition/framing: keep the replacement centered within row 4 column 3, contained inside that cell with generous cream margin, grounded along the same baseline as other row-4 sprites
+Constraints: change only row 4 column 3; keep all other 15 cells visually unchanged in content, position, scale, and appearance; preserve exact 4 by 4 ordering; no text; no labels; no additional sun; no sky rectangle; no watermark

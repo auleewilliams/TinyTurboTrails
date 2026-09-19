@@ -1,0 +1,14 @@
+Use case: stylized-concept
+Asset type: original pixel-art environment source atlas for Tiny Turbo Trails, a 16-bit side-scrolling browser game
+Input images: the Plains environment sheet is a strict style, rendering, spacing, palette-family, and grid-layout reference only; create new construction-site subjects
+Primary request: create one square reference sheet with EXACTLY 16 separate construction-yard-at-sunset game assets arranged in a precise 4 by 4 grid, in this exact order:
+Row 1: flat steel girder terrain tile; girder terrain left-cap variant; girder terrain right-cap variant; broad rising girder ramp
+Row 2: unmistakably dangerous hazard cluster combining two orange traffic cones with a small active cement mixer, accented by red warning stripes; tall scaffold section; stack of large round culvert pipes; harmless low weeds with tiny yellow flowers
+Row 3: bright faceted amber gem collectible; pneumatic jack launch pad with a large bright yellow upward arrow and compressed spring/air piston, unmistakably bouncy; friendly but hazardous patrolling wet-cement blob matching the reference slime silhouette; construction checkpoint flag
+Row 4: construction finish arch; pale dust puff; distant layered construction skyline and sunset hills background tile with cranes; harmless foreground scrubby bush and weeds
+Scene/backdrop: uniform clean pale cream background only, generous empty gutters separating every cell
+Style/medium: original chunky detailed pixel art, hard-edged square pixels, no anti-aliasing, same scale and visual density as the Plains reference
+Composition/framing: exact 4 columns by 4 rows; one centered isolated asset per cell; no overlap across cells; clear silhouettes readable at 48 by 48 pixels
+Lighting/mood: warm low sunset light with restrained long shadows contained within each sprite
+Color palette: deep navy-blue-green outlines; rust red and warm brown steel; safety orange and yellow; readable grass-green and gold accents; dusty mauve sunset tones
+Constraints: all 16 assets present exactly once in the specified order; no labels; no text; no characters; no UI; no checkerboard; no gradients; no transparent-pattern depiction; no watermark; terrain and scenery must not resemble hazards; danger sprite must look active and threatening; pneumatic jack must clearly communicate upward bounce

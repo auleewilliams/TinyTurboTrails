@@ -1,6 +1,6 @@
 import type { Camera } from './camera';
-import type { LevelData, WorldEntity } from './level';
-import type { PlatformBody } from '../game/movement';
+import type { LevelData, LevelSun, WorldEntity } from './level';
+import type { PlatformBody, Surface } from '../game/movement';
 import type { MovingPlatform } from '../game/platforms';
 import type { WorldAsset, WorldAssets } from './assets';
 import { drawSceneryBackground, drawScenerySprite, foregroundPlacements, sceneryForDecoration } from './scenery';
@@ -19,6 +19,7 @@ export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, le
   const cell = manifest.cellSize;
   ctx.fillStyle = level.theme.sky;
   ctx.fillRect(0, 0, 426, 240);
+  if (level.theme.sun) drawSun(ctx, level.theme.sun, offset.x);
   const scenery = level.theme.scenery ? assets.scenery : undefined;
   if (scenery) drawSceneryBackground(ctx, scenery, level, offset.x);
   else for (const parallax of level.theme.parallax) {
@@ -54,6 +55,7 @@ export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, le
     ctx.moveTo(surface.x1 - offset.x, surface.y1 - offset.y);
     ctx.lineTo(surface.x2 - offset.x, surface.y2 - offset.y);
     ctx.stroke();
+    drawSurfaceGrip(ctx, surface, offset);
   }
   drawSurfaceMaterials(ctx, level, offset);
   drawPlatforms(ctx, level, offset, platforms);
@@ -151,6 +153,20 @@ export function drawWorldForeground(ctx: CanvasRenderingContext2D, assets: World
   }
 }
 
+/** A stepped pixel disc: scanline rows keep the edge crisp at the game's low resolution. */
+function drawSun(ctx: CanvasRenderingContext2D, sun: LevelSun, cameraX: number): void {
+  const x = Math.round(sun.x - cameraX * 0.02);
+  const disc = (radius: number, color: string): void => {
+    ctx.fillStyle = color;
+    for (let dy = -radius; dy <= radius; dy++) {
+      const half = Math.floor(Math.sqrt(radius * radius - dy * dy));
+      ctx.fillRect(x - half, sun.y + dy, half * 2 + 1, 1);
+    }
+  };
+  disc(Math.round(sun.radius * 1.7), sun.glow);
+  disc(sun.radius, sun.color);
+}
+
 /** Paths are drawn before the slabs so a rider always sees where the ride goes next. */
 export function drawPlatforms(ctx: CanvasRenderingContext2D, level: LevelData, offset: { x: number; y: number },
   platforms: readonly PlatformBody[]): void {
@@ -186,4 +202,30 @@ export function drawAsset(ctx: CanvasRenderingContext2D, assets: WorldAssets, as
   const sourceY = Math.floor(index / 4) * cell;
   const anchor = assets.manifest.anchors?.[asset] ?? { x: cell / 2, y: cell };
   ctx.drawImage(assets.atlas, sourceX, sourceY, cell, cell, x - anchor.x * scale, y - anchor.y * scale, cell * scale, cell * scale);
+}
+
+
+/** Automatic grip cues: smooth cyan streaks below 1, ochre grains above 1. */
+export function drawSurfaceGrip(ctx: CanvasRenderingContext2D, surface: Surface, offset: { x: number; y: number }): void {
+  const friction = surface.friction ?? 1;
+  if (surface.material || friction === 1 || surface.x2 <= surface.x1) return;
+  const slippery = friction < 1;
+  const slope = (surface.y2 - surface.y1) / (surface.x2 - surface.x1);
+  ctx.save();
+  ctx.strokeStyle = slippery ? '#80dbea' : '#d6ac63';
+  ctx.lineWidth = 6;
+  ctx.beginPath();
+  ctx.moveTo(surface.x1 - offset.x, surface.y1 - offset.y + 2);
+  ctx.lineTo(surface.x2 - offset.x, surface.y2 - offset.y + 2);
+  ctx.stroke();
+  ctx.fillStyle = slippery ? '#e6ffff' : '#72502d';
+  // World-anchored markings stay still as the camera scrolls; skip offscreen work.
+  const first = Math.max(0, Math.ceil((offset.x - surface.x1 - 8) / 12));
+  for (let index = first; ; index++) {
+    const x = surface.x1 + 4 + index * 12;
+    if (x + 6 >= surface.x2 || x - offset.x > 426) break;
+    const y = surface.y1 + slope * (x - surface.x1);
+    ctx.fillRect(x - offset.x, y - offset.y + 2, slippery ? 6 : 2, 2);
+  }
+  ctx.restore();
 }

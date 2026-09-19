@@ -1,4 +1,4 @@
-import { DEFAULT_MOVEMENT, surfaceY, type Surface } from '../game/movement';
+import { DEFAULT_MOVEMENT, MAX_SURFACE_FRICTION, MIN_SURFACE_FRICTION, surfaceY, type Surface } from '../game/movement';
 import { PLATFORM_MAX_SPEED, platformSpeed, type MovingPlatform } from '../game/platforms';
 import type { WorldAsset } from './assets';
 
@@ -17,6 +17,8 @@ export interface WorldEntity {
   bounce?: { amplitude: number; seconds: number };
   width?: number;
 }
+/** A low sun drawn behind the parallax; it drifts at a fraction of the camera so it feels far away. */
+export interface LevelSun { x: number; y: number; radius: number; color: string; glow: string }
 export interface LevelTheme {
   scenery?: boolean;
   /** Draw the shared terrain cells over the solid collision contour. */
@@ -24,6 +26,7 @@ export interface LevelTheme {
   sky: string;
   ground: string;
   edge: string;
+  sun?: LevelSun;
   parallax: readonly { asset: WorldAsset; x: number; y: number; scale: number }[];
 }
 export interface LevelData {
@@ -293,7 +296,11 @@ function validateSurfaceMaterial(surface: Surface): void {
   if (!Number.isFinite(friction) || friction < 0.25 || friction > 2) throw new Error('invalid surface friction');
   if (!Number.isFinite(speed) || speed < 0.5 || speed > 1) throw new Error('invalid surface speed');
   if (surface.material === undefined) {
-    if (friction !== 1 || speed !== 1) throw new Error('surface movement needs a visible material');
+    // Generic grip has automatic cues; stronger biome tuning needs a material.
+    if (friction < MIN_SURFACE_FRICTION || friction > MAX_SURFACE_FRICTION) {
+      throw new Error(`surface friction must be between ${MIN_SURFACE_FRICTION} and ${MAX_SURFACE_FRICTION}`);
+    }
+    if (speed !== 1) throw new Error('surface movement needs a visible material');
   } else if (surface.material === 'ice') {
     if (friction >= 1 || speed !== 1) throw new Error('ice must slide at normal top speed');
   } else if (surface.material === 'sand' || surface.material === 'water') {

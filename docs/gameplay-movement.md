@@ -47,6 +47,40 @@ jumps, jump buffering, coyote time, slope following, downhill acceleration,
 spring launches, state selection and high-speed landing. These are unit-level
 checks; full route difficulty and controller playtesting remain release work.
 
+## Per-surface friction — issue #39
+
+A terrain segment may specify `friction`; omitting it is exactly `1`. Level
+validation accepts finite generic-grip multipliers in the inclusive range
+**0.6–1.4**. Explicit terrain materials use the bounds documented below.
+The movement step samples the supporting segment once for contact height, slope
+and friction. At a shared endpoint, the first segment wins; the next update
+uses the new segment after Henry crosses the join.
+
+| Surface tuning | Multiplier | Acceleration | Release braking |
+| --- | ---: | ---: | ---: |
+| Slippery preview | 0.6 | 552 px/s² | 720 px/s² |
+| Normal / omitted | 1 | 920 px/s² | 1200 px/s² |
+| Grippy preview | 1.4 | 1288 px/s² | 1680 px/s² |
+
+Ground acceleration includes turning against existing momentum. Release braking
+uses the braking rate. Air acceleration and air release braking, static ledges,
+moving platforms, downhill acceleration, jump impulse and the speed cap retain
+their existing values. Friction changes traction, not maximum speed. Material-specific
+speed multipliers add sand drag and shallow-water resistance as described below.
+
+Every non-default surface gets an automatic visual tell in the world renderer:
+low grip has a cyan band with smooth pale streaks, high grip an ochre band with
+dark grains. Shape and color both differ. The movement preview shares these cues:
+its opening flat is slippery, its final flat is grippy, and the ramp and spring
+section use normal grip. Try accelerating, releasing, reversing and jumping
+across both ends at `/?scene=movement`.
+
+At 60 Hz, releasing from 220 px/s on flat ground stops in approximately 32 px
+at 0.6, 18 px at 1, and 13 px at 1.4. Automated movement checks enforce bounded
+stopping distance and unchanged air/platform behavior. These are initial tuning
+values, not a substitute for Henry's playtest. Plains and Quarry Run retain
+normal grip throughout; Frost Ridge and Sandy Cove use the material tuning below.
+
 ## Terrain materials
 
 Frost Ridge ice uses ground friction 0.45: acceleration is 414 px/s² and braking
@@ -59,5 +93,6 @@ ordinary controls; landing resumes the terrain settings. A joint belongs to
 the segment on its left, consistently for height and movement. Cyan glints,
 amber stipples and blue wave marks identify ice, soft sand and shallow water.
 Unmarked ground uses the original movement defaults. Authored friction must
-be finite in [0.25, 2], speed in [0.5, 1], and nondefault physics needs a visible
-material. Ice preserves normal top speed; sand and water must reduce it.
+be finite in [0.25, 2] and speed in [0.5, 1]. Friction outside the generic grip
+range and any reduced speed require an explicit material. Generic grip uses
+automatic visual cues. Ice preserves normal top speed; sand and water must reduce it.

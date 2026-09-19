@@ -12,7 +12,7 @@ follow-up issue; it does not reopen this release.
 An adult or developer installs Node.js 22.12 or newer, runs `npm ci`, then runs
 `npm run play` from the repository. On Windows, macOS and Linux, this starts the
 local server and opens `/?scene=adventure` in the default browser for Henry.
-Use Left/Right to choose Plains or Quarry Run, then press Space or any standard
+Use Left/Right to choose Plains, Quarry Run, Treetop Timbers, Sunset Site, Frost Ridge or Sandy Cove, then press Space or any standard
 face button (A/B/X/Y) at the title screen to begin. If the browser
 does not open, use the local URL printed by Vite and append
 `/?scene=adventure`. Use the printed port, since Vite chooses another if the
@@ -65,7 +65,7 @@ now-fixed defect findings are preserved in
 | Pause/resume | Escape | Start |
 | Mute | M or on-screen Mute button | On-screen Mute button |
 
-The adventure title selects Plains or Quarry Run with Left/Right, then starts
+The adventure title selects Plains, Quarry Run, Treetop Timbers, Sunset Site, Frost Ridge or Sandy Cove with Left/Right, then starts
 with Space or any standard controller face button (A/B/X/Y).
 Jump accepts any standard-mapping face button, not only the primary one, as a
 compatibility hedge across controller/browser combinations (see
@@ -93,8 +93,9 @@ Web Audio cannot start. `/?audio` previews the six effects and the music loop.
 
 The certified release documented here covered one desktop-browser Plains route
 with meadow, wooded hillside and cave-themed scenery. The current build also
-offers Quarry Run through the title picker; it reuses the Plains atlas and adds
-no new biome artwork. Mining, building, crafting, loops, charged dashes, touch
+offers Quarry Run, Treetop Timbers, Sunset Site, Frost Ridge and Sandy Cove through the title picker. Quarry Run reuses
+the Plains atlas, while Treetop Timbers, Sunset Site, Frost Ridge and Sandy Cove have dedicated atlases.
+Mining, building, crafting, loops, charged dashes, touch
 controls, public hosting and persistent progress remain deliberately out of
 scope. The generated source art and processed atlases are project-local; the
 running game loads assets locally and makes no generation or external API calls.

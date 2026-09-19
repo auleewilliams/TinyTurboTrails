@@ -17,9 +17,13 @@ export const DEFAULT_MOVEMENT = {
 /** Longest step the simulation integrates in one update; the run clock uses the same cap. */
 export const MAX_STEP_SECONDS = 0.1;
 
+export const MIN_SURFACE_FRICTION = 0.6;
+export const MAX_SURFACE_FRICTION = 1.4;
+
 export type SurfaceMaterial = 'ice' | 'sand' | 'water';
 export interface Surface {
   x1: number; x2: number; y1: number; y2: number;
+  /** Ground acceleration and braking multiplier; omitted means normal grip (1). */
   friction?: number;
   speedMultiplier?: number;
   material?: SurfaceMaterial;
@@ -50,22 +54,24 @@ export const PLATFORM_RIDE_SNAP = 6;
 
 export type MovementAnimation = 'idle' | 'run' | 'jump' | 'fall';
 
-/** Joints belong to the segment on their left, matching the original height lookup. */
+/** At a shared endpoint the first segment wins, matching terrain collision. */
 export function surfaceAt(terrain: Terrain, x: number): Surface {
   const clamped = Math.max(terrain.minX, Math.min(terrain.maxX, x));
   return terrain.surfaces.find((candidate) => clamped >= candidate.x1 && clamped <= candidate.x2)
     ?? terrain.surfaces[terrain.surfaces.length - 1];
 }
 
-function heightOn(surface: Surface, x: number): number {
-  const span = surface.x2 - surface.x1;
-  const progress = span === 0 ? 0 : (x - surface.x1) / span;
-  return surface.y1 + (surface.y2 - surface.y1) * progress;
+function surfaceSlope(surface: Surface): number {
+  return surface.x2 === surface.x1 ? 0 : (surface.y2 - surface.y1) / (surface.x2 - surface.x1);
+}
+
+function heightOnSurface(surface: Surface, x: number): number {
+  return surface.y1 + surfaceSlope(surface) * (x - surface.x1);
 }
 
 export function surfaceY(terrain: Terrain, x: number): number {
   const clamped = Math.max(terrain.minX, Math.min(terrain.maxX, x));
-  return heightOn(surfaceAt(terrain, clamped), clamped);
+  return heightOnSurface(surfaceAt(terrain, clamped), clamped);
 }
 
 export function createPlayer(x: number, terrain: Terrain): Player {
@@ -126,7 +132,7 @@ export function simulatePlayer(player: Player, input: MovementInput, terrain: Te
 
   const surface = surfaceAt(terrain, player.x);
   const standingOnTerrain = player.onGround && player.platformId === null
-    && Math.abs(player.y + DEFAULT_MOVEMENT.height - heightOn(surface, player.x)) < 0.01;
+    && Math.abs(player.y + DEFAULT_MOVEMENT.height - heightOnSurface(surface, player.x)) < 0.01;
   const friction = standingOnTerrain ? surface.friction ?? 1 : 1;
   const speedMultiplier = standingOnTerrain ? surface.speedMultiplier ?? 1 : 1;
   const acceleration = player.onGround ? DEFAULT_MOVEMENT.acceleration * friction : DEFAULT_MOVEMENT.airAcceleration;
@@ -136,8 +142,7 @@ export function simulatePlayer(player: Player, input: MovementInput, terrain: Te
   const rate = input.horizontal === 0 || slowingToTarget ? DEFAULT_MOVEMENT.braking * friction : acceleration;
   player.vx = approach(player.vx, target, rate * dt);
   if (player.onGround) {
-    const slope = surface.x2 === surface.x1 ? 0 : (surface.y2 - surface.y1) / (surface.x2 - surface.x1);
-    if (standingOnTerrain) player.vx += slope * DEFAULT_MOVEMENT.downhillAcceleration * dt;
+    if (standingOnTerrain) player.vx += surfaceSlope(surface) * DEFAULT_MOVEMENT.downhillAcceleration * dt;
     player.vx = Math.max(-DEFAULT_MOVEMENT.maxSpeed, Math.min(DEFAULT_MOVEMENT.maxSpeed, player.vx));
   }
   if (player.vx > 1) player.facing = 1;

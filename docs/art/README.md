@@ -29,6 +29,27 @@ sit on safe flat ledges; gameplay sprites and collision remain unchanged.
 Quarry keeps its original scenery. The background pans within its image bounds
 instead of repeating, because the generated edges are not certified seamless.
 
+## Sunset Site construction atlas
+
+Sunset Site loads its own 16-cell construction atlas from
+`public/assets/site/`. It preserves the shared world-asset names while
+re-theming them as girders, a warning-cone/cement-mixer hazard, scaffold,
+culvert pipes, weeds, a pneumatic jack, cement slime, construction checkpoint,
+finish arch and sunset skyline. The large arrow on the jack distinguishes its
+bounce role; flashing barricades and cone grouping distinguish the hazard from
+the low, unlit scenery.
+
+The unmodified final generated sheet, exact generation/edit prompts and provenance
+record are under `assets/source/site/`. The processed atlas is 192 × 192 RGBA,
+uses nearest-neighbour resampling plus a documented alpha-128 visibility
+threshold, and gives every bottom-planted sprite a visible-base anchor at row
+44. Recreate it with:
+
+```sh
+python3 scripts/process_sprite_atlas.py \
+  assets/source/site/environment-sheet.png public/assets/site/environment.png --hard-alpha
+```
+
 ## Runtime contract
 
 The preview loader reads `public/assets/henry/manifest.json` and a local atlas.

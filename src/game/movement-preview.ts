@@ -1,3 +1,4 @@
+import { drawSurfaceGrip } from '../world/renderer';
 import type { Scene } from '../core/scene';
 import { animationFrame } from '../art/animation';
 import { animationFor, createPlayer, launchSpring, simulatePlayer, DEFAULT_MOVEMENT, type Player, type Terrain } from './movement';
@@ -9,10 +10,10 @@ const COURSE: Terrain = {
   minX: 18,
   maxX: 408,
   surfaces: [
-    { x1: 18, x2: 126, y1: 198, y2: 198 },
+    { x1: 18, x2: 126, y1: 198, y2: 198, friction: 0.6 },
     { x1: 126, x2: 202, y1: 198, y2: 156 },
     { x1: 202, x2: 300, y1: 156, y2: 156 },
-    { x1: 300, x2: 408, y1: 198, y2: 198 },
+    { x1: 300, x2: 408, y1: 198, y2: 198, friction: 1.4 },
   ],
 };
 
@@ -35,6 +36,7 @@ export class MovementPreviewScene implements Scene {
 
   render(ctx: CanvasRenderingContext2D): void {
     const { atlas, manifest } = this.assets;
+    ctx.textAlign = 'left';
     ctx.fillStyle = '#17333b';
     ctx.fillRect(0, 0, 426, 240);
     ctx.fillStyle = '#ffda75';
@@ -60,7 +62,11 @@ export class MovementPreviewScene implements Scene {
       ctx.moveTo(surface.x1, surface.y1);
       ctx.lineTo(surface.x2, surface.y2);
       ctx.stroke();
+      drawSurfaceGrip(ctx, surface, { x: 0, y: 0 });
     }
+    ctx.fillStyle = '#e9f2df';
+    ctx.fillText('SLIPPERY 0.6', 20, 215);
+    ctx.fillText('GRIPPY 1.4', 310, 215);
     ctx.fillStyle = '#ff8d38';
     ctx.fillRect(217, 149, 6, 7);
     ctx.fillStyle = '#e9f2df';

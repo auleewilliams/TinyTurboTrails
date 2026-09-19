@@ -19,7 +19,7 @@ terrain.
 | `offset` | fraction of the cycle already elapsed when the run starts |
 
 `LevelData.platforms` is optional, so a level built from terrain alone is
-unchanged. Plains has none; Quarry Run has two.
+unchanged. Plains has none; Quarry Run has two and Sunset Site has one (a crane ferry over its cement yard's paired hazards).
 
 Motion is a pure function of the run clock: `platformPhase` is a triangle wave
 with a dwell at both ends, and `platformBodyAt` turns it into a `PlatformBody`.
@@ -68,8 +68,8 @@ For a six-year-old, slow and predictable beats clever:
   shipped platform through a full cycle and asserts the camera never moves more
   than the cap's worth of pixels in a frame, so a ride can never make the view
   lurch.
-- Every shipped platform parks at both ends, and both Quarry rides sit over
-  walkable ground, so a mistimed boarding costs a landing rather than a life.
+- Every shipped platform parks at both ends, and the Quarry rides and the Sunset Site
+  ferry all sit over walkable ground, so a mistimed boarding costs a landing rather than a life.
   The ferry travels 2.2 s and rests 0.8 s; the lift travels 2 s and rests 1 s.
 - The renderer draws the whole path — pips along the route plus a marker at each
   end — before the slab itself, so the next move is visible before Henry commits
@@ -100,9 +100,9 @@ make, and the springs already clear them.
 
 - Only the top face is solid. Slabs have no side or underside collision, so
   they cannot push, block or crush Henry.
-- A rider who keeps holding a direction will run off the slab; both Quarry rides
-  are placed so that this is a short drop onto walkable ground.
-- No platform is ever load-bearing for finishing a level. Both Quarry rides are
+- A rider who keeps holding a direction will run off the slab; the Quarry rides and the
+  Sunset Site ferry are placed so that this is a short drop onto walkable ground.
+- No platform is ever load-bearing for finishing a level. Every shipped ride is
   optional, which is what keeps the hold-Right route intact.
 - Entities do not ride platforms — only Henry does. A gem or hazard is placed in
   world space and stays there.
