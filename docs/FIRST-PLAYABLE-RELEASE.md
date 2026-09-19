@@ -93,8 +93,9 @@ Web Audio cannot start. `/?audio` previews the six effects and the music loop.
 
 The certified release documented here covered one desktop-browser Plains route
 with meadow, wooded hillside and cave-themed scenery. The current build also
-offers Quarry Run and Sunset Site through the title picker; both reuse the Plains
-atlas and add no new biome artwork. Mining, building, crafting, loops, charged dashes, touch
+offers Quarry Run and Sunset Site through the title picker. Quarry Run reuses
+the Plains atlas, while Sunset Site has a dedicated construction-yard atlas.
+Mining, building, crafting, loops, charged dashes, touch
 controls, public hosting and persistent progress remain deliberately out of
 scope. The generated source art and processed atlases are project-local; the
 running game loads assets locally and makes no generation or external API calls.

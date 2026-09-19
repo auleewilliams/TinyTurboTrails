@@ -110,11 +110,12 @@ generation call is used.
 Illustrated assets were generated with the built-in image generator and processed
 into project-local atlases. See [Henry art](docs/art/README.md),
 [Plains world](docs/plains-world.md), and
-[Treetop Timbers provenance](assets/source/timbers/PROVENANCE.md).
+[Treetop Timbers provenance](assets/source/timbers/PROVENANCE.md). Sunset Site's
+construction atlas and source notes are also documented in the art guide.
 
 Known limitations and out of scope: public hosting, touch controls, additional
-biomes beyond the shipped Plains and Timbers art, mining/building/crafting and
-persistent saves. The full current/previous-major
+biomes beyond the shipped Plains, Timbers and Site art, mining/building/crafting
+and persistent saves. The full current/previous-major
 browser matrix, Safari on macOS and physical-controller listening were waived
 rather than run; see [Verification](#verification) below.
 

@@ -12,7 +12,7 @@ const alternateLevel = { ...PLAINS_LEVEL,
   id: 'alternate', name: 'ALTERNATE', start: { x: 120, y: 198 },
   finish: { ...PLAINS_LEVEL.finish, x: 180 },
 };
-const worlds = { plains: {} as never, timbers: {} as never };
+const worlds = { plains: {} as never, timbers: {} as never, site: {} as never };
 
 function silentAudio(): GameAudio {
   return {

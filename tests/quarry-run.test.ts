@@ -8,7 +8,7 @@ import { validateLevel, type WorldEntity } from '../src/world/level';
 import { LEVELS, QUARRY_RUN, levelById } from '../src/world/levels';
 
 const ACTIVATION_WINDOW = 28;
-const worlds = { plains: {} as never, timbers: {} as never };
+const worlds = { plains: {} as never, timbers: {} as never, site: {} as never };
 const FALL_Y = QUARRY_RUN.height + 80;
 // Gem art reaches this far above its anchor; the HUD covers the top 30 px of the screen.
 const GEM_ART_HEIGHT = 44;

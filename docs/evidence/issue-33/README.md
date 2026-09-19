@@ -10,12 +10,13 @@ holding Right on the Sunset Site route, after choosing it with Left from the Pla
 
 ## Known limitations
 
-- No new atlas: the level reuses the Plains atlas, so it has no girder terrain, traffic cones,
-  cement mixers or pneumatic-jack art. The hazards are the stone sprite, and the pneumatic-jack
-  role is played by the existing spring. Those need image-generator art and are a follow-up;
-  the requirements currently list new biome artwork as out of scope.
+- These screenshots preserve the original issue #33 state. Issue #85 supersedes
+  their reused-Plains artwork with a dedicated construction atlas containing
+  girders, a cone-and-cement-mixer hazard and pneumatic jacks. Current evidence
+  lives under `docs/evidence/issue-85/`.
 - Long shadows are not drawn; the low sun and warm palette carry the sunset feel.
-- Whether cones would read as "avoid" or "hurt" to a six-year-old is untested for the same reason.
+- Firsthand six-year-old hazard/readability playtesting remains outstanding;
+  automated checks and native-scale screenshots do not substitute for it.
 
 ## Validation
 

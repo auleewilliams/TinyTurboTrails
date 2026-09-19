@@ -4,7 +4,7 @@ import { SimulationClock } from '../src/core/clock';
 import { AdventureScene } from '../src/game/adventure-scene';
 import { PLAINS_LEVEL } from '../src/world/level';
 
-const worlds = { plains: {} as never, timbers: {} as never };
+const worlds = { plains: {} as never, timbers: {} as never, site: {} as never };
 import type { GameAudio } from '../src/core/audio';
 
 // Earlier browser-controller coverage only pressed the face button at the title screen

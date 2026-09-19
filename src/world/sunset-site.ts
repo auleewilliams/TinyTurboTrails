@@ -60,15 +60,19 @@ const mainGems = [
 export const SUNSET_SITE: LevelData = {
   id: 'sunset',
   name: 'SUNSET SITE',
-  atlas: 'plains',
+  atlas: 'site',
   theme: {
     sky: '#e88f6a',
     ground: '#5a3b4a',
     edge: '#b9d24f',
     sun: { x: 300, y: 96, radius: 22, color: '#ffe08a', glow: '#ffb36a66' },
-    // No parallax sprites: the atlas' hills tile carries its own teal sky, and stone or cave
-    // silhouettes hang in a sunset sky like hazards. The low sun is the backdrop.
-    parallax: [],
+    parallax: [
+      { asset: 'hills', x: 240, y: 170, scale: 3 },
+      { asset: 'hills', x: 720, y: 170, scale: 3 },
+      { asset: 'hills', x: 1200, y: 170, scale: 3 },
+      { asset: 'hills', x: 1680, y: 170, scale: 3 },
+      { asset: 'hills', x: 2160, y: 170, scale: 3 },
+    ],
   },
   width: 10000,
   height: 240,

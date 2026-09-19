@@ -33,10 +33,12 @@ late checkpoint before its closing double pit (seven in all). It has stepped
 ramps, patrolling slimes, four spring-cleared pits, paired stone hazards and
 one optional crane ferry over the yard's hazards. Its theme adds a low
 `sun` (a stepped pixel disc drawn behind the ground) and a warm palette that
-keeps the grass-green edge, and it also reuses the Plains atlas. Control prompts are short and
-visual enough for the intended six-year-old player. The preview uses the
-selected level's local assets and displays a readable loading failure in the
-main shell.
+keeps the grass-green edge. Its own construction atlas supplies girder terrain,
+a cone-and-cement-mixer hazard, scaffolding, culvert pipes, weeds, pneumatic
+jacks, cement slimes and a sunset construction skyline. Starting a route loads
+and caches its atlas, keeping the title on a visible loading state until the
+asset is ready; a failure can be retried with Space. Control prompts are short
+and visual enough for the intended six-year-old player.
 
 The Plains route is long enough that an automated hold-right traversal (no jumping,
 `npm run test:browser`) now takes roughly 50-55 seconds across Chromium,

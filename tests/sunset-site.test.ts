@@ -37,7 +37,8 @@ function startScene() {
     unlock: async () => {}, setMuted: () => {}, setSuspended: () => {}, startMusic: () => {},
     play: (effect) => effects.push(effect), stop: () => {}, dispose: () => {},
   };
-  const scene = new AdventureScene({} as never, {} as never, audio, SUNSET_SITE);
+  const scene = new AdventureScene({} as never,
+    { plains: {} as never, timbers: {} as never, site: {} as never }, audio, SUNSET_SITE);
   scene.update(1 / 60, { ...neutral, jumpPressed: true });
   const collected = (scene as unknown as { run: { collectedGems: Set<string> } }).run.collectedGems;
   return { scene, effects, collected };
@@ -84,11 +85,11 @@ it('registers a playable Sunset Site after Plains and Quarry Run', () => {
   expect(LEVELS.map(({ id }) => id)).toEqual(['plains', 'quarry', 'sunset']);
   expect(() => validateLevel(SUNSET_SITE)).not.toThrow();
   expect(SUNSET_SITE.name).toBe('SUNSET SITE');
-  expect(SUNSET_SITE.atlas).toBe('plains');
+  expect(SUNSET_SITE.atlas).toBe('site');
 });
 
 it('paints a warm low sun without losing the grass-green edge', () => {
-  const { sky, edge, sun } = SUNSET_SITE.theme;
+  const { sky, edge, sun, parallax } = SUNSET_SITE.theme;
   const [red, green, blue] = [1, 3, 5].map((offset) => parseInt(sky.slice(offset, offset + 2), 16));
   expect(red).toBeGreaterThan(green);
   expect(green).toBeGreaterThan(blue);
@@ -99,6 +100,8 @@ it('paints a warm low sun without losing the grass-green edge', () => {
   expect(sun!.x).toBeGreaterThan(0);
   expect(sun!.x).toBeLessThan(426);
   expect(sun!.y - sun!.radius * 1.7).toBeGreaterThanOrEqual(HUD_BOTTOM);
+  expect(parallax.length).toBeGreaterThan(0);
+  expect(parallax.every(({ asset }) => asset === 'hills')).toBe(true);
 });
 
 it('is a long route split into six checkpointed sections', () => {
