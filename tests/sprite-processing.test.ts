@@ -29,3 +29,26 @@ print(json.dumps(pixels))
   expect(pixels[12]).toEqual([221, 231, 211, 255]);
   expect(pixels[13]).toEqual([30, 110, 180, 255]);
 });
+
+test('processes transparent RGBA sheets without stripping white snow or partial alpha', () => {
+  const result = execFileSync('python3', ['-B', '-c', `
+import json, tempfile
+from pathlib import Path
+from scripts.process_sprite_atlas import write_png, read_png, process
+with tempfile.TemporaryDirectory() as directory:
+    source = Path(directory) / 'source.png'
+    destination = Path(directory) / 'atlas.png'
+    pixels = [(255, 255, 255, 0)] * (1024 * 1024)
+    for row in range(4):
+        for col in range(4):
+            for y in range(row * 256 + 64, row * 256 + 192):
+                for x in range(col * 256 + 64, col * 256 + 192):
+                    pixels[y * 1024 + x] = (255, 255, 255, 128)
+    write_png(source, 1024, 1024, pixels)
+    process(source, destination)
+    width, height, output = read_png(destination)
+    print(json.dumps({'size': [width, height], 'alphas': sorted(set(p[3] for p in output)),
+        'center': output[24 * width + 24]}))
+`], { encoding: 'utf8' });
+  expect(JSON.parse(result)).toEqual({ size: [192, 192], alphas: [0, 128], center: [255, 255, 255, 128] });
+});

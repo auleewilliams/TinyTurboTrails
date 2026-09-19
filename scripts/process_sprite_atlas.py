@@ -2,7 +2,7 @@
 """Remove the generated checkerboard and normalize a 4x4 Henry source atlas.
 
 This deliberately uses only the Python standard library so the processing step
-is reproducible in a clean checkout. It accepts the RGB PNG produced by the
+is reproducible in a clean checkout. It accepts RGB or RGBA PNG produced by the
 built-in image generator and writes a small RGBA, nearest-neighbour atlas.
 """
 from __future__ import annotations
@@ -28,8 +28,8 @@ def read_png(path: Path) -> tuple[int, int, list[tuple[int, int, int, int]]]:
         pos += 12 + size
         if kind == b"IHDR":
             width, height, bit_depth, color_type, comp, filt, interlace = struct.unpack(">IIBBBBB", chunk)
-            if (bit_depth, color_type, comp, filt, interlace) != (8, 2, 0, 0, 0):
-                raise ValueError("expected 8-bit RGB, non-interlaced PNG")
+            if (bit_depth, comp, filt, interlace) != (8, 0, 0, 0) or color_type not in (2, 6):
+                raise ValueError("expected 8-bit RGB or RGBA, non-interlaced PNG")
         elif kind == b"IDAT":
             packed.extend(chunk)
         elif kind == b"IEND":
@@ -37,7 +37,8 @@ def read_png(path: Path) -> tuple[int, int, list[tuple[int, int, int, int]]]:
     if width is None or height is None:
         raise ValueError("missing IHDR")
     raw = zlib.decompress(packed)
-    stride = width * 3
+    channels = 4 if color_type == 6 else 3
+    stride = width * channels
     rows: list[bytearray] = []
     previous = bytearray(stride)
     offset = 0
@@ -47,9 +48,9 @@ def read_png(path: Path) -> tuple[int, int, list[tuple[int, int, int, int]]]:
         offset += stride + 1
         row = bytearray(stride)
         for i, value in enumerate(source):
-            left = row[i - 3] if i >= 3 else 0
+            left = row[i - channels] if i >= channels else 0
             up = previous[i]
-            upper_left = previous[i - 3] if i >= 3 else 0
+            upper_left = previous[i - channels] if i >= channels else 0
             if mode == 0:
                 result = value
             elif mode == 1:
@@ -67,7 +68,8 @@ def read_png(path: Path) -> tuple[int, int, list[tuple[int, int, int, int]]]:
             row[i] = result
         rows.append(row)
         previous = row
-    pixels = [(row[i], row[i + 1], row[i + 2], 255) for row in rows for i in range(0, stride, 3)]
+    pixels = [(row[i], row[i + 1], row[i + 2], row[i + 3] if channels == 4 else 255)
+              for row in rows for i in range(0, stride, channels)]
     return width, height, pixels
 
 
@@ -121,7 +123,10 @@ def process(source: Path, destination: Path) -> None:
     source_width, source_height, source_pixels = read_png(source)
     if source_width < 1000 or source_height < 1000:
         raise ValueError("source atlas is unexpectedly small")
-    remove_background(source_width, source_height, source_pixels)
+    # Generated transparent sheets already supply their cutout. Flood-filling
+    # them can erase white snow connected to transparent white border pixels.
+    if all(pixel[3] == 255 for pixel in source_pixels):
+        remove_background(source_width, source_height, source_pixels)
     output_width = output_height = 48 * 4
     output = [(0, 0, 0, 0)] * (output_width * output_height)
     boundaries = [round(i * source_width / 4) for i in range(5)]
