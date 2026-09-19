@@ -17,7 +17,13 @@ export const DEFAULT_MOVEMENT = {
 /** Longest step the simulation integrates in one update; the run clock uses the same cap. */
 export const MAX_STEP_SECONDS = 0.1;
 
-export interface Surface { x1: number; x2: number; y1: number; y2: number }
+export type SurfaceMaterial = 'ice' | 'sand' | 'water';
+export interface Surface {
+  x1: number; x2: number; y1: number; y2: number;
+  friction?: number;
+  speedMultiplier?: number;
+  material?: SurfaceMaterial;
+}
 /** A moving platform sampled at one moment: a solid top face plus the velocity it carries riders with. */
 export interface PlatformBody { id: string; x: number; y: number; width: number; height: number; vx: number; vy: number }
 export interface Terrain { minX: number; maxX: number; surfaces: readonly Surface[] }
@@ -44,19 +50,22 @@ export const PLATFORM_RIDE_SNAP = 6;
 
 export type MovementAnimation = 'idle' | 'run' | 'jump' | 'fall';
 
-export function surfaceY(terrain: Terrain, x: number): number {
+/** Joints belong to the segment on their left, matching the original height lookup. */
+export function surfaceAt(terrain: Terrain, x: number): Surface {
   const clamped = Math.max(terrain.minX, Math.min(terrain.maxX, x));
-  const surface = terrain.surfaces.find((candidate) => clamped >= candidate.x1 && clamped <= candidate.x2)
+  return terrain.surfaces.find((candidate) => clamped >= candidate.x1 && clamped <= candidate.x2)
     ?? terrain.surfaces[terrain.surfaces.length - 1];
+}
+
+function heightOn(surface: Surface, x: number): number {
   const span = surface.x2 - surface.x1;
-  const progress = span === 0 ? 0 : (clamped - surface.x1) / span;
+  const progress = span === 0 ? 0 : (x - surface.x1) / span;
   return surface.y1 + (surface.y2 - surface.y1) * progress;
 }
 
-function surfaceSlope(terrain: Terrain, x: number): number {
-  const surface = terrain.surfaces.find((candidate) => x >= candidate.x1 && x <= candidate.x2)
-    ?? terrain.surfaces[terrain.surfaces.length - 1];
-  return surface.x2 === surface.x1 ? 0 : (surface.y2 - surface.y1) / (surface.x2 - surface.x1);
+export function surfaceY(terrain: Terrain, x: number): number {
+  const clamped = Math.max(terrain.minX, Math.min(terrain.maxX, x));
+  return heightOn(surfaceAt(terrain, clamped), clamped);
 }
 
 export function createPlayer(x: number, terrain: Terrain): Player {
@@ -115,13 +124,20 @@ export function simulatePlayer(player: Player, input: MovementInput, terrain: Te
     ? DEFAULT_MOVEMENT.coyoteSeconds
     : Math.max(0, player.coyoteSeconds - dt);
 
-  const acceleration = player.onGround ? DEFAULT_MOVEMENT.acceleration : DEFAULT_MOVEMENT.airAcceleration;
-  const target = Math.max(-1, Math.min(1, input.horizontal)) * DEFAULT_MOVEMENT.maxSpeed;
-  const rate = input.horizontal === 0 ? DEFAULT_MOVEMENT.braking : acceleration;
+  const surface = surfaceAt(terrain, player.x);
+  const standingOnTerrain = player.onGround && player.platformId === null
+    && Math.abs(player.y + DEFAULT_MOVEMENT.height - heightOn(surface, player.x)) < 0.01;
+  const friction = standingOnTerrain ? surface.friction ?? 1 : 1;
+  const speedMultiplier = standingOnTerrain ? surface.speedMultiplier ?? 1 : 1;
+  const acceleration = player.onGround ? DEFAULT_MOVEMENT.acceleration * friction : DEFAULT_MOVEMENT.airAcceleration;
+  const target = Math.max(-1, Math.min(1, input.horizontal)) * DEFAULT_MOVEMENT.maxSpeed * speedMultiplier;
+  const slowingToTarget = standingOnTerrain && speedMultiplier < 1
+    && player.vx * target > 0 && Math.abs(player.vx) > Math.abs(target);
+  const rate = input.horizontal === 0 || slowingToTarget ? DEFAULT_MOVEMENT.braking * friction : acceleration;
   player.vx = approach(player.vx, target, rate * dt);
   if (player.onGround) {
-    const standingOnTerrain = Math.abs(player.y + DEFAULT_MOVEMENT.height - surfaceY(terrain, player.x)) < 0.01;
-    if (standingOnTerrain) player.vx += surfaceSlope(terrain, player.x) * DEFAULT_MOVEMENT.downhillAcceleration * dt;
+    const slope = surface.x2 === surface.x1 ? 0 : (surface.y2 - surface.y1) / (surface.x2 - surface.x1);
+    if (standingOnTerrain) player.vx += slope * DEFAULT_MOVEMENT.downhillAcceleration * dt;
     player.vx = Math.max(-DEFAULT_MOVEMENT.maxSpeed, Math.min(DEFAULT_MOVEMENT.maxSpeed, player.vx));
   }
   if (player.vx > 1) player.facing = 1;

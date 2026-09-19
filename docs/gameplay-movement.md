@@ -46,3 +46,18 @@ Collision, input and animation tests cover acceleration caps, braking, variable
 jumps, jump buffering, coyote time, slope following, downhill acceleration,
 spring launches, state selection and high-speed landing. These are unit-level
 checks; full route difficulty and controller playtesting remain release work.
+
+## Terrain materials
+
+Frost Ridge ice uses ground friction 0.45: acceleration is 414 px/s² and braking
+is 540 px/s², with the usual 220 px/s top speed. Sandy Cove soft sand targets
+176 px/s (0.8 speed), and shallow water targets 143 px/s (0.65). Both retain
+normal friction and slow incoming momentum gradually at 1200 px/s².
+
+Materials apply only on terrain contact. Air movement and platform rides keep
+ordinary controls; landing resumes the terrain settings. A joint belongs to
+the segment on its left, consistently for height and movement. Cyan glints,
+amber stipples and blue wave marks identify ice, soft sand and shallow water.
+Unmarked ground uses the original movement defaults. Authored friction must
+be finite in [0.25, 2], speed in [0.5, 1], and nondefault physics needs a visible
+material. Ice preserves normal top speed; sand and water must reduce it.
