@@ -228,10 +228,10 @@
 
   Fix every Critical and Important finding with a failing regression test first. Re-run the relevant focused command, then the full verification commands from Step 1. Commit validated fixes with an imperative subject.
 
-- [ ] **Step 4: Push and create the pull request.**
+- [x] **Step 4: Push and create the pull request.**
 
   Push branch `32-treetop-timbers`. Create a PR against `main` whose body summarizes gameplay, atlas/runtime architecture, requirement change, visual evidence, exact validation results, known limitations, and `Closes #32`.
 
-- [ ] **Step 5: Read back the PR and report it.**
+- [x] **Step 5: Read back the PR and report it.**
 
   Run `gh pr view --json number,title,url,baseRefName,headRefName,body` and verify the base, head, closing keyword, and validation details before reporting the URL.
