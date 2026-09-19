@@ -83,5 +83,7 @@ start and pause/resume; native device tests remain separate.
 Music voice gain is at most 0.25 versus effect gain 0.48. The unchanged 24-voice
 cap and 0.075 master bound summed peaks below 0.864, including busy effects.
 This is a numerical headroom guarantee, not proof of perceived loudness or
-intelligibility. Speakers/headphones, several loop boundaries during gameplay,
-and Henry's response still require a human listening pass.
+intelligibility. On 2026-09-20 the user confirmed the listening check was complete
+and reported that the tracks "sound great." Hardware and Henry's individual
+response were not specified. Hosted CI passed with 122 browser checks and one
+native-audio skip; see the evidence notes for details.

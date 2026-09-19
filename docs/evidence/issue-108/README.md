@@ -47,7 +47,15 @@ Validation:
 - Independent subagent review completed; the first-click preview effect and label
   issues it identified were fixed and re-reviewed with no remaining blockers.
 
-Human listening remains **not performed**: speakers/headphones, multiple loop
-boundaries during live gameplay, busy-effect masking, mood/repetition feedback,
-and Henry's response. The draft PR must retain these open acceptance checks.
-Use `/?audio` to compare tracks and effects, then play each route to assess the mix.
+## Completed listening and hosted verification
+
+On 2026-09-20, the user confirmed the listening check was complete: "they sound
+great." Human listening is approved. Playback hardware, detailed per-track notes
+and Henry's individual response were not specified.
+
+[Hosted CI run 35466275592](https://github.com/auleewilliams/TinyTurboTrails/actions/runs/35466275592)
+passed the check job for implementation commit `469d7d6`, including unit tests,
+build and browser checks: 122 browser tests passed, one native-audio test skipped.
+Chromium, Firefox and WebKit ran on the hosted runner, resolving the local Firefox
+launch and Python executable limitations for automated verification. Native-audio
+skips remain limitations of the affected host, not playback compatibility evidence.
