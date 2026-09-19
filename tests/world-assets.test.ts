@@ -1,9 +1,28 @@
 import { afterEach, expect, it, vi } from 'vitest';
-import { loadWorldAssetMap, loadWorldAssets } from '../src/world/assets';
+import { loadWorldAssetMap, loadWorldAssets, WORLD_ASSETS } from '../src/world/assets';
 import { readFileSync } from 'node:fs';
 
 afterEach(() => {
   vi.unstubAllGlobals();
+});
+
+it('ships a complete grounded construction atlas for Sunset Site', () => {
+  const site = JSON.parse(readFileSync(new URL('../public/assets/site/manifest.json', import.meta.url), 'utf8'));
+  expect(site.image).toBe('environment.png');
+  expect(site.cellSize).toBe(48);
+  expect(Object.keys(site.assets).sort()).toEqual([...WORLD_ASSETS].sort());
+  expect(Object.values(site.assets).sort((a, b) => Number(a) - Number(b))).toEqual(
+    Array.from({ length: 16 }, (_, index) => index),
+  );
+  expect(site.terrainTops).toEqual({
+    'terrain-flat': { left: 18, right: 18 },
+    'terrain-left': { left: 11, right: 17 },
+    'terrain-right': { left: 17, right: 10 },
+    'terrain-ramp': { left: 29, right: 8 },
+  });
+  for (const asset of ['stone', 'cave', 'tree', 'flowers', 'spring', 'slime', 'checkpoint', 'finish-arch', 'bush']) {
+    expect(site.anchors[asset], asset).toEqual({ x: 24, y: 44 });
+  }
 });
 
 it('loads world metadata and its atlas from the requested directory', async () => {

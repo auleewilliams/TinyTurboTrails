@@ -1,6 +1,7 @@
 import { surfaceY, type Surface, type Terrain } from '../game/movement';
 import type { MovingPlatform } from '../game/platforms';
 import { PLAINS_LEVEL, type LevelData, type WorldEntity } from './level';
+import { SUNSET_SITE } from './sunset-site';
 
 // Quarry Run is authored as one contour of [x, y] points, split into six named
 // sections. Consecutive points become contiguous surfaces.
@@ -296,7 +297,8 @@ export const TREETOP_TIMBERS: LevelData = {
   ],
 };
 
-export const LEVELS: readonly LevelData[] = [PLAINS_LEVEL, QUARRY_RUN, TREETOP_TIMBERS];
+export { SUNSET_SITE };
+export const LEVELS: readonly LevelData[] = [PLAINS_LEVEL, QUARRY_RUN, TREETOP_TIMBERS, SUNSET_SITE];
 export const DEFAULT_LEVEL: LevelData = PLAINS_LEVEL;
 
 export function levelById(id: string): LevelData | undefined {

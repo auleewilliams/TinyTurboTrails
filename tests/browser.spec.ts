@@ -505,6 +505,36 @@ test('title picker renders Treetop Timbers with its own atlas', async ({ page },
   await info.attach('treetop-timbers', { path: screenshot, contentType: 'image/png' });
 });
 
+test('title picker wraps back to Sunset Site and renders its terrain atlas', async ({ page }) => {
+  await page.addInitScript(() => {
+    const original = CanvasRenderingContext2D.prototype.drawImage;
+    CanvasRenderingContext2D.prototype.drawImage = function (this: CanvasRenderingContext2D,
+      ...args: Parameters<typeof original>) {
+      const image = args[0];
+      if (image instanceof HTMLImageElement && image.src.endsWith('/assets/site/environment.png')
+        && args.length === 9 && Number(args[2]) === 0) {
+        this.canvas.dataset.siteTerrainAtlas = image.src;
+      }
+      Reflect.apply(original, this, args);
+    } as typeof original;
+  });
+  await page.goto('/?scene=adventure&debug=1');
+  await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
+  // Left from Plains wraps to the last registered level.
+  await page.keyboard.down('ArrowLeft');
+  await page.waitForTimeout(100);
+  await page.keyboard.up('ArrowLeft');
+  await page.keyboard.press('Space');
+  await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
+  await expect(page.locator('canvas')).toHaveAttribute(
+    'data-site-terrain-atlas', /\/assets\/site\/environment\.png$/,
+  );
+  await page.keyboard.down('ArrowRight');
+  await page.waitForTimeout(600);
+  await page.keyboard.up('ArrowRight');
+  await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
+});
+
 test('adventure mute control updates the audio state', async ({ page }) => {
   await page.goto('/?scene=adventure');
   await expect(page.locator('#status')).toContainText('Adventure preview', { timeout: 15000 });
