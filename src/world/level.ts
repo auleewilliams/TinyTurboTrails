@@ -13,6 +13,8 @@ export interface WorldEntity {
   asset: string;
   layer: 'back' | 'world' | 'front';
   patrol?: EntityPatrol;
+  /** One gentle rise and fall per period, sampled from the run clock. */
+  bounce?: { amplitude: number; seconds: number };
   width?: number;
 }
 /** A low sun drawn behind the parallax; it drifts at a fraction of the camera so it feels far away. */
@@ -255,16 +257,11 @@ export function validateLevel(level: LevelData): void {
   if (level.surfaces[0].x1 !== level.minX || level.surfaces[level.surfaces.length - 1].x2 !== level.maxX) {
     throw new Error('surfaces must span level bounds');
   }
+  for (const surface of level.surfaces) validateSurfaceMaterial(surface);
   for (let index = 1; index < level.surfaces.length; index++) {
     const previous = level.surfaces[index - 1];
     const current = level.surfaces[index];
     if (previous.x2 !== current.x1 || previous.y2 !== current.y1) throw new Error('surfaces must be contiguous');
-  }
-  for (const surface of level.surfaces) {
-    const friction = surface.friction ?? 1;
-    if (!Number.isFinite(friction) || friction < MIN_SURFACE_FRICTION || friction > MAX_SURFACE_FRICTION) {
-      throw new Error(`surface friction must be between ${MIN_SURFACE_FRICTION} and ${MAX_SURFACE_FRICTION}`);
-    }
   }
   const ids = new Set<string>();
   for (const entity of level.entities) {
@@ -272,6 +269,13 @@ export function validateLevel(level: LevelData): void {
     ids.add(entity.id);
     if (entity.x < level.minX || entity.x > level.maxX) throw new Error(`entity outside level: ${entity.id}`);
     validatePatrol(level, entity);
+    if (entity.bounce) {
+      const { amplitude, seconds } = entity.bounce;
+      if (entity.kind !== 'slime' || !Number.isFinite(amplitude) || amplitude <= 0 || amplitude > 12
+        || !Number.isFinite(seconds) || seconds < 1 || seconds > 4) {
+        throw new Error(`invalid creature bounce: ${entity.id}`);
+      }
+    }
     validateCrumblingLedge(level, entity);
   }
   if (level.checkpoints.length === 0) throw new Error('level requires at least one checkpoint');
@@ -284,6 +288,24 @@ export function validateLevel(level: LevelData): void {
   }
   if (level.finish.x <= level.start.x || level.finish.x > level.width) throw new Error('finish must follow start');
   validatePlatforms(level, ids);
+}
+
+function validateSurfaceMaterial(surface: Surface): void {
+  const friction = surface.friction ?? 1;
+  const speed = surface.speedMultiplier ?? 1;
+  if (!Number.isFinite(friction) || friction < 0.25 || friction > 2) throw new Error('invalid surface friction');
+  if (!Number.isFinite(speed) || speed < 0.5 || speed > 1) throw new Error('invalid surface speed');
+  if (surface.material === undefined) {
+    // Generic grip has automatic cues; stronger biome tuning needs a material.
+    if (friction < MIN_SURFACE_FRICTION || friction > MAX_SURFACE_FRICTION) {
+      throw new Error(`surface friction must be between ${MIN_SURFACE_FRICTION} and ${MAX_SURFACE_FRICTION}`);
+    }
+    if (speed !== 1) throw new Error('surface movement needs a visible material');
+  } else if (surface.material === 'ice') {
+    if (friction >= 1 || speed !== 1) throw new Error('ice must slide at normal top speed');
+  } else if (surface.material === 'sand' || surface.material === 'water') {
+    if (speed >= 1) throw new Error('sand and water must slow movement');
+  } else throw new Error('unknown surface material');
 }
 
 function validatePlatforms(level: LevelData, entityIds: ReadonlySet<string>): void {

@@ -5,14 +5,14 @@ import { GameplayPreviewScene } from '../src/game/gameplay-preview';
 import { AdventureScene } from '../src/game/adventure-scene';
 import type { GameAudio } from '../src/core/audio';
 import { PLAINS_LEVEL } from '../src/world/level';
-import { QUARRY_RUN, SUNSET_SITE } from '../src/world/levels';
+import { QUARRY_RUN, SANDY_COVE } from '../src/world/levels';
 import { ScreenController } from '../src/game/screens';
 
 const alternateLevel = { ...PLAINS_LEVEL,
   id: 'alternate', name: 'ALTERNATE', start: { x: 120, y: 198 },
   finish: { ...PLAINS_LEVEL.finish, x: 180 },
 };
-const worlds = { plains: {} as never, timbers: {} as never, site: {} as never };
+const worlds = { plains: {} as never, timbers: {} as never, site: {} as never, frost: {} as never, cove: {} as never };
 
 function silentAudio(): GameAudio {
   return {
@@ -48,11 +48,11 @@ describe('game screen flow', () => {
     expect(scene.selectedLevelName).toBe('PLAINS');
     scene.update(1 / 60, neutral);
     scene.update(1 / 60, { ...neutral, horizontal: -1 });
-    expect(scene.selectedLevelName).toBe(SUNSET_SITE.name);
+    expect(scene.selectedLevelName).toBe(SANDY_COVE.name);
     (scene as unknown as { run: { health: number } }).run.health = 1;
     scene.update(1 / 60, { ...neutral, jumpPressed: true });
     expect(scene.screenState).toBe('playing');
-    expect(scene.playerX).toBe(SUNSET_SITE.start.x);
+    expect(scene.playerX).toBe(SANDY_COVE.start.x);
     expect((scene as unknown as { run: { health: number } }).run.health).toBe(3);
   });
 

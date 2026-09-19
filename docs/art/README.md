@@ -47,7 +47,7 @@ threshold, and gives every bottom-planted sprite a visible-base anchor at row
 
 ```sh
 python3 scripts/process_sprite_atlas.py \
-  assets/source/site/environment-sheet.png public/assets/site/environment.png
+  assets/source/site/environment-sheet.png public/assets/site/environment.png --hard-alpha
 ```
 
 ## Runtime contract
@@ -84,3 +84,19 @@ The browser asset check confirms all 16 cells contain transparent pixels, no
 opaque pixels touch a cell edge, and each has a non-empty character. The
 reference and atlas are still generated source material; final art review at
 native gameplay size remains part of issue #2 validation.
+
+
+## Frost Ridge and Sandy Cove
+
+The `frost` and `cove` runtime directories each contain a 192 × 192 RGBA atlas
+and manifest in the shared 16-cell world-asset order. Original built-in-generated
+sheets, exact prompts and provenance are preserved in `assets/source/frost/`
+and `assets/source/cove/`. Their processing commands are in each `PROVENANCE.md`.
+The standard-library processor accepts opaque RGB and transparent RGBA sources;
+it preserves generated alpha rather than removing white snow highlights.
+
+Frost uses gold collectibles, snowy firs, dark-blue edges and cyan ice glints.
+Cove uses palms, driftwood springs, purple jellyfish and amber/blue surface
+markings for soft sand/shallow water. Material marks follow the authored ground
+segments exactly. Water itself never damages Henry. Atlas anchors align the
+visible bases and checkpoint posts to their collision positions.

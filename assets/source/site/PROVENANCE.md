@@ -15,7 +15,7 @@ changing sprite bounds or anchors:
 
 ```sh
 python3 scripts/process_sprite_atlas.py \
-  assets/source/site/environment-sheet.png public/assets/site/environment.png
+  assets/source/site/environment-sheet.png public/assets/site/environment.png --hard-alpha
 ```
 
 The cells retain the shared 16-name world contract. Their Site meanings, in

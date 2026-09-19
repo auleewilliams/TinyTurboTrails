@@ -20,9 +20,9 @@ is a detailed child in a blocky world — not a cuboid Minecraft avatar.
 
 ## Scope of the first release
 
-Four desktop-browser levels selected from a title-screen picker: Plains,
-Quarry Run, Treetop Timbers and Sunset Site. All routes target roughly 3–5 minutes, with
-momentum, slopes and springs. Quarry Run adds spring pits, stepped terraces,
+Six desktop-browser levels selected from a title-screen picker: Plains,
+Quarry Run, Treetop Timbers, Sunset Site, Frost Ridge and Sandy Cove. All routes target roughly
+3–5 minutes of exploratory play, with momentum, slopes and springs. Quarry Run adds spring pits, stepped terraces,
 grouped stone hazards and two slow moving platforms; both rides are optional
 and no route depends on timing one. Treetop Timbers adds plank trails, shallow
 rope-bridge contours, crane-hook springs and sawhorse hazards without changing
@@ -34,7 +34,14 @@ hazard hit removes one pip; losing the last pip returns him to the latest
 checkpoint, or the level start, and refills all three. Pit recovery also refills
 health without costing a pip, while activating a checkpoint does not heal him.
 Quarry Run reuses the Plains atlas; Treetop Timbers and Sunset Site each ship a
-project-local 16-cell atlas. Moving platforms are drawn from the level's own theme colors.
+project-local 16-cell atlas. Frost Ridge and Sandy Cove each ship their own 16-cell atlas.
+Frost Ridge introduces clearly marked flat ice patches with reduced ground
+acceleration and braking, normal top speed, and safe snow runouts. Sandy Cove
+uses soft sand and harmless shallow water to slow running, with sparse bouncing
+jellyfish on firm ground retaining familiar slime contact damage. Both new
+trails have six checkpoints and optional spring-launched bonus gems; their main
+routes can be completed without timed jumps. Moving platforms are drawn from
+the level's own theme colors.
 
 ## Target browsers
 
@@ -45,8 +52,8 @@ issue 01 onward rather than only at release.
 ## Out of scope for this release
 
 No mining, building, crafting, loops, charged dashes, additional biome artwork
-beyond the shipped Plains, Timbers and Site atlases, touch controls, public hosting
-or persistent progress. Public hosting means a public domain, TLS or exposure
+beyond the shipped Plains, Timbers, Site, Frost and Cove atlases, touch controls,
+public hosting or persistent progress. Public hosting means a public domain, TLS or exposure
 beyond the home LAN; running the built container on a home server for LAN-only
 access (issue #77) is self-hosting, not public hosting, and is in scope. Nothing
 about progress or persistence changes: the game remains in-memory only when

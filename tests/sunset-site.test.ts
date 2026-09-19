@@ -38,7 +38,7 @@ function startScene() {
     play: (effect) => effects.push(effect), stop: () => {}, dispose: () => {},
   };
   const scene = new AdventureScene({} as never,
-    { plains: {} as never, timbers: {} as never, site: {} as never }, audio, SUNSET_SITE);
+    { plains: {} as never, timbers: {} as never, site: {} as never, frost: {} as never, cove: {} as never }, audio, SUNSET_SITE);
   scene.update(1 / 60, { ...neutral, jumpPressed: true });
   const collected = (scene as unknown as { run: { collectedGems: Set<string> } }).run.collectedGems;
   return { scene, effects, collected };
@@ -89,9 +89,9 @@ function playSite(jump?: Jump) {
   return { scene, effects, seconds: frame / 60, collected, respawns: respawns() };
 }
 
-it('registers a playable Sunset Site alongside the other three routes', () => {
+it('registers a playable Sunset Site alongside the other five routes', () => {
   expect(levelById('sunset')).toBe(SUNSET_SITE);
-  expect(LEVELS.map(({ id }) => id)).toEqual(['plains', 'quarry', 'timbers', 'sunset']);
+  expect(LEVELS.map(({ id }) => id)).toEqual(['plains', 'quarry', 'timbers', 'sunset', 'frost', 'cove']);
   expect(() => validateLevel(SUNSET_SITE)).not.toThrow();
   expect(SUNSET_SITE.name).toBe('SUNSET SITE');
   expect(SUNSET_SITE.atlas).toBe('site');

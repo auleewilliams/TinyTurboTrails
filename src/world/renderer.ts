@@ -4,6 +4,7 @@ import type { PlatformBody, Surface } from '../game/movement';
 import type { MovingPlatform } from '../game/platforms';
 import type { WorldAsset, WorldAssets } from './assets';
 import { drawSceneryBackground, drawScenerySprite, foregroundPlacements, sceneryForDecoration } from './scenery';
+import { drawSurfaceMaterials } from './surface-materials';
 
 /** Scenes without run state draw the whole entity list; a run hides what it has consumed. */
 export type EntityFilter = (entity: WorldEntity) => boolean;
@@ -56,6 +57,7 @@ export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, le
     ctx.stroke();
     drawSurfaceGrip(ctx, surface, offset);
   }
+  drawSurfaceMaterials(ctx, level, offset);
   drawPlatforms(ctx, level, offset, platforms);
   // Decorative silhouettes sit behind every collectible, hazard and checkpoint.
   const layerOrder: Record<WorldEntity['layer'], number> = { back: 0, world: 1, front: 2 };
@@ -206,7 +208,7 @@ export function drawAsset(ctx: CanvasRenderingContext2D, assets: WorldAssets, as
 /** Automatic grip cues: smooth cyan streaks below 1, ochre grains above 1. */
 export function drawSurfaceGrip(ctx: CanvasRenderingContext2D, surface: Surface, offset: { x: number; y: number }): void {
   const friction = surface.friction ?? 1;
-  if (friction === 1 || surface.x2 <= surface.x1) return;
+  if (surface.material || friction === 1 || surface.x2 <= surface.x1) return;
   const slippery = friction < 1;
   const slope = (surface.y2 - surface.y1) / (surface.x2 - surface.x1);
   ctx.save();

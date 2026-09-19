@@ -4,10 +4,11 @@ import { PLAINS_LEVEL } from '../src/world/level';
 import { QUARRY_RUN } from '../src/world/levels';
 import { DEFAULT_MOVEMENT, surfaceY } from '../src/game/movement';
 import { platformBodyAt } from '../src/game/platforms';
+import { drawSurfaceMaterials } from '../src/world/surface-materials';
 import { drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawWorld } from '../src/world/renderer';
 
 /** The renderer is injected as plain functions, so every helper it calls has to travel with it. */
-const RENDERER_SOURCE = [drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms].map((helper) => helper.toString()).join('\n');
+const RENDERER_SOURCE = [drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawSurfaceMaterials].map((helper) => helper.toString()).join('\n');
 
 const dangerXs = (level: typeof PLAINS_LEVEL): number[] => level.entities
   .filter((entity) => entity.kind === 'slime' || entity.kind === 'hazard')
@@ -520,10 +521,13 @@ test('title picker wraps back to Sunset Site and renders its terrain atlas', asy
   });
   await page.goto('/?scene=adventure&debug=1');
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
-  // Left from Plains wraps to the last registered level.
-  await page.keyboard.down('ArrowLeft');
-  await page.waitForTimeout(100);
-  await page.keyboard.up('ArrowLeft');
+  // Wrap from Plains through Sandy Cove and Frost Ridge to Sunset Site.
+  for (let step = 0; step < 3; step++) {
+    await page.keyboard.down('ArrowLeft');
+    await page.waitForTimeout(100);
+    await page.keyboard.up('ArrowLeft');
+    await page.waitForTimeout(50);
+  }
   await page.keyboard.press('Space');
   await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
   await expect(page.locator('canvas')).toHaveAttribute(
@@ -1044,6 +1048,80 @@ test('a failed scenery image exposes Retry loading and recovers', async ({ page 
   await expect(page.locator('#retry')).toBeHidden();
   await expect(page.locator('canvas')).toBeVisible();
 });
+
+for (const [biome, pickerSteps] of [['frost', 4], ['cove', 5]] as const) {
+  test(`${biome} trail renders its material, completes and replays`, async ({ page }, info) => {
+    test.setTimeout(120_000);
+    await page.addInitScript(() => {
+      const original = CanvasRenderingContext2D.prototype.drawImage;
+      CanvasRenderingContext2D.prototype.drawImage = function (this: CanvasRenderingContext2D,
+        ...args: Parameters<typeof original>) {
+        const image = args[0];
+        if (image instanceof HTMLImageElement && /\/assets\/(frost|cove)\/environment.png$/.test(image.src)) {
+          this.canvas.dataset.biomeAtlas = image.src;
+          // Creature cell: track the live drawn Y for the real pause behavior below.
+          if (args[1] === 96 && args[2] === 96) this.canvas.dataset.creatureY = String(args[6]);
+        }
+        Reflect.apply(original, this, args);
+      } as typeof original;
+    });
+    await page.goto('/?scene=adventure&debug=1');
+    await expect(page.locator('#status')).toContainText('Adventure preview · Title');
+    for (let i = 0; i < pickerSteps; i++) {
+      await page.keyboard.down('ArrowRight');
+      await page.waitForTimeout(100);
+      await page.keyboard.up('ArrowRight');
+      await page.waitForTimeout(50);
+    }
+    await page.keyboard.press('Space');
+    await expect(page.locator('#status')).toContainText('Playing');
+    await expect(page.locator('canvas')).toHaveAttribute('data-biome-atlas', new RegExp(`/assets/${biome}/environment.png$`));
+    const position = async (): Promise<number> => Number((await page.locator('#status').innerText()).match(/X (\d+)/)?.[1] ?? 0);
+    const velocity = async (): Promise<number> => Number((await page.locator('#status').innerText()).match(/V (-?\d+)/)?.[1] ?? 0);
+    await page.keyboard.down('ArrowRight');
+    await expect.poll(position, { intervals: [20], timeout: 10000 }).toBeGreaterThan(420);
+    if (biome === 'frost') {
+      await page.keyboard.up('ArrowRight');
+      await page.waitForTimeout(120);
+      expect(await velocity()).toBeGreaterThan(80);
+    } else {
+      expect(await velocity()).toBe(176);
+      await expect.poll(position, { intervals: [20], timeout: 10000 }).toBeGreaterThan(1000);
+      expect(await velocity()).toBe(143);
+      await page.keyboard.up('ArrowRight');
+    }
+    await page.keyboard.press('Escape');
+    await expect(page.locator('#status')).toContainText('Paused');
+    const frozen = await page.locator('canvas').getAttribute('data-creature-y');
+    await page.waitForTimeout(200);
+    expect(await page.locator('canvas').getAttribute('data-creature-y')).toBe(frozen);
+    const screenshot = info.outputPath(`${biome}-material.png`);
+    await page.locator('canvas').screenshot({ path: screenshot });
+    await info.attach(`${biome}-material`, { path: screenshot, contentType: 'image/png' });
+    await page.keyboard.press('Escape');
+    await page.keyboard.down('ArrowRight');
+    await expect(page.locator('#status')).toContainText('Finish', { timeout: 85000 });
+    await page.keyboard.up('ArrowRight');
+    await expect(page.locator('#status')).toContainText(/Gems [1-9]\d*/);
+    await page.keyboard.press('Space');
+    await expect(page.locator('#status')).toContainText('Title');
+    expect(await position()).toBe(60);
+    await page.keyboard.press('Space');
+    await expect(page.locator('#status')).toContainText('Playing');
+    expect(await position()).toBe(60);
+    await expect(page.locator('canvas')).toHaveAttribute('data-biome-atlas', new RegExp(`/assets/${biome}/environment.png$`));
+  });
+
+  test(`${biome} atlas failure is recoverable through retry`, async ({ page }) => {
+    const path = `**/assets/${biome}/environment.png`;
+    await page.route(path, (route) => route.abort());
+    await page.goto('/?scene=adventure');
+    await expect(page.locator('#status')).toHaveText('Artwork could not load. Reload to retry.');
+    await page.unroute(path);
+    await page.locator('#retry').click();
+    await expect(page.locator('#status')).toContainText('Adventure preview · Title');
+  });
+}
 
 test('movement preview shows distinct friction cues and remains controllable', async ({ page }, info) => {
   await page.goto('/?scene=movement');

@@ -20,10 +20,13 @@ export const MAX_STEP_SECONDS = 0.1;
 export const MIN_SURFACE_FRICTION = 0.6;
 export const MAX_SURFACE_FRICTION = 1.4;
 
+export type SurfaceMaterial = 'ice' | 'sand' | 'water';
 export interface Surface {
   x1: number; x2: number; y1: number; y2: number;
   /** Ground acceleration and braking multiplier; omitted means normal grip (1). */
   friction?: number;
+  speedMultiplier?: number;
+  material?: SurfaceMaterial;
 }
 /** A moving platform sampled at one moment: a solid top face plus the velocity it carries riders with. */
 export interface PlatformBody { id: string; x: number; y: number; width: number; height: number; vx: number; vy: number }
@@ -52,7 +55,7 @@ export const PLATFORM_RIDE_SNAP = 6;
 export type MovementAnimation = 'idle' | 'run' | 'jump' | 'fall';
 
 /** At a shared endpoint the first segment wins, matching terrain collision. */
-function surfaceAt(terrain: Terrain, x: number): Surface {
+export function surfaceAt(terrain: Terrain, x: number): Surface {
   const clamped = Math.max(terrain.minX, Math.min(terrain.maxX, x));
   return terrain.surfaces.find((candidate) => clamped >= candidate.x1 && clamped <= candidate.x2)
     ?? terrain.surfaces[terrain.surfaces.length - 1];
@@ -131,9 +134,12 @@ export function simulatePlayer(player: Player, input: MovementInput, terrain: Te
   const standingOnTerrain = player.onGround && player.platformId === null
     && Math.abs(player.y + DEFAULT_MOVEMENT.height - heightOnSurface(surface, player.x)) < 0.01;
   const friction = standingOnTerrain ? surface.friction ?? 1 : 1;
+  const speedMultiplier = standingOnTerrain ? surface.speedMultiplier ?? 1 : 1;
   const acceleration = player.onGround ? DEFAULT_MOVEMENT.acceleration * friction : DEFAULT_MOVEMENT.airAcceleration;
-  const target = Math.max(-1, Math.min(1, input.horizontal)) * DEFAULT_MOVEMENT.maxSpeed;
-  const rate = input.horizontal === 0 ? DEFAULT_MOVEMENT.braking * friction : acceleration;
+  const target = Math.max(-1, Math.min(1, input.horizontal)) * DEFAULT_MOVEMENT.maxSpeed * speedMultiplier;
+  const slowingToTarget = standingOnTerrain && speedMultiplier < 1
+    && player.vx * target > 0 && Math.abs(player.vx) > Math.abs(target);
+  const rate = input.horizontal === 0 || slowingToTarget ? DEFAULT_MOVEMENT.braking * friction : acceleration;
   player.vx = approach(player.vx, target, rate * dt);
   if (player.onGround) {
     if (standingOnTerrain) player.vx += surfaceSlope(surface) * DEFAULT_MOVEMENT.downhillAcceleration * dt;

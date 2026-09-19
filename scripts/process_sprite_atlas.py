@@ -121,16 +121,19 @@ def remove_background(width: int, height: int, pixels: list[tuple[int, int, int,
         if y + 1 < height: queue.append(index + width)
 
 
-def process(source: Path, destination: Path) -> None:
+def process(source: Path, destination: Path, *, hard_alpha: bool = False) -> None:
     source_width, source_height, source_pixels = read_png(source)
     if source_width < 1000 or source_height < 1000:
         raise ValueError("source atlas is unexpectedly small")
-    # Generated RGBA images can contain alpha-1 fringe pixels far outside the
-    # visible sprite. Pixel art uses hard alpha so bounds and anchors follow
-    # meaningful artwork rather than invisible antialiasing residue.
-    source_pixels = [(r, g, b, 255 if alpha >= VISIBLE_ALPHA else 0)
-                     for r, g, b, alpha in source_pixels]
-    remove_background(source_width, source_height, source_pixels)
+    # Generated transparent sheets already supply their cutout. Flood-filling
+    # them can erase white snow connected to transparent white border pixels.
+    if all(pixel[3] == 255 for pixel in source_pixels):
+        remove_background(source_width, source_height, source_pixels)
+    # Site uses hard alpha so invisible fringe cannot shift sprite bounds.
+    # Other transparent sheets retain their authored translucent edges.
+    if hard_alpha:
+        source_pixels = [(r, g, b, 255 if alpha >= VISIBLE_ALPHA else 0)
+                         for r, g, b, alpha in source_pixels]
     output_width = output_height = 48 * 4
     output = [(0, 0, 0, 0)] * (output_width * output_height)
     boundaries = [round(i * source_width / 4) for i in range(5)]
@@ -179,5 +182,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("source", type=Path)
     parser.add_argument("destination", type=Path)
+    parser.add_argument("--hard-alpha", action="store_true", help="make visible pixels fully opaque")
     args = parser.parse_args()
-    process(args.source, args.destination)
+    process(args.source, args.destination, hard_alpha=args.hard_alpha)

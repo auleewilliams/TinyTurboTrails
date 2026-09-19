@@ -33,13 +33,61 @@ print(json.dumps(pixels))
   expect(pixels[13]).toEqual([30, 110, 180, 255]);
 });
 
+test('processes transparent RGBA sheets without stripping white snow or partial alpha', () => {
+  const result = execFileSync('python3', ['-B', '-c', `
+import json, tempfile
+from pathlib import Path
+from scripts.process_sprite_atlas import write_png, read_png, process
+with tempfile.TemporaryDirectory() as directory:
+    source = Path(directory) / 'source.png'
+    destination = Path(directory) / 'atlas.png'
+    pixels = [(255, 255, 255, 0)] * (1024 * 1024)
+    for row in range(4):
+        for col in range(4):
+            for y in range(row * 256 + 64, row * 256 + 192):
+                for x in range(col * 256 + 64, col * 256 + 192):
+                    pixels[y * 1024 + x] = (255, 255, 255, 128)
+    write_png(source, 1024, 1024, pixels)
+    process(source, destination)
+    width, height, output = read_png(destination)
+    print(json.dumps({'size': [width, height], 'alphas': sorted(set(p[3] for p in output)),
+        'center': output[24 * width + 24]}))
+`], { encoding: 'utf8' });
+  expect(JSON.parse(result)).toEqual({ size: [192, 192], alphas: [0, 128], center: [255, 255, 255, 128] });
+});
+
+test('decodes RGBA rows using all five PNG filter modes', () => {
+  const result = execFileSync('python3', ['-B', '-c', `
+import json, struct, tempfile, zlib
+from pathlib import Path
+from scripts.process_sprite_atlas import read_png
+# Each row represents the same two RGBA pixels: (10,20,30,40), (50,60,70,80).
+# Literal prefiltered bytes exercise channel-distance reconstruction independently.
+rows = [bytes([0,10,20,30,40,50,60,70,80]),
+        bytes([1,10,20,30,40,40,40,40,40]),
+        bytes([2,0,0,0,0,0,0,0,0]),
+        bytes([3,5,10,15,20,20,20,20,20]),
+        bytes([4,0,0,0,0,0,0,0,0])]
+def chunk(kind, payload):
+    return struct.pack('>I', len(payload)) + kind + payload + struct.pack('>I', zlib.crc32(kind+payload) & 0xffffffff)
+with tempfile.TemporaryDirectory() as directory:
+    path = Path(directory) / 'filters.png'
+    path.write_bytes(bytes([137,80,78,71,13,10,26,10]) +
+        chunk(b'IHDR', struct.pack('>IIBBBBB', 2,5,8,6,0,0,0)) +
+        chunk(b'IDAT', zlib.compress(b''.join(rows))) + chunk(b'IEND', b''))
+    print(json.dumps(read_png(path)[2]))
+`], { encoding: 'utf8' });
+  expect(JSON.parse(result)).toEqual(Array.from({ length: 5 }, () => [[10, 20, 30, 40], [50, 60, 70, 80]]).flat());
+});
+
 test('atlas processing accepts generated RGBA source sheets', () => {
   const directory = mkdtempSync(join(tmpdir(), 'site-atlas-'));
   const output = join(directory, 'environment.png');
   try {
     execFileSync('python3', ['-B', 'scripts/process_sprite_atlas.py',
-      'assets/source/site/environment-sheet.png', output]);
+      'assets/source/site/environment-sheet.png', output, '--hard-alpha']);
     const png = readFileSync(output);
+    expect(png).toEqual(readFileSync('public/assets/site/environment.png'));
     expect(png.readUInt32BE(16)).toBe(192);
     expect(png.readUInt32BE(20)).toBe(192);
     expect(png[25]).toBe(6);

@@ -50,7 +50,8 @@ checks; full route difficulty and controller playtesting remain release work.
 ## Per-surface friction — issue #39
 
 A terrain segment may specify `friction`; omitting it is exactly `1`. Level
-validation accepts only finite multipliers in the inclusive range **0.6–1.4**.
+validation accepts finite generic-grip multipliers in the inclusive range
+**0.6–1.4**. Explicit terrain materials use the bounds documented below.
 The movement step samples the supporting segment once for contact height, slope
 and friction. At a shared endpoint, the first segment wins; the next update
 uses the new segment after Henry crosses the join.
@@ -64,8 +65,8 @@ uses the new segment after Henry crosses the join.
 Ground acceleration includes turning against existing momentum. Release braking
 uses the braking rate. Air acceleration and air release braking, static ledges,
 moving platforms, downhill acceleration, jump impulse and the speed cap retain
-their existing values. Friction changes traction, not maximum speed; it does not
-yet model sand drag or shallow-water resistance.
+their existing values. Friction changes traction, not maximum speed. Material-specific
+speed multipliers add sand drag and shallow-water resistance as described below.
 
 Every non-default surface gets an automatic visual tell in the world renderer:
 low grip has a cyan band with smooth pale streaks, high grip an ochre band with
@@ -78,5 +79,20 @@ At 60 Hz, releasing from 220 px/s on flat ground stops in approximately 32 px
 at 0.6, 18 px at 1, and 13 px at 1.4. Automated movement checks enforce bounded
 stopping distance and unchanged air/platform behavior. These are initial tuning
 values, not a substitute for Henry's playtest. Plains and Quarry Run retain
-normal grip throughout; Frost Ridge and Sandy Cove can author their own segments
-later without changing the shared movement step.
+normal grip throughout; Frost Ridge and Sandy Cove use the material tuning below.
+
+## Terrain materials
+
+Frost Ridge ice uses ground friction 0.45: acceleration is 414 px/s² and braking
+is 540 px/s², with the usual 220 px/s top speed. Sandy Cove soft sand targets
+176 px/s (0.8 speed), and shallow water targets 143 px/s (0.65). Both retain
+normal friction and slow incoming momentum gradually at 1200 px/s².
+
+Materials apply only on terrain contact. Air movement and platform rides keep
+ordinary controls; landing resumes the terrain settings. A joint belongs to
+the segment on its left, consistently for height and movement. Cyan glints,
+amber stipples and blue wave marks identify ice, soft sand and shallow water.
+Unmarked ground uses the original movement defaults. Authored friction must
+be finite in [0.25, 2] and speed in [0.5, 1]. Friction outside the generic grip
+range and any reduced speed require an explicit material. Generic grip uses
+automatic visual cues. Ice preserves normal top speed; sand and water must reduce it.
