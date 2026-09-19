@@ -13,6 +13,7 @@ import { LEVELS } from '../world/levels';
 import { Camera } from '../world/camera';
 import { drawWorld, drawWorldForeground } from '../world/renderer';
 import type { WorldAssets } from '../world/assets';
+import { drawGameplayHud } from './hud';
 
 export interface Rect { x: number; y: number; width: number; height: number }
 
@@ -133,14 +134,8 @@ export class AdventureScene implements Scene {
       (entity) => isEntityActive(this.run, entity.id), (entity) => entityPosition(this.run, entity), this.platforms);
     if (this.screens.state === 'playing') this.drawHenry(ctx);
     drawWorldForeground(ctx, this.world, this.level, this.camera);
-    ctx.fillStyle = '#10252cdd';
-    ctx.fillRect(5, 5, 205, 25);
-    ctx.fillStyle = '#e9f2df';
-    ctx.font = '8px monospace';
-    ctx.textAlign = 'left';
     if (this.screens.state === 'playing') {
-      ctx.fillText(`GEMS ${this.run.collectedGems.size}   CHECKPOINT ${this.run.checkpointId ?? 'START'}`, 10, 16);
-      ctx.fillText('Arrows/A-D move · Space jump · Esc pause', 10, 26);
+      drawGameplayHud(ctx, this.run, 'Arrows/A-D move · Space jump · Esc pause');
     } else if (this.screens.state === 'title') {
       this.panel(ctx, 'TINY TURBO TRAILS', `◀ ${this.selectedLevelName} ▶`);
       ctx.fillStyle = '#e9f2df';

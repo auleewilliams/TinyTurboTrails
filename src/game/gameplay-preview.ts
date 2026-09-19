@@ -12,6 +12,7 @@ import type { LevelData } from '../world/level';
 import { Camera } from '../world/camera';
 import { drawWorld, drawWorldForeground } from '../world/renderer';
 import { loadWorldAssets, type WorldAssets } from '../world/assets';
+import { drawGameplayHud } from './hud';
 
 export class GameplayPreviewScene implements Scene {
   private readonly player: Player;
@@ -68,12 +69,7 @@ export class GameplayPreviewScene implements Scene {
     }
     ctx.restore();
     drawWorldForeground(ctx, this.world, this.level, this.camera);
-    ctx.fillStyle = '#10252cdd';
-    ctx.fillRect(5, 5, 160, 25);
-    ctx.fillStyle = '#e9f2df';
-    ctx.font = '8px monospace';
-    ctx.fillText(`GEMS ${this.run.collectedGems.size}   CHECKPOINT ${this.run.checkpointId ?? 'START'}`, 10, 16);
-    ctx.fillText('Arrows/A-D · Space · Esc pause', 10, 26);
+    drawGameplayHud(ctx, this.run, 'Arrows/A-D · Space · Esc pause');
   }
 }
 
