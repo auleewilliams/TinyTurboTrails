@@ -93,3 +93,15 @@ sprite and fades it during protection, preserving his silhouette. Presentation
 has bounded counts and lifetimes, freezes on pause, clears on replay/level changes,
 and reduces nonessential motion with the system preference. Effects never change
 simulation, pickup counts, health rules or sound timing. No progress is persisted.
+
+
+### Per-level soundtrack (#108)
+
+Every registered playable level selects an original local synthesized score by
+stable level ID. Scores must differ in melody, rhythm and instrumentation. Start
+and replay select/reset the appropriate score, checkpoints preserve musical
+progress, and finish stops music before the existing completion cue. Title/menu
+compositions are out of scope. Preview every score at `/?audio`. Preserve unlock,
+mute, pause/focus, silent fallback and bounded scheduler/voice lifecycle.
+Automated checks and headroom measurements supplement a human listening review
+of mood, repetition and effect intelligibility; see `docs/AUDIO.md`.

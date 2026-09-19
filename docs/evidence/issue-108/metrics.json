@@ -1,0 +1,44 @@
+[
+  {
+    "id": "plains",
+    "loopSeconds": 29.09090909090909,
+    "loopsRendered": 3,
+    "peak": 0.02723267488181591,
+    "rms": 0.0026769963272180795
+  },
+  {
+    "id": "quarry",
+    "loopSeconds": 35.55555555555556,
+    "loopsRendered": 3,
+    "peak": 0.03516595810651779,
+    "rms": 0.0031996376870322115
+  },
+  {
+    "id": "timbers",
+    "loopSeconds": 32,
+    "loopsRendered": 3,
+    "peak": 0.034748051315546036,
+    "rms": 0.0026926131033844364
+  },
+  {
+    "id": "sunset",
+    "loopSeconds": 30.476190476190474,
+    "loopsRendered": 3,
+    "peak": 0.02638956904411316,
+    "rms": 0.002887328476365876
+  },
+  {
+    "id": "frost",
+    "loopSeconds": 41.73913043478261,
+    "loopsRendered": 3,
+    "peak": 0.03630002588033676,
+    "rms": 0.003479356888300563
+  },
+  {
+    "id": "cove",
+    "loopSeconds": 38.4,
+    "loopsRendered": 3,
+    "peak": 0.035538941621780396,
+    "rms": 0.0034071652062176473
+  }
+]
