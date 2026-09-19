@@ -87,15 +87,23 @@ function drawTerrainTiles(ctx: CanvasRenderingContext2D, assets: WorldAssets, le
       const index = assets.manifest.assets[asset];
       const sourceX = (index % 4) * cell;
       const sourceY = Math.floor(index / 4) * cell;
-      if (asset === 'terrain-ramp' && surface.y2 > surface.y1) {
+      const tops = assets.manifest.terrainTops?.[asset] ?? { left: 0, right: 0 };
+      const sourceRise = Math.abs(tops.right - tops.left);
+      const desiredRise = Math.abs((surface.y2 - surface.y1) / span * cell);
+      const scaleY = asset === 'terrain-ramp' && sourceRise > 0 ? Math.min(1, desiredRise / sourceRise) : 1;
+      const descending = asset === 'terrain-ramp' && surface.y2 > surface.y1;
+      const startTop = descending ? tops.right : tops.left;
+      const destinationY = y - startTop * scaleY - offset.y;
+      const destinationHeight = cell * scaleY;
+      if (descending) {
         ctx.save();
         ctx.translate(x - offset.x + cell, 0);
         ctx.scale(-1, 1);
-        ctx.drawImage(assets.atlas, sourceX, sourceY, cell, cell, 0, y - offset.y, cell, cell);
+        ctx.drawImage(assets.atlas, sourceX, sourceY, cell, cell, 0, destinationY, cell, destinationHeight);
         ctx.restore();
       } else {
         ctx.drawImage(assets.atlas, sourceX, sourceY, cell, cell,
-          x - offset.x, y - offset.y, cell, cell);
+          x - offset.x, destinationY, cell, destinationHeight);
       }
     }
   }

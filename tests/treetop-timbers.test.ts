@@ -68,10 +68,17 @@ it('can finish Treetop Timbers while holding right without a mandatory timed jum
 it('ships a complete 4 by 4 timber atlas contract', () => {
   const manifest = JSON.parse(readFileSync(
     new URL('../public/assets/timbers/manifest.json', import.meta.url), 'utf8',
-  )) as { image: string; cellSize: number; assets: Record<string, number> };
+  )) as { image: string; cellSize: number; assets: Record<string, number>;
+    terrainTops: Record<string, { left: number; right: number }> };
   expect(manifest.image).toBe('environment.png');
   expect(manifest.cellSize).toBe(48);
   expect(Object.values(manifest.assets).sort((a, b) => a - b)).toEqual(
     Array.from({ length: 16 }, (_, index) => index),
   );
+  expect(manifest.terrainTops).toEqual({
+    'terrain-flat': { left: 24, right: 24 },
+    'terrain-left': { left: 9, right: 9 },
+    'terrain-right': { left: 4, right: 4 },
+    'terrain-ramp': { left: 30, right: 11 },
+  });
 });

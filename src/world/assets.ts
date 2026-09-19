@@ -12,6 +12,7 @@ export interface WorldManifest {
   cellSize: number;
   assets: Record<WorldAsset, number>;
   anchors?: Partial<Record<WorldAsset, { x: number; y: number }>>;
+  terrainTops?: Partial<Record<WorldAsset, { left: number; right: number }>>;
 }
 export interface WorldAssets { atlas: HTMLImageElement; manifest: WorldManifest; scenery?: SceneryAssets }
 export type WorldAssetMap = Readonly<Record<string, WorldAssets>>;

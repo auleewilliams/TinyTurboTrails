@@ -6,7 +6,7 @@ import type { HenryAssets } from '../src/art/henry';
 import type { GameAudio } from '../src/core/audio';
 import { AdventureScene } from '../src/game/adventure-scene';
 import { GameplayPreviewScene } from '../src/game/gameplay-preview';
-import { createPlayer } from '../src/game/movement';
+import { createPlayer, surfaceY } from '../src/game/movement';
 import { Camera } from '../src/world/camera';
 import { PLAINS_LEVEL } from '../src/world/level';
 import { QUARRY_RUN, TREETOP_TIMBERS } from '../src/world/levels';
@@ -157,6 +157,23 @@ it('draws all shared terrain cell roles for textured Treetop surfaces', () => {
     }
   }
   expect([...sampled].sort((a, b) => a - b)).toEqual([0, 1, 2, 3]);
+});
+
+it('aligns flat and ramp artwork bounds with the playable contour', () => {
+  const assets: WorldAssets = { atlas: {} as HTMLImageElement, manifest: timberManifest };
+  const start = recordingContext();
+  drawWorld(start.ctx, assets, TREETOP_TIMBERS, { position: { x: 0, y: 0 } } as Camera);
+  const flat = start.images.find((call) => call[1] === 0 && call[2] === 0)!;
+  expect(Number(flat[6]) + 24).toBe(198);
+
+  const bridge = recordingContext();
+  const cameraX = 1200;
+  drawWorld(bridge.ctx, assets, TREETOP_TIMBERS, { position: { x: cameraX, y: 0 } } as Camera);
+  const ramp = bridge.images.find((call) => call[1] === 3 * timberManifest.cellSize && call[2] === 0
+    && Number(call[5]) === 1230 - cameraX)!;
+  const scaleY = Number(ramp[8]) / timberManifest.cellSize;
+  expect(Number(ramp[6]) + 30 * scaleY).toBeCloseTo(surfaceY(TREETOP_TIMBERS, 1230), 5);
+  expect(Number(ramp[6]) + 11 * scaleY).toBeCloseTo(surfaceY(TREETOP_TIMBERS, 1278), 5);
 });
 
 it('mirrors textured ramp cells when the terrain descends to the right', () => {
