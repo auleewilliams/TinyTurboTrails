@@ -12,7 +12,10 @@ const RENDERER_SOURCE = [drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPla
 
 const dangerXs = (level: typeof PLAINS_LEVEL): number[] => level.entities
   .filter((entity) => entity.kind === 'slime' || entity.kind === 'hazard')
-  .map(({ x }) => x);
+  // Traversal consumes this list from left to right. Entity order groups slimes
+  // before hazards, which otherwise hides earlier stones until after the route.
+  .map(({ x }) => x)
+  .sort((left, right) => left - right);
 
 /** Observe the real title drawing without adding a production-only test API. */
 async function observeTitleSelection(page: Page): Promise<void> {
@@ -648,15 +651,20 @@ test('adventure clears held controller input after disconnect', async ({ page })
   await page.evaluate(() => {
     (window as unknown as { disconnectController: { axes: number[] } }).disconnectController.axes[0] = 1;
   });
-  await page.waitForTimeout(180);
-  const beforeDisconnect = Number((await page.locator('#status').innerText()).match(/X (\d+)/)?.[1] ?? 0);
-  await page.evaluate(() => {
+  await expect.poll(async () => Number(
+    (await page.locator('#status').innerText()).match(/V (-?\d+)/)?.[1] ?? 0,
+  )).toBeGreaterThan(0);
+  // Sample and disconnect in one browser task: tracing/transport latency between
+  // separate calls otherwise counts still-held movement as post-disconnect coast.
+  const beforeDisconnect = await page.evaluate(() => {
+    const x = Number(document.querySelector('#status')?.textContent?.match(/X (\d+)/)?.[1] ?? 0);
     window.dispatchEvent(new Event('gamepaddisconnected'));
     const pad = (window as unknown as { disconnectController: { axes: number[]; connected: boolean } }).disconnectController;
     pad.connected = false;
     pad.axes[0] = 0;
+    return x;
   });
-  await page.waitForTimeout(180);
+  await expect(page.locator('#status')).toContainText(' V 0 ');
   const afterDisconnect = Number((await page.locator('#status').innerText()).match(/X (\d+)/)?.[1] ?? 0);
   // Disconnect clears the held input; existing momentum may coast briefly while braking.
   expect(afterDisconnect - beforeDisconnect).toBeLessThanOrEqual(25);

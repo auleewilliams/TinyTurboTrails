@@ -48,6 +48,36 @@ A regression test delays animation callbacks by 200 ms and verifies each
 selection. Failure traces/screenshots are retained, retries remain zero, and CI
 uses the same explicit two-worker configuration as the historical runs.
 
+## Additional failures exposed during PR validation
+
+The first PR [run 35464665239](https://github.com/auleewilliams/TinyTurboTrails/actions/runs/35464665239)
+passed both original target tests but failed WebKit checkpoint traversal
+(121 passed, one skipped, one failed). Its newly retained trace shows three
+recoveries from X≈4632–4642 back to the hillside checkpoint at X≈2470, before
+canyon activation. The test exhausted its traversal budget, rather than missing
+checkpoint text. `dangerXs` returned entity order (slimes, then hazards), while
+the driver consumes increasing X: it targeted slime4680 while ignoring the
+preceding hazard4666. Sorting the coordinates repairs that demonstrated ordering
+bug and starts avoidance at the earlier obstacle. The checkpoint activation,
+position/ground-height and planted-marker screenshot checks remain unchanged.
+The trace does not establish whether every attempted jump launched.
+
+A local full run exposed a separate WebKit controller-disconnect measurement
+race: the old test measured 44px against the unchanged 25px coast limit. Its
+trace reads X98/V220 at 587311.779ms, then starts the disconnect evaluation at
+587362.329ms; the final sample is X142/V0. Separate browser calls counted movement
+while the controller was still held as post-disconnect coasting. The test now
+observes positive velocity, samples position and dispatches disconnect in one
+browser task, then observes V0 before checking the same 25px limit. Reconnection
+movement is still asserted. No gameplay, physics or assertions were relaxed.
+
+The independent browser reviewer verified both trace diagnoses and fixes, then
+requested the positive-velocity precondition and verified its addition. Clean
+final focused/full results are recorded in the PR. An exploratory unit run while
+three browser cohorts competed for local resources timed out a Python fixture;
+final unit/browser runs are scheduled without that contention, with existing
+timeouts retained.
+
 ## Publishing policy (#101)
 
 See [Deployment](DEPLOYMENT.md#publishing-eligibility-and-ordering) for the exact
