@@ -35,7 +35,9 @@ A controlled experiment withheld game animation callbacks during the old two
 100 ms presses/50 ms releases, then resumed callbacks before starting. All
 **3/3 attempts started Plains instead of Timbers**. This demonstrates lost test
 input under a frame stall; it does not establish that the historical runner had
-such a stall. The historical record lacks route/frame telemetry to prove that,
+such a stall. Reproduce with `npm run build`, start `npm run preview` in a
+separate terminal, then run `node scripts/investigate-picker.mjs`.
+The historical record lacks route/frame telemetry to prove that,
 and Quarry traversal timing remains a separate uncertainty.
 
 The fix observes the actual canvas title text, holds the selection key until the
@@ -99,8 +101,24 @@ security-update settings and subsequent alert triage remain owner work.
 - Local: 472 unit tests; eight publishing-policy tests; typecheck; production
   build passed. The sandbox initially blocked Python test subprocesses; rerunning
   with subprocess permissions passed the entire suite.
-- Focused fixed WebKit repetitions, full browser suite, workflow lint, reviewer
-  conclusions and PR CI: pending completion below.
+- Workflow validation: actionlint v1.7.12 passed; its downloaded archive was
+  checked against the upstream release checksum. Dependabot YAML parsed with
+  all three weekly ecosystems. `git diff --check` passed.
+- Independent browser reviewer: no substantive findings; confirmed meaningful
+  assertions and careful causal claims. Suggested preserving the diagnostic
+  script; implemented, reran its three cases, and reviewer verified the follow-up.
+- Independent workflow reviewer: no substantive findings; independently resolved
+  all six upstream SHA/runtime pairs and ran all eight publishing tests. Confirmed
+  ordering, fail-closed behavior, permission boundaries and documented limitations.
+- Fixed focused WebKit: `CI=1 npx playwright test --project=webkit --workers=2
+  --repeat-each=10 --grep 'title picker selects Quarry|title picker renders
+  Treetop|title picker consumes'` — **30/30 passed (9.4 minutes)**, zero retries.
+  This is ten Quarry completions, ten Timbers atlas/traversal checks, and ten
+  delayed-frame selection regressions. Inspected a resulting Timbers screenshot:
+  expected textured terrain, player, gems and HUD are visible.
+- Full local browser results and final-head PR CI/container results are recorded
+  in [PR #112](https://github.com/auleewilliams/TinyTurboTrails/pull/112) as checks
+  complete; these are distinct from the post-merge publishing checks below.
 - Docker is not installed in this workstation environment. Container build and
   actual nginx/browser smoke results must come from the normal PR check job.
 - No production tags were published, and no settings changed.
