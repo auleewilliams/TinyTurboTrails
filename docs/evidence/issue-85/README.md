@@ -29,9 +29,9 @@ firsthand six-year-old playtest. That manual playtest remains outstanding.
 
 Linux, Node 22.22.1, Playwright 1.63.0.
 
-- `npm run typecheck`, `npm test` (319 passed), and `npm run build`: passed.
+- `npm run typecheck`, `npm test` (363 passed), and `npm run build`: passed.
 - Full browser matrix with one worker (`npx playwright test --workers=1`):
-  92 passed and 1 skipped (the existing Firefox native-audio probe). This
+  101 passed and 1 skipped (the existing Firefox native-audio probe). This
   serialized run avoids the repository's known parallel-load timeouts; the
   Site picker/loading and gameplay checks passed in Chromium, Firefox and
   WebKit.
