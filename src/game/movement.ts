@@ -104,6 +104,11 @@ function approach(value: number, target: number, amount: number): number {
 export function simulatePlayer(player: Player, input: MovementInput, terrain: Terrain, seconds: number,
   platforms: readonly (PlatformBody | CollisionPlatform)[] = []): void {
   const dt = Math.max(0, Math.min(seconds, MAX_STEP_SECONDS));
+  // Static ledges use the same one-way support selection as moving slabs.
+  const bodies: readonly PlatformBody[] = platforms.map((platform) => 'width' in platform ? platform : {
+    id: platform.id, x: platform.x1, y: platform.y, width: platform.x2 - platform.x1,
+    height: 0, vx: 0, vy: 0,
+  });
   if (input.jumpPressed) player.jumpBufferSeconds = DEFAULT_MOVEMENT.jumpBufferSeconds;
   else player.jumpBufferSeconds = Math.max(0, player.jumpBufferSeconds - dt);
   player.coyoteSeconds = player.onGround
@@ -138,7 +143,7 @@ export function simulatePlayer(player: Player, input: MovementInput, terrain: Te
   const step = dt / steps;
   for (let index = 0; index < steps; index++) {
     // A ride moves Henry with it on both axes; the snap below only corrects what gravity adds.
-    const carrier = ridingPlatform(player, platforms.filter((platform): platform is PlatformBody => 'width' in platform));
+    const carrier = ridingPlatform(player, bodies);
     if (carrier) {
       player.x += carrier.vx * step;
       player.y += carrier.vy * step;
@@ -160,29 +165,11 @@ export function simulatePlayer(player: Player, input: MovementInput, terrain: Te
       grounded = true;
     }
     // Platforms resolve after terrain: a slab standing above the ground wins the contact.
-    const movingPlatforms = platforms.filter((platform): platform is PlatformBody => 'width' in platform);
-    const support = platformSupport(player, movingPlatforms, previousFeet, ground);
+    const support = platformSupport(player, bodies, previousFeet, ground);
     if (support) {
       player.y = support.y - DEFAULT_MOVEMENT.height;
       player.vy = 0;
       grounded = true;
-    }
-    if (player.vy >= 0) {
-      for (const platform of platforms) {
-        const x1 = 'width' in platform ? platform.x : platform.x1;
-        const x2 = 'width' in platform ? platform.x + platform.width : platform.x2;
-        const halfWidth = DEFAULT_MOVEMENT.width / 2;
-        if (platform.y > ground + 1 || player.x + halfWidth <= x1 || player.x - halfWidth >= x2) continue;
-        // A fast runner can enter a narrow ledge after the vertical sweep crossed its top;
-        // keep the one-way test bounded to two body heights so shallow dips remain catchable.
-        if (previousFeet <= platform.y + DEFAULT_MOVEMENT.height * 2 && feet >= platform.y && (!support || platform.y < support.y)) {
-          player.y = platform.y - DEFAULT_MOVEMENT.height;
-          player.vy = 0;
-          grounded = true;
-          player.platformId = 'width' in platform ? platform.id : null;
-          player.groundVelocityX = 'width' in platform ? platform.vx : 0;
-        }
-      }
     }
     player.onGround = grounded;
     if (grounded) player.coyoteSeconds = DEFAULT_MOVEMENT.coyoteSeconds;

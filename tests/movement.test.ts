@@ -12,6 +12,45 @@ const input = (horizontal = 0, jumpPressed = false, jumpHeld = false) => ({ hori
 const platform: CollisionPlatform = { id: 'ledge', x1: 80, x2: 152, y: 120 };
 
 describe('Henry movement', () => {
+  it.each(['ledge', 'moving platform'] as const)('does not snap onto a %s from below its top', (kind) => {
+    const body = kind === 'ledge' ? platform : { id: 'moving', x: 80, y: 120, width: 72, height: 12, vx: 40, vy: 0 };
+    const player = createPlayer(116, flat);
+    player.y = 140 - DEFAULT_MOVEMENT.height;
+    player.onGround = false;
+    player.vy = 20;
+    simulatePlayer(player, input(), flat, 1 / 60, [body]);
+    expect(player.y + DEFAULT_MOVEMENT.height).toBeGreaterThan(140);
+    expect(player.onGround).toBe(false);
+    expect(player.platformId).toBeNull();
+  });
+
+  it.each([false, true])('selects the highest crossed ledge regardless of array order (%s)', (reverse) => {
+    const ledges = [platform, { ...platform, id: 'lower', y: 122 }];
+    const player = createPlayer(116, flat);
+    player.y = 119 - DEFAULT_MOVEMENT.height;
+    player.onGround = false;
+    player.vy = 200;
+    simulatePlayer(player, input(), flat, 1 / 60, reverse ? ledges.reverse() : ledges);
+    expect(player.y + DEFAULT_MOVEMENT.height).toBe(120);
+  });
+
+  it('clears moving-platform momentum when a higher ledge takes support', () => {
+    const moving: PlatformBody = { id: 'moving', x: 80, y: 122, width: 72, height: 12, vx: 40, vy: 0 };
+    const player = createPlayer(116, flat);
+    player.y = 119 - DEFAULT_MOVEMENT.height;
+    player.onGround = false;
+    player.vy = 200;
+    simulatePlayer(player, input(), flat, 1 / 60, [moving, platform]);
+    expect(player.y + DEFAULT_MOVEMENT.height).toBe(120);
+    expect(player.platformId).toBe(platform.id);
+    expect(player.groundVelocityX).toBe(0);
+
+    simulatePlayer(player, input(), flat, 1 / 60, []);
+    expect(player.onGround).toBe(false);
+    expect(player.platformId).toBeNull();
+    expect(player.y + DEFAULT_MOVEMENT.height).toBeGreaterThan(120);
+  });
+
   it('accelerates, caps speed and brakes without reversing instantly', () => {
     const player = createPlayer(20, flat);
     for (let i = 0; i < 300; i++) simulatePlayer(player, input(1), flat, 1 / 60);
