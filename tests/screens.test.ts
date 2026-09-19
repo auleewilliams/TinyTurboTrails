@@ -5,7 +5,7 @@ import { GameplayPreviewScene } from '../src/game/gameplay-preview';
 import { AdventureScene } from '../src/game/adventure-scene';
 import type { GameAudio } from '../src/core/audio';
 import { PLAINS_LEVEL } from '../src/world/level';
-import { QUARRY_RUN } from '../src/world/levels';
+import { QUARRY_RUN, TREETOP_TIMBERS } from '../src/world/levels';
 import { ScreenController } from '../src/game/screens';
 
 const alternateLevel = { ...PLAINS_LEVEL,
@@ -40,10 +40,10 @@ describe('game screen flow', () => {
     expect(scene.selectedLevelName).toBe('PLAINS');
     scene.update(1 / 60, neutral);
     scene.update(1 / 60, { ...neutral, horizontal: -1 });
-    expect(scene.selectedLevelName).toBe(QUARRY_RUN.name);
+    expect(scene.selectedLevelName).toBe(TREETOP_TIMBERS.name);
     scene.update(1 / 60, { ...neutral, jumpPressed: true });
     expect(scene.screenState).toBe('playing');
-    expect(scene.playerX).toBe(QUARRY_RUN.start.x);
+    expect(scene.playerX).toBe(TREETOP_TIMBERS.start.x);
   });
 
   it('starts the supplied registered level without requiring picker input', () => {

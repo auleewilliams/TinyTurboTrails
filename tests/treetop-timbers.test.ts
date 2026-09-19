@@ -1,0 +1,68 @@
+import { readFileSync } from 'node:fs';
+import { expect, it } from 'vitest';
+import { DEFAULT_MOVEMENT, createPlayer, simulatePlayer, surfaceY } from '../src/game/movement';
+import { validateLevel, type WorldEntity } from '../src/world/level';
+import { LEVELS, TREETOP_TIMBERS, levelById } from '../src/world/levels';
+
+const ofKind = (kind: WorldEntity['kind']) =>
+  TREETOP_TIMBERS.entities.filter((entity) => entity.kind === kind);
+
+it('registers Treetop Timbers with its own atlas and valid level data', () => {
+  expect(levelById('timbers')).toBe(TREETOP_TIMBERS);
+  expect(LEVELS).toContain(TREETOP_TIMBERS);
+  expect(() => validateLevel(TREETOP_TIMBERS)).not.toThrow();
+  expect(TREETOP_TIMBERS.name).toBe('TREETOP TIMBERS');
+  expect(TREETOP_TIMBERS.atlas).toBe('timbers');
+});
+
+it('builds a long forgiving timber route with six checkpointed sections', () => {
+  expect(TREETOP_TIMBERS.width).toBeGreaterThanOrEqual(9980);
+  expect(TREETOP_TIMBERS.checkpoints).toHaveLength(6);
+  expect(ofKind('checkpoint')).toHaveLength(6);
+  expect(ofKind('spring').length).toBeGreaterThanOrEqual(6);
+  expect(ofKind('hazard').length).toBeGreaterThanOrEqual(6);
+  expect(ofKind('gem').length).toBeGreaterThanOrEqual(30);
+  expect(ofKind('hazard').every(({ asset }) => asset === 'stone')).toBe(true);
+});
+
+it('uses shallow V contours that read as rope bridges while remaining walkable', () => {
+  const surfaces = TREETOP_TIMBERS.surfaces;
+  const valleys = surfaces.filter((down, index) => {
+    const up = surfaces[index + 1];
+    return up && down.y2 > down.y1 && up.y2 < up.y1 && down.x2 === up.x1 && down.y2 === up.y1;
+  });
+  expect(valleys.length).toBeGreaterThanOrEqual(4);
+  for (const valley of valleys) {
+    expect(valley.y2 - valley.y1).toBeLessThanOrEqual(48);
+  }
+});
+
+it('plants grounded interactions on the timber trail', () => {
+  for (const entity of TREETOP_TIMBERS.entities) {
+    if (entity.kind === 'gem' || entity.kind === 'decoration') continue;
+    expect(entity.y, entity.id).toBeCloseTo(surfaceY(TREETOP_TIMBERS, entity.x), 5);
+  }
+});
+
+it('can finish Treetop Timbers while holding right without a mandatory timed jump', () => {
+  const player = createPlayer(TREETOP_TIMBERS.start.x, TREETOP_TIMBERS);
+  for (let frame = 0; frame < 60 * 150 && player.x < TREETOP_TIMBERS.finish.x; frame++) {
+    simulatePlayer(player, { horizontal: 1, jumpPressed: false, jumpHeld: false }, TREETOP_TIMBERS, 1 / 60);
+    if (player.y > TREETOP_TIMBERS.height + 80) {
+      throw new Error(`fell from the required route near x=${Math.round(player.x)}`);
+    }
+  }
+  expect(player.x).toBeGreaterThanOrEqual(TREETOP_TIMBERS.finish.x);
+  expect(player.vx).toBeLessThanOrEqual(DEFAULT_MOVEMENT.maxSpeed);
+});
+
+it('ships a complete 4 by 4 timber atlas contract', () => {
+  const manifest = JSON.parse(readFileSync(
+    new URL('../public/assets/timbers/manifest.json', import.meta.url), 'utf8',
+  )) as { image: string; cellSize: number; assets: Record<string, number> };
+  expect(manifest.image).toBe('environment.png');
+  expect(manifest.cellSize).toBe(48);
+  expect(Object.values(manifest.assets).sort((a, b) => a - b)).toEqual(
+    Array.from({ length: 16 }, (_, index) => index),
+  );
+});

@@ -195,7 +195,97 @@ export const QUARRY_RUN: LevelData = {
   ],
 };
 
-export const LEVELS: readonly LevelData[] = [PLAINS_LEVEL, QUARRY_RUN];
+// Treetop Timbers keeps one continuous, forgiving contour. Its repeated shallow
+// valleys read as sagging rope bridges without asking the 1-D terrain model to
+// represent stacked walkways or suspended collision geometry.
+const timberContour: readonly (readonly [number, number])[] = [
+  [0, 198], [350, 198], [520, 170], [1050, 170],
+  [1230, 208], [1410, 170], [1700, 170],
+  [1900, 195], [2300, 195], [2480, 225], [2660, 195], [3200, 195],
+  [3400, 150], [3900, 150], [4080, 190], [4260, 150], [5000, 150],
+  [5200, 200], [5700, 200], [5880, 232], [6060, 200], [6800, 200],
+  [7000, 160], [7500, 160], [7680, 202], [7860, 160], [8500, 160],
+  [8700, 198], [9150, 198], [9330, 230], [9510, 198], [10200, 198],
+];
+
+const timberTerrain: Terrain = {
+  minX: 0,
+  maxX: 10200,
+  surfaces: timberContour.slice(1).map(([x2, y2], index): Surface => {
+    const [x1, y1] = timberContour[index];
+    return { x1, x2, y1, y2 };
+  }),
+};
+
+function timberGrounded(entity: Omit<WorldEntity, 'y'>): WorldEntity {
+  return { ...entity, y: surfaceY(timberTerrain, entity.x) };
+}
+
+function timberThing(kind: 'slime' | 'spring' | 'hazard' | 'decoration', id: string, x: number,
+  asset: WorldEntity['asset'], layer: WorldEntity['layer'] = 'world'): WorldEntity {
+  return timberGrounded({ id, kind, x, asset, layer });
+}
+
+const timberCheckpoints = [
+  { id: 'timber-checkpoint-yard', x: 500 },
+  { id: 'timber-checkpoint-bridge', x: 2200 },
+  { id: 'timber-checkpoint-canopy', x: 3800 },
+  { id: 'timber-checkpoint-crane', x: 5500 },
+  { id: 'timber-checkpoint-lookout', x: 7300 },
+  { id: 'timber-checkpoint-sunset', x: 9000 },
+].map(({ id, x }) => ({ id, x, y: surfaceY(timberTerrain, x) }));
+
+const timberGems: readonly WorldEntity[] = Array.from({ length: 33 }, (_, index) => {
+  const x = 250 + index * 300;
+  return { id: `timber-gem-${String(index + 1).padStart(3, '0')}`, kind: 'gem', x,
+    y: surfaceY(timberTerrain, x) - 18, asset: 'gem', layer: 'world' };
+});
+
+export const TREETOP_TIMBERS: LevelData = {
+  id: 'timbers',
+  name: 'TREETOP TIMBERS',
+  atlas: 'timbers',
+  theme: {
+    sky: '#d97667',
+    ground: '#704126',
+    edge: '#e6a04b',
+    parallax: [
+      { asset: 'hills', x: 150, y: 90, scale: 3 },
+      { asset: 'cave', x: 720, y: 118, scale: 2 },
+      { asset: 'hills', x: 1250, y: 82, scale: 3 },
+      { asset: 'cave', x: 1840, y: 112, scale: 2 },
+      { asset: 'hills', x: 2400, y: 88, scale: 3 },
+      { asset: 'cave', x: 2980, y: 116, scale: 2 },
+    ],
+  },
+  width: 10200,
+  height: 240,
+  minX: timberTerrain.minX,
+  maxX: timberTerrain.maxX,
+  start: { x: 60, y: surfaceY(timberTerrain, 60) },
+  finish: { x: 10100, y: surfaceY(timberTerrain, 10100), asset: 'finish-arch' },
+  surfaces: timberTerrain.surfaces,
+  checkpoints: timberCheckpoints,
+  entities: [
+    ...timberGems,
+    ...[950, 1650, 3100, 4850, 6700, 8400, 9800].map((x, index) =>
+      timberThing('spring', `timber-spring-${index + 1}`, x, 'spring')),
+    ...[750, 2150, 3000, 4700, 6600, 8250, 8900].map((x, index) =>
+      timberThing('hazard', `timber-sawhorse-${index + 1}`, x, 'stone')),
+    ...[1500, 2800, 4450, 6250, 8050, 9650].map((x, index) =>
+      timberThing('slime', `timber-slime-${index + 1}`, x, 'slime')),
+    ...[
+      [1100, 'tree'], [1780, 'flowers'], [2700, 'cave'], [3550, 'tree'],
+      [4350, 'bush'], [5300, 'cave'], [6150, 'flowers'], [7100, 'tree'],
+      [7950, 'bush'], [8800, 'cave'], [9600, 'tree'],
+    ].map(([x, asset], index) => timberThing('decoration', `timber-deco-${index + 1}`,
+      x as number, asset as string, 'back')),
+    ...timberCheckpoints.map(({ id, x }) =>
+      timberGrounded({ id, kind: 'checkpoint', x, asset: 'checkpoint', layer: 'world' })),
+  ],
+};
+
+export const LEVELS: readonly LevelData[] = [PLAINS_LEVEL, QUARRY_RUN, TREETOP_TIMBERS];
 export const DEFAULT_LEVEL: LevelData = PLAINS_LEVEL;
 
 export function levelById(id: string): LevelData | undefined {
