@@ -36,8 +36,12 @@ Sunset Site loads its own 16-cell construction atlas from
 re-theming them as girders, a warning-cone/cement-mixer hazard, scaffold,
 culvert pipes, weeds, a pneumatic jack, cement slime, construction checkpoint,
 finish arch and sunset skyline. The large arrow on the jack distinguishes its
-bounce role; flashing barricades and cone grouping distinguish the hazard from
+bounce role; bright barricade beacons and cone grouping distinguish the hazard from
 the low, unlit scenery.
+
+These are intended visual cues, not a completed child-readability result. See
+the [issue #85 acceptance record](../evidence/issue-85/README.md) and its pending
+firsthand playtest checklist.
 
 The unmodified final generated sheet, exact generation/edit prompts and provenance
 record are under `assets/source/site/`. The processed atlas is 192 × 192 RGBA,
