@@ -46,3 +46,37 @@ Collision, input and animation tests cover acceleration caps, braking, variable
 jumps, jump buffering, coyote time, slope following, downhill acceleration,
 spring launches, state selection and high-speed landing. These are unit-level
 checks; full route difficulty and controller playtesting remain release work.
+
+## Per-surface friction — issue #39
+
+A terrain segment may specify `friction`; omitting it is exactly `1`. Level
+validation accepts only finite multipliers in the inclusive range **0.6–1.4**.
+The movement step samples the supporting segment once for contact height, slope
+and friction. At a shared endpoint, the first segment wins; the next update
+uses the new segment after Henry crosses the join.
+
+| Surface tuning | Multiplier | Acceleration | Release braking |
+| --- | ---: | ---: | ---: |
+| Slippery preview | 0.6 | 552 px/s² | 720 px/s² |
+| Normal / omitted | 1 | 920 px/s² | 1200 px/s² |
+| Grippy preview | 1.4 | 1288 px/s² | 1680 px/s² |
+
+Ground acceleration includes turning against existing momentum. Release braking
+uses the braking rate. Air acceleration and air release braking, static ledges,
+moving platforms, downhill acceleration, jump impulse and the speed cap retain
+their existing values. Friction changes traction, not maximum speed; it does not
+yet model sand drag or shallow-water resistance.
+
+Every non-default surface gets an automatic visual tell in the world renderer:
+low grip has a cyan band with smooth pale streaks, high grip an ochre band with
+dark grains. Shape and color both differ. The movement preview shares these cues:
+its opening flat is slippery, its final flat is grippy, and the ramp and spring
+section use normal grip. Try accelerating, releasing, reversing and jumping
+across both ends at `/?scene=movement`.
+
+At 60 Hz, releasing from 220 px/s on flat ground stops in approximately 32 px
+at 0.6, 18 px at 1, and 13 px at 1.4. Automated movement checks enforce bounded
+stopping distance and unchanged air/platform behavior. These are initial tuning
+values, not a substitute for Henry's playtest. Plains and Quarry Run retain
+normal grip throughout; Frost Ridge and Sandy Cove can author their own segments
+later without changing the shared movement step.
