@@ -15,6 +15,41 @@ GitHub Actions builds the image and pushes it to GHCR on every push to
 `main` that passes typecheck, the unit suite, the build and the browser
 suite; the LXC container only ever pulls a built image.
 
+## Publishing eligibility and ordering
+
+The `publish` job requires successful `check` results and a push to `main`.
+PRs build and smoke-test the container but never log in to GHCR or publish.
+Default permissions are `contents: read`; only `publish` adds `packages: write`.
+
+All publishing uses the `ghcr-main-publish` concurrency group without cancelling
+an active publisher. The job first checks for an existing full commit-SHA tag:
+reruns reuse its registry digest instead of rebuilding or overwriting it. Only
+an explicit registry `MANIFEST_UNKNOWN` response allows a new SHA image build;
+registry/authentication errors stop the job.
+
+After the build, the job reads `refs/heads/main` through the GitHub API while
+still holding the lock. Only an exact match with the checked commit promotes
+its digest to `latest`. An older build finishing after a newer one keeps its
+SHA tag and skips `latest`. If main advances during the build, the old run also
+skips promotion even if the newer checks later fail; the previous `latest`
+remains available. A push between the freshness read and registry write can
+make the promoted image temporarily behind main, but the lock prevents it from
+overtaking a newer publisher. This policy assumes ordinary forward main history
+and that all writers use this workflow; external manual tag writes are outside
+its ordering guarantee.
+
+GitHub concurrency can replace a pending job and does not guarantee queue order.
+A cancelled pending publisher may have no SHA image. Rerun that successful main
+workflow to create its SHA image; only the current main revision can advance
+`latest`. Do not rerun workflows from before this guard was introduced: their
+old publishing definition has neither the lock nor the freshness check. Before
+the first merge of this change, confirm no legacy publishers remain active.
+
+Run `npm run test:ci` for the mocked registry and overlapping-run scenarios.
+These tests do not push tags. The first normal main publish must still verify
+GHCR authentication, SHA/digest preservation, and promotion in the real registry.
+See [the investigation and verification record](CI-RELIABILITY.md).
+
 ## First-time LXC setup
 
 1. On the Proxmox host, create an unprivileged Debian LXC container:
@@ -87,8 +122,9 @@ MIME types, `/healthz`, and real 404s. CI runs this before publishing. Set
 
 ## Rolling back
 
-Every image is tagged with both `latest` and the commit SHA it was built
-from. To roll back, pin the previous known-good SHA instead of `latest` in
+Each published image retains its full commit-SHA tag. `latest` advances only
+when that checked commit is still the current `main` head at promotion time.
+To roll back, pin the previous known-good SHA instead of `latest` in
 `docker-compose.yml`:
 
 ```yaml
