@@ -77,7 +77,7 @@ aligned with surface boundaries. Avoid steep approaches to slow zones.
 Jellyfish replace slimes visually and bounce visibly with a small deterministic
 vertical motion. Keep their visible positions and interaction positions in
 sync, using run time so pausing also pauses the bounce. They retain familiar
-slime contact/stomp behavior and are restricted to firm ground, well away from
+slime contact-damage behavior and are restricted to firm ground, well away from
 water and checkpoints. The statement that shallow water should never knock
 Henry back applies to the water; jellyfish remain recognizable avoidable
 creatures. Space them sparsely to keep Cove gentler than Frost Ridge.
