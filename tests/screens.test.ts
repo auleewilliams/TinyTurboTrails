@@ -283,3 +283,33 @@ for (const SceneClass of [AdventureScene, GameplayPreviewScene]) {
     expect(henry.vy).toBe(-620);
   });
 }
+
+it('emits dust only on meaningful landings and clears presentation on replay and level changes', () => {
+  const scene = new AdventureScene({} as never, worlds, silentAudio(), PLAINS_LEVEL);
+  const neutral = { horizontal: 0, jumpHeld: false, jumpPressed: false, pausePressed: false, mutePressed: false };
+  scene.update(1 / 60, { ...neutral, jumpPressed: true });
+  const state = scene as unknown as {
+    player: ReturnType<typeof createPlayer>;
+    feedback: import('../src/game/feedback').Feedback;
+    loadLevel: (level: typeof PLAINS_LEVEL) => void;
+  };
+  state.player.y -= 2; state.player.onGround = false; state.player.vy = 300;
+  scene.update(1 / 60, neutral);
+  expect(state.feedback.effects.filter((effect) => effect.kind === 'landing')).toHaveLength(1);
+  for (let n = 0; n < 5; n++) scene.update(1 / 60, neutral);
+  expect(state.feedback.effects.filter((effect) => effect.kind === 'landing')).toHaveLength(1);
+  state.feedback.clear();
+  state.player.y -= 0.1; state.player.onGround = false; state.player.vy = 10;
+  scene.update(1 / 60, neutral);
+  expect(state.feedback.effects).toEqual([]);
+  state.feedback.add('gem', state.player.x, state.player.y);
+  state.feedback.checkpointSeconds = 2;
+  state.player.x = PLAINS_LEVEL.finish.x;
+  scene.update(1 / 60, neutral);
+  scene.update(1 / 60, { ...neutral, jumpPressed: true });
+  expect(state.feedback.effects).toEqual([]);
+  expect(state.feedback.checkpointSeconds).toBe(0);
+  state.feedback.add('landing', 10, 10);
+  state.loadLevel(SANDY_COVE);
+  expect(state.feedback.effects).toEqual([]);
+});

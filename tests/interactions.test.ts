@@ -2,13 +2,13 @@ import { describe, expect, it } from 'vitest';
 import { DEFAULT_MOVEMENT, MAX_STEP_SECONDS, createPlayer, simulatePlayer, surfaceY, type Player } from '../src/game/movement';
 import { PLAINS_LEVEL } from '../src/world/level';
 import {
-  CRUMBLE_WARNING_SECONDS, activeLedgePlatforms, advancePatrols, applySpring, activateCheckpoint,
+  crossesCheckpoint, CRUMBLE_WARNING_SECONDS, activeLedgePlatforms, advancePatrols, applySpring, activateCheckpoint,
   collectGem, createRun, damagePlayer, entityPosition, entityState, isEntityActive,
   ledgeWarningProgress, recoverFromFall, startNewRun, stepEntities, tickRun, touchesPlayer,
   type RunEvent,
 } from '../src/game/interactions';
 import type { LevelData, WorldEntity } from '../src/world/level';
-import { QUARRY_RUN } from '../src/world/levels';
+import { LEVELS, QUARRY_RUN } from '../src/world/levels';
 
 const terrain = { minX: 0, maxX: 400, surfaces: [{ x1: 0, x2: 400, y1: 180, y2: 180 }] };
 function player(): Player { return createPlayer(60, terrain); }
@@ -418,5 +418,41 @@ describe('patrolling entities', () => {
     expect(touchesPlayer(henry, henry.x, henry.y + 34)).toBe(true);
     expect(touchesPlayer(henry, henry.x + 19, henry.y + 34)).toBe(false);
     expect(touchesPlayer(henry, henry.x, henry.y + 34 + 29)).toBe(false);
+  });
+});
+
+describe('forgiving checkpoint crossings', () => {
+  it.each(LEVELS)('catches walking, jumping and swept spring-height passes at every $name flag', (level) => {
+    for (const checkpoint of level.checkpoints) for (const lift of [0, 80, 150]) for (const distance of [2, 120]) {
+      const run = createRun(level);
+      run.health = 2;
+      run.invulnerableSeconds = 1;
+      const henry = createPlayer(checkpoint.x + distance, level);
+      henry.y = checkpoint.y - DEFAULT_MOVEMENT.height - lift;
+      const previous = { x: checkpoint.x - distance, y: henry.y };
+      const log: RunEvent[] = [];
+      stepEntities(run, level, henry, 1 / 60, log, previous);
+      expect(run.checkpointId).toBe(checkpoint.id);
+      expect(run.health).toBe(2);
+      expect(log.filter((event) => event.type === 'checkpoint')).toHaveLength(1);
+      stepEntities(run, level, henry, 1 / 60, log, previous);
+      expect(log.filter((event) => event.type === 'checkpoint')).toHaveLength(1);
+      recoverFromFall(run, henry, log, level);
+      expect(henry.x).toBe(checkpoint.x);
+      expect(run.health).toBe(3);
+      startNewRun(run, level);
+      expect(run.checkpointId).toBeNull();
+    }
+  });
+
+  it('rejects distant, below-trail and diagonally near-but-not-crossing paths', () => {
+    const flag = { x: 500, y: 180 };
+    const feet = (x: number, y: number) => ({ x, y: y - DEFAULT_MOVEMENT.height });
+    expect(crossesCheckpoint(feet(100, 180), feet(200, 180), flag)).toBe(false);
+    expect(crossesCheckpoint(feet(450, -30), feet(550, -30), flag)).toBe(false);
+    expect(crossesCheckpoint(feet(450, 220), feet(550, 220), flag)).toBe(false);
+    // Bounding boxes overlap, but the segment passes above the region's top-left corner.
+    expect(crossesCheckpoint(feet(430, 0), feet(500, -80), flag)).toBe(false);
+    expect(crossesCheckpoint(feet(550, 100), feet(450, 100), flag)).toBe(true);
   });
 });

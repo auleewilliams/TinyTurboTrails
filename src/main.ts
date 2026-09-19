@@ -2,7 +2,7 @@ import './style.css';
 import { RetroAudio } from './core/retro-audio';
 import { mountAudioPreview } from './audio-preview';
 import { SimulationClock } from './core/clock';
-import { BrowserInput, type InputFrame } from './core/input';
+import { BrowserInput, type InputFrame, type InputSource } from './core/input';
 import { SceneHost } from './core/scene';
 import { fitViewport } from './core/viewport';
 import { FoundationScene } from './foundation-scene';
@@ -12,6 +12,7 @@ import { MovementPreviewScene } from './game/movement-preview';
 import { loadWorldAssetMap, loadWorldAssets } from './world/assets';
 import { WorldPreviewScene } from './world/preview-scene';
 import { GameplayPreviewScene, loadGameplayAssets } from './game/gameplay-preview';
+import { controlHints } from './game/hud';
 import { AdventureScene } from './game/adventure-scene';
 import { DEFAULT_LEVEL, LEVELS } from './world/levels';
 
@@ -35,6 +36,7 @@ if (!context) {
   let muted = false;
   let request = 0;
   let pendingJump = false;
+  let inputSource: InputSource = 'keyboard';
   const requestedScene = new URLSearchParams(location.search).get('scene') ?? 'adventure';
   const artPreview = requestedScene === 'art';
   const movementPreview = requestedScene === 'movement';
@@ -52,7 +54,7 @@ if (!context) {
     return ` · ${state}${scene.screenState === 'finish' ? ` · Gems ${scene.gemTotal}` : ''}${debugAdventure ? ` · X ${Math.round(scene.playerX)} Y ${Math.round(scene.playerY)} V ${Math.round(scene.playerVelocityX)} F ${scene.playerFacing}` : ''}`;
   };
 
-  const previewStatus = (): string => `${artPreview ? 'Art' : movementPreview ? 'Movement' : worldPreview ? 'World' : gameplayPreview ? 'Gameplay' : adventure ? 'Adventure' : 'Foundation'} preview${adventure ? adventureStatus() : ''} · Escape to pause · ${muted ? 'Muted · M to unmute' : 'M to mute'}`;
+  const previewStatus = (): string => `${artPreview ? 'Art' : movementPreview ? 'Movement' : worldPreview ? 'World' : gameplayPreview ? 'Gameplay' : adventure ? 'Adventure' : 'Foundation'} preview${adventure ? adventureStatus() : ''} · ${inputSource === 'controller' ? 'Start' : 'Escape'} to pause · ${muted ? 'Muted · M to unmute' : 'M to mute'}`;
 
   const refreshPause = (): void => {
     input.setFocused(focused);
@@ -66,7 +68,7 @@ if (!context) {
     status.textContent = assetState === 'failed' ? 'Artwork could not load. Reload to retry.'
       : assetState === 'loading' ? 'Loading artwork…'
       : !focused ? 'Paused · Return to the game to continue'
-      : userPaused ? 'Paused · Escape to resume'
+      : userPaused ? `Paused · ${inputSource === 'controller' ? 'Start' : 'Escape'} to resume`
       : previewStatus();
     muteButton.textContent = muted ? 'Unmute' : 'Mute';
     muteButton.setAttribute('aria-label', muted ? 'Unmute' : 'Mute');
@@ -87,6 +89,7 @@ if (!context) {
 
   const frame = (now: number): void => {
     const controls: InputFrame = input.poll();
+    if (inputSource !== (controls.source ?? 'keyboard')) { inputSource = controls.source ?? 'keyboard'; refreshPause(); }
     if (focused) {
       if (controls.pausePressed) { userPaused = !userPaused; refreshPause(); }
       if (controls.mutePressed) { muted = !muted; audio.setMuted(muted); refreshPause(); }
@@ -107,7 +110,10 @@ if (!context) {
       context.fillStyle = '#ffda75';
       context.textAlign = 'center';
       context.font = 'bold 20px monospace';
-      context.fillText('PAUSED', 213, 116);
+      context.fillText('PAUSED', 213, 83);
+      context.font = '12px monospace';
+      context.fillStyle = '#e9f2df';
+      controlHints(controls.source ?? 'keyboard').forEach((hint, index) => context.fillText(hint, 213, 111 + index * 20));
       context.restore();
     }
     request = requestAnimationFrame(frame);

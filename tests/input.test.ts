@@ -71,3 +71,25 @@ it('clears held controller input after disconnect until the controller is releas
   expect(input.poll().horizontal).toBe(1);
   input.dispose();
 });
+
+it('tracks used input rather than mere controller connection, and falls back on disconnect', () => {
+  const buttons = Array.from({ length: 17 }, () => ({ pressed: false }));
+  const pad = { connected: true, mapping: 'standard', axes: [0, 0], buttons };
+  const target = Object.assign(new EventTarget(), { navigator: { getGamepads: () => pad.connected ? [pad] : [] } });
+  const input = new BrowserInput(target as unknown as Window, () => {});
+  expect(input.poll().source).toBe('keyboard');
+  pad.axes[0] = 0.1;
+  expect(input.poll().source).toBe('keyboard');
+  pad.axes[0] = 1;
+  expect(input.poll().source).toBe('controller');
+  pad.axes[0] = 0;
+  expect(input.poll().source).toBe('controller');
+  const key = Object.assign(new Event('keydown'), { code: 'Space', repeat: false });
+  target.dispatchEvent(key);
+  expect(input.poll().source).toBe('keyboard');
+  buttons[9].pressed = true;
+  expect(input.poll().source).toBe('controller');
+  pad.connected = false;
+  target.dispatchEvent(new Event('gamepaddisconnected'));
+  expect(input.poll()).toMatchObject({ source: 'keyboard', jumpHeld: false, horizontal: 0 });
+});

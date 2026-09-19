@@ -61,7 +61,8 @@ function recordingContext(): { ctx: CanvasRenderingContext2D; images: unknown[][
       rects.push({ x, y, width, height, fillStyle: ctx.fillStyle });
     },
     beginPath: noop, moveTo: noop, lineTo: noop, closePath: noop, fill: noop, stroke: noop,
-    strokeRect: noop,
+    strokeRect: noop, strokeText: noop,
+    measureText: (text: string) => ({ width: text.length * 6 }),
     translate: noop, scale: noop, save: noop, restore: noop,
     drawImage: (...args: unknown[]) => { images.push(args); },
     fillText: (text: string, x: number) => { texts.push({ text, x, textAlign: ctx.textAlign }); },
@@ -369,7 +370,7 @@ it('keeps the HUD left-aligned even after a centered overlay ran', () => {
   ctx.textAlign = 'center';
   scene.render(ctx);
   expect(texts).not.toHaveLength(0);
-  for (const drawn of texts) expect(drawn).toMatchObject({ x: 10, textAlign: 'left' });
+  for (const drawn of texts.filter(({ text }) => text.startsWith('GEMS '))) expect(drawn).toMatchObject({ x: 10, textAlign: 'left' });
 });
 
 function renderedHealthPips(scene: AdventureScene | GameplayPreviewScene, health: number, healthFlashSeconds = 0): FilledRect[] {
@@ -380,7 +381,7 @@ function renderedHealthPips(scene: AdventureScene | GameplayPreviewScene, health
   run.healthFlashSeconds = healthFlashSeconds;
   const { ctx, rects } = recordingContext();
   scene.render(ctx);
-  return rects.filter(({ y, width, height }) => y === 10 && width === 6 && height === 6);
+  return rects.filter(({ x, y, width, height }) => [92, 108, 124].includes(x) && y === 12 && width === 1 && height === 1);
 }
 
 it.each([
@@ -409,7 +410,7 @@ it('briefly highlights the final lost pip after lethal damage refills health', (
 
   const { ctx, rects } = recordingContext();
   scene.render(ctx);
-  const pips = rects.filter(({ y, width, height }) => y === 10 && width === 6 && height === 6);
+  const pips = rects.filter(({ x, y, width, height }) => [92, 108, 124].includes(x) && y === 12 && width === 1 && height === 1);
   expect(pips.map(({ fillStyle }) => fillStyle)).toEqual(['#ffda75', '#ff5d5d', '#ff5d5d']);
 });
 

@@ -1,0 +1,35 @@
+[
+  {
+    "browser": "chromium",
+    "recovery": true,
+    "renderOnlyFreeze": true,
+    "replay": true,
+    "performance": {
+      "baselineMs": 0.732333333492279,
+      "maxEffectsMs": 1.2380000003178915,
+      "addedMs": 0.5056666668256125
+    }
+  },
+  {
+    "browser": "firefox",
+    "recovery": true,
+    "renderOnlyFreeze": true,
+    "replay": true,
+    "performance": {
+      "baselineMs": 1.69,
+      "maxEffectsMs": 2.506666666666667,
+      "addedMs": 0.8166666666666669
+    }
+  },
+  {
+    "browser": "webkit",
+    "recovery": true,
+    "renderOnlyFreeze": true,
+    "replay": true,
+    "performance": {
+      "baselineMs": 1.2833333333333334,
+      "maxEffectsMs": 2.6166666666666667,
+      "addedMs": 1.3333333333333333
+    }
+  }
+]

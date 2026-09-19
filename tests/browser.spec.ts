@@ -286,31 +286,31 @@ test('gameplay preview collects a gem and reaches a checkpoint', async ({ page }
   await expect(page.locator('#status')).toContainText('Gameplay preview');
 });
 
-test('adventure renders hurt feedback after hazard contact', async ({ page }) => {
-  await page.goto('/?scene=adventure&debug=1');
-  await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
-  await page.keyboard.press('Space');
-  await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
-  await page.keyboard.down('ArrowRight');
-  for (let step = 0; step < 30; step++) {
-    const x = Number((await page.locator('#status').innerText()).match(/X (\d+)/)?.[1] ?? 0);
-    if (x >= 280) break;
-    await page.waitForTimeout(100);
-  }
-  await page.keyboard.up('ArrowRight');
-  await page.waitForTimeout(80);
-  const redFeedbackPixels = await page.locator('canvas').evaluate((element) => {
-    const pixels = (element as HTMLCanvasElement).getContext('2d')!.getImageData(0, 0, 426, 240).data;
-    let matches = 0;
-    for (let i = 0; i < pixels.length; i += 4) {
-      if (pixels[i] > 180 && pixels[i + 1] < 150 && pixels[i + 2] < 150 && pixels[i + 3] > 0) matches++;
-    }
-    return matches;
+test('adventure flashes the sprite after damage without a rectangular overlay', async ({ page }) => {
+  await page.addInitScript(() => {
+    const draw = CanvasRenderingContext2D.prototype.drawImage;
+    CanvasRenderingContext2D.prototype.drawImage = function (this: CanvasRenderingContext2D, ...args: unknown[]) {
+      if (args[0] instanceof HTMLCanvasElement && args.length === 9) {
+        this.canvas.dataset.hitSprite = `tinted|${this.globalAlpha}`;
+      }
+      Reflect.apply(draw, this, args);
+    } as typeof draw;
+    const fill = CanvasRenderingContext2D.prototype.fillRect;
+    CanvasRenderingContext2D.prototype.fillRect = function (x, y, width, height) {
+      if (width === 44 && height === 50) this.canvas.dataset.hurtRectangle = 'true';
+      fill.call(this, x, y, width, height);
+    };
   });
-  expect(redFeedbackPixels).toBeGreaterThan(20);
+  await page.goto('/?scene=adventure&debug=1');
+  await expect(page.locator('#status')).toContainText('Title');
+  await page.keyboard.press('Space');
+  await page.keyboard.down('ArrowRight');
+  await expect(page.locator('canvas')).toHaveAttribute('data-hit-sprite', /tinted/, { timeout: 5000 });
+  await page.keyboard.up('ArrowRight');
+  await expect(page.locator('canvas')).not.toHaveAttribute('data-hurt-rectangle');
 });
 
-test('adventure HUD shows three health pips and empties one after damage', async ({ page }) => {
+test('adventure HUD shows three hearts and empties one after damage', async ({ page }) => {
   await page.goto('/?scene=adventure&debug=1');
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
   await page.keyboard.press('Space');
@@ -318,7 +318,7 @@ test('adventure HUD shows three health pips and empties one after damage', async
   const canvas = page.locator('canvas');
   const readPips = async (): Promise<number[][]> => canvas.evaluate((element) => {
     const ctx = (element as HTMLCanvasElement).getContext('2d')!;
-    return [47, 56, 65].map((x) => Array.from(ctx.getImageData(x, 13, 1, 1).data));
+    return [94, 110, 126].map((x) => Array.from(ctx.getImageData(x, 13, 1, 1).data));
   });
   const full = [255, 93, 93, 255];
   expect(await readPips()).toEqual([full, full, full]);
@@ -725,7 +725,7 @@ test('default main menu accepts controller primary-button start, Start pause and
     pad.buttons[15].pressed = false;
     pad.buttons[9].pressed = true;
   });
-  await expect(page.locator('#status')).toHaveText('Paused · Escape to resume');
+  await expect(page.locator('#status')).toHaveText('Paused · Start to resume');
   await page.evaluate(() => {
     const pad = (window as unknown as { smokeController: { buttons: { pressed: boolean }[] } }).smokeController;
     pad.buttons[9].pressed = false;
@@ -786,7 +786,7 @@ test('all checkpoints activate along the ground route and render planted markers
   await page.addInitScript(() => {
     const fillText = CanvasRenderingContext2D.prototype.fillText;
     CanvasRenderingContext2D.prototype.fillText = function (text, x, y, maxWidth) {
-      if (text.startsWith('GEMS ')) document.querySelector('canvas')?.setAttribute('data-test-hud', text);
+      if (text === 'Checkpoint reached!') document.querySelector('canvas')?.setAttribute('data-test-checkpoint', text);
       if (maxWidth === undefined) fillText.call(this, text, x, y);
       else fillText.call(this, text, x, y, maxWidth);
     };
@@ -802,28 +802,31 @@ test('all checkpoints activate along the ground route and render planted markers
   const dangers = dangerXs(PLAINS_LEVEL);
   const progress = { index: 0 };
   for (const checkpoint of checkpoints) {
+    await page.evaluate(() => document.querySelector('canvas')?.removeAttribute('data-test-checkpoint'));
     let activated = false;
     for (let step = 0; step < 400; step++) {
-      if ((await page.locator('canvas').getAttribute('data-test-hud'))?.includes(checkpoint.id)) {
+      if (await page.locator('canvas').getAttribute('data-test-checkpoint') === 'Checkpoint reached!') {
         activated = true;
         break;
       }
       await advancePastDanger(page, dangers, progress);
     }
     expect(activated, checkpoint.id).toBe(true);
-    // Activation is detected anywhere in the 18px window around the flag, so compare
+    // Activation is detected anywhere in the 28px window around the flag, so compare
     // Henry's feet to the terrain beneath him rather than to the flag's own height:
     // the hillside marker sits on a ramp, where those two differ by the slope alone.
     // X and Y come from one status sample, so they describe the same frame.
     const status = await page.locator('#status').innerText();
     const x = Number(status.match(/X (\d+)/)?.[1] ?? 0);
     const y = Number(status.match(/Y (\d+)/)?.[1] ?? 0);
+    expect(Math.abs(x - checkpoint.x), checkpoint.id).toBeLessThan(90);
     expect(Math.abs(y + DEFAULT_MOVEMENT.height - surfaceY(PLAINS_LEVEL, x))).toBeLessThanOrEqual(2);
     // Walk just past the flag so Henry does not obscure its base in the evidence.
     await page.waitForTimeout(300);
     await page.keyboard.up('ArrowRight');
     await page.waitForTimeout(150);
     await info.attach(checkpoint.id, { body: await page.locator('canvas').screenshot(), contentType: 'image/png' });
+    await page.waitForTimeout(2000);
     await page.keyboard.down('ArrowRight');
   }
   await page.keyboard.up('ArrowRight');
@@ -864,13 +867,13 @@ test('adventure HUD stays left-aligned through keyboard pause and focus loss', a
   await page.evaluate(() => window.dispatchEvent(new Event('focus')));
   await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
   await expect(canvas).toHaveAttribute('data-test-hud-draw', /^left 10 /);
-  // Left-aligned at x=10, the longest HUD line must still end inside its panel at x=275.
+  // The double-digit gem total must fit its own panel, before the hearts at x=85.
   const rightEdge = await canvas.evaluate((element) => {
     const ctx = (element as HTMLCanvasElement).getContext('2d')!;
-    ctx.font = '8px monospace';
-    return 10 + ctx.measureText('GEMS 99       CHECKPOINT quarry-checkpoint-terraces').width;
+    ctx.font = 'bold 10px monospace';
+    return 10 + ctx.measureText('GEMS 99').width;
   });
-  expect(rightEdge).toBeLessThan(275);
+  expect(rightEdge).toBeLessThan(81);
 });
 
 test('a collected gem stops being drawn where it stood', async ({ page }, info) => {
@@ -1042,6 +1045,9 @@ test('a failed scenery image exposes Retry loading and recovers', async ({ page 
   await page.goto('/?scene=adventure');
   await expect(page.locator('#status')).toHaveText('Artwork could not load. Reload to retry.');
   await expect(page.locator('#retry')).toBeVisible();
+  const retryBox = (await page.locator('#retry').boundingBox())!;
+  const statusBox = (await page.locator('#status').boundingBox())!;
+  expect(retryBox.y + retryBox.height).toBeLessThan(statusBox.y);
   await page.unroute('**/assets/plains/scenery/foreground.png');
   await page.locator('#retry').click();
   await expect(page.locator('#status')).toContainText('Adventure preview · Title');
@@ -1147,4 +1153,50 @@ test('movement preview shows distinct friction cues and remains controllable', a
   await page.goto('/?scene=movement');
   await page.waitForTimeout(300);
   await canvas.screenshot({ path: info.outputPath('surface-friction.png') });
+});
+
+test('native HUD hints follow active input and pause controls fit small windows', async ({ page }, info) => {
+  await page.setViewportSize({ width: 426, height: 240 });
+  await page.addInitScript(() => {
+    const buttons = Array.from({ length: 17 }, () => ({ pressed: false, touched: false, value: 0 }));
+    const pad = { connected: true, mapping: 'standard', axes: [0, 0], buttons };
+    Object.defineProperty(navigator, 'getGamepads', { value: () => pad.connected ? [pad] : [] });
+    (window as unknown as { clarityPad: typeof pad }).clarityPad = pad;
+    const original = CanvasRenderingContext2D.prototype.fillText;
+    CanvasRenderingContext2D.prototype.fillText = function (text, x, y, maxWidth) {
+      if (text.startsWith('GEMS ')) this.canvas.dataset.frameText = '';
+      this.canvas.dataset.frameText = (this.canvas.dataset.frameText ?? '') + text + '|';
+      if (maxWidth === undefined) original.call(this, text, x, y);
+      else original.call(this, text, x, y, maxWidth);
+    };
+  });
+  await page.goto('/?scene=adventure');
+  await expect(page.locator('#status')).toContainText('Title');
+  await page.keyboard.press('Space');
+  const canvas = page.locator('canvas');
+  await expect(canvas).toHaveAttribute('data-frame-text', /Arrows \/ A-D: move/);
+  await info.attach('native-keyboard-hud', { body: await canvas.screenshot(), contentType: 'image/png' });
+  await page.evaluate(() => { (window as unknown as { clarityPad: { axes: number[] } }).clarityPad.axes[0] = 1; });
+  await expect(canvas).toHaveAttribute('data-frame-text', /Face button: jump/);
+  await page.evaluate(() => {
+    const pad = (window as unknown as { clarityPad: { axes: number[]; buttons: { pressed: boolean }[] } }).clarityPad;
+    pad.axes[0] = 0; pad.buttons[9].pressed = true;
+  });
+  await expect(page.locator('#status')).toContainText('Paused');
+  await expect(canvas).toHaveAttribute('data-frame-text', /Stick \/ D-pad: move.*Face button: jump.*Start: resume/);
+  await info.attach('native-controller-pause', { body: await canvas.screenshot(), contentType: 'image/png' });
+  await page.evaluate(() => {
+    (window as unknown as { clarityPad: { connected: boolean } }).clarityPad.connected = false;
+    window.dispatchEvent(new Event('gamepaddisconnected'));
+  });
+  await expect(canvas).toHaveAttribute('data-frame-text', /Arrows \/ A-D: move.*Space: jump.*Escape: resume/);
+  await page.keyboard.press('Escape');
+  await expect(page.locator('#status')).toContainText('Playing');
+  await expect(canvas).toHaveAttribute('data-frame-text', /Space: jump/);
+  await expect(canvas).not.toHaveAttribute('data-frame-text', /checkpoint-|quarry-checkpoint/);
+  await page.keyboard.press('Space');
+  await expect(canvas).not.toHaveAttribute('data-frame-text', /Space: jump/);
+  await page.setViewportSize({ width: 360, height: 240 });
+  await page.keyboard.press('Escape');
+  await info.attach('small-keyboard-pause', { body: await page.screenshot(), contentType: 'image/png' });
 });

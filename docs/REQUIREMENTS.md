@@ -29,7 +29,7 @@ rope-bridge contours, crane-hook springs and sawhorse hazards without changing
 the single-height terrain model. Sunset Site adds a construction yard at dusk,
 patrolling cement slimes, pneumatic-jack-cleared pits and one optional crane ferry. Keyboard
 and standard-controller support.
-Henry starts each run with three visible health pips. Each unblocked slime or
+Henry starts each run with three visible hearts. Each unblocked slime or
 hazard hit removes one pip; losing the last pip returns him to the latest
 checkpoint, or the level start, and refills all three. Pit recovery also refills
 health without costing a pip, while activating a checkpoint does not heal him.
@@ -71,3 +71,25 @@ Progress exists only in memory during the current run. Checkpoint retries
 preserve collected gems. Current health is also memory-only and resets on
 respawn, replay and level selection. Replay, reload or closing the page starts a
 fresh run. Do not persist checkpoints, gems or health in browser storage.
+
+## Gameplay clarity and forgiving recovery
+
+Checkpoint flags activate within a local region that covers walking, jumps and
+spring arcs, including crossings between simulation steps. Activation never heals;
+recovery still refills health and retains gems. A checked gold flag remains at the
+active checkpoint, with one brief burst, “Checkpoint reached!” and the existing
+sound when activation changes. Replay and level selection clear this state.
+
+The gameplay HUD separates three recognizable hearts from the gem total. Empty
+hearts remain outlined; the recently lost heart briefly highlights. Internal IDs
+are never displayed. Friendly area names appear briefly on approach, yielding to
+the checkpoint celebration. Short movement/jump hints follow the input actually
+used, disappear after learning or a timeout, and fall back to keyboard after a
+controller disconnect. Full controls remain available while paused.
+
+Gem pickups sparkle with “+1”; meaningful landings use the shipped dust art;
+springs compress/release on their existing launch event. Damage brightens Henry's
+sprite and fades it during protection, preserving his silhouette. Presentation
+has bounded counts and lifetimes, freezes on pause, clears on replay/level changes,
+and reduces nonessential motion with the system preference. Effects never change
+simulation, pickup counts, health rules or sound timing. No progress is persisted.

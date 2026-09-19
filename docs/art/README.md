@@ -104,3 +104,11 @@ Cove uses palms, driftwood springs, purple jellyfish and amber/blue surface
 markings for soft sand/shallow water. Material marks follow the authored ground
 segments exactly. Water itself never damages Henry. Atlas anchors align the
 visible bases and checkpoint posts to their collision positions.
+
+Gameplay clarity (#89–#91) reuses each shipped atlas's `dust` cell for meaningful
+landings and its existing spring sprite for event-driven compression/release.
+Small code-drawn sparkles, outlined pixel hearts and a checked gold checkpoint
+pennant add high-contrast cues without new raster assets. Damage brightness/fading
+applies to Henry's sprite alpha rather than a rectangle. Reduced-motion settings
+suppress travel, dust and spring deformation. Evidence and reproduction live in
+[`../evidence/issues-89-91/`](../evidence/issues-89-91/README.md).

@@ -97,6 +97,30 @@ export function touchesPlayer(player: Player, x: number, y: number): boolean {
   return Math.abs(x - player.x) <= CONTACT.x && Math.abs(y - (player.y + CONTACT.feet)) <= CONTACT.y;
 }
 
+/** Sweep Henry's feet through a local flag region. 192px covers the 128px spring
+ * apex plus nearby terrain rises; the lower edge never catches falls below the trail.
+ * Callers supply the pre-movement position, never a prior frame's recovery teleport. */
+export function crossesCheckpoint(previous: { x: number; y: number }, player: { x: number; y: number },
+  checkpoint: { x: number; y: number }): boolean {
+  let enter = 0;
+  let leave = 1;
+  for (const [start, end, low, high] of [
+    [previous.x, player.x, checkpoint.x - 28, checkpoint.x + 28],
+    [previous.y + CONTACT.feet, player.y + CONTACT.feet, checkpoint.y - 192, checkpoint.y + 28],
+  ]) {
+    const delta = end - start;
+    if (delta === 0) { if (start < low || start > high) return false; }
+    else {
+      const a = (low - start) / delta;
+      const b = (high - start) / delta;
+      enter = Math.max(enter, Math.min(a, b));
+      leave = Math.min(leave, Math.max(a, b));
+      if (enter > leave) return false;
+    }
+  }
+  return true;
+}
+
 /** Walk patrolling entities between their bounds, hugging the terrain they stand on. */
 export function advancePatrols(run: RunState, level: LevelData, seconds: number): void {
   const dt = Math.max(0, Math.min(seconds, MAX_STEP_SECONDS));
@@ -124,7 +148,11 @@ export function advanceBounces(run: RunState, level: LevelData): void {
 }
 
 /** One gameplay step of the world against Henry: entities move, then contacts resolve. */
-export function stepEntities(run: RunState, level: LevelData, player: Player, seconds: number, events: RunEvent[]): void {
+export function stepEntities(run: RunState, level: LevelData, player: Player, seconds: number, events: RunEvent[], previous: { x: number; y: number } = player): void {
+  // Resolve crossings before damage can teleport the player to a recovery point.
+  for (const checkpoint of level.checkpoints) {
+    if (crossesCheckpoint(previous, player, checkpoint)) activateCheckpoint(run, checkpoint.id, events);
+  }
   advancePatrols(run, level, seconds);
   advanceBounces(run, level);
   for (const entity of level.entities) {
@@ -148,7 +176,6 @@ export function stepEntities(run: RunState, level: LevelData, player: Player, se
     }
     if (!state?.active || !touching) continue;
     if (entity.kind === 'gem') collectGem(run, entity.id, events);
-    else if (entity.kind === 'checkpoint') activateCheckpoint(run, entity.id, events);
     else if (entity.kind === 'slime' || entity.kind === 'hazard') damagePlayer(run, player, x - player.x, events, level, entity.id);
   }
 }

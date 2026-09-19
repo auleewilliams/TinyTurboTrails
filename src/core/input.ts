@@ -1,4 +1,7 @@
+export type InputSource = 'keyboard' | 'controller';
+
 export interface InputFrame {
+  source?: InputSource;
   horizontal: number;
   jumpHeld: boolean;
   jumpPressed: boolean;
@@ -19,6 +22,8 @@ export class BrowserInput {
   private previousPadPause = false;
   private blockedPads = false;
   private focused = true;
+  private source: InputSource = 'keyboard';
+  private previousPadAction = '';
 
   constructor(private readonly target: Window, private readonly interact: () => void) {
     target.addEventListener('keydown', this.keyDown);
@@ -33,6 +38,7 @@ export class BrowserInput {
     if (event.repeat) return;
     if (!this.held.has(event.code)) this.pressed.add(event.code);
     this.held.add(event.code);
+    this.source = 'keyboard';
     this.interact();
   };
 
@@ -71,12 +77,18 @@ export class BrowserInput {
       axis = 0;
       left = right = jump = pause = false;
     }
+    const padActivity = Boolean(axis || left || right || jump || pause);
+    const padAction = `${Math.sign(axis)},${left},${right},${jump},${pause}`;
+    if (!pad) this.source = 'keyboard';
+    else if (padActivity && padAction !== this.previousPadAction) this.source = 'controller';
+    this.previousPadAction = padAction;
     const padJumpPressed = jump && !this.previousPadJump;
     const padPausePressed = pause && !this.previousPadPause;
     if (padJumpPressed || padPausePressed) this.interact();
     const keyboardAxis = Number(this.held.has('ArrowRight') || this.held.has('KeyD'))
       - Number(this.held.has('ArrowLeft') || this.held.has('KeyA'));
     const frame = {
+      source: this.source,
       horizontal: Math.max(-1, Math.min(1, keyboardAxis + axis + Number(right) - Number(left))),
       jumpHeld: this.held.has('Space') || jump,
       jumpPressed: this.pressed.has('Space') || padJumpPressed,

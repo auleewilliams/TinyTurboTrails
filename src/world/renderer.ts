@@ -9,7 +9,7 @@ import { drawSurfaceMaterials } from './surface-materials';
 /** Scenes without run state draw the whole entity list; a run hides what it has consumed. */
 export type EntityFilter = (entity: WorldEntity) => boolean;
 /** Run state supplies live positions plus optional deterministic presentation progress. */
-export type EntityPosition = (entity: WorldEntity) => { x: number; y: number; warningProgress?: number };
+export type EntityPosition = (entity: WorldEntity) => { x: number; y: number; warningProgress?: number; checkpointActive?: boolean; springScale?: number };
 
 export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, level: LevelData, camera: Camera,
   isVisible: EntityFilter = () => true, positionOf: EntityPosition = (entity) => entity,
@@ -70,7 +70,25 @@ export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, le
     } else if (scenery && sceneryForDecoration(entity)) {
       drawScenerySprite(ctx, scenery, sceneryForDecoration(entity)!, position.x - offset.x, position.y - offset.y);
     } else {
-      drawAsset(ctx, assets, entity.asset as WorldAsset, position.x - offset.x, position.y - offset.y, 1);
+      const x = position.x - offset.x;
+      const y = position.y - offset.y;
+      if (position.springScale !== undefined && position.springScale !== 1) {
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.scale(1, position.springScale);
+        drawAsset(ctx, assets, entity.asset as WorldAsset, 0, 0, 1);
+        ctx.restore();
+      } else drawAsset(ctx, assets, entity.asset as WorldAsset, x, y, 1);
+      if (position.checkpointActive) {
+        // A bright pennant and check remain visible after the celebration ends.
+        ctx.fillStyle = '#ffda75';
+        ctx.fillRect(x - 5, y - 38, 22, 13);
+        ctx.strokeStyle = '#10252c';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(x - 5, y - 38, 22, 13);
+        ctx.beginPath();
+        ctx.moveTo(x, y - 32); ctx.lineTo(x + 4, y - 28); ctx.lineTo(x + 12, y - 35); ctx.stroke();
+      }
     }
   }
   drawAsset(ctx, assets, level.finish.asset as WorldAsset, level.finish.x - offset.x, level.finish.y - offset.y, 2);

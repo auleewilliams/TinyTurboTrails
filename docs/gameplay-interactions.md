@@ -39,3 +39,29 @@ Unit tests cover stable identity, checkpoint preservation, reset semantics,
 invulnerability, knockback, spring momentum, patrol bounds and safe recovery.
 Chromium and Firefox smoke checks exercise the local gameplay preview; physical
 controller and full manual route checks remain release verification.
+
+## Clarity and recovery (#89–#91)
+
+Checkpoint contact is separate from pickup contact: sweep Henry's feet from the
+pre-movement to post-movement position against ±28px horizontally and from 192px
+above to 28px below the planted flag. The 192px allowance covers the 128px spring
+apex plus nearby terrain rises. Segment clipping rejects diagonal near misses;
+recovery teleports are never swept. The active flag gains a checked gold pennant,
+a short burst and a two-second message only when the checkpoint changes. Health
+is not refilled on activation. All six registered levels use this rule.
+
+`Feedback` owns presentation lifetimes (at most 24 effects): gem sparkles/+1 last
+0.65s, checkpoint bursts 0.8s, spring compression/release and dust 0.3s. Dust only
+starts when an airborne player lands with prior downward velocity above 180px/s.
+The shipped level dust cell is reused. Damage uses the existing health flash and
+one-second invulnerability timers; brightness is clipped to sprite alpha and the
+protection pulse never fully hides Henry. Reduced motion removes dust expansion,
+sparkle travel and spring deformation and uses steady translucent protection.
+No new illustrated assets, audio triggers or collision behavior are introduced.
+
+`HudPresentation` tracks area approach labels separately from checkpoint activation.
+Movement teaching lasts at most three seconds; jump teaching lasts at most four
+seconds after moving, ending immediately on a jump. Device labels follow standard
+controller actions or keyboard presses, with a keyboard fallback on disconnect.
+Pause exposes all movement/jump/resume/mute controls. Render calls alone cannot
+advance any effect, teaching timer or location label.

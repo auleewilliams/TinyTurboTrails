@@ -1,8 +1,9 @@
 import type { GameAudio } from '../core/audio';
-import type { InputFrame } from '../core/input';
+import type { InputFrame, InputSource } from '../core/input';
 import type { Scene } from '../core/scene';
 import { animationFrame } from '../art/animation';
 import type { HenryAssets } from '../art/henry';
+import { hitFlashAtlas } from '../art/hit-flash';
 import { drawFacingSprite } from '../art/sprite';
 import { animationFor, createPlayer, simulatePlayer, DEFAULT_MOVEMENT, type Facing, type PlatformBody, type Player } from './movement';
 import { platformBodiesAt } from './platforms';
@@ -13,7 +14,8 @@ import { LEVELS } from '../world/levels';
 import { Camera } from '../world/camera';
 import { drawWorld, drawWorldForeground } from '../world/renderer';
 import type { WorldAssetMap, WorldAssets } from '../world/assets';
-import { drawGameplayHud } from './hud';
+import { drawGameplayHud, HudPresentation } from './hud';
+import { Feedback } from './feedback';
 
 export interface Rect { x: number; y: number; width: number; height: number }
 
@@ -61,9 +63,13 @@ export class AdventureScene implements Scene {
   private camera: Camera;
   private platforms: PlatformBody[];
   private elapsed = 0;
+  private readonly feedback = new Feedback();
+  private hud = new HudPresentation();
+  private get reducedMotion(): boolean { return typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches; }
   private events: RunEvent[] = [];
   private selectedIndex: number;
   private selectionDirection = 0;
+  private inputSource: InputSource = 'keyboard';
   constructor(private readonly henry: HenryAssets, private readonly worlds: WorldAssetMap, private readonly audio: GameAudio, level: LevelData) {
     const missing = [...new Set(LEVELS.map((candidate) => candidate.atlas))]
       .filter((atlas) => !worlds[atlas]);
@@ -88,6 +94,7 @@ export class AdventureScene implements Scene {
   exit(): void { this.audio.stop(); }
 
   update(seconds: number, input: InputFrame): void {
+    this.inputSource = input.source ?? 'keyboard';
     this.elapsed += seconds;
     if (this.screens.state === 'title') {
       this.updateSelection(input.horizontal);
@@ -113,17 +120,25 @@ export class AdventureScene implements Scene {
   private stepGameplay(seconds: number, input: InputFrame): void {
     // Platforms advance first: movement then collides with where they are now, not where they were.
     const step = tickRun(this.run, seconds);
+    this.feedback.tick(step);
+    this.hud.update(step, input, this.level, this.player.x);
     this.platforms = platformBodiesAt(this.level.platforms, this.run.seconds, step);
+    const previousPosition = { x: this.player.x, y: this.player.y };
+    const wasGrounded = this.player.onGround;
     const previousVelocityY = this.player.vy;
     simulatePlayer(this.player, input, this.level, seconds, [...this.platforms, ...activeLedgePlatforms(this.run, this.level)]);
     if (previousVelocityY >= 0 && this.player.vy < -DEFAULT_MOVEMENT.jumpVelocity * 0.75) this.audio.play('jump');
+    if (!wasGrounded && this.player.onGround && previousVelocityY > 180) {
+      this.feedback.add('landing', this.player.x, this.player.y + DEFAULT_MOVEMENT.height);
+    }
     this.events = [];
-    stepEntities(this.run, this.level, this.player, seconds, this.events);
+    stepEntities(this.run, this.level, this.player, seconds, this.events, previousPosition);
     if (this.player.y > this.level.height + 80) recoverFromFall(this.run, this.player, this.events, this.level);
     if (this.player.x >= this.level.finish.x && this.screens.state === 'playing') {
       this.screens.complete(this.run.collectedGems.size);
       this.audio.play('complete');
     }
+    this.feedback.consume(this.events, this.level);
     for (const event of this.events) {
       if (event.type === 'gem') this.audio.play('gem');
       else if (event.type === 'checkpoint') this.audio.play('checkpoint');
@@ -135,17 +150,21 @@ export class AdventureScene implements Scene {
 
   render(ctx: CanvasRenderingContext2D): void {
     drawWorld(ctx, this.world, this.level, this.camera,
-      (entity) => isEntityActive(this.run, entity.id), (entity) => entityPosition(this.run, entity), this.platforms);
+      (entity) => isEntityActive(this.run, entity.id), (entity) => ({ ...entityPosition(this.run, entity),
+        checkpointActive: entity.kind === 'checkpoint' && this.run.checkpointId === entity.id,
+        springScale: entity.kind === 'spring' ? this.feedback.springScale(entity.id, this.reducedMotion) : undefined }), this.platforms);
     if (this.screens.state === 'playing') this.drawHenry(ctx);
     drawWorldForeground(ctx, this.world, this.level, this.camera);
+    this.feedback.draw(ctx, this.world, this.camera.position, this.reducedMotion);
     if (this.screens.state === 'playing') {
-      drawGameplayHud(ctx, this.run, 'Arrows/A-D move · Space jump · Esc pause');
+      drawGameplayHud(ctx, this.run, this.hud.hint, this.feedback.checkpointSeconds > 0
+        ? 'Checkpoint reached!' : this.hud.locationSeconds > 0 ? this.hud.location : '');
     } else if (this.screens.state === 'title') {
       this.panel(ctx, 'TINY TURBO TRAILS', `◀ ${this.selectedLevelName} ▶`);
       ctx.fillStyle = '#e9f2df';
       ctx.font = '10px monospace';
       ctx.textAlign = 'center';
-      ctx.fillText('Press Space to start', 213, 150);
+      ctx.fillText(this.inputSource === 'controller' ? 'Press a face button to start' : 'Press Space to start', 213, 150);
       ctx.textAlign = 'left';
     } else if (this.screens.state === 'finish') {
       this.drawFinish(ctx);
@@ -160,21 +179,19 @@ export class AdventureScene implements Scene {
     const clip = this.henry.manifest.animations[name];
     const frame = this.henry.manifest.frames[animationFrame(clip, this.elapsed)];
     const offset = this.camera.position;
-    const shake = hurt ? Math.sin(this.elapsed * 42) * 2 : 0;
     ctx.save();
-    ctx.translate(shake, 0);
-    drawFacingSprite(ctx, this.henry.atlas, frame,
+    // Fade only opaque sprite pixels: Henry's silhouette never becomes a rectangle.
+    if (hurt) ctx.globalAlpha = this.reducedMotion ? 0.65 : Math.floor(this.run.invulnerableSeconds * 10) % 2 ? 0.45 : 1;
+    drawFacingSprite(ctx, this.run.healthFlashSeconds > 0 ? hitFlashAtlas(this.henry.atlas) : this.henry.atlas, frame,
       this.player.x - offset.x - this.henry.manifest.anchor.x,
       this.player.y - offset.y + 34 - this.henry.manifest.anchor.y,
       48, 48, this.player.facing);
-    if (hurt) {
-      ctx.fillStyle = '#ff5d5d88';
-      ctx.fillRect(this.player.x - offset.x - 22, this.player.y - offset.y - 12, 44, 50);
-    }
     ctx.restore();
   }
 
   private loadLevel(level: LevelData): void {
+    this.feedback.clear();
+    this.hud = new HudPresentation();
     this.level = level;
     this.player = createPlayer(level.start.x, level);
     this.run = createRun(level);
@@ -207,7 +224,7 @@ export class AdventureScene implements Scene {
     ctx.font = `${gems.size}px monospace`;
     ctx.fillText(finishGemsText(this.screens.gems), FINISH_LAYOUT.centerX, gems.baseline);
     ctx.font = `${replay.size}px monospace`;
-    ctx.fillText(FINISH_REPLAY_TEXT, FINISH_LAYOUT.centerX, replay.baseline);
+    ctx.fillText(this.inputSource === 'controller' ? 'Press a face button to replay' : FINISH_REPLAY_TEXT, FINISH_LAYOUT.centerX, replay.baseline);
     ctx.textAlign = 'left';
     this.drawCelebration(ctx);
   }
