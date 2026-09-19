@@ -14,8 +14,8 @@ the pending acceptance below is recorded or explicitly moved to a follow-up.
 | --- | --- |
 | Dedicated Site world atlas | Complete. [Level data](../../../src/world/sunset-site.ts) selects `site`, textured girders and `hills` parallax. [Manifest](../../../public/assets/site/manifest.json) defines all 16 shared roles. Henry and the HUD remain shared; terrain fill and the sun are drawn by the renderer. |
 | Plains and Quarry remain pixel-identical | Code/asset review supports preservation: PR #84 changed no Plains assets or existing Plains/Quarry definitions, and its renderer addition is conditional on `theme.sun`. No matched before/after pixel comparison for these two routes is recorded here, so the strict visual claim remains unverified. |
-| Hazard, jack and safe scenery readable to a six-year-old | **Pending firsthand playtest.** The screenshots show distinct silhouettes and visual cues, but cannot establish a child's interpretation. Use the [session checklist](playtest.md). |
-| Sprites sit on terrain | Implementation and existing screenshots checked. [Asset tests](../../../tests/world-assets.test.ts) verify anchors; [processor tests](../../../tests/sprite-processing.test.ts) verify visible bases on row 43; [level tests](../../../tests/sunset-site.test.ts) verify surface placement and jack ledge clearance. Site deliberately uses checkpoint anchor `{ x: 24, y: 44 }`, matching its own centered artwork, rather than Plains' x=20. Whether scenery is mistaken for a hazard remains part of the pending playtest. |
+| Hazard, jack and safe scenery readable to a six-year-old | **Complete by owner confirmation, 2026-09-19:** “playtest complete, looking good,” in response to the explicit hazard/jack/safe-scenery question. See the [playtest record](playtest.md); detailed session observations were not supplied. |
+| Sprites sit on terrain | Implementation and existing screenshots checked. [Asset tests](../../../tests/world-assets.test.ts) verify anchors; [processor tests](../../../tests/sprite-processing.test.ts) verify visible bases on row 43; [level tests](../../../tests/sunset-site.test.ts) verify surface placement and jack ledge clearance. Site deliberately uses checkpoint anchor `{ x: 24, y: 44 }`, matching its own centered artwork, rather than Plains' x=20. The owner has confirmed the associated child-readability playtest; see the record above. |
 | Source, provenance, requirements and docs committed | Complete. [Provenance](../../../assets/source/site/PROVENANCE.md), [requirements](../../REQUIREMENTS.md), [art guide](../../art/README.md), [adventure guide](../../plains-adventure.md) and [original level evidence](../issue-33/README.md) already describe the shipped art. |
 | Automated checks and before/after evidence | Implementation-run results and screenshots are preserved below. These are historical results, not a fresh full-matrix certification of current main. |
 
@@ -39,7 +39,7 @@ reconciles #85 without claiming those tasks are complete.
 
 - Focused current-main checks: `npm test -- tests/world-assets.test.ts tests/sprite-processing.test.ts tests/sunset-site.test.ts tests/renderer.test.ts` — 111 passed across four files. The initial sandbox run blocked Python subprocesses with `EPERM`; the unrestricted rerun passed.
 - Reprocessed the committed Site source using the provenance command with a temporary destination; `cmp` confirmed byte-identical runtime PNG output.
-- Checked relative Markdown links in all three changed documents and ran `git diff --check`; passed.
+- Checked relative Markdown links in the reconciliation documents and ran `git diff --check`; passed.
 - Independent subagent review found no blocking issues in the reconciliation.
 - This follow-up changes documentation only. No new artwork, runtime changes, screenshots or full browser-matrix results are claimed.
 
@@ -68,7 +68,8 @@ generated alpha below 128 so invisible fringe cannot falsify this check.
 
 Automated/native-scale review confirms separate hazard, jack and scenery
 silhouettes, but it is not a substitute for the acceptance criterion's
-firsthand six-year-old playtest. That manual playtest remains outstanding.
+firsthand six-year-old playtest. That playtest was outstanding at implementation
+time; the owner subsequently confirmed completion in the [playtest record](playtest.md).
 
 ## Historical implementation validation (PR #84)
 

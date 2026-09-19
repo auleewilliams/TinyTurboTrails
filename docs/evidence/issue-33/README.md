@@ -15,8 +15,9 @@ holding Right on the Sunset Site route, after choosing it with Left from the Pla
   girders, a cone-and-cement-mixer hazard and pneumatic jacks. Current evidence
   lives under `docs/evidence/issue-85/`.
 - Long shadows are not drawn; the low sun and warm palette carry the sunset feel.
-- Firsthand six-year-old hazard/readability playtesting remains outstanding;
-  automated checks and native-scale screenshots do not substitute for it.
+- Firsthand six-year-old hazard/readability playtesting was outstanding at
+  implementation time. The owner subsequently confirmed completion; see the
+  [issue #85 playtest record](../issue-85/playtest.md).
 
 ## Validation
 

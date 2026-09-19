@@ -1,7 +1,20 @@
-# Sunset Site readability playtest — pending
+# Sunset Site readability playtest — complete
 
-This is a session checklist, not a completed result. Issue #85 requires a
-firsthand six-year-old playtest; screenshots and automated play do not satisfy it.
+On 2026-09-19, the project owner confirmed: “playtest complete, looking good.”
+This answered the explicit question about a six-year-old recognizing the
+cone/mixer as harmful, the pneumatic jack as a launcher, and scaffold, pipes
+and bushes as safe scenery. The firsthand child-readability acceptance is
+therefore recorded as complete based on owner confirmation.
+
+No individual predictions, encounter notes, tested commit, browser or display
+configuration were supplied; none are inferred. This confirmation does not
+establish a Plains/Quarry pixel comparison.
+
+See the [acceptance record](README.md) for the remaining verification status.
+
+## Checklist retained for future art changes
+
+The following is a reusable procedure, not a transcript of the completed session.
 
 Record the tested commit/build, date, browser, viewport/display scale, input
 device and observer. Record the player's age without their name or other
@@ -21,16 +34,3 @@ explaining each sprite's role before the first encounter.
 5. At a cement slime, record whether the player recognizes a moving enemy.
    Allow another encounter after feedback; distinguish learning from the
    player's initial interpretation.
-
-| Observation | Initial prediction/action | After interaction | Pass or art follow-up |
-| --- | --- | --- | --- |
-| Cone/mixer causes harm | Pending | Pending | Pending |
-| Jack launches Henry | Pending | Pending | Pending |
-| Scaffold/pipes/scrub are safe scenery | Pending | Pending | Pending |
-| Cement slime is a patrolling enemy | Pending | Pending | Pending |
-
-Acceptance needs observed hazard/bounce understanding and no scenery confusion.
-If a cue fails, record the sprite and encounter, track a focused art correction,
-and repeat the affected observation. Do not mark the child-readability item
-complete merely because the route was finished. Link the completed observations
-from [the acceptance record](README.md); retain any limitations or explicit waiver.
