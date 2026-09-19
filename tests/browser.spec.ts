@@ -12,7 +12,41 @@ const RENDERER_SOURCE = [drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPla
 
 const dangerXs = (level: typeof PLAINS_LEVEL): number[] => level.entities
   .filter((entity) => entity.kind === 'slime' || entity.kind === 'hazard')
-  .map(({ x }) => x);
+  // Traversal consumes this list from left to right. Entity order groups slimes
+  // before hazards, which otherwise hides earlier stones until after the route.
+  .map(({ x }) => x)
+  .sort((left, right) => left - right);
+
+/** Observe the real title drawing without adding a production-only test API. */
+async function observeTitleSelection(page: Page): Promise<void> {
+  await page.addInitScript(() => {
+    const original = CanvasRenderingContext2D.prototype.fillText;
+    CanvasRenderingContext2D.prototype.fillText = function (text, ...args) {
+      if (text.startsWith('◀ ')) this.canvas.dataset.titleSelection = text;
+      Reflect.apply(original, this, [text, ...args]);
+    };
+  });
+}
+
+async function selectNextLevel(page: Page, name: string): Promise<void> {
+  await page.keyboard.down('ArrowRight');
+  try {
+    await expect(page.locator('canvas')).toHaveAttribute('data-title-selection', `◀ ${name} ▶`);
+  } finally {
+    await page.keyboard.up('ArrowRight');
+  }
+  // Selection is edge-triggered by simulation samples. Let neutral input reach
+  // a simulation step before another keydown, even on a slow or fast display.
+  await page.evaluate(() => new Promise<void>((resolve) => {
+    requestAnimationFrame((start) => {
+      const releasedFrame = (now: number): void => {
+        if (now - start >= 50) resolve();
+        else requestAnimationFrame(releasedFrame);
+      };
+      requestAnimationFrame(releasedFrame);
+    });
+  }));
+}
 
 async function advancePastDanger(page: Page, dangers: readonly number[], progress: { index: number; lastX?: number }): Promise<string> {
   const status = await page.locator('#status').innerText();
@@ -383,13 +417,10 @@ test('title picker selects Quarry Run and starts the selected route', async ({ p
   // The extended Quarry Run (issue #73) takes about a minute of held-right real time.
   // Issue #74 makes walking through every hazard fatal, so jump near each danger.
   test.setTimeout(200_000);
+  await observeTitleSelection(page);
   await page.goto('/?scene=adventure&debug=1');
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
-  // Hold the selection key long enough for a simulation frame to consume it
-  // before starting. A back-to-back press can be coalesced in WebKit.
-  await page.keyboard.down('ArrowRight');
-  await page.waitForTimeout(100);
-  await page.keyboard.up('ArrowRight');
+  await selectNextLevel(page, 'QUARRY RUN');
   await page.keyboard.press('Space');
   await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
   await page.keyboard.down('ArrowRight');
@@ -472,6 +503,7 @@ test('Quarry crumbling ledge warns, disappears and returns after fall recovery',
 });
 
 test('title picker renders Treetop Timbers with its own atlas', async ({ page }, info) => {
+  await observeTitleSelection(page);
   await page.addInitScript(() => {
     const original = CanvasRenderingContext2D.prototype.drawImage;
     CanvasRenderingContext2D.prototype.drawImage = function (this: CanvasRenderingContext2D,
@@ -485,12 +517,8 @@ test('title picker renders Treetop Timbers with its own atlas', async ({ page },
   });
   await page.goto('/?scene=adventure&debug=1');
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
-  for (let index = 0; index < 2; index++) {
-    await page.keyboard.down('ArrowRight');
-    await page.waitForTimeout(100);
-    await page.keyboard.up('ArrowRight');
-    await page.waitForTimeout(50);
-  }
+  await selectNextLevel(page, 'QUARRY RUN');
+  await selectNextLevel(page, 'TREETOP TIMBERS');
   await page.keyboard.press('Space');
   await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
   await expect(page.locator('canvas')).toHaveAttribute(
@@ -504,6 +532,20 @@ test('title picker renders Treetop Timbers with its own atlas', async ({ page },
   const screenshot = info.outputPath('treetop-timbers.png');
   await page.locator('canvas').screenshot({ path: screenshot });
   await info.attach('treetop-timbers', { path: screenshot, contentType: 'image/png' });
+});
+
+test('title picker consumes each selection and release with delayed animation frames', async ({ page }) => {
+  await observeTitleSelection(page);
+  await page.addInitScript(() => {
+    const original = window.requestAnimationFrame.bind(window);
+    window.requestAnimationFrame = (callback) => window.setTimeout(() => original(callback), 200);
+  });
+  await page.goto('/?scene=adventure&debug=1');
+  await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
+  await selectNextLevel(page, 'QUARRY RUN');
+  await selectNextLevel(page, 'TREETOP TIMBERS');
+  await page.keyboard.press('Space');
+  await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
 });
 
 test('title picker wraps back to Sunset Site and renders its terrain atlas', async ({ page }) => {
@@ -609,15 +651,20 @@ test('adventure clears held controller input after disconnect', async ({ page })
   await page.evaluate(() => {
     (window as unknown as { disconnectController: { axes: number[] } }).disconnectController.axes[0] = 1;
   });
-  await page.waitForTimeout(180);
-  const beforeDisconnect = Number((await page.locator('#status').innerText()).match(/X (\d+)/)?.[1] ?? 0);
-  await page.evaluate(() => {
+  await expect.poll(async () => Number(
+    (await page.locator('#status').innerText()).match(/V (-?\d+)/)?.[1] ?? 0,
+  )).toBeGreaterThan(0);
+  // Sample and disconnect in one browser task: tracing/transport latency between
+  // separate calls otherwise counts still-held movement as post-disconnect coast.
+  const beforeDisconnect = await page.evaluate(() => {
+    const x = Number(document.querySelector('#status')?.textContent?.match(/X (\d+)/)?.[1] ?? 0);
     window.dispatchEvent(new Event('gamepaddisconnected'));
     const pad = (window as unknown as { disconnectController: { axes: number[]; connected: boolean } }).disconnectController;
     pad.connected = false;
     pad.axes[0] = 0;
+    return x;
   });
-  await page.waitForTimeout(180);
+  await expect(page.locator('#status')).toContainText(' V 0 ');
   const afterDisconnect = Number((await page.locator('#status').innerText()).match(/X (\d+)/)?.[1] ?? 0);
   // Disconnect clears the held input; existing momentum may coast briefly while braking.
   expect(afterDisconnect - beforeDisconnect).toBeLessThanOrEqual(25);
