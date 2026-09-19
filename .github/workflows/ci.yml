@@ -41,15 +41,7 @@ jobs:
           tags: tiny-turbo-trails:ci
           cache-from: type=gha
           cache-to: type=gha,mode=max
-      - run: |
-          docker run -d --name ttt -p 8080:80 tiny-turbo-trails:ci
-          for i in $(seq 1 10); do
-            curl -sf http://localhost:8080/healthz && break
-            sleep 1
-          done
-          curl -sf http://localhost:8080/healthz
-          curl -sf http://localhost:8080/ | grep -q "Tiny Turbo Trails"
-          docker stop ttt
+      - run: npm run test:deployment
 
   # Depends on `check` passing, so a red build never publishes an image, and
   # only runs on main so a PR from a fork never needs registry credentials.

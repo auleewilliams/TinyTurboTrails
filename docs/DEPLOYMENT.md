@@ -58,10 +58,32 @@ docker compose pull
 docker compose up -d
 ```
 
-`index.html` is served with `Cache-Control: no-cache`, so a normal browser
-reload (no hard refresh) picks up the new build immediately. The service has
+`index.html` and unversioned files under `/assets/` (including manifests and
+atlases) use `Cache-Control: no-cache`, allowing storage but requiring
+revalidation. Only Vite's fingerprinted output under `/build-assets/` uses
+year-long immutable caching. Keep stable public filenames out of that directory.
+A normal browser reload picks up subsequent deployments. Browsers that already
+cached assets with the old year-long policy need a one-time hard refresh or
+cache clear; new response headers cannot invalidate an already-fresh cached copy.
+The service has
 `restart: unless-stopped`, so it also comes back on its own after the LXC
 container or the Proxmox host reboots.
+
+## Deployment regression checks
+
+With Docker and Playwright Chromium installed, run:
+
+```sh
+docker build -t tiny-turbo-trails:ci .
+npm run test:deployment
+```
+
+The test warms a browser cache from the production image, builds a second image
+with changed metadata and atlas pixels at the same URLs, replaces the container
+on the same port, and verifies that an ordinary reload receives both changes.
+It also checks HTML, manifest, atlas and fingerprinted JS/CSS response headers,
+MIME types, `/healthz`, and real 404s. CI runs this before publishing. Set
+`DEPLOYMENT_IMAGE` to test a different locally available base image.
 
 ## Rolling back
 
