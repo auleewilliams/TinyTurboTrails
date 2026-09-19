@@ -1,5 +1,9 @@
 # Foundation verification — issue #1
 
+> Historical record: results, blockers and waivers below apply only to the dated
+> release/commit described here. They do not certify the current game. For
+> current play and development guidance, see [the docs index](README.md).
+
 Run date: 2026-09-14. Host: Ubuntu 26.04.1 LTS, Node 22.22.1, npm 9.2.0.
 These results cover the foundation preview, not the future playable release.
 

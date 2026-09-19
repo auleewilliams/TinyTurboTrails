@@ -1,11 +1,9 @@
 # TinyTurboTrails — agreed requirements
 
-This file is the canonical statement of the agreed requirements for the first
-release. Every issue in the **v1 — Plains release** milestone links here instead
-of restating them.
+This file is the canonical statement of the agreed requirements for the current game. Historical release evidence is scoped to its dated commit.
 
 **Changing a requirement means editing this file** — not an issue body. Keeping a
-single source avoids the nine copies drifting apart.
+single source avoids duplicated guidance drifting apart.
 
 ## Audience
 
@@ -18,9 +16,9 @@ Henry is a detailed pixel-art child with brown hair, a yellow hard hat, bright
 safety vest, and work boots, in an original Minecraft-inspired blocky world. He
 is a detailed child in a blocky world — not a cuboid Minecraft avatar.
 
-## Scope of the first release
+## Current scope
 
-Six desktop-browser levels selected from a title-screen picker: Plains,
+Six desktop-browser levels selected from a illustrated overworld: Plains,
 Quarry Run, Treetop Timbers, Sunset Site, Frost Ridge and Sandy Cove. All routes target roughly
 3–5 minutes of exploratory play, with momentum, slopes and springs. Quarry Run adds spring pits, stepped terraces,
 grouped stone hazards and two slow moving platforms; both rides are optional
@@ -46,13 +44,12 @@ the level's own theme colors.
 ## Target browsers
 
 Current stable desktop Chrome, Firefox and Safari (Safari on macOS), plus the
-immediately preceding major version of each. These are checked continuously from
-issue 01 onward rather than only at release.
+immediately preceding major version of each. Bundled Playwright engines are automated coverage, not evidence that the installed version matrix or Safari on macOS was tested.
 
-## Out of scope for this release
+## Out of scope
 
 No mining, building, crafting, loops, charged dashes, additional biome artwork
-beyond the shipped Plains, Timbers, Site, Frost and Cove atlases, touch controls,
+beyond the shipped trail presentation, touch controls,
 public hosting or persistent progress. Public hosting means a public domain, TLS or exposure
 beyond the home LAN; running the built container on a home server for LAN-only
 access (issue #77) is self-hosting, not public hosting, and is in scope. Nothing
@@ -67,7 +64,7 @@ dependency — the shipped game never calls an image generator.
 
 ## Progress and persistence
 
-Progress exists only in memory during the current run. Checkpoint retries
+Run progress and separate cosmetic completion badges exist only in memory. Checkpoint retries
 preserve collected gems. Current health is also memory-only and resets on
 respawn, replay and level selection. Replay, reload or closing the page starts a
 fresh run. Do not persist checkpoints, gems or health in browser storage.
@@ -105,3 +102,24 @@ compositions are out of scope. Preview every score at `/?audio`. Preserve unlock
 mute, pause/focus, silent fallback and bounded scheduler/voice lifecycle.
 Automated checks and headroom measurements supplement a human listening review
 of mood, repetition and effect intelligibility; see `docs/AUDIO.md`.
+
+## Trail presentation and navigation (#94, #87, #92)
+
+All six destinations remain unlocked, with recognizable landmarks, a stable
+dotted path, selected Henry marker, matching cached preview and accessible Play
+action. Keyboard, pointer and standard-controller selection share state.
+Finish offers Replay, Next trail (except the final trail), and Choose trail.
+New runs reset all simulation and presentation state. Map return retains the
+completed selection and gives brief nonblocking feedback; page reload clears
+cosmetic completion badges. Held input must not cross a screen boundary.
+
+Every route has a quiet material fill and illustrated contour edge, including
+Plains exposed rock sections, Quarry stone, Timbers wood, construction gravel,
+Frost snow over rock and Cove sand. Grip cues derive independently from authored
+friction and draw above decorative materials. Quarry and Timbers add continuous
+backgrounds with supported landmarks. Keep collisions, anchors, movement and
+entity placement unchanged. Respect reduced motion and loading/error/retry.
+
+The parent-led landmark/navigation check with Henry remains a separate acceptance
+step; automated tests cannot satisfy it. Optional challenges from #93 are out of
+this milestone. Current controls live in the adventure guide.

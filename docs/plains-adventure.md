@@ -1,59 +1,70 @@
-# Adventure screens and levels — issue #6
+# Adventure, overworld and run lifecycle
 
-Open `/` (or `/?scene=adventure`) for the complete first-play shell. The title
-screen uses Left/Right to select Plains, Quarry Run, Treetop Timbers or Sunset Site, then starts with Space or
-any standard controller face button (A/B/X/Y). Local atlases are loaded before the picker
-appears, and each playable route uses the shared movement and run
-interaction systems. Escape uses the foundation pause gate, freezing the
-fixed-step simulation; Space on the finish screen creates a fresh run and
-returns to the picker.
+Open `/` or `/?scene=adventure`. All six registered trails are unlocked in a
+stable order: Plains, Quarry Run, Treetop Timbers, Sunset Site, Frost Ridge,
+Sandy Cove. The dotted path is a selector, not a free-roaming map.
 
-The HUD reports the current run's gems and checkpoint. Checkpoint recovery keeps
-gems, while replay constructs a new run and clears entity state. Reaching the
-construction finish arch stops normal route progression and displays the current
-gem total. Henry's atlas animation follows the movement state throughout, then
-uses a bouncing idle pose with sparkles for the finish celebration. The finish
-panel stacks the title, gem total, celebration band and replay prompt in separate
-rows (`FINISH_LAYOUT`); `tests/finish-layout.test.ts` checks the full bob cycle
-stays clear of the text.
+Left/Right, A/D, D-pad or the left stick selects one destination per input edge.
+Henry moves beside its landmark without delaying selection. Space or a standard
+controller face button starts it. Clicking a landmark selects it; Play starts it.
+Native buttons provide accessible names and Tab/Enter operation. Active input
+prompts fall back to keyboard after controller disconnect. See the
+[control table](../README.md#controls).
 
-The Plains route is data-driven and currently includes six sections — meadow,
-wooded hillside, canyon, cave, orchard and summit (issue #45) — an easy main
-path, optional elevated gems, six safe checkpoints and a construction finish
-arch. Quarry Run is a cave-and-stone route of similar length with six sections
-— quarry entrance, stone terraces, deep pit, mine tunnels, crusher yard and
-summit exit (issue #73). It has spring steps and spring-cleared pits that
-recover to the section checkpoint, slimes and grouped stone hazards, one
-jump-only bonus gem per section (two float above pits and need a jump timed
-with the spring launch) and seven checkpoints. It reuses the Plains atlas, so the
-second route introduces no new biome artwork. Sunset Site (issue #33) is a
-construction-yard route at dusk with the same six-section shape — site gate,
-girder stairs, cement yard, trench, scaffold climb and sunset summit — plus a
-late checkpoint before its closing double pit (seven in all). It has stepped
-ramps, patrolling slimes, four spring-cleared pits, paired stone hazards and
-one optional crane ferry over the yard's hazards. Its theme adds a low
-`sun` (a stepped pixel disc drawn behind the ground) and a warm palette that
-keeps the grass-green edge. Its own construction atlas supplies girder terrain,
-a cone-and-cement-mixer hazard, scaffolding, culvert pipes, weeds, pneumatic
-jacks, cement slimes and a sunset construction skyline. Startup preloads each
-registered atlas; a failure exposes the page's Reload retry button. Control prompts are short
-and visual enough for the intended six-year-old player.
+The selected destination shows a cached representative render of its environment.
+Preview rendering never advances gameplay or consumes input. All world, map and
+title assets load before play; failures expose the existing Reload retry button.
+The approved title artwork is preserved without distortion.
 
-The Plains route is long enough that an automated hold-right traversal (no jumping,
-`npm run test:browser`) now takes roughly 50-55 seconds across Chromium,
-Firefox and WebKit, up from the original route's ~11 seconds — the route
-itself is about 4.3x longer, and knockback from the added hazards/slimes adds
-further real time for a bot that never dodges them. That machine-paced figure
-is a lower bound, not the 3-5 minute target: it holds max speed the whole way
-and skips every optional elevated gem. The 3-5 minute figure in
-docs/REQUIREMENTS.md describes an unhurried human playthrough (exploring,
-collecting bonus gems, occasional retries) and still needs to be confirmed
-with an actual playtest of the intended player — that has not been done as
-part of this change.
+## Runs and completion
 
-The screen controller is unit-tested for picker → loading → play → pause → finish
-→ picker and retryable load errors. Chromium, Firefox and WebKit checks exercise
-asset loading, level selection, start, pause and the adventure shell. Audio event
-calls remain behind the `GameAudio` boundary and gain synthesized content when
-issue #7 is integrated. Full manual route completion, controller playtesting and
-the release matrix remain issue #8 evidence.
+Each run begins with three hearts, no gems and no checkpoint. Checkpoints do not
+heal; damage removes a heart, and losing all hearts or falling recovers to the
+latest checkpoint with health refilled and gems retained. See
+[interaction rules](gameplay-interactions.md) and [movement](gameplay-movement.md).
+
+The finish shows the gem result and Henry's celebration, with three actions:
+
+- **Replay:** immediately starts a fresh run of the same trail.
+- **Next trail:** immediately starts the next registered trail; absent at Sandy Cove.
+- **Choose trail:** returns to the map with the completed destination selected
+  and a brief, nonblocking completion message.
+
+Left/Right selects a finish action; Space or a face button confirms it. Buttons
+also accept pointer/Tab/Enter. Input must return to neutral after arriving at
+the finish or map before another keyboard/controller confirmation is accepted.
+Replay is initially selected for continuity with earlier controls.
+
+New runs reset player, camera, health, checkpoint, collectibles, platforms,
+entity animation, effects and HUD hints together. Cosmetic session badges live
+outside run state. Reload clears every badge; there is no storage or server save.
+No optional-challenge system from #93 is introduced.
+
+## Trails
+
+| Trail | Recognizable place and gameplay |
+| --- | --- |
+| Plains | Grass hills, meadow, canyon, cave, orchard and summit |
+| Quarry Run | Rock terraces, framed mines, deep pits, crusher yard; two optional rides |
+| Treetop Timbers | Sunset treehouses, supported woodland scenery and plank bridge valleys |
+| Sunset Site | Construction equipment, gravel, girders and an optional crane ferry |
+| Frost Ridge | Snowy mountain, authored ice patches and safe snow runouts |
+| Sandy Cove | Palms, sand, harmless shallow water and bouncing jellyfish |
+
+All retain forgiving, deterministic routes. Target human play duration is 3–5
+minutes with exploration; automated traversal speed does not establish this.
+Art material choices never change collision geometry or movement tuning.
+
+## Pause, audio and motion
+
+Escape/Start toggles pause. Focus loss pauses simulation and audio; returning
+clears elapsed time and held input, preserving a deliberate pause. Each trail
+has its own local synthesized score. Music stops at the finish and resets on
+Replay/Next trail. See [audio](AUDIO.md) for unlock and silent fallback.
+
+Reduced motion removes nonessential map travel and celebration bobbing, alongside
+the existing gameplay effect reductions. Selection remains obvious through an
+outline, Henry's position, accessible button state and the named preview.
+
+The parent-led [Henry usability worksheet](evidence/trail-milestone/HENRY-CHECK.md)
+is separate from automated acceptance and remains pending until reported.

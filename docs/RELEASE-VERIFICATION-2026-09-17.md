@@ -1,5 +1,9 @@
 # Release certification — issue #8 closed
 
+> Historical record: results, blockers and waivers below apply only to the dated
+> release/commit described here. They do not certify the current game. For
+> current play and development guidance, see [the docs index](README.md).
+
 ## Result: certified
 
 All defects filed against the release candidate are fixed, closed and

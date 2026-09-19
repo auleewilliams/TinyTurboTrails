@@ -1,5 +1,9 @@
 # macOS release verification — issue #8
 
+> Historical record: results, blockers and waivers below apply only to the dated
+> release/commit described here. They do not certify the current game. For
+> current play and development guidance, see [the docs index](README.md).
+
 ## Result: certification remains blocked
 
 After integrating checkpoint fix #41, the production build, **57 unit tests**

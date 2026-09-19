@@ -1,5 +1,9 @@
 # Tiny Turbo Trails — first playable release
 
+> Historical record: results, blockers and waivers below apply only to the dated
+> release/commit described here. They do not certify the current game. For
+> current play and development guidance, see [the docs index](README.md).
+
 This document describes the **certified first playable release**. It is
 written for someone returning to the repository or launching it for Henry,
 without needing to reconstruct decisions from issue history. Certification
@@ -9,19 +13,8 @@ follow-up issue; it does not reopen this release.
 
 ## Launch
 
-An adult or developer installs Node.js 22.12 or newer, runs `npm ci`, then runs
-`npm run play` from the repository. On Windows, macOS and Linux, this starts the
-local server and opens `/?scene=adventure` in the default browser for Henry.
-Use Left/Right to choose Plains, Quarry Run, Treetop Timbers, Sunset Site, Frost Ridge or Sandy Cove, then press Space or any standard
-face button (A/B/X/Y) at the title screen to begin. If the browser
-does not open, use the local URL printed by Vite and append
-`/?scene=adventure`. Use the printed port, since Vite chooses another if the
-default is busy. Stop the server with Ctrl+C.
-
-For development, `npm run dev` still starts the server without opening a browser.
-The game has no public hosting or backend service; a player who cannot start a
-dev server needs an adult to do this launch step. A production bundle can be
-served with `npm run build` and `npm run preview`.
+Current launch, controls and LAN guidance live in [the root README](../README.md).
+The certification below covers the original dated release only.
 
 ## Verification status — certified 2026-09-17
 

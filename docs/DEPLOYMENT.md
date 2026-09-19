@@ -1,5 +1,9 @@
 # Deployment
 
+For local development/play and current controls, see [the root README](../README.md).
+This guide owns LAN deployment only; the presentation milestone does not deploy changes.
+
+
 Tiny Turbo Trails runs on the home network as a static build served by nginx
 inside a Docker container, on an LXC container on the Proxmox host. This is
 LAN-only: no TLS, no port forwarding, no public DNS. `docker-compose.yml`

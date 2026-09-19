@@ -1,7 +1,6 @@
-# Henry starter art
+# Art direction and asset provenance
 
-Issue #2 is in progress on `feat/henry-starter-sprites`, based on the foundation
-branch. The master reference and source poses are under `assets/source/henry/`.
+Henry’s shipped master reference and source poses are under `assets/source/henry/`.
 See `PROVENANCE.md` there for tool and prompt records.
 
 ## Art direction
@@ -26,7 +25,7 @@ Project assets and measured crop/anchor metadata are in
 in `assets/source/plains/scenery/`. Plains uses the panorama and generated
 decoration in adventure and both world/gameplay previews. Low foreground plants
 sit on safe flat ledges; gameplay sprites and collision remain unchanged.
-Quarry keeps its original scenery. The background pans within its image bounds
+Quarry uses the shared trail panorama described below. The background pans within its image bounds
 instead of repeating, because the generated edges are not certified seamless.
 
 ## Sunset Site construction atlas
@@ -64,8 +63,8 @@ replays them after a short hold for inspection.
 
 The preview is selected with `?scene=art`. It shows each clip at gameplay size
 and doubled size against dark/light backgrounds, with a baseline and center
-anchor guide. Escape pauses it, including animation time. The default foundation
-preview remains available without the query parameter. A failed image or
+anchor guide. Escape pauses it, including animation time. The foundation
+preview is available at `/?scene=foundation`; bare `/` opens the adventure. A failed image or
 manifest load produces a readable error and a visible Retry loading control.
 
 ## Processing record
@@ -86,8 +85,7 @@ python3 scripts/process_sprite_atlas.py \
 
 The browser asset check confirms all 16 cells contain transparent pixels, no
 opaque pixels touch a cell edge, and each has a non-empty character. The
-reference and atlas are still generated source material; final art review at
-native gameplay size remains part of issue #2 validation.
+reference and atlas are still generated source material; historical review evidence retains its original scope.
 
 
 ## Frost Ridge and Sandy Cove
@@ -112,3 +110,31 @@ pennant add high-contrast cues without new raster assets. Damage brightness/fadi
 applies to Henry's sprite alpha rather than a rectangle. Reduced-motion settings
 suppress travel, dust and spring deformation. Evidence and reproduction live in
 [`../evidence/issues-89-91/`](../evidence/issues-89-91/README.md).
+
+## Coordinated trail presentation
+
+The [overworld source](../../assets/source/overworld/PROVENANCE.md) provides six
+landmarks. The [trail sheets](../../assets/source/trails/PROVENANCE.md) provide
+quiet materials and Quarry/Timbers panoramas. Exact prompts and untouched sources
+are project-local; runtime copies live in `public/assets/overworld/` and
+`public/assets/trails/`. The approved [title source](../../assets/source/title/PROVENANCE.md)
+is unchanged and also appears in the root README.
+
+Material identity: warm soil/turf and sparse roots in Plains, exposed rock in its
+canyon/cave, cool quarry strata and chipped edges, timber grain/plank edges,
+construction gravel, snowy caps over cool rock, and dry sand with distinct
+authored soft-sand/water strips. Frost and Cove are already playable (#34/#35),
+so their materials are integrated now rather than left as planned work. Their
+actual slowdown/ice tuning remains in the movement guide.
+
+Fill is clipped once per connected collision contour, anchored in world space
+and culled to the viewport. Illustrated edges follow slopes and pit faces without
+stretching source art. Dedicated timber atlas trim remains integrated. Surface
+friction markers are drawn last over the material/edge, with cyan streaks for
+low traction and ochre grains for high traction; normal materials do not imply
+traction changes. Crumbling warnings remain distinct from static decoration.
+
+Panoramas pan inside their source bounds without wrapping. Their restrained
+contrast keeps interactive sprites forward, with trees and mine supports rooted
+in their environment. Cached map thumbnails use the finished world renderer,
+not a hidden game loop. See [milestone evidence](../evidence/trail-milestone/README.md).

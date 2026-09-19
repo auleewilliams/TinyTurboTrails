@@ -12,8 +12,7 @@ contact during that window is ignored, so a slime or hazard cannot create a
 damage trap. Spring activation delegates to the movement launch response and
 preserves horizontal speed. Each continuous contact emits one launch/event; both
 gameplay scenes report separation to rearm the spring. Contact state is per spring
-and clears on recovery or a new run. Replay also resets the camera before returning
-to the title. Fall recovery places Henry at the latest checkpoint
+and clears on recovery or a new run. Replay resets the camera and immediately starts the same trail. Fall recovery places Henry at the latest checkpoint
 or the start, clears both velocities and gives a short safe-protection window.
 
 Slimes can patrol. A level entity may carry `patrol: { minX, maxX, speed }`; the
@@ -31,9 +30,8 @@ Henry's top speed, so a patrolling slime is never unavoidable.
 
 Every accepted interaction emits a small event (`gem`, `checkpoint`, `damage`,
 `spring` or `recover`). The `/?scene=gameplay` preview consumes those events to
-exercise the HUD-facing path and maps them to the future audio interface. The
-preview uses the Plains level and generated atlases; title, pause/result screens,
-finish handling and complete route tuning arrive in issue #6.
+exercise the HUD-facing path and maps them to local synthesized audio. The
+preview uses the Plains level and generated atlases; the complete map, pause/result screens and finish handling are available at `/`.
 
 Unit tests cover stable identity, checkpoint preservation, reset semantics,
 invulnerability, knockback, spring momentum, patrol bounds and safe recovery.
@@ -65,3 +63,14 @@ seconds after moving, ending immediately on a jump. Device labels follow standar
 controller actions or keyboard presses, with a keyboard fallback on disconnect.
 Pause exposes all movement/jump/resume/mute controls. Render calls alone cannot
 advance any effect, teaching timer or location label.
+
+## Crumbling ledges
+
+Quarry's three 72-pixel ledges are one-way platforms above safe ordinary terrain.
+First landing starts a deterministic 0.75-second warning; leaving does not stop
+the countdown. Warning shake/cracks increase before collision and visibility
+disappear. Recovery restores ledges while retaining gems; a fresh run resets all
+entity state. Decorative material markings never use these warning animations.
+Validation checks positive width, full-span in-bounds ground and at least 36px
+clearance at left/center/right, with no checkpoint or required spring overlap.
+Rendering reads run-owned phases and never advances timers.
