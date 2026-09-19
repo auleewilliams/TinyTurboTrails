@@ -71,7 +71,7 @@ export class AdventureScene implements Scene {
   private selectedIndex: number;
   private selectionDirection = 0;
   private inputSource: InputSource = 'keyboard';
-  constructor(private readonly henry: HenryAssets, private readonly worlds: WorldAssetMap, private readonly audio: GameAudio, level: LevelData) {
+  constructor(private readonly titleArtwork: HTMLImageElement, private readonly henry: HenryAssets, private readonly worlds: WorldAssetMap, private readonly audio: GameAudio, level: LevelData) {
     const missing = [...new Set(LEVELS.map((candidate) => candidate.atlas))]
       .filter((atlas) => !worlds[atlas]);
     if (missing.length > 0) throw new Error(`Missing world assets: ${missing.join(', ')}`);
@@ -163,12 +163,25 @@ export class AdventureScene implements Scene {
       drawGameplayHud(ctx, this.run, this.hud.hint, this.feedback.checkpointSeconds > 0
         ? 'Checkpoint reached!' : this.hud.locationSeconds > 0 ? this.hud.location : '');
     } else if (this.screens.state === 'title') {
-      this.panel(ctx, 'TINY TURBO TRAILS', `◀ ${this.selectedLevelName} ▶`);
-      ctx.fillStyle = '#e9f2df';
-      ctx.font = '10px monospace';
+      ctx.save();
+      ctx.imageSmoothingEnabled = false;
+      // Fit the complete approved artwork above a separate, high-contrast menu.
+      const width = 280;
+      const height = width * this.titleArtwork.naturalHeight / this.titleArtwork.naturalWidth;
+      ctx.drawImage(this.titleArtwork, 73, 4, width, height);
+      ctx.fillStyle = '#10252cee';
+      ctx.fillRect(44, 160, 338, 48);
+      ctx.strokeStyle = '#ffda75';
+      ctx.strokeRect(46, 162, 334, 44);
       ctx.textAlign = 'center';
-      ctx.fillText(this.inputSource === 'controller' ? 'Press a face button to start' : 'Press Space to start', 213, 150);
-      ctx.textAlign = 'left';
+      ctx.fillStyle = '#ffda75';
+      ctx.font = 'bold 12px monospace';
+      ctx.fillText(`◀ ${this.selectedLevelName} ▶`, 213, 179);
+      ctx.fillStyle = '#e9f2df';
+      ctx.font = '12px monospace';
+      ctx.textAlign = 'center';
+      ctx.fillText(this.inputSource === 'controller' ? 'Press a face button to start' : 'Press Space to start', 213, 197);
+      ctx.restore();
     } else if (this.screens.state === 'finish') {
       this.drawFinish(ctx);
     } else if (this.screens.state === 'error') {

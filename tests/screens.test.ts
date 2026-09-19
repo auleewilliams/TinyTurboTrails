@@ -27,7 +27,7 @@ describe('game screen flow', () => {
       unlock: async () => {}, setMuted: () => {}, setSuspended: () => {}, startMusic: () => {},
       play: () => {}, stop: () => {}, dispose: () => {},
     };
-    const scene = new AdventureScene({} as never, worlds, audio, alternateLevel);
+    const scene = new AdventureScene({} as HTMLImageElement, {} as never, worlds, audio, alternateLevel);
     expect(scene.playerX).toBe(alternateLevel.start.x);
   });
 
@@ -36,7 +36,7 @@ describe('game screen flow', () => {
       unlock: async () => {}, setMuted: () => {}, setSuspended: () => {}, startMusic: () => {},
       play: () => {}, stop: () => {}, dispose: () => {},
     };
-    const scene = new AdventureScene({} as never, worlds, audio, PLAINS_LEVEL);
+    const scene = new AdventureScene({} as HTMLImageElement, {} as never, worlds, audio, PLAINS_LEVEL);
     const neutral = { horizontal: 0, jumpHeld: false, jumpPressed: false, pausePressed: false, mutePressed: false };
     expect(scene.selectedLevelName).toBe('PLAINS');
     scene.update(1 / 60, { ...neutral, horizontal: 1 });
@@ -61,7 +61,7 @@ describe('game screen flow', () => {
       unlock: async () => {}, setMuted: () => {}, setSuspended: () => {}, startMusic: () => {},
       play: () => {}, stop: () => {}, dispose: () => {},
     };
-    const scene = new AdventureScene({} as never, worlds, audio, QUARRY_RUN);
+    const scene = new AdventureScene({} as HTMLImageElement, {} as never, worlds, audio, QUARRY_RUN);
     const input = { horizontal: 0, jumpHeld: false, jumpPressed: true, pausePressed: false, mutePressed: false };
     expect(scene.selectedLevelName).toBe(QUARRY_RUN.name);
     scene.update(1 / 60, input);
@@ -74,7 +74,7 @@ describe('game screen flow', () => {
       unlock: async () => {}, setMuted: () => {}, setSuspended: () => {}, startMusic: () => {},
       play: () => {}, stop: () => {}, dispose: () => {},
     };
-    expect(() => new AdventureScene({} as never, { plains: {} } as never, audio, PLAINS_LEVEL))
+    expect(() => new AdventureScene({} as HTMLImageElement, {} as never, { plains: {} } as never, audio, PLAINS_LEVEL))
       .toThrow('Missing world assets: timbers');
   });
 
@@ -83,7 +83,7 @@ describe('game screen flow', () => {
       unlock: async () => {}, setMuted: () => {}, setSuspended: () => {}, startMusic: () => {},
       play: () => {}, stop: () => {}, dispose: () => {},
     };
-    const scene = new AdventureScene({} as never, worlds, audio, PLAINS_LEVEL);
+    const scene = new AdventureScene({} as HTMLImageElement, {} as never, worlds, audio, PLAINS_LEVEL);
     const input = { horizontal: 0, jumpHeld: false, jumpPressed: true, pausePressed: false, mutePressed: false };
     scene.update(1 / 60, input);
     (scene as unknown as { player: { x: number } }).player.x = PLAINS_LEVEL.finish.x;
@@ -102,7 +102,7 @@ describe('game screen flow', () => {
       unlock: async () => {}, setMuted: () => {}, setSuspended: () => {}, startMusic: () => {},
       play: (effect) => effects.push(effect), stop: () => { stops++; }, dispose: () => {},
     };
-    const scene = new AdventureScene({} as never, worlds, audio, PLAINS_LEVEL);
+    const scene = new AdventureScene({} as HTMLImageElement, {} as never, worlds, audio, PLAINS_LEVEL);
     scene.enter();
     scene.update(1 / 60, { horizontal: 0, jumpHeld: false, jumpPressed: true, pausePressed: false, mutePressed: false });
     scene.update(1 / 60, { horizontal: 0, jumpHeld: true, jumpPressed: true, pausePressed: false, mutePressed: false });
@@ -159,7 +159,7 @@ it.each(PLAINS_LEVEL.checkpoints)('activates $id from the ground', (checkpoint) 
     unlock: async () => {}, setMuted: () => {}, setSuspended: () => {}, startMusic: () => {},
     play: (effect) => effects.push(effect), stop: () => {}, dispose: () => {},
   };
-  const scene = new AdventureScene({} as never, worlds, audio, PLAINS_LEVEL);
+  const scene = new AdventureScene({} as HTMLImageElement, {} as never, worlds, audio, PLAINS_LEVEL);
   const input = { horizontal: 0, jumpHeld: false, jumpPressed: false, pausePressed: false, mutePressed: false };
   scene.update(1 / 60, { ...input, horizontal: 0, jumpPressed: true });
   Object.assign(scene, { player: createPlayer(checkpoint.x - 50, PLAINS_LEVEL) });
@@ -174,7 +174,7 @@ it('returns to the latest checkpoint after three unavoided hits', () => {
     unlock: async () => {}, setMuted: () => {}, setSuspended: () => {}, startMusic: () => {},
     play: (effect) => effects.push(effect), stop: () => {}, dispose: () => {},
   };
-  const scene = new AdventureScene({} as never, worlds, audio, PLAINS_LEVEL);
+  const scene = new AdventureScene({} as HTMLImageElement, {} as never, worlds, audio, PLAINS_LEVEL);
   const input = { horizontal: 1, jumpHeld: false, jumpPressed: false, pausePressed: false, mutePressed: false };
   scene.update(1 / 60, { ...input, horizontal: 0, jumpPressed: true });
   for (let frame = 0; frame < 60 * 30 && effects.filter((effect) => effect === 'damage').length < 3; frame++) {
@@ -194,7 +194,7 @@ it.each(['keyboard', 'controller'])('%s replay immediately restores the initial 
     unlock: async () => {}, setMuted: () => {}, setSuspended: () => {}, startMusic: () => {},
     play: () => {}, stop: () => {}, dispose: () => {},
   };
-  const scene = new AdventureScene({} as never, worlds, audio, PLAINS_LEVEL);
+  const scene = new AdventureScene({} as HTMLImageElement, {} as never, worlds, audio, PLAINS_LEVEL);
   const state = scene as unknown as {
     player: import('../src/game/movement').Player;
     run: import('../src/game/interactions').RunState;
@@ -235,7 +235,7 @@ it.each(['keyboard', 'controller'])('%s replay immediately restores the initial 
 });
 
 it.each([
-  ['adventure', () => new AdventureScene({} as never, worlds, silentAudio(), PLAINS_LEVEL)],
+  ['adventure', () => new AdventureScene({} as HTMLImageElement, {} as never, worlds, silentAudio(), PLAINS_LEVEL)],
   ['gameplay preview', () => new GameplayPreviewScene({} as never, {} as never, silentAudio(), PLAINS_LEVEL)],
 ] as const)('the %s scene respawns on the last pip through shared health logic', (_name, createScene) => {
   const scene = createScene();
@@ -263,7 +263,7 @@ for (const SceneClass of [AdventureScene, GameplayPreviewScene]) {
       play: (effect) => effects.push(effect), stop: () => {}, dispose: () => {},
     };
     const scene = SceneClass === AdventureScene
-      ? new AdventureScene({} as never, worlds, audio, PLAINS_LEVEL)
+      ? new AdventureScene({} as HTMLImageElement, {} as never, worlds, audio, PLAINS_LEVEL)
       : new GameplayPreviewScene({} as never, {} as never, audio, PLAINS_LEVEL);
     const input = { horizontal, jumpHeld: false, jumpPressed: false, pausePressed: false, mutePressed: false };
     if (scene instanceof AdventureScene) scene.update(1 / 60, { ...input, horizontal: 0, jumpPressed: true });
@@ -285,7 +285,7 @@ for (const SceneClass of [AdventureScene, GameplayPreviewScene]) {
 }
 
 it('emits dust only on meaningful landings and clears presentation on replay and level changes', () => {
-  const scene = new AdventureScene({} as never, worlds, silentAudio(), PLAINS_LEVEL);
+  const scene = new AdventureScene({} as HTMLImageElement, {} as never, worlds, silentAudio(), PLAINS_LEVEL);
   const neutral = { horizontal: 0, jumpHeld: false, jumpPressed: false, pausePressed: false, mutePressed: false };
   scene.update(1 / 60, { ...neutral, jumpPressed: true });
   const state = scene as unknown as {
@@ -321,7 +321,7 @@ it('selects every level track only on start, preserves recovery, and silences fi
     const calls: string[] = [];
     const audio = { ...silentAudio(), startMusic: (id?: string) => { calls.push(`music:${id}`); },
       stop: () => { calls.push('stop'); }, play: (effect: string) => { calls.push(effect); } };
-    const scene = new AdventureScene({} as never, worlds, audio, level);
+    const scene = new AdventureScene({} as HTMLImageElement, {} as never, worlds, audio, level);
     scene.enter();
     expect(calls).toEqual([]);
     scene.update(1 / 60, { ...neutral, jumpPressed: true });

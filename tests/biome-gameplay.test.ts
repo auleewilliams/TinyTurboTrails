@@ -19,7 +19,7 @@ it('registers both playable biome selections after the existing trails', () => {
 
 it.each([FROST_RIDGE, SANDY_COVE])('can finish $name without mandatory jumps and replay fresh', (level) => {
   const effects: string[] = [];
-  const scene = new AdventureScene({} as never, worlds(), audio(effects), level);
+  const scene = new AdventureScene({} as HTMLImageElement, {} as never, worlds(), audio(effects), level);
   scene.update(1 / 60, { ...neutral, jumpPressed: true });
   const live = scene as unknown as { run: RunState; player: Player };
   let frame = 0;
@@ -60,7 +60,7 @@ it('crosses each shallow pool without damage, knockback or recovery', () => {
 });
 
 it('pauses jellyfish with gameplay and restores their initial positions on replay', () => {
-  const scene = new AdventureScene({} as never, worlds(), audio([]), SANDY_COVE);
+  const scene = new AdventureScene({} as HTMLImageElement, {} as never, worlds(), audio([]), SANDY_COVE);
   scene.update(1 / 60, { ...neutral, jumpPressed: true });
   for (let i = 0; i < 40; i++) scene.update(1 / 60, neutral);
   const live = scene as unknown as { run: RunState; player: Player };
@@ -79,7 +79,7 @@ it('pauses jellyfish with gameplay and restores their initial positions on repla
 });
 
 it.each([FROST_RIDGE, SANDY_COVE])('rewards holding jump during a spring ride in $name', (level) => {
-  const scene = new AdventureScene({} as never, worlds(), audio([]), level);
+  const scene = new AdventureScene({} as HTMLImageElement, {} as never, worlds(), audio([]), level);
   scene.update(1 / 60, { ...neutral, jumpPressed: true });
   const live = scene as unknown as { run: RunState; player: Player };
   for (let frame = 0; frame < 60 * 180 && scene.screenState !== 'finish'; frame++) {

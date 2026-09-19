@@ -22,7 +22,7 @@ it('a controller jump mid-gameplay actually launches the player, not just at the
     unlock: async () => {}, setMuted: () => {}, setSuspended: () => {}, startMusic: () => {},
     play: () => {}, stop: () => {}, dispose: () => {},
   };
-  const scene = new AdventureScene({} as never, worlds, audio, PLAINS_LEVEL);
+  const scene = new AdventureScene({} as HTMLImageElement, {} as never, worlds, audio, PLAINS_LEVEL);
   scene.enter();
 
   let pendingJump = false;

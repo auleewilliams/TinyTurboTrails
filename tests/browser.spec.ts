@@ -743,6 +743,7 @@ test('adventure pause freezes progress and reload starts a fresh in-memory run',
 });
 
 test('default main menu accepts controller primary-button start, Start pause and D-pad movement', async ({ page }) => {
+  await observeTitleSelection(page);
   await page.addInitScript(() => {
     const buttons = Array.from({ length: 17 }, () => ({ pressed: false, touched: false, value: 0 }));
     const pad = {
@@ -756,6 +757,12 @@ test('default main menu accepts controller primary-button start, Start pause and
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
   await page.evaluate(() => {
     const pad = (window as unknown as { smokeController: { buttons: { pressed: boolean }[] } }).smokeController;
+    pad.buttons[15].pressed = true;
+  });
+  await expect(page.locator('canvas')).toHaveAttribute('data-title-selection', '◀ QUARRY RUN ▶');
+  await page.evaluate(() => {
+    const pad = (window as unknown as { smokeController: { buttons: { pressed: boolean }[] } }).smokeController;
+    pad.buttons[15].pressed = false;
     pad.buttons[0].pressed = true;
   });
   await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
@@ -1246,4 +1253,62 @@ test('native HUD hints follow active input and pause controls fit small windows'
   await page.setViewportSize({ width: 360, height: 240 });
   await page.keyboard.press('Escape');
   await info.attach('small-keyboard-pause', { body: await page.screenshot(), contentType: 'image/png' });
+});
+
+for (const viewport of [
+  { width: 1366, height: 768 },
+  { width: 426, height: 240 },
+  { width: 320, height: 240 },
+]) {
+  test(`approved title artwork and menu fit ${viewport.width}x${viewport.height}`, async ({ page }, info) => {
+    await page.setViewportSize(viewport);
+    await observeTitleSelection(page);
+    await page.addInitScript(() => {
+      const draw = CanvasRenderingContext2D.prototype.drawImage;
+      CanvasRenderingContext2D.prototype.drawImage = function (image: CanvasImageSource, ...coordinates: number[]) {
+        if (image instanceof HTMLImageElement && image.src.endsWith('/assets/title/tiny-turbo-trails-v2.png')) {
+          this.canvas.dataset.titleArtwork = JSON.stringify({
+            rect: coordinates, smoothing: this.imageSmoothingEnabled,
+            width: image.naturalWidth, height: image.naturalHeight,
+          });
+        }
+        return Reflect.apply(draw, this, [image, ...coordinates]);
+      };
+    });
+    await page.goto('/?scene=adventure');
+    await expect(page.locator('#status')).toContainText('Adventure preview · Title');
+    const canvas = page.locator('canvas');
+    await expect(canvas).toHaveAttribute('data-title-artwork');
+    const artwork = JSON.parse((await canvas.getAttribute('data-title-artwork'))!);
+    expect(artwork.smoothing).toBe(false);
+    expect(artwork.rect).toEqual([73, 4, 280, 280 * 926 / 1699]);
+    expect(artwork.rect[1] + artwork.rect[3]).toBeLessThan(160);
+    const box = (await canvas.boundingBox())!;
+    expect(box.x).toBeGreaterThanOrEqual(0);
+    expect(box.x + box.width).toBeLessThanOrEqual(viewport.width);
+    expect(box.y + 208 * box.height / 240).toBeLessThan((await page.locator('#status').boundingBox())!.y);
+    await selectNextLevel(page, 'QUARRY RUN');
+    await info.attach('title-screen', {
+      body: await page.screenshot({ path: `docs/evidence/issue-106/${info.project.name}-${viewport.width}x${viewport.height}.png` }),
+      contentType: 'image/png',
+    });
+    await canvas.evaluate((element) => delete element.dataset.titleArtwork);
+    await page.keyboard.press('Space');
+    await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
+    await canvas.evaluate((element) => delete element.dataset.titleArtwork);
+    await page.waitForTimeout(100);
+    await expect(canvas).not.toHaveAttribute('data-title-artwork');
+  });
+}
+
+test('title artwork failure recovers through the existing retry flow', async ({ page }) => {
+  const path = '**/assets/title/tiny-turbo-trails-v2.png';
+  await page.route(path, (route) => route.abort());
+  await page.goto('/?scene=adventure');
+  await expect(page.locator('#status')).toHaveText('Artwork could not load. Reload to retry.');
+  await expect(page.locator('#retry')).toBeVisible();
+  await page.unroute(path);
+  await page.locator('#retry').click();
+  await expect(page.locator('#status')).toContainText('Adventure preview · Title');
+  await expect(page.locator('#retry')).toBeHidden();
 });

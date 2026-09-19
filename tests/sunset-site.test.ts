@@ -37,7 +37,7 @@ function startScene() {
     unlock: async () => {}, setMuted: () => {}, setSuspended: () => {}, startMusic: () => {},
     play: (effect) => effects.push(effect), stop: () => {}, dispose: () => {},
   };
-  const scene = new AdventureScene({} as never,
+  const scene = new AdventureScene({} as HTMLImageElement, {} as never,
     { plains: {} as never, timbers: {} as never, site: {} as never, frost: {} as never, cove: {} as never }, audio, SUNSET_SITE);
   scene.update(1 / 60, { ...neutral, jumpPressed: true });
   const collected = (scene as unknown as { run: { collectedGems: Set<string> } }).run.collectedGems;
