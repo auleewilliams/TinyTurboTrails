@@ -1,10 +1,10 @@
 # Tiny Turbo Trails
 
 A sidescrolling 16-bit platformer for Henry. This is the **certified first
-playable release**: it includes the Plains and Quarry Run worlds, Henry's
-starter art, movement, gems, hazards, checkpoints, Quarry Run's moving
-platforms, local music/effects and a title-to-adventure shell with a level
-picker. Release certification (issue #8) is closed; see
+playable release**: it includes the Plains, Quarry Run and Treetop Timbers
+worlds, Henry's starter art, movement, gems, hazards, checkpoints, Quarry
+Run's moving platforms, local music/effects and a title-to-adventure shell
+with a level picker. Release certification (issue #8) is closed; see
 [Verification](#verification) below for what was checked and what was
 deliberately waived.
 
@@ -20,9 +20,9 @@ npm run dev
 ```
 
 Open the URL printed by Vite with `?scene=adventure` appended (normally
-`http://127.0.0.1:5173/?scene=adventure`). Use **Left/Right** to choose Plains
-or Quarry Run, then press **Space** or any standard face button (A/B/X/Y) to
-start. The bare `/` URL opens a diagnostic screen.
+`http://127.0.0.1:5173/?scene=adventure`). Use **Left/Right** to choose Plains,
+Quarry Run or Treetop Timbers, then press **Space** or any standard face button
+(A/B/X/Y) to start. The bare `/` URL opens a diagnostic screen.
 Stop the server with Ctrl+C. An adult must start the server and open the adventure
 page for Henry; public hosting is out of scope.
 No credentials, backend or image-generation service are needed to run the app.
@@ -78,6 +78,11 @@ hop aboard, then let go of the direction key until the ride parks. Both are
 optional, and both dock on walkable ground. See
 [moving platforms](docs/moving-platforms.md).
 
+Treetop Timbers follows a sunset scaffolding trail with plank ramps, shallow
+rope-bridge sags, crane-hook springs and sawhorse hazards. It uses its own
+project-local 16-cell atlas while retaining the same forgiving movement and
+checkpoint rules as the other routes.
+
 Progress is in memory only. Checkpoint retries preserve collected gems; replay,
 reload or closing the page starts a fresh run. The last selected level is not
 remembered. No browser storage, server save, public hosting or runtime
@@ -105,8 +110,9 @@ generation call is used.
 Illustrated assets were generated with the built-in image generator and processed
 into project-local atlases. See [Henry art](docs/art/README.md) and [Plains world](docs/plains-world.md).
 
-Known limitations and out of scope: public hosting, touch controls, new biome artwork,
-mining/building/crafting and persistent saves. The full current/previous-major
+Known limitations and out of scope: public hosting, touch controls, additional
+biomes beyond the shipped Plains and Timbers art, mining/building/crafting and
+persistent saves. The full current/previous-major
 browser matrix, Safari on macOS and physical-controller listening were waived
 rather than run; see [Verification](#verification) below.
 

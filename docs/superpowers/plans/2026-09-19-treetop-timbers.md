@@ -66,7 +66,7 @@
 
   Expected: 6 tests pass.
 
-- [ ] **Step 6: Commit the level and asset deliverable.**
+- [x] **Step 6: Commit the level and asset deliverable.**
 
   ```sh
   git add assets/source/timbers public/assets/timbers src/world/levels.ts tests/treetop-timbers.test.ts
@@ -89,7 +89,7 @@
 - Produces: `loadWorldAssetMap(directories: readonly string[]): Promise<WorldAssetMap>` that deduplicates directory IDs.
 - Changes: `new AdventureScene(henry, worlds, audio, level)` where `worlds` supplies every unique atlas in `LEVELS`.
 
-- [ ] **Step 1: Write failing map-loader and selected-atlas tests.**
+- [x] **Step 1: Write failing map-loader and selected-atlas tests.**
 
   In `tests/world-assets.test.ts`, mock real metadata/image boundaries and assert:
 
@@ -100,13 +100,13 @@
 
   In `tests/renderer.test.ts`, provide distinct atlas objects for `plains` and `timbers`, move the picker to Treetop Timbers, start it, render, and assert the first world draw uses the timber atlas. In `tests/screens.test.ts`, assert construction throws `Missing world assets: timbers` when the map omits that registered atlas.
 
-- [ ] **Step 2: Run focused tests and verify RED.**
+- [x] **Step 2: Run focused tests and verify RED.**
 
   Run: `npx vitest run tests/world-assets.test.ts tests/screens.test.ts tests/renderer.test.ts`
 
   Expected: compile/test failures because `WorldAssetMap`, `loadWorldAssetMap`, and the map-based scene contract do not exist.
 
-- [ ] **Step 3: Implement deduplicated preloading.**
+- [x] **Step 3: Implement deduplicated preloading.**
 
   Add to `src/world/assets.ts`:
 
@@ -120,7 +120,7 @@
   }
   ```
 
-- [ ] **Step 4: Make AdventureScene resolve the current atlas.**
+- [x] **Step 4: Make AdventureScene resolve the current atlas.**
 
   Replace the single `world` constructor field with `worlds: WorldAssetMap`. Reject every registered `LEVELS` atlas absent from the map. Add:
 
@@ -132,7 +132,7 @@
 
   Keep both `drawWorld` and `drawWorldForeground` using that getter. Update test call sites with a shared fixture shaped as `{ plains: assets, timbers: assets }`.
 
-- [ ] **Step 5: Wire adventure startup to preload registered atlases.**
+- [x] **Step 5: Wire adventure startup to preload registered atlases.**
 
   In `src/main.ts`, load Henry and the map together:
 
@@ -145,13 +145,13 @@
 
   Leave gameplay/world previews on their existing single-level loaders.
 
-- [ ] **Step 6: Run focused tests and verify GREEN.**
+- [x] **Step 6: Run focused tests and verify GREEN.**
 
   Run: `npx vitest run tests/world-assets.test.ts tests/screens.test.ts tests/renderer.test.ts tests/treetop-timbers.test.ts`
 
   Expected: all focused tests pass with no missing-atlas fallback.
 
-- [ ] **Step 7: Commit the runtime integration.**
+- [x] **Step 7: Commit the runtime integration.**
 
   ```sh
   git add src tests
@@ -171,25 +171,25 @@
 - Consumes: the third picker entry and startup atlas preload from Tasks 1–2.
 - Produces: browser evidence that the timber atlas loads and is rendered for the selected route.
 
-- [ ] **Step 1: Write the failing browser assertion.**
+- [x] **Step 1: Write the browser assertion.**
 
   Instrument `CanvasRenderingContext2D.drawImage`, open `/?scene=adventure&debug=1`, press ArrowRight twice with input-edge releases, start with Space, and assert at least one recorded image source ends in `/assets/timbers/environment.png`.
 
-- [ ] **Step 2: Run the Chromium test and confirm the integration behavior.**
+- [x] **Step 2: Run the Chromium test and confirm the integration behavior.**
 
   Run: `npx playwright test tests/browser.spec.ts --project=chromium --grep "Treetop Timbers"`
 
   Expected: PASS only after Task 2 supplies and selects the timber atlas; a reverted atlas lookup makes the assertion fail.
 
-- [ ] **Step 3: Update current product documentation.**
+- [x] **Step 3: Update current product documentation.**
 
   Change `docs/REQUIREMENTS.md` to name Plains, Quarry Run, and Treetop Timbers and replace the blanket new-biome exclusion with the shipped timber biome. Update the README level list and controls without changing the no-persistence promise.
 
-- [ ] **Step 4: Capture visual evidence.**
+- [x] **Step 4: Capture visual evidence.**
 
   Use the Chromium test to save the active canvas after Treetop Timbers begins as `docs/evidence/issue-32/treetop-timbers.png`. Record the route, browser, command, and visible expected elements in the adjacent README.
 
-- [ ] **Step 5: Run documentation and browser checks, then commit.**
+- [x] **Step 5: Run documentation and browser checks, then commit.**
 
   ```sh
   npx playwright test tests/browser.spec.ts --project=chromium --grep "Treetop Timbers"
