@@ -7,6 +7,7 @@ import type { GameAudio } from '../src/core/audio';
 import { AdventureScene } from '../src/game/adventure-scene';
 import { GameplayPreviewScene } from '../src/game/gameplay-preview';
 import { createPlayer, surfaceY } from '../src/game/movement';
+import { damagePlayer, type RunState } from '../src/game/interactions';
 import { Camera } from '../src/world/camera';
 import { PLAINS_LEVEL } from '../src/world/level';
 import { QUARRY_RUN, TREETOP_TIMBERS } from '../src/world/levels';
@@ -46,20 +47,25 @@ it('keeps the bottom-center anchor for assets without an override', () => {
 });
 
 interface DrawnText { text: string; x: number; textAlign: CanvasTextAlign }
+interface FilledRect { x: number; y: number; width: number; height: number; fillStyle: CanvasRenderingContext2D['fillStyle'] }
 
-function recordingContext(): { ctx: CanvasRenderingContext2D; images: unknown[][]; texts: DrawnText[] } {
+function recordingContext(): { ctx: CanvasRenderingContext2D; images: unknown[][]; texts: DrawnText[]; rects: FilledRect[] } {
   const images: unknown[][] = [];
   const texts: DrawnText[] = [];
+  const rects: FilledRect[] = [];
   const noop = (): void => {};
   const ctx = {
     fillStyle: '', strokeStyle: '', lineWidth: 0, font: '', textAlign: 'left' as CanvasTextAlign,
-    fillRect: noop, beginPath: noop, moveTo: noop, lineTo: noop, closePath: noop, fill: noop, stroke: noop,
+    fillRect: (x: number, y: number, width: number, height: number) => {
+      rects.push({ x, y, width, height, fillStyle: ctx.fillStyle });
+    },
+    beginPath: noop, moveTo: noop, lineTo: noop, closePath: noop, fill: noop, stroke: noop,
     strokeRect: noop,
     translate: noop, scale: noop, save: noop, restore: noop,
     drawImage: (...args: unknown[]) => { images.push(args); },
     fillText: (text: string, x: number) => { texts.push({ text, x, textAlign: ctx.textAlign }); },
   };
-  return { ctx: ctx as unknown as CanvasRenderingContext2D, images, texts };
+  return { ctx: ctx as unknown as CanvasRenderingContext2D, images, texts, rects };
 }
 
 const worldAssets: WorldAssets = { atlas: {} as HTMLImageElement, manifest };
@@ -286,6 +292,38 @@ it('draws every entity when a scene supplies no run state', () => {
   expect(images).toHaveLength(PLAINS_LEVEL.entities.length + 3);
 });
 
+it('draws crumbling ledges as stone tiles with deterministic warning cracks', () => {
+  const ledge = {
+    id: 'test-ledge', kind: 'crumbling-ledge' as const, x: 200, y: 120,
+    width: 72, asset: 'stone', layer: 'world' as const,
+  };
+  const level = {
+    ...PLAINS_LEVEL,
+    theme: { ...PLAINS_LEVEL.theme, parallax: [] },
+    entities: [ledge],
+  };
+  const camera = new Camera({ width: 426, height: 240, worldWidth: level.width, worldHeight: level.height });
+  const stable = recordingContext();
+  let stableStrokes = 0;
+  stable.ctx.stroke = () => { stableStrokes++; };
+  drawWorld(stable.ctx, worldAssets, level, camera);
+  const stableTiles = stable.images.filter((call) => call[7] === 24);
+  expect(stableTiles.map((call) => call[5])).toEqual([164, 188, 212]);
+
+  const warning = recordingContext();
+  let crackStrokes = 0;
+  warning.ctx.stroke = () => { crackStrokes++; };
+  drawWorld(warning.ctx, worldAssets, level, camera, () => true,
+    (entity) => ({ x: entity.x, y: entity.y, warningProgress: 0.75 }));
+  const warningTiles = warning.images.filter((call) => call[7] === 24);
+  expect(warningTiles.map((call) => call[5])).not.toEqual(stableTiles.map((call) => call[5]));
+  expect(crackStrokes - stableStrokes).toBe(2);
+
+  const crumbled = recordingContext();
+  drawWorld(crumbled.ctx, worldAssets, level, camera, () => false);
+  expect(crumbled.images.filter((call) => call[7] === 24)).toEqual([]);
+});
+
 it('stops drawing a gem once the adventure collects it', () => {
   const scene = new AdventureScene(henryAssets, worldMap(worldAssets), silentAudio, PLAINS_LEVEL);
   scene.enter();
@@ -331,6 +369,47 @@ it('keeps the HUD left-aligned even after a centered overlay ran', () => {
   scene.render(ctx);
   expect(texts).not.toHaveLength(0);
   for (const drawn of texts) expect(drawn).toMatchObject({ x: 10, textAlign: 'left' });
+});
+
+function renderedHealthPips(scene: AdventureScene | GameplayPreviewScene, health: number, healthFlashSeconds = 0): FilledRect[] {
+  if (scene instanceof AdventureScene) scene.update(1 / 60, start);
+  const run = (scene as unknown as { run: RunState }).run;
+  run.health = health;
+  run.healthFlashPip = healthFlashSeconds > 0 ? health : null;
+  run.healthFlashSeconds = healthFlashSeconds;
+  const { ctx, rects } = recordingContext();
+  scene.render(ctx);
+  return rects.filter(({ y, width, height }) => y === 10 && width === 6 && height === 6);
+}
+
+it.each([
+  ['adventure', () => new AdventureScene(henryAssets, worldMap(worldAssets), silentAudio, PLAINS_LEVEL)],
+  ['gameplay preview', () => new GameplayPreviewScene(henryAssets, worldAssets, silentAudio, PLAINS_LEVEL)],
+] as const)('draws three readable health pips in the %s HUD', (_name, createScene) => {
+  const full = renderedHealthPips(createScene(), 3);
+  expect(full).toHaveLength(3);
+  expect(new Set(full.map(({ fillStyle }) => fillStyle))).toEqual(new Set(['#ff5d5d']));
+
+  const damaged = renderedHealthPips(createScene(), 1);
+  expect(damaged.map(({ fillStyle }) => fillStyle)).toEqual(['#ff5d5d', '#31434a', '#31434a']);
+});
+
+it('briefly highlights the pip most recently lost', () => {
+  const pips = renderedHealthPips(new AdventureScene(henryAssets, worldMap(worldAssets), silentAudio, PLAINS_LEVEL), 2, 0.2);
+  expect(pips.map(({ fillStyle }) => fillStyle)).toEqual(['#ff5d5d', '#ff5d5d', '#ffda75']);
+});
+
+it('briefly highlights the final lost pip after lethal damage refills health', () => {
+  const scene = new AdventureScene(henryAssets, worldMap(worldAssets), silentAudio, PLAINS_LEVEL);
+  scene.update(1 / 60, start);
+  const state = scene as unknown as { player: ReturnType<typeof createPlayer>; run: RunState };
+  state.run.health = 1;
+  damagePlayer(state.run, state.player, 1, [], PLAINS_LEVEL);
+
+  const { ctx, rects } = recordingContext();
+  scene.render(ctx);
+  const pips = rects.filter(({ y, width, height }) => y === 10 && width === 6 && height === 6);
+  expect(pips.map(({ fillStyle }) => fillStyle)).toEqual(['#ffda75', '#ff5d5d', '#ff5d5d']);
 });
 
 it('draws the selected level name on the title screen', () => {

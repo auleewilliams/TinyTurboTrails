@@ -6,13 +6,14 @@ import type { HenryAssets } from '../art/henry';
 import { drawFacingSprite } from '../art/sprite';
 import { animationFor, createPlayer, simulatePlayer, DEFAULT_MOVEMENT, type Facing, type PlatformBody, type Player } from './movement';
 import { platformBodiesAt } from './platforms';
-import { createRun, entityPosition, isEntityActive, recoverFromFall, stepEntities, tickRun, type RunEvent, type RunState } from './interactions';
+import { activeLedgePlatforms, createRun, entityPosition, isEntityActive, recoverFromFall, stepEntities, tickRun, type RunEvent, type RunState } from './interactions';
 import { ScreenController } from './screens';
 import type { LevelData } from '../world/level';
 import { LEVELS } from '../world/levels';
 import { Camera } from '../world/camera';
 import { drawWorld, drawWorldForeground } from '../world/renderer';
 import type { WorldAssetMap, WorldAssets } from '../world/assets';
+import { drawGameplayHud } from './hud';
 
 export interface Rect { x: number; y: number; width: number; height: number }
 
@@ -114,7 +115,7 @@ export class AdventureScene implements Scene {
     const step = tickRun(this.run, seconds);
     this.platforms = platformBodiesAt(this.level.platforms, this.run.seconds, step);
     const previousVelocityY = this.player.vy;
-    simulatePlayer(this.player, input, this.level, seconds, this.platforms);
+    simulatePlayer(this.player, input, this.level, seconds, [...this.platforms, ...activeLedgePlatforms(this.run, this.level)]);
     if (previousVelocityY >= 0 && this.player.vy < -DEFAULT_MOVEMENT.jumpVelocity * 0.75) this.audio.play('jump');
     this.events = [];
     stepEntities(this.run, this.level, this.player, seconds, this.events);
@@ -137,14 +138,8 @@ export class AdventureScene implements Scene {
       (entity) => isEntityActive(this.run, entity.id), (entity) => entityPosition(this.run, entity), this.platforms);
     if (this.screens.state === 'playing') this.drawHenry(ctx);
     drawWorldForeground(ctx, this.world, this.level, this.camera);
-    ctx.fillStyle = '#10252cdd';
-    ctx.fillRect(5, 5, 205, 25);
-    ctx.fillStyle = '#e9f2df';
-    ctx.font = '8px monospace';
-    ctx.textAlign = 'left';
     if (this.screens.state === 'playing') {
-      ctx.fillText(`GEMS ${this.run.collectedGems.size}   CHECKPOINT ${this.run.checkpointId ?? 'START'}`, 10, 16);
-      ctx.fillText('Arrows/A-D move · Space jump · Esc pause', 10, 26);
+      drawGameplayHud(ctx, this.run, 'Arrows/A-D move · Space jump · Esc pause');
     } else if (this.screens.state === 'title') {
       this.panel(ctx, 'TINY TURBO TRAILS', `◀ ${this.selectedLevelName} ▶`);
       ctx.fillStyle = '#e9f2df';

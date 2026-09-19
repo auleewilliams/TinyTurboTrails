@@ -27,6 +27,10 @@ grouped stone hazards and two slow moving platforms; both rides are optional
 and no route depends on timing one. Treetop Timbers adds plank trails, shallow
 rope-bridge contours, crane-hook springs and sawhorse hazards without changing
 the single-height terrain model. Keyboard and standard-controller support.
+Henry starts each run with three visible health pips. Each unblocked slime or
+hazard hit removes one pip; losing the last pip returns him to the latest
+checkpoint, or the level start, and refills all three. Pit recovery also refills
+health without costing a pip, while activating a checkpoint does not heal him.
 Quarry Run reuses the Plains atlas; Treetop Timbers ships its own project-local
 16-cell atlas. Moving platforms are drawn from the level's own theme colors.
 
@@ -55,5 +59,6 @@ dependency — the shipped game never calls an image generator.
 ## Progress and persistence
 
 Progress exists only in memory during the current run. Checkpoint retries
-preserve collected gems; replay, reload or closing the page starts a fresh run.
-Do not persist checkpoints or gems in browser storage.
+preserve collected gems. Current health is also memory-only and resets on
+respawn, replay and level selection. Replay, reload or closing the page starts a
+fresh run. Do not persist checkpoints, gems or health in browser storage.

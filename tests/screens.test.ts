@@ -14,6 +14,13 @@ const alternateLevel = { ...PLAINS_LEVEL,
 };
 const worlds = { plains: {} as never, timbers: {} as never };
 
+function silentAudio(): GameAudio {
+  return {
+    unlock: async () => {}, setMuted: () => {}, setSuspended: () => {}, startMusic: () => {},
+    play: () => {}, stop: () => {}, dispose: () => {},
+  };
+}
+
 describe('game screen flow', () => {
   it('starts the adventure from the supplied level data', () => {
     const audio: GameAudio = {
@@ -42,9 +49,11 @@ describe('game screen flow', () => {
     scene.update(1 / 60, neutral);
     scene.update(1 / 60, { ...neutral, horizontal: -1 });
     expect(scene.selectedLevelName).toBe(TREETOP_TIMBERS.name);
+    (scene as unknown as { run: { health: number } }).run.health = 1;
     scene.update(1 / 60, { ...neutral, jumpPressed: true });
     expect(scene.screenState).toBe('playing');
     expect(scene.playerX).toBe(TREETOP_TIMBERS.start.x);
+    expect((scene as unknown as { run: { health: number } }).run.health).toBe(3);
   });
 
   it('starts the supplied registered level without requiring picker input', () => {
@@ -159,7 +168,7 @@ it.each(PLAINS_LEVEL.checkpoints)('activates $id from the ground', (checkpoint) 
   expect(effects.filter((effect) => effect === 'checkpoint')).toHaveLength(1);
 });
 
-it('can walk past grounded slimes and finish without repeated damage traps', () => {
+it('returns to the latest checkpoint after three unavoided hits', () => {
   const effects: string[] = [];
   const audio: GameAudio = {
     unlock: async () => {}, setMuted: () => {}, setSuspended: () => {}, startMusic: () => {},
@@ -168,17 +177,16 @@ it('can walk past grounded slimes and finish without repeated damage traps', () 
   const scene = new AdventureScene({} as never, worlds, audio, PLAINS_LEVEL);
   const input = { horizontal: 1, jumpHeld: false, jumpPressed: false, pausePressed: false, mutePressed: false };
   scene.update(1 / 60, { ...input, horizontal: 0, jumpPressed: true });
-  for (let frame = 0; frame < 60 * 90 && scene.screenState !== 'finish'; frame++) {
+  for (let frame = 0; frame < 60 * 30 && effects.filter((effect) => effect === 'damage').length < 3; frame++) {
     scene.update(1 / 60, input);
   }
-  expect(scene.screenState).toBe('finish');
-  expect(scene.gemTotal).toBeGreaterThan(0);
-  expect(effects.filter((effect) => effect === 'checkpoint')).toHaveLength(PLAINS_LEVEL.checkpoints.length);
-  const damageCount = effects.filter((effect) => effect === 'damage').length;
-  expect(damageCount).toBeGreaterThan(0);
-  expect(damageCount).toBeLessThanOrEqual(PLAINS_LEVEL.entities.filter(
-    (entity) => entity.kind === 'slime' || entity.kind === 'hazard',
-  ).length);
+  const run = (scene as unknown as { run: import('../src/game/interactions').RunState }).run;
+  const checkpoint = PLAINS_LEVEL.checkpoints[0];
+  expect(effects.filter((effect) => effect === 'damage')).toHaveLength(3);
+  expect(run.checkpointId).toBe(checkpoint.id);
+  expect(scene.playerX).toBe(checkpoint.x);
+  expect(run.health).toBe(3);
+  expect(scene.screenState).toBe('playing');
 });
 
 it.each(['keyboard', 'controller'])('%s replay immediately restores the initial camera and fresh player/run state', (device) => {
@@ -199,6 +207,8 @@ it.each(['keyboard', 'controller'])('%s replay immediately restores the initial 
   state.run.entities.find((entity) => entity.id === 'gem-001')!.active = false;
   state.run.checkpointId = 'checkpoint-meadow';
   state.run.invulnerableSeconds = 1;
+  state.run.health = 1;
+  state.run.healthFlashSeconds = 0.2;
   state.player.x = PLAINS_LEVEL.finish.x;
   state.player.vx = 100;
   state.player.vy = -100;
@@ -219,7 +229,30 @@ it.each(['keyboard', 'controller'])('%s replay immediately restores the initial 
   expect(state.run.collectedGems.size).toBe(0);
   expect(state.run.checkpointId).toBeNull();
   expect(state.run.invulnerableSeconds).toBe(0);
+  expect(state.run.health).toBe(3);
+  expect(state.run.healthFlashSeconds).toBe(0);
   expect(state.run.entities.every((entity) => entity.active)).toBe(true);
+});
+
+it.each([
+  ['adventure', () => new AdventureScene({} as never, worlds, silentAudio(), PLAINS_LEVEL)],
+  ['gameplay preview', () => new GameplayPreviewScene({} as never, {} as never, silentAudio(), PLAINS_LEVEL)],
+] as const)('the %s scene respawns on the last pip through shared health logic', (_name, createScene) => {
+  const scene = createScene();
+  const input = { horizontal: 0, jumpHeld: false, jumpPressed: false, pausePressed: false, mutePressed: false };
+  if (scene instanceof AdventureScene) scene.update(1 / 60, { ...input, jumpPressed: true });
+  const state = scene as unknown as {
+    player: import('../src/game/movement').Player;
+    run: import('../src/game/interactions').RunState;
+  };
+  const checkpoint = PLAINS_LEVEL.checkpoints[0];
+  const hazard = PLAINS_LEVEL.entities.find((entity) => entity.kind === 'hazard')!;
+  state.run.checkpointId = checkpoint.id;
+  state.run.health = 1;
+  Object.assign(state.player, createPlayer(hazard.x, PLAINS_LEVEL));
+  scene.update(1 / 60, input);
+  expect(state.player.x).toBe(checkpoint.x);
+  expect(state.run.health).toBe(3);
 });
 
 for (const SceneClass of [AdventureScene, GameplayPreviewScene]) {

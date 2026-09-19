@@ -1,15 +1,40 @@
-import { expect, test } from '@playwright/test';
+import { expect, test, type Page } from '@playwright/test';
 import { writeFile } from 'node:fs/promises';
 import { PLAINS_LEVEL } from '../src/world/level';
 import { QUARRY_RUN } from '../src/world/levels';
 import { DEFAULT_MOVEMENT, surfaceY } from '../src/game/movement';
 import { platformBodyAt } from '../src/game/platforms';
-import { drawAsset, drawPlatformPath, drawPlatforms, drawWorld } from '../src/world/renderer';
+import { drawAsset, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawWorld } from '../src/world/renderer';
 
 /** The renderer is injected as plain functions, so every helper it calls has to travel with it. */
-const RENDERER_SOURCE = [drawAsset, drawPlatformPath, drawPlatforms].map((helper) => helper.toString()).join('\n');
+const RENDERER_SOURCE = [drawAsset, drawCrumblingLedge, drawPlatformPath, drawPlatforms].map((helper) => helper.toString()).join('\n');
+
+const dangerXs = (level: typeof PLAINS_LEVEL): number[] => level.entities
+  .filter((entity) => entity.kind === 'slime' || entity.kind === 'hazard')
+  .map(({ x }) => x);
+
+async function advancePastDanger(page: Page, dangers: readonly number[], progress: { index: number; lastX?: number }): Promise<string> {
+  const status = await page.locator('#status').innerText();
+  const x = Number(status.match(/X (\d+)/)?.[1] ?? 0);
+  if (progress.lastX !== undefined && x < progress.lastX - 100) {
+    const retryIndex = dangers.findIndex((dangerX) => dangerX >= x - 40);
+    progress.index = retryIndex < 0 ? dangers.length : retryIndex;
+  }
+  progress.lastX = x;
+  while (dangers[progress.index] !== undefined && dangers[progress.index] < x - 40) progress.index++;
+  if (dangers[progress.index] !== undefined && x >= dangers[progress.index] - 60) {
+    await page.keyboard.down('Space');
+    await page.waitForTimeout(350);
+    await page.keyboard.up('Space');
+    progress.index++;
+  } else {
+    await page.waitForTimeout(100);
+  }
+  return status;
+}
 
 test('terrain joins stay solid while scrolling in both directions at integer and fractional scales', async ({ page }, info) => {
+  test.setTimeout(60_000);
   await page.goto('/?scene=foundation');
   // Run the real renderer on a separate canvas so sprites and HUD cannot hide seams.
   await page.addScriptTag({ content: `${RENDERER_SOURCE}\nwindow.drawTerrainTestWorld = ${drawWorld.toString()};` });
@@ -284,6 +309,27 @@ test('adventure renders hurt feedback after hazard contact', async ({ page }) =>
   expect(redFeedbackPixels).toBeGreaterThan(20);
 });
 
+test('adventure HUD shows three health pips and empties one after damage', async ({ page }) => {
+  await page.goto('/?scene=adventure&debug=1');
+  await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
+  await page.keyboard.press('Space');
+  await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
+  const canvas = page.locator('canvas');
+  const readPips = async (): Promise<number[][]> => canvas.evaluate((element) => {
+    const ctx = (element as HTMLCanvasElement).getContext('2d')!;
+    return [47, 56, 65].map((x) => Array.from(ctx.getImageData(x, 13, 1, 1).data));
+  });
+  const full = [255, 93, 93, 255];
+  expect(await readPips()).toEqual([full, full, full]);
+
+  await page.keyboard.down('ArrowRight');
+  await expect.poll(async () => (await readPips()).filter((pip) => pip[0] === 255 && pip[1] === 93 && pip[2] === 93).length,
+    { timeout: 5000 }).toBe(2);
+  await page.keyboard.up('ArrowRight');
+  const damaged = await readPips();
+  expect(new Set(damaged.map((pip) => pip.join(','))).size).toBeGreaterThan(1);
+});
+
 test('a patrolling slime keeps moving while Henry stands still', async ({ page }) => {
   await page.goto('/?scene=adventure&debug=1');
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
@@ -334,7 +380,8 @@ test('default main menu starts the Plains level with Space', async ({ page }) =>
 
 test('title picker selects Quarry Run and starts the selected route', async ({ page }) => {
   // The extended Quarry Run (issue #73) takes about a minute of held-right real time.
-  test.setTimeout(150_000);
+  // Issue #74 makes walking through every hazard fatal, so jump near each danger.
+  test.setTimeout(200_000);
   await page.goto('/?scene=adventure&debug=1');
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
   // Hold the selection key long enough for a simulation frame to consume it
@@ -345,8 +392,82 @@ test('title picker selects Quarry Run and starts the selected route', async ({ p
   await page.keyboard.press('Space');
   await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
   await page.keyboard.down('ArrowRight');
-  await expect.poll(() => page.locator('#status').innerText(), { timeout: 120_000 }).toContain('Adventure preview · Finish');
+  const progress = { index: 0 };
+  const dangers = dangerXs(QUARRY_RUN);
+  for (let step = 0; step < 1100; step++) {
+    if ((await advancePastDanger(page, dangers, progress)).includes('Finish')) break;
+  }
   await page.keyboard.up('ArrowRight');
+  await expect(page.locator('#status')).toContainText('Adventure preview · Finish', { timeout: 5000 });
+});
+
+test('Quarry crumbling ledge warns, disappears and returns after fall recovery', async ({ page }, info) => {
+  test.setTimeout(150_000);
+  await page.addInitScript(() => {
+    const fillRect = CanvasRenderingContext2D.prototype.fillRect;
+    const drawImage = CanvasRenderingContext2D.prototype.drawImage;
+    const stroke = CanvasRenderingContext2D.prototype.stroke;
+    CanvasRenderingContext2D.prototype.fillRect = function (x, y, width, height) {
+      if (x === 0 && y === 0 && width === 426 && height === 240 && this.fillStyle === '#657b8c') {
+        this.canvas.dataset.ledgeTiles = '0';
+        this.canvas.dataset.ledgeCracks = '0';
+      }
+      fillRect.call(this, x, y, width, height);
+    };
+    CanvasRenderingContext2D.prototype.drawImage = function (this: CanvasRenderingContext2D, ...args: unknown[]) {
+      if (args.length === 9 && args[7] === 24 && args[8] === 24) {
+        const count = Number(this.canvas.dataset.ledgeTiles ?? 0);
+        this.canvas.dataset.ledgeTiles = String(count + 1);
+      }
+      Reflect.apply(drawImage, this, args);
+    } as typeof drawImage;
+    CanvasRenderingContext2D.prototype.stroke = function (path?: Path2D) {
+      if (this.strokeStyle === '#49362d') {
+        const count = Number(this.canvas.dataset.ledgeCracks ?? 0);
+        this.canvas.dataset.ledgeCracks = String(count + 1);
+        if (!this.canvas.dataset.ledgeAutoPaused) {
+          this.canvas.dataset.ledgeAutoPaused = 'true';
+          window.dispatchEvent(new KeyboardEvent('keydown', { code: 'Escape' }));
+          window.dispatchEvent(new KeyboardEvent('keyup', { code: 'Escape' }));
+        }
+      }
+      Reflect.apply(stroke, this, path ? [path] : []);
+    };
+  });
+  await page.goto('/?scene=adventure&debug=1');
+  await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15_000 });
+  await page.keyboard.down('ArrowRight');
+  await page.waitForTimeout(100);
+  await page.keyboard.up('ArrowRight');
+  await page.keyboard.press('Space');
+  await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
+  const canvas = page.locator('canvas');
+  await expect(canvas).toHaveAttribute('data-ledge-tiles', '9');
+
+  const dangerProgress = { index: 0 };
+  const dangers = dangerXs(QUARRY_RUN);
+  await page.keyboard.down('ArrowRight');
+  for (let step = 0; step < 1_000; step++) {
+    const status = await advancePastDanger(page, dangers, dangerProgress);
+    if (status.includes('Paused')) break;
+  }
+  await expect(page.locator('#status')).toHaveText('Paused · Escape to resume', { timeout: 5_000 });
+  await page.keyboard.up('ArrowRight');
+  expect(Number(await canvas.getAttribute('data-ledge-cracks') ?? 0)).toBeGreaterThan(0);
+  await info.attach('crumbling-ledge-warning', {
+    body: await canvas.screenshot({ path: info.outputPath('crumbling-ledge-warning.png') }),
+    contentType: 'image/png',
+  });
+  await page.keyboard.press('Escape');
+  await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
+  await expect.poll(async () => Number(await canvas.getAttribute('data-ledge-tiles') ?? 0), { timeout: 5_000 })
+    .toBe(6);
+
+  await page.keyboard.down('ArrowLeft');
+  await expect.poll(async () => Number(await canvas.getAttribute('data-ledge-tiles') ?? 0), { timeout: 20_000 })
+    .toBe(9);
+  await page.keyboard.up('ArrowLeft');
+  expect(await page.locator('#status').innerText()).toContain('Playing');
 });
 
 test('title picker renders Treetop Timbers with its own atlas', async ({ page }, info) => {
@@ -481,24 +602,20 @@ test('adventure clears held controller input after disconnect', async ({ page })
 });
 
 test('adventure can complete the forgiving route and replay from a fresh title', async ({ page }, info) => {
-  test.setTimeout(150_000);
+  test.setTimeout(200_000);
   await page.goto('/?scene=adventure&debug=1');
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
   const initialTitle = await page.locator('canvas').evaluate((element) => (element as HTMLCanvasElement).toDataURL());
   await page.keyboard.press('Space');
   await expect(page.locator('#status')).toContainText('Adventure preview · Playing', { timeout: 15000 });
   await page.keyboard.down('ArrowRight');
-  // The extended route (issue #45) takes well over a minute of held-right real time;
-  // jump periodically for coverage of jump input mid-run rather than at hardcoded obstacle spots.
-  for (let step = 0; step < 600; step++) {
-    const status = await page.locator('#status').innerText();
+  // The extended route (issue #45) takes well over a minute of held-right real time.
+  // Jump near hazards so health loss does not intentionally return the run to a checkpoint.
+  const progress = { index: 0 };
+  const dangers = dangerXs(PLAINS_LEVEL);
+  for (let step = 0; step < 1100; step++) {
+    const status = await advancePastDanger(page, dangers, progress);
     if (status.includes('Finish')) break;
-    if (step % 12 === 0) {
-      await page.keyboard.down('Space');
-      await page.waitForTimeout(250);
-      await page.keyboard.up('Space');
-    }
-    await page.waitForTimeout(150);
   }
   await page.keyboard.up('ArrowRight');
   await expect(page.locator('#status')).toContainText('Adventure preview · Finish', { timeout: 5000 });
@@ -648,11 +765,18 @@ test('all checkpoints activate along the ground route and render planted markers
   // Terrain heights come from surfaceY rather than being restated here, so the check
   // cannot drift from the level data the way the coordinates in #26 did.
   const checkpoints = PLAINS_LEVEL.checkpoints;
+  const dangers = dangerXs(PLAINS_LEVEL);
+  const progress = { index: 0 };
   for (const checkpoint of checkpoints) {
-    await expect.poll(
-      () => page.locator('canvas').getAttribute('data-test-hud'),
-      { timeout: 25_000 },
-    ).toContain(checkpoint.id);
+    let activated = false;
+    for (let step = 0; step < 400; step++) {
+      if ((await page.locator('canvas').getAttribute('data-test-hud'))?.includes(checkpoint.id)) {
+        activated = true;
+        break;
+      }
+      await advancePastDanger(page, dangers, progress);
+    }
+    expect(activated, checkpoint.id).toBe(true);
     // Activation is detected anywhere in the 18px window around the flag, so compare
     // Henry's feet to the terrain beneath him rather than to the flag's own height:
     // the hillside marker sits on a ramp, where those two differ by the slope alone.
@@ -706,13 +830,13 @@ test('adventure HUD stays left-aligned through keyboard pause and focus loss', a
   await page.evaluate(() => window.dispatchEvent(new Event('focus')));
   await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
   await expect(canvas).toHaveAttribute('data-test-hud-draw', /^left 10 /);
-  // Left-aligned at x=10, the longest HUD line must still end inside its panel at x=210.
+  // Left-aligned at x=10, the longest HUD line must still end inside its panel at x=275.
   const rightEdge = await canvas.evaluate((element) => {
     const ctx = (element as HTMLCanvasElement).getContext('2d')!;
     ctx.font = '8px monospace';
-    return 10 + ctx.measureText('GEMS 0   CHECKPOINT checkpoint-hillside').width;
+    return 10 + ctx.measureText('GEMS 99       CHECKPOINT quarry-checkpoint-terraces').width;
   });
-  expect(rightEdge).toBeLessThan(210);
+  expect(rightEdge).toBeLessThan(275);
 });
 
 test('a collected gem stops being drawn where it stood', async ({ page }, info) => {
