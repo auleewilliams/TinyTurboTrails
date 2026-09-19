@@ -39,9 +39,9 @@ finish arch and sunset skyline. The large arrow on the jack distinguishes its
 bounce role; bright barricade beacons and cone grouping distinguish the hazard from
 the low, unlit scenery.
 
-These are intended visual cues, not a completed child-readability result. See
-the [issue #85 acceptance record](../evidence/issue-85/README.md) and its pending
-firsthand playtest checklist.
+The owner has confirmed completion of the child-readability playtest. See the
+[issue #85 acceptance record](../evidence/issue-85/README.md) and linked playtest
+record for the confirmation and its scope.
 
 The unmodified final generated sheet, exact generation/edit prompts and provenance
 record are under `assets/source/site/`. The processed atlas is 192 × 192 RGBA,
