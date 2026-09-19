@@ -45,6 +45,7 @@ export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, le
     ctx.closePath();
     ctx.fill();
   }
+  if (level.theme.texturedTerrain) drawTerrainTiles(ctx, assets, level, offset);
   for (const surface of level.surfaces) {
     ctx.strokeStyle = level.theme.edge;
     ctx.lineWidth = 4;
@@ -55,8 +56,8 @@ export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, le
   }
   drawPlatforms(ctx, level, offset, platforms);
   // Decorative silhouettes sit behind every collectible, hazard and checkpoint.
-  const entities = scenery ? [...level.entities.filter((entity) => entity.kind === 'decoration'),
-    ...level.entities.filter((entity) => entity.kind !== 'decoration')] : level.entities;
+  const layerOrder: Record<WorldEntity['layer'], number> = { back: 0, world: 1, front: 2 };
+  const entities = [...level.entities].sort((left, right) => layerOrder[left.layer] - layerOrder[right.layer]);
   for (const entity of entities) {
     if (!isVisible(entity)) continue;
     const position = positionOf(entity);
@@ -68,6 +69,36 @@ export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, le
   // Keep the draw source referenced so a bad cell size cannot silently pass.
   void atlas;
   void cell;
+}
+
+function drawTerrainTiles(ctx: CanvasRenderingContext2D, assets: WorldAssets, level: LevelData,
+  offset: { x: number; y: number }): void {
+  const cell = assets.manifest.cellSize;
+  for (const surface of level.surfaces) {
+    const span = surface.x2 - surface.x1;
+    for (let x = surface.x1; x < surface.x2; x += cell) {
+      if (x + cell < offset.x || x > offset.x + 426) continue;
+      const end = Math.min(x + cell, surface.x2);
+      const y = surface.y1 + (surface.y2 - surface.y1) * ((x - surface.x1) / span);
+      const asset: WorldAsset = x === level.minX ? 'terrain-left'
+        : end === level.maxX ? 'terrain-right'
+        : surface.y1 !== surface.y2 ? 'terrain-ramp'
+        : 'terrain-flat';
+      const index = assets.manifest.assets[asset];
+      const sourceX = (index % 4) * cell;
+      const sourceY = Math.floor(index / 4) * cell;
+      if (asset === 'terrain-ramp' && surface.y2 > surface.y1) {
+        ctx.save();
+        ctx.translate(x - offset.x + cell, 0);
+        ctx.scale(-1, 1);
+        ctx.drawImage(assets.atlas, sourceX, sourceY, cell, cell, 0, y - offset.y, cell, cell);
+        ctx.restore();
+      } else {
+        ctx.drawImage(assets.atlas, sourceX, sourceY, cell, cell,
+          x - offset.x, y - offset.y, cell, cell);
+      }
+    }
+  }
 }
 
 /** Draw after the player, before the HUD; only low, non-interactive edge plants. */

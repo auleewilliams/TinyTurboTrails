@@ -246,6 +246,7 @@ export const TREETOP_TIMBERS: LevelData = {
   name: 'TREETOP TIMBERS',
   atlas: 'timbers',
   theme: {
+    texturedTerrain: true,
     sky: '#d97667',
     ground: '#704126',
     edge: '#e6a04b',

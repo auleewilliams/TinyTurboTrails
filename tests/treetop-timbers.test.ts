@@ -1,6 +1,8 @@
 import { readFileSync } from 'node:fs';
 import { expect, it } from 'vitest';
-import { DEFAULT_MOVEMENT, createPlayer, simulatePlayer, surfaceY } from '../src/game/movement';
+import type { GameAudio } from '../src/core/audio';
+import { AdventureScene } from '../src/game/adventure-scene';
+import { surfaceY } from '../src/game/movement';
 import { validateLevel, type WorldEntity } from '../src/world/level';
 import { LEVELS, TREETOP_TIMBERS, levelById } from '../src/world/levels';
 
@@ -45,15 +47,22 @@ it('plants grounded interactions on the timber trail', () => {
 });
 
 it('can finish Treetop Timbers while holding right without a mandatory timed jump', () => {
-  const player = createPlayer(TREETOP_TIMBERS.start.x, TREETOP_TIMBERS);
-  for (let frame = 0; frame < 60 * 150 && player.x < TREETOP_TIMBERS.finish.x; frame++) {
-    simulatePlayer(player, { horizontal: 1, jumpPressed: false, jumpHeld: false }, TREETOP_TIMBERS, 1 / 60);
-    if (player.y > TREETOP_TIMBERS.height + 80) {
-      throw new Error(`fell from the required route near x=${Math.round(player.x)}`);
-    }
+  const effects: string[] = [];
+  const audio: GameAudio = {
+    unlock: async () => {}, setMuted: () => {}, setSuspended: () => {}, startMusic: () => {},
+    play: (effect) => effects.push(effect), stop: () => {}, dispose: () => {},
+  };
+  const scene = new AdventureScene({} as never,
+    { plains: {} as never, timbers: {} as never }, audio, TREETOP_TIMBERS);
+  const input = { horizontal: 1, jumpPressed: false, jumpHeld: false, pausePressed: false, mutePressed: false };
+  scene.update(1 / 60, { ...input, horizontal: 0, jumpPressed: true });
+  for (let frame = 0; frame < 60 * 150 && scene.screenState !== 'finish'; frame++) {
+    scene.update(1 / 60, input);
   }
-  expect(player.x).toBeGreaterThanOrEqual(TREETOP_TIMBERS.finish.x);
-  expect(player.vx).toBeLessThanOrEqual(DEFAULT_MOVEMENT.maxSpeed);
+  expect(scene.screenState).toBe('finish');
+  expect(effects.filter((effect) => effect === 'spring')).toHaveLength(ofKind('spring').length);
+  expect(effects.filter((effect) => effect === 'checkpoint')).toHaveLength(TREETOP_TIMBERS.checkpoints.length);
+  expect(effects).not.toContain('recover');
 });
 
 it('ships a complete 4 by 4 timber atlas contract', () => {

@@ -13,6 +13,7 @@ import { QUARRY_RUN, TREETOP_TIMBERS } from '../src/world/levels';
 import { platformBodyAt } from '../src/game/platforms';
 
 const manifest = JSON.parse(readFileSync(new URL('../public/assets/plains/manifest.json', import.meta.url), 'utf8'));
+const timberManifest = JSON.parse(readFileSync(new URL('../public/assets/timbers/manifest.json', import.meta.url), 'utf8'));
 
 it.each(['tree', 'slime', 'flowers', 'bush', 'stone', 'cave'] as WorldAsset[])(
   'anchors the visible base of %s, excluding atlas padding', (asset) => {
@@ -54,7 +55,7 @@ function recordingContext(): { ctx: CanvasRenderingContext2D; images: unknown[][
     fillStyle: '', strokeStyle: '', lineWidth: 0, font: '', textAlign: 'left' as CanvasTextAlign,
     fillRect: noop, beginPath: noop, moveTo: noop, lineTo: noop, closePath: noop, fill: noop, stroke: noop,
     strokeRect: noop,
-    translate: noop, save: noop, restore: noop,
+    translate: noop, scale: noop, save: noop, restore: noop,
     drawImage: (...args: unknown[]) => { images.push(args); },
     fillText: (text: string, x: number) => { texts.push({ text, x, textAlign: ctx.textAlign }); },
   };
@@ -143,6 +144,44 @@ it('uses the level theme for sky, terrain and parallax placement', () => {
   expect(fills).toContain('#040506');
   expect(images[0][5]).toBe(42);
   expect(images[0][6]).toBe(-33);
+});
+
+it('draws all shared terrain cell roles for textured Treetop surfaces', () => {
+  const assets: WorldAssets = { atlas: {} as HTMLImageElement, manifest: timberManifest };
+  const sampled = new Set<number>();
+  for (const x of [0, 1200, TREETOP_TIMBERS.width - 426]) {
+    const { ctx, images } = recordingContext();
+    drawWorld(ctx, assets, TREETOP_TIMBERS, { position: { x, y: 0 } } as Camera);
+    for (const call of images) {
+      if (call[0] === assets.atlas && call[2] === 0) sampled.add(Number(call[1]) / timberManifest.cellSize);
+    }
+  }
+  expect([...sampled].sort((a, b) => a - b)).toEqual([0, 1, 2, 3]);
+});
+
+it('mirrors textured ramp cells when the terrain descends to the right', () => {
+  const { ctx } = recordingContext();
+  const scale = vi.fn();
+  ctx.scale = scale;
+  const level = { ...PLAINS_LEVEL, minX: 0, maxX: 144, width: 144,
+    theme: { ...PLAINS_LEVEL.theme, scenery: false, texturedTerrain: true },
+    surfaces: [{ x1: 0, y1: 150, x2: 144, y2: 198 }],
+  };
+  drawWorld(ctx, worldAssets, level, new Camera({ width: 426, height: 240, worldWidth: 144, worldHeight: 240 }));
+  expect(scale).toHaveBeenCalledWith(-1, 1);
+});
+
+it('draws back, world and front entities in layer order without a scenery pack', () => {
+  const { ctx, images } = recordingContext();
+  const level = { ...PLAINS_LEVEL, theme: { ...PLAINS_LEVEL.theme, scenery: false }, entities: [
+    { id: 'world', kind: 'gem' as const, x: 100, y: 150, asset: 'gem', layer: 'world' as const },
+    { id: 'front', kind: 'decoration' as const, x: 110, y: 150, asset: 'bush', layer: 'front' as const },
+    { id: 'back', kind: 'decoration' as const, x: 120, y: 150, asset: 'tree', layer: 'back' as const },
+  ] };
+  drawWorld(ctx, worldAssets, level, new Camera({ width: 426, height: 240, worldWidth: level.width, worldHeight: level.height }));
+  const entityCells = images.slice(-4, -1).map((call) =>
+    Number(call[1]) / manifest.cellSize + Number(call[2]) / manifest.cellSize * 4);
+  expect(entityCells).toEqual([6, 8, 15]);
 });
 
 const henryAssets = {

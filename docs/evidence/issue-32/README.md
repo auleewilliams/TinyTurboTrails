@@ -10,6 +10,7 @@ Command:
 npx playwright test tests/browser.spec.ts --project=chromium --grep "Treetop Timbers"
 ```
 
-The frame shows the warm sunset sky, dark timber ground, generated timber
-props, and Henry on the opening section. The same test records canvas image
-sources and requires the rendered world to use `/assets/timbers/environment.png`.
+The frame shows the warm sunset sky, textured plank trail, generated timber
+props, and Henry approaching the first shallow rope-bridge contour after the
+opening crane-hook spring. The same test records the timber atlas source once
+and requires the rendered world to use `/assets/timbers/environment.png`.

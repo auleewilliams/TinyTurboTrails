@@ -108,7 +108,9 @@ generation call is used.
 - `src/foundation-scene.ts`: diagnostic drawing for the foundation screen.
 
 Illustrated assets were generated with the built-in image generator and processed
-into project-local atlases. See [Henry art](docs/art/README.md) and [Plains world](docs/plains-world.md).
+into project-local atlases. See [Henry art](docs/art/README.md),
+[Plains world](docs/plains-world.md), and
+[Treetop Timbers provenance](assets/source/timbers/PROVENANCE.md).
 
 Known limitations and out of scope: public hosting, touch controls, additional
 biomes beyond the shipped Plains and Timbers art, mining/building/crafting and

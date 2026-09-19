@@ -355,10 +355,8 @@ test('title picker renders Treetop Timbers with its own atlas', async ({ page },
     CanvasRenderingContext2D.prototype.drawImage = function (this: CanvasRenderingContext2D,
       ...args: Parameters<typeof original>) {
       const image = args[0];
-      if (image instanceof HTMLImageElement && image.src.endsWith('/environment.png')) {
-        const sources = JSON.parse(this.canvas.dataset.worldAtlases ?? '[]') as string[];
-        sources.push(image.src);
-        this.canvas.dataset.worldAtlases = JSON.stringify(sources);
+      if (image instanceof HTMLImageElement && image.src.endsWith('/assets/timbers/environment.png')) {
+        this.canvas.dataset.timberAtlas = image.src;
       }
       Reflect.apply(original, this, args);
     } as typeof original;
@@ -373,13 +371,13 @@ test('title picker renders Treetop Timbers with its own atlas', async ({ page },
   }
   await page.keyboard.press('Space');
   await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
-  await expect.poll(async () => JSON.parse(
-    await page.locator('canvas').getAttribute('data-world-atlases') ?? '[]',
-  ) as string[]).toContainEqual(expect.stringContaining('/assets/timbers/environment.png'));
+  await expect(page.locator('canvas')).toHaveAttribute(
+    'data-timber-atlas', /\/assets\/timbers\/environment\.png$/,
+  );
   await page.keyboard.down('ArrowRight');
   await expect.poll(async () => Number(
     (await page.locator('#status').innerText()).match(/X (\d+)/)?.[1] ?? 0,
-  ), { timeout: 10000 }).toBeGreaterThan(650);
+  ), { timeout: 10000 }).toBeGreaterThan(1000);
   await page.keyboard.up('ArrowRight');
   const screenshot = info.outputPath('treetop-timbers.png');
   await page.locator('canvas').screenshot({ path: screenshot });

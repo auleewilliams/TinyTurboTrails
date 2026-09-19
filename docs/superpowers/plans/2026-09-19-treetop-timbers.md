@@ -208,7 +208,7 @@
 - Consumes: all commits after base `75fe680` plus the design commit.
 - Produces: a reviewed GitHub pull request against `main` with `Closes #32`.
 
-- [ ] **Step 1: Run complete fresh verification.**
+- [x] **Step 1: Run complete fresh verification.**
 
   ```sh
   npm test
@@ -220,11 +220,11 @@
 
   Expected: every command exits zero; record exact suite counts and browser results.
 
-- [ ] **Step 2: Dispatch the requested read-only reviewer subagent.**
+- [x] **Step 2: Dispatch the requested read-only reviewer subagent.**
 
   Give it the issue requirements, approved spec, base `75fe680`, current head, and the required read-only reviewer template. Require categorized findings and a merge-readiness verdict.
 
-- [ ] **Step 3: Address review findings.**
+- [x] **Step 3: Address review findings.**
 
   Fix every Critical and Important finding with a failing regression test first. Re-run the relevant focused command, then the full verification commands from Step 1. Commit validated fixes with an imperative subject.
 
