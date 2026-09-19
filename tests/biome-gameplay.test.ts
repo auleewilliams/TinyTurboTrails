@@ -34,8 +34,9 @@ it.each([FROST_RIDGE, SANDY_COVE])('can finish $name without mandatory jumps and
   expect(effects.filter((e) => e === 'checkpoint')).toHaveLength(6);
   expect(effects.filter((e) => e === 'spring')).toHaveLength(6);
   console.info(`${level.name}: held-right finish ${(frame / 60).toFixed(2)}s, ${scene.gemTotal} gems, no damage`);
+  scene.update(1 / 60, neutral);
   scene.update(1 / 60, { ...neutral, jumpPressed: true });
-  expect(scene.screenState).toBe('title');
+  expect(scene.screenState).toBe('playing');
   expect(live.run.seconds).toBe(0);
   expect(live.run.collectedGems.size).toBe(0);
   expect(live.run.health).toBe(3);
@@ -73,6 +74,7 @@ it('pauses jellyfish with gameplay and restores their initial positions on repla
   expect(entityPosition(live.run, jelly)).toEqual(position);
   clock.setPaused(false);
   live.player.x = SANDY_COVE.finish.x;
+  scene.update(1 / 60, neutral);
   scene.update(1 / 60, neutral);
   scene.update(1 / 60, { ...neutral, jumpPressed: true });
   expect(entityPosition(live.run, jelly)).toEqual({ x: jelly.x, y: jelly.y });

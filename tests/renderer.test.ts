@@ -60,7 +60,7 @@ function recordingContext(): { ctx: CanvasRenderingContext2D; images: unknown[][
     fillRect: (x: number, y: number, width: number, height: number) => {
       rects.push({ x, y, width, height, fillStyle: ctx.fillStyle });
     },
-    beginPath: noop, moveTo: noop, lineTo: noop, closePath: noop, fill: noop, stroke: noop,
+    clip: noop, beginPath: noop, moveTo: noop, lineTo: noop, closePath: noop, fill: noop, stroke: noop,
     strokeRect: noop, strokeText: noop,
     measureText: (text: string) => ({ width: text.length * 6 }),
     translate: noop, scale: noop, save: noop, restore: noop,
@@ -214,7 +214,7 @@ it('mirrors textured ramp cells when the terrain descends to the right', () => {
   const scale = vi.fn();
   ctx.scale = scale;
   const level = { ...PLAINS_LEVEL, minX: 0, maxX: 144, width: 144,
-    theme: { ...PLAINS_LEVEL.theme, scenery: false, texturedTerrain: true },
+    theme: { ...PLAINS_LEVEL.theme, material: 'wood' as const, scenery: false, texturedTerrain: true },
     surfaces: [{ x1: 0, y1: 150, x2: 144, y2: 198 }],
   };
   drawWorld(ctx, worldAssets, level, new Camera({ width: 426, height: 240, worldWidth: 144, worldHeight: 240 }));
@@ -418,7 +418,7 @@ it('draws the selected level name on the title screen', () => {
   const scene = new AdventureScene({} as HTMLImageElement, henryAssets, worldMap(worldAssets), silentAudio, PLAINS_LEVEL);
   const { ctx, texts } = recordingContext();
   scene.render(ctx);
-  expect(texts.some(({ text }) => text === '◀ PLAINS ▶')).toBe(true);
+  expect(texts.some(({ text }) => text === 'PLAINS')).toBe(true);
 });
 
 it('draws each slab in the level palette and telegraphs its whole path', () => {

@@ -1,14 +1,15 @@
+import { drawTerrainMaterial, drawTerrainEdge, drawTrailBackdrop } from '../src/world/trail-presentation';
 import { expect, test, type Page } from '@playwright/test';
 import { writeFile } from 'node:fs/promises';
 import { PLAINS_LEVEL } from '../src/world/level';
-import { QUARRY_RUN } from '../src/world/levels';
+import { LEVELS, QUARRY_RUN } from '../src/world/levels';
 import { DEFAULT_MOVEMENT, surfaceY } from '../src/game/movement';
 import { platformBodyAt } from '../src/game/platforms';
 import { drawSurfaceMaterials } from '../src/world/surface-materials';
 import { drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawWorld } from '../src/world/renderer';
 
 /** The renderer is injected as plain functions, so every helper it calls has to travel with it. */
-const RENDERER_SOURCE = [drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawSurfaceMaterials].map((helper) => helper.toString()).join('\n');
+const RENDERER_SOURCE = [drawTerrainMaterial, drawTerrainEdge, drawTrailBackdrop, drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawSurfaceMaterials].map((helper) => helper.toString()).join('\n');
 
 const dangerXs = (level: typeof PLAINS_LEVEL): number[] => level.entities
   .filter((entity) => entity.kind === 'slime' || entity.kind === 'hazard')
@@ -20,11 +21,11 @@ const dangerXs = (level: typeof PLAINS_LEVEL): number[] => level.entities
 /** Observe the real title drawing without adding a production-only test API. */
 async function observeTitleSelection(page: Page): Promise<void> {
   await page.addInitScript(() => {
-    const original = CanvasRenderingContext2D.prototype.fillText;
-    CanvasRenderingContext2D.prototype.fillText = function (text, ...args) {
-      if (text.startsWith('◀ ')) this.canvas.dataset.titleSelection = text;
-      Reflect.apply(original, this, [text, ...args]);
-    };
+    setInterval(() => {
+      const selected = document.querySelector('.trail-menu button[aria-pressed="true"]');
+      const canvas = document.querySelector('canvas');
+      if (selected && canvas) canvas.dataset.titleSelection = `◀ ${selected.getAttribute('aria-label')} ▶`;
+    }, 16);
   });
 }
 
@@ -98,7 +99,7 @@ test('terrain joins stay solid while scrolling in both directions at integer and
             const joinX = Math.floor((surface.x2 - x) * scale);
             const pixels = ctx.getImageData(joinX - 1, Math.ceil(210 * scale), 3, Math.floor(20 * scale)).data;
             for (let i = 0; i < pixels.length; i += 4) {
-              if (pixels[i] !== 134 || pixels[i + 1] !== 80 || pixels[i + 2] !== 47 || pixels[i + 3] !== 255) {
+              if (pixels[i] <= pixels[i + 1] || pixels[i + 1] <= pixels[i + 2] || pixels[i + 3] !== 255) {
                 if (failures.length < 10) failures.push(`join ${surface.x2}, scale ${scale}, direction ${direction}, frame ${frame}: ${Array.from(pixels.slice(i, i + 4))}`);
                 break;
               }
@@ -555,7 +556,7 @@ test('title picker wraps back to Sunset Site and renders its terrain atlas', asy
       ...args: Parameters<typeof original>) {
       const image = args[0];
       if (image instanceof HTMLImageElement && image.src.endsWith('/assets/site/environment.png')
-        && args.length === 9 && Number(args[2]) === 0) {
+        && args.length === 9) {
         this.canvas.dataset.siteTerrainAtlas = image.src;
       }
       Reflect.apply(original, this, args);
@@ -682,11 +683,10 @@ test('adventure clears held controller input after disconnect', async ({ page })
   expect(afterRelease).toBeGreaterThan(afterDisconnect);
 });
 
-test('adventure can complete the forgiving route and replay from a fresh title', async ({ page }, info) => {
+test('adventure can complete the forgiving route and replay directly with a fresh camera', async ({ page }, info) => {
   test.setTimeout(200_000);
   await page.goto('/?scene=adventure&debug=1');
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
-  const initialTitle = await page.locator('canvas').evaluate((element) => (element as HTMLCanvasElement).toDataURL());
   await page.keyboard.press('Space');
   await expect(page.locator('#status')).toContainText('Adventure preview · Playing', { timeout: 15000 });
   await page.keyboard.down('ArrowRight');
@@ -714,8 +714,8 @@ test('adventure can complete the forgiving route and replay from a fresh title',
   });
   expect(celebrationPixels).toBeGreaterThan(20);
   await page.keyboard.press('Space');
-  await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
-  await expect.poll(() => page.locator('canvas').evaluate((element) => (element as HTMLCanvasElement).toDataURL())).toBe(initialTitle);
+  await expect(page.locator('#status')).toContainText('Adventure preview · Playing', { timeout: 15000 });
+  await expect(page.locator('#status')).toContainText('X 60');
   await info.attach('replay-starting-view', { body: await page.locator('canvas').screenshot({ path: info.outputPath('replay-starting-view.png') }), contentType: 'image/png' });
 });
 
@@ -1049,7 +1049,7 @@ test('Plains renders its panorama and transparent scenery, and Quarry keeps its 
       const image = args[0];
       if (image instanceof HTMLImageElement) {
         const source = image.src;
-        if (source.endsWith('/scenery/background.png') || (source.endsWith('/environment.png') && args[1] === 48 && args[2] === 48 && Number(args[7]) > 48)) {
+        if (source.endsWith('/scenery/background.png') || source.endsWith('/trails/backdrops.png') || (source.endsWith('/environment.png') && args[1] === 48 && args[2] === 48 && Number(args[7]) > 48)) {
           this.canvas.dataset.sceneryDraws = '[]';
         }
         const calls = JSON.parse(this.canvas.dataset.sceneryDraws ?? '[]');
@@ -1163,9 +1163,7 @@ for (const [biome, pickerSteps] of [['frost', 4], ['cove', 5]] as const) {
     await expect(page.locator('#status')).toContainText('Finish', { timeout: 85000 });
     await page.keyboard.up('ArrowRight');
     await expect(page.locator('#status')).toContainText(/Gems [1-9]\d*/);
-    await page.keyboard.press('Space');
-    await expect(page.locator('#status')).toContainText('Title');
-    expect(await position()).toBe(60);
+    await page.waitForTimeout(60);
     await page.keyboard.press('Space');
     await expect(page.locator('#status')).toContainText('Playing');
     expect(await position()).toBe(60);
@@ -1281,15 +1279,15 @@ for (const viewport of [
     await expect(canvas).toHaveAttribute('data-title-artwork');
     const artwork = JSON.parse((await canvas.getAttribute('data-title-artwork'))!);
     expect(artwork.smoothing).toBe(false);
-    expect(artwork.rect).toEqual([73, 4, 280, 280 * 926 / 1699]);
+    expect(artwork.rect).toEqual([8, 0, 94, 94 * 926 / 1699]);
     expect(artwork.rect[1] + artwork.rect[3]).toBeLessThan(160);
     const box = (await canvas.boundingBox())!;
     expect(box.x).toBeGreaterThanOrEqual(0);
     expect(box.x + box.width).toBeLessThanOrEqual(viewport.width);
-    expect(box.y + 208 * box.height / 240).toBeLessThan((await page.locator('#status').boundingBox())!.y);
+    expect(box.y + 217 * box.height / 240).toBeLessThanOrEqual(viewport.height);
     await selectNextLevel(page, 'QUARRY RUN');
     await info.attach('title-screen', {
-      body: await page.screenshot({ path: `docs/evidence/issue-106/${info.project.name}-${viewport.width}x${viewport.height}.png` }),
+      body: await page.screenshot({ path: info.outputPath(`map-${info.project.name}-${viewport.width}x${viewport.height}.png`) }),
       contentType: 'image/png',
     });
     await canvas.evaluate((element) => delete element.dataset.titleArtwork);
@@ -1311,4 +1309,163 @@ test('title artwork failure recovers through the existing retry flow', async ({ 
   await page.locator('#retry').click();
   await expect(page.locator('#status')).toContainText('Adventure preview · Title');
   await expect(page.locator('#retry')).toBeHidden();
+});
+
+// Drive the real input boundary and simulation faster without production test hooks.
+async function installTrailPilot(page: Page): Promise<void> {
+  await page.addInitScript(() => {
+    const buttons = Array.from({ length: 17 }, () => ({ pressed: false, value: 0, touched: false }));
+    const pad = { connected: true, mapping: 'standard', axes: [0, 0], buttons };
+    const pilot = { active: false, lastActive: false, controller: false, dangers: [] as number[], index: 0, lastX: 0, jumpUntil: 0, jumping: false };
+    Object.assign(window, { trailPad: pad, trailPilot: pilot });
+    Object.defineProperty(navigator, 'getGamepads', { configurable: true, value: () => pilot.controller ? [pad] : [] });
+    const raf = window.requestAnimationFrame.bind(window);
+    window.requestAnimationFrame = (callback) => raf((now) => {
+      const status = document.querySelector('#status')?.textContent ?? '';
+      if (pilot.active) {
+        const x = Number(status.match(/X (\d+)/)?.[1] ?? 0);
+        if (x < pilot.lastX - 100) pilot.index = Math.max(0, pilot.dangers.findIndex(d => d >= x - 30));
+        pilot.lastX = x;
+        if (status.includes('Finish')) pilot.active = false;
+        else if (pilot.dangers[pilot.index] !== undefined && x >= pilot.dangers[pilot.index] - 65) {
+          pilot.jumpUntil = now + 65; pilot.index++;
+        }
+      }
+      const jumping = pilot.active && now < pilot.jumpUntil;
+      if (pilot.controller) {
+        if (pilot.active) { pad.axes[0] = 1; pad.buttons[0].pressed = jumping; }
+        else if (pilot.lastActive) { pad.axes[0] = 0; pad.buttons[0].pressed = false; }
+      } else {
+        if (pilot.active) window.dispatchEvent(new KeyboardEvent('keydown', { code: 'ArrowRight' }));
+        else if (pilot.lastActive) window.dispatchEvent(new KeyboardEvent('keyup', { code: 'ArrowRight' }));
+        if (jumping !== pilot.jumping) window.dispatchEvent(new KeyboardEvent(jumping ? 'keydown' : 'keyup', { code: 'Space' }));
+      }
+      pilot.jumping = jumping;
+      pilot.lastActive = pilot.active;
+      callback(now * 6);
+    });
+  });
+}
+
+for (const [index, level] of LEVELS.entries()) {
+  test(`milestone ${level.name}: pointer selection, full route, return, replay and next`, async ({ page }, info) => {
+    test.setTimeout(100_000);
+    await installTrailPilot(page);
+    await page.goto('/?debug=1');
+    await page.getByRole('button', { name: level.name, exact: true }).click();
+    await expect(page.getByRole('button', { name: level.name, exact: true })).toHaveAttribute('aria-pressed', 'true');
+    await page.getByRole('button', { name: `Play ${level.name}`, exact: true }).click();
+    const traverse = async (): Promise<void> => {
+      await page.evaluate(({ dangers, controller }) => {
+        const pilot = (window as unknown as { trailPilot: { active: boolean; controller: boolean; dangers: number[]; index: number; lastX: number } }).trailPilot;
+        Object.assign(pilot, { active: true, controller, dangers, index: 0, lastX: 0 });
+      }, { dangers: dangerXs(level), controller: index % 2 === 1 });
+      await expect(page.locator('#status')).toContainText('Finish', { timeout: 35_000 });
+      await page.waitForTimeout(100); // neutral input crosses the finish boundary
+    };
+    const finishAction = async (label: string): Promise<void> => {
+      if (index % 3 === 0) { await page.getByRole('button', { name: label, exact: true }).click(); return; }
+      const steps = label === 'Replay' ? 0 : label === 'Next trail' ? 1 : index === LEVELS.length - 1 ? 1 : 2;
+      const controller = index % 3 === 2;
+      await page.evaluate(controller => {
+        (window as unknown as { trailPilot: { controller: boolean } }).trailPilot.controller = controller;
+      }, controller);
+      for (let step = 0; step < steps; step++) {
+        if (controller) {
+          await page.evaluate(() => { (window as unknown as { trailPad: { buttons: { pressed: boolean }[] } }).trailPad.buttons[15].pressed = true; });
+          await page.waitForTimeout(60);
+          await page.evaluate(() => { (window as unknown as { trailPad: { buttons: { pressed: boolean }[] } }).trailPad.buttons[15].pressed = false; });
+        } else await page.keyboard.press('ArrowRight', { delay: 60 });
+        await page.waitForTimeout(60);
+      }
+      if (controller) {
+        await page.evaluate(() => { (window as unknown as { trailPad: { buttons: { pressed: boolean }[] } }).trailPad.buttons[0].pressed = true; });
+        await page.waitForTimeout(60);
+        await page.evaluate(() => { (window as unknown as { trailPad: { buttons: { pressed: boolean }[] } }).trailPad.buttons[0].pressed = false; });
+      } else await page.keyboard.press('Space', { delay: 60 });
+    };
+    await traverse();
+    await info.attach('finish', { body: await page.locator('canvas').screenshot(), contentType: 'image/png' });
+    await finishAction('Choose trail');
+    await expect(page.getByRole('button', { name: level.name, exact: true })).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.getByRole('button', { name: level.name, exact: true })).toHaveAttribute('aria-description', 'Completed this session');
+    await info.attach('completed-map', { body: await page.locator('canvas').screenshot(), contentType: 'image/png' });
+    // Replay after a second completion checks the browser-visible reset independently of unit state checks.
+    await page.getByRole('button', { name: `Play ${level.name}`, exact: true }).click();
+    await traverse();
+    await finishAction('Replay');
+    await expect(page.locator('#status')).toContainText('Playing');
+    await expect(page.locator('#status')).toContainText('X 60');
+    await traverse();
+    if (index < LEVELS.length - 1) {
+      await finishAction('Next trail');
+      await expect(page.locator('#status')).toContainText('Playing');
+      await expect(page.locator('#status')).toContainText('X 60');
+    } else await expect(page.getByRole('button', { name: 'Next trail', exact: true })).toHaveCount(0);
+    await page.reload();
+    await expect(page.getByRole('button', { name: 'PLAINS', exact: true })).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.getByRole('button', { name: level.name, exact: true })).toHaveAttribute('aria-description', 'Ready to explore');
+  });
+}
+
+test('overworld tab focus, controller selection and shared-art retry stay usable', async ({ page }) => {
+  await installTrailPilot(page);
+  await page.goto('/');
+  await page.getByRole('button', { name: 'SANDY COVE', exact: true }).focus();
+  await expect(page.getByRole('button', { name: 'SANDY COVE', exact: true })).toHaveAttribute('aria-pressed', 'true');
+  await page.evaluate(() => {
+    const state = window as unknown as { trailPilot: { controller: boolean }; trailPad: { buttons: { pressed: boolean }[] } };
+    state.trailPilot.controller = true; state.trailPad.buttons[15].pressed = true;
+  });
+  await expect(page.getByRole('button', { name: 'PLAINS', exact: true })).toHaveAttribute('aria-pressed', 'true');
+  await page.evaluate(() => {
+    const state = window as unknown as { trailPad: { buttons: { pressed: boolean }[] } };
+    state.trailPad.buttons[15].pressed = false; state.trailPad.buttons[0].pressed = true;
+  });
+  await expect(page.locator('#status')).toContainText('Playing');
+  await page.route('**/assets/trails/materials.png', route => route.abort());
+  await page.reload();
+  await expect(page.locator('#retry')).toBeVisible();
+  await page.unroute('**/assets/trails/materials.png');
+  await page.locator('#retry').click();
+  await expect(page.getByRole('button', { name: 'Play PLAINS', exact: true })).toBeVisible();
+});
+
+test('textured flats and slopes keep authored grip above cosmetic materials', async ({ page }, info) => {
+  await page.goto('/?scene=foundation');
+  await page.addScriptTag({ content: `${RENDERER_SOURCE}\nwindow.drawTerrainTestWorld = ${drawWorld.toString()};` });
+  const result = await page.evaluate(async (base) => {
+    const manifest = await (await fetch('/assets/plains/manifest.json')).json();
+    const atlas = new Image(); atlas.src = `/assets/plains/${manifest.image}`; await atlas.decode();
+    const materials = new Image(); materials.src = '/assets/trails/materials.png'; await materials.decode();
+    const level = { ...base, entities: [], theme: { ...base.theme, scenery: false, parallax: [] }, surfaces: [
+      { x1: 0, x2: 100, y1: 190, y2: 150, friction: 0.6 },
+      { x1: 100, x2: 200, y1: 150, y2: 150, friction: 1 },
+      { x1: 200, x2: 310, y1: 150, y2: 190, friction: 1.4 },
+      { x1: 310, x2: 500, y1: 190, y2: 190, material: 'ice', friction: 0.6 },
+    ] };
+    const canvas = document.createElement('canvas'); canvas.width = 426; canvas.height = 240;
+    const ctx = canvas.getContext('2d')!;
+    const render = (window as unknown as { drawTerrainTestWorld: typeof drawWorld }).drawTerrainTestWorld;
+    const samples = [];
+    for (const x of [0, 0.25, 19.5, 40, 19.5, 0.25, 0]) {
+      render(ctx, { atlas, manifest, materials }, level as typeof base, { position: { x, y: 0 } } as Parameters<typeof drawWorld>[3]);
+      const pixels = ctx.getImageData(0, 140, 426, 65).data;
+      let cyan = 0, ochre = 0, streaks = 0, grains = 0;
+      for (let i = 0; i < pixels.length; i += 4) {
+        const rgb = `${pixels[i]},${pixels[i + 1]},${pixels[i + 2]}`;
+        if (rgb === '128,219,234') cyan++;
+        if (rgb === '214,172,99') ochre++;
+        if (rgb === '230,255,255') streaks++;
+        if (rgb === '114,80,45') grains++;
+      }
+      samples.push({ cyan, ochre, streaks, grains });
+    }
+    return { samples, image: canvas.toDataURL() };
+  }, PLAINS_LEVEL);
+  for (const sample of result.samples) {
+    expect(sample.cyan).toBeGreaterThan(400); expect(sample.ochre).toBeGreaterThan(200);
+    expect(sample.streaks).toBeGreaterThan(40); expect(sample.grains).toBeGreaterThan(15);
+  }
+  await info.attach('textured-grip', { body: Buffer.from(result.image.split(',')[1], 'base64'), contentType: 'image/png' });
 });

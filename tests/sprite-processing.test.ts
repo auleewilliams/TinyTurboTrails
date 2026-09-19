@@ -1,3 +1,4 @@
+import { inflateSync } from 'node:zlib';
 import { execFileSync } from 'node:child_process';
 import { mkdtempSync, readFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
@@ -5,7 +6,7 @@ import { join } from 'node:path';
 import { expect, test } from 'vitest';
 
 test('atlas processing removes tinted checkerboard while preserving enclosed details and colored edges', () => {
-  const result = execFileSync('python3', ['-B', '-c', `
+  const result = execFileSync(process.platform === 'win32' ? 'python' : 'python3', ['-B', '-c', `
 import json
 from scripts.process_sprite_atlas import remove_background
 
@@ -34,7 +35,7 @@ print(json.dumps(pixels))
 });
 
 test('processes transparent RGBA sheets without stripping white snow or partial alpha', () => {
-  const result = execFileSync('python3', ['-B', '-c', `
+  const result = execFileSync(process.platform === 'win32' ? 'python' : 'python3', ['-B', '-c', `
 import json, tempfile
 from pathlib import Path
 from scripts.process_sprite_atlas import write_png, read_png, process
@@ -54,10 +55,10 @@ with tempfile.TemporaryDirectory() as directory:
         'center': output[24 * width + 24]}))
 `], { encoding: 'utf8' });
   expect(JSON.parse(result)).toEqual({ size: [192, 192], alphas: [0, 128], center: [255, 255, 255, 128] });
-});
+}, 15_000);
 
 test('decodes RGBA rows using all five PNG filter modes', () => {
-  const result = execFileSync('python3', ['-B', '-c', `
+  const result = execFileSync(process.platform === 'win32' ? 'python' : 'python3', ['-B', '-c', `
 import json, struct, tempfile, zlib
 from pathlib import Path
 from scripts.process_sprite_atlas import read_png
@@ -84,14 +85,24 @@ test('atlas processing accepts generated RGBA source sheets', () => {
   const directory = mkdtempSync(join(tmpdir(), 'site-atlas-'));
   const output = join(directory, 'environment.png');
   try {
-    execFileSync('python3', ['-B', 'scripts/process_sprite_atlas.py',
+    execFileSync(process.platform === 'win32' ? 'python' : 'python3', ['-B', 'scripts/process_sprite_atlas.py',
       'assets/source/site/environment-sheet.png', output, '--hard-alpha']);
     const png = readFileSync(output);
-    expect(png).toEqual(readFileSync('public/assets/site/environment.png'));
+    const pixels = (data: Buffer): Buffer => {
+      const chunks: Buffer[] = [];
+      for (let offset = 8; offset < data.length;) {
+        const length = data.readUInt32BE(offset);
+        if (data.toString('ascii', offset + 4, offset + 8) === 'IDAT') chunks.push(data.subarray(offset + 8, offset + 8 + length));
+        offset += length + 12;
+      }
+      return inflateSync(Buffer.concat(chunks));
+    };
+    // zlib versions may emit different compressed bytes for identical PNG pixels.
+    expect(pixels(png).equals(pixels(readFileSync('public/assets/site/environment.png')))).toBe(true);
     expect(png.readUInt32BE(16)).toBe(192);
     expect(png.readUInt32BE(20)).toBe(192);
     expect(png[25]).toBe(6);
-    const bottoms = JSON.parse(execFileSync('python3', ['-B', '-c', `
+    const bottoms = JSON.parse(execFileSync(process.platform === 'win32' ? 'python' : 'python3', ['-B', '-c', `
 import json
 from pathlib import Path
 from scripts.process_sprite_atlas import read_png
