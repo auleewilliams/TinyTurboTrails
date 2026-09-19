@@ -44,6 +44,7 @@ export const SANDY_COVE: LevelData = {
   width: 10600, height: 240, ...terrain,
   start: { x: 60, y: 198 }, finish: { x: 10500, y: surfaceY(terrain, 10500), asset: 'finish-arch' },
   theme: {
+    material: 'sand',
     texturedTerrain: true, sky: '#a9e8ec', ground: '#eacb85', edge: '#87603c',
     parallax: [150, 700, 1240, 1800, 2320].map((x) => ({ asset: 'hills', x, y: 110, scale: 3 })),
   },

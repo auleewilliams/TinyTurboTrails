@@ -62,10 +62,11 @@ export const SUNSET_SITE: LevelData = {
   name: 'SUNSET SITE',
   atlas: 'site',
   theme: {
+    material: 'gravel',
     texturedTerrain: true,
     sky: '#e88f6a',
     ground: '#5a3b4a',
-    edge: '#b9d24f',
+    edge: '#cda66b',
     sun: { x: 300, y: 96, radius: 22, color: '#ffe08a', glow: '#ffb36a66' },
     parallax: [
       { asset: 'hills', x: 240, y: 170, scale: 3 },

@@ -14,7 +14,7 @@ export interface WorldManifest {
   anchors?: Partial<Record<WorldAsset, { x: number; y: number }>>;
   terrainTops?: Partial<Record<WorldAsset, { left: number; right: number }>>;
 }
-export interface WorldAssets { atlas: HTMLImageElement; manifest: WorldManifest; scenery?: SceneryAssets }
+export interface WorldAssets { atlas: HTMLImageElement; manifest: WorldManifest; scenery?: SceneryAssets; materials?: HTMLImageElement; backdrops?: HTMLImageElement }
 export type WorldAssetMap = Readonly<Record<string, WorldAssets>>;
 
 async function loadImage(url: string, label: string): Promise<HTMLImageElement> {
@@ -36,7 +36,8 @@ export async function loadWorldAssets(directory = 'plains'): Promise<WorldAssets
     if (!Number.isInteger(manifest.assets?.[asset])) throw new Error(`Missing world asset: ${asset}`);
   }
   const atlas = await loadImage(`${base}${manifest.image}`, 'world atlas');
-  if (!manifest.scenery) return { atlas, manifest };
+  const [materials, backdrops] = await loadPresentation();
+  if (!manifest.scenery) return { atlas, manifest, materials, backdrops };
   const sceneryUrl = `${base}${manifest.scenery}`;
   const sceneryResponse = await fetch(sceneryUrl);
   if (!sceneryResponse.ok) throw new Error('Could not load scenery metadata');
@@ -47,7 +48,15 @@ export async function loadWorldAssets(directory = 'plains'): Promise<WorldAssets
     loadImage(`${sceneryBase}${sceneryManifest.background.image}`, 'scenery background'),
     loadImage(`${sceneryBase}${sceneryManifest.foreground.image}`, 'scenery foreground'),
   ]);
-  return { atlas, manifest, scenery: { background, foreground, manifest: sceneryManifest } };
+  return { atlas, manifest, materials, backdrops, scenery: { background, foreground, manifest: sceneryManifest } };
+}
+
+let presentation: Promise<HTMLImageElement[]> | undefined;
+function loadPresentation(): Promise<HTMLImageElement[]> {
+  return presentation ??= Promise.all([
+    loadImage(`${import.meta.env.BASE_URL}assets/trails/materials.png`, 'terrain materials'),
+    loadImage(`${import.meta.env.BASE_URL}assets/trails/backdrops.png`, 'trail backdrops'),
+  ]).catch((error: unknown) => { presentation = undefined; throw error; });
 }
 
 export async function loadWorldAssetMap(directories: readonly string[]): Promise<WorldAssetMap> {
