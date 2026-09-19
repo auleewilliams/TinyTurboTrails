@@ -13,6 +13,8 @@ export interface WorldEntity {
   asset: string;
   layer: 'back' | 'world' | 'front';
   patrol?: EntityPatrol;
+  /** One gentle rise and fall per period, sampled from the run clock. */
+  bounce?: { amplitude: number; seconds: number };
   width?: number;
 }
 export interface LevelTheme {
@@ -264,6 +266,13 @@ export function validateLevel(level: LevelData): void {
     ids.add(entity.id);
     if (entity.x < level.minX || entity.x > level.maxX) throw new Error(`entity outside level: ${entity.id}`);
     validatePatrol(level, entity);
+    if (entity.bounce) {
+      const { amplitude, seconds } = entity.bounce;
+      if (entity.kind !== 'slime' || !Number.isFinite(amplitude) || amplitude <= 0 || amplitude > 12
+        || !Number.isFinite(seconds) || seconds < 1 || seconds > 4) {
+        throw new Error(`invalid creature bounce: ${entity.id}`);
+      }
+    }
     validateCrumblingLedge(level, entity);
   }
   if (level.checkpoints.length === 0) throw new Error('level requires at least one checkpoint');

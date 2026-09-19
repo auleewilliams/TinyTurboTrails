@@ -111,9 +111,22 @@ export function advancePatrols(run: RunState, level: LevelData, seconds: number)
   }
 }
 
-/** One gameplay step of the world against Henry: patrols move, then contacts resolve. */
+/** Update the same live position consumed by rendering and contact detection. */
+export function advanceBounces(run: RunState, level: LevelData): void {
+  for (const entity of level.entities) {
+    const bounce = entity.bounce;
+    const state = entityState(run, entity.id);
+    if (!bounce || !state) continue;
+    const baseY = entity.patrol ? surfaceY(level, state.x) : entity.y;
+    const phase = (run.seconds % bounce.seconds) / bounce.seconds;
+    state.y = baseY - Math.sin(phase * Math.PI) ** 2 * bounce.amplitude;
+  }
+}
+
+/** One gameplay step of the world against Henry: entities move, then contacts resolve. */
 export function stepEntities(run: RunState, level: LevelData, player: Player, seconds: number, events: RunEvent[]): void {
   advancePatrols(run, level, seconds);
+  advanceBounces(run, level);
   for (const entity of level.entities) {
     const state = entityState(run, entity.id);
     const { x, y } = state ?? entity;
