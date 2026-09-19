@@ -113,3 +113,16 @@ describe('authored material validation', () => {
     expect(() => validateLevel(level as typeof PLAINS_LEVEL)).not.toThrow();
   });
 });
+
+it.each([
+  [99.999, 1, 14.2], [100, 1, 14.2], [100.001, 1, 6.9],
+  [99.999, -1, -988 / 60], [100, -1, -988 / 60], [100.001, -1, -6.9],
+])('uses matching slope and friction at x=%s with input %s', (x, direction, velocity) => {
+  const terrain: Terrain = { minX: 0, maxX: 1000, surfaces: [
+    { x1: 0, x2: 100, y1: 180, y2: 160 },
+    { x1: 100, x2: 1000, y1: 160, y2: 160, material: 'ice', friction: 0.45 },
+  ] };
+  const player = createPlayer(x, terrain);
+  simulatePlayer(player, input(direction), terrain, 1 / 60);
+  expect(player.vx).toBeCloseTo(velocity, 6);
+});

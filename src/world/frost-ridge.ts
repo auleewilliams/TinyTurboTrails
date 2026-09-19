@@ -48,9 +48,9 @@ export const FROST_RIDGE: LevelData = {
   entities: [
     ...gems.map((x, index) => ({ ...grounded('gem', 'gem', x, index), y: surfaceY(terrain, x) - 18 })),
     ...springs.map((x, index) => grounded('spring', 'spring', x, index)),
-    ...[1150, 2950, 4900, 6750, 8550, 10450].map((x, index) => grounded('hazard', 'stone', x, index)),
-    ...springs.map((x, index): WorldEntity => ({ id: `frost-bonus-${index + 1}`, kind: 'gem', asset: 'gem',
-      x: x + 65, y: surfaceY(terrain, x) - 92, layer: 'world' })),
+    ...[1110, 2910, 4860, 6710, 8510, 10410].map((x, index) => grounded('hazard', 'stone', x, index)),
+    ...springs.filter((_, index) => index % 2 === 0).map((x, index): WorldEntity => ({ id: `frost-bonus-${index + 1}`, kind: 'gem', asset: 'gem',
+      x: x + 65, y: surfaceY(terrain, x) - 115, layer: 'world' })),
     ...[850, 1550, 2740, 3450, 4610, 5200, 6450, 7200, 8310, 9000, 10150, 10950]
       .map((x, index) => grounded('decoration', index % 3 === 0 ? 'cave' : 'tree', x, index)),
     ...checkpoints.map((checkpoint): WorldEntity => ({ ...checkpoint, kind: 'checkpoint', asset: 'checkpoint', layer: 'world' })),

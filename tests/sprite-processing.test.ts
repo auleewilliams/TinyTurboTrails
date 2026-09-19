@@ -52,3 +52,27 @@ with tempfile.TemporaryDirectory() as directory:
 `], { encoding: 'utf8' });
   expect(JSON.parse(result)).toEqual({ size: [192, 192], alphas: [0, 128], center: [255, 255, 255, 128] });
 });
+
+test('decodes RGBA rows using all five PNG filter modes', () => {
+  const result = execFileSync('python3', ['-B', '-c', `
+import json, struct, tempfile, zlib
+from pathlib import Path
+from scripts.process_sprite_atlas import read_png
+# Each row represents the same two RGBA pixels: (10,20,30,40), (50,60,70,80).
+# Literal prefiltered bytes exercise channel-distance reconstruction independently.
+rows = [bytes([0,10,20,30,40,50,60,70,80]),
+        bytes([1,10,20,30,40,40,40,40,40]),
+        bytes([2,0,0,0,0,0,0,0,0]),
+        bytes([3,5,10,15,20,20,20,20,20]),
+        bytes([4,0,0,0,0,0,0,0,0])]
+def chunk(kind, payload):
+    return struct.pack('>I', len(payload)) + kind + payload + struct.pack('>I', zlib.crc32(kind+payload) & 0xffffffff)
+with tempfile.TemporaryDirectory() as directory:
+    path = Path(directory) / 'filters.png'
+    path.write_bytes(bytes([137,80,78,71,13,10,26,10]) +
+        chunk(b'IHDR', struct.pack('>IIBBBBB', 2,5,8,6,0,0,0)) +
+        chunk(b'IDAT', zlib.compress(b''.join(rows))) + chunk(b'IEND', b''))
+    print(json.dumps(read_png(path)[2]))
+`], { encoding: 'utf8' });
+  expect(JSON.parse(result)).toEqual(Array.from({ length: 5 }, () => [[10, 20, 30, 40], [50, 60, 70, 80]]).flat());
+});

@@ -78,7 +78,7 @@ const sceneryAssets = {
     manifest: JSON.parse(readFileSync(new URL('../public/assets/plains/scenery/manifest.json', import.meta.url), 'utf8')),
   },
 };
-const worldMap = (plains: WorldAssets, timbers: WorldAssets = plains) => ({ plains, timbers });
+const worldMap = (plains: WorldAssets, timbers: WorldAssets = plains) => ({ plains, timbers, frost: plains, cove: plains });
 
 it('pans the plains background within its source bounds over the entire route', () => {
   const crops: number[] = [];
