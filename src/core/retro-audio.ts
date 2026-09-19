@@ -1,3 +1,4 @@
+import { MUSIC, MUSIC_STEPS, musicNotes, type MusicId } from './music';
 import type { GameAudio, SoundEffect } from './audio';
 
 type Tone = readonly [frequency: number, duration: number, type: OscillatorType, endFrequency?: number];
@@ -9,11 +10,6 @@ const EFFECTS: Record<SoundEffect, readonly Tone[]> = {
   checkpoint: [[523, 0.1, 'triangle'], [659, 0.1, 'triangle'], [784, 0.22, 'triangle']],
   complete: [[523, 0.1, 'square'], [659, 0.1, 'square'], [784, 0.1, 'square'], [1047, 0.34, 'triangle']],
 };
-// Original four-bar C-major phrase: each entry is one eighth note at 132 BPM.
-const MELODY = [72, 76, 79, 76, 81, 79, 76, 74, 77, 81, 84, 81, 79, 77, 76, 72,
-  69, 72, 76, 79, 81, 79, 76, 72, 74, 79, 77, 74, 76, 74, 72, 0];
-const BASS = [48, 53, 45, 55];
-const STEP = 60 / 132 / 2;
 const VOICE_LIMIT = 24;
 // 24 simultaneous voices × 0.48 maximum voice gain × 0.075 = 0.864 peak.
 const MASTER_GAIN = 0.075;
@@ -37,6 +33,7 @@ export class RetroAudio implements GameAudio {
   private suspended = false;
   private disposed = false;
   private musicWanted = false;
+  private track: MusicId = 'plains';
   private step = 0;
   private nextNote = 0;
   private pendingUnlock?: Promise<void>;
@@ -106,8 +103,12 @@ export class RetroAudio implements GameAudio {
     return !this.disposed && this.unlocked && !this.muted && !this.suspended && this.context?.state === 'running';
   }
 
-  startMusic(): void {
+  startMusic(track: MusicId = 'plains'): void {
     if (this.disposed) return;
+    if (track !== this.track) {
+      this.stop();
+      this.track = track;
+    }
     this.musicWanted = true;
     this.scheduleMusic();
   }
@@ -125,11 +126,12 @@ export class RetroAudio implements GameAudio {
     // Never catch up a backlog following a throttled tab or blocked main thread.
     if (this.nextNote < now) this.nextNote = now + 0.015;
     while (this.nextNote < now + 0.16) {
-      const note = MELODY[this.step];
-      if (note) this.tone([frequency(note), STEP * 0.7, 'square'], this.nextNote, 0.16);
-      if (this.step % 2 === 0) this.tone([frequency(BASS[Math.floor(this.step / 8)]), STEP * 1.5, 'triangle'], this.nextNote, 0.3);
-      this.step = (this.step + 1) % MELODY.length;
-      this.nextNote += STEP;
+      for (const note of musicNotes(this.track, this.step)) {
+        this.tone([frequency(note.midi), note.duration, note.type,
+          note.endMidi === undefined ? undefined : frequency(note.endMidi)], this.nextNote, note.volume);
+      }
+      this.step = (this.step + 1) % MUSIC_STEPS;
+      this.nextNote += 60 / MUSIC[this.track].bpm / 2;
     }
   }
 
@@ -156,6 +158,7 @@ export class RetroAudio implements GameAudio {
       gain.gain.setValueAtTime(0, when);
       gain.gain.linearRampToValueAtTime(volume, when + 0.006);
       gain.gain.exponentialRampToValueAtTime(0.001, when + duration);
+      gain.gain.linearRampToValueAtTime(0, when + duration + 0.009);
       oscillator.connect(gain);
       gain.connect(this.master);
       const voice = oscillator;

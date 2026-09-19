@@ -5,17 +5,19 @@ test('audio stays locked until interaction and supports all effects, mute, pause
   await page.setContent('<button>Check audio device</button>');
   await page.evaluate(() => {
     document.querySelector('button')!.onclick = () => {
-      const audio = new AudioContext();
-      Object.assign(window, { nativeAudioProbe: audio });
-      void audio.resume().catch(() => {});
+      try {
+        const audio = new AudioContext();
+        Object.assign(window, { nativeAudioProbe: audio });
+        void audio.resume().catch(() => {});
+      } catch { /* Some ports expose no native audio backend. */ }
     };
   });
   await page.getByRole('button').click();
   const deviceRuns = await page.waitForFunction(() =>
-    (window as unknown as { nativeAudioProbe: AudioContext }).nativeAudioProbe.state === 'running',
+    (window as unknown as { nativeAudioProbe?: AudioContext }).nativeAudioProbe?.state === 'running',
   undefined, { timeout: 1500 }).then(() => true, () => false);
   await page.evaluate(() => {
-    void (window as unknown as { nativeAudioProbe: AudioContext }).nativeAudioProbe.close();
+    void (window as unknown as { nativeAudioProbe?: AudioContext }).nativeAudioProbe?.close();
   });
   test.skip(!deviceRuns, 'Native AudioContext cannot run on this host; requires an audio backend.');
   await page.addInitScript(() => {

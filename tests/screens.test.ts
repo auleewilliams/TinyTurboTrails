@@ -5,7 +5,7 @@ import { GameplayPreviewScene } from '../src/game/gameplay-preview';
 import { AdventureScene } from '../src/game/adventure-scene';
 import type { GameAudio } from '../src/core/audio';
 import { PLAINS_LEVEL } from '../src/world/level';
-import { QUARRY_RUN, SANDY_COVE } from '../src/world/levels';
+import { LEVELS, QUARRY_RUN, SANDY_COVE } from '../src/world/levels';
 import { ScreenController } from '../src/game/screens';
 
 const alternateLevel = { ...PLAINS_LEVEL,
@@ -112,7 +112,7 @@ describe('game screen flow', () => {
     scene.update(1 / 60, { horizontal: 0, jumpHeld: false, jumpPressed: false, pausePressed: false, mutePressed: false });
     expect(effects.filter((effect) => effect === 'complete')).toHaveLength(1);
     scene.exit();
-    expect(stops).toBe(1);
+    expect(stops).toBe(3);
   });
 
   it('moves title through loading and gameplay, then finish and replay', () => {
@@ -312,4 +312,34 @@ it('emits dust only on meaningful landings and clears presentation on replay and
   state.feedback.add('landing', 10, 10);
   state.loadLevel(SANDY_COVE);
   expect(state.feedback.effects).toEqual([]);
+});
+
+
+it('selects every level track only on start, preserves recovery, and silences finish/replay title', () => {
+  const neutral = { horizontal: 0, jumpHeld: false, jumpPressed: false, pausePressed: false, mutePressed: false };
+  for (const level of LEVELS) {
+    const calls: string[] = [];
+    const audio = { ...silentAudio(), startMusic: (id?: string) => { calls.push(`music:${id}`); },
+      stop: () => { calls.push('stop'); }, play: (effect: string) => { calls.push(effect); } };
+    const scene = new AdventureScene({} as never, worlds, audio, level);
+    scene.enter();
+    expect(calls).toEqual([]);
+    scene.update(1 / 60, { ...neutral, jumpPressed: true });
+    expect(calls).toEqual(['stop', `music:${level.id}`]);
+    const state = scene as unknown as { player: { x: number; y: number } };
+    state.player.y = level.height + 100;
+    scene.update(1 / 60, neutral);
+    expect(calls.filter(call => call.startsWith('music:'))).toHaveLength(1);
+    state.player.x = level.finish.x;
+    state.player.y = level.finish.y;
+    scene.update(1 / 60, neutral);
+    expect(calls.slice(calls.indexOf('complete') - 1, calls.indexOf('complete') + 1)).toEqual(['stop', 'complete']);
+    scene.update(1 / 60, { ...neutral, jumpPressed: true });
+    expect(scene.screenState).toBe('title');
+    expect(calls.at(-1)).toBe('stop');
+    scene.update(1 / 60, { ...neutral, jumpPressed: true });
+    expect(calls.at(-1)).toBe(`music:${level.id}`);
+    scene.exit();
+    expect(calls.at(-1)).toBe('stop');
+  }
 });

@@ -1,3 +1,5 @@
+import { MUSIC, MUSIC_STEPS, musicForLevel, musicNotes, type MusicId } from '../src/core/music';
+import { LEVELS } from '../src/world/levels';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { RetroAudio } from '../src/core/retro-audio';
 
@@ -131,5 +133,60 @@ describe('RetroAudio lifecycle', () => {
     expect(context.oscillators).toHaveLength(0);
     expect(context.close).toHaveBeenCalledTimes(1);
     await audio.unlock(); expect(context.resume).toHaveBeenCalledTimes(1);
+  });
+});
+
+
+describe('level scores and scheduling', () => {
+  it('covers the registry with distinct melodies, rhythms and instrumentation', () => {
+    expect(Object.keys(MUSIC).sort()).toEqual(LEVELS.map(level => level.id).sort());
+    expect(new Set(Object.values(MUSIC).map(track => JSON.stringify(track.phrases))).size).toBe(6);
+    for (const level of LEVELS) expect(musicForLevel(level.id)).toBe(level.id);
+    expect(musicForLevel('unknown')).toBe('plains');
+    for (const id of Object.keys(MUSIC) as MusicId[]) {
+      expect(MUSIC[id].phrases.every(phrase => phrase.length === 16)).toBe(true);
+      for (let step = 0; step < MUSIC_STEPS; step++) {
+        const notes = musicNotes(id, step);
+        expect(notes.length).toBeLessThanOrEqual(4);
+        expect(notes.every(note => note.volume <= 0.25 && note.duration > 0)).toBe(true);
+        expect(musicNotes(id, step + MUSIC_STEPS)).toEqual(notes);
+      }
+    }
+  });
+  it('switches immediately, retains a repeated selection, and does not catch up after a long stall', async () => {
+    vi.useFakeTimers();
+    const { audio, context } = setup();
+    audio.startMusic('plains'); await audio.unlock();
+    const old = [...context.oscillators];
+    audio.startMusic('frost');
+    expect(old.every(node => node.stopped)).toBe(true);
+    const count = context.oscillators.length;
+    audio.startMusic('frost');
+    expect(context.oscillators).toHaveLength(count);
+    context.currentTime += 300;
+    vi.advanceTimersByTime(75);
+    expect(context.oscillators.length - count).toBeLessThanOrEqual(4);
+    expect(vi.getTimerCount()).toBe(1);
+    audio.stop(); audio.startMusic('frost');
+    expect(context.oscillators.at(-2)?.frequency.value).toBeCloseTo(440 * 2 ** ((86 - 69) / 12));
+    audio.dispose();
+    expect(vi.getTimerCount()).toBe(0);
+  });
+  it('bounds resources across three full loops of every score and repeated muted switches', async () => {
+    vi.useFakeTimers();
+    const { audio, context } = setup(); await audio.unlock();
+    for (const id of Object.keys(MUSIC) as MusicId[]) {
+      audio.setMuted(true); audio.startMusic(id); audio.setMuted(false);
+      const seconds = 60 / MUSIC[id].bpm / 2;
+      for (let step = 0; step < MUSIC_STEPS * 3; step++) {
+        for (const node of context.oscillators) node.onended?.();
+        context.currentTime += seconds;
+        vi.advanceTimersByTime(75);
+        expect(context.oscillators.filter(node => !node.disconnected).length).toBeLessThanOrEqual(4);
+      }
+      expect(vi.getTimerCount()).toBe(1);
+    }
+    audio.dispose();
+    expect(context.oscillators.every(node => node.disconnected)).toBe(true);
   });
 });

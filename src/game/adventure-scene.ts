@@ -1,3 +1,4 @@
+import { musicForLevel } from '../core/music';
 import type { GameAudio } from '../core/audio';
 import type { InputFrame, InputSource } from '../core/input';
 import type { Scene } from '../core/scene';
@@ -103,6 +104,7 @@ export class AdventureScene implements Scene {
         this.selectionDirection = 0;
         this.screens.start();
         this.screens.loaded();
+        this.audio.startMusic(musicForLevel(this.level.id));
       }
       return;
     }
@@ -136,6 +138,7 @@ export class AdventureScene implements Scene {
     if (this.player.y > this.level.height + 80) recoverFromFall(this.run, this.player, this.events, this.level);
     if (this.player.x >= this.level.finish.x && this.screens.state === 'playing') {
       this.screens.complete(this.run.collectedGems.size);
+      this.audio.stop();
       this.audio.play('complete');
     }
     this.feedback.consume(this.events, this.level);
@@ -190,6 +193,7 @@ export class AdventureScene implements Scene {
   }
 
   private loadLevel(level: LevelData): void {
+    this.audio.stop();
     this.feedback.clear();
     this.hud = new HudPresentation();
     this.level = level;

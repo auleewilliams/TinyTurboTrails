@@ -37,7 +37,8 @@ if (!context) {
   let request = 0;
   let pendingJump = false;
   let inputSource: InputSource = 'keyboard';
-  const requestedScene = new URLSearchParams(location.search).get('scene') ?? 'adventure';
+  const requestedScene = new URLSearchParams(location.search).get('scene')
+    ?? (new URLSearchParams(location.search).has('audio') ? 'foundation' : 'adventure');
   const artPreview = requestedScene === 'art';
   const movementPreview = requestedScene === 'movement';
   const worldPreview = requestedScene === 'world';
@@ -127,7 +128,7 @@ if (!context) {
   muteButton.addEventListener('click', toggleMute);
   retryButton.addEventListener('click', retryLoading);
   scenes.change(new FoundationScene());
-  audio.startMusic();
+  if (!adventure && !new URLSearchParams(location.search).has('audio')) audio.startMusic();
   if (adventure) {
     void Promise.all([
       loadHenry(),
@@ -135,7 +136,6 @@ if (!context) {
     ]).then(([henry, worlds]) => {
       if (disposed) return;
       scenes.change(new AdventureScene(henry, worlds, audio, DEFAULT_LEVEL));
-      audio.startMusic();
       assetState = 'ready';
       refreshPause();
     }).catch(() => {
