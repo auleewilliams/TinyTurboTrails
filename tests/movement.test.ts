@@ -346,3 +346,74 @@ describe('riding moving platforms', () => {
     expect(player.groundVelocityX).toBe(0);
   });
 });
+
+describe('surface friction', () => {
+  const terrainWith = (friction?: number): Terrain => ({ ...flat, surfaces: [{ ...flat.surfaces[0], friction }] });
+
+  it.each([0.6, 1, 1.4])('scales acceleration, release braking and reversal by %s', (friction) => {
+    const terrain = terrainWith(friction);
+    for (const [horizontal, initial, expected] of [
+      [1, 0, 920 * friction / 60], [0, 200, 200 - 1200 * friction / 60],
+      [-1, 200, 200 - 920 * friction / 60],
+    ]) {
+      const player = createPlayer(100, terrain);
+      player.vx = initial;
+      simulatePlayer(player, input(horizontal), terrain, 1 / 60);
+      expect(player.vx).toBeCloseTo(expected);
+    }
+  });
+
+  it('preserves default handling when friction is omitted', () => {
+    const implicit = createPlayer(100, flat);
+    const explicit = createPlayer(100, flat);
+    for (const horizontal of [1, 1, 0, -1, -1, 0]) {
+      simulatePlayer(implicit, input(horizontal), flat, 1 / 60);
+      simulatePlayer(explicit, input(horizontal), terrainWith(1), 1 / 60);
+      expect(implicit).toEqual(explicit);
+    }
+  });
+
+  it.each(['air', 'ledge', 'moving', 'flush platform'])('keeps normal handling on %s above slippery terrain', (support) => {
+    for (const horizontal of [0, 1]) {
+      const player = createPlayer(116, flat);
+      player.vx = 100;
+      player.y = (support === 'flush platform' ? 180 : 120) - DEFAULT_MOVEMENT.height;
+      player.onGround = support !== 'air';
+      player.platformId = support === 'air' ? null : 'support';
+      const bodies: PlatformBody[] = support === 'air' ? [] : [{
+        id: 'support', x: 80, y: support === 'flush platform' ? 180 : 120,
+        width: 72, height: 12, vx: support === 'moving' ? 40 : 0, vy: 0,
+      }];
+      simulatePlayer(player, input(horizontal), terrainWith(0.6), 1 / 60, bodies);
+      const rate = horizontal === 0 ? 1200 : support === 'air' ? 620 : 920;
+      expect(player.vx).toBeCloseTo(100 + (horizontal === 0 ? -rate : rate) / 60);
+    }
+  });
+
+  it('switches friction after crossing a join and retains the first segment at the exact join', () => {
+    const terrain: Terrain = { ...flat, surfaces: [
+      { x1: 0, x2: 200, y1: 180, y2: 180, friction: 0.6 },
+      { x1: 200, x2: 10000, y1: 180, y2: 180, friction: 1.4 },
+    ] };
+    const player = createPlayer(200, terrain);
+    player.vx = 200;
+    simulatePlayer(player, input(), terrain, 1 / 60);
+    expect(player.vx).toBeCloseTo(188);
+    simulatePlayer(player, input(), terrain, 1 / 60);
+    expect(player.vx).toBeCloseTo(160);
+  });
+
+  it('gives low friction a longer but bounded stopping distance', () => {
+    const distances = [0.6, 1, 1.4].map((friction) => {
+      const terrain = terrainWith(friction);
+      const player = createPlayer(100, terrain);
+      player.vx = DEFAULT_MOVEMENT.maxSpeed;
+      for (let tick = 0; tick < 60; tick++) simulatePlayer(player, input(), terrain, 1 / 60);
+      expect(player.vx).toBe(0);
+      return player.x - 100;
+    });
+    expect(distances[0]).toBeGreaterThan(distances[1]);
+    expect(distances[1]).toBeGreaterThan(distances[2]);
+    expect(distances[0]).toBeLessThan(34);
+  });
+});

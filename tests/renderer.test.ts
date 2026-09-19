@@ -1,10 +1,11 @@
 import { readFileSync } from 'node:fs';
 import { expect, it, vi } from 'vitest';
-import { drawAsset, drawWorld } from '../src/world/renderer';
+import { drawAsset, drawSurfaceGrip, drawWorld } from '../src/world/renderer';
 import type { WorldAsset, WorldAssets } from '../src/world/assets';
 import type { HenryAssets } from '../src/art/henry';
 import type { GameAudio } from '../src/core/audio';
 import { AdventureScene } from '../src/game/adventure-scene';
+import { MovementPreviewScene } from '../src/game/movement-preview';
 import { GameplayPreviewScene } from '../src/game/gameplay-preview';
 import { damagePlayer, type RunState } from '../src/game/interactions';
 import { createPlayer } from '../src/game/movement';
@@ -337,4 +338,34 @@ it('draws each slab in the level palette and telegraphs its whole path', () => {
   expect(path.length).toBeGreaterThan(4);
   expect(path.map((rect) => rect.args[0]).some((x) => x <= platform.from.x + platform.width / 2)).toBe(true);
   expect(path.map((rect) => rect.args[0]).some((x) => x >= platform.to.x + platform.width / 2 - 4)).toBe(true);
+});
+
+
+it('marks slippery slopes with a bright band and strokes, and grippy ground with grains', () => {
+  const low = recordingContext();
+  const strokes: unknown[] = [];
+  low.ctx.stroke = () => { strokes.push(low.ctx.strokeStyle); };
+  drawSurfaceGrip(low.ctx, { x1: 10, x2: 90, y1: 100, y2: 140, friction: 0.6 }, { x: 10, y: 20 });
+  expect(strokes).toContain('#80dbea');
+  expect(low.rects.length).toBeGreaterThan(0);
+  expect(low.rects[0].width).toBeGreaterThan(low.rects[0].height);
+  expect(low.rects[0].y).toBeGreaterThan(80);
+  const high = recordingContext();
+  drawSurfaceGrip(high.ctx, { x1: 0, x2: 80, y1: 100, y2: 100, friction: 1.4 }, { x: 0, y: 0 });
+  expect(high.rects.length).toBeGreaterThan(0);
+  expect(high.rects[0].width).toBe(high.rects[0].height);
+  for (const friction of [undefined, 1]) {
+    const normal = recordingContext();
+    drawSurfaceGrip(normal.ctx, { x1: 0, x2: 80, y1: 100, y2: 100, friction }, { x: 0, y: 0 });
+    expect(normal.rects).toHaveLength(0);
+  }
+});
+
+
+it('keeps friction preview labels readable after the centered loading screen', () => {
+  const { ctx, texts } = recordingContext();
+  ctx.textAlign = 'center';
+  new MovementPreviewScene(henryAssets).render(ctx);
+  expect(texts.find(({ text }) => text === 'SLIPPERY 0.6')?.textAlign).toBe('left');
+  expect(texts.find(({ text }) => text === 'GRIPPY 1.4')?.textAlign).toBe('left');
 });

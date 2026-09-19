@@ -1,6 +1,6 @@
 import type { Camera } from './camera';
 import type { LevelData, WorldEntity } from './level';
-import type { PlatformBody } from '../game/movement';
+import type { PlatformBody, Surface } from '../game/movement';
 import type { MovingPlatform } from '../game/platforms';
 import type { WorldAsset, WorldAssets } from './assets';
 import { drawSceneryBackground, drawScenerySprite, foregroundPlacements, sceneryForDecoration } from './scenery';
@@ -52,6 +52,7 @@ export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, le
     ctx.moveTo(surface.x1 - offset.x, surface.y1 - offset.y);
     ctx.lineTo(surface.x2 - offset.x, surface.y2 - offset.y);
     ctx.stroke();
+    drawSurfaceGrip(ctx, surface, offset);
   }
   drawPlatforms(ctx, level, offset, platforms);
   // Decorative silhouettes sit behind every collectible, hazard and checkpoint.
@@ -144,4 +145,30 @@ export function drawAsset(ctx: CanvasRenderingContext2D, assets: WorldAssets, as
   const sourceY = Math.floor(index / 4) * cell;
   const anchor = assets.manifest.anchors?.[asset] ?? { x: cell / 2, y: cell };
   ctx.drawImage(assets.atlas, sourceX, sourceY, cell, cell, x - anchor.x * scale, y - anchor.y * scale, cell * scale, cell * scale);
+}
+
+
+/** Automatic grip cues: smooth cyan streaks below 1, ochre grains above 1. */
+export function drawSurfaceGrip(ctx: CanvasRenderingContext2D, surface: Surface, offset: { x: number; y: number }): void {
+  const friction = surface.friction ?? 1;
+  if (friction === 1 || surface.x2 <= surface.x1) return;
+  const slippery = friction < 1;
+  const slope = (surface.y2 - surface.y1) / (surface.x2 - surface.x1);
+  ctx.save();
+  ctx.strokeStyle = slippery ? '#80dbea' : '#d6ac63';
+  ctx.lineWidth = 6;
+  ctx.beginPath();
+  ctx.moveTo(surface.x1 - offset.x, surface.y1 - offset.y + 2);
+  ctx.lineTo(surface.x2 - offset.x, surface.y2 - offset.y + 2);
+  ctx.stroke();
+  ctx.fillStyle = slippery ? '#e6ffff' : '#72502d';
+  // World-anchored markings stay still as the camera scrolls; skip offscreen work.
+  const first = Math.max(0, Math.ceil((offset.x - surface.x1 - 8) / 12));
+  for (let index = first; ; index++) {
+    const x = surface.x1 + 4 + index * 12;
+    if (x + 6 >= surface.x2 || x - offset.x > 426) break;
+    const y = surface.y1 + slope * (x - surface.x1);
+    ctx.fillRect(x - offset.x, y - offset.y + 2, slippery ? 6 : 2, 2);
+  }
+  ctx.restore();
 }

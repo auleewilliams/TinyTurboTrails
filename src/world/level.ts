@@ -1,4 +1,4 @@
-import { DEFAULT_MOVEMENT, surfaceY, type Surface } from '../game/movement';
+import { DEFAULT_MOVEMENT, MAX_SURFACE_FRICTION, MIN_SURFACE_FRICTION, surfaceY, type Surface } from '../game/movement';
 import { PLATFORM_MAX_SPEED, platformSpeed, type MovingPlatform } from '../game/platforms';
 import type { WorldAsset } from './assets';
 
@@ -254,6 +254,12 @@ export function validateLevel(level: LevelData): void {
     const previous = level.surfaces[index - 1];
     const current = level.surfaces[index];
     if (previous.x2 !== current.x1 || previous.y2 !== current.y1) throw new Error('surfaces must be contiguous');
+  }
+  for (const surface of level.surfaces) {
+    const friction = surface.friction ?? 1;
+    if (!Number.isFinite(friction) || friction < MIN_SURFACE_FRICTION || friction > MAX_SURFACE_FRICTION) {
+      throw new Error(`surface friction must be between ${MIN_SURFACE_FRICTION} and ${MAX_SURFACE_FRICTION}`);
+    }
   }
   const ids = new Set<string>();
   for (const entity of level.entities) {

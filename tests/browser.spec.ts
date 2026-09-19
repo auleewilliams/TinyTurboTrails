@@ -4,10 +4,10 @@ import { PLAINS_LEVEL } from '../src/world/level';
 import { QUARRY_RUN } from '../src/world/levels';
 import { DEFAULT_MOVEMENT, surfaceY } from '../src/game/movement';
 import { platformBodyAt } from '../src/game/platforms';
-import { drawAsset, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawWorld } from '../src/world/renderer';
+import { drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawWorld } from '../src/world/renderer';
 
 /** The renderer is injected as plain functions, so every helper it calls has to travel with it. */
-const RENDERER_SOURCE = [drawAsset, drawCrumblingLedge, drawPlatformPath, drawPlatforms].map((helper) => helper.toString()).join('\n');
+const RENDERER_SOURCE = [drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms].map((helper) => helper.toString()).join('\n');
 
 const dangerXs = (level: typeof PLAINS_LEVEL): number[] => level.entities
   .filter((entity) => entity.kind === 'slime' || entity.kind === 'hazard')
@@ -978,4 +978,30 @@ test('a failed scenery image exposes Retry loading and recovers', async ({ page 
   await expect(page.locator('#status')).toContainText('Adventure preview · Title');
   await expect(page.locator('#retry')).toBeHidden();
   await expect(page.locator('canvas')).toBeVisible();
+});
+
+test('movement preview shows distinct friction cues and remains controllable', async ({ page }, info) => {
+  await page.goto('/?scene=movement');
+  const canvas = page.locator('canvas');
+  await expect(canvas).toBeVisible();
+  await expect.poll(() => page.evaluate(() => {
+    const canvas = document.querySelector('canvas')!;
+    const ctx = canvas.getContext('2d')!;
+    const pixels = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+    let cyan = 0;
+    let ochre = 0;
+    for (let i = 0; i < pixels.length; i += 4) {
+      if (pixels[i] === 128 && pixels[i + 1] === 219 && pixels[i + 2] === 234) cyan++;
+      if (pixels[i] === 214 && pixels[i + 1] === 172 && pixels[i + 2] === 99) ochre++;
+    }
+    return cyan > 10 && ochre > 10;
+  })).toBe(true);
+  const before = await canvas.screenshot();
+  await page.keyboard.down('ArrowRight');
+  await page.waitForTimeout(700);
+  await page.keyboard.up('ArrowRight');
+  expect((await canvas.screenshot()).equals(before)).toBe(false);
+  await page.goto('/?scene=movement');
+  await page.waitForTimeout(300);
+  await canvas.screenshot({ path: info.outputPath('surface-friction.png') });
 });
