@@ -6,6 +6,7 @@ import { BrowserInput, type InputFrame, type InputSource } from './core/input';
 import { SceneHost } from './core/scene';
 import { fitViewport } from './core/viewport';
 import { FoundationScene } from './foundation-scene';
+import { loadTitleArtwork } from './art/title';
 import { loadHenry } from './art/henry';
 import { ArtPreviewScene } from './art/preview-scene';
 import { MovementPreviewScene } from './game/movement-preview';
@@ -131,11 +132,12 @@ if (!context) {
   if (!adventure && !new URLSearchParams(location.search).has('audio')) audio.startMusic();
   if (adventure) {
     void Promise.all([
+      loadTitleArtwork(),
       loadHenry(),
       loadWorldAssetMap(LEVELS.map(({ atlas }) => atlas)),
-    ]).then(([henry, worlds]) => {
+    ]).then(([titleArtwork, henry, worlds]) => {
       if (disposed) return;
-      scenes.change(new AdventureScene(henry, worlds, audio, DEFAULT_LEVEL));
+      scenes.change(new AdventureScene(titleArtwork, henry, worlds, audio, DEFAULT_LEVEL));
       assetState = 'ready';
       refreshPause();
     }).catch(() => {

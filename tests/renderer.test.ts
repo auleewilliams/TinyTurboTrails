@@ -245,7 +245,7 @@ const silentAudio: GameAudio = {
 
 it('renders the selected level with its own world atlas', () => {
   const timberAssets: WorldAssets = { atlas: {} as HTMLImageElement, manifest };
-  const scene = new AdventureScene(henryAssets, worldMap(sceneryAssets, timberAssets), silentAudio, PLAINS_LEVEL);
+  const scene = new AdventureScene({} as HTMLImageElement, henryAssets, worldMap(sceneryAssets, timberAssets), silentAudio, PLAINS_LEVEL);
   const neutral = { horizontal: 0, jumpHeld: false, jumpPressed: false, pausePressed: false, mutePressed: false };
   for (let index = 0; index < 2; index++) {
     scene.update(1 / 60, { ...neutral, horizontal: 1 });
@@ -263,7 +263,7 @@ const otherGem = PLAINS_LEVEL.entities.find((entity) => entity.id === 'gem-002')
 const start = { horizontal: 0, jumpHeld: false, jumpPressed: true, pausePressed: false, mutePressed: false };
 
 it('draws low foreground plants after Henry in both playable scenes', () => {
-  const adventure = new AdventureScene(henryAssets, worldMap(sceneryAssets), silentAudio, PLAINS_LEVEL);
+  const adventure = new AdventureScene({} as HTMLImageElement, henryAssets, worldMap(sceneryAssets), silentAudio, PLAINS_LEVEL);
   adventure.enter();
   adventure.update(1 / 60, start);
   const preview = new GameplayPreviewScene(henryAssets, sceneryAssets, silentAudio, PLAINS_LEVEL);
@@ -327,7 +327,7 @@ it('draws crumbling ledges as stone tiles with deterministic warning cracks', ()
 });
 
 it('stops drawing a gem once the adventure collects it', () => {
-  const scene = new AdventureScene(henryAssets, worldMap(worldAssets), silentAudio, PLAINS_LEVEL);
+  const scene = new AdventureScene({} as HTMLImageElement, henryAssets, worldMap(worldAssets), silentAudio, PLAINS_LEVEL);
   scene.enter();
   scene.update(1 / 60, start);
   const before = recordingContext();
@@ -347,7 +347,7 @@ it.each([
   { name: 'original atlas', assets: worldAssets },
   { name: 'generated scenery', assets: sceneryAssets },
 ])('draws the runtime slime position with $name', ({ assets }) => {
-  const scene = new AdventureScene(henryAssets, worldMap(assets), silentAudio, PLAINS_LEVEL);
+  const scene = new AdventureScene({} as HTMLImageElement, henryAssets, worldMap(assets), silentAudio, PLAINS_LEVEL);
   scene.enter();
   scene.update(1 / 60, start);
   const slime = PLAINS_LEVEL.entities.find((entity) => entity.patrol)!;
@@ -363,7 +363,7 @@ it.each([
 });
 
 it('keeps the HUD left-aligned even after a centered overlay ran', () => {
-  const scene = new AdventureScene(henryAssets, worldMap(worldAssets), silentAudio, PLAINS_LEVEL);
+  const scene = new AdventureScene({} as HTMLImageElement, henryAssets, worldMap(worldAssets), silentAudio, PLAINS_LEVEL);
   scene.enter();
   scene.update(1 / 60, start);
   const { ctx, texts } = recordingContext();
@@ -385,7 +385,7 @@ function renderedHealthPips(scene: AdventureScene | GameplayPreviewScene, health
 }
 
 it.each([
-  ['adventure', () => new AdventureScene(henryAssets, worldMap(worldAssets), silentAudio, PLAINS_LEVEL)],
+  ['adventure', () => new AdventureScene({} as HTMLImageElement, henryAssets, worldMap(worldAssets), silentAudio, PLAINS_LEVEL)],
   ['gameplay preview', () => new GameplayPreviewScene(henryAssets, worldAssets, silentAudio, PLAINS_LEVEL)],
 ] as const)('draws three readable health pips in the %s HUD', (_name, createScene) => {
   const full = renderedHealthPips(createScene(), 3);
@@ -397,12 +397,12 @@ it.each([
 });
 
 it('briefly highlights the pip most recently lost', () => {
-  const pips = renderedHealthPips(new AdventureScene(henryAssets, worldMap(worldAssets), silentAudio, PLAINS_LEVEL), 2, 0.2);
+  const pips = renderedHealthPips(new AdventureScene({} as HTMLImageElement, henryAssets, worldMap(worldAssets), silentAudio, PLAINS_LEVEL), 2, 0.2);
   expect(pips.map(({ fillStyle }) => fillStyle)).toEqual(['#ff5d5d', '#ff5d5d', '#ffda75']);
 });
 
 it('briefly highlights the final lost pip after lethal damage refills health', () => {
-  const scene = new AdventureScene(henryAssets, worldMap(worldAssets), silentAudio, PLAINS_LEVEL);
+  const scene = new AdventureScene({} as HTMLImageElement, henryAssets, worldMap(worldAssets), silentAudio, PLAINS_LEVEL);
   scene.update(1 / 60, start);
   const state = scene as unknown as { player: ReturnType<typeof createPlayer>; run: RunState };
   state.run.health = 1;
@@ -415,7 +415,7 @@ it('briefly highlights the final lost pip after lethal damage refills health', (
 });
 
 it('draws the selected level name on the title screen', () => {
-  const scene = new AdventureScene(henryAssets, worldMap(worldAssets), silentAudio, PLAINS_LEVEL);
+  const scene = new AdventureScene({} as HTMLImageElement, henryAssets, worldMap(worldAssets), silentAudio, PLAINS_LEVEL);
   const { ctx, texts } = recordingContext();
   scene.render(ctx);
   expect(texts.some(({ text }) => text === '◀ PLAINS ▶')).toBe(true);
