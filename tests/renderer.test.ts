@@ -176,6 +176,31 @@ it('aligns flat and ramp artwork bounds with the playable contour', () => {
   expect(Number(ramp[6]) + 11 * scaleY).toBeCloseTo(surfaceY(TREETOP_TIMBERS, 1278), 5);
 });
 
+it.each([
+  { name: 'flat', y1: 180, y2: 180 },
+  { name: 'ascending', y1: 180, y2: 166 },
+  { name: 'descending', y1: 166, y2: 180 },
+])('keeps partial $name tiles inside their surface and aligned at its endpoint', ({ y1, y2 }) => {
+  const { ctx, images } = recordingContext();
+  const translate = vi.fn();
+  ctx.translate = translate;
+  const assets: WorldAssets = { atlas: {} as HTMLImageElement, manifest: timberManifest };
+  const level = { ...TREETOP_TIMBERS, minX: 0, maxX: 300, width: 300,
+    theme: { ...TREETOP_TIMBERS.theme, parallax: [] }, entities: [],
+    surfaces: [{ x1: 100, x2: 170, y1, y2 }],
+  };
+  drawWorld(ctx, assets, level, { position: { x: 0, y: 0 } } as Camera);
+  const tiles = images.filter((call) => call[2] === 0);
+  expect(tiles).toHaveLength(2);
+  const last = tiles[1];
+  expect(last[7]).toBe(22);
+  const descending = y2 > y1;
+  if (descending) expect(translate).toHaveBeenLastCalledWith(170, 0);
+  else expect(Number(last[5]) + Number(last[7])).toBe(170);
+  const topAtEnd = y1 === y2 ? 24 : descending ? 30 : 11;
+  expect(Number(last[6]) + topAtEnd * Number(last[8]) / 48).toBeCloseTo(y2, 5);
+});
+
 it('mirrors textured ramp cells when the terrain descends to the right', () => {
   const { ctx } = recordingContext();
   const scale = vi.fn();

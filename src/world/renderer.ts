@@ -79,6 +79,7 @@ function drawTerrainTiles(ctx: CanvasRenderingContext2D, assets: WorldAssets, le
     for (let x = surface.x1; x < surface.x2; x += cell) {
       if (x + cell < offset.x || x > offset.x + 426) continue;
       const end = Math.min(x + cell, surface.x2);
+      const tileWidth = end - x;
       const y = surface.y1 + (surface.y2 - surface.y1) * ((x - surface.x1) / span);
       const asset: WorldAsset = x === level.minX ? 'terrain-left'
         : end === level.maxX ? 'terrain-right'
@@ -89,7 +90,7 @@ function drawTerrainTiles(ctx: CanvasRenderingContext2D, assets: WorldAssets, le
       const sourceY = Math.floor(index / 4) * cell;
       const tops = assets.manifest.terrainTops?.[asset] ?? { left: 0, right: 0 };
       const sourceRise = Math.abs(tops.right - tops.left);
-      const desiredRise = Math.abs((surface.y2 - surface.y1) / span * cell);
+      const desiredRise = Math.abs((surface.y2 - surface.y1) / span * tileWidth);
       const scaleY = asset === 'terrain-ramp' && sourceRise > 0 ? Math.min(1, desiredRise / sourceRise) : 1;
       const descending = asset === 'terrain-ramp' && surface.y2 > surface.y1;
       const startTop = descending ? tops.right : tops.left;
@@ -97,13 +98,13 @@ function drawTerrainTiles(ctx: CanvasRenderingContext2D, assets: WorldAssets, le
       const destinationHeight = cell * scaleY;
       if (descending) {
         ctx.save();
-        ctx.translate(x - offset.x + cell, 0);
+        ctx.translate(end - offset.x, 0);
         ctx.scale(-1, 1);
-        ctx.drawImage(assets.atlas, sourceX, sourceY, cell, cell, 0, destinationY, cell, destinationHeight);
+        ctx.drawImage(assets.atlas, sourceX, sourceY, cell, cell, 0, destinationY, tileWidth, destinationHeight);
         ctx.restore();
       } else {
         ctx.drawImage(assets.atlas, sourceX, sourceY, cell, cell,
-          x - offset.x, destinationY, cell, destinationHeight);
+          x - offset.x, destinationY, tileWidth, destinationHeight);
       }
     }
   }
