@@ -1,9 +1,9 @@
 # Adventure screens and levels — issue #6
 
 Open `/` (or `/?scene=adventure`) for the complete first-play shell. The title
-screen uses Left/Right to select Plains, Quarry Run or Sunset Site, then starts with Space or
-any standard controller face button (A/B/X/Y). The loading state is entered before local
-assets are ready, and each playable route uses the shared movement and run
+screen uses Left/Right to select Plains, Quarry Run, Treetop Timbers or Sunset Site, then starts with Space or
+any standard controller face button (A/B/X/Y). Local atlases are loaded before the picker
+appears, and each playable route uses the shared movement and run
 interaction systems. Escape uses the foundation pause gate, freezing the
 fixed-step simulation; Space on the finish screen creates a fresh run and
 returns to the picker.
@@ -35,9 +35,8 @@ one optional crane ferry over the yard's hazards. Its theme adds a low
 `sun` (a stepped pixel disc drawn behind the ground) and a warm palette that
 keeps the grass-green edge. Its own construction atlas supplies girder terrain,
 a cone-and-cement-mixer hazard, scaffolding, culvert pipes, weeds, pneumatic
-jacks, cement slimes and a sunset construction skyline. Starting a route loads
-and caches its atlas, keeping the title on a visible loading state until the
-asset is ready; a failure can be retried with Space. Control prompts are short
+jacks, cement slimes and a sunset construction skyline. Startup preloads each
+registered atlas; a failure exposes the page's Reload retry button. Control prompts are short
 and visual enough for the intended six-year-old player.
 
 The Plains route is long enough that an automated hold-right traversal (no jumping,

@@ -62,6 +62,7 @@ export const SUNSET_SITE: LevelData = {
   name: 'SUNSET SITE',
   atlas: 'site',
   theme: {
+    texturedTerrain: true,
     sky: '#e88f6a',
     ground: '#5a3b4a',
     edge: '#b9d24f',

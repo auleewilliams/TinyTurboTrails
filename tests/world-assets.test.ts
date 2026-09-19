@@ -14,6 +14,12 @@ it('ships a complete grounded construction atlas for Sunset Site', () => {
   expect(Object.values(site.assets).sort((a, b) => Number(a) - Number(b))).toEqual(
     Array.from({ length: 16 }, (_, index) => index),
   );
+  expect(site.terrainTops).toEqual({
+    'terrain-flat': { left: 18, right: 18 },
+    'terrain-left': { left: 11, right: 17 },
+    'terrain-right': { left: 17, right: 10 },
+    'terrain-ramp': { left: 29, right: 8 },
+  });
   for (const asset of ['stone', 'cave', 'tree', 'flowers', 'spring', 'slime', 'checkpoint', 'finish-arch', 'bush']) {
     expect(site.anchors[asset], asset).toEqual({ x: 24, y: 44 });
   }
