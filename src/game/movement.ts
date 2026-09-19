@@ -21,6 +21,7 @@ export interface Surface { x1: number; x2: number; y1: number; y2: number }
 /** A moving platform sampled at one moment: a solid top face plus the velocity it carries riders with. */
 export interface PlatformBody { id: string; x: number; y: number; width: number; height: number; vx: number; vy: number }
 export interface Terrain { minX: number; maxX: number; surfaces: readonly Surface[] }
+export interface CollisionPlatform { id: string; x1: number; x2: number; y: number }
 export interface MovementInput { horizontal: number; jumpPressed: boolean; jumpHeld: boolean }
 export type Facing = 1 | -1;
 export interface Player {
@@ -101,8 +102,13 @@ function approach(value: number, target: number, amount: number): number {
  * then the moving platforms the caller sampled for this moment.
  */
 export function simulatePlayer(player: Player, input: MovementInput, terrain: Terrain, seconds: number,
-  platforms: readonly PlatformBody[] = []): void {
+  platforms: readonly (PlatformBody | CollisionPlatform)[] = []): void {
   const dt = Math.max(0, Math.min(seconds, MAX_STEP_SECONDS));
+  // Static ledges use the same one-way support selection as moving slabs.
+  const bodies: readonly PlatformBody[] = platforms.map((platform) => 'width' in platform ? platform : {
+    id: platform.id, x: platform.x1, y: platform.y, width: platform.x2 - platform.x1,
+    height: 0, vx: 0, vy: 0,
+  });
   if (input.jumpPressed) player.jumpBufferSeconds = DEFAULT_MOVEMENT.jumpBufferSeconds;
   else player.jumpBufferSeconds = Math.max(0, player.jumpBufferSeconds - dt);
   player.coyoteSeconds = player.onGround
@@ -114,7 +120,8 @@ export function simulatePlayer(player: Player, input: MovementInput, terrain: Te
   const rate = input.horizontal === 0 ? DEFAULT_MOVEMENT.braking : acceleration;
   player.vx = approach(player.vx, target, rate * dt);
   if (player.onGround) {
-    player.vx += surfaceSlope(terrain, player.x) * DEFAULT_MOVEMENT.downhillAcceleration * dt;
+    const standingOnTerrain = Math.abs(player.y + DEFAULT_MOVEMENT.height - surfaceY(terrain, player.x)) < 0.01;
+    if (standingOnTerrain) player.vx += surfaceSlope(terrain, player.x) * DEFAULT_MOVEMENT.downhillAcceleration * dt;
     player.vx = Math.max(-DEFAULT_MOVEMENT.maxSpeed, Math.min(DEFAULT_MOVEMENT.maxSpeed, player.vx));
   }
   if (player.vx > 1) player.facing = 1;
@@ -136,7 +143,7 @@ export function simulatePlayer(player: Player, input: MovementInput, terrain: Te
   const step = dt / steps;
   for (let index = 0; index < steps; index++) {
     // A ride moves Henry with it on both axes; the snap below only corrects what gravity adds.
-    const carrier = ridingPlatform(player, platforms);
+    const carrier = ridingPlatform(player, bodies);
     if (carrier) {
       player.x += carrier.vx * step;
       player.y += carrier.vy * step;
@@ -158,7 +165,7 @@ export function simulatePlayer(player: Player, input: MovementInput, terrain: Te
       grounded = true;
     }
     // Platforms resolve after terrain: a slab standing above the ground wins the contact.
-    const support = platformSupport(player, platforms, previousFeet, ground);
+    const support = platformSupport(player, bodies, previousFeet, ground);
     if (support) {
       player.y = support.y - DEFAULT_MOVEMENT.height;
       player.vy = 0;

@@ -194,6 +194,38 @@ it('draws every entity when a scene supplies no run state', () => {
   expect(images).toHaveLength(PLAINS_LEVEL.entities.length + 3);
 });
 
+it('draws crumbling ledges as stone tiles with deterministic warning cracks', () => {
+  const ledge = {
+    id: 'test-ledge', kind: 'crumbling-ledge' as const, x: 200, y: 120,
+    width: 72, asset: 'stone', layer: 'world' as const,
+  };
+  const level = {
+    ...PLAINS_LEVEL,
+    theme: { ...PLAINS_LEVEL.theme, parallax: [] },
+    entities: [ledge],
+  };
+  const camera = new Camera({ width: 426, height: 240, worldWidth: level.width, worldHeight: level.height });
+  const stable = recordingContext();
+  let stableStrokes = 0;
+  stable.ctx.stroke = () => { stableStrokes++; };
+  drawWorld(stable.ctx, worldAssets, level, camera);
+  const stableTiles = stable.images.filter((call) => call[7] === 24);
+  expect(stableTiles.map((call) => call[5])).toEqual([164, 188, 212]);
+
+  const warning = recordingContext();
+  let crackStrokes = 0;
+  warning.ctx.stroke = () => { crackStrokes++; };
+  drawWorld(warning.ctx, worldAssets, level, camera, () => true,
+    (entity) => ({ x: entity.x, y: entity.y, warningProgress: 0.75 }));
+  const warningTiles = warning.images.filter((call) => call[7] === 24);
+  expect(warningTiles.map((call) => call[5])).not.toEqual(stableTiles.map((call) => call[5]));
+  expect(crackStrokes - stableStrokes).toBe(2);
+
+  const crumbled = recordingContext();
+  drawWorld(crumbled.ctx, worldAssets, level, camera, () => false);
+  expect(crumbled.images.filter((call) => call[7] === 24)).toEqual([]);
+});
+
 it('stops drawing a gem once the adventure collects it', () => {
   const scene = new AdventureScene(henryAssets, worldAssets, silentAudio, PLAINS_LEVEL);
   scene.enter();

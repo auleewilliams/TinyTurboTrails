@@ -4,10 +4,10 @@ import { PLAINS_LEVEL } from '../src/world/level';
 import { QUARRY_RUN } from '../src/world/levels';
 import { DEFAULT_MOVEMENT, surfaceY } from '../src/game/movement';
 import { platformBodyAt } from '../src/game/platforms';
-import { drawAsset, drawPlatformPath, drawPlatforms, drawWorld } from '../src/world/renderer';
+import { drawAsset, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawWorld } from '../src/world/renderer';
 
 /** The renderer is injected as plain functions, so every helper it calls has to travel with it. */
-const RENDERER_SOURCE = [drawAsset, drawPlatformPath, drawPlatforms].map((helper) => helper.toString()).join('\n');
+const RENDERER_SOURCE = [drawAsset, drawCrumblingLedge, drawPlatformPath, drawPlatforms].map((helper) => helper.toString()).join('\n');
 
 const dangerXs = (level: typeof PLAINS_LEVEL): number[] => level.entities
   .filter((entity) => entity.kind === 'slime' || entity.kind === 'hazard')
@@ -399,6 +399,75 @@ test('title picker selects Quarry Run and starts the selected route', async ({ p
   }
   await page.keyboard.up('ArrowRight');
   await expect(page.locator('#status')).toContainText('Adventure preview · Finish', { timeout: 5000 });
+});
+
+test('Quarry crumbling ledge warns, disappears and returns after fall recovery', async ({ page }, info) => {
+  test.setTimeout(150_000);
+  await page.addInitScript(() => {
+    const fillRect = CanvasRenderingContext2D.prototype.fillRect;
+    const drawImage = CanvasRenderingContext2D.prototype.drawImage;
+    const stroke = CanvasRenderingContext2D.prototype.stroke;
+    CanvasRenderingContext2D.prototype.fillRect = function (x, y, width, height) {
+      if (x === 0 && y === 0 && width === 426 && height === 240 && this.fillStyle === '#657b8c') {
+        this.canvas.dataset.ledgeTiles = '0';
+        this.canvas.dataset.ledgeCracks = '0';
+      }
+      fillRect.call(this, x, y, width, height);
+    };
+    CanvasRenderingContext2D.prototype.drawImage = function (this: CanvasRenderingContext2D, ...args: unknown[]) {
+      if (args.length === 9 && args[7] === 24 && args[8] === 24) {
+        const count = Number(this.canvas.dataset.ledgeTiles ?? 0);
+        this.canvas.dataset.ledgeTiles = String(count + 1);
+      }
+      Reflect.apply(drawImage, this, args);
+    } as typeof drawImage;
+    CanvasRenderingContext2D.prototype.stroke = function (path?: Path2D) {
+      if (this.strokeStyle === '#49362d') {
+        const count = Number(this.canvas.dataset.ledgeCracks ?? 0);
+        this.canvas.dataset.ledgeCracks = String(count + 1);
+        if (!this.canvas.dataset.ledgeAutoPaused) {
+          this.canvas.dataset.ledgeAutoPaused = 'true';
+          window.dispatchEvent(new KeyboardEvent('keydown', { code: 'Escape' }));
+          window.dispatchEvent(new KeyboardEvent('keyup', { code: 'Escape' }));
+        }
+      }
+      Reflect.apply(stroke, this, path ? [path] : []);
+    };
+  });
+  await page.goto('/?scene=adventure&debug=1');
+  await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15_000 });
+  await page.keyboard.down('ArrowRight');
+  await page.waitForTimeout(100);
+  await page.keyboard.up('ArrowRight');
+  await page.keyboard.press('Space');
+  await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
+  const canvas = page.locator('canvas');
+  await expect(canvas).toHaveAttribute('data-ledge-tiles', '9');
+
+  const dangerProgress = { index: 0 };
+  const dangers = dangerXs(QUARRY_RUN);
+  await page.keyboard.down('ArrowRight');
+  for (let step = 0; step < 1_000; step++) {
+    const status = await advancePastDanger(page, dangers, dangerProgress);
+    if (status.includes('Paused')) break;
+  }
+  await expect(page.locator('#status')).toHaveText('Paused · Escape to resume', { timeout: 5_000 });
+  await page.keyboard.up('ArrowRight');
+  expect(Number(await canvas.getAttribute('data-ledge-cracks') ?? 0)).toBeGreaterThan(0);
+  await info.attach('crumbling-ledge-warning', {
+    body: await canvas.screenshot({ path: info.outputPath('crumbling-ledge-warning.png') }),
+    contentType: 'image/png',
+  });
+  await page.keyboard.press('Escape');
+  await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
+  await expect.poll(async () => Number(await canvas.getAttribute('data-ledge-tiles') ?? 0), { timeout: 5_000 })
+    .toBe(6);
+
+  await page.keyboard.down('ArrowLeft');
+  await expect.poll(async () => Number(await canvas.getAttribute('data-ledge-tiles') ?? 0), { timeout: 20_000 })
+    .toBe(9);
+  await page.keyboard.up('ArrowLeft');
+  expect(await page.locator('#status').innerText()).toContain('Playing');
 });
 
 test('adventure mute control updates the audio state', async ({ page }) => {

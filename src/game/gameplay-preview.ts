@@ -6,7 +6,7 @@ import { loadHenry, type HenryAssets } from '../art/henry';
 import { drawFacingSprite } from '../art/sprite';
 import { animationFor, createPlayer, simulatePlayer, DEFAULT_MOVEMENT, type PlatformBody, type Player } from './movement';
 import { platformBodiesAt } from './platforms';
-import { createRun, entityPosition, isEntityActive, recoverFromFall, stepEntities, tickRun, type RunEvent, type RunState } from './interactions';
+import { activeLedgePlatforms, createRun, entityPosition, isEntityActive, recoverFromFall, stepEntities, tickRun, type RunEvent, type RunState } from './interactions';
 import { DEFAULT_LEVEL } from '../world/levels';
 import type { LevelData } from '../world/level';
 import { Camera } from '../world/camera';
@@ -34,7 +34,7 @@ export class GameplayPreviewScene implements Scene {
     const step = tickRun(this.run, seconds);
     this.platforms = platformBodiesAt(this.level.platforms, this.run.seconds, step);
     const previousVelocityY = this.player.vy;
-    simulatePlayer(this.player, input, this.level, seconds, this.platforms);
+    simulatePlayer(this.player, input, this.level, seconds, [...this.platforms, ...activeLedgePlatforms(this.run, this.level)]);
     if (previousVelocityY >= 0 && this.player.vy < -DEFAULT_MOVEMENT.jumpVelocity * 0.75) this.audio.play('jump');
     this.events = [];
     stepEntities(this.run, this.level, this.player, seconds, this.events);

@@ -7,8 +7,8 @@ import { drawSceneryBackground, drawScenerySprite, foregroundPlacements, scenery
 
 /** Scenes without run state draw the whole entity list; a run hides what it has consumed. */
 export type EntityFilter = (entity: WorldEntity) => boolean;
-/** Patrolling entities live in run state, so a run places them; level data is the fallback. */
-export type EntityPosition = (entity: WorldEntity) => { x: number; y: number };
+/** Run state supplies live positions plus optional deterministic presentation progress. */
+export type EntityPosition = (entity: WorldEntity) => { x: number; y: number; warningProgress?: number };
 
 export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, level: LevelData, camera: Camera,
   isVisible: EntityFilter = () => true, positionOf: EntityPosition = (entity) => entity,
@@ -60,14 +60,43 @@ export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, le
   for (const entity of entities) {
     if (!isVisible(entity)) continue;
     const position = positionOf(entity);
-    const sprite = scenery && sceneryForDecoration(entity);
-    if (scenery && sprite) drawScenerySprite(ctx, scenery, sprite, position.x - offset.x, position.y - offset.y);
-    else drawAsset(ctx, assets, entity.asset as WorldAsset, position.x - offset.x, position.y - offset.y, 1);
+    if (entity.kind === 'crumbling-ledge') {
+      drawCrumblingLedge(ctx, assets, entity, position.x - offset.x, position.y - offset.y, position.warningProgress ?? 0);
+    } else if (scenery && sceneryForDecoration(entity)) {
+      drawScenerySprite(ctx, scenery, sceneryForDecoration(entity)!, position.x - offset.x, position.y - offset.y);
+    } else {
+      drawAsset(ctx, assets, entity.asset as WorldAsset, position.x - offset.x, position.y - offset.y, 1);
+    }
   }
   drawAsset(ctx, assets, level.finish.asset as WorldAsset, level.finish.x - offset.x, level.finish.y - offset.y, 2);
   // Keep the draw source referenced so a bad cell size cannot silently pass.
   void atlas;
   void cell;
+}
+
+export function drawCrumblingLedge(ctx: CanvasRenderingContext2D, assets: WorldAssets, entity: WorldEntity,
+  x: number, y: number, warningProgress = 0): void {
+  const progress = Math.max(0, Math.min(1, warningProgress));
+  const shake = progress === 0 ? 0 : Math.round(Math.sin(progress * 24) * progress * 2);
+  const tileCount = Math.max(1, Math.round((entity.width ?? 72) / 24));
+  const firstCenter = x - (tileCount - 1) * 12;
+  for (let index = 0; index < tileCount; index++) {
+    drawAsset(ctx, assets, 'stone', firstCenter + index * 24 + shake, y, 0.5);
+  }
+  if (progress === 0) return;
+  const cracks = progress >= 0.5 ? 2 : 1;
+  ctx.save();
+  ctx.strokeStyle = '#49362d';
+  ctx.lineWidth = 1;
+  for (let index = 0; index < cracks; index++) {
+    const crackX = x + shake + (index === 0 ? -12 : 13);
+    ctx.beginPath();
+    ctx.moveTo(crackX - 4, y - 12);
+    ctx.lineTo(crackX + 1, y - 8);
+    ctx.lineTo(crackX - 2, y - 3);
+    ctx.stroke();
+  }
+  ctx.restore();
 }
 
 /** Draw after the player, before the HUD; only low, non-interactive edge plants. */

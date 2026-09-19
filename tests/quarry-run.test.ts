@@ -47,6 +47,8 @@ function playQuarry(jump?: Jump) {
   let frame = 0;
   let jumpFrames = 0;
   let pending = jump;
+  const ledges = ofKind('crumbling-ledge');
+  const ledgeApproaches = new Map(ledges.map((ledge) => [ledge.id, { distance: Infinity, x: 0, feet: 0 }]));
   const dangers = QUARRY_RUN.entities.filter((entity) => entity.kind === 'slime' || entity.kind === 'hazard');
   let dangerIndex = 0;
   for (; frame < 60 * 120 && scene.screenState !== 'finish'; frame++) {
@@ -63,9 +65,17 @@ function playQuarry(jump?: Jump) {
       dangerIndex++;
     }
     scene.update(1 / 60, { ...input, jumpPressed, jumpHeld: jumpFrames-- > 0 });
+    for (const ledge of ledges) {
+      if (Math.abs(scene.playerX - ledge.x) > (ledge.width ?? 0) / 2) continue;
+      const feet = scene.playerY + DEFAULT_MOVEMENT.height;
+      const closest = ledgeApproaches.get(ledge.id)!;
+      if (Math.abs(feet - ledge.y) < closest.distance) {
+        ledgeApproaches.set(ledge.id, { distance: Math.abs(feet - ledge.y), x: scene.playerX, feet });
+      }
+    }
   }
-  const collected = (scene as unknown as { run: { collectedGems: Set<string> } }).run.collectedGems;
-  return { scene, effects, seconds: frame / 60, collected };
+  const run = (scene as unknown as { run: ReturnType<typeof createRun> }).run;
+  return { scene, effects, seconds: frame / 60, collected: run.collectedGems, run, ledgeApproaches };
 }
 
 it('registers a playable Quarry Run', () => {
@@ -87,6 +97,7 @@ it('is a long route split into six checkpointed sections', () => {
   expect(ofKind('slime').length).toBeGreaterThanOrEqual(8);
   expect(ofKind('hazard').length).toBeGreaterThanOrEqual(8);
   expect(ofKind('hazard').every(({ asset }) => asset === 'stone')).toBe(true);
+  expect(ofKind('crumbling-ledge')).toHaveLength(3);
   expect(pits.length).toBeGreaterThanOrEqual(5);
   for (const { from, to } of bySection) {
     const inSection = (entity: WorldEntity) => entity.x >= from && entity.x < to;
@@ -96,7 +107,7 @@ it('is a long route split into six checkpointed sections', () => {
 
 it('places the main route inside the walkable activation window and one jump-only bonus gem per section', () => {
   for (const entity of QUARRY_RUN.entities) {
-    if (entity.kind === 'decoration' || isBonus(entity)) continue;
+    if (entity.kind === 'decoration' || entity.kind === 'crumbling-ledge' || isBonus(entity)) continue;
     expect(Math.abs(lift(entity)), entity.id).toBeLessThanOrEqual(ACTIVATION_WINDOW);
   }
   const bonus = ofKind('gem').filter(isBonus);
@@ -107,6 +118,17 @@ it('places the main route inside the walkable activation window and one jump-onl
   }
   for (const gem of ofKind('gem')) {
     expect(gem.y - GEM_ART_HEIGHT, gem.id).toBeGreaterThanOrEqual(HUD_BOTTOM);
+  }
+});
+
+it('places crumbling ledges over safe ordinary terrain', () => {
+  for (const ledge of ofKind('crumbling-ledge')) {
+    expect(ledge.width).toBe(72);
+    for (const x of [ledge.x - 36, ledge.x, ledge.x + 36]) {
+      const ground = surfaceY(QUARRY_RUN, x);
+      expect(ground - ledge.y, ledge.id).toBeGreaterThanOrEqual(36);
+      expect(ground - DEFAULT_MOVEMENT.height, ledge.id).toBeLessThanOrEqual(FALL_Y);
+    }
   }
 });
 
@@ -155,6 +177,14 @@ it('can complete Quarry Run with simple hazard-avoidance jumps at a Plains-like 
   expect(mainGems.every(({ id }) => collected.has(id))).toBe(true);
   expect(scene.gemTotal).toBe(collected.size);
   expect(scene.gemTotal).toBeGreaterThanOrEqual(mainGems.length);
+});
+
+it('naturally lands on a crumbling ledge during the held-right route', () => {
+  const { run, ledgeApproaches } = playQuarry();
+  const triggered = run.entities.filter((entity) => entity.ledgePhase !== undefined && entity.ledgePhase !== 'stable');
+  expect(triggered.map(({ id }) => id), JSON.stringify(Object.fromEntries(ledgeApproaches))).toEqual([
+    'quarry-ledge-001', 'quarry-ledge-002', 'quarry-ledge-003',
+  ]);
 });
 
 // Each bonus gem is collected by one jump on the held-right route: a pressed jump from

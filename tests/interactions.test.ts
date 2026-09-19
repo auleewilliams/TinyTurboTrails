@@ -1,7 +1,12 @@
 import { describe, expect, it } from 'vitest';
 import { DEFAULT_MOVEMENT, MAX_STEP_SECONDS, createPlayer, simulatePlayer, surfaceY, type Player } from '../src/game/movement';
 import { PLAINS_LEVEL } from '../src/world/level';
-import { advancePatrols, applySpring, activateCheckpoint, collectGem, createRun, damagePlayer, entityPosition, entityState, isEntityActive, recoverFromFall, startNewRun, stepEntities, tickRun, touchesPlayer, type RunEvent } from '../src/game/interactions';
+import {
+  CRUMBLE_WARNING_SECONDS, activeLedgePlatforms, advancePatrols, applySpring, activateCheckpoint,
+  collectGem, createRun, damagePlayer, entityPosition, entityState, isEntityActive,
+  ledgeWarningProgress, recoverFromFall, startNewRun, stepEntities, tickRun, touchesPlayer,
+  type RunEvent,
+} from '../src/game/interactions';
 import type { LevelData, WorldEntity } from '../src/world/level';
 import { QUARRY_RUN } from '../src/world/levels';
 
@@ -258,6 +263,83 @@ const patrolLevel: LevelData = {
   ],
 };
 const walker = patrolLevel.entities.find((entity) => entity.id === 'walker') as WorldEntity;
+
+const ledgeLevel: LevelData = {
+  ...patrolLevel,
+  entities: [
+    { id: 'patrol-checkpoint', kind: 'checkpoint', x: 20, y: 180, asset: 'checkpoint', layer: 'world' },
+    { id: 'ledge-gem', kind: 'gem', x: 60, y: 160, asset: 'gem', layer: 'world' },
+    { id: 'test-ledge', kind: 'crumbling-ledge', x: 200, y: 120, width: 72, asset: 'stone', layer: 'world' },
+  ],
+};
+
+describe('crumbling ledges', () => {
+  it('starts solid and begins one fixed warning on first landing', () => {
+    const run = createRun(ledgeLevel);
+    const henry = createPlayer(200, ledgeLevel);
+    henry.y = 120 - DEFAULT_MOVEMENT.height;
+    const log = events();
+
+    expect(entityState(run, 'test-ledge')).toMatchObject({
+      active: true, ledgePhase: 'stable', ledgeSeconds: 0,
+    });
+    expect(activeLedgePlatforms(run, ledgeLevel)).toEqual([
+      { id: 'test-ledge', x1: 164, x2: 236, y: 120 },
+    ]);
+
+    stepEntities(run, ledgeLevel, henry, 1 / 60, log);
+    expect(entityState(run, 'test-ledge')).toMatchObject({
+      active: true, ledgePhase: 'warning', ledgeSeconds: CRUMBLE_WARNING_SECONDS,
+    });
+    tickRun(run, 0.25);
+    stepEntities(run, ledgeLevel, henry, 1 / 60, log);
+    expect(entityState(run, 'test-ledge')?.ledgeSeconds).toBeCloseTo(0.5);
+    expect(ledgeWarningProgress(run, 'test-ledge')).toBeCloseTo(1 / 3);
+  });
+
+  it('crumbles on schedule away from Henry and leaves collision inactive', () => {
+    const run = createRun(ledgeLevel);
+    const henry = createPlayer(200, ledgeLevel);
+    henry.y = 120 - DEFAULT_MOVEMENT.height;
+    stepEntities(run, ledgeLevel, henry, 1 / 60, events());
+    henry.x = 20;
+
+    tickRun(run, CRUMBLE_WARNING_SECONDS);
+
+    expect(entityState(run, 'test-ledge')).toMatchObject({
+      active: false, ledgePhase: 'crumbled', ledgeSeconds: 0,
+    });
+    expect(activeLedgePlatforms(run, ledgeLevel)).toEqual([]);
+    expect(isEntityActive(run, 'test-ledge')).toBe(false);
+  });
+
+  it('restores ledges on recovery without restoring gems or clearing the checkpoint', () => {
+    const run = createRun(ledgeLevel);
+    const henry = createPlayer(200, ledgeLevel);
+    const log = events();
+    henry.y = 120 - DEFAULT_MOVEMENT.height;
+    collectGem(run, 'ledge-gem', log);
+    activateCheckpoint(run, 'patrol-checkpoint', log);
+    stepEntities(run, ledgeLevel, henry, 1 / 60, log);
+    tickRun(run, CRUMBLE_WARNING_SECONDS);
+
+    recoverFromFall(run, henry, log, ledgeLevel);
+
+    expect(entityState(run, 'test-ledge')).toMatchObject({
+      active: true, ledgePhase: 'stable', ledgeSeconds: 0,
+    });
+    expect(isEntityActive(run, 'ledge-gem')).toBe(false);
+    expect(run.collectedGems.has('ledge-gem')).toBe(true);
+    expect(run.checkpointId).toBe('patrol-checkpoint');
+
+    startNewRun(run, ledgeLevel);
+    expect(entityState(run, 'test-ledge')).toMatchObject({
+      active: true, ledgePhase: 'stable', ledgeSeconds: 0,
+    });
+    expect(run.collectedGems.size).toBe(0);
+    expect(run.checkpointId).toBeNull();
+  });
+});
 
 describe('patrolling entities', () => {
   it('walks between its bounds and turns around at each end', () => {
