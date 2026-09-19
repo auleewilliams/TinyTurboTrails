@@ -12,6 +12,7 @@ const alternateLevel = { ...PLAINS_LEVEL,
   id: 'alternate', name: 'ALTERNATE', start: { x: 120, y: 198 },
   finish: { ...PLAINS_LEVEL.finish, x: 180 },
 };
+const worlds = { plains: {} as never, timbers: {} as never };
 
 describe('game screen flow', () => {
   it('starts the adventure from the supplied level data', () => {
@@ -19,7 +20,7 @@ describe('game screen flow', () => {
       unlock: async () => {}, setMuted: () => {}, setSuspended: () => {}, startMusic: () => {},
       play: () => {}, stop: () => {}, dispose: () => {},
     };
-    const scene = new AdventureScene({} as never, {} as never, audio, alternateLevel);
+    const scene = new AdventureScene({} as never, worlds, audio, alternateLevel);
     expect(scene.playerX).toBe(alternateLevel.start.x);
   });
 
@@ -28,7 +29,7 @@ describe('game screen flow', () => {
       unlock: async () => {}, setMuted: () => {}, setSuspended: () => {}, startMusic: () => {},
       play: () => {}, stop: () => {}, dispose: () => {},
     };
-    const scene = new AdventureScene({} as never, {} as never, audio, PLAINS_LEVEL);
+    const scene = new AdventureScene({} as never, worlds, audio, PLAINS_LEVEL);
     const neutral = { horizontal: 0, jumpHeld: false, jumpPressed: false, pausePressed: false, mutePressed: false };
     expect(scene.selectedLevelName).toBe('PLAINS');
     scene.update(1 / 60, { ...neutral, horizontal: 1 });
@@ -51,7 +52,7 @@ describe('game screen flow', () => {
       unlock: async () => {}, setMuted: () => {}, setSuspended: () => {}, startMusic: () => {},
       play: () => {}, stop: () => {}, dispose: () => {},
     };
-    const scene = new AdventureScene({} as never, {} as never, audio, QUARRY_RUN);
+    const scene = new AdventureScene({} as never, worlds, audio, QUARRY_RUN);
     const input = { horizontal: 0, jumpHeld: false, jumpPressed: true, pausePressed: false, mutePressed: false };
     expect(scene.selectedLevelName).toBe(QUARRY_RUN.name);
     scene.update(1 / 60, input);
@@ -59,12 +60,21 @@ describe('game screen flow', () => {
     expect(scene.playerX).toBe(QUARRY_RUN.start.x);
   });
 
+  it('rejects a world asset map that cannot render every picker level', () => {
+    const audio: GameAudio = {
+      unlock: async () => {}, setMuted: () => {}, setSuspended: () => {}, startMusic: () => {},
+      play: () => {}, stop: () => {}, dispose: () => {},
+    };
+    expect(() => new AdventureScene({} as never, { plains: {} } as never, audio, PLAINS_LEVEL))
+      .toThrow('Missing world assets: timbers');
+  });
+
   it('does not advance the picker when replaying with a held direction', () => {
     const audio: GameAudio = {
       unlock: async () => {}, setMuted: () => {}, setSuspended: () => {}, startMusic: () => {},
       play: () => {}, stop: () => {}, dispose: () => {},
     };
-    const scene = new AdventureScene({} as never, {} as never, audio, PLAINS_LEVEL);
+    const scene = new AdventureScene({} as never, worlds, audio, PLAINS_LEVEL);
     const input = { horizontal: 0, jumpHeld: false, jumpPressed: true, pausePressed: false, mutePressed: false };
     scene.update(1 / 60, input);
     (scene as unknown as { player: { x: number } }).player.x = PLAINS_LEVEL.finish.x;
@@ -83,7 +93,7 @@ describe('game screen flow', () => {
       unlock: async () => {}, setMuted: () => {}, setSuspended: () => {}, startMusic: () => {},
       play: (effect) => effects.push(effect), stop: () => { stops++; }, dispose: () => {},
     };
-    const scene = new AdventureScene({} as never, {} as never, audio, PLAINS_LEVEL);
+    const scene = new AdventureScene({} as never, worlds, audio, PLAINS_LEVEL);
     scene.enter();
     scene.update(1 / 60, { horizontal: 0, jumpHeld: false, jumpPressed: true, pausePressed: false, mutePressed: false });
     scene.update(1 / 60, { horizontal: 0, jumpHeld: true, jumpPressed: true, pausePressed: false, mutePressed: false });
@@ -140,7 +150,7 @@ it.each(PLAINS_LEVEL.checkpoints)('activates $id from the ground', (checkpoint) 
     unlock: async () => {}, setMuted: () => {}, setSuspended: () => {}, startMusic: () => {},
     play: (effect) => effects.push(effect), stop: () => {}, dispose: () => {},
   };
-  const scene = new AdventureScene({} as never, {} as never, audio, PLAINS_LEVEL);
+  const scene = new AdventureScene({} as never, worlds, audio, PLAINS_LEVEL);
   const input = { horizontal: 0, jumpHeld: false, jumpPressed: false, pausePressed: false, mutePressed: false };
   scene.update(1 / 60, { ...input, horizontal: 0, jumpPressed: true });
   Object.assign(scene, { player: createPlayer(checkpoint.x - 50, PLAINS_LEVEL) });
@@ -155,7 +165,7 @@ it('can walk past grounded slimes and finish without repeated damage traps', () 
     unlock: async () => {}, setMuted: () => {}, setSuspended: () => {}, startMusic: () => {},
     play: (effect) => effects.push(effect), stop: () => {}, dispose: () => {},
   };
-  const scene = new AdventureScene({} as never, {} as never, audio, PLAINS_LEVEL);
+  const scene = new AdventureScene({} as never, worlds, audio, PLAINS_LEVEL);
   const input = { horizontal: 1, jumpHeld: false, jumpPressed: false, pausePressed: false, mutePressed: false };
   scene.update(1 / 60, { ...input, horizontal: 0, jumpPressed: true });
   for (let frame = 0; frame < 60 * 90 && scene.screenState !== 'finish'; frame++) {
@@ -176,7 +186,7 @@ it.each(['keyboard', 'controller'])('%s replay immediately restores the initial 
     unlock: async () => {}, setMuted: () => {}, setSuspended: () => {}, startMusic: () => {},
     play: () => {}, stop: () => {}, dispose: () => {},
   };
-  const scene = new AdventureScene({} as never, {} as never, audio, PLAINS_LEVEL);
+  const scene = new AdventureScene({} as never, worlds, audio, PLAINS_LEVEL);
   const state = scene as unknown as {
     player: import('../src/game/movement').Player;
     run: import('../src/game/interactions').RunState;
@@ -219,7 +229,9 @@ for (const SceneClass of [AdventureScene, GameplayPreviewScene]) {
       unlock: async () => {}, setMuted: () => {}, setSuspended: () => {}, startMusic: () => {},
       play: (effect) => effects.push(effect), stop: () => {}, dispose: () => {},
     };
-    const scene = new SceneClass({} as never, {} as never, audio, PLAINS_LEVEL);
+    const scene = SceneClass === AdventureScene
+      ? new AdventureScene({} as never, worlds, audio, PLAINS_LEVEL)
+      : new GameplayPreviewScene({} as never, {} as never, audio, PLAINS_LEVEL);
     const input = { horizontal, jumpHeld: false, jumpPressed: false, pausePressed: false, mutePressed: false };
     if (scene instanceof AdventureScene) scene.update(1 / 60, { ...input, horizontal: 0, jumpPressed: true });
     const spring = PLAINS_LEVEL.entities.find((entity) => entity.id === 'spring-001')!;

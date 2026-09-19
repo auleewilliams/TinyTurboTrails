@@ -9,7 +9,7 @@ import { GameplayPreviewScene } from '../src/game/gameplay-preview';
 import { createPlayer } from '../src/game/movement';
 import { Camera } from '../src/world/camera';
 import { PLAINS_LEVEL } from '../src/world/level';
-import { QUARRY_RUN } from '../src/world/levels';
+import { QUARRY_RUN, TREETOP_TIMBERS } from '../src/world/levels';
 import { platformBodyAt } from '../src/game/platforms';
 
 const manifest = JSON.parse(readFileSync(new URL('../public/assets/plains/manifest.json', import.meta.url), 'utf8'));
@@ -71,6 +71,7 @@ const sceneryAssets = {
     manifest: JSON.parse(readFileSync(new URL('../public/assets/plains/scenery/manifest.json', import.meta.url), 'utf8')),
   },
 };
+const worldMap = (plains: WorldAssets, timbers: WorldAssets = plains) => ({ plains, timbers });
 
 it('pans the plains background within its source bounds over the entire route', () => {
   const crops: number[] = [];
@@ -152,12 +153,28 @@ const silentAudio: GameAudio = {
   unlock: async () => {}, setMuted: () => {}, setSuspended: () => {}, startMusic: () => {},
   play: () => {}, stop: () => {}, dispose: () => {},
 };
+
+it('renders the selected level with its own world atlas', () => {
+  const timberAssets: WorldAssets = { atlas: {} as HTMLImageElement, manifest };
+  const scene = new AdventureScene(henryAssets, worldMap(sceneryAssets, timberAssets), silentAudio, PLAINS_LEVEL);
+  const neutral = { horizontal: 0, jumpHeld: false, jumpPressed: false, pausePressed: false, mutePressed: false };
+  for (let index = 0; index < 2; index++) {
+    scene.update(1 / 60, { ...neutral, horizontal: 1 });
+    scene.update(1 / 60, neutral);
+  }
+  expect(scene.selectedLevelName).toBe(TREETOP_TIMBERS.name);
+  scene.update(1 / 60, { ...neutral, jumpPressed: true });
+  const { ctx, images } = recordingContext();
+  scene.render(ctx);
+  expect(images.some((call) => call[0] === timberAssets.atlas)).toBe(true);
+  expect(images.some((call) => call[0] === sceneryAssets.atlas)).toBe(false);
+});
 const gem = PLAINS_LEVEL.entities.find((entity) => entity.id === 'gem-001')!;
 const otherGem = PLAINS_LEVEL.entities.find((entity) => entity.id === 'gem-002')!;
 const start = { horizontal: 0, jumpHeld: false, jumpPressed: true, pausePressed: false, mutePressed: false };
 
 it('draws low foreground plants after Henry in both playable scenes', () => {
-  const adventure = new AdventureScene(henryAssets, sceneryAssets, silentAudio, PLAINS_LEVEL);
+  const adventure = new AdventureScene(henryAssets, worldMap(sceneryAssets), silentAudio, PLAINS_LEVEL);
   adventure.enter();
   adventure.update(1 / 60, start);
   const preview = new GameplayPreviewScene(henryAssets, sceneryAssets, silentAudio, PLAINS_LEVEL);
@@ -189,7 +206,7 @@ it('draws every entity when a scene supplies no run state', () => {
 });
 
 it('stops drawing a gem once the adventure collects it', () => {
-  const scene = new AdventureScene(henryAssets, worldAssets, silentAudio, PLAINS_LEVEL);
+  const scene = new AdventureScene(henryAssets, worldMap(worldAssets), silentAudio, PLAINS_LEVEL);
   scene.enter();
   scene.update(1 / 60, start);
   const before = recordingContext();
@@ -209,7 +226,7 @@ it.each([
   { name: 'original atlas', assets: worldAssets },
   { name: 'generated scenery', assets: sceneryAssets },
 ])('draws the runtime slime position with $name', ({ assets }) => {
-  const scene = new AdventureScene(henryAssets, assets, silentAudio, PLAINS_LEVEL);
+  const scene = new AdventureScene(henryAssets, worldMap(assets), silentAudio, PLAINS_LEVEL);
   scene.enter();
   scene.update(1 / 60, start);
   const slime = PLAINS_LEVEL.entities.find((entity) => entity.patrol)!;
@@ -225,7 +242,7 @@ it.each([
 });
 
 it('keeps the HUD left-aligned even after a centered overlay ran', () => {
-  const scene = new AdventureScene(henryAssets, worldAssets, silentAudio, PLAINS_LEVEL);
+  const scene = new AdventureScene(henryAssets, worldMap(worldAssets), silentAudio, PLAINS_LEVEL);
   scene.enter();
   scene.update(1 / 60, start);
   const { ctx, texts } = recordingContext();
@@ -236,7 +253,7 @@ it('keeps the HUD left-aligned even after a centered overlay ran', () => {
 });
 
 it('draws the selected level name on the title screen', () => {
-  const scene = new AdventureScene(henryAssets, worldAssets, silentAudio, PLAINS_LEVEL);
+  const scene = new AdventureScene(henryAssets, worldMap(worldAssets), silentAudio, PLAINS_LEVEL);
   const { ctx, texts } = recordingContext();
   scene.render(ctx);
   expect(texts.some(({ text }) => text === '◀ PLAINS ▶')).toBe(true);

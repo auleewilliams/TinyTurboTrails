@@ -8,6 +8,7 @@ import { validateLevel, type WorldEntity } from '../src/world/level';
 import { LEVELS, QUARRY_RUN, levelById } from '../src/world/levels';
 
 const ACTIVATION_WINDOW = 28;
+const worlds = { plains: {} as never, timbers: {} as never };
 const FALL_Y = QUARRY_RUN.height + 80;
 // Gem art reaches this far above its anchor; the HUD covers the top 30 px of the screen.
 const GEM_ART_HEIGHT = 44;
@@ -41,7 +42,7 @@ function playQuarry(jump?: Jump) {
     unlock: async () => {}, setMuted: () => {}, setSuspended: () => {}, startMusic: () => {},
     play: (effect) => effects.push(effect), stop: () => {}, dispose: () => {},
   };
-  const scene = new AdventureScene({} as never, {} as never, audio, QUARRY_RUN);
+  const scene = new AdventureScene({} as never, worlds, audio, QUARRY_RUN);
   const input = { horizontal: 1, jumpHeld: false, jumpPressed: false, pausePressed: false, mutePressed: false };
   scene.update(1 / 60, { ...input, horizontal: 0, jumpPressed: true });
   let frame = 0;
@@ -174,7 +175,7 @@ function rideFrom(x: number) {
     unlock: async () => {}, setMuted: () => {}, setSuspended: () => {}, startMusic: () => {},
     play: (effect) => effects.push(effect), stop: () => {}, dispose: () => {},
   };
-  const scene = new AdventureScene({} as never, {} as never, audio, QUARRY_RUN);
+  const scene = new AdventureScene({} as never, worlds, audio, QUARRY_RUN);
   scene.update(1 / 60, { horizontal: 0, jumpHeld: false, jumpPressed: true, pausePressed: false, mutePressed: false });
   Object.assign(scene, { player: createPlayer(x, QUARRY_RUN) });
   const collected = (scene as unknown as { run: { collectedGems: Set<string> } }).run.collectedGems;
