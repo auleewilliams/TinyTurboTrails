@@ -65,6 +65,11 @@ export function drawGameplayHud(ctx: CanvasRenderingContext2D, run: RunState, hi
   ctx.font = 'bold 10px monospace';
   ctx.textAlign = 'left';
   ctx.fillText(`GEMS ${run.collectedGems.size}`, 10, 20);
+  if (run.specialTotal > 0) {
+    ctx.fillStyle = HUD_COLORS.panel; ctx.fillRect(145, 5, 80, 22);
+    ctx.fillStyle = HUD_COLORS.hit;
+    ctx.fillText(`STARS ${run.collectedSpecials.size}/${run.specialTotal}`, 150, 20);
+  }
   for (let index = 0; index < MAX_HEALTH; index++) {
     const flashing = index === run.healthFlashPip && run.healthFlashSeconds > 0;
     const x = 91 + index * 16;

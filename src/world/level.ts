@@ -2,7 +2,7 @@ import { DEFAULT_MOVEMENT, MAX_SURFACE_FRICTION, MIN_SURFACE_FRICTION, surfaceY,
 import { PLATFORM_MAX_SPEED, platformSpeed, type MovingPlatform } from '../game/platforms';
 import type { WorldAsset } from './assets';
 
-export type WorldEntityKind = 'gem' | 'slime' | 'spring' | 'checkpoint' | 'hazard' | 'decoration' | 'crumbling-ledge';
+export type WorldEntityKind = 'gem' | 'special' | 'slime' | 'spring' | 'checkpoint' | 'hazard' | 'decoration' | 'crumbling-ledge';
 /** Back-and-forth walk between two X bounds. The run owns the position; level data stays immutable. */
 export interface EntityPatrol { minX: number; maxX: number; speed: number }
 export interface WorldEntity {
@@ -32,6 +32,8 @@ export interface LevelTheme {
   parallax: readonly { asset: WorldAsset; x: number; y: number; scale: number }[];
 }
 export interface LevelData {
+  /** Optional signposts and broad safe landing bands; presentation only. */
+  challengeCues?: readonly { x: number; y: number; label: string; landingWidth?: number }[];
   id: string;
   name: string;
   atlas: string;
@@ -116,6 +118,10 @@ export const PLAINS_LEVEL: LevelData = {
   start: { x: 60, y: 198 },
   finish: { x: 9880, y: 166, asset: 'finish-arch' },
   surfaces: plainsTerrain.surfaces,
+  challengeCues: [
+    { x: 700, y: 170, label: 'STAR SLOPE >' },
+    { x: 810, y: 190, label: 'SAFE RUNOUT', landingWidth: 100 },
+  ],
   // Y is the terrain height at X (including ramps), shared with Henry’s recovery feet.
   checkpoints: [
     { id: 'checkpoint-meadow', x: 551, y: 158 },
@@ -126,6 +132,10 @@ export const PLAINS_LEVEL: LevelData = {
     { id: 'checkpoint-summit', x: 9145, y: 200 },
   ],
   entities: [
+    ...[680, 740, 820].map((x, index): WorldEntity => ({
+      id: `plains-special-${index + 1}`, kind: 'special', x,
+      y: surfaceY(plainsTerrain, x) - 18, asset: 'special', layer: 'world',
+    })),
     { id: 'gem-001', kind: 'gem', x: 90, y: 178, asset: 'gem', layer: 'world' },
     { id: 'gem-002', kind: 'gem', x: 350, y: 137, asset: 'gem', layer: 'world' },
     { id: 'gem-003', kind: 'gem', x: 610, y: 142, asset: 'gem', layer: 'world' },
@@ -172,7 +182,8 @@ export const PLAINS_LEVEL: LevelData = {
     { id: 'gem-043', kind: 'gem', x: 9520, y: 92, asset: 'gem', layer: 'world' },
     { id: 'gem-044', kind: 'gem', x: 9780, y: 142, asset: 'gem', layer: 'world' },
     groundedEntity({ id: 'slime-001', kind: 'slime', x: 260, asset: 'slime', layer: 'world', patrol: { minX: 230, maxX: 345, speed: 36 } }),
-    groundedEntity({ id: 'slime-002', kind: 'slime', x: 960, asset: 'slime', layer: 'world', patrol: { minX: 810, maxX: 985, speed: 34 } }),
+    // Keep the marked star runout clear throughout the patrol's entire cycle.
+    groundedEntity({ id: 'slime-002', kind: 'slime', x: 960, asset: 'slime', layer: 'world', patrol: { minX: 900, maxX: 985, speed: 34 } }),
     groundedEntity({ id: 'slime-003', kind: 'slime', x: 1660, asset: 'slime', layer: 'world', patrol: { minX: 1570, maxX: 1740, speed: 42 } }),
     groundedEntity({ id: 'slime-004', kind: 'slime', x: 2160, asset: 'slime', layer: 'world' }),
     groundedEntity({ id: 'slime-005', kind: 'slime', x: 2860, asset: 'slime', layer: 'world', patrol: { minX: 2700, maxX: 2860, speed: 38 } }),
@@ -261,6 +272,11 @@ function validateCrumblingLedge(level: LevelData, entity: WorldEntity): void {
 }
 
 export function validateLevel(level: LevelData): void {
+  const specials = level.entities.filter((entity) => entity.kind === 'special');
+  if (specials.length !== 0 && specials.length !== 3) throw new Error('a special trail requires exactly three stars');
+  for (const special of specials) {
+    if (!Number.isFinite(special.y) || special.y < 0 || special.y > level.height) throw new Error(`invalid special position: ${special.id}`);
+  }
   if (level.width <= 0 || level.height <= 0 || level.surfaces.length === 0) throw new Error('invalid level dimensions');
   if (level.surfaces[0].x1 !== level.minX || level.surfaces[level.surfaces.length - 1].x2 !== level.maxX) {
     throw new Error('surfaces must span level bounds');

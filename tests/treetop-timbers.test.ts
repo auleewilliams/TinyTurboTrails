@@ -41,6 +41,10 @@ it('uses shallow V contours that read as rope bridges while remaining walkable',
 
 it('plants grounded interactions on the timber trail', () => {
   for (const entity of TREETOP_TIMBERS.entities) {
+    if (entity.kind === 'special') {
+      expect(entity.y, entity.id).toBe(surfaceY(TREETOP_TIMBERS, entity.x - 80) - 100);
+      continue;
+    }
     if (entity.kind === 'gem' || entity.kind === 'decoration') continue;
     expect(entity.y, entity.id).toBeCloseTo(surfaceY(TREETOP_TIMBERS, entity.x), 5);
   }

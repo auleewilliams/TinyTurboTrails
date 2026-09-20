@@ -8,6 +8,7 @@
 - [Adventure, map and finish navigation](plains-adventure.md)
 - [Movement and authored traction](gameplay-movement.md)
 - [Run interactions and recovery](gameplay-interactions.md)
+- [Optional star challenges and safe returns](signature-challenges.md)
 - [Moving platforms](moving-platforms.md)
 - [World and level architecture](plains-world.md)
 - [Art direction and provenance](art/README.md)

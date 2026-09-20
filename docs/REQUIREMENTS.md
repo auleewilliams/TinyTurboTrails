@@ -65,9 +65,10 @@ dependency — the shipped game never calls an image generator.
 ## Progress and persistence
 
 Run progress and separate cosmetic completion badges exist only in memory. Checkpoint retries
-preserve collected gems. Current health is also memory-only and resets on
+preserve collected gems and special stars. Current health is also memory-only and resets on
 respawn, replay and level selection. Replay, reload or closing the page starts a
-fresh run. Do not persist checkpoints, gems or health in browser storage.
+fresh run. Level changes also clear special stars. Do not persist checkpoints,
+gems, stars or health in browser storage.
 
 ## Gameplay clarity and forgiving recovery
 
@@ -121,5 +122,23 @@ backgrounds with supported landmarks. Keep collisions, anchors, movement and
 entity placement unchanged. Respect reduced motion and loading/error/retry.
 
 The parent-led landmark/navigation check with Henry remains a separate acceptance
-step; automated tests cannot satisfy it. Optional challenges from #93 are out of
-this milestone. Current controls live in the adventure guide.
+step; automated tests cannot satisfy it. Current controls live in the adventure guide.
+
+## Optional signature challenges (#93)
+
+Plains, Quarry Run and Treetop Timbers each contain exactly three gold star
+collectibles, visually distinct from ordinary gems. Plains rewards controlled
+movement down a readable slope; Quarry offers a detour up the existing lift and
+along a broad shelf; Timbers rewards the first three existing springs with clear,
+wide landing markings. All use existing movement and one-way platform systems.
+Stars and challenges never gate completion, require new controls, or require
+precise timing. Misses land on ordinary terrain or use existing checkpoint
+recovery. Other trails have no star requirement and no empty star HUD.
+
+Count stars separately from gems, once per stable entity ID. Both pit and health
+recovery preserve them. Replay, level changes and page reload create fresh star
+state. A compact in-run `STARS n/3` indicator and a separate finish result show
+progress even at zero; Replay, Next trail and Choose trail retain their behavior.
+All progress remains in memory, with deterministic simulation and project-local
+art/provenance. Automated reachability and visual checks do not establish Henry's
+understanding or enjoyment; no child playtest is claimed for this milestone.

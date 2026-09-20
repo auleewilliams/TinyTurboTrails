@@ -3,7 +3,7 @@ import type { LevelData } from '../world/level';
 import { drawAsset } from '../world/renderer';
 import type { WorldAssets } from '../world/assets';
 
-export type EffectKind = 'checkpoint' | 'gem' | 'landing' | 'spring';
+export type EffectKind = 'checkpoint' | 'gem' | 'special' | 'landing' | 'spring';
 export interface Effect { kind: EffectKind; x: number; y: number; age: number; duration: number; entityId?: string }
 export const MAX_EFFECTS = 24;
 
@@ -20,11 +20,11 @@ export class Feedback {
   }
   add(kind: EffectKind, x: number, y: number, entityId?: string): void {
     if (this.effects.length >= MAX_EFFECTS) this.effects.shift();
-    this.effects.push({ kind, x, y, entityId, age: 0, duration: kind === 'checkpoint' ? 0.8 : kind === 'gem' ? 0.65 : 0.3 });
+    this.effects.push({ kind, x, y, entityId, age: 0, duration: kind === 'checkpoint' ? 0.8 : kind === 'gem' || kind === 'special' ? 0.65 : 0.3 });
   }
   consume(events: readonly RunEvent[], level: LevelData): void {
     for (const event of events) {
-      if (event.type !== 'checkpoint' && event.type !== 'gem' && event.type !== 'spring') continue;
+      if (event.type !== 'checkpoint' && event.type !== 'gem' && event.type !== 'special' && event.type !== 'spring') continue;
       const entity = level.entities.find((candidate) => candidate.id === event.entityId);
       if (!entity) continue;
       this.add(event.type, entity.x, entity.y, entity.id);
@@ -62,12 +62,13 @@ export class Feedback {
         ctx.strokeRect(px - 1, py - 1, 3, 3);
         ctx.fillRect(px - 1, py - 1, 3, 3);
       }
-      if (effect.kind === 'gem') {
+      if (effect.kind === 'gem' || effect.kind === 'special') {
         ctx.font = 'bold 10px monospace';
         ctx.textAlign = 'center';
         const textY = centerY - 10 - (reducedMotion ? 0 : progress * 10);
-        ctx.strokeText('+1', x, textY);
-        ctx.fillText('+1', x, textY);
+        const label = effect.kind === 'special' ? '+1 STAR' : '+1';
+        ctx.strokeText(label, x, textY);
+        ctx.fillText(label, x, textY);
       }
     }
     ctx.restore();
