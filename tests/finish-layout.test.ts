@@ -55,4 +55,20 @@ describe('finish screen composition', () => {
     expect(finishGemsText(1)).toBe('1 gem collected');
     expect(finishGemsText(12)).toBe('12 gems collected');
   });
+
+  it('fits separate gem and star results on the result row for every star count', () => {
+    for (const count of [0, 1, 2, 3]) {
+      const gemBox = { ...textRect(finishGemsText(999), gems.baseline, gems.size), x: 132 - finishGemsText(999).length * 3 };
+      const starBox = { ...textRect(`STARS ${count}/3`, gems.baseline, gems.size), x: 292 - `STARS ${count}/3`.length * 3 };
+      expect(inside(gemBox, panel)).toBe(true);
+      expect(inside(starBox, panel)).toBe(true);
+      expect(overlaps(gemBox, starBox)).toBe(false);
+      for (const bob of bobs) {
+        for (const art of [celebrationHenryRect(henryManifest.anchor, bob), ...celebrationStarRects(bob)]) {
+          expect(overlaps(art, gemBox)).toBe(false);
+          expect(overlaps(art, starBox)).toBe(false);
+        }
+      }
+    }
+  });
 });

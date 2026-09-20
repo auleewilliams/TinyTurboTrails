@@ -68,3 +68,11 @@ outline, Henry's position, accessible button state and the named preview.
 
 The parent-led [Henry usability worksheet](evidence/trail-milestone/HENRY-CHECK.md)
 is separate from automated acceptance and remains pending until reported.
+
+## Optional stars
+
+Plains, Quarry Run and Treetop Timbers each offer three optional gold stars.
+Follow STAR SLOPE, STAR LIFT and SPRING STARS signs; the gold ground markings show
+safe return/landing areas. Use the same move and jump controls. Checkpoint recovery
+retains stars, while replay, changing trails and reload clear them. Other trails
+continue without stars. See [routes and rules](signature-challenges.md).

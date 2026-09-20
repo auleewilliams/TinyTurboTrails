@@ -83,6 +83,9 @@ const quarryCheckpoints = [
  * the spring pits keep their springs, because a ride Henry has to time is no way to cross one.
  */
 const quarryPlatforms: readonly MovingPlatform[] = [
+  // A stationary slab uses the existing one-way platform system. Walk off either
+  // end onto the continuous terrace; the lift remains the optional way aboard.
+  { id: 'quarry-star-shelf', from: { x: 2404, y: 66 }, to: { x: 2404, y: 66 }, width: 200, seconds: 1 },
   // Stone terraces: docks flush with the terrace between the two stone hazards, under the
   // section's bonus gem, so waiting on the dock is a second, forgiving way up to a gem that
   // otherwise needs a well-aimed jump.
@@ -119,7 +122,14 @@ export const QUARRY_RUN: LevelData = {
   surfaces: quarryTerrain.surfaces,
   checkpoints: quarryCheckpoints,
   platforms: quarryPlatforms,
+  challengeCues: [
+    { x: 2300, y: 120, label: 'STAR LIFT >' },
+    { x: 2660, y: 138, label: 'SAFE RETURN', landingWidth: 100 },
+  ],
   entities: [
+    ...[2424, 2500, 2580].map((x, index): WorldEntity => ({
+      id: `quarry-special-${index + 1}`, kind: 'special', x, y: 48, asset: 'special', layer: 'world',
+    })),
     // Quarry entrance
     quarryGem('quarry-gem-001', 200),
     quarryGem('quarry-gem-002', 520),
@@ -283,7 +293,17 @@ export const TREETOP_TIMBERS: LevelData = {
   finish: { x: 10100, y: surfaceY(timberTerrain, 10100), asset: 'finish-arch' },
   surfaces: timberTerrain.surfaces,
   checkpoints: timberCheckpoints,
+  challengeCues: [
+    { x: 900, y: 170, label: 'SPRING STARS >' },
+    ...[1100, 1820, 3320].map((x, index) => ({
+      x, y: surfaceY(timberTerrain, x), label: `LAND ${index + 1}`, landingWidth: 140,
+    })),
+  ],
   entities: [
+    ...[1030, 1730, 3180].map((x, index): WorldEntity => ({
+      id: `timbers-special-${index + 1}`, kind: 'special', x,
+      y: surfaceY(timberTerrain, x - 80) - 100, asset: 'special', layer: 'world',
+    })),
     ...timberGems,
     ...[950, 1650, 3100, 4850, 6700, 8400, 9800].map((x, index) =>
       timberThing('spring', `timber-spring-${index + 1}`, x, 'spring')),

@@ -138,3 +138,11 @@ Panoramas pan inside their source bounds without wrapping. Their restrained
 contrast keeps interactive sprites forward, with trees and mine supports rooted
 in their environment. Cached map thumbnails use the finished world renderer,
 not a hidden game loop. See [milestone evidence](../evidence/trail-milestone/README.md).
+
+## Signature challenge stars (#93)
+
+Original code-authored gold star silhouettes, signboards and landing bands are
+separate from the ordinary gem atlas. Their dark rim and pale center preserve a
+shape distinction as well as a color distinction. See the
+[local source/provenance record](../../assets/source/specials/PROVENANCE.md) and
+[gameplay guide](../signature-challenges.md). No new raster asset is required.

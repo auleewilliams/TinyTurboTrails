@@ -2,6 +2,7 @@ import { DEFAULT_MOVEMENT, MAX_STEP_SECONDS, detachFromGround, launchSpring, sur
 import type { LevelData, WorldEntity } from '../world/level';
 
 export type RunEvent =
+  | { type: 'special'; entityId: string }
   | { type: 'gem'; entityId: string }
   | { type: 'checkpoint'; entityId: string }
   | { type: 'damage'; entityId?: string }
@@ -28,6 +29,8 @@ export interface RunState {
   /** Run clock in seconds; moving platforms are a pure function of it. */
   seconds: number;
   collectedGems: Set<string>;
+  collectedSpecials: Set<string>;
+  specialTotal: number;
   springContacts: Set<string>;
   checkpointId: string | null;
   health: number;
@@ -48,7 +51,9 @@ function placeEntities(level: LevelData): EntityState[] {
 }
 
 export function createRun(level: LevelData): RunState {
-  return { seconds: 0, collectedGems: new Set(), springContacts: new Set(), checkpointId: null,
+  return { seconds: 0, collectedGems: new Set(), collectedSpecials: new Set(),
+    specialTotal: level.entities.filter((entity) => entity.kind === 'special').length,
+    springContacts: new Set(), checkpointId: null,
     health: MAX_HEALTH, healthFlashPip: null, healthFlashSeconds: 0, invulnerableSeconds: 0,
     entities: placeEntities(level) };
 }
@@ -56,6 +61,8 @@ export function createRun(level: LevelData): RunState {
 export function startNewRun(run: RunState, level: LevelData): void {
   run.seconds = 0;
   run.collectedGems.clear();
+  run.collectedSpecials.clear();
+  run.specialTotal = level.entities.filter((entity) => entity.kind === 'special').length;
   run.springContacts.clear();
   run.checkpointId = null;
   run.health = MAX_HEALTH;
@@ -176,6 +183,7 @@ export function stepEntities(run: RunState, level: LevelData, player: Player, se
     }
     if (!state?.active || !touching) continue;
     if (entity.kind === 'gem') collectGem(run, entity.id, events);
+    else if (entity.kind === 'special') collectSpecial(run, entity.id, events);
     else if (entity.kind === 'slime' || entity.kind === 'hazard') damagePlayer(run, player, x - player.x, events, level, entity.id);
   }
 }
@@ -205,6 +213,15 @@ export function collectGem(run: RunState, entityId: string, events: RunEvent[]):
   run.collectedGems.add(entityId);
   entity.active = false;
   events.push({ type: 'gem', entityId });
+  return true;
+}
+
+export function collectSpecial(run: RunState, entityId: string, events: RunEvent[]): boolean {
+  const entity = entityState(run, entityId);
+  if (!entity?.active || run.collectedSpecials.has(entityId)) return false;
+  run.collectedSpecials.add(entityId);
+  entity.active = false;
+  events.push({ type: 'special', entityId });
   return true;
 }
 

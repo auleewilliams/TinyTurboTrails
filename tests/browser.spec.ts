@@ -6,10 +6,10 @@ import { LEVELS, QUARRY_RUN } from '../src/world/levels';
 import { DEFAULT_MOVEMENT, surfaceY } from '../src/game/movement';
 import { platformBodyAt } from '../src/game/platforms';
 import { drawSurfaceMaterials } from '../src/world/surface-materials';
-import { drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawWorld } from '../src/world/renderer';
+import { drawSpecial, drawChallengeCues, drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawWorld } from '../src/world/renderer';
 
 /** The renderer is injected as plain functions, so every helper it calls has to travel with it. */
-const RENDERER_SOURCE = [drawTerrainMaterial, drawTerrainEdge, drawTrailBackdrop, drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawSurfaceMaterials].map((helper) => helper.toString()).join('\n');
+const RENDERER_SOURCE = [drawSpecial, drawChallengeCues, drawTerrainMaterial, drawTerrainEdge, drawTrailBackdrop, drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawSurfaceMaterials].map((helper) => helper.toString()).join('\n');
 
 const dangerXs = (level: typeof PLAINS_LEVEL): number[] => level.entities
   .filter((entity) => entity.kind === 'slime' || entity.kind === 'hazard')
@@ -122,7 +122,7 @@ test('terrain joins stay solid while scrolling in both directions at integer and
 test('moving platform slabs and their telegraphed paths draw on the real canvas', async ({ page }, info) => {
   await page.goto('/?scene=foundation');
   await page.addScriptTag({ content: `${RENDERER_SOURCE}\nwindow.drawTerrainTestWorld = ${drawWorld.toString()};` });
-  const platforms = QUARRY_RUN.platforms ?? [];
+  const platforms = (QUARRY_RUN.platforms ?? []).filter(platform => platform.from.x !== platform.to.x || platform.from.y !== platform.to.y);
   // At two seconds in, the lift is parked at the top of its path and the ferry is
   // mid-crossing, so one sample covers both a parked and a travelling slab.
   const views = platforms.map((platform) => ({
@@ -1492,3 +1492,104 @@ test('every destination accepts keyboard and standard-controller selection and s
     await expect(page.locator('#status')).toContainText('X 60');
   }
 });
+
+// Input-only star pilot: observes the shipped debug position and dispatches the
+// same keyboard events as a player. No scene access, teleports or reward writes.
+for (const [index, level] of LEVELS.slice(0, 3).entries()) {
+  test(`signature ${level.name}: nine-star route, native/small evidence and fresh navigation`, async ({ page }, info) => {
+    test.setTimeout(120_000);
+    const errors: string[] = [];
+    page.on('pageerror', error => errors.push(error.message));
+    await page.addInitScript(({ id, dangers }) => {
+      const pilot = { active: false, pauseAt: 0, frozen: false, lastX: 0, index: 0, jumpUntil: 0, docked: false, rode: false, time: 0 };
+      Object.assign(window, { starPilot: pilot });
+      const originalText = CanvasRenderingContext2D.prototype.fillText;
+      CanvasRenderingContext2D.prototype.fillText = function (text, x, y, maxWidth) {
+        if (text.startsWith('STARS ')) this.canvas.dataset.stars = text;
+        return maxWidth === undefined ? originalText.call(this, text, x, y) : originalText.call(this, text, x, y, maxWidth);
+      };
+      const raf = requestAnimationFrame.bind(window);
+      let last = 0;
+      window.requestAnimationFrame = callback => raf(now => {
+        if (pilot.frozen) { last = now; callback(pilot.time); return; }
+        const status = document.querySelector('#status')?.textContent ?? '';
+        const x = Number(status.match(/X (\d+)/)?.[1] ?? 0);
+        const y = Number(status.match(/Y (-?\d+)/)?.[1] ?? 0);
+        const vx = Number(status.match(/V (-?\d+)/)?.[1] ?? 0);
+        let horizontal = 0;
+        let jump = false;
+        if (pilot.active && status.includes('Playing')) {
+          horizontal = 1;
+          if (x < pilot.lastX - 100) pilot.index = Math.max(0, dangers.findIndex(d => d >= x - 30));
+          pilot.lastX = x;
+          if (dangers[pilot.index] !== undefined && x >= dangers[pilot.index] - 65) {
+            pilot.jumpUntil = pilot.time + 400; pilot.index++;
+          }
+          if (id === 'quarry' && x > 2250 && !pilot.docked) {
+            const stop = x + Math.sign(vx) * vx ** 2 / 2400;
+            horizontal = stop < 2376 ? 1 : stop > 2384 ? -1 : 0;
+            if (Math.abs(x - 2380) < 12 && Math.abs(vx) < 15) pilot.docked = true;
+          }
+          if (id === 'quarry' && pilot.docked && !pilot.rode) {
+            horizontal = 0; pilot.jumpUntil = 0;
+            if (y + 34 <= 67) pilot.rode = true;
+          }
+          if (id === 'quarry' && pilot.rode && x < 2650) pilot.jumpUntil = 0;
+          jump = pilot.time < pilot.jumpUntil;
+          if (pilot.pauseAt && x >= pilot.pauseAt) {
+            pilot.frozen = true;
+            callback(pilot.time); return;
+          }
+        }
+        if (!pilot.active || status.includes('Finish')) { horizontal = 0; jump = false; }
+        for (const [code, down] of [['ArrowRight', horizontal > 0], ['ArrowLeft', horizontal < 0], ['Space', jump]] as const) {
+          window.dispatchEvent(new KeyboardEvent(down ? 'keydown' : 'keyup', { code }));
+        }
+        // Match the existing input pilot's accelerated wall clock outside the
+        // challenge area; the production clock still integrates fixed steps.
+        const near = id === 'plains' ? x > 600 && x < 900 : id === 'quarry' ? x > 2200 && x < 2700 : x > 850 && x < 3450;
+        pilot.time += Math.min(now - (last || now), 32) * (near ? 1 : 4); last = now;
+        callback(pilot.time);
+      });
+    }, { id: level.id, dangers: dangerXs(level) });
+    await page.goto('/?debug=1');
+    await page.getByRole('button', { name: level.name, exact: true }).click();
+    await page.getByRole('button', { name: `Play ${level.name}`, exact: true }).click();
+    await expect(page.locator('canvas')).toHaveAttribute('data-stars', 'STARS 0/3');
+    const stops = index === 0 ? [620, 845] : index === 1 ? [2290, 2490] : [910, 1140, 1710, 3160, 3340];
+    const capture = async (name: string): Promise<void> => {
+      for (const width of [426, 320]) {
+        await page.setViewportSize({ width, height: 240 });
+        await page.waitForTimeout(50);
+        await page.screenshot({ path: info.outputPath(`${level.id}-${name}-${width}.png`) });
+        await info.attach(`${name}-${width}`, { path: info.outputPath(`${level.id}-${name}-${width}.png`), contentType: 'image/png' });
+      }
+      await page.setViewportSize({ width: 1366, height: 768 });
+    };
+    for (const x of stops) {
+      await page.evaluate(x => {
+        const pilot = (window as unknown as { starPilot: { active: boolean; frozen: boolean; pauseAt: number } }).starPilot;
+        Object.assign(pilot, { active: true, frozen: false, pauseAt: x });
+      }, x);
+      await page.waitForFunction(() => (window as unknown as { starPilot: { frozen: boolean } }).starPilot.frozen, undefined, { timeout: 35_000, polling: 100 });
+      await capture(`challenge-${stops.indexOf(x) + 1}`);
+    }
+    await page.evaluate(() => { Object.assign((window as unknown as { starPilot: object }).starPilot, { active: true, frozen: false, pauseAt: 0 }); });
+    await expect(page.locator('#status')).toContainText('Finish', { timeout: 75_000 });
+    await expect(page.locator('canvas')).toHaveAttribute('data-stars', 'STARS 3/3');
+    for (const width of [426, 320]) {
+      await page.setViewportSize({ width, height: 240 });
+      await page.screenshot({ path: info.outputPath(`${level.id}-finish-${width}.png`) });
+      await info.attach(`finish-${width}`, { path: info.outputPath(`${level.id}-finish-${width}.png`), contentType: 'image/png' });
+      for (const label of ['Replay', 'Next trail', 'Choose trail']) await expect(page.getByRole('button', { name: label, exact: true })).toBeVisible();
+    }
+    await page.evaluate(() => { Object.assign((window as unknown as { starPilot: object }).starPilot, { active: false }); });
+    await page.getByRole('button', { name: ['Replay', 'Next trail', 'Choose trail'][index], exact: true }).click();
+    if (index === 2) await page.getByRole('button', { name: `Play ${level.name}`, exact: true }).click();
+    await expect(page.locator('canvas')).toHaveAttribute('data-stars', 'STARS 0/3');
+    await page.reload();
+    await page.getByRole('button', { name: 'Play PLAINS', exact: true }).click();
+    await expect(page.locator('canvas')).toHaveAttribute('data-stars', 'STARS 0/3');
+    expect(errors).toEqual([]);
+  });
+}

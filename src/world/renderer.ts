@@ -57,13 +57,16 @@ export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, le
   drawSurfaceMaterials(ctx, level, offset);
   for (const surface of level.surfaces) drawSurfaceGrip(ctx, surface, offset);
   drawPlatforms(ctx, level, offset, platforms);
+  drawChallengeCues(ctx, level, offset);
   // Decorative silhouettes sit behind every collectible, hazard and checkpoint.
   const layerOrder: Record<WorldEntity['layer'], number> = { back: 0, world: 1, front: 2 };
   const entities = [...level.entities].sort((left, right) => layerOrder[left.layer] - layerOrder[right.layer]);
   for (const entity of entities) {
     if (!isVisible(entity)) continue;
     const position = positionOf(entity);
-    if (entity.kind === 'crumbling-ledge') {
+    if (entity.kind === 'special') {
+      drawSpecial(ctx, position.x - offset.x, position.y - offset.y);
+    } else if (entity.kind === 'crumbling-ledge') {
       drawCrumblingLedge(ctx, assets, entity, position.x - offset.x, position.y - offset.y, position.warningProgress ?? 0);
     } else if (scenery && sceneryForDecoration(entity)) {
       drawScenerySprite(ctx, scenery, sceneryForDecoration(entity)!, position.x - offset.x, position.y - offset.y);
@@ -93,6 +96,45 @@ export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, le
   // Keep the draw source referenced so a bad cell size cannot silently pass.
   void atlas;
   void cell;
+}
+
+/** Original code-authored pixel star: a gold five-point silhouette, dark rim and
+ * pale center. Its center is the pickup position, unlike bottom-anchored gems. */
+export function drawSpecial(ctx: CanvasRenderingContext2D, x: number, y: number): void {
+  const rows = ['00000100000', '00001110000', '00001110000', '11111111111',
+    '01111111110', '00111111100', '00111111100', '01110011110', '01100001110'];
+  x = Math.round(x) - 11; y = Math.round(y) - 9;
+  ctx.fillStyle = '#10252c';
+  for (let row = 0; row < rows.length; row++) for (let col = 0; col < 11; col++) {
+    if (rows[row][col] === '1') ctx.fillRect(x + col * 2 - 1, y + row * 2 - 1, 4, 4);
+  }
+  ctx.fillStyle = '#ffda75';
+  for (let row = 0; row < rows.length; row++) for (let col = 0; col < 11; col++) {
+    if (rows[row][col] === '1') ctx.fillRect(x + col * 2, y + row * 2, 2, 2);
+  }
+  ctx.fillStyle = '#fff7d6'; ctx.fillRect(x + 9, y + 6, 4, 4);
+}
+
+/** Signs never collide; landing bands follow the existing terrain contour. */
+export function drawChallengeCues(ctx: CanvasRenderingContext2D, level: LevelData, offset: { x: number; y: number }): void {
+  for (const cue of level.challengeCues ?? []) {
+    const x = Math.round(cue.x - offset.x);
+    const y = Math.round(cue.y - offset.y);
+    if (x < -180 || x > 606) continue;
+    ctx.save();
+    ctx.font = 'bold 8px monospace'; ctx.textAlign = 'center';
+    const width = cue.label.length * 5 + 10;
+    ctx.fillStyle = '#10252c'; ctx.fillRect(x - width / 2, y - 48, width, 15);
+    ctx.fillRect(x - 1, y - 33, 2, 33);
+    ctx.fillStyle = '#ffda75'; ctx.fillText(cue.label, x, y - 37);
+    if (cue.landingWidth) for (let px = cue.x - cue.landingWidth / 2; px <= cue.x + cue.landingWidth / 2; px += 12) {
+      const surface = level.surfaces.find((part) => px >= part.x1 && px <= part.x2);
+      if (!surface) continue;
+      const py = surface.y1 + (surface.y2 - surface.y1) * (px - surface.x1) / (surface.x2 - surface.x1);
+      ctx.fillRect(Math.round(px - offset.x), Math.round(py - offset.y) + 2, 7, 3);
+    }
+    ctx.restore();
+  }
 }
 
 function drawTerrainTiles(ctx: CanvasRenderingContext2D, assets: WorldAssets, level: LevelData,

@@ -28,7 +28,7 @@ position. `validateLevel` rejects a patrol that leaves the level, excludes its
 own slime, crosses ground steeper than 45 degrees, or moves faster than half of
 Henry's top speed, so a patrolling slime is never unavoidable.
 
-Every accepted interaction emits a small event (`gem`, `checkpoint`, `damage`,
+Every accepted interaction emits a small event (`gem`, `special`, `checkpoint`, `damage`,
 `spring` or `recover`). The `/?scene=gameplay` preview consumes those events to
 exercise the HUD-facing path and maps them to local synthesized audio. The
 preview uses the Plains level and generated atlases; the complete map, pause/result screens and finish handling are available at `/`.
@@ -74,3 +74,10 @@ entity state. Decorative material markings never use these warning animations.
 Validation checks positive width, full-span in-bounds ground and at least 36px
 clearance at left/center/right, with no checkpoint or required spring overlap.
 Rendering reads run-owned phases and never advances timers.
+
+## Optional special stars (#93)
+
+[Signature challenges](signature-challenges.md) documents the three trails,
+approaches, safe returns, separate once-only star counter, checkpoint retention
+and fresh-run resets. `special` is an additional pickup event; its bounded 0.65s
+sparkle uses `+1 STAR` and the existing pickup sound. Stars never gate the finish.

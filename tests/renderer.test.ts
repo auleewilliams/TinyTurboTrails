@@ -287,11 +287,14 @@ it('omits entities the run has consumed and keeps the rest', () => {
 });
 
 it('draws every entity when a scene supplies no run state', () => {
-  const { ctx, images } = recordingContext();
+  const { ctx, images, rects } = recordingContext();
   const camera = new Camera({ width: 426, height: 240, worldWidth: PLAINS_LEVEL.width, worldHeight: PLAINS_LEVEL.height });
   drawWorld(ctx, worldAssets, PLAINS_LEVEL, camera);
-  // Two parallax hills, every entity, and the finish arch.
-  expect(images).toHaveLength(PLAINS_LEVEL.entities.length + 3);
+  // Stars use original pixel geometry; all other entities still use the atlas.
+  expect(images).toHaveLength(PLAINS_LEVEL.entities.filter(entity => entity.kind !== 'special').length + 3);
+  for (const star of PLAINS_LEVEL.entities.filter(entity => entity.kind === 'special')) {
+    expect(rects.some(rect => rect.fillStyle === '#fff7d6' && rect.x === Math.round(star.x) - 2)).toBe(true);
+  }
 });
 
 it('draws crumbling ledges as stone tiles with deterministic warning cracks', () => {

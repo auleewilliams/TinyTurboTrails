@@ -108,6 +108,10 @@ it('is a long route split into six checkpointed sections', () => {
 
 it('places the main route inside the walkable activation window and one jump-only bonus gem per section', () => {
   for (const entity of QUARRY_RUN.entities) {
+    if (entity.kind === 'special') {
+      expect(lift(entity), entity.id).toBe(72);
+      continue;
+    }
     if (entity.kind === 'decoration' || entity.kind === 'crumbling-ledge' || isBonus(entity)) continue;
     expect(Math.abs(lift(entity)), entity.id).toBeLessThanOrEqual(ACTIVATION_WINDOW);
   }
@@ -203,7 +207,7 @@ it.each([
   expect(scene.screenState).toBe('finish');
 });
 
-const PLATFORMS = QUARRY_RUN.platforms ?? [];
+const PLATFORMS = (QUARRY_RUN.platforms ?? []).filter((platform) => platformSpeed(platform) > 0);
 const LIFT = PLATFORMS.find((platform) => platform.id === 'quarry-lift-terraces')!;
 const FERRY = PLATFORMS.find((platform) => platform.id === 'quarry-ferry-crusher')!;
 

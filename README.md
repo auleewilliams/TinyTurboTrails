@@ -5,6 +5,8 @@
 A forgiving, illustrated platform game for Henry. Explore six open trails:
 Plains, Quarry Run, Treetop Timbers, Sunset Site, Frost Ridge and Sandy Cove.
 Choose a landmark on the overworld, collect gems and reach the finish.
+Plains, Quarry Run and Treetop Timbers also offer three optional gold stars each;
+follow the slope, lift and spring signs to explore their signature challenges.
 
 ## Play locally
 
@@ -35,7 +37,8 @@ Docker/nginx deployment and rollback. Public internet hosting is outside scope.
 | Mute | M | — | Mute button |
 
 Replay starts the same trail fresh. Next trail starts the next registered trail;
-Choose trail returns to the map. Checkpoint recovery retains gems. Completion
+Choose trail returns to the map. Checkpoint recovery retains gems and special
+stars; replay, changing trails and reload clear the run's stars. Completion
 badges last for this page session only; reloading clears them. Nothing is saved
 to browser storage or a server. See the [adventure guide](docs/plains-adventure.md).
 

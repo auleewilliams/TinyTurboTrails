@@ -91,6 +91,7 @@ export class AdventureScene implements Scene {
   }
   get screenState(): ScreenController['state'] { return this.screens.state; }
   get gemTotal(): number { return this.screens.gems; }
+  get specialTotal(): number { return this.run.collectedSpecials.size; }
   get playerX(): number { return this.player.x; }
   get playerY(): number { return this.player.y; }
   get playerVelocityX(): number { return this.player.vx; }
@@ -156,7 +157,7 @@ export class AdventureScene implements Scene {
     }
     this.feedback.consume(this.events, this.level);
     for (const event of this.events) {
-      if (event.type === 'gem') this.audio.play('gem');
+      if (event.type === 'gem' || event.type === 'special') this.audio.play('gem');
       else if (event.type === 'checkpoint') this.audio.play('checkpoint');
       else if (event.type === 'spring') this.audio.play('spring');
       else if (event.type === 'damage') this.audio.play('damage');
@@ -313,7 +314,11 @@ export class AdventureScene implements Scene {
     ctx.fillText('TRAIL COMPLETE!', FINISH_LAYOUT.centerX, title.baseline);
     ctx.fillStyle = '#e9f2df';
     ctx.font = `${gems.size}px monospace`;
-    ctx.fillText(finishGemsText(this.screens.gems), FINISH_LAYOUT.centerX, gems.baseline);
+    ctx.fillText(finishGemsText(this.screens.gems), this.run.specialTotal ? 132 : FINISH_LAYOUT.centerX, gems.baseline);
+    if (this.run.specialTotal) {
+      ctx.fillStyle = '#ffda75';
+      ctx.fillText(`STARS ${this.specialTotal}/${this.run.specialTotal}`, 292, gems.baseline);
+    }
     this.menuTargets.forEach((target, index) => {
       ctx.fillStyle = index === this.finishIndex ? '#ffda75' : '#34515a';
       ctx.fillRect(target.x, target.y, target.width, target.height);
