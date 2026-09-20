@@ -118,8 +118,9 @@ Every route has a quiet material fill and illustrated contour edge, including
 Plains exposed rock sections, Quarry stone, Timbers wood, construction gravel,
 Frost snow over rock and Cove sand. Grip cues derive independently from authored
 friction and draw above decorative materials. Quarry and Timbers add continuous
-backgrounds with supported landmarks. Keep collisions, anchors, movement and
-entity placement unchanged. Respect reduced motion and loading/error/retry.
+backgrounds with supported landmarks. Decorative art updates preserve collisions,
+anchors and movement; optional challenge additions follow the rules below.
+Respect reduced motion and loading/error/retry.
 
 The parent-led landmark/navigation check with Henry remains a separate acceptance
 step; automated tests cannot satisfy it. Current controls live in the adventure guide.

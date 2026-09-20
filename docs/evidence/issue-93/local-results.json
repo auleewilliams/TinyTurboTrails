@@ -1,0 +1,13 @@
+{
+  "runtimeCommit": "cefe4baf38b0e7545f230ea5092dd45dc481d7c5",
+  "platform": "Windows",
+  "node": "24.19.0",
+  "unitTests": { "passed": 519, "files": 30 },
+  "typecheck": "passed",
+  "build": "passed",
+  "browserCommand": "npm run test:browser -- --workers=2 --reporter=line",
+  "browser": { "passed": 115, "skipped": 1, "failed": 58, "minutes": 15.6, "retries": 0 },
+  "failureScope": "All 58 Firefox cases failed before page launch: browserType.launch: spawn UNKNOWN (bundled firefox-1543/firefox/firefox.exe). Chromium and WebKit had no failures.",
+  "skipScope": "Existing native-audio availability check",
+  "childPlaytesting": "Not performed"
+}

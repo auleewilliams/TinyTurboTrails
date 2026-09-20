@@ -28,7 +28,7 @@ position. `validateLevel` rejects a patrol that leaves the level, excludes its
 own slime, crosses ground steeper than 45 degrees, or moves faster than half of
 Henry's top speed, so a patrolling slime is never unavoidable.
 
-Every accepted interaction emits a small event (`gem`, `checkpoint`, `damage`,
+Every accepted interaction emits a small event (`gem`, `special`, `checkpoint`, `damage`,
 `spring` or `recover`). The `/?scene=gameplay` preview consumes those events to
 exercise the HUD-facing path and maps them to local synthesized audio. The
 preview uses the Plains level and generated atlases; the complete map, pause/result screens and finish handling are available at `/`.
