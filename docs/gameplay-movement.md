@@ -3,8 +3,7 @@
 The movement preview is available at `/?scene=movement`. It uses the same local
 Henry atlas as the art preview and draws explicit course geometry beneath it.
 Arrows/A-D move, Space jumps, and the orange marker launches a spring when Henry
-crosses it. The preview is diagnostic; the complete level and interactions arrive
-in issues #5 and #6.
+crosses it. The preview is diagnostic; open `/` for the complete adventure.
 
 ## Tuning contract
 
@@ -94,5 +93,5 @@ the segment on its left, consistently for height and movement. Cyan glints,
 amber stipples and blue wave marks identify ice, soft sand and shallow water.
 Unmarked ground uses the original movement defaults. Authored friction must
 be finite in [0.25, 2] and speed in [0.5, 1]. Friction outside the generic grip
-range and any reduced speed require an explicit material. Generic grip uses
-automatic visual cues. Ice preserves normal top speed; sand and water must reduce it.
+range and any reduced speed require an explicit material. All non-default friction uses
+automatic visual cues above the decorative material, including ice. Ice preserves normal top speed; sand and water must reduce it.

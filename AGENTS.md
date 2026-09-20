@@ -22,7 +22,7 @@ npm run preview        # Serve the production bundle locally
 npm run test:browser   # Run Playwright checks in Chromium, Firefox, and WebKit
 ```
 
-Open `/?scene=adventure` for the playable route; bare `/` is diagnostic. Install
+Open `/` or `/?scene=adventure` for play; `/?scene=foundation` is diagnostic. Install
 Playwright browsers with
 `npx playwright install --with-deps chromium firefox webkit` when needed.
 

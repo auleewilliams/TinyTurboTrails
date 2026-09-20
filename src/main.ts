@@ -15,6 +15,8 @@ import { WorldPreviewScene } from './world/preview-scene';
 import { GameplayPreviewScene, loadGameplayAssets } from './game/gameplay-preview';
 import { controlHints } from './game/hud';
 import { AdventureScene } from './game/adventure-scene';
+import { MenuOverlay } from './game/menu-overlay';
+import { loadImage } from './art/henry';
 import { DEFAULT_LEVEL, LEVELS } from './world/levels';
 
 const canvas = document.querySelector<HTMLCanvasElement>('#game')!;
@@ -32,6 +34,7 @@ if (!context) {
   const unlockAudio = (): void => { void audio.unlock(); };
   const input = new BrowserInput(window, () => { void audio.unlock().catch(() => {}); });
   const scenes = new SceneHost(() => audio.stop());
+  const menu = new MenuOverlay(canvas);
   let focused = !document.hidden && document.hasFocus();
   let userPaused = false;
   let muted = false;
@@ -104,6 +107,7 @@ if (!context) {
     if (assetState === 'ready' && focused && !userPaused && adventure) status.textContent = previewStatus();
     context.imageSmoothingEnabled = false;
     scenes.render(context);
+    menu.update(scenes.activeScene instanceof AdventureScene ? scenes.activeScene : undefined, !focused || userPaused);
     if (!focused || userPaused) {
       // Save/restore so the centered overlay cannot leak into the next frame's scene HUD.
       context.save();
@@ -135,9 +139,11 @@ if (!context) {
       loadTitleArtwork(),
       loadHenry(),
       loadWorldAssetMap(LEVELS.map(({ atlas }) => atlas)),
-    ]).then(([titleArtwork, henry, worlds]) => {
+      loadImage(`${import.meta.env.BASE_URL}assets/overworld/landmarks.png`),
+      loadImage(`${import.meta.env.BASE_URL}assets/overworld/background.png`),
+    ]).then(([titleArtwork, henry, worlds, landmarks, mapBackground]) => {
       if (disposed) return;
-      scenes.change(new AdventureScene(titleArtwork, henry, worlds, audio, DEFAULT_LEVEL));
+      scenes.change(new AdventureScene(titleArtwork, henry, worlds, audio, DEFAULT_LEVEL, landmarks, mapBackground));
       assetState = 'ready';
       refreshPause();
     }).catch(() => {
@@ -193,6 +199,7 @@ if (!context) {
     document.removeEventListener('visibilitychange', visibility);
     input.dispose();
     scenes.dispose();
+    menu.dispose();
     canvas.removeEventListener('pointerdown', unlockAudio);
     muteButton.removeEventListener('click', toggleMute);
     retryButton.removeEventListener('click', retryLoading);

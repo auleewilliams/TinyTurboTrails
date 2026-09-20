@@ -1,5 +1,9 @@
 # Release verification — issue #8 (closed)
 
+> Historical record: results, blockers and waivers below apply only to the dated
+> release/commit described here. They do not certify the current game. For
+> current play and development guidance, see [the docs index](README.md).
+
 **Certified:** [2026-09-17 certification report](RELEASE-VERIFICATION-2026-09-17.md)
 records 74/75 passing browser checks (1 documented Firefox native-audio skip),
 127 unit tests, typecheck and build all green, and every known defect fixed and

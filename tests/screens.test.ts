@@ -89,7 +89,7 @@ describe('game screen flow', () => {
     (scene as unknown as { player: { x: number } }).player.x = PLAINS_LEVEL.finish.x;
     scene.update(1 / 60, { ...input, jumpPressed: false });
     scene.update(1 / 60, { ...input, horizontal: 1 });
-    expect(scene.screenState).toBe('title');
+    expect(scene.screenState).toBe('finish');
     expect(scene.selectedLevelName).toBe(PLAINS_LEVEL.name);
     scene.update(1 / 60, { ...input, jumpPressed: false, horizontal: 1 });
     expect(scene.selectedLevelName).toBe(PLAINS_LEVEL.name);
@@ -219,11 +219,12 @@ it.each(['keyboard', 'controller'])('%s replay immediately restores the initial 
   const pad = { connected: true, mapping: 'standard', axes: [0], buttons };
   const target = Object.assign(new EventTarget(), { navigator: { getGamepads: () => [pad] } });
   const controls = new BrowserInput(target as unknown as Window, () => {});
+  scene.update(1 / 60, input); // Release gate before a new confirmation.
   if (device === 'controller') buttons[0].pressed = true;
   else target.dispatchEvent(Object.assign(new Event('keydown'), { code: 'Space', repeat: false }));
   scene.update(1 / 60, controls.poll());
   controls.dispose();
-  expect(scene.screenState).toBe('title');
+  expect(scene.screenState).toBe('playing');
   expect(state.camera.position).toEqual(initialCamera);
   expect(state.player).toEqual(createPlayer(PLAINS_LEVEL.start.x, PLAINS_LEVEL));
   expect(state.run.collectedGems.size).toBe(0);
@@ -306,6 +307,7 @@ it('emits dust only on meaningful landings and clears presentation on replay and
   state.feedback.checkpointSeconds = 2;
   state.player.x = PLAINS_LEVEL.finish.x;
   scene.update(1 / 60, neutral);
+  scene.update(1 / 60, neutral);
   scene.update(1 / 60, { ...neutral, jumpPressed: true });
   expect(state.feedback.effects).toEqual([]);
   expect(state.feedback.checkpointSeconds).toBe(0);
@@ -334,9 +336,10 @@ it('selects every level track only on start, preserves recovery, and silences fi
     state.player.y = level.finish.y;
     scene.update(1 / 60, neutral);
     expect(calls.slice(calls.indexOf('complete') - 1, calls.indexOf('complete') + 1)).toEqual(['stop', 'complete']);
-    scene.update(1 / 60, { ...neutral, jumpPressed: true });
+    scene.activateFinish('Choose trail');
     expect(scene.screenState).toBe('title');
     expect(calls.at(-1)).toBe('stop');
+    scene.update(1 / 60, neutral);
     scene.update(1 / 60, { ...neutral, jumpPressed: true });
     expect(calls.at(-1)).toBe(`music:${level.id}`);
     scene.exit();

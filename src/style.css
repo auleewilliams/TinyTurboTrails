@@ -1,6 +1,10 @@
 :root { --ui-panel: #0c1922; --ui-ink: #e9f2df; --ui-accent: #ffda75; color-scheme: dark; font-family: monospace; background: #8bd0ca; color: #e9f2df; }
 * { box-sizing: border-box; }
 body { margin: 0; }
+.trail-menu { position: fixed; pointer-events: none; }
+.trail-menu button { position: absolute; pointer-events: auto; border: 0; padding: 0; background: transparent; cursor: pointer; }
+.trail-menu button:focus-visible { outline: 3px solid white; box-shadow: 0 0 0 5px var(--ui-panel); }
+.map-visible #status { clip-path: inset(50%); width: 1px; height: 1px; padding: 0; }
 main { width: 100vw; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; }
 canvas { display: block; flex-shrink: 0; image-rendering: pixelated; image-rendering: crisp-edges; }
 #status { position: absolute; left: 8px; bottom: 8px; max-width: calc(100vw - 88px); overflow: hidden; white-space: nowrap; text-overflow: ellipsis; margin: 0; padding: 4px 8px; font-size: 11px; text-align: center; background: var(--ui-panel); }

@@ -41,6 +41,7 @@ export const FROST_RIDGE: LevelData = {
   width: 11200, height: 240, ...terrain,
   start: { x: 60, y: 198 }, finish: { x: 11100, y: 166, asset: 'finish-arch' },
   theme: {
+    material: 'frost',
     texturedTerrain: true, sky: '#c2e8f4', ground: '#dcebf3', edge: '#294e78',
     parallax: [180, 710, 1250, 1800, 2320].map((x) => ({ asset: 'hills', x, y: 100, scale: 3 })),
   },

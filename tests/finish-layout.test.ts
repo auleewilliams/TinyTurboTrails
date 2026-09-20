@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import henryManifest from '../public/assets/henry/manifest.json';
 import {
-  FINISH_LAYOUT, FINISH_REPLAY_TEXT, celebrationBob, celebrationHenryRect, celebrationStarRects, finishGemsText, type Rect,
+  FINISH_LAYOUT, celebrationBob, celebrationHenryRect, celebrationStarRects, finishGemsText, type Rect,
 } from '../src/game/adventure-scene';
 import { LOGICAL_HEIGHT, LOGICAL_WIDTH } from '../src/core/viewport';
 
@@ -21,7 +21,7 @@ function inside(inner: Rect, outer: Rect): boolean {
 }
 
 describe('finish screen composition', () => {
-  const { panel, title, gems, replay } = FINISH_LAYOUT;
+  const { panel, title, gems, actions, prompt } = FINISH_LAYOUT;
   const bobs = Array.from({ length: 64 }, (_, step) => celebrationBob((step / 64) * ((2 * Math.PI) / 10)));
 
   it('samples the full bob cycle', () => {
@@ -37,7 +37,8 @@ describe('finish screen composition', () => {
     const text = [
       textRect('TRAIL COMPLETE!', title.baseline, title.size),
       textRect(finishGemsText(total), gems.baseline, gems.size),
-      textRect(FINISH_REPLAY_TEXT, replay.baseline, replay.size),
+      ...Array.from({ length: 3 }, (_, index) => ({ x: actions.x + index * actions.spacing, y: actions.y, width: actions.width, height: actions.height })),
+      textRect('D-pad: choose · Face button: confirm', prompt.baseline, prompt.size),
     ];
     for (const rect of text) expect(inside(rect, panel)).toBe(true);
     for (let i = 1; i < text.length; i++) expect(overlaps(text[i - 1], text[i])).toBe(false);

@@ -1,3 +1,4 @@
+import { drawTerrainMaterial, drawTerrainEdge, drawTrailBackdrop } from './trail-presentation';
 import type { Camera } from './camera';
 import type { LevelData, LevelSun, WorldEntity } from './level';
 import type { PlatformBody, Surface } from '../game/movement';
@@ -22,10 +23,11 @@ export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, le
   if (level.theme.sun) drawSun(ctx, level.theme.sun, offset.x);
   const scenery = level.theme.scenery ? assets.scenery : undefined;
   if (scenery) drawSceneryBackground(ctx, scenery, level, offset.x);
-  else for (const parallax of level.theme.parallax) {
+  else if (level.id !== 'quarry' && level.id !== 'timbers') for (const parallax of level.theme.parallax) {
     drawAsset(ctx, assets, parallax.asset,
       parallax.x - offset.x * 0.18, parallax.y - offset.y * 0.1, parallax.scale);
   }
+  drawTrailBackdrop(ctx, assets, level, offset);
   ctx.fillStyle = level.theme.ground;
   // Fill each connected ground contour once: separately antialiased polygon
   // edges leave the background showing through at fractional camera offsets.
@@ -46,18 +48,14 @@ export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, le
     ctx.lineTo(first.x1 - offset.x, 240);
     ctx.closePath();
     ctx.fill();
+    ctx.save(); ctx.clip();
+    drawTerrainMaterial(ctx, level, offset, assets, first.x1, last.x2);
+    ctx.restore();
   }
-  if (level.theme.texturedTerrain) drawTerrainTiles(ctx, assets, level, offset);
-  for (const surface of level.surfaces) {
-    ctx.strokeStyle = level.theme.edge;
-    ctx.lineWidth = 4;
-    ctx.beginPath();
-    ctx.moveTo(surface.x1 - offset.x, surface.y1 - offset.y);
-    ctx.lineTo(surface.x2 - offset.x, surface.y2 - offset.y);
-    ctx.stroke();
-    drawSurfaceGrip(ctx, surface, offset);
-  }
+  if (level.theme.texturedTerrain && level.theme.material === 'wood') drawTerrainTiles(ctx, assets, level, offset);
+  drawTerrainEdge(ctx, level, offset);
   drawSurfaceMaterials(ctx, level, offset);
+  for (const surface of level.surfaces) drawSurfaceGrip(ctx, surface, offset);
   drawPlatforms(ctx, level, offset, platforms);
   // Decorative silhouettes sit behind every collectible, hazard and checkpoint.
   const layerOrder: Record<WorldEntity['layer'], number> = { back: 0, world: 1, front: 2 };
@@ -196,6 +194,8 @@ export function drawPlatforms(ctx: CanvasRenderingContext2D, level: LevelData, o
     ctx.fillRect(body.x - offset.x, body.y - offset.y, body.width, body.height);
     ctx.fillStyle = level.theme.edge;
     ctx.fillRect(body.x - offset.x, body.y - offset.y, body.width, 3);
+    ctx.fillStyle = '#ffffff22';
+    for (let x = 6; x < body.width - 4; x += 11) ctx.fillRect(body.x - offset.x + x, body.y - offset.y + 5, 4, 1);
   }
 }
 
@@ -226,7 +226,7 @@ export function drawAsset(ctx: CanvasRenderingContext2D, assets: WorldAssets, as
 /** Automatic grip cues: smooth cyan streaks below 1, ochre grains above 1. */
 export function drawSurfaceGrip(ctx: CanvasRenderingContext2D, surface: Surface, offset: { x: number; y: number }): void {
   const friction = surface.friction ?? 1;
-  if (surface.material || friction === 1 || surface.x2 <= surface.x1) return;
+  if (friction === 1 || surface.x2 <= surface.x1) return;
   const slippery = friction < 1;
   const slope = (surface.y2 - surface.y1) / (surface.x2 - surface.x1);
   ctx.save();

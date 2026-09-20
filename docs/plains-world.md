@@ -4,7 +4,7 @@ The world preview is available at `/?scene=world`. It loads the generated local
 environment atlas and draws the full level data with a bounded camera. Arrows or
 A/D move the preview camera through the meadow, wooded hillside and cave-themed
 sections. Terrain is rendered from the same segment data consumed by collision;
-entity positions use stable IDs for later interaction and checkpoint systems.
+entity positions use stable IDs for run interactions and checkpoints.
 
 `src/world/level.ts` owns the Plains route, while `src/world/levels.ts` registers
 it with the other playable levels. The 9,980 × 240 Plains route (issue #45) has six biomes
@@ -35,8 +35,7 @@ loading error and retry flow.
 The generated source sheet and prompt are under `assets/source/plains/`; the
 processed RGBA atlas is under `public/assets/plains/`. The source remains
 available for review and can be regenerated with the atlas-processing script.
-Full route traversal, collision interaction, enemy behavior and final visual
-contrast tuning continue in issues #5, #6 and #8.
+Current adventure behavior is documented in [the adventure guide](plains-adventure.md).
 
 Checkpoint coordinates are terrain foot positions: each checkpoint's Y is
 `surfaceY` at its X, including the slope where a checkpoint sits on a ramp.
@@ -46,3 +45,21 @@ Atlas metadata supplies a checkpoint anchor `(20, 44)` to account for the post
 position and transparent bottom padding; other assets retain the bottom-center
 default. Regression tests cover ground activation in the adventure, recovery
 at every checkpoint with gems retained, and scaled sprite anchoring.
+
+## Registry and validation
+
+`LEVELS`, `DEFAULT_LEVEL` and `levelById` own stable destination order and IDs.
+`LevelData` supplies dimensions, start/finish, surfaces, checkpoints, entities,
+optional moving platforms, atlas and cosmetic theme. The loader preloads unique
+atlases, shared presentation sheets and optional scenery before adventure starts.
+Missing images/metadata use the central loading error/retry UI. Every registered
+atlas must be present; previews remain single-level.
+
+Validation enforces finite dimensions, unique bounded entity/platform IDs,
+contiguous single-height contours, terrain-grounded checkpoint entities, finish
+after start, valid movement materials and safe optional platforms/ledges. Runtime
+state stays outside immutable level data. Moving platforms and ledges supplement
+terrain collision rather than creating multiple ground heights.
+
+See [art conventions](art/README.md) for terrain fills, illustrated edges and
+Quarry/Timbers panoramas. They preserve all authored collision/entity positions.

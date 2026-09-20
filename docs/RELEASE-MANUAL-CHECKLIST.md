@@ -1,5 +1,9 @@
 # Manual release worksheet
 
+> Historical record: results, blockers and waivers below apply only to the dated
+> release/commit described here. They do not certify the current game. For
+> current play and development guidance, see [the docs index](README.md).
+
 **Waived for the certified release.** On 2026-09-17 the project owner reviewed
 this worksheet and the automated coverage in
 [RELEASE-VERIFICATION-2026-09-17.md](RELEASE-VERIFICATION-2026-09-17.md) and

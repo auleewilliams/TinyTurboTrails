@@ -49,6 +49,7 @@ it('loads world metadata and its atlas from the requested directory', async () =
   expect(requests).toEqual([
     '/assets/quarry/manifest.json',
     '/assets/quarry/environment.png',
+    '/assets/trails/materials.png', '/assets/trails/backdrops.png',
   ]);
 });
 

@@ -20,6 +20,8 @@ export interface WorldEntity {
 /** A low sun drawn behind the parallax; it drifts at a fraction of the camera so it feels far away. */
 export interface LevelSun { x: number; y: number; radius: number; color: string; glow: string }
 export interface LevelTheme {
+  material?: 'soil' | 'stone' | 'wood' | 'gravel' | 'frost' | 'sand';
+  materialSections?: readonly { from: number; to: number; material: NonNullable<LevelTheme['material']> }[];
   scenery?: boolean;
   /** Draw the shared terrain cells over the solid collision contour. */
   texturedTerrain?: boolean;
@@ -92,6 +94,12 @@ export const PLAINS_LEVEL: LevelData = {
   name: 'PLAINS',
   atlas: 'plains',
   theme: {
+    material: 'soil',
+    materialSections: [
+      { from: 0, to: 3300, material: 'soil' },
+      { from: 3300, to: 6500, material: 'stone' },
+      { from: 6500, to: 9980, material: 'soil' },
+    ],
     scenery: true,
     sky: '#8bd0ca',
     ground: '#86502f',
