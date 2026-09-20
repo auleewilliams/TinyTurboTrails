@@ -1,0 +1,48 @@
+{
+  "implementationCommit": "331964740153bf2cbaab2bdec36714e9f9f48fb0",
+  "baseCommit": "b1e99ce997e70f8f1231799992882bd43f1adc96",
+  "local": {
+    "host": "Windows",
+    "node": "24.19.0",
+    "unitTests": 532,
+    "unitFiles": 31,
+    "typecheck": "pass",
+    "build": "pass",
+    "ciScriptTests": 8,
+    "browserCommand": "npm run test:browser -- --workers=2 --project=chromium --project=webkit --reporter=line,json",
+    "browserStats": {
+      "startTime": "2026-09-20T23:31:10.814Z",
+      "duration": 932631.099,
+      "expected": 121,
+      "skipped": 1,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "retries": 0,
+    "skip": "Existing headless native-audio device probe (WebKit); silent-mode and soundtrack browser tests passed."
+  },
+  "linuxCI": {
+    "url": "https://github.com/auleewilliams/TinyTurboTrails/actions/runs/35544469208",
+    "conclusion": "success",
+    "browserPassed": 182,
+    "browserSkipped": 1,
+    "browserFailed": 0,
+    "browserVersions": {
+      "chromium": "153.0.8010.12",
+      "firefox": "155.0",
+      "webkit": "26.6"
+    },
+    "skip": "Existing headless native-audio device probe",
+    "containerSmoke": "pass",
+    "published": false
+  },
+  "reviews": {
+    "correctness": "confirmed focused-Space defect fixed and targeted re-review passed",
+    "visualAcceptance": "confirmed small finish-label defect fixed and targeted re-review passed"
+  },
+  "limitations": [
+    "Windows Firefox side-by-side configuration prevents launch even after clean reinstall; Linux Firefox coverage passed.",
+    "Henry parent-led playtest, physical controller, installed browser version pairs and Safari on macOS not performed.",
+    "Small Replay arrow detail is a deferred cosmetic suggestion; larger label is readable."
+  ]
+}

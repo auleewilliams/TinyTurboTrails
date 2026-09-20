@@ -57,7 +57,7 @@ python3 scripts/process_sprite_atlas.py \
 
 The preview loader reads `public/assets/henry/manifest.json` and a local atlas.
 The manifest records logical size, common anchor, source frame rectangles and
-`idle`, `run`, `jump`, `fall` clips. Each clip declares frame indices, seconds per
+`idle`, `run`, `jump`, `fall` and non-looping `celebrate` clips. Each clip declares frame indices, seconds per
 frame and whether it loops. Non-looping clips hold their last frame; the preview
 replays them after a short hold for inspection.
 
