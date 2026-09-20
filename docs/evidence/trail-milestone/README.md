@@ -62,7 +62,7 @@ per trail after 30 warmups, including full 426 × 240 pixel readback, against th
 renderer from `e04b5e2` on the same headless Chromium host. This is a deliberately
 CPU-heavy rendering probe, not a GPU or end-to-end frame-time guarantee. The
 observed p95 remains below 3 ms, within the 16.7 ms frame budget; added mean cost
-is roughly 0.4–1.0 ms. Materials and edge detail are viewport bounded, panoramas
+is roughly 0.2–1.3 ms. Materials and edge detail are viewport bounded, panoramas
 never wrap, and map thumbnails are rendered once per destination.
 
 Reproduction: run `npm run dev -- --port 4175`, then

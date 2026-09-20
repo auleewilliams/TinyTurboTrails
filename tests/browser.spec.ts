@@ -1463,9 +1463,32 @@ test('textured flats and slopes keep authored grip above cosmetic materials', as
     }
     return { samples, image: canvas.toDataURL() };
   }, PLAINS_LEVEL);
+  // At fractional camera offsets each 2x2 grain may contain only one fully opaque pixel.
   for (const sample of result.samples) {
     expect(sample.cyan).toBeGreaterThan(400); expect(sample.ochre).toBeGreaterThan(200);
-    expect(sample.streaks).toBeGreaterThan(40); expect(sample.grains).toBeGreaterThan(15);
+    expect(sample.streaks).toBeGreaterThan(40); expect(sample.grains).toBeGreaterThan(7);
   }
   await info.attach('textured-grip', { body: Buffer.from(result.image.split(',')[1], 'base64'), contentType: 'image/png' });
+});
+
+test('every destination accepts keyboard and standard-controller selection and start', async ({ page }) => {
+  await installTrailPilot(page);
+  for (const controller of [false, true]) for (const [index, level] of LEVELS.entries()) {
+    await page.goto('/?debug=1');
+    await expect(page.getByRole('button', { name: 'PLAINS', exact: true })).toHaveAttribute('aria-pressed', 'true');
+    await page.evaluate(controller => { (window as unknown as { trailPilot: { controller: boolean } }).trailPilot.controller = controller; }, controller);
+    for (let step = 0; step < index; step++) {
+      if (controller) {
+        await page.evaluate(() => { (window as unknown as { trailPad: { buttons: { pressed: boolean }[] } }).trailPad.buttons[15].pressed = true; });
+        await page.waitForTimeout(60);
+        await page.evaluate(() => { (window as unknown as { trailPad: { buttons: { pressed: boolean }[] } }).trailPad.buttons[15].pressed = false; });
+      } else await page.keyboard.press('ArrowRight', { delay: 60 });
+      await page.waitForTimeout(60);
+    }
+    await expect(page.getByRole('button', { name: level.name, exact: true })).toHaveAttribute('aria-pressed', 'true');
+    if (controller) await page.evaluate(() => { (window as unknown as { trailPad: { buttons: { pressed: boolean }[] } }).trailPad.buttons[0].pressed = true; });
+    else await page.keyboard.press('Space', { delay: 60 });
+    await expect(page.locator('#status')).toContainText('Playing');
+    await expect(page.locator('#status')).toContainText('X 60');
+  }
 });

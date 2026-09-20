@@ -21,8 +21,16 @@ export function drawTerrainMaterial(ctx: CanvasRenderingContext2D, level: LevelD
       ctx.globalAlpha = 0.38;
       for (let x = Math.floor(from / 192) * 192; x < to; x += 192) {
         for (let y = Math.floor(offset.y / 192) * 192; y < offset.y + 240; y += 192) {
+          // Mirrored neighbours share their boundary pixels, so non-seamless
+          // source swatches never produce a grid of hard cuts while scrolling.
+          const flipX = (Math.floor(x / 192) & 1) !== 0;
+          const flipY = (Math.floor(y / 192) & 1) !== 0;
+          ctx.save();
+          ctx.translate(x - offset.x + (flipX ? 192 : 0), y - offset.y + (flipY ? 192 : 0));
+          ctx.scale(flipX ? -1 : 1, flipY ? -1 : 1);
           ctx.drawImage(image, index % 3 * size, Math.floor(index / 3) * image.naturalHeight / 2,
-            size, image.naturalHeight / 2, x - offset.x, y - offset.y, 192, 192);
+            size, image.naturalHeight / 2, 0, 0, 192, 192);
+          ctx.restore();
         }
       }
       ctx.globalAlpha = 1;

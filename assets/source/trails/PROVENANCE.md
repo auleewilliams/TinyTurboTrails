@@ -19,3 +19,6 @@ the background artwork, not extra platforms.
 Production sizes are 384 × 256 (landmarks), 576 × 384 (materials), and
 1152 × 768 (backdrops). Reproduce with `node scripts/prepare-trail-art.mjs`
 from the repository root. Source pixels remain untouched.
+
+Neighbouring material samples mirror at their shared edge, preserving matching
+boundary pixels without requiring the generated swatches to be seamless.
