@@ -12,6 +12,9 @@ Node 24.19.0. No merge or deployment is part of this change.
 - [426 × 240 layout prototype, before artwork](before/map-prototype-426x240.png)
 - [Native map](after/map-native.png), [2× map](after/map-2x.png), [small window](after/map-small.png)
 - [Quarry map and preview](after/map-quarry-run.png), [Treetop map](after/map-treetop-timbers.png)
+- [Finish actions at normal scaling](after/finish-normal.png) and [return celebration](after/completed-map-normal.png)
+- Finish and return at [native resolution](after/finish-native.png) / [native map](after/completed-map-native.png)
+  and [320-pixel width](after/finish-small.png) / [small map](after/completed-map-small.png)
 - [Plains before](before/plains-0.png) / [after](after/plains-0.png)
 - [Quarry before](before/quarry-5500.png) / [after](after/quarry-5500.png)
 - [Treetop before](before/timbers-3700.png) / [after](after/timbers-3700.png)
@@ -36,10 +39,18 @@ tests separately drive real input and simulation through the finish flows.
 - `npm test`: 492 passed in 29 files on this host.
 - `npm run typecheck`: passed.
 - `npm run build`: passed.
-- New Chromium full-route/navigation/retry cohort: 7 passed before the final
-  accessibility and additional input-mode assertions.
-- Final complete browser matrix and Linux CI: validation in progress; results
-  will be updated on this review branch before handoff.
+- Isolated Windows browser run: 104 passed, one native-audio skip, 53 Firefox
+  launch failures, and one Chromium asset-loading failure caused by rebuilding
+  `dist/` during the run. The affected scenery test passed on a stable rebuild.
+- Final focused Chromium/WebKit checks: four destination/input and scenery
+  tests passed; two textured-grip tests passed. All six routes' traversal,
+  replay, next-trail and return flows passed in both engines in the full run.
+- Additional Chromium Plains finish/replay/return/next checks at 426 × 240 and
+  320 × 240: two passed; screenshots inspected for button and text containment.
+- Full Linux matrix for implementation commit `5d24a11`:
+  [CI run and browser artifacts](https://github.com/auleewilliams/TinyTurboTrails/actions/runs/35477598815).
+  This runs Chromium, Firefox and WebKit with zero retries. Its logs preserve
+  the actual results; the PR validation section records the handoff summary.
 
 An early browser invocation reused an unrelated preview server and was stopped;
 it is not evidence for this milestone. The config now refuses server reuse and
