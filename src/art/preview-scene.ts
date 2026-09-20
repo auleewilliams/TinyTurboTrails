@@ -4,7 +4,7 @@ import { ANIMATIONS, type HenryAssets } from './henry';
 
 export class ArtPreviewScene implements Scene {
   private elapsed = 0;
-  constructor(private readonly assets: HenryAssets) {}
+  constructor(private readonly assets: HenryAssets, private readonly celebrate = false) {}
   enter(): void { this.elapsed = 0; }
   exit(): void {}
   update(seconds: number): void { this.elapsed += seconds; }
@@ -16,13 +16,13 @@ export class ArtPreviewScene implements Scene {
     ctx.textAlign = 'left';
     ctx.fillStyle = '#ffda75';
     ctx.font = 'bold 13px monospace';
-    ctx.fillText('HENRY / STARTER ANIMATIONS', 12, 19);
+    ctx.fillText(this.celebrate ? 'HENRY / JUMP AND CHEER' : 'HENRY / STARTER ANIMATIONS', 12, 19);
     ctx.fillStyle = '#bfd5ce';
     ctx.font = '8px monospace';
     ctx.fillText('48px frames · native + 2x · right-facing', 12, 32);
 
-    for (const [index, name] of ANIMATIONS.entries()) {
-      const x = 10 + index * 104;
+    for (const [index, name] of (this.celebrate ? ['celebrate'] as const : ANIMATIONS.slice(0, 4)).entries()) {
+      const x = this.celebrate ? 165 : 10 + index * 104;
       ctx.fillStyle = index % 2 ? '#dde7d3' : '#29484d';
       ctx.fillRect(x, 41, 96, 157);
       ctx.fillStyle = index % 2 ? '#29484d' : '#bfd5ce';
@@ -31,7 +31,8 @@ export class ArtPreviewScene implements Scene {
       const clip = manifest.animations[name];
       // Replay airborne clips after a short hold so every source pose is inspectable.
       const time = clip.loop ? this.elapsed : this.elapsed % (clip.frames.length * clip.frameSeconds + 0.6);
-      const id = animationFrame(clip, time);
+      const reduced = this.celebrate && typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const id = reduced ? clip.frames[clip.frames.length - 1] : animationFrame(clip, time);
       const frame = manifest.frames[id];
       const draw = (anchorX: number, baseline: number, scale: number): void => {
         ctx.drawImage(atlas, frame.x, frame.y, frame.width, frame.height,

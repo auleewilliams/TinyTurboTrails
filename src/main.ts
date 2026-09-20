@@ -40,6 +40,7 @@ if (!context) {
   let muted = false;
   let request = 0;
   let pendingJump = false;
+  let pendingStory = false;
   let inputSource: InputSource = 'keyboard';
   const requestedScene = new URLSearchParams(location.search).get('scene')
     ?? (new URLSearchParams(location.search).has('audio') ? 'foundation' : 'adventure');
@@ -55,6 +56,7 @@ if (!context) {
   const adventureStatus = (): string => {
     const scene = scenes.activeScene;
     if (!(scene instanceof AdventureScene)) return '';
+    canvas.setAttribute('aria-label', scene.storyDescription || 'Tiny Turbo Trails game');
     const state = scene.screenState[0].toUpperCase() + scene.screenState.slice(1);
     return ` · ${state}${scene.screenState === 'finish' ? ` · Gems ${scene.gemTotal}` : ''}${debugAdventure ? ` · X ${Math.round(scene.playerX)} Y ${Math.round(scene.playerY)} V ${Math.round(scene.playerVelocityX)} F ${scene.playerFacing}` : ''}`;
   };
@@ -69,6 +71,7 @@ if (!context) {
     if (paused) {
       input.clear();
       pendingJump = false;
+      pendingStory = false;
     }
     status.textContent = assetState === 'failed' ? 'Artwork could not load. Reload to retry.'
       : assetState === 'loading' ? 'Loading artwork…'
@@ -99,10 +102,11 @@ if (!context) {
       if (controls.pausePressed) { userPaused = !userPaused; refreshPause(); }
       if (controls.mutePressed) { muted = !muted; audio.setMuted(muted); refreshPause(); }
     }
-    if (focused && !userPaused) pendingJump ||= controls.jumpPressed;
+    if (focused && !userPaused) { pendingJump ||= controls.jumpPressed; pendingStory ||= controls.storyPressed ?? false; }
     clock.advance(now, (seconds) => {
-      scenes.update(seconds, { ...controls, jumpPressed: pendingJump });
+      scenes.update(seconds, { ...controls, jumpPressed: pendingJump, storyPressed: pendingStory });
       pendingJump = false;
+      pendingStory = false;
     });
     if (assetState === 'ready' && focused && !userPaused && adventure) status.textContent = previewStatus();
     context.imageSmoothingEnabled = false;
@@ -141,9 +145,10 @@ if (!context) {
       loadWorldAssetMap(LEVELS.map(({ atlas }) => atlas)),
       loadImage(`${import.meta.env.BASE_URL}assets/overworld/landmarks.png`),
       loadImage(`${import.meta.env.BASE_URL}assets/overworld/background.png`),
-    ]).then(([titleArtwork, henry, worlds, landmarks, mapBackground]) => {
+      loadImage(`${import.meta.env.BASE_URL}assets/story/patchwork-vale.png`),
+    ]).then(([titleArtwork, henry, worlds, landmarks, mapBackground, storyArtwork]) => {
       if (disposed) return;
-      scenes.change(new AdventureScene(titleArtwork, henry, worlds, audio, DEFAULT_LEVEL, landmarks, mapBackground));
+      scenes.change(new AdventureScene(titleArtwork, henry, worlds, audio, DEFAULT_LEVEL, landmarks, mapBackground, storyArtwork));
       assetState = 'ready';
       refreshPause();
     }).catch(() => {
@@ -177,7 +182,7 @@ if (!context) {
   } else if (artPreview || movementPreview) {
     void loadHenry().then((assets) => {
       if (disposed) return;
-      scenes.change(artPreview ? new ArtPreviewScene(assets) : new MovementPreviewScene(assets));
+      scenes.change(artPreview ? new ArtPreviewScene(assets, new URLSearchParams(location.search).get('animation') === 'celebrate') : new MovementPreviewScene(assets));
       assetState = 'ready';
       refreshPause();
     }).catch(() => {

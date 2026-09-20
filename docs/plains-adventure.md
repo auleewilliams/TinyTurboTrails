@@ -76,3 +76,19 @@ Follow STAR SLOPE, STAR LIFT and SPRING STARS signs; the gold ground markings sh
 safe return/landing areas. Use the same move and jump controls. Checkpoint recovery
 retains stars, while replay, changing trails and reload clear them. Other trails
 continue without stars. See [routes and rules](signature-challenges.md).
+
+
+## Patchwork Vale opening and finish
+
+The page opens with three player-paced pictures. Choose the large previous,
+next or skip symbol with arrows/Space, D-pad/face button, pointer or Tab/Enter.
+The map remains unrestricted. Its rewind button, R key or controller View
+replays the story. Plains has a picture goal: reach the neighbour at the arch.
+Reaching the finish earns a reunion picture, not a repair or delivery claim.
+Click the result picture (or R/View) to enlarge it, then return to the results.
+
+Henry crouches, jumps, cheers and lands once before holding victory. Results
+and Replay / Next trail / Choose trail remain available throughout. Pause and
+focus loss freeze the sequence. Reduced motion uses still victory and fixed
+sparkles. Replays and new trails reset celebration and run state without
+repeating the opening. See [story and parent checklist](patchwork-vale-story.md).

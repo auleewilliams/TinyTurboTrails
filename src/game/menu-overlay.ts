@@ -10,7 +10,7 @@ export class MenuOverlay {
     document.body.append(this.element);
   }
   update(scene: AdventureScene | undefined, paused: boolean): void {
-    document.body.classList.toggle('map-visible', scene?.screenState === 'title' && !paused);
+    document.body.classList.toggle('map-visible', (scene?.screenState === 'title' || scene?.screenState === 'story' || scene?.screenState === 'finish') && !paused);
     const targets = paused ? [] : scene?.menuTargets ?? [];
     const signature = JSON.stringify(targets.map(({ label, selected, description }) => [label, selected, description]));
     const bounds = this.canvas.getBoundingClientRect();
@@ -29,7 +29,8 @@ export class MenuOverlay {
       else button.removeAttribute('aria-pressed');
       button.onclick = () => target.action();
       button.onfocus = () => {
-        if (scene?.screenState === 'title' && index < targets.length - 1) scene.selectDestination(index);
+        if (target.focus) target.focus();
+        else if (scene?.screenState === 'title' && index < 6) scene.selectDestination(index);
         else if (scene?.screenState === 'finish') scene.focusFinish(index);
       };
       Object.assign(button.style, { left: `${target.x / 426 * 100}%`, top: `${target.y / 240 * 100}%`,

@@ -41,6 +41,8 @@ test('preview switches all tracks and adventure selects music only after startin
   await page.getByRole('button', { name: 'Stop audio', exact: true }).click();
   expect((await read()).active).toBe(0);
   await page.goto('/?scene=adventure');
+  await page.getByRole('button', { name: 'Skip story', exact: true }).click();
+  await page.waitForTimeout(50);
   await expect(page.locator('#status')).toContainText('Title');
   await page.keyboard.down('ArrowRight');
   await page.waitForTimeout(100); // Selection is sampled on animation frames.

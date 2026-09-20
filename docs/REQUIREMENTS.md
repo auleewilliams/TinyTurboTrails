@@ -143,3 +143,27 @@ progress even at zero; Replay, Next trail and Choose trail retain their behavior
 All progress remains in memory, with deterministic simulation and project-local
 art/provenance. Automated reachability and visual checks do not establish Henry's
 understanding or enjoyment; no child playtest is claimed for this milestone.
+
+
+## Henry's celebration and Patchwork Vale story (#119, #120)
+
+The [story reference and visual storyboard](patchwork-vale-story.md) define Henry
+Turbo, the Great Rumble and the Vale Get-Together. Actual local illustrations
+communicate the opening, first-trail goal and reunion without requiring reading
+or sound. Player-paced previous/next/skip controls support keyboard, pointer and
+standard controllers with accessible labels. The opening appears once per page
+session and can be replayed deliberately; retries and finish navigation do not
+repeat it. All six trails stay open and all state stays in memory.
+
+Plains completion celebrates reaching the neighbour via the hill trail, not
+unimplemented repairs or deliveries. Every trail uses Henry's non-looping eight
+celebration poses over about 1.2 seconds, then holds victory. A bounded sparkle
+burst ends within two seconds. Reduced motion shows still victory and static
+sparkles immediately. A dedicated timer resets on finish/run reset, advances
+while menu input waits for release, and freezes on pause/focus loss. Finish
+actions remain usable immediately; results and controls stay clear at 426×240
+and 320×240. Existing gameplay frames and deterministic simulation are preserved.
+
+No inventory, vehicles, dialogue system, persistent saves or quest mechanics are
+introduced. Child comprehension and celebration readability remain a documented
+parent-led follow-up, not an automated acceptance claim.
