@@ -1,6 +1,6 @@
 import type { LevelData } from '../world/level';
 
-export interface MenuTarget { label: string; description?: string; x: number; y: number; width: number; height: number; selected?: boolean; action: () => void; focus?: () => void }
+export interface MenuTarget { label: string; description?: string; x: number; y: number; width: number; height: number; selected?: boolean; action: () => void; focus?: () => void; nativeSpace?: boolean }
 export const MAP_POINTS = [[48, 88], [140, 88], [232, 88], [232, 176], [140, 176], [48, 176]] as const;
 
 /** Cosmetic page-session data. Never passed to simulation or serialized. */

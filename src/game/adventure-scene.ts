@@ -278,13 +278,13 @@ export class AdventureScene implements Scene {
         description: this.session.completed.has(level.id) ? 'Completed this session' : 'Ready to explore',
         width: 70, height: 60, selected: index === this.selectedIndex, action: () => this.selectDestination(index) })),
       { label: `Play ${this.selectedLevelName}`, x: 298, y: 180, width: 104, height: 27, action: () => this.startSelected() },
-      ...(this.storyArtwork ? [{ label: 'Replay story', description: 'Pictures • R key or controller View button', x: 367, y: 7, width: 47, height: 29, action: () => this.openStory() }] : []),
+      ...(this.storyArtwork ? [{ label: 'Replay story', nativeSpace: true, description: 'Pictures • R key or controller View button', x: 367, y: 7, width: 47, height: 29, action: () => this.openStory() }] : []),
     ];
     if (this.screens.state === 'finish') return [...this.finishActions.map((label, index) => ({
       label, x: FINISH_LAYOUT.actions.x + index * FINISH_LAYOUT.actions.spacing, y: FINISH_LAYOUT.actions.y,
       width: FINISH_LAYOUT.actions.width, height: FINISH_LAYOUT.actions.height, selected: index === this.finishIndex,
       action: () => this.activateFinish(label),
-    })), ...(this.storyArtwork && this.level.id === LEVELS[0].id ? [{ label: 'View reunion picture', description: 'R key or controller View button', ...FINISH_LAYOUT.payoff, action: () => this.openStory(true) }] : [])];
+    })), ...(this.storyArtwork && this.level.id === LEVELS[0].id ? [{ label: 'View reunion picture', nativeSpace: true, description: 'R key or controller View button', ...FINISH_LAYOUT.payoff, action: () => this.openStory(true) }] : [])];
     return [];
   }
 

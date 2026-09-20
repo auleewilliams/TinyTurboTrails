@@ -28,6 +28,13 @@ export class MenuOverlay {
       if (target.selected !== undefined) button.setAttribute('aria-pressed', String(target.selected));
       else button.removeAttribute('aria-pressed');
       button.onclick = () => target.action();
+      // These auxiliary buttons sit outside the canvas direction/confirm selection.
+      // Handle their focused Space press before BrowserInput consumes it as Play/Replay.
+      button.onkeydown = (event) => {
+        if (event.code !== 'Space' || !target.nativeSpace) return;
+        event.preventDefault(); event.stopPropagation();
+        if (!event.repeat) target.action();
+      };
       button.onfocus = () => {
         if (target.focus) target.focus();
         else if (scene?.screenState === 'title' && index < 6) scene.selectDestination(index);

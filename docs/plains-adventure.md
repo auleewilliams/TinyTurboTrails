@@ -62,7 +62,7 @@ clears elapsed time and held input, preserving a deliberate pause. Each trail
 has its own local synthesized score. Music stops at the finish and resets on
 Replay/Next trail. See [audio](AUDIO.md) for unlock and silent fallback.
 
-Reduced motion removes nonessential map travel and celebration bobbing, alongside
+Reduced motion removes nonessential map travel and the celebration jump and sparkle travel, alongside
 the existing gameplay effect reductions. Selection remains obvious through an
 outline, Henry's position, accessible button state and the named preview.
 

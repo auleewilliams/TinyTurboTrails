@@ -1655,6 +1655,13 @@ test('picture story supports keyboard, pointer and controller without timed page
   await expect(canvas).toHaveAttribute('aria-label', /prepare a picnic/);
   await page.evaluate(() => { (window as unknown as { trailPad: { buttons: { pressed: boolean }[] } }).trailPad.buttons[8].pressed = false; });
   await page.getByRole('button', { name: 'Skip story' }).click();
+  await page.getByRole('button', { name: 'Replay story', exact: true }).focus();
+  await page.keyboard.down('Space');
+  await expect(canvas).toHaveAttribute('aria-label', /prepare a picnic/);
+  await page.waitForTimeout(200);
+  await expect(canvas).toHaveAttribute('aria-label', /prepare a picnic/);
+  await page.keyboard.up('Space');
+  await page.getByRole('button', { name: 'Skip story' }).click();
   await page.getByRole('button', { name: 'Play PLAINS' }).click();
   await expect(page.locator('#status')).toContainText('Playing');
   await info.attach('visual-goal', { body: await canvas.screenshot(), contentType: 'image/png' });
@@ -1698,6 +1705,11 @@ test('celebration freezes for pause and focus, then accepts finish actions durin
   await page.evaluate(() => window.dispatchEvent(new Event('focus')));
   await page.keyboard.press('Escape');
   await expect(page.getByRole('button', { name: 'Replay', exact: true })).toBeVisible();
+  await page.getByRole('button', { name: 'View reunion picture', exact: true }).focus();
+  await page.keyboard.press('Space');
+  await expect(canvas).toHaveAttribute('aria-label', /high-five/);
+  await page.getByRole('button', { name: 'Return to results', exact: true }).click();
+  await expect(page.locator('#status')).toContainText('Finish');
   await page.getByRole('button', { name: 'Replay', exact: true }).click();
   await expect(page.locator('#status')).toContainText('Playing');
   await expect(page.getByRole('button', { name: 'Skip story' })).toHaveCount(0);
