@@ -105,6 +105,17 @@ await page.evaluate(() => {
   e.render(); e.ctx.fillText = fill;
 });
 await page.screenshot({ path: `${directory}/reunion-no-caption.png` });
+for (const [index, name] of [[3, 'no-stars'], [5, 'final-trail']]) {
+  await page.evaluate(index => {
+    const e = window.evidence; e.scene.story.close(); e.scene.activateFinish('Choose trail');
+    e.scene.selectDestination(index); e.scene.startSelected(); e.scene.player.x = e.scene.level.finish.x;
+    e.scene.update(1 / 60, e.neutral); e.render();
+  }, index);
+  await page.screenshot({ path: `${directory}/finish-${name}-native.png` });
+  await page.setViewportSize({ width: 320, height: 240 });
+  await page.screenshot({ path: `${directory}/finish-${name}-small.png` });
+  await page.setViewportSize({ width: 426, height: 240 });
+}
 await page.goto('http://127.0.0.1:4175/?scene=art');
 await page.waitForFunction(() => document.querySelector('#status').textContent.includes('Art preview'));
 await page.screenshot({ path: `${directory}/gameplay-art-reference.png` });

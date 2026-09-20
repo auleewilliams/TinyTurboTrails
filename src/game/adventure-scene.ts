@@ -364,7 +364,13 @@ export class AdventureScene implements Scene {
       ctx.fillStyle = index === this.finishIndex ? '#ffda75' : '#34515a';
       ctx.fillRect(target.x, target.y, target.width, target.height);
       ctx.fillStyle = index === this.finishIndex ? '#10252c' : '#e9f2df';
-      ctx.font = '10px monospace'; ctx.fillText(target.label, target.x + target.width / 2, target.y + 17);
+      // Large symbols and short labels survive the 320px fractional downscale.
+      ctx.font = 'bold 18px monospace';
+      if (target.label === 'Choose trail') {
+        for (const [dx, dy] of [[0, 0], [7, 0], [0, 7], [7, 7]]) ctx.fillRect(target.x + 9 + dx, target.y + 7 + dy, 5, 5);
+      } else ctx.fillText(target.label === 'Replay' ? '↶' : '▶', target.x + 15, target.y + 19);
+      ctx.font = 'bold 12px monospace';
+      ctx.fillText(target.label === 'Next trail' ? 'Next' : target.label === 'Choose trail' ? 'Trails' : 'Replay', target.x + 61, target.y + 18);
     });
     ctx.fillStyle = '#e9f2df'; ctx.font = '9px monospace';
     ctx.fillText(this.inputSource === 'controller' ? 'D-pad + Face' + (this.level.id === LEVELS[0].id ? ' · View: picture' : '') : '← → + Space' + (this.level.id === LEVELS[0].id ? ' · R: picture' : ''), 213, 214);

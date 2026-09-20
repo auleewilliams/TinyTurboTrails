@@ -1324,6 +1324,7 @@ async function installTrailPilot(page: Page): Promise<void> {
     const pilot = { active: false, lastActive: false, controller: false, dangers: [] as number[], index: 0, lastX: 0, jumpUntil: 0, jumping: false };
     Object.assign(window, { trailPad: pad, trailPilot: pilot });
     Object.defineProperty(navigator, 'getGamepads', { configurable: true, value: () => pilot.controller ? [pad] : [] });
+    let previousTime: number | undefined; let presentationTime = 0;
     const raf = window.requestAnimationFrame.bind(window);
     window.requestAnimationFrame = (callback) => raf((now) => {
       const status = document.querySelector('#status')?.textContent ?? '';
@@ -1347,7 +1348,9 @@ async function installTrailPilot(page: Page): Promise<void> {
       }
       pilot.jumping = jumping;
       pilot.lastActive = pilot.active;
-      callback(now * 6);
+      presentationTime += previousTime === undefined ? 0 : (now - previousTime) * (status.includes('Playing') ? 6 : 1);
+      previousTime = now;
+      callback(presentationTime);
     });
   });
 }
@@ -1698,12 +1701,17 @@ test('celebration freezes for pause and focus, then accepts finish actions durin
   expect(Number(pose)).toBeLessThan(23);
   await page.waitForTimeout(350);
   expect(await canvas.getAttribute('data-celebration-pose')).toBe(pose);
+  await page.keyboard.press('Escape');
+  await expect(page.locator('#status')).toContainText('Finish');
   await page.evaluate(() => window.dispatchEvent(new Event('blur')));
+  await expect(page.locator('#status')).toContainText('Return to the game');
+  const focusPose = await canvas.getAttribute('data-celebration-pose');
+  expect(Number(focusPose)).toBeLessThan(23);
   await page.waitForTimeout(350);
-  expect(await canvas.getAttribute('data-celebration-pose')).toBe(pose);
+  expect(await canvas.getAttribute('data-celebration-pose')).toBe(focusPose);
   await expect(page.getByRole('button', { name: 'Replay', exact: true })).toHaveCount(0);
   await page.evaluate(() => window.dispatchEvent(new Event('focus')));
-  await page.keyboard.press('Escape');
+  await expect(page.locator('#status')).toContainText('Finish');
   await expect(page.getByRole('button', { name: 'Replay', exact: true })).toBeVisible();
   await page.getByRole('button', { name: 'View reunion picture', exact: true }).focus();
   await page.keyboard.press('Space');
