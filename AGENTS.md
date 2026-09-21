@@ -49,6 +49,28 @@ list validation commands and results, and include screenshots or recordings for
 visual/gameplay changes. Document known limitations and leave unrelated fixes in
 separate issues or pull requests.
 
+## Issue Tracker Access
+
+Track work in [GitHub Issues](https://github.com/auleewilliams/TinyTurboTrails/issues).
+Use the authenticated GitHub CLI with an explicit repository:
+
+```sh
+gh issue list --repo auleewilliams/TinyTurboTrails --state open
+gh issue view 119 --repo auleewilliams/TinyTurboTrails --comments
+gh issue create --repo auleewilliams/TinyTurboTrails --title "Issue title" --body-file path/to/issue.md
+```
+
+Replace `119` with the relevant issue number. Search for existing issues before
+creating a new one. Write multiline issue descriptions to a UTF-8 file and use
+`--body-file` to preserve Markdown and avoid shell quoting problems.
+
+If the GitHub connector returns `Resource not accessible by integration`, use
+`gh`; connector permissions and CLI authentication are separate. If sandboxing
+blocks the CLI configuration or network access, request command escalation and
+retry. Never print tokens or copy credentials into the repository. If a create
+attempt has an uncertain result, check the tracker before retrying to avoid
+duplicates. Verify the published issue and return its URL.
+
 ## Configuration & Asset Notes
 
 The game has no backend, credentials, runtime image-generation dependency, or
