@@ -151,3 +151,10 @@ it.each([undefined, 0.6, 1, 1.4])('accepts surface friction %s', (friction) => {
   expect(() => validateLevel({ ...PLAINS_LEVEL, surfaces: PLAINS_LEVEL.surfaces.map((surface) => ({ ...surface, friction })) }))
     .not.toThrow();
 });
+
+it('rejects backdrop rows outside the shared panorama sheet', () => {
+  expect(() => validateLevel({ ...PLAINS_LEVEL, theme: { ...PLAINS_LEVEL.theme,
+    backdrop: { row: 2, support: '#00000000' } } })).toThrow(/backdrop row/);
+  expect(() => validateLevel({ ...PLAINS_LEVEL, theme: { ...PLAINS_LEVEL.theme,
+    backdrop: { row: 1, support: '#00000000' } } })).not.toThrow();
+});

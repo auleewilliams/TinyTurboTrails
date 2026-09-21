@@ -122,6 +122,11 @@ backgrounds with supported landmarks. Decorative art updates preserve collisions
 anchors and movement; optional challenge additions follow the rules below.
 Respect reduced motion and loading/error/retry.
 
+The gameplay atlas, Henry sprite sheet and declared scenery packs are required:
+their failure keeps the existing Retry flow. Shared terrain materials and trail
+backdrops are decorative enhancements; if either fails to load, trails remain
+playable using their solid theme colors, contour edges and ordinary parallax.
+
 The parent-led landmark/navigation check with Henry remains a separate acceptance
 step; automated tests cannot satisfy it. Current controls live in the adventure guide.
 

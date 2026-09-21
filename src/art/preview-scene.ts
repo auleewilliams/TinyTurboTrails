@@ -1,10 +1,10 @@
 import type { Scene } from '../core/scene';
 import { animationFrame } from './animation';
-import { ANIMATIONS, type HenryAssets } from './henry';
+import { ANIMATIONS, type HenryPreviewAssets } from './henry';
 
 export class ArtPreviewScene implements Scene {
   private elapsed = 0;
-  constructor(private readonly assets: HenryAssets, private readonly celebrate = false) {}
+  constructor(private readonly assets: HenryPreviewAssets, private readonly celebrate = false) {}
   enter(): void { this.elapsed = 0; }
   exit(): void {}
   update(seconds: number): void { this.elapsed += seconds; }

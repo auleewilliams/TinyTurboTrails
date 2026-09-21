@@ -23,7 +23,7 @@ export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, le
   if (level.theme.sun) drawSun(ctx, level.theme.sun, offset.x);
   const scenery = level.theme.scenery ? assets.scenery : undefined;
   if (scenery) drawSceneryBackground(ctx, scenery, level, offset.x);
-  else if (level.id !== 'quarry' && level.id !== 'timbers') for (const parallax of level.theme.parallax) {
+  else if (!level.theme.backdrop) for (const parallax of level.theme.parallax) {
     drawAsset(ctx, assets, parallax.asset,
       parallax.x - offset.x * 0.18, parallax.y - offset.y * 0.1, parallax.scale);
   }
@@ -52,7 +52,7 @@ export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, le
     drawTerrainMaterial(ctx, level, offset, assets, first.x1, last.x2);
     ctx.restore();
   }
-  if (level.theme.texturedTerrain && level.theme.material === 'wood') drawTerrainTiles(ctx, assets, level, offset);
+  if (level.theme.material === 'wood') drawTerrainTiles(ctx, assets, level, offset);
   drawTerrainEdge(ctx, level, offset);
   drawSurfaceMaterials(ctx, level, offset);
   for (const surface of level.surfaces) drawSurfaceGrip(ctx, surface, offset);

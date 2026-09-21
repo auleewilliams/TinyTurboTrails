@@ -91,8 +91,8 @@ it('pans the plains background within its source bounds over the entire route', 
     expect(background).toBeDefined();
     const [, sx, sy, sw, sh, dx, dy, dw, dh] = background as number[];
     expect(sx).toBeGreaterThanOrEqual(0);
-    expect(sx + sw).toBeLessThanOrEqual(1536);
-    expect(sy + sh).toBeLessThanOrEqual(1024);
+    expect(sx + sw).toBeLessThanOrEqual(sceneryAssets.scenery.manifest.background.width);
+    expect(sy + sh).toBeLessThanOrEqual(sceneryAssets.scenery.manifest.background.height);
     expect([dx, dy, dw, dh]).toEqual([0, 0, 426, 240]);
     expect(sw / sh).toBeCloseTo(426 / 240);
     crops.push(sx);
@@ -105,7 +105,8 @@ it('uses new art only for Plains decoration, keeping hazards distinct and Quarry
   const { ctx, images } = recordingContext();
   const camera = new Camera({ width: 426, height: 240, worldWidth: PLAINS_LEVEL.width, worldHeight: 240 });
   drawWorld(ctx, sceneryAssets, PLAINS_LEVEL, camera);
-  const trees = images.filter((call) => call[0] === sceneryAssets.scenery.foreground && call[1] === 29);
+  const treeSourceX = sceneryAssets.scenery.manifest.foreground.sprites['oak-round'].source.x;
+  const trees = images.filter((call) => call[0] === sceneryAssets.scenery.foreground && call[1] === treeSourceX);
   expect(trees.length).toBeGreaterThan(0);
   const tree = trees.find((call) => Number(call[5]) > 400)!;
   expect(Number(tree[6]) + Number(tree[8])).toBe(158);
@@ -115,6 +116,26 @@ it('uses new art only for Plains decoration, keeping hazards distinct and Quarry
   const quarry = recordingContext();
   drawWorld(quarry.ctx, sceneryAssets, QUARRY_RUN, camera);
   expect(quarry.images.every((call) => call[0] === worldAssets.atlas)).toBe(true);
+});
+
+it('selects a backdrop and parallax fallback entirely from theme metadata', () => {
+  const backdrop = {} as HTMLImageElement;
+  Object.defineProperties(backdrop, { naturalWidth: { value: 720 }, naturalHeight: { value: 480 } });
+  const themed = recordingContext();
+  drawWorld(themed.ctx, { ...worldAssets, backdrops: backdrop }, {
+    ...QUARRY_RUN, id: 'future-trail', theme: { ...QUARRY_RUN.theme, backdrop: { row: 1, support: '#12345678' } },
+  }, { position: { x: 0, y: 0 } } as Camera);
+  const backdropCall = themed.images.find((call) => call[0] === backdrop)!;
+  expect(backdropCall[2]).toBe(240);
+  expect(themed.rects.some((rect) => rect.fillStyle === '#12345678')).toBe(true);
+  expect(themed.images[0][0]).toBe(backdrop);
+
+  const fallback = recordingContext();
+  drawWorld(fallback.ctx, worldAssets, {
+    ...QUARRY_RUN, id: 'another-future-trail', theme: { ...QUARRY_RUN.theme, backdrop: undefined },
+  }, { position: { x: 0, y: 0 } } as Camera);
+  expect(fallback.images[0][0]).toBe(worldAssets.atlas);
+  expect(Number(fallback.images[0][7])).toBeGreaterThan(48);
 });
 
 it('fills joined slopes without interior edges and preserves gaps between ground contours', () => {
@@ -214,7 +235,7 @@ it('mirrors textured ramp cells when the terrain descends to the right', () => {
   const scale = vi.fn();
   ctx.scale = scale;
   const level = { ...PLAINS_LEVEL, minX: 0, maxX: 144, width: 144,
-    theme: { ...PLAINS_LEVEL.theme, material: 'wood' as const, scenery: false, texturedTerrain: true },
+    theme: { ...PLAINS_LEVEL.theme, material: 'wood' as const, scenery: false },
     surfaces: [{ x1: 0, y1: 150, x2: 144, y2: 198 }],
   };
   drawWorld(ctx, worldAssets, level, new Camera({ width: 426, height: 240, worldWidth: 144, worldHeight: 240 }));

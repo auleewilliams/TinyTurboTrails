@@ -7,7 +7,7 @@ import { SceneHost } from './core/scene';
 import { fitViewport } from './core/viewport';
 import { FoundationScene } from './foundation-scene';
 import { loadTitleArtwork } from './art/title';
-import { loadHenry } from './art/henry';
+import { loadHenry, loadHenryPreview } from './art/henry';
 import { ArtPreviewScene } from './art/preview-scene';
 import { MovementPreviewScene } from './game/movement-preview';
 import { loadWorldAssetMap, loadWorldAssets } from './world/assets';
@@ -179,10 +179,21 @@ if (!context) {
       assetState = 'failed';
       refreshPause();
     });
-  } else if (artPreview || movementPreview) {
+  } else if (artPreview) {
+    void loadHenryPreview().then((assets) => {
+      if (disposed) return;
+      scenes.change(new ArtPreviewScene(assets, new URLSearchParams(location.search).get('animation') === 'celebrate'));
+      assetState = 'ready';
+      refreshPause();
+    }).catch(() => {
+      if (disposed) return;
+      assetState = 'failed';
+      refreshPause();
+    });
+  } else if (movementPreview) {
     void loadHenry().then((assets) => {
       if (disposed) return;
-      scenes.change(artPreview ? new ArtPreviewScene(assets, new URLSearchParams(location.search).get('animation') === 'celebrate') : new MovementPreviewScene(assets));
+      scenes.change(new MovementPreviewScene(assets));
       assetState = 'ready';
       refreshPause();
     }).catch(() => {

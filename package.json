@@ -15,7 +15,8 @@
     "test": "vitest run",
     "test:browser": "playwright test",
     "test:ci": "node --test scripts/*.test.mjs",
-    "test:deployment": "node scripts/test-deployment.mjs"
+    "test:deployment": "node scripts/test-deployment.mjs",
+    "measure:startup": "node scripts/measure-adventure-payload.mjs"
   },
   "devDependencies": {
     "@playwright/test": "^1.63.0",

@@ -1,0 +1,65 @@
+{
+  "url": "http://127.0.0.1:4179/?scene=adventure",
+  "bytes": 2248283,
+  "mebibytes": 2.14,
+  "responses": 24,
+  "requestedHenryReference": false,
+  "assets": [
+    {
+      "path": "/assets/story/patchwork-vale.png",
+      "bytes": 811666
+    },
+    {
+      "path": "/assets/trails/materials.png",
+      "bytes": 503409
+    },
+    {
+      "path": "/assets/overworld/background.png",
+      "bytes": 128898
+    },
+    {
+      "path": "/assets/overworld/landmarks.png",
+      "bytes": 126602
+    },
+    {
+      "path": "/build-assets/index-DugmDf0v.js",
+      "bytes": 93698
+    },
+    {
+      "path": "/assets/plains/scenery/foreground.png",
+      "bytes": 88365
+    },
+    {
+      "path": "/assets/henry/henry-celebration.png",
+      "bytes": 71218
+    },
+    {
+      "path": "/assets/trails/backdrops.webp",
+      "bytes": 69404
+    },
+    {
+      "path": "/assets/title/tiny-turbo-trails-v2.png",
+      "bytes": 65847
+    },
+    {
+      "path": "/assets/plains/environment.png",
+      "bytes": 63911
+    },
+    {
+      "path": "/assets/timbers/environment.png",
+      "bytes": 57031
+    },
+    {
+      "path": "/assets/site/environment.png",
+      "bytes": 52029
+    },
+    {
+      "path": "/assets/cove/environment.png",
+      "bytes": 46306
+    },
+    {
+      "path": "/assets/frost/environment.png",
+      "bytes": 39913
+    }
+  ]
+}

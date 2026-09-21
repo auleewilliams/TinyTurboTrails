@@ -70,7 +70,10 @@ async function advancePastDanger(page: Page, dangers: readonly number[], progres
 }
 
 test('terrain joins stay solid while scrolling in both directions at integer and fractional scales', async ({ page }, info) => {
-  test.setTimeout(60_000);
+  // WebKit is substantially slower for repeated canvas readbacks than the
+  // other bundled engines; keep the assertion identical while allowing the
+  // full cross-scale sweep to complete on constrained runners.
+  test.setTimeout(120_000);
   await page.goto('/?scene=foundation');
   // Run the real renderer on a separate canvas so sprites and HUD cannot hide seams.
   await page.addScriptTag({ content: `${RENDERER_SOURCE}\nwindow.drawTerrainTestWorld = ${drawWorld.toString()};` });
@@ -973,7 +976,7 @@ test('ground scenery and slimes draw their opaque bases at terrain height', asyn
     const drawImage = CanvasRenderingContext2D.prototype.drawImage;
     CanvasRenderingContext2D.prototype.drawImage = function (this: CanvasRenderingContext2D, ...args: unknown[]) {
       const [image, sx, sy] = args;
-      if (image instanceof HTMLImageElement && image.src.endsWith('/scenery/background.png')) {
+      if (image instanceof HTMLImageElement && image.src.endsWith('/scenery/background.webp')) {
         this.canvas.dataset.worldDraws = '[]';
       } else if (image instanceof HTMLImageElement && image.src.endsWith('/assets/plains/environment.png')) {
         const canvas = this.canvas;
@@ -1051,7 +1054,7 @@ test('Plains renders its panorama and transparent scenery, and Quarry keeps its 
       const image = args[0];
       if (image instanceof HTMLImageElement) {
         const source = image.src;
-        if (source.endsWith('/scenery/background.png') || source.endsWith('/trails/backdrops.png') || (source.endsWith('/environment.png') && args[1] === 48 && args[2] === 48 && Number(args[7]) > 48)) {
+        if (source.endsWith('/scenery/background.webp') || source.endsWith('/trails/backdrops.webp') || (source.endsWith('/environment.png') && args[1] === 48 && args[2] === 48 && Number(args[7]) > 48)) {
           this.canvas.dataset.sceneryDraws = '[]';
         }
         const calls = JSON.parse(this.canvas.dataset.sceneryDraws ?? '[]');
@@ -1066,8 +1069,8 @@ test('Plains renders its panorama and transparent scenery, and Quarry keeps its 
   await page.keyboard.press('Space');
   await expect(page.locator('#status')).toContainText('Playing');
   const calls = JSON.parse(await page.locator('canvas').getAttribute('data-scenery-draws') ?? '[]') as { source: string; args: number[] }[];
-  expect(calls[0].source).toContain('/scenery/background.png');
-  const tree = calls.find((call) => call.source.endsWith('/foreground.png') && call.args[0] === 29 && call.args[4] > 400)!;
+  expect(calls[0].source).toContain('/scenery/background.webp');
+  const tree = calls.find((call) => call.source.endsWith('/foreground.png') && call.args[0] === 7.25 && call.args[4] > 400)!;
   expect(tree).toBeDefined();
   expect(tree.args[5] + tree.args[7]).toBe(158);
   const henryIndex = calls.findIndex((call) => call.source.includes('/henry/'));
@@ -1268,6 +1271,9 @@ for (const viewport of [
     await page.addInitScript(() => {
       const draw = CanvasRenderingContext2D.prototype.drawImage;
       CanvasRenderingContext2D.prototype.drawImage = function (image: CanvasImageSource, ...coordinates: number[]) {
+        if (image instanceof HTMLCanvasElement && coordinates.at(-2) === 126 && coordinates.at(-1) === 71) {
+          this.canvas.dataset.previewSmoothing = String(this.imageSmoothingEnabled);
+        }
         if (image instanceof HTMLImageElement && image.src.endsWith('/assets/title/tiny-turbo-trails-v2.png')) {
           this.canvas.dataset.titleArtwork = JSON.stringify({
             rect: coordinates, smoothing: this.imageSmoothingEnabled,
@@ -1281,9 +1287,11 @@ for (const viewport of [
     await expect(page.locator('#status')).toContainText('Adventure preview · Title');
     const canvas = page.locator('canvas');
     await expect(canvas).toHaveAttribute('data-title-artwork');
+    await expect(canvas).toHaveAttribute('data-preview-smoothing', 'true');
     const artwork = JSON.parse((await canvas.getAttribute('data-title-artwork'))!);
     expect(artwork.smoothing).toBe(false);
-    expect(artwork.rect).toEqual([8, 0, 94, 94 * 926 / 1699]);
+    expect([artwork.width, artwork.height]).toEqual([282, 154]);
+    expect(artwork.rect).toEqual([8, 0, 94, 94 * 154 / 282]);
     expect(artwork.rect[1] + artwork.rect[3]).toBeLessThan(160);
     const box = (await canvas.boundingBox())!;
     expect(box.x).toBeGreaterThanOrEqual(0);
@@ -1314,6 +1322,17 @@ test('title artwork failure recovers through the existing retry flow', async ({ 
   await dismissOpening(page);
   await expect(page.locator('#status')).toContainText('Adventure preview · Title');
   await expect(page.locator('#retry')).toBeHidden();
+});
+
+test('adventure never requests Henry reference art while the art preview requires it', async ({ page }) => {
+  let requests = 0;
+  await page.route('**/assets/henry/reference.png', route => { requests++; return route.abort(); });
+  await openAdventure(page, '/?scene=adventure');
+  await expect(page.locator('#status')).toContainText('Adventure preview');
+  expect(requests).toBe(0);
+  await page.goto('/?scene=art');
+  await expect(page.locator('#status')).toHaveText('Artwork could not load. Reload to retry.');
+  expect(requests).toBe(1);
 });
 
 // Drive the real input boundary and simulation faster without production test hooks.
@@ -1416,7 +1435,8 @@ for (const [index, level] of LEVELS.entries()) {
   });
 }
 
-test('overworld tab focus, controller selection and shared-art retry stay usable', async ({ page }) => {
+test('overworld input stays usable and missing decorative sheets do not block a full route', async ({ page }) => {
+  test.setTimeout(60_000);
   await installTrailPilot(page);
   await openAdventure(page, '/');
   await page.getByRole('button', { name: 'SANDY COVE', exact: true }).focus();
@@ -1432,12 +1452,15 @@ test('overworld tab focus, controller selection and shared-art retry stay usable
   });
   await expect(page.locator('#status')).toContainText('Playing');
   await page.route('**/assets/trails/materials.png', route => route.abort());
-  await reloadAndDismiss(page);
-  await expect(page.locator('#retry')).toBeVisible();
-  await page.unroute('**/assets/trails/materials.png');
-  await page.locator('#retry').click();
-  await dismissOpening(page);
-  await expect(page.getByRole('button', { name: 'Play PLAINS', exact: true })).toBeVisible();
+  await page.route('**/assets/trails/backdrops.webp', route => route.abort());
+  await openAdventure(page, '/?scene=adventure&debug=1');
+  await expect(page.locator('#retry')).toBeHidden();
+  await page.getByRole('button', { name: 'Play PLAINS', exact: true }).click();
+  await page.evaluate(dangers => {
+    const pilot = (window as unknown as { trailPilot: { active: boolean; controller: boolean; dangers: number[]; index: number; lastX: number } }).trailPilot;
+    Object.assign(pilot, { active: true, controller: false, dangers, index: 0, lastX: 0 });
+  }, dangerXs(PLAINS_LEVEL));
+  await expect(page.locator('#status')).toContainText('Finish', { timeout: 35_000 });
 });
 
 test('textured flats and slopes keep authored grip above cosmetic materials', async ({ page }, info) => {
