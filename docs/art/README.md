@@ -139,6 +139,29 @@ contrast keeps interactive sprites forward, with trees and mine supports rooted
 in their environment. Cached map thumbnails use the finished world renderer,
 not a hidden game loop. See [milestone evidence](../evidence/trail-milestone/README.md).
 
+## Final three trail backgrounds (#139)
+
+Sunset Site, Frost Ridge and Sandy Cove each declare `panorama: "background.png"`
+in their world manifest. These dedicated 720 x 240 images replace the repeated
+enlarged `hills` cells in both gameplay and cached map previews. Sunset's sun is
+part of its illustration; the renderer does not overlay the old code-drawn sun.
+Construction cranes and scaffolds, layered snowy peaks and pines, and a coastal
+rock arch with distant palms distinguish the three routes.
+
+The camera pans a 426 x 240 crop across the 294 spare horizontal pixels, clamped
+at both route ends. It never wraps, stretches the image, or adds animated motion
+when the camera is stationary. Existing terrain and interactive sprites draw on
+top of the background. Failed panorama loads use the existing loading-error and
+Retry loading flow.
+
+Untouched generated images, exact prompts and provenance are stored in
+[`assets/source/site/background/`](../../assets/source/site/background/PROVENANCE.md),
+[`assets/source/frost/background/`](../../assets/source/frost/background/PROVENANCE.md), and
+[`assets/source/cove/background/`](../../assets/source/cove/background/PROVENANCE.md).
+Reproduce runtime images with `node scripts/prepare-backgrounds.mjs`.
+This keeps the new backgrounds at their actual draw height, coordinating with
+the broader asset-size work in #124. See [visual evidence](../evidence/issue-139/README.md).
+
 ## Signature challenge stars (#93)
 
 Original code-authored gold star silhouettes, signboards and landing bands are

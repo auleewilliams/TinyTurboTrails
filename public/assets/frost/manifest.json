@@ -1,5 +1,6 @@
 {
   "image": "environment.png",
+  "panorama": "background.png",
   "cellSize": 48,
   "assets": {
     "terrain-flat": 0,

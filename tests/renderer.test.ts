@@ -11,7 +11,8 @@ import { createPlayer, surfaceY } from '../src/game/movement';
 import { damagePlayer, type RunState } from '../src/game/interactions';
 import { Camera } from '../src/world/camera';
 import { PLAINS_LEVEL } from '../src/world/level';
-import { QUARRY_RUN, TREETOP_TIMBERS } from '../src/world/levels';
+import { QUARRY_RUN, TREETOP_TIMBERS, SUNSET_SITE, FROST_RIDGE, SANDY_COVE } from '../src/world/levels';
+import { drawTrailBackdrop } from '../src/world/trail-presentation';
 import { platformBodyAt } from '../src/game/platforms';
 
 const manifest = JSON.parse(readFileSync(new URL('../public/assets/plains/manifest.json', import.meta.url), 'utf8'));
@@ -71,6 +72,35 @@ function recordingContext(): { ctx: CanvasRenderingContext2D; images: unknown[][
 }
 
 const worldAssets: WorldAssets = { atlas: {} as HTMLImageElement, manifest };
+
+it.each([SUNSET_SITE, FROST_RIDGE, SANDY_COVE])('pans $name without seams, repeated hills or a duplicate sun', level => {
+  const panorama = { naturalWidth: 720, naturalHeight: 240 } as HTMLImageElement;
+  const assets = { ...worldAssets, panorama };
+  const span = level.width - 426;
+  const positions = [-40, 0, 0.25, span / 2, span, span + 40, span / 2, 0];
+  const crops: number[] = [];
+  for (const x of positions) {
+    const { ctx, images, rects } = recordingContext();
+    drawWorld(ctx, assets, level, { position: { x, y: 0 } } as Camera);
+    const backgrounds = images.filter(call => call[0] === panorama);
+    expect(backgrounds).toHaveLength(1);
+    const [, sx, sy, sw, sh, dx, dy, dw, dh] = backgrounds[0] as [HTMLImageElement, ...number[]];
+    expect([sy, sw, sh, dx, dy, dw, dh]).toEqual([0, 426, 240, 0, 0, 426, 240]);
+    expect(sx).toBeGreaterThanOrEqual(0);
+    expect(sx + sw).toBeLessThanOrEqual(720);
+    expect(images.some(call => call[0] === assets.atlas && call[1] === 96 && call[2] === 144 && Number(call[7]) > 48)).toBe(false);
+    if (level.theme.sun) expect(rects.some(rect => rect.fillStyle === level.theme.sun!.color)).toBe(false);
+    crops.push(sx);
+  }
+  expect(crops).toEqual([0, 0, 294 * 0.25 / span, 147, 294, 294, 147, 0]);
+});
+
+it('keeps a panorama crop finite and inside the image for a viewport-wide custom route', () => {
+  const { ctx, images } = recordingContext();
+  const panorama = { naturalWidth: 300, naturalHeight: 240 } as HTMLImageElement;
+  drawTrailBackdrop(ctx, { ...worldAssets, panorama }, { ...FROST_RIDGE, width: 426 }, { x: 0, y: 0 });
+  expect(images[0].slice(1)).toEqual([0, 0, 300, 300 * 240 / 426, 0, 0, 426, 240]);
+});
 
 const sceneryAssets = {
   ...worldAssets,

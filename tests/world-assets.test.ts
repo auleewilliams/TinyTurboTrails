@@ -120,3 +120,26 @@ it('loads the optional scenery pack declared by the atlas and propagates image f
   fail = true;
   await expect(loadWorldAssets()).rejects.toThrow(/scenery/i);
 });
+
+it.each(['site', 'frost', 'cove'])('loads the %s panorama and can retry a failed image', async (directory) => {
+  const world = JSON.parse(readFileSync(new URL(`../public/assets/${directory}/manifest.json`, import.meta.url), 'utf8'));
+  const bytes = readFileSync(new URL(`../public/assets/${directory}/${world.panorama}`, import.meta.url));
+  expect([bytes.readUInt32BE(16), bytes.readUInt32BE(20)]).toEqual([720, 240]);
+  const requests: string[] = [];
+  let fail = true;
+  vi.stubGlobal('fetch', vi.fn(async () => ({ ok: true, json: async () => world })));
+  class FakeImage {
+    onload = (): void => {};
+    onerror = (): void => {};
+    set src(url: string) {
+      requests.push(url);
+      queueMicrotask(fail && url.endsWith('/background.png') ? this.onerror : this.onload);
+    }
+  }
+  vi.stubGlobal('Image', FakeImage);
+  await expect(loadWorldAssets(directory)).rejects.toThrow('Could not load trail panorama');
+  fail = false;
+  const loaded = await loadWorldAssets(directory);
+  expect(loaded.panorama).toBeInstanceOf(FakeImage);
+  expect(requests.filter(url => url === `/assets/${directory}/background.png`)).toHaveLength(2);
+});

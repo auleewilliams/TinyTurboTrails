@@ -81,17 +81,21 @@ export function drawTerrainEdge(ctx: CanvasRenderingContext2D, level: LevelData,
 }
 
 export function drawTrailBackdrop(ctx: CanvasRenderingContext2D, assets: WorldAssets, level: LevelData,
-  offset: { x: number; y: number }): void {
+  offset: { x: number; y: number }): boolean {
   const backdrop = level.theme.backdrop;
-  if (!backdrop) return;
-  if (assets.backdrops) {
-    const image = assets.backdrops;
-    const height = image.naturalHeight / 2;
+  const image = assets.panorama ?? (backdrop ? assets.backdrops : undefined);
+  if (image) {
+    const height = image.naturalHeight / (assets.panorama ? 1 : 2);
+    const sourceY = assets.panorama ? 0 : (backdrop?.row ?? 0) * height;
     // Pan within the panorama, never wrap; its world-wide sweep has no repeat seam.
-    const sourceWidth = height * 426 / 240;
-    const sourceX = (image.naturalWidth - sourceWidth) * Math.max(0, Math.min(1, offset.x / (level.width - 426)));
-    ctx.drawImage(image, sourceX, backdrop.row * height, sourceWidth, height, 0, 0, 426, 240);
+    // Limit both crop dimensions so even a narrower future panorama stays in bounds.
+    const sourceWidth = Math.min(image.naturalWidth, height * 426 / 240);
+    const sourceHeight = sourceWidth * 240 / 426;
+    const progress = Math.max(0, Math.min(1, offset.x / Math.max(1, level.width - 426)));
+    const sourceX = (image.naturalWidth - sourceWidth) * progress;
+    ctx.drawImage(image, sourceX, sourceY, sourceWidth, sourceHeight, 0, 0, 426, 240);
   }
+  if (!backdrop) return !!image;
   // World-anchored supports reach below the viewport. Their upper ends sit behind
   // the real contour; decorative structures never become new landing surfaces.
   ctx.fillStyle = backdrop.support;
@@ -102,4 +106,5 @@ export function drawTrailBackdrop(ctx: CanvasRenderingContext2D, assets: WorldAs
       ctx.fillRect(x - offset.x - 3, y - offset.y + 2, 6, 240);
     }
   }
+  return true;
 }

@@ -9,12 +9,13 @@ export type WorldAsset = typeof WORLD_ASSETS[number];
 export interface WorldManifest {
   image: string;
   scenery?: string;
+  panorama?: string;
   cellSize: number;
   assets: Record<WorldAsset, number>;
   anchors?: Partial<Record<WorldAsset, { x: number; y: number }>>;
   terrainTops?: Partial<Record<WorldAsset, { left: number; right: number }>>;
 }
-export interface WorldAssets { atlas: HTMLImageElement; manifest: WorldManifest; scenery?: SceneryAssets; materials?: HTMLImageElement; backdrops?: HTMLImageElement }
+export interface WorldAssets { atlas: HTMLImageElement; manifest: WorldManifest; scenery?: SceneryAssets; materials?: HTMLImageElement; backdrops?: HTMLImageElement; panorama?: HTMLImageElement }
 export type WorldAssetMap = Readonly<Record<string, WorldAssets>>;
 
 async function loadImage(url: string, label: string): Promise<HTMLImageElement> {
@@ -36,8 +37,11 @@ export async function loadWorldAssets(directory = 'plains'): Promise<WorldAssets
     if (!Number.isInteger(manifest.assets?.[asset])) throw new Error(`Missing world asset: ${asset}`);
   }
   const atlas = await loadImage(`${base}${manifest.image}`, 'world atlas');
-  const { materials, backdrops } = await loadPresentation();
-  if (!manifest.scenery) return { atlas, manifest, materials, backdrops };
+  const [{ materials, backdrops }, panorama] = await Promise.all([
+    loadPresentation(),
+    manifest.panorama ? loadImage(`${base}${manifest.panorama}`, 'trail panorama') : undefined,
+  ]);
+  if (!manifest.scenery) return { atlas, manifest, materials, backdrops, panorama };
   const sceneryUrl = `${base}${manifest.scenery}`;
   const sceneryResponse = await fetch(sceneryUrl);
   if (!sceneryResponse.ok) throw new Error('Could not load scenery metadata');
@@ -48,7 +52,7 @@ export async function loadWorldAssets(directory = 'plains'): Promise<WorldAssets
     loadImage(`${sceneryBase}${sceneryManifest.background.image}`, 'scenery background'),
     loadImage(`${sceneryBase}${sceneryManifest.foreground.image}`, 'scenery foreground'),
   ]);
-  return { atlas, manifest, materials, backdrops, scenery: { background, foreground, manifest: sceneryManifest } };
+  return { atlas, manifest, materials, backdrops, panorama, scenery: { background, foreground, manifest: sceneryManifest } };
 }
 
 let presentation: Promise<Pick<WorldAssets, 'materials' | 'backdrops'>> | undefined;

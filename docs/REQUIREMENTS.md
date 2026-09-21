@@ -122,7 +122,15 @@ backgrounds with supported landmarks. Decorative art updates preserve collisions
 anchors and movement; optional challenge additions follow the rules below.
 Respect reduced motion and loading/error/retry.
 
-The gameplay atlas, Henry sprite sheet and declared scenery packs are required:
+Sunset Site, Frost Ridge and Sandy Cove also have dedicated illustrated panoramas
+(#139). They pan within image bounds across the full route without repeating the
+old enlarged skyline cells. Background contrast must preserve readability of
+Henry, hazards, pickups and terrain/material cues at 426 x 240. Map previews use
+the same backgrounds. Ship these panoramas at native draw height and keep their
+original images, prompts and reproducible packaging in the source tree.
+
+The gameplay atlas, Henry sprite sheet, declared scenery packs and dedicated
+panoramas are required:
 their failure keeps the existing Retry flow. Shared terrain materials and trail
 backdrops are decorative enhancements; if either fails to load, trails remain
 playable using their solid theme colors, contour edges and ordinary parallax.
