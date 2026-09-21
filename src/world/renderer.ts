@@ -53,7 +53,7 @@ export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, le
     drawTerrainMaterial(ctx, level, offset, assets, first.x1, last.x2);
     ctx.restore();
   }
-  if (level.theme.texturedTerrain && level.theme.material === 'wood') drawTerrainTiles(ctx, assets, level, offset);
+  if (level.theme.material === 'wood') drawTerrainTiles(ctx, assets, level, offset);
   drawTerrainEdge(ctx, level, offset);
   drawSurfaceMaterials(ctx, level, offset);
   for (const surface of level.surfaces) drawSurfaceGrip(ctx, surface, offset);

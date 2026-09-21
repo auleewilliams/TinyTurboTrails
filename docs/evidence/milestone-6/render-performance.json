@@ -1,0 +1,83 @@
+{
+  "method": "600 full-route camera samples per trail, 30 warmups; 426x240 software Canvas with full readback; headless Chromium; baseline renderer from e04b5e2; same host/assets",
+  "results": [
+    {
+      "level": "plains",
+      "baseline": {
+        "medianMs": 1.4000000953674316,
+        "p95Ms": 1.7000000476837158,
+        "meanMs": 1.4595000004768373
+      },
+      "milestone": {
+        "medianMs": 1.8999998569488525,
+        "p95Ms": 2.200000047683716,
+        "meanMs": 1.9216666662693023
+      }
+    },
+    {
+      "level": "quarry",
+      "baseline": {
+        "medianMs": 1.2000000476837158,
+        "p95Ms": 1.5,
+        "meanMs": 1.2340000009536742
+      },
+      "milestone": {
+        "medianMs": 1.7000000476837158,
+        "p95Ms": 2.0999999046325684,
+        "meanMs": 1.7816666666666667
+      }
+    },
+    {
+      "level": "timbers",
+      "baseline": {
+        "medianMs": 1.1000001430511475,
+        "p95Ms": 1.3999998569488525,
+        "meanMs": 1.161333335240682
+      },
+      "milestone": {
+        "medianMs": 1.8000001907348633,
+        "p95Ms": 2.0999999046325684,
+        "meanMs": 1.888333334128062
+      }
+    },
+    {
+      "level": "sunset",
+      "baseline": {
+        "medianMs": 1.2999999523162842,
+        "p95Ms": 1.4000000953674316,
+        "meanMs": 1.3024999996026356
+      },
+      "milestone": {
+        "medianMs": 1.6999998092651367,
+        "p95Ms": 1.9000000953674316,
+        "meanMs": 1.6864999989668528
+      }
+    },
+    {
+      "level": "frost",
+      "baseline": {
+        "medianMs": 1.1000001430511475,
+        "p95Ms": 1.2000000476837158,
+        "meanMs": 1.1293333331743876
+      },
+      "milestone": {
+        "medianMs": 1.5,
+        "p95Ms": 1.7000000476837158,
+        "meanMs": 1.5243333327770232
+      }
+    },
+    {
+      "level": "cove",
+      "baseline": {
+        "medianMs": 1.1000001430511475,
+        "p95Ms": 1.2999999523162842,
+        "meanMs": 1.1569999996821085
+      },
+      "milestone": {
+        "medianMs": 1.5,
+        "p95Ms": 1.6000001430511475,
+        "meanMs": 1.4696666665871938
+      }
+    }
+  ]
+}

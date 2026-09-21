@@ -37,7 +37,7 @@ export async function loadWorldAssets(directory = 'plains'): Promise<WorldAssets
     if (!Number.isInteger(manifest.assets?.[asset])) throw new Error(`Missing world asset: ${asset}`);
   }
   const atlas = await loadImage(`${base}${manifest.image}`, 'world atlas');
-  const [[materials, backdrops], panorama] = await Promise.all([
+  const [{ materials, backdrops }, panorama] = await Promise.all([
     loadPresentation(),
     manifest.panorama ? loadImage(`${base}${manifest.panorama}`, 'trail panorama') : undefined,
   ]);
@@ -55,12 +55,14 @@ export async function loadWorldAssets(directory = 'plains'): Promise<WorldAssets
   return { atlas, manifest, materials, backdrops, panorama, scenery: { background, foreground, manifest: sceneryManifest } };
 }
 
-let presentation: Promise<HTMLImageElement[]> | undefined;
-function loadPresentation(): Promise<HTMLImageElement[]> {
+let presentation: Promise<Pick<WorldAssets, 'materials' | 'backdrops'>> | undefined;
+function loadPresentation(): Promise<Pick<WorldAssets, 'materials' | 'backdrops'>> {
+  const optional = (url: string, label: string): Promise<HTMLImageElement | undefined> =>
+    loadImage(url, label).catch(() => undefined);
   return presentation ??= Promise.all([
-    loadImage(`${import.meta.env.BASE_URL}assets/trails/materials.png`, 'terrain materials'),
-    loadImage(`${import.meta.env.BASE_URL}assets/trails/backdrops.png`, 'trail backdrops'),
-  ]).catch((error: unknown) => { presentation = undefined; throw error; });
+    optional(`${import.meta.env.BASE_URL}assets/trails/materials.png`, 'terrain materials'),
+    optional(`${import.meta.env.BASE_URL}assets/trails/backdrops.webp`, 'trail backdrops'),
+  ]).then(([materials, backdrops]) => ({ materials, backdrops }));
 }
 
 export async function loadWorldAssetMap(directories: readonly string[]): Promise<WorldAssetMap> {

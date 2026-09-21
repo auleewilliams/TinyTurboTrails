@@ -23,8 +23,8 @@ export interface LevelTheme {
   material?: 'soil' | 'stone' | 'wood' | 'gravel' | 'frost' | 'sand';
   materialSections?: readonly { from: number; to: number; material: NonNullable<LevelTheme['material']> }[];
   scenery?: boolean;
-  /** Draw the shared terrain cells over the solid collision contour. */
-  texturedTerrain?: boolean;
+  /** A row in the shared two-row panorama and its world-support tint. */
+  backdrop?: { row: number; support: string };
   sky: string;
   ground: string;
   edge: string;
@@ -272,6 +272,10 @@ function validateCrumblingLedge(level: LevelData, entity: WorldEntity): void {
 }
 
 export function validateLevel(level: LevelData): void {
+  if (level.theme.backdrop && (!Number.isInteger(level.theme.backdrop.row) ||
+    level.theme.backdrop.row < 0 || level.theme.backdrop.row >= 2)) {
+    throw new Error('backdrop row is outside the shared sheet');
+  }
   const specials = level.entities.filter((entity) => entity.kind === 'special');
   if (specials.length !== 0 && specials.length !== 3) throw new Error('a special trail requires exactly three stars');
   for (const special of specials) {

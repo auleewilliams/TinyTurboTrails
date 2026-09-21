@@ -14,12 +14,7 @@ it('ships a complete grounded construction atlas for Sunset Site', () => {
   expect(Object.values(site.assets).sort((a, b) => Number(a) - Number(b))).toEqual(
     Array.from({ length: 16 }, (_, index) => index),
   );
-  expect(site.terrainTops).toEqual({
-    'terrain-flat': { left: 18, right: 18 },
-    'terrain-left': { left: 11, right: 17 },
-    'terrain-right': { left: 17, right: 10 },
-    'terrain-ramp': { left: 29, right: 8 },
-  });
+  expect(site).not.toHaveProperty('terrainTops');
   for (const asset of ['stone', 'cave', 'tree', 'flowers', 'spring', 'slime', 'checkpoint', 'finish-arch', 'bush']) {
     expect(site.anchors[asset], asset).toEqual({ x: 24, y: 44 });
   }
@@ -49,7 +44,7 @@ it('loads world metadata and its atlas from the requested directory', async () =
   expect(requests).toEqual([
     '/assets/quarry/manifest.json',
     '/assets/quarry/environment.png',
-    '/assets/trails/materials.png', '/assets/trails/backdrops.png',
+    '/assets/trails/materials.png', '/assets/trails/backdrops.webp',
   ]);
 });
 
@@ -86,6 +81,25 @@ it('reports generic metadata errors without naming Plains', async () => {
 
   await expect(loadWorldAssets('quarry')).rejects.toThrow('world asset metadata');
   await expect(loadWorldAssets('quarry')).rejects.not.toThrow(/Plains/);
+});
+
+it('treats shared decorative sheets as optional while keeping the atlas required', async () => {
+  vi.resetModules();
+  const { loadWorldAssets: loadFreshWorldAssets } = await import('../src/world/assets');
+  vi.stubGlobal('fetch', vi.fn(async () => ({ ok: true, json: async () => ({
+    image: 'environment.png', cellSize: 48,
+    assets: Object.fromEntries(WORLD_ASSETS.map((asset, index) => [asset, index])),
+  }) })));
+  class FakeImage {
+    onload = (): void => {};
+    onerror = (): void => {};
+    set src(url: string) { queueMicrotask(url.includes('/trails/') ? this.onerror : this.onload); }
+  }
+  vi.stubGlobal('Image', FakeImage);
+  const loaded = await loadFreshWorldAssets('optional-presentation');
+  expect(loaded.atlas).toBeInstanceOf(FakeImage);
+  expect(loaded.materials).toBeUndefined();
+  expect(loaded.backdrops).toBeUndefined();
 });
 
 it('loads the optional scenery pack declared by the atlas and propagates image failures', async () => {

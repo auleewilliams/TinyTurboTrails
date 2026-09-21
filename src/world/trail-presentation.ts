@@ -4,9 +4,12 @@ import type { WorldAssets } from './assets';
 /** Cosmetic materials never assign physics properties. Bounds are world coordinates. */
 export function drawTerrainMaterial(ctx: CanvasRenderingContext2D, level: LevelData, offset: { x: number; y: number },
   assets: WorldAssets, left: number, right: number): void {
+  const materialCells: Record<NonNullable<LevelData['theme']['material']>, number> = {
+    soil: 0, stone: 1, wood: 2, gravel: 3, frost: 4, sand: 5,
+  };
   for (const section of level.theme.materialSections ?? [{ from: left, to: right, material: level.theme.material ?? 'soil' }]) {
     const material = section.material;
-    const index = ['soil', 'stone', 'wood', 'gravel', 'frost', 'sand'].indexOf(material);
+    const index = materialCells[material];
     const from = Math.max(left, offset.x, section.from), to = Math.min(right, offset.x + 426, section.to);
     if (to <= from) continue;
     ctx.save(); ctx.beginPath();
@@ -79,11 +82,11 @@ export function drawTerrainEdge(ctx: CanvasRenderingContext2D, level: LevelData,
 
 export function drawTrailBackdrop(ctx: CanvasRenderingContext2D, assets: WorldAssets, level: LevelData,
   offset: { x: number; y: number }): boolean {
-  const shared = level.id === 'quarry' || level.id === 'timbers';
-  const image = assets.panorama ?? (shared ? assets.backdrops : undefined);
+  const backdrop = level.theme.backdrop;
+  const image = assets.panorama ?? (backdrop ? assets.backdrops : undefined);
   if (image) {
     const height = image.naturalHeight / (assets.panorama ? 1 : 2);
-    const sourceY = assets.panorama || level.id === 'quarry' ? 0 : height;
+    const sourceY = assets.panorama ? 0 : (backdrop?.row ?? 0) * height;
     // Pan within the panorama, never wrap; its world-wide sweep has no repeat seam.
     // Limit both crop dimensions so even a narrower future panorama stays in bounds.
     const sourceWidth = Math.min(image.naturalWidth, height * 426 / 240);
@@ -92,10 +95,10 @@ export function drawTrailBackdrop(ctx: CanvasRenderingContext2D, assets: WorldAs
     const sourceX = (image.naturalWidth - sourceWidth) * progress;
     ctx.drawImage(image, sourceX, sourceY, sourceWidth, sourceHeight, 0, 0, 426, 240);
   }
-  if (!shared) return !!image;
+  if (!backdrop) return !!image;
   // World-anchored supports reach below the viewport. Their upper ends sit behind
   // the real contour; decorative structures never become new landing surfaces.
-  ctx.fillStyle = level.id === 'quarry' ? '#4b535860' : '#60443260';
+  ctx.fillStyle = backdrop.support;
   for (const surface of level.surfaces) {
     const from = Math.ceil(Math.max(surface.x1, offset.x - 8) / 137) * 137;
     for (let x = from; x < Math.min(surface.x2, offset.x + 434); x += 137) {

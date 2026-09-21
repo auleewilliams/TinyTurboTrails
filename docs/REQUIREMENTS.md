@@ -129,6 +129,12 @@ Henry, hazards, pickups and terrain/material cues at 426 x 240. Map previews use
 the same backgrounds. Ship these panoramas at native draw height and keep their
 original images, prompts and reproducible packaging in the source tree.
 
+The gameplay atlas, Henry sprite sheet, declared scenery packs and dedicated
+panoramas are required:
+their failure keeps the existing Retry flow. Shared terrain materials and trail
+backdrops are decorative enhancements; if either fails to load, trails remain
+playable using their solid theme colors, contour edges and ordinary parallax.
+
 The parent-led landmark/navigation check with Henry remains a separate acceptance
 step; automated tests cannot satisfy it. Current controls live in the adventure guide.
 

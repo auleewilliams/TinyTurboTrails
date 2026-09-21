@@ -12,9 +12,9 @@ export interface HenryManifest {
 }
 export interface HenryAssets {
   atlas: HTMLImageElement;
-  reference: HTMLImageElement;
   manifest: HenryManifest;
 }
+export interface HenryPreviewAssets extends HenryAssets { reference: HTMLImageElement }
 
 export function validateManifest(value: unknown, width: number, height: number): asserts value is HenryManifest {
   const data = value as HenryManifest;
@@ -58,9 +58,15 @@ export async function loadHenry(): Promise<HenryAssets> {
   const response = await fetch(`${base}manifest.json`);
   if (!response.ok) throw new Error('Could not load Henry animation metadata');
   const manifest = await response.json() as HenryManifest;
-  const [atlas, reference] = await Promise.all([
-    loadImage(`${base}${manifest.image}`), loadImage(`${base}reference.png`),
-  ]);
+  const atlas = await loadImage(`${base}${manifest.image}`);
   validateManifest(manifest, atlas.naturalWidth, atlas.naturalHeight);
-  return { manifest, atlas, reference };
+  return { manifest, atlas };
+}
+
+export async function loadHenryPreview(): Promise<HenryPreviewAssets> {
+  const base = `${import.meta.env.BASE_URL}assets/henry/`;
+  const [henry, reference] = await Promise.all([
+    loadHenry(), loadImage(`${base}reference.png`),
+  ]);
+  return { ...henry, reference };
 }
