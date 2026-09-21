@@ -1,6 +1,6 @@
 import type { AnimationClip } from './animation';
 
-export const ANIMATIONS = ['idle', 'run', 'jump', 'fall'] as const;
+export const ANIMATIONS = ['idle', 'run', 'jump', 'fall', 'celebrate'] as const;
 export type AnimationName = typeof ANIMATIONS[number];
 export interface SpriteFrame { x: number; y: number; width: number; height: number }
 export interface HenryManifest {
@@ -36,7 +36,7 @@ export function validateManifest(value: unknown, width: number, height: number):
     const clip = data.animations?.[name];
     if (!clip || !Array.isArray(clip.frames) || !clip.frames.length ||
         !Number.isFinite(clip.frameSeconds) || clip.frameSeconds <= 0 ||
-        typeof clip.loop !== 'boolean' || clip.frames.some((id) =>
+        typeof clip.loop !== 'boolean' || (name === 'celebrate' && clip.loop) || clip.frames.some((id) =>
           !Number.isInteger(id) || id < 0 || id >= data.frames.length)) {
       throw new Error(`Invalid ${name} animation`);
     }

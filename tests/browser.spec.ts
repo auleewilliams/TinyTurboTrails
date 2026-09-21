@@ -229,7 +229,7 @@ test('production canvas loads, scales and recovers from focus loss', async ({ pa
   await expect(page.locator('#mute')).toHaveAttribute('aria-label', 'Unmute');
   await page.locator('#mute').click();
   await expect(page.locator('#status')).not.toContainText('Muted');
-  await page.reload();
+  await reloadAndDismiss(page);
   await expect(page.locator('#status')).toHaveText('Foundation preview · Escape to pause · M to mute');
   expect(errors).toEqual([]);
   await info.attach('browser-version', { body: browser.version(), contentType: 'text/plain' });
@@ -241,12 +241,13 @@ test('art preview loads local assets and reports a missing atlas', async ({ page
   await page.goto('/?scene=art');
   await expect(page.locator('#status')).toContainText('Art preview', { timeout: 15000 });
   await expect(page.locator('#status')).not.toContainText('Loading', { timeout: 15000 });
-  await page.route('**/assets/henry/starter.png', (route) => route.abort());
-  await page.reload();
+  await page.route('**/assets/henry/henry-celebration.png', (route) => route.abort());
+  await reloadAndDismiss(page);
   await expect(page.locator('#status')).toHaveText('Artwork could not load. Reload to retry.');
   await expect(page.locator('#retry')).toBeVisible();
-  await page.unroute('**/assets/henry/starter.png');
+  await page.unroute('**/assets/henry/henry-celebration.png');
   await page.locator('#retry').click();
+  await dismissOpening(page);
   await expect(page.locator('#status')).toContainText('Art preview', { timeout: 15000 });
 });
 
@@ -282,7 +283,7 @@ test('starter atlas contains real transparency and every frame stays within its 
       return { opaque, clear, edge, cornerBackground };
     });
   });
-  expect(results).toHaveLength(16);
+  expect(results).toHaveLength(24);
   for (const result of results) {
     expect(result.opaque).toBeGreaterThan(150);
     expect(result.clear).toBeGreaterThan(500);
@@ -336,7 +337,7 @@ test('adventure flashes the sprite after damage without a rectangular overlay', 
       fill.call(this, x, y, width, height);
     };
   });
-  await page.goto('/?scene=adventure&debug=1');
+  await openAdventure(page, '/?scene=adventure&debug=1');
   await expect(page.locator('#status')).toContainText('Title');
   await page.keyboard.press('Space');
   await page.keyboard.down('ArrowRight');
@@ -346,7 +347,7 @@ test('adventure flashes the sprite after damage without a rectangular overlay', 
 });
 
 test('adventure HUD shows three hearts and empties one after damage', async ({ page }) => {
-  await page.goto('/?scene=adventure&debug=1');
+  await openAdventure(page, '/?scene=adventure&debug=1');
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
   await page.keyboard.press('Space');
   await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
@@ -367,7 +368,7 @@ test('adventure HUD shows three hearts and empties one after damage', async ({ p
 });
 
 test('a patrolling slime keeps moving while Henry stands still', async ({ page }) => {
-  await page.goto('/?scene=adventure&debug=1');
+  await openAdventure(page, '/?scene=adventure&debug=1');
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
   await page.keyboard.press('Space');
   await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
@@ -385,7 +386,7 @@ test('a patrolling slime keeps moving while Henry stands still', async ({ page }
 });
 
 test('Henry faces the direction of travel, including after reversing while moving', async ({ page }) => {
-  await page.goto('/?scene=adventure&debug=1');
+  await openAdventure(page, '/?scene=adventure&debug=1');
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
   await page.keyboard.press('Space');
   await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
@@ -402,7 +403,7 @@ test('Henry faces the direction of travel, including after reversing while movin
 });
 
 test('default main menu starts the Plains level with Space', async ({ page }) => {
-  await page.goto('/');
+  await openAdventure(page, '/');
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
   await page.keyboard.press('Space');
   await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
@@ -410,7 +411,7 @@ test('default main menu starts the Plains level with Space', async ({ page }) =>
   await expect(page.locator('#status')).toHaveText('Paused · Escape to resume');
   await page.keyboard.press('Escape');
   await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
-  await page.reload();
+  await reloadAndDismiss(page);
   await expect(page.locator('#status')).toContainText('Adventure preview · Title');
 });
 
@@ -419,7 +420,7 @@ test('title picker selects Quarry Run and starts the selected route', async ({ p
   // Issue #74 makes walking through every hazard fatal, so jump near each danger.
   test.setTimeout(200_000);
   await observeTitleSelection(page);
-  await page.goto('/?scene=adventure&debug=1');
+  await openAdventure(page, '/?scene=adventure&debug=1');
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
   await selectNextLevel(page, 'QUARRY RUN');
   await page.keyboard.press('Space');
@@ -467,7 +468,7 @@ test('Quarry crumbling ledge warns, disappears and returns after fall recovery',
       Reflect.apply(stroke, this, path ? [path] : []);
     };
   });
-  await page.goto('/?scene=adventure&debug=1');
+  await openAdventure(page, '/?scene=adventure&debug=1');
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15_000 });
   await page.keyboard.down('ArrowRight');
   await page.waitForTimeout(100);
@@ -516,7 +517,7 @@ test('title picker renders Treetop Timbers with its own atlas', async ({ page },
       Reflect.apply(original, this, args);
     } as typeof original;
   });
-  await page.goto('/?scene=adventure&debug=1');
+  await openAdventure(page, '/?scene=adventure&debug=1');
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
   await selectNextLevel(page, 'QUARRY RUN');
   await selectNextLevel(page, 'TREETOP TIMBERS');
@@ -541,7 +542,7 @@ test('title picker consumes each selection and release with delayed animation fr
     const original = window.requestAnimationFrame.bind(window);
     window.requestAnimationFrame = (callback) => window.setTimeout(() => original(callback), 200);
   });
-  await page.goto('/?scene=adventure&debug=1');
+  await openAdventure(page, '/?scene=adventure&debug=1');
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
   await selectNextLevel(page, 'QUARRY RUN');
   await selectNextLevel(page, 'TREETOP TIMBERS');
@@ -562,7 +563,7 @@ test('title picker wraps back to Sunset Site and renders its terrain atlas', asy
       Reflect.apply(original, this, args);
     } as typeof original;
   });
-  await page.goto('/?scene=adventure&debug=1');
+  await openAdventure(page, '/?scene=adventure&debug=1');
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
   // Wrap from Plains through Sandy Cove and Frost Ridge to Sunset Site.
   for (let step = 0; step < 3; step++) {
@@ -583,7 +584,7 @@ test('title picker wraps back to Sunset Site and renders its terrain atlas', asy
 });
 
 test('adventure mute control updates the audio state', async ({ page }) => {
-  await page.goto('/?scene=adventure');
+  await openAdventure(page, '/?scene=adventure');
   await expect(page.locator('#status')).toContainText('Adventure preview', { timeout: 15000 });
   await page.locator('#mute').click();
   await expect(page.locator('#mute')).toHaveAttribute('aria-pressed', 'true');
@@ -599,7 +600,7 @@ test('adventure remains playable when Web Audio is unavailable', async ({ page }
   await page.addInitScript(() => {
     Object.defineProperty(window, 'AudioContext', { value: class { constructor() { throw Error('Unavailable'); } } });
   });
-  await page.goto('/?scene=adventure');
+  await openAdventure(page, '/?scene=adventure');
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
   await page.keyboard.press('Space');
   await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
@@ -612,7 +613,7 @@ test('adventure remains playable when Web Audio is unavailable', async ({ page }
 });
 
 test('adventure keeps its letterbox and pauses on focus loss', async ({ page }) => {
-  await page.goto('/?scene=adventure');
+  await openAdventure(page, '/?scene=adventure');
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
   await page.keyboard.press('Space');
   await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
@@ -626,12 +627,13 @@ test('adventure keeps its letterbox and pauses on focus loss', async ({ page }) 
 });
 
 test('adventure exposes retry when a required asset fails to load', async ({ page }) => {
-  await page.route('**/assets/henry/starter.png', (route) => route.abort());
-  await page.goto('/?scene=adventure');
+  await page.route('**/assets/henry/henry-celebration.png', (route) => route.abort());
+  await openAdventure(page, '/?scene=adventure');
   await expect(page.locator('#status')).toHaveText('Artwork could not load. Reload to retry.', { timeout: 15000 });
   await expect(page.locator('#retry')).toBeVisible();
-  await page.unroute('**/assets/henry/starter.png');
+  await page.unroute('**/assets/henry/henry-celebration.png');
   await page.locator('#retry').click();
+  await dismissOpening(page);
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
 });
 
@@ -645,7 +647,7 @@ test('adventure clears held controller input after disconnect', async ({ page })
     Object.defineProperty(navigator, 'getGamepads', { configurable: true, value: () => [pad] });
     Object.assign(window, { disconnectController: pad });
   });
-  await page.goto('/?scene=adventure&debug=1');
+  await openAdventure(page, '/?scene=adventure&debug=1');
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
   await page.keyboard.press('Space');
   await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
@@ -685,7 +687,7 @@ test('adventure clears held controller input after disconnect', async ({ page })
 
 test('adventure can complete the forgiving route and replay directly with a fresh camera', async ({ page }, info) => {
   test.setTimeout(200_000);
-  await page.goto('/?scene=adventure&debug=1');
+  await openAdventure(page, '/?scene=adventure&debug=1');
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
   await page.keyboard.press('Space');
   await expect(page.locator('#status')).toContainText('Adventure preview · Playing', { timeout: 15000 });
@@ -705,10 +707,10 @@ test('adventure can complete the forgiving route and replay directly with a fres
   const celebrationPixels = await page.locator('canvas').evaluate((element) => {
     const canvas = element as HTMLCanvasElement;
     const ctx = canvas.getContext('2d')!;
-    const pixels = ctx.getImageData(150, 95, 130, 55).data;
+    const pixels = ctx.getImageData(256, 87, 48, 64).data;
     let matches = 0;
     for (let i = 0; i < pixels.length; i += 4) {
-      if (pixels[i] === 255 && pixels[i + 1] === 218 && pixels[i + 2] === 117 && pixels[i + 3] > 0) matches++;
+      if (pixels[i] > 190 && pixels[i + 1] > 120 && pixels[i + 1] < 240 && pixels[i + 2] < 100 && pixels[i + 3] > 0) matches++;
     }
     return matches;
   });
@@ -720,7 +722,7 @@ test('adventure can complete the forgiving route and replay directly with a fres
 });
 
 test('adventure pause freezes progress and reload starts a fresh in-memory run', async ({ page }) => {
-  await page.goto('/?scene=adventure&debug=1');
+  await openAdventure(page, '/?scene=adventure&debug=1');
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
   await page.keyboard.press('Space');
   await expect(page.locator('#status')).toContainText('Adventure preview · Playing', { timeout: 15000 });
@@ -738,7 +740,7 @@ test('adventure pause freezes progress and reload starts a fresh in-memory run',
   expect(await page.locator('canvas').evaluate((element) => (element as HTMLCanvasElement).toDataURL())).toBe(pausedImage);
   await page.keyboard.press('Escape');
   await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
-  await page.reload();
+  await reloadAndDismiss(page);
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
 });
 
@@ -753,7 +755,7 @@ test('default main menu accepts controller primary-button start, Start pause and
     Object.defineProperty(navigator, 'getGamepads', { configurable: true, value: () => [pad] });
     Object.assign(window, { smokeController: pad });
   });
-  await page.goto('/');
+  await openAdventure(page, '/');
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
   await page.evaluate(() => {
     const pad = (window as unknown as { smokeController: { buttons: { pressed: boolean }[] } }).smokeController;
@@ -802,7 +804,7 @@ test('controller jump works mid-gameplay via any face button, not just at the ti
     Object.defineProperty(navigator, 'getGamepads', { configurable: true, value: () => [pad] });
     Object.assign(window, { jumpController: pad });
   });
-  await page.goto('/?scene=adventure&debug=1');
+  await openAdventure(page, '/?scene=adventure&debug=1');
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
   const readY = async (): Promise<number> =>
     Number((await page.locator('#status').innerText()).match(/Y (\d+)/)?.[1] ?? 0);
@@ -845,7 +847,7 @@ test('all checkpoints activate along the ground route and render planted markers
       else fillText.call(this, text, x, y, maxWidth);
     };
   });
-  await page.goto('/?scene=adventure&debug=1');
+  await openAdventure(page, '/?scene=adventure&debug=1');
   await expect(page.locator('#status')).toContainText('Adventure preview · Title');
   await page.keyboard.press('Space');
   await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
@@ -900,7 +902,7 @@ const recordHudDraws = async (page: import('@playwright/test').Page): Promise<vo
 
 test('adventure HUD stays left-aligned through keyboard pause and focus loss', async ({ page }) => {
   await recordHudDraws(page);
-  await page.goto('/?scene=adventure');
+  await openAdventure(page, '/?scene=adventure');
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
   await page.keyboard.press('Space');
   await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
@@ -932,7 +934,7 @@ test('adventure HUD stays left-aligned through keyboard pause and focus loss', a
 
 test('a collected gem stops being drawn where it stood', async ({ page }, info) => {
   await recordHudDraws(page);
-  await page.goto('/?scene=adventure&debug=1');
+  await openAdventure(page, '/?scene=adventure&debug=1');
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
   await page.keyboard.press('Space');
   await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
@@ -983,7 +985,7 @@ test('ground scenery and slimes draw their opaque bases at terrain height', asyn
       Reflect.apply(drawImage, this, args);
     } as typeof drawImage;
   });
-  await page.goto('/?scene=adventure&debug=1');
+  await openAdventure(page, '/?scene=adventure&debug=1');
   await expect(page.locator('#status')).toContainText('Adventure preview · Title');
   await page.keyboard.press('Space');
   const bases = await page.evaluate(async () => {
@@ -1059,7 +1061,7 @@ test('Plains renders its panorama and transparent scenery, and Quarry keeps its 
       Reflect.apply(original, this, args);
     } as typeof original;
   });
-  await page.goto('/?scene=adventure&debug=1');
+  await openAdventure(page, '/?scene=adventure&debug=1');
   await expect(page.locator('#status')).toContainText('Adventure preview · Title');
   await page.keyboard.press('Space');
   await expect(page.locator('#status')).toContainText('Playing');
@@ -1081,7 +1083,7 @@ test('Plains renders its panorama and transparent scenery, and Quarry keeps its 
   const screenshot = info.outputPath('plains-scenery-start.png');
   await page.locator('canvas').screenshot({ path: screenshot });
   await info.attach('plains-scenery-start', { path: screenshot, contentType: 'image/png' });
-  await page.goto('/?scene=adventure&debug=1');
+  await openAdventure(page, '/?scene=adventure&debug=1');
   await expect(page.locator('#status')).toContainText('Title');
   await page.keyboard.down('ArrowRight');
   // Selection changes the title text; the world changes only when Space starts it.
@@ -1096,7 +1098,7 @@ test('Plains renders its panorama and transparent scenery, and Quarry keeps its 
 
 test('a failed scenery image exposes Retry loading and recovers', async ({ page }) => {
   await page.route('**/assets/plains/scenery/foreground.png', (route) => route.abort());
-  await page.goto('/?scene=adventure');
+  await openAdventure(page, '/?scene=adventure');
   await expect(page.locator('#status')).toHaveText('Artwork could not load. Reload to retry.');
   await expect(page.locator('#retry')).toBeVisible();
   const retryBox = (await page.locator('#retry').boundingBox())!;
@@ -1104,6 +1106,7 @@ test('a failed scenery image exposes Retry loading and recovers', async ({ page 
   expect(retryBox.y + retryBox.height).toBeLessThan(statusBox.y);
   await page.unroute('**/assets/plains/scenery/foreground.png');
   await page.locator('#retry').click();
+  await dismissOpening(page);
   await expect(page.locator('#status')).toContainText('Adventure preview · Title');
   await expect(page.locator('#retry')).toBeHidden();
   await expect(page.locator('canvas')).toBeVisible();
@@ -1125,7 +1128,7 @@ for (const [biome, pickerSteps] of [['frost', 4], ['cove', 5]] as const) {
         Reflect.apply(original, this, args);
       } as typeof original;
     });
-    await page.goto('/?scene=adventure&debug=1');
+    await openAdventure(page, '/?scene=adventure&debug=1');
     await expect(page.locator('#status')).toContainText('Adventure preview · Title');
     for (let i = 0; i < pickerSteps; i++) {
       await page.keyboard.down('ArrowRight');
@@ -1173,10 +1176,11 @@ for (const [biome, pickerSteps] of [['frost', 4], ['cove', 5]] as const) {
   test(`${biome} atlas failure is recoverable through retry`, async ({ page }) => {
     const path = `**/assets/${biome}/environment.png`;
     await page.route(path, (route) => route.abort());
-    await page.goto('/?scene=adventure');
+    await openAdventure(page, '/?scene=adventure');
     await expect(page.locator('#status')).toHaveText('Artwork could not load. Reload to retry.');
     await page.unroute(path);
     await page.locator('#retry').click();
+  await dismissOpening(page);
     await expect(page.locator('#status')).toContainText('Adventure preview · Title');
   });
 }
@@ -1222,7 +1226,7 @@ test('native HUD hints follow active input and pause controls fit small windows'
       else original.call(this, text, x, y, maxWidth);
     };
   });
-  await page.goto('/?scene=adventure');
+  await openAdventure(page, '/?scene=adventure');
   await expect(page.locator('#status')).toContainText('Title');
   await page.keyboard.press('Space');
   const canvas = page.locator('canvas');
@@ -1273,7 +1277,7 @@ for (const viewport of [
         return Reflect.apply(draw, this, [image, ...coordinates]);
       };
     });
-    await page.goto('/?scene=adventure');
+    await openAdventure(page, '/?scene=adventure');
     await expect(page.locator('#status')).toContainText('Adventure preview · Title');
     const canvas = page.locator('canvas');
     await expect(canvas).toHaveAttribute('data-title-artwork');
@@ -1302,11 +1306,12 @@ for (const viewport of [
 test('title artwork failure recovers through the existing retry flow', async ({ page }) => {
   const path = '**/assets/title/tiny-turbo-trails-v2.png';
   await page.route(path, (route) => route.abort());
-  await page.goto('/?scene=adventure');
+  await openAdventure(page, '/?scene=adventure');
   await expect(page.locator('#status')).toHaveText('Artwork could not load. Reload to retry.');
   await expect(page.locator('#retry')).toBeVisible();
   await page.unroute(path);
   await page.locator('#retry').click();
+  await dismissOpening(page);
   await expect(page.locator('#status')).toContainText('Adventure preview · Title');
   await expect(page.locator('#retry')).toBeHidden();
 });
@@ -1319,6 +1324,7 @@ async function installTrailPilot(page: Page): Promise<void> {
     const pilot = { active: false, lastActive: false, controller: false, dangers: [] as number[], index: 0, lastX: 0, jumpUntil: 0, jumping: false };
     Object.assign(window, { trailPad: pad, trailPilot: pilot });
     Object.defineProperty(navigator, 'getGamepads', { configurable: true, value: () => pilot.controller ? [pad] : [] });
+    let previousTime: number | undefined; let presentationTime = 0;
     const raf = window.requestAnimationFrame.bind(window);
     window.requestAnimationFrame = (callback) => raf((now) => {
       const status = document.querySelector('#status')?.textContent ?? '';
@@ -1342,7 +1348,9 @@ async function installTrailPilot(page: Page): Promise<void> {
       }
       pilot.jumping = jumping;
       pilot.lastActive = pilot.active;
-      callback(now * 6);
+      presentationTime += previousTime === undefined ? 0 : (now - previousTime) * (status.includes('Playing') ? 6 : 1);
+      previousTime = now;
+      callback(presentationTime);
     });
   });
 }
@@ -1351,7 +1359,7 @@ for (const [index, level] of LEVELS.entries()) {
   test(`milestone ${level.name}: pointer selection, full route, return, replay and next`, async ({ page }, info) => {
     test.setTimeout(100_000);
     await installTrailPilot(page);
-    await page.goto('/?debug=1');
+    await openAdventure(page, '/?debug=1');
     await page.getByRole('button', { name: level.name, exact: true }).click();
     await expect(page.getByRole('button', { name: level.name, exact: true })).toHaveAttribute('aria-pressed', 'true');
     await page.getByRole('button', { name: `Play ${level.name}`, exact: true }).click();
@@ -1402,7 +1410,7 @@ for (const [index, level] of LEVELS.entries()) {
       await expect(page.locator('#status')).toContainText('Playing');
       await expect(page.locator('#status')).toContainText('X 60');
     } else await expect(page.getByRole('button', { name: 'Next trail', exact: true })).toHaveCount(0);
-    await page.reload();
+    await reloadAndDismiss(page);
     await expect(page.getByRole('button', { name: 'PLAINS', exact: true })).toHaveAttribute('aria-pressed', 'true');
     await expect(page.getByRole('button', { name: level.name, exact: true })).toHaveAttribute('aria-description', 'Ready to explore');
   });
@@ -1410,7 +1418,7 @@ for (const [index, level] of LEVELS.entries()) {
 
 test('overworld tab focus, controller selection and shared-art retry stay usable', async ({ page }) => {
   await installTrailPilot(page);
-  await page.goto('/');
+  await openAdventure(page, '/');
   await page.getByRole('button', { name: 'SANDY COVE', exact: true }).focus();
   await expect(page.getByRole('button', { name: 'SANDY COVE', exact: true })).toHaveAttribute('aria-pressed', 'true');
   await page.evaluate(() => {
@@ -1424,10 +1432,11 @@ test('overworld tab focus, controller selection and shared-art retry stay usable
   });
   await expect(page.locator('#status')).toContainText('Playing');
   await page.route('**/assets/trails/materials.png', route => route.abort());
-  await page.reload();
+  await reloadAndDismiss(page);
   await expect(page.locator('#retry')).toBeVisible();
   await page.unroute('**/assets/trails/materials.png');
   await page.locator('#retry').click();
+  await dismissOpening(page);
   await expect(page.getByRole('button', { name: 'Play PLAINS', exact: true })).toBeVisible();
 });
 
@@ -1474,7 +1483,7 @@ test('textured flats and slopes keep authored grip above cosmetic materials', as
 test('every destination accepts keyboard and standard-controller selection and start', async ({ page }) => {
   await installTrailPilot(page);
   for (const controller of [false, true]) for (const [index, level] of LEVELS.entries()) {
-    await page.goto('/?debug=1');
+    await openAdventure(page, '/?debug=1');
     await expect(page.getByRole('button', { name: 'PLAINS', exact: true })).toHaveAttribute('aria-pressed', 'true');
     await page.evaluate(controller => { (window as unknown as { trailPilot: { controller: boolean } }).trailPilot.controller = controller; }, controller);
     for (let step = 0; step < index; step++) {
@@ -1552,7 +1561,7 @@ for (const [index, level] of LEVELS.slice(0, 3).entries()) {
         callback(pilot.time);
       });
     }, { id: level.id, dangers: dangerXs(level) });
-    await page.goto('/?debug=1');
+    await openAdventure(page, '/?debug=1');
     await page.getByRole('button', { name: level.name, exact: true }).click();
     await page.getByRole('button', { name: `Play ${level.name}`, exact: true }).click();
     await expect(page.locator('canvas')).toHaveAttribute('data-stars', 'STARS 0/3');
@@ -1587,9 +1596,151 @@ for (const [index, level] of LEVELS.slice(0, 3).entries()) {
     await page.getByRole('button', { name: ['Replay', 'Next trail', 'Choose trail'][index], exact: true }).click();
     if (index === 2) await page.getByRole('button', { name: `Play ${level.name}`, exact: true }).click();
     await expect(page.locator('canvas')).toHaveAttribute('data-stars', 'STARS 0/3');
-    await page.reload();
+    await reloadAndDismiss(page);
     await page.getByRole('button', { name: 'Play PLAINS', exact: true }).click();
     await expect(page.locator('canvas')).toHaveAttribute('data-stars', 'STARS 0/3');
     expect(errors).toEqual([]);
   });
 }
+
+async function dismissOpening(page: Page): Promise<void> {
+  await expect(page.locator('#status')).not.toContainText('Loading artwork', { timeout: 15000 });
+  const skip = page.getByRole('button', { name: 'Skip story', exact: true });
+  if ((await page.locator('#status').innerText()).includes('Story')) {
+    await expect(skip).toBeVisible();
+    await skip.click();
+    await expect(page.locator('#status')).toContainText('Title');
+    await page.evaluate(() => new Promise<void>(resolve => {
+      requestAnimationFrame(() => requestAnimationFrame(() => resolve()));
+    })); // sample release even when rendering is deliberately delayed
+  }
+}
+async function openAdventure(page: Page, url: string): Promise<void> {
+  await page.goto(url); await dismissOpening(page);
+}
+async function reloadAndDismiss(page: Page): Promise<void> {
+  await page.reload(); await dismissOpening(page);
+}
+
+
+test('picture story supports keyboard, pointer and controller without timed pages or repeated retries', async ({ page }, info) => {
+  await installTrailPilot(page);
+  await page.goto('/?debug=1');
+  const canvas = page.locator('canvas');
+  await expect(canvas).toHaveAttribute('aria-label', /prepare a picnic/);
+  await page.keyboard.press('m');
+  await page.keyboard.down('Space');
+  await expect(canvas).toHaveAttribute('aria-label', /Rain has broken/);
+  await page.waitForTimeout(500);
+  await expect(canvas).toHaveAttribute('aria-label', /Rain has broken/);
+  await page.keyboard.up('Space');
+  await page.getByRole('button', { name: 'Previous picture' }).click();
+  await expect(canvas).toHaveAttribute('aria-label', /prepare a picnic/);
+  await page.keyboard.press('Escape');
+  await expect(page.getByRole('button', { name: 'Skip story' })).toHaveCount(0);
+  await page.keyboard.press('Escape');
+  await expect(page.getByRole('button', { name: 'Previous picture' })).toBeVisible();
+  await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
+  await page.evaluate(() => {
+    const state = window as unknown as { trailPilot: { controller: boolean }; trailPad: { buttons: { pressed: boolean }[] } };
+    state.trailPilot.controller = true; state.trailPad.buttons[15].pressed = true;
+  });
+  await expect(page.getByRole('button', { name: 'Next picture' })).toHaveAttribute('aria-pressed', 'true');
+  await page.evaluate(() => {
+    const pad = (window as unknown as { trailPad: { buttons: { pressed: boolean }[] } }).trailPad;
+    pad.buttons[15].pressed = false; pad.buttons[0].pressed = true;
+  });
+  await expect(canvas).toHaveAttribute('aria-label', /Rain has broken/);
+  await page.evaluate(() => { (window as unknown as { trailPad: { buttons: { pressed: boolean }[] } }).trailPad.buttons[0].pressed = false; });
+  await page.getByRole('button', { name: 'Skip story' }).click();
+  await expect(page.getByRole('button', { name: 'Play PLAINS' })).toBeVisible();
+  await page.evaluate(() => { (window as unknown as { trailPad: { buttons: { pressed: boolean }[] } }).trailPad.buttons[8].pressed = true; });
+  await expect(canvas).toHaveAttribute('aria-label', /prepare a picnic/);
+  await page.evaluate(() => { (window as unknown as { trailPad: { buttons: { pressed: boolean }[] } }).trailPad.buttons[8].pressed = false; });
+  await page.getByRole('button', { name: 'Skip story' }).click();
+  await page.getByRole('button', { name: 'Replay story', exact: true }).focus();
+  await page.keyboard.down('Space');
+  await expect(canvas).toHaveAttribute('aria-label', /prepare a picnic/);
+  await page.waitForTimeout(200);
+  await expect(canvas).toHaveAttribute('aria-label', /prepare a picnic/);
+  await page.keyboard.up('Space');
+  await page.getByRole('button', { name: 'Skip story' }).click();
+  await page.getByRole('button', { name: 'Play PLAINS' }).click();
+  await expect(page.locator('#status')).toContainText('Playing');
+  await info.attach('visual-goal', { body: await canvas.screenshot(), contentType: 'image/png' });
+});
+
+test('celebration freezes for pause and focus, then accepts finish actions during playback', async ({ page }, info) => {
+  test.setTimeout(60_000);
+  await installTrailPilot(page);
+  await page.addInitScript(() => {
+    const draw = CanvasRenderingContext2D.prototype.drawImage;
+    CanvasRenderingContext2D.prototype.drawImage = function (this: CanvasRenderingContext2D, ...args: unknown[]) {
+      Reflect.apply(draw, this, args);
+      const values = args as unknown as (number | HTMLImageElement)[];
+      if (values[0] instanceof HTMLImageElement && values[0].src.endsWith('/henry-celebration.png') &&
+          values.length === 9 && Number(values[2]) >= 192 && Number(values[5]) === 256) {
+        const pose = 16 + (Number(values[2]) - 192) / 48 * 4 + Number(values[1]) / 48;
+        this.canvas.dataset.celebrationPose = String(pose);
+        if (pose === 18 && !this.canvas.dataset.celebrationPaused) {
+          this.canvas.dataset.celebrationPaused = 'yes';
+          window.dispatchEvent(new KeyboardEvent('keydown', { code: 'Escape' }));
+          window.dispatchEvent(new KeyboardEvent('keyup', { code: 'Escape' }));
+        }
+      }
+    };
+  });
+  await openAdventure(page, '/?debug=1');
+  await page.getByRole('button', { name: 'Play PLAINS' }).click();
+  await page.evaluate(dangers => {
+    Object.assign((window as unknown as { trailPilot: object }).trailPilot, { active: true, dangers });
+  }, dangerXs(LEVELS[0]));
+  await expect(page.locator('#status')).toContainText('Paused', { timeout: 35000 });
+  const canvas = page.locator('canvas');
+  const pose = await canvas.getAttribute('data-celebration-pose');
+  expect(Number(pose)).toBeLessThan(23);
+  await page.waitForTimeout(350);
+  expect(await canvas.getAttribute('data-celebration-pose')).toBe(pose);
+  await page.keyboard.press('Escape');
+  await expect(page.locator('#status')).toContainText('Finish');
+  await page.evaluate(() => window.dispatchEvent(new Event('blur')));
+  await expect(page.locator('#status')).toContainText('Return to the game');
+  const focusPose = await canvas.getAttribute('data-celebration-pose');
+  expect(Number(focusPose)).toBeLessThan(23);
+  await page.waitForTimeout(350);
+  expect(await canvas.getAttribute('data-celebration-pose')).toBe(focusPose);
+  await expect(page.getByRole('button', { name: 'Replay', exact: true })).toHaveCount(0);
+  await page.evaluate(() => window.dispatchEvent(new Event('focus')));
+  await expect(page.locator('#status')).toContainText('Finish');
+  await expect(page.getByRole('button', { name: 'Replay', exact: true })).toBeVisible();
+  await page.getByRole('button', { name: 'View reunion picture', exact: true }).focus();
+  await page.keyboard.press('Space');
+  await expect(canvas).toHaveAttribute('aria-label', /high-five/);
+  await page.getByRole('button', { name: 'Return to results', exact: true }).click();
+  await expect(page.locator('#status')).toContainText('Finish');
+  await page.getByRole('button', { name: 'Replay', exact: true }).click();
+  await expect(page.locator('#status')).toContainText('Playing');
+  await expect(page.getByRole('button', { name: 'Skip story' })).toHaveCount(0);
+  await info.attach('replay-during-celebration', { body: await canvas.screenshot(), contentType: 'image/png' });
+});
+
+test('celebration preview preserves gameplay pixels and final pose under reduced motion', async ({ page }, info) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/?scene=art&animation=celebrate');
+  await expect(page.locator('#status')).toContainText('Art preview');
+  const same = await page.evaluate(async () => {
+    const images = await Promise.all(['starter.png', 'henry-celebration.png'].map(async file => {
+      const image = new Image(); image.src = '/assets/henry/' + file; await image.decode(); return image;
+    }));
+    const canvas = document.createElement('canvas'); canvas.width = 192; canvas.height = 192;
+    const ctx = canvas.getContext('2d')!;
+    ctx.drawImage(images[0], 0, 0); const before = ctx.getImageData(0, 0, 192, 192).data;
+    ctx.clearRect(0, 0, 192, 192); ctx.drawImage(images[1], 0, 0);
+    return ctx.getImageData(0, 0, 192, 192).data.every((value, i) => value === before[i]);
+  });
+  expect(same).toBe(true);
+  const still = await page.locator('canvas').evaluate(c => (c as HTMLCanvasElement).toDataURL());
+  await page.waitForTimeout(350);
+  expect(await page.locator('canvas').evaluate(c => (c as HTMLCanvasElement).toDataURL())).toBe(still);
+  await info.attach('celebration-art-reduced', { body: await page.locator('canvas').screenshot(), contentType: 'image/png' });
+});

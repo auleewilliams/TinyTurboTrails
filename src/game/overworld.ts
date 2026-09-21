@@ -1,6 +1,6 @@
 import type { LevelData } from '../world/level';
 
-export interface MenuTarget { label: string; description?: string; x: number; y: number; width: number; height: number; selected?: boolean; action: () => void }
+export interface MenuTarget { label: string; description?: string; x: number; y: number; width: number; height: number; selected?: boolean; action: () => void; focus?: () => void; nativeSpace?: boolean }
 export const MAP_POINTS = [[48, 88], [140, 88], [232, 88], [232, 176], [140, 176], [48, 176]] as const;
 
 /** Cosmetic page-session data. Never passed to simulation or serialized. */
@@ -18,8 +18,8 @@ export function drawOverworld(ctx: CanvasRenderingContext2D, levels: readonly Le
   if (background) ctx.drawImage(background, 0, 0, 426, 240);
   // Keep the approved artwork intact and proportional, with a separate map heading.
   ctx.drawImage(title, 8, 0, 94, 94 * title.naturalHeight / title.naturalWidth);
-  ctx.fillStyle = '#17333b'; ctx.font = 'bold 12px monospace'; ctx.fillText('CHOOSE A TRAIL', 123, 23);
-  ctx.font = '9px monospace'; ctx.fillText('Every trail is open', 123, 37);
+  ctx.fillStyle = '#17333b'; ctx.font = 'bold 12px monospace'; ctx.fillText('PATCHWORK VALE', 123, 23);
+  ctx.font = '9px monospace'; ctx.fillText('Tiny Trails • All open', 123, 37);
   ctx.strokeStyle = '#788c63'; ctx.lineWidth = 2;
   for (let i = 1; i < MAP_POINTS.length; i++) {
     const [ax, ay] = MAP_POINTS[i - 1]; const [bx, by] = MAP_POINTS[i];
@@ -29,6 +29,12 @@ export function drawOverworld(ctx: CanvasRenderingContext2D, levels: readonly Le
   }
   levels.forEach((level, index) => {
     const [x, y] = MAP_POINTS[index];
+    // The opening's bunting marks the Vale's pictured gathering places.
+    ctx.fillStyle = '#526f55'; ctx.fillRect(x - 14, y - 38, 28, 1);
+    ['#dd534b', '#ffda75', '#408fc4'].forEach((color, flag) => {
+      ctx.fillStyle = color;
+      for (let row = 0; row < 4; row++) ctx.fillRect(x - 13 + flag * 10 + Math.floor(row / 2), y - 37 + row, 5 - row, 1);
+    });
     if (landmarks) {
       const w = landmarks.naturalWidth / 3, h = landmarks.naturalHeight / 2;
       ctx.drawImage(landmarks, index % 3 * w, Math.floor(index / 3) * h, w, h, x - 34, y - 29, 68, 58);
@@ -49,7 +55,7 @@ export function drawOverworld(ctx: CanvasRenderingContext2D, levels: readonly Le
   if (words.length > 1) ctx.fillText(words.at(-1)!, 350, 76);
   if (preview) ctx.drawImage(preview, 287, 84, 126, 71);
   ctx.font = '9px monospace'; ctx.fillStyle = '#e9f2df';
-  ctx.fillText(completed.has(levels[selected].id) ? 'Visited this session ✓' : 'Ready to explore', 350, 168);
+  ctx.fillText(completed.has(levels[selected].id) ? 'Visited this session ✓' : ['Hills to a friend', 'Along quarry paths', 'Through tall trees', 'Past the busy yard', 'Over snowy hills', 'Down to the seaside'][selected], 350, 175);
   ctx.fillStyle = '#ffda75'; ctx.fillRect(298, 180, 104, 27);
   ctx.fillStyle = '#17333b'; ctx.font = 'bold 12px monospace'; ctx.fillText('PLAY', 350, 198);
   ctx.restore();

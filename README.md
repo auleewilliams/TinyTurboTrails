@@ -18,7 +18,8 @@ npm run play
 ```
 
 This starts Vite and opens the game. Use the URL it prints if the browser does
-not open. Both `/` and `/?scene=adventure` open the playable map.
+not open. Both `/` and `/?scene=adventure` open a short picture story, then the playable map.
+Skip or advance at your own pace; retries do not repeat the opening.
 Stop the local server with Ctrl+C. An adult sets this up for local play.
 
 For an already configured home server, open its LAN address instead; no local
@@ -31,12 +32,15 @@ Docker/nginx deployment and rollback. Public internet hosting is outside scope.
 | --- | --- | --- | --- |
 | Choose trail / finish action | Left/Right or A/D | D-pad / left stick | Click landmark / action |
 | Play / confirm | Space; Tab and Enter on buttons | Any face button | Play / action button |
+| Replay story / enlarge Plains reunion | R; Tab and Space/Enter on the picture button | View (button 8) | Rewind / reunion picture |
 | Move | Left/Right or A/D | D-pad / left stick | Not supported |
 | Jump | Space | Any face button | Not supported |
 | Pause / resume | Escape | Start | — |
 | Mute | M | — | Mute button |
 
-Replay starts the same trail fresh. Next trail starts the next registered trail;
+Henry celebrates each finish with a jump and cheer (a still pose with reduced motion).
+The finish buttons show Replay, Next and Trails with large symbols; their accessible
+names remain Replay, Next trail and Choose trail. Replay starts the same trail fresh. Next trail starts the next registered trail;
 Choose trail returns to the map. Checkpoint recovery retains gems and special
 stars; replay, changing trails and reload clear the run's stars. Completion
 badges last for this page session only; reloading clears them. Nothing is saved
@@ -63,4 +67,5 @@ local file is unsupported. No credentials or runtime generation are needed.
 
 The [2026-09-17 certification](docs/RELEASE-VERIFICATION-2026-09-17.md) is historical
 and does not certify later features. The [trail milestone record](docs/evidence/trail-milestone/README.md)
-tracks current validation and the pending parent-led usability check.
+retains its earlier scope. The [Henry / Patchwork Vale milestone](docs/evidence/henry-patchwork-vale/README.md)
+records the celebration and illustrated story, with a [parent-led checklist](docs/patchwork-vale-story.md).

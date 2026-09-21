@@ -18,19 +18,22 @@ import { drawWorld, drawWorldForeground } from '../world/renderer';
 import type { WorldAssetMap, WorldAssets } from '../world/assets';
 import { drawGameplayHud, HudPresentation } from './hud';
 import { Feedback } from './feedback';
+import { CompletionCelebration, celebrationJump, celebrationSparkles } from './celebration';
+import { StoryBook, drawStory, drawStoryPicture, STORY_DESCRIPTIONS } from './story';
 
 export interface Rect { x: number; y: number; width: number; height: number }
 
 /** Finish-screen composition: title, gem total, celebration band and replay prompt stacked without overlap. */
 export const FINISH_LAYOUT = {
   centerX: 213,
-  panel: { x: 44, y: 34, width: 338, height: 172 },
-  title: { baseline: 66, size: 20 },
-  gems: { baseline: 88, size: 10 },
-  // Henry's feet rest on this line; the bob keeps his whole frame inside the band.
-  celebration: { baseline: 147, bobAmplitude: 3, stars: [[168, 110], [250, 104], [264, 134]] as const },
-  actions: { x: 56, y: 161, width: 102, height: 26, spacing: 106 },
-  prompt: { baseline: 200, size: 9 },
+  panel: { x: 44, y: 24, width: 338, height: 196 },
+  title: { baseline: 52, size: 20 },
+  gems: { baseline: 76, size: 10 },
+  // Fixed feet anchor; the jump and bounded sparkles stay below results.
+  celebration: { baseline: 147 },
+  payoff: { x: 68, y: 86, width: 105, height: 70 },
+  actions: { x: 56, y: 177, width: 102, height: 26, spacing: 106 },
+  prompt: { baseline: 214, size: 9 },
 } as const;
 
 export const CELEBRATION_SIZE = 48;
@@ -39,22 +42,13 @@ export function finishGemsText(gems: number): string {
   return `${gems} ${gems === 1 ? 'gem' : 'gems'} collected`;
 }
 
-export function celebrationBob(elapsed: number): number {
-  return Math.round(Math.sin(elapsed * 10) * FINISH_LAYOUT.celebration.bobAmplitude);
+export function celebrationHenryRect(anchor: { x: number; y: number }, jump: number): Rect {
+  return { x: 280 - anchor.x, y: FINISH_LAYOUT.celebration.baseline - anchor.y + jump,
+    width: CELEBRATION_SIZE, height: CELEBRATION_SIZE };
 }
 
-export function celebrationHenryRect(anchor: { x: number; y: number }, bob: number): Rect {
-  return {
-    x: FINISH_LAYOUT.centerX - anchor.x,
-    y: FINISH_LAYOUT.celebration.baseline - anchor.y + bob,
-    width: CELEBRATION_SIZE,
-    height: CELEBRATION_SIZE,
-  };
-}
-
-/** Bounding boxes of the 8x8 sparkle stars, which bob with Henry. */
-export function celebrationStarRects(bob: number): Rect[] {
-  return FINISH_LAYOUT.celebration.stars.map(([x, y]) => ({ x: x - 2, y: y - 2 + bob, width: 8, height: 8 }));
+export function celebrationStarRects(seconds: number, reduced = false): Rect[] {
+  return celebrationSparkles(seconds, reduced).map(({ x, y, size }) => ({ x: x - size, y: y - size, width: size * 2, height: size * 2 }));
 }
 
 export class AdventureScene implements Scene {
@@ -65,6 +59,9 @@ export class AdventureScene implements Scene {
   private camera: Camera;
   private platforms: PlatformBody[];
   private elapsed = 0;
+  private readonly celebration = new CompletionCelebration();
+  private readonly story = new StoryBook();
+  private storyDirection = 0;
   private readonly feedback = new Feedback();
   private hud = new HudPresentation();
   private get reducedMotion(): boolean { return typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches; }
@@ -77,7 +74,7 @@ export class AdventureScene implements Scene {
   private marker = { x: 48, y: 88 };
   private readonly previews = new Map<string, HTMLCanvasElement>();
   private inputSource: InputSource = 'keyboard';
-  constructor(private readonly titleArtwork: HTMLImageElement, private readonly henry: HenryAssets, private readonly worlds: WorldAssetMap, private readonly audio: GameAudio, level: LevelData, private readonly landmarks?: HTMLImageElement, private readonly mapBackground?: HTMLImageElement) {
+  constructor(private readonly titleArtwork: HTMLImageElement, private readonly henry: HenryAssets, private readonly worlds: WorldAssetMap, private readonly audio: GameAudio, level: LevelData, private readonly landmarks?: HTMLImageElement, private readonly mapBackground?: HTMLImageElement, private readonly storyArtwork?: HTMLImageElement) {
     const missing = [...new Set(LEVELS.map((candidate) => candidate.atlas))]
       .filter((atlas) => !worlds[atlas]);
     if (missing.length > 0) throw new Error(`Missing world assets: ${missing.join(', ')}`);
@@ -89,7 +86,8 @@ export class AdventureScene implements Scene {
     this.camera = new Camera({ width: 426, height: 240, worldWidth: level.width, worldHeight: level.height });
     this.platforms = platformBodiesAt(level.platforms, 0);
   }
-  get screenState(): ScreenController['state'] { return this.screens.state; }
+  get screenState(): ScreenController['state'] | 'story' { return this.storyArtwork && this.story.active ? 'story' : this.screens.state; }
+  get storyDescription(): string { return this.screenState === 'story' ? STORY_DESCRIPTIONS[this.story.page] : ''; }
   get gemTotal(): number { return this.screens.gems; }
   get specialTotal(): number { return this.run.collectedSpecials.size; }
   get playerX(): number { return this.player.x; }
@@ -103,6 +101,21 @@ export class AdventureScene implements Scene {
 
   update(seconds: number, input: InputFrame): void {
     this.inputSource = input.source ?? 'keyboard';
+    if (this.screenState === 'story') {
+      if (!this.menuArmed) {
+        if (!input.jumpHeld && !input.jumpPressed && input.horizontal === 0 && !input.storyPressed) this.menuArmed = true;
+        return;
+      }
+      const direction = Math.sign(input.horizontal);
+      if (direction && direction !== this.storyDirection) this.story.selected = (this.story.selected + direction + 3) % 3;
+      this.storyDirection = direction;
+      if (input.jumpPressed) this.activateStory(this.story.selected);
+      return;
+    }
+    if (input.storyPressed && this.storyArtwork && (this.screens.state === 'title' || (this.screens.state === 'finish' && this.level.id === LEVELS[0].id))) {
+      this.openStory(this.screens.state === 'finish'); return;
+    }
+    if (this.screens.state === 'finish') this.celebration.update(seconds);
     this.elapsed += seconds;
     this.session.returnedSeconds = Math.max(0, this.session.returnedSeconds - seconds);
     if (this.screens.state === 'title' || this.screens.state === 'finish') {
@@ -148,6 +161,7 @@ export class AdventureScene implements Scene {
     if (this.player.y > this.level.height + 80) recoverFromFall(this.run, this.player, this.events, this.level);
     if (this.player.x >= this.level.finish.x && this.screens.state === 'playing') {
       this.screens.complete(this.run.collectedGems.size);
+      this.celebration.reset();
       this.session.mark(this.level);
       this.finishIndex = 0;
       this.menuArmed = false;
@@ -166,6 +180,7 @@ export class AdventureScene implements Scene {
   }
 
   render(ctx: CanvasRenderingContext2D): void {
+    if (this.screenState === 'story' && this.storyArtwork) { drawStory(ctx, this.storyArtwork, this.story, this.inputSource === 'controller'); return; }
     if (this.screens.state === 'title') { this.drawMap(ctx); return; }
     drawWorld(ctx, this.world, this.level, this.camera,
       (entity) => isEntityActive(this.run, entity.id), (entity) => ({ ...entityPosition(this.run, entity),
@@ -175,6 +190,11 @@ export class AdventureScene implements Scene {
     drawWorldForeground(ctx, this.world, this.level, this.camera);
     this.feedback.draw(ctx, this.world, this.camera.position, this.reducedMotion);
     if (this.screens.state === 'playing') {
+      // A quiet picture sign near the start, outside the HUD and running line.
+      if (this.storyArtwork && this.level.id === LEVELS[0].id && this.player.x < 260) {
+        drawStoryPicture(ctx, this.storyArtwork, 2, 322, 40, 96, 64);
+        ctx.fillStyle = '#ffda75'; ctx.font = 'bold 16px monospace'; ctx.fillText('→', 402, 119);
+      }
       drawGameplayHud(ctx, this.run, this.hud.hint, this.feedback.checkpointSeconds > 0
         ? 'Checkpoint reached!' : this.hud.locationSeconds > 0 ? this.hud.location : '');
     } else if (this.screens.state === 'finish') {
@@ -194,13 +214,21 @@ export class AdventureScene implements Scene {
       Math.round(this.marker.x) - 39, Math.round(this.marker.y) + 4, 28, 28);
     ctx.fillStyle = '#17333b'; ctx.font = '9px monospace'; ctx.textAlign = 'left';
     ctx.fillText(this.inputSource === 'controller' ? 'D-pad / stick: choose   Face button: play' : '← → Choose   Space: play   Click a landmark', 8, 234);
+    if (this.storyArtwork) {
+      ctx.fillStyle = '#17333b'; ctx.fillRect(367, 7, 47, 29);
+      ctx.fillStyle = '#ffda75'; ctx.font = 'bold 22px monospace'; ctx.fillText('↶', 382, 29);
+      ctx.font = '8px monospace'; ctx.fillStyle = '#17333b';
+      ctx.fillText(this.inputSource === 'controller' ? 'View' : 'R', 381, 44);
+      // The selected Plains thumbnail pictures the same neighbour and arch as the opening.
+      if (this.selectedIndex === 0) drawStoryPicture(ctx, this.storyArtwork, 2, 287, 79, 126, 84);
+    }
     if (this.session.returnedSeconds > 0) {
       ctx.fillStyle = '#17333b'; ctx.fillText('Trail complete! ✓', 124, 49);
     }
   }
 
   selectDestination(index: number): void {
-    if (this.screens.state === 'title' && LEVELS[index]) this.selectedIndex = index;
+    if (this.screenState === 'title' && LEVELS[index]) this.selectedIndex = index;
   }
 
   focusFinish(index: number): void {
@@ -208,7 +236,7 @@ export class AdventureScene implements Scene {
   }
 
   startSelected(): void {
-    if (this.screens.state !== 'title') return;
+    if (this.screenState !== 'title') return;
     this.loadLevel(LEVELS[this.selectedIndex]);
     this.selectionDirection = 0;
     this.screens.start(); this.screens.loaded();
@@ -220,7 +248,7 @@ export class AdventureScene implements Scene {
   }
 
   activateFinish(action: string): void {
-    if (this.screens.state !== 'finish' || !this.finishActions.includes(action)) return;
+    if (this.screenState !== 'finish' || !this.finishActions.includes(action)) return;
     this.screens.replay();
     this.selectionDirection = 0;
     this.menuArmed = false;
@@ -233,18 +261,30 @@ export class AdventureScene implements Scene {
     }
   }
 
+  private openStory(payoff = false): void {
+    this.story.open(payoff); this.menuArmed = false; this.storyDirection = 0;
+  }
+
+  private activateStory(index: number): void {
+    this.story.selected = index;
+    this.story.targets[index]?.action();
+    this.menuArmed = false; this.storyDirection = 0;
+  }
+
   get menuTargets(): MenuTarget[] {
+    if (this.screenState === 'story') return this.story.targets.map((target, index) => ({ ...target, action: () => this.activateStory(index) }));
     if (this.screens.state === 'title') return [
       ...LEVELS.map((level, index) => ({ label: level.name, x: MAP_POINTS[index][0] - 35, y: MAP_POINTS[index][1] - 30,
         description: this.session.completed.has(level.id) ? 'Completed this session' : 'Ready to explore',
         width: 70, height: 60, selected: index === this.selectedIndex, action: () => this.selectDestination(index) })),
       { label: `Play ${this.selectedLevelName}`, x: 298, y: 180, width: 104, height: 27, action: () => this.startSelected() },
+      ...(this.storyArtwork ? [{ label: 'Replay story', nativeSpace: true, description: 'Pictures • R key or controller View button', x: 367, y: 7, width: 47, height: 29, action: () => this.openStory() }] : []),
     ];
-    if (this.screens.state === 'finish') return this.finishActions.map((label, index) => ({
+    if (this.screens.state === 'finish') return [...this.finishActions.map((label, index) => ({
       label, x: FINISH_LAYOUT.actions.x + index * FINISH_LAYOUT.actions.spacing, y: FINISH_LAYOUT.actions.y,
       width: FINISH_LAYOUT.actions.width, height: FINISH_LAYOUT.actions.height, selected: index === this.finishIndex,
       action: () => this.activateFinish(label),
-    }));
+    })), ...(this.storyArtwork && this.level.id === LEVELS[0].id ? [{ label: 'View reunion picture', nativeSpace: true, description: 'R key or controller View button', ...FINISH_LAYOUT.payoff, action: () => this.openStory(true) }] : [])];
     return [];
   }
 
@@ -281,6 +321,7 @@ export class AdventureScene implements Scene {
   private loadLevel(level: LevelData): void {
     this.audio.stop();
     this.elapsed = 0;
+    this.celebration.reset();
     this.events = [];
     this.feedback.clear();
     this.hud = new HudPresentation();
@@ -319,29 +360,44 @@ export class AdventureScene implements Scene {
       ctx.fillStyle = '#ffda75';
       ctx.fillText(`STARS ${this.specialTotal}/${this.run.specialTotal}`, 292, gems.baseline);
     }
-    this.menuTargets.forEach((target, index) => {
+    this.menuTargets.slice(0, this.finishActions.length).forEach((target, index) => {
       ctx.fillStyle = index === this.finishIndex ? '#ffda75' : '#34515a';
       ctx.fillRect(target.x, target.y, target.width, target.height);
       ctx.fillStyle = index === this.finishIndex ? '#10252c' : '#e9f2df';
-      ctx.font = '10px monospace'; ctx.fillText(target.label, target.x + target.width / 2, target.y + 17);
+      // Large symbols and short labels survive the 320px fractional downscale.
+      ctx.font = 'bold 18px monospace';
+      if (target.label === 'Choose trail') {
+        for (const [dx, dy] of [[0, 0], [7, 0], [0, 7], [7, 7]]) ctx.fillRect(target.x + 9 + dx, target.y + 7 + dy, 5, 5);
+      } else ctx.fillText(target.label === 'Replay' ? '↶' : '▶', target.x + 15, target.y + 19);
+      ctx.font = 'bold 12px monospace';
+      ctx.fillText(target.label === 'Next trail' ? 'Next' : target.label === 'Choose trail' ? 'Trails' : 'Replay', target.x + 61, target.y + 18);
     });
     ctx.fillStyle = '#e9f2df'; ctx.font = '9px monospace';
-    ctx.fillText(this.inputSource === 'controller' ? 'D-pad: choose · Face button: confirm' : '← → Choose · Space: confirm', 213, 200);
+    ctx.fillText(this.inputSource === 'controller' ? 'D-pad + Face' + (this.level.id === LEVELS[0].id ? ' · View: picture' : '') : '← → + Space' + (this.level.id === LEVELS[0].id ? ' · R: picture' : ''), 213, 214);
+    ctx.textAlign = 'left';
+    if (this.storyArtwork && this.level.id === LEVELS[0].id) {
+      const { x, y, width, height } = FINISH_LAYOUT.payoff;
+      drawStoryPicture(ctx, this.storyArtwork, 3, x, y, width, height);
+      ctx.fillStyle = '#ffda75'; ctx.font = '12px monospace'; ctx.fillText('⊕', x + width - 11, y + height - 2);
+    } else if (this.landmarks) {
+      const w = this.landmarks.naturalWidth / 3, h = this.landmarks.naturalHeight / 2;
+      ctx.drawImage(this.landmarks, this.selectedIndex % 3 * w, Math.floor(this.selectedIndex / 3) * h, w, h, 88, 90, 80, 66);
+    }
+    ctx.textAlign = 'center'; ctx.fillStyle = '#e9f2df'; ctx.font = '10px monospace';
+    ctx.fillText(this.level.id === LEVELS[0].id ? 'You reached our friend!' : 'Another trail explored!', 213, 169);
     ctx.textAlign = 'left';
     this.drawCelebration(ctx);
   }
 
   private drawCelebration(ctx: CanvasRenderingContext2D): void {
-    const clip = this.henry.manifest.animations.idle;
-    const frame = this.henry.manifest.frames[animationFrame(clip, this.reducedMotion ? 0 : this.elapsed)];
-    const bob = this.reducedMotion ? 0 : celebrationBob(this.elapsed);
+    const frame = this.henry.manifest.frames[this.celebration.frame(this.henry.manifest, this.reducedMotion)];
+    const bob = celebrationJump(this.celebration.seconds, this.reducedMotion);
     const henry = celebrationHenryRect(this.henry.manifest.anchor, bob);
     ctx.drawImage(this.henry.atlas, frame.x, frame.y, frame.width, frame.height, henry.x, henry.y, henry.width, henry.height);
     ctx.fillStyle = '#ffda75';
-    for (const star of celebrationStarRects(bob)) {
-      ctx.fillRect(star.x + 2, star.y + 2, 4, 4);
-      ctx.fillRect(star.x + 4, star.y, 1, 8);
-      ctx.fillRect(star.x, star.y + 3, 8, 1);
+    for (const star of celebrationStarRects(this.celebration.seconds, this.reducedMotion)) {
+      ctx.fillRect(star.x + star.width / 2, star.y, 1, star.height);
+      ctx.fillRect(star.x, star.y + star.height / 2, star.width, 1);
     }
   }
 

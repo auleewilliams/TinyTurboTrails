@@ -1,0 +1,13 @@
+{
+  "scope": "Pre-review-fix full Windows production run; runtime b9c3d9. Superseded by final implementation checks below.",
+  "stats": {
+    "startTime": "2026-09-20T23:07:50.702Z",
+    "duration": 1032636.3859999999,
+    "expected": 121,
+    "skipped": 1,
+    "unexpected": 61,
+    "flaky": 0
+  },
+  "firefoxBlocker": "61 tests failed before browser launch: spawn UNKNOWN; Windows direct launch reports incorrect side-by-side configuration; clean reinstall did not resolve.",
+  "retries": 0
+}

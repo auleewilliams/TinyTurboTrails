@@ -10,7 +10,7 @@ export class MenuOverlay {
     document.body.append(this.element);
   }
   update(scene: AdventureScene | undefined, paused: boolean): void {
-    document.body.classList.toggle('map-visible', scene?.screenState === 'title' && !paused);
+    document.body.classList.toggle('map-visible', (scene?.screenState === 'title' || scene?.screenState === 'story' || scene?.screenState === 'finish') && !paused);
     const targets = paused ? [] : scene?.menuTargets ?? [];
     const signature = JSON.stringify(targets.map(({ label, selected, description }) => [label, selected, description]));
     const bounds = this.canvas.getBoundingClientRect();
@@ -28,8 +28,16 @@ export class MenuOverlay {
       if (target.selected !== undefined) button.setAttribute('aria-pressed', String(target.selected));
       else button.removeAttribute('aria-pressed');
       button.onclick = () => target.action();
+      // These auxiliary buttons sit outside the canvas direction/confirm selection.
+      // Handle their focused Space press before BrowserInput consumes it as Play/Replay.
+      button.onkeydown = (event) => {
+        if (event.code !== 'Space' || !target.nativeSpace) return;
+        event.preventDefault(); event.stopPropagation();
+        if (!event.repeat) target.action();
+      };
       button.onfocus = () => {
-        if (scene?.screenState === 'title' && index < targets.length - 1) scene.selectDestination(index);
+        if (target.focus) target.focus();
+        else if (scene?.screenState === 'title' && index < 6) scene.selectDestination(index);
         else if (scene?.screenState === 'finish') scene.focusFinish(index);
       };
       Object.assign(button.style, { left: `${target.x / 426 * 100}%`, top: `${target.y / 240 * 100}%`,

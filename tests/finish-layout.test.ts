@@ -1,8 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import henryManifest from '../public/assets/henry/manifest.json';
 import {
-  FINISH_LAYOUT, celebrationBob, celebrationHenryRect, celebrationStarRects, finishGemsText, type Rect,
+  FINISH_LAYOUT, celebrationHenryRect, celebrationStarRects, finishGemsText, type Rect,
 } from '../src/game/adventure-scene';
+import { celebrationJump } from '../src/game/celebration';
 import { LOGICAL_HEIGHT, LOGICAL_WIDTH } from '../src/core/viewport';
 
 // Conservative monospace box: glyphs are ~0.6em wide, ascend a full em and descend a fifth.
@@ -22,11 +23,12 @@ function inside(inner: Rect, outer: Rect): boolean {
 
 describe('finish screen composition', () => {
   const { panel, title, gems, actions, prompt } = FINISH_LAYOUT;
-  const bobs = Array.from({ length: 64 }, (_, step) => celebrationBob((step / 64) * ((2 * Math.PI) / 10)));
+  const times = Array.from({ length: 121 }, (_, step) => step / 60);
+  const bobs = times.map(time => celebrationJump(time));
 
-  it('samples the full bob cycle', () => {
-    expect(Math.min(...bobs)).toBe(-FINISH_LAYOUT.celebration.bobAmplitude);
-    expect(Math.max(...bobs)).toBe(FINISH_LAYOUT.celebration.bobAmplitude);
+  it('samples takeoff, peak and landing', () => {
+    expect(Math.min(...bobs)).toBe(-8);
+    expect(Math.max(...bobs)).toBe(0);
   });
 
   it('fits the panel inside the logical screen', () => {
@@ -43,7 +45,7 @@ describe('finish screen composition', () => {
     for (const rect of text) expect(inside(rect, panel)).toBe(true);
     for (let i = 1; i < text.length; i++) expect(overlaps(text[i - 1], text[i])).toBe(false);
     for (const bob of bobs) {
-      const art = [celebrationHenryRect(henryManifest.anchor, bob), ...celebrationStarRects(bob)];
+      const art = [celebrationHenryRect(henryManifest.anchor, bob), ...times.flatMap(time => celebrationStarRects(time)), ...celebrationStarRects(0, true), FINISH_LAYOUT.payoff];
       for (const rect of art) {
         expect(inside(rect, panel)).toBe(true);
         for (const line of text) expect(overlaps(rect, line)).toBe(false);
@@ -64,7 +66,7 @@ describe('finish screen composition', () => {
       expect(inside(starBox, panel)).toBe(true);
       expect(overlaps(gemBox, starBox)).toBe(false);
       for (const bob of bobs) {
-        for (const art of [celebrationHenryRect(henryManifest.anchor, bob), ...celebrationStarRects(bob)]) {
+        for (const art of [celebrationHenryRect(henryManifest.anchor, bob), ...times.flatMap(time => celebrationStarRects(time)), ...celebrationStarRects(0, true), FINISH_LAYOUT.payoff]) {
           expect(overlaps(art, gemBox)).toBe(false);
           expect(overlaps(art, starBox)).toBe(false);
         }

@@ -6,6 +6,7 @@
 - [Contributor and testing rules](../AGENTS.md)
 - [Canonical product requirements](REQUIREMENTS.md)
 - [Adventure, map and finish navigation](plains-adventure.md)
+- [Patchwork Vale story, storyboard and parent checklist](patchwork-vale-story.md)
 - [Movement and authored traction](gameplay-movement.md)
 - [Run interactions and recovery](gameplay-interactions.md)
 - [Optional star challenges and safe returns](signature-challenges.md)
@@ -17,6 +18,8 @@
 - [CI reliability](CI-RELIABILITY.md)
 
 ## Dated evidence, not current certification
+
+- [Henry celebration and Patchwork Vale milestone](evidence/henry-patchwork-vale/README.md)
 
 - [Trail presentation milestone and pending human check](evidence/trail-milestone/README.md)
 - [2026-09-17 certification, tested commit and waivers](RELEASE-VERIFICATION-2026-09-17.md)

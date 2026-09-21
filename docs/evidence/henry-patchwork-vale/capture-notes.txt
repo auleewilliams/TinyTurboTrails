@@ -1,0 +1,1 @@
+Opening, map and goal: real UI. Finish phases and recording: real AdventureScene/real assets in deterministic fixture; one gem and one star set for layout. No child playtest claimed.
