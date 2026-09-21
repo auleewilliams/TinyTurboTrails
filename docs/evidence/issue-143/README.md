@@ -23,7 +23,7 @@ The common body, outlines and accessories were inspected against every biome.
 
 ## Verification
 
-- `npm test`: 546 tests passed across 32 files.
+- `npm test`: 551 tests passed across 33 files after integrating current main.
 - `npm run typecheck` and `npm run build`: passed.
 - Focused browser checks: all six costumes draw the shared atlas, patrol while
   Henry stands still, freeze during pause, resume, and recover from atlas-load
@@ -33,6 +33,11 @@ The common body, outlines and accessories were inspected against every biome.
 - Independent sub-agent review: no actionable findings; 141 focused unit tests
   independently passed. Snorkel overlay alignment was adjusted after visual
   inspection so the original eyes sit within the mask openings.
+- A second independent review checked the merge with the incoming asset
+  optimization and retry fix; no findings. Optional decorative sheets retain
+  their fallbacks while the shared slime atlas stays required and retryable.
+- The final snorkel placement and atlas pixel checks passed in Chromium and
+  WebKit (four checks), and the screenshots were refreshed after integration.
 
 Local Firefox testing is blocked before page launch: the Playwright Firefox
 155 executable reports a Windows side-by-side configuration error, including
