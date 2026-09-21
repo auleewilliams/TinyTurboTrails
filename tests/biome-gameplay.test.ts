@@ -17,14 +17,20 @@ it('registers both playable biome selections after the existing trails', () => {
   expect(LEVELS.slice(-2)).toEqual([FROST_RIDGE, SANDY_COVE]);
 });
 
-it.each([FROST_RIDGE, SANDY_COVE])('can finish $name without mandatory jumps and replay fresh', (level) => {
+it.each([FROST_RIDGE, SANDY_COVE])('can finish $name with simple slime-avoidance jumps and replay fresh', (level) => {
   const effects: string[] = [];
   const scene = new AdventureScene({} as HTMLImageElement, {} as never, worlds(), audio(effects), level);
   scene.update(1 / 60, { ...neutral, jumpPressed: true });
   const live = scene as unknown as { run: RunState; player: Player };
   let frame = 0;
   for (; frame < 60 * 180 && scene.screenState !== 'finish'; frame++) {
-    scene.update(1 / 60, { ...neutral, horizontal: 1 });
+    const nearSlime = level.id === 'frost' && level.entities.filter((entity) => entity.kind === 'slime')
+      .some((entity) => {
+        const x = entityPosition(live.run, entity).x;
+        return x >= live.player.x - 18 && x <= live.player.x + 60;
+      });
+    scene.update(1 / 60, { ...neutral, horizontal: 1,
+      jumpPressed: nearSlime && live.player.onGround, jumpHeld: nearSlime });
     expect(live.run.health, `damage at x=${scene.playerX}, y=${scene.playerY}, t=${live.run.seconds}`).toBe(3);
     expect(live.player.y).toBeLessThan(320);
   }
@@ -33,7 +39,7 @@ it.each([FROST_RIDGE, SANDY_COVE])('can finish $name without mandatory jumps and
   expect([...live.run.collectedGems].some((id) => id.includes('-bonus-'))).toBe(false);
   expect(effects.filter((e) => e === 'checkpoint')).toHaveLength(6);
   expect(effects.filter((e) => e === 'spring')).toHaveLength(6);
-  console.info(`${level.name}: held-right finish ${(frame / 60).toFixed(2)}s, ${scene.gemTotal} gems, no damage`);
+  console.info(`${level.name}: hazard-avoidance finish ${(frame / 60).toFixed(2)}s, ${scene.gemTotal} gems, no damage`);
   scene.update(1 / 60, neutral);
   scene.update(1 / 60, { ...neutral, jumpPressed: true });
   expect(scene.screenState).toBe('playing');
@@ -60,24 +66,25 @@ it('crosses each shallow pool without damage, knockback or recovery', () => {
   }
 });
 
-it('pauses jellyfish with gameplay and restores their initial positions on replay', () => {
+it('pauses slimes with gameplay and restores their initial positions on replay', () => {
   const scene = new AdventureScene({} as HTMLImageElement, {} as never, worlds(), audio([]), SANDY_COVE);
   scene.update(1 / 60, { ...neutral, jumpPressed: true });
   for (let i = 0; i < 40; i++) scene.update(1 / 60, neutral);
   const live = scene as unknown as { run: RunState; player: Player };
-  const jelly = SANDY_COVE.entities.find((e) => e.bounce)!;
-  const position = entityPosition(live.run, jelly);
-  expect(position.y).toBeLessThan(jelly.y);
+  const slime = SANDY_COVE.entities.find((e) => e.kind === 'slime')!;
+  const position = entityPosition(live.run, slime);
+  expect(position.x).not.toBe(slime.x);
+  expect(position.y).toBe(slime.y);
   const clock = new SimulationClock();
   clock.setPaused(true);
   for (let i = 0; i < 100; i++) clock.advance(i * 1000 / 60, (dt) => scene.update(dt, neutral));
-  expect(entityPosition(live.run, jelly)).toEqual(position);
+  expect(entityPosition(live.run, slime)).toEqual(position);
   clock.setPaused(false);
   live.player.x = SANDY_COVE.finish.x;
   scene.update(1 / 60, neutral);
   scene.update(1 / 60, neutral);
   scene.update(1 / 60, { ...neutral, jumpPressed: true });
-  expect(entityPosition(live.run, jelly)).toEqual({ x: jelly.x, y: jelly.y });
+  expect(entityPosition(live.run, slime)).toEqual({ x: slime.x, y: slime.y });
 });
 
 it.each([FROST_RIDGE, SANDY_COVE])('rewards holding jump during a spring ride in $name', (level) => {

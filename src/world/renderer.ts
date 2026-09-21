@@ -6,6 +6,7 @@ import type { MovingPlatform } from '../game/platforms';
 import type { WorldAsset, WorldAssets } from './assets';
 import { drawSceneryBackground, drawScenerySprite, foregroundPlacements, sceneryForDecoration } from './scenery';
 import { drawSurfaceMaterials } from './surface-materials';
+import type { SlimeAccessory } from './slimes';
 
 /** Scenes without run state draw the whole entity list; a run hides what it has consumed. */
 export type EntityFilter = (entity: WorldEntity) => boolean;
@@ -65,7 +66,9 @@ export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, le
   for (const entity of entities) {
     if (!isVisible(entity)) continue;
     const position = positionOf(entity);
-    if (entity.kind === 'special') {
+    if (entity.kind === 'slime' && assets.slimes) {
+      drawSlime(ctx, assets.slimes, level.theme.slimeAccessory ?? 'straw', position.x - offset.x, position.y - offset.y);
+    } else if (entity.kind === 'special') {
       drawSpecial(ctx, position.x - offset.x, position.y - offset.y);
     } else if (entity.kind === 'crumbling-ledge') {
       drawCrumblingLedge(ctx, assets, entity, position.x - offset.x, position.y - offset.y, position.warningProgress ?? 0);
@@ -97,6 +100,12 @@ export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, le
   // Keep the draw source referenced so a bad cell size cannot silently pass.
   void atlas;
   void cell;
+}
+
+/** Every costume shares one 32px body and the same bottom-center ground anchor. */
+export function drawSlime(ctx: CanvasRenderingContext2D, atlas: HTMLImageElement, accessory: SlimeAccessory, x: number, y: number): void {
+  const index = { straw: 0, miner: 1, leaf: 2, 'hard-hat': 3, bobble: 4, snorkel: 5 }[accessory];
+  ctx.drawImage(atlas, index * 48, 0, 48, 48, x - 24, y - 44, 48, 48);
 }
 
 /** Original code-authored pixel star: a gold five-point silhouette, dark rim and

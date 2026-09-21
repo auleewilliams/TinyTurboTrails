@@ -1,3 +1,4 @@
+import { withSlimePatrols } from './slimes';
 import { surfaceY, type Surface, type Terrain } from '../game/movement';
 import type { MovingPlatform } from '../game/platforms';
 import { PLAINS_LEVEL, type LevelData, type WorldEntity } from './level';
@@ -95,11 +96,12 @@ const quarryPlatforms: readonly MovingPlatform[] = [
   { id: 'quarry-ferry-crusher', from: { x: 7130, y: 176 }, to: { x: 7262, y: 176 }, width: 48, seconds: 2.2, pause: 0.8 },
 ];
 
-export const QUARRY_RUN: LevelData = {
+export const QUARRY_RUN: LevelData = withSlimePatrols({
   id: 'quarry',
   name: 'QUARRY RUN',
   atlas: 'plains',
   theme: {
+    slimeAccessory: 'miner',
     material: 'stone',
     backdrop: { row: 0, support: '#4b535860' },
     sky: '#657b8c',
@@ -213,13 +215,13 @@ export const QUARRY_RUN: LevelData = {
     quarryThing('spring', 'quarry-spring-009', 9680),
     quarryLedge('quarry-ledge-003', 9896, 150),
     quarryGem('quarry-gem-030', 9900),
-    quarryThing('slime', 'quarry-slime-009', 9960),
+    quarryThing('slime', 'quarry-slime-009', 10050),
     quarryGem('quarry-gem-031', 10040),
     quarryDecoration('quarry-deco-012', 9420, 'cave'),
     quarryDecoration('quarry-deco-013', 10160, 'bush'),
     ...quarryCheckpoints.map(({ id, x }) => quarryGrounded({ id, kind: 'checkpoint', x, asset: 'checkpoint', layer: 'world' })),
   ],
-};
+});
 
 // Treetop Timbers keeps one continuous, forgiving contour. Its repeated shallow
 // valleys read as sagging rope bridges without asking the 1-D terrain model to
@@ -267,11 +269,12 @@ const timberGems: readonly WorldEntity[] = Array.from({ length: 33 }, (_, index)
     y: surfaceY(timberTerrain, x) - 18, asset: 'gem', layer: 'world' };
 });
 
-export const TREETOP_TIMBERS: LevelData = {
+export const TREETOP_TIMBERS: LevelData = withSlimePatrols({
   id: 'timbers',
   name: 'TREETOP TIMBERS',
   atlas: 'timbers',
   theme: {
+    slimeAccessory: 'leaf',
     material: 'wood',
     backdrop: { row: 1, support: '#60443260' },
     sky: '#d97667',
@@ -321,7 +324,7 @@ export const TREETOP_TIMBERS: LevelData = {
     ...timberCheckpoints.map(({ id, x }) =>
       timberGrounded({ id, kind: 'checkpoint', x, asset: 'checkpoint', layer: 'world' })),
   ],
-};
+});
 
 export { SUNSET_SITE };
 export const LEVELS: readonly LevelData[] = [PLAINS_LEVEL, QUARRY_RUN, TREETOP_TIMBERS, SUNSET_SITE, FROST_RIDGE, SANDY_COVE];

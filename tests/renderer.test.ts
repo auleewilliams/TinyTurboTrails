@@ -71,7 +71,7 @@ function recordingContext(): { ctx: CanvasRenderingContext2D; images: unknown[][
   return { ctx: ctx as unknown as CanvasRenderingContext2D, images, texts, rects };
 }
 
-const worldAssets: WorldAssets = { atlas: {} as HTMLImageElement, manifest };
+const worldAssets: WorldAssets = { atlas: {} as HTMLImageElement, manifest, slimes: {} as HTMLImageElement };
 
 it.each([SUNSET_SITE, FROST_RIDGE, SANDY_COVE])('pans $name without seams, repeated hills or a duplicate sun', level => {
   const panorama = { naturalWidth: 720, naturalHeight: 240 } as HTMLImageElement;
@@ -131,7 +131,7 @@ it('pans the plains background within its source bounds over the entire route', 
   expect(crops[2]).toBeGreaterThan(crops[1]);
 });
 
-it('uses new art only for Plains decoration, keeping hazards distinct and Quarry unchanged', () => {
+it('uses new art only for Plains decoration, keeping hazards distinct and Quarry scenery unchanged', () => {
   const { ctx, images } = recordingContext();
   const camera = new Camera({ width: 426, height: 240, worldWidth: PLAINS_LEVEL.width, worldHeight: 240 });
   drawWorld(ctx, sceneryAssets, PLAINS_LEVEL, camera);
@@ -145,7 +145,7 @@ it('uses new art only for Plains decoration, keeping hazards distinct and Quarry
   expect(images.indexOf(tree)).toBeLessThan(images.indexOf(hazard!));
   const quarry = recordingContext();
   drawWorld(quarry.ctx, sceneryAssets, QUARRY_RUN, camera);
-  expect(quarry.images.every((call) => call[0] === worldAssets.atlas)).toBe(true);
+  expect(quarry.images.every((call) => call[0] === worldAssets.atlas || call[0] === worldAssets.slimes)).toBe(true);
 });
 
 it('selects a backdrop and parallax fallback entirely from theme metadata', () => {
@@ -410,7 +410,7 @@ it.each([
   const { ctx, images } = recordingContext();
   scene.render(ctx);
   // The camera is still at x=0 while Henry stands at the start, so drawn X is world X.
-  const drawnX = images.filter((call) => call[0] === assets.atlas && call[1] === 96 && call[2] === 96)
+  const drawnX = images.filter((call) => call[0] === assets.slimes && call[1] === 0 && call[2] === 0)
     .map((call) => (call[5] as number) + 24);
   expect(drawnX).not.toContain(slime.x);
   expect(drawnX.some((x) => x > slime.x && x <= patrol.maxX)).toBe(true);

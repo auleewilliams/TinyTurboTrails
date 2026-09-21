@@ -1,3 +1,4 @@
+import { withSlimePatrols } from './slimes';
 import { surfaceY, type Surface, type Terrain } from '../game/movement';
 import type { LevelData, WorldEntity } from './level';
 
@@ -36,17 +37,19 @@ const gems = [220, 420, 650, 920, 1370, 1660, 2020, 2310, 2550, 2750, 3220, 3500
   7650, 7860, 8100, 8300, 8900, 9200, 9510, 9780, 9970, 10200, 10800, 11000];
 const springs = [1050, 2850, 4800, 6650, 8450, 10350];
 
-export const FROST_RIDGE: LevelData = {
+export const FROST_RIDGE: LevelData = withSlimePatrols({
   id: 'frost', name: 'FROST RIDGE', atlas: 'frost',
   width: 11200, height: 240, ...terrain,
   start: { x: 60, y: 198 }, finish: { x: 11100, y: 166, asset: 'finish-arch' },
   theme: {
+    slimeAccessory: 'bobble',
     material: 'frost',
     sky: '#c2e8f4', ground: '#dcebf3', edge: '#294e78',
     parallax: [180, 710, 1250, 1800, 2320].map((x) => ({ asset: 'hills', x, y: 100, scale: 3 })),
   },
   checkpoints,
   entities: [
+    ...[1550, 3400, 5400, 7250, 9150, 11000].map((x, index) => grounded('slime', 'slime', x, index)),
     ...gems.map((x, index) => ({ ...grounded('gem', 'gem', x, index), y: surfaceY(terrain, x) - 18 })),
     ...springs.map((x, index) => grounded('spring', 'spring', x, index)),
     ...[1110, 2910, 4860, 6710, 8510, 10410].map((x, index) => grounded('hazard', 'stone', x, index)),
@@ -56,4 +59,4 @@ export const FROST_RIDGE: LevelData = {
       .map((x, index) => grounded('decoration', index % 3 === 0 ? 'cave' : 'tree', x, index)),
     ...checkpoints.map((checkpoint): WorldEntity => ({ ...checkpoint, kind: 'checkpoint', asset: 'checkpoint', layer: 'world' })),
   ],
-};
+});

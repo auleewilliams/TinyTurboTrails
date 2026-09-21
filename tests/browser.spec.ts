@@ -6,10 +6,10 @@ import { LEVELS, QUARRY_RUN } from '../src/world/levels';
 import { DEFAULT_MOVEMENT, surfaceY } from '../src/game/movement';
 import { platformBodyAt } from '../src/game/platforms';
 import { drawSurfaceMaterials } from '../src/world/surface-materials';
-import { drawSpecial, drawChallengeCues, drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawWorld } from '../src/world/renderer';
+import { drawSlime, drawSpecial, drawChallengeCues, drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawWorld } from '../src/world/renderer';
 
 /** The renderer is injected as plain functions, so every helper it calls has to travel with it. */
-const RENDERER_SOURCE = [drawSpecial, drawChallengeCues, drawTerrainMaterial, drawTerrainEdge, drawTrailBackdrop, drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawSurfaceMaterials].map((helper) => helper.toString()).join('\n');
+const RENDERER_SOURCE = [drawSlime, drawSpecial, drawChallengeCues, drawTerrainMaterial, drawTerrainEdge, drawTrailBackdrop, drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawSurfaceMaterials].map((helper) => helper.toString()).join('\n');
 
 const dangerXs = (level: typeof PLAINS_LEVEL): number[] => level.entities
   .filter((entity) => entity.kind === 'slime' || entity.kind === 'hazard')
@@ -976,6 +976,11 @@ test('ground scenery and slimes draw their opaque bases at terrain height', asyn
       const [image, sx, sy] = args;
       if (image instanceof HTMLImageElement && image.src.endsWith('/scenery/background.webp')) {
         this.canvas.dataset.worldDraws = '[]';
+        this.canvas.dataset.slimeDraws = '[]';
+      } else if (image instanceof HTMLImageElement && image.src.endsWith('/assets/slimes/slimes.png')) {
+        const calls = JSON.parse(this.canvas.dataset.slimeDraws ?? '[]');
+        calls.push(args.slice(1));
+        this.canvas.dataset.slimeDraws = JSON.stringify(calls);
       } else if (image instanceof HTMLImageElement && image.src.endsWith('/assets/plains/environment.png')) {
         const canvas = this.canvas;
         // The parallax hills precede the entity pass each frame.
@@ -1007,17 +1012,28 @@ test('ground scenery and slimes draw their opaque bases at terrain height', asyn
         if (pixels[(y * 48 + x) * 4 + 3]) bases[asset] = y + 1;
       }
     }
+    const slimeImage = new Image();
+    slimeImage.src = '/assets/slimes/slimes.png';
+    await slimeImage.decode();
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(slimeImage, 0, 0);
+    const slimePixels = ctx.getImageData(0, 0, 48, 48).data;
+    bases.slime = 0;
+    for (let y = 0; y < 48; y++) for (let x = 0; x < 48; x++) {
+      if (slimePixels[(y * 48 + x) * 4 + 3]) bases.slime = y + 1;
+    }
     return bases;
   });
   const calls = JSON.parse(await page.locator('canvas').getAttribute('data-world-draws') ?? '[]') as number[][];
+  const slimeCalls = JSON.parse(await page.locator('canvas').getAttribute('data-slime-draws') ?? '[]') as number[][];
   PLAINS_LEVEL.entities.forEach((entity) => {
     if (entity.kind !== 'decoration' && entity.kind !== 'slime') return;
     // Generated decorative trees/plants/rocks are covered by the scenery test.
     if (entity.kind === 'decoration' && entity.asset !== 'cave') return;
-    const call = calls.find((args) => {
+    const call = (entity.kind === 'slime' ? slimeCalls : calls).find((args) => {
       const drawnX = args[4] + 24;
       if (entity.patrol) {
-        return args[0] === 96 && args[1] === 96 &&
+        return args[0] === 0 && args[1] === 0 &&
           drawnX >= entity.patrol.minX && drawnX <= entity.patrol.maxX;
       }
       return drawnX === entity.x && args[6] === 48;
@@ -1816,4 +1832,91 @@ test('celebration preview preserves gameplay pixels and final pose under reduced
   await page.waitForTimeout(350);
   expect(await page.locator('canvas').evaluate(c => (c as HTMLCanvasElement).toDataURL())).toBe(still);
   await info.attach('celebration-art-reduced', { body: await page.locator('canvas').screenshot(), contentType: 'image/png' });
+});
+
+for (const [costume, level] of LEVELS.entries()) {
+  test(`${level.id} uses the common slime atlas, patrols and pauses in play`, async ({ page }, info) => {
+    test.setTimeout(45_000);
+    await page.addInitScript((sky) => {
+      const fillRect = CanvasRenderingContext2D.prototype.fillRect;
+      const drawImage = CanvasRenderingContext2D.prototype.drawImage;
+      CanvasRenderingContext2D.prototype.fillRect = function (x, y, w, h) {
+        if (x === 0 && y === 0 && w === 426 && h === 240 && this.fillStyle === sky) this.canvas.dataset.liveSlimes = '[]';
+        return fillRect.call(this, x, y, w, h);
+      };
+      CanvasRenderingContext2D.prototype.drawImage = function (this: CanvasRenderingContext2D, ...args: unknown[]) {
+        if (args[0] instanceof HTMLImageElement && args[0].src.endsWith('/assets/slimes/slimes.png')) {
+          const calls = JSON.parse(this.canvas.dataset.liveSlimes ?? '[]');
+          calls.push(args.slice(1));
+          this.canvas.dataset.liveSlimes = JSON.stringify(calls);
+        }
+        Reflect.apply(drawImage, this, args);
+      } as typeof drawImage;
+    }, level.theme.sky);
+    await openAdventure(page, '/?debug=1');
+    await page.getByRole('button', { name: level.name, exact: true }).click();
+    await page.getByRole('button', { name: `Play ${level.name}`, exact: true }).click();
+    const canvas = page.locator('canvas');
+    const read = async (): Promise<number[][]> => JSON.parse(await canvas.getAttribute('data-live-slimes') ?? '[]');
+    await expect.poll(async () => (await read()).length).toBe(level.entities.filter(e => e.kind === 'slime').length);
+    const initial = await read();
+    for (const call of initial) expect([call[0], call[1], call[2], call[3], call[6], call[7]]).toEqual([costume * 48, 0, 48, 48, 48, 48]);
+    await expect.poll(async () => (await read())[0][4]).not.toBe(initial[0][4]);
+    const first = level.entities.find(e => e.kind === 'slime')!;
+    // Walk to a clear viewing distance through the actual controls.
+    const position = async (): Promise<number> => Number((await page.locator('#status').innerText()).match(/X (\d+)/)?.[1] ?? 0);
+    await page.keyboard.down('ArrowRight');
+    await expect.poll(position, { timeout: 15_000, intervals: [30] }).toBeGreaterThan(first.x - 120);
+    await page.keyboard.up('ArrowRight');
+    await page.waitForTimeout(350);
+    const evidence = info.outputPath(`${level.id}-slime.png`);
+    await canvas.screenshot({ path: evidence });
+    await info.attach(`${level.id}-slime`, { path: evidence, contentType: 'image/png' });
+    await page.keyboard.press('Escape');
+    await expect(page.locator('#status')).toContainText('Paused');
+    const frozen = await read();
+    await page.waitForTimeout(200);
+    expect(await read()).toEqual(frozen);
+    await page.keyboard.press('Escape');
+    await expect(page.locator('#status')).toContainText('Playing');
+    await expect.poll(async () => (await read())[0][4]).not.toBe(frozen[0][4]);
+  });
+}
+
+test('slime atlas keeps identical bodies, transparent borders and ground anchors', async ({ page }) => {
+  await page.goto('/?scene=foundation');
+  const result = await page.evaluate(async () => {
+    const image = new Image(); image.src = '/assets/slimes/slimes.png'; await image.decode();
+    const canvas = document.createElement('canvas'); canvas.width = image.width; canvas.height = image.height;
+    const ctx = canvas.getContext('2d')!; ctx.drawImage(image, 0, 0);
+    const bodies = [], bases = [], borders = [];
+    for (let cell = 0; cell < 6; cell++) {
+      const data = ctx.getImageData(cell * 48, 0, 48, 48).data;
+      let base = 0, border = 0;
+      for (let y = 0; y < 48; y++) for (let x = 0; x < 48; x++) {
+        if (data[(y * 48 + x) * 4 + 3]) {
+          base = y + 1;
+          if (x === 0 || x === 47 || y === 0 || y === 47) border++;
+        }
+      }
+      bases.push(base); borders.push(border);
+      // Compare the shared body strip that every accessory leaves uncovered.
+      bodies.push(Array.from(ctx.getImageData(cell * 48 + 8, 28, 5, 16).data));
+    }
+    return { width: image.width, height: image.height, bodies, bases, borders };
+  });
+  expect([result.width, result.height]).toEqual([288, 48]);
+  expect(result.bases).toEqual([44, 44, 44, 44, 44, 44]);
+  expect(result.borders).toEqual([0, 0, 0, 0, 0, 0]);
+  for (const body of result.bodies) expect(body).toEqual(result.bodies[0]);
+});
+
+test('shared slime atlas failure is recoverable through retry', async ({ page }) => {
+  await page.route('**/assets/slimes/slimes.png', route => route.abort());
+  await page.goto('/?debug=1');
+  await expect(page.getByRole('button', { name: /Retry/i })).toBeVisible();
+  await page.unroute('**/assets/slimes/slimes.png');
+  await Promise.all([page.waitForEvent('load'), page.getByRole('button', { name: /Retry/i }).click()]);
+  await dismissOpening(page);
+  await expect(page.locator('#status')).toContainText('Title');
 });

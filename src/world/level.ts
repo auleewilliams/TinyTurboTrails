@@ -1,3 +1,4 @@
+import { withSlimePatrols, slimeGroundBounds, SLIME_SPEED, type SlimeAccessory } from './slimes';
 import { DEFAULT_MOVEMENT, MAX_SURFACE_FRICTION, MIN_SURFACE_FRICTION, surfaceY, type Surface } from '../game/movement';
 import { PLATFORM_MAX_SPEED, platformSpeed, type MovingPlatform } from '../game/platforms';
 import type { WorldAsset } from './assets';
@@ -20,6 +21,7 @@ export interface WorldEntity {
 /** A low sun drawn behind the parallax; it drifts at a fraction of the camera so it feels far away. */
 export interface LevelSun { x: number; y: number; radius: number; color: string; glow: string }
 export interface LevelTheme {
+  slimeAccessory?: SlimeAccessory;
   material?: 'soil' | 'stone' | 'wood' | 'gravel' | 'frost' | 'sand';
   materialSections?: readonly { from: number; to: number; material: NonNullable<LevelTheme['material']> }[];
   scenery?: boolean;
@@ -91,11 +93,12 @@ function groundedEntity(entity: Omit<WorldEntity, 'y'>): WorldEntity {
   return { ...entity, y: surfaceY(plainsTerrain, entity.x) };
 }
 
-export const PLAINS_LEVEL: LevelData = {
+export const PLAINS_LEVEL: LevelData = withSlimePatrols({
   id: 'plains',
   name: 'PLAINS',
   atlas: 'plains',
   theme: {
+    slimeAccessory: 'straw',
     material: 'soil',
     materialSections: [
       { from: 0, to: 3300, material: 'soil' },
@@ -181,19 +184,19 @@ export const PLAINS_LEVEL: LevelData = {
     { id: 'gem-042', kind: 'gem', x: 9260, y: 157, asset: 'gem', layer: 'world' },
     { id: 'gem-043', kind: 'gem', x: 9520, y: 92, asset: 'gem', layer: 'world' },
     { id: 'gem-044', kind: 'gem', x: 9780, y: 142, asset: 'gem', layer: 'world' },
-    groundedEntity({ id: 'slime-001', kind: 'slime', x: 260, asset: 'slime', layer: 'world', patrol: { minX: 230, maxX: 345, speed: 36 } }),
+    groundedEntity({ id: 'slime-001', kind: 'slime', x: 260, asset: 'slime', layer: 'world', patrol: { minX: 230, maxX: 345, speed: SLIME_SPEED } }),
     // Keep the marked star runout clear throughout the patrol's entire cycle.
-    groundedEntity({ id: 'slime-002', kind: 'slime', x: 960, asset: 'slime', layer: 'world', patrol: { minX: 900, maxX: 985, speed: 34 } }),
-    groundedEntity({ id: 'slime-003', kind: 'slime', x: 1660, asset: 'slime', layer: 'world', patrol: { minX: 1570, maxX: 1740, speed: 42 } }),
+    groundedEntity({ id: 'slime-002', kind: 'slime', x: 960, asset: 'slime', layer: 'world', patrol: { minX: 900, maxX: 985, speed: SLIME_SPEED } }),
+    groundedEntity({ id: 'slime-003', kind: 'slime', x: 1660, asset: 'slime', layer: 'world', patrol: { minX: 1570, maxX: 1740, speed: SLIME_SPEED } }),
     groundedEntity({ id: 'slime-004', kind: 'slime', x: 2160, asset: 'slime', layer: 'world' }),
-    groundedEntity({ id: 'slime-005', kind: 'slime', x: 2860, asset: 'slime', layer: 'world', patrol: { minX: 2700, maxX: 2860, speed: 38 } }),
-    groundedEntity({ id: 'slime-006', kind: 'slime', x: 3560, asset: 'slime', layer: 'world', patrol: { minX: 3400, maxX: 3570, speed: 46 } }),
+    groundedEntity({ id: 'slime-005', kind: 'slime', x: 2860, asset: 'slime', layer: 'world', patrol: { minX: 2700, maxX: 2860, speed: SLIME_SPEED } }),
+    groundedEntity({ id: 'slime-006', kind: 'slime', x: 3560, asset: 'slime', layer: 'world', patrol: { minX: 3400, maxX: 3570, speed: SLIME_SPEED } }),
     groundedEntity({ id: 'slime-007', kind: 'slime', x: 3980, asset: 'slime', layer: 'world' }),
     groundedEntity({ id: 'slime-008', kind: 'slime', x: 4680, asset: 'slime', layer: 'world' }),
     groundedEntity({ id: 'slime-009', kind: 'slime', x: 5700, asset: 'slime', layer: 'world' }),
     groundedEntity({ id: 'slime-010', kind: 'slime', x: 6400, asset: 'slime', layer: 'world' }),
     groundedEntity({ id: 'slime-011', kind: 'slime', x: 7440, asset: 'slime', layer: 'world' }),
-    groundedEntity({ id: 'slime-012', kind: 'slime', x: 8140, asset: 'slime', layer: 'world', patrol: { minX: 7960, maxX: 8140, speed: 40 } }),
+    groundedEntity({ id: 'slime-012', kind: 'slime', x: 8140, asset: 'slime', layer: 'world', patrol: { minX: 7960, maxX: 8140, speed: SLIME_SPEED } }),
     groundedEntity({ id: 'slime-013', kind: 'slime', x: 8910, asset: 'slime', layer: 'world' }),
     groundedEntity({ id: 'slime-014', kind: 'slime', x: 9610, asset: 'slime', layer: 'world' }),
     { id: 'spring-001', kind: 'spring', x: 1558, y: 186, asset: 'spring', layer: 'world' },
@@ -227,7 +230,7 @@ export const PLAINS_LEVEL: LevelData = {
     { id: 'checkpoint-orchard', kind: 'checkpoint', x: 7712, y: 198, asset: 'checkpoint', layer: 'world' },
     { id: 'checkpoint-summit', kind: 'checkpoint', x: 9145, y: 200, asset: 'checkpoint', layer: 'world' },
   ],
-};
+});
 
 // Patrol slimes walk the ground they are given: bounds must stay inside the level, on
 // walkable (<=45 degrees) terrain, and slow enough that Henry can always outrun them.
@@ -241,6 +244,11 @@ function validatePatrol(level: LevelData, entity: WorldEntity): void {
   if (patrol.minX < level.minX || patrol.maxX > level.maxX) throw new Error(`patrol leaves the level: ${entity.id}`);
   if (entity.x < patrol.minX || entity.x > patrol.maxX) throw new Error(`patrol excludes its own entity: ${entity.id}`);
   if (patrol.speed <= 0 || patrol.speed > MAX_PATROL_SPEED) throw new Error(`patrol speed must stay catchable: ${entity.id}`);
+  if (![patrol.minX, patrol.maxX, patrol.speed].every(Number.isFinite)) throw new Error(`invalid patrol numbers: ${entity.id}`);
+  if (entity.kind === 'slime') {
+    const ground = slimeGroundBounds(level, entity.x);
+    if (patrol.minX < ground.minX || patrol.maxX > ground.maxX) throw new Error(`patrol crosses unwalkable ground or lacks edge clearance: ${entity.id}`);
+  }
   for (const surface of level.surfaces) {
     if (surface.x2 <= patrol.minX || surface.x1 >= patrol.maxX) continue;
     const span = surface.x2 - surface.x1;
