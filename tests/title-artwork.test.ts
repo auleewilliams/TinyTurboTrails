@@ -5,12 +5,13 @@ import { loadTitleArtwork } from '../src/art/title';
 
 afterEach(() => { vi.unstubAllGlobals(); vi.unstubAllEnvs(); });
 
-it('preserves the approved source and transparent runtime PNG unchanged', () => {
+it('preserves the approved source and ships a transparent display-sized runtime PNG', () => {
   const source = readFileSync('assets/source/title/tiny-turbo-trails-v2.png');
   expect(createHash('sha256').update(source).digest('hex'))
     .toBe('6d5f4feba06ad2a765c92181a12b7267731a6b7677f826d3ba59e0e144893b75');
-  expect(readFileSync('public/assets/title/tiny-turbo-trails-v2.png').equals(source)).toBe(true);
   expect([source.readUInt32BE(16), source.readUInt32BE(20), source[25]]).toEqual([1699, 926, 6]);
+  const runtime = readFileSync('public/assets/title/tiny-turbo-trails-v2.png');
+  expect([runtime.readUInt32BE(16), runtime.readUInt32BE(20), runtime[25]]).toEqual([282, 154, 6]);
 });
 
 it('loads title artwork under the configured Vite base and rejects failures', async () => {

@@ -95,7 +95,8 @@ it('registers a playable Sunset Site alongside the other five routes', () => {
   expect(() => validateLevel(SUNSET_SITE)).not.toThrow();
   expect(SUNSET_SITE.name).toBe('SUNSET SITE');
   expect(SUNSET_SITE.atlas).toBe('site');
-  expect(SUNSET_SITE.theme.texturedTerrain).toBe(true);
+  expect(SUNSET_SITE.theme.material).toBe('gravel');
+  expect(SUNSET_SITE.theme).not.toHaveProperty('texturedTerrain');
 });
 
 it('paints a warm low sun without losing the grass-green edge', () => {

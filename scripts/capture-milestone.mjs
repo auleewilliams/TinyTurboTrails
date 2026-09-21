@@ -1,7 +1,8 @@
 import { chromium } from '@playwright/test';
 import { mkdir, writeFile } from 'node:fs/promises';
 const stage = process.argv[2] ?? 'before';
-const directory = `docs/evidence/trail-milestone/${stage}`;
+const root = process.argv[3] ?? 'docs/evidence/trail-milestone';
+const directory = `${root}/${stage}`;
 await mkdir(directory, { recursive: true });
 const browser = await chromium.launch();
 const page = await browser.newPage({ viewport: { width: 852, height: 520 } });
@@ -28,6 +29,9 @@ if (stage === 'after') {
   for (const [label, width, height] of [['native', 426, 240], ['2x', 852, 520], ['small', 320, 240]]) {
     await page.setViewportSize({ width, height });
     await page.goto('http://127.0.0.1:4175/');
+    await page.waitForFunction(() => !document.querySelector('#status')?.textContent?.includes('Loading'));
+    const skip = page.getByRole('button', { name: 'Skip story', exact: true });
+    if (await skip.isVisible()) await skip.click();
     await page.getByRole('button', { name: 'Play PLAINS', exact: true }).waitFor();
     await page.screenshot({ path: `${directory}/map-${label}.png` });
   }
@@ -38,6 +42,15 @@ if (stage === 'after') {
     await page.waitForTimeout(80);
     await page.locator('canvas').screenshot({ path: `${directory}/map-${name.toLowerCase().replaceAll(' ', '-')}.png` });
   }
+  await page.route('**/assets/trails/materials.png', route => route.abort());
+  await page.route('**/assets/trails/backdrops.webp', route => route.abort());
+  await page.goto('http://127.0.0.1:4175/?scene=adventure');
+  await page.waitForFunction(() => !document.querySelector('#status')?.textContent?.includes('Loading'));
+  const skip = page.getByRole('button', { name: 'Skip story', exact: true });
+  if (await skip.isVisible()) await skip.click();
+  await page.getByRole('button', { name: 'Play PLAINS', exact: true }).click();
+  await page.getByText(/Adventure preview · Playing/).waitFor();
+  await page.locator('canvas').screenshot({ path: `${directory}/plains-no-decorative-sheets.png` });
 }
 if (stage === 'before') {
   await page.setContent('<canvas width="426" height="240"></canvas>');

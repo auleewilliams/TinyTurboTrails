@@ -101,6 +101,7 @@ export const QUARRY_RUN: LevelData = {
   atlas: 'plains',
   theme: {
     material: 'stone',
+    backdrop: { row: 0, support: '#4b535860' },
     sky: '#657b8c',
     ground: '#59616a',
     edge: '#b1c77d',
@@ -272,7 +273,7 @@ export const TREETOP_TIMBERS: LevelData = {
   atlas: 'timbers',
   theme: {
     material: 'wood',
-    texturedTerrain: true,
+    backdrop: { row: 1, support: '#60443260' },
     sky: '#d97667',
     ground: '#704126',
     edge: '#e6a04b',

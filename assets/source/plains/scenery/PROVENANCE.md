@@ -18,10 +18,10 @@ call. Original built-in output IDs:
 - Background: `exec-8ad56cc1-83e1-4c2c-9597-f57860efdbe4.png`
 - Foreground: `exec-e5512d77-53e8-4a05-80b4-1eb72cb89bb5.png`
 
-The PNGs in `public/assets/plains/scenery/` are byte-for-byte copies of these
-sources. No background removal, resampling or color conversion was applied;
-the generated alpha is preserved. The foreground contains 1,068,776 completely
-transparent pixels. Both images were visually inspected.
+The runtime files in `public/assets/plains/scenery/` are high-quality offline
+resamples: a 768 × 512 WebP panorama (quality 0.86) and a 384 × 256 PNG sprite sheet. The generated
+alpha is preserved and the untouched originals remain here. Reproduce with
+`node scripts/prepare-trail-art.mjs`. Both runtime images were visually inspected.
 
 ## Integration contract
 
@@ -29,7 +29,8 @@ transparent pixels. Both images were visually inspected.
 sprite rectangles. Generation did not obey the requested uniform grid, so the
 manifest records measured bounds instead. Bounds include pixels with alpha
 at least 16/255; the original file retains all softer edge pixels. Every measured
-sprite is contained within its own non-overlapping region. Anchors are relative
+sprite is contained within its own non-overlapping region. Source rectangles and
+anchors are scaled to one quarter for the runtime foreground. Anchors are relative
 to the source rectangles, at their bottom center; `logicalSize` gives suggested
 gameplay drawing dimensions. Disable canvas image smoothing when drawing.
 

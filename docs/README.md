@@ -19,6 +19,7 @@
 
 ## Dated evidence, not current certification
 
+- [Foundation payload, renderer and build hygiene milestone](evidence/milestone-6/README.md)
 - [Henry celebration and Patchwork Vale milestone](evidence/henry-patchwork-vale/README.md)
 
 - [Trail presentation milestone and pending human check](evidence/trail-milestone/README.md)

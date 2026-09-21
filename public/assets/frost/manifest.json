@@ -19,24 +19,6 @@
     "hills": 14,
     "bush": 15
   },
-  "terrainTops": {
-    "terrain-flat": {
-      "left": 23,
-      "right": 23
-    },
-    "terrain-left": {
-      "left": 20,
-      "right": 20
-    },
-    "terrain-right": {
-      "left": 21,
-      "right": 21
-    },
-    "terrain-ramp": {
-      "left": 32,
-      "right": 11
-    }
-  },
   "anchors": {
     "stone": {
       "x": 24,

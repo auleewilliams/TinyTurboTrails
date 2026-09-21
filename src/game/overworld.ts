@@ -53,7 +53,13 @@ export function drawOverworld(ctx: CanvasRenderingContext2D, levels: readonly Le
   const words = levels[selected].name.split(' ');
   ctx.fillText(words.slice(0, -1).join(' ') || words[0], 350, 63);
   if (words.length > 1) ctx.fillText(words.at(-1)!, 350, 76);
-  if (preview) ctx.drawImage(preview, 287, 84, 126, 71);
+  if (preview) {
+    const smoothing = ctx.imageSmoothingEnabled;
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
+    ctx.drawImage(preview, 287, 84, 126, 71);
+    ctx.imageSmoothingEnabled = smoothing;
+  }
   ctx.font = '9px monospace'; ctx.fillStyle = '#e9f2df';
   ctx.fillText(completed.has(levels[selected].id) ? 'Visited this session ✓' : ['Hills to a friend', 'Along quarry paths', 'Through tall trees', 'Past the busy yard', 'Over snowy hills', 'Down to the seaside'][selected], 350, 175);
   ctx.fillStyle = '#ffda75'; ctx.fillRect(298, 180, 104, 27);

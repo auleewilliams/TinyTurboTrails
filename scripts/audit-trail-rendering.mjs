@@ -1,7 +1,9 @@
 import { chromium } from '@playwright/test';
 import { mkdir, writeFile, unlink } from 'node:fs/promises';
 import { execFileSync } from 'node:child_process';
-const directory = 'docs/evidence/trail-milestone';
+import { dirname } from 'node:path';
+const outputPath = process.argv[2] ?? 'docs/evidence/trail-milestone/render-performance.json';
+const directory = dirname(outputPath);
 await mkdir(directory, { recursive: true });
 const baselinePath = 'src/world/baseline-renderer.ts';
 await writeFile(baselinePath, execFileSync('git', ['show', 'e04b5e2:src/world/renderer.ts']));
@@ -38,7 +40,7 @@ const results = await page.evaluate(async () => {
   }
   return { method: '600 full-route camera samples per trail, 30 warmups; 426x240 software Canvas with full readback; headless Chromium; baseline renderer from e04b5e2; same host/assets', results };
 });
-await writeFile(`${directory}/render-performance.json`, JSON.stringify(results, null, 2));
+await writeFile(outputPath, JSON.stringify(results, null, 2));
 console.log(JSON.stringify(results));
 await browser.close();
 await unlink(baselinePath);
