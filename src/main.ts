@@ -93,7 +93,11 @@ if (!context) {
   const focus = (): void => { focused = !document.hidden; refreshPause(); };
   const visibility = (): void => { focused = !document.hidden && document.hasFocus(); refreshPause(); };
   const toggleMute = (): void => { muted = !muted; audio.setMuted(muted); refreshPause(); };
-  const retryLoading = (): void => { location.reload(); };
+  const retryLoading = (): void => {
+    assetState = 'loading';
+    refreshPause();
+    location.reload();
+  };
 
   const frame = (now: number): void => {
     const controls: InputFrame = input.poll();
