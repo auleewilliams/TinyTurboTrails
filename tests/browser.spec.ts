@@ -246,8 +246,7 @@ test('art preview loads local assets and reports a missing atlas', async ({ page
   await expect(page.locator('#status')).toHaveText('Artwork could not load. Reload to retry.');
   await expect(page.locator('#retry')).toBeVisible();
   await page.unroute('**/assets/henry/henry-celebration.png');
-  await page.locator('#retry').click();
-  await dismissOpening(page);
+  await retryAndDismiss(page);
   await expect(page.locator('#status')).toContainText('Art preview', { timeout: 15000 });
 });
 
@@ -632,8 +631,7 @@ test('adventure exposes retry when a required asset fails to load', async ({ pag
   await expect(page.locator('#status')).toHaveText('Artwork could not load. Reload to retry.', { timeout: 15000 });
   await expect(page.locator('#retry')).toBeVisible();
   await page.unroute('**/assets/henry/henry-celebration.png');
-  await page.locator('#retry').click();
-  await dismissOpening(page);
+  await retryAndDismiss(page);
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
 });
 
@@ -1105,8 +1103,7 @@ test('a failed scenery image exposes Retry loading and recovers', async ({ page 
   const statusBox = (await page.locator('#status').boundingBox())!;
   expect(retryBox.y + retryBox.height).toBeLessThan(statusBox.y);
   await page.unroute('**/assets/plains/scenery/foreground.png');
-  await page.locator('#retry').click();
-  await dismissOpening(page);
+  await retryAndDismiss(page);
   await expect(page.locator('#status')).toContainText('Adventure preview · Title');
   await expect(page.locator('#retry')).toBeHidden();
   await expect(page.locator('canvas')).toBeVisible();
@@ -1179,8 +1176,7 @@ for (const [biome, pickerSteps] of [['frost', 4], ['cove', 5]] as const) {
     await openAdventure(page, '/?scene=adventure');
     await expect(page.locator('#status')).toHaveText('Artwork could not load. Reload to retry.');
     await page.unroute(path);
-    await page.locator('#retry').click();
-  await dismissOpening(page);
+    await retryAndDismiss(page);
     await expect(page.locator('#status')).toContainText('Adventure preview · Title');
   });
 }
@@ -1310,8 +1306,7 @@ test('title artwork failure recovers through the existing retry flow', async ({ 
   await expect(page.locator('#status')).toHaveText('Artwork could not load. Reload to retry.');
   await expect(page.locator('#retry')).toBeVisible();
   await page.unroute(path);
-  await page.locator('#retry').click();
-  await dismissOpening(page);
+  await retryAndDismiss(page);
   await expect(page.locator('#status')).toContainText('Adventure preview · Title');
   await expect(page.locator('#retry')).toBeHidden();
 });
@@ -1435,8 +1430,7 @@ test('overworld tab focus, controller selection and shared-art retry stay usable
   await reloadAndDismiss(page);
   await expect(page.locator('#retry')).toBeVisible();
   await page.unroute('**/assets/trails/materials.png');
-  await page.locator('#retry').click();
-  await dismissOpening(page);
+  await retryAndDismiss(page);
   await expect(page.getByRole('button', { name: 'Play PLAINS', exact: true })).toBeVisible();
 });
 
@@ -1620,6 +1614,61 @@ async function openAdventure(page: Page, url: string): Promise<void> {
 }
 async function reloadAndDismiss(page: Page): Promise<void> {
   await page.reload(); await dismissOpening(page);
+}
+
+async function retryAndDismiss(page: Page): Promise<void> {
+  // Retry reloads the document. Wait for that navigation before inspecting status,
+  // otherwise the old error page can be mistaken for a finished loading screen.
+  await Promise.all([page.waitForEvent('load'), page.locator('#retry').click()]);
+  await dismissOpening(page);
+}
+
+for (const level of LEVELS.slice(3)) {
+  test(`${level.id} panorama appears in the map and pans during keyboard play`, async ({ page }, info) => {
+    const errors: string[] = [];
+    page.on('pageerror', error => errors.push(error.message));
+    await page.addInitScript(() => {
+      const original = CanvasRenderingContext2D.prototype.drawImage;
+      CanvasRenderingContext2D.prototype.drawImage = function (this: CanvasRenderingContext2D, ...args: unknown[]) {
+        const image = args[0];
+        if (image instanceof HTMLImageElement && /\/assets\/(site|frost|cove)\/background\.png$/.test(image.src)) {
+          this.canvas.dataset.panorama = image.src;
+          this.canvas.dataset.panoramaX = String(args[1]);
+          this.canvas.dataset.repeatedHills = '0';
+        } else if (image instanceof HTMLCanvasElement && image.dataset.panorama) {
+          this.canvas.dataset.panorama = image.dataset.panorama;
+        } else if (image instanceof HTMLImageElement && /\/assets\/(site|frost|cove)\/environment\.png$/.test(image.src)
+          && args[1] === 96 && args[2] === 144 && Number(args[7]) > 48) {
+          this.canvas.dataset.repeatedHills = String(Number(this.canvas.dataset.repeatedHills ?? 0) + 1);
+        }
+        Reflect.apply(original, this, args);
+      } as typeof original;
+    });
+    await openAdventure(page, '/?debug=1');
+    await page.getByRole('button', { name: level.name, exact: true }).click();
+    const canvas = page.locator('canvas');
+    await expect(canvas).toHaveAttribute('data-panorama', new RegExp(`/assets/${level.atlas}/background.png$`));
+    await info.attach(`${level.id}-map`, { body: await canvas.screenshot(), contentType: 'image/png' });
+    await page.getByRole('button', { name: `Play ${level.name}`, exact: true }).click();
+    await expect(page.locator('#status')).toContainText('Playing');
+    await expect(canvas).toHaveAttribute('data-panorama-x', '0');
+    await page.keyboard.down('ArrowRight');
+    await expect.poll(async () => Number(await canvas.getAttribute('data-panorama-x'))).toBeGreaterThan(2);
+    await page.keyboard.up('ArrowRight');
+    await expect(canvas).toHaveAttribute('data-repeated-hills', '0');
+    await info.attach(`${level.id}-background-playing`, { body: await canvas.screenshot(), contentType: 'image/png' });
+    expect(errors).toEqual([]);
+  });
+
+  test(`${level.id} panorama failure recovers through Retry loading`, async ({ page }) => {
+    const path = `**/assets/${level.atlas}/background.png`;
+    await page.route(path, route => route.abort());
+    await page.goto('/');
+    await expect(page.locator('#status')).toHaveText('Artwork could not load. Reload to retry.');
+    await page.unroute(path);
+    await retryAndDismiss(page);
+    await expect(page.getByRole('button', { name: level.name, exact: true })).toBeVisible();
+  });
 }
 
 

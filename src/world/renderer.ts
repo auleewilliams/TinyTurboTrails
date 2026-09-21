@@ -20,14 +20,15 @@ export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, le
   const cell = manifest.cellSize;
   ctx.fillStyle = level.theme.sky;
   ctx.fillRect(0, 0, 426, 240);
-  if (level.theme.sun) drawSun(ctx, level.theme.sun, offset.x);
   const scenery = level.theme.scenery ? assets.scenery : undefined;
   if (scenery) drawSceneryBackground(ctx, scenery, level, offset.x);
-  else if (level.id !== 'quarry' && level.id !== 'timbers') for (const parallax of level.theme.parallax) {
-    drawAsset(ctx, assets, parallax.asset,
-      parallax.x - offset.x * 0.18, parallax.y - offset.y * 0.1, parallax.scale);
+  else if (!drawTrailBackdrop(ctx, assets, level, offset)) {
+    if (level.theme.sun) drawSun(ctx, level.theme.sun, offset.x);
+    for (const parallax of level.theme.parallax) {
+      drawAsset(ctx, assets, parallax.asset,
+        parallax.x - offset.x * 0.18, parallax.y - offset.y * 0.1, parallax.scale);
+    }
   }
-  drawTrailBackdrop(ctx, assets, level, offset);
   ctx.fillStyle = level.theme.ground;
   // Fill each connected ground contour once: separately antialiased polygon
   // edges leave the background showing through at fractional camera offsets.

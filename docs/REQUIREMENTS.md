@@ -122,6 +122,13 @@ backgrounds with supported landmarks. Decorative art updates preserve collisions
 anchors and movement; optional challenge additions follow the rules below.
 Respect reduced motion and loading/error/retry.
 
+Sunset Site, Frost Ridge and Sandy Cove also have dedicated illustrated panoramas
+(#139). They pan within image bounds across the full route without repeating the
+old enlarged skyline cells. Background contrast must preserve readability of
+Henry, hazards, pickups and terrain/material cues at 426 x 240. Map previews use
+the same backgrounds. Ship these panoramas at native draw height and keep their
+original images, prompts and reproducible packaging in the source tree.
+
 The parent-led landmark/navigation check with Henry remains a separate acceptance
 step; automated tests cannot satisfy it. Current controls live in the adventure guide.
 
