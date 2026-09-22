@@ -1,0 +1,147 @@
+[
+  {
+    "id": "plains",
+    "name": "PLAINS",
+    "total": 45,
+    "explicitBonus": 0,
+    "width": 9980,
+    "spriteBounds": {
+      "minX": 8,
+      "minY": 4,
+      "maxX": 38,
+      "maxY": 43,
+      "width": 31,
+      "height": 40
+    },
+    "anchor": {
+      "x": 24,
+      "y": 48
+    },
+    "groundLifts": [
+      16,
+      20,
+      24,
+      52
+    ]
+  },
+  {
+    "id": "quarry",
+    "name": "QUARRY RUN",
+    "total": 37,
+    "explicitBonus": 6,
+    "width": 10200,
+    "spriteBounds": {
+      "minX": 8,
+      "minY": 4,
+      "maxX": 38,
+      "maxY": 43,
+      "width": 31,
+      "height": 40
+    },
+    "anchor": {
+      "x": 24,
+      "y": 48
+    },
+    "groundLifts": [
+      18,
+      45,
+      50,
+      55,
+      290,
+      304
+    ]
+  },
+  {
+    "id": "timbers",
+    "name": "TREETOP TIMBERS",
+    "total": 33,
+    "explicitBonus": 0,
+    "width": 10200,
+    "spriteBounds": {
+      "minX": 15,
+      "minY": 4,
+      "maxX": 32,
+      "maxY": 29,
+      "width": 18,
+      "height": 26
+    },
+    "anchor": {
+      "x": 24,
+      "y": 48
+    },
+    "groundLifts": [
+      18
+    ]
+  },
+  {
+    "id": "sunset",
+    "name": "SUNSET SITE",
+    "total": 62,
+    "explicitBonus": 6,
+    "width": 10000,
+    "spriteBounds": {
+      "minX": 8,
+      "minY": 4,
+      "maxX": 38,
+      "maxY": 43,
+      "width": 31,
+      "height": 40
+    },
+    "anchor": {
+      "x": 24,
+      "y": 48
+    },
+    "groundLifts": [
+      18,
+      45,
+      50,
+      290
+    ]
+  },
+  {
+    "id": "frost",
+    "name": "FROST RIDGE",
+    "total": 39,
+    "explicitBonus": 3,
+    "width": 11200,
+    "spriteBounds": {
+      "minX": 11,
+      "minY": 10,
+      "maxX": 35,
+      "maxY": 34,
+      "width": 25,
+      "height": 25
+    },
+    "anchor": {
+      "x": 24,
+      "y": 48
+    },
+    "groundLifts": [
+      18,
+      115
+    ]
+  },
+  {
+    "id": "cove",
+    "name": "SANDY COVE",
+    "total": 42,
+    "explicitBonus": 6,
+    "width": 10600,
+    "spriteBounds": {
+      "minX": 13,
+      "minY": 5,
+      "maxX": 35,
+      "maxY": 31,
+      "width": 23,
+      "height": 27
+    },
+    "anchor": {
+      "x": 24,
+      "y": 48
+    },
+    "groundLifts": [
+      18,
+      115
+    ]
+  }
+]
