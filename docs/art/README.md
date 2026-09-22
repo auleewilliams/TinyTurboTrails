@@ -186,8 +186,8 @@ map, Plains goal and finish. Captions remain separate from the art.
 
 ## Shared ordinary gems (#145)
 
-Ordinary world gems use `drawGem` in `src/world/renderer.ts`: one 24 x 32 logical
-pixel silhouette with its visible bottom centered on the entity anchor. Amber,
-gold (Frost) and cyan (Cove) interiors preserve biome color cues. This replaces
+Ordinary world gems use `drawGem` in `src/world/renderer.ts`: one 32 x 28 logical
+pixel brilliant-cut silhouette with its visible bottom centered on the entity
+anchor. Amber, gold (Frost) and cyan (Cove) interiors preserve biome color cues. This replaces
 the differently padded gem cells in the environment atlases; those original
 cells remain preserved as source history. See `assets/source/gems/PROVENANCE.md`.
