@@ -1,8 +1,9 @@
 # Shared ordinary gem
 
-Created for issue #145, 2026-09-22. Original code-authored geometry in
-`src/world/renderer.ts` (`drawGem`), following the existing code-native special
-star approach. No image generation, downloaded artwork or runtime service.
+Created for issue #145, 2026-09-22. The runtime geometry is original code-authored
+art in `src/world/renderer.ts` (`drawGem`), following the existing code-native
+special-star approach. It uses no generated or downloaded runtime artwork and no
+runtime service.
 
 The first implementation used an elongated 24 x 32 diamond. After visual review,
 three richer directions were explored with OpenAI ImageGen; the user selected
