@@ -25,7 +25,7 @@ grouped stone hazards and two slow moving platforms; both rides are optional
 and no route depends on timing one. Treetop Timbers adds plank trails, shallow
 rope-bridge contours, crane-hook springs and sawhorse hazards without changing
 the single-height terrain model. Sunset Site adds a construction yard at dusk,
-patrolling cement slimes, pneumatic-jack-cleared pits and one optional crane ferry. Keyboard
+patrolling hard-hat slimes, pneumatic-jack-cleared pits and one optional crane ferry. Keyboard
 and standard-controller support.
 Henry starts each run with three visible hearts. Each unblocked slime or
 hazard hit removes one pip; losing the last pip returns him to the latest
@@ -35,10 +35,10 @@ Quarry Run reuses the Plains atlas; Treetop Timbers and Sunset Site each ship a
 project-local 16-cell atlas. Frost Ridge and Sandy Cove each ship their own 16-cell atlas.
 Frost Ridge introduces clearly marked flat ice patches with reduced ground
 acceleration and braking, normal top speed, and safe snow runouts. Sandy Cove
-uses soft sand and harmless shallow water to slow running, with sparse bouncing
-jellyfish on firm ground retaining familiar slime contact damage. Both new
+uses soft sand and harmless shallow water to slow running, with sparse patrolling
+snorkel slimes on firm ground retaining familiar slime contact damage. Both new
 trails have six checkpoints and optional spring-launched bonus gems; their main
-routes can be completed without timed jumps. Moving platforms are drawn from
+routes remain forgiving, with short slime patrols to jump over. Moving platforms are drawn from
 the level's own theme colors.
 
 ## Target browsers
@@ -180,3 +180,6 @@ and 320×240. Existing gameplay frames and deterministic simulation are preserve
 No inventory, vehicles, dialogue system, persistent saves or quest mechanics are
 introduced. Child comprehension and celebration readability remain a documented
 parent-led follow-up, not an automated acceptance claim.
+
+All six trails share lavender slimes with a common body, size, speed and short,
+edge-safe patrols. Accessories vary by trail; see `gameplay-interactions.md`.

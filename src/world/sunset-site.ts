@@ -1,3 +1,4 @@
+import { withSlimePatrols, SLIME_SPEED } from './slimes';
 import type { MovingPlatform } from '../game/platforms';
 import type { LevelData, WorldEntity } from './level';
 import { contourTerrain, levelKit, type Contour } from './level-kit';
@@ -57,11 +58,12 @@ const mainGems = [
   8560, 8700, 8950, 9050, 9420, 9480, 9700, 9780, 9850, 9940,
 ].map((x, index): WorldEntity => gem(`site-gem-${String(index + 1).padStart(3, '0')}`, x));
 
-export const SUNSET_SITE: LevelData = {
+export const SUNSET_SITE: LevelData = withSlimePatrols({
   id: 'sunset',
   name: 'SUNSET SITE',
   atlas: 'site',
   theme: {
+    slimeAccessory: 'hard-hat',
     material: 'gravel',
     sky: '#e88f6a',
     ground: '#5a3b4a',
@@ -87,7 +89,7 @@ export const SUNSET_SITE: LevelData = {
   entities: [
     ...mainGems,
     // Site gate
-    thing('slime', 'site-slime-001', 600, { minX: 520, maxX: 700, speed: 36 }),
+    thing('slime', 'site-slime-001', 660, { minX: 620, maxX: 700, speed: SLIME_SPEED }),
     thing('spring', 'site-spring-001', 1060),
     gem('site-bonus-001', 1240, 50),
     decoration('site-deco-001', 330, 'cave'),
@@ -96,16 +98,16 @@ export const SUNSET_SITE: LevelData = {
     thing('hazard', 'site-hazard-001', 2400),
     thing('hazard', 'site-hazard-002', 2470),
     gem('site-bonus-002', 2435, 45),
-    thing('slime', 'site-slime-002', 3200, { minX: 3120, maxX: 3260, speed: 40 }),
+    thing('slime', 'site-slime-002', 3200, { minX: 3120, maxX: 3260, speed: SLIME_SPEED }),
     decoration('site-deco-003', 2240, 'bush'),
     decoration('site-deco-004', 2950, 'cave'),
     // Cement yard
-    thing('slime', 'site-slime-003', 3520, { minX: 3440, maxX: 3620, speed: 34 }),
-    thing('slime', 'site-slime-004', 3950, { minX: 3860, maxX: 4040, speed: 38 }),
+    thing('slime', 'site-slime-003', 3520, { minX: 3440, maxX: 3620, speed: SLIME_SPEED }),
+    thing('slime', 'site-slime-004', 3950, { minX: 3860, maxX: 4040, speed: SLIME_SPEED }),
     thing('hazard', 'site-hazard-003', 4380),
     thing('hazard', 'site-hazard-004', 4440),
     gem('site-bonus-003', 4560, 50),
-    thing('slime', 'site-slime-005', 4780, { minX: 4680, maxX: 4860, speed: 42 }),
+    thing('slime', 'site-slime-005', 4780, { minX: 4680, maxX: 4860, speed: SLIME_SPEED }),
     decoration('site-deco-005', 3350, 'bush'),
     decoration('site-deco-006', 4700, 'cave'),
     // Trench
@@ -113,7 +115,7 @@ export const SUNSET_SITE: LevelData = {
     thing('spring', 'site-spring-003', 5460),
     gem('site-bonus-004', 5540, 120, 5460),
     thing('hazard', 'site-hazard-005', 5760),
-    thing('slime', 'site-slime-006', 6250, { minX: 6150, maxX: 6350, speed: 36 }),
+    thing('slime', 'site-slime-006', 6250, { minX: 6150, maxX: 6350, speed: SLIME_SPEED }),
     thing('hazard', 'site-hazard-006', 6550),
     decoration('site-deco-007', 5950, 'bush'),
     decoration('site-deco-008', 6700, 'cave'),
@@ -121,18 +123,18 @@ export const SUNSET_SITE: LevelData = {
     thing('hazard', 'site-hazard-007', 7320),
     thing('hazard', 'site-hazard-008', 7390),
     gem('site-bonus-005', 7355, 45),
-    thing('slime', 'site-slime-007', 8200, { minX: 8080, maxX: 8300, speed: 40 }),
+    thing('slime', 'site-slime-007', 8200, { minX: 8080, maxX: 8300, speed: SLIME_SPEED }),
     decoration('site-deco-009', 7000, 'bush'),
     decoration('site-deco-010', 7950, 'cave'),
     // Sunset summit
-    thing('slime', 'site-slime-008', 8620, { minX: 8520, maxX: 8720, speed: 38 }),
+    thing('slime', 'site-slime-008', 8620, { minX: 8520, maxX: 8720, speed: SLIME_SPEED }),
     thing('spring', 'site-spring-004', 9280),
     thing('spring', 'site-spring-005', 9520),
     gem('site-bonus-006', 9600, 120, 9520),
     // Past the spring's landing zone (9640–9720), so the launch never ends in a knockback into the pit.
-    thing('slime', 'site-slime-009', 9770, { minX: 9740, maxX: 9800, speed: 32 }),
+    thing('slime', 'site-slime-009', 9770, { minX: 9740, maxX: 9800, speed: SLIME_SPEED }),
     decoration('site-deco-011', 8850, 'cave'),
     decoration('site-deco-012', 9980, 'bush'),
     ...kit.checkpointEntities(checkpoints),
   ],
-};
+});

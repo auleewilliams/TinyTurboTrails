@@ -44,7 +44,7 @@ it('loads world metadata and its atlas from the requested directory', async () =
   expect(requests).toEqual([
     '/assets/quarry/manifest.json',
     '/assets/quarry/environment.png',
-    '/assets/trails/materials.png', '/assets/trails/backdrops.webp',
+    '/assets/trails/materials.png', '/assets/trails/backdrops.webp', '/assets/slimes/slimes.png',
   ]);
 });
 
@@ -98,6 +98,7 @@ it('treats shared decorative sheets as optional while keeping the atlas required
   vi.stubGlobal('Image', FakeImage);
   const loaded = await loadFreshWorldAssets('optional-presentation');
   expect(loaded.atlas).toBeInstanceOf(FakeImage);
+  expect(loaded.slimes).toBeInstanceOf(FakeImage);
   expect(loaded.materials).toBeUndefined();
   expect(loaded.backdrops).toBeUndefined();
 });

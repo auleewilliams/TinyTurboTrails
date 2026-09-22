@@ -15,18 +15,26 @@ gameplay scenes report separation to rearm the spring. Contact state is per spri
 and clears on recovery or a new run. Replay resets the camera and immediately starts the same trail. Fall recovery places Henry at the latest checkpoint
 or the start, clears both velocities and gives a short safe-protection window.
 
-Slimes can patrol. A level entity may carry `patrol: { minX, maxX, speed }`; the
-run — not the level — owns where that entity currently is, so replay and
-`startNewRun` put every slime back where the level planted it. `advancePatrols`
-walks each patroller between its bounds at the given speed, turns it around at
-each end, and re-plants it on the terrain under its new X, so a slime on a ramp
-walks up the ramp. The per-frame delta is clamped like Henry's own step, so a
-long frame cannot teleport a slime past him. Both gameplay scenes share one
-`stepEntities` pass — patrols first, then the single contact window that used to
-be copied into each scene — and the renderer draws each entity at its run
-position. `validateLevel` rejects a patrol that leaves the level, excludes its
-own slime, crosses ground steeper than 45 degrees, or moves faster than half of
-Henry's top speed, so a patrolling slime is never unavoidable.
+All six trails use the same lavender slime body, contact damage and speed
+(36 world pixels per second). The theme selects only an accessory: Plains straw
+hat, Quarry miner helmet, Timbers leaf cap, Sunset hard hat, Frost bobble hat,
+and Cove snorkel mask. Sandy Cove no longer uses bouncing jellyfish.
+
+`withSlimePatrols` authors a short route for every slime (at most 120 pixels).
+It clips routes to connected walkable terrain, with a 20-pixel edge clearance
+for the whole 32-pixel body, and keeps them clear of checkpoints, springs and
+marked landing bands. `validateLevel` rejects routes that cross cliffs or lack
+edge clearance. Some narrow routes are shorter to preserve safe landings.
+
+The run owns each slime's position and direction. `advancePatrols` walks between
+its bounds, reverses at each end, and grounds it on the current terrain. The
+per-frame delta is clamped so a long frame cannot teleport a slime past Henry.
+Both gameplay scenes use `stepEntities`: patrols move before contact resolution.
+Pausing freezes movement; `startNewRun` restores authored positions and directions.
+
+Slimes remain hazards to avoid and cannot be defeated. Henry's possible tools
+and future interactions are deferred to GitHub issue #142. Artwork provenance
+and the reproducible atlas processor are in `assets/source/slimes/PROVENANCE.md`.
 
 Every accepted interaction emits a small event (`gem`, `special`, `checkpoint`, `damage`,
 `spring` or `recover`). The `/?scene=gameplay` preview consumes those events to

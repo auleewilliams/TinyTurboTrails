@@ -34,17 +34,18 @@ it('keeps ice on safe flats with ordinary runouts before hazards', () => {
   }
 });
 
-it('keeps Cove shallow water harmless and jellyfish on firm ground', () => {
+it('keeps Cove shallow water harmless and slimes on firm ground', () => {
   const patches = SANDY_COVE.surfaces.filter((s) => s.material);
   expect(patches.some((s) => s.material === 'sand')).toBe(true);
   expect(patches.some((s) => s.material === 'water')).toBe(true);
   expect(patches.every((s) => s.y1 === s.y2)).toBe(true);
-  const jellyfish = SANDY_COVE.entities.filter((e) => e.kind === 'slime');
-  expect(jellyfish.length).toBeGreaterThanOrEqual(3);
-  for (const jelly of jellyfish) {
-    expect(jelly.bounce).toBeDefined();
-    expect(surfaceAt(SANDY_COVE, jelly.x).material).toBeUndefined();
-    expect(patches.every((s) => jelly.x < s.x1 - 120 || jelly.x > s.x2 + 120)).toBe(true);
+  const slimes = SANDY_COVE.entities.filter((e) => e.kind === 'slime');
+  expect(slimes.length).toBeGreaterThanOrEqual(3);
+  for (const slime of slimes) {
+    expect(slime.bounce).toBeUndefined();
+    expect(slime.patrol).toBeDefined();
+    expect(surfaceAt(SANDY_COVE, slime.x).material).toBeUndefined();
+    expect(patches.every((s) => slime.x < s.x1 - 120 || slime.x > s.x2 + 120)).toBe(true);
   }
   expect(SANDY_COVE.entities.filter((e) => e.kind === 'hazard')).toHaveLength(0);
 });

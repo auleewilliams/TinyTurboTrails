@@ -49,7 +49,7 @@ No optional-challenge system from #93 is introduced.
 | Treetop Timbers | Sunset treehouses, supported woodland scenery and plank bridge valleys |
 | Sunset Site | Construction equipment, gravel, girders and an optional crane ferry |
 | Frost Ridge | Snowy mountain, authored ice patches and safe snow runouts |
-| Sandy Cove | Palms, sand, harmless shallow water and bouncing jellyfish |
+| Sandy Cove | Palms, sand, harmless shallow water and patrolling snorkel slimes |
 
 All retain forgiving, deterministic routes. Target human play duration is 3–5
 minutes with exploration; automated traversal speed does not establish this.

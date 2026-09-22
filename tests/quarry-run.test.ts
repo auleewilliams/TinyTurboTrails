@@ -51,7 +51,7 @@ function playQuarry(jump?: Jump) {
   const ledges = ofKind('crumbling-ledge');
   const ledgeApproaches = new Map(ledges.map((ledge) => [ledge.id, { distance: Infinity, x: 0, feet: 0 }]));
   const dangers = QUARRY_RUN.entities.filter((entity) => entity.kind === 'slime' || entity.kind === 'hazard');
-  let dangerIndex = 0;
+  const live = scene as unknown as { run: ReturnType<typeof createRun>; player: { onGround: boolean } };
   for (; frame < 60 * 120 && scene.screenState !== 'finish'; frame++) {
     let jumpPressed = false;
     if (pending && scene.playerX >= pending.x) {
@@ -59,11 +59,12 @@ function playQuarry(jump?: Jump) {
       jumpFrames = 40;
       pending = undefined;
     }
-    const danger = dangers[dangerIndex];
-    if (danger && scene.playerX >= danger.x - 50) {
+    // React to current patrol positions, including after checkpoint recovery.
+    const danger = dangers.map((entity) => live.run.entities.find((state) => state.id === entity.id)!)
+      .find((state) => state.x >= scene.playerX - 18 && state.x <= scene.playerX + 60);
+    if (danger && live.player.onGround) {
       jumpPressed = true;
       jumpFrames = Math.max(jumpFrames, 24);
-      dangerIndex++;
     }
     scene.update(1 / 60, { ...input, jumpPressed, jumpHeld: jumpFrames-- > 0 });
     for (const ledge of ledges) {
