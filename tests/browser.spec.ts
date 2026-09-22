@@ -6,10 +6,10 @@ import { LEVELS, QUARRY_RUN } from '../src/world/levels';
 import { DEFAULT_MOVEMENT, surfaceY } from '../src/game/movement';
 import { platformBodyAt } from '../src/game/platforms';
 import { drawSurfaceMaterials } from '../src/world/surface-materials';
-import { drawSlime, drawSpecial, drawChallengeCues, drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawWorld } from '../src/world/renderer';
+import { drawSlime, drawGem, drawSpecial, drawChallengeCues, drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawWorld } from '../src/world/renderer';
 
 /** The renderer is injected as plain functions, so every helper it calls has to travel with it. */
-const RENDERER_SOURCE = [drawSlime, drawSpecial, drawChallengeCues, drawTerrainMaterial, drawTerrainEdge, drawTrailBackdrop, drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawSurfaceMaterials].map((helper) => helper.toString()).join('\n');
+const RENDERER_SOURCE = [drawSlime, drawGem, drawSpecial, drawChallengeCues, drawTerrainMaterial, drawTerrainEdge, drawTrailBackdrop, drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawSurfaceMaterials].map((helper) => helper.toString()).join('\n');
 
 const dangerXs = (level: typeof PLAINS_LEVEL): number[] => level.entities
   .filter((entity) => entity.kind === 'slime' || entity.kind === 'hazard')
@@ -1919,4 +1919,36 @@ test('shared slime atlas failure is recoverable through retry', async ({ page })
   await Promise.all([page.waitForEvent('load'), page.getByRole('button', { name: /Retry/i }).click()]);
   await dismissOpening(page);
   await expect(page.locator('#status')).toContainText('Title');
+});
+
+test('ordinary gems share visible bounds and silhouette across all six trails', async ({ page }, info) => {
+  await page.goto('/?scene=foundation');
+  await page.addScriptTag({ content: `window.gemUnderTest = ${drawGem.toString()}; window.starUnderTest = ${drawSpecial.toString()};` });
+  const samples = await page.evaluate((atlases) => {
+    const api = window as unknown as { gemUnderTest: typeof drawGem; starUnderTest: typeof drawSpecial };
+    const canvas = document.createElement('canvas'); canvas.width = 64; canvas.height = 64;
+    const ctx = canvas.getContext('2d')!;
+    const sample = (): { mask: number[]; bounds: number[]; center: number[] } => {
+      const pixels = ctx.getImageData(0, 0, 64, 64).data;
+      const mask: number[] = [];
+      let left = 64, top = 64, right = -1, bottom = -1;
+      for (let y = 0; y < 64; y++) for (let x = 0; x < 64; x++) {
+        const alpha = pixels[(y * 64 + x) * 4 + 3];
+        mask.push(alpha);
+        if (alpha) { left = Math.min(left, x); top = Math.min(top, y); right = Math.max(right, x); bottom = Math.max(bottom, y); }
+      }
+      return { mask, bounds: [left, top, right, bottom], center: [...pixels.slice((32 * 64 + 32) * 4, (32 * 64 + 32) * 4 + 4)] };
+    };
+    const gems = atlases.map(atlas => { ctx.clearRect(0, 0, 64, 64); api.gemUnderTest(ctx, 32, 48, atlas); return sample(); });
+    ctx.clearRect(0, 0, 64, 64); api.starUnderTest(ctx, 32, 32);
+    return { gems, star: sample() };
+  }, LEVELS.map(level => level.atlas));
+  for (const gem of samples.gems) {
+    expect(gem.bounds).toEqual([20, 16, 43, 47]);
+    expect(gem.mask).toEqual(samples.gems[0].mask);
+    expect(gem.mask).not.toEqual(samples.star.mask);
+  }
+  expect(samples.gems[4].center).not.toEqual(samples.gems[0].center);
+  expect(samples.gems[5].center).not.toEqual(samples.gems[0].center);
+  await page.screenshot({ path: info.outputPath('gem-foundation.png') });
 });

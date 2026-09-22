@@ -68,6 +68,8 @@ export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, le
     const position = positionOf(entity);
     if (entity.kind === 'slime' && assets.slimes) {
       drawSlime(ctx, assets.slimes, level.theme.slimeAccessory ?? 'straw', position.x - offset.x, position.y - offset.y);
+    } else if (entity.kind === 'gem') {
+      drawGem(ctx, position.x - offset.x, position.y - offset.y, level.atlas);
     } else if (entity.kind === 'special') {
       drawSpecial(ctx, position.x - offset.x, position.y - offset.y);
     } else if (entity.kind === 'crumbling-ledge') {
@@ -106,6 +108,30 @@ export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, le
 export function drawSlime(ctx: CanvasRenderingContext2D, atlas: HTMLImageElement, accessory: SlimeAccessory, x: number, y: number): void {
   const index = { straw: 0, miner: 1, leaf: 2, 'hard-hat': 3, bobble: 4, snorkel: 5 }[accessory];
   ctx.drawImage(atlas, index * 48, 0, 48, 48, x - 24, y - 44, 48, 48);
+}
+
+/** Shared 24 x 32 pixel gem. The visible bottom is the entity's pickup anchor;
+ * biome palettes change only color, never geometry or transparent padding. */
+export function drawGem(ctx: CanvasRenderingContext2D, x: number, y: number, atlas: string): void {
+  const palette = atlas === 'cove' ? ['#087c9e', '#20d9ed', '#bdffff']
+    : atlas === 'frost' ? ['#bf780b', '#ffda55', '#fff5bb']
+    : ['#c86612', '#ffac32', '#fff0a8'];
+  x = Math.round(x); y = Math.round(y);
+  const polygon = (color: string, points: readonly (readonly [number, number])[]): void => {
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.moveTo(x + points[0][0], y + points[0][1]);
+    for (const [px, py] of points.slice(1)) ctx.lineTo(x + px, y + py);
+    ctx.closePath(); ctx.fill();
+  };
+  polygon('#10252c', [[-2, -32], [2, -32], [2, -28], [6, -28], [6, -24],
+    [10, -24], [10, -20], [12, -20], [12, -12], [10, -12], [10, -8],
+    [6, -8], [6, -4], [2, -4], [2, 0], [-2, 0], [-2, -4], [-6, -4],
+    [-6, -8], [-10, -8], [-10, -12], [-12, -12], [-12, -20],
+    [-10, -20], [-10, -24], [-6, -24], [-6, -28], [-2, -28]]);
+  polygon(palette[0], [[0, -29], [9, -18], [9, -14], [0, -3], [-9, -14], [-9, -18]]);
+  polygon(palette[1], [[0, -27], [7, -18], [0, -6], [-7, -18]]);
+  polygon(palette[2], [[0, -27], [0, -18], [-7, -18]]);
 }
 
 /** Original code-authored pixel star: a gold five-point silhouette, dark rim and

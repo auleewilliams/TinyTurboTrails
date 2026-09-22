@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { expect, it, vi } from 'vitest';
-import { drawAsset, drawSurfaceGrip, drawWorld } from '../src/world/renderer';
+import { drawAsset, drawGem, drawSurfaceGrip, drawWorld } from '../src/world/renderer';
 import type { WorldAsset, WorldAssets } from '../src/world/assets';
 import type { HenryAssets } from '../src/art/henry';
 import type { GameAudio } from '../src/core/audio';
@@ -11,7 +11,7 @@ import { createPlayer, surfaceY } from '../src/game/movement';
 import { damagePlayer, type RunState } from '../src/game/interactions';
 import { Camera } from '../src/world/camera';
 import { PLAINS_LEVEL } from '../src/world/level';
-import { QUARRY_RUN, TREETOP_TIMBERS, SUNSET_SITE, FROST_RIDGE, SANDY_COVE } from '../src/world/levels';
+import { LEVELS, QUARRY_RUN, TREETOP_TIMBERS, SUNSET_SITE, FROST_RIDGE, SANDY_COVE } from '../src/world/levels';
 import { drawTrailBackdrop } from '../src/world/trail-presentation';
 import { platformBodyAt } from '../src/game/platforms';
 
@@ -51,24 +51,25 @@ it('keeps the bottom-center anchor for assets without an override', () => {
 interface DrawnText { text: string; x: number; textAlign: CanvasTextAlign }
 interface FilledRect { x: number; y: number; width: number; height: number; fillStyle: CanvasRenderingContext2D['fillStyle'] }
 
-function recordingContext(): { ctx: CanvasRenderingContext2D; images: unknown[][]; texts: DrawnText[]; rects: FilledRect[] } {
+function recordingContext(): { ctx: CanvasRenderingContext2D; images: unknown[][]; texts: DrawnText[]; rects: FilledRect[]; moves: number[][] } {
   const images: unknown[][] = [];
   const texts: DrawnText[] = [];
   const rects: FilledRect[] = [];
+  const moves: number[][] = [];
   const noop = (): void => {};
   const ctx = {
     fillStyle: '', strokeStyle: '', lineWidth: 0, font: '', textAlign: 'left' as CanvasTextAlign,
     fillRect: (x: number, y: number, width: number, height: number) => {
       rects.push({ x, y, width, height, fillStyle: ctx.fillStyle });
     },
-    clip: noop, beginPath: noop, moveTo: noop, lineTo: noop, closePath: noop, fill: noop, stroke: noop,
+    clip: noop, beginPath: noop, moveTo: (x: number, y: number) => { moves.push([x, y]); }, lineTo: noop, closePath: noop, fill: noop, stroke: noop,
     strokeRect: noop, strokeText: noop,
     measureText: (text: string) => ({ width: text.length * 6 }),
     translate: noop, scale: noop, save: noop, restore: noop,
     drawImage: (...args: unknown[]) => { images.push(args); },
     fillText: (text: string, x: number) => { texts.push({ text, x, textAlign: ctx.textAlign }); },
   };
-  return { ctx: ctx as unknown as CanvasRenderingContext2D, images, texts, rects };
+  return { ctx: ctx as unknown as CanvasRenderingContext2D, images, texts, rects, moves };
 }
 
 const worldAssets: WorldAssets = { atlas: {} as HTMLImageElement, manifest, slimes: {} as HTMLImageElement };
@@ -175,7 +176,7 @@ it('fills joined slopes without interior edges and preserves gaps between ground
   ctx.beginPath = () => { path = []; };
   ctx.moveTo = ctx.lineTo = (x, y) => { path.push([x, y]); };
   ctx.fill = () => { fills.push(path); };
-  const level = { ...PLAINS_LEVEL, surfaces: [
+  const level = { ...PLAINS_LEVEL, entities: [], surfaces: [
     { x1: 0, y1: 198, x2: 220, y2: 198 },
     { x1: 220, y1: 198, x2: 360, y2: 158 },
     { x1: 400, y1: 158, x2: 650, y2: 158 },
@@ -273,16 +274,20 @@ it('mirrors textured ramp cells when the terrain descends to the right', () => {
 });
 
 it('draws back, world and front entities in layer order without a scenery pack', () => {
-  const { ctx, images } = recordingContext();
+  const { ctx } = recordingContext();
+  const order: string[] = [];
+  ctx.drawImage = (...args: unknown[]) => {
+    const cell = Number(args[1]) / 48 + Number(args[2]) / 48 * 4;
+    if (cell === 6 || cell === 15) order.push(cell === 6 ? 'back' : 'front');
+  };
+  ctx.fill = () => { if (ctx.fillStyle === '#ffac32') order.push('gem'); };
   const level = { ...PLAINS_LEVEL, theme: { ...PLAINS_LEVEL.theme, scenery: false }, entities: [
     { id: 'world', kind: 'gem' as const, x: 100, y: 150, asset: 'gem', layer: 'world' as const },
     { id: 'front', kind: 'decoration' as const, x: 110, y: 150, asset: 'bush', layer: 'front' as const },
     { id: 'back', kind: 'decoration' as const, x: 120, y: 150, asset: 'tree', layer: 'back' as const },
   ] };
   drawWorld(ctx, worldAssets, level, new Camera({ width: 426, height: 240, worldWidth: level.width, worldHeight: level.height }));
-  const entityCells = images.slice(-4, -1).map((call) =>
-    Number(call[1]) / manifest.cellSize + Number(call[2]) / manifest.cellSize * 4);
-  expect(entityCells).toEqual([6, 8, 15]);
+  expect(order).toEqual(['back', 'gem', 'front']);
 });
 
 const henryAssets = {
@@ -328,11 +333,11 @@ it('draws low foreground plants after Henry in both playable scenes', () => {
 });
 
 it('omits entities the run has consumed and keeps the rest', () => {
-  const { ctx, images } = recordingContext();
+  const { ctx, moves } = recordingContext();
   const camera = new Camera({ width: 426, height: 240, worldWidth: PLAINS_LEVEL.width, worldHeight: PLAINS_LEVEL.height });
   drawWorld(ctx, worldAssets, PLAINS_LEVEL, camera, (entity) => entity.id !== gem.id);
   const drawnAt = (x: number, y: number): boolean =>
-    images.some((call) => call[5] === x - 24 && call[6] === y - 48);
+    moves.some(([px, py]) => px === Math.round(x) - 2 && py === Math.round(y) - 32);
   expect(drawnAt(gem.x, gem.y)).toBe(false);
   expect(drawnAt(otherGem.x, otherGem.y)).toBe(true);
 });
@@ -341,8 +346,8 @@ it('draws every entity when a scene supplies no run state', () => {
   const { ctx, images, rects } = recordingContext();
   const camera = new Camera({ width: 426, height: 240, worldWidth: PLAINS_LEVEL.width, worldHeight: PLAINS_LEVEL.height });
   drawWorld(ctx, worldAssets, PLAINS_LEVEL, camera);
-  // Stars use original pixel geometry; all other entities still use the atlas.
-  expect(images).toHaveLength(PLAINS_LEVEL.entities.filter(entity => entity.kind !== 'special').length + 3);
+  // Gems and stars use shared geometry; other entities still use the atlas.
+  expect(images).toHaveLength(PLAINS_LEVEL.entities.filter(entity => entity.kind !== 'special' && entity.kind !== 'gem').length + 3);
   for (const star of PLAINS_LEVEL.entities.filter(entity => entity.kind === 'special')) {
     expect(rects.some(rect => rect.fillStyle === '#fff7d6' && rect.x === Math.round(star.x) - 2)).toBe(true);
   }
@@ -386,15 +391,15 @@ it('stops drawing a gem once the adventure collects it', () => {
   scene.update(1 / 60, start);
   const before = recordingContext();
   scene.render(before.ctx);
-  const gemCalls = (images: unknown[][]): number =>
-    images.filter((call) => call[5] === gem.x - 24 && call[6] === gem.y - 48).length;
-  expect(gemCalls(before.images)).toBe(1);
+  const gemCalls = (moves: number[][]): number =>
+    moves.filter(([x, y]) => x === Math.round(gem.x) - 2 && y === Math.round(gem.y) - 32).length;
+  expect(gemCalls(before.moves)).toBe(1);
   Object.assign(scene, { player: createPlayer(gem.x, PLAINS_LEVEL) });
   (scene as unknown as { player: { y: number } }).player.y = gem.y - 34;
   scene.update(1 / 60, { ...start, jumpPressed: false });
   const after = recordingContext();
   scene.render(after.ctx);
-  expect(gemCalls(after.images)).toBe(0);
+  expect(gemCalls(after.moves)).toBe(0);
 });
 
 it.each([
@@ -521,4 +526,25 @@ it('keeps friction preview labels readable after the centered loading screen', (
   new MovementPreviewScene(henryAssets).render(ctx);
   expect(texts.find(({ text }) => text === 'SLIPPERY 0.6')?.textAlign).toBe('left');
   expect(texts.find(({ text }) => text === 'GRIPPY 1.4')?.textAlign).toBe('left');
+});
+
+
+it.each(LEVELS)('draws $name gems with one bottom-anchored silhouette independent of atlas padding', (level) => {
+  const paths: number[][][] = [];
+  const ctx = {
+    fillStyle: '', beginPath: () => paths.push([]),
+    moveTo: (x: number, y: number) => paths.at(-1)!.push([x, y]),
+    lineTo: (x: number, y: number) => paths.at(-1)!.push([x, y]),
+    closePath() {}, fill() {},
+  } as unknown as CanvasRenderingContext2D;
+  drawGem(ctx, 100.25, 150.25, level.atlas);
+  const outline = paths[0];
+  expect(Math.min(...outline.map(([x]) => x))).toBe(88);
+  expect(Math.max(...outline.map(([x]) => x))).toBe(112);
+  expect(Math.min(...outline.map(([, y]) => y))).toBe(118);
+  expect(Math.max(...outline.map(([, y]) => y))).toBe(150);
+  const reference = JSON.stringify(paths);
+  paths.length = 0;
+  drawGem(ctx, 100.25, 150.25, 'plains');
+  expect(JSON.stringify(paths)).toBe(reference);
 });
