@@ -43,3 +43,19 @@ Validation so far: 538 unit tests pass; typecheck and production build pass.
 Full browser-suite results are recorded in the PR. Firefox currently fails at
 process launch (`spawn UNKNOWN`), including outside the sandbox, before any
 page or game code executes.
+
+### Final validation and limitations
+
+- `npm test`: 538 passed across 31 files.
+- `npm run typecheck` and `npm run build`: passed.
+- `npm run test:ci`: 8 passed.
+- `git diff --cached --check`: passed before commit.
+- The new six-trail pixel test passed in Chromium and WebKit, both in the initial
+  suite and in a focused single-worker rerun. Browser screenshots were inspected.
+- Full three-engine validation is **incomplete**. Firefox fails at process launch
+  with `spawn UNKNOWN`, including an escalated retry and after reinstalling its
+  Playwright runtime. A later Chromium/WebKit suite encountered five WebKit
+  `page.goto` load timeouts on audio/foundation pages and was stopped. The focused
+  two-engine rerun passed both tests but also stalled during runner teardown.
+  These failures are reported as validation limitations, not passing checks or
+  proven pre-existing defects. The PR remains draft pending a clean browser run.
