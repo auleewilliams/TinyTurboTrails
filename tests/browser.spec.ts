@@ -1944,7 +1944,7 @@ test('ordinary gems share visible bounds and silhouette across all six trails', 
     return { gems, star: sample() };
   }, LEVELS.map(level => level.atlas));
   for (const gem of samples.gems) {
-    expect(gem.bounds).toEqual([20, 16, 43, 47]);
+    expect(gem.bounds).toEqual([16, 20, 47, 47]);
     expect(gem.mask).toEqual(samples.gems[0].mask);
     expect(gem.mask).not.toEqual(samples.star.mask);
   }

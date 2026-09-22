@@ -280,7 +280,7 @@ it('draws back, world and front entities in layer order without a scenery pack',
     const cell = Number(args[1]) / 48 + Number(args[2]) / 48 * 4;
     if (cell === 6 || cell === 15) order.push(cell === 6 ? 'back' : 'front');
   };
-  ctx.fill = () => { if (ctx.fillStyle === '#ffac32') order.push('gem'); };
+  ctx.fill = () => { if (ctx.fillStyle === '#f58b16' && order.at(-1) !== 'gem') order.push('gem'); };
   const level = { ...PLAINS_LEVEL, theme: { ...PLAINS_LEVEL.theme, scenery: false }, entities: [
     { id: 'world', kind: 'gem' as const, x: 100, y: 150, asset: 'gem', layer: 'world' as const },
     { id: 'front', kind: 'decoration' as const, x: 110, y: 150, asset: 'bush', layer: 'front' as const },
@@ -337,7 +337,7 @@ it('omits entities the run has consumed and keeps the rest', () => {
   const camera = new Camera({ width: 426, height: 240, worldWidth: PLAINS_LEVEL.width, worldHeight: PLAINS_LEVEL.height });
   drawWorld(ctx, worldAssets, PLAINS_LEVEL, camera, (entity) => entity.id !== gem.id);
   const drawnAt = (x: number, y: number): boolean =>
-    moves.some(([px, py]) => px === Math.round(x) - 2 && py === Math.round(y) - 32);
+    moves.some(([px, py]) => px === Math.round(x) - 10 && py === Math.round(y) - 28);
   expect(drawnAt(gem.x, gem.y)).toBe(false);
   expect(drawnAt(otherGem.x, otherGem.y)).toBe(true);
 });
@@ -392,7 +392,7 @@ it('stops drawing a gem once the adventure collects it', () => {
   const before = recordingContext();
   scene.render(before.ctx);
   const gemCalls = (moves: number[][]): number =>
-    moves.filter(([x, y]) => x === Math.round(gem.x) - 2 && y === Math.round(gem.y) - 32).length;
+    moves.filter(([x, y]) => x === Math.round(gem.x) - 10 && y === Math.round(gem.y) - 28).length;
   expect(gemCalls(before.moves)).toBe(1);
   Object.assign(scene, { player: createPlayer(gem.x, PLAINS_LEVEL) });
   (scene as unknown as { player: { y: number } }).player.y = gem.y - 34;
@@ -539,10 +539,11 @@ it.each(LEVELS)('draws $name gems with one bottom-anchored silhouette independen
   } as unknown as CanvasRenderingContext2D;
   drawGem(ctx, 100.25, 150.25, level.atlas);
   const outline = paths[0];
-  expect(Math.min(...outline.map(([x]) => x))).toBe(88);
-  expect(Math.max(...outline.map(([x]) => x))).toBe(112);
-  expect(Math.min(...outline.map(([, y]) => y))).toBe(118);
+  expect(Math.min(...outline.map(([x]) => x))).toBe(84);
+  expect(Math.max(...outline.map(([x]) => x))).toBe(116);
+  expect(Math.min(...outline.map(([, y]) => y))).toBe(122);
   expect(Math.max(...outline.map(([, y]) => y))).toBe(150);
+  expect(paths).toHaveLength(10);
   const reference = JSON.stringify(paths);
   paths.length = 0;
   drawGem(ctx, 100.25, 150.25, 'plains');

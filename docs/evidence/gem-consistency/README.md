@@ -33,8 +33,12 @@ the entity position. Frost keeps a gold interior and Cove keeps cyan; other
 trails use amber. A dark rim and elongated diamond distinguish gems from stars.
 The original atlas cells and all level data remain preserved.
 
-`after.png` repeats the diagnostic six-level composition above with the new
-renderer. Browser pixel coverage confirms identical visible bounds and alpha
+`after.png` records the first elongated replacement. After visual review, the
+user selected the richer cut-diamond direction C from the ImageGen exploration
+board in `assets/source/gems/cut-diamond-concepts.png`.
+
+`after-cut-diamond.png` repeats the diagnostic six-level composition with the
+selected 32 x 28 px brilliant-cut design. Browser pixel coverage confirms identical visible bounds and alpha
 masks for every trail, different biome interior colors, and a silhouette distinct
 from special stars. Existing renderer tests cover disappearance after pickup and
 layer ordering.
