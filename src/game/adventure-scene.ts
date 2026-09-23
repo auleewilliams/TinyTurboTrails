@@ -38,8 +38,9 @@ export const FINISH_LAYOUT = {
 
 export const CELEBRATION_SIZE = 48;
 
-export function finishGemsText(gems: number): string {
-  return `${gems} ${gems === 1 ? 'gem' : 'gems'} collected`;
+/** Collected against the trail's total, in the same shape as the star result. */
+export function finishGemsText(gems: number, total: number): string {
+  return `GEMS ${gems}/${total}`;
 }
 
 export function celebrationHenryRect(anchor: { x: number; y: number }, jump: number): Rect {
@@ -89,6 +90,7 @@ export class AdventureScene implements Scene {
   get screenState(): ScreenController['state'] | 'story' { return this.storyArtwork && this.story.active ? 'story' : this.screens.state; }
   get storyDescription(): string { return this.screenState === 'story' ? STORY_DESCRIPTIONS[this.story.page] : ''; }
   get gemTotal(): number { return this.screens.gems; }
+  get trailGemTotal(): number { return this.run.gemTotal; }
   get specialTotal(): number { return this.run.collectedSpecials.size; }
   get playerX(): number { return this.player.x; }
   get playerY(): number { return this.player.y; }
@@ -355,7 +357,7 @@ export class AdventureScene implements Scene {
     ctx.fillText('TRAIL COMPLETE!', FINISH_LAYOUT.centerX, title.baseline);
     ctx.fillStyle = '#e9f2df';
     ctx.font = `${gems.size}px monospace`;
-    ctx.fillText(finishGemsText(this.screens.gems), this.run.specialTotal ? 132 : FINISH_LAYOUT.centerX, gems.baseline);
+    ctx.fillText(finishGemsText(this.screens.gems, this.run.gemTotal), this.run.specialTotal ? 132 : FINISH_LAYOUT.centerX, gems.baseline);
     if (this.run.specialTotal) {
       ctx.fillStyle = '#ffda75';
       ctx.fillText(`STARS ${this.specialTotal}/${this.run.specialTotal}`, 292, gems.baseline);
