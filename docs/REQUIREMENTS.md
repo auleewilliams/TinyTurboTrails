@@ -114,6 +114,15 @@ New runs reset all simulation and presentation state. Map return retains the
 completed selection and gives brief nonblocking feedback; page reload clears
 cosmetic completion badges. Held input must not cross a screen boundary.
 
+The selected map trail's preview panel shows the session best for gems and stars,
+independently (#136). Totals derive from level data.
+Results appear only after completing that trail, never decrease during the page
+session and clear on reload. Trails without stars omit that result. This state
+is cosmetic, never passed to simulation or storage, and never gates a trail.
+Symbols and accessible landmark descriptions identify each reward without
+relying on colour. Previews, results, navigation targets and prompts stay clear
+of each other at native resolution and in small windows.
+
 Every route has a quiet material fill and illustrated contour edge, including
 Plains exposed rock sections, Quarry stone, Timbers wood, construction gravel,
 Frost snow over rock and Cove sand. Grip cues derive independently from authored

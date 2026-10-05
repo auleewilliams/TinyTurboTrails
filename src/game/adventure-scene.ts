@@ -1,4 +1,4 @@
-import { drawOverworld, MAP_POINTS, TrailSession, type MenuTarget } from './overworld';
+import { drawOverworld, MAP_POINTS, OVERWORLD_LAYOUT, TrailSession, type MenuTarget } from './overworld';
 import { musicForLevel } from '../core/music';
 import type { GameAudio } from '../core/audio';
 import type { InputFrame, InputSource } from '../core/input';
@@ -164,7 +164,7 @@ export class AdventureScene implements Scene {
     if (this.player.x >= this.level.finish.x && this.screens.state === 'playing') {
       this.screens.complete(this.run.collectedGems.size);
       this.celebration.reset();
-      this.session.mark(this.level);
+      this.session.mark(this.level, this.run.collectedGems.size, this.run.collectedSpecials.size);
       this.finishIndex = 0;
       this.menuArmed = false;
       this.selectionDirection = 0;
@@ -207,7 +207,7 @@ export class AdventureScene implements Scene {
   }
 
   private drawMap(ctx: CanvasRenderingContext2D): void {
-    drawOverworld(ctx, LEVELS, this.selectedIndex, this.session.completed, this.titleArtwork, this.landmarks, this.preview(), this.mapBackground);
+    drawOverworld(ctx, LEVELS, this.selectedIndex, this.session.results, this.titleArtwork, this.landmarks, this.preview(), this.mapBackground);
     const target = MAP_POINTS[this.selectedIndex];
     const moving = !this.reducedMotion && Math.hypot(target[0] - this.marker.x, target[1] - this.marker.y) > 2;
     const clip = this.henry.manifest.animations[moving ? 'run' : 'idle'];
@@ -222,7 +222,10 @@ export class AdventureScene implements Scene {
       ctx.font = '8px monospace'; ctx.fillStyle = '#17333b';
       ctx.fillText(this.inputSource === 'controller' ? 'View' : 'R', 381, 44);
       // The selected Plains thumbnail pictures the same neighbour and arch as the opening.
-      if (this.selectedIndex === 0) drawStoryPicture(ctx, this.storyArtwork, 2, 287, 79, 126, 84);
+      if (this.selectedIndex === 0) {
+        const { x, y, width, height } = OVERWORLD_LAYOUT.storyPreview;
+        drawStoryPicture(ctx, this.storyArtwork, 2, x, y, width, height);
+      }
     }
     if (this.session.returnedSeconds > 0) {
       ctx.fillStyle = '#17333b'; ctx.fillText('Trail complete! ✓', 124, 49);
@@ -277,9 +280,9 @@ export class AdventureScene implements Scene {
     if (this.screenState === 'story') return this.story.targets.map((target, index) => ({ ...target, action: () => this.activateStory(index) }));
     if (this.screens.state === 'title') return [
       ...LEVELS.map((level, index) => ({ label: level.name, x: MAP_POINTS[index][0] - 35, y: MAP_POINTS[index][1] - 30,
-        description: this.session.completed.has(level.id) ? 'Completed this session' : 'Ready to explore',
+        description: this.session.description(level),
         width: 70, height: 60, selected: index === this.selectedIndex, action: () => this.selectDestination(index) })),
-      { label: `Play ${this.selectedLevelName}`, x: 298, y: 180, width: 104, height: 27, action: () => this.startSelected() },
+      { label: `Play ${this.selectedLevelName}`, ...OVERWORLD_LAYOUT.play, action: () => this.startSelected() },
       ...(this.storyArtwork ? [{ label: 'Replay story', nativeSpace: true, description: 'Pictures • R key or controller View button', x: 367, y: 7, width: 47, height: 29, action: () => this.openStory() }] : []),
     ];
     if (this.screens.state === 'finish') return [...this.finishActions.map((label, index) => ({
