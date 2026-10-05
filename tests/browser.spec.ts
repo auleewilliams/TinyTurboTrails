@@ -704,7 +704,7 @@ test('adventure can complete the forgiving route and replay directly with a fres
   await page.keyboard.up('ArrowRight');
   await expect(page.locator('#status')).toContainText('Adventure preview · Finish', { timeout: 5000 });
   const finishStatus = await page.locator('#status').innerText();
-  expect(finishStatus).toMatch(/Gems [1-9]\d*/);
+  expect(finishStatus).toMatch(new RegExp(`Gems [1-9]\\d*/${PLAINS_LEVEL.entities.filter((entity) => entity.kind === 'gem').length}\\b`));
   const celebrationPixels = await page.locator('canvas').evaluate((element) => {
     const canvas = element as HTMLCanvasElement;
     const ctx = canvas.getContext('2d')!;

@@ -30,6 +30,7 @@ export interface RunState {
   seconds: number;
   collectedGems: Set<string>;
   collectedSpecials: Set<string>;
+  gemTotal: number;
   specialTotal: number;
   springContacts: Set<string>;
   checkpointId: string | null;
@@ -50,9 +51,13 @@ function placeEntities(level: LevelData): EntityState[] {
   }));
 }
 
+function countEntities(level: LevelData, kind: 'gem' | 'special'): number {
+  return level.entities.filter((entity) => entity.kind === kind).length;
+}
+
 export function createRun(level: LevelData): RunState {
   return { seconds: 0, collectedGems: new Set(), collectedSpecials: new Set(),
-    specialTotal: level.entities.filter((entity) => entity.kind === 'special').length,
+    gemTotal: countEntities(level, 'gem'), specialTotal: countEntities(level, 'special'),
     springContacts: new Set(), checkpointId: null,
     health: MAX_HEALTH, healthFlashPip: null, healthFlashSeconds: 0, invulnerableSeconds: 0,
     entities: placeEntities(level) };
@@ -62,7 +67,8 @@ export function startNewRun(run: RunState, level: LevelData): void {
   run.seconds = 0;
   run.collectedGems.clear();
   run.collectedSpecials.clear();
-  run.specialTotal = level.entities.filter((entity) => entity.kind === 'special').length;
+  run.gemTotal = countEntities(level, 'gem');
+  run.specialTotal = countEntities(level, 'special');
   run.springContacts.clear();
   run.checkpointId = null;
   run.health = MAX_HEALTH;
