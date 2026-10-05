@@ -52,6 +52,28 @@ separate issues or pull requests.
 ## Issue Tracker Access
 
 Track work in [GitHub Issues](https://github.com/auleewilliams/TinyTurboTrails/issues).
+
+Before recommending an issue, creating a worktree or branch, or starting
+implementation, check both open issues and open pull requests, including drafts.
+An issue remaining open does not mean its implementation has not started; it
+usually stays open until the linked PR merges.
+
+```sh
+gh pr list --repo auleewilliams/TinyTurboTrails --state open --limit 100
+gh pr view 123 --repo auleewilliams/TinyTurboTrails
+gh pr diff 123 --repo auleewilliams/TinyTurboTrails
+```
+
+Replace `123` with a candidate PR number. Inspect linked issues, descriptions,
+branches and diffs for overlapping work; do not rely on issue status or PR titles
+alone. If more than 100 PRs are open, retrieve the remaining results too. When an
+existing PR covers the issue, report its URL and continue that implementation or
+recommend uncovered work instead of creating a duplicate. For dependent work,
+build on the existing PR, state the dependency, and scope the new PR to the
+remaining issue. Create a competing implementation only when the user explicitly
+requests one. Recheck open PRs immediately before opening a new PR, since another
+implementation may have appeared during the task.
+
 Use the authenticated GitHub CLI with an explicit repository:
 
 ```sh
