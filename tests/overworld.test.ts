@@ -1,6 +1,7 @@
-import { expect, it } from 'vitest';
+import { expect, it, vi } from 'vitest';
 import { AdventureScene } from '../src/game/adventure-scene';
-import { MAP_POINTS } from '../src/game/overworld';
+import { drawOverworld, MAP_POINTS, OVERWORLD_LAYOUT, TrailSession } from '../src/game/overworld';
+import { rewardResultRect } from '../src/game/reward-result';
 import { LEVELS } from '../src/world/levels';
 import { createPlayer, type Player } from '../src/game/movement';
 import { createRun, type RunState } from '../src/game/interactions';
@@ -24,6 +25,8 @@ it.each(LEVELS.map((level, index) => ({ level, index })))('resets every run doma
     live.player.x = level.finish.x;
     scene.update(1 / 60, neutral);
     expect(scene.screenState).toBe('finish');
+    const result = { gems: live.run.collectedGems.size, stars: live.run.collectedSpecials.size };
+    expect(result.gems).toBeGreaterThanOrEqual(1);
     scene.activateFinish(action);
     const next = LEVELS[index + (action === 'Next trail' ? 1 : 0)];
     expect(scene.screenState).toBe('playing');
@@ -33,7 +36,7 @@ it.each(LEVELS.map((level, index) => ({ level, index })))('resets every run doma
     expect(live.platforms).toEqual(platformBodiesAt(next.platforms, 0));
     expect(live.feedback.effects).toEqual([]);
     expect(live.elapsed).toBe(0);
-    expect(scene.session.completed).toEqual(new Set([level.id]));
+    expect(scene.session.results).toEqual(new Map([[level.id, result]]));
   }
 });
 
@@ -41,6 +44,8 @@ it.each(LEVELS.map((level, index) => ({ level, index })))('returns to $level.nam
   const scene = make(index); scene.startSelected();
   (scene as unknown as Live).player.x = level.finish.x;
   scene.update(1 / 60, neutral);
+  const live = scene as unknown as Live;
+  const result = { gems: live.run.collectedGems.size, stars: live.run.collectedSpecials.size };
   expect(scene.menuTargets.some(target => target.label === 'Next trail')).toBe(index < LEVELS.length - 1);
   scene.activateFinish('Choose trail');
   expect(scene.screenState).toBe('title');
@@ -51,7 +56,76 @@ it.each(LEVELS.map((level, index) => ({ level, index })))('returns to $level.nam
   scene.update(1 / 60, neutral);
   scene.update(1 / 60, { ...neutral, horizontal: 1 });
   expect(scene.selectedLevelName).toBe(LEVELS[(index + 1) % LEVELS.length].name);
-  expect(make(index).session.completed.size).toBe(0);
+  expect(scene.session.results.get(level.id)).toEqual(result);
+  expect(make(index).session.results.size).toBe(0);
+});
+
+it('retains each collectible best independently when replay results are worse', () => {
+  const session = new TrailSession();
+  session.mark(LEVELS[0], 12, 2);
+  session.mark(LEVELS[0], 9, 3);
+  session.mark(LEVELS[0], 1, 0);
+  session.mark(LEVELS[1], 5, 1);
+  expect(session.results.get(LEVELS[0].id)).toEqual({ gems: 12, stars: 3 });
+  expect(session.results.get(LEVELS[1].id)).toEqual({ gems: 5, stars: 1 });
+  expect(session.results.has(LEVELS[2].id)).toBe(false);
+  expect(new TrailSession().results.size).toBe(0);
+});
+
+it('records a finished run and preserves it through a worse replay and a new trail', () => {
+  const scene = make(); scene.startSelected();
+  const live = scene as unknown as Live;
+  live.run.collectedGems.add('gem-001'); live.run.collectedGems.add('gem-002');
+  live.run.collectedSpecials.add('star-001');
+  live.player.x = LEVELS[0].finish.x;
+  scene.update(1 / 60, neutral);
+  expect(scene.session.results.get(LEVELS[0].id)).toEqual({ gems: 2, stars: 1 });
+  scene.activateFinish('Replay');
+  expect(live.run).toEqual(createRun(LEVELS[0]));
+  live.player.x = LEVELS[0].finish.x;
+  scene.update(1 / 60, neutral);
+  scene.activateFinish('Choose trail');
+  expect(scene.session.results.get(LEVELS[0].id)).toEqual({ gems: 2, stars: 1 });
+  expect(scene.menuTargets[0].description).toBe(`Session best: 2 of ${live.run.gemTotal} gems, 1 of 3 stars`);
+  scene.selectDestination(1); scene.startSelected();
+  expect(live.run).toEqual(createRun(LEVELS[1]));
+  expect(scene.session.results.get(LEVELS[0].id)).toEqual({ gems: 2, stars: 1 });
+});
+
+function overlaps(a: { x: number; y: number; width: number; height: number }, b: typeof a): boolean {
+  return a.x < b.x + b.width && b.x < a.x + a.width && a.y < b.y + b.height && b.y < a.y + a.height;
+}
+
+it.each(LEVELS)('keeps $name session symbols and counts clear of previews, controls and prompts', level => {
+  const { panel, preview, storyPreview, results, play } = OVERWORLD_LAYOUT;
+  const gemTotal = level.entities.filter(entity => entity.kind === 'gem').length;
+  const starTotal = level.entities.filter(entity => entity.kind === 'special').length;
+  const row = [rewardResultRect(`${gemTotal}/${gemTotal}`, starTotal ? results.gemCenter : results.center, results.baseline)];
+  if (starTotal) row.push(rewardResultRect(`${starTotal}/${starTotal}`, results.starCenter, results.baseline));
+  for (const bounds of row) {
+    expect(bounds.x).toBeGreaterThanOrEqual(panel.x);
+    expect(bounds.x + bounds.width).toBeLessThanOrEqual(panel.x + panel.width);
+    expect(bounds.y).toBeGreaterThanOrEqual(panel.y);
+    expect(bounds.y + bounds.height).toBeLessThan(220);
+    for (const other of [preview, storyPreview, play, ...make().menuTargets]) expect(overlaps(bounds, other)).toBe(false);
+  }
+  if (row.length === 2) expect(overlaps(row[0], row[1])).toBe(false);
+});
+
+it.each(LEVELS.map((level, index) => ({ level, index })))('draws only visited $level.name results, omitting absent stars', ({ level, index }) => {
+  const methods = ['save', 'restore', 'fillRect', 'drawImage', 'fillText', 'strokeRect', 'translate', 'scale', 'beginPath', 'moveTo', 'lineTo', 'closePath', 'fill'];
+  const ctx = Object.fromEntries(methods.map(name => [name, vi.fn()])) as unknown as CanvasRenderingContext2D;
+  const text = vi.mocked(ctx.fillText);
+  const session = new TrailSession();
+  const numericRows = () => text.mock.calls.map(([label]) => label).filter(label => /^\d+\/\d+$/.test(label));
+  const render = () => drawOverworld(ctx, LEVELS, index, session.results, { naturalWidth: 1, naturalHeight: 1 } as HTMLImageElement);
+  render(); expect(numericRows()).toEqual([]);
+  expect(session.description(level)).toBe('Ready to explore');
+  const gemTotal = level.entities.filter(entity => entity.kind === 'gem').length;
+  const starTotal = level.entities.filter(entity => entity.kind === 'special').length;
+  session.mark(level, 0, 0); text.mockClear(); render();
+  expect(numericRows()).toEqual([`0/${gemTotal}`, ...(starTotal ? [`0/${starTotal}`] : [])]);
+  expect(session.description(level)).toBe(`Session best: 0 of ${gemTotal} gems${starTotal ? `, 0 of ${starTotal} stars` : ''}`);
 });
 
 it('requires neutral input after finishing and never advances gameplay on the map', () => {

@@ -43,7 +43,10 @@ The finish buttons show Replay, Next and Trails with large symbols; their access
 names remain Replay, Next trail and Choose trail. Replay starts the same trail fresh. Next trail starts the next registered trail;
 Choose trail returns to the map. Checkpoint recovery retains gems and special
 stars; replay, changing trails and reload clear the run's stars. Completion
-badges last for this page session only; reloading clears them. Nothing is saved
+badges and each trail's best gem/star results last for this page session only;
+the selected trail's map panel shows those results. Replaying with fewer pickups
+keeps the earlier best for each kind. Reloading clears all
+session results. Nothing is saved
 to browser storage or a server. See the [adventure guide](docs/plains-adventure.md).
 
 ## Develop

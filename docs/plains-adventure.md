@@ -23,7 +23,9 @@ heal; damage removes a heart, and losing all hearts or falling recovers to the
 latest checkpoint with health refilled and gems retained. See
 [interaction rules](gameplay-interactions.md) and [movement](gameplay-movement.md).
 
-The finish shows the gem result and Henry's celebration, with three actions:
+The finish shows GEMS collected/total, with a matching star result
+only on trails that offer stars, and Henry's celebration. Totals come from the
+trail's entities. It offers three actions:
 
 - **Replay:** immediately starts a fresh run of the same trail.
 - **Next trail:** immediately starts the next registered trail; absent at Sandy Cove.
@@ -36,9 +38,13 @@ the finish or map before another keyboard/controller confirmation is accepted.
 Replay is initially selected for continuity with earlier controls.
 
 New runs reset player, camera, health, checkpoint, collectibles, platforms,
-entity animation, effects and HUD hints together. Cosmetic session badges live
-outside run state. Reload clears every badge; there is no storage or server save.
-No optional-challenge system from #93 is introduced.
+entity animation, effects and HUD hints together. Cosmetic session badges and
+best gem/star counts live outside run state. Completing a trail records each
+kind's best count independently; a worse replay never lowers it. The selected
+trail's map panel shows symbol-and-count results beneath its preview. Unvisited
+trails have no result placeholder, and trails without stars have no star result.
+Accessible landmark descriptions include the same session counts. Reload clears
+every badge and result; there is no storage or server save.
 
 ## Trails
 

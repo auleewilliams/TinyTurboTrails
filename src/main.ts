@@ -58,7 +58,7 @@ if (!context) {
     if (!(scene instanceof AdventureScene)) return '';
     canvas.setAttribute('aria-label', scene.storyDescription || 'Tiny Turbo Trails game');
     const state = scene.screenState[0].toUpperCase() + scene.screenState.slice(1);
-    return ` · ${state}${scene.screenState === 'finish' ? ` · Gems ${scene.gemTotal}` : ''}${debugAdventure ? ` · X ${Math.round(scene.playerX)} Y ${Math.round(scene.playerY)} V ${Math.round(scene.playerVelocityX)} F ${scene.playerFacing}` : ''}`;
+    return ` · ${state}${scene.screenState === 'finish' ? ` · Gems ${scene.gemTotal}/${scene.trailGemTotal}` : ''}${debugAdventure ? ` · X ${Math.round(scene.playerX)} Y ${Math.round(scene.playerY)} V ${Math.round(scene.playerVelocityX)} F ${scene.playerFacing}` : ''}`;
   };
 
   const previewStatus = (): string => `${artPreview ? 'Art' : movementPreview ? 'Movement' : worldPreview ? 'World' : gameplayPreview ? 'Gameplay' : adventure ? 'Adventure' : 'Foundation'} preview${adventure ? adventureStatus() : ''} · ${inputSource === 'controller' ? 'Start' : 'Escape'} to pause · ${muted ? 'Muted · M to unmute' : 'M to mute'}`;
