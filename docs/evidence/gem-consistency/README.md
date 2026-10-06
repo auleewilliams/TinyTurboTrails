@@ -26,9 +26,9 @@ Recommendation: establish one ordinary-gem silhouette, visible size and anchor a
 - Focused existing Vitest suites: biome-gameplay, quarry-run, sunset-site, treetop-timbers, interactions, world. **247 tests passed across six files.**
 - Shared code confirms one-count-per-ID, disappearance after pickup, retention on recovery, and reset on a new run. No new cross-browser gameplay sweep was performed.
 
-## Fix for issue #145
+## Initial fix for issue #145 (historical)
 
-Ordinary gems now use a shared 24 x 32 px code-native diamond, bottom-centered on
+The initial fix used a shared 24 x 32 px code-native diamond, bottom-centered on
 the entity position. Frost keeps a gold interior and Cove keeps cyan; other
 trails use amber. A dark rim and elongated diamond distinguish gems from stars.
 The original atlas cells and all level data remain preserved.
@@ -48,7 +48,7 @@ Full browser-suite results are recorded in the PR. Firefox currently fails at
 process launch (`spawn UNKNOWN`), including outside the sandbox, before any
 page or game code executes.
 
-### Final validation and limitations
+### Initial validation and limitations
 
 - `npm test`: 538 passed across 31 files.
 - `npm run typecheck` and `npm run build`: passed.
@@ -63,3 +63,40 @@ page or game code executes.
   two-engine rerun passed both tests but also stalled during runner teardown.
   These failures are reported as validation limitations, not passing checks or
   proven pre-existing defects. The PR remains draft pending a clean browser run.
+
+## Sprite correction for PR #149 — 2026-10-06
+
+The selected concept was previously approximated by polygons with a near-black
+rim. The current renderer displays transparent sprite pixels derived from the
+selected column C artwork. All three palettes share a 32 x 24 visible footprint,
+alpha mask and bottom-center pickup anchor. The broad proportions, bright edges
+and internal facets come from the generated cutout, without an added outline.
+
+- `after-sprites.png`: six controlled `AdventureScene` renders with Henry and the
+  HUD at native 426 x 240 resolution, plus enlarged views of the shipped sprites.
+  These are renderer fixtures, not six completed runs.
+- `sprite-play.png`: normal Plains gameplay at a 1280 x 800 browser viewport,
+  entered through Skip story and Play PLAINS.
+- `sprite-collected.png`: the same session after holding ArrowRight until the
+  HUD displays GEMS 1, then pressing Escape. The first gem has disappeared and
+  its +1 feedback is visible. No page errors were observed.
+
+Reproduce with `npm run dev -- --port 4175 --strictPort`, followed by
+`node scripts/capture-gems.mjs`. Source, exact generation prompt and atlas
+preparation are documented in `assets/source/gems/PROVENANCE.md`.
+
+Current verification:
+
+- `npm test`: 564 passed across 33 files.
+- `npm run typecheck`, `npm run build`, `npm run test:ci` (8 tests), and
+  `git diff --check`: passed.
+- Focused Chromium/WebKit browser checks: all eight test bodies passed, covering
+  six-trail sprite bounds/masks/palettes, gem/slime asset retry, and material
+  rendering with the new required sprite loaded.
+- Broader Chromium/WebKit suite: 85 passed, one skipped and 70 did not run before
+  the configured ten-minute suite limit. Completed checks include collection and
+  disappearance, layer rendering, traversal, camera recovery and replay. Suite
+  and teardown timeout errors mean this is not a complete passing browser run.
+- Firefox's two focused gem checks fail before game code runs with
+  `browserType.launch: spawn UNKNOWN`, including an attempt outside the sandbox.
+  The PR remains draft with three-engine verification incomplete.

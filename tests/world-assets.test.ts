@@ -44,7 +44,7 @@ it('loads world metadata and its atlas from the requested directory', async () =
   expect(requests).toEqual([
     '/assets/quarry/manifest.json',
     '/assets/quarry/environment.png',
-    '/assets/trails/materials.png', '/assets/trails/backdrops.webp', '/assets/slimes/slimes.png',
+    '/assets/trails/materials.png', '/assets/trails/backdrops.webp', '/assets/slimes/slimes.png', '/assets/gems/gems.png',
   ]);
 });
 
@@ -70,6 +70,7 @@ it('loads each requested world atlas once', async () => {
   const worlds = await loadWorldAssetMap(['plains', 'timbers', 'plains']);
 
   expect(Object.keys(worlds)).toEqual(['plains', 'timbers']);
+  expect(worlds.plains.gems).toBe(worlds.timbers.gems);
   expect(requests).toEqual([
     '/assets/plains/manifest.json', '/assets/timbers/manifest.json',
     '/assets/plains/environment.png', '/assets/timbers/environment.png',
@@ -99,6 +100,7 @@ it('treats shared decorative sheets as optional while keeping the atlas required
   const loaded = await loadFreshWorldAssets('optional-presentation');
   expect(loaded.atlas).toBeInstanceOf(FakeImage);
   expect(loaded.slimes).toBeInstanceOf(FakeImage);
+  expect(loaded.gems).toBeInstanceOf(FakeImage);
   expect(loaded.materials).toBeUndefined();
   expect(loaded.backdrops).toBeUndefined();
 });

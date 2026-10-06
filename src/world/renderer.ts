@@ -69,7 +69,7 @@ export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, le
     if (entity.kind === 'slime' && assets.slimes) {
       drawSlime(ctx, assets.slimes, level.theme.slimeAccessory ?? 'straw', position.x - offset.x, position.y - offset.y);
     } else if (entity.kind === 'gem') {
-      drawGem(ctx, position.x - offset.x, position.y - offset.y, level.atlas);
+      drawGem(ctx, assets.gems, position.x - offset.x, position.y - offset.y, level.atlas);
     } else if (entity.kind === 'special') {
       drawSpecial(ctx, position.x - offset.x, position.y - offset.y);
     } else if (entity.kind === 'crumbling-ledge') {
@@ -110,41 +110,11 @@ export function drawSlime(ctx: CanvasRenderingContext2D, atlas: HTMLImageElement
   ctx.drawImage(atlas, index * 48, 0, 48, 48, x - 24, y - 44, 48, 48);
 }
 
-/** Shared 32 x 28 pixel brilliant-cut gem. The visible bottom is the entity's
- * pickup anchor; biome palettes change only color, never geometry or padding. */
-export function drawGem(ctx: CanvasRenderingContext2D, x: number, y: number, atlas: string): void {
-  const palette = atlas === 'cove'
-    ? ['#064e70', '#087c9e', '#0baac7', '#20d9ed', '#70eff6', '#bdffff', '#07344c']
-    : atlas === 'frost'
-      ? ['#70460b', '#a7670b', '#d69218', '#ffcb3d', '#ffe27a', '#fff5bb', '#493108']
-      : ['#713309', '#a94a0b', '#d9660d', '#f58b16', '#ffb52b', '#ffe08a', '#482306'];
-  x = Math.round(x); y = Math.round(y);
-  const polygon = (color: string, points: readonly (readonly [number, number])[]): void => {
-    ctx.fillStyle = color;
-    ctx.beginPath();
-    ctx.moveTo(x + points[0][0], y + points[0][1]);
-    for (const [px, py] of points.slice(1)) ctx.lineTo(x + px, y + py);
-    ctx.closePath(); ctx.fill();
-  };
-  // A two-pixel stepped rim keeps the silhouette crisp without a heavy outline.
-  polygon('#10252c', [[-10, -28], [10, -28], [10, -27], [14, -27], [14, -25],
-    [16, -25], [16, -21], [14, -21], [14, -18], [11, -18], [11, -16],
-    [9, -16], [9, -14], [7, -14], [7, -12], [5, -12], [5, -9],
-    [3, -9], [3, -5], [1, -5], [1, 0], [-1, 0], [-1, -5], [-3, -5],
-    [-3, -9], [-5, -9], [-5, -12], [-7, -12], [-7, -14], [-9, -14],
-    [-9, -16], [-11, -16], [-11, -18], [-14, -18], [-14, -21],
-    [-16, -21], [-16, -25], [-14, -25], [-14, -27], [-10, -27]]);
-  // Crown: a broad table with alternating facets and one small hard highlight.
-  polygon(palette[2], [[-10, -26], [-5, -26], [-8, -20], [-13, -22]]);
-  polygon(palette[4], [[-5, -26], [1, -26], [-2, -20], [-8, -20]]);
-  polygon(palette[5], [[1, -26], [7, -26], [9, -20], [-2, -20]]);
-  polygon(palette[3], [[7, -26], [10, -26], [13, -23], [10, -20], [9, -20]]);
-  polygon(palette[5], [[-5, -25], [-1, -25], [-3, -22], [-7, -22]]);
-  // Pavilion: long triangular facets converge on the bottom pickup anchor.
-  polygon(palette[1], [[-13, -22], [-8, -20], [-2, -20], [0, -3]]);
-  polygon(palette[3], [[-2, -20], [3, -20], [0, -3]]);
-  polygon(palette[0], [[3, -20], [10, -20], [13, -23], [0, -3]]);
-  polygon(palette[6], [[10, -20], [13, -23], [11, -19], [0, -3]]);
+/** Draw the actual cut-diamond sprite, with its visible bottom at the pickup
+ * anchor. All three palette cells share the source artwork and alpha mask. */
+export function drawGem(ctx: CanvasRenderingContext2D, gems: HTMLImageElement, x: number, y: number, atlas: string): void {
+  const cell = atlas === 'cove' ? 2 : atlas === 'frost' ? 1 : 0;
+  ctx.drawImage(gems, cell * 32, 0, 32, 24, Math.round(x) - 16, Math.round(y) - 24, 32, 24);
 }
 
 /** Original code-authored pixel star: a gold five-point silhouette, dark rim and
