@@ -92,7 +92,8 @@ Current verification:
   `git diff --check`: passed.
 - Focused Chromium/WebKit browser checks: all eight test bodies passed, covering
   six-trail sprite bounds/masks/palettes, gem/slime asset retry, and material
-  rendering with the new required sprite loaded.
+  rendering with the new required sprite loaded. The runner then timed out
+  during plugin teardown after 90 seconds and exited with code 1.
 - Broader Chromium/WebKit suite: 85 passed, one skipped and 70 did not run before
   the configured ten-minute suite limit. Completed checks include collection and
   disappearance, layer rendering, traversal, camera recovery and replay. Suite
