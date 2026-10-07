@@ -1026,8 +1026,13 @@ test('ground scenery and slimes draw their opaque bases at terrain height', asyn
     }
     return bases;
   });
-  const calls = JSON.parse(await page.locator('canvas').getAttribute('data-world-draws') ?? '[]') as number[][];
-  const slimeCalls = JSON.parse(await page.locator('canvas').getAttribute('data-slime-draws') ?? '[]') as number[][];
+  // Starting is consumed by the simulation frame; asset decoding can finish
+  // before that frame and leave the miniature map preview in the draw log.
+  await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
+  const { calls, slimeCalls } = await page.locator('canvas').evaluate((canvas) => ({
+    calls: JSON.parse(canvas.getAttribute('data-world-draws') ?? '[]') as number[][],
+    slimeCalls: JSON.parse(canvas.getAttribute('data-slime-draws') ?? '[]') as number[][],
+  }));
   PLAINS_LEVEL.entities.forEach((entity) => {
     if (entity.kind !== 'decoration' && entity.kind !== 'slime') return;
     // Generated decorative trees/plants/rocks are covered by the scenery test.
