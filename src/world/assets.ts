@@ -15,7 +15,7 @@ export interface WorldManifest {
   anchors?: Partial<Record<WorldAsset, { x: number; y: number }>>;
   terrainTops?: Partial<Record<WorldAsset, { left: number; right: number }>>;
 }
-export interface WorldAssets { atlas: HTMLImageElement; manifest: WorldManifest; scenery?: SceneryAssets; materials?: HTMLImageElement; backdrops?: HTMLImageElement; panorama?: HTMLImageElement; slimes?: HTMLImageElement }
+export interface WorldAssets { atlas: HTMLImageElement; manifest: WorldManifest; gems: HTMLImageElement; scenery?: SceneryAssets; materials?: HTMLImageElement; backdrops?: HTMLImageElement; panorama?: HTMLImageElement; slimes?: HTMLImageElement }
 export type WorldAssetMap = Readonly<Record<string, WorldAssets>>;
 
 async function loadImage(url: string, label: string): Promise<HTMLImageElement> {
@@ -37,11 +37,11 @@ export async function loadWorldAssets(directory = 'plains'): Promise<WorldAssets
     if (!Number.isInteger(manifest.assets?.[asset])) throw new Error(`Missing world asset: ${asset}`);
   }
   const atlas = await loadImage(`${base}${manifest.image}`, 'world atlas');
-  const [{ materials, backdrops, slimes }, panorama] = await Promise.all([
+  const [{ materials, backdrops, slimes, gems }, panorama] = await Promise.all([
     loadPresentation(),
     manifest.panorama ? loadImage(`${base}${manifest.panorama}`, 'trail panorama') : undefined,
   ]);
-  if (!manifest.scenery) return { atlas, manifest, materials, backdrops, panorama, slimes };
+  if (!manifest.scenery) return { atlas, manifest, materials, backdrops, panorama, slimes, gems };
   const sceneryUrl = `${base}${manifest.scenery}`;
   const sceneryResponse = await fetch(sceneryUrl);
   if (!sceneryResponse.ok) throw new Error('Could not load scenery metadata');
@@ -52,18 +52,19 @@ export async function loadWorldAssets(directory = 'plains'): Promise<WorldAssets
     loadImage(`${sceneryBase}${sceneryManifest.background.image}`, 'scenery background'),
     loadImage(`${sceneryBase}${sceneryManifest.foreground.image}`, 'scenery foreground'),
   ]);
-  return { atlas, manifest, materials, backdrops, panorama, slimes, scenery: { background, foreground, manifest: sceneryManifest } };
+  return { atlas, manifest, materials, backdrops, panorama, slimes, gems, scenery: { background, foreground, manifest: sceneryManifest } };
 }
 
-let presentation: Promise<Pick<WorldAssets, 'materials' | 'backdrops' | 'slimes'>> | undefined;
-function loadPresentation(): Promise<Pick<WorldAssets, 'materials' | 'backdrops' | 'slimes'>> {
+let presentation: Promise<Pick<WorldAssets, 'materials' | 'backdrops' | 'slimes' | 'gems'>> | undefined;
+function loadPresentation(): Promise<Pick<WorldAssets, 'materials' | 'backdrops' | 'slimes' | 'gems'>> {
   const optional = (url: string, label: string): Promise<HTMLImageElement | undefined> =>
     loadImage(url, label).catch(() => undefined);
   return presentation ??= Promise.all([
     optional(`${import.meta.env.BASE_URL}assets/trails/materials.png`, 'terrain materials'),
     optional(`${import.meta.env.BASE_URL}assets/trails/backdrops.webp`, 'trail backdrops'),
     loadImage(`${import.meta.env.BASE_URL}assets/slimes/slimes.png`, 'slime atlas'),
-  ]).then(([materials, backdrops, slimes]) => ({ materials, backdrops, slimes }))
+    loadImage(`${import.meta.env.BASE_URL}assets/gems/gems.png`, 'gem atlas'),
+  ]).then(([materials, backdrops, slimes, gems]) => ({ materials, backdrops, slimes, gems }))
     .catch((error: unknown) => { presentation = undefined; throw error; });
 }
 

@@ -82,6 +82,7 @@ test('terrain joins stay solid while scrolling in both directions at integer and
     const atlas = new Image();
     atlas.src = `/assets/plains/${manifest.image}`;
     await atlas.decode();
+    const gems = new Image(); gems.src = '/assets/gems/gems.png'; await gems.decode();
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d')!;
     const render = (window as unknown as { drawTerrainTestWorld: typeof drawWorld }).drawTerrainTestWorld;
@@ -97,7 +98,7 @@ test('terrain joins stay solid while scrolling in both directions at integer and
           for (let frame = 0; frame < 12; frame++) {
             const x = surface.x2 - 213 + 0.25 + direction * frame * maxSpeed / 60;
             const camera = { position: { x, y: 0 } } as Parameters<typeof drawWorld>[3];
-            render(ctx, { atlas, manifest }, level, camera, () => false);
+            render(ctx, { atlas, manifest, gems }, level, camera, () => false);
             // Every terrain surface is above y=200; the finish arch also ends above this strip.
             const joinX = Math.floor((surface.x2 - x) * scale);
             const pixels = ctx.getImageData(joinX - 1, Math.ceil(210 * scale), 3, Math.floor(20 * scale)).data;
@@ -139,6 +140,7 @@ test('moving platform slabs and their telegraphed paths draw on the real canvas'
     const atlas = new Image();
     atlas.src = `/assets/plains/${manifest.image}`;
     await atlas.decode();
+    const gems = new Image(); gems.src = '/assets/gems/gems.png'; await gems.decode();
     const canvas = document.createElement('canvas');
     canvas.width = 426;
     canvas.height = 240;
@@ -150,10 +152,10 @@ test('moving platform slabs and their telegraphed paths draw on the real canvas'
       const camera = { position: offset } as Parameters<typeof drawWorld>[3];
       // The same frame without any platform data, to prove what the telegraph itself draws.
       ctx.clearRect(0, 0, 426, 240);
-      render(ctx, { atlas, manifest }, bare, camera, () => true, (entity) => entity, []);
+      render(ctx, { atlas, manifest, gems }, bare, camera, () => true, (entity) => entity, []);
       const before = ctx.getImageData(0, 0, 426, 240).data;
       ctx.clearRect(0, 0, 426, 240);
-      render(ctx, { atlas, manifest }, level, camera, () => true, (entity) => entity, [body]);
+      render(ctx, { atlas, manifest, gems }, level, camera, () => true, (entity) => entity, [body]);
       const after = ctx.getImageData(0, 0, 426, 240).data;
       // Everything outside the deck is identical between the two frames except the telegraph,
       // so counting changed pixels there counts exactly the pips and their end markers.
@@ -1521,6 +1523,7 @@ test('textured flats and slopes keep authored grip above cosmetic materials', as
   const result = await page.evaluate(async (base) => {
     const manifest = await (await fetch('/assets/plains/manifest.json')).json();
     const atlas = new Image(); atlas.src = `/assets/plains/${manifest.image}`; await atlas.decode();
+    const gems = new Image(); gems.src = '/assets/gems/gems.png'; await gems.decode();
     const materials = new Image(); materials.src = '/assets/trails/materials.png'; await materials.decode();
     const level = { ...base, entities: [], theme: { ...base.theme, scenery: false, parallax: [] }, surfaces: [
       { x1: 0, x2: 100, y1: 190, y2: 150, friction: 0.6 },
@@ -1533,7 +1536,7 @@ test('textured flats and slopes keep authored grip above cosmetic materials', as
     const render = (window as unknown as { drawTerrainTestWorld: typeof drawWorld }).drawTerrainTestWorld;
     const samples = [];
     for (const x of [0, 0.25, 19.5, 40, 19.5, 0.25, 0]) {
-      render(ctx, { atlas, manifest, materials }, level as typeof base, { position: { x, y: 0 } } as Parameters<typeof drawWorld>[3]);
+      render(ctx, { atlas, manifest, materials, gems }, level as typeof base, { position: { x, y: 0 } } as Parameters<typeof drawWorld>[3]);
       const pixels = ctx.getImageData(0, 140, 426, 65).data;
       let cyan = 0, ochre = 0, streaks = 0, grains = 0;
       for (let i = 0; i < pixels.length; i += 4) {
@@ -1952,11 +1955,11 @@ test('slime atlas keeps identical bodies, transparent borders and ground anchors
   for (const body of result.bodies) expect(body).toEqual(result.bodies[0]);
 });
 
-test('shared slime atlas failure is recoverable through retry', async ({ page }) => {
-  await page.route('**/assets/slimes/slimes.png', route => route.abort());
+for (const asset of ['slimes/slimes', 'gems/gems']) test(`shared ${asset} atlas failure is recoverable through retry`, async ({ page }) => {
+  await page.route(`**/assets/${asset}.png`, route => route.abort());
   await page.goto('/?debug=1');
   await expect(page.getByRole('button', { name: /Retry/i })).toBeVisible();
-  await page.unroute('**/assets/slimes/slimes.png');
+  await page.unroute(`**/assets/${asset}.png`);
   await Promise.all([page.waitForEvent('load'), page.getByRole('button', { name: /Retry/i }).click()]);
   await dismissOpening(page);
   await expect(page.locator('#status')).toContainText('Title');
@@ -1965,7 +1968,8 @@ test('shared slime atlas failure is recoverable through retry', async ({ page })
 test('ordinary gems share visible bounds and silhouette across all six trails', async ({ page }, info) => {
   await page.goto('/?scene=foundation');
   await page.addScriptTag({ content: `window.gemUnderTest = ${drawGem.toString()}; window.starUnderTest = ${drawSpecial.toString()};` });
-  const samples = await page.evaluate((atlases) => {
+  const samples = await page.evaluate(async (atlases) => {
+    const gemImage = new Image(); gemImage.src = '/assets/gems/gems.png'; await gemImage.decode();
     const api = window as unknown as { gemUnderTest: typeof drawGem; starUnderTest: typeof drawSpecial };
     const canvas = document.createElement('canvas'); canvas.width = 64; canvas.height = 64;
     const ctx = canvas.getContext('2d')!;
@@ -1980,12 +1984,12 @@ test('ordinary gems share visible bounds and silhouette across all six trails', 
       }
       return { mask, bounds: [left, top, right, bottom], center: [...pixels.slice((32 * 64 + 32) * 4, (32 * 64 + 32) * 4 + 4)] };
     };
-    const gems = atlases.map(atlas => { ctx.clearRect(0, 0, 64, 64); api.gemUnderTest(ctx, 32, 48, atlas); return sample(); });
+    const gems = atlases.map(atlas => { ctx.clearRect(0, 0, 64, 64); api.gemUnderTest(ctx, gemImage, 32, 48, atlas); return sample(); });
     ctx.clearRect(0, 0, 64, 64); api.starUnderTest(ctx, 32, 32);
     return { gems, star: sample() };
   }, LEVELS.map(level => level.atlas));
   for (const gem of samples.gems) {
-    expect(gem.bounds).toEqual([20, 16, 43, 47]);
+    expect(gem.bounds).toEqual([16, 24, 47, 47]);
     expect(gem.mask).toEqual(samples.gems[0].mask);
     expect(gem.mask).not.toEqual(samples.star.mask);
   }
