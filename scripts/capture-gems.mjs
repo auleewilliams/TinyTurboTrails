@@ -8,6 +8,7 @@ await mkdir(directory, { recursive: true });
 const browser = await chromium.launch();
 try {
   const page = await browser.newPage({ viewport: { width: 1280, height: 800 } });
+  await page.routeWebSocket('**', socket => socket.close());
   const errors = [];
   page.on('pageerror', error => errors.push(error.message));
   await page.goto('http://127.0.0.1:4175/?scene=foundation');

@@ -117,13 +117,15 @@ it.each(LEVELS.map((level, index) => ({ level, index })))('draws only visited $l
   const ctx = Object.fromEntries(methods.map(name => [name, vi.fn()])) as unknown as CanvasRenderingContext2D;
   const text = vi.mocked(ctx.fillText);
   const session = new TrailSession();
+  const gemAtlas = {} as HTMLImageElement;
   const numericRows = () => text.mock.calls.map(([label]) => label).filter(label => /^\d+\/\d+$/.test(label));
-  const render = () => drawOverworld(ctx, LEVELS, index, session.results, { naturalWidth: 1, naturalHeight: 1 } as HTMLImageElement);
+  const render = () => drawOverworld(ctx, LEVELS, index, session.results, { naturalWidth: 1, naturalHeight: 1 } as HTMLImageElement, gemAtlas);
   render(); expect(numericRows()).toEqual([]);
   expect(session.description(level)).toBe('Ready to explore');
   const gemTotal = level.entities.filter(entity => entity.kind === 'gem').length;
   const starTotal = level.entities.filter(entity => entity.kind === 'special').length;
   session.mark(level, 0, 0); text.mockClear(); render();
+  expect(vi.mocked(ctx.drawImage).mock.calls.some(call => call[0] === gemAtlas)).toBe(true);
   expect(numericRows()).toEqual([`0/${gemTotal}`, ...(starTotal ? [`0/${starTotal}`] : [])]);
   expect(session.description(level)).toBe(`Session best: 0 of ${gemTotal} gems${starTotal ? `, 0 of ${starTotal} stars` : ''}`);
 });

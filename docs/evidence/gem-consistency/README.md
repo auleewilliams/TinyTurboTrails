@@ -85,7 +85,7 @@ Reproduce with `npm run dev -- --port 4175 --strictPort`, followed by
 `node scripts/capture-gems.mjs`. Source, exact generation prompt and atlas
 preparation are documented in `assets/source/gems/PROVENANCE.md`.
 
-Current verification:
+Verification before integrating the updated PR branch:
 
 - `npm test`: 564 passed across 33 files.
 - `npm run typecheck`, `npm run build`, `npm run test:ci` (8 tests), and
@@ -101,3 +101,23 @@ Current verification:
 - Firefox's two focused gem checks fail before game code runs with
   `browserType.launch: spawn UNKNOWN`, including an attempt outside the sandbox.
   The PR remains draft with three-engine verification incomplete.
+
+### Verification after integrating the updated PR branch — 2026-10-07
+
+The branch now includes the session-best map rewards from #153. Those icons
+also receive the shared gem sprite atlas. `sprite-map-426.png` (Chromium) and
+`sprite-map-320.png` (WebKit) show the new gem icon after completing Plains.
+
+- `npm test`: 584 passed across 33 files.
+- `npm run typecheck`, `npm run build` and `git diff --check`: passed.
+- Ten focused Chromium/WebKit checks passed with exit code 0: six-trail sprite
+  bounds/masks/palettes, gem/slime asset retry, material rendering, and the full
+  Plains route including finish, map rewards, replay, next trail and reload.
+- This rerun used the built production bundle on a separately managed Vite
+  preview at port 4180, disabling only Playwright's `webServer` lifecycle in a
+  temporary config. The grep was `ordinary gems|shared .+ atlas failure|textured
+  flats|milestone PLAINS`, with two workers. Avoiding the preview child-process
+  lifecycle allowed the test runner to exit cleanly.
+- The capture script was rerun successfully with no page errors. Firefox and
+  the incomplete broader-suite limitations above remain; this is a passing
+  focused two-engine run, not complete three-engine certification.

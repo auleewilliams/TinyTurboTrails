@@ -9,12 +9,12 @@ export function rewardResultRect(text: string, centerX: number, baseline: number
 }
 
 export function drawRewardResult(ctx: CanvasRenderingContext2D, kind: RewardKind, text: string,
-  centerX: number, baseline: number, atlas: string, size = 12): void {
+  centerX: number, baseline: number, atlas: string, gems: HTMLImageElement, size = 12): void {
   const bounds = rewardResultRect(text, centerX, baseline, size);
   ctx.save();
   ctx.translate(bounds.x + 6, baseline - 7);
   ctx.scale(0.5, 0.5);
-  if (kind === 'gem') drawGem(ctx, 0, 16, atlas);
+  if (kind === 'gem') drawGem(ctx, gems, 0, 16, atlas);
   else drawSpecial(ctx, 0, 0);
   ctx.restore();
   ctx.save();

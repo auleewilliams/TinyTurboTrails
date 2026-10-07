@@ -32,7 +32,7 @@ export class TrailSession {
 }
 
 export function drawOverworld(ctx: CanvasRenderingContext2D, levels: readonly LevelData[], selected: number,
-  results: ReadonlyMap<string, TrailResult>, title: HTMLImageElement, landmarks?: HTMLImageElement,
+  results: ReadonlyMap<string, TrailResult>, title: HTMLImageElement, gemAtlas: HTMLImageElement, landmarks?: HTMLImageElement,
   preview?: HTMLCanvasElement, background?: HTMLImageElement): void {
   ctx.save();
   ctx.fillStyle = '#dde5c1'; ctx.fillRect(0, 0, 426, 240);
@@ -88,8 +88,8 @@ export function drawOverworld(ctx: CanvasRenderingContext2D, levels: readonly Le
   if (result) {
     const gems = level.entities.filter(entity => entity.kind === 'gem').length;
     const stars = level.entities.filter(entity => entity.kind === 'special').length;
-    drawRewardResult(ctx, 'gem', `${result.gems}/${gems}`, stars ? row.gemCenter : row.center, row.baseline, level.atlas);
-    if (stars) drawRewardResult(ctx, 'star', `${result.stars}/${stars}`, row.starCenter, row.baseline, level.atlas);
+    drawRewardResult(ctx, 'gem', `${result.gems}/${gems}`, stars ? row.gemCenter : row.center, row.baseline, level.atlas, gemAtlas);
+    if (stars) drawRewardResult(ctx, 'star', `${result.stars}/${stars}`, row.starCenter, row.baseline, level.atlas, gemAtlas);
   } else ctx.fillText(['Hills to a friend', 'Along quarry paths', 'Through tall trees', 'Past the busy yard', 'Over snowy hills', 'Down to the seaside'][selected], 350, 175);
   ctx.fillStyle = '#ffda75'; ctx.fillRect(play.x, play.y, play.width, play.height);
   ctx.fillStyle = '#17333b'; ctx.font = 'bold 12px monospace'; ctx.fillText('PLAY', 350, 198);
