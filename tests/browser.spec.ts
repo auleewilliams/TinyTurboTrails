@@ -706,7 +706,7 @@ test('adventure can complete the forgiving route and replay directly with a fres
   await page.keyboard.up('ArrowRight');
   await expect(page.locator('#status')).toContainText('Adventure preview · Finish', { timeout: 5000 });
   const finishStatus = await page.locator('#status').innerText();
-  expect(finishStatus).toMatch(/Gems [1-9]\d*/);
+  expect(finishStatus).toMatch(new RegExp(`Gems [1-9]\\d*/${PLAINS_LEVEL.entities.filter((entity) => entity.kind === 'gem').length}\\b`));
   const celebrationPixels = await page.locator('canvas').evaluate((element) => {
     const canvas = element as HTMLCanvasElement;
     const ctx = canvas.getContext('2d')!;
@@ -1387,11 +1387,33 @@ async function installTrailPilot(page: Page): Promise<void> {
   });
 }
 
+/** Capture actual result drawing without exposing simulation state to the browser. */
+async function observeRewardResults(page: Page): Promise<void> {
+  await page.addInitScript(() => {
+    const fillText = CanvasRenderingContext2D.prototype.fillText;
+    CanvasRenderingContext2D.prototype.fillText = function (text, x, y, maxWidth) {
+      if (text === 'TRAIL COMPLETE!') this.canvas.dataset.finishRewards = '[]';
+      if (text === 'PATCHWORK VALE') this.canvas.dataset.mapRewards = '[]';
+      const result = y === 76 ? text.match(/^(?:GEMS|STARS) (\d+\/\d+)$/)?.[1] : text;
+      if ((y === 76 || y === 174) && result && /^\d+\/\d+$/.test(result)) {
+        const key = y === 76 ? 'finishRewards' : 'mapRewards';
+        const row = JSON.parse(this.canvas.dataset[key] ?? '[]') as string[];
+        row.push(result); this.canvas.dataset[key] = JSON.stringify(row);
+      }
+      if (maxWidth === undefined) fillText.call(this, text, x, y);
+      else fillText.call(this, text, x, y, maxWidth);
+    };
+  });
+}
+
 for (const [index, level] of LEVELS.entries()) {
   test(`milestone ${level.name}: pointer selection, full route, return, replay and next`, async ({ page }, info) => {
     test.setTimeout(100_000);
     await installTrailPilot(page);
+    await observeRewardResults(page);
     await openAdventure(page, '/?debug=1');
+    const canvas = page.locator('canvas');
+    await expect(canvas).toHaveAttribute('data-map-rewards', '[]');
     await page.getByRole('button', { name: level.name, exact: true }).click();
     await expect(page.getByRole('button', { name: level.name, exact: true })).toHaveAttribute('aria-pressed', 'true');
     await page.getByRole('button', { name: `Play ${level.name}`, exact: true }).click();
@@ -1425,10 +1447,28 @@ for (const [index, level] of LEVELS.entries()) {
       } else await page.keyboard.press('Space', { delay: 60 });
     };
     await traverse();
+    const gemTotal = level.entities.filter(entity => entity.kind === 'gem').length;
+    const starTotal = level.entities.filter(entity => entity.kind === 'special').length;
+    const collected = Number((await page.locator('#status').innerText()).match(/Gems (\d+)/)?.[1]);
+    await expect(canvas).toHaveAttribute('data-finish-rewards', new RegExp(`^\\["${collected}/${gemTotal}"${starTotal ? `,"[0-3]/${starTotal}"` : ''}\\]$`));
+    const rewards = JSON.parse((await canvas.getAttribute('data-finish-rewards'))!) as string[];
+    const stars = starTotal ? Number(rewards[1].split('/')[0]) : 0;
+    const captureResults = async (state: string): Promise<void> => {
+      for (const width of [426, 320]) {
+        await page.setViewportSize({ width, height: 240 });
+        await page.screenshot({ path: info.outputPath(`${level.id}-${state}-${width}.png`) });
+        await info.attach(`${state}-${width}`, { path: info.outputPath(`${level.id}-${state}-${width}.png`), contentType: 'image/png' });
+      }
+      await page.setViewportSize({ width: 1366, height: 768 });
+    };
+    await captureResults('finish-results');
     await info.attach('finish', { body: await page.locator('canvas').screenshot(), contentType: 'image/png' });
     await finishAction('Choose trail');
     await expect(page.getByRole('button', { name: level.name, exact: true })).toHaveAttribute('aria-pressed', 'true');
-    await expect(page.getByRole('button', { name: level.name, exact: true })).toHaveAttribute('aria-description', 'Completed this session');
+    await expect(page.getByRole('button', { name: level.name, exact: true })).toHaveAttribute('aria-description',
+      `Session best: ${collected} of ${gemTotal} gems${starTotal ? `, ${stars} of ${starTotal} stars` : ''}`);
+    await expect(canvas).toHaveAttribute('data-map-rewards', JSON.stringify(rewards));
+    await captureResults('map-results');
     await info.attach('completed-map', { body: await page.locator('canvas').screenshot(), contentType: 'image/png' });
     // Replay after a second completion checks the browser-visible reset independently of unit state checks.
     await page.getByRole('button', { name: `Play ${level.name}`, exact: true }).click();
@@ -1445,6 +1485,7 @@ for (const [index, level] of LEVELS.entries()) {
     await reloadAndDismiss(page);
     await expect(page.getByRole('button', { name: 'PLAINS', exact: true })).toHaveAttribute('aria-pressed', 'true');
     await expect(page.getByRole('button', { name: level.name, exact: true })).toHaveAttribute('aria-description', 'Ready to explore');
+    await expect(canvas).toHaveAttribute('data-map-rewards', '[]');
   });
 }
 
