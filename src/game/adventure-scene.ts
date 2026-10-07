@@ -207,7 +207,7 @@ export class AdventureScene implements Scene {
   }
 
   private drawMap(ctx: CanvasRenderingContext2D): void {
-    drawOverworld(ctx, LEVELS, this.selectedIndex, this.session.results, this.titleArtwork, this.landmarks, this.preview(), this.mapBackground);
+    drawOverworld(ctx, LEVELS, this.selectedIndex, this.session.results, this.titleArtwork, this.world.gems, this.landmarks, this.preview(), this.mapBackground);
     const target = MAP_POINTS[this.selectedIndex];
     const moving = !this.reducedMotion && Math.hypot(target[0] - this.marker.x, target[1] - this.marker.y) > 2;
     const clip = this.henry.manifest.animations[moving ? 'run' : 'idle'];

@@ -22,7 +22,7 @@ it.each(['tree', 'slime', 'flowers', 'bush', 'stone', 'cave'] as WorldAsset[])(
   'anchors the visible base of %s, excluding atlas padding', (asset) => {
     for (const scale of [1, 2]) {
       const drawImage = vi.fn();
-      const assets: WorldAssets = { atlas: {} as HTMLImageElement, manifest };
+      const assets: WorldAssets = { atlas: {} as HTMLImageElement, gems: {} as HTMLImageElement, manifest };
       drawAsset({ drawImage } as unknown as CanvasRenderingContext2D, assets, asset, 300, 180, scale);
       const call = drawImage.mock.calls[0];
       // All six cells end on row 43; rows 44–47 are transparent.
@@ -34,7 +34,7 @@ it.each(['tree', 'slime', 'flowers', 'bush', 'stone', 'cave'] as WorldAsset[])(
 
 it.each([1, 2])('anchors the checkpoint post and visible base at its world position at scale %s', (scale) => {
   const drawImage = vi.fn();
-  const assets: WorldAssets = { atlas: {} as HTMLImageElement, manifest };
+  const assets: WorldAssets = { atlas: {} as HTMLImageElement, gems: {} as HTMLImageElement, manifest };
   drawAsset({ drawImage } as unknown as CanvasRenderingContext2D, assets, 'checkpoint', 570, 158, scale);
   // The post is centered at x=20; opaque artwork ends at y=44 in its 48px cell.
   expect(drawImage).toHaveBeenCalledWith(assets.atlas, 144, 96, 48, 48,
@@ -43,7 +43,7 @@ it.each([1, 2])('anchors the checkpoint post and visible base at its world posit
 
 it('keeps the bottom-center anchor for assets without an override', () => {
   const drawImage = vi.fn();
-  const assets: WorldAssets = { atlas: {} as HTMLImageElement, manifest };
+  const assets: WorldAssets = { atlas: {} as HTMLImageElement, gems: {} as HTMLImageElement, manifest };
   drawAsset({ drawImage } as unknown as CanvasRenderingContext2D, assets, 'gem', 150, 150);
   expect(drawImage).toHaveBeenCalledWith(assets.atlas, 0, 96, 48, 48, 126, 102, 48, 48);
 });
@@ -72,7 +72,7 @@ function recordingContext(): { ctx: CanvasRenderingContext2D; images: unknown[][
   return { ctx: ctx as unknown as CanvasRenderingContext2D, images, texts, rects, moves };
 }
 
-const worldAssets: WorldAssets = { atlas: {} as HTMLImageElement, manifest, slimes: {} as HTMLImageElement };
+const worldAssets: WorldAssets = { atlas: {} as HTMLImageElement, gems: {} as HTMLImageElement, manifest, slimes: {} as HTMLImageElement };
 
 it.each([SUNSET_SITE, FROST_RIDGE, SANDY_COVE])('pans $name without seams, repeated hills or a duplicate sun', level => {
   const panorama = { naturalWidth: 720, naturalHeight: 240 } as HTMLImageElement;
@@ -146,7 +146,7 @@ it('uses new art only for Plains decoration, keeping hazards distinct and Quarry
   expect(images.indexOf(tree)).toBeLessThan(images.indexOf(hazard!));
   const quarry = recordingContext();
   drawWorld(quarry.ctx, sceneryAssets, QUARRY_RUN, camera);
-  expect(quarry.images.every((call) => call[0] === worldAssets.atlas || call[0] === worldAssets.slimes)).toBe(true);
+  expect(quarry.images.every((call) => call[0] === worldAssets.atlas || call[0] === worldAssets.slimes || call[0] === worldAssets.gems)).toBe(true);
 });
 
 it('selects a backdrop and parallax fallback entirely from theme metadata', () => {
@@ -207,7 +207,7 @@ it('uses the level theme for sky, terrain and parallax placement', () => {
 });
 
 it('draws all shared terrain cell roles for textured Treetop surfaces', () => {
-  const assets: WorldAssets = { atlas: {} as HTMLImageElement, manifest: timberManifest };
+  const assets: WorldAssets = { atlas: {} as HTMLImageElement, gems: {} as HTMLImageElement, manifest: timberManifest };
   const sampled = new Set<number>();
   for (const x of [0, 1200, TREETOP_TIMBERS.width - 426]) {
     const { ctx, images } = recordingContext();
@@ -220,7 +220,7 @@ it('draws all shared terrain cell roles for textured Treetop surfaces', () => {
 });
 
 it('aligns flat and ramp artwork bounds with the playable contour', () => {
-  const assets: WorldAssets = { atlas: {} as HTMLImageElement, manifest: timberManifest };
+  const assets: WorldAssets = { atlas: {} as HTMLImageElement, gems: {} as HTMLImageElement, manifest: timberManifest };
   const start = recordingContext();
   drawWorld(start.ctx, assets, TREETOP_TIMBERS, { position: { x: 0, y: 0 } } as Camera);
   const flat = start.images.find((call) => call[1] === 0 && call[2] === 0)!;
@@ -244,7 +244,7 @@ it.each([
   const { ctx, images } = recordingContext();
   const translate = vi.fn();
   ctx.translate = translate;
-  const assets: WorldAssets = { atlas: {} as HTMLImageElement, manifest: timberManifest };
+  const assets: WorldAssets = { atlas: {} as HTMLImageElement, gems: {} as HTMLImageElement, manifest: timberManifest };
   const level = { ...TREETOP_TIMBERS, minX: 0, maxX: 300, width: 300,
     theme: { ...TREETOP_TIMBERS.theme, parallax: [] }, entities: [],
     surfaces: [{ x1: 100, x2: 170, y1, y2 }],
@@ -277,10 +277,10 @@ it('draws back, world and front entities in layer order without a scenery pack',
   const { ctx } = recordingContext();
   const order: string[] = [];
   ctx.drawImage = (...args: unknown[]) => {
+    if (args[0] === worldAssets.gems) { order.push('gem'); return; }
     const cell = Number(args[1]) / 48 + Number(args[2]) / 48 * 4;
     if (cell === 6 || cell === 15) order.push(cell === 6 ? 'back' : 'front');
   };
-  ctx.fill = () => { if (ctx.fillStyle === '#ffac32') order.push('gem'); };
   const level = { ...PLAINS_LEVEL, theme: { ...PLAINS_LEVEL.theme, scenery: false }, entities: [
     { id: 'world', kind: 'gem' as const, x: 100, y: 150, asset: 'gem', layer: 'world' as const },
     { id: 'front', kind: 'decoration' as const, x: 110, y: 150, asset: 'bush', layer: 'front' as const },
@@ -300,7 +300,7 @@ const silentAudio: GameAudio = {
 };
 
 it('renders the selected level with its own world atlas', () => {
-  const timberAssets: WorldAssets = { atlas: {} as HTMLImageElement, manifest };
+  const timberAssets: WorldAssets = { atlas: {} as HTMLImageElement, gems: {} as HTMLImageElement, manifest };
   const scene = new AdventureScene({} as HTMLImageElement, henryAssets, worldMap(sceneryAssets, timberAssets), silentAudio, PLAINS_LEVEL);
   const neutral = { horizontal: 0, jumpHeld: false, jumpPressed: false, pausePressed: false, mutePressed: false };
   for (let index = 0; index < 2; index++) {
@@ -333,11 +333,11 @@ it('draws low foreground plants after Henry in both playable scenes', () => {
 });
 
 it('omits entities the run has consumed and keeps the rest', () => {
-  const { ctx, moves } = recordingContext();
+  const { ctx, images } = recordingContext();
   const camera = new Camera({ width: 426, height: 240, worldWidth: PLAINS_LEVEL.width, worldHeight: PLAINS_LEVEL.height });
   drawWorld(ctx, worldAssets, PLAINS_LEVEL, camera, (entity) => entity.id !== gem.id);
   const drawnAt = (x: number, y: number): boolean =>
-    moves.some(([px, py]) => px === Math.round(x) - 2 && py === Math.round(y) - 32);
+    images.some(call => call[0] === worldAssets.gems && call[5] === Math.round(x) - 16 && call[6] === Math.round(y) - 24);
   expect(drawnAt(gem.x, gem.y)).toBe(false);
   expect(drawnAt(otherGem.x, otherGem.y)).toBe(true);
 });
@@ -346,8 +346,8 @@ it('draws every entity when a scene supplies no run state', () => {
   const { ctx, images, rects } = recordingContext();
   const camera = new Camera({ width: 426, height: 240, worldWidth: PLAINS_LEVEL.width, worldHeight: PLAINS_LEVEL.height });
   drawWorld(ctx, worldAssets, PLAINS_LEVEL, camera);
-  // Gems and stars use shared geometry; other entities still use the atlas.
-  expect(images).toHaveLength(PLAINS_LEVEL.entities.filter(entity => entity.kind !== 'special' && entity.kind !== 'gem').length + 3);
+  // Stars use geometry; gems and other entities use their sprite atlases.
+  expect(images).toHaveLength(PLAINS_LEVEL.entities.filter(entity => entity.kind !== 'special').length + 3);
   for (const star of PLAINS_LEVEL.entities.filter(entity => entity.kind === 'special')) {
     expect(rects.some(rect => rect.fillStyle === '#fff7d6' && rect.x === Math.round(star.x) - 2)).toBe(true);
   }
@@ -391,15 +391,15 @@ it('stops drawing a gem once the adventure collects it', () => {
   scene.update(1 / 60, start);
   const before = recordingContext();
   scene.render(before.ctx);
-  const gemCalls = (moves: number[][]): number =>
-    moves.filter(([x, y]) => x === Math.round(gem.x) - 2 && y === Math.round(gem.y) - 32).length;
-  expect(gemCalls(before.moves)).toBe(1);
+  const gemCalls = (images: unknown[][]): number =>
+    images.filter(call => call[0] === worldAssets.gems && call[5] === Math.round(gem.x) - 16 && call[6] === Math.round(gem.y) - 24).length;
+  expect(gemCalls(before.images)).toBe(1);
   Object.assign(scene, { player: createPlayer(gem.x, PLAINS_LEVEL) });
   (scene as unknown as { player: { y: number } }).player.y = gem.y - 34;
   scene.update(1 / 60, { ...start, jumpPressed: false });
   const after = recordingContext();
   scene.render(after.ctx);
-  expect(gemCalls(after.moves)).toBe(0);
+  expect(gemCalls(after.images)).toBe(0);
 });
 
 it.each([
@@ -529,22 +529,10 @@ it('keeps friction preview labels readable after the centered loading screen', (
 });
 
 
-it.each(LEVELS)('draws $name gems with one bottom-anchored silhouette independent of atlas padding', (level) => {
-  const paths: number[][][] = [];
-  const ctx = {
-    fillStyle: '', beginPath: () => paths.push([]),
-    moveTo: (x: number, y: number) => paths.at(-1)!.push([x, y]),
-    lineTo: (x: number, y: number) => paths.at(-1)!.push([x, y]),
-    closePath() {}, fill() {},
-  } as unknown as CanvasRenderingContext2D;
-  drawGem(ctx, 100.25, 150.25, level.atlas);
-  const outline = paths[0];
-  expect(Math.min(...outline.map(([x]) => x))).toBe(88);
-  expect(Math.max(...outline.map(([x]) => x))).toBe(112);
-  expect(Math.min(...outline.map(([, y]) => y))).toBe(118);
-  expect(Math.max(...outline.map(([, y]) => y))).toBe(150);
-  const reference = JSON.stringify(paths);
-  paths.length = 0;
-  drawGem(ctx, 100.25, 150.25, 'plains');
-  expect(JSON.stringify(paths)).toBe(reference);
+it.each(LEVELS)('draws $name gems from the shared sprite with a bottom-center anchor', (level) => {
+  const drawImage = vi.fn();
+  const ctx = { drawImage } as unknown as CanvasRenderingContext2D;
+  drawGem(ctx, worldAssets.gems, 100.25, 150.25, level.atlas);
+  const cell = level.atlas === 'cove' ? 2 : level.atlas === 'frost' ? 1 : 0;
+  expect(drawImage).toHaveBeenCalledExactlyOnceWith(worldAssets.gems, cell * 32, 0, 32, 24, 84, 126, 32, 24);
 });
