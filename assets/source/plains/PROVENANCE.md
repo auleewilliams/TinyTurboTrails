@@ -22,3 +22,8 @@ computed by `surfaceY`. The tree trunk is centered at x=24. These are metadata
 changes only; neither the source art nor the processed bitmap changed. The
 shared stone anchor also lowers hazard artwork by four pixels without moving
 its interaction position.
+
+Spring grounding (issue #155): the spring also ends on row 43; its explicit
+`{ x: 24, y: 44 }` anchor removes four rows of transparent padding from its
+ground contact. Plains spring coordinates now come from `surfaceY`, and Quarry
+Run inherits the same corrected atlas anchor. Bitmap artwork is unchanged.

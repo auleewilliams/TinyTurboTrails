@@ -11,6 +11,66 @@ import { drawSlime, drawGem, drawSpecial, drawChallengeCues, drawAsset, drawSurf
 /** The renderer is injected as plain functions, so every helper it calls has to travel with it. */
 const RENDERER_SOURCE = [drawSlime, drawGem, drawSpecial, drawChallengeCues, drawTerrainMaterial, drawTerrainEdge, drawTrailBackdrop, drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawSurfaceMaterials].map((helper) => helper.toString()).join('\n');
 
+test('all springs keep their visible bases on terrain at rest, compressed and released', async ({ page }, info) => {
+  await page.goto('/?scene=foundation');
+  await page.addScriptTag({ content: `window.drawSpringTestAsset = ${drawAsset.toString()};` });
+  for (const level of LEVELS) {
+    const results = await page.evaluate(async (level) => {
+      const manifest = await (await fetch(`/assets/${level.atlas}/manifest.json`)).json();
+      const atlas = new Image();
+      atlas.src = `/assets/${level.atlas}/${manifest.image}`;
+      await atlas.decode();
+      const cell = manifest.cellSize;
+      const canvas = document.createElement('canvas');
+      canvas.width = 96; canvas.height = 96;
+      const ctx = canvas.getContext('2d')!;
+      ctx.imageSmoothingEnabled = false;
+      const index = manifest.assets.spring;
+      ctx.drawImage(atlas, index % 4 * cell, Math.floor(index / 4) * cell, cell, cell, 0, 0, cell, cell);
+      const source = ctx.getImageData(0, 0, cell, cell).data;
+      let left = cell, right = 0, bottom = 0;
+      // Match the atlas processor's visible-alpha threshold: invisible fringes
+      // must not count as support or conceal a gap below the actual mechanism.
+      for (let y = 0; y < cell; y++) for (let x = 0; x < cell; x++) {
+        if (source[(y * cell + x) * 4 + 3] < 128) continue;
+        left = Math.min(left, x); right = Math.max(right, x); bottom = Math.max(bottom, y + 1);
+      }
+      const anchor = manifest.anchors?.spring ?? { x: cell / 2, y: cell };
+      const render = (window as unknown as { drawSpringTestAsset: typeof drawAsset }).drawSpringTestAsset;
+      const samples = [];
+      for (const spring of level.entities.filter((entity) => entity.kind === 'spring')) {
+        for (const scale of [1, 0.6, 1.25]) {
+          ctx.clearRect(0, 0, 96, 96);
+          // Same translate/scale around the entity contact point as drawWorld.
+          ctx.save(); ctx.translate(48, 72); ctx.scale(1, scale);
+          render(ctx, { atlas, manifest } as Parameters<typeof drawAsset>[1], 'spring', 0, 0);
+          ctx.restore();
+          const pixels = ctx.getImageData(0, 0, 96, 96).data;
+          let renderedBottom = 0;
+          for (let y = 0; y < 96; y++) for (let x = 0; x < 96; x++) {
+            if (pixels[(y * 96 + x) * 4 + 3] >= 128) renderedBottom = Math.max(renderedBottom, y + 1);
+          }
+          samples.push({ id: spring.id, scale, renderedBottom });
+        }
+      }
+      return { left: left - anchor.x, right: right - anchor.x, bottom, anchor, samples };
+    }, level);
+    expect(results.bottom, `${level.id} visible base`).toBe(results.anchor.y);
+    for (const spring of level.entities.filter((entity) => entity.kind === 'spring')) {
+      // Check the entire actual silhouette, including ledge/pit boundaries.
+      for (let dx = results.left; dx <= results.right; dx++) {
+        expect(surfaceY(level, spring.x + dx), `${spring.id} footprint ${dx}`).toBe(spring.y);
+      }
+    }
+    for (const sample of results.samples) {
+      expect(sample.renderedBottom, `${sample.id} scale ${sample.scale}`).toBe(72);
+    }
+    await info.attach(`${level.id}-spring-contact`, {
+      body: JSON.stringify(results, null, 2), contentType: 'application/json',
+    });
+  }
+});
+
 const dangerXs = (level: typeof PLAINS_LEVEL): number[] => level.entities
   .filter((entity) => entity.kind === 'slime' || entity.kind === 'hazard')
   // Traversal consumes this list from left to right. Entity order groups slimes

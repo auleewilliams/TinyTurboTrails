@@ -16,3 +16,9 @@ Runtime output is 192 × 192 pixels: sixteen 48px cells in WORLD_ASSETS order.
 Visible bases and terrain top samples were inspected on the processed atlas;
 manifest anchors use the normalized 44px base and checkpoint post alignment.
 Material bands are deterministic canvas overlays aligned to the ground contour.
+
+Spring grounding (issue #155): the spring differs from the normalized 44px
+base. Its last visible row is 38 (alpha >= 128, matching the atlas processor's
+visibility threshold); rows below contain only invisible fringe/padding.
+Its anchor is `{ x: 24, y: 39 }`, placing that visible base on terrain even
+during compression and release. Bitmap artwork is unchanged.
