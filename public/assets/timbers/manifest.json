@@ -26,6 +26,7 @@
     "terrain-ramp": { "left": 30, "right": 11 }
   },
   "anchors": {
+    "spring": { "x": 24, "y": 44 },
     "checkpoint": { "x": 24, "y": 44 },
     "tree": { "x": 24, "y": 44 },
     "slime": { "x": 24, "y": 44 },
