@@ -199,12 +199,12 @@ export const PLAINS_LEVEL: LevelData = withSlimePatrols({
     groundedEntity({ id: 'slime-012', kind: 'slime', x: 8140, asset: 'slime', layer: 'world', patrol: { minX: 7960, maxX: 8140, speed: SLIME_SPEED } }),
     groundedEntity({ id: 'slime-013', kind: 'slime', x: 8910, asset: 'slime', layer: 'world' }),
     groundedEntity({ id: 'slime-014', kind: 'slime', x: 9610, asset: 'slime', layer: 'world' }),
-    { id: 'spring-001', kind: 'spring', x: 1558, y: 186, asset: 'spring', layer: 'world' },
-    { id: 'spring-002', kind: 'spring', x: 3392, y: 186, asset: 'spring', layer: 'world' },
-    { id: 'spring-003', kind: 'spring', x: 5130, y: 186, asset: 'spring', layer: 'world' },
-    { id: 'spring-004', kind: 'spring', x: 6867, y: 158, asset: 'spring', layer: 'world' },
-    { id: 'spring-005', kind: 'spring', x: 8385, y: 186, asset: 'spring', layer: 'world' },
-    { id: 'spring-006', kind: 'spring', x: 9741, y: 154, asset: 'spring', layer: 'world' },
+    groundedEntity({ id: 'spring-001', kind: 'spring', x: 1558, asset: 'spring', layer: 'world' }),
+    groundedEntity({ id: 'spring-002', kind: 'spring', x: 3392, asset: 'spring', layer: 'world' }),
+    groundedEntity({ id: 'spring-003', kind: 'spring', x: 5131, asset: 'spring', layer: 'world' }),
+    groundedEntity({ id: 'spring-004', kind: 'spring', x: 6867, asset: 'spring', layer: 'world' }),
+    groundedEntity({ id: 'spring-005', kind: 'spring', x: 8385, asset: 'spring', layer: 'world' }),
+    groundedEntity({ id: 'spring-006', kind: 'spring', x: 9741, asset: 'spring', layer: 'world' }),
     { id: 'hazard-001', kind: 'hazard', x: 1045, y: 155, asset: 'stone', layer: 'world' },
     { id: 'hazard-002', kind: 'hazard', x: 2901, y: 100, asset: 'stone', layer: 'world' },
     { id: 'hazard-003', kind: 'hazard', x: 4666, y: 113, asset: 'stone', layer: 'world' },
@@ -304,6 +304,9 @@ export function validateLevel(level: LevelData): void {
     if (!entity.id || ids.has(entity.id)) throw new Error(`duplicate entity id: ${entity.id}`);
     ids.add(entity.id);
     if (entity.x < level.minX || entity.x > level.maxX) throw new Error(`entity outside level: ${entity.id}`);
+    if (entity.kind === 'spring' && entity.y !== surfaceY(level, entity.x)) {
+      throw new Error(`spring is not planted on terrain: ${entity.id}`);
+    }
     validatePatrol(level, entity);
     if (entity.bounce) {
       const { amplitude, seconds } = entity.bounce;

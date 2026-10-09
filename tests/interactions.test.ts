@@ -91,6 +91,27 @@ describe('in-memory run interactions', () => {
     expect(log[0]).toEqual({ type: 'spring', entityId: 'spring-001' });
   });
 
+  it.each(LEVELS)('launches from every grounded $name spring and rearms after separation', (level) => {
+    for (const spring of level.entities.filter((entity) => entity.kind === 'spring')) {
+      const run = createRun(level);
+      const henry = createPlayer(spring.x, level);
+      henry.vx = 180;
+      const log = events();
+      stepEntities(run, level, henry, 1 / 60, log);
+      expect(henry.vy, spring.id).toBe(-DEFAULT_MOVEMENT.springVelocity);
+      expect(henry.vx, spring.id).toBe(180);
+      expect(log.filter((event) => event.type === 'spring')).toEqual([{ type: 'spring', entityId: spring.id }]);
+      stepEntities(run, level, henry, 1 / 60, log);
+      expect(log.filter((event) => event.type === 'spring')).toHaveLength(1);
+      Object.assign(henry, createPlayer(spring.x - 100, level));
+      stepEntities(run, level, henry, 1 / 60, log);
+      Object.assign(henry, createPlayer(spring.x, level));
+      stepEntities(run, level, henry, 1 / 60, log);
+      expect(log.filter((event) => event.type === 'spring')).toHaveLength(2);
+      expect(henry.vy, spring.id).toBe(-DEFAULT_MOVEMENT.springVelocity);
+    }
+  });
+
   it('launches only once during sustained contact and rearms after separation', () => {
     const run = createRun(PLAINS_LEVEL);
     const henry = player();

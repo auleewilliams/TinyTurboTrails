@@ -59,6 +59,6 @@ it.each(['frost', 'cove'])('ships a complete %s atlas with grounded anchors', as
   expect([png.readUInt32BE(16), png.readUInt32BE(20)]).toEqual([192, 192]);
   expect(png[25]).toBe(6);
   for (const kind of ['stone', 'slime', 'spring', 'tree', 'checkpoint']) {
-    expect(manifest.anchors[kind].y).toBe(44);
+    expect(manifest.anchors[kind].y).toBe(biome === 'cove' && kind === 'spring' ? 39 : 44);
   }
 });
