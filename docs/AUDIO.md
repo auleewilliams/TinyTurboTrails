@@ -2,7 +2,8 @@
 
 All music and effects are original project-local Web Audio oscillator synthesis.
 No recordings, borrowed melodies, external services, credentials or persistence
-are used. Scores live in `src/core/music.ts`; scheduling lives in `retro-audio.ts`.
+are used. Music scores live in `src/core/music.ts`, effect scores and their mix
+levels in `src/core/audio-effects.ts`, and scheduling in `retro-audio.ts`.
 
 | Level ID | Composition | BPM | Character |
 | --- | --- | --- | --- |
@@ -52,6 +53,23 @@ The `/?scene=gameplay` and `/?scene=adventure` previews now wire accepted jump,
 gem, checkpoint, spring and damage events to these effects. Title screens have no composition. Finish stops music before its one-shot cue. Reaching the finish plays the `complete` effect once;
 the effect also remains available through the preview and interface.
 
+Footsteps and landing thumps are also wired in both gameplay scenes. A footstep
+is a 35ms triangle sweep from 180 to 70Hz at voice gain 0.045; a landing is a
+95ms sine sweep from 110 to 45Hz at gain 0.075. Other effects retain gain 0.48.
+Footsteps accumulate 48px strides from existing horizontal velocity: 80px/s
+walking gives about 1.67 steps/s; full-speed 220px/s running gives about 4.58.
+Only grounded movement counts, with a 12px/s deadband. Stationary platform rides
+and wall contact stay silent; walking on a platform uses relative velocity even
+when its carry opposes Henry. Jumping, spring launches, damage, recovery, idle
+and new trails reset partial strides. There are no footstep timers or new
+simulation fields. Paused simulation advances neither cadence nor impacts.
+
+Landing audio and the dust puff share exactly the same predicate: Henry was
+airborne, is now grounded, and his previous downward velocity exceeded 180px/s.
+Small contacts and standing still emit neither. Recovery from a pit does not
+create a landing cue. Both new effects use the normal unlock, mute, focus-loss
+suspension, voice cap and node cleanup paths. Surface timbres remain uniform.
+
 ## Verification (2026-09-14)
 
 - `npm test`: 48 tests pass, including 9 audio tests for lazy unlock, rejected API
@@ -87,3 +105,13 @@ intelligibility. On 2026-09-20 the user confirmed the listening check was comple
 and reported that the tracks "sound great." Hardware and Henry's individual
 response were not specified. Hosted CI passed with 122 browser checks and one
 native-audio skip; see the evidence notes for details.
+
+## Issue #131 validation
+
+See [rendered samples, measurements and validation](evidence/issue-131/README.md).
+Across all six twelve-second music mixes, the movement component is 18.23–20.52dB
+below music RMS. Isolated footstep and landing peaks are respectively 21.04dB
+and 17.09dB below the gem cue. The largest measured mix peak is 0.03922 of full
+scale; the existing worst-case voice bound remains 0.864. These are waveform
+measurements, with review WAVs linked in the evidence; physical-speaker listening
+for these new cues has not been performed.

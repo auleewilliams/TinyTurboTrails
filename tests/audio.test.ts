@@ -42,6 +42,40 @@ function setup() {
 }
 afterEach(() => vi.useRealTimers());
 describe('RetroAudio lifecycle', () => {
+  it.each(['footstep', 'landing'] as const)('gates %s on unlock, mute and focus/pause suspension', async effect => {
+    const { audio, context } = setup();
+    audio.play(effect); expect(context.oscillators).toHaveLength(0);
+    await audio.unlock(); audio.play(effect);
+    expect(context.oscillators).toHaveLength(1);
+    audio.setMuted(true); audio.play(effect);
+    expect(context.oscillators).toHaveLength(1);
+    expect(context.oscillators[0].disconnected).toBe(true);
+    audio.setMuted(false); audio.play(effect);
+    expect(context.oscillators).toHaveLength(2);
+    audio.setSuspended(true); audio.play(effect);
+    expect(context.oscillators).toHaveLength(2);
+    expect(context.oscillators.every(node => node.disconnected)).toBe(true);
+    audio.setSuspended(false); await audio.unlock(); audio.play(effect);
+    expect(context.oscillators).toHaveLength(3);
+    audio.dispose();
+  });
+
+  it('bounds a long run with movement sounds, music and overlapping rewards, then releases ended nodes', async () => {
+    vi.useFakeTimers();
+    const { audio, context } = setup(); audio.startMusic(); await audio.unlock();
+    for (let i = 0; i < 3000; i++) {
+      context.currentTime += 0.2; vi.advanceTimersByTime(200);
+      audio.play('footstep');
+      if (i % 5 === 0) { audio.play('landing'); audio.play('gem'); }
+      const activeGains = context.gains.slice(1).filter(node => !node.disconnected);
+      expect(activeGains.length).toBeLessThanOrEqual(24);
+      expect(activeGains.reduce((sum, node) => sum + node.gain.peak, 0) * context.gains[0].gain.value).toBeLessThan(1);
+      // Model native onended after each group, including rewards' queued tones.
+      for (const node of context.oscillators) node.onended?.();
+      expect(context.gains.slice(1).every(node => node.disconnected)).toBe(true);
+    }
+    audio.dispose(); expect(vi.getTimerCount()).toBe(0);
+  });
   it('does not create audio until an interaction unlocks it', async () => {
     const { audio, context, create } = setup();
     audio.startMusic(); audio.play('jump'); audio.setSuspended(false);

@@ -1,0 +1,84 @@
+{
+  "isolated": [
+    {
+      "id": "footstep",
+      "seconds": 0.3,
+      "peak": 0.0031825308687984943,
+      "rms": 0.0002756769115282885
+    },
+    {
+      "id": "landing",
+      "seconds": 0.3,
+      "peak": 0.005013164132833481,
+      "rms": 0.0007994436685473175
+    },
+    {
+      "id": "gem",
+      "seconds": 0.3,
+      "peak": 0.035879261791706085,
+      "rms": 0.006442853531132103
+    }
+  ],
+  "movement": {
+    "id": "movement-only",
+    "seconds": 12,
+    "peak": 0.005596066825091839,
+    "rms": 0.00033170120358626444
+  },
+  "mixes": [
+    {
+      "id": "plains-mix",
+      "seconds": 12,
+      "peak": 0.037260621786117554,
+      "rms": 0.002943665270894834,
+      "maxVoices": 4,
+      "musicRms": 0.0027394660915741665,
+      "movementBelowMusicDb": 18.33837763689274
+    },
+    {
+      "id": "quarry-mix",
+      "seconds": 12,
+      "peak": 0.039212945848703384,
+      "rms": 0.0034122335248047363,
+      "maxVoices": 4,
+      "musicRms": 0.00324159920707596,
+      "movementBelowMusicDb": 19.80024540153944
+    },
+    {
+      "id": "timbers-mix",
+      "seconds": 12,
+      "peak": 0.03909158334136009,
+      "rms": 0.002925414617376944,
+      "maxVoices": 5,
+      "musicRms": 0.002704862701224778,
+      "movementBelowMusicDb": 18.227963557042905
+    },
+    {
+      "id": "sunset-mix",
+      "seconds": 12,
+      "peak": 0.03909158334136009,
+      "rms": 0.003079981206938795,
+      "maxVoices": 4,
+      "musicRms": 0.002887985721002061,
+      "movementBelowMusicDb": 18.7969598852056
+    },
+    {
+      "id": "frost-mix",
+      "seconds": 12,
+      "peak": 0.038234248757362366,
+      "rms": 0.003682329578541995,
+      "maxVoices": 5,
+      "musicRms": 0.003522199301661575,
+      "movementBelowMusicDb": 20.52133758528018
+    },
+    {
+      "id": "cove-mix",
+      "seconds": 12,
+      "peak": 0.03873082995414734,
+      "rms": 0.0036233913793899436,
+      "maxVoices": 4,
+      "musicRms": 0.0034592847901247113,
+      "movementBelowMusicDb": 20.364785399479523
+    }
+  ]
+}
