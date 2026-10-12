@@ -1,6 +1,7 @@
 import { drawOverworld, MAP_POINTS, OVERWORLD_LAYOUT, TrailSession, type MenuTarget } from './overworld';
 import { musicForLevel } from '../core/music';
 import type { GameAudio } from '../core/audio';
+import { FootstepCadence, isMeaningfulLanding } from './movement-audio';
 import type { InputFrame, InputSource } from '../core/input';
 import type { Scene } from '../core/scene';
 import { animationFrame } from '../art/animation';
@@ -64,6 +65,7 @@ export class AdventureScene implements Scene {
   private readonly story = new StoryBook();
   private storyDirection = 0;
   private readonly feedback = new Feedback();
+  private readonly footsteps = new FootstepCadence();
   private hud = new HudPresentation();
   private get reducedMotion(): boolean { return typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches; }
   private events: RunEvent[] = [];
@@ -155,12 +157,15 @@ export class AdventureScene implements Scene {
     const previousVelocityY = this.player.vy;
     simulatePlayer(this.player, input, this.level, seconds, [...this.platforms, ...activeLedgePlatforms(this.run, this.level)]);
     if (previousVelocityY >= 0 && this.player.vy < -DEFAULT_MOVEMENT.jumpVelocity * 0.75) this.audio.play('jump');
-    if (!wasGrounded && this.player.onGround && previousVelocityY > 180) {
+    if (isMeaningfulLanding(wasGrounded, previousVelocityY, this.player)) {
       this.feedback.add('landing', this.player.x, this.player.y + DEFAULT_MOVEMENT.height);
+      this.audio.play('landing');
     }
     this.events = [];
     stepEntities(this.run, this.level, this.player, seconds, this.events, previousPosition);
     if (this.player.y > this.level.height + 80) recoverFromFall(this.run, this.player, this.events, this.level);
+    if (!wasGrounded || this.events.some(event => event.type === 'recover' || event.type === 'damage' || event.type === 'spring')) this.footsteps.reset();
+    else if (this.footsteps.step(step, this.player, previousPosition.x)) this.audio.play('footstep');
     if (this.player.x >= this.level.finish.x && this.screens.state === 'playing') {
       this.screens.complete(this.run.collectedGems.size);
       this.celebration.reset();
@@ -329,6 +334,7 @@ export class AdventureScene implements Scene {
     this.celebration.reset();
     this.events = [];
     this.feedback.clear();
+    this.footsteps.reset();
     this.hud = new HudPresentation();
     this.level = level;
     this.player = createPlayer(level.start.x, level);

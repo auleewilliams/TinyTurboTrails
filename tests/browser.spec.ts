@@ -11,6 +11,89 @@ import { drawSlime, drawGem, drawSpecial, drawChallengeCues, drawAsset, drawSurf
 /** The renderer is injected as plain functions, so every helper it calls has to travel with it. */
 const RENDERER_SOURCE = [drawSlime, drawGem, drawSpecial, drawChallengeCues, drawTerrainMaterial, drawTerrainEdge, drawTrailBackdrop, drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawSurfaceMaterials].map((helper) => helper.toString()).join('\n');
 
+test('movement sounds follow run and landing, and stop on idle, jump, mute, pause and focus loss', async ({ page }, info) => {
+  // Device-independent integration; real synthesis is measured by the offline samples.
+  await page.addInitScript(() => {
+    const probe = { footsteps: 0, landings: 0, active: 0 };
+    Object.assign(window, { movementSoundProbe: probe });
+    class Param {
+      value = 0;
+      setValueAtTime(value: number) { this.value = value; }
+      linearRampToValueAtTime() {}
+      exponentialRampToValueAtTime() {}
+    }
+    class Context {
+      state = 'suspended'; destination = {};
+      get currentTime() { return performance.now() / 1000; }
+      async resume() { this.state = 'running'; }
+      async suspend() { this.state = 'suspended'; }
+      async close() { this.state = 'closed'; }
+      createGain() { return { gain: new Param(), connect() {}, disconnect() {} }; }
+      createOscillator() {
+        let active = false;
+        return { frequency: new Param(), type: '', onended: null as (() => void) | null, connect() {}, disconnect() {},
+          start() {
+            active = true; probe.active++;
+            if (this.frequency.value === 180) probe.footsteps++;
+            if (this.frequency.value === 110 && this.type === 'sine') probe.landings++;
+          },
+          stop(when?: number) {
+            const finish = () => { if (active) { active = false; probe.active--; this.onended?.(); } };
+            if (when === undefined) finish();
+            else setTimeout(finish, Math.max(0, (when - performance.now() / 1000) * 1000));
+          } };
+      }
+    }
+    Object.assign(window, { AudioContext: Context });
+  });
+  const read = () => page.evaluate(() => (window as unknown as {
+    movementSoundProbe: { footsteps: number; landings: number; active: number };
+  }).movementSoundProbe);
+  await openAdventure(page, '/');
+  await page.getByRole('button', { name: 'Play PLAINS', exact: true }).click();
+  await expect(page.locator('#status')).toContainText('Playing');
+  await page.keyboard.down('ArrowRight');
+  await expect.poll(async () => (await read()).footsteps).toBeGreaterThan(0);
+  await page.keyboard.up('ArrowRight');
+  await page.waitForTimeout(250); // Finish braking before checking idle.
+  const idle = await read();
+  await page.waitForTimeout(300);
+  expect((await read()).footsteps).toBe(idle.footsteps);
+
+  await page.keyboard.down('Space');
+  await page.waitForTimeout(100);
+  await page.keyboard.up('Space');
+  await page.waitForTimeout(100);
+  expect((await read()).footsteps).toBe(idle.footsteps);
+  await expect.poll(async () => (await read()).landings).toBe(idle.landings + 1);
+  await page.waitForTimeout(200);
+  expect((await read()).landings).toBe(idle.landings + 1);
+  await info.attach('movement-sounds-grounded', { body: await page.locator('canvas').screenshot(), contentType: 'image/png' });
+
+  for (const mode of ['mute', 'pause', 'focus']) {
+    if (mode === 'mute') await page.keyboard.press('m');
+    else if (mode === 'pause') await page.keyboard.press('Escape');
+    else await page.evaluate(() => window.dispatchEvent(new Event('blur')));
+    const before = await read();
+    await page.keyboard.down('ArrowLeft');
+    await page.waitForTimeout(400);
+    await page.keyboard.up('ArrowLeft');
+    expect((await read()).footsteps).toBe(before.footsteps);
+    expect((await read()).landings).toBe(before.landings);
+    expect((await read()).active).toBe(0);
+    if (mode === 'mute') {
+      await page.keyboard.down('Space'); await page.waitForTimeout(100); await page.keyboard.up('Space');
+      await page.waitForTimeout(700);
+      expect((await read()).landings).toBe(before.landings);
+      await page.keyboard.press('m');
+    } else if (mode === 'pause') await page.keyboard.press('Escape');
+    else await page.evaluate(() => window.dispatchEvent(new Event('focus')));
+    await page.waitForTimeout(100);
+    expect((await read()).footsteps).toBe(before.footsteps);
+    expect((await read()).landings).toBe(before.landings);
+  }
+});
+
 test('all springs keep their visible bases on terrain at rest, compressed and released', async ({ page }, info) => {
   await page.goto('/?scene=foundation');
   await page.addScriptTag({ content: `window.drawSpringTestAsset = ${drawAsset.toString()};` });
