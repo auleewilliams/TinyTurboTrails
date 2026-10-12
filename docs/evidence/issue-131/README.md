@@ -67,6 +67,10 @@ not been performed.
   existing Firefox native-device probe may skip when its independent audio
   clock cannot start; deterministic integration and offline rendering remain
   separate from that hardware check.
+- After hosted WebKit exposed a missed title-start input, the new check was
+  corrected to await the existing title readiness helper and click the native
+  Play button. Three repetitions per engine then passed: nine checks total,
+  retaining every run/landing/mute/pause/focus assertion.
 - [Grounded gameplay screenshot](grounded.png): Chromium at 1366×768, route `/`,
   Skip story, Space to start, Right for 450ms, a short jump, then settle. The HUD
   stays clear of Henry and the playfield; this change adds no visual overlay.

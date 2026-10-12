@@ -49,9 +49,8 @@ test('movement sounds follow run and landing, and stop on idle, jump, mute, paus
   const read = () => page.evaluate(() => (window as unknown as {
     movementSoundProbe: { footsteps: number; landings: number; active: number };
   }).movementSoundProbe);
-  await page.goto('/');
-  await page.getByRole('button', { name: 'Skip story', exact: true }).click();
-  await page.keyboard.press('Space');
+  await openAdventure(page, '/');
+  await page.getByRole('button', { name: 'Play PLAINS', exact: true }).click();
   await expect(page.locator('#status')).toContainText('Playing');
   await page.keyboard.down('ArrowRight');
   await expect.poll(async () => (await read()).footsteps).toBeGreaterThan(0);
