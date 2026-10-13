@@ -96,7 +96,9 @@ test('controller damage rumble is independent of audio and stops on pause, focus
     (window as unknown as { rumblePad: { axes: number[] } }).rumblePad.axes[0] = value;
   }, value);
   await openAdventure(page, '/');
-  await axis(1); await page.waitForTimeout(80); await axis(0);
+  await axis(1);
+  await expect(page.getByRole('button', { name: 'QUARRY RUN', exact: true })).toHaveAttribute('aria-pressed', 'true');
+  await axis(0);
   expect((await read()).effects).toEqual([]); // Controller map navigation has no output.
   await page.getByRole('button', { name: 'Play QUARRY RUN', exact: true }).click();
   await page.locator('#mute').click();
@@ -104,6 +106,18 @@ test('controller damage rumble is independent of audio and stops on pause, focus
   await expect.poll(async () => (await read()).effects.length, { timeout: 10000 }).toBeGreaterThan(0);
   await axis(0);
   expect((await read()).effects[0]).toMatchObject({ duration: 100, strongMagnitude: 0.55, weakMagnitude: 0.3 });
+  const rumbleButton = page.getByRole('button', { name: 'Controller rumble', exact: true });
+  await rumbleButton.click();
+  await expect(rumbleButton).toHaveAttribute('aria-pressed', 'false');
+  expect((await read()).resets).toBeGreaterThan(0);
+  const disabled = await read();
+  await axis(1); await page.waitForTimeout(1600); await axis(0);
+  expect((await read()).effects).toEqual(disabled.effects);
+  await rumbleButton.click();
+  await expect(rumbleButton).toHaveAttribute('aria-pressed', 'true');
+  await axis(1);
+  await expect.poll(async () => (await read()).effects.length, { timeout: 10000 }).toBeGreaterThan(disabled.effects.length);
+  await axis(0);
   await page.keyboard.press('Escape');
   await expect(page.locator('#status')).toContainText('Paused');
   expect((await read()).resets).toBeGreaterThan(0);
@@ -123,6 +137,41 @@ test('controller damage rumble is independent of audio and stops on pause, focus
   expect((await read()).effects).toEqual(paused.effects);
   await info.attach('rumble-gameplay', { body: await page.screenshot({ path: info.outputPath('rumble-gameplay.png') }), contentType: 'image/png' });
   expect(errors).toEqual([]);
+});
+
+test('rumble icon toggles independently with pointer and keyboard at desktop and small sizes', async ({ page }, info) => {
+  await openAdventure(page, '/');
+  const button = page.getByRole('button', { name: 'Controller rumble', exact: true });
+  await expect(button).toHaveAttribute('aria-pressed', 'true');
+  await expect(button.locator('.rumble-waves')).toBeVisible();
+  await expect(button.locator('.rumble-slash')).toBeHidden();
+  await button.focus();
+  await page.keyboard.press('Space');
+  await expect(button).toHaveAttribute('aria-pressed', 'false');
+  await expect(page.locator('#status')).toContainText('Title');
+  await expect(button.locator('.rumble-slash')).toBeVisible();
+  await expect(button.locator('.rumble-waves')).toBeHidden();
+  await expect(page.locator('#mute')).toHaveAttribute('aria-pressed', 'false');
+  await page.keyboard.press('Enter');
+  await expect(button).toHaveAttribute('aria-pressed', 'true');
+  await page.locator('#mute').click();
+  await expect(button).toHaveAttribute('aria-pressed', 'true');
+  await page.locator('#mute').click();
+  for (const width of [1366, 426, 320]) {
+    await page.setViewportSize({ width, height: width === 1366 ? 768 : 240 });
+    await expect(button).toBeInViewport();
+    const bounds = await button.boundingBox();
+    const mute = await page.locator('#mute').boundingBox();
+    const canvas = await page.locator('canvas').boundingBox();
+    expect(bounds!.x).toBeGreaterThan(mute!.x + mute!.width);
+    expect(bounds!.y).toBeGreaterThanOrEqual(canvas!.y + canvas!.height);
+    for (const state of ['on', 'off']) {
+      await info.attach(`rumble-${state}-${width}`, { body: await page.screenshot({ path: info.outputPath(`rumble-${state}-${width}.png`) }), contentType: 'image/png' });
+      await button.click();
+    }
+  }
+  await page.reload(); await dismissOpening(page);
+  await expect(button).toHaveAttribute('aria-pressed', 'true');
 });
 
 test('movement sounds follow run and landing, and stop on idle, jump, mute, pause and focus loss', async ({ page }, info) => {
