@@ -21,26 +21,30 @@ not add completion results, and the map does not show a completion banner.
 
 Captured from the production build in Chromium by the focused browser tests:
 
-- [Keyboard pause at 426 × 240](keyboard-pause.png)
+- [Keyboard pause in a 426 × 240 window](keyboard-pause.png)
 - [Confirmation at 360 × 240](confirmation-small.png)
 - [Controller selection at 1366 × 768](controller-pause.png)
 
 ## Validation
 
 - `npm run typecheck` and `npm run build` passed.
-- `npm test -- --maxWorkers=2 --testTimeout=15000` passed: 654 tests in 36 files.
+- `npm test -- --maxWorkers=2 --testTimeout=15000` passed: 671 tests in 37 files after integrating controller rumble from main.
   The longer timeout accommodates the existing exhaustive finish-layout test on
   this host. The sprite-processing tests required subprocess access outside the
   filesystem sandbox.
 - `npm run test:ci` passed.
 - The independent subagent review found no remaining blockers after the held
-  Enter and direction guards were fixed. Its focused unit run passed 43 tests.
+  Enter and direction guards were fixed. Its final integration unit run passed 62 tests.
 - Browser coverage exercises keyboard T confirmation/cancellation and repeats,
   pointer/Tab/Enter/Space actions, focus-loss cancellation, controller selection,
   held-action release on the map, fresh run state and trail-audio shutdown/restart.
-- The final focused Playwright run passed all 18 checks across Chromium, Firefox
-  and WebKit with `--workers=1`. Controller presses await animation frames so
-  every edge is sampled reliably on a busy host.
+- Focused Playwright runs passed across Chromium, Firefox and WebKit with
+  `--workers=1`: 18 pause/audio and frost/cove completion checks after correcting
+  a resume-input race, then 12 pause/audio and 6 rumble checks against current main. The
+  regression batches Escape and a fresh movement press in one browser task.
+  Returning filters held controls while accepting a fresh map action immediately.
+  Controller presses await animation frames so every edge is sampled reliably
+  on a busy host. The screenshots show the integrated rumble footer.
 - The full local browser run was interrupted after this host exhausted memory
   during concurrent runs (`ERR_INSUFFICIENT_RESOURCES` and asset-load failures).
   The final focused run uses one browser worker; the complete suite also runs in
