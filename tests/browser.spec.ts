@@ -11,6 +11,59 @@ import { drawSlime, drawGem, drawSpecial, drawChallengeCues, drawAsset, drawSurf
 /** The renderer is injected as plain functions, so every helper it calls has to travel with it. */
 const RENDERER_SOURCE = [drawSlime, drawGem, drawSpecial, drawChallengeCues, drawTerrainMaterial, drawTerrainEdge, drawTrailBackdrop, drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawSurfaceMaterials].map((helper) => helper.toString()).join('\n');
 
+test('controller damage rumble is independent of audio and stops on pause, focus loss and disconnect', async ({ page }, info) => {
+  const errors: string[] = [];
+  page.on('pageerror', error => errors.push(error.message));
+  page.on('console', message => { if (message.type() === 'error') errors.push(message.text()); });
+  await page.addInitScript(() => {
+    const probe = { effects: [] as { duration: number; strongMagnitude: number; weakMagnitude: number }[], resets: 0 };
+    const pad = {
+      connected: true, mapping: 'standard', index: 0, axes: [0, 0],
+      buttons: Array.from({ length: 17 }, () => ({ pressed: false })),
+      vibrationActuator: {
+        playEffect(_type: string, parameters: typeof probe.effects[number]) { probe.effects.push(parameters); return Promise.resolve('complete'); },
+        reset() { probe.resets++; return Promise.resolve('complete'); },
+      },
+    };
+    Object.defineProperty(navigator, 'getGamepads', { configurable: true, value: () => [pad] });
+    Object.assign(window, { rumbleProbe: probe, rumblePad: pad });
+  });
+  const read = () => page.evaluate(() => (window as unknown as {
+    rumbleProbe: { effects: { duration: number; strongMagnitude: number; weakMagnitude: number }[]; resets: number };
+  }).rumbleProbe);
+  const axis = (value: number) => page.evaluate(value => {
+    (window as unknown as { rumblePad: { axes: number[] } }).rumblePad.axes[0] = value;
+  }, value);
+  await openAdventure(page, '/');
+  await axis(1); await page.waitForTimeout(80); await axis(0);
+  expect((await read()).effects).toEqual([]); // Controller map navigation has no output.
+  await page.getByRole('button', { name: 'Play QUARRY RUN', exact: true }).click();
+  await page.locator('#mute').click();
+  await axis(1);
+  await expect.poll(async () => (await read()).effects.length, { timeout: 10000 }).toBeGreaterThan(0);
+  await axis(0);
+  expect((await read()).effects[0]).toMatchObject({ duration: 100, strongMagnitude: 0.55, weakMagnitude: 0.3 });
+  await page.keyboard.press('Escape');
+  await expect(page.locator('#status')).toContainText('Paused');
+  expect((await read()).resets).toBeGreaterThan(0);
+  const paused = await read();
+  await axis(1); await page.waitForTimeout(350);
+  expect((await read()).effects).toEqual(paused.effects);
+  await axis(0); await page.keyboard.press('Escape');
+  await page.evaluate(() => window.dispatchEvent(new Event('blur')));
+  await axis(1); await page.waitForTimeout(350);
+  expect((await read()).effects).toEqual(paused.effects);
+  await page.evaluate(() => {
+    (window as unknown as { rumblePad: { connected: boolean } }).rumblePad.connected = false;
+    window.dispatchEvent(new Event('gamepaddisconnected'));
+    window.dispatchEvent(new Event('focus'));
+  });
+  await page.waitForTimeout(350);
+  expect((await read()).effects).toEqual(paused.effects);
+  await info.attach('rumble-gameplay', { body: await page.screenshot({ path: info.outputPath('rumble-gameplay.png') }), contentType: 'image/png' });
+  expect(errors).toEqual([]);
+});
+
 test('movement sounds follow run and landing, and stop on idle, jump, mute, pause and focus loss', async ({ page }, info) => {
   // Device-independent integration; real synthesis is measured by the offline samples.
   await page.addInitScript(() => {

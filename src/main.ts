@@ -33,7 +33,8 @@ if (!context) {
   const removeAudioPreview = mountAudioPreview(audio);
   const unlockAudio = (): void => { void audio.unlock(); };
   const input = new BrowserInput(window, () => { void audio.unlock().catch(() => {}); });
-  const scenes = new SceneHost(() => audio.stop());
+  const rumble = input.rumble;
+  const scenes = new SceneHost(() => { audio.stop(); rumble.stop(); });
   const menu = new MenuOverlay(canvas);
   let focused = !document.hidden && document.hasFocus();
   let userPaused = false;
@@ -68,6 +69,7 @@ if (!context) {
     const paused = !focused || userPaused;
     clock.setPaused(paused);
     audio.setSuspended(paused);
+    rumble.setSuspended(paused);
     if (paused) {
       input.clear();
       pendingJump = false;
@@ -98,6 +100,7 @@ if (!context) {
     refreshPause();
     location.reload();
   };
+  const refreshRumble = (): void => rumble.setGameplay(scenes.activeScene instanceof AdventureScene && scenes.activeScene.screenState === 'playing');
 
   const frame = (now: number): void => {
     const controls: InputFrame = input.poll();
@@ -107,8 +110,10 @@ if (!context) {
       if (controls.mutePressed) { muted = !muted; audio.setMuted(muted); refreshPause(); }
     }
     if (focused && !userPaused) { pendingJump ||= controls.jumpPressed; pendingStory ||= controls.storyPressed ?? false; }
+    refreshRumble();
     clock.advance(now, (seconds) => {
       scenes.update(seconds, { ...controls, jumpPressed: pendingJump, storyPressed: pendingStory });
+      refreshRumble();
       pendingJump = false;
       pendingStory = false;
     });
@@ -152,7 +157,7 @@ if (!context) {
       loadImage(`${import.meta.env.BASE_URL}assets/story/patchwork-vale.png`),
     ]).then(([titleArtwork, henry, worlds, landmarks, mapBackground, storyArtwork]) => {
       if (disposed) return;
-      scenes.change(new AdventureScene(titleArtwork, henry, worlds, audio, DEFAULT_LEVEL, landmarks, mapBackground, storyArtwork));
+      scenes.change(new AdventureScene(titleArtwork, henry, worlds, audio, DEFAULT_LEVEL, landmarks, mapBackground, storyArtwork, rumble));
       assetState = 'ready';
       refreshPause();
     }).catch(() => {

@@ -1,6 +1,7 @@
 import { drawOverworld, MAP_POINTS, OVERWORLD_LAYOUT, TrailSession, type MenuTarget } from './overworld';
 import { musicForLevel } from '../core/music';
 import type { GameAudio } from '../core/audio';
+import type { GameRumble } from '../core/rumble';
 import { FootstepCadence, isMeaningfulLanding } from './movement-audio';
 import type { InputFrame, InputSource } from '../core/input';
 import type { Scene } from '../core/scene';
@@ -77,7 +78,7 @@ export class AdventureScene implements Scene {
   private marker = { x: 48, y: 88 };
   private readonly previews = new Map<string, HTMLCanvasElement>();
   private inputSource: InputSource = 'keyboard';
-  constructor(private readonly titleArtwork: HTMLImageElement, private readonly henry: HenryAssets, private readonly worlds: WorldAssetMap, private readonly audio: GameAudio, level: LevelData, private readonly landmarks?: HTMLImageElement, private readonly mapBackground?: HTMLImageElement, private readonly storyArtwork?: HTMLImageElement) {
+  constructor(private readonly titleArtwork: HTMLImageElement, private readonly henry: HenryAssets, private readonly worlds: WorldAssetMap, private readonly audio: GameAudio, level: LevelData, private readonly landmarks?: HTMLImageElement, private readonly mapBackground?: HTMLImageElement, private readonly storyArtwork?: HTMLImageElement, private readonly rumble?: GameRumble) {
     const missing = [...new Set(LEVELS.map((candidate) => candidate.atlas))]
       .filter((atlas) => !worlds[atlas]);
     if (missing.length > 0) throw new Error(`Missing world assets: ${missing.join(', ')}`);
@@ -101,7 +102,7 @@ export class AdventureScene implements Scene {
   get selectedLevelName(): string { return LEVELS[this.selectedIndex].name; }
   private get world(): WorldAssets { return this.worlds[this.level.atlas]; }
   enter(): void { this.elapsed = 0; }
-  exit(): void { this.audio.stop(); }
+  exit(): void { this.audio.stop(); this.rumble?.stop(); }
 
   update(seconds: number, input: InputFrame): void {
     this.inputSource = input.source ?? 'keyboard';
@@ -174,6 +175,7 @@ export class AdventureScene implements Scene {
       this.menuArmed = false;
       this.selectionDirection = 0;
       this.audio.stop();
+      this.rumble?.stop();
       this.audio.play('complete');
     }
     this.feedback.consume(this.events, this.level);
@@ -182,6 +184,10 @@ export class AdventureScene implements Scene {
       else if (event.type === 'checkpoint') this.audio.play('checkpoint');
       else if (event.type === 'spring') this.audio.play('spring');
       else if (event.type === 'damage') this.audio.play('damage');
+      if (this.screens.state === 'playing') {
+        if (event.type === 'special') this.rumble?.play('star');
+        else if (event.type === 'spring' || event.type === 'damage') this.rumble?.play(event.type);
+      }
     }
     this.camera.update(this.player.x, this.player.y);
   }
@@ -330,6 +336,7 @@ export class AdventureScene implements Scene {
 
   private loadLevel(level: LevelData): void {
     this.audio.stop();
+    this.rumble?.stop();
     this.elapsed = 0;
     this.celebration.reset();
     this.events = [];
