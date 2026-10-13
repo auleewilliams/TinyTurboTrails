@@ -177,6 +177,7 @@ export class AdventureScene implements Scene {
       this.audio.play('complete');
     }
     this.feedback.consume(this.events, this.level);
+    this.hud.consume(this.events);
     for (const event of this.events) {
       if (event.type === 'gem' || event.type === 'special') this.audio.play('gem');
       else if (event.type === 'checkpoint') this.audio.play('checkpoint');
@@ -203,7 +204,7 @@ export class AdventureScene implements Scene {
         ctx.fillStyle = '#ffda75'; ctx.font = 'bold 16px monospace'; ctx.fillText('→', 402, 119);
       }
       drawGameplayHud(ctx, this.run, this.hud.hint, this.feedback.checkpointSeconds > 0
-        ? 'Checkpoint reached!' : this.hud.locationSeconds > 0 ? this.hud.location : '');
+        ? 'Checkpoint reached!' : this.hud.locationSeconds > 0 ? this.hud.location : '', this.hud.progress(this.level, this.player.x));
     } else if (this.screens.state === 'finish') {
       this.drawFinish(ctx);
     } else if (this.screens.state === 'error') {

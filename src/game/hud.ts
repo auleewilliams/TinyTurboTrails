@@ -1,9 +1,64 @@
-import { MAX_HEALTH, type RunState } from './interactions';
+import { MAX_HEALTH, type RunEvent, type RunState } from './interactions';
 import type { InputFrame, InputSource } from '../core/input';
 import type { LevelData } from '../world/level';
 
 export const HUD_COLORS = { panel: '#10252cee', ink: '#e9f2df', full: '#ff5d5d', empty: '#31434a', hit: '#ffda75' } as const;
 const HEART = ['01100110', '11111111', '11111111', '01111110', '00111100', '00011000'];
+export const TRAIL_RIBBON = { x: 5, y: 54, width: 136, height: 14, startX: 12, finishX: 132, railY: 61 } as const;
+export interface TrailProgress {
+  position: number;
+  checkpoints: readonly { id: string; position: number; activated: boolean }[];
+}
+
+/** Use the same player-origin threshold as AdventureScene's finish trigger. */
+export function trailPosition(level: LevelData, x: number): number {
+  return Math.max(0, Math.min(1, (x - level.start.x) / (level.finish.x - level.start.x)));
+}
+
+function ribbonX(position: number): number {
+  const { startX, finishX } = TRAIL_RIBBON;
+  // Keep the marker one pixel short of the flag until the real finish boundary.
+  return position >= 1 ? finishX : Math.min(finishX - 1, Math.round(startX + position * (finishX - startX)));
+}
+
+export function drawTrailRibbon(ctx: CanvasRenderingContext2D, progress: TrailProgress): void {
+  const { x, y, width, height, startX, finishX, railY } = TRAIL_RIBBON;
+  ctx.save();
+  ctx.fillStyle = HUD_COLORS.panel;
+  ctx.fillRect(x, y, width, height);
+  ctx.fillStyle = HUD_COLORS.ink;
+  ctx.fillRect(startX, railY - 1, finishX - startX + 1, 3);
+  ctx.fillStyle = HUD_COLORS.empty;
+  ctx.fillRect(startX, railY, finishX - startX + 1, 1);
+  const markerX = ribbonX(progress.position);
+  ctx.fillStyle = '#9ccf93';
+  ctx.fillRect(startX, railY, markerX - startX, 1);
+  // A planted, hollow post becomes a warm filled post only on activation.
+  for (const checkpoint of progress.checkpoints) {
+    const pointX = ribbonX(checkpoint.position);
+    ctx.fillStyle = HUD_COLORS.ink;
+    ctx.fillRect(pointX - 2, railY - 1, 5, 6);
+    ctx.fillStyle = checkpoint.activated ? HUD_COLORS.hit : HUD_COLORS.empty;
+    ctx.fillRect(pointX - 1, railY, 3, 4);
+  }
+  // Finish flag; distinct from the short checkpoint posts.
+  ctx.fillStyle = HUD_COLORS.ink;
+  ctx.fillRect(finishX, y + 1, 1, 11);
+  ctx.fillRect(finishX + 1, y + 1, 5, 4);
+  ctx.fillStyle = HUD_COLORS.hit;
+  ctx.fillRect(finishX + 1, y + 2, 3, 2);
+  // Henry's green hair and peach face above the rail, with a downward pointer.
+  ctx.fillStyle = '#10252c';
+  ctx.fillRect(markerX - 3, y, 7, 7);
+  ctx.fillStyle = '#9ccf93';
+  ctx.fillRect(markerX - 2, y + 1, 5, 2);
+  ctx.fillStyle = '#f3c799';
+  ctx.fillRect(markerX - 2, y + 3, 5, 2);
+  ctx.fillStyle = HUD_COLORS.ink;
+  ctx.fillRect(markerX - 1, y + 5, 3, 1);
+  ctx.fillRect(markerX, y + 6, 1, 1);
+  ctx.restore();
+}
 const AREAS: Record<string, readonly string[]> = {
   plains: ['Meadow', 'Hillside', 'Canyon', 'Cave', 'Orchard', 'Summit'],
   quarry: ['Quarry entrance', 'Stone terraces', 'Deep pit', 'Tunnels', 'Burrows', 'Crusher crossing', 'Quarry summit'],
@@ -32,6 +87,21 @@ export class HudPresentation {
   private jumpSeconds = 4;
   private moved = false;
   private jumped = false;
+  private readonly activatedCheckpoints = new Set<string>();
+  /** Event history is presentation-only and is discarded with this HUD on a new run. */
+  consume(events: readonly RunEvent[]): void {
+    for (const event of events) {
+      if (event.type === 'checkpoint') this.activatedCheckpoints.add(event.entityId);
+    }
+  }
+  progress(level: LevelData, x: number): TrailProgress {
+    return {
+      position: trailPosition(level, x),
+      checkpoints: level.checkpoints.map(point => ({
+        id: point.id, position: trailPosition(level, point.x), activated: this.activatedCheckpoints.has(point.id),
+      })),
+    };
+  }
   update(seconds: number, input: InputFrame, level: LevelData, x: number): void {
     this.source = input.source ?? 'keyboard';
     this.locationSeconds = Math.max(0, this.locationSeconds - seconds);
@@ -56,7 +126,7 @@ export class HudPresentation {
   }
 }
 
-export function drawGameplayHud(ctx: CanvasRenderingContext2D, run: RunState, hint = '', notice = ''): void {
+export function drawGameplayHud(ctx: CanvasRenderingContext2D, run: RunState, hint = '', notice = '', progress?: TrailProgress): void {
   ctx.save();
   ctx.fillStyle = HUD_COLORS.panel;
   ctx.fillRect(5, 5, 76, 22);
@@ -100,5 +170,6 @@ export function drawGameplayHud(ctx: CanvasRenderingContext2D, run: RunState, hi
     ctx.textAlign = 'right';
     ctx.fillText(notice, 415, 20);
   }
+  if (progress) drawTrailRibbon(ctx, progress);
   ctx.restore();
 }
