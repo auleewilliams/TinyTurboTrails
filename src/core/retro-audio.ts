@@ -1,15 +1,6 @@
 import { MUSIC, MUSIC_STEPS, musicNotes, type MusicId } from './music';
 import type { GameAudio, SoundEffect } from './audio';
-
-type Tone = readonly [frequency: number, duration: number, type: OscillatorType, endFrequency?: number];
-const EFFECTS: Record<SoundEffect, readonly Tone[]> = {
-  jump: [[260, 0.12, 'square', 620]],
-  gem: [[1047, 0.07, 'sine'], [1568, 0.13, 'sine']],
-  spring: [[130, 0.22, 'triangle', 1100]],
-  damage: [[170, 0.12, 'sawtooth', 55], [95, 0.13, 'square', 35]],
-  checkpoint: [[523, 0.1, 'triangle'], [659, 0.1, 'triangle'], [784, 0.22, 'triangle']],
-  complete: [[523, 0.1, 'square'], [659, 0.1, 'square'], [784, 0.1, 'square'], [1047, 0.34, 'triangle']],
-};
+import { EFFECTS, type Tone } from './audio-effects';
 const VOICE_LIMIT = 24;
 // 24 simultaneous voices × 0.48 maximum voice gain × 0.075 = 0.864 peak.
 const MASTER_GAIN = 0.075;
@@ -138,8 +129,9 @@ export class RetroAudio implements GameAudio {
   play(effect: SoundEffect): void {
     if (!this.audible || !this.context) return;
     let when = this.context.currentTime + 0.005;
-    for (const tone of EFFECTS[effect]) {
-      this.tone(tone, when, 0.48);
+    const score = EFFECTS[effect];
+    for (const tone of score.tones) {
+      this.tone(tone, when, score.volume);
       when += tone[1];
     }
   }

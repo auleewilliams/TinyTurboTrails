@@ -1,6 +1,6 @@
 import type { MusicId } from './music';
 
-export type SoundEffect = 'jump' | 'gem' | 'spring' | 'damage' | 'checkpoint' | 'complete';
+export type SoundEffect = 'footstep' | 'landing' | 'jump' | 'gem' | 'spring' | 'damage' | 'checkpoint' | 'complete';
 
 /** All methods remain safe if audio is unavailable. */
 export interface GameAudio {

@@ -44,7 +44,7 @@ test('audio stays locked until interaction and supports all effects, mute, pause
   await expect.poll(async () => (await read()).state).toBe('running');
   await expect.poll(async () => (await read()).starts).toBeGreaterThan(0);
   await page.getByRole('button', { name: 'Stop audio', exact: true }).click();
-  for (const effect of ['jump', 'gem', 'spring', 'damage', 'checkpoint', 'complete']) {
+  for (const effect of ['footstep', 'landing', 'jump', 'gem', 'spring', 'damage', 'checkpoint', 'complete']) {
     const before = (await read()).starts;
     await page.getByRole('button', { name: effect, exact: true }).click();
     await expect.poll(async () => (await read()).starts).toBeGreaterThan(before);
