@@ -42,6 +42,11 @@ boundary with an accelerated animation clock, freeze simulation just after the
 first checkpoint and capture both viewports. They observe real Canvas drawing
 without exposing production scene state or teleporting Henry, then complete
 the route three times to verify Choose trail, Replay and Next trail resets.
+The observer batches complete samples and writes attributes only on changes,
+avoiding intermediate DOM mutations that would otherwise inflate Playwright
+traces and slow the input pilot. Per-canvas samples decide absence after each
+opaque scene render, so map/finish labels cannot conceal unexpected ribbon
+drawing and translucent pause overlays cannot erase a valid sample.
 
 | Trail | Native start | Small start | Native checkpoint | Small checkpoint |
 | --- | --- | --- | --- | --- |

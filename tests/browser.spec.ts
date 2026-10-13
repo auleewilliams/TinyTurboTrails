@@ -1543,23 +1543,43 @@ async function installTrailPilot(page: Page): Promise<void> {
 /** Observe the shipped ribbon drawing; no production scene or run-state access. */
 async function observeTrailRibbon(page: Page): Promise<void> {
   await page.addInitScript(ribbon => {
+    const samples = new WeakMap<HTMLCanvasElement, { recording: boolean; points: { x: number; filled: boolean }[] }>();
+    const setValue = (canvas: HTMLCanvasElement, key: string, value: string): void => {
+      if (canvas.dataset[key] !== value) canvas.dataset[key] = value;
+    };
+    const clear = (canvas: HTMLCanvasElement): void => {
+      setValue(canvas, 'ribbon', 'absent');
+      setValue(canvas, 'ribbonCheckpoints', '[]');
+      if (canvas.dataset.ribbonMarker !== undefined) delete canvas.dataset.ribbonMarker;
+    };
     const fillRect = CanvasRenderingContext2D.prototype.fillRect;
     CanvasRenderingContext2D.prototype.fillRect = function (x, y, width, height) {
-      if (x === 0 && y === 0 && width === 426 && height === 240) {
-        this.canvas.dataset.ribbon = 'absent';
-        this.canvas.dataset.ribbonCheckpoints = '[]';
-        delete this.canvas.dataset.ribbonMarker;
+      let sample = samples.get(this.canvas);
+      if (!sample) { sample = { recording: false, points: [] }; samples.set(this.canvas, sample); }
+      if (x === 0 && y === 0 && width === 426 && height === 240
+        && this.globalAlpha === 1 && typeof this.fillStyle === 'string' && this.fillStyle.startsWith('#')) {
+        sample.recording = false;
+        const canvas = this.canvas;
+        const frame = sample;
+        // Decide absence after the complete synchronous render, from drawing
+        // itself, without toggling DOM attributes at the start of every frame.
+        queueMicrotask(() => { if (!frame.recording) clear(canvas); });
       }
       if (x === ribbon.x && y === ribbon.y && width === ribbon.width && height === ribbon.height) {
-        this.canvas.dataset.ribbon = 'present';
+        sample.recording = true;
+        sample.points = [];
       }
-      if (this.canvas.dataset.ribbon === 'present') {
+      if (sample.recording) {
         if (width === 3 && height === 4 && y === ribbon.railY) {
-          const points = JSON.parse(this.canvas.dataset.ribbonCheckpoints ?? '[]');
-          points.push({ x: x + 1, filled: this.fillStyle === '#ffda75' });
-          this.canvas.dataset.ribbonCheckpoints = JSON.stringify(points);
+          sample.points.push({ x: x + 1, filled: this.fillStyle === '#ffda75' });
         }
-        if (y === ribbon.y && width === 7 && height === 7) this.canvas.dataset.ribbonMarker = String(x + 3);
+        if (y === ribbon.y && width === 7 && height === 7) {
+          // Publish one complete sample, only on changes, so tracing DOM mutations
+          // does not slow the simulation by recording every intermediate tick.
+          setValue(this.canvas, 'ribbon', 'present');
+          setValue(this.canvas, 'ribbonCheckpoints', JSON.stringify(sample.points));
+          setValue(this.canvas, 'ribbonMarker', String(x + 3));
+        }
       }
       fillRect.call(this, x, y, width, height);
     };
