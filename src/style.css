@@ -6,11 +6,19 @@ body { margin: 0; }
 .trail-menu button:focus-visible { outline: 3px solid white; box-shadow: 0 0 0 5px var(--ui-panel); }
 .map-visible #status, .pause-visible #status { clip-path: inset(50%); width: 1px; height: 1px; padding: 0; }
 main { width: 100vw; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; }
+.adventure-view main { padding-bottom: 48px; }
 canvas { display: block; flex-shrink: 0; image-rendering: pixelated; image-rendering: crisp-edges; }
-#status { position: absolute; left: 8px; bottom: 8px; max-width: calc(100vw - 88px); overflow: hidden; white-space: nowrap; text-overflow: ellipsis; margin: 0; padding: 4px 8px; font-size: 11px; text-align: center; background: var(--ui-panel); }
-#mute, #retry { position: absolute; right: 8px; bottom: 8px; border: 1px solid #bfd5ce; background: #17333b; color: var(--ui-ink); padding: 4px 8px; font: 11px monospace; }
-#retry { right: auto; left: 8px; bottom: 40px; background: #8b3a3a; }
-#mute:focus-visible, #retry:focus-visible { outline: 2px solid var(--ui-accent); outline-offset: 2px; }
+#status { position: absolute; left: 8px; bottom: 8px; max-width: calc(100vw - 138px); overflow: hidden; white-space: nowrap; text-overflow: ellipsis; margin: 0; padding: 4px 8px; font-size: 11px; text-align: center; background: var(--ui-panel); }
+.feedback-controls { position: absolute; right: 8px; bottom: 8px; display: flex; gap: 6px; }
+#mute, #rumble, #retry { border: 1px solid #bfd5ce; background: #17333b; color: var(--ui-ink); padding: 4px 8px; font: 11px monospace; cursor: pointer; }
+#mute { min-width: 64px; }
+#rumble { width: 44px; height: 36px; padding: 3px; color: var(--ui-accent); }
+#rumble svg { display: block; width: 100%; height: 100%; }
+#rumble .rumble-slash, #rumble[aria-pressed="false"] .rumble-waves { display: none; }
+#rumble[aria-pressed="false"] { color: var(--ui-ink); }
+#rumble[aria-pressed="false"] .rumble-slash { display: block; }
+#retry { position: absolute; left: 8px; bottom: 48px; background: #8b3a3a; }
+#mute:focus-visible, #rumble:focus-visible, #retry:focus-visible { outline: 2px solid var(--ui-accent); outline-offset: 2px; }
 
 .audio-preview {
   position: fixed;

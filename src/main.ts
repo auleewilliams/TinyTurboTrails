@@ -23,6 +23,7 @@ import { DEFAULT_LEVEL, LEVELS } from './world/levels';
 const canvas = document.querySelector<HTMLCanvasElement>('#game')!;
 const status = document.querySelector<HTMLParagraphElement>('#status')!;
 const muteButton = document.querySelector<HTMLButtonElement>('#mute')!;
+const rumbleButton = document.querySelector<HTMLButtonElement>('#rumble')!;
 const retryButton = document.querySelector<HTMLButtonElement>('#retry')!;
 const context = canvas.getContext('2d');
 
@@ -34,11 +35,13 @@ if (!context) {
   const removeAudioPreview = mountAudioPreview(audio);
   const unlockAudio = (): void => { void audio.unlock(); };
   const input = new BrowserInput(window, () => { void audio.unlock().catch(() => {}); });
-  const scenes = new SceneHost(() => audio.stop());
+  const rumble = input.rumble;
+  const scenes = new SceneHost(() => { audio.stop(); rumble.stop(); });
   const menu = new MenuOverlay(canvas);
   let focused = !document.hidden && document.hasFocus();
   let userPaused = false;
   let muted = false;
+  let rumbleEnabled = true;
   let request = 0;
   let pendingJump = false;
   let pendingStory = false;
@@ -50,6 +53,8 @@ if (!context) {
   const worldPreview = requestedScene === 'world';
   const gameplayPreview = requestedScene === 'gameplay';
   const adventure = requestedScene === 'adventure';
+  document.body.classList.toggle('adventure-view', adventure);
+  rumbleButton.hidden = !adventure;
   const debugAdventure = new URLSearchParams(location.search).get('debug') === '1';
   let assetState: 'loading' | 'ready' | 'failed' = artPreview || movementPreview || worldPreview || gameplayPreview || adventure ? 'loading' : 'ready';
   let disposed = false;
@@ -69,6 +74,7 @@ if (!context) {
     const paused = !focused || userPaused;
     clock.setPaused(paused);
     audio.setSuspended(paused);
+    rumble.setSuspended(paused);
     if (paused) {
       input.clear();
       pendingJump = false;
@@ -86,7 +92,8 @@ if (!context) {
   };
 
   const resize = (): void => {
-    const size = fitViewport(window.innerWidth, window.innerHeight);
+    // Keep the audio and rumble controls below the playfield, including at native size.
+    const size = fitViewport(window.innerWidth, Math.max(0, window.innerHeight - (adventure ? 48 : 0)));
     canvas.style.width = `${size.width}px`;
     canvas.style.height = `${size.height}px`;
   };
@@ -111,11 +118,21 @@ if (!context) {
     refreshPause();
   };
   const toggleMute = (): void => { muted = !muted; audio.setMuted(muted); refreshPause(); };
+  const toggleRumble = (): void => {
+    rumbleEnabled = !rumbleEnabled;
+    rumble.setEnabled(rumbleEnabled);
+    rumbleButton.setAttribute('aria-pressed', String(rumbleEnabled));
+    rumbleButton.title = `Turn controller rumble ${rumbleEnabled ? 'off' : 'on'}`;
+  };
+  const rumbleKeyDown = (event: KeyboardEvent): void => {
+    if (event.code === 'Space') event.stopPropagation();
+  };
   const retryLoading = (): void => {
     assetState = 'loading';
     refreshPause();
     location.reload();
   };
+  const refreshRumble = (): void => rumble.setGameplay(scenes.activeScene instanceof AdventureScene && scenes.activeScene.screenState === 'playing');
 
   const frame = (now: number): void => {
     let controls: InputFrame = input.poll();
@@ -135,8 +152,10 @@ if (!context) {
       }
     }
     if (focused && !userPaused) { pendingJump ||= controls.jumpPressed; pendingStory ||= controls.storyPressed ?? false; }
+    refreshRumble();
     clock.advance(now, (seconds) => {
       scenes.update(seconds, { ...controls, jumpPressed: pendingJump, storyPressed: pendingStory });
+      refreshRumble();
       pendingJump = false;
       pendingStory = false;
     });
@@ -170,6 +189,8 @@ if (!context) {
   document.addEventListener('visibilitychange', visibility);
   canvas.addEventListener('pointerdown', unlockAudio);
   muteButton.addEventListener('click', toggleMute);
+  rumbleButton.addEventListener('click', toggleRumble);
+  rumbleButton.addEventListener('keydown', rumbleKeyDown);
   retryButton.addEventListener('click', retryLoading);
   scenes.change(new FoundationScene());
   if (!adventure && !new URLSearchParams(location.search).has('audio')) audio.startMusic();
@@ -183,7 +204,7 @@ if (!context) {
       loadImage(`${import.meta.env.BASE_URL}assets/story/patchwork-vale.png`),
     ]).then(([titleArtwork, henry, worlds, landmarks, mapBackground, storyArtwork]) => {
       if (disposed) return;
-      scenes.change(new AdventureScene(titleArtwork, henry, worlds, audio, DEFAULT_LEVEL, landmarks, mapBackground, storyArtwork));
+      scenes.change(new AdventureScene(titleArtwork, henry, worlds, audio, DEFAULT_LEVEL, landmarks, mapBackground, storyArtwork, rumble));
       assetState = 'ready';
       refreshPause();
     }).catch(() => {
@@ -253,6 +274,8 @@ if (!context) {
     menu.dispose();
     canvas.removeEventListener('pointerdown', unlockAudio);
     muteButton.removeEventListener('click', toggleMute);
+    rumbleButton.removeEventListener('click', toggleRumble);
+    rumbleButton.removeEventListener('keydown', rumbleKeyDown);
     retryButton.removeEventListener('click', retryLoading);
     removeAudioPreview();
     audio.dispose();
