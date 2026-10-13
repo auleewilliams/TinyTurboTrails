@@ -1,6 +1,24 @@
 import { expect, it } from 'vitest';
 import { BrowserInput } from '../src/core/input';
 
+it('emits T once per press, ignores repeats and clears it on focus loss', () => {
+  const target = Object.assign(new EventTarget(), { navigator: { getGamepads: () => [] } });
+  const input = new BrowserInput(target as unknown as Window, () => {});
+  const key = (type: string, repeat = false) => target.dispatchEvent(Object.assign(new Event(type), { code: 'KeyT', repeat }));
+  key('keydown');
+  expect(input.poll().trailsPressed).toBe(true);
+  key('keydown', true);
+  expect(input.poll().trailsPressed).toBe(false);
+  key('keyup'); key('keydown');
+  input.setFocused(false);
+  expect(input.poll().trailsPressed).toBeFalsy();
+  input.setFocused(true);
+  expect(input.poll().trailsPressed).toBe(false);
+  key('keydown');
+  expect(input.poll().trailsPressed).toBe(true);
+  input.dispose();
+});
+
 it('requires controller release after controls are pressed while unfocused', () => {
   const buttons = Array.from({ length: 17 }, () => ({ pressed: false, touched: false, value: 0 }));
   const pad = { id: 'test', index: 0, connected: true, mapping: 'standard', timestamp: 0,

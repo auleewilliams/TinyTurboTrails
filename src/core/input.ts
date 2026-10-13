@@ -10,9 +10,10 @@ export interface InputFrame {
   pausePressed: boolean;
   mutePressed: boolean;
   storyPressed?: boolean;
+  trailsPressed?: boolean;
 }
 
-const KEYS = new Set(['ArrowLeft', 'ArrowRight', 'KeyA', 'KeyD', 'Space', 'Escape', 'KeyM', 'KeyR']);
+const KEYS = new Set(['ArrowLeft', 'ArrowRight', 'KeyA', 'KeyD', 'Space', 'Escape', 'KeyM', 'KeyR', 'KeyT']);
 /** Standard-mapping face cluster (A/B/X/Y): accept any of them for jump, since some
  * controllers/browsers don't land the primary action on button 0 as expected. */
 const JUMP_BUTTONS = [0, 1, 2, 3];
@@ -103,6 +104,7 @@ export class BrowserInput {
       pausePressed: this.pressed.has('Escape') || padPausePressed,
       mutePressed: this.pressed.has('KeyM'),
       storyPressed: this.pressed.has('KeyR') || (story && !this.previousPadStory),
+      trailsPressed: this.pressed.has('KeyT'),
     };
     this.pressed.clear();
     this.previousPadJump = jump;
