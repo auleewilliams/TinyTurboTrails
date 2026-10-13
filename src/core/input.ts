@@ -1,3 +1,5 @@
+import { BrowserRumble } from './rumble';
+
 export type InputSource = 'keyboard' | 'controller';
 
 export interface InputFrame {
@@ -17,6 +19,7 @@ const JUMP_BUTTONS = [0, 1, 2, 3];
 
 /** Polled every rendered frame, even while simulation is paused. */
 export class BrowserInput {
+  readonly rumble = new BrowserRumble();
   private held = new Set<string>();
   private pressed = new Set<string>();
   private previousPadJump = false;
@@ -49,6 +52,7 @@ export class BrowserInput {
   };
 
   clear = (): void => {
+    this.rumble.setController(null, 'keyboard');
     this.held.clear();
     this.pressed.clear();
     this.previousPadJump = false;
@@ -104,6 +108,7 @@ export class BrowserInput {
     this.previousPadJump = jump;
     this.previousPadPause = pause;
     this.previousPadStory = story;
+    this.rumble.setController(this.blockedPads ? null : pad ?? null, this.source);
     return frame;
   }
 
