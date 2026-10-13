@@ -124,7 +124,7 @@ function overlaps(a: { x: number; y: number; width: number; height: number }, b:
 }
 
 it.each(LEVELS)('keeps $name session symbols and counts clear of previews, controls and prompts', level => {
-  const { panel, preview, storyPreview, results, play } = OVERWORLD_LAYOUT;
+  const { panel, preview, results, play } = OVERWORLD_LAYOUT;
   const gemTotal = level.entities.filter(entity => entity.kind === 'gem').length;
   const starTotal = level.entities.filter(entity => entity.kind === 'special').length;
   const row = [rewardResultRect(`${gemTotal}/${gemTotal}`, starTotal ? results.gemCenter : results.center, results.baseline)];
@@ -134,7 +134,7 @@ it.each(LEVELS)('keeps $name session symbols and counts clear of previews, contr
     expect(bounds.x + bounds.width).toBeLessThanOrEqual(panel.x + panel.width);
     expect(bounds.y).toBeGreaterThanOrEqual(panel.y);
     expect(bounds.y + bounds.height).toBeLessThan(220);
-    for (const other of [preview, storyPreview, play, ...make().menuTargets]) expect(overlaps(bounds, other)).toBe(false);
+    for (const other of [preview, play, ...make().menuTargets]) expect(overlaps(bounds, other)).toBe(false);
   }
   if (row.length === 2) expect(overlaps(row[0], row[1])).toBe(false);
 });

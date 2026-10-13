@@ -1711,6 +1711,64 @@ test('native HUD hints follow active input and pause controls fit small windows'
   await info.attach('small-keyboard-pause', { body: await page.screenshot(), contentType: 'image/png' });
 });
 
+test('all six trail previews show cached gameplay without story artwork and keep story replay', async ({ page }, info) => {
+  test.setTimeout(90_000);
+  await page.setViewportSize({ width: 426, height: 240 });
+  await page.addInitScript(() => {
+    const probe = { pixels: undefined as Uint8ClampedArray | undefined };
+    Object.assign(window, { trailPreviewProbe: probe });
+    const fill = CanvasRenderingContext2D.prototype.fillRect;
+    CanvasRenderingContext2D.prototype.fillRect = function (x, y, width, height) {
+      if (x === 0 && y === 0 && width === 426 && height === 240) {
+        this.canvas.dataset.storyDraws = '0';
+        this.canvas.dataset.landmarkDraws = '0';
+      }
+      return fill.call(this, x, y, width, height);
+    };
+    const draw = CanvasRenderingContext2D.prototype.drawImage;
+    CanvasRenderingContext2D.prototype.drawImage = function (image: CanvasImageSource, ...coordinates: number[]) {
+      if (image instanceof HTMLImageElement) {
+        if (image.src.endsWith('/assets/story/patchwork-vale.png')) {
+          this.canvas.dataset.storyDraws = String(Number(this.canvas.dataset.storyDraws ?? 0) + 1);
+        }
+        if (image.src.endsWith('/assets/overworld/landmarks.png')) {
+          this.canvas.dataset.landmarkDraws = String(Number(this.canvas.dataset.landmarkDraws ?? 0) + 1);
+        }
+      }
+      const result = Reflect.apply(draw, this, [image, ...coordinates]);
+      if (image instanceof HTMLCanvasElement && coordinates.join(',') === '287,84,126,71') {
+        // Read the actual scaled draw so GPU/CPU resampling differences cannot affect the comparison.
+        probe.pixels = this.getImageData(287, 84, 126, 71).data;
+      }
+      return result;
+    };
+  });
+  await openAdventure(page, '/?scene=adventure');
+  const canvas = page.locator('canvas');
+  for (const level of LEVELS) {
+    await page.getByRole('button', { name: level.name, exact: true }).click();
+    await expect(page.getByRole('button', { name: `Play ${level.name}`, exact: true })).toBeVisible();
+    await expect(canvas).toHaveAttribute('data-story-draws', '0');
+    await expect(canvas).toHaveAttribute('data-landmark-draws', '6');
+    expect(await canvas.evaluate(async (element) => {
+      await new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve())));
+      const pixels = (element as HTMLCanvasElement).getContext('2d')!.getImageData(287, 84, 126, 71).data;
+      const reference = (window as unknown as { trailPreviewProbe: { pixels?: Uint8ClampedArray } }).trailPreviewProbe.pixels;
+      return Boolean(reference && pixels.every((value, index) => value === reference[index]));
+    })).toBe(true);
+    await info.attach(`${level.id}-map`, { body: await canvas.screenshot({ path: info.outputPath(`${level.id}-map.png`) }), contentType: 'image/png' });
+  }
+  await page.getByRole('button', { name: 'PLAINS', exact: true }).click();
+  await page.getByRole('button', { name: 'Replay story', exact: true }).click();
+  await expect(page.locator('#status')).toContainText('Story');
+  await expect(canvas).toHaveAttribute('data-story-draws', '1');
+  await expect(canvas).toHaveAttribute('aria-label', /prepare a picnic/);
+  await info.attach('story-replay', { body: await canvas.screenshot(), contentType: 'image/png' });
+  await page.getByRole('button', { name: 'Skip story', exact: true }).click();
+  await expect(page.locator('#status')).toContainText('Title');
+  await expect(canvas).toHaveAttribute('data-story-draws', '0');
+});
+
 for (const viewport of [
   { width: 1366, height: 768 },
   { width: 426, height: 240 },
