@@ -192,7 +192,8 @@ export class AdventureScene implements Scene {
     drawWorld(ctx, this.world, this.level, this.camera,
       (entity) => isEntityActive(this.run, entity.id), (entity) => ({ ...entityPosition(this.run, entity),
         checkpointActive: entity.kind === 'checkpoint' && this.run.checkpointId === entity.id,
-        springScale: entity.kind === 'spring' ? this.feedback.springScale(entity.id, this.reducedMotion) : undefined }), this.platforms);
+        springScale: entity.kind === 'spring' ? this.feedback.springScale(entity.id, this.reducedMotion) : undefined }), this.platforms,
+      this.run.seconds, this.reducedMotion);
     if (this.screens.state === 'playing') this.drawHenry(ctx);
     drawWorldForeground(ctx, this.world, this.level, this.camera);
     this.feedback.draw(ctx, this.world, this.camera.position, this.reducedMotion);
@@ -305,7 +306,8 @@ export class AdventureScene implements Scene {
       const canvas = document.createElement('canvas'); canvas.width = 426; canvas.height = 240;
       const ctx = canvas.getContext('2d')!; ctx.imageSmoothingEnabled = false;
       const camera = new Camera({ width: 426, height: 240, worldWidth: level.width, worldHeight: level.height });
-      drawWorld(ctx, this.worlds[level.atlas], level, camera);
+      // A cached map thumbnail stays clear; ambient motion belongs to the run.
+      drawWorld(ctx, this.worlds[level.atlas], level, camera, undefined, undefined, undefined, 0, true);
       drawWorldForeground(ctx, this.worlds[level.atlas], level, camera);
       this.previews.set(level.id, canvas);
     }

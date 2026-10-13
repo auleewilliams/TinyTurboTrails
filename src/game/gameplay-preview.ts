@@ -70,7 +70,8 @@ export class GameplayPreviewScene implements Scene {
     drawWorld(ctx, this.world, this.level, this.camera,
       (entity) => isEntityActive(this.run, entity.id), (entity) => ({ ...entityPosition(this.run, entity),
         checkpointActive: entity.kind === 'checkpoint' && this.run.checkpointId === entity.id,
-        springScale: entity.kind === 'spring' ? this.feedback.springScale(entity.id, this.reducedMotion) : undefined }), this.platforms);
+        springScale: entity.kind === 'spring' ? this.feedback.springScale(entity.id, this.reducedMotion) : undefined }), this.platforms,
+      this.run.seconds, this.reducedMotion);
     const hurt = this.run.invulnerableSeconds > 0;
     const name = hurt ? 'fall' : animationFor(this.player);
     const clip = this.henry.manifest.animations[name];

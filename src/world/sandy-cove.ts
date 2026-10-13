@@ -47,6 +47,7 @@ export const SANDY_COVE: LevelData = withSlimePatrols({
   theme: {
     slimeAccessory: 'snorkel',
     material: 'sand',
+    weather: { kind: 'spray', count: 18, color: '#dbf9ff70', drift: 8, fall: -5, sway: 3 },
     sky: '#a9e8ec', ground: '#eacb85', edge: '#87603c',
     parallax: [150, 700, 1240, 1800, 2320].map((x) => ({ asset: 'hills', x, y: 110, scale: 3 })),
   },
