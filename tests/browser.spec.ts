@@ -1,4 +1,5 @@
 import { drawTerrainMaterial, drawTerrainEdge, drawTrailBackdrop } from '../src/world/trail-presentation';
+import { drawAmbientWeather } from '../src/world/ambient-weather';
 import { expect, test, type Page } from '@playwright/test';
 import { writeFile } from 'node:fs/promises';
 import { PLAINS_LEVEL } from '../src/world/level';
@@ -6,10 +7,69 @@ import { LEVELS, QUARRY_RUN } from '../src/world/levels';
 import { DEFAULT_MOVEMENT, surfaceY } from '../src/game/movement';
 import { platformBodyAt } from '../src/game/platforms';
 import { drawSurfaceMaterials } from '../src/world/surface-materials';
-import { drawSlime, drawGem, drawSpecial, drawChallengeCues, drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawWorld } from '../src/world/renderer';
+import { drawSlime, drawGem, drawSpecial, drawChallengeCues, drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawTerrainTiles, drawWorld } from '../src/world/renderer';
 
 /** The renderer is injected as plain functions, so every helper it calls has to travel with it. */
-const RENDERER_SOURCE = [drawSlime, drawGem, drawSpecial, drawChallengeCues, drawTerrainMaterial, drawTerrainEdge, drawTrailBackdrop, drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawSurfaceMaterials].map((helper) => helper.toString()).join('\n');
+const RENDERER_SOURCE = [drawAmbientWeather, drawSlime, drawGem, drawSpecial, drawChallengeCues, drawTerrainMaterial, drawTerrainEdge, drawTrailBackdrop, drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawTerrainTiles, drawSurfaceMaterials].map((helper) => helper.toString()).join('\n');
+
+test('ambient weather repeats the same pixels, respects reduced motion and stays behind terrain', async ({ page }, info) => {
+  // Six full-image comparisons need extra readback time on constrained WebKit hosts.
+  test.setTimeout(120_000);
+  await page.goto('/?scene=foundation');
+  await page.addScriptTag({ content: `${RENDERER_SOURCE}\nwindow.drawWeatherTestWorld = ${drawWorld.toString()};` });
+  for (const level of LEVELS) {
+    const result = await page.evaluate(async (level) => {
+      const manifest = await (await fetch(`/assets/${level.atlas}/manifest.json`)).json();
+      const load = async (url: string) => { const image = new Image(); image.src = url; await image.decode(); return image; };
+      const [atlas, gems, materials, backdrops, slimes, panorama] = await Promise.all([
+        load(`/assets/${level.atlas}/${manifest.image}`), load('/assets/gems/gems.png'),
+        load('/assets/trails/materials.png'), load('/assets/trails/backdrops.webp'), load('/assets/slimes/slimes.png'),
+        manifest.panorama ? load(`/assets/${level.atlas}/${manifest.panorama}`) : undefined,
+      ]);
+      // Scenery has its own established tests; this isolates the weather field.
+      const base = { ...level, theme: { ...level.theme, scenery: false, parallax: [] } };
+      const assets = { atlas, manifest, gems, materials, backdrops, slimes, panorama };
+      const canvas = document.createElement('canvas'); canvas.width = 426; canvas.height = 240;
+      const ctx = canvas.getContext('2d')!; ctx.imageSmoothingEnabled = false;
+      const camera = { position: { x: 1400.25, y: 0 } } as Parameters<typeof drawWorld>[3];
+      const render = (window as unknown as { drawWeatherTestWorld: typeof drawWorld }).drawWeatherTestWorld;
+      const draw = (seconds: number, reduced = false, themed = base) => {
+        render(ctx, assets, themed, camera, undefined, undefined, undefined, seconds, reduced);
+        return canvas.toDataURL();
+      };
+      const first = draw(12.5);
+      const pixels = ctx.getImageData(0, 0, 426, 240).data;
+      const later = draw(13.5);
+      const repeated = draw(12.5);
+      const renamed = draw(12.5, false, { ...base, id: 'future-trail' });
+      const reduced = draw(12.5, true);
+      const clear = draw(12.5, false, { ...base, theme: { ...base.theme, weather: undefined } });
+      const clearPixels = ctx.getImageData(0, 0, 426, 240).data;
+      let differences = 0, protectedDifferences = 0;
+      for (let x = 0; x < 426; x++) {
+        const worldX = x + camera.position.x;
+        const surface = level.surfaces.find(s => worldX >= s.x1 && worldX <= s.x2)!;
+        const ground = surface.y1 + (surface.y2 - surface.y1) * (worldX - surface.x1) / (surface.x2 - surface.x1);
+        for (let y = 0; y < 240; y++) {
+          const index = (y * 426 + x) * 4;
+          if (pixels[index] === clearPixels[index] && pixels[index + 1] === clearPixels[index + 1]
+            && pixels[index + 2] === clearPixels[index + 2]) continue;
+          differences++;
+          if (y < 40 || y > ground + 8) protectedDifferences++;
+        }
+      }
+      return { first, same: first === repeated, renamed: first === renamed, animated: first !== later,
+        reduced: reduced === clear, differences, protectedDifferences };
+    }, level);
+    expect(result.same).toBe(true); expect(result.renamed).toBe(true); expect(result.reduced).toBe(true);
+    expect(result.protectedDifferences).toBe(0);
+    expect(result.differences).toBeLessThan(180);
+    expect(result.animated).toBe(Boolean(level.theme.weather));
+    if (level.theme.weather) expect(result.differences).toBeGreaterThan(0);
+    else expect(result.differences).toBe(0);
+    await info.attach(`${level.id}-weather-native`, { body: Buffer.from(result.first.split(',')[1], 'base64'), contentType: 'image/png' });
+  }
+});
 
 test('movement sounds follow run and landing, and stop on idle, jump, mute, pause and focus loss', async ({ page }, info) => {
   // Device-independent integration; real synthesis is measured by the offline samples.
