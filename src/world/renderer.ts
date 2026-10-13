@@ -1,4 +1,5 @@
 import { drawTerrainMaterial, drawTerrainEdge, drawTrailBackdrop } from './trail-presentation';
+import { drawAmbientWeather } from './ambient-weather';
 import type { Camera } from './camera';
 import type { LevelData, LevelSun, WorldEntity } from './level';
 import type { PlatformBody, Surface } from '../game/movement';
@@ -15,7 +16,7 @@ export type EntityPosition = (entity: WorldEntity) => { x: number; y: number; wa
 
 export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, level: LevelData, camera: Camera,
   isVisible: EntityFilter = () => true, positionOf: EntityPosition = (entity) => entity,
-  platforms: readonly PlatformBody[] = []): void {
+  platforms: readonly PlatformBody[] = [], runSeconds = 0, reducedMotion = false): void {
   const offset = camera.position;
   const { atlas, manifest } = assets;
   const cell = manifest.cellSize;
@@ -30,6 +31,7 @@ export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, le
         parallax.x - offset.x * 0.18, parallax.y - offset.y * 0.1, parallax.scale);
     }
   }
+  drawAmbientWeather(ctx, level.theme.weather, offset, runSeconds, reducedMotion);
   ctx.fillStyle = level.theme.ground;
   // Fill each connected ground contour once: separately antialiased polygon
   // edges leave the background showing through at fractional camera offsets.
@@ -156,7 +158,7 @@ export function drawChallengeCues(ctx: CanvasRenderingContext2D, level: LevelDat
   }
 }
 
-function drawTerrainTiles(ctx: CanvasRenderingContext2D, assets: WorldAssets, level: LevelData,
+export function drawTerrainTiles(ctx: CanvasRenderingContext2D, assets: WorldAssets, level: LevelData,
   offset: { x: number; y: number }): void {
   const cell = assets.manifest.cellSize;
   for (const surface of level.surfaces) {

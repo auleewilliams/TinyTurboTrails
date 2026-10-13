@@ -27,7 +27,8 @@ export class WorldPreviewScene implements Scene {
   }
   render(ctx: CanvasRenderingContext2D): void {
     drawWorld(ctx, this.assets, this.level, this.camera, () => true, (entity) => entity,
-      platformBodiesAt(this.level.platforms, this.elapsed));
+      platformBodiesAt(this.level.platforms, this.elapsed), this.elapsed,
+      typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches);
     drawWorldForeground(ctx, this.assets, this.level, this.camera);
     ctx.fillStyle = '#e9f2df';
     ctx.font = 'bold 12px monospace';

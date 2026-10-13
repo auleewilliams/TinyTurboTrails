@@ -1,0 +1,89 @@
+{
+  "method": "600 full-route camera samples per trail, 30 warmups; 426x240 software Canvas with full readback; headless Chromium; baseline renderer from 6b010a0; same host/assets; run clock advances at 60 Hz; paired samples with alternating order",
+  "results": [
+    {
+      "level": "plains",
+      "baseline": {
+        "medianMs": 2.1000003814697266,
+        "p95Ms": 2.799999713897705,
+        "meanMs": 2.2476666752497354
+      },
+      "milestone": {
+        "medianMs": 2.1000003814697266,
+        "p95Ms": 3,
+        "meanMs": 2.2376666617393495
+      },
+      "pairedMedianDeltaMs": 0
+    },
+    {
+      "level": "quarry",
+      "baseline": {
+        "medianMs": 2,
+        "p95Ms": 2.6000003814697266,
+        "meanMs": 2.0970000060399374
+      },
+      "milestone": {
+        "medianMs": 2,
+        "p95Ms": 2.5,
+        "meanMs": 2.082833329041799
+      },
+      "pairedMedianDeltaMs": 0
+    },
+    {
+      "level": "timbers",
+      "baseline": {
+        "medianMs": 2.0999999046325684,
+        "p95Ms": 2.700000286102295,
+        "meanMs": 2.202166665395101
+      },
+      "milestone": {
+        "medianMs": 2.1999998092651367,
+        "p95Ms": 2.5999999046325684,
+        "meanMs": 2.269500001271566
+      },
+      "pairedMedianDeltaMs": 4.76837158203125e-7
+    },
+    {
+      "level": "sunset",
+      "baseline": {
+        "medianMs": 1.9000000953674316,
+        "p95Ms": 2.3000001907348633,
+        "meanMs": 1.9518333355585733
+      },
+      "milestone": {
+        "medianMs": 1.9000000953674316,
+        "p95Ms": 2.5,
+        "meanMs": 1.940666671593984
+      },
+      "pairedMedianDeltaMs": 0
+    },
+    {
+      "level": "frost",
+      "baseline": {
+        "medianMs": 1.9000000953674316,
+        "p95Ms": 2.200000286102295,
+        "meanMs": 1.98449999888738
+      },
+      "milestone": {
+        "medianMs": 1.9000000953674316,
+        "p95Ms": 2.200000286102295,
+        "meanMs": 1.9063333344459534
+      },
+      "pairedMedianDeltaMs": 0
+    },
+    {
+      "level": "cove",
+      "baseline": {
+        "medianMs": 1.700000286102295,
+        "p95Ms": 2,
+        "meanMs": 1.7596666677792867
+      },
+      "milestone": {
+        "medianMs": 1.799999713897705,
+        "p95Ms": 2.0999999046325684,
+        "meanMs": 1.8391666682561238
+      },
+      "pairedMedianDeltaMs": 4.76837158203125e-7
+    }
+  ]
+}

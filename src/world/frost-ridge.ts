@@ -44,6 +44,7 @@ export const FROST_RIDGE: LevelData = withSlimePatrols({
   theme: {
     slimeAccessory: 'bobble',
     material: 'frost',
+    weather: { kind: 'snow', count: 28, color: '#f4fbff90', drift: 4, fall: 10, sway: 5 },
     sky: '#c2e8f4', ground: '#dcebf3', edge: '#294e78',
     parallax: [180, 710, 1250, 1800, 2320].map((x) => ({ asset: 'hills', x, y: 100, scale: 3 })),
   },
