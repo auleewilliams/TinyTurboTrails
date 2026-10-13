@@ -8,6 +8,7 @@ import { DEFAULT_MOVEMENT, surfaceY } from '../src/game/movement';
 import { platformBodyAt } from '../src/game/platforms';
 import { drawSurfaceMaterials } from '../src/world/surface-materials';
 import { drawSlime, drawGem, drawSpecial, drawChallengeCues, drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawTerrainTiles, drawWorld } from '../src/world/renderer';
+import { TRAIL_RIBBON, trailPosition } from '../src/game/hud';
 
 /** The renderer is injected as plain functions, so every helper it calls has to travel with it. */
 const RENDERER_SOURCE = [drawAmbientWeather, drawSlime, drawGem, drawSpecial, drawChallengeCues, drawTerrainMaterial, drawTerrainEdge, drawTrailBackdrop, drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawTerrainTiles, drawSurfaceMaterials].map((helper) => helper.toString()).join('\n');
@@ -1561,15 +1562,19 @@ async function installTrailPilot(page: Page): Promise<void> {
   await page.addInitScript(() => {
     const buttons = Array.from({ length: 17 }, () => ({ pressed: false, value: 0, touched: false }));
     const pad = { connected: true, mapping: 'standard', axes: [0, 0], buttons };
-    const pilot = { active: false, lastActive: false, controller: false, dangers: [] as number[], index: 0, lastX: 0, jumpUntil: 0, jumping: false };
+    const pilot = { active: false, lastActive: false, controller: false, dangers: [] as number[], index: 0, lastX: 0, jumpUntil: 0, jumping: false, pauseAt: 0, frozen: false };
     Object.assign(window, { trailPad: pad, trailPilot: pilot });
     Object.defineProperty(navigator, 'getGamepads', { configurable: true, value: () => pilot.controller ? [pad] : [] });
     let previousTime: number | undefined; let presentationTime = 0;
     const raf = window.requestAnimationFrame.bind(window);
     window.requestAnimationFrame = (callback) => raf((now) => {
+      if (pilot.frozen) { previousTime = now; callback(presentationTime); return; }
       const status = document.querySelector('#status')?.textContent ?? '';
       if (pilot.active) {
         const x = Number(status.match(/X (\d+)/)?.[1] ?? 0);
+        if (pilot.pauseAt && x >= pilot.pauseAt) {
+          pilot.frozen = true; previousTime = now; callback(presentationTime); return;
+        }
         if (x < pilot.lastX - 100) pilot.index = Math.max(0, pilot.dangers.findIndex(d => d >= x - 30));
         pilot.lastX = x;
         if (status.includes('Finish')) pilot.active = false;
@@ -1593,6 +1598,52 @@ async function installTrailPilot(page: Page): Promise<void> {
       callback(presentationTime);
     });
   });
+}
+
+/** Observe the shipped ribbon drawing; no production scene or run-state access. */
+async function observeTrailRibbon(page: Page): Promise<void> {
+  await page.addInitScript(ribbon => {
+    const samples = new WeakMap<HTMLCanvasElement, { recording: boolean; points: { x: number; filled: boolean }[] }>();
+    const setValue = (canvas: HTMLCanvasElement, key: string, value: string): void => {
+      if (canvas.dataset[key] !== value) canvas.dataset[key] = value;
+    };
+    const clear = (canvas: HTMLCanvasElement): void => {
+      setValue(canvas, 'ribbon', 'absent');
+      setValue(canvas, 'ribbonCheckpoints', '[]');
+      if (canvas.dataset.ribbonMarker !== undefined) delete canvas.dataset.ribbonMarker;
+    };
+    const fillRect = CanvasRenderingContext2D.prototype.fillRect;
+    CanvasRenderingContext2D.prototype.fillRect = function (x, y, width, height) {
+      let sample = samples.get(this.canvas);
+      if (!sample) { sample = { recording: false, points: [] }; samples.set(this.canvas, sample); }
+      if (x === 0 && y === 0 && width === 426 && height === 240
+        && this.globalAlpha === 1 && typeof this.fillStyle === 'string' && this.fillStyle.startsWith('#')) {
+        sample.recording = false;
+        const canvas = this.canvas;
+        const frame = sample;
+        // Decide absence after the complete synchronous render, from drawing
+        // itself, without toggling DOM attributes at the start of every frame.
+        queueMicrotask(() => { if (!frame.recording) clear(canvas); });
+      }
+      if (x === ribbon.x && y === ribbon.y && width === ribbon.width && height === ribbon.height) {
+        sample.recording = true;
+        sample.points = [];
+      }
+      if (sample.recording) {
+        if (width === 3 && height === 4 && y === ribbon.railY) {
+          sample.points.push({ x: x + 1, filled: this.fillStyle === '#ffda75' });
+        }
+        if (y === ribbon.y && width === 7 && height === 7) {
+          // Publish one complete sample, only on changes, so tracing DOM mutations
+          // does not slow the simulation by recording every intermediate tick.
+          setValue(this.canvas, 'ribbon', 'present');
+          setValue(this.canvas, 'ribbonCheckpoints', JSON.stringify(sample.points));
+          setValue(this.canvas, 'ribbonMarker', String(x + 3));
+        }
+      }
+      fillRect.call(this, x, y, width, height);
+    };
+  }, TRAIL_RIBBON);
 }
 
 /** Capture actual result drawing without exposing simulation state to the browser. */
@@ -1619,19 +1670,72 @@ for (const [index, level] of LEVELS.entries()) {
     test.setTimeout(100_000);
     await installTrailPilot(page);
     await observeRewardResults(page);
+    await observeTrailRibbon(page);
     await openAdventure(page, '/?debug=1');
     const canvas = page.locator('canvas');
     await expect(canvas).toHaveAttribute('data-map-rewards', '[]');
+    await expect(canvas).toHaveAttribute('data-ribbon', 'absent');
     await page.getByRole('button', { name: level.name, exact: true }).click();
     await expect(page.getByRole('button', { name: level.name, exact: true })).toHaveAttribute('aria-pressed', 'true');
     await page.getByRole('button', { name: `Play ${level.name}`, exact: true }).click();
+    const expectFreshRibbon = async (): Promise<void> => {
+      await expect(canvas).toHaveAttribute('data-ribbon', 'present');
+      await expect(canvas).toHaveAttribute('data-ribbon-marker', String(TRAIL_RIBBON.startX));
+      const points = JSON.parse((await canvas.getAttribute('data-ribbon-checkpoints'))!) as { x: number; filled: boolean }[];
+      expect(points.map(point => point.x)).toEqual(level.checkpoints.map(point =>
+        Math.round(TRAIL_RIBBON.startX + trailPosition(level, point.x) * (TRAIL_RIBBON.finishX - TRAIL_RIBBON.startX))));
+      expect(points.every(point => !point.filled)).toBe(true);
+    };
+    await expectFreshRibbon();
+    const captureRibbon = async (state: string): Promise<void> => {
+      for (const width of [426, 320]) {
+        await page.setViewportSize({ width, height: 240 });
+        await page.waitForTimeout(50);
+        const path = info.outputPath(`${level.id}-ribbon-${state}-${width}.png`);
+        await page.screenshot({ path });
+        await info.attach(`ribbon-${state}-${width}`, { path, contentType: 'image/png' });
+      }
+      await page.setViewportSize({ width: 1366, height: 768 });
+    };
+    await captureRibbon('start');
+    await page.evaluate(({ dangers, pauseAt }) => {
+      Object.assign((window as unknown as { trailPilot: object }).trailPilot, { active: true, dangers, pauseAt });
+    }, { dangers: dangerXs(level), pauseAt: level.checkpoints[0].x + 40 });
+    await page.waitForFunction(() => (window as unknown as { trailPilot: { frozen: boolean } }).trailPilot.frozen, undefined, { timeout: 15_000 });
+    const checkpointPoints = JSON.parse((await canvas.getAttribute('data-ribbon-checkpoints'))!) as { filled: boolean }[];
+    expect(checkpointPoints.map(point => point.filled)).toEqual(level.checkpoints.map((_, i) => i === 0));
+    const checkpointX = Number((await page.locator('#status').innerText()).match(/X (\d+)/)?.[1]);
+    const expectedMarker = TRAIL_RIBBON.startX + trailPosition(level, checkpointX) * (TRAIL_RIBBON.finishX - TRAIL_RIBBON.startX);
+    // Debug X and the pixel marker are independently rounded.
+    expect(Math.abs(Number(await canvas.getAttribute('data-ribbon-marker')) - expectedMarker)).toBeLessThanOrEqual(1);
+    await captureRibbon('checkpoint');
+    await page.evaluate(() => Object.assign((window as unknown as { trailPilot: object }).trailPilot, { active: false, frozen: false, pauseAt: 0 }));
     const traverse = async (): Promise<void> => {
       await page.evaluate(({ dangers, controller }) => {
         const pilot = (window as unknown as { trailPilot: { active: boolean; controller: boolean; dangers: number[]; index: number; lastX: number } }).trailPilot;
         Object.assign(pilot, { active: true, controller, dangers, index: 0, lastX: 0 });
       }, { dangers: dangerXs(level), controller: index % 2 === 1 });
       await expect(page.locator('#status')).toContainText('Finish', { timeout: 35_000 });
-      await page.waitForTimeout(100); // neutral input crosses the finish boundary
+      await expect(canvas).toHaveAttribute('data-ribbon', 'absent');
+      // Stop the input pilot explicitly: a quick menu action can replace Finish
+      // before its next RAF notices completion, leaving movement held in a new run.
+      await page.evaluate(() => new Promise<void>(resolve => {
+        const state = window as unknown as {
+          trailPilot: { active: boolean; lastActive: boolean; jumping: boolean; jumpUntil: number };
+          trailPad: { axes: number[]; buttons: { pressed: boolean }[] };
+        };
+        Object.assign(state.trailPilot, { active: false, lastActive: false, jumping: false, jumpUntil: 0 });
+        state.trailPad.axes[0] = 0;
+        state.trailPad.buttons.forEach(button => { button.pressed = false; });
+        for (const code of ['ArrowRight', 'Space']) window.dispatchEvent(new KeyboardEvent('keyup', { code }));
+        requestAnimationFrame(start => {
+          const releasedFrame = (now: number): void => {
+            if (now - start >= 50) resolve();
+            else requestAnimationFrame(releasedFrame);
+          };
+          requestAnimationFrame(releasedFrame);
+        });
+      }));
     };
     const finishAction = async (label: string): Promise<void> => {
       if (index % 3 === 0) { await page.getByRole('button', { name: label, exact: true }).click(); return; }
@@ -1641,18 +1745,37 @@ for (const [index, level] of LEVELS.entries()) {
         (window as unknown as { trailPilot: { controller: boolean } }).trailPilot.controller = controller;
       }, controller);
       for (let step = 0; step < steps; step++) {
+        const selected = step === 0 && index < LEVELS.length - 1 ? 'Next trail' : 'Choose trail';
         if (controller) {
           await page.evaluate(() => { (window as unknown as { trailPad: { buttons: { pressed: boolean }[] } }).trailPad.buttons[15].pressed = true; });
-          await page.waitForTimeout(60);
+          await expect(page.getByRole('button', { name: selected, exact: true })).toHaveAttribute('aria-pressed', 'true');
           await page.evaluate(() => { (window as unknown as { trailPad: { buttons: { pressed: boolean }[] } }).trailPad.buttons[15].pressed = false; });
-        } else await page.keyboard.press('ArrowRight', { delay: 60 });
-        await page.waitForTimeout(60);
+        } else {
+          await page.keyboard.down('ArrowRight');
+          await expect(page.getByRole('button', { name: selected, exact: true })).toHaveAttribute('aria-pressed', 'true');
+          await page.keyboard.up('ArrowRight');
+        }
+        // Let neutral input reach simulation before sending the next edge.
+        await page.evaluate(() => new Promise<void>(resolve => {
+          requestAnimationFrame(start => {
+            const releasedFrame = (now: number): void => {
+              if (now - start >= 50) resolve();
+              else requestAnimationFrame(releasedFrame);
+            };
+            requestAnimationFrame(releasedFrame);
+          });
+        }));
       }
+      await expect(page.getByRole('button', { name: label, exact: true })).toHaveAttribute('aria-pressed', 'true');
       if (controller) {
         await page.evaluate(() => { (window as unknown as { trailPad: { buttons: { pressed: boolean }[] } }).trailPad.buttons[0].pressed = true; });
-        await page.waitForTimeout(60);
+        await expect(page.locator('#status')).not.toContainText('Finish');
         await page.evaluate(() => { (window as unknown as { trailPad: { buttons: { pressed: boolean }[] } }).trailPad.buttons[0].pressed = false; });
-      } else await page.keyboard.press('Space', { delay: 60 });
+      } else {
+        await page.keyboard.down('Space');
+        await expect(page.locator('#status')).not.toContainText('Finish');
+        await page.keyboard.up('Space');
+      }
     };
     await traverse();
     const gemTotal = level.entities.filter(entity => entity.kind === 'gem').length;
@@ -1672,6 +1795,7 @@ for (const [index, level] of LEVELS.entries()) {
     await captureResults('finish-results');
     await info.attach('finish', { body: await page.locator('canvas').screenshot(), contentType: 'image/png' });
     await finishAction('Choose trail');
+    await expect(canvas).toHaveAttribute('data-ribbon', 'absent');
     await expect(page.getByRole('button', { name: level.name, exact: true })).toHaveAttribute('aria-pressed', 'true');
     await expect(page.getByRole('button', { name: level.name, exact: true })).toHaveAttribute('aria-description',
       `Session best: ${collected} of ${gemTotal} gems${starTotal ? `, ${stars} of ${starTotal} stars` : ''}`);
@@ -1680,15 +1804,19 @@ for (const [index, level] of LEVELS.entries()) {
     await info.attach('completed-map', { body: await page.locator('canvas').screenshot(), contentType: 'image/png' });
     // Replay after a second completion checks the browser-visible reset independently of unit state checks.
     await page.getByRole('button', { name: `Play ${level.name}`, exact: true }).click();
+    await expectFreshRibbon();
     await traverse();
     await finishAction('Replay');
     await expect(page.locator('#status')).toContainText('Playing');
     await expect(page.locator('#status')).toContainText('X 60');
+    await expectFreshRibbon();
     await traverse();
     if (index < LEVELS.length - 1) {
       await finishAction('Next trail');
       await expect(page.locator('#status')).toContainText('Playing');
       await expect(page.locator('#status')).toContainText('X 60');
+      await expect(canvas).toHaveAttribute('data-ribbon-marker', String(TRAIL_RIBBON.startX));
+      expect(JSON.parse((await canvas.getAttribute('data-ribbon-checkpoints'))!).every((point: { filled: boolean }) => !point.filled)).toBe(true);
     } else await expect(page.getByRole('button', { name: 'Next trail', exact: true })).toHaveCount(0);
     await reloadAndDismiss(page);
     await expect(page.getByRole('button', { name: 'PLAINS', exact: true })).toHaveAttribute('aria-pressed', 'true');

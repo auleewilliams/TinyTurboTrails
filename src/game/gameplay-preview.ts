@@ -57,6 +57,7 @@ export class GameplayPreviewScene implements Scene {
     if (!wasGrounded || this.events.some(event => event.type === 'recover' || event.type === 'damage' || event.type === 'spring')) this.footsteps.reset();
     else if (this.footsteps.step(step, this.player, previousPosition.x)) this.audio.play('footstep');
     this.feedback.consume(this.events, this.level);
+    this.hud.consume(this.events);
     for (const event of this.events) {
       if (event.type === 'gem') this.audio.play('gem');
       else if (event.type === 'checkpoint') this.audio.play('checkpoint');
@@ -88,7 +89,7 @@ export class GameplayPreviewScene implements Scene {
     drawWorldForeground(ctx, this.world, this.level, this.camera);
     this.feedback.draw(ctx, this.world, this.camera.position, this.reducedMotion);
     drawGameplayHud(ctx, this.run, this.hud.hint, this.feedback.checkpointSeconds > 0
-      ? 'Checkpoint reached!' : this.hud.locationSeconds > 0 ? this.hud.location : '');
+      ? 'Checkpoint reached!' : this.hud.locationSeconds > 0 ? this.hud.location : '', this.hud.progress(this.level, this.player.x));
   }
 }
 
