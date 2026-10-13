@@ -55,4 +55,17 @@ test('preview switches all tracks and adventure selects music only after startin
   await expect.poll(async () => (await read()).active).toBe(0);
   await page.keyboard.press('Escape');
   await expect.poll(async () => (await read()).active).toBeGreaterThan(0);
+  await page.keyboard.press('Escape');
+  await expect(page.getByRole('button', { name: 'Return to Trails', exact: true })).toBeVisible();
+  await page.keyboard.press('t');
+  await expect(page.getByRole('button', { name: 'Keep playing', exact: true })).toBeVisible();
+  await page.keyboard.press('t');
+  await expect(page.locator('#status')).toContainText('Title');
+  const pitchesOnMap = (await read()).pitches.length;
+  await page.waitForTimeout(250); // Several music timer ticks must stay silent after exit.
+  expect((await read()).active).toBe(0);
+  expect((await read()).pitches).toHaveLength(pitchesOnMap);
+  await page.keyboard.press('Space');
+  await expect(page.locator('#status')).toContainText('Playing');
+  await expect.poll(async () => (await read()).active).toBeGreaterThan(0);
 });

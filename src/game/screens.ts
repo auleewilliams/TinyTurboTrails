@@ -13,5 +13,6 @@ export class ScreenController {
   resume(): void { if (this.state === 'paused') this.state = 'playing'; }
   complete(gems: number): void { if (this.state === 'playing') { this.gems = gems; this.state = 'finish'; } }
   replay(): void { if (this.state === 'finish') { this.gems = 0; this.state = 'title'; } }
+  leave(): void { if (this.state === 'playing') { this.gems = 0; this.state = 'title'; } }
   update(step: () => void): void { if (this.state === 'playing') step(); }
 }

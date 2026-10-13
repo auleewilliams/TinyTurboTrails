@@ -16,6 +16,7 @@ import { GameplayPreviewScene, loadGameplayAssets } from './game/gameplay-previe
 import { controlHints } from './game/hud';
 import { AdventureScene } from './game/adventure-scene';
 import { MenuOverlay } from './game/menu-overlay';
+import { PauseMenu } from './game/pause-menu';
 import { loadImage } from './art/henry';
 import { DEFAULT_LEVEL, LEVELS } from './world/levels';
 
@@ -89,9 +90,25 @@ if (!context) {
     canvas.style.width = `${size.width}px`;
     canvas.style.height = `${size.height}px`;
   };
-  const blur = (): void => { focused = false; refreshPause(); };
+  const clearGameplayInput = (): void => {
+    input.clear(); pendingJump = false; pendingStory = false;
+  };
+  const resume = (): void => {
+    userPaused = false; pauseMenu.reset(); clearGameplayInput(); refreshPause();
+  };
+  const pauseMenu = new PauseMenu(resume, () => {
+    const scene = scenes.activeScene;
+    if (!(scene instanceof AdventureScene) || scene.screenState !== 'playing') return;
+    scene.returnToTrails();
+    resume();
+  });
+  const blur = (): void => { focused = false; pauseMenu.reset(); refreshPause(); };
   const focus = (): void => { focused = !document.hidden; refreshPause(); };
-  const visibility = (): void => { focused = !document.hidden && document.hasFocus(); refreshPause(); };
+  const visibility = (): void => {
+    focused = !document.hidden && document.hasFocus();
+    if (!focused) pauseMenu.reset();
+    refreshPause();
+  };
   const toggleMute = (): void => { muted = !muted; audio.setMuted(muted); refreshPause(); };
   const retryLoading = (): void => {
     assetState = 'loading';
@@ -100,11 +117,21 @@ if (!context) {
   };
 
   const frame = (now: number): void => {
-    const controls: InputFrame = input.poll();
+    let controls: InputFrame = input.poll();
     if (inputSource !== (controls.source ?? 'keyboard')) { inputSource = controls.source ?? 'keyboard'; refreshPause(); }
     if (focused) {
-      if (controls.pausePressed) { userPaused = !userPaused; refreshPause(); }
+      if (controls.pausePressed) {
+        if (userPaused && pauseMenu.confirming) pauseMenu.cancel();
+        else if (userPaused) resume();
+        else { userPaused = true; pauseMenu.reset(); refreshPause(); }
+        controls = input.poll();
+      }
       if (controls.mutePressed) { muted = !muted; audio.setMuted(muted); refreshPause(); }
+      if (userPaused && scenes.activeScene instanceof AdventureScene && scenes.activeScene.screenState === 'playing') {
+        pauseMenu.update(controls);
+        // A menu selection must not also reach gameplay or the overworld this frame.
+        if (!userPaused) controls = input.poll();
+      }
     }
     if (focused && !userPaused) { pendingJump ||= controls.jumpPressed; pendingStory ||= controls.storyPressed ?? false; }
     clock.advance(now, (seconds) => {
@@ -115,8 +142,11 @@ if (!context) {
     if (assetState === 'ready' && focused && !userPaused && adventure) status.textContent = previewStatus();
     context.imageSmoothingEnabled = false;
     scenes.render(context);
-    menu.update(scenes.activeScene instanceof AdventureScene ? scenes.activeScene : undefined, !focused || userPaused);
-    if (!focused || userPaused) {
+    const scene = scenes.activeScene instanceof AdventureScene ? scenes.activeScene : undefined;
+    const trailPaused = focused && userPaused && scene?.screenState === 'playing';
+    menu.update(scene, !focused || userPaused, trailPaused ? pauseMenu.targets : []);
+    if (trailPaused) pauseMenu.draw(context, inputSource);
+    else if (!focused || userPaused) {
       // Save/restore so the centered overlay cannot leak into the next frame's scene HUD.
       context.save();
       context.fillStyle = '#0c1922cc';

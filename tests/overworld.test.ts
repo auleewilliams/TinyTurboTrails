@@ -15,6 +15,37 @@ const worlds = Object.fromEntries(LEVELS.map(level => [level.atlas, {} as never]
 const make = (index = 0) => new AdventureScene({} as HTMLImageElement, {} as never, worlds, audio, LEVELS[index]);
 type Live = { player: Player; run: RunState; camera: Camera; platforms: ReturnType<typeof platformBodiesAt>; feedback: Feedback; elapsed: number };
 
+it.each(LEVELS.map((level, index) => ({ level, index })))('abandons $level.name cleanly while keeping completed session results', ({ level, index }) => {
+  const scene = make(index); scene.startSelected();
+  const stop = vi.spyOn(audio, 'stop'); stop.mockClear();
+  scene.session.mark(LEVELS[0], 2, 1);
+  const results = new Map(scene.session.results);
+  const live = scene as unknown as Live;
+  live.run.health = 1; live.run.checkpointId = level.checkpoints[0].id;
+  live.run.collectedGems.add(level.entities.find(entity => entity.kind === 'gem')!.id);
+  live.run.collectedSpecials.add('unfinished-star');
+  live.run.seconds = 20; live.feedback.add('gem', 20, 30); live.player.x += 150;
+  scene.returnToTrails();
+  expect(stop).toHaveBeenCalledOnce(); stop.mockRestore();
+  expect(scene.screenState).toBe('title');
+  expect(scene.selectedLevelName).toBe(level.name);
+  expect(scene.session.results).toEqual(results);
+  expect(scene.session.returnedSeconds).toBe(0);
+  expect(live.player).toEqual(createPlayer(level.start.x, level));
+  expect(live.run).toEqual(createRun(level));
+  expect(live.feedback.effects).toEqual([]);
+  expect(live.platforms).toEqual(platformBodiesAt(level.platforms, 0));
+  expect(live.camera.position).toEqual({ x: 0, y: 0 });
+  expect(live.elapsed).toBe(0);
+  scene.update(1 / 60, { ...neutral, jumpHeld: true, jumpPressed: true, horizontal: 1 });
+  expect(scene.screenState).toBe('title');
+  expect(scene.selectedLevelName).toBe(level.name);
+  scene.update(1 / 60, neutral);
+  scene.update(1 / 60, { ...neutral, jumpPressed: true });
+  expect(scene.screenState).toBe('playing');
+  expect(live.run).toEqual(createRun(level));
+});
+
 it.each(LEVELS.map((level, index) => ({ level, index })))('resets every run domain for Replay and Next trail from $level.name', ({ level, index }) => {
   for (const action of ['Replay', ...(index < LEVELS.length - 1 ? ['Next trail'] : [])]) {
     const scene = make(index); scene.startSelected();

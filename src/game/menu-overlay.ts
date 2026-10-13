@@ -1,4 +1,5 @@
 import type { AdventureScene } from './adventure-scene';
+import type { MenuTarget } from './overworld';
 
 /** Native buttons mirror Canvas hit areas, providing tab/Enter and accessible names. */
 export class MenuOverlay {
@@ -9,9 +10,13 @@ export class MenuOverlay {
     this.element.setAttribute('aria-label', 'Trail navigation');
     document.body.append(this.element);
   }
-  update(scene: AdventureScene | undefined, paused: boolean): void {
+  update(scene: AdventureScene | undefined, paused: boolean, pauseTargets: MenuTarget[] = []): void {
     document.body.classList.toggle('map-visible', (scene?.screenState === 'title' || scene?.screenState === 'story' || scene?.screenState === 'finish') && !paused);
-    const targets = paused ? [] : scene?.menuTargets ?? [];
+    const targets = paused ? pauseTargets : scene?.menuTargets ?? [];
+    document.body.classList.toggle('pause-visible', pauseTargets.length > 0);
+    this.element.setAttribute('aria-label', paused
+      ? pauseTargets[0]?.label === 'Keep playing' ? 'Return to Trails confirmation' : 'Pause navigation'
+      : 'Trail navigation');
     const signature = JSON.stringify(targets.map(({ label, selected, description }) => [label, selected, description]));
     const bounds = this.canvas.getBoundingClientRect();
     Object.assign(this.element.style, { left: `${bounds.left}px`, top: `${bounds.top}px`, width: `${bounds.width}px`, height: `${bounds.height}px` });
@@ -29,9 +34,10 @@ export class MenuOverlay {
       else button.removeAttribute('aria-pressed');
       button.onclick = () => target.action();
       // These auxiliary buttons sit outside the canvas direction/confirm selection.
-      // Handle their focused Space press before BrowserInput consumes it as Play/Replay.
+      // Handle focused Space before BrowserInput consumes it as Play/Replay, and
+      // suppress native Enter repeats so one held key cannot confirm two screens.
       button.onkeydown = (event) => {
-        if (event.code !== 'Space' || !target.nativeSpace) return;
+        if (!target.nativeSpace || (event.code !== 'Space' && event.code !== 'Enter')) return;
         event.preventDefault(); event.stopPropagation();
         if (!event.repeat) target.action();
       };

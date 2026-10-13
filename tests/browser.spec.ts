@@ -1,7 +1,7 @@
 import { drawTerrainMaterial, drawTerrainEdge, drawTrailBackdrop } from '../src/world/trail-presentation';
 import { drawAmbientWeather } from '../src/world/ambient-weather';
 import { expect, test, type Page } from '@playwright/test';
-import { writeFile } from 'node:fs/promises';
+import { mkdir, writeFile } from 'node:fs/promises';
 import { PLAINS_LEVEL } from '../src/world/level';
 import { LEVELS, QUARRY_RUN } from '../src/world/levels';
 import { DEFAULT_MOVEMENT, surfaceY } from '../src/game/movement';
@@ -949,6 +949,123 @@ test('adventure pause freezes progress and reload starts a fresh in-memory run',
   await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
   await reloadAndDismiss(page);
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
+});
+
+test('paused T shortcut confirms before returning to Trails and resets the run', async ({ page }, info) => {
+  await page.setViewportSize({ width: 426, height: 240 });
+  await openAdventure(page, '/?scene=adventure&debug=1');
+  await page.keyboard.press('Space');
+  await expect(page.locator('#status')).toContainText('Playing');
+  await page.keyboard.press('t');
+  await expect(page.locator('#status')).toContainText('Playing');
+  await page.keyboard.down('ArrowRight');
+  await expect.poll(async () => Number((await page.locator('#status').innerText()).match(/X (\d+)/)?.[1])).toBeGreaterThan(100);
+  await page.keyboard.press('Escape');
+  await page.keyboard.up('ArrowRight');
+  await expect(page.getByRole('button', { name: 'Return to Trails', exact: true })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Resume', exact: true })).toHaveAttribute('aria-pressed', 'true');
+  if (info.project.name === 'chromium') {
+    await mkdir('docs/evidence/issue-162', { recursive: true });
+    await page.screenshot({ path: 'docs/evidence/issue-162/keyboard-pause.png' });
+  }
+  const paused = await page.locator('canvas').evaluate(element => (element as HTMLCanvasElement).toDataURL());
+  await page.keyboard.down('t');
+  await expect(page.getByRole('button', { name: 'Keep playing', exact: true })).toHaveAttribute('aria-pressed', 'true');
+  await page.keyboard.press('t'); // Auto-repeat cannot also confirm the exit.
+  await expect(page.locator('#status')).toContainText('Paused');
+  await page.keyboard.up('t');
+  await page.keyboard.press('Escape');
+  await expect(page.getByRole('button', { name: 'Resume', exact: true })).toBeVisible();
+  expect(await page.locator('canvas').evaluate(element => (element as HTMLCanvasElement).toDataURL())).toBe(paused);
+  await page.keyboard.press('Escape');
+  await expect(page.locator('#status')).toContainText('Playing');
+  await expect.poll(async () => Number((await page.locator('#status').innerText()).match(/X (\d+)/)?.[1])).toBeGreaterThan(100);
+  await page.keyboard.press('Escape');
+  await expect(page.getByRole('button', { name: 'Return to Trails', exact: true })).toBeVisible();
+  await page.keyboard.press('t');
+  await expect(page.getByRole('button', { name: 'Keep playing', exact: true })).toBeVisible();
+  await page.setViewportSize({ width: 360, height: 240 });
+  if (info.project.name === 'chromium') await page.screenshot({ path: 'docs/evidence/issue-162/confirmation-small.png' });
+  await page.keyboard.press('t');
+  await expect(page.locator('#status')).toContainText('Title');
+  await expect(page.getByRole('button', { name: `Play ${PLAINS_LEVEL.name}`, exact: true })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Return to Trails', exact: true })).toHaveCount(0);
+  await page.keyboard.press('Space');
+  await expect(page.locator('#status')).toContainText('Playing');
+  await expect(page.locator('#status')).toContainText(`X ${PLAINS_LEVEL.start.x}`);
+});
+
+test('pause return works through pointer, Tab, Enter and focused Space, and cancels on focus loss', async ({ page }) => {
+  await openAdventure(page, '/?scene=adventure');
+  await page.getByRole('button', { name: `Play ${PLAINS_LEVEL.name}`, exact: true }).click();
+  await page.keyboard.press('Escape');
+  await page.getByRole('button', { name: 'Return to Trails', exact: true }).click();
+  await page.getByRole('button', { name: 'Keep playing', exact: true }).click();
+  await expect(page.getByRole('button', { name: 'Resume', exact: true })).toBeVisible();
+  await page.getByRole('button', { name: 'Resume', exact: true }).focus();
+  await page.keyboard.press('Tab');
+  await expect(page.getByRole('button', { name: 'Return to Trails', exact: true })).toBeFocused();
+  await page.keyboard.down('Enter');
+  await expect(page.getByRole('button', { name: 'Keep playing', exact: true })).toBeVisible();
+  await page.keyboard.down('Enter');
+  await expect(page.locator('#status')).toContainText('Paused');
+  await page.keyboard.up('Enter');
+  await page.keyboard.press('Space');
+  await expect(page.locator('#status')).toContainText('Title');
+  await page.getByRole('button', { name: `Play ${PLAINS_LEVEL.name}`, exact: true }).click();
+  await page.keyboard.press('Escape');
+  await page.keyboard.press('t');
+  await page.evaluate(() => window.dispatchEvent(new Event('blur')));
+  await expect(page.getByRole('button', { name: 'Return to Trails', exact: true })).toHaveCount(0);
+  await page.evaluate(() => window.dispatchEvent(new Event('focus')));
+  await expect(page.getByRole('button', { name: 'Resume', exact: true })).toBeVisible();
+  await page.keyboard.press('t');
+  await page.getByRole('button', { name: 'Return to Trails', exact: true }).click();
+  await expect(page.locator('#status')).toContainText('Title');
+});
+
+test('controller pause return requires confirmation and clears held actions before map and replay', async ({ page }, info) => {
+  await page.addInitScript(() => {
+    const pad = { connected: true, mapping: 'standard', axes: [0, 0], buttons: Array.from({ length: 17 }, () => ({ pressed: false })) };
+    Object.defineProperty(navigator, 'getGamepads', { value: () => [pad] });
+    Object.assign(window, { pausePad: pad });
+  });
+  const button = async (index: number, pressed: boolean): Promise<void> => {
+    await page.evaluate(({ index, pressed }) => new Promise<void>(resolve => {
+      (window as unknown as { pausePad: { buttons: { pressed: boolean }[] } }).pausePad.buttons[index].pressed = pressed;
+      // Let the real input loop sample each edge, even when the host is busy.
+      requestAnimationFrame(() => requestAnimationFrame(() => resolve()));
+    }), { index, pressed });
+  };
+  await openAdventure(page, '/?scene=adventure&debug=1');
+  await button(0, true); await button(0, false);
+  await expect(page.locator('#status')).toContainText('Playing');
+  await button(9, true); await button(9, false);
+  await button(15, true); await button(15, false);
+  await expect(page.getByRole('button', { name: 'Return to Trails', exact: true })).toHaveAttribute('aria-pressed', 'true');
+  if (info.project.name === 'chromium') {
+    await mkdir('docs/evidence/issue-162', { recursive: true });
+    await page.screenshot({ path: 'docs/evidence/issue-162/controller-pause.png' });
+  }
+  await button(0, true);
+  await expect(page.getByRole('button', { name: 'Keep playing', exact: true })).toHaveAttribute('aria-pressed', 'true');
+  await page.waitForTimeout(120);
+  await expect(page.locator('#status')).toContainText('Paused');
+  await button(0, false);
+  await button(9, true); await button(9, false);
+  await expect(page.getByRole('button', { name: 'Resume', exact: true })).toBeVisible();
+  await button(15, true); await button(15, false);
+  await button(0, true); await button(0, false);
+  await button(15, true);
+  await button(0, true);
+  await expect(page.locator('#status')).toContainText('Title');
+  await page.waitForTimeout(120);
+  await expect(page.getByRole('button', { name: `Play ${PLAINS_LEVEL.name}`, exact: true })).toBeVisible();
+  await button(0, false); await button(15, false);
+  await button(0, true);
+  await expect(page.locator('#status')).toContainText('Playing');
+  await expect(page.locator('#status')).toContainText(`X ${PLAINS_LEVEL.start.x}`);
+  await button(0, false);
 });
 
 test('default main menu accepts controller primary-button start, Start pause and D-pad movement', async ({ page }) => {

@@ -259,6 +259,15 @@ export class AdventureScene implements Scene {
     return this.selectedIndex < LEVELS.length - 1 ? ['Replay', 'Next trail', 'Choose trail'] : ['Replay', 'Choose trail'];
   }
 
+  returnToTrails(): void {
+    if (this.screenState !== 'playing') return;
+    this.loadLevel(this.level);
+    this.screens.leave();
+    this.selectionDirection = 0;
+    this.menuArmed = false;
+    this.session.returnedSeconds = 0;
+  }
+
   activateFinish(action: string): void {
     if (this.screenState !== 'finish' || !this.finishActions.includes(action)) return;
     this.screens.replay();
