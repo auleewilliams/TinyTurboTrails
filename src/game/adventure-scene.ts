@@ -234,11 +234,6 @@ export class AdventureScene implements Scene {
       ctx.fillStyle = '#ffda75'; ctx.font = 'bold 22px monospace'; ctx.fillText('↶', 382, 29);
       ctx.font = '8px monospace'; ctx.fillStyle = '#17333b';
       ctx.fillText(this.inputSource === 'controller' ? 'View' : 'R', 381, 44);
-      // The selected Plains thumbnail pictures the same neighbour and arch as the opening.
-      if (this.selectedIndex === 0) {
-        const { x, y, width, height } = OVERWORLD_LAYOUT.storyPreview;
-        drawStoryPicture(ctx, this.storyArtwork, 2, x, y, width, height);
-      }
     }
     if (this.session.returnedSeconds > 0) {
       ctx.fillStyle = '#17333b'; ctx.fillText('Trail complete! ✓', 124, 49);

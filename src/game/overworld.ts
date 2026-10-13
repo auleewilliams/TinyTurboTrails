@@ -7,7 +7,6 @@ export const MAP_POINTS = [[48, 88], [140, 88], [232, 88], [232, 176], [140, 176
 export const OVERWORLD_LAYOUT = {
   panel: { x: 281, y: 47, width: 139, height: 170 },
   preview: { x: 287, y: 84, width: 126, height: 71 },
-  storyPreview: { x: 293, y: 79, width: 114, height: 76 },
   results: { baseline: 174, gemCenter: 320, starCenter: 382, center: 350 },
   play: { x: 298, y: 180, width: 104, height: 27 },
 } as const;
