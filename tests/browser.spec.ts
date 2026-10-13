@@ -1657,7 +1657,25 @@ for (const [index, level] of LEVELS.entries()) {
       }, { dangers: dangerXs(level), controller: index % 2 === 1 });
       await expect(page.locator('#status')).toContainText('Finish', { timeout: 35_000 });
       await expect(canvas).toHaveAttribute('data-ribbon', 'absent');
-      await page.waitForTimeout(100); // neutral input crosses the finish boundary
+      // Stop the input pilot explicitly: a quick menu action can replace Finish
+      // before its next RAF notices completion, leaving movement held in a new run.
+      await page.evaluate(() => new Promise<void>(resolve => {
+        const state = window as unknown as {
+          trailPilot: { active: boolean; lastActive: boolean; jumping: boolean; jumpUntil: number };
+          trailPad: { axes: number[]; buttons: { pressed: boolean }[] };
+        };
+        Object.assign(state.trailPilot, { active: false, lastActive: false, jumping: false, jumpUntil: 0 });
+        state.trailPad.axes[0] = 0;
+        state.trailPad.buttons.forEach(button => { button.pressed = false; });
+        for (const code of ['ArrowRight', 'Space']) window.dispatchEvent(new KeyboardEvent('keyup', { code }));
+        requestAnimationFrame(start => {
+          const releasedFrame = (now: number): void => {
+            if (now - start >= 50) resolve();
+            else requestAnimationFrame(releasedFrame);
+          };
+          requestAnimationFrame(releasedFrame);
+        });
+      }));
     };
     const finishAction = async (label: string): Promise<void> => {
       if (index % 3 === 0) { await page.getByRole('button', { name: label, exact: true }).click(); return; }

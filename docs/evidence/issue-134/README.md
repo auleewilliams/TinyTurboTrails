@@ -47,6 +47,9 @@ avoiding intermediate DOM mutations that would otherwise inflate Playwright
 traces and slow the input pilot. Per-canvas samples decide absence after each
 opaque scene render, so map/finish labels cannot conceal unexpected ribbon
 drawing and translucent pause overlays cannot erase a valid sample.
+After completion, the pilot explicitly releases keyboard and controller input
+and samples neutral frames before menu actions, preventing held movement from
+leaking into a new run if navigation replaces Finish before the next frame.
 
 | Trail | Native start | Small start | Native checkpoint | Small checkpoint |
 | --- | --- | --- | --- | --- |
