@@ -37,10 +37,6 @@ it.each(LEVELS.map((level, index) => ({ level, index })))('abandons $level.name 
   expect(live.platforms).toEqual(platformBodiesAt(level.platforms, 0));
   expect(live.camera.position).toEqual({ x: 0, y: 0 });
   expect(live.elapsed).toBe(0);
-  scene.update(1 / 60, { ...neutral, jumpHeld: true, jumpPressed: true, horizontal: 1 });
-  expect(scene.screenState).toBe('title');
-  expect(scene.selectedLevelName).toBe(level.name);
-  scene.update(1 / 60, neutral);
   scene.update(1 / 60, { ...neutral, jumpPressed: true });
   expect(scene.screenState).toBe('playing');
   expect(live.run).toEqual(createRun(level));

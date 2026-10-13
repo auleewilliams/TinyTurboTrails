@@ -960,6 +960,7 @@ test('paused T shortcut confirms before returning to Trails and resets the run',
   await expect(page.locator('#status')).toContainText('Playing');
   await page.keyboard.down('ArrowRight');
   await expect.poll(async () => Number((await page.locator('#status').innerText()).match(/X (\d+)/)?.[1])).toBeGreaterThan(100);
+  const beforePauseX = Number((await page.locator('#status').innerText()).match(/X (\d+)/)?.[1]);
   await page.keyboard.press('Escape');
   await page.keyboard.up('ArrowRight');
   await expect(page.getByRole('button', { name: 'Return to Trails', exact: true })).toBeVisible();
@@ -977,9 +978,15 @@ test('paused T shortcut confirms before returning to Trails and resets the run',
   await page.keyboard.press('Escape');
   await expect(page.getByRole('button', { name: 'Resume', exact: true })).toBeVisible();
   expect(await page.locator('canvas').evaluate(element => (element as HTMLCanvasElement).toDataURL())).toBe(paused);
-  await page.keyboard.press('Escape');
+  // Resume and a fresh movement press can arrive before the same render frame.
+  await page.evaluate(() => {
+    window.dispatchEvent(new KeyboardEvent('keydown', { code: 'Escape' }));
+    window.dispatchEvent(new KeyboardEvent('keyup', { code: 'Escape' }));
+    window.dispatchEvent(new KeyboardEvent('keydown', { code: 'ArrowRight' }));
+  });
   await expect(page.locator('#status')).toContainText('Playing');
-  await expect.poll(async () => Number((await page.locator('#status').innerText()).match(/X (\d+)/)?.[1])).toBeGreaterThan(100);
+  await expect.poll(async () => Number((await page.locator('#status').innerText()).match(/X (\d+)/)?.[1])).toBeGreaterThan(beforePauseX + 100);
+  await page.keyboard.up('ArrowRight');
   await page.keyboard.press('Escape');
   await expect(page.getByRole('button', { name: 'Return to Trails', exact: true })).toBeVisible();
   await page.keyboard.press('t');
@@ -1014,7 +1021,9 @@ test('pause return works through pointer, Tab, Enter and focused Space, and canc
   await expect(page.locator('#status')).toContainText('Title');
   await page.getByRole('button', { name: `Play ${PLAINS_LEVEL.name}`, exact: true }).click();
   await page.keyboard.press('Escape');
+  await expect(page.getByRole('button', { name: 'Resume', exact: true })).toBeVisible();
   await page.keyboard.press('t');
+  await expect(page.getByRole('button', { name: 'Keep playing', exact: true })).toBeVisible();
   await page.evaluate(() => window.dispatchEvent(new Event('blur')));
   await expect(page.getByRole('button', { name: 'Return to Trails', exact: true })).toHaveCount(0);
   await page.evaluate(() => window.dispatchEvent(new Event('focus')));

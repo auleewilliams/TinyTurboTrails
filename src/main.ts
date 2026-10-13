@@ -94,11 +94,12 @@ if (!context) {
     input.clear(); pendingJump = false; pendingStory = false;
   };
   const resume = (): void => {
-    userPaused = false; pauseMenu.reset(); clearGameplayInput(); refreshPause();
+    userPaused = false; pauseMenu.reset(); pendingJump = false; pendingStory = false; refreshPause();
   };
   const pauseMenu = new PauseMenu(resume, () => {
     const scene = scenes.activeScene;
     if (!(scene instanceof AdventureScene) || scene.screenState !== 'playing') return;
+    clearGameplayInput();
     scene.returnToTrails();
     resume();
   });

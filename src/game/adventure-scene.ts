@@ -264,7 +264,9 @@ export class AdventureScene implements Scene {
     this.loadLevel(this.level);
     this.screens.leave();
     this.selectionDirection = 0;
-    this.menuArmed = false;
+    // The pause return clears BrowserInput before exposing the map. Its release
+    // guard filters held controls, so a fresh action can start immediately.
+    this.menuArmed = true;
     this.session.returnedSeconds = 0;
   }
 
