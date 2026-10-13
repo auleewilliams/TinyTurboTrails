@@ -1,10 +1,11 @@
 import { expect, it } from 'vitest';
 import { Feedback, MAX_EFFECTS } from '../src/game/feedback';
-import { HudPresentation, areaName, controlHints } from '../src/game/hud';
+import { HudPresentation, TRAIL_RIBBON, areaName, controlHints, drawGameplayHud, drawTrailRibbon, trailPosition } from '../src/game/hud';
 import { LEVELS } from '../src/world/levels';
 import { PLAINS_LEVEL } from '../src/world/level';
-import { createRun, stepEntities } from '../src/game/interactions';
+import { activateCheckpoint, createRun, recoverFromFall, stepEntities, type RunEvent } from '../src/game/interactions';
 import { createPlayer } from '../src/game/movement';
+import { fitViewport } from '../src/core/viewport';
 
 it('consumes one gem/checkpoint/spring event per contact and expires bounded effects', () => {
   const feedback = new Feedback();
@@ -84,4 +85,97 @@ it('keeps simulation untouched when presenting events and clears every pending e
   feedback.clear();
   expect(feedback.effects).toEqual([]);
   expect(feedback.checkpointSeconds).toBe(0);
+});
+
+it.each(LEVELS)('maps $name progress from the real start to the exact finish trigger', level => {
+  expect(trailPosition(level, level.start.x - 100)).toBe(0);
+  expect(trailPosition(level, level.start.x)).toBe(0);
+  expect(trailPosition(level, (level.start.x + level.finish.x) / 2)).toBe(0.5);
+  expect(trailPosition(level, level.finish.x - 0.01)).toBeLessThan(1);
+  expect(trailPosition(level, level.finish.x)).toBe(1);
+  expect(trailPosition(level, level.finish.x + 100)).toBe(1);
+  const progress = new HudPresentation().progress(level, level.start.x);
+  expect(progress.checkpoints.map(point => point.id)).toEqual(level.checkpoints.map(point => point.id));
+  progress.checkpoints.forEach((point, index) => {
+    expect(point.position).toBe(trailPosition(level, level.checkpoints[index].x));
+    expect(point.activated).toBe(false);
+  });
+});
+
+it.each(LEVELS)('fills only activated $name checkpoints and preserves them through backtracking and recovery', level => {
+  const hud = new HudPresentation();
+  const run = createRun(level);
+  const player = createPlayer(level.start.x, level);
+  const checkpoint = level.checkpoints[1];
+  const events: RunEvent[] = [];
+  // A position beyond a checkpoint is not proof that Henry touched its flag.
+  expect(hud.progress(level, level.finish.x).checkpoints.every(point => !point.activated)).toBe(true);
+  activateCheckpoint(run, checkpoint.id, events);
+  const before = structuredClone(run);
+  hud.consume(events);
+  hud.consume(events); // repeated activation cannot create another tick
+  expect(run).toEqual(before);
+  expect(hud.progress(level, level.start.x).checkpoints.filter(point => point.activated).map(point => point.id)).toEqual([checkpoint.id]);
+  recoverFromFall(run, player, events, level);
+  hud.consume(events);
+  const recovered = hud.progress(level, player.x);
+  expect(recovered.position).toBe(trailPosition(level, checkpoint.x));
+  expect(recovered.checkpoints.filter(point => point.activated).map(point => point.id)).toEqual([checkpoint.id]);
+  // Returning to an earlier flag changes recovery but must not erase the later fill.
+  const earlierEvents: RunEvent[] = [];
+  activateCheckpoint(run, level.checkpoints[0].id, earlierEvents);
+  hud.consume(earlierEvents);
+  recoverFromFall(run, player, earlierEvents, level);
+  hud.consume(earlierEvents);
+  expect(hud.progress(level, player.x).checkpoints.filter(point => point.activated).map(point => point.id))
+    .toEqual([level.checkpoints[0].id, checkpoint.id]);
+  expect(hud.progress(level, player.x).position).toBe(trailPosition(level, level.checkpoints[0].x));
+  // Replay, map selection and next all construct a new presentation with the new run.
+  const fresh = new HudPresentation().progress(level, level.start.x);
+  expect(fresh.position).toBe(0);
+  expect(fresh.checkpoints.every(point => !point.activated)).toBe(true);
+});
+
+function hudDrawing(): { ctx: CanvasRenderingContext2D; rects: number[][]; texts: string[] } {
+  const rects: number[][] = [];
+  const texts: string[] = [];
+  const ctx = {
+    save() {}, restore() {},
+    fillRect: (...rect: number[]) => rects.push(rect),
+    fillText: (text: string) => texts.push(text),
+    measureText: (text: string) => ({ width: text.length * 6 }),
+  } as unknown as CanvasRenderingContext2D;
+  return { ctx, rects, texts };
+}
+
+it.each(LEVELS)('keeps the wordless $name ribbon clear of HUD panels, teaching hints and notices at both sizes', level => {
+  for (const width of [426, 320]) {
+    const size = fitViewport(width, 240);
+    const scale = size.width / 426;
+    for (const notice of [level.name, ...level.checkpoints.map((_, index) => areaName(level, index)), 'Checkpoint reached!']) {
+      const hud = hudDrawing();
+      drawGameplayHud(hud.ctx, createRun(level), controlHints('keyboard')[0], notice);
+      const ribbon = hudDrawing();
+      drawTrailRibbon(ribbon.ctx, new HudPresentation().progress(level, level.start.x));
+      expect(ribbon.texts).toEqual([]);
+      for (const [x, y, w, h] of ribbon.rects) {
+        expect(x * scale).toBeGreaterThanOrEqual(0);
+        expect(y * scale).toBeGreaterThanOrEqual(0);
+        expect((x + w) * scale).toBeLessThanOrEqual(size.width);
+        expect((y + h) * scale).toBeLessThanOrEqual(size.height);
+        for (const [hx, hy, hw, hh] of hud.rects) {
+          expect(x + w <= hx || hx + hw <= x || y + h <= hy || hy + hh <= y).toBe(true);
+        }
+      }
+    }
+  }
+});
+
+it('keeps Henry short of the finish flag until the finish threshold, including pixel rounding', () => {
+  for (const [x, expected] of [[PLAINS_LEVEL.finish.x - 0.01, TRAIL_RIBBON.finishX - 1], [PLAINS_LEVEL.finish.x, TRAIL_RIBBON.finishX]]) {
+    const drawing = hudDrawing();
+    drawTrailRibbon(drawing.ctx, new HudPresentation().progress(PLAINS_LEVEL, x));
+    const pointer = drawing.rects.at(-1)!;
+    expect(pointer[0]).toBe(expected);
+  }
 });

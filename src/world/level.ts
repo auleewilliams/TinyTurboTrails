@@ -20,7 +20,17 @@ export interface WorldEntity {
 }
 /** A low sun drawn behind the parallax; it drifts at a fraction of the camera so it feels far away. */
 export interface LevelSun { x: number; y: number; radius: number; color: string; glow: string }
+/** Decorative air only; speeds are pixels per run second, with distant parallax. */
+export interface LevelWeather {
+  kind: 'snow' | 'leaves' | 'dust' | 'spray';
+  count: number;
+  color: string;
+  drift: number;
+  fall: number;
+  sway: number;
+}
 export interface LevelTheme {
+  weather?: LevelWeather;
   slimeAccessory?: SlimeAccessory;
   material?: 'soil' | 'stone' | 'wood' | 'gravel' | 'frost' | 'sand';
   materialSections?: readonly { from: number; to: number; material: NonNullable<LevelTheme['material']> }[];
