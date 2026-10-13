@@ -103,6 +103,7 @@ export const QUARRY_RUN: LevelData = withSlimePatrols({
   theme: {
     slimeAccessory: 'miner',
     material: 'stone',
+    weather: { kind: 'dust', count: 20, color: '#d7c2a650', drift: 2, fall: 1, sway: 3 },
     backdrop: { row: 0, support: '#4b535860' },
     sky: '#657b8c',
     ground: '#59616a',
@@ -276,6 +277,7 @@ export const TREETOP_TIMBERS: LevelData = withSlimePatrols({
   theme: {
     slimeAccessory: 'leaf',
     material: 'wood',
+    weather: { kind: 'leaves', count: 14, color: '#b5a05b80', drift: 6, fall: 8, sway: 10 },
     backdrop: { row: 1, support: '#60443260' },
     sky: '#d97667',
     ground: '#704126',

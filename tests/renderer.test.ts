@@ -13,6 +13,7 @@ import { Camera } from '../src/world/camera';
 import { PLAINS_LEVEL } from '../src/world/level';
 import { LEVELS, QUARRY_RUN, TREETOP_TIMBERS, SUNSET_SITE, FROST_RIDGE, SANDY_COVE } from '../src/world/levels';
 import { drawTrailBackdrop } from '../src/world/trail-presentation';
+import { drawAmbientWeather } from '../src/world/ambient-weather';
 import { platformBodyAt } from '../src/game/platforms';
 
 const manifest = JSON.parse(readFileSync(new URL('../public/assets/plains/manifest.json', import.meta.url), 'utf8'));
@@ -298,6 +299,30 @@ const silentAudio: GameAudio = {
   unlock: async () => {}, setMuted: () => {}, setSuspended: () => {}, startMusic: () => {},
   play: () => {}, stop: () => {}, dispose: () => {},
 };
+
+it('uses the run clock for weather, freezes it on pause and resets it on replay', () => {
+  const scene = new AdventureScene({} as HTMLImageElement, henryAssets, worldMap(worldAssets), silentAudio, QUARRY_RUN);
+  scene.startSelected();
+  const run = (scene as unknown as { run: RunState }).run;
+  run.seconds = 37.5;
+  const sample = () => {
+    const { ctx, rects } = recordingContext(); scene.render(ctx);
+    return rects.filter(rect => rect.fillStyle === QUARRY_RUN.theme.weather!.color);
+  };
+  const expected = recordingContext();
+  drawAmbientWeather(expected.ctx, QUARRY_RUN.theme.weather, { x: 0, y: 0 }, 37.5);
+  const before = sample(); expect(before).toEqual(expected.rects);
+  const screens = (scene as unknown as { screens: { pause(): void; resume(): void; complete(gems: number): void } }).screens;
+  screens.pause();
+  scene.update(5, { horizontal: 0, jumpHeld: false, jumpPressed: false, pausePressed: false, mutePressed: false });
+  expect(sample()).toEqual(before);
+  // Return to playing solely to reach the public replay action.
+  screens.resume(); screens.complete(0); scene.activateFinish('Replay');
+  const initial = recordingContext();
+  drawAmbientWeather(initial.ctx, QUARRY_RUN.theme.weather, { x: 0, y: 0 }, 0);
+  expect(sample()).toEqual(initial.rects);
+  expect(sample()).not.toEqual(before);
+});
 
 it('renders the selected level with its own world atlas', () => {
   const timberAssets: WorldAssets = { atlas: {} as HTMLImageElement, gems: {} as HTMLImageElement, manifest };
