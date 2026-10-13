@@ -51,6 +51,25 @@ Each trail uses 30 warmups and 600 frames with full Canvas readback. The updated
 audit advances run time at 60 Hz so this measures moving weather. Browser suites
 and unit tests should be stopped while measuring to limit scheduling noise.
 
+The final audit alternates baseline/current order for each adjacent pair at the
+same time and camera position, reducing drift from changing shared-host load.
+The paired median difference rounds to 0.0 ms for every trail. Affected trails
+add at most 0.1 ms to either the overall median or p95; this is less than 1% of
+a 16.7 ms frame budget and shows no material rendering regression.
+
+| Trail | Baseline median | Weather median | Baseline p95 | Weather p95 |
+| --- | ---: | ---: | ---: | ---: |
+| Quarry | 2.0 ms | 2.0 ms | 2.6 ms | 2.5 ms |
+| Timbers | 2.1 ms | 2.2 ms | 2.7 ms | 2.6 ms |
+| Frost | 1.9 ms | 1.9 ms | 2.2 ms | 2.2 ms |
+| Cove | 1.7 ms | 1.8 ms | 2.0 ms | 2.1 ms |
+
+Absolute numbers vary with the host: pre-change control timings also move away
+from the historic milestone figures. The same-host comparison isolates the
+change, and affected trails' final p95 values remain below the historic
+milestone's slowest trail (2.8 ms). No other checks from this worktree ran during
+the final measurement.
+
 ## Automated coverage
 
 Focused Vitest tests cover deterministic sampling despite intervening renders,
@@ -63,3 +82,20 @@ and a small changed-pixel budget in Chromium, Firefox and WebKit.
 
 An independent subagent reviewed production code, tests, and native screenshots
 and approved the implementation with no remaining findings.
+
+Validation commands and results:
+
+- `npm test -- --maxWorkers=2 --testTimeout=15000`: 625 passed. The existing
+  finish-layout tests exceeded their default time limits during concurrent
+  local browser runs; the isolated run passed. GitHub CI also passed the default
+  `npm test` command.
+- `npm run typecheck`, `npm run build`: passed.
+- `npm run test:ci`: 8 passed.
+- `PLAYWRIGHT_PORT=4183 npm run test:browser -- --grep 'ambient weather' --workers=1 --output=/tmp/issue-135-weather-tests`:
+  3 passed, one each in Chromium, Firefox, and WebKit.
+- The local broad browser run was interrupted after 180 passing tests. It
+  exposed the subsequently corrected missing injected tile helper and several
+  existing timing/input/load failures on the shared host. The complete browser
+  matrix and Docker deployment smoke check run in the
+  [PR #161 CI check](https://github.com/auleewilliams/TinyTurboTrails/pull/161/checks)
+  as the merge gate.
