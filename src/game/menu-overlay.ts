@@ -8,7 +8,8 @@ export class MenuOverlay {
   constructor(private readonly canvas: HTMLCanvasElement) {
     this.element.className = 'trail-menu';
     this.element.setAttribute('aria-label', 'Trail navigation');
-    document.body.append(this.element);
+    // Keep native menu targets in the same fullscreen surface as the canvas.
+    this.canvas.parentElement!.append(this.element);
   }
   update(scene: AdventureScene | undefined, paused: boolean, pauseTargets: MenuTarget[] = []): void {
     document.body.classList.toggle('map-visible', (scene?.screenState === 'title' || scene?.screenState === 'story' || scene?.screenState === 'finish') && !paused);
