@@ -126,9 +126,8 @@ export const QUARRY_RUN: LevelData = withSlimePatrols({
   surfaces: quarryTerrain.surfaces,
   checkpoints: quarryCheckpoints,
   platforms: quarryPlatforms,
-  challengeCues: [
-    { x: 2300, y: 120, label: 'STAR LIFT >' },
-    { x: 2660, y: 138, label: 'SAFE RETURN', landingWidth: 100 },
+  landingBands: [
+    { x: 2660, width: 100 },
   ],
   entities: [
     ...[2424, 2500, 2580].map((x, index): WorldEntity => ({
@@ -299,12 +298,7 @@ export const TREETOP_TIMBERS: LevelData = withSlimePatrols({
   finish: { x: 10100, y: surfaceY(timberTerrain, 10100), asset: 'finish-arch' },
   surfaces: timberTerrain.surfaces,
   checkpoints: timberCheckpoints,
-  challengeCues: [
-    { x: 900, y: 170, label: 'SPRING STARS >' },
-    ...[1100, 1820, 3320].map((x, index) => ({
-      x, y: surfaceY(timberTerrain, x), label: `LAND ${index + 1}`, landingWidth: 140,
-    })),
-  ],
+  landingBands: [1100, 1820, 3320].map(x => ({ x, width: 140 })),
   entities: [
     ...[1030, 1730, 3180].map((x, index): WorldEntity => ({
       id: `timbers-special-${index + 1}`, kind: 'special', x,

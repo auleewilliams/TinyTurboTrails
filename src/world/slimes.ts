@@ -39,8 +39,8 @@ export function withSlimePatrols(level: LevelData): LevelData {
     for (const spring of level.entities.filter((candidate) => candidate.kind === 'spring')) {
       keepClear(spring.x - 40, spring.x + 40);
     }
-    for (const cue of level.challengeCues ?? []) {
-      if (cue.landingWidth) keepClear(cue.x - cue.landingWidth / 2 - 20, cue.x + cue.landingWidth / 2 + 20);
+    for (const band of level.landingBands ?? []) {
+      keepClear(band.x - band.width / 2 - 20, band.x + band.width / 2 + 20);
     }
     if (minX >= maxX || entity.x < minX || entity.x > maxX) throw new Error(`slime has no safe patrol: ${entity.id}`);
     return { ...entity, patrol: { minX, maxX, speed: SLIME_SPEED } };

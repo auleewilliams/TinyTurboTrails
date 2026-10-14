@@ -61,7 +61,7 @@ export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, le
   drawSurfaceMaterials(ctx, level, offset);
   for (const surface of level.surfaces) drawSurfaceGrip(ctx, surface, offset);
   drawPlatforms(ctx, level, offset, platforms);
-  drawChallengeCues(ctx, level, offset);
+  drawLandingBands(ctx, level, offset);
   // Decorative silhouettes sit behind every collectible, hazard and checkpoint.
   const layerOrder: Record<WorldEntity['layer'], number> = { back: 0, world: 1, front: 2 };
   const entities = [...level.entities].sort((left, right) => layerOrder[left.layer] - layerOrder[right.layer]);
@@ -136,19 +136,14 @@ export function drawSpecial(ctx: CanvasRenderingContext2D, x: number, y: number)
   ctx.fillStyle = '#fff7d6'; ctx.fillRect(x + 9, y + 6, 4, 4);
 }
 
-/** Signs never collide; landing bands follow the existing terrain contour. */
-export function drawChallengeCues(ctx: CanvasRenderingContext2D, level: LevelData, offset: { x: number; y: number }): void {
-  for (const cue of level.challengeCues ?? []) {
-    const x = Math.round(cue.x - offset.x);
-    const y = Math.round(cue.y - offset.y);
+/** Gold landing bands follow the existing terrain contour. */
+export function drawLandingBands(ctx: CanvasRenderingContext2D, level: LevelData, offset: { x: number; y: number }): void {
+  for (const band of level.landingBands ?? []) {
+    const x = Math.round(band.x - offset.x);
     if (x < -180 || x > 606) continue;
     ctx.save();
-    ctx.font = 'bold 8px monospace'; ctx.textAlign = 'center';
-    const width = cue.label.length * 5 + 10;
-    ctx.fillStyle = '#10252c'; ctx.fillRect(x - width / 2, y - 48, width, 15);
-    ctx.fillRect(x - 1, y - 33, 2, 33);
-    ctx.fillStyle = '#ffda75'; ctx.fillText(cue.label, x, y - 37);
-    if (cue.landingWidth) for (let px = cue.x - cue.landingWidth / 2; px <= cue.x + cue.landingWidth / 2; px += 12) {
+    ctx.fillStyle = '#ffda75';
+    for (let px = band.x - band.width / 2; px <= band.x + band.width / 2; px += 12) {
       const surface = level.surfaces.find((part) => px >= part.x1 && px <= part.x2);
       if (!surface) continue;
       const py = surface.y1 + (surface.y2 - surface.y1) * (px - surface.x1) / (surface.x2 - surface.x1);

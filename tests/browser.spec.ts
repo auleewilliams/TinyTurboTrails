@@ -7,11 +7,11 @@ import { LEVELS, QUARRY_RUN } from '../src/world/levels';
 import { DEFAULT_MOVEMENT, surfaceY } from '../src/game/movement';
 import { platformBodyAt } from '../src/game/platforms';
 import { drawSurfaceMaterials } from '../src/world/surface-materials';
-import { drawSlime, drawGem, drawSpecial, drawChallengeCues, drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawTerrainTiles, drawWorld } from '../src/world/renderer';
+import { drawSlime, drawGem, drawSpecial, drawLandingBands, drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawTerrainTiles, drawWorld } from '../src/world/renderer';
 import { TRAIL_RIBBON, trailPosition } from '../src/game/hud';
 
 /** The renderer is injected as plain functions, so every helper it calls has to travel with it. */
-const RENDERER_SOURCE = [drawAmbientWeather, drawSlime, drawGem, drawSpecial, drawChallengeCues, drawTerrainMaterial, drawTerrainEdge, drawTrailBackdrop, drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawTerrainTiles, drawSurfaceMaterials].map((helper) => helper.toString()).join('\n');
+const RENDERER_SOURCE = [drawAmbientWeather, drawSlime, drawGem, drawSpecial, drawLandingBands, drawTerrainMaterial, drawTerrainEdge, drawTrailBackdrop, drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawTerrainTiles, drawSurfaceMaterials].map((helper) => helper.toString()).join('\n');
 
 test('ambient weather repeats the same pixels, respects reduced motion and stays behind terrain', async ({ page }, info) => {
   // Six full-image comparisons need extra readback time on constrained WebKit hosts.
@@ -2251,11 +2251,12 @@ for (const [index, level] of LEVELS.slice(0, 3).entries()) {
     const errors: string[] = [];
     page.on('pageerror', error => errors.push(error.message));
     await page.addInitScript(({ id, dangers }) => {
-      const pilot = { active: false, pauseAt: 0, frozen: false, lastX: 0, index: 0, jumpUntil: 0, docked: false, rode: false, time: 0 };
+      const pilot = { active: false, pauseAt: 0, frozen: false, lastX: 0, index: 0, jumpUntil: 0, docked: false, rode: false, time: 0, signboards: [] as string[] };
       Object.assign(window, { starPilot: pilot });
       const originalText = CanvasRenderingContext2D.prototype.fillText;
       CanvasRenderingContext2D.prototype.fillText = function (text, x, y, maxWidth) {
         if (text.startsWith('STARS ')) this.canvas.dataset.stars = text;
+        if (/^(STAR SLOPE >|SAFE RUNOUT|STAR LIFT >|SAFE RETURN|SPRING STARS >|LAND [1-3])$/.test(text)) pilot.signboards.push(text);
         return maxWidth === undefined ? originalText.call(this, text, x, y) : originalText.call(this, text, x, y, maxWidth);
       };
       const raf = requestAnimationFrame.bind(window);
@@ -2327,6 +2328,7 @@ for (const [index, level] of LEVELS.slice(0, 3).entries()) {
     await page.evaluate(() => { Object.assign((window as unknown as { starPilot: object }).starPilot, { active: true, frozen: false, pauseAt: 0 }); });
     await expect(page.locator('#status')).toContainText('Finish', { timeout: 75_000 });
     await expect(page.locator('canvas')).toHaveAttribute('data-stars', 'STARS 3/3');
+    expect(await page.evaluate(() => (window as unknown as { starPilot: { signboards: string[] } }).starPilot.signboards)).toEqual([]);
     for (const width of [426, 320]) {
       await page.setViewportSize({ width, height: 240 });
       await page.screenshot({ path: info.outputPath(`${level.id}-finish-${width}.png`) });
