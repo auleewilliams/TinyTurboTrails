@@ -1,0 +1,382 @@
+[
+  {
+    "browser": "chromium",
+    "viewport": {
+      "width": 2048,
+      "height": 1178,
+      "devicePixelRatio": 1,
+      "fullscreen": false,
+      "canvas": {
+        "x": 17.5625,
+        "y": 0,
+        "width": 2012.84375,
+        "height": 1134,
+        "top": 0,
+        "right": 2030.40625,
+        "bottom": 1134,
+        "left": 17.5625
+      }
+    }
+  },
+  {
+    "browser": "chromium",
+    "viewport": {
+      "width": 1366,
+      "height": 768,
+      "devicePixelRatio": 1,
+      "fullscreen": false,
+      "canvas": {
+        "x": 40.4375,
+        "y": 0,
+        "width": 1285.09375,
+        "height": 724,
+        "top": 0,
+        "right": 1325.53125,
+        "bottom": 724,
+        "left": 40.4375
+      }
+    }
+  },
+  {
+    "browser": "chromium",
+    "viewport": {
+      "width": 1280,
+      "height": 720,
+      "devicePixelRatio": 1,
+      "fullscreen": false,
+      "canvas": {
+        "x": 40.046875,
+        "y": 0,
+        "width": 1199.890625,
+        "height": 676,
+        "top": 0,
+        "right": 1239.9375,
+        "bottom": 676,
+        "left": 40.046875
+      }
+    }
+  },
+  {
+    "browser": "chromium",
+    "viewport": {
+      "width": 1024,
+      "height": 768,
+      "devicePixelRatio": 1,
+      "fullscreen": false,
+      "canvas": {
+        "x": 0,
+        "y": 95.546875,
+        "width": 1024,
+        "height": 576.890625,
+        "top": 95.546875,
+        "right": 1024,
+        "bottom": 672.4375,
+        "left": 0
+      }
+    }
+  },
+  {
+    "browser": "chromium",
+    "viewport": {
+      "width": 2560,
+      "height": 1080,
+      "devicePixelRatio": 1,
+      "fullscreen": false,
+      "canvas": {
+        "x": 321.5,
+        "y": 0,
+        "width": 1917,
+        "height": 1080,
+        "top": 0,
+        "right": 2238.5,
+        "bottom": 1080,
+        "left": 321.5
+      }
+    }
+  },
+  {
+    "browser": "chromium",
+    "viewport": {
+      "width": 852,
+      "height": 480,
+      "devicePixelRatio": 1,
+      "fullscreen": false,
+      "canvas": {
+        "x": 39.046875,
+        "y": 0,
+        "width": 773.890625,
+        "height": 436,
+        "top": 0,
+        "right": 812.9375,
+        "bottom": 436,
+        "left": 39.046875
+      }
+    }
+  },
+  {
+    "browser": "chromium",
+    "viewport": {
+      "width": 2040,
+      "height": 1080,
+      "devicePixelRatio": 1,
+      "fullscreen": false,
+      "canvas": {
+        "x": 0,
+        "y": 1.96875,
+        "width": 1910,
+        "height": 1076.046875,
+        "top": 1.96875,
+        "right": 1910,
+        "bottom": 1078.015625,
+        "left": 0
+      }
+    }
+  },
+  {
+    "browser": "chromium",
+    "viewport": {
+      "width": 426,
+      "height": 240,
+      "devicePixelRatio": 1,
+      "fullscreen": false,
+      "canvas": {
+        "x": 39.046875,
+        "y": 0,
+        "width": 347.890625,
+        "height": 196,
+        "top": 0,
+        "right": 386.9375,
+        "bottom": 196,
+        "left": 39.046875
+      }
+    }
+  },
+  {
+    "browser": "chromium",
+    "viewport": {
+      "width": 320,
+      "height": 240,
+      "devicePixelRatio": 1,
+      "fullscreen": false,
+      "canvas": {
+        "x": 0,
+        "y": 15.703125,
+        "width": 320,
+        "height": 180.28125,
+        "top": 15.703125,
+        "right": 320,
+        "bottom": 195.984375,
+        "left": 0
+      }
+    }
+  },
+  {
+    "browser": "chromium",
+    "viewport": {
+      "width": 390,
+      "height": 844,
+      "devicePixelRatio": 1,
+      "fullscreen": false,
+      "canvas": {
+        "x": 0,
+        "y": 312.140625,
+        "width": 390,
+        "height": 219.703125,
+        "top": 312.140625,
+        "right": 390,
+        "bottom": 531.84375,
+        "left": 0
+      }
+    }
+  },
+  {
+    "browser": "webkit",
+    "viewport": {
+      "width": 2048,
+      "height": 1178,
+      "devicePixelRatio": 1,
+      "fullscreen": false,
+      "canvas": {
+        "x": 17.5625,
+        "y": 0,
+        "width": 2012.84375,
+        "height": 1134,
+        "top": 0,
+        "right": 2030.40625,
+        "bottom": 1134,
+        "left": 17.5625
+      }
+    }
+  },
+  {
+    "browser": "webkit",
+    "viewport": {
+      "width": 1366,
+      "height": 768,
+      "devicePixelRatio": 1,
+      "fullscreen": false,
+      "canvas": {
+        "x": 40.4375,
+        "y": 0,
+        "width": 1285.09375,
+        "height": 724,
+        "top": 0,
+        "right": 1325.53125,
+        "bottom": 724,
+        "left": 40.4375
+      }
+    }
+  },
+  {
+    "browser": "webkit",
+    "viewport": {
+      "width": 1280,
+      "height": 720,
+      "devicePixelRatio": 1,
+      "fullscreen": false,
+      "canvas": {
+        "x": 40.046875,
+        "y": 0,
+        "width": 1199.890625,
+        "height": 676,
+        "top": 0,
+        "right": 1239.9375,
+        "bottom": 676,
+        "left": 40.046875
+      }
+    }
+  },
+  {
+    "browser": "webkit",
+    "viewport": {
+      "width": 1024,
+      "height": 768,
+      "devicePixelRatio": 1,
+      "fullscreen": false,
+      "canvas": {
+        "x": 0,
+        "y": 95.546875,
+        "width": 1024,
+        "height": 576.890625,
+        "top": 95.546875,
+        "right": 1024,
+        "bottom": 672.4375,
+        "left": 0
+      }
+    }
+  },
+  {
+    "browser": "webkit",
+    "viewport": {
+      "width": 2560,
+      "height": 1080,
+      "devicePixelRatio": 1,
+      "fullscreen": false,
+      "canvas": {
+        "x": 321.5,
+        "y": 0,
+        "width": 1917,
+        "height": 1080,
+        "top": 0,
+        "right": 2238.5,
+        "bottom": 1080,
+        "left": 321.5
+      }
+    }
+  },
+  {
+    "browser": "webkit",
+    "viewport": {
+      "width": 852,
+      "height": 480,
+      "devicePixelRatio": 1,
+      "fullscreen": false,
+      "canvas": {
+        "x": 39.046875,
+        "y": 0,
+        "width": 773.890625,
+        "height": 436,
+        "top": 0,
+        "right": 812.9375,
+        "bottom": 436,
+        "left": 39.046875
+      }
+    }
+  },
+  {
+    "browser": "webkit",
+    "viewport": {
+      "width": 2040,
+      "height": 1080,
+      "devicePixelRatio": 1,
+      "fullscreen": false,
+      "canvas": {
+        "x": 0,
+        "y": 1.96875,
+        "width": 1910,
+        "height": 1076.046875,
+        "top": 1.96875,
+        "right": 1910,
+        "bottom": 1078.015625,
+        "left": 0
+      }
+    }
+  },
+  {
+    "browser": "webkit",
+    "viewport": {
+      "width": 426,
+      "height": 240,
+      "devicePixelRatio": 1,
+      "fullscreen": false,
+      "canvas": {
+        "x": 39.046875,
+        "y": 0,
+        "width": 347.890625,
+        "height": 196,
+        "top": 0,
+        "right": 386.9375,
+        "bottom": 196,
+        "left": 39.046875
+      }
+    }
+  },
+  {
+    "browser": "webkit",
+    "viewport": {
+      "width": 320,
+      "height": 240,
+      "devicePixelRatio": 1,
+      "fullscreen": false,
+      "canvas": {
+        "x": 0,
+        "y": 15.703125,
+        "width": 320,
+        "height": 180.28125,
+        "top": 15.703125,
+        "right": 320,
+        "bottom": 195.984375,
+        "left": 0
+      }
+    }
+  },
+  {
+    "browser": "webkit",
+    "viewport": {
+      "width": 390,
+      "height": 844,
+      "devicePixelRatio": 1,
+      "fullscreen": false,
+      "canvas": {
+        "x": 0,
+        "y": 312.140625,
+        "width": 390,
+        "height": 219.703125,
+        "top": 312.140625,
+        "right": 390,
+        "bottom": 531.84375,
+        "left": 0
+      }
+    }
+  }
+]

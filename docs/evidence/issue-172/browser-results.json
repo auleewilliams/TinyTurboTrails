@@ -1,0 +1,53 @@
+{
+  "implementationCommit": "a7f7056",
+  "baseCommit": "02e200f",
+  "fullRun": {
+    "command": "npm run test:browser -- --project=chromium --project=webkit --workers=2 --output=test-results/viewport-rebased --reporter=line,json",
+    "port": 4182,
+    "retries": 0,
+    "stats": {
+      "startTime": "2026-10-14T21:26:16.09Z",
+      "duration": 1072898.651,
+      "expected": 176,
+      "skipped": 1,
+      "unexpected": 1,
+      "flaky": 0
+    },
+    "reportSha256": "94DDE13AFE874E068DB8F08F36680112FCD993BBBBB753C1FE5F493A1D532AC4",
+    "chromium": {
+      "passed": 89
+    },
+    "webkit": {
+      "failed": 1,
+      "passed": 87,
+      "skipped": 1
+    },
+    "failure": "signature QUARRY RUN: nine-star route, native/small evidence and fresh navigation: STARS 0/3 at finish, expected 3/3"
+  },
+  "isolatedDiagnostic": {
+    "stats": {
+      "startTime": "2026-10-14T21:45:27.857Z",
+      "duration": 29953.216,
+      "expected": 1,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "command": "npm run test:browser -- --project=webkit --workers=1 --grep \"signature QUARRY RUN\"",
+    "codeChanges": false
+  },
+  "concurrentDiagnostic": {
+    "stats": {
+      "startTime": "2026-10-14T21:49:11.562Z",
+      "duration": 33288.66499999999,
+      "expected": 2,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "command": "npm run test:browser -- --project=webkit --workers=2 --grep \"signature (QUARRY RUN|TREETOP TIMBERS)\"",
+    "codeChanges": false
+  },
+  "failureCause": "Not established; passing diagnostics do not replace the failed full-run result.",
+  "firefox": "Smoke attempt failed before page creation: browserType.launch: spawn UNKNOWN. No host repair attempted."
+}
