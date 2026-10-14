@@ -725,7 +725,7 @@ test('default main menu starts the Plains level with Space', async ({ page }) =>
   await expect(page.locator('#status')).toContainText('Adventure preview · Title');
 });
 
-test('title picker selects Quarry Run and starts the selected route', async ({ page }) => {
+test('title picker selects Quarry Run and starts the selected route', { lock: 'native-route' }, async ({ page }) => {
   // The extended Quarry Run (issue #73) takes about a minute of held-right real time.
   // Issue #74 makes walking through every hazard fatal, so jump near each danger.
   test.setTimeout(200_000);
@@ -745,7 +745,7 @@ test('title picker selects Quarry Run and starts the selected route', async ({ p
   await expect(page.locator('#status')).toContainText('Adventure preview · Finish', { timeout: 5000 });
 });
 
-test('Quarry crumbling ledge warns, disappears and returns after fall recovery', async ({ page }, info) => {
+test('Quarry crumbling ledge warns, disappears and returns after fall recovery', { lock: 'native-route' }, async ({ page }, info) => {
   test.setTimeout(150_000);
   await page.addInitScript(() => {
     const fillRect = CanvasRenderingContext2D.prototype.fillRect;
@@ -994,7 +994,7 @@ test('adventure clears held controller input after disconnect', async ({ page })
   expect(afterRelease).toBeGreaterThan(afterDisconnect);
 });
 
-test('adventure can complete the forgiving route and replay directly with a fresh camera', async ({ page }, info) => {
+test('adventure can complete the forgiving route and replay directly with a fresh camera', { lock: 'native-route' }, async ({ page }, info) => {
   test.setTimeout(200_000);
   await openAdventure(page, '/?scene=adventure&debug=1');
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
@@ -1268,7 +1268,7 @@ test('controller jump works mid-gameplay via any face button, not just at the ti
   await expect.poll(readY).toBeLessThan(groundedY);
 });
 
-test('all checkpoints activate along the ground route and render planted markers', async ({ page }, info) => {
+test('all checkpoints activate along the ground route and render planted markers', { lock: 'native-route' }, async ({ page }, info) => {
   // The extended route (issue #45) spreads six checkpoints across ~9,800px real
   // held-right travel, so this needs a much larger budget than the original
   // three-checkpoint level did.
@@ -1568,7 +1568,7 @@ test('a failed scenery image exposes Retry loading and recovers', async ({ page 
 });
 
 for (const [biome, pickerSteps] of [['frost', 4], ['cove', 5]] as const) {
-  test(`${biome} trail renders its material, completes and replays`, async ({ page }, info) => {
+  test(`${biome} trail renders its material, completes and replays`, { lock: 'native-route' }, async ({ page }, info) => {
     test.setTimeout(120_000);
     await page.addInitScript(() => {
       const original = CanvasRenderingContext2D.prototype.drawImage;

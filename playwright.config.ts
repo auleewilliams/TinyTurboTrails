@@ -5,6 +5,8 @@ const port = Number(process.env.PLAYWRIGHT_PORT ?? 4173);
 export default defineConfig({
   testDir: './tests',
   testMatch: '**/*.spec.ts',
+  // Run independent cases in parallel; native routes share a scheduling lock.
+  fullyParallel: true,
   retries: 0,
   workers: process.env.CI ? 2 : undefined,
   use: { trace: 'retain-on-failure', screenshot: 'only-on-failure', baseURL: `http://127.0.0.1:${port}`, viewport: { width: 1366, height: 768 } },
