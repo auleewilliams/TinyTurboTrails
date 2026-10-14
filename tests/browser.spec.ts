@@ -10,6 +10,136 @@ import { drawSurfaceMaterials } from '../src/world/surface-materials';
 import { drawSlime, drawGem, drawSpecial, drawLandingBands, drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawTerrainTiles, drawWorld } from '../src/world/renderer';
 import { TRAIL_RIBBON, trailPosition } from '../src/game/hud';
 
+const VIEWPORT_CASES = [
+  { width: 2048, height: 1178 }, { width: 1366, height: 768 },
+  { width: 1280, height: 720 }, { width: 1024, height: 768 },
+  { width: 2560, height: 1080 }, { width: 852, height: 480 },
+  { width: 2040, height: 1080 },
+  { width: 426, height: 240 }, { width: 320, height: 240 }, { width: 390, height: 844 },
+];
+
+async function expectClearViewport(page: Page): Promise<void> {
+  const geometry = await page.evaluate(() => {
+    const canvas = document.querySelector<HTMLCanvasElement>('#game')!;
+    const game = canvas.getBoundingClientRect();
+    const controls = document.querySelector('.feedback-controls')!.getBoundingClientRect();
+    const main = document.querySelector('main')!;
+    const targets = Array.from(document.querySelectorAll<HTMLButtonElement>('.trail-menu button')).map(button => {
+      const bounds = button.getBoundingClientRect();
+      return { inside: bounds.left >= game.left - 0.1 && bounds.top >= game.top - 0.1
+        && bounds.right <= game.right + 0.1 && bounds.bottom <= game.bottom + 0.1,
+      clickable: document.elementFromPoint(bounds.left + bounds.width / 2, bounds.top + bounds.height / 2) === button };
+    });
+    return { width: game.width, height: game.height, left: game.left, top: game.top,
+      right: game.right, bottom: game.bottom, viewportWidth: main.clientWidth, viewportHeight: main.clientHeight,
+      clear: controls.left >= game.right || controls.top >= game.bottom,
+      fullFit: Math.abs(game.width - main.clientWidth) < 0.1 || Math.abs(game.height - main.clientHeight) < 0.1,
+      railFit: Math.abs(game.height + controls.height + 8 - main.clientHeight) < 0.1,
+      sideFit: Math.abs(game.width + controls.width + 16 - main.clientWidth) < 0.1,
+      overflow: document.documentElement.scrollWidth > innerWidth || document.documentElement.scrollHeight > innerHeight,
+      logicalWidth: canvas.width, logicalHeight: canvas.height, targets };
+  });
+  expect(geometry.logicalWidth).toBe(426);
+  expect(geometry.logicalHeight).toBe(240);
+  expect(geometry.width / geometry.height).toBeCloseTo(426 / 240, 3);
+  expect(geometry.left).toBeGreaterThanOrEqual(-0.1);
+  expect(geometry.top).toBeGreaterThanOrEqual(-0.1);
+  expect(geometry.right).toBeLessThanOrEqual(geometry.viewportWidth + 0.1);
+  expect(geometry.bottom).toBeLessThanOrEqual(geometry.viewportHeight + 0.1);
+  expect(geometry.clear).toBe(true);
+  expect(geometry.fullFit || geometry.railFit || geometry.sideFit).toBe(true);
+  expect(geometry.overflow).toBe(false);
+  for (const target of geometry.targets) expect(target).toEqual({ inside: true, clickable: true });
+  await expect(page.locator('#mute')).toBeInViewport();
+  await expect(page.locator('#rumble')).toBeInViewport();
+}
+
+test('uniform viewport fit keeps story, map, gameplay, pause and finish clear after resizing', async ({ page }, info) => {
+  test.setTimeout(180_000);
+  const errors: string[] = [];
+  page.on('pageerror', error => errors.push(error.message));
+  await installTrailPilot(page);
+  await page.goto('/?debug=1');
+  await expect(page.locator('#status')).toContainText('Story');
+  const capture = async (state: string): Promise<void> => {
+    for (const viewport of VIEWPORT_CASES) {
+      await page.setViewportSize(viewport);
+      await expect.poll(async () => (await page.locator('main').boundingBox())?.height).toBe(viewport.height);
+      await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
+      await expectClearViewport(page);
+      if (state === 'map') await info.attach(`viewport-${viewport.width}x${viewport.height}`, {
+        body: JSON.stringify(await page.evaluate(() => ({ width: innerWidth, height: innerHeight,
+          devicePixelRatio, fullscreen: Boolean(document.fullscreenElement),
+          canvas: document.querySelector('canvas')!.getBoundingClientRect().toJSON() }))),
+        contentType: 'application/json',
+      });
+      // Full-window evidence records dimensions and the rendered DOM/canvas together.
+      await info.attach(`${state}-${viewport.width}x${viewport.height}`, {
+        body: await page.screenshot({ path: info.outputPath(`${state}-${viewport.width}x${viewport.height}.png`) }),
+        contentType: 'image/png',
+      });
+    }
+  };
+  await capture('story');
+  await page.getByRole('button', { name: 'Skip story', exact: true }).click();
+  await capture('map');
+  await page.getByRole('button', { name: 'QUARRY RUN', exact: true }).click();
+  await expect(page.getByRole('button', { name: 'Play QUARRY RUN', exact: true })).toBeVisible();
+  await page.getByRole('button', { name: 'PLAINS', exact: true }).click();
+  await page.getByRole('button', { name: 'Play PLAINS', exact: true }).click();
+  await expect(page.locator('#status')).toContainText('Playing');
+  await capture('gameplay');
+  // Focused settings must not send Space through to jump or menu confirmation.
+  const standingY = (await page.locator('#status').innerText()).match(/Y \d+/)![0];
+  await page.locator('#mute').focus();
+  await page.keyboard.press('Space');
+  await expect(page.locator('#mute')).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.locator('#rumble')).toHaveAttribute('aria-pressed', 'true');
+  await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
+  await expect(page.locator('#status')).toContainText(standingY);
+  await page.keyboard.press('Escape');
+  await capture('pause');
+  await page.keyboard.press('t');
+  await expect(page.getByRole('button', { name: 'Keep playing', exact: true })).toBeVisible();
+  await expectClearViewport(page);
+  await page.getByRole('button', { name: 'Keep playing', exact: true }).click();
+  await page.getByRole('button', { name: 'Resume', exact: true }).click();
+  // Reach finish using the existing input-only controller pilot, not a scene hook.
+  await page.evaluate(dangers => {
+    Object.assign((window as unknown as { trailPilot: object }).trailPilot, { active: true, controller: true, dangers });
+  }, dangerXs(PLAINS_LEVEL));
+  await expect(page.locator('#status')).toContainText('Finish', { timeout: 35_000 });
+  await capture('finish');
+  await page.getByRole('button', { name: 'Choose trail', exact: true }).click();
+  await expect(page.getByRole('button', { name: 'Play PLAINS', exact: true })).toBeVisible();
+  expect(errors).toEqual([]);
+});
+
+test('app fullscreen retains feedback controls and native map and pause targets', async ({ page }, info) => {
+  await installTrailPilot(page);
+  await openAdventure(page, '/');
+  test.skip(!await page.evaluate(() => document.fullscreenEnabled), 'Fullscreen unavailable in this browser environment');
+  await page.locator('#mute').evaluate(button => {
+    button.addEventListener('click', () => { void document.querySelector('main')!.requestFullscreen(); }, { once: true });
+  });
+  await page.locator('#mute').click();
+  await expect.poll(() => page.evaluate(() => document.fullscreenElement?.tagName)).toBe('MAIN');
+  await expectClearViewport(page);
+  await page.getByRole('button', { name: 'Play PLAINS', exact: true }).click();
+  // Escape belongs to browser fullscreen exit on WebKit. Use controller Start to pause.
+  await page.evaluate(() => { (window as unknown as { trailPilot: { controller: boolean } }).trailPilot.controller = true; });
+  await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
+  await page.evaluate(() => { (window as unknown as { trailPad: { buttons: { pressed: boolean }[] } }).trailPad.buttons[9].pressed = true; });
+  await expect(page.getByRole('button', { name: 'Resume', exact: true })).toBeVisible();
+  await page.evaluate(() => { (window as unknown as { trailPad: { buttons: { pressed: boolean }[] } }).trailPad.buttons[9].pressed = false; });
+  await expectClearViewport(page);
+  await info.attach('fullscreen-pause', { body: await page.screenshot(), contentType: 'image/png' });
+  await page.getByRole('button', { name: 'Resume', exact: true }).click();
+  await page.evaluate(() => document.exitFullscreen());
+  await expect.poll(() => page.evaluate(() => document.fullscreenElement)).toBeNull();
+  await expectClearViewport(page);
+});
+
 /** The renderer is injected as plain functions, so every helper it calls has to travel with it. */
 const RENDERER_SOURCE = [drawAmbientWeather, drawSlime, drawGem, drawSpecial, drawLandingBands, drawTerrainMaterial, drawTerrainEdge, drawTrailBackdrop, drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawTerrainTiles, drawSurfaceMaterials].map((helper) => helper.toString()).join('\n');
 
@@ -164,7 +294,8 @@ test('rumble icon toggles independently with pointer and keyboard at desktop and
     const mute = await page.locator('#mute').boundingBox();
     const canvas = await page.locator('canvas').boundingBox();
     expect(bounds!.x).toBeGreaterThan(mute!.x + mute!.width);
-    expect(bounds!.y).toBeGreaterThanOrEqual(canvas!.y + canvas!.height);
+    expect(bounds!.y >= canvas!.y + canvas!.height - 0.1
+      || mute!.x >= canvas!.x + canvas!.width - 0.1).toBe(true);
     for (const state of ['on', 'off']) {
       await info.attach(`rumble-${state}-${width}`, { body: await page.screenshot({ path: info.outputPath(`rumble-${state}-${width}.png`) }), contentType: 'image/png' });
       await button.click();
@@ -516,10 +647,11 @@ test('production canvas loads, scales and recovers from focus loss', async ({ pa
   const canvas = page.locator('canvas');
   await expect(canvas).toHaveAttribute('width', '426');
   await expect(canvas).toHaveAttribute('height', '240');
-  expect(await page.evaluate(() => getComputedStyle(document.documentElement).backgroundColor)).toBe('rgb(139, 208, 202)');
-  expect(await canvas.boundingBox()).toMatchObject({ width: 1278, height: 720 });
+  expect(await page.evaluate(() => getComputedStyle(document.documentElement).backgroundColor)).toBe('rgb(12, 25, 34)');
+  expect((await canvas.boundingBox())!.height).toBeCloseTo(1286 * 240 / 426, 1);
+  expect((await canvas.boundingBox())!.width).toBeCloseTo(1286, 1);
   await page.setViewportSize({ width: 900, height: 600 });
-  await expect.poll(async () => (await canvas.boundingBox())?.width).toBe(852);
+  await expect.poll(async () => (await canvas.boundingBox())?.width).toBe(900);
   await page.keyboard.press('Escape');
   await expect(page.locator('#status')).toHaveText('Paused · Escape to resume');
   const pausedImage = await canvas.evaluate((element) => (element as HTMLCanvasElement).toDataURL());
@@ -929,7 +1061,7 @@ test('adventure keeps its letterbox and pauses on focus loss', async ({ page }) 
   await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
   const canvas = page.locator('canvas');
   await page.setViewportSize({ width: 900, height: 600 });
-  await expect.poll(async () => (await canvas.boundingBox())?.width).toBe(852);
+  await expect.poll(async () => (await canvas.boundingBox())?.width).toBe(900);
   await page.evaluate(() => window.dispatchEvent(new Event('blur')));
   await expect(page.locator('#status')).toHaveText('Paused · Return to the game to continue');
   await page.evaluate(() => window.dispatchEvent(new Event('focus')));

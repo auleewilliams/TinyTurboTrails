@@ -4,7 +4,7 @@ import { mountAudioPreview } from './audio-preview';
 import { SimulationClock } from './core/clock';
 import { BrowserInput, type InputFrame, type InputSource } from './core/input';
 import { SceneHost } from './core/scene';
-import { fitViewport } from './core/viewport';
+import { fitGameViewport } from './core/viewport';
 import { FoundationScene } from './foundation-scene';
 import { loadTitleArtwork } from './art/title';
 import { loadHenry, loadHenryPreview } from './art/henry';
@@ -21,6 +21,8 @@ import { loadImage } from './art/henry';
 import { DEFAULT_LEVEL, LEVELS } from './world/levels';
 
 const canvas = document.querySelector<HTMLCanvasElement>('#game')!;
+const main = document.querySelector<HTMLElement>('main')!;
+const feedbackControls = document.querySelector<HTMLElement>('.feedback-controls')!;
 const status = document.querySelector<HTMLParagraphElement>('#status')!;
 const muteButton = document.querySelector<HTMLButtonElement>('#mute')!;
 const rumbleButton = document.querySelector<HTMLButtonElement>('#rumble')!;
@@ -89,13 +91,15 @@ if (!context) {
     muteButton.setAttribute('aria-label', muted ? 'Unmute' : 'Mute');
     muteButton.setAttribute('aria-pressed', String(muted));
     retryButton.hidden = assetState !== 'failed';
+    document.body.classList.toggle('asset-unavailable', assetState !== 'ready');
   };
 
   const resize = (): void => {
-    // Keep the audio and rumble controls below the playfield, including at native size.
-    const size = fitViewport(window.innerWidth, Math.max(0, window.innerHeight - (adventure ? 48 : 0)));
+    const size = fitGameViewport(main.clientWidth, main.clientHeight, feedbackControls.getBoundingClientRect());
     canvas.style.width = `${size.width}px`;
     canvas.style.height = `${size.height}px`;
+    canvas.style.left = `${size.left}px`;
+    canvas.style.top = `${size.top}px`;
   };
   const clearGameplayInput = (): void => {
     input.clear(); pendingJump = false; pendingStory = false;
@@ -124,7 +128,7 @@ if (!context) {
     rumbleButton.setAttribute('aria-pressed', String(rumbleEnabled));
     rumbleButton.title = `Turn controller rumble ${rumbleEnabled ? 'off' : 'on'}`;
   };
-  const rumbleKeyDown = (event: KeyboardEvent): void => {
+  const feedbackKeyDown = (event: KeyboardEvent): void => {
     if (event.code === 'Space') event.stopPropagation();
   };
   const retryLoading = (): void => {
@@ -184,13 +188,18 @@ if (!context) {
   };
 
   window.addEventListener('resize', resize);
+  document.addEventListener('fullscreenchange', resize);
+  const layoutObserver = new ResizeObserver(resize);
+  layoutObserver.observe(main);
+  layoutObserver.observe(feedbackControls);
   window.addEventListener('blur', blur);
   window.addEventListener('focus', focus);
   document.addEventListener('visibilitychange', visibility);
   canvas.addEventListener('pointerdown', unlockAudio);
   muteButton.addEventListener('click', toggleMute);
+  muteButton.addEventListener('keydown', feedbackKeyDown);
   rumbleButton.addEventListener('click', toggleRumble);
-  rumbleButton.addEventListener('keydown', rumbleKeyDown);
+  rumbleButton.addEventListener('keydown', feedbackKeyDown);
   retryButton.addEventListener('click', retryLoading);
   scenes.change(new FoundationScene());
   if (!adventure && !new URLSearchParams(location.search).has('audio')) audio.startMusic();
@@ -266,6 +275,8 @@ if (!context) {
     disposed = true;
     cancelAnimationFrame(request);
     window.removeEventListener('resize', resize);
+    document.removeEventListener('fullscreenchange', resize);
+    layoutObserver.disconnect();
     window.removeEventListener('blur', blur);
     window.removeEventListener('focus', focus);
     document.removeEventListener('visibilitychange', visibility);
@@ -274,8 +285,9 @@ if (!context) {
     menu.dispose();
     canvas.removeEventListener('pointerdown', unlockAudio);
     muteButton.removeEventListener('click', toggleMute);
+    muteButton.removeEventListener('keydown', feedbackKeyDown);
     rumbleButton.removeEventListener('click', toggleRumble);
-    rumbleButton.removeEventListener('keydown', rumbleKeyDown);
+    rumbleButton.removeEventListener('keydown', feedbackKeyDown);
     retryButton.removeEventListener('click', retryLoading);
     removeAudioPreview();
     audio.dispose();
