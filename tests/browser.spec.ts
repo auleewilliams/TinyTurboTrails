@@ -1890,6 +1890,8 @@ async function installTrailPilot(page: Page): Promise<void> {
 async function observeTrailRibbon(page: Page): Promise<void> {
   await page.addInitScript(ribbon => {
     const samples = new WeakMap<HTMLCanvasElement, { recording: boolean; points: { x: number; filled: boolean }[] }>();
+    const probe = { henryBounds: undefined as { left: number; right: number; top: number; bottom: number } | undefined };
+    Object.assign(window, { ribbonProbe: probe });
     const setValue = (canvas: HTMLCanvasElement, key: string, value: string): void => {
       if (canvas.dataset[key] !== value) canvas.dataset[key] = value;
     };
@@ -1929,6 +1931,21 @@ async function observeTrailRibbon(page: Page): Promise<void> {
       }
       fillRect.call(this, x, y, width, height);
     };
+    const drawImage = CanvasRenderingContext2D.prototype.drawImage;
+    CanvasRenderingContext2D.prototype.drawImage = function (this: CanvasRenderingContext2D, ...args: unknown[]) {
+      const [image] = args;
+      if (image instanceof HTMLImageElement && image.src.endsWith('/assets/henry/henry-celebration.png') && args.length === 9) {
+        const transform = this.getTransform();
+        const from = transform.transformPoint(new DOMPoint(Number(args[5]), Number(args[6])));
+        const to = transform.transformPoint(new DOMPoint(Number(args[5]) + Number(args[7]), Number(args[6]) + Number(args[8])));
+        // Keep frame-by-frame geometry in memory, avoiding DOM tracing overhead.
+        probe.henryBounds = {
+          left: Math.min(from.x, to.x), right: Math.max(from.x, to.x),
+          top: Math.min(from.y, to.y), bottom: Math.max(from.y, to.y),
+        };
+      }
+      Reflect.apply(drawImage, this, args);
+    } as typeof drawImage;
   }, TRAIL_RIBBON);
 }
 
@@ -1975,8 +1992,12 @@ for (const [index, level] of LEVELS.entries()) {
     await expectFreshRibbon();
     const captureRibbon = async (state: string): Promise<void> => {
       for (const width of [426, 320]) {
-        await page.setViewportSize({ width, height: 240 });
+        // Leave room for the 48px control footer so 426 is truly native scale.
+        await page.setViewportSize({ width, height: width === 426 ? 288 : 240 });
         await page.waitForTimeout(50);
+        const bounds = await canvas.boundingBox();
+        expect(bounds!.width).toBeCloseTo(width);
+        expect(bounds!.height).toBeCloseTo(width * 240 / 426);
         const path = info.outputPath(`${level.id}-ribbon-${state}-${width}.png`);
         await page.screenshot({ path });
         await info.attach(`ribbon-${state}-${width}`, { path, contentType: 'image/png' });
@@ -1996,6 +2017,26 @@ for (const [index, level] of LEVELS.entries()) {
     expect(Math.abs(Number(await canvas.getAttribute('data-ribbon-marker')) - expectedMarker)).toBeLessThanOrEqual(1);
     await captureRibbon('checkpoint');
     await page.evaluate(() => Object.assign((window as unknown as { trailPilot: object }).trailPilot, { active: false, frozen: false, pauseAt: 0 }));
+    // These valleys put Henry's feet in the ribbon's vertical band. Check the
+    // actual sprite bounds so a centered ribbon cannot silently obscure him.
+    const lowGroundX = ({ quarry: 4350, timbers: 5880, sunset: 5660 } as Record<string, number>)[level.id];
+    if (lowGroundX !== undefined) {
+      await page.evaluate(pauseAt => Object.assign((window as unknown as { trailPilot: object }).trailPilot,
+        { active: true, pauseAt }), lowGroundX);
+      await page.waitForFunction(() => (window as unknown as { trailPilot: { frozen: boolean } }).trailPilot.frozen, undefined, { timeout: 20_000 });
+      await page.evaluate(() => Object.assign((window as unknown as { trailPilot: object }).trailPilot,
+        { active: false, frozen: false, pauseAt: 0 }));
+      // Release movement and let any spring launch settle on the low ground.
+      await expect.poll(async () => Number((await page.locator('#status').innerText()).match(/Y (\d+)/)?.[1])).toBeGreaterThanOrEqual(188);
+      await page.evaluate(() => Object.assign((window as unknown as { trailPilot: object }).trailPilot, { frozen: true }));
+      const henry = await page.evaluate(() => (window as unknown as {
+        ribbonProbe: { henryBounds: { left: number; right: number; top: number; bottom: number } };
+      }).ribbonProbe.henryBounds);
+      expect(henry.bottom).toBeGreaterThan(TRAIL_RIBBON.y);
+      expect(henry.right <= TRAIL_RIBBON.x || henry.left >= TRAIL_RIBBON.x + TRAIL_RIBBON.width).toBe(true);
+      await captureRibbon('low-ground');
+      await page.evaluate(() => Object.assign((window as unknown as { trailPilot: object }).trailPilot, { frozen: false }));
+    }
     const traverse = async (): Promise<void> => {
       await page.evaluate(({ dangers, controller }) => {
         const pilot = (window as unknown as { trailPilot: { active: boolean; controller: boolean; dangers: number[]; index: number; lastX: number } }).trailPilot;
