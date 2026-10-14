@@ -75,7 +75,7 @@ it('stops a whole body before cliffs, gaps, discontinuities and level edges', ()
   expect(slimeGroundBounds(terrain, 250)).toEqual({ minX: 220 + SLIME_EDGE_CLEARANCE, maxX: 300 - SLIME_EDGE_CLEARANCE });
   expect(slimeGroundBounds(terrain, 350)).toEqual({ minX: 300 + SLIME_EDGE_CLEARANCE, maxX: 600 - SLIME_EDGE_CLEARANCE });
   expect(() => slimeGroundBounds(terrain, 210)).toThrow(/no walkable ground/);
-  const level: LevelData = { ...LEVELS[0], ...terrain, checkpoints: [], challengeCues: [], entities: [
+  const level: LevelData = { ...LEVELS[0], ...terrain, checkpoints: [], landingBands: [], entities: [
     { id: 'edge-slime', kind: 'slime', asset: 'slime', layer: 'world', x: 75, y: 180 },
   ] };
   expect(withSlimePatrols(level).entities[0].patrol).toEqual({ minX: 20, maxX: 80, speed: SLIME_SPEED });

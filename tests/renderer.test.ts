@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { expect, it, vi } from 'vitest';
-import { drawAsset, drawGem, drawSurfaceGrip, drawWorld } from '../src/world/renderer';
+import { drawAsset, drawGem, drawLandingBands, drawSurfaceGrip, drawWorld } from '../src/world/renderer';
 import type { WorldAsset, WorldAssets } from '../src/world/assets';
 import type { HenryAssets } from '../src/art/henry';
 import type { GameAudio } from '../src/core/audio';
@@ -74,6 +74,33 @@ function recordingContext(): { ctx: CanvasRenderingContext2D; images: unknown[][
 }
 
 const worldAssets: WorldAssets = { atlas: {} as HTMLImageElement, gems: {} as HTMLImageElement, manifest, slimes: {} as HTMLImageElement };
+
+it.each(LEVELS)('$name renders terrain landing bands without text boards or posts', level => {
+  const positions = level.id === 'plains' ? [700, 810] : level.id === 'quarry' ? [2300, 2660]
+    : level.id === 'timbers' ? [900, 1100, 1820, 3320] : [level.start.x];
+  for (const x of positions) {
+    const offset = { x: x - 213, y: 0 };
+    const { ctx, texts, rects } = recordingContext();
+    drawLandingBands(ctx, level, offset);
+    expect(texts).toEqual([]);
+    const expected = (level.landingBands ?? []).flatMap(band => {
+      const screenX = Math.round(band.x - offset.x);
+      if (screenX < -180 || screenX > 606) return [];
+      const dashes: FilledRect[] = [];
+      for (let px = band.x - band.width / 2; px <= band.x + band.width / 2; px += 12) {
+        dashes.push({ x: Math.round(px - offset.x), y: Math.round(surfaceY(level, px)) + 2,
+          width: 7, height: 3, fillStyle: '#ffda75' });
+      }
+      return dashes;
+    });
+    // Every drawn rectangle is an existing gold terrain dash: no boards/posts.
+    expect(rects).toEqual(expected);
+    const world = recordingContext();
+    drawWorld(world.ctx, worldAssets, level, { position: offset } as Camera);
+    expect(world.texts).toEqual([]);
+    expect(world.rects.some(rect => rect.fillStyle === '#10252c' && (rect.height === 15 || rect.height === 33))).toBe(false);
+  }
+});
 
 it.each([SUNSET_SITE, FROST_RIDGE, SANDY_COVE])('pans $name without seams, repeated hills or a duplicate sun', level => {
   const panorama = { naturalWidth: 720, naturalHeight: 240 } as HTMLImageElement;

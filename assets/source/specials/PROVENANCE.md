@@ -4,7 +4,9 @@ Created for issue #93, 2026-09-20. Original code-authored pixel geometry by Code
 for this repository; no downloaded, generated raster or third-party artwork.
 The canonical editable source and runtime asset are `src/world/renderer.ts`:
 `drawSpecial` defines a 22px gold star with a dark rim and pale center;
-`drawChallengeCues` defines matching signboards and dashed terrain landing bands.
+`drawLandingBands` defines dashed terrain landing bands.
+Issue #170 removed the original `drawChallengeCues` signboards, posts and text
+while retaining the landing bands and their original palette and geometry.
 The existing project palette supplies #10252c, #ffda75 and #fff7d6.
 
 These code-native assets do not need an image-generation tool or an extra atlas.

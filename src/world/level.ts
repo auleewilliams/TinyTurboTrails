@@ -44,8 +44,8 @@ export interface LevelTheme {
   parallax: readonly { asset: WorldAsset; x: number; y: number; scale: number }[];
 }
 export interface LevelData {
-  /** Optional signposts and broad safe landing bands; presentation only. */
-  challengeCues?: readonly { x: number; y: number; label: string; landingWidth?: number }[];
+  /** Gold terrain markings for safe landings; also kept clear of slime patrols. */
+  landingBands?: readonly { x: number; width: number }[];
   id: string;
   name: string;
   atlas: string;
@@ -131,9 +131,8 @@ export const PLAINS_LEVEL: LevelData = withSlimePatrols({
   start: { x: 60, y: 198 },
   finish: { x: 9880, y: 166, asset: 'finish-arch' },
   surfaces: plainsTerrain.surfaces,
-  challengeCues: [
-    { x: 700, y: 170, label: 'STAR SLOPE >' },
-    { x: 810, y: 190, label: 'SAFE RUNOUT', landingWidth: 100 },
+  landingBands: [
+    { x: 810, width: 100 },
   ],
   // Y is the terrain height at X (including ramps), shared with Henry’s recovery feet.
   checkpoints: [

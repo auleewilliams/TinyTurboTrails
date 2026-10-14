@@ -164,11 +164,13 @@ the broader asset-size work in #124. See [visual evidence](../evidence/issue-139
 
 ## Signature challenge stars (#93)
 
-Original code-authored gold star silhouettes, signboards and landing bands are
+Original code-authored gold star silhouettes and landing bands are
 separate from the ordinary gem atlas. Their dark rim and pale center preserve a
 shape distinction as well as a color distinction. See the
 [local source/provenance record](../../assets/source/specials/PROVENANCE.md) and
 [gameplay guide](../signature-challenges.md). No new raster asset is required.
+Issue #170 removed the in-level text signboards and posts, retaining the stars
+and gold terrain markings.
 
 
 ## Henry celebration and illustrated story

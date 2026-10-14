@@ -17,17 +17,26 @@ it('authors exactly nine stars on three trails and keeps other trails optional',
 });
 
 it.each(LEVELS.slice(0, 3))('$name keeps marked landing bands clear of pits and whole hazard patrols', level => {
-  for (const cue of level.challengeCues ?? []) {
-    if (!cue.landingWidth) continue;
-    const left = cue.x - cue.landingWidth / 2;
-    const right = cue.x + cue.landingWidth / 2;
+  expect(level.landingBands?.length).toBe(level.id === 'timbers' ? 3 : 1);
+  for (const band of level.landingBands ?? []) {
+    const left = band.x - band.width / 2;
+    const right = band.x + band.width / 2;
     for (let x = left; x <= right; x++) expect(surfaceY(level, x)).toBeLessThan(level.height);
     for (const hazard of level.entities.filter(entity => entity.kind === 'slime' || entity.kind === 'hazard')) {
       const min = (hazard.patrol?.minX ?? hazard.x) - 18;
       const max = (hazard.patrol?.maxX ?? hazard.x) + 18;
-      expect(max < left || min > right, `${cue.label}: ${hazard.id}`).toBe(true);
+      expect(max < left || min > right, `landing at ${band.x}: ${hazard.id}`).toBe(true);
     }
   }
+});
+
+it('preserves every authored landing band after removing the text signs', () => {
+  expect(LEVELS.map(level => level.landingBands ?? [])).toEqual([
+    [{ x: 810, width: 100 }],
+    [{ x: 2660, width: 100 }],
+    [{ x: 1100, width: 140 }, { x: 1820, width: 140 }, { x: 3320, width: 140 }],
+    [], [], [],
+  ]);
 });
 
 it.each(LEVELS.slice(0, 3))('$name collects through contact once, separately, and retains stars through both recovery paths', level => {
