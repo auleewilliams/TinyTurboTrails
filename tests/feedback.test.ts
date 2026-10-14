@@ -148,7 +148,7 @@ function hudDrawing(): { ctx: CanvasRenderingContext2D; rects: number[][]; texts
   return { ctx, rects, texts };
 }
 
-it.each(LEVELS)('keeps the wordless $name ribbon clear of HUD panels, teaching hints and notices at both sizes', level => {
+it.each(LEVELS)('insets the wordless $name ribbon at bottom-right, clear of HUD panels, hints and notices at both sizes', level => {
   for (const width of [426, 320]) {
     const size = fitViewport(width, 240);
     const scale = size.width / 426;
@@ -158,6 +158,9 @@ it.each(LEVELS)('keeps the wordless $name ribbon clear of HUD panels, teaching h
       const ribbon = hudDrawing();
       drawTrailRibbon(ribbon.ctx, new HudPresentation().progress(level, level.start.x));
       expect(ribbon.texts).toEqual([]);
+      const [panelX, panelY, panelWidth, panelHeight] = ribbon.rects[0];
+      expect((panelX + panelWidth + 5) * scale).toBeCloseTo(size.width);
+      expect((panelY + panelHeight + 5) * scale).toBeCloseTo(size.height);
       for (const [x, y, w, h] of ribbon.rects) {
         expect(x * scale).toBeGreaterThanOrEqual(0);
         expect(y * scale).toBeGreaterThanOrEqual(0);
