@@ -2421,6 +2421,15 @@ for (const [index, level] of LEVELS.slice(0, 3).entries()) {
             if (y + 34 <= 67) pilot.rode = true;
           }
           if (id === 'quarry' && pilot.rode && x < 2650) pilot.jumpUntil = 0;
+          if (id === 'timbers') for (const [target, required] of [[4850, 2], [8400, 3]]) {
+            const collected = Number((document.querySelector('canvas')?.dataset.stars ?? '').match(/STARS (\d+)/)?.[1] ?? 0);
+            if (x < target - 95 || collected >= required) continue;
+            const stop = x + Math.sign(vx) * vx ** 2 / 2400;
+            horizontal = stop < target - 3 ? 1 : stop > target + 3 ? -1 : 0;
+            const ground = target === 4850 ? 150 : 160;
+            pilot.jumpUntil = y + 34 < ground - 4 ? pilot.time + 40 : 0;
+            break;
+          }
           jump = pilot.time < pilot.jumpUntil;
           if (pilot.pauseAt && x >= pilot.pauseAt) {
             pilot.frozen = true;
@@ -2433,7 +2442,8 @@ for (const [index, level] of LEVELS.slice(0, 3).entries()) {
         }
         // Match the existing input pilot's accelerated wall clock outside the
         // challenge area; the production clock still integrates fixed steps.
-        const near = id === 'plains' ? x > 600 && x < 900 : id === 'quarry' ? x > 2200 && x < 2700 : x > 850 && x < 3450;
+        const near = id === 'plains' ? x > 600 && x < 900 : id === 'quarry' ? x > 2200 && x < 2700
+          : [[850, 1180], [4750, 5120], [8300, 8680]].some(([left, right]) => x > left && x < right);
         pilot.time += Math.min(now - (last || now), 32) * (near ? 1 : 4); last = now;
         callback(pilot.time);
       });
@@ -2442,7 +2452,7 @@ for (const [index, level] of LEVELS.slice(0, 3).entries()) {
     await page.getByRole('button', { name: level.name, exact: true }).click();
     await page.getByRole('button', { name: `Play ${level.name}`, exact: true }).click();
     await expect(page.locator('canvas')).toHaveAttribute('data-stars', 'STARS 0/3');
-    const stops = index === 0 ? [620, 845] : index === 1 ? [2290, 2490] : [910, 1140, 1710, 3160, 3340];
+    const stops = index === 0 ? [620, 845] : index === 1 ? [2290, 2490] : [910, 1140, 4800, 4970, 8350, 8570];
     const capture = async (name: string): Promise<void> => {
       for (const width of [426, 320]) {
         await page.setViewportSize({ width, height: 240 });

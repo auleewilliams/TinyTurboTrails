@@ -1,0 +1,1215 @@
+{
+  "kind": "Static authored-layout comparison, not observed play",
+  "base": "788ec08bae09affeb289369533afb537941bdede",
+  "before": {
+    "width": 10200,
+    "finish": {
+      "x": 10100,
+      "y": 198,
+      "asset": "finish-arch"
+    },
+    "stars": [
+      {
+        "id": "timbers-special-1",
+        "kind": "special",
+        "x": 1030,
+        "y": 70,
+        "asset": "special",
+        "layer": "world"
+      },
+      {
+        "id": "timbers-special-2",
+        "kind": "special",
+        "x": 1730,
+        "y": 70,
+        "asset": "special",
+        "layer": "world"
+      },
+      {
+        "id": "timbers-special-3",
+        "kind": "special",
+        "x": 3180,
+        "y": 95,
+        "asset": "special",
+        "layer": "world"
+      }
+    ],
+    "gems": [
+      {
+        "id": "timber-gem-001",
+        "kind": "gem",
+        "x": 250,
+        "y": 180,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-002",
+        "kind": "gem",
+        "x": 550,
+        "y": 152,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-003",
+        "kind": "gem",
+        "x": 850,
+        "y": 152,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-004",
+        "kind": "gem",
+        "x": 1150,
+        "y": 173.11111111111111,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-005",
+        "kind": "gem",
+        "x": 1450,
+        "y": 152,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-006",
+        "kind": "gem",
+        "x": 1750,
+        "y": 158.25,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-007",
+        "kind": "gem",
+        "x": 2050,
+        "y": 177,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-008",
+        "kind": "gem",
+        "x": 2350,
+        "y": 185.33333333333334,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-009",
+        "kind": "gem",
+        "x": 2650,
+        "y": 178.66666666666666,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-010",
+        "kind": "gem",
+        "x": 2950,
+        "y": 177,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-011",
+        "kind": "gem",
+        "x": 3250,
+        "y": 165.75,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-012",
+        "kind": "gem",
+        "x": 3550,
+        "y": 132,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-013",
+        "kind": "gem",
+        "x": 3850,
+        "y": 132,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-014",
+        "kind": "gem",
+        "x": 4150,
+        "y": 156.44444444444446,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-015",
+        "kind": "gem",
+        "x": 4450,
+        "y": 132,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-016",
+        "kind": "gem",
+        "x": 4750,
+        "y": 132,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-017",
+        "kind": "gem",
+        "x": 5050,
+        "y": 144.5,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-018",
+        "kind": "gem",
+        "x": 5350,
+        "y": 182,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-019",
+        "kind": "gem",
+        "x": 5650,
+        "y": 182,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-020",
+        "kind": "gem",
+        "x": 5950,
+        "y": 201.55555555555554,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-021",
+        "kind": "gem",
+        "x": 6250,
+        "y": 182,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-022",
+        "kind": "gem",
+        "x": 6550,
+        "y": 182,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-023",
+        "kind": "gem",
+        "x": 6850,
+        "y": 172,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-024",
+        "kind": "gem",
+        "x": 7150,
+        "y": 142,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-025",
+        "kind": "gem",
+        "x": 7450,
+        "y": 142,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-026",
+        "kind": "gem",
+        "x": 7750,
+        "y": 167.66666666666666,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-027",
+        "kind": "gem",
+        "x": 8050,
+        "y": 142,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-028",
+        "kind": "gem",
+        "x": 8350,
+        "y": 142,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-029",
+        "kind": "gem",
+        "x": 8650,
+        "y": 170.5,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-030",
+        "kind": "gem",
+        "x": 8950,
+        "y": 180,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-031",
+        "kind": "gem",
+        "x": 9250,
+        "y": 197.77777777777777,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-032",
+        "kind": "gem",
+        "x": 9550,
+        "y": 180,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-033",
+        "kind": "gem",
+        "x": 9850,
+        "y": 180,
+        "asset": "gem",
+        "layer": "world"
+      }
+    ],
+    "springs": [
+      {
+        "id": "timber-spring-1",
+        "kind": "spring",
+        "x": 950,
+        "asset": "spring",
+        "layer": "world",
+        "y": 170
+      },
+      {
+        "id": "timber-spring-2",
+        "kind": "spring",
+        "x": 1650,
+        "asset": "spring",
+        "layer": "world",
+        "y": 170
+      },
+      {
+        "id": "timber-spring-3",
+        "kind": "spring",
+        "x": 3100,
+        "asset": "spring",
+        "layer": "world",
+        "y": 195
+      },
+      {
+        "id": "timber-spring-4",
+        "kind": "spring",
+        "x": 4850,
+        "asset": "spring",
+        "layer": "world",
+        "y": 150
+      },
+      {
+        "id": "timber-spring-5",
+        "kind": "spring",
+        "x": 6700,
+        "asset": "spring",
+        "layer": "world",
+        "y": 200
+      },
+      {
+        "id": "timber-spring-6",
+        "kind": "spring",
+        "x": 8400,
+        "asset": "spring",
+        "layer": "world",
+        "y": 160
+      },
+      {
+        "id": "timber-spring-7",
+        "kind": "spring",
+        "x": 9800,
+        "asset": "spring",
+        "layer": "world",
+        "y": 198
+      }
+    ],
+    "checkpoints": [
+      {
+        "id": "timber-checkpoint-yard",
+        "x": 500,
+        "y": 173.2941176470588
+      },
+      {
+        "id": "timber-checkpoint-bridge",
+        "x": 2200,
+        "y": 195
+      },
+      {
+        "id": "timber-checkpoint-canopy",
+        "x": 3800,
+        "y": 150
+      },
+      {
+        "id": "timber-checkpoint-crane",
+        "x": 5500,
+        "y": 200
+      },
+      {
+        "id": "timber-checkpoint-lookout",
+        "x": 7300,
+        "y": 160
+      },
+      {
+        "id": "timber-checkpoint-sunset",
+        "x": 9000,
+        "y": 198
+      }
+    ],
+    "landingBands": [
+      {
+        "x": 1100,
+        "width": 140
+      },
+      {
+        "x": 1820,
+        "width": 140
+      },
+      {
+        "x": 3320,
+        "width": 140
+      }
+    ],
+    "surfaces": [
+      {
+        "x1": 0,
+        "x2": 350,
+        "y1": 198,
+        "y2": 198
+      },
+      {
+        "x1": 350,
+        "x2": 520,
+        "y1": 198,
+        "y2": 170
+      },
+      {
+        "x1": 520,
+        "x2": 1050,
+        "y1": 170,
+        "y2": 170
+      },
+      {
+        "x1": 1050,
+        "x2": 1230,
+        "y1": 170,
+        "y2": 208
+      },
+      {
+        "x1": 1230,
+        "x2": 1410,
+        "y1": 208,
+        "y2": 170
+      },
+      {
+        "x1": 1410,
+        "x2": 1700,
+        "y1": 170,
+        "y2": 170
+      },
+      {
+        "x1": 1700,
+        "x2": 1900,
+        "y1": 170,
+        "y2": 195
+      },
+      {
+        "x1": 1900,
+        "x2": 2300,
+        "y1": 195,
+        "y2": 195
+      },
+      {
+        "x1": 2300,
+        "x2": 2480,
+        "y1": 195,
+        "y2": 225
+      },
+      {
+        "x1": 2480,
+        "x2": 2660,
+        "y1": 225,
+        "y2": 195
+      },
+      {
+        "x1": 2660,
+        "x2": 3200,
+        "y1": 195,
+        "y2": 195
+      },
+      {
+        "x1": 3200,
+        "x2": 3400,
+        "y1": 195,
+        "y2": 150
+      },
+      {
+        "x1": 3400,
+        "x2": 3900,
+        "y1": 150,
+        "y2": 150
+      },
+      {
+        "x1": 3900,
+        "x2": 4080,
+        "y1": 150,
+        "y2": 190
+      },
+      {
+        "x1": 4080,
+        "x2": 4260,
+        "y1": 190,
+        "y2": 150
+      },
+      {
+        "x1": 4260,
+        "x2": 5000,
+        "y1": 150,
+        "y2": 150
+      },
+      {
+        "x1": 5000,
+        "x2": 5200,
+        "y1": 150,
+        "y2": 200
+      },
+      {
+        "x1": 5200,
+        "x2": 5700,
+        "y1": 200,
+        "y2": 200
+      },
+      {
+        "x1": 5700,
+        "x2": 5880,
+        "y1": 200,
+        "y2": 232
+      },
+      {
+        "x1": 5880,
+        "x2": 6060,
+        "y1": 232,
+        "y2": 200
+      },
+      {
+        "x1": 6060,
+        "x2": 6800,
+        "y1": 200,
+        "y2": 200
+      },
+      {
+        "x1": 6800,
+        "x2": 7000,
+        "y1": 200,
+        "y2": 160
+      },
+      {
+        "x1": 7000,
+        "x2": 7500,
+        "y1": 160,
+        "y2": 160
+      },
+      {
+        "x1": 7500,
+        "x2": 7680,
+        "y1": 160,
+        "y2": 202
+      },
+      {
+        "x1": 7680,
+        "x2": 7860,
+        "y1": 202,
+        "y2": 160
+      },
+      {
+        "x1": 7860,
+        "x2": 8500,
+        "y1": 160,
+        "y2": 160
+      },
+      {
+        "x1": 8500,
+        "x2": 8700,
+        "y1": 160,
+        "y2": 198
+      },
+      {
+        "x1": 8700,
+        "x2": 9150,
+        "y1": 198,
+        "y2": 198
+      },
+      {
+        "x1": 9150,
+        "x2": 9330,
+        "y1": 198,
+        "y2": 230
+      },
+      {
+        "x1": 9330,
+        "x2": 9510,
+        "y1": 230,
+        "y2": 198
+      },
+      {
+        "x1": 9510,
+        "x2": 10200,
+        "y1": 198,
+        "y2": 198
+      }
+    ]
+  },
+  "after": {
+    "width": 10200,
+    "finish": {
+      "x": 10100,
+      "y": 198,
+      "asset": "finish-arch"
+    },
+    "stars": [
+      {
+        "id": "timbers-special-1",
+        "kind": "special",
+        "x": 1030,
+        "y": 70,
+        "asset": "special",
+        "layer": "world"
+      },
+      {
+        "id": "timbers-special-2",
+        "kind": "special",
+        "x": 4850,
+        "y": 30,
+        "asset": "special",
+        "layer": "world"
+      },
+      {
+        "id": "timbers-special-3",
+        "kind": "special",
+        "x": 8400,
+        "y": 40,
+        "asset": "special",
+        "layer": "world"
+      }
+    ],
+    "gems": [
+      {
+        "id": "timber-gem-001",
+        "kind": "gem",
+        "x": 250,
+        "y": 180,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-002",
+        "kind": "gem",
+        "x": 550,
+        "y": 152,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-003",
+        "kind": "gem",
+        "x": 850,
+        "y": 152,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-004",
+        "kind": "gem",
+        "x": 1080,
+        "y": 136.33333333333334,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-005",
+        "kind": "gem",
+        "x": 1350,
+        "y": 164.66666666666666,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-006",
+        "kind": "gem",
+        "x": 1800,
+        "y": 164.5,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-007",
+        "kind": "gem",
+        "x": 2200,
+        "y": 177,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-008",
+        "kind": "gem",
+        "x": 2650,
+        "y": 178.66666666666666,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-009",
+        "kind": "gem",
+        "x": 3050,
+        "y": 177,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-010",
+        "kind": "gem",
+        "x": 3450,
+        "y": 132,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-011",
+        "kind": "gem",
+        "x": 3850,
+        "y": 132,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-012",
+        "kind": "gem",
+        "x": 4250,
+        "y": 134.22222222222223,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-013",
+        "kind": "gem",
+        "x": 4760,
+        "y": 132,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-014",
+        "kind": "gem",
+        "x": 4800,
+        "y": 88,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-015",
+        "kind": "gem",
+        "x": 4850,
+        "y": 62,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-016",
+        "kind": "gem",
+        "x": 4910,
+        "y": 88,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-017",
+        "kind": "gem",
+        "x": 5010,
+        "y": 134.5,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-018",
+        "kind": "gem",
+        "x": 5500,
+        "y": 182,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-019",
+        "kind": "gem",
+        "x": 5950,
+        "y": 201.55555555555554,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-020",
+        "kind": "gem",
+        "x": 6350,
+        "y": 182,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-021",
+        "kind": "gem",
+        "x": 6800,
+        "y": 182,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-022",
+        "kind": "gem",
+        "x": 7200,
+        "y": 142,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-023",
+        "kind": "gem",
+        "x": 7550,
+        "y": 152,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-024",
+        "kind": "gem",
+        "x": 7800,
+        "y": 154,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-025",
+        "kind": "gem",
+        "x": 8310,
+        "y": 142,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-026",
+        "kind": "gem",
+        "x": 8350,
+        "y": 98,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-027",
+        "kind": "gem",
+        "x": 8400,
+        "y": 72,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-028",
+        "kind": "gem",
+        "x": 8460,
+        "y": 98,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-029",
+        "kind": "gem",
+        "x": 8570,
+        "y": 155.3,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-030",
+        "kind": "gem",
+        "x": 9000,
+        "y": 180,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-031",
+        "kind": "gem",
+        "x": 9400,
+        "y": 199.55555555555554,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-032",
+        "kind": "gem",
+        "x": 9700,
+        "y": 180,
+        "asset": "gem",
+        "layer": "world"
+      },
+      {
+        "id": "timber-gem-033",
+        "kind": "gem",
+        "x": 9950,
+        "y": 180,
+        "asset": "gem",
+        "layer": "world"
+      }
+    ],
+    "springs": [
+      {
+        "id": "timber-spring-1",
+        "kind": "spring",
+        "x": 950,
+        "asset": "spring",
+        "layer": "world",
+        "y": 170
+      },
+      {
+        "id": "timber-spring-2",
+        "kind": "spring",
+        "x": 1650,
+        "asset": "spring",
+        "layer": "world",
+        "y": 170
+      },
+      {
+        "id": "timber-spring-3",
+        "kind": "spring",
+        "x": 3100,
+        "asset": "spring",
+        "layer": "world",
+        "y": 195
+      },
+      {
+        "id": "timber-spring-4",
+        "kind": "spring",
+        "x": 4850,
+        "asset": "spring",
+        "layer": "world",
+        "y": 150
+      },
+      {
+        "id": "timber-spring-5",
+        "kind": "spring",
+        "x": 6700,
+        "asset": "spring",
+        "layer": "world",
+        "y": 200
+      },
+      {
+        "id": "timber-spring-6",
+        "kind": "spring",
+        "x": 8400,
+        "asset": "spring",
+        "layer": "world",
+        "y": 160
+      },
+      {
+        "id": "timber-spring-7",
+        "kind": "spring",
+        "x": 9800,
+        "asset": "spring",
+        "layer": "world",
+        "y": 198
+      }
+    ],
+    "checkpoints": [
+      {
+        "id": "timber-checkpoint-yard",
+        "x": 500,
+        "y": 173.2941176470588
+      },
+      {
+        "id": "timber-checkpoint-bridge",
+        "x": 2200,
+        "y": 195
+      },
+      {
+        "id": "timber-checkpoint-canopy",
+        "x": 3800,
+        "y": 150
+      },
+      {
+        "id": "timber-checkpoint-crane",
+        "x": 5500,
+        "y": 200
+      },
+      {
+        "id": "timber-checkpoint-lookout",
+        "x": 7300,
+        "y": 160
+      },
+      {
+        "id": "timber-checkpoint-sunset",
+        "x": 9000,
+        "y": 198
+      }
+    ],
+    "landingBands": [
+      {
+        "x": 1100,
+        "width": 140
+      },
+      {
+        "x": 4960,
+        "width": 180
+      },
+      {
+        "x": 8510,
+        "width": 180
+      }
+    ],
+    "surfaces": [
+      {
+        "x1": 0,
+        "x2": 350,
+        "y1": 198,
+        "y2": 198
+      },
+      {
+        "x1": 350,
+        "x2": 520,
+        "y1": 198,
+        "y2": 170
+      },
+      {
+        "x1": 520,
+        "x2": 1050,
+        "y1": 170,
+        "y2": 170
+      },
+      {
+        "x1": 1050,
+        "x2": 1230,
+        "y1": 170,
+        "y2": 208
+      },
+      {
+        "x1": 1230,
+        "x2": 1410,
+        "y1": 208,
+        "y2": 170
+      },
+      {
+        "x1": 1410,
+        "x2": 1700,
+        "y1": 170,
+        "y2": 170
+      },
+      {
+        "x1": 1700,
+        "x2": 1900,
+        "y1": 170,
+        "y2": 195
+      },
+      {
+        "x1": 1900,
+        "x2": 2300,
+        "y1": 195,
+        "y2": 195
+      },
+      {
+        "x1": 2300,
+        "x2": 2480,
+        "y1": 195,
+        "y2": 225
+      },
+      {
+        "x1": 2480,
+        "x2": 2660,
+        "y1": 225,
+        "y2": 195
+      },
+      {
+        "x1": 2660,
+        "x2": 3200,
+        "y1": 195,
+        "y2": 195
+      },
+      {
+        "x1": 3200,
+        "x2": 3400,
+        "y1": 195,
+        "y2": 150
+      },
+      {
+        "x1": 3400,
+        "x2": 3900,
+        "y1": 150,
+        "y2": 150
+      },
+      {
+        "x1": 3900,
+        "x2": 4080,
+        "y1": 150,
+        "y2": 190
+      },
+      {
+        "x1": 4080,
+        "x2": 4260,
+        "y1": 190,
+        "y2": 150
+      },
+      {
+        "x1": 4260,
+        "x2": 5000,
+        "y1": 150,
+        "y2": 150
+      },
+      {
+        "x1": 5000,
+        "x2": 5200,
+        "y1": 150,
+        "y2": 200
+      },
+      {
+        "x1": 5200,
+        "x2": 5700,
+        "y1": 200,
+        "y2": 200
+      },
+      {
+        "x1": 5700,
+        "x2": 5880,
+        "y1": 200,
+        "y2": 232
+      },
+      {
+        "x1": 5880,
+        "x2": 6060,
+        "y1": 232,
+        "y2": 200
+      },
+      {
+        "x1": 6060,
+        "x2": 6800,
+        "y1": 200,
+        "y2": 200
+      },
+      {
+        "x1": 6800,
+        "x2": 7000,
+        "y1": 200,
+        "y2": 160
+      },
+      {
+        "x1": 7000,
+        "x2": 7500,
+        "y1": 160,
+        "y2": 160
+      },
+      {
+        "x1": 7500,
+        "x2": 7620,
+        "y1": 160,
+        "y2": 184
+      },
+      {
+        "x1": 7620,
+        "x2": 7740,
+        "y1": 184,
+        "y2": 184
+      },
+      {
+        "x1": 7740,
+        "x2": 7860,
+        "y1": 184,
+        "y2": 160
+      },
+      {
+        "x1": 7860,
+        "x2": 8500,
+        "y1": 160,
+        "y2": 160
+      },
+      {
+        "x1": 8500,
+        "x2": 8700,
+        "y1": 160,
+        "y2": 198
+      },
+      {
+        "x1": 8700,
+        "x2": 9150,
+        "y1": 198,
+        "y2": 198
+      },
+      {
+        "x1": 9150,
+        "x2": 9330,
+        "y1": 198,
+        "y2": 230
+      },
+      {
+        "x1": 9330,
+        "x2": 9510,
+        "y1": 230,
+        "y2": 198
+      },
+      {
+        "x1": 9510,
+        "x2": 10200,
+        "y1": 198,
+        "y2": 198
+      }
+    ]
+  },
+  "rewardPercentages": {
+    "before": [
+      10.1,
+      17,
+      31.2
+    ],
+    "after": [
+      10.1,
+      47.5,
+      82.4
+    ]
+  },
+  "invariants": {
+    "starCount": 3,
+    "gemCount": 33,
+    "springCount": 7,
+    "checkpointCount": 6,
+    "gemIdsPreserved": true,
+    "checkpointsPreserved": true,
+    "springsPreserved": true
+  }
+}

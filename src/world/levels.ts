@@ -223,16 +223,16 @@ export const QUARRY_RUN: LevelData = withSlimePatrols({
   ],
 });
 
-// Treetop Timbers keeps one continuous, forgiving contour. Its repeated shallow
-// valleys read as sagging rope bridges without asking the 1-D terrain model to
-// represent stacked walkways or suspended collision geometry.
+// Treetop Timbers keeps one continuous, forgiving contour. Shallow valleys read
+// as rope bridges; a later flat-bottomed deck gives the final spring approach
+// a quieter beat without introducing gaps or stacked collision geometry.
 const timberContour: readonly (readonly [number, number])[] = [
   [0, 198], [350, 198], [520, 170], [1050, 170],
   [1230, 208], [1410, 170], [1700, 170],
   [1900, 195], [2300, 195], [2480, 225], [2660, 195], [3200, 195],
   [3400, 150], [3900, 150], [4080, 190], [4260, 150], [5000, 150],
   [5200, 200], [5700, 200], [5880, 232], [6060, 200], [6800, 200],
-  [7000, 160], [7500, 160], [7680, 202], [7860, 160], [8500, 160],
+  [7000, 160], [7500, 160], [7620, 184], [7740, 184], [7860, 160], [8500, 160],
   [8700, 198], [9150, 198], [9330, 230], [9510, 198], [10200, 198],
 ];
 
@@ -263,11 +263,20 @@ const timberCheckpoints = [
   { id: 'timber-checkpoint-sunset', x: 9000 },
 ].map(({ id, x }) => ({ id, x, y: surfaceY(timberTerrain, x) }));
 
-const timberGems: readonly WorldEntity[] = Array.from({ length: 33 }, (_, index) => {
-  const x = 250 + index * 300;
-  return { id: `timber-gem-${String(index + 1).padStart(3, '0')}`, kind: 'gem', x,
-    y: surfaceY(timberTerrain, x) - 18, asset: 'gem', layer: 'world' };
-});
+// Keep 33 gems, but group existing rewards into readable spring approaches,
+// rising flights and safe returns instead of a uniform trail-wide dotted line.
+const timberGemPlacements: readonly (readonly [x: number, lift?: number])[] = [
+  [250], [550], [850], [1080, 40], [1350],
+  [1800], [2200], [2650], [3050], [3450], [3850], [4250],
+  [4760], [4800, 62], [4850, 88], [4910, 62], [5010],
+  [5500], [5950], [6350], [6800], [7200], [7550], [7800],
+  [8310], [8350, 62], [8400, 88], [8460, 62], [8570],
+  [9000], [9400], [9700], [9950],
+];
+const timberGems: readonly WorldEntity[] = timberGemPlacements.map(([x, lift = 18], index) => ({
+  id: `timber-gem-${String(index + 1).padStart(3, '0')}`, kind: 'gem', x,
+  y: surfaceY(timberTerrain, x) - lift, asset: 'gem', layer: 'world',
+}));
 
 export const TREETOP_TIMBERS: LevelData = withSlimePatrols({
   id: 'timbers',
@@ -298,11 +307,17 @@ export const TREETOP_TIMBERS: LevelData = withSlimePatrols({
   finish: { x: 10100, y: surfaceY(timberTerrain, 10100), asset: 'finish-arch' },
   surfaces: timberTerrain.surfaces,
   checkpoints: timberCheckpoints,
-  landingBands: [1100, 1820, 3320].map(x => ({ x, width: 140 })),
+  landingBands: [{ x: 1100, width: 140 }, { x: 4960, width: 180 }, { x: 8510, width: 180 }],
   entities: [
-    ...[1030, 1730, 3180].map((x, index): WorldEntity => ({
+    // Keep the first running spring arc as an introduction. The higher middle
+    // and late stars reward slowing over a spring; the main route passes below.
+    ...[
+      { x: 1030, launchX: 950, lift: 100 },
+      { x: 4850, launchX: 4850, lift: 120 },
+      { x: 8400, launchX: 8400, lift: 120 },
+    ].map(({ x, launchX, lift }, index): WorldEntity => ({
       id: `timbers-special-${index + 1}`, kind: 'special', x,
-      y: surfaceY(timberTerrain, x - 80) - 100, asset: 'special', layer: 'world',
+      y: surfaceY(timberTerrain, launchX) - lift, asset: 'special', layer: 'world',
     })),
     ...timberGems,
     ...[950, 1650, 3100, 4850, 6700, 8400, 9800].map((x, index) =>

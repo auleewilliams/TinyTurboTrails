@@ -1,0 +1,3114 @@
+{
+  "kind": "Executed Playwright regression cohort; per-case durations are measured wall time; some pilots accelerate game time",
+  "command": "npx playwright test --project=chromium --project=webkit --workers=2 --retries=0 --reporter=dot,json",
+  "environment": {
+    "platform": "Windows",
+    "node": "24.19.0",
+    "chromium": "153.0.8010.12",
+    "webkit": "26.6",
+    "port": 4183
+  },
+  "productionBundle": "index-DUbmCZQC.js",
+  "workers": 2,
+  "stats": {
+    "startTime": "2026-10-15T06:51:01.432Z",
+    "duration": 1149902.637,
+    "expected": 178,
+    "skipped": 1,
+    "unexpected": 1,
+    "flaky": 0
+  },
+  "errors": [],
+  "projects": [
+    {
+      "project": "chromium",
+      "total": 90,
+      "passed": 90,
+      "skipped": 0,
+      "failed": 0,
+      "summedCaseDurationMs": 1028410
+    },
+    {
+      "project": "webkit",
+      "total": 90,
+      "passed": 88,
+      "skipped": 1,
+      "failed": 1,
+      "summedCaseDurationMs": 1160767
+    }
+  ],
+  "cases": [
+    {
+      "title": "audio stays locked until interaction and supports all effects, mute, pause and stop",
+      "file": "audio.spec.ts",
+      "line": 3,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 2316,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "game remains interactive when Web Audio is unavailable",
+      "file": "audio.spec.ts",
+      "line": 71,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 733,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "audio stays locked until interaction and supports all effects, mute, pause and stop",
+      "file": "audio.spec.ts",
+      "line": 3,
+      "project": "webkit",
+      "expectedStatus": "skipped",
+      "status": "skipped",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Native AudioContext cannot run on this host; requires an audio backend.",
+          "location": {
+            "file": "C:\\Users\\thefenix67\\AppData\\Local\\Temp\\tiny-turbo-timbers-pilot-171\\review\\tests\\audio.spec.ts",
+            "line": 22,
+            "column": 8
+          }
+        }
+      ],
+      "results": [
+        {
+          "status": "skipped",
+          "durationMs": 2314,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "game remains interactive when Web Audio is unavailable",
+      "file": "audio.spec.ts",
+      "line": 71,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 1331,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "uniform viewport fit keeps story, map, gameplay, pause and finish clear after resizing",
+      "file": "browser.spec.ts",
+      "line": 57,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 25702,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "app fullscreen retains feedback controls and native map and pause targets",
+      "file": "browser.spec.ts",
+      "line": 118,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 1600,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "ambient weather repeats the same pixels, respects reduced motion and stays behind terrain",
+      "file": "browser.spec.ts",
+      "line": 149,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 1332,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "controller damage rumble is independent of audio and stops on pause, focus loss and disconnect",
+      "file": "browser.spec.ts",
+      "line": 208,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 12430,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "rumble icon toggles independently with pointer and keyboard at desktop and small sizes",
+      "file": "browser.spec.ts",
+      "line": 275,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 3473,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "movement sounds follow run and landing, and stop on idle, jump, mute, pause and focus loss",
+      "file": "browser.spec.ts",
+      "line": 311,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 6725,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "all springs keep their visible bases on terrain at rest, compressed and released",
+      "file": "browser.spec.ts",
+      "line": 394,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 2391,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "terrain joins stay solid while scrolling in both directions at integer and fractional scales",
+      "file": "browser.spec.ts",
+      "line": 512,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 5542,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "moving platform slabs and their telegraphed paths draw on the real canvas",
+      "file": "browser.spec.ts",
+      "line": 566,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 772,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "production canvas loads, scales and recovers from focus loss",
+      "file": "browser.spec.ts",
+      "line": 644,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 1585,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "art preview loads local assets and reports a missing atlas",
+      "file": "browser.spec.ts",
+      "line": 686,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 1425,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "starter atlas contains real transparency and every frame stays within its cell",
+      "file": "browser.spec.ts",
+      "line": 699,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 785,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "movement preview accepts keyboard movement and jump input",
+      "file": "browser.spec.ts",
+      "line": 740,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 942,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "world preview loads generated Plains assets and level data",
+      "file": "browser.spec.ts",
+      "line": 752,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 947,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "gameplay preview collects a gem and reaches a checkpoint",
+      "file": "browser.spec.ts",
+      "line": 761,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 1865,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "adventure flashes the sprite after damage without a rectangular overlay",
+      "file": "browser.spec.ts",
+      "line": 770,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 2697,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "adventure HUD shows three hearts and empties one after damage",
+      "file": "browser.spec.ts",
+      "line": 794,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 3557,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "a patrolling slime keeps moving while Henry stands still",
+      "file": "browser.spec.ts",
+      "line": 815,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 1394,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "Henry faces the direction of travel, including after reversing while moving",
+      "file": "browser.spec.ts",
+      "line": 833,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 1546,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "default main menu starts the Plains level with Space",
+      "file": "browser.spec.ts",
+      "line": 850,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 1808,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "title picker selects Quarry Run and starts the selected route",
+      "file": "browser.spec.ts",
+      "line": 863,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 148245,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "Quarry crumbling ledge warns, disappears and returns after fall recovery",
+      "file": "browser.spec.ts",
+      "line": 883,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 37618,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "title picker renders Treetop Timbers with its own atlas",
+      "file": "browser.spec.ts",
+      "line": 952,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 7316,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "title picker consumes each selection and release with delayed animation frames",
+      "file": "browser.spec.ts",
+      "line": 984,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 3046,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "title picker wraps back to Sunset Site and renders its terrain atlas",
+      "file": "browser.spec.ts",
+      "line": 998,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 2739,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "adventure mute control updates the audio state",
+      "file": "browser.spec.ts",
+      "line": 1031,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 1553,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "adventure remains playable when Web Audio is unavailable",
+      "file": "browser.spec.ts",
+      "line": 1042,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 1460,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "adventure keeps its letterbox and pauses on focus loss",
+      "file": "browser.spec.ts",
+      "line": 1060,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 1297,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "adventure exposes retry when a required asset fails to load",
+      "file": "browser.spec.ts",
+      "line": 1074,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 1440,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "adventure clears held controller input after disconnect",
+      "file": "browser.spec.ts",
+      "line": 1084,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 1802,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "adventure can complete the forgiving route and replay directly with a fresh camera",
+      "file": "browser.spec.ts",
+      "line": 1132,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 84064,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "adventure pause freezes progress and reload starts a fresh in-memory run",
+      "file": "browser.spec.ts",
+      "line": 1168,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 2664,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "paused T shortcut confirms before returning to Trails and resets the run",
+      "file": "browser.spec.ts",
+      "line": 1191,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 3608,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "pause return works through pointer, Tab, Enter and focused Space, and cancels on focus loss",
+      "file": "browser.spec.ts",
+      "line": 1242,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 2032,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "controller pause return requires confirmation and clears held actions before map and replay",
+      "file": "browser.spec.ts",
+      "line": 1273,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 2500,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "default main menu accepts controller primary-button start, Start pause and D-pad movement",
+      "file": "browser.spec.ts",
+      "line": 1317,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 1496,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "controller jump works mid-gameplay via any face button, not just at the title screen (#62)",
+      "file": "browser.spec.ts",
+      "line": 1367,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 1611,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "all checkpoints activate along the ground route and render planted markers",
+      "file": "browser.spec.ts",
+      "line": 1406,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 77112,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "adventure HUD stays left-aligned through keyboard pause and focus loss",
+      "file": "browser.spec.ts",
+      "line": 1473,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 1592,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "a collected gem stops being drawn where it stood",
+      "file": "browser.spec.ts",
+      "line": 1505,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 4025,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "ground scenery and slimes draw their opaque bases at terrain height",
+      "file": "browser.spec.ts",
+      "line": 1541,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 4538,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "Plains renders its panorama and transparent scenery, and Quarry keeps its own backdrop",
+      "file": "browser.spec.ts",
+      "line": 1638,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 2681,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "a failed scenery image exposes Retry loading and recovers",
+      "file": "browser.spec.ts",
+      "line": 1690,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 1785,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "frost trail renders its material, completes and replays",
+      "file": "browser.spec.ts",
+      "line": 1706,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 71431,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "frost atlas failure is recoverable through retry",
+      "file": "browser.spec.ts",
+      "line": 1766,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 1598,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "cove trail renders its material, completes and replays",
+      "file": "browser.spec.ts",
+      "line": 1706,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 56769,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "cove atlas failure is recoverable through retry",
+      "file": "browser.spec.ts",
+      "line": 1766,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 1488,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "movement preview shows distinct friction cues and remains controllable",
+      "file": "browser.spec.ts",
+      "line": 1777,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 2295,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "native HUD hints follow active input and pause controls fit small windows",
+      "file": "browser.spec.ts",
+      "line": 1803,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 1880,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "all six trail previews show cached gameplay without story artwork and keep story replay",
+      "file": "browser.spec.ts",
+      "line": 1849,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 3649,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "approved title artwork and menu fit 1366x768",
+      "file": "browser.spec.ts",
+      "line": 1912,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 1926,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "approved title artwork and menu fit 426x240",
+      "file": "browser.spec.ts",
+      "line": 1912,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 1690,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "approved title artwork and menu fit 320x240",
+      "file": "browser.spec.ts",
+      "line": 1912,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 1587,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "title artwork failure recovers through the existing retry flow",
+      "file": "browser.spec.ts",
+      "line": 1958,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 1479,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "adventure never requests Henry reference art while the art preview requires it",
+      "file": "browser.spec.ts",
+      "line": 1970,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 1242,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "milestone PLAINS: pointer selection, full route, return, replay and next",
+      "file": "browser.spec.ts",
+      "line": 2107,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 39284,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "milestone QUARRY RUN: pointer selection, full route, return, replay and next",
+      "file": "browser.spec.ts",
+      "line": 2107,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 36012,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "milestone TREETOP TIMBERS: pointer selection, full route, return, replay and next",
+      "file": "browser.spec.ts",
+      "line": 2107,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 32553,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "milestone SUNSET SITE: pointer selection, full route, return, replay and next",
+      "file": "browser.spec.ts",
+      "line": 2107,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 35386,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "milestone FROST RIDGE: pointer selection, full route, return, replay and next",
+      "file": "browser.spec.ts",
+      "line": 2107,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 34654,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "milestone SANDY COVE: pointer selection, full route, return, replay and next",
+      "file": "browser.spec.ts",
+      "line": 2107,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 34396,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "overworld input stays usable and missing decorative sheets do not block a full route",
+      "file": "browser.spec.ts",
+      "line": 2290,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 14304,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "textured flats and slopes keep authored grip above cosmetic materials",
+      "file": "browser.spec.ts",
+      "line": 2318,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 677,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "every destination accepts keyboard and standard-controller selection and start",
+      "file": "browser.spec.ts",
+      "line": 2359,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 13544,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "signature PLAINS: nine-star route, native/small evidence and fresh navigation",
+      "file": "browser.spec.ts",
+      "line": 2384,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 20915,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "signature QUARRY RUN: nine-star route, native/small evidence and fresh navigation",
+      "file": "browser.spec.ts",
+      "line": 2384,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 20343,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "signature TREETOP TIMBERS: nine-star route, native/small evidence and fresh navigation",
+      "file": "browser.spec.ts",
+      "line": 2384,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 21511,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "sunset panorama appears in the map and pans during keyboard play",
+      "file": "browser.spec.ts",
+      "line": 2521,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 4161,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "sunset panorama failure recovers through Retry loading",
+      "file": "browser.spec.ts",
+      "line": 2557,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 1521,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "frost panorama appears in the map and pans during keyboard play",
+      "file": "browser.spec.ts",
+      "line": 2521,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 4050,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "frost panorama failure recovers through Retry loading",
+      "file": "browser.spec.ts",
+      "line": 2557,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 1477,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "cove panorama appears in the map and pans during keyboard play",
+      "file": "browser.spec.ts",
+      "line": 2521,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 4003,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "cove panorama failure recovers through Retry loading",
+      "file": "browser.spec.ts",
+      "line": 2557,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 1473,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "picture story supports keyboard, pointer and controller without timed pages or repeated retries",
+      "file": "browser.spec.ts",
+      "line": 2569,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 2915,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "celebration freezes for pause and focus, then accepts finish actions during playback",
+      "file": "browser.spec.ts",
+      "line": 2616,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 14033,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "celebration preview preserves gameplay pixels and final pose under reduced motion",
+      "file": "browser.spec.ts",
+      "line": 2670,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 1101,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "plains uses the common slime atlas, patrols and pauses in play",
+      "file": "browser.spec.ts",
+      "line": 2692,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 2514,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "quarry uses the common slime atlas, patrols and pauses in play",
+      "file": "browser.spec.ts",
+      "line": 2692,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 5396,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "timbers uses the common slime atlas, patrols and pauses in play",
+      "file": "browser.spec.ts",
+      "line": 2692,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 9104,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "sunset uses the common slime atlas, patrols and pauses in play",
+      "file": "browser.spec.ts",
+      "line": 2692,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 4480,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "frost uses the common slime atlas, patrols and pauses in play",
+      "file": "browser.spec.ts",
+      "line": 2692,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 8516,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "cove uses the common slime atlas, patrols and pauses in play",
+      "file": "browser.spec.ts",
+      "line": 2692,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 9645,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "slime atlas keeps identical bodies, transparent borders and ground anchors",
+      "file": "browser.spec.ts",
+      "line": 2740,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 433,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "shared slimes/slimes atlas failure is recoverable through retry",
+      "file": "browser.spec.ts",
+      "line": 2768,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 1216,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "shared gems/gems atlas failure is recoverable through retry",
+      "file": "browser.spec.ts",
+      "line": 2768,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 1085,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "ordinary gems share visible bounds and silhouette across all six trails",
+      "file": "browser.spec.ts",
+      "line": 2778,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 828,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "diagnostic fullscreen frame geometry across repeated native transitions",
+      "file": "browser.spec.ts",
+      "line": 2813,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 18818,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "uniform viewport fit keeps story, map, gameplay, pause and finish clear after resizing",
+      "file": "browser.spec.ts",
+      "line": 57,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 37259,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "app fullscreen retains feedback controls and native map and pause targets",
+      "file": "browser.spec.ts",
+      "line": 118,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 3273,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "ambient weather repeats the same pixels, respects reduced motion and stays behind terrain",
+      "file": "browser.spec.ts",
+      "line": 149,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 2601,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "controller damage rumble is independent of audio and stops on pause, focus loss and disconnect",
+      "file": "browser.spec.ts",
+      "line": 208,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "unexpected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "failed",
+          "durationMs": 19658,
+          "retry": 0,
+          "errors": [
+            "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThan\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: > \u001b[32m1\u001b[39m\nReceived:   \u001b[31m1\u001b[39m\n\nCall Log:\n- Timeout 10000ms exceeded while waiting on the predicate\n\n  250 |   await expect(rumbleButton).toHaveAttribute('aria-pressed', 'true');\n  251 |   await axis(1);\n> 252 |   await expect.poll(async () => (await read()).effects.length, { timeout: 10000 }).toBeGreaterThan(disabled.effects.length);\n      |                                                                                    ^\n  253 |   await axis(0);\n  254 |   await page.keyboard.press('Escape');\n  255 |   await expect(page.locator('#status')).toContainText('Paused');\n    at C:\\Users\\thefenix67\\AppData\\Local\\Temp\\tiny-turbo-timbers-pilot-171\\review\\tests\\browser.spec.ts:252:84"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "rumble icon toggles independently with pointer and keyboard at desktop and small sizes",
+      "file": "browser.spec.ts",
+      "line": 275,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 6219,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "movement sounds follow run and landing, and stop on idle, jump, mute, pause and focus loss",
+      "file": "browser.spec.ts",
+      "line": 311,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 7582,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "all springs keep their visible bases on terrain at rest, compressed and released",
+      "file": "browser.spec.ts",
+      "line": 394,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 2175,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "terrain joins stay solid while scrolling in both directions at integer and fractional scales",
+      "file": "browser.spec.ts",
+      "line": 512,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 7493,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "moving platform slabs and their telegraphed paths draw on the real canvas",
+      "file": "browser.spec.ts",
+      "line": 566,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 733,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "production canvas loads, scales and recovers from focus loss",
+      "file": "browser.spec.ts",
+      "line": 644,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 1753,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "art preview loads local assets and reports a missing atlas",
+      "file": "browser.spec.ts",
+      "line": 686,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 1562,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "starter atlas contains real transparency and every frame stays within its cell",
+      "file": "browser.spec.ts",
+      "line": 699,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 891,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "movement preview accepts keyboard movement and jump input",
+      "file": "browser.spec.ts",
+      "line": 740,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 1037,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "world preview loads generated Plains assets and level data",
+      "file": "browser.spec.ts",
+      "line": 752,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 966,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "gameplay preview collects a gem and reaches a checkpoint",
+      "file": "browser.spec.ts",
+      "line": 761,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 1820,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "adventure flashes the sprite after damage without a rectangular overlay",
+      "file": "browser.spec.ts",
+      "line": 770,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 2894,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "adventure HUD shows three hearts and empties one after damage",
+      "file": "browser.spec.ts",
+      "line": 794,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 2803,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "a patrolling slime keeps moving while Henry stands still",
+      "file": "browser.spec.ts",
+      "line": 815,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 1595,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "Henry faces the direction of travel, including after reversing while moving",
+      "file": "browser.spec.ts",
+      "line": 833,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 2288,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "default main menu starts the Plains level with Space",
+      "file": "browser.spec.ts",
+      "line": 850,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 2232,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "title picker selects Quarry Run and starts the selected route",
+      "file": "browser.spec.ts",
+      "line": 863,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 55789,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "Quarry crumbling ledge warns, disappears and returns after fall recovery",
+      "file": "browser.spec.ts",
+      "line": 883,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 38109,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "title picker renders Treetop Timbers with its own atlas",
+      "file": "browser.spec.ts",
+      "line": 952,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 7634,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "title picker consumes each selection and release with delayed animation frames",
+      "file": "browser.spec.ts",
+      "line": 984,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 3590,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "title picker wraps back to Sunset Site and renders its terrain atlas",
+      "file": "browser.spec.ts",
+      "line": 998,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 2896,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "adventure mute control updates the audio state",
+      "file": "browser.spec.ts",
+      "line": 1031,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 1886,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "adventure remains playable when Web Audio is unavailable",
+      "file": "browser.spec.ts",
+      "line": 1042,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 1671,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "adventure keeps its letterbox and pauses on focus loss",
+      "file": "browser.spec.ts",
+      "line": 1060,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 1531,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "adventure exposes retry when a required asset fails to load",
+      "file": "browser.spec.ts",
+      "line": 1074,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 1895,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "adventure clears held controller input after disconnect",
+      "file": "browser.spec.ts",
+      "line": 1084,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 2040,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "adventure can complete the forgiving route and replay directly with a fresh camera",
+      "file": "browser.spec.ts",
+      "line": 1132,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 84179,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "adventure pause freezes progress and reload starts a fresh in-memory run",
+      "file": "browser.spec.ts",
+      "line": 1168,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 2984,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "paused T shortcut confirms before returning to Trails and resets the run",
+      "file": "browser.spec.ts",
+      "line": 1191,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 3144,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "pause return works through pointer, Tab, Enter and focused Space, and cancels on focus loss",
+      "file": "browser.spec.ts",
+      "line": 1242,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 3139,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "controller pause return requires confirmation and clears held actions before map and replay",
+      "file": "browser.spec.ts",
+      "line": 1273,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 2967,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "default main menu accepts controller primary-button start, Start pause and D-pad movement",
+      "file": "browser.spec.ts",
+      "line": 1317,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 1943,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "controller jump works mid-gameplay via any face button, not just at the title screen (#62)",
+      "file": "browser.spec.ts",
+      "line": 1367,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 2179,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "all checkpoints activate along the ground route and render planted markers",
+      "file": "browser.spec.ts",
+      "line": 1406,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 91090,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "adventure HUD stays left-aligned through keyboard pause and focus loss",
+      "file": "browser.spec.ts",
+      "line": 1473,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 2694,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "a collected gem stops being drawn where it stood",
+      "file": "browser.spec.ts",
+      "line": 1505,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 5545,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "ground scenery and slimes draw their opaque bases at terrain height",
+      "file": "browser.spec.ts",
+      "line": 1541,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 5088,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "Plains renders its panorama and transparent scenery, and Quarry keeps its own backdrop",
+      "file": "browser.spec.ts",
+      "line": 1638,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 3086,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "a failed scenery image exposes Retry loading and recovers",
+      "file": "browser.spec.ts",
+      "line": 1690,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 2178,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "frost trail renders its material, completes and replays",
+      "file": "browser.spec.ts",
+      "line": 1706,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 71971,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "frost atlas failure is recoverable through retry",
+      "file": "browser.spec.ts",
+      "line": 1766,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 1906,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "cove trail renders its material, completes and replays",
+      "file": "browser.spec.ts",
+      "line": 1706,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 57449,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "cove atlas failure is recoverable through retry",
+      "file": "browser.spec.ts",
+      "line": 1766,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 1778,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "movement preview shows distinct friction cues and remains controllable",
+      "file": "browser.spec.ts",
+      "line": 1777,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 2841,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "native HUD hints follow active input and pause controls fit small windows",
+      "file": "browser.spec.ts",
+      "line": 1803,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 1890,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "all six trail previews show cached gameplay without story artwork and keep story replay",
+      "file": "browser.spec.ts",
+      "line": 1849,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 5126,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "approved title artwork and menu fit 1366x768",
+      "file": "browser.spec.ts",
+      "line": 1912,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 2283,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "approved title artwork and menu fit 426x240",
+      "file": "browser.spec.ts",
+      "line": 1912,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 1707,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "approved title artwork and menu fit 320x240",
+      "file": "browser.spec.ts",
+      "line": 1912,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 1681,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "title artwork failure recovers through the existing retry flow",
+      "file": "browser.spec.ts",
+      "line": 1958,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 1948,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "adventure never requests Henry reference art while the art preview requires it",
+      "file": "browser.spec.ts",
+      "line": 1970,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 1579,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "milestone PLAINS: pointer selection, full route, return, replay and next",
+      "file": "browser.spec.ts",
+      "line": 2107,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 62464,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "milestone QUARRY RUN: pointer selection, full route, return, replay and next",
+      "file": "browser.spec.ts",
+      "line": 2107,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 58119,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "milestone TREETOP TIMBERS: pointer selection, full route, return, replay and next",
+      "file": "browser.spec.ts",
+      "line": 2107,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 49264,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "milestone SUNSET SITE: pointer selection, full route, return, replay and next",
+      "file": "browser.spec.ts",
+      "line": 2107,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 53346,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "milestone FROST RIDGE: pointer selection, full route, return, replay and next",
+      "file": "browser.spec.ts",
+      "line": 2107,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 49506,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "milestone SANDY COVE: pointer selection, full route, return, replay and next",
+      "file": "browser.spec.ts",
+      "line": 2107,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 49100,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "overworld input stays usable and missing decorative sheets do not block a full route",
+      "file": "browser.spec.ts",
+      "line": 2290,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 20896,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "textured flats and slopes keep authored grip above cosmetic materials",
+      "file": "browser.spec.ts",
+      "line": 2318,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 846,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "every destination accepts keyboard and standard-controller selection and start",
+      "file": "browser.spec.ts",
+      "line": 2359,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 16457,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "signature PLAINS: nine-star route, native/small evidence and fresh navigation",
+      "file": "browser.spec.ts",
+      "line": 2384,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 24492,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "signature QUARRY RUN: nine-star route, native/small evidence and fresh navigation",
+      "file": "browser.spec.ts",
+      "line": 2384,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 25928,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "signature TREETOP TIMBERS: nine-star route, native/small evidence and fresh navigation",
+      "file": "browser.spec.ts",
+      "line": 2384,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 26070,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "sunset panorama appears in the map and pans during keyboard play",
+      "file": "browser.spec.ts",
+      "line": 2521,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 4711,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "sunset panorama failure recovers through Retry loading",
+      "file": "browser.spec.ts",
+      "line": 2557,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 1715,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "frost panorama appears in the map and pans during keyboard play",
+      "file": "browser.spec.ts",
+      "line": 2521,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 4710,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "frost panorama failure recovers through Retry loading",
+      "file": "browser.spec.ts",
+      "line": 2557,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 1754,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "cove panorama appears in the map and pans during keyboard play",
+      "file": "browser.spec.ts",
+      "line": 2521,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 4698,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "cove panorama failure recovers through Retry loading",
+      "file": "browser.spec.ts",
+      "line": 2557,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 1735,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "picture story supports keyboard, pointer and controller without timed pages or repeated retries",
+      "file": "browser.spec.ts",
+      "line": 2569,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 4067,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "celebration freezes for pause and focus, then accepts finish actions during playback",
+      "file": "browser.spec.ts",
+      "line": 2616,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 22566,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "celebration preview preserves gameplay pixels and final pose under reduced motion",
+      "file": "browser.spec.ts",
+      "line": 2670,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 1615,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "plains uses the common slime atlas, patrols and pauses in play",
+      "file": "browser.spec.ts",
+      "line": 2692,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 3549,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "quarry uses the common slime atlas, patrols and pauses in play",
+      "file": "browser.spec.ts",
+      "line": 2692,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 6520,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "timbers uses the common slime atlas, patrols and pauses in play",
+      "file": "browser.spec.ts",
+      "line": 2692,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 9822,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "sunset uses the common slime atlas, patrols and pauses in play",
+      "file": "browser.spec.ts",
+      "line": 2692,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 6341,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "frost uses the common slime atlas, patrols and pauses in play",
+      "file": "browser.spec.ts",
+      "line": 2692,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 10418,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "cove uses the common slime atlas, patrols and pauses in play",
+      "file": "browser.spec.ts",
+      "line": 2692,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 11586,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "slime atlas keeps identical bodies, transparent borders and ground anchors",
+      "file": "browser.spec.ts",
+      "line": 2740,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 902,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "shared slimes/slimes atlas failure is recoverable through retry",
+      "file": "browser.spec.ts",
+      "line": 2768,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 2527,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "shared gems/gems atlas failure is recoverable through retry",
+      "file": "browser.spec.ts",
+      "line": 2768,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 2621,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "ordinary gems share visible bounds and silhouette across all six trails",
+      "file": "browser.spec.ts",
+      "line": 2778,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 1088,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "diagnostic fullscreen frame geometry across repeated native transitions",
+      "file": "browser.spec.ts",
+      "line": 2813,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 26563,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "preview switches all tracks and adventure selects music only after starting a level",
+      "file": "music-browser.spec.ts",
+      "line": 5,
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 3237,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "preview switches all tracks and adventure selects music only after starting a level",
+      "file": "music-browser.spec.ts",
+      "line": 5,
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "annotations": [],
+      "results": [
+        {
+          "status": "passed",
+          "durationMs": 4876,
+          "retry": 0,
+          "errors": []
+        }
+      ]
+    }
+  ]
+}
