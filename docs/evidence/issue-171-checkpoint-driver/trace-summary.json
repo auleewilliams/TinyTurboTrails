@@ -1,0 +1,152 @@
+{
+  "sourceRun": 38734016220,
+  "test": "all checkpoints activate along the ground route and render planted markers",
+  "engine": "webkit",
+  "sampleCount": 458,
+  "maxX": 4641,
+  "finalSample": {
+    "time": 1194407.938,
+    "text": "Adventure preview · Playing · X 3913 Y 96 V 220 F 1 · Escape to pause · M to mute",
+    "x": 3913,
+    "y": 96,
+    "v": 220
+  },
+  "recoveries": [
+    {
+      "fromX": 2786,
+      "toX": 2424,
+      "atMs": 19835
+    },
+    {
+      "fromX": 4632,
+      "toX": 2507,
+      "atMs": 31635
+    },
+    {
+      "fromX": 3908,
+      "toX": 2436,
+      "atMs": 39506
+    },
+    {
+      "fromX": 4635,
+      "toX": 2485,
+      "atMs": 51242
+    },
+    {
+      "fromX": 3880,
+      "toX": 2426,
+      "atMs": 58969
+    },
+    {
+      "fromX": 4641,
+      "toX": 2496,
+      "atMs": 70849
+    },
+    {
+      "fromX": 3915,
+      "toX": 2431,
+      "atMs": 78766
+    },
+    {
+      "fromX": 3465,
+      "toX": 2422,
+      "atMs": 84976
+    },
+    {
+      "fromX": 3917,
+      "toX": 2431,
+      "atMs": 93264
+    }
+  ],
+  "checkpointBannerDetections": [
+    {
+      "atMs": 2800,
+      "callId": "call@5211"
+    },
+    {
+      "atMs": 15352,
+      "callId": "call@5517"
+    }
+  ],
+  "progress": [
+    {
+      "atMs": 0,
+      "x": 60,
+      "y": 164,
+      "v": 0
+    },
+    {
+      "atMs": 11658,
+      "x": 1612,
+      "y": 86,
+      "v": 220
+    },
+    {
+      "atMs": 23347,
+      "x": 3050,
+      "y": 136,
+      "v": 220
+    },
+    {
+      "atMs": 31635,
+      "x": 2507,
+      "y": 164,
+      "v": 220
+    },
+    {
+      "atMs": 40082,
+      "x": 2562,
+      "y": 128,
+      "v": 216
+    },
+    {
+      "atMs": 48495,
+      "x": 4139,
+      "y": 166,
+      "v": 220
+    },
+    {
+      "atMs": 56384,
+      "x": 3490,
+      "y": 133,
+      "v": 220
+    },
+    {
+      "atMs": 64916,
+      "x": 3570,
+      "y": 164,
+      "v": 220
+    },
+    {
+      "atMs": 72618,
+      "x": 2770,
+      "y": 74,
+      "v": 57
+    },
+    {
+      "atMs": 80407,
+      "x": 2787,
+      "y": 74,
+      "v": 220
+    },
+    {
+      "atMs": 89242,
+      "x": 3211,
+      "y": 136,
+      "v": 220
+    },
+    {
+      "atMs": 97470,
+      "x": 3348,
+      "y": 161,
+      "v": 220
+    },
+    {
+      "atMs": 100738,
+      "x": 3913,
+      "y": 96,
+      "v": 220
+    }
+  ],
+  "scopeObservation": "All observed movement remains before the first changed Plains gem at X6100 and changed hill at X6820. No test/runtime source edits made for this diagnosis."
+}

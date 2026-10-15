@@ -1,0 +1,111 @@
+{
+  "recordedAtUtc": "2026-10-15T13:36:18.5273252Z",
+  "method": "Unmodified production clock and normal browser keyboard input; existing checkpoint assertions and named screenshots",
+  "current": {
+    "records": [
+      {
+        "engine": "chromium",
+        "repeat": false,
+        "checkpoints": [
+          "checkpoint-meadow",
+          "checkpoint-hillside",
+          "checkpoint-canyon",
+          "checkpoint-cave",
+          "checkpoint-orchard",
+          "checkpoint-summit"
+        ],
+        "traceSha256": "af26b33d54c423f4aee957d58ea04eeda4a0e703f9bf7d00023d3ffa19f42e91",
+        "result": "passed",
+        "basis": "Native runner reported4passed; all original assertions and all six named marker attachments retained"
+      },
+      {
+        "engine": "chromium",
+        "repeat": true,
+        "checkpoints": [
+          "checkpoint-meadow",
+          "checkpoint-hillside",
+          "checkpoint-canyon",
+          "checkpoint-cave",
+          "checkpoint-orchard",
+          "checkpoint-summit"
+        ],
+        "traceSha256": "1b7c62590f300b0dbdc6be714cdae00db34a075291e17af65bfe63225fbca243",
+        "result": "passed",
+        "basis": "Native runner reported4passed; all original assertions and all six named marker attachments retained"
+      },
+      {
+        "engine": "webkit",
+        "repeat": false,
+        "checkpoints": [
+          "checkpoint-meadow",
+          "checkpoint-hillside",
+          "checkpoint-canyon",
+          "checkpoint-cave",
+          "checkpoint-orchard",
+          "checkpoint-summit"
+        ],
+        "traceSha256": "d666d3f45022f6d79a5985cdb7395c317cfee27f692394d6c25a1e486509a989",
+        "result": "passed",
+        "basis": "Native runner reported4passed; all original assertions and all six named marker attachments retained"
+      },
+      {
+        "engine": "webkit",
+        "repeat": true,
+        "checkpoints": [
+          "checkpoint-meadow",
+          "checkpoint-hillside",
+          "checkpoint-canyon",
+          "checkpoint-cave",
+          "checkpoint-orchard",
+          "checkpoint-summit"
+        ],
+        "traceSha256": "c279cdb1ef1f848eb57b62e4531646220981ccb0dea83a09d77f5e350d0104ea",
+        "result": "passed",
+        "basis": "Native runner reported4passed; all original assertions and all six named marker attachments retained"
+      }
+    ],
+    "measuredCohortMinutes": 6.8,
+    "productionBase": "2a3d39071a8b645e4b164f1bed3296d5807c43c9",
+    "bundle": "index-DFa8YGSX.js",
+    "passed": 4
+  },
+  "baseline": {
+    "preview": "http://127.0.0.1:4182",
+    "measuredCohortMinutes": 3.4,
+    "productionHead": "1cf57b4ce1427452861ae35f0268c8812ac25273",
+    "passed": 2,
+    "records": [
+      {
+        "engine": "chromium",
+        "checkpoints": [
+          "checkpoint-meadow",
+          "checkpoint-hillside",
+          "checkpoint-canyon",
+          "checkpoint-cave",
+          "checkpoint-orchard",
+          "checkpoint-summit"
+        ],
+        "traceSha256": "b5aa307cd7b196896efc1c5b17ee03b0ae4e0f3fef3b1aa72190b6e1afbce609",
+        "result": "passed"
+      },
+      {
+        "engine": "webkit",
+        "checkpoints": [
+          "checkpoint-meadow",
+          "checkpoint-hillside",
+          "checkpoint-canyon",
+          "checkpoint-cave",
+          "checkpoint-orchard",
+          "checkpoint-summit"
+        ],
+        "traceSha256": "6c55bffcc9f5a9d871f894cbc0db08674065fba363cf4fd7cbbf749e307e5d1f",
+        "result": "passed"
+      }
+    ]
+  },
+  "limits": [
+    "Not a damage-free route claim",
+    "Windows Firefox host activation limitation retained; normal Linux three-engine CI remains mandatory",
+    "Model evidence is separate from these native passes"
+  ]
+}
