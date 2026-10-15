@@ -124,6 +124,8 @@ test('app fullscreen retains feedback controls and native map and pause targets'
   });
   await page.locator('#mute').click();
   await expect.poll(() => page.evaluate(() => document.fullscreenElement?.tagName)).toBe('MAIN');
+  // Fullscreen element changes precede Firefox viewport/overlay layout settlement.
+  await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
   await expectClearViewport(page);
   await page.getByRole('button', { name: 'Play PLAINS', exact: true }).click();
   // Escape belongs to browser fullscreen exit on WebKit. Use controller Start to pause.
@@ -137,6 +139,7 @@ test('app fullscreen retains feedback controls and native map and pause targets'
   await page.getByRole('button', { name: 'Resume', exact: true }).click();
   await page.evaluate(() => document.exitFullscreen());
   await expect.poll(() => page.evaluate(() => document.fullscreenElement)).toBeNull();
+  await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
   await expectClearViewport(page);
 });
 
@@ -2793,4 +2796,94 @@ test('ordinary gems share visible bounds and silhouette across all six trails', 
   expect(samples.gems[4].center).not.toEqual(samples.gems[0].center);
   expect(samples.gems[5].center).not.toEqual(samples.gems[0].center);
   await page.screenshot({ path: info.outputPath('gem-foundation.png') });
+});
+
+// Diagnostic only: preserve the existing one-shot fullscreen test above unchanged.
+// Keep the raw frame history even when an existing geometry assertion fails.
+test('diagnostic fullscreen frame geometry across repeated native transitions', async ({ page, browser }, info) => {
+  await installTrailPilot(page);
+  await openAdventure(page, '/');
+  test.skip(!await page.evaluate(() => document.fullscreenEnabled), 'Fullscreen unavailable in this browser environment');
+  await page.evaluate(() => {
+    const samples: object[] = [];
+    let cycle = 0;
+    let phase = 'ready';
+    let frame = 0;
+    const rectangle = (element: Element | null) => element?.getBoundingClientRect().toJSON() ?? null;
+    const sample = (reason: string): void => {
+      const main = document.querySelector<HTMLElement>('main')!;
+      const canvas = document.querySelector<HTMLCanvasElement>('#game')!;
+      const controls = document.querySelector('.feedback-controls');
+      const visual = window.visualViewport;
+      samples.push({ reason, cycle, phase, frame, time: performance.now(),
+        fullscreen: document.fullscreenElement?.tagName ?? null,
+        innerWidth, innerHeight, outerWidth, outerHeight, devicePixelRatio,
+        screen: { width: screen.width, height: screen.height, availWidth: screen.availWidth, availHeight: screen.availHeight },
+        visual: visual ? { width: visual.width, height: visual.height, offsetLeft: visual.offsetLeft, offsetTop: visual.offsetTop, scale: visual.scale } : null,
+        main: { clientWidth: main.clientWidth, clientHeight: main.clientHeight, rectangle: rectangle(main) },
+        canvas: { rectangle: rectangle(canvas), style: canvas.getAttribute('style'), width: canvas.width, height: canvas.height },
+        controls: rectangle(controls),
+        targets: Array.from(document.querySelectorAll<HTMLButtonElement>('.trail-menu button')).map(button => {
+          const bounds = button.getBoundingClientRect();
+          return { label: button.getAttribute('aria-label'), rectangle: bounds.toJSON(),
+            clickable: document.elementFromPoint(bounds.left + bounds.width / 2, bounds.top + bounds.height / 2) === button };
+        }),
+        scrollWidth: document.documentElement.scrollWidth, scrollHeight: document.documentElement.scrollHeight,
+      });
+    };
+    Object.assign(window, { fullscreenDiagnostic: { samples,
+      mark(nextCycle: number, nextPhase: string): void { cycle = nextCycle; phase = nextPhase; sample('mark'); },
+      sample,
+    } });
+    window.addEventListener('resize', () => sample('resize'));
+    document.addEventListener('fullscreenchange', () => sample('fullscreenchange'));
+    window.visualViewport?.addEventListener('resize', () => sample('visual-resize'));
+    const observe = (): void => { frame++; sample('animation-frame'); requestAnimationFrame(observe); };
+    sample('installed');
+    requestAnimationFrame(observe);
+  });
+  const mark = async (cycle: number, phase: string): Promise<void> => page.evaluate(({ cycle, phase }) => {
+    (window as unknown as { fullscreenDiagnostic: { mark(cycle: number, phase: string): void } }).fullscreenDiagnostic.mark(cycle, phase);
+  }, { cycle, phase });
+  const captureFrames = async (): Promise<void> => page.evaluate(() => new Promise<void>(resolve => {
+    let frames = 0;
+    const next = (): void => { if (++frames === 32) resolve(); else requestAnimationFrame(next); };
+    requestAnimationFrame(next);
+  }));
+  try {
+    for (let cycle = 1; cycle <= 8; cycle++) {
+      await mark(cycle, 'request-enter');
+      await page.locator('#mute').evaluate(button => {
+        button.addEventListener('click', () => {
+          const probe = (window as unknown as { fullscreenDiagnostic: { sample(reason: string): void } }).fullscreenDiagnostic;
+          probe.sample('request-start');
+          void document.querySelector('main')!.requestFullscreen().then(
+            () => probe.sample('request-resolved'), () => probe.sample('request-rejected'));
+        }, { once: true });
+      });
+      await page.locator('#mute').click();
+      await expect.poll(() => page.evaluate(() => document.fullscreenElement?.tagName)).toBe('MAIN');
+      await mark(cycle, 'after-fullscreen-element');
+      await captureFrames();
+      await expectClearViewport(page);
+      await page.screenshot({ path: info.outputPath(`fullscreen-cycle-${cycle}-entered.png`) });
+      await mark(cycle, 'request-exit');
+      await page.evaluate(() => document.exitFullscreen());
+      await expect.poll(() => page.evaluate(() => document.fullscreenElement)).toBeNull();
+      await mark(cycle, 'after-exit-element');
+      await captureFrames();
+      await expectClearViewport(page);
+      await page.screenshot({ path: info.outputPath(`fullscreen-cycle-${cycle}-exited.png`) });
+    }
+  } finally {
+    const samples = await page.evaluate(() =>
+      (window as unknown as { fullscreenDiagnostic: { samples: object[] } }).fullscreenDiagnostic.samples,
+    ).catch(error => ({ captureError: String(error) }));
+    await mkdir(info.outputDir, { recursive: true });
+    const path = info.outputPath('fullscreen-frames.json');
+    await writeFile(path, JSON.stringify({ baseline: '42f86fb411e4370c9fed9e97e72e945579bcaf2e',
+      project: info.project.name, platform: process.platform, browserVersion: browser.version(),
+      cycles: 8, framesPerTransition: 32, samples }, null, 2));
+    await info.attach('fullscreen-frames', { path, contentType: 'application/json' });
+  }
 });
