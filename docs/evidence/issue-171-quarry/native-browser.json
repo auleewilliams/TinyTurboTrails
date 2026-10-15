@@ -1,0 +1,475 @@
+{
+  "baselineCommit": "a958aeb48c1d9469b7da22bcb227c42c5caf7f84",
+  "capturedAtUtc": "2026-10-15T11:41:36.127Z",
+  "method": "Native RAF and unchanged production clock; keyboard inputs and read-only render observation; no scene access, teleports, reward writes or disabled hazards",
+  "observations": [
+    {
+      "id": "quarry",
+      "phase": "before",
+      "mode": "evidence",
+      "engine": "chromium",
+      "version": "153.0.8010.12",
+      "platform": "win32",
+      "clock": "Native RAF and unmodified production clock; keyboard-input only, no scene access or state writes",
+      "viewport": {
+        "width": 852,
+        "height": 528
+      },
+      "poses": [
+        {
+          "name": "cache-approach",
+          "target": 5370,
+          "status": "Adventure preview · Playing · X 5368 Y 106 V -2 F -1 · Escape to pause · M to mute",
+          "gems": 18,
+          "stars": "STARS 3/3",
+          "targetLastSeenAgesMs": {
+            "quarry-bonus-004": 3.9000000059604645
+          },
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        },
+        {
+          "name": "cache-return",
+          "target": 5680,
+          "status": "Adventure preview · Playing · X 5677 Y 104 V 1 F 1 · Escape to pause · M to mute",
+          "gems": 19,
+          "stars": "STARS 3/3",
+          "targetLastSeenAgesMs": {
+            "quarry-bonus-004": 15.5
+          },
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        },
+        {
+          "name": "ferry-approach",
+          "target": 7090,
+          "status": "Adventure preview · Playing · X 7088 Y 184 V 0 F 1 · Escape to pause · M to mute",
+          "gems": 24,
+          "stars": "STARS 3/3",
+          "targetLastSeenAgesMs": {
+            "quarry-bonus-004": 6076.20000000298
+          },
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        },
+        {
+          "name": "ferry-return",
+          "target": 7410,
+          "status": "Adventure preview · Playing · X 7410 Y 162 V 0 F 1 · Escape to pause · M to mute",
+          "gems": 24,
+          "stars": "STARS 3/3",
+          "targetLastSeenAgesMs": {
+            "quarry-bonus-004": 8245.20000000298
+          },
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        }
+      ],
+      "final": {
+        "status": "Adventure preview · Playing · X 7410 Y 162 V 0 F 1 · Escape to pause · M to mute",
+        "gems": 24,
+        "stars": "STARS 3/3",
+        "recoveries": [],
+        "sampleCount": 365
+      },
+      "errors": [],
+      "scriptResources": [
+        "/build-assets/index-DUbmCZQC.js"
+      ]
+    },
+    {
+      "id": "quarry",
+      "phase": "after",
+      "mode": "optional",
+      "engine": "chromium",
+      "version": "153.0.8010.12",
+      "platform": "win32",
+      "clock": "Native RAF and unmodified production clock; keyboard-input only, no scene access or state writes",
+      "viewport": {
+        "width": 852,
+        "height": 528
+      },
+      "poses": [
+        {
+          "name": "cache-approach",
+          "target": 5370,
+          "status": "Adventure preview · Playing · X 5368 Y 106 V -2 F -1 · Escape to pause · M to mute",
+          "gems": 18,
+          "stars": "STARS 3/3",
+          "targetLastSeenAgesMs": {
+            "quarry-bonus-004": 6.799999997019768
+          },
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        },
+        {
+          "name": "cache-return",
+          "target": 5680,
+          "status": "Adventure preview · Playing · X 5677 Y 104 V 1 F 1 · Escape to pause · M to mute",
+          "gems": 21,
+          "stars": "STARS 3/3",
+          "targetLastSeenAgesMs": {
+            "quarry-bonus-004": 1342.2999999970198
+          },
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        },
+        {
+          "name": "ferry-approach",
+          "target": 7090,
+          "status": "Adventure preview · Playing · X 7088 Y 184 V 0 F 1 · Escape to pause · M to mute",
+          "gems": 25,
+          "stars": "STARS 3/3",
+          "targetLastSeenAgesMs": {
+            "quarry-bonus-004": 8385.89999999106,
+            "quarry-bonus-005": 2.0999999940395355
+          },
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        },
+        {
+          "name": "ferry-return",
+          "target": 7410,
+          "status": "Adventure preview · Playing · X 7408 Y 162 V 0 F 1 · Escape to pause · M to mute",
+          "gems": 26,
+          "stars": "STARS 3/3",
+          "targetLastSeenAgesMs": {
+            "quarry-bonus-004": 14551.699999988079,
+            "quarry-bonus-005": 2384.699999988079
+          },
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        }
+      ],
+      "final": {
+        "status": "Adventure preview · Finish · Gems 33/37 · X 10103 Y 50 V 220 F 1 · Escape to pause · M to mute",
+        "gems": 33,
+        "stars": "STARS 3/3",
+        "recoveries": [],
+        "ferryPickup": {
+          "x": 7251,
+          "y": 142,
+          "gems": 26,
+          "time": 39366.7
+        },
+        "sampleCount": 543
+      },
+      "replay": {
+        "status": "Adventure preview · Playing · X 60 Y 164 V 0 F 1 · Escape to pause · M to mute",
+        "gems": 0,
+        "stars": "STARS 0/3"
+      },
+      "errors": [],
+      "scriptResources": [
+        "/build-assets/index-A0z396V7.js"
+      ]
+    },
+    {
+      "id": "quarry",
+      "phase": "after",
+      "mode": "main",
+      "engine": "chromium",
+      "version": "153.0.8010.12",
+      "platform": "win32",
+      "clock": "Native RAF and unmodified production clock; keyboard-input only, no scene access or state writes",
+      "viewport": {
+        "width": 852,
+        "height": 528
+      },
+      "poses": [
+        {
+          "name": "cache-approach",
+          "target": 5370,
+          "status": "Adventure preview · Playing · X 5368 Y 106 V -2 F -1 · Escape to pause · M to mute",
+          "gems": 18,
+          "stars": "STARS 3/3",
+          "targetLastSeenAgesMs": {
+            "quarry-bonus-004": 8.299999997019768
+          },
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        },
+        {
+          "name": "cache-return",
+          "target": 5680,
+          "status": "Adventure preview · Playing · X 5677 Y 104 V 1 F 1 · Escape to pause · M to mute",
+          "gems": 20,
+          "stars": "STARS 3/3",
+          "targetLastSeenAgesMs": {
+            "quarry-bonus-004": 7.0999999940395355
+          },
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        },
+        {
+          "name": "ferry-approach",
+          "target": 7090,
+          "status": "Adventure preview · Playing · X 7088 Y 184 V 0 F 1 · Escape to pause · M to mute",
+          "gems": 24,
+          "stars": "STARS 3/3",
+          "targetLastSeenAgesMs": {
+            "quarry-bonus-004": 6072.20000000298,
+            "quarry-bonus-005": 6.800000011920929
+          },
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        },
+        {
+          "name": "ferry-return",
+          "target": 7410,
+          "status": "Adventure preview · Playing · X 7408 Y 162 V 0 F 1 · Escape to pause · M to mute",
+          "gems": 25,
+          "stars": "STARS 3/3",
+          "targetLastSeenAgesMs": {
+            "quarry-bonus-004": 8240.20000000298,
+            "quarry-bonus-005": 1508
+          },
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        }
+      ],
+      "final": {
+        "status": "Adventure preview · Finish · Gems 33/37 · X 10103 Y 116 V 220 F 1 · Escape to pause · M to mute",
+        "gems": 33,
+        "stars": "STARS 3/3",
+        "recoveries": [
+          {
+            "time": 45234.6,
+            "from": 8970,
+            "to": 8700
+          }
+        ],
+        "sampleCount": 524
+      },
+      "replay": {
+        "status": "Adventure preview · Playing · X 60 Y 164 V 0 F 1 · Escape to pause · M to mute",
+        "gems": 0,
+        "stars": "STARS 0/3"
+      },
+      "errors": [],
+      "scriptResources": [
+        "/build-assets/index-A0z396V7.js"
+      ]
+    },
+    {
+      "id": "quarry",
+      "phase": "after",
+      "mode": "optional",
+      "engine": "webkit",
+      "version": "26.6",
+      "platform": "win32",
+      "clock": "Native RAF and unmodified production clock; keyboard-input only, no scene access or state writes",
+      "viewport": {
+        "width": 852,
+        "height": 528
+      },
+      "poses": [
+        {
+          "name": "cache-approach",
+          "target": 5370,
+          "status": "Adventure preview · Playing · X 5368 Y 106 V -2 F -1 · Escape to pause · M to mute",
+          "gems": 18,
+          "stars": "STARS 3/3",
+          "targetLastSeenAgesMs": {
+            "quarry-bonus-004": 3
+          },
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        },
+        {
+          "name": "cache-return",
+          "target": 5680,
+          "status": "Adventure preview · Playing · X 5680 Y 105 V 1 F 1 · Escape to pause · M to mute",
+          "gems": 21,
+          "stars": "STARS 3/3",
+          "targetLastSeenAgesMs": {
+            "quarry-bonus-004": 1359
+          },
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        },
+        {
+          "name": "ferry-approach",
+          "target": 7090,
+          "status": "Adventure preview · Playing · X 7088 Y 184 V 0 F 1 · Escape to pause · M to mute",
+          "gems": 25,
+          "stars": "STARS 3/3",
+          "targetLastSeenAgesMs": {
+            "quarry-bonus-004": 8698,
+            "quarry-bonus-005": 3
+          },
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        },
+        {
+          "name": "ferry-riding",
+          "status": "Adventure preview · Playing · X 7190 Y 142 V 0 F 1 · Escape to pause · M to mute",
+          "gems": 26
+        },
+        {
+          "name": "ferry-return",
+          "target": 7410,
+          "status": "Adventure preview · Playing · X 7408 Y 162 V 0 F 1 · Escape to pause · M to mute",
+          "gems": 26,
+          "stars": "STARS 3/3",
+          "targetLastSeenAgesMs": {
+            "quarry-bonus-004": 14195,
+            "quarry-bonus-005": 2399
+          },
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        }
+      ],
+      "final": {
+        "status": "Adventure preview · Finish · Gems 33/37 · X 10100 Y 46 V 220 F 1 · Escape to pause · M to mute",
+        "gems": 33,
+        "stars": "STARS 3/3",
+        "recoveries": [],
+        "ferryPickup": {
+          "x": 7251,
+          "y": 142,
+          "gems": 26,
+          "time": 39659
+        },
+        "sampleCount": 567
+      },
+      "replay": {
+        "status": "Adventure preview · Playing · X 60 Y 164 V 0 F 1 · Escape to pause · M to mute",
+        "gems": 0,
+        "stars": "STARS 0/3"
+      },
+      "errors": [],
+      "scriptResources": [
+        "/build-assets/index-A0z396V7.js"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="540" viewBox="0 0 1000 540" role="img" aria-labelledby="title desc">
+  <title id="title">Quarry authored reward changes</title>
+  <desc id="desc">Static before and after diagram. Ground gems frame the existing mine cache, and the crusher bonus moves from the spring pit to the unchanged ferry. Not a gameplay screenshot.</desc>
+  <style>text{font-family:system-ui,sans-serif;fill:#18343d;font-size:15px}.heading{font-size:20px;font-weight:bold}.ground{stroke:#59616a;stroke-width:4;fill:none}.gem{fill:#6fe2d1;stroke:#155d60;stroke-width:2}.bonus{fill:#ffd873;stroke:#9a6126;stroke-width:2}.ride{stroke:#59616a;stroke-width:8}.path{stroke:#7f9295;stroke-width:2;stroke-dasharray:5 5}</style>
+  <rect width="1000" height="540" rx="16" fill="#eef6ef"/>
+  <text x="30" y="35" class="heading">QUARRY RUN · choices within the existing route</text>
+  <text x="30" y="60">Authored layout only · 37 gems / 3 stars · all terrain, rides and checkpoints unchanged</text>
+  <text x="30" y="100" class="heading">Mine tunnel: frame the jump cache with ground gems</text>
+  <text x="30" y="130">Before</text><text x="510" y="130">After</text>
+  <path class="ground" d="M30 230 L110 200 L310 200 L450 215"/>
+  <path class="ground" d="M510 230 L590 200 L790 200 L930 215"/>
+  <path class="gem" d="M190 173 l8 9 -8 9 -8 -9 Z"/>
+  <path class="bonus" d="M210 136 l9 9 -9 9 -9 -9 Z"/>
+  <text x="155" y="254">5480 / 5500</text><text x="30" y="277">Next ground gem at 5950, beyond the next slime</text>
+  <path class="gem" d="M590 173 l8 9 -8 9 -8 -9 Z"/>
+  <path class="bonus" d="M690 136 l9 9 -9 9 -9 -9 Z"/>
+  <path class="gem" d="M830 178 l8 9 -8 9 -8 -9 Z"/>
+  <text x="560" y="254">5400</text><text x="665" y="254">5500</text><text x="805" y="254">5640</text>
+  <text x="510" y="277">Walk → optional tapped jump → clear ground return</text>
+  <text x="30" y="320" class="heading">Crusher yard: reward the ferry crossing</text>
+  <path class="ground" d="M40 466 L900 466"/>
+  <path class="path" d="M150 424 L414 424"/>
+  <path class="ride" d="M150 424 L246 424"/>
+  <path class="bonus" d="M290 397 l9 9 -9 9 -9 -9 Z"/>
+  <path d="M235 466 l15 -22 15 22 M355 466 l15 -22 15 22" fill="#59616a"/>
+  <text x="75" y="494">7130 dock</text><text x="260" y="374">Bonus 7200, y158</text><text x="398" y="494">7262 dock</text>
+  <text x="560" y="370">Before: bonus at 7860, above the spring pit</text>
+  <text x="560" y="396">After: 18px above the ferry deck (y176)</text>
+  <text x="560" y="422">Hop aboard; ride, then walk off at the right dock</text>
+  <text x="560" y="448">A normal jump remains an alternative pickup</text>
+  <text x="30" y="526">Illustrative diagram: local X scales differ between panels. Terrain and platform geometry are not changed.</text>
+</svg>

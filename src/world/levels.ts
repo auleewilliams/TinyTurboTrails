@@ -173,11 +173,11 @@ export const QUARRY_RUN: LevelData = withSlimePatrols({
     quarryGem('quarry-gem-017', 5100),
     quarryDecoration('quarry-deco-005', 4300, 'cave'),
     quarryDecoration('quarry-deco-006', 4900, 'bush'),
-    // Mine tunnels
-    quarryGem('quarry-gem-018', 5480),
+    // Mine tunnels: a ground approach and return frame the optional cave cache.
+    quarryGem('quarry-gem-018', 5400),
     quarryGem('quarry-bonus-004', 5500, 55),
     quarryThing('slime', 'quarry-slime-004', 5800),
-    quarryGem('quarry-gem-019', 5950),
+    quarryGem('quarry-gem-019', 5640),
     quarryThing('slime', 'quarry-slime-005', 6100),
     quarryGem('quarry-gem-020', 6250),
     quarryThing('spring', 'quarry-spring-006', 6480),
@@ -189,13 +189,15 @@ export const QUARRY_RUN: LevelData = withSlimePatrols({
     quarryDecoration('quarry-deco-009', 6780, 'bush'),
     // Crusher yard
     quarryGem('quarry-gem-023', 7100),
+    // The existing ferry offers a calm way to this bonus, above the paired crushers.
+    // A normal jump can reach it too; neither the ride nor the gem gates the route.
+    quarryGem('quarry-bonus-005', 7200, 60),
     quarryThing('hazard', 'quarry-hazard-004', 7180),
     quarryThing('hazard', 'quarry-hazard-005', 7240),
     quarryGem('quarry-gem-024', 7460),
     quarryThing('slime', 'quarry-slime-006', 7560),
     quarryThing('hazard', 'quarry-hazard-006', 7660),
     quarryThing('spring', 'quarry-spring-007', 7780),
-    quarryGem('quarry-bonus-005', 7860, 120, 7780),
     quarryLedge('quarry-ledge-002', 8036, 208),
     quarryGem('quarry-gem-025', 8040),
     quarryThing('hazard', 'quarry-hazard-007', 8120),
