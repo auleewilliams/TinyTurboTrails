@@ -87,12 +87,15 @@ it('pauses slimes with gameplay and restores their initial positions on replay',
   expect(entityPosition(live.run, slime)).toEqual({ x: slime.x, y: slime.y });
 });
 
-it.each([FROST_RIDGE, SANDY_COVE])('rewards holding jump during a spring ride in $name', (level) => {
+it.each([FROST_RIDGE, SANDY_COVE])('collects every authored bonus with optional movement in $name', (level) => {
   const scene = new AdventureScene({} as HTMLImageElement, {} as never, worlds(), audio([]), level);
   scene.update(1 / 60, { ...neutral, jumpPressed: true });
   const live = scene as unknown as { run: RunState; player: Player };
+  let snowHop = false;
   for (let frame = 0; frame < 60 * 180 && scene.screenState !== 'finish'; frame++) {
-    scene.update(1 / 60, { ...neutral, horizontal: 1, jumpHeld: live.player.vy < 0 });
+    const jumpPressed: boolean = level.id === 'frost' && !snowHop && live.player.x >= 5090 && live.player.onGround;
+    snowHop ||= jumpPressed;
+    scene.update(1 / 60, { ...neutral, horizontal: 1, jumpPressed, jumpHeld: live.player.vy < 0 || jumpPressed });
   }
   expect(scene.screenState).toBe('finish');
   expect([...live.run.collectedGems].filter((id) => id.includes('-bonus-'))).toHaveLength(level.id === 'frost' ? 3 : 6);

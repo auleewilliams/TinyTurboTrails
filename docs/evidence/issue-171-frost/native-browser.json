@@ -1,0 +1,292 @@
+{
+  "baselineCommit": "a958aeb48c1d9469b7da22bcb227c42c5caf7f84",
+  "capturedAtUtc": "2026-10-15T11:33:33.918Z",
+  "method": "Native RAF and unchanged production clock; keyboard inputs and read-only render observation; no scene access, teleports, reward writes or disabled hazards",
+  "observations": [
+    {
+      "id": "frost",
+      "phase": "before",
+      "mode": "evidence",
+      "engine": "chromium",
+      "version": "153.0.8010.12",
+      "platform": "win32",
+      "clock": "Native RAF and unmodified production clock; keyboard-input only, no scene access or state writes",
+      "viewport": {
+        "width": 852,
+        "height": 528
+      },
+      "poses": [
+        {
+          "name": "snow-approach",
+          "target": 5070,
+          "status": "Adventure preview · Playing · X 5075 Y 148 V -1 F 1 · Escape to pause · M to mute",
+          "gems": 18,
+          "stars": "",
+          "targetLastSeenAgesMs": {
+            "frost-bonus-2": 1506.300000011921
+          },
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        },
+        {
+          "name": "snow-return",
+          "target": 5250,
+          "status": "Adventure preview · Playing · X 5249 Y 119 V -1 F 1 · Escape to pause · M to mute",
+          "gems": 19,
+          "stars": "",
+          "targetLastSeenAgesMs": {
+            "frost-bonus-2": 3021.300000011921
+          },
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        }
+      ],
+      "final": {
+        "status": "Adventure preview · Playing · X 5249 Y 119 V -1 F 1 · Escape to pause · M to mute",
+        "gems": 19,
+        "stars": "",
+        "recoveries": [],
+        "sampleCount": 253
+      },
+      "errors": [],
+      "scriptResources": [
+        "/build-assets/index-DUbmCZQC.js"
+      ]
+    },
+    {
+      "id": "frost",
+      "phase": "after",
+      "mode": "optional",
+      "engine": "chromium",
+      "version": "153.0.8010.12",
+      "platform": "win32",
+      "clock": "Native RAF and unmodified production clock; keyboard-input only, no scene access or state writes",
+      "viewport": {
+        "width": 852,
+        "height": 528
+      },
+      "poses": [
+        {
+          "name": "snow-approach",
+          "target": 5070,
+          "status": "Adventure preview · Playing · X 5075 Y 148 V -1 F 1 · Escape to pause · M to mute",
+          "gems": 17,
+          "stars": "",
+          "targetLastSeenAgesMs": {
+            "frost-bonus-2": 7.100000008940697
+          },
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        },
+        {
+          "name": "snow-return",
+          "target": 5250,
+          "status": "Adventure preview · Playing · X 5249 Y 119 V -1 F 1 · Escape to pause · M to mute",
+          "gems": 20,
+          "stars": "",
+          "targetLastSeenAgesMs": {
+            "frost-bonus-2": 945.6000000089407
+          },
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        }
+      ],
+      "final": {
+        "status": "Adventure preview · Finish · Gems 37/39 · X 11102 Y 132 V 220 F 1 · Escape to pause · M to mute",
+        "gems": 37,
+        "stars": "",
+        "recoveries": [],
+        "sampleCount": 535
+      },
+      "replay": {
+        "status": "Adventure preview · Playing · X 60 Y 164 V 0 F 1 · Escape to pause · M to mute",
+        "gems": 0,
+        "stars": ""
+      },
+      "errors": [],
+      "scriptResources": [
+        "/build-assets/index-C5tMfAJU.js"
+      ]
+    },
+    {
+      "id": "frost",
+      "phase": "after",
+      "mode": "main",
+      "engine": "chromium",
+      "version": "153.0.8010.12",
+      "platform": "win32",
+      "clock": "Native RAF and unmodified production clock; keyboard-input only, no scene access or state writes",
+      "viewport": {
+        "width": 852,
+        "height": 528
+      },
+      "poses": [
+        {
+          "name": "snow-approach",
+          "target": 5070,
+          "status": "Adventure preview · Playing · X 5075 Y 148 V -1 F 1 · Escape to pause · M to mute",
+          "gems": 17,
+          "stars": "",
+          "targetLastSeenAgesMs": {
+            "frost-bonus-2": 8.100000008940697
+          },
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        },
+        {
+          "name": "snow-return",
+          "target": 5250,
+          "status": "Adventure preview · Playing · X 5249 Y 119 V -1 F 1 · Escape to pause · M to mute",
+          "gems": 19,
+          "stars": "",
+          "targetLastSeenAgesMs": {
+            "frost-bonus-2": 8.5
+          },
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        }
+      ],
+      "final": {
+        "status": "Adventure preview · Finish · Gems 36/39 · X 11101 Y 132 V 220 F 1 · Escape to pause · M to mute",
+        "gems": 36,
+        "stars": "",
+        "recoveries": [
+          {
+            "time": 52280.2,
+            "from": 10921,
+            "to": 9400
+          }
+        ],
+        "sampleCount": 605
+      },
+      "replay": {
+        "status": "Adventure preview · Playing · X 60 Y 164 V 0 F 1 · Escape to pause · M to mute",
+        "gems": 0,
+        "stars": ""
+      },
+      "errors": [],
+      "scriptResources": [
+        "/build-assets/index-C5tMfAJU.js"
+      ]
+    },
+    {
+      "id": "frost",
+      "phase": "after",
+      "mode": "optional",
+      "engine": "webkit",
+      "version": "26.6",
+      "platform": "win32",
+      "clock": "Native RAF and unmodified production clock; keyboard-input only, no scene access or state writes",
+      "viewport": {
+        "width": 852,
+        "height": 528
+      },
+      "poses": [
+        {
+          "name": "snow-approach",
+          "target": 5070,
+          "status": "Adventure preview · Playing · X 5075 Y 148 V -1 F 1 · Escape to pause · M to mute",
+          "gems": 17,
+          "stars": "",
+          "targetLastSeenAgesMs": {
+            "frost-bonus-2": 3
+          },
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        },
+        {
+          "name": "snow-return",
+          "target": 5250,
+          "status": "Adventure preview · Playing · X 5249 Y 119 V -1 F 1 · Escape to pause · M to mute",
+          "gems": 20,
+          "stars": "",
+          "targetLastSeenAgesMs": {
+            "frost-bonus-2": 962
+          },
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        }
+      ],
+      "final": {
+        "status": "Adventure preview · Finish · Gems 37/39 · X 11103 Y 132 V 220 F 1 · Escape to pause · M to mute",
+        "gems": 37,
+        "stars": "",
+        "recoveries": [],
+        "sampleCount": 558
+      },
+      "replay": {
+        "status": "Adventure preview · Playing · X 60 Y 164 V 0 F 1 · Escape to pause · M to mute",
+        "gems": 0,
+        "stars": ""
+      },
+      "errors": [],
+      "scriptResources": [
+        "/build-assets/index-C5tMfAJU.js"
+      ]
+    }
+  ]
+}

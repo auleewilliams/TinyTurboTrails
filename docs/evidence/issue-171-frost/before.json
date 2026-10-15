@@ -1,0 +1,923 @@
+{
+  "id": "frost",
+  "name": "FROST RIDGE",
+  "atlas": "frost",
+  "width": 11200,
+  "height": 240,
+  "minX": 0,
+  "maxX": 11200,
+  "surfaces": [
+    {
+      "x1": 0,
+      "x2": 300,
+      "y1": 198,
+      "y2": 198
+    },
+    {
+      "x1": 300,
+      "x2": 700,
+      "y1": 198,
+      "y2": 198,
+      "material": "ice",
+      "friction": 0.45
+    },
+    {
+      "x1": 700,
+      "x2": 1250,
+      "y1": 198,
+      "y2": 198
+    },
+    {
+      "x1": 1250,
+      "x2": 1450,
+      "y1": 198,
+      "y2": 166
+    },
+    {
+      "x1": 1450,
+      "x2": 1800,
+      "y1": 166,
+      "y2": 166
+    },
+    {
+      "x1": 1800,
+      "x2": 2100,
+      "y1": 166,
+      "y2": 166
+    },
+    {
+      "x1": 2100,
+      "x2": 2600,
+      "y1": 166,
+      "y2": 166,
+      "material": "ice",
+      "friction": 0.45
+    },
+    {
+      "x1": 2600,
+      "x2": 3100,
+      "y1": 166,
+      "y2": 166
+    },
+    {
+      "x1": 3100,
+      "x2": 3350,
+      "y1": 166,
+      "y2": 186
+    },
+    {
+      "x1": 3350,
+      "x2": 3700,
+      "y1": 186,
+      "y2": 186
+    },
+    {
+      "x1": 3700,
+      "x2": 4000,
+      "y1": 186,
+      "y2": 186
+    },
+    {
+      "x1": 4000,
+      "x2": 4450,
+      "y1": 186,
+      "y2": 186,
+      "material": "ice",
+      "friction": 0.45
+    },
+    {
+      "x1": 4450,
+      "x2": 5050,
+      "y1": 186,
+      "y2": 186
+    },
+    {
+      "x1": 5050,
+      "x2": 5300,
+      "y1": 186,
+      "y2": 144
+    },
+    {
+      "x1": 5300,
+      "x2": 5500,
+      "y1": 144,
+      "y2": 144
+    },
+    {
+      "x1": 5500,
+      "x2": 5850,
+      "y1": 144,
+      "y2": 144
+    },
+    {
+      "x1": 5850,
+      "x2": 6300,
+      "y1": 144,
+      "y2": 144,
+      "material": "ice",
+      "friction": 0.45
+    },
+    {
+      "x1": 6300,
+      "x2": 6900,
+      "y1": 144,
+      "y2": 144
+    },
+    {
+      "x1": 6900,
+      "x2": 7150,
+      "y1": 144,
+      "y2": 174
+    },
+    {
+      "x1": 7150,
+      "x2": 7400,
+      "y1": 174,
+      "y2": 174
+    },
+    {
+      "x1": 7400,
+      "x2": 7700,
+      "y1": 174,
+      "y2": 174
+    },
+    {
+      "x1": 7700,
+      "x2": 8150,
+      "y1": 174,
+      "y2": 174,
+      "material": "ice",
+      "friction": 0.45
+    },
+    {
+      "x1": 8150,
+      "x2": 8800,
+      "y1": 174,
+      "y2": 174
+    },
+    {
+      "x1": 8800,
+      "x2": 9050,
+      "y1": 174,
+      "y2": 142
+    },
+    {
+      "x1": 9050,
+      "x2": 9300,
+      "y1": 142,
+      "y2": 142
+    },
+    {
+      "x1": 9300,
+      "x2": 9600,
+      "y1": 142,
+      "y2": 142
+    },
+    {
+      "x1": 9600,
+      "x2": 10000,
+      "y1": 142,
+      "y2": 142,
+      "material": "ice",
+      "friction": 0.45
+    },
+    {
+      "x1": 10000,
+      "x2": 10700,
+      "y1": 142,
+      "y2": 142
+    },
+    {
+      "x1": 10700,
+      "x2": 10900,
+      "y1": 142,
+      "y2": 166
+    },
+    {
+      "x1": 10900,
+      "x2": 11200,
+      "y1": 166,
+      "y2": 166
+    }
+  ],
+  "start": {
+    "x": 60,
+    "y": 198
+  },
+  "finish": {
+    "x": 11100,
+    "y": 166,
+    "asset": "finish-arch"
+  },
+  "theme": {
+    "slimeAccessory": "bobble",
+    "material": "frost",
+    "weather": {
+      "kind": "snow",
+      "count": 28,
+      "color": "#f4fbff90",
+      "drift": 4,
+      "fall": 10,
+      "sway": 5
+    },
+    "sky": "#c2e8f4",
+    "ground": "#dcebf3",
+    "edge": "#294e78",
+    "parallax": [
+      {
+        "asset": "hills",
+        "x": 180,
+        "y": 100,
+        "scale": 3
+      },
+      {
+        "asset": "hills",
+        "x": 710,
+        "y": 100,
+        "scale": 3
+      },
+      {
+        "asset": "hills",
+        "x": 1250,
+        "y": 100,
+        "scale": 3
+      },
+      {
+        "asset": "hills",
+        "x": 1800,
+        "y": 100,
+        "scale": 3
+      },
+      {
+        "asset": "hills",
+        "x": 2320,
+        "y": 100,
+        "scale": 3
+      }
+    ]
+  },
+  "checkpoints": [
+    {
+      "id": "frost-checkpoint-1",
+      "x": 120,
+      "y": 198
+    },
+    {
+      "id": "frost-checkpoint-2",
+      "x": 1900,
+      "y": 166
+    },
+    {
+      "id": "frost-checkpoint-3",
+      "x": 3800,
+      "y": 186
+    },
+    {
+      "id": "frost-checkpoint-4",
+      "x": 5600,
+      "y": 144
+    },
+    {
+      "id": "frost-checkpoint-5",
+      "x": 7500,
+      "y": 174
+    },
+    {
+      "id": "frost-checkpoint-6",
+      "x": 9400,
+      "y": 142
+    }
+  ],
+  "entities": [
+    {
+      "id": "frost-slime-1",
+      "kind": "slime",
+      "asset": "slime",
+      "x": 1550,
+      "y": 166,
+      "layer": "world",
+      "patrol": {
+        "minX": 1490,
+        "maxX": 1610,
+        "speed": 36
+      }
+    },
+    {
+      "id": "frost-slime-2",
+      "kind": "slime",
+      "asset": "slime",
+      "x": 3400,
+      "y": 186,
+      "layer": "world",
+      "patrol": {
+        "minX": 3340,
+        "maxX": 3460,
+        "speed": 36
+      }
+    },
+    {
+      "id": "frost-slime-3",
+      "kind": "slime",
+      "asset": "slime",
+      "x": 5400,
+      "y": 144,
+      "layer": "world",
+      "patrol": {
+        "minX": 5340,
+        "maxX": 5460,
+        "speed": 36
+      }
+    },
+    {
+      "id": "frost-slime-4",
+      "kind": "slime",
+      "asset": "slime",
+      "x": 7250,
+      "y": 174,
+      "layer": "world",
+      "patrol": {
+        "minX": 7190,
+        "maxX": 7310,
+        "speed": 36
+      }
+    },
+    {
+      "id": "frost-slime-5",
+      "kind": "slime",
+      "asset": "slime",
+      "x": 9150,
+      "y": 142,
+      "layer": "world",
+      "patrol": {
+        "minX": 9090,
+        "maxX": 9210,
+        "speed": 36
+      }
+    },
+    {
+      "id": "frost-slime-6",
+      "kind": "slime",
+      "asset": "slime",
+      "x": 11000,
+      "y": 166,
+      "layer": "world",
+      "patrol": {
+        "minX": 10940,
+        "maxX": 11060,
+        "speed": 36
+      }
+    },
+    {
+      "id": "frost-gem-1",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 220,
+      "y": 180,
+      "layer": "world"
+    },
+    {
+      "id": "frost-gem-2",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 420,
+      "y": 180,
+      "layer": "world"
+    },
+    {
+      "id": "frost-gem-3",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 650,
+      "y": 180,
+      "layer": "world"
+    },
+    {
+      "id": "frost-gem-4",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 920,
+      "y": 180,
+      "layer": "world"
+    },
+    {
+      "id": "frost-gem-5",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 1370,
+      "y": 160.8,
+      "layer": "world"
+    },
+    {
+      "id": "frost-gem-6",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 1660,
+      "y": 148,
+      "layer": "world"
+    },
+    {
+      "id": "frost-gem-7",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 2020,
+      "y": 148,
+      "layer": "world"
+    },
+    {
+      "id": "frost-gem-8",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 2310,
+      "y": 148,
+      "layer": "world"
+    },
+    {
+      "id": "frost-gem-9",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 2550,
+      "y": 148,
+      "layer": "world"
+    },
+    {
+      "id": "frost-gem-10",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 2750,
+      "y": 148,
+      "layer": "world"
+    },
+    {
+      "id": "frost-gem-11",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 3220,
+      "y": 157.6,
+      "layer": "world"
+    },
+    {
+      "id": "frost-gem-12",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 3500,
+      "y": 168,
+      "layer": "world"
+    },
+    {
+      "id": "frost-gem-13",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 3910,
+      "y": 168,
+      "layer": "world"
+    },
+    {
+      "id": "frost-gem-14",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 4150,
+      "y": 168,
+      "layer": "world"
+    },
+    {
+      "id": "frost-gem-15",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 4400,
+      "y": 168,
+      "layer": "world"
+    },
+    {
+      "id": "frost-gem-16",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 4670,
+      "y": 168,
+      "layer": "world"
+    },
+    {
+      "id": "frost-gem-17",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 5150,
+      "y": 151.2,
+      "layer": "world"
+    },
+    {
+      "id": "frost-gem-18",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 5390,
+      "y": 126,
+      "layer": "world"
+    },
+    {
+      "id": "frost-gem-19",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 5750,
+      "y": 126,
+      "layer": "world"
+    },
+    {
+      "id": "frost-gem-20",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 6050,
+      "y": 126,
+      "layer": "world"
+    },
+    {
+      "id": "frost-gem-21",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 6260,
+      "y": 126,
+      "layer": "world"
+    },
+    {
+      "id": "frost-gem-22",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 6490,
+      "y": 126,
+      "layer": "world"
+    },
+    {
+      "id": "frost-gem-23",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 7020,
+      "y": 140.4,
+      "layer": "world"
+    },
+    {
+      "id": "frost-gem-24",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 7310,
+      "y": 156,
+      "layer": "world"
+    },
+    {
+      "id": "frost-gem-25",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 7650,
+      "y": 156,
+      "layer": "world"
+    },
+    {
+      "id": "frost-gem-26",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 7860,
+      "y": 156,
+      "layer": "world"
+    },
+    {
+      "id": "frost-gem-27",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 8100,
+      "y": 156,
+      "layer": "world"
+    },
+    {
+      "id": "frost-gem-28",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 8300,
+      "y": 156,
+      "layer": "world"
+    },
+    {
+      "id": "frost-gem-29",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 8900,
+      "y": 143.2,
+      "layer": "world"
+    },
+    {
+      "id": "frost-gem-30",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 9200,
+      "y": 124,
+      "layer": "world"
+    },
+    {
+      "id": "frost-gem-31",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 9510,
+      "y": 124,
+      "layer": "world"
+    },
+    {
+      "id": "frost-gem-32",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 9780,
+      "y": 124,
+      "layer": "world"
+    },
+    {
+      "id": "frost-gem-33",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 9970,
+      "y": 124,
+      "layer": "world"
+    },
+    {
+      "id": "frost-gem-34",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 10200,
+      "y": 124,
+      "layer": "world"
+    },
+    {
+      "id": "frost-gem-35",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 10800,
+      "y": 136,
+      "layer": "world"
+    },
+    {
+      "id": "frost-gem-36",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 11000,
+      "y": 148,
+      "layer": "world"
+    },
+    {
+      "id": "frost-spring-1",
+      "kind": "spring",
+      "asset": "spring",
+      "x": 1050,
+      "y": 198,
+      "layer": "world"
+    },
+    {
+      "id": "frost-spring-2",
+      "kind": "spring",
+      "asset": "spring",
+      "x": 2850,
+      "y": 166,
+      "layer": "world"
+    },
+    {
+      "id": "frost-spring-3",
+      "kind": "spring",
+      "asset": "spring",
+      "x": 4800,
+      "y": 186,
+      "layer": "world"
+    },
+    {
+      "id": "frost-spring-4",
+      "kind": "spring",
+      "asset": "spring",
+      "x": 6650,
+      "y": 144,
+      "layer": "world"
+    },
+    {
+      "id": "frost-spring-5",
+      "kind": "spring",
+      "asset": "spring",
+      "x": 8450,
+      "y": 174,
+      "layer": "world"
+    },
+    {
+      "id": "frost-spring-6",
+      "kind": "spring",
+      "asset": "spring",
+      "x": 10350,
+      "y": 142,
+      "layer": "world"
+    },
+    {
+      "id": "frost-hazard-1",
+      "kind": "hazard",
+      "asset": "stone",
+      "x": 1110,
+      "y": 198,
+      "layer": "world"
+    },
+    {
+      "id": "frost-hazard-2",
+      "kind": "hazard",
+      "asset": "stone",
+      "x": 2910,
+      "y": 166,
+      "layer": "world"
+    },
+    {
+      "id": "frost-hazard-3",
+      "kind": "hazard",
+      "asset": "stone",
+      "x": 4860,
+      "y": 186,
+      "layer": "world"
+    },
+    {
+      "id": "frost-hazard-4",
+      "kind": "hazard",
+      "asset": "stone",
+      "x": 6710,
+      "y": 144,
+      "layer": "world"
+    },
+    {
+      "id": "frost-hazard-5",
+      "kind": "hazard",
+      "asset": "stone",
+      "x": 8510,
+      "y": 174,
+      "layer": "world"
+    },
+    {
+      "id": "frost-hazard-6",
+      "kind": "hazard",
+      "asset": "stone",
+      "x": 10410,
+      "y": 142,
+      "layer": "world"
+    },
+    {
+      "id": "frost-bonus-1",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 1115,
+      "y": 83,
+      "layer": "world"
+    },
+    {
+      "id": "frost-bonus-2",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 4865,
+      "y": 71,
+      "layer": "world"
+    },
+    {
+      "id": "frost-bonus-3",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 8515,
+      "y": 59,
+      "layer": "world"
+    },
+    {
+      "id": "frost-decoration-1",
+      "kind": "decoration",
+      "asset": "cave",
+      "x": 850,
+      "y": 198,
+      "layer": "back"
+    },
+    {
+      "id": "frost-decoration-2",
+      "kind": "decoration",
+      "asset": "tree",
+      "x": 1550,
+      "y": 166,
+      "layer": "back"
+    },
+    {
+      "id": "frost-decoration-3",
+      "kind": "decoration",
+      "asset": "tree",
+      "x": 2740,
+      "y": 166,
+      "layer": "back"
+    },
+    {
+      "id": "frost-decoration-4",
+      "kind": "decoration",
+      "asset": "cave",
+      "x": 3450,
+      "y": 186,
+      "layer": "back"
+    },
+    {
+      "id": "frost-decoration-5",
+      "kind": "decoration",
+      "asset": "tree",
+      "x": 4610,
+      "y": 186,
+      "layer": "back"
+    },
+    {
+      "id": "frost-decoration-6",
+      "kind": "decoration",
+      "asset": "tree",
+      "x": 5200,
+      "y": 160.8,
+      "layer": "back"
+    },
+    {
+      "id": "frost-decoration-7",
+      "kind": "decoration",
+      "asset": "cave",
+      "x": 6450,
+      "y": 144,
+      "layer": "back"
+    },
+    {
+      "id": "frost-decoration-8",
+      "kind": "decoration",
+      "asset": "tree",
+      "x": 7200,
+      "y": 174,
+      "layer": "back"
+    },
+    {
+      "id": "frost-decoration-9",
+      "kind": "decoration",
+      "asset": "tree",
+      "x": 8310,
+      "y": 174,
+      "layer": "back"
+    },
+    {
+      "id": "frost-decoration-10",
+      "kind": "decoration",
+      "asset": "cave",
+      "x": 9000,
+      "y": 148.4,
+      "layer": "back"
+    },
+    {
+      "id": "frost-decoration-11",
+      "kind": "decoration",
+      "asset": "tree",
+      "x": 10150,
+      "y": 142,
+      "layer": "back"
+    },
+    {
+      "id": "frost-decoration-12",
+      "kind": "decoration",
+      "asset": "tree",
+      "x": 10950,
+      "y": 166,
+      "layer": "back"
+    },
+    {
+      "id": "frost-checkpoint-1",
+      "x": 120,
+      "y": 198,
+      "kind": "checkpoint",
+      "asset": "checkpoint",
+      "layer": "world"
+    },
+    {
+      "id": "frost-checkpoint-2",
+      "x": 1900,
+      "y": 166,
+      "kind": "checkpoint",
+      "asset": "checkpoint",
+      "layer": "world"
+    },
+    {
+      "id": "frost-checkpoint-3",
+      "x": 3800,
+      "y": 186,
+      "kind": "checkpoint",
+      "asset": "checkpoint",
+      "layer": "world"
+    },
+    {
+      "id": "frost-checkpoint-4",
+      "x": 5600,
+      "y": 144,
+      "kind": "checkpoint",
+      "asset": "checkpoint",
+      "layer": "world"
+    },
+    {
+      "id": "frost-checkpoint-5",
+      "x": 7500,
+      "y": 174,
+      "kind": "checkpoint",
+      "asset": "checkpoint",
+      "layer": "world"
+    },
+    {
+      "id": "frost-checkpoint-6",
+      "x": 9400,
+      "y": 142,
+      "kind": "checkpoint",
+      "asset": "checkpoint",
+      "layer": "world"
+    }
+  ]
+}
