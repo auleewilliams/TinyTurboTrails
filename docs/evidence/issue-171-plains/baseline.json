@@ -1,0 +1,1235 @@
+{
+  "id": "plains",
+  "name": "PLAINS",
+  "atlas": "plains",
+  "theme": {
+    "slimeAccessory": "straw",
+    "material": "soil",
+    "materialSections": [
+      {
+        "from": 0,
+        "to": 3300,
+        "material": "soil"
+      },
+      {
+        "from": 3300,
+        "to": 6500,
+        "material": "stone"
+      },
+      {
+        "from": 6500,
+        "to": 9980,
+        "material": "soil"
+      }
+    ],
+    "scenery": true,
+    "sky": "#8bd0ca",
+    "ground": "#86502f",
+    "edge": "#8bd348",
+    "parallax": [
+      {
+        "asset": "hills",
+        "x": 180,
+        "y": 70,
+        "scale": 3
+      },
+      {
+        "asset": "hills",
+        "x": 700,
+        "y": 70,
+        "scale": 3
+      }
+    ]
+  },
+  "width": 9980,
+  "height": 240,
+  "minX": 0,
+  "maxX": 9980,
+  "start": {
+    "x": 60,
+    "y": 198
+  },
+  "finish": {
+    "x": 9880,
+    "y": 166,
+    "asset": "finish-arch"
+  },
+  "surfaces": [
+    {
+      "x1": 0,
+      "x2": 220,
+      "y1": 198,
+      "y2": 198
+    },
+    {
+      "x1": 220,
+      "x2": 360,
+      "y1": 198,
+      "y2": 158
+    },
+    {
+      "x1": 360,
+      "x2": 650,
+      "y1": 158,
+      "y2": 158
+    },
+    {
+      "x1": 650,
+      "x2": 780,
+      "y1": 158,
+      "y2": 190
+    },
+    {
+      "x1": 780,
+      "x2": 1000,
+      "y1": 190,
+      "y2": 190
+    },
+    {
+      "x1": 1000,
+      "x2": 1120,
+      "y1": 190,
+      "y2": 150
+    },
+    {
+      "x1": 1120,
+      "x2": 1380,
+      "y1": 150,
+      "y2": 150
+    },
+    {
+      "x1": 1380,
+      "x2": 1510,
+      "y1": 150,
+      "y2": 198
+    },
+    {
+      "x1": 1510,
+      "x2": 1750,
+      "y1": 198,
+      "y2": 198
+    },
+    {
+      "x1": 1750,
+      "x2": 1900,
+      "y1": 198,
+      "y2": 142
+    },
+    {
+      "x1": 1900,
+      "x2": 2100,
+      "y1": 142,
+      "y2": 142
+    },
+    {
+      "x1": 2100,
+      "x2": 2250,
+      "y1": 142,
+      "y2": 198
+    },
+    {
+      "x1": 2250,
+      "x2": 2510,
+      "y1": 198,
+      "y2": 198
+    },
+    {
+      "x1": 2510,
+      "x2": 2640,
+      "y1": 198,
+      "y2": 108
+    },
+    {
+      "x1": 2640,
+      "x2": 2870,
+      "y1": 108,
+      "y2": 108
+    },
+    {
+      "x1": 2870,
+      "x2": 3030,
+      "y1": 108,
+      "y2": 170
+    },
+    {
+      "x1": 3030,
+      "x2": 3240,
+      "y1": 170,
+      "y2": 170
+    },
+    {
+      "x1": 3240,
+      "x2": 3360,
+      "y1": 170,
+      "y2": 198
+    },
+    {
+      "x1": 3360,
+      "x2": 3580,
+      "y1": 198,
+      "y2": 198
+    },
+    {
+      "x1": 3580,
+      "x2": 3720,
+      "y1": 198,
+      "y2": 130
+    },
+    {
+      "x1": 3720,
+      "x2": 3910,
+      "y1": 130,
+      "y2": 130
+    },
+    {
+      "x1": 3910,
+      "x2": 4050,
+      "y1": 130,
+      "y2": 200
+    },
+    {
+      "x1": 4050,
+      "x2": 4260,
+      "y1": 200,
+      "y2": 200
+    },
+    {
+      "x1": 4260,
+      "x2": 4410,
+      "y1": 200,
+      "y2": 96
+    },
+    {
+      "x1": 4410,
+      "x2": 4590,
+      "y1": 96,
+      "y2": 96
+    },
+    {
+      "x1": 4590,
+      "x2": 4760,
+      "y1": 96,
+      "y2": 178
+    },
+    {
+      "x1": 4760,
+      "x2": 4980,
+      "y1": 178,
+      "y2": 178
+    },
+    {
+      "x1": 4980,
+      "x2": 5110,
+      "y1": 178,
+      "y2": 198
+    },
+    {
+      "x1": 5110,
+      "x2": 5310,
+      "y1": 198,
+      "y2": 198
+    },
+    {
+      "x1": 5310,
+      "x2": 5440,
+      "y1": 198,
+      "y2": 164
+    },
+    {
+      "x1": 5440,
+      "x2": 5650,
+      "y1": 164,
+      "y2": 164
+    },
+    {
+      "x1": 5650,
+      "x2": 5770,
+      "y1": 164,
+      "y2": 198
+    },
+    {
+      "x1": 5770,
+      "x2": 6020,
+      "y1": 198,
+      "y2": 198
+    },
+    {
+      "x1": 6020,
+      "x2": 6130,
+      "y1": 198,
+      "y2": 150
+    },
+    {
+      "x1": 6130,
+      "x2": 6350,
+      "y1": 150,
+      "y2": 150
+    },
+    {
+      "x1": 6350,
+      "x2": 6490,
+      "y1": 150,
+      "y2": 190
+    },
+    {
+      "x1": 6490,
+      "x2": 6700,
+      "y1": 190,
+      "y2": 190
+    },
+    {
+      "x1": 6700,
+      "x2": 6820,
+      "y1": 190,
+      "y2": 170
+    },
+    {
+      "x1": 6820,
+      "x2": 7050,
+      "y1": 170,
+      "y2": 170
+    },
+    {
+      "x1": 7050,
+      "x2": 7180,
+      "y1": 170,
+      "y2": 132
+    },
+    {
+      "x1": 7180,
+      "x2": 7400,
+      "y1": 132,
+      "y2": 132
+    },
+    {
+      "x1": 7400,
+      "x2": 7540,
+      "y1": 132,
+      "y2": 198
+    },
+    {
+      "x1": 7540,
+      "x2": 7800,
+      "y1": 198,
+      "y2": 198
+    },
+    {
+      "x1": 7800,
+      "x2": 7920,
+      "y1": 198,
+      "y2": 156
+    },
+    {
+      "x1": 7920,
+      "x2": 8150,
+      "y1": 156,
+      "y2": 156
+    },
+    {
+      "x1": 8150,
+      "x2": 8280,
+      "y1": 156,
+      "y2": 198
+    },
+    {
+      "x1": 8280,
+      "x2": 8500,
+      "y1": 198,
+      "y2": 198
+    },
+    {
+      "x1": 8500,
+      "x2": 8650,
+      "y1": 198,
+      "y2": 140
+    },
+    {
+      "x1": 8650,
+      "x2": 8850,
+      "y1": 140,
+      "y2": 140
+    },
+    {
+      "x1": 8850,
+      "x2": 9000,
+      "y1": 140,
+      "y2": 200
+    },
+    {
+      "x1": 9000,
+      "x2": 9220,
+      "y1": 200,
+      "y2": 200
+    },
+    {
+      "x1": 9220,
+      "x2": 9350,
+      "y1": 200,
+      "y2": 112
+    },
+    {
+      "x1": 9350,
+      "x2": 9560,
+      "y1": 112,
+      "y2": 112
+    },
+    {
+      "x1": 9560,
+      "x2": 9720,
+      "y1": 112,
+      "y2": 166
+    },
+    {
+      "x1": 9720,
+      "x2": 9980,
+      "y1": 166,
+      "y2": 166
+    }
+  ],
+  "landingBands": [
+    {
+      "x": 810,
+      "width": 100
+    }
+  ],
+  "checkpoints": [
+    {
+      "id": "checkpoint-meadow",
+      "x": 551,
+      "y": 158
+    },
+    {
+      "id": "checkpoint-hillside",
+      "x": 2422,
+      "y": 198
+    },
+    {
+      "id": "checkpoint-canyon",
+      "x": 4905,
+      "y": 178
+    },
+    {
+      "id": "checkpoint-cave",
+      "x": 5935,
+      "y": 198
+    },
+    {
+      "id": "checkpoint-orchard",
+      "x": 7712,
+      "y": 198
+    },
+    {
+      "id": "checkpoint-summit",
+      "x": 9145,
+      "y": 200
+    }
+  ],
+  "entities": [
+    {
+      "id": "plains-special-1",
+      "kind": "special",
+      "x": 680,
+      "y": 147.3846153846154,
+      "asset": "special",
+      "layer": "world"
+    },
+    {
+      "id": "plains-special-2",
+      "kind": "special",
+      "x": 740,
+      "y": 162.15384615384616,
+      "asset": "special",
+      "layer": "world"
+    },
+    {
+      "id": "plains-special-3",
+      "kind": "special",
+      "x": 820,
+      "y": 172,
+      "asset": "special",
+      "layer": "world"
+    },
+    {
+      "id": "gem-001",
+      "kind": "gem",
+      "x": 90,
+      "y": 178,
+      "asset": "gem",
+      "layer": "world"
+    },
+    {
+      "id": "gem-002",
+      "kind": "gem",
+      "x": 350,
+      "y": 137,
+      "asset": "gem",
+      "layer": "world"
+    },
+    {
+      "id": "gem-003",
+      "kind": "gem",
+      "x": 610,
+      "y": 142,
+      "asset": "gem",
+      "layer": "world"
+    },
+    {
+      "id": "gem-008",
+      "kind": "gem",
+      "x": 760,
+      "y": 133,
+      "asset": "gem",
+      "layer": "world"
+    },
+    {
+      "id": "gem-004",
+      "kind": "gem",
+      "x": 870,
+      "y": 170,
+      "asset": "gem",
+      "layer": "world"
+    },
+    {
+      "id": "gem-005",
+      "kind": "gem",
+      "x": 1130,
+      "y": 126,
+      "asset": "gem",
+      "layer": "world"
+    },
+    {
+      "id": "gem-006",
+      "kind": "gem",
+      "x": 1390,
+      "y": 138,
+      "asset": "gem",
+      "layer": "world"
+    },
+    {
+      "id": "gem-007",
+      "kind": "gem",
+      "x": 1650,
+      "y": 178,
+      "asset": "gem",
+      "layer": "world"
+    },
+    {
+      "id": "gem-009",
+      "kind": "gem",
+      "x": 1990,
+      "y": 126,
+      "asset": "gem",
+      "layer": "world"
+    },
+    {
+      "id": "gem-010",
+      "kind": "gem",
+      "x": 2250,
+      "y": 178,
+      "asset": "gem",
+      "layer": "world"
+    },
+    {
+      "id": "gem-011",
+      "kind": "gem",
+      "x": 2510,
+      "y": 174,
+      "asset": "gem",
+      "layer": "world"
+    },
+    {
+      "id": "gem-016",
+      "kind": "gem",
+      "x": 2628,
+      "y": 64,
+      "asset": "gem",
+      "layer": "world"
+    },
+    {
+      "id": "gem-012",
+      "kind": "gem",
+      "x": 2770,
+      "y": 92,
+      "asset": "gem",
+      "layer": "world"
+    },
+    {
+      "id": "gem-013",
+      "kind": "gem",
+      "x": 3030,
+      "y": 150,
+      "asset": "gem",
+      "layer": "world"
+    },
+    {
+      "id": "gem-014",
+      "kind": "gem",
+      "x": 3290,
+      "y": 158,
+      "asset": "gem",
+      "layer": "world"
+    },
+    {
+      "id": "gem-015",
+      "kind": "gem",
+      "x": 3550,
+      "y": 182,
+      "asset": "gem",
+      "layer": "world"
+    },
+    {
+      "id": "gem-017",
+      "kind": "gem",
+      "x": 3810,
+      "y": 106,
+      "asset": "gem",
+      "layer": "world"
+    },
+    {
+      "id": "gem-018",
+      "kind": "gem",
+      "x": 4070,
+      "y": 184,
+      "asset": "gem",
+      "layer": "world"
+    },
+    {
+      "id": "gem-019",
+      "kind": "gem",
+      "x": 4330,
+      "y": 131,
+      "asset": "gem",
+      "layer": "world"
+    },
+    {
+      "id": "gem-024",
+      "kind": "gem",
+      "x": 4408,
+      "y": 45,
+      "asset": "gem",
+      "layer": "world"
+    },
+    {
+      "id": "gem-020",
+      "kind": "gem",
+      "x": 4590,
+      "y": 72,
+      "asset": "gem",
+      "layer": "world"
+    },
+    {
+      "id": "gem-021",
+      "kind": "gem",
+      "x": 4850,
+      "y": 162,
+      "asset": "gem",
+      "layer": "world"
+    },
+    {
+      "id": "gem-022",
+      "kind": "gem",
+      "x": 5110,
+      "y": 178,
+      "asset": "gem",
+      "layer": "world"
+    },
+    {
+      "id": "gem-023",
+      "kind": "gem",
+      "x": 5370,
+      "y": 158,
+      "asset": "gem",
+      "layer": "world"
+    },
+    {
+      "id": "gem-025",
+      "kind": "gem",
+      "x": 5530,
+      "y": 144,
+      "asset": "gem",
+      "layer": "world"
+    },
+    {
+      "id": "gem-026",
+      "kind": "gem",
+      "x": 5790,
+      "y": 174,
+      "asset": "gem",
+      "layer": "world"
+    },
+    {
+      "id": "gem-027",
+      "kind": "gem",
+      "x": 6050,
+      "y": 169,
+      "asset": "gem",
+      "layer": "world"
+    },
+    {
+      "id": "gem-032",
+      "kind": "gem",
+      "x": 6136,
+      "y": 98,
+      "asset": "gem",
+      "layer": "world"
+    },
+    {
+      "id": "gem-028",
+      "kind": "gem",
+      "x": 6310,
+      "y": 130,
+      "asset": "gem",
+      "layer": "world"
+    },
+    {
+      "id": "gem-029",
+      "kind": "gem",
+      "x": 6570,
+      "y": 166,
+      "asset": "gem",
+      "layer": "world"
+    },
+    {
+      "id": "gem-030",
+      "kind": "gem",
+      "x": 6830,
+      "y": 154,
+      "asset": "gem",
+      "layer": "world"
+    },
+    {
+      "id": "gem-031",
+      "kind": "gem",
+      "x": 7090,
+      "y": 138,
+      "asset": "gem",
+      "layer": "world"
+    },
+    {
+      "id": "gem-033",
+      "kind": "gem",
+      "x": 7270,
+      "y": 116,
+      "asset": "gem",
+      "layer": "world"
+    },
+    {
+      "id": "gem-034",
+      "kind": "gem",
+      "x": 7530,
+      "y": 173,
+      "asset": "gem",
+      "layer": "world"
+    },
+    {
+      "id": "gem-039",
+      "kind": "gem",
+      "x": 7768,
+      "y": 146,
+      "asset": "gem",
+      "layer": "world"
+    },
+    {
+      "id": "gem-035",
+      "kind": "gem",
+      "x": 7790,
+      "y": 174,
+      "asset": "gem",
+      "layer": "world"
+    },
+    {
+      "id": "gem-036",
+      "kind": "gem",
+      "x": 8050,
+      "y": 140,
+      "asset": "gem",
+      "layer": "world"
+    },
+    {
+      "id": "gem-037",
+      "kind": "gem",
+      "x": 8310,
+      "y": 178,
+      "asset": "gem",
+      "layer": "world"
+    },
+    {
+      "id": "gem-038",
+      "kind": "gem",
+      "x": 8570,
+      "y": 147,
+      "asset": "gem",
+      "layer": "world"
+    },
+    {
+      "id": "gem-040",
+      "kind": "gem",
+      "x": 8740,
+      "y": 120,
+      "asset": "gem",
+      "layer": "world"
+    },
+    {
+      "id": "gem-041",
+      "kind": "gem",
+      "x": 9000,
+      "y": 176,
+      "asset": "gem",
+      "layer": "world"
+    },
+    {
+      "id": "gem-045",
+      "kind": "gem",
+      "x": 9182,
+      "y": 148,
+      "asset": "gem",
+      "layer": "world"
+    },
+    {
+      "id": "gem-042",
+      "kind": "gem",
+      "x": 9260,
+      "y": 157,
+      "asset": "gem",
+      "layer": "world"
+    },
+    {
+      "id": "gem-043",
+      "kind": "gem",
+      "x": 9520,
+      "y": 92,
+      "asset": "gem",
+      "layer": "world"
+    },
+    {
+      "id": "gem-044",
+      "kind": "gem",
+      "x": 9780,
+      "y": 142,
+      "asset": "gem",
+      "layer": "world"
+    },
+    {
+      "id": "slime-001",
+      "kind": "slime",
+      "x": 260,
+      "asset": "slime",
+      "layer": "world",
+      "patrol": {
+        "minX": 230,
+        "maxX": 320,
+        "speed": 36
+      },
+      "y": 186.57142857142858
+    },
+    {
+      "id": "slime-002",
+      "kind": "slime",
+      "x": 960,
+      "asset": "slime",
+      "layer": "world",
+      "patrol": {
+        "minX": 900,
+        "maxX": 985,
+        "speed": 36
+      },
+      "y": 190
+    },
+    {
+      "id": "slime-003",
+      "kind": "slime",
+      "x": 1660,
+      "asset": "slime",
+      "layer": "world",
+      "patrol": {
+        "minX": 1600,
+        "maxX": 1720,
+        "speed": 36
+      },
+      "y": 198
+    },
+    {
+      "id": "slime-004",
+      "kind": "slime",
+      "x": 2160,
+      "asset": "slime",
+      "layer": "world",
+      "y": 164.4,
+      "patrol": {
+        "minX": 2100,
+        "maxX": 2220,
+        "speed": 36
+      }
+    },
+    {
+      "id": "slime-005",
+      "kind": "slime",
+      "x": 2860,
+      "asset": "slime",
+      "layer": "world",
+      "patrol": {
+        "minX": 2800,
+        "maxX": 2860,
+        "speed": 36
+      },
+      "y": 108
+    },
+    {
+      "id": "slime-006",
+      "kind": "slime",
+      "x": 3560,
+      "asset": "slime",
+      "layer": "world",
+      "patrol": {
+        "minX": 3500,
+        "maxX": 3570,
+        "speed": 36
+      },
+      "y": 198
+    },
+    {
+      "id": "slime-007",
+      "kind": "slime",
+      "x": 3980,
+      "asset": "slime",
+      "layer": "world",
+      "y": 165,
+      "patrol": {
+        "minX": 3920,
+        "maxX": 4040,
+        "speed": 36
+      }
+    },
+    {
+      "id": "slime-008",
+      "kind": "slime",
+      "x": 4680,
+      "asset": "slime",
+      "layer": "world",
+      "y": 139.41176470588235,
+      "patrol": {
+        "minX": 4620,
+        "maxX": 4740,
+        "speed": 36
+      }
+    },
+    {
+      "id": "slime-009",
+      "kind": "slime",
+      "x": 5700,
+      "asset": "slime",
+      "layer": "world",
+      "y": 178.16666666666666,
+      "patrol": {
+        "minX": 5640,
+        "maxX": 5760,
+        "speed": 36
+      }
+    },
+    {
+      "id": "slime-010",
+      "kind": "slime",
+      "x": 6400,
+      "asset": "slime",
+      "layer": "world",
+      "y": 164.28571428571428,
+      "patrol": {
+        "minX": 6340,
+        "maxX": 6460,
+        "speed": 36
+      }
+    },
+    {
+      "id": "slime-011",
+      "kind": "slime",
+      "x": 7440,
+      "asset": "slime",
+      "layer": "world",
+      "y": 150.85714285714286,
+      "patrol": {
+        "minX": 7380,
+        "maxX": 7500,
+        "speed": 36
+      }
+    },
+    {
+      "id": "slime-012",
+      "kind": "slime",
+      "x": 8140,
+      "asset": "slime",
+      "layer": "world",
+      "patrol": {
+        "minX": 8080,
+        "maxX": 8140,
+        "speed": 36
+      },
+      "y": 156
+    },
+    {
+      "id": "slime-013",
+      "kind": "slime",
+      "x": 8910,
+      "asset": "slime",
+      "layer": "world",
+      "y": 164,
+      "patrol": {
+        "minX": 8850,
+        "maxX": 8970,
+        "speed": 36
+      }
+    },
+    {
+      "id": "slime-014",
+      "kind": "slime",
+      "x": 9610,
+      "asset": "slime",
+      "layer": "world",
+      "y": 128.875,
+      "patrol": {
+        "minX": 9550,
+        "maxX": 9670,
+        "speed": 36
+      }
+    },
+    {
+      "id": "spring-001",
+      "kind": "spring",
+      "x": 1558,
+      "asset": "spring",
+      "layer": "world",
+      "y": 198
+    },
+    {
+      "id": "spring-002",
+      "kind": "spring",
+      "x": 3392,
+      "asset": "spring",
+      "layer": "world",
+      "y": 198
+    },
+    {
+      "id": "spring-003",
+      "kind": "spring",
+      "x": 5131,
+      "asset": "spring",
+      "layer": "world",
+      "y": 198
+    },
+    {
+      "id": "spring-004",
+      "kind": "spring",
+      "x": 6867,
+      "asset": "spring",
+      "layer": "world",
+      "y": 170
+    },
+    {
+      "id": "spring-005",
+      "kind": "spring",
+      "x": 8385,
+      "asset": "spring",
+      "layer": "world",
+      "y": 198
+    },
+    {
+      "id": "spring-006",
+      "kind": "spring",
+      "x": 9741,
+      "asset": "spring",
+      "layer": "world",
+      "y": 166
+    },
+    {
+      "id": "hazard-001",
+      "kind": "hazard",
+      "x": 1045,
+      "y": 155,
+      "asset": "stone",
+      "layer": "world"
+    },
+    {
+      "id": "hazard-002",
+      "kind": "hazard",
+      "x": 2901,
+      "y": 100,
+      "asset": "stone",
+      "layer": "world"
+    },
+    {
+      "id": "hazard-003",
+      "kind": "hazard",
+      "x": 4666,
+      "y": 113,
+      "asset": "stone",
+      "layer": "world"
+    },
+    {
+      "id": "hazard-004",
+      "kind": "hazard",
+      "x": 6397,
+      "y": 143,
+      "asset": "stone",
+      "layer": "world"
+    },
+    {
+      "id": "hazard-005",
+      "kind": "hazard",
+      "x": 7989,
+      "y": 136,
+      "asset": "stone",
+      "layer": "world"
+    },
+    {
+      "id": "hazard-006",
+      "kind": "hazard",
+      "x": 9382,
+      "y": 92,
+      "asset": "stone",
+      "layer": "world"
+    },
+    {
+      "id": "deco-001",
+      "kind": "decoration",
+      "x": 475,
+      "asset": "tree",
+      "layer": "back",
+      "y": 158
+    },
+    {
+      "id": "deco-002",
+      "kind": "decoration",
+      "x": 1330,
+      "asset": "flowers",
+      "layer": "back",
+      "y": 150
+    },
+    {
+      "id": "deco-003",
+      "kind": "decoration",
+      "x": 2355,
+      "asset": "tree",
+      "layer": "back",
+      "y": 198
+    },
+    {
+      "id": "deco-004",
+      "kind": "decoration",
+      "x": 3174,
+      "asset": "bush",
+      "layer": "back",
+      "y": 170
+    },
+    {
+      "id": "deco-005",
+      "kind": "decoration",
+      "x": 4150,
+      "asset": "stone",
+      "layer": "back",
+      "y": 200
+    },
+    {
+      "id": "deco-006",
+      "kind": "decoration",
+      "x": 4924,
+      "asset": "bush",
+      "layer": "back",
+      "y": 178
+    },
+    {
+      "id": "deco-007",
+      "kind": "decoration",
+      "x": 5875,
+      "asset": "cave",
+      "layer": "back",
+      "y": 198
+    },
+    {
+      "id": "deco-008",
+      "kind": "decoration",
+      "x": 6658,
+      "asset": "stone",
+      "layer": "back",
+      "y": 190
+    },
+    {
+      "id": "deco-009",
+      "kind": "decoration",
+      "x": 7548,
+      "asset": "tree",
+      "layer": "back",
+      "y": 198
+    },
+    {
+      "id": "deco-010",
+      "kind": "decoration",
+      "x": 8209,
+      "asset": "flowers",
+      "layer": "back",
+      "y": 175.06153846153848
+    },
+    {
+      "id": "deco-011",
+      "kind": "decoration",
+      "x": 8983,
+      "asset": "tree",
+      "layer": "back",
+      "y": 193.2
+    },
+    {
+      "id": "deco-012",
+      "kind": "decoration",
+      "x": 9581,
+      "asset": "cave",
+      "layer": "back",
+      "y": 119.0875
+    },
+    {
+      "id": "checkpoint-meadow",
+      "kind": "checkpoint",
+      "x": 551,
+      "y": 158,
+      "asset": "checkpoint",
+      "layer": "world"
+    },
+    {
+      "id": "checkpoint-hillside",
+      "kind": "checkpoint",
+      "x": 2422,
+      "y": 198,
+      "asset": "checkpoint",
+      "layer": "world"
+    },
+    {
+      "id": "checkpoint-canyon",
+      "kind": "checkpoint",
+      "x": 4905,
+      "y": 178,
+      "asset": "checkpoint",
+      "layer": "world"
+    },
+    {
+      "id": "checkpoint-cave",
+      "kind": "checkpoint",
+      "x": 5935,
+      "y": 198,
+      "asset": "checkpoint",
+      "layer": "world"
+    },
+    {
+      "id": "checkpoint-orchard",
+      "kind": "checkpoint",
+      "x": 7712,
+      "y": 198,
+      "asset": "checkpoint",
+      "layer": "world"
+    },
+    {
+      "id": "checkpoint-summit",
+      "kind": "checkpoint",
+      "x": 9145,
+      "y": 200,
+      "asset": "checkpoint",
+      "layer": "world"
+    }
+  ]
+}

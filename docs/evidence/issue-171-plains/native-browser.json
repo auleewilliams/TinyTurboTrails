@@ -1,0 +1,454 @@
+{
+  "baselineCommit": "a958aeb48c1d9469b7da22bcb227c42c5caf7f84",
+  "capturedAtUtc": "2026-10-15T11:29:31.031Z",
+  "method": "Native RAF, unchanged production clock and keyboard-only inputs. Render observation only; no scene access or reward/player-state writes.",
+  "observations": [
+    {
+      "id": "plains",
+      "phase": "before",
+      "mode": "evidence",
+      "engine": "chromium",
+      "version": "153.0.8010.12",
+      "platform": "win32",
+      "clock": "Native RAF and unmodified production clock; keyboard-input only, no scene access or state writes",
+      "viewport": {
+        "width": 852,
+        "height": 528
+      },
+      "poses": [
+        {
+          "name": "cave-approach",
+          "target": 6000,
+          "status": "Adventure preview · Playing · X 5998 Y 164 V 0 F 1 · Escape to pause · M to mute",
+          "gems": 23,
+          "stars": "STARS 3/3",
+          "targetLastSeenAgesMs": {
+            "gem-027": 8.299999997019768,
+            "gem-032": 8.299999997019768,
+            "gem-028": 8.299999997019768
+          },
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        },
+        {
+          "name": "cave-return",
+          "target": 6250,
+          "status": "Adventure preview · Playing · X 6248 Y 116 V 0 F 1 · Escape to pause · M to mute",
+          "gems": 24,
+          "stars": "STARS 3/3",
+          "targetLastSeenAgesMs": {
+            "gem-027": 1445,
+            "gem-032": 11.400000005960464,
+            "gem-028": 11.400000005960464
+          },
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        },
+        {
+          "name": "two-stage-hill",
+          "target": 7140,
+          "status": "Adventure preview · Playing · X 7139 Y 110 V -2 F -1 · Escape to pause · M to mute",
+          "gems": 28,
+          "stars": "STARS 3/3",
+          "targetLastSeenAgesMs": {
+            "gem-027": 8065.29999999702,
+            "gem-032": 3432.9000000059605,
+            "gem-028": 6215.70000000298
+          },
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        }
+      ],
+      "final": {
+        "status": "Adventure preview · Playing · X 7139 Y 110 V -2 F -1 · Escape to pause · M to mute",
+        "gems": 28,
+        "stars": "STARS 3/3",
+        "recoveries": [
+          {
+            "time": 17557.1,
+            "from": 3508,
+            "to": 2422
+          },
+          {
+            "time": 25640.1,
+            "from": 3901,
+            "to": 2422
+          },
+          {
+            "time": 45606,
+            "from": 6322,
+            "to": 5935
+          }
+        ],
+        "sampleCount": 515
+      },
+      "errors": [],
+      "scriptResources": [
+        "/build-assets/index-DUbmCZQC.js"
+      ]
+    },
+    {
+      "id": "plains",
+      "phase": "after",
+      "mode": "optional",
+      "engine": "chromium",
+      "version": "153.0.8010.12",
+      "platform": "win32",
+      "clock": "Native RAF and unmodified production clock; keyboard-input only, no scene access or state writes",
+      "viewport": {
+        "width": 852,
+        "height": 528
+      },
+      "poses": [
+        {
+          "name": "cave-approach",
+          "target": 6000,
+          "status": "Adventure preview · Playing · X 5998 Y 164 V 0 F 1 · Escape to pause · M to mute",
+          "gems": 23,
+          "stars": "STARS 3/3",
+          "targetLastSeenAgesMs": {
+            "gem-027": 12.200000002980232,
+            "gem-032": 12.200000002980232,
+            "gem-028": 12.200000002980232
+          },
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        },
+        {
+          "name": "cave-return",
+          "target": 6250,
+          "status": "Adventure preview · Playing · X 6248 Y 116 V 0 F 1 · Escape to pause · M to mute",
+          "gems": 26,
+          "stars": "STARS 3/3",
+          "targetLastSeenAgesMs": {
+            "gem-027": 1201.9000000059605,
+            "gem-032": 1018.9000000059605,
+            "gem-028": 835.6000000089407
+          },
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        },
+        {
+          "name": "two-stage-hill",
+          "target": 7140,
+          "status": "Adventure preview · Playing · X 7137 Y 117 V -1 F 1 · Escape to pause · M to mute",
+          "gems": 29,
+          "stars": "STARS 3/3",
+          "targetLastSeenAgesMs": {
+            "gem-027": 7802.29999999702,
+            "gem-032": 7619.29999999702,
+            "gem-028": 7436
+          },
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        }
+      ],
+      "final": {
+        "status": "Adventure preview · Finish · Gems 39/45 · X 9881 Y 132 V 220 F 1 · Escape to pause · M to mute",
+        "gems": 39,
+        "stars": "STARS 3/3",
+        "recoveries": [
+          {
+            "time": 17629.4,
+            "from": 3508,
+            "to": 2422
+          },
+          {
+            "time": 25712.5,
+            "from": 3901,
+            "to": 2422
+          },
+          {
+            "time": 45561.6,
+            "from": 6323,
+            "to": 5935
+          }
+        ],
+        "sampleCount": 649
+      },
+      "replay": {
+        "status": "Adventure preview · Playing · X 60 Y 164 V 0 F 1 · Escape to pause · M to mute",
+        "gems": 0,
+        "stars": "STARS 0/3"
+      },
+      "errors": [],
+      "scriptResources": [
+        "/build-assets/index-C9Qppdh3.js"
+      ]
+    },
+    {
+      "id": "plains",
+      "phase": "after",
+      "mode": "main",
+      "engine": "chromium",
+      "version": "153.0.8010.12",
+      "platform": "win32",
+      "clock": "Native RAF and unmodified production clock; keyboard-input only, no scene access or state writes",
+      "viewport": {
+        "width": 852,
+        "height": 528
+      },
+      "poses": [
+        {
+          "name": "cave-approach",
+          "target": 6000,
+          "status": "Adventure preview · Playing · X 5998 Y 164 V 0 F 1 · Escape to pause · M to mute",
+          "gems": 23,
+          "stars": "STARS 3/3",
+          "targetLastSeenAgesMs": {
+            "gem-027": 13.199999988079071,
+            "gem-032": 13.199999988079071,
+            "gem-028": 13.199999988079071
+          },
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        },
+        {
+          "name": "cave-return",
+          "target": 6250,
+          "status": "Adventure preview · Playing · X 6248 Y 116 V 0 F 1 · Escape to pause · M to mute",
+          "gems": 23,
+          "stars": "STARS 3/3",
+          "targetLastSeenAgesMs": {
+            "gem-027": 2.2000000029802322,
+            "gem-032": 2.2000000029802322,
+            "gem-028": 2.2000000029802322
+          },
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        },
+        {
+          "name": "two-stage-hill",
+          "target": 7140,
+          "status": "Adventure preview · Playing · X 7137 Y 117 V -1 F 1 · Escape to pause · M to mute",
+          "gems": 26,
+          "stars": "STARS 3/3",
+          "targetLastSeenAgesMs": {
+            "gem-027": 3593.7999999970198,
+            "gem-032": 3410.9000000059605,
+            "gem-028": 3226.7000000029802
+          },
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        }
+      ],
+      "final": {
+        "status": "Adventure preview · Finish · Gems 36/45 · X 9881 Y 132 V 220 F 1 · Escape to pause · M to mute",
+        "gems": 36,
+        "stars": "STARS 3/3",
+        "recoveries": [
+          {
+            "time": 17914.7,
+            "from": 3508,
+            "to": 2422
+          },
+          {
+            "time": 25997.8,
+            "from": 3901,
+            "to": 2422
+          },
+          {
+            "time": 45846.9,
+            "from": 6319,
+            "to": 5935
+          }
+        ],
+        "sampleCount": 651
+      },
+      "replay": {
+        "status": "Adventure preview · Playing · X 60 Y 164 V 0 F 1 · Escape to pause · M to mute",
+        "gems": 0,
+        "stars": "STARS 0/3"
+      },
+      "errors": [],
+      "scriptResources": [
+        "/build-assets/index-C9Qppdh3.js"
+      ]
+    },
+    {
+      "id": "plains",
+      "phase": "after",
+      "mode": "optional",
+      "engine": "webkit",
+      "version": "26.6",
+      "platform": "win32",
+      "clock": "Native RAF and unmodified production clock; keyboard-input only, no scene access or state writes",
+      "viewport": {
+        "width": 852,
+        "height": 528
+      },
+      "poses": [
+        {
+          "name": "cave-approach",
+          "target": 6000,
+          "status": "Adventure preview · Playing · X 5998 Y 164 V 0 F 1 · Escape to pause · M to mute",
+          "gems": 23,
+          "stars": "STARS 3/3",
+          "targetLastSeenAgesMs": {
+            "gem-027": 4,
+            "gem-032": 4,
+            "gem-028": 4
+          },
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        },
+        {
+          "name": "cave-return",
+          "target": 6250,
+          "status": "Adventure preview · Playing · X 6248 Y 116 V 0 F 1 · Escape to pause · M to mute",
+          "gems": 26,
+          "stars": "STARS 3/3",
+          "targetLastSeenAgesMs": {
+            "gem-027": 1200,
+            "gem-032": 1024,
+            "gem-028": 833
+          },
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        },
+        {
+          "name": "two-stage-hill",
+          "target": 7140,
+          "status": "Adventure preview · Playing · X 7137 Y 117 V -1 F 1 · Escape to pause · M to mute",
+          "gems": 29,
+          "stars": "STARS 3/3",
+          "targetLastSeenAgesMs": {
+            "gem-027": 8122,
+            "gem-032": 7946,
+            "gem-028": 7755
+          },
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        }
+      ],
+      "final": {
+        "status": "Adventure preview · Finish · Gems 39/45 · X 9882 Y 132 V 220 F 1 · Escape to pause · M to mute",
+        "gems": 39,
+        "stars": "STARS 3/3",
+        "recoveries": [
+          {
+            "time": 17918,
+            "from": 3508,
+            "to": 2422
+          },
+          {
+            "time": 25996,
+            "from": 3901,
+            "to": 2422
+          },
+          {
+            "time": 46429,
+            "from": 6341,
+            "to": 5935
+          }
+        ],
+        "sampleCount": 681
+      },
+      "replay": {
+        "status": "Adventure preview · Playing · X 60 Y 164 V 0 F 1 · Escape to pause · M to mute",
+        "gems": 0,
+        "stars": "STARS 0/3"
+      },
+      "errors": [],
+      "scriptResources": [
+        "/build-assets/index-C9Qppdh3.js"
+      ]
+    }
+  ]
+}

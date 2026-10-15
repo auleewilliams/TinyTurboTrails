@@ -1,0 +1,232 @@
+{
+  "kind": "deterministic model; not native browser or owner play",
+  "stepSeconds": 0.016666666666666666,
+  "rows": [
+    {
+      "requestedLaunchX": null,
+      "holdFrames": 0,
+      "actualLaunchX": null,
+      "landingX": null,
+      "finish": true,
+      "simulationSeconds": 45.516666666666666,
+      "recoveries": 0,
+      "checkpoints": 6,
+      "damage": 1,
+      "damageEvents": [
+        {
+          "type": "damage",
+          "entityId": "hazard-001",
+          "x": 1029.0272486772458
+        }
+      ],
+      "collectedCaveGems": []
+    },
+    {
+      "requestedLaunchX": 6048,
+      "holdFrames": 20,
+      "actualLaunchX": 6050.609861027937,
+      "landingX": 6178.901982240056,
+      "finish": true,
+      "simulationSeconds": 45.5,
+      "recoveries": 0,
+      "checkpoints": 6,
+      "damage": 1,
+      "damageEvents": [
+        {
+          "type": "damage",
+          "entityId": "hazard-001",
+          "x": 1029.0272486772458
+        }
+      ],
+      "collectedCaveGems": [
+        "gem-027",
+        "gem-032",
+        "gem-028"
+      ]
+    },
+    {
+      "requestedLaunchX": 6048,
+      "holdFrames": 24,
+      "actualLaunchX": 6050.609861027937,
+      "landingX": 6182.568648906723,
+      "finish": true,
+      "simulationSeconds": 45.5,
+      "recoveries": 0,
+      "checkpoints": 6,
+      "damage": 1,
+      "damageEvents": [
+        {
+          "type": "damage",
+          "entityId": "hazard-001",
+          "x": 1029.0272486772458
+        }
+      ],
+      "collectedCaveGems": [
+        "gem-027",
+        "gem-032",
+        "gem-028"
+      ]
+    },
+    {
+      "requestedLaunchX": 6048,
+      "holdFrames": 28,
+      "actualLaunchX": 6050.609861027937,
+      "landingX": 6182.568648906723,
+      "finish": true,
+      "simulationSeconds": 45.5,
+      "recoveries": 0,
+      "checkpoints": 6,
+      "damage": 1,
+      "damageEvents": [
+        {
+          "type": "damage",
+          "entityId": "hazard-001",
+          "x": 1029.0272486772458
+        }
+      ],
+      "collectedCaveGems": [
+        "gem-027",
+        "gem-032",
+        "gem-028"
+      ]
+    },
+    {
+      "requestedLaunchX": 6060,
+      "holdFrames": 20,
+      "actualLaunchX": 6061.4862246643015,
+      "landingX": 6193.445012543087,
+      "finish": true,
+      "simulationSeconds": 45.516666666666666,
+      "recoveries": 0,
+      "checkpoints": 6,
+      "damage": 1,
+      "damageEvents": [
+        {
+          "type": "damage",
+          "entityId": "hazard-001",
+          "x": 1029.0272486772458
+        }
+      ],
+      "collectedCaveGems": [
+        "gem-027",
+        "gem-032",
+        "gem-028"
+      ]
+    },
+    {
+      "requestedLaunchX": 6060,
+      "holdFrames": 24,
+      "actualLaunchX": 6061.4862246643015,
+      "landingX": 6197.111679209754,
+      "finish": true,
+      "simulationSeconds": 45.516666666666666,
+      "recoveries": 0,
+      "checkpoints": 6,
+      "damage": 1,
+      "damageEvents": [
+        {
+          "type": "damage",
+          "entityId": "hazard-001",
+          "x": 1029.0272486772458
+        }
+      ],
+      "collectedCaveGems": [
+        "gem-027",
+        "gem-032",
+        "gem-028"
+      ]
+    },
+    {
+      "requestedLaunchX": 6060,
+      "holdFrames": 28,
+      "actualLaunchX": 6061.4862246643015,
+      "landingX": 6197.111679209754,
+      "finish": true,
+      "simulationSeconds": 45.516666666666666,
+      "recoveries": 0,
+      "checkpoints": 6,
+      "damage": 1,
+      "damageEvents": [
+        {
+          "type": "damage",
+          "entityId": "hazard-001",
+          "x": 1029.0272486772458
+        }
+      ],
+      "collectedCaveGems": [
+        "gem-027",
+        "gem-032",
+        "gem-028"
+      ]
+    },
+    {
+      "requestedLaunchX": 6072,
+      "holdFrames": 20,
+      "actualLaunchX": 6072.362588300666,
+      "landingX": 6207.988042846117,
+      "finish": true,
+      "simulationSeconds": 45.516666666666666,
+      "recoveries": 0,
+      "checkpoints": 6,
+      "damage": 1,
+      "damageEvents": [
+        {
+          "type": "damage",
+          "entityId": "hazard-001",
+          "x": 1029.0272486772458
+        }
+      ],
+      "collectedCaveGems": [
+        "gem-027",
+        "gem-032",
+        "gem-028"
+      ]
+    },
+    {
+      "requestedLaunchX": 6072,
+      "holdFrames": 24,
+      "actualLaunchX": 6072.362588300666,
+      "landingX": 6207.988042846118,
+      "finish": true,
+      "simulationSeconds": 45.516666666666666,
+      "recoveries": 0,
+      "checkpoints": 6,
+      "damage": 1,
+      "damageEvents": [
+        {
+          "type": "damage",
+          "entityId": "hazard-001",
+          "x": 1029.0272486772458
+        }
+      ],
+      "collectedCaveGems": [
+        "gem-027",
+        "gem-032",
+        "gem-028"
+      ]
+    },
+    {
+      "requestedLaunchX": 6072,
+      "holdFrames": 28,
+      "actualLaunchX": 6072.362588300666,
+      "landingX": 6207.988042846118,
+      "finish": true,
+      "simulationSeconds": 45.516666666666666,
+      "recoveries": 0,
+      "checkpoints": 6,
+      "damage": 1,
+      "damageEvents": [
+        {
+          "type": "damage",
+          "entityId": "hazard-001",
+          "x": 1029.0272486772458
+        }
+      ],
+      "collectedCaveGems": [
+        "gem-027",
+        "gem-032",
+        "gem-028"
+      ]
+    }
+  ]
+}
