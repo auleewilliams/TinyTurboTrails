@@ -200,6 +200,7 @@ it('can complete Sunset Site with simple jumps and checkpoint recovery', () => {
   const collectedMain = mainGems.filter(({ id }) => collected.has(id));
   expect(collectedMain.length).toBeGreaterThanOrEqual(Math.floor(mainGems.length * 0.8));
   expect(scene.gemTotal).toBe(collected.size);
+  expect(collected.has('site-bonus-005')).toBe(false);
 });
 
 // Each bonus gem is collected by one jump on the held-right route: a pressed jump from
@@ -209,7 +210,7 @@ it.each([
   { id: 'site-bonus-002', x: 2325, press: true },
   { id: 'site-bonus-003', x: 4500, press: true },
   { id: 'site-bonus-004', x: 5430, press: false },
-  { id: 'site-bonus-005', x: 7255, press: true },
+  { id: 'site-bonus-005', x: 6950, press: true },
   { id: 'site-bonus-006', x: 9490, press: false },
 ])('collects $id with a jump and still finishes', ({ id, x, press }) => {
   const { scene, collected } = playSite({ x, press });
