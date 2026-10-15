@@ -1,0 +1,534 @@
+{
+  "baselineCommit": "a958aeb48c1d9469b7da22bcb227c42c5caf7f84",
+  "capturedAtUtc": "2026-10-15T11:39:30.107Z",
+  "method": "Native RAF and unchanged production clock; keyboard inputs and read-only render observation; no scene access, teleports, reward writes or disabled hazards",
+  "observations": [
+    {
+      "id": "cove",
+      "phase": "before",
+      "mode": "evidence",
+      "engine": "chromium",
+      "version": "153.0.8010.12",
+      "platform": "win32",
+      "clock": "Native RAF and unmodified production clock; keyboard-input only, no scene access or state writes",
+      "viewport": {
+        "width": 852,
+        "height": 528
+      },
+      "poses": [
+        {
+          "name": "first-pool-exit",
+          "target": 2980,
+          "status": "Adventure preview · Playing · X 2979 Y 146 V 0 F 1 · Escape to pause · M to mute",
+          "gems": 10,
+          "stars": "",
+          "targetLastSeenAgesMs": {
+            "cove-bonus-2": 9.100000008940697
+          },
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        },
+        {
+          "name": "first-hop-return",
+          "target": 3150,
+          "status": "Adventure preview · Playing · X 3148 Y 146 V 0 F 1 · Escape to pause · M to mute",
+          "gems": 11,
+          "stars": "",
+          "targetLastSeenAgesMs": {
+            "cove-bonus-2": 15.899999991059303
+          },
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        },
+        {
+          "name": "short-pool-return",
+          "target": 4640,
+          "status": "Adventure preview · Playing · X 4639 Y 168 V 0 F 1 · Escape to pause · M to mute",
+          "gems": 16,
+          "stars": "",
+          "targetLastSeenAgesMs": {
+            "cove-bonus-2": 6022.0999999940395
+          },
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        },
+        {
+          "name": "second-hop-approach",
+          "target": 6470,
+          "status": "Adventure preview · Playing · X 6469 Y 140 V 0 F 1 · Escape to pause · M to mute",
+          "gems": 22,
+          "stars": "",
+          "targetLastSeenAgesMs": {
+            "cove-bonus-2": 16140,
+            "cove-bonus-4": 5.100000008940697
+          },
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        },
+        {
+          "name": "second-hop-return",
+          "target": 6610,
+          "status": "Adventure preview · Playing · X 6609 Y 140 V 0 F 1 · Escape to pause · M to mute",
+          "gems": 23,
+          "stars": "",
+          "targetLastSeenAgesMs": {
+            "cove-bonus-2": 17536,
+            "cove-bonus-4": 3.2000000029802322
+          },
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        }
+      ],
+      "final": {
+        "status": "Adventure preview · Playing · X 6609 Y 140 V 0 F 1 · Escape to pause · M to mute",
+        "gems": 23,
+        "stars": "",
+        "recoveries": [],
+        "sampleCount": 376
+      },
+      "errors": [],
+      "scriptResources": [
+        "/build-assets/index-DUbmCZQC.js"
+      ]
+    },
+    {
+      "id": "cove",
+      "phase": "after",
+      "mode": "optional",
+      "engine": "chromium",
+      "version": "153.0.8010.12",
+      "platform": "win32",
+      "clock": "Native RAF and unmodified production clock; keyboard-input only, no scene access or state writes",
+      "viewport": {
+        "width": 852,
+        "height": 528
+      },
+      "poses": [
+        {
+          "name": "first-pool-exit",
+          "target": 2980,
+          "status": "Adventure preview · Playing · X 2979 Y 146 V 0 F 1 · Escape to pause · M to mute",
+          "gems": 10,
+          "stars": "",
+          "targetLastSeenAgesMs": {
+            "cove-bonus-2": 6
+          },
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        },
+        {
+          "name": "first-hop-return",
+          "target": 3150,
+          "status": "Adventure preview · Playing · X 3148 Y 146 V 0 F 1 · Escape to pause · M to mute",
+          "gems": 12,
+          "stars": "",
+          "targetLastSeenAgesMs": {
+            "cove-bonus-2": 830.2000000029802
+          },
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        },
+        {
+          "name": "short-pool-return",
+          "target": 4640,
+          "status": "Adventure preview · Playing · X 4641 Y 168 V 0 F -1 · Escape to pause · M to mute",
+          "gems": 17,
+          "stars": "",
+          "targetLastSeenAgesMs": {
+            "cove-bonus-2": 9247.5
+          },
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        },
+        {
+          "name": "second-hop-approach",
+          "target": 6470,
+          "status": "Adventure preview · Playing · X 6469 Y 140 V 0 F 1 · Escape to pause · M to mute",
+          "gems": 23,
+          "stars": "",
+          "targetLastSeenAgesMs": {
+            "cove-bonus-2": 19169.30000001192,
+            "cove-bonus-4": 4.300000011920929
+          },
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        },
+        {
+          "name": "second-hop-return",
+          "target": 6610,
+          "status": "Adventure preview · Playing · X 6610 Y 140 V 0 F 1 · Escape to pause · M to mute",
+          "gems": 25,
+          "stars": "",
+          "targetLastSeenAgesMs": {
+            "cove-bonus-2": 20530.10000000894,
+            "cove-bonus-4": 765.2999999970198
+          },
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        }
+      ],
+      "final": {
+        "status": "Adventure preview · Finish · Gems 38/42 · X 10501 Y 157 V 220 F 1 · Escape to pause · M to mute",
+        "gems": 38,
+        "stars": "",
+        "recoveries": [],
+        "sampleCount": 573
+      },
+      "replay": {
+        "status": "Adventure preview · Playing · X 60 Y 164 V 0 F 1 · Escape to pause · M to mute",
+        "gems": 0,
+        "stars": ""
+      },
+      "errors": [],
+      "scriptResources": [
+        "/build-assets/index-C_rXry2l.js"
+      ]
+    },
+    {
+      "id": "cove",
+      "phase": "after",
+      "mode": "main",
+      "engine": "chromium",
+      "version": "153.0.8010.12",
+      "platform": "win32",
+      "clock": "Native RAF and unmodified production clock; keyboard-input only, no scene access or state writes",
+      "viewport": {
+        "width": 852,
+        "height": 528
+      },
+      "poses": [
+        {
+          "name": "first-pool-exit",
+          "target": 2980,
+          "status": "Adventure preview · Playing · X 2979 Y 146 V 0 F 1 · Escape to pause · M to mute",
+          "gems": 10,
+          "stars": "",
+          "targetLastSeenAgesMs": {
+            "cove-bonus-2": 5.5
+          },
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        },
+        {
+          "name": "first-hop-return",
+          "target": 3150,
+          "status": "Adventure preview · Playing · X 3148 Y 146 V 0 F 1 · Escape to pause · M to mute",
+          "gems": 11,
+          "stars": "",
+          "targetLastSeenAgesMs": {
+            "cove-bonus-2": 7.5
+          },
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        },
+        {
+          "name": "short-pool-return",
+          "target": 4640,
+          "status": "Adventure preview · Playing · X 4641 Y 168 V 0 F -1 · Escape to pause · M to mute",
+          "gems": 16,
+          "stars": "",
+          "targetLastSeenAgesMs": {
+            "cove-bonus-2": 6925.70000000298
+          },
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        },
+        {
+          "name": "second-hop-approach",
+          "target": 6470,
+          "status": "Adventure preview · Playing · X 6469 Y 140 V 0 F 1 · Escape to pause · M to mute",
+          "gems": 22,
+          "stars": "",
+          "targetLastSeenAgesMs": {
+            "cove-bonus-2": 16892.59999999404,
+            "cove-bonus-4": 9.899999991059303
+          },
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        },
+        {
+          "name": "second-hop-return",
+          "target": 6610,
+          "status": "Adventure preview · Playing · X 6611 Y 140 V 0 F 1 · Escape to pause · M to mute",
+          "gems": 23,
+          "stars": "",
+          "targetLastSeenAgesMs": {
+            "cove-bonus-2": 18278.79999999702,
+            "cove-bonus-4": 14
+          },
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        }
+      ],
+      "final": {
+        "status": "Adventure preview · Finish · Gems 36/42 · X 10501 Y 157 V 220 F 1 · Escape to pause · M to mute",
+        "gems": 36,
+        "stars": "",
+        "recoveries": [],
+        "sampleCount": 574
+      },
+      "replay": {
+        "status": "Adventure preview · Playing · X 60 Y 164 V 0 F 1 · Escape to pause · M to mute",
+        "gems": 0,
+        "stars": ""
+      },
+      "errors": [],
+      "scriptResources": [
+        "/build-assets/index-C_rXry2l.js"
+      ]
+    },
+    {
+      "id": "cove",
+      "phase": "after",
+      "mode": "optional",
+      "engine": "webkit",
+      "version": "26.6",
+      "platform": "win32",
+      "clock": "Native RAF and unmodified production clock; keyboard-input only, no scene access or state writes",
+      "viewport": {
+        "width": 852,
+        "height": 528
+      },
+      "poses": [
+        {
+          "name": "first-pool-exit",
+          "target": 2980,
+          "status": "Adventure preview · Playing · X 2979 Y 146 V 0 F 1 · Escape to pause · M to mute",
+          "gems": 10,
+          "stars": "",
+          "targetLastSeenAgesMs": {
+            "cove-bonus-2": 5
+          },
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        },
+        {
+          "name": "first-hop-return",
+          "target": 3150,
+          "status": "Adventure preview · Playing · X 3148 Y 146 V 0 F 1 · Escape to pause · M to mute",
+          "gems": 12,
+          "stars": "",
+          "targetLastSeenAgesMs": {
+            "cove-bonus-2": 820
+          },
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        },
+        {
+          "name": "short-pool-return",
+          "target": 4640,
+          "status": "Adventure preview · Playing · X 4641 Y 168 V 0 F -1 · Escape to pause · M to mute",
+          "gems": 17,
+          "stars": "",
+          "targetLastSeenAgesMs": {
+            "cove-bonus-2": 9466
+          },
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        },
+        {
+          "name": "second-hop-approach",
+          "target": 6470,
+          "status": "Adventure preview · Playing · X 6469 Y 140 V 0 F 1 · Escape to pause · M to mute",
+          "gems": 23,
+          "stars": "",
+          "targetLastSeenAgesMs": {
+            "cove-bonus-2": 20266,
+            "cove-bonus-4": 2
+          },
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        },
+        {
+          "name": "second-hop-return",
+          "target": 6610,
+          "status": "Adventure preview · Playing · X 6611 Y 140 V 0 F 1 · Escape to pause · M to mute",
+          "gems": 25,
+          "stars": "",
+          "targetLastSeenAgesMs": {
+            "cove-bonus-2": 21880,
+            "cove-bonus-4": 769
+          },
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        }
+      ],
+      "final": {
+        "status": "Adventure preview · Finish · Gems 38/42 · X 10501 Y 157 V 220 F 1 · Escape to pause · M to mute",
+        "gems": 38,
+        "stars": "",
+        "recoveries": [],
+        "sampleCount": 615
+      },
+      "replay": {
+        "status": "Adventure preview · Playing · X 60 Y 164 V 0 F 1 · Escape to pause · M to mute",
+        "gems": 0,
+        "stars": ""
+      },
+      "errors": [],
+      "scriptResources": [
+        "/build-assets/index-C_rXry2l.js"
+      ]
+    }
+  ]
+}

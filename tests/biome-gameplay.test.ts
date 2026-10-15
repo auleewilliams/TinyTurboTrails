@@ -87,7 +87,7 @@ it('pauses slimes with gameplay and restores their initial positions on replay',
   expect(entityPosition(live.run, slime)).toEqual({ x: slime.x, y: slime.y });
 });
 
-it.each([FROST_RIDGE, SANDY_COVE])('collects every authored bonus with optional movement in $name', (level) => {
+it.each([FROST_RIDGE, SANDY_COVE])('collects the intended rewards along the full $name route', (level) => {
   const scene = new AdventureScene({} as HTMLImageElement, {} as never, worlds(), audio([]), level);
   scene.update(1 / 60, { ...neutral, jumpPressed: true });
   const live = scene as unknown as { run: RunState; player: Player };
@@ -98,5 +98,7 @@ it.each([FROST_RIDGE, SANDY_COVE])('collects every authored bonus with optional 
     scene.update(1 / 60, { ...neutral, horizontal: 1, jumpPressed, jumpHeld: live.player.vy < 0 || jumpPressed });
   }
   expect(scene.screenState).toBe('finish');
-  expect([...live.run.collectedGems].filter((id) => id.includes('-bonus-'))).toHaveLength(level.id === 'frost' ? 3 : 6);
+  const bonusIds = [...live.run.collectedGems].filter((id) => id.includes('-bonus-'));
+  if (level.id === 'cove') expect(bonusIds.sort()).toEqual(['cove-bonus-1', 'cove-bonus-3', 'cove-bonus-5', 'cove-bonus-6']);
+  else expect(bonusIds).toHaveLength(3);
 });
