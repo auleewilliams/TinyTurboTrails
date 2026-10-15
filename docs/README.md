@@ -19,6 +19,8 @@
 
 ## Dated evidence, not current certification
 
+- [Suite purpose, coverage and cost audit for issue 167](evidence/issue-167/README.md)
+
 - [Foundation payload, renderer and build hygiene milestone](evidence/milestone-6/README.md)
 - [Henry celebration and Patchwork Vale milestone](evidence/henry-patchwork-vale/README.md)
 

@@ -1,0 +1,300 @@
+{
+  "snapshot": "42f86fb411e4370c9fed9e97e72e945579bcaf2e",
+  "snapshotTree": "9db2f57df2ca266ae3721d23f36e31ecca7538d4",
+  "method": "Static source/AST and assertion review only; no test modules imported or executed. Existing recorded reports reused.",
+  "unit": {
+    "files": 37,
+    "groups": 316,
+    "cases": 693,
+    "parameterizedGroups": 79,
+    "caseCountMethod": "676 saved observed cases matched unambiguously in 36 unchanged test files; changed viewport source has six scalar registrations plus eleven literal parameter rows (17 cases). Source registrations total 316 groups; current CI reports 693 aggregate passes.",
+    "historicalJson": {
+      "name": "current-main-unit-results-after.json",
+      "revision": "cd1a045",
+      "sha256": "2a8b174b8b49693307afafe2e5b788ca49336743b4e285c6b47e01c7f83a9b39",
+      "qualification": "Historical unit costs only; changed viewport groups have no current per-group duration."
+    },
+    "sources": [
+      {
+        "file": "tests/ambient-weather.test.ts",
+        "groups": 4,
+        "cases": 13,
+        "sha256LfNormalized": "1d29622d3b0cb371658fe941a2d5c1ca7609d6a8ae4c170fb65e590bdeb69599"
+      },
+      {
+        "file": "tests/animation.test.ts",
+        "groups": 3,
+        "cases": 3,
+        "sha256LfNormalized": "e3d45869c90f7c670ea84d40b20d12e216799ef0850c06cc6474f1d60277745c"
+      },
+      {
+        "file": "tests/audio.test.ts",
+        "groups": 14,
+        "cases": 15,
+        "sha256LfNormalized": "294d3a1b8320146a33a2dee9f4e3c45c65f737dd19ab4cbd684e0921b57691ba"
+      },
+      {
+        "file": "tests/biome-gameplay.test.ts",
+        "groups": 5,
+        "cases": 7,
+        "sha256LfNormalized": "fbe080573b1c7c6c613ea55e58f4e70ea4a76b868ae85b68fb2169bebb24af24"
+      },
+      {
+        "file": "tests/biomes.test.ts",
+        "groups": 4,
+        "cases": 6,
+        "sha256LfNormalized": "4da0d5d0f3dedd36d042d4a2a2d2e947034cae60826277796ed04d73ab1085e4"
+      },
+      {
+        "file": "tests/bounce.test.ts",
+        "groups": 4,
+        "cases": 11,
+        "sha256LfNormalized": "37635639f83c702033f56194fd60370fe24328e002e87173a9f76518af8bd4e3"
+      },
+      {
+        "file": "tests/clock.test.ts",
+        "groups": 3,
+        "cases": 5,
+        "sha256LfNormalized": "a71ff6a3abb9c9046495d2eee58058eb00c199dd560e21f6e233810754ede7be"
+      },
+      {
+        "file": "tests/controller-gameplay.test.ts",
+        "groups": 1,
+        "cases": 1,
+        "sha256LfNormalized": "ddc09ac5bdca4160480562cd4d63d5b99c62eb37dc462dae5256005b7bc049eb"
+      },
+      {
+        "file": "tests/feedback.test.ts",
+        "groups": 9,
+        "cases": 29,
+        "sha256LfNormalized": "9698eab217da44cd62b367b3ad4abd22210275be42eef25a8dc5b41b3b5ecf93"
+      },
+      {
+        "file": "tests/finish-layout.test.ts",
+        "groups": 6,
+        "cases": 15,
+        "sha256LfNormalized": "8d2ed8c0c298dc3f2b7f1591dfcd50f801bf80e6dea2c7e2912250229c4baa33"
+      },
+      {
+        "file": "tests/henry-assets.test.ts",
+        "groups": 2,
+        "cases": 2,
+        "sha256LfNormalized": "ee75f83c2f093003fc4004c614427838625249d08a99c12383a67cb29dbf2ad3"
+      },
+      {
+        "file": "tests/input.test.ts",
+        "groups": 6,
+        "cases": 6,
+        "sha256LfNormalized": "c35dde9a711c0afbf23839c0428e8537dd00becb7d9ae72b2cec122373c267de"
+      },
+      {
+        "file": "tests/interactions.test.ts",
+        "groups": 28,
+        "cases": 40,
+        "sha256LfNormalized": "77a7b033c8dceb67dabd1c62797ed75770247a654b19d5441060806d1ff604df"
+      },
+      {
+        "file": "tests/manifest.test.ts",
+        "groups": 5,
+        "cases": 5,
+        "sha256LfNormalized": "bba0a68bb94504d3aceff2ee120de6c8d703e48cf07c281c54be9018d1a2d510"
+      },
+      {
+        "file": "tests/material-renderer.test.ts",
+        "groups": 2,
+        "cases": 3,
+        "sha256LfNormalized": "e09f225989c9d8fb42c4dcdb245c369b0dc95435b9a3a73fa55d9f972c4d8015"
+      },
+      {
+        "file": "tests/movement-audio.test.ts",
+        "groups": 7,
+        "cases": 9,
+        "sha256LfNormalized": "8a19f4fe528e91ce668a514d8a7ca268aa0b086838248f29a8cb41a3b6a2baf7"
+      },
+      {
+        "file": "tests/movement.test.ts",
+        "groups": 30,
+        "cases": 37,
+        "sha256LfNormalized": "e206ba9b522bc3020c8000c2bdedc889267dded2362e5f18d9fbfd7e423c0ff9"
+      },
+      {
+        "file": "tests/overworld.test.ts",
+        "groups": 9,
+        "cases": 34,
+        "sha256LfNormalized": "4ab321cbd1cd471cff176cd063efe195c4c2e415dd7eb091a3546e3a31dfe556"
+      },
+      {
+        "file": "tests/pause-menu.test.ts",
+        "groups": 3,
+        "cases": 3,
+        "sha256LfNormalized": "5af976e838a923e6ea7aa5e27e76fa7d4b0d1084d826800cf73a69b98c306188"
+      },
+      {
+        "file": "tests/platforms.test.ts",
+        "groups": 7,
+        "cases": 7,
+        "sha256LfNormalized": "36e79e5a6eeba954be0e441b3a568329e0cbf0a355a6e85a563d5b9fdd8a74b3"
+      },
+      {
+        "file": "tests/quarry-run.test.ts",
+        "groups": 14,
+        "cases": 78,
+        "sha256LfNormalized": "c161f895ee8bbb9fdb9e2fa9ab8bf9341e80754e22c3303a08c267b5d84863c4"
+      },
+      {
+        "file": "tests/renderer.test.ts",
+        "groups": 33,
+        "cases": 55,
+        "sha256LfNormalized": "1c55d6e339ae67f7e7e9f68853d9bac2d67ee6bf4e0185b32de99c320173fc7b"
+      },
+      {
+        "file": "tests/rumble.test.ts",
+        "groups": 10,
+        "cases": 17,
+        "sha256LfNormalized": "dddfa53456c74c832b15cbc3b2b319985ebce077352af664ccc990e68c932687"
+      },
+      {
+        "file": "tests/scenery.test.ts",
+        "groups": 2,
+        "cases": 2,
+        "sha256LfNormalized": "b70782694718a5d376407f17eedb0b42cf4eb839b2d0fe48279f972b9953579c"
+      },
+      {
+        "file": "tests/screens.test.ts",
+        "groups": 16,
+        "cases": 28,
+        "sha256LfNormalized": "432544b104196261e9a5b3893e93e09e44963cc8138faaefa43fb270c1d83e98"
+      },
+      {
+        "file": "tests/slimes.test.ts",
+        "groups": 4,
+        "cases": 14,
+        "sha256LfNormalized": "65ac8d5f49c9a6b39014d3a882db7fb341411ce6bf0a9d524bb4ff69046d1d3c"
+      },
+      {
+        "file": "tests/specials.test.ts",
+        "groups": 10,
+        "cases": 27,
+        "sha256LfNormalized": "568cf320d4bc51e3e900e33f3d484cbb9f7b947f9bbcfc0df11643d5bc91463f"
+      },
+      {
+        "file": "tests/sprite-processing.test.ts",
+        "groups": 4,
+        "cases": 4,
+        "sha256LfNormalized": "a295b9d06e7255e9f7604dd75e560968fa1846993470728b1c57f63ef214dc4d"
+      },
+      {
+        "file": "tests/sprite.test.ts",
+        "groups": 2,
+        "cases": 2,
+        "sha256LfNormalized": "279b7feb8225062fd7fd9e3044b81bc95c5c187d48be58ca83c8f7fae233058b"
+      },
+      {
+        "file": "tests/story-celebration.test.ts",
+        "groups": 7,
+        "cases": 12,
+        "sha256LfNormalized": "34f7c3451893a1e142777e6de5c1e25a53c99b78706f328f7f3f059eceeb14ba"
+      },
+      {
+        "file": "tests/sunset-site.test.ts",
+        "groups": 13,
+        "cases": 65,
+        "sha256LfNormalized": "dce13371733f67c85fee97f0c6f824cfd55fabe51582eb432728ea2f55e2e5d0"
+      },
+      {
+        "file": "tests/surface-materials.test.ts",
+        "groups": 10,
+        "cases": 37,
+        "sha256LfNormalized": "2f24a90bf6d4982fef800b3ad587368a99395fc4d41bda5644d99663190cee24"
+      },
+      {
+        "file": "tests/title-artwork.test.ts",
+        "groups": 2,
+        "cases": 2,
+        "sha256LfNormalized": "29520b927466ae07b45677266da5b2b26aff2ed1640614daf4c3b869cca75ea3"
+      },
+      {
+        "file": "tests/treetop-timbers.test.ts",
+        "groups": 6,
+        "cases": 6,
+        "sha256LfNormalized": "8c7481d215f1bb390da580a94656670a57724bf66f2de433c40ba28224c6be20"
+      },
+      {
+        "file": "tests/viewport.test.ts",
+        "groups": 7,
+        "cases": 17,
+        "sha256LfNormalized": "7a3aece69aa25750d52e1744b26df0fded99c6b9572381cc2685698c2c71f542"
+      },
+      {
+        "file": "tests/world-assets.test.ts",
+        "groups": 7,
+        "cases": 9,
+        "sha256LfNormalized": "2fe833757fa48b653d6459b40cde954a1504f5b57b0a0543d2908f50dbcb3bcc"
+      },
+      {
+        "file": "tests/world.test.ts",
+        "groups": 17,
+        "cases": 67,
+        "sha256LfNormalized": "84c29f52a31fa116731a09d9c7f119de753cf85d5068c902934f5eb498e4314a"
+      }
+    ],
+    "sourceHashEncoding": "UTF-8 source with CRLF normalized to LF; raw report/artifact hashes retain original bytes."
+  },
+  "browser": {
+    "files": 3,
+    "groups": 68,
+    "perEngine": 89,
+    "total": 267,
+    "observedSource": {
+      "name": "test-results/viewport-rebased/results.json",
+      "sourceRevision": "a7f7056",
+      "sourceEquivalence": "No src/tests/config changes a7f7056 -> tested 326936b; that tree equals snapshot 42f86fb",
+      "sha256": "94dde13afe874e068db8f08f36680112fcd993bbbbb753c1fe5f493a1d532ac4",
+      "workers": 2,
+      "retries": 0,
+      "stats": {
+        "startTime": "2026-10-14T21:26:16.090Z",
+        "duration": 1072898.651,
+        "expected": 176,
+        "skipped": 1,
+        "unexpected": 1,
+        "flaky": 0
+      },
+      "qualification": "Windows observed per-case Chromium/WebKit costs from a failed full cohort; never a passing before/after benchmark."
+    },
+    "costGap": "No Firefox per-case duration source; not zero or a launch-failure runtime."
+  },
+  "ciArtifact": {
+    "run": "https://github.com/auleewilliams/TinyTurboTrails/actions/runs/38650798507",
+    "id": 11935852110,
+    "bytes": 79366357,
+    "sha256": "e9070fd48f3ae5286af3221490d401099c20d3ac990800251a0c8baf14e49770",
+    "entries": 765,
+    "fileTypes": {
+      "png": 765
+    },
+    "structuredResultFiles": 0,
+    "skipIdentity": "Not recoverable from retained artifact; aggregate log reports one skip; source has two conditional skip sites."
+  },
+  "constraints": {
+    "testChanges": false,
+    "runtimeChanges": false,
+    "ciChanges": false,
+    "retries": 0,
+    "enginesPreserved": [
+      "chromium",
+      "firefox",
+      "webkit"
+    ],
+    "issueClosurePerformed": false
+  },
+  "acceptance": {
+    "candidateVerdicts": 18,
+    "wholeBrowserRemovalCertified": false,
+    "allEnginePerCaseCostsComplete": false,
+    "agreedRemovalFollowupsOpened": false,
+    "schedulingBeforeAfterPublishedInPr174": true,
+    "tableIncludedForReview": true,
+    "publicationDoesNotCompleteIssue": true
+  }
+}
