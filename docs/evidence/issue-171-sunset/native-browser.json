@@ -1,0 +1,393 @@
+{
+  "baselineCommit": "a958aeb48c1d9469b7da22bcb227c42c5caf7f84",
+  "capturedAtUtc": "2026-10-15T11:22:57.767Z",
+  "method": "Native requestAnimationFrame and unchanged production clock; keyboard-only inputs; no scene state access, reward writes, teleports, or hazard disabling",
+  "observations": [
+    {
+      "id": "sunset",
+      "phase": "before",
+      "mode": "evidence",
+      "engine": "chromium",
+      "version": "153.0.8010.12",
+      "platform": "win32",
+      "clock": "Native RAF and unmodified production clock; keyboard-input only, no scene access or state writes",
+      "viewport": {
+        "width": 852,
+        "height": 528
+      },
+      "poses": [
+        {
+          "name": "yard",
+          "target": 3750,
+          "status": "Adventure preview · Playing · X 3748 Y 155 V -1 F -1 · Escape to pause · M to mute",
+          "gems": 19,
+          "stars": "",
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        },
+        {
+          "name": "scaffold-approach",
+          "target": 6920,
+          "status": "Adventure preview · Playing · X 6919 Y 131 V -1 F -1 · Escape to pause · M to mute",
+          "gems": 35,
+          "stars": "",
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        },
+        {
+          "name": "workbench-return",
+          "target": 7160,
+          "status": "Adventure preview · Playing · X 7157 Y 101 V -1 F -1 · Escape to pause · M to mute",
+          "gems": 37,
+          "stars": "",
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        }
+      ],
+      "final": {
+        "status": "Adventure preview · Playing · X 7157 Y 101 V -1 F -1 · Escape to pause · M to mute",
+        "gems": 37,
+        "stars": "",
+        "recoveries": [
+          {
+            "time": 22403.5,
+            "from": 4422,
+            "to": 3400
+          },
+          {
+            "time": 36819.6,
+            "from": 6272,
+            "to": 4900
+          }
+        ],
+        "sampleCount": 481
+      },
+      "errors": [],
+      "scriptResources": [
+        "/build-assets/index-DUbmCZQC.js"
+      ]
+    },
+    {
+      "id": "sunset",
+      "phase": "after",
+      "mode": "optional",
+      "engine": "chromium",
+      "version": "153.0.8010.12",
+      "platform": "win32",
+      "clock": "Native RAF and unmodified production clock; keyboard-input only, no scene access or state writes",
+      "viewport": {
+        "width": 852,
+        "height": 528
+      },
+      "poses": [
+        {
+          "name": "yard",
+          "target": 3750,
+          "status": "Adventure preview · Playing · X 3748 Y 155 V -1 F -1 · Escape to pause · M to mute",
+          "gems": 20,
+          "stars": "",
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        },
+        {
+          "name": "scaffold-approach",
+          "target": 6920,
+          "status": "Adventure preview · Playing · X 6920 Y 133 V -1 F 1 · Escape to pause · M to mute",
+          "gems": 36,
+          "stars": "",
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        },
+        {
+          "name": "workbench-return",
+          "target": 7160,
+          "status": "Adventure preview · Playing · X 7159 Y 98 V -1 F 1 · Escape to pause · M to mute",
+          "gems": 39,
+          "stars": "",
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        }
+      ],
+      "final": {
+        "status": "Adventure preview · Finish · Gems 54/62 · X 9952 Y 164 V 220 F 1 · Escape to pause · M to mute",
+        "gems": 54,
+        "stars": "",
+        "recoveries": [
+          {
+            "time": 22493.4,
+            "from": 4422,
+            "to": 3400
+          },
+          {
+            "time": 36909.4,
+            "from": 6272,
+            "to": 4900
+          },
+          {
+            "time": 54292.1,
+            "from": 8223,
+            "to": 6850
+          }
+        ],
+        "sampleCount": 697
+      },
+      "replay": {
+        "status": "Adventure preview · Playing · X 60 Y 164 V 0 F 1 · Escape to pause · M to mute",
+        "gems": 0,
+        "stars": ""
+      },
+      "errors": [],
+      "scriptResources": [
+        "/build-assets/index-D1RdCQc6.js"
+      ]
+    },
+    {
+      "id": "sunset",
+      "phase": "after",
+      "mode": "main",
+      "engine": "chromium",
+      "version": "153.0.8010.12",
+      "platform": "win32",
+      "clock": "Native RAF and unmodified production clock; keyboard-input only, no scene access or state writes",
+      "viewport": {
+        "width": 852,
+        "height": 528
+      },
+      "poses": [
+        {
+          "name": "yard",
+          "target": 3750,
+          "status": "Adventure preview · Playing · X 3748 Y 155 V -1 F -1 · Escape to pause · M to mute",
+          "gems": 20,
+          "stars": "",
+          "targetLastSeenAgesMs": {},
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        },
+        {
+          "name": "scaffold-approach",
+          "target": 6920,
+          "status": "Adventure preview · Playing · X 6920 Y 133 V -1 F 1 · Escape to pause · M to mute",
+          "gems": 36,
+          "stars": "",
+          "targetLastSeenAgesMs": {
+            "site-bonus-005": 15.200000002980232
+          },
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        },
+        {
+          "name": "workbench-return",
+          "target": 7160,
+          "status": "Adventure preview · Playing · X 7159 Y 98 V -1 F 1 · Escape to pause · M to mute",
+          "gems": 38,
+          "stars": "",
+          "targetLastSeenAgesMs": {
+            "site-bonus-005": 7
+          },
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        }
+      ],
+      "final": {
+        "status": "Adventure preview · Finish · Gems 53/62 · X 9952 Y 164 V 220 F 1 · Escape to pause · M to mute",
+        "gems": 53,
+        "stars": "",
+        "recoveries": [
+          {
+            "time": 22395.9,
+            "from": 4422,
+            "to": 3400
+          },
+          {
+            "time": 36812.1,
+            "from": 6272,
+            "to": 4900
+          }
+        ],
+        "sampleCount": 627
+      },
+      "replay": {
+        "status": "Adventure preview · Playing · X 60 Y 164 V 0 F 1 · Escape to pause · M to mute",
+        "gems": 0,
+        "stars": ""
+      },
+      "errors": [],
+      "scriptResources": [
+        "/build-assets/index-D1RdCQc6.js"
+      ]
+    },
+    {
+      "id": "sunset",
+      "phase": "after",
+      "mode": "optional",
+      "engine": "webkit",
+      "version": "26.6",
+      "platform": "win32",
+      "clock": "Native RAF and unmodified production clock; keyboard-input only, no scene access or state writes",
+      "viewport": {
+        "width": 852,
+        "height": 528
+      },
+      "poses": [
+        {
+          "name": "yard",
+          "target": 3750,
+          "status": "Adventure preview · Playing · X 3748 Y 155 V -1 F -1 · Escape to pause · M to mute",
+          "gems": 20,
+          "stars": "",
+          "targetLastSeenAgesMs": {},
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        },
+        {
+          "name": "scaffold-approach",
+          "target": 6920,
+          "status": "Adventure preview · Playing · X 6916 Y 134 V -1 F 1 · Escape to pause · M to mute",
+          "gems": 36,
+          "stars": "",
+          "targetLastSeenAgesMs": {
+            "site-bonus-005": 4
+          },
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        },
+        {
+          "name": "workbench-return",
+          "target": 7160,
+          "status": "Adventure preview · Playing · X 7157 Y 98 V -1 F 1 · Escape to pause · M to mute",
+          "gems": 39,
+          "stars": "",
+          "targetLastSeenAgesMs": {
+            "site-bonus-005": 1277
+          },
+          "canvas": {
+            "x": 0,
+            "y": 4,
+            "width": 852,
+            "height": 480,
+            "top": 4,
+            "right": 852,
+            "bottom": 484,
+            "left": 0
+          }
+        }
+      ],
+      "final": {
+        "status": "Adventure preview · Finish · Gems 52/62 · X 9953 Y 164 V 220 F 1 · Escape to pause · M to mute",
+        "gems": 52,
+        "stars": "",
+        "recoveries": [
+          {
+            "time": 23028,
+            "from": 4422,
+            "to": 3400
+          },
+          {
+            "time": 44298,
+            "from": 7369,
+            "to": 6850
+          }
+        ],
+        "sampleCount": 619
+      },
+      "replay": {
+        "status": "Adventure preview · Playing · X 60 Y 164 V 0 F 1 · Escape to pause · M to mute",
+        "gems": 0,
+        "stars": ""
+      },
+      "errors": [],
+      "scriptResources": [
+        "/build-assets/index-D1RdCQc6.js"
+      ]
+    }
+  ]
+}

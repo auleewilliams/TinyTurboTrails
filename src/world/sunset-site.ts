@@ -17,8 +17,8 @@ const contour: Contour = [
   // Trench (5000–6800): back-to-back pneumatic-jack pits, then a long open run.
   [5240, 198], [5252, 380], [5320, 380], [5332, 210], [5480, 210], [5492, 380],
   [5560, 380], [5572, 222], [5900, 222], [6000, 198], [6100, 170], [6800, 170],
-  // Scaffold climb (6800–8400): up the scaffold, across a hazard deck and down again.
-  [6900, 170], [7000, 146], [7100, 146], [7200, 126], [7500, 126], [7600, 146],
+  // Scaffold climb (6800-8400): a gradual workbench approach, then the original hazard deck.
+  [6900, 170], [7200, 126], [7500, 126], [7600, 146],
   [7700, 146], [7800, 170], [7900, 170], [8000, 198], [8400, 198],
   // Sunset summit (8400–10000): a last rise, a double pit and the finish arch.
   [8800, 198], [8900, 174], [9100, 174], [9200, 198], [9300, 198], [9312, 380],
@@ -48,13 +48,14 @@ const platforms: readonly MovingPlatform[] = [
   { id: 'site-crane-ferry', from: { x: 4330, y: 156 }, to: { x: 4462, y: 156 }, width: 48, seconds: 2.2, pause: 0.8 },
 ];
 
-// Main-route gems sit in the walking window along the ground; every id is derived from its x.
+// Main-route gems sit in the walking window; array order preserves their established ids.
+// A quiet yard cluster and scaffold approach/return pair invite a pause without gating progress.
 const mainGems = [
   200, 300, 560, 680, 940, 1000, 1200, 1300, 1520, 1740,
   1860, 2050, 2150, 2380, 2520, 2710, 2900, 3140, 3240,
-  3460, 3600, 3900, 4050, 4250, 4620, 4780, 4950,
+  3460, 3690, 3750, 3810, 4250, 4620, 4780, 4950,
   5100, 5160, 5400, 5440, 5700, 5820, 6050, 6250, 6450, 6650,
-  6760, 6960, 7150, 7260, 7450, 7650, 7850, 8100, 8250,
+  6760, 6940, 7070, 7260, 7450, 7650, 7850, 8100, 8250,
   8560, 8700, 8950, 9050, 9420, 9480, 9700, 9780, 9850, 9940,
 ].map((x, index): WorldEntity => gem(`site-gem-${String(index + 1).padStart(3, '0')}`, x));
 
@@ -122,7 +123,7 @@ export const SUNSET_SITE: LevelData = withSlimePatrols({
     // Scaffold climb
     thing('hazard', 'site-hazard-007', 7320),
     thing('hazard', 'site-hazard-008', 7390),
-    gem('site-bonus-005', 7355, 45),
+    gem('site-bonus-005', 7000, 64),
     thing('slime', 'site-slime-007', 8200, { minX: 8080, maxX: 8300, speed: SLIME_SPEED }),
     decoration('site-deco-009', 7000, 'bush'),
     decoration('site-deco-010', 7950, 'cave'),
