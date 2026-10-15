@@ -1,0 +1,46 @@
+{
+  "kind": "Executed isolated diagnostics, distinct from the failed full cohort",
+  "platform": "Windows",
+  "base": "788ec08bae09affeb289369533afb537941bdede",
+  "rumbleTestSourceIdentical": true,
+  "fullRunFailure": "WebKit tests/browser.spec.ts:252: effect count 1 did not become greater than 1 after rumble re-enabled",
+  "conclusion": "Both isolated cases passed; cause of the full-cohort failure remains unestablished. This does not convert the full cohort into a passing run.",
+  "runs": [
+    {
+      "label": "baseline",
+      "source": "git archive 788ec08bae09affeb289369533afb537941bdede; isolated temporary directory",
+      "bundle": "index-LvP3Fb05.js",
+      "project": "webkit",
+      "version": "26.6",
+      "workers": 1,
+      "retries": 0,
+      "grep": "controller damage rumble is independent",
+      "stats": {
+        "startTime": "2026-10-15T07:11:52.015Z",
+        "duration": 19651.753,
+        "expected": 1,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      }
+    },
+    {
+      "label": "pilot",
+      "source": "pilot working tree",
+      "bundle": "index-DUbmCZQC.js",
+      "project": "webkit",
+      "version": "26.6",
+      "workers": 1,
+      "retries": 0,
+      "grep": "controller damage rumble is independent",
+      "stats": {
+        "startTime": "2026-10-15T07:12:41.911Z",
+        "duration": 18396.442000000003,
+        "expected": 1,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      }
+    }
+  ]
+}

@@ -30,11 +30,11 @@ it.each(LEVELS.slice(0, 3))('$name keeps marked landing bands clear of pits and 
   }
 });
 
-it('preserves every authored landing band after removing the text signs', () => {
+it('keeps authored landing bands as non-textual route guidance', () => {
   expect(LEVELS.map(level => level.landingBands ?? [])).toEqual([
     [{ x: 810, width: 100 }],
     [{ x: 2660, width: 100 }],
-    [{ x: 1100, width: 140 }, { x: 1820, width: 140 }, { x: 3320, width: 140 }],
+    [{ x: 1100, width: 140 }, { x: 4960, width: 180 }, { x: 8510, width: 180 }],
     [], [], [],
   ]);
 });
@@ -98,8 +98,11 @@ it.each(LEVELS.slice(0, 3))('$name reaches all three stars from the start with o
   let held = 0;
   let docked = false;
   let rodeLift = false;
+  let lastX = 0;
   for (let frame = 0; frame < 60 * 160 && scene.screenState !== 'finish'; frame++) {
     const player = live.player;
+    if (level.id === 'timbers' && player.x < lastX - 100) nextDanger = Math.max(0, dangers.findIndex(danger => danger.x >= player.x - 30));
+    lastX = player.x;
     let horizontal = 1;
     let jumpPressed = false;
     const danger = dangers[nextDanger];
@@ -114,6 +117,14 @@ it.each(LEVELS.slice(0, 3))('$name reaches all three stars from the start with o
       if (player.platformId === 'quarry-lift-terraces' && player.y + 34 <= 67) rodeLift = true;
     }
     if (level.id === 'quarry' && rodeLift && player.x < 2650) { jumpPressed = false; held = 0; }
+    if (level.id === 'timbers') for (const star of level.entities.filter(entity => entity.kind === 'special').slice(1)) {
+      if (live.run.collectedSpecials.has(star.id) || player.x < star.x - 95) continue;
+      const stop = player.x + Math.sign(player.vx) * player.vx ** 2 / 2400;
+      horizontal = stop < star.x - 3 ? 1 : stop > star.x + 3 ? -1 : 0;
+      const rising = player.y + 34 < surfaceY(level, star.x) - 4;
+      jumpPressed = rising && held <= 0; held = rising ? 2 : 0;
+      break;
+    }
     scene.update(1 / 60, { ...neutral, horizontal, jumpPressed, jumpHeld: held-- > 0 });
   }
   expect(scene.screenState).toBe('finish');
@@ -124,7 +135,7 @@ it.each(LEVELS.slice(0, 3))('$name reaches all three stars from the start with o
 it.each([
   { level: LEVELS[0], entry: 650, exit: 900 },
   { level: LEVELS[1], entry: 2380, exit: 2700 },
-  ...[950, 1650, 3100].map(entry => ({ level: LEVELS[2], entry, exit: entry + 250 })),
+  ...[950, 1650, 3100, 4850, 8400].map(entry => ({ level: LEVELS[2], entry, exit: entry + 250 })),
 ])('$level.name failed approaches at $entry return to ordinary terrain', ({ level, entry, exit }) => {
   for (const direction of [-1, 0, 1]) {
     const scene = new AdventureScene({} as HTMLImageElement, {} as never, worlds, audio, level);
