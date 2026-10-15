@@ -489,7 +489,7 @@ async function selectNextLevel(page: Page, name: string): Promise<void> {
   }));
 }
 
-async function advancePastDanger(page: Page, dangers: readonly number[], progress: { index: number; lastX?: number }): Promise<string> {
+async function advancePastDanger(page: Page, dangers: readonly number[], progress: { index: number; lastX?: number }, pollIntervalMs = 100): Promise<string> {
   const status = await page.locator('#status').innerText();
   const x = Number(status.match(/X (\d+)/)?.[1] ?? 0);
   if (progress.lastX !== undefined && x < progress.lastX - 100) {
@@ -504,7 +504,7 @@ async function advancePastDanger(page: Page, dangers: readonly number[], progres
     await page.keyboard.up('Space');
     progress.index++;
   } else {
-    await page.waitForTimeout(100);
+    await page.waitForTimeout(pollIntervalMs);
   }
   return status;
 }
@@ -1425,17 +1425,26 @@ test('all checkpoints activate along the ground route and render planted markers
   // Terrain heights come from surfaceY rather than being restated here, so the check
   // cannot drift from the level data the way the coordinates in #26 did.
   const checkpoints = PLAINS_LEVEL.checkpoints;
-  const dangers = dangerXs(PLAINS_LEVEL);
+  // Patrols can meet Henry before their authored centre. Start the approach at
+  // their left bound, retaining the same static hazard positions and jump input.
+  const dangers = PLAINS_LEVEL.entities
+    .filter((entity) => entity.kind === 'slime' || entity.kind === 'hazard')
+    .map((entity) => entity.patrol?.minX ?? entity.x)
+    .sort((left, right) => left - right);
   const progress = { index: 0 };
   for (const checkpoint of checkpoints) {
     await page.evaluate(() => document.querySelector('canvas')?.removeAttribute('data-test-checkpoint'));
     let activated = false;
-    for (let step = 0; step < 400; step++) {
+    // Faster observations leave room to jump before contact. Use an elapsed
+    // 40s window rather than reducing traversal time with the shorter polling.
+    // The overall 200s test limit and every checkpoint assertion remain intact.
+    const deadline = Date.now() + 40_000;
+    while (Date.now() < deadline) {
       if (await page.locator('canvas').getAttribute('data-test-checkpoint') === 'Checkpoint reached!') {
         activated = true;
         break;
       }
-      await advancePastDanger(page, dangers, progress);
+      await advancePastDanger(page, dangers, progress, 40);
     }
     expect(activated, checkpoint.id).toBe(true);
     // Activation is detected anywhere in the 28px window around the flag, so compare

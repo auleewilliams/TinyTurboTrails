@@ -1,0 +1,82 @@
+{
+  "method": "Deterministic full-route diagnostic, not browser verification. Registered scene and unmodified data. Initial idle phase0..6s in0.5s steps, native observation/action latency fixtures0/33/67ms, Legacy keeps original400 observations/checkpoint. Patrol-min uses a40-second elapsed checkpoint budget instead of shortening the budget when polling faster; original200-second overall native test budget is not increased. Photo-stop pacing preserved; actual model timing reported. Candidate controls are compared; no repository source edits.",
+  "caseCount": 78,
+  "byControl": {
+    "legacy": {
+      "cases": 39,
+      "allSix": 32,
+      "groundFailures": 0,
+      "maxElapsed": 168.9333333333599,
+      "maxDamage": 53,
+      "maxRecoveries": 17,
+      "failed": [
+        {
+          "phase": 0.5,
+          "lagFrames": 4,
+          "checkpoint": "checkpoint-orchard",
+          "x": 8750.8619074074,
+          "damage": 50,
+          "recoveries": 16
+        },
+        {
+          "phase": 1.5,
+          "lagFrames": 4,
+          "checkpoint": "checkpoint-hillside",
+          "x": 2774.7884615384523,
+          "damage": 27,
+          "recoveries": 9
+        },
+        {
+          "phase": 2,
+          "lagFrames": 4,
+          "checkpoint": "checkpoint-hillside",
+          "x": 3933.9690720390317,
+          "damage": 29,
+          "recoveries": 9
+        },
+        {
+          "phase": 2.5,
+          "lagFrames": 4,
+          "checkpoint": "checkpoint-hillside",
+          "x": 2798.479487179474,
+          "damage": 33,
+          "recoveries": 11
+        },
+        {
+          "phase": 3,
+          "lagFrames": 2,
+          "checkpoint": "checkpoint-hillside",
+          "x": 2438.866666666667,
+          "damage": 24,
+          "recoveries": 8
+        },
+        {
+          "phase": 4,
+          "lagFrames": 2,
+          "checkpoint": "checkpoint-hillside",
+          "x": 4598.252206756214,
+          "damage": 26,
+          "recoveries": 8
+        },
+        {
+          "phase": 4.5,
+          "lagFrames": 4,
+          "checkpoint": "checkpoint-hillside",
+          "x": 4246.382820512799,
+          "damage": 53,
+          "recoveries": 17
+        }
+      ]
+    },
+    "patrol-min": {
+      "cases": 39,
+      "allSix": 39,
+      "groundFailures": 0,
+      "maxElapsed": 88.64999999999625,
+      "maxDamage": 14,
+      "maxRecoveries": 4,
+      "failed": []
+    }
+  },
+  "nativeLimitations": "The faster model proxy polls every3fixed60Hzframes (50ms), not exact40ms. It reads registered scene checkpoint IDs, not rendered banners. It covers13idlephases ×3syntheticinput-delays, not everypossible phase, OSschedule or rendered latency. Some contacts and recoveries are retained; this is checkpoint completion evidence, not a damage-free controller claim."
+}
