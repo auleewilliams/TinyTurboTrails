@@ -124,6 +124,8 @@ test('app fullscreen retains feedback controls and native map and pause targets'
   });
   await page.locator('#mute').click();
   await expect.poll(() => page.evaluate(() => document.fullscreenElement?.tagName)).toBe('MAIN');
+  // Fullscreen element changes precede Firefox viewport/overlay layout settlement.
+  await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
   await expectClearViewport(page);
   await page.getByRole('button', { name: 'Play PLAINS', exact: true }).click();
   // Escape belongs to browser fullscreen exit on WebKit. Use controller Start to pause.
@@ -137,6 +139,7 @@ test('app fullscreen retains feedback controls and native map and pause targets'
   await page.getByRole('button', { name: 'Resume', exact: true }).click();
   await page.evaluate(() => document.exitFullscreen());
   await expect.poll(() => page.evaluate(() => document.fullscreenElement)).toBeNull();
+  await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
   await expectClearViewport(page);
 });
 
