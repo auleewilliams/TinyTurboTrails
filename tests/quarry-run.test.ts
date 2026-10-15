@@ -1,6 +1,6 @@
 import { expect, it } from 'vitest';
 import { DEFAULT_MOVEMENT, createPlayer, simulatePlayer, surfaceY } from '../src/game/movement';
-import { activateCheckpoint, createRun, recoverFromFall, type RunEvent } from '../src/game/interactions';
+import { activateCheckpoint, createRun, damagePlayer, recoverFromFall, type RunEvent } from '../src/game/interactions';
 import type { GameAudio } from '../src/core/audio';
 import { AdventureScene } from '../src/game/adventure-scene';
 import { PLATFORM_MAX_SPEED, platformBodyAt, platformCycleSeconds, platformSpeed } from '../src/game/platforms';
@@ -86,6 +86,8 @@ it('registers a playable Quarry Run', () => {
   expect(() => validateLevel(QUARRY_RUN)).not.toThrow();
   expect(QUARRY_RUN.name).toBe('QUARRY RUN');
   expect(QUARRY_RUN.atlas).toBe('plains');
+  expect(ofKind('gem')).toHaveLength(37);
+  expect(ofKind('special')).toHaveLength(3);
   expect(QUARRY_RUN.theme.parallax.length).toBeGreaterThanOrEqual(6);
   expect(QUARRY_RUN.theme.parallax.every(({ asset }) => asset === 'cave' || asset === 'stone')).toBe(true);
 });
@@ -200,12 +202,19 @@ it.each([
   { id: 'quarry-bonus-002', x: 2260, press: true },
   { id: 'quarry-bonus-003', x: 3890, press: false },
   { id: 'quarry-bonus-004', x: 5430, press: true },
-  { id: 'quarry-bonus-005', x: 7720, press: false },
+  { id: 'quarry-bonus-005', x: 7110, press: true },
   { id: 'quarry-bonus-006', x: 9380, press: true },
 ])('collects $id with a jump and still finishes', ({ id, x, press }) => {
   const { scene, collected } = playQuarry({ x, press });
   expect(collected.has(id)).toBe(true);
   expect(scene.screenState).toBe('finish');
+});
+
+it('still permits holding jump through the crusher spring pit after moving its bonus to the ferry', () => {
+  const { scene, effects } = playQuarry({ x: 7720, press: false });
+  expect(scene.screenState).toBe('finish');
+  expect(effects.filter(effect => effect === 'spring')).toHaveLength(9);
+  expect(effects.filter(effect => effect === 'damage').length).toBeLessThan(3);
 });
 
 const PLATFORMS = (QUARRY_RUN.platforms ?? []).filter((platform) => platformSpeed(platform) > 0);
@@ -259,21 +268,75 @@ it('lifts a waiting Henry to the terraces bonus gem', () => {
   expect(effects).not.toContain('damage');
 });
 
-it('ferries a hopping Henry over the paired crusher hazards', () => {
-  const { scene, effects, step } = rideFrom(FERRY.from.x + FERRY.width / 2);
+it('ferries a hopping Henry through the crusher bonus and safely off beyond the paired hazards', () => {
+  const { scene, effects, collected, step } = rideFrom(FERRY.from.x + FERRY.width / 2);
   const deck = (): boolean => Math.abs(scene.playerY + DEFAULT_MOVEMENT.height - FERRY.from.y) < 1;
   // Hop on the spot until the deck comes back around: no timing to read, just keep jumping.
   let carried = 0;
+  let rewardFeet: number | undefined;
   for (let frame = 0; frame < 60 * 14; frame++) {
     const grounded = scene.playerY + DEFAULT_MOVEMENT.height >= surfaceY(QUARRY_RUN, scene.playerX) - 1;
     step(0, grounded);
     if (deck()) carried = Math.max(carried, scene.playerX);
+    if (collected.has('quarry-bonus-005') && rewardFeet === undefined) rewardFeet = scene.playerY + DEFAULT_MOVEMENT.height;
   }
   const hazards = ofKind('hazard').filter((hazard) => hazard.x > FERRY.from.x && hazard.x < FERRY.to.x + FERRY.width);
   expect(hazards).toHaveLength(2);
   expect(carried).toBeGreaterThan(Math.max(...hazards.map((hazard) => hazard.x)));
+  expect(collected.has('quarry-bonus-005')).toBe(true);
+  expect(rewardFeet).toBeCloseTo(FERRY.from.y, 4);
+  // Leave at the right dock rather than dropping back onto either crusher.
+  for (let frame = 0; frame < 60 * 8 && scene.playerX < FERRY.to.x + FERRY.width / 2 - 1; frame++) step();
+  for (let frame = 0; frame < 35; frame++) step(1);
+  expect(scene.playerX).toBeGreaterThan(7330);
+  expect(scene.playerX).toBeLessThan(7460);
+  expect(scene.playerY + DEFAULT_MOVEMENT.height).toBeCloseTo(surfaceY(QUARRY_RUN, scene.playerX), 4);
   expect(effects).not.toContain('damage');
   expect(effects).not.toContain('recover');
+});
+
+it('returns from the mine cache to a clear ground gem before the next slime patrol', () => {
+  const { scene, effects, collected, step } = rideFrom(5400);
+  for (let frame = 0; frame < 70; frame++) step(1, frame === 8);
+  expect(collected.has('quarry-gem-018')).toBe(true);
+  expect(collected.has('quarry-bonus-004')).toBe(true);
+  expect(collected.has('quarry-gem-019')).toBe(true);
+  expect(scene.playerX).toBeGreaterThan(5620);
+  expect(scene.playerX).toBeLessThan(5720);
+  expect(scene.playerY + DEFAULT_MOVEMENT.height).toBeCloseTo(surfaceY(QUARRY_RUN, scene.playerX), 4);
+  expect(effects).not.toContain('damage');
+  expect(effects).not.toContain('recover');
+});
+
+it.each([
+  { id: 'quarry-bonus-004', start: 5400, checkpoint: 'quarry-checkpoint-tunnels', checkpointX: 5250 },
+  { id: 'quarry-bonus-005', start: FERRY.from.x + FERRY.width / 2, checkpoint: 'quarry-checkpoint-crusher', checkpointX: 7000 },
+])('retains the actually earned $id through fall and depleted-health recovery', ({ id, start, checkpoint, checkpointX }) => {
+  const { scene, collected, step } = rideFrom(start);
+  const live = scene as unknown as { run: ReturnType<typeof createRun>; player: ReturnType<typeof createPlayer> };
+  // Local approach fixtures establish the preceding real checkpoint explicitly.
+  activateCheckpoint(live.run, checkpoint, []);
+  if (id === 'quarry-bonus-004') {
+    for (let frame = 0; frame < 70; frame++) step(1, frame === 8);
+  } else {
+    for (let frame = 0; frame < 60 * 14; frame++) {
+      const grounded = scene.playerY + DEFAULT_MOVEMENT.height >= surfaceY(QUARRY_RUN, scene.playerX) - 1;
+      step(0, grounded);
+    }
+  }
+  expect(collected.has(id)).toBe(true);
+  const earned = new Set(collected);
+  for (const cause of ['fall', 'health']) {
+    if (cause === 'fall') recoverFromFall(live.run, live.player, [], QUARRY_RUN);
+    else {
+      live.run.health = 1;
+      live.run.invulnerableSeconds = 0;
+      damagePlayer(live.run, live.player, 1, [], QUARRY_RUN);
+    }
+    expect(live.player.x).toBe(checkpointX);
+    expect(live.player.y + DEFAULT_MOVEMENT.height).toBe(surfaceY(QUARRY_RUN, checkpointX));
+    expect(live.run.collectedGems).toEqual(earned);
+  }
 });
 
 it('keeps platform phase on the run clock, so a paused adventure resumes in place', () => {
