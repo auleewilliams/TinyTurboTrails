@@ -61,6 +61,19 @@ npx playwright install --with-deps chromium firefox webkit
 npm run test:browser  # Production-build browser checks
 ```
 
+### Run and debug in VS Code
+
+After `npm ci`, open the repository folder in VS Code with Node.js 22.12 or newer
+on PATH and Google Chrome installed. Select **Tiny Turbo Trails (Vite + Chrome)**
+in Run and Debug, then press **F5**. VS Code starts Vite and opens the adventure
+in a Chrome debug session once the server is ready. Set breakpoints in `src/` to
+debug the game; Vite keeps hot reload enabled. The actual URL is in the Debug
+Console, including a different port if 5173 is already busy.
+
+To finish, stop the **Tiny Turbo Trails (Vite + Chrome)** server session in the
+debug toolbar; this also stops its Chrome debug session. No separate terminal
+command or task is needed.
+
 Asset-processing tests also require Python 3 (`python` on Windows, `python3`
 elsewhere). The static bundle needs an HTTP server; opening `index.html` as a
 local file is unsupported. No credentials or runtime generation are needed.
