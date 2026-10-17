@@ -60,6 +60,22 @@ describe('RetroAudio lifecycle', () => {
     audio.dispose();
   });
 
+  it('gates the squash score on unlock, mute and suspension and releases both voices', async () => {
+    const { audio, context } = setup();
+    audio.play('squash'); expect(context.oscillators).toHaveLength(0);
+    await audio.unlock(); audio.play('squash');
+    expect(context.oscillators).toHaveLength(2);
+    audio.setMuted(true); audio.play('squash');
+    expect(context.oscillators).toHaveLength(2);
+    expect(context.oscillators.every(node => node.disconnected)).toBe(true);
+    audio.setMuted(false); audio.setSuspended(true); audio.play('squash');
+    expect(context.oscillators).toHaveLength(2);
+    audio.setSuspended(false); await audio.unlock(); audio.play('squash');
+    expect(context.oscillators).toHaveLength(4);
+    audio.dispose();
+    expect(context.oscillators.every(node => node.disconnected)).toBe(true);
+  });
+
   it('bounds a long run with movement sounds, music and overlapping rewards, then releases ended nodes', async () => {
     vi.useFakeTimers();
     const { audio, context } = setup(); audio.startMusic(); await audio.unlock();

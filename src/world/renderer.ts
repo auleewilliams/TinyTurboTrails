@@ -12,7 +12,7 @@ import type { SlimeAccessory } from './slimes';
 /** Scenes without run state draw the whole entity list; a run hides what it has consumed. */
 export type EntityFilter = (entity: WorldEntity) => boolean;
 /** Run state supplies live positions plus optional deterministic presentation progress. */
-export type EntityPosition = (entity: WorldEntity) => { x: number; y: number; warningProgress?: number; checkpointActive?: boolean; springScale?: number };
+export type EntityPosition = (entity: WorldEntity) => { x: number; y: number; warningProgress?: number; checkpointActive?: boolean; springScale?: number; squashProgress?: number };
 
 export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, level: LevelData, camera: Camera,
   isVisible: EntityFilter = () => true, positionOf: EntityPosition = (entity) => entity,
@@ -69,7 +69,8 @@ export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, le
     if (!isVisible(entity)) continue;
     const position = positionOf(entity);
     if (entity.kind === 'slime' && assets.slimes) {
-      drawSlime(ctx, assets.slimes, level.theme.slimeAccessory ?? 'straw', position.x - offset.x, position.y - offset.y);
+      drawSlime(ctx, assets.slimes, level.theme.slimeAccessory ?? 'straw', position.x - offset.x, position.y - offset.y,
+        position.squashProgress, reducedMotion);
     } else if (entity.kind === 'gem') {
       drawGem(ctx, assets.gems, position.x - offset.x, position.y - offset.y, level.atlas);
     } else if (entity.kind === 'special') {
@@ -107,9 +108,12 @@ export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, le
 }
 
 /** Every costume shares one 32px body and the same bottom-center ground anchor. */
-export function drawSlime(ctx: CanvasRenderingContext2D, atlas: HTMLImageElement, accessory: SlimeAccessory, x: number, y: number): void {
+export function drawSlime(ctx: CanvasRenderingContext2D, atlas: HTMLImageElement, accessory: SlimeAccessory, x: number, y: number,
+  squashProgress?: number, reducedMotion = false): void {
   const index = { straw: 0, miner: 1, leaf: 2, 'hard-hat': 3, bobble: 4, snorkel: 5 }[accessory];
-  ctx.drawImage(atlas, index * 48, 0, 48, 48, x - 24, y - 44, 48, 48);
+  const progress = squashProgress === undefined ? 0 : reducedMotion ? 1 : Math.max(0, Math.min(1, squashProgress));
+  const width = 1 + progress * 0.2, height = 1 - progress * 0.6;
+  ctx.drawImage(atlas, index * 48, 0, 48, 48, x - 24 * width, y - 44 * height, 48 * width, 48 * height);
 }
 
 /** Draw the actual cut-diamond sprite, with its visible bottom at the pickup
