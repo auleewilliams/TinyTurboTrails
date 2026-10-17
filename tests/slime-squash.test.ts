@@ -114,10 +114,10 @@ it('catches a fast falling top crossing even when terrain already stopped the fa
   const run = createRun(level), player = landing();
   player.y = 70; player.vy = 1000; player.vx = 0;
   const previous = { x: player.x, y: player.y };
-  simulatePlayer(player, { horizontal: 0, jumpHeld: false, jumpPressed: false }, level, 0.1);
+  const trajectory = simulatePlayer(player, { horizontal: 0, jumpHeld: false, jumpPressed: false }, level, 0.1);
   expect(player.onGround).toBe(true);
   const events: RunEvent[] = [];
-  stepEntities(run, level, player, 0.1, events, previous);
+  stepEntities(run, level, player, 0.1, events, previous, trajectory);
   expect(events).toEqual([{ type: 'squash', entityId: 'slime' }]);
   expect(run.health).toBe(3);
   expect(player.vy).toBe(-260);
