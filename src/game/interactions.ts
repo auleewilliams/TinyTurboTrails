@@ -1,7 +1,8 @@
-import { DEFAULT_MOVEMENT, MAX_STEP_SECONDS, detachFromGround, launchSpring, surfaceY, type CollisionPlatform, type Player } from './movement';
+import { DEFAULT_MOVEMENT, MAX_STEP_SECONDS, detachFromGround, launchSpring, surfaceY, type CollisionPlatform, type MovementSegment, type Player } from './movement';
 import type { LevelData, WorldEntity } from '../world/level';
 
 export type RunEvent =
+  | { type: 'squash'; entityId: string }
   | { type: 'special'; entityId: string }
   | { type: 'gem'; entityId: string }
   | { type: 'checkpoint'; entityId: string }
@@ -13,6 +14,11 @@ export const CRUMBLE_WARNING_SECONDS = 0.75;
 export type CrumblingLedgePhase = 'stable' | 'warning' | 'crumbled';
 export const MAX_HEALTH = 3;
 export const HEALTH_FLASH_SECONDS = 0.35;
+export const SQUASH_SECONDS = 0.16;
+/** Provisional feel tuning for #142; owner playtesting remains separate. */
+export const SQUASH_BOUNCE_VELOCITY = 260;
+export const SLIME_TOP_HEIGHT = 20;
+export const SLIME_EDGE_FORGIVENESS = 4;
 
 /** Live position and transient behavior of a level entity. */
 export interface EntityState {
@@ -21,6 +27,8 @@ export interface EntityState {
   x: number;
   y: number;
   direction: 1 | -1;
+  squashed?: boolean;
+  squashSeconds?: number;
   ledgePhase?: CrumblingLedgePhase;
   ledgeSeconds?: number;
 }
@@ -98,9 +106,10 @@ export function ledgeWarningProgress(run: RunState, entityId: string): number {
 }
 
 /** Where the entity is right now, plus deterministic presentation state for drawing. */
-export function entityPosition(run: RunState, entity: WorldEntity): { x: number; y: number; warningProgress?: number } {
+export function entityPosition(run: RunState, entity: WorldEntity): { x: number; y: number; warningProgress?: number; squashProgress?: number } {
   const state = entityState(run, entity.id);
   const position = state ? { x: state.x, y: state.y } : { x: entity.x, y: entity.y };
+  if (state?.squashed) return { ...position, squashProgress: 1 - (state.squashSeconds ?? 0) / SQUASH_SECONDS };
   return entity.kind === 'crumbling-ledge'
     ? { ...position, warningProgress: ledgeWarningProgress(run, entity.id) }
     : position;
@@ -140,7 +149,7 @@ export function advancePatrols(run: RunState, level: LevelData, seconds: number)
   for (const entity of level.entities) {
     const patrol = entity.patrol;
     const state = entityState(run, entity.id);
-    if (!patrol || !state) continue;
+    if (!patrol || !state || state.squashed) continue;
     state.x += patrol.speed * state.direction * dt;
     if (state.x <= patrol.minX) { state.x = patrol.minX; state.direction = 1; }
     else if (state.x >= patrol.maxX) { state.x = patrol.maxX; state.direction = -1; }
@@ -153,7 +162,7 @@ export function advanceBounces(run: RunState, level: LevelData): void {
   for (const entity of level.entities) {
     const bounce = entity.bounce;
     const state = entityState(run, entity.id);
-    if (!bounce || !state) continue;
+    if (!bounce || !state || state.squashed) continue;
     const baseY = entity.patrol ? surfaceY(level, state.x) : entity.y;
     const phase = (run.seconds % bounce.seconds) / bounce.seconds;
     state.y = baseY - Math.sin(phase * Math.PI) ** 2 * bounce.amplitude;
@@ -161,13 +170,53 @@ export function advanceBounces(run: RunState, level: LevelData): void {
 }
 
 /** One gameplay step of the world against Henry: entities move, then contacts resolve. */
-export function stepEntities(run: RunState, level: LevelData, player: Player, seconds: number, events: RunEvent[], previous: { x: number; y: number } = player): void {
+export function stepEntities(run: RunState, level: LevelData, player: Player, seconds: number, events: RunEvent[],
+  previous: { x: number; y: number } = player, trajectory: readonly MovementSegment[] = [
+    { from: previous, to: player, falling: player.vy >= 0 },
+  ]): void {
   // Resolve crossings before damage can teleport the player to a recovery point.
   for (const checkpoint of level.checkpoints) {
     if (crossesCheckpoint(previous, player, checkpoint)) activateCheckpoint(run, checkpoint.id, events);
   }
   advancePatrols(run, level, seconds);
   advanceBounces(run, level);
+  // Classify every top from the same pre-response trajectory. Only the first
+  // impact (including tied tops) is real: its bounce prevents later crossings.
+  const feet = player.y + CONTACT.feet;
+  const lastSegment = trajectory[trajectory.length - 1];
+  const descending = lastSegment?.falling && lastSegment.to.y > lastSegment.from.y;
+  const tops: { state: EntityState; top: number; fraction: number }[] = [];
+  for (const entity of level.entities) {
+    const state = entityState(run, entity.id);
+    if (entity.kind !== 'slime' || !state?.active || state.squashed) continue;
+    const top = state.y - SLIME_TOP_HEIGHT;
+    for (const [index, segment] of trajectory.entries()) {
+      const fromFeet = segment.from.y + CONTACT.feet, toFeet = segment.to.y + CONTACT.feet;
+      if (!segment.falling || toFeet <= fromFeet || fromFeet > top || toFeet < top) continue;
+      const fraction = (top - fromFeet) / (toFeet - fromFeet);
+      const impactX = segment.from.x + (segment.to.x - segment.from.x) * fraction;
+      if (Math.abs(impactX - state.x) <= 16 + DEFAULT_MOVEMENT.width / 2 + SLIME_EDGE_FORGIVENESS) {
+        tops.push({ state, top, fraction: (index + fraction) / trajectory.length });
+        break;
+      }
+    }
+  }
+  tops.sort((a, b) => a.fraction - b.fraction || (a.state.id < b.state.id ? -1 : a.state.id > b.state.id ? 1 : 0));
+  const first = tops[0];
+  const squashed = first !== undefined;
+  if (first) {
+    const tied = tops.filter(candidate => Math.abs(candidate.fraction - first.fraction) <= 1e-8)
+      .sort((a, b) => a.state.id < b.state.id ? -1 : a.state.id > b.state.id ? 1 : 0);
+    for (const { state } of tied) {
+      state.squashed = true;
+      state.y = surfaceY(level, state.x);
+      state.squashSeconds = SQUASH_SECONDS;
+      events.push({ type: 'squash', entityId: state.id });
+    }
+    player.y = first.top - CONTACT.feet;
+    launchSpring(player, SQUASH_BOUNCE_VELOCITY);
+    player.squashBounce = true;
+  }
   for (const entity of level.entities) {
     const state = entityState(run, entity.id);
     const { x, y } = state ?? entity;
@@ -190,7 +239,12 @@ export function stepEntities(run: RunState, level: LevelData, player: Player, se
     if (!state?.active || !touching) continue;
     if (entity.kind === 'gem') collectGem(run, entity.id, events);
     else if (entity.kind === 'special') collectSpecial(run, entity.id, events);
-    else if (entity.kind === 'slime' || entity.kind === 'hazard') damagePlayer(run, player, x - player.x, events, level, entity.id);
+    else if (!squashed && ((entity.kind === 'slime' && !state.squashed
+      // Keep the legacy side/underneath window, but do not hit descending feet
+      // in its 8px overlap above the squash plane before they can cross it.
+      && !(descending && feet < y - SLIME_TOP_HEIGHT)) || entity.kind === 'hazard')) {
+      damagePlayer(run, player, x - player.x, events, level, entity.id);
+    }
   }
 }
 
@@ -203,6 +257,7 @@ export function tickRun(run: RunState, seconds: number): number {
   run.healthFlashSeconds = Math.max(0, run.healthFlashSeconds - dt);
   if (run.healthFlashSeconds === 0) run.healthFlashPip = null;
   for (const state of run.entities) {
+    if (state.squashed) state.squashSeconds = Math.max(0, (state.squashSeconds ?? 0) - step);
     if (state.ledgePhase !== 'warning') continue;
     state.ledgeSeconds = Math.max(0, (state.ledgeSeconds ?? 0) - dt);
     if (state.ledgeSeconds === 0) {
@@ -252,6 +307,7 @@ export function damagePlayer(run: RunState, player: Player, direction: number, e
   const away = Math.sign(direction) || (player.vx >= 0 ? -1 : 1);
   player.vx = away * -220;
   player.vy = -220;
+  player.squashBounce = false;
   player.onGround = false;
   detachFromGround(player);
   run.invulnerableSeconds = 1;
@@ -292,6 +348,7 @@ export function recoverFromFall(run: RunState, player: Player, events: RunEvent[
   player.y = spawn.y - DEFAULT_MOVEMENT.height;
   player.vx = 0;
   player.vy = 0;
+  player.squashBounce = false;
   player.onGround = true;
   player.coyoteSeconds = DEFAULT_MOVEMENT.coyoteSeconds;
   player.jumpBufferSeconds = 0;

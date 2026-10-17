@@ -207,3 +207,22 @@ parent-led follow-up, not an automated acceptance claim.
 
 All six trails share lavender slimes with a common body, size, speed and short,
 edge-safe patrols. Accessories vary by trail; see `gameplay-interactions.md`.
+
+## Slime squashing (#142)
+
+Falling onto a slime from above squashes it without damage, with forgiving top
+edges. Unsquashed side/underneath contact still hurts. A squash gives one small,
+fixed-height automatic bounce, unaffected by holding or releasing jump and
+preserving sideways motion. Sequential squashes use the same impulse, never a
+growing bounce. Simultaneous top contacts flatten together with one bounce and
+one soft playful squish; successful squashes take priority over same-step damage.
+
+Slimes stay visibly flattened, harmless, nonblocking and stationary on the ground,
+with recognisable accessories and a quick squash animation. They cannot trigger
+another bounce or sound. There is no reward, extra collectible or popup. Both pit
+and health checkpoint recovery retain flattened state for the current run;
+restart, replay, map re-entry and starting another trail restore upright slimes.
+All state remains in memory. No weapons, construction/digging tools (#186), or
+Explore mode are introduced. Exact bounce/edge tuning and child-facing readability
+remain owner playtest decisions; implementation values are documented in
+`gameplay-interactions.md` rather than treated as approved requirements.

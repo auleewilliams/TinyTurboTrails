@@ -32,12 +32,46 @@ per-frame delta is clamped so a long frame cannot teleport a slime past Henry.
 Both gameplay scenes use `stepEntities`: patrols move before contact resolution.
 Pausing freezes movement; `startNewRun` restores authored positions and directions.
 
-Slimes remain hazards to avoid and cannot be defeated. Henry's possible tools
-and future interactions are deferred to GitHub issue #142. Artwork provenance
-and the reproducible atlas processor are in `assets/source/slimes/PROVENANCE.md`.
+### Slime squash (#142)
+
+Falling feet sweep across the slime's top before ordinary damage resolves. Both
+scenes pass the movement integrator's resolved substep trajectory, so a terrain
+or platform stop cannot turn a missed top into a false squash later in the step.
+The same post-patrol live position is used for rendering, tops and ordinary contacts.
+Top-edge overlap includes Henry's 9px half-width, the 16px body half-width and
+4px extra horizontal forgiveness (29px centre separation). The top is 20px above
+the ground anchor; the legacy damage window's 8px overlap above that plane does
+not hurt descending feet before they can land. Side/underneath contacts still
+use ordinary damage. High-speed falls that terrain has already stopped can still
+squash when the pre-movement feet crossed the top.
+
+First swept impact wins; tied tops (within 1e-8 of the step fraction) squash
+together, ordered by stable entity ID. One fixed 260px/s upward impulse is applied,
+with no horizontal velocity write. Any successful squash suppresses damage for
+that simulation step only, including mixed unsquashed contacts; there is no new
+invulnerability timer. Sequential squashes reset to the same impulse. Unlike
+normal jumps, automatic squash arcs ignore jump-release extra gravity. Launch
+clears coyote time, buffered jump and platform carry; landing, ordinary jumps,
+springs, damage and recovery leave the automatic-bounce mode.
+
+Flattened state is separate from `active`: the sprite stays visible while contacts
+and patrols ignore it. Run-owned presentation reaches the final pose in 0.16s,
+compressing the existing complete costume to 40% height and 120% width at its
+ground anchor. Reduced motion shows the final pose immediately. Rendering never
+advances timers. Both scenes emit one quiet squish per successful step (not per
+tied slime), with no repeat sound, popup or reward. Pit and health recovery keep
+flattened state; every fresh run recreates all entities.
+
+These numeric values are provisional, not owner-approved tuning. The continuous
+physics apex is about 22.5px above contact, versus 86.7px for a held normal jump;
+fixed-step integration is slightly lower. Owner playtesting must judge bounce
+feel, edge forgiveness, accessory readability and sound balance. No physical
+controller or child playtest is claimed by automated coverage. Tools belong to
+separate #186; Explore mode is not a dependency. Artwork provenance and the
+reproducible atlas processor remain in `assets/source/slimes/PROVENANCE.md`.
 
 Every accepted interaction emits a small event (`gem`, `special`, `checkpoint`, `damage`,
-`spring` or `recover`). The `/?scene=gameplay` preview consumes those events to
+`spring`, `squash` or `recover`). The `/?scene=gameplay` preview consumes those events to
 exercise the HUD-facing path and maps them to local synthesized audio. The
 preview uses the Plains level and generated atlases; the complete map, pause/result screens and finish handling are available at `/`.
 

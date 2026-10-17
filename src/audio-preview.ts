@@ -37,7 +37,7 @@ export function mountAudioPreview(audio: GameAudio): () => void {
   select.onchange = () => { revision++; void audio.unlock(); start(); };
   button('Start music', start);
   button('Stop audio', () => audio.stop());
-  const effects: SoundEffect[] = ['footstep', 'landing', 'jump', 'gem', 'spring', 'damage', 'checkpoint', 'complete'];
+  const effects: SoundEffect[] = ['footstep', 'landing', 'jump', 'gem', 'spring', 'squash', 'damage', 'checkpoint', 'complete'];
   for (const effect of effects) button(effect, () => audio.play(effect), true);
   document.body.append(panel);
   return () => { revision++; panel.remove(); };

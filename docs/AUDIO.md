@@ -115,3 +115,14 @@ and 17.09dB below the gem cue. The largest measured mix peak is 0.03922 of full
 scale; the existing worst-case voice bound remains 0.864. These are waveform
 measurements, with review WAVs linked in the evidence; physical-speaker listening
 for these new cues has not been performed.
+
+## Slime squish (#142)
+
+The accepted `squash` event plays once per simulation step, even when several
+slimes flatten together, and never repeats for an already flattened slime. The
+135ms score is a 230→65Hz sine sweep followed by a 130→200Hz triangle rebound,
+at voice gain 0.12 (below the 0.48 reward/damage cues). It uses the existing
+unlock, mute, suspension, voice cap and cleanup paths. Audition the `squash`
+button at `/?audio`. Successful squash contacts do not also play a terrain
+landing thump. No reward effect accompanies a squash. The quiet rounded score
+and automated lifecycle checks do not substitute for owner listening review.

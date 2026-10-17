@@ -455,8 +455,17 @@ const dangerXs = (level: typeof PLAINS_LEVEL): number[] => level.entities
   .filter((entity) => entity.kind === 'slime' || entity.kind === 'hazard')
   // Traversal consumes this list from left to right. Entity order groups slimes
   // before hazards, which otherwise hides earlier stones until after the route.
-  .map(({ x }) => x)
+  // Jump before entering any possible patrol position, not just its spawn centre.
+  .map(entity => entity.patrol?.minX ?? entity.x)
   .sort((left, right) => left - right);
+
+test('route driver starts avoidance at each slime patrol entry rather than its authored centre', () => {
+  for (const level of LEVELS) {
+    const expected = level.entities.filter(entity => entity.kind === 'slime' || entity.kind === 'hazard')
+      .map(entity => entity.patrol?.minX ?? entity.x).sort((a, b) => a - b);
+    expect(dangerXs(level)).toEqual(expected);
+  }
+});
 
 /** Observe the real title drawing without adding a production-only test API. */
 async function observeTitleSelection(page: Page): Promise<void> {

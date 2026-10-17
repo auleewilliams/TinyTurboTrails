@@ -94,3 +94,17 @@ it('uses each approved costume with one shared draw size and ground anchor', () 
     expect(drawImage).toHaveBeenCalledWith(atlas, index * 48, 0, 48, 48, 226, 136, 48, 48);
   });
 });
+
+it.each(LEVELS)('$name flattens the original costume at its ground anchor, with a still reduced-motion pose', level => {
+  const drawImage = vi.fn(), ctx = { drawImage } as unknown as CanvasRenderingContext2D;
+  const atlas = {} as HTMLImageElement;
+  drawSlime(ctx, atlas, level.theme.slimeAccessory!, 250, 180, 1);
+  const flattened = drawImage.mock.calls[0];
+  expect(flattened.slice(1, 5)).toEqual([LEVELS.indexOf(level) * 48, 0, 48, 48]);
+  [221.2, 162.4, 57.6, 19.2].forEach((value, index) => expect(flattened[index + 5]).toBeCloseTo(value));
+  drawSlime(ctx, atlas, level.theme.slimeAccessory!, 250, 180, 0, true);
+  expect(drawImage.mock.calls[1]).toEqual(flattened);
+  drawSlime(ctx, atlas, level.theme.slimeAccessory!, 250, 180, 0.5);
+  expect(drawImage.mock.calls[2][8]).toBeGreaterThan(flattened[8]);
+  expect(drawImage.mock.calls[2][8]).toBeLessThan(48);
+});

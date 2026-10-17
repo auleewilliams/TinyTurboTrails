@@ -45,19 +45,20 @@ export class GameplayPreviewScene implements Scene {
     const previousPosition = { x: this.player.x, y: this.player.y };
     const wasGrounded = this.player.onGround;
     const previousVelocityY = this.player.vy;
-    simulatePlayer(this.player, input, this.level, seconds, [...this.platforms, ...activeLedgePlatforms(this.run, this.level)]);
+    const trajectory = simulatePlayer(this.player, input, this.level, seconds, [...this.platforms, ...activeLedgePlatforms(this.run, this.level)]);
     if (previousVelocityY >= 0 && this.player.vy < -DEFAULT_MOVEMENT.jumpVelocity * 0.75) this.audio.play('jump');
-    if (isMeaningfulLanding(wasGrounded, previousVelocityY, this.player)) {
+    this.events = [];
+    stepEntities(this.run, this.level, this.player, seconds, this.events, previousPosition, trajectory);
+    if (!this.events.some(event => event.type === 'recover') && isMeaningfulLanding(wasGrounded, previousVelocityY, this.player)) {
       this.feedback.add('landing', this.player.x, this.player.y + DEFAULT_MOVEMENT.height);
       this.audio.play('landing');
     }
-    this.events = [];
-    stepEntities(this.run, this.level, this.player, seconds, this.events, previousPosition);
     if (this.player.y > this.level.height + 80) recoverFromFall(this.run, this.player, this.events, this.level);
     if (!wasGrounded || this.events.some(event => event.type === 'recover' || event.type === 'damage' || event.type === 'spring')) this.footsteps.reset();
     else if (this.footsteps.step(step, this.player, previousPosition.x)) this.audio.play('footstep');
     this.feedback.consume(this.events, this.level);
     this.hud.consume(this.events);
+    if (this.events.some(event => event.type === 'squash')) this.audio.play('squash');
     for (const event of this.events) {
       if (event.type === 'gem') this.audio.play('gem');
       else if (event.type === 'checkpoint') this.audio.play('checkpoint');
