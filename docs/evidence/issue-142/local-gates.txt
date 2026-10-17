@@ -1,0 +1,122 @@
+===== final-unit.log =====
+
+> tiny-turbo-trails@0.1.0 test
+> vitest run
+
+
+ RUN  v5.0.3 /home/leew/.hermes/cache/scratch/tinyturbotrails-142
+
+
+ Test Files  45 passed (45)
+      Tests  796 passed (796)
+   Start at  09:01:34
+   Duration  23.04s (tests 89%, transform 5%, import 5%, worker 1%)
+
+    Isolate  45 workers spawned · ~425ms startup each (spawn + environment, per file)
+             at least ~2.31s faster with isolate: false — reuses workers across files instead of one per file
+
+
+
+===== final-typecheck.log =====
+
+> tiny-turbo-trails@0.1.0 typecheck
+> tsc --noEmit
+
+
+
+===== final-build.log =====
+
+> tiny-turbo-trails@0.1.0 build
+> tsc --noEmit && vite build
+
+vite v8.3.3 building client environment for production...
+transforming...
+✓ 52 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                         1.53 kB │ gzip:  0.75 kB
+dist/build-assets/index-NeTVGo1d.css    2.11 kB │ gzip:  0.85 kB
+dist/build-assets/index-B3vYiNtM.js   108.45 kB │ gzip: 34.45 kB
+
+✓ built in 285ms
+
+
+===== final-script.log =====
+
+> tiny-turbo-trails@0.1.0 test:ci
+> node --test scripts/*.test.mjs
+
+TAP version 13
+# Subtest: overlapping successful runs complete a then b: latest never rolls back
+ok 1 - overlapping successful runs complete a then b: latest never rolls back
+  ---
+  duration_ms: 7.300529
+  type: 'test'
+  ...
+# Subtest: overlapping successful runs complete b then a: latest never rolls back
+ok 2 - overlapping successful runs complete b then a: latest never rolls back
+  ---
+  duration_ms: 0.570011
+  type: 'test'
+  ...
+# Subtest: main advances during the build: old run preserves previous latest even if new checks fail
+ok 3 - main advances during the build: old run preserves previous latest even if new checks fail
+  ---
+  duration_ms: 0.595076
+  type: 'test'
+  ...
+# Subtest: main advances after freshness read: shared lock prevents a newer publisher being overtaken
+ok 4 - main advances after freshness read: shared lock prevents a newer publisher being overtaken
+  ---
+  duration_ms: 0.946553
+  type: 'test'
+  ...
+# Subtest: freshness API errors and malformed identities fail without writing
+ok 5 - freshness API errors and malformed identities fail without writing
+  ---
+  duration_ms: 1.995369
+  type: 'test'
+  ...
+# Subtest: rerun reuses existing SHA digest, preserving immutable rollback image
+ok 6 - rerun reuses existing SHA digest, preserving immutable rollback image
+  ---
+  duration_ms: 104.129942
+  type: 'test'
+  ...
+# Subtest: only an explicit missing manifest permits a new SHA build
+ok 7 - only an explicit missing manifest permits a new SHA build
+  ---
+  duration_ms: 2.014176
+  type: 'test'
+  ...
+# Subtest: registry denial, outages, ambiguous 404s, and invalid digest fail closed
+ok 8 - registry denial, outages, ambiguous 404s, and invalid digest fail closed
+  ---
+  duration_ms: 5.937817
+  type: 'test'
+  ...
+1..8
+# tests 8
+# suites 0
+# pass 8
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 451.513547
+
+
+===== doc-links.log =====
+4 relative links checked across 3 changed Markdown files
+
+
+===== review-suggestion-green.log =====
+
+ RUN  v5.0.3 /home/leew/.hermes/cache/scratch/tinyturbotrails-142
+
+
+ Test Files  1 passed (1)
+      Tests  11 passed (11)
+   Start at  09:05:16
+   Duration  1.19s (transform 80%, import 10%, tests 8%, worker 2%)
+

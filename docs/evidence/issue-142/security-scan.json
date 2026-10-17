@@ -1,0 +1,7 @@
+{
+  "hardcoded secret": [],
+  "shell injection": [],
+  "eval/exec": [],
+  "unsafe pickle": [],
+  "SQL interpolation": []
+}
