@@ -2937,3 +2937,139 @@ test('educational word shows TREE and collects the two Es through real trail mov
   await page.getByRole('button', { name: 'Play TREETOP TIMBERS', exact: true }).click();
   await expect(page.locator('#status')).toContainText('TREE: _ _ _ _');
 });
+
+async function arriveAtEducationalMaths(page: Page): Promise<void> {
+  await installTrailPilot(page);
+  await openAdventure(page, '/?debug=1');
+  await page.getByRole('button', { name: 'TREETOP TIMBERS', exact: true }).click();
+  await page.getByRole('button', { name: 'Play TREETOP TIMBERS', exact: true }).click();
+  await page.evaluate(dangers => {
+    Object.assign((window as unknown as { trailPilot: object }).trailPilot, { active: true, dangers, pauseAt: 2350 });
+  }, dangerXs(LEVELS[2]));
+  await expect(page.locator('#status')).toContainText('TREE: T R _ _');
+  await expect.poll(() => page.evaluate(() => (window as unknown as { trailPilot: { frozen: boolean } }).trailPilot.frozen)).toBe(true);
+  await expect(page.getByRole('button', { name: 'Open optional maths', exact: true })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Leave activity', exact: true })).toHaveCount(0);
+  await page.keyboard.up('ArrowRight');
+  await page.evaluate(() => Object.assign((window as unknown as { trailPilot: object }).trailPilot, { active: false, lastActive: false }));
+}
+
+test('educational maths pointer entry freezes the opening frame, retries the same question and leaves safely', async ({ page }, info) => {
+  await arriveAtEducationalMaths(page);
+  const position = (await page.locator('#status').innerText()).match(/X \d+ Y \d+/)![0];
+  await page.getByRole('button', { name: 'Open optional maths', exact: true }).click();
+  await expect(page.getByRole('button', { name: 'Leave activity', exact: true })).toBeVisible();
+  await page.evaluate(() => Object.assign((window as unknown as { trailPilot: object }).trailPilot, { frozen: false, pauseAt: 0 }));
+  await expect(page.locator('#status')).toContainText(position);
+  const choices = page.getByRole('button', { name: /^Answer \d+$/ });
+  await expect(choices).toHaveCount(3);
+  await expect(choices.first()).toBeFocused();
+  // Accessible descriptions expose the same question as the canvas, not the answer.
+  const description = await choices.first().getAttribute('aria-description');
+  const [left, operation, right] = description!.match(/(\d+) ([+−]) (\d+)/)!.slice(1);
+  const answer = operation === '+' ? Number(left) + Number(right) : Number(left) - Number(right);
+  const labels = await choices.evaluateAll(buttons => buttons.map(button => button.getAttribute('aria-label')!));
+  await page.getByRole('button', { name: labels.find(label => label !== `Answer ${answer}`)!, exact: true }).click();
+  await expect(page.locator('#status')).toContainText('Try again');
+  expect(await choices.first().getAttribute('aria-description')).toContain(`${left} ${operation} ${right}`);
+  await expect(page.locator('#status')).toContainText(position);
+  const first = await page.locator('canvas').screenshot();
+  await page.evaluate(() => new Promise<void>(resolve => {
+    let frames = 0; const wait = () => { if (++frames === 20) resolve(); else requestAnimationFrame(wait); }; requestAnimationFrame(wait);
+  }));
+  expect((await page.locator('canvas').screenshot()).equals(first)).toBe(true);
+  await page.getByRole('button', { name: `Answer ${answer}`, exact: true }).click();
+  await expect(page.locator('#status')).toContainText('Sticker earned');
+  await expect(choices).toHaveCount(0);
+  await page.screenshot({ path: info.outputPath('maths-sticker.png') });
+  await page.keyboard.press('Escape');
+  await expect(page.getByRole('button', { name: 'Leave activity', exact: true })).toHaveCount(0);
+  await expect(page.getByRole('button', { name: 'Resume', exact: true })).toHaveCount(0);
+  await page.keyboard.press('e');
+  await expect(page.locator('#status')).toContainText('Already complete');
+  await page.screenshot({ path: info.outputPath('maths-already-complete.png') });
+  await page.getByRole('button', { name: 'Leave activity', exact: true }).click();
+});
+
+for (const controller of [false, true]) {
+  test(`educational maths ${controller ? 'controller' : 'keyboard'} entry, selection, focus loss and pause boundaries`, async ({ page }, info) => {
+    await arriveAtEducationalMaths(page);
+    const frame = async (count = 3): Promise<void> => {
+      await page.evaluate(count => new Promise<void>(resolve => {
+        let frames = 0; const tick = () => { if (++frames >= count) resolve(); else requestAnimationFrame(tick); }; requestAnimationFrame(tick);
+      }), count);
+    };
+    const pad = async (button: number, pressed: boolean): Promise<void> => {
+      await page.evaluate(({ button, pressed }) => {
+        (window as unknown as { trailPilot: { controller: boolean } }).trailPilot.controller = true;
+        (window as unknown as { trailPad: { buttons: { pressed: boolean }[] } }).trailPad.buttons[button].pressed = pressed;
+      }, { button, pressed });
+      await frame();
+    };
+    const press = async (key: string, button: number): Promise<void> => {
+      if (controller) { await pad(button, true); await pad(button, false); }
+      else { await page.keyboard.down(key); await frame(); await page.keyboard.up(key); await frame(); }
+    };
+    await press('e', 12);
+    const answers = page.getByRole('button', { name: /^Answer \d+$/ });
+    await expect(answers).toHaveCount(3);
+    await expect(answers.first()).toBeFocused();
+    await page.evaluate(() => Object.assign((window as unknown as { trailPilot: object }).trailPilot, { frozen: false, pauseAt: 0 }));
+    const description = await answers.first().getAttribute('aria-description');
+    await page.evaluate(() => window.dispatchEvent(new Event('blur')));
+    await expect(page.locator('#status')).toContainText('Paused');
+    await expect(answers).toHaveCount(0);
+    if (controller) await pad(0, true);
+    else await page.keyboard.down('Space');
+    await page.evaluate(() => window.dispatchEvent(new Event('focus')));
+    await expect(answers).toHaveCount(3);
+    expect(await answers.first().getAttribute('aria-description')).toBe(description);
+    if (controller) await pad(0, false);
+    else await page.keyboard.up('Space');
+    await press('ArrowRight', 15);
+    await expect(answers.nth(1)).toHaveAttribute('aria-pressed', 'true');
+    await expect(answers.nth(1)).toBeFocused();
+    await press('Space', 0);
+    await expect(page.locator('#status')).toContainText('Try again');
+    await page.setViewportSize({ width: 320, height: 240 }); await frame();
+    await expectClearViewport(page);
+    await page.screenshot({ path: info.outputPath('maths-small.png') });
+    await press('Escape', 9);
+    await expect(page.getByRole('button', { name: 'Leave activity', exact: true })).toHaveCount(0);
+    await expect(page.getByRole('button', { name: 'Resume', exact: true })).toHaveCount(0);
+    await press('Escape', 9);
+    await expect(page.getByRole('button', { name: 'Resume', exact: true })).toBeVisible();
+    await press('Escape', 9);
+    await expect(page.getByRole('button', { name: 'Resume', exact: true })).toHaveCount(0);
+    await press('e', 12);
+    await expect(answers).toHaveCount(3);
+    if (controller) {
+      // Keep face/direction held while pointer exits.
+      await page.evaluate(() => {
+        const pad = (window as unknown as { trailPad: { buttons: { pressed: boolean }[]; axes: number[] } }).trailPad;
+        pad.axes[0] = 1; pad.buttons[0].pressed = true;
+      });
+      await page.getByRole('button', { name: 'Leave activity', exact: true }).click();
+      await frame(20);
+      await expect(answers).toHaveCount(0);
+      await expect(page.getByRole('button', { name: 'Resume', exact: true })).toHaveCount(0);
+      // The authored downhill surface has a 1px/s neutral drift; held right would reach 420px/s.
+      await expect(page.locator('#status')).toContainText('V 1');
+      await page.evaluate(() => {
+        const pad = (window as unknown as { trailPad: { buttons: { pressed: boolean }[]; axes: number[] } }).trailPad;
+        pad.axes[0] = 0; pad.buttons[0].pressed = false;
+      });
+      await frame();
+    } else await page.getByRole('button', { name: 'Leave activity', exact: true }).click();
+    await press('e', 12);
+    await expect(answers).toHaveCount(3);
+    const [left, operation, right] = (await answers.first().getAttribute('aria-description'))!.match(/(\d+) ([+−]) (\d+)/)!.slice(1);
+    const correct = operation === '+' ? Number(left) + Number(right) : Number(left) - Number(right);
+    const labels = await answers.evaluateAll(buttons => buttons.map(button => button.getAttribute('aria-label')));
+    const index = labels.indexOf(`Answer ${correct}`);
+    for (let step = 0; step < index; step++) await press('ArrowRight', 15);
+    await press('Space', 0);
+    await expect(page.locator('#status')).toContainText('Sticker earned');
+    await page.getByRole('button', { name: 'Leave activity', exact: true }).click();
+  });
+}

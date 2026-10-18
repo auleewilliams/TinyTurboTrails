@@ -1,4 +1,5 @@
-import { EducationSession, LETTER_PICKUPS } from './education';
+import { EducationOverlay } from './education-overlay';
+import { EducationSession, LETTER_PICKUPS, MATHS_SPOT } from './education';
 import { drawOverworld, MAP_POINTS, OVERWORLD_LAYOUT, TrailSession, type MenuTarget } from './overworld';
 import { musicForLevel } from '../core/music';
 import type { GameAudio } from '../core/audio';
@@ -75,7 +76,8 @@ export class AdventureScene implements Scene {
   private selectionDirection = 0;
   readonly session = new TrailSession();
   readonly education = new EducationSession();
-  get educationDescription(): string { return this.level.id === 'timbers' && this.screenState === 'playing' ? `TREE: ${this.education.wordProgress}${this.education.stickers.length ? ' · TREE sticker earned' : ''}` : ''; }
+  readonly educationOverlay = new EducationOverlay(this.education);
+  get educationDescription(): string { if (this.educationOverlay.open) return this.educationOverlay.description; return this.level.id === 'timbers' && this.screenState === 'playing' ? `TREE: ${this.education.wordProgress}${this.education.hasWordSticker ? ' · TREE sticker earned' : ''}` : ''; }
   private finishIndex = 0;
   private menuArmed = true;
   private marker = { x: 48, y: 88 };
@@ -108,6 +110,7 @@ export class AdventureScene implements Scene {
   exit(): void { this.audio.stop(); this.rumble?.stop(); }
 
   update(seconds: number, input: InputFrame): void {
+    if (this.educationOverlay.open) return;
     this.inputSource = input.source ?? 'keyboard';
     if (this.screenState === 'story') {
       if (!this.menuArmed) {
@@ -220,6 +223,7 @@ export class AdventureScene implements Scene {
       drawGameplayHud(ctx, this.run, this.hud.hint, this.feedback.checkpointSeconds > 0
         ? 'Checkpoint reached!' : this.hud.locationSeconds > 0 ? this.hud.location : '', this.hud.progress(this.level, this.player.x));
       this.drawWordProgress(ctx);
+      if (this.educationOverlay.open) this.educationOverlay.draw(ctx);
     } else if (this.screens.state === 'finish') {
       this.drawFinish(ctx);
     } else if (this.screens.state === 'error') {
@@ -227,9 +231,34 @@ export class AdventureScene implements Scene {
     }
   }
 
+  get nearMaths(): boolean {
+    return this.level.id === 'timbers' && this.screenState === 'playing'
+      && Math.abs(this.player.x - MATHS_SPOT.x) <= 64
+      && Math.abs(this.player.y + 34 - surfaceY(this.level, MATHS_SPOT.x)) <= 48;
+  }
+
+  handleEducationInput(input: InputFrame): void {
+    if (this.educationOverlay.open) this.educationOverlay.update(input);
+    else if (input.activityPressed && this.nearMaths) this.educationOverlay.showMaths();
+  }
+
+  private get mathsTarget(): MenuTarget {
+    return { label: 'Open optional maths', description: 'Optional · E or controller D-pad up. Walking past keeps playing.',
+      x: MATHS_SPOT.x - this.camera.position.x - 40, y: surfaceY(this.level, MATHS_SPOT.x) - this.camera.position.y - 78,
+      width: 80, height: 44, nativeSpace: true, action: () => this.educationOverlay.showMaths() };
+  }
+
   private drawLetters(ctx: CanvasRenderingContext2D): void {
     if (this.level.id !== 'timbers') return;
-    ctx.save(); ctx.textAlign = 'center'; ctx.font = 'bold 16px monospace';
+    ctx.save(); ctx.textAlign = 'center';
+    const sign = this.mathsTarget, center = sign.x + sign.width / 2;
+    ctx.fillStyle = '#704126'; ctx.fillRect(center - 2, sign.y + 20, 4, 58);
+    ctx.fillStyle = '#17333b'; ctx.fillRect(sign.x, sign.y, sign.width, sign.height);
+    ctx.strokeStyle = this.nearMaths ? '#ffda75' : '#bfd5ce'; ctx.strokeRect(sign.x, sign.y, sign.width, sign.height);
+    ctx.fillStyle = '#ffda75'; ctx.font = 'bold 12px monospace'; ctx.fillText('1 + 2 = ?', center, sign.y + 14);
+    ctx.font = '8px monospace'; ctx.fillText('Optional maths', center, sign.y + 26);
+    ctx.fillStyle = '#e9f2df'; ctx.fillText(this.nearMaths ? this.inputSource === 'controller' ? 'D-pad ↑: open' : 'E / click: open' : 'Stop to try', center, sign.y + 38);
+    ctx.font = 'bold 16px monospace';
     for (const letter of LETTER_PICKUPS) {
       if (this.education.hasLetter(letter.id)) continue;
       const x = Math.round(letter.x - this.camera.position.x), y = Math.round(surfaceY(this.level, letter.x) - 32 - this.camera.position.y);
@@ -245,7 +274,7 @@ export class AdventureScene implements Scene {
     ctx.save(); ctx.textAlign = 'right'; ctx.font = 'bold 10px monospace';
     ctx.fillStyle = '#10252cee'; ctx.fillRect(251, 31, 170, 32);
     ctx.fillStyle = '#ffda75'; ctx.fillText('Match TREE', 415, 43);
-    ctx.fillStyle = '#e9f2df'; ctx.fillText(`${this.education.wordProgress}${this.education.stickers.length ? ' ✓ Sticker!' : ''}`, 415, 57);
+    ctx.fillStyle = '#e9f2df'; ctx.fillText(`${this.education.wordProgress}${this.education.hasWordSticker ? ' ✓ Sticker!'  : ''}`, 415, 57);
     ctx.restore();
   }
 
@@ -326,6 +355,8 @@ export class AdventureScene implements Scene {
   }
 
   get menuTargets(): MenuTarget[] {
+    if (this.educationOverlay.open) return this.educationOverlay.targets;
+    if (this.nearMaths) return [this.mathsTarget];
     if (this.screenState === 'story') return this.story.targets.map((target, index) => ({ ...target, action: () => this.activateStory(index) }));
     if (this.screens.state === 'title') return [
       ...LEVELS.map((level, index) => ({ label: level.name, x: MAP_POINTS[index][0] - 35, y: MAP_POINTS[index][1] - 30,
@@ -376,6 +407,7 @@ export class AdventureScene implements Scene {
   private loadLevel(level: LevelData): void {
     this.audio.stop();
     this.rumble?.stop();
+    this.educationOverlay.close();
     this.elapsed = 0;
     this.celebration.reset();
     this.events = [];

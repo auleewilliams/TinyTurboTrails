@@ -13,12 +13,14 @@ export class MenuOverlay {
   }
   update(scene: AdventureScene | undefined, paused: boolean, pauseTargets: MenuTarget[] = []): void {
     document.body.classList.toggle('map-visible', (scene?.screenState === 'title' || scene?.screenState === 'story' || scene?.screenState === 'finish') && !paused);
+    const activityOpen = Boolean(scene?.educationOverlay.open && !paused);
     const targets = paused ? pauseTargets : scene?.menuTargets ?? [];
+    this.element.setAttribute('role', activityOpen ? 'dialog' : 'navigation');
     document.body.classList.toggle('pause-visible', pauseTargets.length > 0);
     this.element.setAttribute('aria-label', paused
       ? pauseTargets[0]?.label === 'Keep playing' ? 'Return to Trails confirmation' : 'Pause navigation'
-      : 'Trail navigation');
-    const signature = JSON.stringify(targets.map(({ label, selected, description }) => [label, selected, description]));
+      : activityOpen ? 'Optional Timbers maths' : 'Trail navigation');
+    const signature = JSON.stringify([activityOpen ? scene?.educationOverlay.revision : undefined, targets.map(({ label, selected, description, x, y, width, height }) => [label, selected, description, x, y, width, height])]);
     const bounds = this.canvas.getBoundingClientRect();
     Object.assign(this.element.style, { left: `${bounds.left}px`, top: `${bounds.top}px`, width: `${bounds.width}px`, height: `${bounds.height}px` });
     if (signature === this.signature) return;
@@ -51,6 +53,7 @@ export class MenuOverlay {
         width: `${target.width / 426 * 100}%`, height: `${target.height / 240 * 100}%` });
       if (!button.isConnected) this.element.append(button);
     });
+    if (activityOpen) this.element.querySelectorAll('button')[Math.max(0, targets.findIndex(target => target.selected))]?.focus({ preventScroll: true });
   }
   dispose(): void { this.element.remove(); }
 }
