@@ -2989,6 +2989,26 @@ test('educational maths pointer entry freezes the opening frame, retries the sam
   await expect(page.locator('#status')).toContainText('Already complete');
   await page.screenshot({ path: info.outputPath('maths-already-complete.png') });
   await page.getByRole('button', { name: 'Leave activity', exact: true }).click();
+  await page.evaluate(() => Object.assign((window as unknown as { trailPilot: object }).trailPilot, { active: true, pauseAt: 7150 }));
+  await expect(page.locator('#status')).toContainText('TREE: T R E E', { timeout: 25_000 });
+  await expect.poll(() => page.evaluate(() => (window as unknown as { trailPilot: { frozen: boolean } }).trailPilot.frozen)).toBe(true);
+  await page.keyboard.press('Escape');
+  await page.getByRole('button', { name: 'Return to Trails', exact: true }).click();
+  await page.getByRole('button', { name: 'Return to Trails', exact: true }).click();
+  await page.keyboard.up('ArrowRight');
+  await page.evaluate(() => Object.assign((window as unknown as { trailPilot: object }).trailPilot, { active: false, lastActive: false, frozen: false, pauseAt: 0 }));
+  await page.getByRole('button', { name: 'Open stickers', exact: true }).click();
+  await expect(page.locator('#status')).toContainText('2/2 stickers');
+  await expect(page.locator('#status')).toContainText('Timbers TREE: earned');
+  await expect(page.locator('#status')).toContainText('Timbers number leaf: earned');
+  await page.screenshot({ path: info.outputPath('stickers-both-earned.png') });
+  await page.setViewportSize({ width: 320, height: 240 });
+  await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
+  await expectClearViewport(page);
+  await page.screenshot({ path: info.outputPath('stickers-small.png') });
+  await page.getByRole('button', { name: 'Return to map', exact: true }).click();
+  await page.getByRole('button', { name: 'Play TREETOP TIMBERS', exact: true }).click();
+  await expect(page.locator('#status')).toContainText('TREE: T R E E');
 });
 
 for (const controller of [false, true]) {
@@ -3071,5 +3091,38 @@ for (const controller of [false, true]) {
     await press('Space', 0);
     await expect(page.locator('#status')).toContainText('Sticker earned');
     await page.getByRole('button', { name: 'Leave activity', exact: true }).click();
+  });
+}
+
+
+for (const method of ['pointer', 'keyboard', 'controller'] as const) {
+  test(`educational sticker collection ${method} access is optional and reload clears rewards`, async ({ page }) => {
+    await installTrailPilot(page);
+    await openAdventure(page, '/');
+    await expect(page.getByRole('button', { name: 'Open stickers', exact: true })).toHaveAttribute('aria-description', /0 of 2/);
+    if (method === 'pointer') await page.getByRole('button', { name: 'Open stickers', exact: true }).click();
+    else if (method === 'keyboard') await page.keyboard.press('e');
+    else {
+      await page.evaluate(() => {
+        (window as unknown as { trailPilot: { controller: boolean } }).trailPilot.controller = true;
+        (window as unknown as { trailPad: { buttons: { pressed: boolean }[] } }).trailPad.buttons[12].pressed = true;
+      });
+    }
+    const close = page.getByRole('button', { name: 'Return to map', exact: true });
+    await expect(close).toBeFocused();
+    await expect(page.locator('#status')).toContainText('0/2 stickers');
+    await expect(page.locator('#status')).toContainText('Timbers TREE: find the letters');
+    if (method === 'controller') {
+      await page.evaluate(() => { (window as unknown as { trailPad: { buttons: { pressed: boolean }[] } }).trailPad.buttons[12].pressed = false; });
+      await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
+      await page.evaluate(() => { (window as unknown as { trailPad: { buttons: { pressed: boolean }[] } }).trailPad.buttons[0].pressed = true; });
+    } else if (method === 'keyboard') await page.keyboard.press('Enter');
+    else await close.click();
+    await expect(close).toHaveCount(0);
+    await expect(page.getByRole('button', { name: 'Play PLAINS', exact: true })).toBeVisible();
+    await page.reload();
+    await page.getByRole('button', { name: 'Skip story', exact: true }).click();
+    await expect(page.getByRole('button', { name: 'Open stickers', exact: true })).toHaveAttribute('aria-description', /0 of 2/);
+    expect(await page.evaluate(() => ({ local: localStorage.length, session: sessionStorage.length }))).toEqual({ local: 0, session: 0 });
   });
 }

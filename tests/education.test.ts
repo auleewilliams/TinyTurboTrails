@@ -57,6 +57,7 @@ it('collects on Timbers only and retains education through health/pit recovery, 
     scene.update(1 / 60, neutral);
   }
   expect(scene.education.wordProgress).toBe('T R E E');
+  scene.education.answerMaths(scene.education.maths.answer);
   const rewards = scene.education.stickers;
   recoverFromFall(live.run, live.player, [], TREETOP_TIMBERS);
   live.run.health = 1; live.run.invulnerableSeconds = 0;
@@ -178,4 +179,25 @@ it('publishes every overlay boundary even when a pointer exit and keyboard re-en
   scene.handleEducationInput({ ...neutral, activityPressed: true });
   expect(scene.educationOverlay.revision).toBe(revision + 2);
   expect(scene.menuTargets[0].selected).toBe(true);
+});
+
+it('opens a small session sticker collection from the map by pointer or activity input without changing selection or rewards', () => {
+  const { scene } = timbers();
+  scene.returnToTrails();
+  const selected = scene.selectedLevelName;
+  expect(scene.menuTargets.filter(target => LEVELS.some(level => level.name === target.label))).toHaveLength(6);
+  scene.menuTargets.find(target => target.label === 'Open stickers')!.action();
+  expect(scene.educationOverlay.description).toContain('0/2 stickers');
+  expect(scene.menuTargets.map(target => target.label)).toEqual(['Return to map']);
+  scene.handleEducationInput({ ...neutral, pausePressed: true });
+  for (const letter of LETTER_PICKUPS) scene.education.collect(letter.id);
+  scene.education.answerMaths(scene.education.maths.answer);
+  scene.handleEducationInput({ ...neutral, activityPressed: true, source: 'controller' });
+  expect(scene.educationOverlay.description).toContain('2/2 stickers');
+  expect(scene.educationOverlay.description).toContain('Timbers TREE: earned');
+  expect(scene.educationOverlay.description).toContain('Timbers number leaf: earned');
+  scene.menuTargets[0].action();
+  expect(scene.screenState).toBe('title');
+  expect(scene.selectedLevelName).toBe(selected);
+  expect(scene.education.stickers).toHaveLength(2);
 });
