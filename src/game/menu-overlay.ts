@@ -20,7 +20,10 @@ export class MenuOverlay {
     this.element.setAttribute('aria-label', paused
       ? pauseTargets[0]?.label === 'Keep playing' ? 'Return to Trails confirmation' : 'Pause navigation'
       : activityOpen ? scene?.educationOverlay.kind === 'stickers' ? 'Timbers stickers' : 'Optional Timbers maths' : 'Trail navigation');
-    const signature = JSON.stringify([activityOpen ? scene?.educationOverlay.revision : undefined, targets.map(({ label, selected, description, x, y, width, height }) => [label, selected, description, x, y, width, height])]);
+    const signature = JSON.stringify([
+      activityOpen ? scene?.educationOverlay.revision : undefined,
+      targets.map(({ label, selected, description, x, y, width, height }) => [label, selected, description, x, y, width, height]),
+    ]);
     const bounds = this.canvas.getBoundingClientRect();
     Object.assign(this.element.style, { left: `${bounds.left}px`, top: `${bounds.top}px`, width: `${bounds.width}px`, height: `${bounds.height}px` });
     if (signature === this.signature) return;

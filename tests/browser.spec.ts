@@ -3009,6 +3009,10 @@ test('educational maths pointer entry freezes the opening frame, retries the sam
   await page.getByRole('button', { name: 'Return to map', exact: true }).click();
   await page.getByRole('button', { name: 'Play TREETOP TIMBERS', exact: true }).click();
   await expect(page.locator('#status')).toContainText('TREE: T R E E');
+  await expect(page.locator('#status')).toContainText('TREE complete');
+  await page.reload();
+  await page.getByRole('button', { name: 'Skip story', exact: true }).click();
+  await expect(page.getByRole('button', { name: 'Open stickers', exact: true })).toHaveAttribute('aria-description', /0 of 2/);
 });
 
 for (const controller of [false, true]) {

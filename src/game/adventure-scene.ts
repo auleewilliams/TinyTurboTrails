@@ -77,7 +77,11 @@ export class AdventureScene implements Scene {
   readonly session = new TrailSession();
   readonly education = new EducationSession();
   readonly educationOverlay = new EducationOverlay(this.education);
-  get educationDescription(): string { if (this.educationOverlay.open) return this.educationOverlay.description; return this.level.id === 'timbers' && this.screenState === 'playing' ? `TREE: ${this.education.wordProgress}${this.education.hasWordSticker ? ' · TREE sticker earned' : ''}` : ''; }
+  get educationDescription(): string {
+    if (this.educationOverlay.open) return this.educationOverlay.description;
+    if (this.level.id !== 'timbers' || this.screenState !== 'playing') return '';
+    return `TREE: ${this.education.wordProgress}${this.education.hasWordSticker ? ' · TREE complete · sticker earned' : ''}`;
+  }
   private finishIndex = 0;
   private menuArmed = true;
   private marker = { x: 48, y: 88 };
@@ -278,8 +282,8 @@ export class AdventureScene implements Scene {
     if (this.level.id !== 'timbers') return;
     ctx.save(); ctx.textAlign = 'right'; ctx.font = 'bold 10px monospace';
     ctx.fillStyle = '#10252cee'; ctx.fillRect(251, 31, 170, 32);
-    ctx.fillStyle = '#ffda75'; ctx.fillText('Match TREE', 415, 43);
-    ctx.fillStyle = '#e9f2df'; ctx.fillText(`${this.education.wordProgress}${this.education.hasWordSticker ? ' ✓ Sticker!'  : ''}`, 415, 57);
+    ctx.fillStyle = '#ffda75'; ctx.fillText(this.education.hasWordSticker ? 'TREE complete!' : 'Match TREE', 415, 43);
+    ctx.fillStyle = '#e9f2df'; ctx.fillText(`${this.education.wordProgress}${this.education.hasWordSticker ? ' ✓ Sticker!' : ''}`, 415, 57);
     ctx.restore();
   }
 

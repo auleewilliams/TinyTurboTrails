@@ -1,5 +1,10 @@
 import { expect, it } from 'vitest';
-import { EducationSession, LETTER_PICKUPS } from '../src/game/education';
+import { EducationSession, LETTER_PICKUPS, MATHS_SPOT, mathsQuestion } from '../src/game/education';
+import { AdventureScene } from '../src/game/adventure-scene';
+import { SilentAudio } from '../src/core/audio';
+import { LEVELS, TREETOP_TIMBERS } from '../src/world/levels';
+import { surfaceY, type Player } from '../src/game/movement';
+import { damagePlayer, recoverFromFall, type RunState } from '../src/game/interactions';
 
 it('matches TREE in any order by stable identity, including two separate Es', () => {
   const session = new EducationSession();
@@ -36,12 +41,6 @@ it('supports every pickup permutation and fills exactly one matching slot per pi
   }
 });
 
-import { AdventureScene } from '../src/game/adventure-scene';
-import { SilentAudio } from '../src/core/audio';
-import { LEVELS, TREETOP_TIMBERS } from '../src/world/levels';
-import { surfaceY, type Player } from '../src/game/movement';
-import { damagePlayer, recoverFromFall, type RunState } from '../src/game/interactions';
-
 const neutral = { horizontal: 0, jumpHeld: false, jumpPressed: false, pausePressed: false, mutePressed: false };
 function timbers() {
   const scene = new AdventureScene({} as never, {} as never,
@@ -67,6 +66,7 @@ it('collects on Timbers only and retains education through health/pit recovery, 
   scene.update(1 / 60, neutral);
   scene.activateFinish('Replay');
   expect(scene.education.wordProgress).toBe('T R E E');
+  expect(scene.educationDescription).toContain('TREE complete');
   scene.returnToTrails();
   scene.selectDestination(0); scene.startSelected();
   expect(scene.education.stickers).toEqual(rewards);
@@ -82,8 +82,6 @@ it('does not collect pilot letters in another trail at the same position', () =>
   scene.update(1 / 60, neutral);
   expect(scene.education.wordProgress).toBe('_ _ _ _');
 });
-
-import { mathsQuestion } from '../src/game/education';
 
 it('exhausts every valid operand pair for both operations with exactly one correct, distinct bounded choice', () => {
   const operations = new Set<string>(), operands = new Set<number>(), answers = new Set<number>(), pairs = new Set<string>();
@@ -121,8 +119,6 @@ it('retries the same maths question without penalty and awards a distinct maths 
   expect(session.stickers).toEqual(['Timbers TREE', 'Timbers number leaf']);
   expect(new EducationSession().mathsComplete).toBe(false);
 });
-
-import { MATHS_SPOT } from '../src/game/education';
 
 it('requires deliberate nearby entry and freezes all simulation and feedback including the opening frame', () => {
   const { scene, live } = timbers();

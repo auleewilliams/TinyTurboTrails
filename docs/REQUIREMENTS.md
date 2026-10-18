@@ -226,3 +226,34 @@ All state remains in memory. No weapons, construction/digging tools (#186), or
 Explore mode are introduced. Exact bounce/edge tuning and child-facing readability
 remain owner playtest decisions; implementation values are documented in
 `gameplay-interactions.md` rather than treated as approved requirements.
+
+## Treetop Timbers educational pilot (#189)
+
+Treetop Timbers alone offers optional letter matching and an along-trail maths
+spot. Show the target TREE alongside filled matching slots. Four separate,
+stable pickups T, R, E, E fill one matching slot each in any order; revisiting
+one never credits it twice. Completing TREE earns a Timbers tree sticker.
+
+The clearly marked maths spot opens only on a deliberate keyboard, pointer or
+standard-controller action. Passing it keeps playing. Offer three distinct
+choices, exactly one correct, without typing. Deterministic addition/subtraction
+questions keep both operands and the answer within 0–50 inclusive, with no
+negative subtraction answers. One correct answer earns the distinct Timbers
+number-leaf sticker. Mistakes retry the same question without losing hearts or
+progress. Leave at any time. Opening the activity freezes the entire simulation
+and presentation, including its opening frame; closing discards time debt and
+held input. Preserve safe focus loss, native accessible controls and existing
+pause/navigation behavior.
+
+These two stickers and partial educational progress persist in memory through
+checkpoint/health/pit recovery, replay, map return and changing trails within the
+page session. This is separate from ordinary run resets. Reload clears them;
+there is no localStorage, sessionStorage, IndexedDB or server save. Each activity
+awards its sticker once per session. The overworld offers a small collection via
+all three input methods, and completed activities explain their earned state on
+revisit. Neither activity gates a trail or changes gems, stars, finish or totals.
+
+Placement, visuals, bindings and numeric tuning are implementation choices
+recorded in `gameplay-interactions.md`, pending owner-led parent/child and
+physical-controller playtesting. No educational expansion to other trails,
+construction/tools or additional exploration systems is approved here.

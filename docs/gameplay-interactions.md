@@ -123,3 +123,60 @@ Rendering reads run-owned phases and never advances timers.
 approaches, safe returns, separate once-only star counter, checkpoint retention
 and fresh-run resets. `special` is an additional pickup event; its bounded 0.65s
 sparkle uses `+1 STAR` and the existing pickup sound. Stars never gate the finish.
+
+## Optional Timbers educational pilot (#189)
+
+`EducationSession` belongs to `AdventureScene`, outside `RunState`. Its four
+pickup IDs and matching slots survive every run reset and both checkpoint
+recovery paths. A new scene/page session starts empty. TREE and its filled slots
+remain visible; a completed word says “TREE complete!” and shows its earned
+sticker. Both rewards are separate from gems/stars and cannot duplicate.
+
+The authored letter blocks sit at world x=360 (T), 1300 (R), 3600 (E), 7100 (E),
+32px above ordinary terrain. Contact accepts ±22px horizontally and ±24px
+between Henry's centre and a point 20px above ground. Each stable ID fills the
+first unfilled matching TREE slot, so either E can be first. These are separate
+optional objects; existing level entities, totals and physics are unchanged.
+
+An optional wooden maths sign stands at x=2350 beside ordinary trail ground,
+after the old-bridge checkpoint. Enter within ±64px horizontally and ±48px of
+its ground height using **E**, **standard D-pad Up (button 12)**, or its native
+**Open optional maths** button. Walking past never opens it. The overworld's
+**STICKERS** button, E or D-pad Up opens the two-sticker collection. These
+bindings/coordinates are implementation choices, not owner-approved tuning.
+
+Activity controls reuse `MenuOverlay` native buttons and the rendered-frame
+input pattern from `PauseMenu`: Left/Right or A/D/stick/D-pad chooses; Space,
+Enter on a focused button, a standard face button, or pointer confirms. Native
+focus and the selected outline agree. Tab can visit the native controls.
+**Escape, Start, E or D-pad Up** leaves either overlay; its Leave/Return button
+also works. Leaving maths never requires an answer. Normal Escape/Start pause,
+T/Return to Trails confirmation and story/navigation behavior remain intact.
+Focus loss hides activity targets and preserves the question, then clears held
+input on return. No answer is submitted by restoring focus.
+
+The first maths question is fixed for the session on first maths access, using
+index `220 + collectedLetterCount * 151`. This deterministic choice can produce
+addition or subtraction depending on exploration order. The generator alternates
+operations and enumerates all 1,326 valid operand pairs per operation; it wraps
+after 2,652 questions. Choices are distinct integers in 0–50, rotated by index,
+with one correct answer. Wrong choices retain the question and all gameplay
+state. A single correct choice earns the number-leaf sticker immediately;
+revisiting says “Already complete” and offers Leave. No quiz length is required.
+
+Entry is checked before `SimulationClock.advance`, with a scene guard as a
+second boundary. While open, the clock, elapsed animation, run/hazard/platform
+and protection timers, feedback, HUD timers, weather and camera remain frozen.
+Audio and rumble suspend. Closing resets clock accumulation and pending actions,
+and the existing input release guard blocks held controller actions. A revision
+counts every entry/exit, even a pointer exit and keyboard re-entry between two
+rendered frames, so clearing input and restoring native selection cannot miss it.
+Rendering reads state without advancing it. The tree and number-leaf sticker
+shapes are small code-native canvas drawings; no new raster assets are needed.
+
+Automated checks cover permutations/repeated Es, retention/reset, every question
+pair, deliberate entry, no-penalty retries, full-state/pixel freeze, three input
+methods, native focus, focus loss, pause transitions and controller release.
+They do not establish child comprehension, enjoyment, suitable difficulty, sign
+readability while moving, or physical-controller ergonomics. Those remain
+parent/child and owner-led playtests before any expansion.

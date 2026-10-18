@@ -14,14 +14,15 @@ export class EducationSession {
   get wordProgress(): string { return this.slots.join(' '); }
   get hasWordSticker(): boolean { return this.collected.size === 4; }
   private question?: MathsQuestion;
-  mathsComplete = false;
+  private mathsEarned = false;
+  get mathsComplete(): boolean { return this.mathsEarned; }
   get maths(): MathsQuestion { return this.question ??= mathsQuestion(220 + this.collected.size * 151); }
   get stickers(): string[] {
     return [...(this.hasWordSticker ? ['Timbers TREE'] : []), ...(this.mathsComplete ? ['Timbers number leaf'] : [])];
   }
   answerMaths(choice: number): boolean {
     if (this.mathsComplete || choice !== this.maths.answer) return false;
-    this.mathsComplete = true;
+    this.mathsEarned = true;
     return true;
   }
   hasLetter(id: string): boolean { return this.collected.has(id); }
@@ -35,7 +36,6 @@ export class EducationSession {
     return true;
   }
 }
-
 
 export interface MathsQuestion {
   readonly left: number;
