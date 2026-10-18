@@ -1996,6 +1996,93 @@ test('adventure never requests Henry reference art while the art preview require
   expect(requests).toBe(1);
 });
 
+test('finish artwork pixels meet terrain in all six trails, including the sloped beach exit', async ({ page }, info) => {
+  await page.goto('/?scene=foundation');
+  await page.addScriptTag({ content: `${RENDERER_SOURCE}\nwindow.drawFinishTestWorld = ${drawWorld.toString()};` });
+  const results = await page.evaluate(async levels => {
+    const image = async (url: string): Promise<HTMLImageElement> => {
+      const result = new Image(); result.src = url; await result.decode(); return result;
+    };
+    const render = (window as unknown as { drawFinishTestWorld: typeof drawWorld }).drawFinishTestWorld;
+    const samples = [];
+    for (const level of levels) {
+      const base = `/assets/${level.atlas}/`;
+      const manifest = await (await fetch(`${base}manifest.json`)).json();
+      const atlas = await image(`${base}${manifest.image}`);
+      const gems = await image('/assets/gems/gems.png');
+      const backdrops = await image('/assets/trails/backdrops.webp');
+      const materials = await image('/assets/trails/materials.png');
+      const panorama = manifest.panorama ? await image(`${base}${manifest.panorama}`) : undefined;
+      const canvas = document.createElement('canvas'); canvas.width = 426; canvas.height = 240;
+      const ctx = canvas.getContext('2d')!; ctx.imageSmoothingEnabled = false;
+      const offset = { x: level.finish.x - 213, y: 0 };
+      const assets = { atlas, manifest, gems, backdrops, materials, panorama };
+      const route = { ...level, entities: [] };
+      render(ctx, assets, route, { position: offset } as Parameters<typeof drawWorld>[3]);
+      const world = canvas.toDataURL();
+      // Retain only the intercepted finish draw on a transparent canvas.
+      const arch = document.createElement('canvas'); arch.width = 426; arch.height = 240;
+      const ink = arch.getContext('2d')!; ink.imageSmoothingEnabled = false;
+      const finishCalls: { args: unknown[]; matrix: DOMMatrix }[] = [];
+      ctx.drawImage = ((...args: unknown[]) => {
+        if (args[0] === atlas && args[1] === 0 && args[2] === manifest.cellSize * 3 && args[7] === 96)
+          finishCalls.push({ args, matrix: ctx.getTransform() });
+      }) as typeof ctx.drawImage;
+      render(ctx, assets, route, { position: offset } as Parameters<typeof drawWorld>[3]);
+      for (const call of finishCalls) { ink.setTransform(call.matrix); Reflect.apply(ink.drawImage, ink, call.args); }
+      const pixels = ink.getImageData(0, 0, 426, 240).data;
+      const gaps = [];
+      for (const [left, right] of [[165, 213], [213, 261]]) {
+        let bottom = -1, footX = -1;
+        for (let y = 0; y < 240; y++) for (let x = left; x < right; x++) {
+          if (pixels[(y * 426 + x) * 4 + 3] >= 128 && y > bottom) { bottom = y; footX = x; }
+        }
+        const wx = footX + offset.x;
+        const surface = level.surfaces.find(s => wx >= s.x1 && wx <= s.x2)!;
+        const ground = surface.y1 + (surface.y2 - surface.y1) * (wx - surface.x1) / (surface.x2 - surface.x1);
+        gaps.push(ground - (bottom + 1));
+      }
+      const source = document.createElement('canvas'); source.width = 48; source.height = 48;
+      const sourceCtx = source.getContext('2d')!;
+      sourceCtx.drawImage(atlas, 0, manifest.cellSize * 3, 48, 48, 0, 0, 48, 48);
+      const sourcePixels = sourceCtx.getImageData(0, 0, 48, 48).data;
+      const columnBottoms = Array.from({ length: 48 }, (_, x) => {
+        let bottom = -1;
+        for (let y = 0; y < 48; y++) if (sourcePixels[(y * 48 + x) * 4 + 3] >= 128) bottom = y;
+        return bottom;
+      });
+      const supportGaps: number[] = [];
+      const call = finishCalls[0];
+      for (const start of [0, 24]) {
+        const base = Math.max(...columnBottoms.slice(start, start + 24));
+        // Stepped pixel feet can have a single lowest pixel; include the adjacent
+        // one-source-row tread so partial floating cannot hide behind that pixel.
+        const supports = columnBottoms.map((bottom, x) => ({ bottom, x }))
+          .filter(column => column.x >= start && column.x < start + 24 && column.bottom >= base - 1);
+        if (supports.length < 2) throw new Error(`${level.id}: missing load-bearing foot columns`);
+        for (const support of supports) {
+          const point = call.matrix.transformPoint(new DOMPoint(Number(call.args[5]) + (support.x + 0.5) * 2, 0));
+          const x = Math.floor(point.x);
+          let bottom = -1;
+          for (let y = 0; y < 240; y++) if (pixels[(y * 426 + x) * 4 + 3] >= 128) bottom = y;
+          const wx = x + 0.5 + offset.x;
+          const surface = level.surfaces.find(s => wx >= s.x1 && wx <= s.x2)!;
+          const ground = surface.y1 + (surface.y2 - surface.y1) * (wx - surface.x1) / (surface.x2 - surface.x1);
+          supportGaps.push(ground - (bottom + 1));
+        }
+      }
+      samples.push({ id: level.id, gaps, supportGaps, world });
+    }
+    return samples;
+  }, LEVELS);
+  for (const result of results) {
+    for (const gap of result.gaps) expect(Math.abs(gap), `${result.id} visible foot gap`).toBeLessThanOrEqual(2);
+    for (const gap of result.supportGaps) expect(gap, `${result.id} load-bearing column gap`).toBeLessThanOrEqual(2);
+    await info.attach(`${result.id}-finish-metrics`, { body: JSON.stringify({ gaps: result.gaps, supportGaps: result.supportGaps }), contentType: 'application/json' });
+    await info.attach(`${result.id}-finish-native`, { body: Buffer.from(result.world.split(',')[1], 'base64'), contentType: 'image/png' });
+  }
+});
+
 // Drive the real input boundary and simulation faster without production test hooks.
 async function installTrailPilot(page: Page): Promise<void> {
   await page.addInitScript(() => {
@@ -2038,6 +2125,57 @@ async function installTrailPilot(page: Page): Promise<void> {
     });
   });
 }
+
+test('Timbers danger markings match real jump, scenery pass-through and damage feedback', async ({ page }, info) => {
+  test.setTimeout(120_000);
+  const level = LEVELS.find(level => level.id === 'timbers')!;
+  const errors: string[] = [];
+  page.on('pageerror', error => errors.push(error.message));
+  await installTrailPilot(page);
+  await page.addInitScript(() => {
+    const fillRect = CanvasRenderingContext2D.prototype.fillRect;
+    CanvasRenderingContext2D.prototype.fillRect = function (x, y, w, h) {
+      if (this.canvas.id === 'game' && x >= 91 && x < 140 && y >= 12 && y <= 18 && w === 1 && h === 1
+        && (this.fillStyle === '#31434a' || this.fillStyle === '#ffda75')) this.canvas.dataset.hurtObserved = 'true';
+      fillRect.call(this, x, y, w, h);
+    };
+  });
+  await openAdventure(page, '/?debug=1');
+  await page.getByRole('button', { name: level.name, exact: true }).click();
+  await page.getByRole('button', { name: `Play ${level.name}`, exact: true }).click();
+  const canvas = page.locator('canvas');
+  const runTo = async (x: number, dangers?: number[]): Promise<void> => {
+    await page.evaluate(({ x, dangers }) => {
+      const pilot = (window as unknown as { trailPilot: { active: boolean; frozen: boolean; pauseAt: number; dangers: number[] } }).trailPilot;
+      Object.assign(pilot, { active: true, frozen: false, pauseAt: x, ...(dangers ? { dangers } : {}) });
+    }, { x, dangers });
+    await expect.poll(() => page.evaluate(() => (window as unknown as { trailPilot: { frozen: boolean } }).trailPilot.frozen), { timeout: 60_000 }).toBe(true);
+  };
+  const capture = async (pose: string): Promise<void> => {
+    for (const width of [426, 320]) {
+      await page.setViewportSize({ width, height: width === 426 ? 288 : 240 });
+      await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
+      await info.attach(`timbers-${pose}-${width}`, { body: await page.screenshot({ path: info.outputPath(`timbers-${pose}-${width}.png`) }), contentType: 'image/png' });
+    }
+  };
+  await runTo(650, level.entities.filter(e => e.kind === 'hazard' || e.kind === 'slime').map(e => e.x).sort((a, b) => a - b));
+  await capture('danger-approach');
+  await runTo(1070);
+  await capture('harmless-tree');
+  await runTo(1300);
+  expect(await canvas.getAttribute('data-hurt-observed')).toBeNull();
+  await runTo(10000);
+  await capture('grounded-finish');
+  // A new real run deliberately does not jump the first marked sawhorse.
+  await page.reload();
+  await page.getByRole('button', { name: 'Skip story', exact: true }).click();
+  await page.getByRole('button', { name: level.name, exact: true }).click();
+  await page.getByRole('button', { name: `Play ${level.name}`, exact: true }).click();
+  await runTo(800, []);
+  await expect(canvas).toHaveAttribute('data-hurt-observed', 'true');
+  await capture('danger-contact');
+  expect(errors).toEqual([]);
+});
 
 /** Observe the shipped ribbon drawing; no production scene or run-state access. */
 async function observeTrailRibbon(page: Page): Promise<void> {

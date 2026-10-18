@@ -49,6 +49,29 @@ it('keeps the bottom-center anchor for assets without an override', () => {
   expect(drawImage).toHaveBeenCalledWith(assets.atlas, 0, 96, 48, 48, 126, 102, 48, 48);
 });
 
+it.each(LEVELS)('$name gives only contact dangers a dark-backed striped ground cue', level => {
+  for (const entity of level.entities) {
+    const { ctx, rects } = recordingContext();
+    drawWorld(ctx, worldAssets, { ...level, surfaces: [], entities: [entity], landingBands: [], platforms: [] },
+      { position: { x: entity.x - 200, y: 0 } } as Camera);
+    const strips = rects.filter(rect => rect.fillStyle === '#fff1b8' && rect.width === 3 && rect.height === 3);
+    expect(strips.length > 0, entity.id).toBe(entity.kind === 'hazard' || entity.kind === 'slime');
+  }
+});
+
+it('moves danger cues with patrols and removes them immediately when a slime becomes harmless', () => {
+  const slime = TREETOP_TIMBERS.entities.find(entity => entity.kind === 'slime')!;
+  const level = { ...TREETOP_TIMBERS, surfaces: [], entities: [slime], landingBands: [] };
+  for (const squashProgress of [undefined, 0, 0.5, 1]) {
+    const { ctx, rects } = recordingContext();
+    drawWorld(ctx, worldAssets, level, { position: { x: 0, y: 0 } } as Camera, () => true,
+      () => ({ x: 205, y: 180, squashProgress }));
+    const strips = rects.filter(rect => rect.fillStyle === '#fff1b8' && rect.width === 3 && rect.height === 3);
+    expect(strips.length > 0).toBe(squashProgress === undefined);
+    if (strips.length) expect(strips[0].x).toBe(185);
+  }
+});
+
 interface DrawnText { text: string; x: number; textAlign: CanvasTextAlign }
 interface FilledRect { x: number; y: number; width: number; height: number; fillStyle: CanvasRenderingContext2D['fillStyle'] }
 
@@ -66,7 +89,7 @@ function recordingContext(): { ctx: CanvasRenderingContext2D; images: unknown[][
     clip: noop, beginPath: noop, moveTo: (x: number, y: number) => { moves.push([x, y]); }, lineTo: noop, closePath: noop, fill: noop, stroke: noop,
     strokeRect: noop, strokeText: noop,
     measureText: (text: string) => ({ width: text.length * 6 }),
-    translate: noop, scale: noop, save: noop, restore: noop,
+    translate: noop, transform: noop, scale: noop, save: noop, restore: noop,
     drawImage: (...args: unknown[]) => { images.push(args); },
     fillText: (text: string, x: number) => { texts.push({ text, x, textAlign: ctx.textAlign }); },
   };

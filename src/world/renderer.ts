@@ -100,8 +100,23 @@ export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, le
         ctx.moveTo(x, y - 32); ctx.lineTo(x + 4, y - 28); ctx.lineTo(x + 12, y - 35); ctx.stroke();
       }
     }
+    // Contact dangers share a bracketed, striped footprint, never scenery.
+    // Follow live patrol positions; squashed slimes are harmless immediately.
+    if (entity.kind === 'hazard' || (entity.kind === 'slime' && position.squashProgress === undefined)) {
+      const x = Math.round(position.x - offset.x), y = Math.round(position.y - offset.y);
+      ctx.fillStyle = '#10252c';
+      ctx.fillRect(x - 23, y + 1, 46, 5);
+      ctx.fillRect(x - 23, y - 5, 3, 8);
+      ctx.fillRect(x + 20, y - 5, 3, 8);
+      ctx.fillStyle = '#fff1b8';
+      for (let stripe = -20; stripe < 20; stripe += 6) ctx.fillRect(x + stripe, y + 2, 3, 3);
+    }
   }
-  drawAsset(ctx, assets, level.finish.asset as WorldAsset, level.finish.x - offset.x, level.finish.y - offset.y, 2);
+  // The finish artwork is ground-anchored, including on Cove's exit slope.
+  // A vertical shear follows the terrain without leaning the upright pillars.
+  const finishSurface = level.surfaces.find(surface => level.finish.x >= surface.x1 && level.finish.x <= surface.x2);
+  const finishSlope = finishSurface ? (finishSurface.y2 - finishSurface.y1) / (finishSurface.x2 - finishSurface.x1) : 0;
+  drawAsset(ctx, assets, level.finish.asset as WorldAsset, level.finish.x - offset.x, level.finish.y - offset.y, 2, finishSlope);
   // Keep the draw source referenced so a bad cell size cannot silently pass.
   void atlas;
   void cell;
@@ -275,13 +290,18 @@ export function drawPlatformPath(ctx: CanvasRenderingContext2D, platform: Moving
   for (const [x, y] of [[fromX, fromY], [toX, toY]]) ctx.fillRect(x - 4, y - 2, 8, 2);
 }
 
-export function drawAsset(ctx: CanvasRenderingContext2D, assets: WorldAssets, asset: WorldAsset, x: number, y: number, scale = 1): void {
+export function drawAsset(ctx: CanvasRenderingContext2D, assets: WorldAssets, asset: WorldAsset, x: number, y: number, scale = 1, groundSlope = 0): void {
   const index = assets.manifest.assets[asset];
   const cell = assets.manifest.cellSize;
   const sourceX = (index % 4) * cell;
   const sourceY = Math.floor(index / 4) * cell;
   const anchor = assets.manifest.anchors?.[asset] ?? { x: cell / 2, y: cell };
-  ctx.drawImage(assets.atlas, sourceX, sourceY, cell, cell, x - anchor.x * scale, y - anchor.y * scale, cell * scale, cell * scale);
+  if (groundSlope !== 0) {
+    ctx.save();
+    ctx.transform(1, groundSlope, 0, 1, x, y);
+    ctx.drawImage(assets.atlas, sourceX, sourceY, cell, cell, -anchor.x * scale, -anchor.y * scale, cell * scale, cell * scale);
+    ctx.restore();
+  } else ctx.drawImage(assets.atlas, sourceX, sourceY, cell, cell, x - anchor.x * scale, y - anchor.y * scale, cell * scale, cell * scale);
 }
 
 

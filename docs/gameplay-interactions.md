@@ -82,6 +82,17 @@ controller and full manual route checks remain release verification.
 
 ## Clarity and recovery (#89–#91)
 
+Contact hazards and unsquashed slimes share a dark, bracketed ground strip with
+alternating pale blocks. This shape/contrast cue follows live patrol positions
+and disappears as soon as a slime is squashed; scenery, springs, pickups,
+checkpoints, platforms and finish arches never receive it. Timbers' sawhorses
+must be jumped; decorative trees, flowers, bushes and treehouse props are safe
+to pass through. Damage and squash rules are unchanged. This is provisional
+visual tuning for owner/child readability testing, not new collision geometry.
+Finish sprite anchors exclude measured transparent/fringe padding; on Cove's
+sloped exit only finish artwork follows the terrain plane, with upright pillars.
+See the [PR #190 visual follow-up evidence](evidence/issue-189/visual-clarity/README.md).
+
 Checkpoint contact is separate from pickup contact: sweep Henry's feet from the
 pre-movement to post-movement position against ±28px horizontally and from 192px
 above to 28px below the planted flag. The 192px allowance covers the 128px spring
