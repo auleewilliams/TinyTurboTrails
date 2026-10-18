@@ -8,7 +8,7 @@ checkpoint, protection timer and collected set; nothing is written to browser
 storage or a server.
 
 Damage gives Henry a short knockback and one second of invulnerability. Repeated
-contact during that window is ignored, so a slime or hazard cannot create a
+contact during that window is ignored, so a slime cannot create a
 damage trap. Spring activation delegates to the movement launch response and
 preserves horizontal speed. Each continuous contact emits one launch/event; both
 gameplay scenes report separation to rearm the spring. Contact state is per spring
@@ -79,6 +79,17 @@ Unit tests cover stable identity, checkpoint preservation, reset semantics,
 invulnerability, knockback, spring momentum, patrol bounds and safe recovery.
 Chromium and Firefox smoke checks exercise the local gameplay preview; physical
 controller and full manual route checks remain release verification.
+
+## Interim static obstacle props (#191)
+
+Static obstacle props use the legacy `hazard` authoring tag but, like decorative
+trees and bushes, have no contact effect. They do not damage, knock back, flash,
+start protection, play damage sound/rumble, block Henry or provide standable tops.
+Their IDs, coordinates, artwork, layer and availability remain unchanged. The
+shared `stepEntities` resolver is the only former static-prop damage path; terrain
+and platform collision never used these props. All six trails share this rule.
+Slimes retain side/underneath damage, invulnerability and top squash/bounce rules.
+No solid-obstacle design is implemented; #191 holds the deferred discussion.
 
 ## Clarity and recovery (#89–#91)
 

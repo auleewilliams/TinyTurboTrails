@@ -191,7 +191,9 @@ it.each(pits.map((pit) => ({ ...pit, name: `${pit.x1}-${pit.x2}` })))('recovers 
 it('can complete Sunset Site with simple jumps and checkpoint recovery', () => {
   const { scene, effects, seconds, collected, respawns } = playSite();
   expect(scene.screenState).toBe('finish');
-  expect(seconds).toBeGreaterThanOrEqual(50);
+  // The former 50s floor included static-prop damage/knockback. Harmless props
+  // must not impose that delay; retain a physical route-length/speed lower bound.
+  expect(seconds).toBeGreaterThanOrEqual((SUNSET_SITE.finish.x - SUNSET_SITE.start.x) / DEFAULT_MOVEMENT.maxSpeed);
   expect(effects.filter((effect) => effect === 'checkpoint').length).toBeGreaterThanOrEqual(6);
   expect(effects).toContain('spring');
   expect(effects).toContain('damage');

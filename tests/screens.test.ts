@@ -238,7 +238,7 @@ it.each(['keyboard', 'controller'])('%s replay immediately restores the initial 
 it.each([
   ['adventure', () => new AdventureScene({} as HTMLImageElement, {} as never, worlds, silentAudio(), PLAINS_LEVEL)],
   ['gameplay preview', () => new GameplayPreviewScene({} as never, {} as never, silentAudio(), PLAINS_LEVEL)],
-] as const)('the %s scene respawns on the last pip through shared health logic', (_name, createScene) => {
+] as const)('the %s scene respawns on the last pip from slime contact through shared health logic', (_name, createScene) => {
   const scene = createScene();
   const input = { horizontal: 0, jumpHeld: false, jumpPressed: false, pausePressed: false, mutePressed: false };
   if (scene instanceof AdventureScene) scene.update(1 / 60, { ...input, jumpPressed: true });
@@ -247,10 +247,10 @@ it.each([
     run: import('../src/game/interactions').RunState;
   };
   const checkpoint = PLAINS_LEVEL.checkpoints[0];
-  const hazard = PLAINS_LEVEL.entities.find((entity) => entity.kind === 'hazard')!;
+  const slime = PLAINS_LEVEL.entities.find((entity) => entity.kind === 'slime')!;
   state.run.checkpointId = checkpoint.id;
   state.run.health = 1;
-  Object.assign(state.player, createPlayer(hazard.x, PLAINS_LEVEL));
+  Object.assign(state.player, createPlayer(slime.x, PLAINS_LEVEL));
   scene.update(1 / 60, input);
   expect(state.player.x).toBe(checkpoint.x);
   expect(state.run.health).toBe(3);

@@ -239,10 +239,12 @@ export function stepEntities(run: RunState, level: LevelData, player: Player, se
     if (!state?.active || !touching) continue;
     if (entity.kind === 'gem') collectGem(run, entity.id, events);
     else if (entity.kind === 'special') collectSpecial(run, entity.id, events);
-    else if (!squashed && ((entity.kind === 'slime' && !state.squashed
+    // Static obstacle props (legacy 'hazard' kind) are pass-through scenery.
+    // Only live, unsquashed slimes retain contact damage; solid props are not implemented.
+    else if (!squashed && entity.kind === 'slime' && !state.squashed
       // Keep the legacy side/underneath window, but do not hit descending feet
       // in its 8px overlap above the squash plane before they can cross it.
-      && !(descending && feet < y - SLIME_TOP_HEIGHT)) || entity.kind === 'hazard')) {
+      && !(descending && feet < y - SLIME_TOP_HEIGHT)) {
       damagePlayer(run, player, x - player.x, events, level, entity.id);
     }
   }

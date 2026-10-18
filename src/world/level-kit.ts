@@ -28,7 +28,7 @@ export function levelKit(terrain: Terrain) {
       ({ id, kind: 'gem', x, y: surfaceY(terrain, baseX) - lift, asset: 'gem', layer: 'world' }),
     thing: (kind: 'slime' | 'spring' | 'hazard', id: string, x: number, patrol?: WorldEntity['patrol']): WorldEntity =>
       grounded({ id, kind, x, asset: kind === 'hazard' ? 'stone' : kind, layer: 'world', ...(patrol && { patrol }) }),
-    // Scenery avoids the stone sprite so it never reads as a hazard.
+    // Preserve the existing scenery asset choices; static obstacle props also pass through (#191).
     decoration: (id: string, x: number, asset: DecorationAsset): WorldEntity =>
       grounded({ id, kind: 'decoration', x, asset, layer: 'back' }),
     checkpoints: (planted: readonly { id: string; x: number }[]): Checkpoint[] =>

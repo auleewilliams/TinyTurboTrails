@@ -2126,6 +2126,40 @@ async function installTrailPilot(page: Page): Promise<void> {
   });
 }
 
+test('Timbers static prop passage preserves hearts while slime-side contact still hurts', async ({ page }, info) => {
+  await info.attach('static-prop-inventory', { body: JSON.stringify(LEVELS.map(level => ({ id: level.id,
+    obstacles: level.entities.filter(entity => entity.kind === 'hazard').map(entity => entity.id),
+    scenery: level.entities.filter(entity => entity.kind === 'decoration').map(entity => entity.id) }))), contentType: 'application/json' });
+  await installTrailPilot(page);
+  await openAdventure(page, '/?debug=1');
+  await page.getByRole('button', { name: 'TREETOP TIMBERS', exact: true }).click();
+  await page.getByRole('button', { name: 'Play TREETOP TIMBERS', exact: true }).click();
+  const runTo = async (x: number): Promise<void> => {
+    await page.evaluate(x => {
+      const pilot = (window as unknown as { trailPilot: { active: boolean; frozen: boolean; pauseAt: number; dangers: number[] } }).trailPilot;
+      // No jump input at either the sawhorse or the slime.
+      Object.assign(pilot, { active: true, frozen: false, pauseAt: x, dangers: [] });
+    }, x);
+    await expect.poll(() => page.evaluate(() => (window as unknown as { trailPilot: { frozen: boolean } }).trailPilot.frozen)).toBe(true);
+  };
+  const hearts = () => page.evaluate(() => {
+    const ctx = document.querySelector<HTMLCanvasElement>('#game')!.getContext('2d')!;
+    return [94, 110, 126].map(x => [...ctx.getImageData(x, 14, 1, 1).data].slice(0, 3));
+  });
+  const full = [[255, 93, 93], [255, 93, 93], [255, 93, 93]];
+  await runTo(750);
+  expect(await hearts()).toEqual(full);
+  for (const width of [426, 320]) {
+    await page.setViewportSize({ width, height: width === 426 ? 288 : 240 });
+    await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
+    await info.attach(`static-prop-passage-${width}`, { body: await page.screenshot({ path: info.outputPath(`static-prop-passage-${width}.png`) }), contentType: 'image/png' });
+  }
+  await runTo(820);
+  expect(await hearts()).toEqual(full);
+  await runTo(1700);
+  expect(await hearts()).not.toEqual(full);
+});
+
 /** Observe the shipped ribbon drawing; no production scene or run-state access. */
 async function observeTrailRibbon(page: Page): Promise<void> {
   await page.addInitScript(ribbon => {

@@ -9,8 +9,9 @@ entity positions use stable IDs for run interactions and checkpoints.
 `src/world/level.ts` owns the Plains route, while `src/world/levels.ts` registers
 it with the other playable levels. The 9,980 × 240 Plains route (issue #45) has six biomes
 (meadow, hillside, canyon, cave, orchard, summit) built from 55 flat/ramp
-surfaces, 45 gems, 14 slimes, 6 springs, 6 hazards, 6 checkpoints and
-back-layer decoration. Main-route gems, hazards, slimes and springs sit within
+surfaces, 45 gems, 14 slimes, 6 springs, 6 static obstacle props, 6 checkpoints and
+back-layer decoration. Static props retain legacy `hazard` IDs but pass through
+without damage or blocking under the interim #191 rule. Main-route gems, props, slimes and springs sit within
 28px of the ground beneath them so a walking player reaches them without
 jumping; one bonus gem per biome floats above that window as an optional,
 jump-only pickup. `validateLevel` rejects duplicate IDs, missing checkpoint

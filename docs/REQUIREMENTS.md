@@ -21,16 +21,27 @@ is a detailed child in a blocky world — not a cuboid Minecraft avatar.
 Six desktop-browser levels selected from a illustrated overworld: Plains,
 Quarry Run, Treetop Timbers, Sunset Site, Frost Ridge and Sandy Cove. All routes target roughly
 3–5 minutes of exploratory play, with momentum, slopes and springs. Quarry Run adds spring pits, stepped terraces,
-grouped stone hazards and two slow moving platforms; both rides are optional
+grouped stone props and two slow moving platforms; both rides are optional
 and no route depends on timing one. Treetop Timbers adds plank trails, shallow
-rope-bridge contours, crane-hook springs and sawhorse hazards without changing
+rope-bridge contours, crane-hook springs and sawhorse props without changing
 the single-height terrain model. Sunset Site adds a construction yard at dusk,
 patrolling hard-hat slimes, pneumatic-jack-cleared pits and one optional crane ferry. Keyboard
 and standard-controller support.
-Henry starts each run with three visible hearts. Each unblocked slime or
-hazard hit removes one pip; losing the last pip returns him to the latest
+Henry starts each run with three visible hearts. Each unblocked slime contact
+removes one pip; losing the last pip returns him to the latest
 checkpoint, or the level start, and refills all three. Pit recovery also refills
 health without costing a pip, while activating a checkpoint does not heal him.
+
+**Interim obstacle decision (#191):** every static obstacle prop across all six
+trails behaves like pass-through scenery: no damage, knockback, damage flash,
+invulnerability, rumble, blocking or standable top. Keep the existing artwork
+(including original yellow/black sawhorse stripes), placements and rendering
+layers; the legacy `hazard` authoring tag does not imply damage. No new ground
+footprints/brackets are wanted. Slime contact/squash rules, pits, terrain, springs,
+checkpoints and moving platforms remain unchanged. Whether any props should
+later become solid, standable or damaging is deferred owner-led discussion, not
+approved implementation.
+
 Quarry Run reuses the Plains atlas; Treetop Timbers and Sunset Site each ship a
 project-local 16-cell atlas. Frost Ridge and Sandy Cove each ship their own 16-cell atlas.
 Frost Ridge introduces clearly marked flat ice patches with reduced ground
