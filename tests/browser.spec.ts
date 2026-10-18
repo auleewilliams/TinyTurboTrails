@@ -2126,57 +2126,6 @@ async function installTrailPilot(page: Page): Promise<void> {
   });
 }
 
-test('Timbers danger markings match real jump, scenery pass-through and damage feedback', async ({ page }, info) => {
-  test.setTimeout(120_000);
-  const level = LEVELS.find(level => level.id === 'timbers')!;
-  const errors: string[] = [];
-  page.on('pageerror', error => errors.push(error.message));
-  await installTrailPilot(page);
-  await page.addInitScript(() => {
-    const fillRect = CanvasRenderingContext2D.prototype.fillRect;
-    CanvasRenderingContext2D.prototype.fillRect = function (x, y, w, h) {
-      if (this.canvas.id === 'game' && x >= 91 && x < 140 && y >= 12 && y <= 18 && w === 1 && h === 1
-        && (this.fillStyle === '#31434a' || this.fillStyle === '#ffda75')) this.canvas.dataset.hurtObserved = 'true';
-      fillRect.call(this, x, y, w, h);
-    };
-  });
-  await openAdventure(page, '/?debug=1');
-  await page.getByRole('button', { name: level.name, exact: true }).click();
-  await page.getByRole('button', { name: `Play ${level.name}`, exact: true }).click();
-  const canvas = page.locator('canvas');
-  const runTo = async (x: number, dangers?: number[]): Promise<void> => {
-    await page.evaluate(({ x, dangers }) => {
-      const pilot = (window as unknown as { trailPilot: { active: boolean; frozen: boolean; pauseAt: number; dangers: number[] } }).trailPilot;
-      Object.assign(pilot, { active: true, frozen: false, pauseAt: x, ...(dangers ? { dangers } : {}) });
-    }, { x, dangers });
-    await expect.poll(() => page.evaluate(() => (window as unknown as { trailPilot: { frozen: boolean } }).trailPilot.frozen), { timeout: 60_000 }).toBe(true);
-  };
-  const capture = async (pose: string): Promise<void> => {
-    for (const width of [426, 320]) {
-      await page.setViewportSize({ width, height: width === 426 ? 288 : 240 });
-      await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
-      await info.attach(`timbers-${pose}-${width}`, { body: await page.screenshot({ path: info.outputPath(`timbers-${pose}-${width}.png`) }), contentType: 'image/png' });
-    }
-  };
-  await runTo(650, level.entities.filter(e => e.kind === 'hazard' || e.kind === 'slime').map(e => e.x).sort((a, b) => a - b));
-  await capture('danger-approach');
-  await runTo(1070);
-  await capture('harmless-tree');
-  await runTo(1300);
-  expect(await canvas.getAttribute('data-hurt-observed')).toBeNull();
-  await runTo(10000);
-  await capture('grounded-finish');
-  // A new real run deliberately does not jump the first marked sawhorse.
-  await page.reload();
-  await page.getByRole('button', { name: 'Skip story', exact: true }).click();
-  await page.getByRole('button', { name: level.name, exact: true }).click();
-  await page.getByRole('button', { name: `Play ${level.name}`, exact: true }).click();
-  await runTo(800, []);
-  await expect(canvas).toHaveAttribute('data-hurt-observed', 'true');
-  await capture('danger-contact');
-  expect(errors).toEqual([]);
-});
-
 /** Observe the shipped ribbon drawing; no production scene or run-state access. */
 async function observeTrailRibbon(page: Page): Promise<void> {
   await page.addInitScript(ribbon => {

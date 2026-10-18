@@ -100,17 +100,6 @@ export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, le
         ctx.moveTo(x, y - 32); ctx.lineTo(x + 4, y - 28); ctx.lineTo(x + 12, y - 35); ctx.stroke();
       }
     }
-    // Contact dangers share a bracketed, striped footprint, never scenery.
-    // Follow live patrol positions; squashed slimes are harmless immediately.
-    if (entity.kind === 'hazard' || (entity.kind === 'slime' && position.squashProgress === undefined)) {
-      const x = Math.round(position.x - offset.x), y = Math.round(position.y - offset.y);
-      ctx.fillStyle = '#10252c';
-      ctx.fillRect(x - 23, y + 1, 46, 5);
-      ctx.fillRect(x - 23, y - 5, 3, 8);
-      ctx.fillRect(x + 20, y - 5, 3, 8);
-      ctx.fillStyle = '#fff1b8';
-      for (let stripe = -20; stripe < 20; stripe += 6) ctx.fillRect(x + stripe, y + 2, 3, 3);
-    }
   }
   // The finish artwork is ground-anchored, including on Cove's exit slope.
   // A vertical shear follows the terrain without leaning the upright pillars.
