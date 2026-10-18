@@ -1,3 +1,4 @@
+import { EducationSession, LETTER_PICKUPS } from './education';
 import { drawOverworld, MAP_POINTS, OVERWORLD_LAYOUT, TrailSession, type MenuTarget } from './overworld';
 import { musicForLevel } from '../core/music';
 import type { GameAudio } from '../core/audio';
@@ -9,7 +10,7 @@ import { animationFrame } from '../art/animation';
 import type { HenryAssets } from '../art/henry';
 import { hitFlashAtlas } from '../art/hit-flash';
 import { drawFacingSprite } from '../art/sprite';
-import { animationFor, createPlayer, simulatePlayer, DEFAULT_MOVEMENT, type Facing, type PlatformBody, type Player } from './movement';
+import { animationFor, createPlayer, simulatePlayer, surfaceY, DEFAULT_MOVEMENT, type Facing, type PlatformBody, type Player } from './movement';
 import { platformBodiesAt } from './platforms';
 import { activeLedgePlatforms, createRun, entityPosition, isEntityActive, recoverFromFall, stepEntities, tickRun, type RunEvent, type RunState } from './interactions';
 import { ScreenController } from './screens';
@@ -73,6 +74,8 @@ export class AdventureScene implements Scene {
   private selectedIndex: number;
   private selectionDirection = 0;
   readonly session = new TrailSession();
+  readonly education = new EducationSession();
+  get educationDescription(): string { return this.level.id === 'timbers' && this.screenState === 'playing' ? `TREE: ${this.education.wordProgress}${this.education.stickers.length ? ' · TREE sticker earned' : ''}` : ''; }
   private finishIndex = 0;
   private menuArmed = true;
   private marker = { x: 48, y: 88 };
@@ -191,6 +194,9 @@ export class AdventureScene implements Scene {
         else if (event.type === 'spring' || event.type === 'damage') this.rumble?.play(event.type);
       }
     }
+    if (this.level.id === 'timbers') for (const letter of LETTER_PICKUPS) {
+      if (Math.abs(this.player.x - letter.x) <= 22 && Math.abs(this.player.y + 17 - (surfaceY(this.level, letter.x) - 20)) <= 24) this.education.collect(letter.id);
+    }
     this.camera.update(this.player.x, this.player.y);
   }
 
@@ -202,7 +208,7 @@ export class AdventureScene implements Scene {
         checkpointActive: entity.kind === 'checkpoint' && this.run.checkpointId === entity.id,
         springScale: entity.kind === 'spring' ? this.feedback.springScale(entity.id, this.reducedMotion) : undefined }), this.platforms,
       this.run.seconds, this.reducedMotion);
-    if (this.screens.state === 'playing') this.drawHenry(ctx);
+    if (this.screens.state === 'playing') { this.drawLetters(ctx); this.drawHenry(ctx); }
     drawWorldForeground(ctx, this.world, this.level, this.camera);
     this.feedback.draw(ctx, this.world, this.camera.position, this.reducedMotion);
     if (this.screens.state === 'playing') {
@@ -213,11 +219,34 @@ export class AdventureScene implements Scene {
       }
       drawGameplayHud(ctx, this.run, this.hud.hint, this.feedback.checkpointSeconds > 0
         ? 'Checkpoint reached!' : this.hud.locationSeconds > 0 ? this.hud.location : '', this.hud.progress(this.level, this.player.x));
+      this.drawWordProgress(ctx);
     } else if (this.screens.state === 'finish') {
       this.drawFinish(ctx);
     } else if (this.screens.state === 'error') {
       this.panel(ctx, 'LOADING ERROR', `${this.screens.error} · Reload to retry`);
     }
+  }
+
+  private drawLetters(ctx: CanvasRenderingContext2D): void {
+    if (this.level.id !== 'timbers') return;
+    ctx.save(); ctx.textAlign = 'center'; ctx.font = 'bold 16px monospace';
+    for (const letter of LETTER_PICKUPS) {
+      if (this.education.hasLetter(letter.id)) continue;
+      const x = Math.round(letter.x - this.camera.position.x), y = Math.round(surfaceY(this.level, letter.x) - 32 - this.camera.position.y);
+      ctx.fillStyle = '#ffda75'; ctx.fillRect(x - 11, y, 22, 24);
+      ctx.strokeStyle = '#17333b'; ctx.strokeRect(x - 11, y, 22, 24);
+      ctx.fillStyle = '#17333b'; ctx.fillText(letter.letter, x, y + 18);
+    }
+    ctx.restore();
+  }
+
+  private drawWordProgress(ctx: CanvasRenderingContext2D): void {
+    if (this.level.id !== 'timbers') return;
+    ctx.save(); ctx.textAlign = 'right'; ctx.font = 'bold 10px monospace';
+    ctx.fillStyle = '#10252cee'; ctx.fillRect(251, 31, 170, 32);
+    ctx.fillStyle = '#ffda75'; ctx.fillText('Match TREE', 415, 43);
+    ctx.fillStyle = '#e9f2df'; ctx.fillText(`${this.education.wordProgress}${this.education.stickers.length ? ' ✓ Sticker!' : ''}`, 415, 57);
+    ctx.restore();
   }
 
   private drawMap(ctx: CanvasRenderingContext2D): void {

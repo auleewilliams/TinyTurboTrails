@@ -2915,3 +2915,25 @@ test('diagnostic fullscreen frame geometry across repeated native transitions', 
     await info.attach('fullscreen-frames', { path, contentType: 'application/json' });
   }
 });
+test('educational word shows TREE and collects the two Es through real trail movement', async ({ page }, info) => {
+  await installTrailPilot(page);
+  await openAdventure(page, '/?debug=1');
+  await page.getByRole('button', { name: 'TREETOP TIMBERS', exact: true }).click();
+  await page.getByRole('button', { name: 'Play TREETOP TIMBERS', exact: true }).click();
+  await expect(page.locator('#status')).toContainText('TREE: _ _ _ _');
+  await page.evaluate(dangers => {
+    Object.assign((window as unknown as { trailPilot: object }).trailPilot, { active: true, dangers, pauseAt: 7150 });
+  }, dangerXs(LEVELS[2]));
+  await expect(page.locator('#status')).toContainText('TREE: T R E E', { timeout: 25_000 });
+  await expect.poll(() => page.evaluate(() => (window as unknown as { trailPilot: { frozen: boolean } }).trailPilot.frozen)).toBe(true);
+  await page.screenshot({ path: info.outputPath('word-two-es.png') });
+  await page.setViewportSize({ width: 320, height: 240 });
+  await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
+  await expectClearViewport(page);
+  await page.screenshot({ path: info.outputPath('word-small.png') });
+  await page.reload();
+  await page.getByRole('button', { name: 'Skip story', exact: true }).click();
+  await page.getByRole('button', { name: 'TREETOP TIMBERS', exact: true }).click();
+  await page.getByRole('button', { name: 'Play TREETOP TIMBERS', exact: true }).click();
+  await expect(page.locator('#status')).toContainText('TREE: _ _ _ _');
+});
