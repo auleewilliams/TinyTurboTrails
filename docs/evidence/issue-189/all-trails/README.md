@@ -131,11 +131,30 @@ pass 6/6 across all engines (`browser-finish-layout.log`).
 Independent read-only review of final code/test head
 `1240c31d16a6a97664afc6b07e43c550eae406c5` passed with no security, logic or
 suggestion findings; it independently ran 157 focused tests and typecheck.
-[Review JSON](independent-review.json). The final documentation/evidence head
-has the identical source/test tree. Exact-head GitHub CI (including the full
+[Review JSON](independent-review.json). Production is unchanged from that
+reviewed revision. A later replay-test readiness correction is described below.
+Exact-head GitHub CI (including the full
 browser suite and container/production smoke) is recorded in PR #190 after
 completion. The complete suite catalog contains 336 browser cases; it was not
 run locally as a final CI substitute. Historical baseline CI is not expansion CI.
+
+### Replay input readiness regression
+
+Intermediate full CI run `39202479071` on documentation head `5ac6b74` recorded
+334 passed / 1 failed / 1 skipped. Firefox's existing forgiving-route replay case
+sent Space immediately after closing the new Plains activity. Its trace still
+shows the Build HILL canvas at 703030ms, Space at 703057ms, then the ordinary
+finish at 703071ms: the input crossed the intentional activity exit boundary.
+The failed screenshot shows the ordinary finish with Replay highlighted, not a
+broken activity. The stronger test now waits for the actual Replay DOM target
+before checking celebration pixels and using the unchanged Space replay input.
+No product code, assertions, deadlines or retries were relaxed. Independent
+read-only review confirmed that Replay is exposed only after input/clock reset;
+the full review and original failure trace remain in the external log directory.
+The corrected replay case passes 3/3 in Chromium, Firefox and WebKit
+(`replay-boundary-green.log`). Final exact-head checks are recorded in PR #190
+after completion. This intermediate failure is not hidden by earlier
+successful full runs `39199560370` and `39201196454` (335 passed / 1 skipped each).
 
 Automated standard Gamepad API checks do not establish physical-controller
 comfort, child comprehension, reading comfort or enjoyment. Those acceptance
