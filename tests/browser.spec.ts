@@ -3402,6 +3402,8 @@ for (const [index, level] of LEVELS.entries()) {
       const pickup = config.pickups[slot], duplicates = config.pickups.filter(p => p.letter === pickup.letter);
       return `Letter ${pickup.letter}${duplicates.length > 1 ? ` ${duplicates.indexOf(pickup) + 1}` : ''}`;
     };
+    // These evidence routes exercise native/small play; the viewport suite covers large sizes.
+    await page.setViewportSize({ width: 426, height: 300 });
     await installRetracePilot(page, level);
     // The existing helper provides the same standard Gamepad API used by pilot regressions.
     await page.addInitScript(() => {
@@ -3410,6 +3412,7 @@ for (const [index, level] of LEVELS.entries()) {
       Object.defineProperty(navigator, 'getGamepads', { configurable: true, value: () => [pad] });
     });
     await openAdventure(page, '/?debug=1');
+    expect((await page.locator('canvas').boundingBox())!.width).toBe(426);
     await page.getByRole('button', { name: level.name, exact: true }).click();
     await page.getByRole('button', { name: `Play ${level.name}`, exact: true }).click();
     const drive = async (direction: number, collectAt: number[] = [], initialCount = 0): Promise<void> => {
