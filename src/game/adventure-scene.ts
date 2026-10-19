@@ -1,5 +1,5 @@
 import { EducationOverlay } from './education-overlay';
-import { EducationSession, LETTER_PICKUPS } from './education';
+import { EducationSession } from './education';
 import { drawOverworld, MAP_POINTS, OVERWORLD_LAYOUT, TrailSession, type MenuTarget } from './overworld';
 import { musicForLevel } from '../core/music';
 import type { GameAudio } from '../core/audio';
@@ -80,7 +80,7 @@ export class AdventureScene implements Scene {
   readonly educationOverlay = new EducationOverlay(this.education);
   get educationDescription(): string {
     if (this.educationOverlay.open) return this.educationOverlay.description;
-    if (this.level.id !== 'timbers' || this.screenState !== 'playing') return '';
+    if (this.screenState !== 'playing') return '';
     return `Letter bag: ${this.education.letterCount}/4${this.letterFlights.length ? ` · ${this.letterFlights.at(-1)!.letter} → bag` : ''}`;
   }
   private finishIndex = 0;
@@ -94,6 +94,7 @@ export class AdventureScene implements Scene {
       .filter((atlas) => !worlds[atlas]);
     if (missing.length > 0) throw new Error(`Missing world assets: ${missing.join(', ')}`);
     this.level = level;
+    this.education.selectTrail(level.id);
     const levelIndex = LEVELS.indexOf(level);
     this.selectedIndex = levelIndex >= 0 ? levelIndex : 0;
     this.player = createPlayer(level.start.x, level);
@@ -191,7 +192,7 @@ export class AdventureScene implements Scene {
       this.audio.stop();
       this.rumble?.stop();
       this.audio.play('complete');
-      if (this.level.id === 'timbers') this.educationOverlay.showAssembly(() => this.retraceFromFinish());
+      this.educationOverlay.showAssembly(() => this.retraceFromFinish());
     }
     this.feedback.consume(this.events, this.level);
     this.hud.consume(this.events);
@@ -206,7 +207,7 @@ export class AdventureScene implements Scene {
         else if (event.type === 'spring' || event.type === 'damage') this.rumble?.play(event.type);
       }
     }
-    if (this.level.id === 'timbers') for (const letter of LETTER_PICKUPS) {
+    for (const letter of this.education.pickups) {
       if (Math.abs(this.player.x - letter.x) <= 22 && Math.abs(this.player.y + 17 - (surfaceY(this.level, letter.x) - 20)) <= 24 && this.education.collect(letter.id)) {
         this.letterFlights.push({ letter: letter.letter, x: letter.x - this.camera.position.x,
           y: surfaceY(this.level, letter.x) - 20 - this.camera.position.y, age: 0 });
@@ -266,10 +267,9 @@ export class AdventureScene implements Scene {
   }
 
   private drawLetters(ctx: CanvasRenderingContext2D): void {
-    if (this.level.id !== 'timbers') return;
     ctx.save(); ctx.textAlign = 'center';
     ctx.font = 'bold 16px monospace';
-    for (const letter of LETTER_PICKUPS) {
+    for (const letter of this.education.pickups) {
       if (this.education.hasLetter(letter.id)) continue;
       const x = Math.round(letter.x - this.camera.position.x), y = Math.round(surfaceY(this.level, letter.x) - 32 - this.camera.position.y);
       ctx.fillStyle = '#ffda75'; ctx.fillRect(x - 11, y, 22, 24);
@@ -280,7 +280,6 @@ export class AdventureScene implements Scene {
   }
 
   private drawWordProgress(ctx: CanvasRenderingContext2D): void {
-    if (this.level.id !== 'timbers') return;
     ctx.save(); ctx.textAlign = 'right'; ctx.font = 'bold 11px monospace';
     ctx.fillStyle = '#10252cee'; ctx.fillRect(294, 31, 127, 34);
     ctx.fillStyle = '#e9f2df'; ctx.fillText(`Bag ${this.education.letterCount}/4`, 376, 52);
@@ -441,6 +440,7 @@ export class AdventureScene implements Scene {
     this.footsteps.reset();
     this.hud = new HudPresentation();
     this.level = level;
+    this.education.selectTrail(level.id);
     this.player = createPlayer(level.start.x, level);
     this.run = createRun(level);
     this.camera = new Camera({ width: 426, height: 240, worldWidth: level.width, worldHeight: level.height });

@@ -47,7 +47,7 @@ export class MenuOverlay {
     document.body.classList.toggle('pause-visible', pauseTargets.length > 0);
     this.element.setAttribute('aria-label', paused
       ? pauseTargets[0]?.label === 'Keep playing' ? 'Return to Trails confirmation' : 'Pause navigation'
-      : activityOpen ? scene?.educationOverlay.isAssembly ? 'Build TREE' : 'Timbers stickers' : 'Trail navigation');
+      : activityOpen ? scene!.educationOverlay.title : 'Trail navigation');
     const signature = JSON.stringify([
       activityOpen ? scene?.educationOverlay.revision : undefined,
       targets.map(({ label, selected, description, x, y, width, height }) => [label, selected, description, x, y, width, height]),

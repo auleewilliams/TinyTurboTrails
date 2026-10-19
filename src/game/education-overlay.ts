@@ -1,6 +1,6 @@
 import type { InputFrame } from '../core/input';
 import type { MenuTarget } from './overworld';
-import type { EducationSession } from './education';
+import { type EducationSession, type TrailWord } from './education';
 
 /** Like PauseMenu, this consumes rendered-frame input while simulation is stopped. */
 export class EducationOverlay {
@@ -47,8 +47,10 @@ export class EducationOverlay {
     this.heldLetter = undefined; this.selected = 0;
     this.message = accepted ? 'Great! Choose another letter.' : 'Try another space. Your letters are safe.';
   }
+  private get earnedMessage(): string { return `${this.session.config.word === 'TREE' ? 'Tree' : this.session.config.word} sticker earned!`; }
+  get title(): string { return this.assembly ? `Build ${this.session.config.word}` : 'Trail stickers'; }
   get description(): string {
-    if (this.assembly) return `Build TREE · ${this.session.wordProgress} · Bag ${this.session.letterCount}/4 · ${this.session.hasWordSticker ? 'Tree sticker earned!' : this.message}`;
+    if (this.assembly) return `Build ${this.session.config.word} · ${this.session.wordProgress} · Bag ${this.session.letterCount}/4 · ${this.session.hasWordSticker ? this.earnedMessage : this.message}`;
     return `${this.session.stickers.length}/1 stickers · Timbers TREE: ${this.session.hasWordSticker ? 'earned' : 'find the letters'}`;
   }
   update(input: InputFrame): void {
@@ -67,8 +69,8 @@ export class EducationOverlay {
   get targets(): MenuTarget[] {
     if (this.assembly) {
       const targets: MenuTarget[] = this.session.pile.map(pickup => ({
-        label: `Letter ${pickup.letter}${pickup.letter === 'E' ? pickup.id.endsWith('e1') ? ' 1' : ' 2' : ''}`,
-        x: 111 + [ 'timbers-letter-e2', 'timbers-letter-r', 'timbers-letter-t', 'timbers-letter-e1' ].indexOf(pickup.id) * 52,
+        label: `Letter ${pickup.letter}${this.session.pickups.filter(letter => letter.letter === pickup.letter).length > 1 ? ` ${this.session.pickups.filter(letter => letter.letter === pickup.letter).findIndex(letter => letter.id === pickup.id) + 1}` : ''}`,
+        x: 111 + [3, 1, 0, 2].findIndex(index => this.session.pickups[index].id === pickup.id) * 52,
         y: 116, width: 42, height: 32,
         drag: { start: (x, y) => this.beginDrag(pickup.id, x, y), move: (x, y) => this.moveDrag(x, y),
           end: (x, y) => this.endDrag(x, y), cancel: () => this.cancelDrag() },
@@ -120,11 +122,11 @@ export class EducationOverlay {
   private drawAssembly(ctx: CanvasRenderingContext2D): void {
     ctx.save(); ctx.fillStyle = '#0c1922f5'; ctx.fillRect(0, 0, 426, 240);
     ctx.textAlign = 'center'; ctx.fillStyle = '#ffda75'; ctx.font = 'bold 18px monospace';
-    ctx.fillText('BUILD TREE', 213, 24);
+    ctx.fillText(`BUILD ${this.session.config.word}`, 213, 24);
     ctx.font = 'bold 16px monospace';
-    [...'TREE'].forEach((letter, index) => ctx.fillText(letter, 132 + index * 52, 54));
+    [...this.session.config.word].forEach((letter, index) => ctx.fillText(letter, 132 + index * 52, 54));
     ctx.font = '10px monospace'; ctx.fillStyle = '#e9f2df';
-    ctx.fillText(this.session.hasWordSticker ? 'Tree sticker earned!' : this.message, 213, 169);
+    ctx.fillText(this.session.hasWordSticker ? this.earnedMessage : this.message, 213, 169);
     for (const target of this.targets) {
       ctx.fillStyle = target.selected ? '#ffda75' : '#34515a'; ctx.fillRect(target.x, target.y, target.width, target.height);
       ctx.strokeStyle = '#bfd5ce'; ctx.strokeRect(target.x, target.y, target.width, target.height);
@@ -132,7 +134,7 @@ export class EducationOverlay {
       const label = target.label.startsWith('Letter ') ? target.label[7] : target.label.startsWith('Space ') ? target.label.split(': ')[1].replace('empty', '_') : target.label;
       ctx.fillText(label, target.x + target.width / 2, target.y + target.height / 2 + 5);
     }
-    if (this.session.hasWordSticker) drawTreeSticker(ctx, 365, 91, true);
+    if (this.session.hasWordSticker) drawWordSticker(ctx, this.session.config, 365, 91, true);
     if (this.drag) {
       ctx.fillStyle = '#ffda75'; ctx.fillRect(this.drag.x - 21, this.drag.y - 16, 42, 32);
       ctx.fillStyle = '#0c1922'; ctx.font = 'bold 17px monospace';
@@ -152,4 +154,33 @@ function drawTreeSticker(ctx: CanvasRenderingContext2D, x: number, y: number, ea
   ctx.fillRect(x - 4, y + 10, 8, 17);
   ctx.beginPath(); ctx.moveTo(x, y - 29); ctx.lineTo(x + 25, y + 12); ctx.lineTo(x - 25, y + 12); ctx.closePath(); ctx.fill(); ctx.stroke();
   ctx.fillStyle = '#17333b'; ctx.font = 'bold 10px monospace'; ctx.fillText('TREE', x, y + 6);
+}
+
+/** Distinct small code-native trail stickers; artwork polish is a separate task. */
+function drawWordSticker(ctx: CanvasRenderingContext2D, config: TrailWord, x: number, y: number, earned: boolean): void {
+  if (config.id === 'timbers') { drawTreeSticker(ctx, x, y, earned); return; }
+  ctx.save(); ctx.translate(x, y);
+  ctx.fillStyle = earned ? ({ plains: '#9ccf93', quarry: '#aebac9', sunset: '#e4b16f', frost: '#bbe6ff', cove: '#f1d797' } as Record<string, string>)[config.id] : '#637578';
+  ctx.strokeStyle = '#e9f2df'; ctx.lineWidth = 2;
+  ctx.beginPath();
+  if (config.id === 'plains') {
+    ctx.moveTo(-26, 18); ctx.quadraticCurveTo(-12, -35, 12, -6); ctx.quadraticCurveTo(22, -15, 29, 18); ctx.closePath();
+  } else if (config.id === 'quarry') {
+    ctx.moveTo(-25, 12); ctx.lineTo(-17, -17); ctx.lineTo(4, -25); ctx.lineTo(24, -8); ctx.lineTo(21, 18); ctx.lineTo(-10, 23); ctx.closePath();
+  } else if (config.id === 'sunset') {
+    ctx.rect(-28, -17, 56, 12); ctx.rect(-22, 3, 44, 12);
+  } else if (config.id === 'frost') {
+    for (let arm = 0; arm < 6; arm++) {
+      const angle = arm * Math.PI / 3;
+      const dx = Math.cos(angle), dy = Math.sin(angle);
+      ctx.moveTo(0, 0); ctx.lineTo(dx * 25, dy * 25);
+      ctx.moveTo(dx * 17 - dy * 7, dy * 17 + dx * 7); ctx.lineTo(dx * 10, dy * 10);
+      ctx.lineTo(dx * 17 + dy * 7, dy * 17 - dx * 7);
+    }
+  } else {
+    ctx.moveTo(-28, 18); ctx.lineTo(-21, -1); ctx.lineTo(-8, -1); ctx.lineTo(-8, -19);
+    ctx.lineTo(8, -19); ctx.lineTo(8, -1); ctx.lineTo(21, -1); ctx.lineTo(28, 18); ctx.closePath();
+  }
+  if (config.id !== 'frost') ctx.fill();
+  ctx.stroke(); ctx.restore();
 }
