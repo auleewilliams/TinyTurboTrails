@@ -1176,6 +1176,9 @@ test('adventure can complete the forgiving route and replay directly with a fres
     return matches;
   });
   expect(celebrationPixels).toBeGreaterThan(20);
+  // Closing the activity resets the clock and clears input. Its first visible
+  // finish frame can precede the neutral simulation step that rearms Space.
+  await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
   await page.keyboard.press('Space');
   await expect(page.locator('#status')).toContainText('Adventure preview · Playing', { timeout: 15000 });
   await expect(page.locator('#status')).toContainText('X 60');

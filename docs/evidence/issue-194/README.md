@@ -29,6 +29,18 @@ flight timing/fade and reduced-motion placement retain their existing behavior.
 
 ## Validation and outstanding failures
 
+The table and browser reports below record the original Playwright 1.63 run.
+After dependency PR #187 merged, this branch incorporated main at `4d3e9de`.
+With Playwright 1.64.0, Vite 8.3.4 and Vitest 5.0.4, the same **870 unit tests**,
+typecheck, production build and **eight CI script tests** pass again. An initial
+updated-browser run reproduced the finish replay test's input-boundary race in
+Chromium: a visible Replay button can precede the neutral simulation step that
+rearms Space after closing the activity. The test now waits two animation frames
+before pressing Space, preserving its assertions, deadlines and gameplay code.
+Updated browser and CI outcomes are recorded in [PR #196](https://github.com/auleewilliams/TinyTurboTrails/pull/196).
+The updated build's bundle hash is recorded separately in `verification.json`;
+the original run's screenshots and reports remain historical evidence.
+
 | Check | Actual result |
 | --- | --- |
 | `npm ci` | Exact lockfile dependencies; no package changes |

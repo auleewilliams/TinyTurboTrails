@@ -512,5 +512,26 @@
         }
       ]
     }
-  ]
+  ],
+  "dependencyFollowUp": {
+    "mainRevision": "4d3e9debdf0935cf8632b5284f88277750f8b48e",
+    "playwright": "1.64.0",
+    "vite": "8.3.4",
+    "vitest": "5.0.4",
+    "runtimeBundle": {
+      "file": "index-wUsliygt.js",
+      "sha256": "3609b8812e9076fbdd0204f28fb3af2a2593b9659b251584cb78ec34f3296b8a"
+    },
+    "unit": {
+      "files": 51,
+      "passed": 870
+    },
+    "typecheck": "passed",
+    "build": "passed",
+    "scriptTests": {
+      "passed": 8
+    },
+    "browserFollowUp": "See PR #196 for updated browser and CI outcomes. Original reports above use Playwright 1.63.0.",
+    "replayTest": "Synchronize two animation frames after closing the activity before pressing Space; assertions, deadlines and gameplay unchanged."
+  }
 }
