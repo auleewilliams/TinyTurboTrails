@@ -1,0 +1,643 @@
+{
+  "snapshot": "4d3e9debdf0935cf8632b5284f88277750f8b48e",
+  "reviewedAtUtc": "2026-10-19T22:44:34.472423+00:00",
+  "method": "Static source/changed-source/assertion review of 18 candidate classes. Not a runtime result or exhaustive new-test/branch-coverage audit.",
+  "historicalSnapshot": "42f86fb411e4370c9fed9e97e72e945579bcaf2e",
+  "historicalTableRows": {
+    "unit-catalogue.csv": 316,
+    "browser-catalogue.csv": 68,
+    "candidate-verdicts.csv": 18,
+    "browser-costs.csv": 89
+  },
+  "currentUnitFiles": 50,
+  "currentBrowserSpecFiles": 4,
+  "historicalUnitFilesChanged": [
+    "tests/audio.test.ts",
+    "tests/biome-gameplay.test.ts",
+    "tests/input.test.ts",
+    "tests/overworld.test.ts",
+    "tests/quarry-run.test.ts",
+    "tests/renderer.test.ts",
+    "tests/rumble.test.ts",
+    "tests/screens.test.ts",
+    "tests/slimes.test.ts",
+    "tests/specials.test.ts",
+    "tests/story-celebration.test.ts",
+    "tests/sunset-site.test.ts",
+    "tests/treetop-timbers.test.ts"
+  ],
+  "historicalUnitFilesUnchanged": [
+    "tests/ambient-weather.test.ts",
+    "tests/animation.test.ts",
+    "tests/biomes.test.ts",
+    "tests/bounce.test.ts",
+    "tests/clock.test.ts",
+    "tests/controller-gameplay.test.ts",
+    "tests/feedback.test.ts",
+    "tests/finish-layout.test.ts",
+    "tests/henry-assets.test.ts",
+    "tests/interactions.test.ts",
+    "tests/manifest.test.ts",
+    "tests/material-renderer.test.ts",
+    "tests/movement-audio.test.ts",
+    "tests/movement.test.ts",
+    "tests/pause-menu.test.ts",
+    "tests/platforms.test.ts",
+    "tests/scenery.test.ts",
+    "tests/sprite-processing.test.ts",
+    "tests/sprite.test.ts",
+    "tests/surface-materials.test.ts",
+    "tests/title-artwork.test.ts",
+    "tests/viewport.test.ts",
+    "tests/world-assets.test.ts",
+    "tests/world.test.ts"
+  ],
+  "newUnitFiles": [
+    "tests/all-trails-education.test.ts",
+    "tests/cove-exploration.test.ts",
+    "tests/education-frame.test.ts",
+    "tests/education.test.ts",
+    "tests/finish-grounding.test.ts",
+    "tests/frost-exploration.test.ts",
+    "tests/obstacle-pass-through.test.ts",
+    "tests/plains-exploration.test.ts",
+    "tests/slime-squash-regression.test.ts",
+    "tests/slime-squash-scenes.test.ts",
+    "tests/slime-squash.test.ts",
+    "tests/sunset-exploration.test.ts",
+    "tests/timbers-pilot.test.ts"
+  ],
+  "sourceFiles": [
+    {
+      "file": ".github/workflows/ci.yml",
+      "sha256LfNormalized": "7028745c14f58894b40df259a6e2a8ddd4783a43150dcb7a293b5736b5d61d2e"
+    },
+    {
+      "file": "package-lock.json",
+      "sha256LfNormalized": "1a0991b9c72247fbaf2410b5a17aaeb8c4f63f3f118cd7c0060ddaf1379a5db4"
+    },
+    {
+      "file": "package.json",
+      "sha256LfNormalized": "f9724d21a5fa5a2ac1578a1ff26551cffd6c1c208b75c91b9856741c8cec1c35"
+    },
+    {
+      "file": "playwright.config.ts",
+      "sha256LfNormalized": "e2652b62eb673aef9445afb020adac3d08b950a7a55078245fe6bc4f3dd2d2c4"
+    },
+    {
+      "file": "scripts/audit-trail-rendering.mjs",
+      "sha256LfNormalized": "caaff75e44cbfe9da427dc1c92a06e159596b07c994dd590833e58e87feadb2d"
+    },
+    {
+      "file": "scripts/capture-ambient-weather.mjs",
+      "sha256LfNormalized": "b345303e730f73cec639c434815f07f00c14fcc2cd2b8b6e6d0eaa660f8b3c26"
+    },
+    {
+      "file": "scripts/capture-backgrounds.mjs",
+      "sha256LfNormalized": "fe75fa9051297d970e81f4d9c8a073fff1c04156174dc106b3765020ee839e7e"
+    },
+    {
+      "file": "scripts/capture-gems.mjs",
+      "sha256LfNormalized": "cd3902f0ea19ddaff5ef435762445b7449fbec73d54088e968f8fb558ecd6d43"
+    },
+    {
+      "file": "scripts/capture-milestone.mjs",
+      "sha256LfNormalized": "1d51368654815db20964c58bd5db139cacf3c60147e59897d9083862d4632124"
+    },
+    {
+      "file": "scripts/capture-springs.mjs",
+      "sha256LfNormalized": "09e04693f4e75a09a641e4c096f4ace38ba1e25642708b6d4b42d597eb51be77"
+    },
+    {
+      "file": "scripts/capture-story-milestone.mjs",
+      "sha256LfNormalized": "4487edad1596a28c215c857b01e6a51db2fe9b3b38e4925645f904c08b70085a"
+    },
+    {
+      "file": "scripts/check-doc-links.mjs",
+      "sha256LfNormalized": "49ccab357bc3a0a273cbb229af7fd4c1e868d8f87306c67deb456eef3da8d978"
+    },
+    {
+      "file": "scripts/investigate-picker.mjs",
+      "sha256LfNormalized": "1364953b139914511ffaf162afc77e97c04f06fe92cb0965daa3f646b70882e5"
+    },
+    {
+      "file": "scripts/measure-adventure-payload.mjs",
+      "sha256LfNormalized": "ddc6fb2403dce29853b2a3a4f4af45a881229ef0f2a3e80d78326778ab0f2910"
+    },
+    {
+      "file": "scripts/prepare-backgrounds.mjs",
+      "sha256LfNormalized": "1c8d0ee10674f984f2c14a6a182a7f98ef2b5db36029d6073ebacced536e08ae"
+    },
+    {
+      "file": "scripts/prepare-gems.mjs",
+      "sha256LfNormalized": "2fd6c13e25394ef9bb16009f91e50b36fa4903630167341f4b0b979debae5a24"
+    },
+    {
+      "file": "scripts/prepare-slimes.py",
+      "sha256LfNormalized": "54401046467018ffb51cee371e0596e0d040a08ae7cc443f6cf210699e3bd28a"
+    },
+    {
+      "file": "scripts/prepare-story-celebration.py",
+      "sha256LfNormalized": "ef3e882e721c560a15beee8a24a2976af329c71f58079ddcf38468b81bb73272"
+    },
+    {
+      "file": "scripts/prepare-trail-art.mjs",
+      "sha256LfNormalized": "70e40da0836e594107c402a47deb4baf3aa0d33375436736a1b25eef1592a749"
+    },
+    {
+      "file": "scripts/process_sprite_atlas.py",
+      "sha256LfNormalized": "d45c337c17f0e3068c06363d1c0fd2352ce091c320c5dbb5ae24bc0a009576b2"
+    },
+    {
+      "file": "scripts/publish-image.mjs",
+      "sha256LfNormalized": "5d80bace7d61811b0e44c4fbfd7d734a5707b8952d02ee959df4788914f1f73a"
+    },
+    {
+      "file": "scripts/publish-image.test.mjs",
+      "sha256LfNormalized": "fb9abdf80f23350599c3c95a3eb28373843029779e4419092f673da7cd23e67b"
+    },
+    {
+      "file": "scripts/record-trail-scroll.mjs",
+      "sha256LfNormalized": "bb4c9be150859a8aa654ee105dbc915b3a7dfe26617474328a42675f10893bbd"
+    },
+    {
+      "file": "scripts/test-deployment.mjs",
+      "sha256LfNormalized": "3be5d6f7101109e18a4f389679e0e74075159ad867794999cb1cda7aac07afe5"
+    },
+    {
+      "file": "src/art/animation.ts",
+      "sha256LfNormalized": "3e825e333b8d59a7f92d15c8f5ddbc7838493476c8b7e4769d1ea243c2cb562c"
+    },
+    {
+      "file": "src/art/henry.ts",
+      "sha256LfNormalized": "3eba98400a7075ae2b8834261c1e2536c55876a28f0eeb80f380f1b7a072eddf"
+    },
+    {
+      "file": "src/art/hit-flash.ts",
+      "sha256LfNormalized": "46ffa55cd996fc0036d4a1b3adf28a8b6ac2766da1a80454af217955f1681764"
+    },
+    {
+      "file": "src/art/preview-scene.ts",
+      "sha256LfNormalized": "937abc1fe17d11c7b517ceb74c85d54ec46c5942d25cca8a63edf010538fe001"
+    },
+    {
+      "file": "src/art/sprite.ts",
+      "sha256LfNormalized": "2870bfc0f3f83f17fa082ee91d9451123f8ba12ab870f5abab924606c1c72b53"
+    },
+    {
+      "file": "src/art/title.ts",
+      "sha256LfNormalized": "6fabc3a9143d688938b66dd97402de38f3f092057747f24248f73e65ffd8d1b8"
+    },
+    {
+      "file": "src/audio-preview.ts",
+      "sha256LfNormalized": "1614b99228937cb6a97f888b3560eb3a4a6b1137b802ec463910cc8e5fc509d1"
+    },
+    {
+      "file": "src/core/audio-effects.ts",
+      "sha256LfNormalized": "b24056b829504c4ca2e5f375dee9f4a283ef7e19c118f9fa09db13439ff3b017"
+    },
+    {
+      "file": "src/core/audio.ts",
+      "sha256LfNormalized": "ed4576edbb66956210b122728c7d8ac0e2015e4a7f8b799e7004a7151950197d"
+    },
+    {
+      "file": "src/core/clock.ts",
+      "sha256LfNormalized": "2d4ac31a13bedab33d3dd2aa28266cdd30906c6611189877a28de9223fdf6c74"
+    },
+    {
+      "file": "src/core/input.ts",
+      "sha256LfNormalized": "4bbbfc781e3c32958bfc450c20d6b7c15bd60f02406874b6aab7880cdd978013"
+    },
+    {
+      "file": "src/core/music.ts",
+      "sha256LfNormalized": "d869e01a5e06e82dbb97efe02f85d6f774c55e00f458a2a9407fce54eac03aa7"
+    },
+    {
+      "file": "src/core/retro-audio.ts",
+      "sha256LfNormalized": "a0ee2f40d2190683d42dc6287b1e102738f072c4f2cf7fb04576bcf43adb6a54"
+    },
+    {
+      "file": "src/core/rumble.ts",
+      "sha256LfNormalized": "9d2725379ae8502c4d82598df1950b83af0de64755711237d6b90cd6cd26921d"
+    },
+    {
+      "file": "src/core/scene.ts",
+      "sha256LfNormalized": "1aa3e43aac22051b3f30b0a157c6fbd746b70a0d9dbe23e1ef3f6b0535316fc8"
+    },
+    {
+      "file": "src/core/viewport.ts",
+      "sha256LfNormalized": "41b9bd4b0c4daeef711621f398509f5a45da865445cfbb0a0362e6d5d225f515"
+    },
+    {
+      "file": "src/foundation-scene.ts",
+      "sha256LfNormalized": "36dc8a7c82055439c173f0a437852d348bf994d7e81c6ac6fa8bdaad27a34437"
+    },
+    {
+      "file": "src/game/adventure-scene.ts",
+      "sha256LfNormalized": "2da80ce71a920bb70e8bf8225e51609325a45c4c8017078e242684d7897c5a0a"
+    },
+    {
+      "file": "src/game/celebration.ts",
+      "sha256LfNormalized": "cb98ec442c878ad599c67bffdcb902d9d772c775252744bd82b09d7183741c27"
+    },
+    {
+      "file": "src/game/education-overlay.ts",
+      "sha256LfNormalized": "f29f7914ce6a65cbe91f4d059917cf980f6c8fab3795cb05fcef95e965470503"
+    },
+    {
+      "file": "src/game/education.ts",
+      "sha256LfNormalized": "9abd1fe9375a4e9a915b7850667525d67942422a603c952ba6ea92e473a2cb3e"
+    },
+    {
+      "file": "src/game/feedback.ts",
+      "sha256LfNormalized": "7d6927dedfafd72989ba78c88a35d0dd9ff3c8573cc4d256540a1e495753b6ea"
+    },
+    {
+      "file": "src/game/gameplay-preview.ts",
+      "sha256LfNormalized": "0829db0c5e174812cf3219c2c53f5c259c50f0d03cbcfd84321f4ce6a86e8709"
+    },
+    {
+      "file": "src/game/hud.ts",
+      "sha256LfNormalized": "58e26d7c2b18b77a9d16dec49427eb5685bd433c20aba4689ff1036764c54da6"
+    },
+    {
+      "file": "src/game/interactions.ts",
+      "sha256LfNormalized": "e384198986820a04698e3e8e953b6ec172ec4cad2ca9b66294065bf4137bdf15"
+    },
+    {
+      "file": "src/game/menu-overlay.ts",
+      "sha256LfNormalized": "782f9adf85d1691df1c7d0dabf3115fbfd87cbc3384d63b177b9bba2cfe3d71e"
+    },
+    {
+      "file": "src/game/movement-audio.ts",
+      "sha256LfNormalized": "dff0ca1cb2f7a363cf12a07a3d0cf4fe9a6f01e7eafc34aa95545bc7f1736310"
+    },
+    {
+      "file": "src/game/movement-preview.ts",
+      "sha256LfNormalized": "92604716cd1e38ebec1195a369be95cda8b25589087871ea9d896d5e44eea3a6"
+    },
+    {
+      "file": "src/game/movement.ts",
+      "sha256LfNormalized": "9ada7204034932805a6770a505b991a5215181467ab02f593950beea9a3c3c24"
+    },
+    {
+      "file": "src/game/overworld.ts",
+      "sha256LfNormalized": "ec02d6e315f000367d732e58e8ff4379e622f4f1766f5997d1cf6f70fcfb2cfd"
+    },
+    {
+      "file": "src/game/pause-menu.ts",
+      "sha256LfNormalized": "ce65b28225a9f72240b76af97ced67bc7073c67cfe42bb6075853a2b931a373a"
+    },
+    {
+      "file": "src/game/platforms.ts",
+      "sha256LfNormalized": "921e433e606cb951554e0d8c512b50c5c29e0360ae57a329a7b28b9bb056d280"
+    },
+    {
+      "file": "src/game/reward-result.ts",
+      "sha256LfNormalized": "a19a68657461b95cf57255f01fcf2af9735cbbea07726ce3fdeed83cbc6a37f4"
+    },
+    {
+      "file": "src/game/screens.ts",
+      "sha256LfNormalized": "565b463537417008497b4e06c73b5e7bf613451330c78f36efa758b812370221"
+    },
+    {
+      "file": "src/game/story.ts",
+      "sha256LfNormalized": "2b79c64cd77107e9cc98ad7ce3963f97cf2fd2132bd890b6c588775fdced888e"
+    },
+    {
+      "file": "src/main.ts",
+      "sha256LfNormalized": "a2ae4a983ebee7ee08cc4160628b8271736dbda076112ac5710b633c7cb28ce6"
+    },
+    {
+      "file": "src/world/ambient-weather.ts",
+      "sha256LfNormalized": "c4dfcbbdf06780c6548ed096289c209afb703c190763c757eef6cbd85804d4f2"
+    },
+    {
+      "file": "src/world/assets.ts",
+      "sha256LfNormalized": "57173d0eafacd5023308f8291b6ae56f40993c75cf128eade728f0876a2ce117"
+    },
+    {
+      "file": "src/world/camera.ts",
+      "sha256LfNormalized": "476e5c02f9531ec8ef2872635d893ce466593beaa89762e84105de77cd242bcf"
+    },
+    {
+      "file": "src/world/frost-ridge.ts",
+      "sha256LfNormalized": "0cc45285d61af8428619bfe4e8e7da7b79054ab99e35f96359357adaf4e38efc"
+    },
+    {
+      "file": "src/world/level-kit.ts",
+      "sha256LfNormalized": "81647f7d1fd495a9f462172cc849ea624bffaac6ed4f81e3c20da19ed812b12c"
+    },
+    {
+      "file": "src/world/level.ts",
+      "sha256LfNormalized": "0579ab3a2eca121a3382dfe9f85d42afc72a34bc58205ac3be13f27dcbfe4dd8"
+    },
+    {
+      "file": "src/world/levels.ts",
+      "sha256LfNormalized": "0e2219af2ba276c9a6ba7bf3f70a7fdb4a734bf225d07a16d06266a99c02c62a"
+    },
+    {
+      "file": "src/world/preview-scene.ts",
+      "sha256LfNormalized": "20bfdffb48398586eac4c43d44c1160faaa7076af72d5fc306c0b8a01c85634c"
+    },
+    {
+      "file": "src/world/renderer.ts",
+      "sha256LfNormalized": "1f93834c10d3b696aa19383d91116bab7447061a35e45ba7e9cc384ba60a8a17"
+    },
+    {
+      "file": "src/world/sandy-cove.ts",
+      "sha256LfNormalized": "ef8734b16f15009898a7752d66b47980ea5c3363bb285168c6ca01ac71e5b13b"
+    },
+    {
+      "file": "src/world/scenery.ts",
+      "sha256LfNormalized": "310bdc9cc7e4c0dcefd871da44de4b82f4ce0441829d4196f40ceafc3e3f4086"
+    },
+    {
+      "file": "src/world/slimes.ts",
+      "sha256LfNormalized": "cf53761fa33188a866b1f9932d610c42dd923063dee26aed7e018cfc1b8bd0c9"
+    },
+    {
+      "file": "src/world/sunset-site.ts",
+      "sha256LfNormalized": "d28631ca11272fd27dcb9936ad0609aa24b8fbd72c8ccedf381f9a4141d15bfa"
+    },
+    {
+      "file": "src/world/surface-materials.ts",
+      "sha256LfNormalized": "d18b81969d45a9de5b90697a1d2398076117193941a897963a1ffcfa9c9c7088"
+    },
+    {
+      "file": "src/world/trail-presentation.ts",
+      "sha256LfNormalized": "5ee638f57842e9fddf6162573685d8a49e73dcecc460e79fae9fd19a3150c4ad"
+    },
+    {
+      "file": "tests/all-trails-education.test.ts",
+      "sha256LfNormalized": "ddcf6bf733c6279518268d3e84a2c26e764b03d4b9d4861cbeb97504e1544f9e"
+    },
+    {
+      "file": "tests/ambient-weather.test.ts",
+      "sha256LfNormalized": "1d29622d3b0cb371658fe941a2d5c1ca7609d6a8ae4c170fb65e590bdeb69599",
+      "matchesHistoricalUnitSource": true
+    },
+    {
+      "file": "tests/animation.test.ts",
+      "sha256LfNormalized": "e3d45869c90f7c670ea84d40b20d12e216799ef0850c06cc6474f1d60277745c",
+      "matchesHistoricalUnitSource": true
+    },
+    {
+      "file": "tests/audio.spec.ts",
+      "sha256LfNormalized": "a13b691018a1b135c19f12847f775f5f840c9c9cc8427217e34612831c247c50"
+    },
+    {
+      "file": "tests/audio.test.ts",
+      "sha256LfNormalized": "a6593ecf2fb7447fb4fc66c7171e7096bac6b05523923006f3ea4b8a20f4c1c5",
+      "matchesHistoricalUnitSource": false
+    },
+    {
+      "file": "tests/biome-gameplay.test.ts",
+      "sha256LfNormalized": "7d2b115aa5ee123990cec018edc29da818db4b112ca5cff14b4dd16274c80bd9",
+      "matchesHistoricalUnitSource": false
+    },
+    {
+      "file": "tests/biomes.test.ts",
+      "sha256LfNormalized": "4da0d5d0f3dedd36d042d4a2a2d2e947034cae60826277796ed04d73ab1085e4",
+      "matchesHistoricalUnitSource": true
+    },
+    {
+      "file": "tests/bounce.test.ts",
+      "sha256LfNormalized": "37635639f83c702033f56194fd60370fe24328e002e87173a9f76518af8bd4e3",
+      "matchesHistoricalUnitSource": true
+    },
+    {
+      "file": "tests/browser.spec.ts",
+      "sha256LfNormalized": "2979571cfc5f099c63ea45e10b1ac1d65298cac71c70eaa100a3413038d5e2c6"
+    },
+    {
+      "file": "tests/clock.test.ts",
+      "sha256LfNormalized": "a71ff6a3abb9c9046495d2eee58058eb00c199dd560e21f6e233810754ede7be",
+      "matchesHistoricalUnitSource": true
+    },
+    {
+      "file": "tests/controller-gameplay.test.ts",
+      "sha256LfNormalized": "ddc09ac5bdca4160480562cd4d63d5b99c62eb37dc462dae5256005b7bc049eb",
+      "matchesHistoricalUnitSource": true
+    },
+    {
+      "file": "tests/cove-exploration.test.ts",
+      "sha256LfNormalized": "a01b94031c1faebcc4c098f245fb1b8c76ccc8718e636b4ac73cd9fc89410a5e"
+    },
+    {
+      "file": "tests/education-frame.test.ts",
+      "sha256LfNormalized": "5a5ef9ee1eca0b0540bccefcb9c8ac5502422465a6806b07a1fb414fbfaf25ba"
+    },
+    {
+      "file": "tests/education.test.ts",
+      "sha256LfNormalized": "e7284aa25ec413411b499f2e748e854fc455a88d684b8700e4113ceba92857ff"
+    },
+    {
+      "file": "tests/feedback.test.ts",
+      "sha256LfNormalized": "9698eab217da44cd62b367b3ad4abd22210275be42eef25a8dc5b41b3b5ecf93",
+      "matchesHistoricalUnitSource": true
+    },
+    {
+      "file": "tests/finish-grounding.test.ts",
+      "sha256LfNormalized": "7360da0059518d419f0e1f1e5e2f9634dbc728f14cb7dd9fb2840d73a3d1309f"
+    },
+    {
+      "file": "tests/finish-layout.test.ts",
+      "sha256LfNormalized": "8d2ed8c0c298dc3f2b7f1591dfcd50f801bf80e6dea2c7e2912250229c4baa33",
+      "matchesHistoricalUnitSource": true
+    },
+    {
+      "file": "tests/frost-exploration.test.ts",
+      "sha256LfNormalized": "32b15a1b2302ab7fbf5084f61abb53f23633c96254d2851f5146bfb8c9b73b1c"
+    },
+    {
+      "file": "tests/henry-assets.test.ts",
+      "sha256LfNormalized": "ee75f83c2f093003fc4004c614427838625249d08a99c12383a67cb29dbf2ad3",
+      "matchesHistoricalUnitSource": true
+    },
+    {
+      "file": "tests/input.test.ts",
+      "sha256LfNormalized": "0456aede49493f970277ea12d2bfb85f9729e7a7548611ee1a2b66c18af5a9c8",
+      "matchesHistoricalUnitSource": false
+    },
+    {
+      "file": "tests/interactions.test.ts",
+      "sha256LfNormalized": "77a7b033c8dceb67dabd1c62797ed75770247a654b19d5441060806d1ff604df",
+      "matchesHistoricalUnitSource": true
+    },
+    {
+      "file": "tests/manifest.test.ts",
+      "sha256LfNormalized": "bba0a68bb94504d3aceff2ee120de6c8d703e48cf07c281c54be9018d1a2d510",
+      "matchesHistoricalUnitSource": true
+    },
+    {
+      "file": "tests/material-renderer.test.ts",
+      "sha256LfNormalized": "e09f225989c9d8fb42c4dcdb245c369b0dc95435b9a3a73fa55d9f972c4d8015",
+      "matchesHistoricalUnitSource": true
+    },
+    {
+      "file": "tests/movement-audio.test.ts",
+      "sha256LfNormalized": "8a19f4fe528e91ce668a514d8a7ca268aa0b086838248f29a8cb41a3b6a2baf7",
+      "matchesHistoricalUnitSource": true
+    },
+    {
+      "file": "tests/movement.test.ts",
+      "sha256LfNormalized": "e206ba9b522bc3020c8000c2bdedc889267dded2362e5f18d9fbfd7e423c0ff9",
+      "matchesHistoricalUnitSource": true
+    },
+    {
+      "file": "tests/music-browser.spec.ts",
+      "sha256LfNormalized": "9b1f21eff12f3fd40276d582a498a4b90ea7dfe8f897d9c4874893bde7dd54d8"
+    },
+    {
+      "file": "tests/obstacle-pass-through.test.ts",
+      "sha256LfNormalized": "0576262577c81d982c99134b24cd05d9ef502ba965f71626831ece71631045b9"
+    },
+    {
+      "file": "tests/overworld.test.ts",
+      "sha256LfNormalized": "7ae493a2b0a0d2822cf3a21331659e9c7fcc6e9d0485c5756a064bcf18b220e4",
+      "matchesHistoricalUnitSource": false
+    },
+    {
+      "file": "tests/pause-menu.test.ts",
+      "sha256LfNormalized": "5af976e838a923e6ea7aa5e27e76fa7d4b0d1084d826800cf73a69b98c306188",
+      "matchesHistoricalUnitSource": true
+    },
+    {
+      "file": "tests/plains-exploration.test.ts",
+      "sha256LfNormalized": "309cdcdd197225b73c1c7e67c2b7028462a1929a951f253a2bb4285ba60e5449"
+    },
+    {
+      "file": "tests/platforms.test.ts",
+      "sha256LfNormalized": "36e79e5a6eeba954be0e441b3a568329e0cbf0a355a6e85a563d5b9fdd8a74b3",
+      "matchesHistoricalUnitSource": true
+    },
+    {
+      "file": "tests/quarry-run.test.ts",
+      "sha256LfNormalized": "2738979490909a16486f74d76b842d27ec18c7b9271cc46ec243c6e605aa4f0c",
+      "matchesHistoricalUnitSource": false
+    },
+    {
+      "file": "tests/renderer.test.ts",
+      "sha256LfNormalized": "26893fbe791313d35a74fd2cbdf0d965ab195c925c4ae50a3c6c299824675e60",
+      "matchesHistoricalUnitSource": false
+    },
+    {
+      "file": "tests/rumble.test.ts",
+      "sha256LfNormalized": "7ed49e4bd2bd3a9cda59294c6c6ff931b410974f206eeb41079223349497063e",
+      "matchesHistoricalUnitSource": false
+    },
+    {
+      "file": "tests/scenery.test.ts",
+      "sha256LfNormalized": "b70782694718a5d376407f17eedb0b42cf4eb839b2d0fe48279f972b9953579c",
+      "matchesHistoricalUnitSource": true
+    },
+    {
+      "file": "tests/screens.test.ts",
+      "sha256LfNormalized": "7ee6a5970b68c26c4c6f61df7fd88fc02c177ab7ab0191cc7d084d4ee1d87683",
+      "matchesHistoricalUnitSource": false
+    },
+    {
+      "file": "tests/slime-squash-regression.test.ts",
+      "sha256LfNormalized": "9ecffc891abbba0df22fa24b975a377f1a8c14944c9d7a626d1c0466bdb43971"
+    },
+    {
+      "file": "tests/slime-squash-scenes.test.ts",
+      "sha256LfNormalized": "bd660de7c3ac0a1b8644efcfe23195ab2878d651e0a5bc0cf3411bd63de59bcd"
+    },
+    {
+      "file": "tests/slime-squash.spec.ts",
+      "sha256LfNormalized": "e96ae6bfa03038f5a2246c8dd7c8a9ff8fd7b1afb27537ef81140e7055888a77"
+    },
+    {
+      "file": "tests/slime-squash.test.ts",
+      "sha256LfNormalized": "ec56fc1ce26a9d1766d8bdad7cae684ea988381e3c62ad076fa35b105dceb54b"
+    },
+    {
+      "file": "tests/slimes.test.ts",
+      "sha256LfNormalized": "2c9177c524499d4a064811f1289d6ac30eb50d89f06ad3872609dd7f36d58cce",
+      "matchesHistoricalUnitSource": false
+    },
+    {
+      "file": "tests/specials.test.ts",
+      "sha256LfNormalized": "a442cf0d523ff3aa05642748fdc76a5cdca239ce93e180ca75130c3103dad838",
+      "matchesHistoricalUnitSource": false
+    },
+    {
+      "file": "tests/sprite-processing.test.ts",
+      "sha256LfNormalized": "a295b9d06e7255e9f7604dd75e560968fa1846993470728b1c57f63ef214dc4d",
+      "matchesHistoricalUnitSource": true
+    },
+    {
+      "file": "tests/sprite.test.ts",
+      "sha256LfNormalized": "279b7feb8225062fd7fd9e3044b81bc95c5c187d48be58ca83c8f7fae233058b",
+      "matchesHistoricalUnitSource": true
+    },
+    {
+      "file": "tests/story-celebration.test.ts",
+      "sha256LfNormalized": "b6881e76ffcfe31b5bc81d86ec0e62fc8094fe482b162f97e733575da287065f",
+      "matchesHistoricalUnitSource": false
+    },
+    {
+      "file": "tests/sunset-exploration.test.ts",
+      "sha256LfNormalized": "adfe9b4f894690678c56e9d4d701ea4977e6ccf1eee246cfe695c75b555fa801"
+    },
+    {
+      "file": "tests/sunset-site.test.ts",
+      "sha256LfNormalized": "9a396b9b96df3693ff9b4c51f0d5ad42c8c8fa37eccac5fbb5881a6ca6bec3e1",
+      "matchesHistoricalUnitSource": false
+    },
+    {
+      "file": "tests/surface-materials.test.ts",
+      "sha256LfNormalized": "2f24a90bf6d4982fef800b3ad587368a99395fc4d41bda5644d99663190cee24",
+      "matchesHistoricalUnitSource": true
+    },
+    {
+      "file": "tests/timbers-pilot.test.ts",
+      "sha256LfNormalized": "0051db7068e65d1797da478ad903fdd4c51028317e1ff2a86e896d3caeca7ae3"
+    },
+    {
+      "file": "tests/title-artwork.test.ts",
+      "sha256LfNormalized": "29520b927466ae07b45677266da5b2b26aff2ed1640614daf4c3b869cca75ea3",
+      "matchesHistoricalUnitSource": true
+    },
+    {
+      "file": "tests/treetop-timbers.test.ts",
+      "sha256LfNormalized": "b315904a77458c6552bd0e1a351936ba3b53e90c076638195ff10007d286cfec",
+      "matchesHistoricalUnitSource": false
+    },
+    {
+      "file": "tests/viewport.test.ts",
+      "sha256LfNormalized": "7a3aece69aa25750d52e1744b26df0fded99c6b9572381cc2685698c2c71f542",
+      "matchesHistoricalUnitSource": true
+    },
+    {
+      "file": "tests/world-assets.test.ts",
+      "sha256LfNormalized": "2fe833757fa48b653d6459b40cde954a1504f5b57b0a0543d2908f50dbcb3bcc",
+      "matchesHistoricalUnitSource": true
+    },
+    {
+      "file": "tests/world.test.ts",
+      "sha256LfNormalized": "84c29f52a31fa116731a09d9c7f119de753cf85d5068c902934f5eb498e4314a",
+      "matchesHistoricalUnitSource": true
+    }
+  ],
+  "openPrSnapshots": {
+    "196": "f8f6f13bf99a6aede895c61ae4ac4ffdef25505c",
+    "197": "d97d20348a2f817fb47505532a145645b3f9f66c"
+  },
+  "constraints": {
+    "docsOnly": true,
+    "ownerApprovalReceived": false,
+    "testChanges": false,
+    "engineReduction": false,
+    "newTimingMeasurements": false,
+    "issueComplete": false
+  },
+  "firstProposalStaticCounts": {
+    "originalSparkleCalls": 132858,
+    "proposedSparkleCalls": 122,
+    "henryCalls": 1089,
+    "expandedCases": 15
+  }
+}
