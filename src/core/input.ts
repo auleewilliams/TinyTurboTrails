@@ -11,9 +11,10 @@ export interface InputFrame {
   mutePressed: boolean;
   storyPressed?: boolean;
   trailsPressed?: boolean;
+  activityPressed?: boolean;
 }
 
-const KEYS = new Set(['ArrowLeft', 'ArrowRight', 'KeyA', 'KeyD', 'Space', 'Escape', 'KeyM', 'KeyR', 'KeyT']);
+const KEYS = new Set(['ArrowLeft', 'ArrowRight', 'KeyA', 'KeyD', 'Space', 'Escape', 'KeyM', 'KeyR', 'KeyT', 'KeyE']);
 /** Standard-mapping face cluster (A/B/X/Y): accept any of them for jump, since some
  * controllers/browsers don't land the primary action on button 0 as expected. */
 const JUMP_BUTTONS = [0, 1, 2, 3];
@@ -26,6 +27,7 @@ export class BrowserInput {
   private previousPadJump = false;
   private previousPadPause = false;
   private previousPadStory = false;
+  private previousPadActivity = false;
   private blockedPads = false;
   private focused = true;
   private source: InputSource = 'keyboard';
@@ -59,6 +61,7 @@ export class BrowserInput {
     this.previousPadJump = false;
     this.previousPadPause = false;
     this.previousPadStory = false;
+    this.previousPadActivity = false;
     // Require release after focus recovery before accepting held controller input.
     this.blockedPads = true;
   };
@@ -81,13 +84,14 @@ export class BrowserInput {
     let jump = JUMP_BUTTONS.some((index) => pad?.buttons[index]?.pressed);
     let pause = pad?.buttons[9]?.pressed ?? false;
     let story = pad?.buttons[8]?.pressed ?? false;
+    let activity = pad?.buttons[12]?.pressed ?? false;
     if (this.blockedPads) {
-      if (!axis && !left && !right && !jump && !pause && !story) this.blockedPads = false;
+      if (!axis && !left && !right && !jump && !pause && !story && !activity) this.blockedPads = false;
       axis = 0;
-      left = right = jump = pause = story = false;
+      left = right = jump = pause = story = activity = false;
     }
-    const padActivity = Boolean(axis || left || right || jump || pause || story);
-    const padAction = `${Math.sign(axis)},${left},${right},${jump},${pause},${story}`;
+    const padActivity = Boolean(axis || left || right || jump || pause || story || activity);
+    const padAction = `${Math.sign(axis)},${left},${right},${jump},${pause},${story},${activity}`;
     if (!pad) this.source = 'keyboard';
     else if (padActivity && padAction !== this.previousPadAction) this.source = 'controller';
     this.previousPadAction = padAction;
@@ -105,11 +109,13 @@ export class BrowserInput {
       mutePressed: this.pressed.has('KeyM'),
       storyPressed: this.pressed.has('KeyR') || (story && !this.previousPadStory),
       trailsPressed: this.pressed.has('KeyT'),
+      activityPressed: this.pressed.has('KeyE') || (activity && !this.previousPadActivity),
     };
     this.pressed.clear();
     this.previousPadJump = jump;
     this.previousPadPause = pause;
     this.previousPadStory = story;
+    this.previousPadActivity = activity;
     this.rumble.setController(this.blockedPads ? null : pad ?? null, this.source);
     return frame;
   }

@@ -21,16 +21,27 @@ is a detailed child in a blocky world — not a cuboid Minecraft avatar.
 Six desktop-browser levels selected from a illustrated overworld: Plains,
 Quarry Run, Treetop Timbers, Sunset Site, Frost Ridge and Sandy Cove. All routes target roughly
 3–5 minutes of exploratory play, with momentum, slopes and springs. Quarry Run adds spring pits, stepped terraces,
-grouped stone hazards and two slow moving platforms; both rides are optional
+grouped stone props and two slow moving platforms; both rides are optional
 and no route depends on timing one. Treetop Timbers adds plank trails, shallow
-rope-bridge contours, crane-hook springs and sawhorse hazards without changing
+rope-bridge contours, crane-hook springs and sawhorse props without changing
 the single-height terrain model. Sunset Site adds a construction yard at dusk,
 patrolling hard-hat slimes, pneumatic-jack-cleared pits and one optional crane ferry. Keyboard
 and standard-controller support.
-Henry starts each run with three visible hearts. Each unblocked slime or
-hazard hit removes one pip; losing the last pip returns him to the latest
+Henry starts each run with three visible hearts. Each unblocked slime contact
+removes one pip; losing the last pip returns him to the latest
 checkpoint, or the level start, and refills all three. Pit recovery also refills
 health without costing a pip, while activating a checkpoint does not heal him.
+
+**Interim obstacle decision (#191):** every static obstacle prop across all six
+trails behaves like pass-through scenery: no damage, knockback, damage flash,
+invulnerability, rumble, blocking or standable top. Keep the existing artwork
+(including original yellow/black sawhorse stripes), placements and rendering
+layers; the legacy `hazard` authoring tag does not imply damage. No new ground
+footprints/brackets are wanted. Slime contact/squash rules, pits, terrain, springs,
+checkpoints and moving platforms remain unchanged. Whether any props should
+later become solid, standable or damaging is deferred owner-led discussion, not
+approved implementation.
+
 Quarry Run reuses the Plains atlas; Treetop Timbers and Sunset Site each ship a
 project-local 16-cell atlas. Frost Ridge and Sandy Cove each ship their own 16-cell atlas.
 Frost Ridge introduces clearly marked flat ice patches with reduced ground
@@ -207,3 +218,64 @@ parent-led follow-up, not an automated acceptance claim.
 
 All six trails share lavender slimes with a common body, size, speed and short,
 edge-safe patrols. Accessories vary by trail; see `gameplay-interactions.md`.
+
+## Slime squashing (#142)
+
+Falling onto a slime from above squashes it without damage, with forgiving top
+edges. Unsquashed side/underneath contact still hurts. A squash gives one small,
+fixed-height automatic bounce, unaffected by holding or releasing jump and
+preserving sideways motion. Sequential squashes use the same impulse, never a
+growing bounce. Simultaneous top contacts flatten together with one bounce and
+one soft playful squish; successful squashes take priority over same-step damage.
+
+Slimes stay visibly flattened, harmless, nonblocking and stationary on the ground,
+with recognisable accessories and a quick squash animation. They cannot trigger
+another bounce or sound. There is no reward, extra collectible or popup. Both pit
+and health checkpoint recovery retain flattened state for the current run;
+restart, replay, map re-entry and starting another trail restore upright slimes.
+All state remains in memory. No weapons, construction/digging tools (#186), or
+Explore mode are introduced. Exact bounce/edge tuning and child-facing readability
+remain owner playtest decisions; implementation values are documented in
+`gameplay-interactions.md` rather than treated as approved requirements.
+
+## Optional spelling across all six trails (#189)
+
+The owner has removed maths from PR #190. The activity spot, sign/prompt,
+questions, answer controls and number-leaf reward are absent, not hidden or
+feature-flagged. The deferred design is tracked in
+[issue #193](https://github.com/auleewilliams/TinyTurboTrails/issues/193).
+
+Use one shared activity with independent per-trail bags, partial assembly and
+stickers: Plains HILL, Quarry Run ROCK, Treetop Timbers TREE, Sunset Site BEAM,
+Frost Ridge SNOW and Sandy Cove SAND. Preserve Timbers' accepted positions and
+identities; both Es in TREE and both Ls in HILL have independent identities and
+cannot be credited or used twice. Letter progress survives
+checkpoint/health/pit recovery, replay, map return and trail changes in memory;
+reload clears it. No browser storage, new gates or changes to gems/stars/totals.
+
+The in-trail HUD shows a bag and collected count. Four pickups can be collected
+in any order; a brief letter flight gives feedback. Collection never fills the
+word or awards a sticker. Finishing automatically opens an optional activity:
+the current trail word is shown above four spaces, with a mixed pile containing
+only actual collected letters. Pointer drag/drop and keyboard/controller
+select/place build the word manually without typing. Either repeated identity can occupy either
+matching space, once only. Wrong/occupied/outside placements roll back without loss.
+Only correct manual assembly earns that trail’s themed sticker, once per trail
+per session. Letters and stickers never cross-award between trails.
+
+When letters are missing, Find more letters closes the activity and puts Henry
+beside the finish in the same completed run. Preserve letters, gems, stars,
+checkpoint, squashed slimes and other run state. Henry retraces the existing
+trail himself; no missing-letter teleport, restart, substitute letters or terrain
+changes. The finish latch rearms after leaving the finish area and allows another
+crossing. Correct partial placements remain. Leave activity exposes ordinary
+finish choices. The overlay freezes deterministic simulation and clears held
+input/focus and clock debt at its boundary.
+
+The overworld's accessible collection shows all six trail stickers, via keyboard,
+pointer and standard controller. Preserve focus safety, held-input guards and
+normal pause/navigation. Retain all-six-trail finish grounding and the interim
+harmless/pass-through static props (#191), without added markings or altered
+slime damage/squash behaviour. Current code-native visuals are accepted for V1;
+generated image/sprite polish is deferred to #194. No merge or deployment is
+authorised; owner/child and physical-controller acceptance remain manual.

@@ -18,6 +18,7 @@ const dismiss = (scene: AdventureScene) => scene.menuTargets.find(target => targ
 const finish = (scene: AdventureScene, index = 0) => {
   (scene as unknown as Live).player.x = LEVELS[index].finish.x;
   scene.update(1 / 60, neutral);
+  if (scene.educationOverlay.open) scene.menuTargets.find(target => target.label === 'Leave activity')!.action();
 };
 afterEach(() => vi.unstubAllGlobals());
 

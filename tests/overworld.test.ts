@@ -73,7 +73,9 @@ it.each(LEVELS.map((level, index) => ({ level, index })))('returns to $level.nam
   scene.update(1 / 60, neutral);
   const live = scene as unknown as Live;
   const result = { gems: live.run.collectedGems.size, stars: live.run.collectedSpecials.size };
+  if (scene.educationOverlay.open) scene.menuTargets.find(target => target.label === 'Leave activity')!.action();
   expect(scene.menuTargets.some(target => target.label === 'Next trail')).toBe(index < LEVELS.length - 1);
+  if (scene.educationOverlay.open) scene.menuTargets.find(target => target.label === 'Leave activity')!.action();
   scene.activateFinish('Choose trail');
   expect(scene.screenState).toBe('title');
   expect(scene.selectedLevelName).toBe(level.name);
@@ -111,6 +113,7 @@ it('records a finished run and preserves it through a worse replay and a new tra
   expect(live.run).toEqual(createRun(LEVELS[0]));
   live.player.x = LEVELS[0].finish.x;
   scene.update(1 / 60, neutral);
+  if (scene.educationOverlay.open) scene.menuTargets.find(target => target.label === 'Leave activity')!.action();
   scene.activateFinish('Choose trail');
   expect(scene.session.results.get(LEVELS[0].id)).toEqual({ gems: 2, stars: 1 });
   expect(scene.menuTargets[0].description).toBe(`Session best: 2 of ${live.run.gemTotal} gems, 1 of 3 stars`);
@@ -166,6 +169,7 @@ it('requires neutral input after finishing and never advances gameplay on the ma
   scene.update(1 / 60, { ...neutral, jumpHeld: true, horizontal: 1 });
   for (let frame = 0; frame < 20; frame++) scene.update(1 / 60, { ...neutral, jumpHeld: true, horizontal: 1 });
   expect(scene.screenState).toBe('finish');
+  scene.menuTargets.find(target => target.label === 'Leave activity')!.action();
   scene.update(1 / 60, neutral);
   scene.update(1 / 60, { ...neutral, jumpPressed: true });
   expect(scene.screenState).toBe('playing');

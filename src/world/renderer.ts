@@ -12,7 +12,7 @@ import type { SlimeAccessory } from './slimes';
 /** Scenes without run state draw the whole entity list; a run hides what it has consumed. */
 export type EntityFilter = (entity: WorldEntity) => boolean;
 /** Run state supplies live positions plus optional deterministic presentation progress. */
-export type EntityPosition = (entity: WorldEntity) => { x: number; y: number; warningProgress?: number; checkpointActive?: boolean; springScale?: number };
+export type EntityPosition = (entity: WorldEntity) => { x: number; y: number; warningProgress?: number; checkpointActive?: boolean; springScale?: number; squashProgress?: number };
 
 export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, level: LevelData, camera: Camera,
   isVisible: EntityFilter = () => true, positionOf: EntityPosition = (entity) => entity,
@@ -69,7 +69,8 @@ export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, le
     if (!isVisible(entity)) continue;
     const position = positionOf(entity);
     if (entity.kind === 'slime' && assets.slimes) {
-      drawSlime(ctx, assets.slimes, level.theme.slimeAccessory ?? 'straw', position.x - offset.x, position.y - offset.y);
+      drawSlime(ctx, assets.slimes, level.theme.slimeAccessory ?? 'straw', position.x - offset.x, position.y - offset.y,
+        position.squashProgress, reducedMotion);
     } else if (entity.kind === 'gem') {
       drawGem(ctx, assets.gems, position.x - offset.x, position.y - offset.y, level.atlas);
     } else if (entity.kind === 'special') {
@@ -100,16 +101,23 @@ export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, le
       }
     }
   }
-  drawAsset(ctx, assets, level.finish.asset as WorldAsset, level.finish.x - offset.x, level.finish.y - offset.y, 2);
+  // The finish artwork is ground-anchored, including on Cove's exit slope.
+  // A vertical shear follows the terrain without leaning the upright pillars.
+  const finishSurface = level.surfaces.find(surface => level.finish.x >= surface.x1 && level.finish.x <= surface.x2);
+  const finishSlope = finishSurface ? (finishSurface.y2 - finishSurface.y1) / (finishSurface.x2 - finishSurface.x1) : 0;
+  drawAsset(ctx, assets, level.finish.asset as WorldAsset, level.finish.x - offset.x, level.finish.y - offset.y, 2, finishSlope);
   // Keep the draw source referenced so a bad cell size cannot silently pass.
   void atlas;
   void cell;
 }
 
 /** Every costume shares one 32px body and the same bottom-center ground anchor. */
-export function drawSlime(ctx: CanvasRenderingContext2D, atlas: HTMLImageElement, accessory: SlimeAccessory, x: number, y: number): void {
+export function drawSlime(ctx: CanvasRenderingContext2D, atlas: HTMLImageElement, accessory: SlimeAccessory, x: number, y: number,
+  squashProgress?: number, reducedMotion = false): void {
   const index = { straw: 0, miner: 1, leaf: 2, 'hard-hat': 3, bobble: 4, snorkel: 5 }[accessory];
-  ctx.drawImage(atlas, index * 48, 0, 48, 48, x - 24, y - 44, 48, 48);
+  const progress = squashProgress === undefined ? 0 : reducedMotion ? 1 : Math.max(0, Math.min(1, squashProgress));
+  const width = 1 + progress * 0.2, height = 1 - progress * 0.6;
+  ctx.drawImage(atlas, index * 48, 0, 48, 48, x - 24 * width, y - 44 * height, 48 * width, 48 * height);
 }
 
 /** Draw the actual cut-diamond sprite, with its visible bottom at the pickup
@@ -271,13 +279,18 @@ export function drawPlatformPath(ctx: CanvasRenderingContext2D, platform: Moving
   for (const [x, y] of [[fromX, fromY], [toX, toY]]) ctx.fillRect(x - 4, y - 2, 8, 2);
 }
 
-export function drawAsset(ctx: CanvasRenderingContext2D, assets: WorldAssets, asset: WorldAsset, x: number, y: number, scale = 1): void {
+export function drawAsset(ctx: CanvasRenderingContext2D, assets: WorldAssets, asset: WorldAsset, x: number, y: number, scale = 1, groundSlope = 0): void {
   const index = assets.manifest.assets[asset];
   const cell = assets.manifest.cellSize;
   const sourceX = (index % 4) * cell;
   const sourceY = Math.floor(index / 4) * cell;
   const anchor = assets.manifest.anchors?.[asset] ?? { x: cell / 2, y: cell };
-  ctx.drawImage(assets.atlas, sourceX, sourceY, cell, cell, x - anchor.x * scale, y - anchor.y * scale, cell * scale, cell * scale);
+  if (groundSlope !== 0) {
+    ctx.save();
+    ctx.transform(1, groundSlope, 0, 1, x, y);
+    ctx.drawImage(assets.atlas, sourceX, sourceY, cell, cell, -anchor.x * scale, -anchor.y * scale, cell * scale, cell * scale);
+    ctx.restore();
+  } else ctx.drawImage(assets.atlas, sourceX, sourceY, cell, cell, x - anchor.x * scale, y - anchor.y * scale, cell * scale, cell * scale);
 }
 
 

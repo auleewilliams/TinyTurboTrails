@@ -62,7 +62,7 @@ function quarryLedge(id: string, x: number, y: number): WorldEntity {
   return { id, kind: 'crumbling-ledge', x, y, width: 72, asset: 'stone', layer: 'world' };
 }
 
-// Quarry scenery avoids the stone sprite so it never reads as a hazard.
+// Preserve the existing Quarry scenery artwork; obstacle props also pass through (#191).
 function quarryDecoration(id: string, x: number, asset: 'cave' | 'bush'): WorldEntity {
   return quarryGrounded({ id, kind: 'decoration', x, asset, layer: 'back' });
 }

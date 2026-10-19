@@ -1,0 +1,185 @@
+{
+  "testHead": "1240c31d16a6a97664afc6b07e43c550eae406c5",
+  "captures": [
+    {
+      "file": "chromium-plains-missing-assembly-426.png",
+      "engine": "chromium",
+      "trail": "plains",
+      "sha256": "7a8fff727cf150678e89b7886838b48738f06392e43aa94d9421c7e7af98ce81"
+    },
+    {
+      "file": "chromium-plains-missing-assembly-320.png",
+      "engine": "chromium",
+      "trail": "plains",
+      "sha256": "7de5c4e8105e1f3e8a86e4f5d079ad0eefb15249ec3fee6caa02ee0d4074feab"
+    },
+    {
+      "file": "chromium-plains-earned-426.png",
+      "engine": "chromium",
+      "trail": "plains",
+      "sha256": "8e9a5688d122f8be2211661bfc5c6ef35a905ee617433f981729f1dc325e6df5"
+    },
+    {
+      "file": "chromium-plains-earned-320.png",
+      "engine": "chromium",
+      "trail": "plains",
+      "sha256": "77bec553afd17f46f027b4bc6d28d4b3eace045ac7ab2020cacd66b62261cfb1"
+    },
+    {
+      "file": "chromium-quarry-missing-assembly-426.png",
+      "engine": "chromium",
+      "trail": "quarry",
+      "sha256": "1fbf3890092c872c885548ce5c4bbac118e3a4fab534c7023ac03f15d55ccfce"
+    },
+    {
+      "file": "chromium-quarry-missing-assembly-320.png",
+      "engine": "chromium",
+      "trail": "quarry",
+      "sha256": "a40bd63a5906c79bf402d41e8198d23e8603ad0509df19f34a89a2d93c22f338"
+    },
+    {
+      "file": "chromium-quarry-earned-426.png",
+      "engine": "chromium",
+      "trail": "quarry",
+      "sha256": "82bcb51a8b49501c65f99fe7f4d39b641affa11c7d2db9a361e1693f1e929940"
+    },
+    {
+      "file": "chromium-quarry-earned-320.png",
+      "engine": "chromium",
+      "trail": "quarry",
+      "sha256": "9e676b91e4c9bb059acd35ff228cb9cfaa972e108d70b5da6a32349db5f04a61"
+    },
+    {
+      "file": "chromium-collection-426.png",
+      "engine": "chromium",
+      "trail": "quarry",
+      "sha256": "288dc0d0fc38d028bb8cf46687a4b7ccfe1a2ffef4a327389d69d0ae6d169b39"
+    },
+    {
+      "file": "chromium-collection-320.png",
+      "engine": "chromium",
+      "trail": "quarry",
+      "sha256": "27fb9702ce68cd15e5183eb7eba1f5539507aa04ecd856e555789857a5e6f115"
+    },
+    {
+      "file": "chromium-timbers-missing-assembly-426.png",
+      "engine": "chromium",
+      "trail": "timbers",
+      "sha256": "99745384c984abba03b41ad504d6cf391a1fc3b870323eae64f27f393a2d15da"
+    },
+    {
+      "file": "chromium-timbers-missing-assembly-320.png",
+      "engine": "chromium",
+      "trail": "timbers",
+      "sha256": "2f6b3b1dddf689421e7cc45de2a8f9a5ba4cc33a13568dd23e7c080a82d86638"
+    },
+    {
+      "file": "chromium-timbers-earned-426.png",
+      "engine": "chromium",
+      "trail": "timbers",
+      "sha256": "34fa75bb0de99f52f2745a81097906f8bddf136570faad58ac014ba31ca93d0c"
+    },
+    {
+      "file": "chromium-timbers-earned-320.png",
+      "engine": "chromium",
+      "trail": "timbers",
+      "sha256": "02f9d159d2a2dd5595cd3cec2903ee6eb930636d40afe3b1cbf839f8a444e785"
+    },
+    {
+      "file": "chromium-sunset-missing-assembly-426.png",
+      "engine": "chromium",
+      "trail": "sunset",
+      "sha256": "5276da11b2d9238cd4ada76b6d0b079fb9b893987ce72a969a8699b86679eef6"
+    },
+    {
+      "file": "chromium-sunset-missing-assembly-320.png",
+      "engine": "chromium",
+      "trail": "sunset",
+      "sha256": "582f7a71c4bda3643da5b0b732ed6892b277f3ca4fbd01c3296160b4b2d2605e"
+    },
+    {
+      "file": "chromium-sunset-earned-426.png",
+      "engine": "chromium",
+      "trail": "sunset",
+      "sha256": "b3a70e76b9975dae5f07483a8022498f83a17422f903ca6b7ab80698e2ffade6"
+    },
+    {
+      "file": "chromium-sunset-earned-320.png",
+      "engine": "chromium",
+      "trail": "sunset",
+      "sha256": "f46983fce170294dbf0a3a8c64c6650e81fe0ee196b392c6a6479f62b2c319f5"
+    },
+    {
+      "file": "chromium-frost-missing-assembly-426.png",
+      "engine": "chromium",
+      "trail": "frost",
+      "sha256": "3ebb7485a83c52a28d6f998986d2c38b6da3f2d8a2b76fec5bc5989f2d864be5"
+    },
+    {
+      "file": "chromium-frost-missing-assembly-320.png",
+      "engine": "chromium",
+      "trail": "frost",
+      "sha256": "07d43e2c6c81b365a3b6619c1f9080fb288702f0159427411c2a20eca2b2c890"
+    },
+    {
+      "file": "chromium-frost-earned-426.png",
+      "engine": "chromium",
+      "trail": "frost",
+      "sha256": "b89ab5b9f0f5568baa0cfba784ca24b4ef822832fe037ec8813ac60be115e97d"
+    },
+    {
+      "file": "chromium-frost-earned-320.png",
+      "engine": "chromium",
+      "trail": "frost",
+      "sha256": "3bc016dac951b8d3639b08d42a7ff421c883bdb6901ef59b50826a8dcb668823"
+    },
+    {
+      "file": "chromium-cove-missing-assembly-426.png",
+      "engine": "chromium",
+      "trail": "cove",
+      "sha256": "090d83062b64e65cec646857d534aaa2a64809a9fb9fd32dd99d6ea8b72bb220"
+    },
+    {
+      "file": "chromium-cove-missing-assembly-320.png",
+      "engine": "chromium",
+      "trail": "cove",
+      "sha256": "78cae03b75591d67162268c2b81e5f77679ef772d2f56ac6140001a195cfcecb"
+    },
+    {
+      "file": "chromium-cove-earned-426.png",
+      "engine": "chromium",
+      "trail": "cove",
+      "sha256": "620bbf92fa55f08f6f2a330c2edc2a55e0cffbffa3163d841a0191526dbae6fc"
+    },
+    {
+      "file": "chromium-cove-earned-320.png",
+      "engine": "chromium",
+      "trail": "cove",
+      "sha256": "fcb186c8fea5f93669dea8e15cd2a6b17b7b63a5e1225888da02a8df137024f6"
+    },
+    {
+      "file": "firefox-collection-426.png",
+      "engine": "firefox",
+      "trail": "quarry",
+      "sha256": "fda6cf69208cddc9b3127027b17e6ba991392f022d0cca38b72ceecc126d8d92"
+    },
+    {
+      "file": "firefox-collection-320.png",
+      "engine": "firefox",
+      "trail": "quarry",
+      "sha256": "4325253c5e6f08620e85e8e3a50d743981340b68c6580654ede365e9bd9b0757"
+    },
+    {
+      "file": "webkit-collection-426.png",
+      "engine": "webkit",
+      "trail": "quarry",
+      "sha256": "af9e90aff6018cbf15d7a84f2fd847da5b37fc3d16194775bce3d0fa9173e768"
+    },
+    {
+      "file": "webkit-collection-320.png",
+      "engine": "webkit",
+      "trail": "quarry",
+      "sha256": "368919022ded1eccc1fff74ae67f940c69cacc7489948a2c9765b7991b7c6dae"
+    }
+  ]
+}

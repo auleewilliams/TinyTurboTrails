@@ -1,3 +1,5 @@
+import { EducationOverlay } from './education-overlay';
+import { EducationSession, TRAIL_WORDS } from './education';
 import { drawOverworld, MAP_POINTS, OVERWORLD_LAYOUT, TrailSession, type MenuTarget } from './overworld';
 import { musicForLevel } from '../core/music';
 import type { GameAudio } from '../core/audio';
@@ -9,7 +11,7 @@ import { animationFrame } from '../art/animation';
 import type { HenryAssets } from '../art/henry';
 import { hitFlashAtlas } from '../art/hit-flash';
 import { drawFacingSprite } from '../art/sprite';
-import { animationFor, createPlayer, simulatePlayer, DEFAULT_MOVEMENT, type Facing, type PlatformBody, type Player } from './movement';
+import { animationFor, createPlayer, simulatePlayer, surfaceY, DEFAULT_MOVEMENT, type Facing, type PlatformBody, type Player } from './movement';
 import { platformBodiesAt } from './platforms';
 import { activeLedgePlatforms, createRun, entityPosition, isEntityActive, recoverFromFall, stepEntities, tickRun, type RunEvent, type RunState } from './interactions';
 import { ScreenController } from './screens';
@@ -73,7 +75,17 @@ export class AdventureScene implements Scene {
   private selectedIndex: number;
   private selectionDirection = 0;
   readonly session = new TrailSession();
+  readonly education = new EducationSession();
+  private letterFlights: { letter: string; x: number; y: number; age: number }[] = [];
+  readonly educationOverlay = new EducationOverlay(this.education);
+  private get hasWordActivity(): boolean { return TRAIL_WORDS.some(config => config.id === this.level.id); }
+  get educationDescription(): string {
+    if (this.educationOverlay.open) return this.educationOverlay.description;
+    if (!this.hasWordActivity || this.screenState !== 'playing') return '';
+    return `Letter bag: ${this.education.letterCount}/4${this.letterFlights.length ? ` · ${this.letterFlights.at(-1)!.letter} → bag` : ''}`;
+  }
   private finishIndex = 0;
+  private finishArmed = true;
   private menuArmed = true;
   private marker = { x: 48, y: 88 };
   private readonly previews = new Map<string, HTMLCanvasElement>();
@@ -83,6 +95,7 @@ export class AdventureScene implements Scene {
       .filter((atlas) => !worlds[atlas]);
     if (missing.length > 0) throw new Error(`Missing world assets: ${missing.join(', ')}`);
     this.level = level;
+    if (this.hasWordActivity) this.education.selectTrail(level.id);
     const levelIndex = LEVELS.indexOf(level);
     this.selectedIndex = levelIndex >= 0 ? levelIndex : 0;
     this.player = createPlayer(level.start.x, level);
@@ -105,6 +118,7 @@ export class AdventureScene implements Scene {
   exit(): void { this.audio.stop(); this.rumble?.stop(); }
 
   update(seconds: number, input: InputFrame): void {
+    if (this.educationOverlay.open) return;
     this.inputSource = input.source ?? 'keyboard';
     if (this.screenState === 'story') {
       if (!this.menuArmed) {
@@ -151,23 +165,25 @@ export class AdventureScene implements Scene {
     // Platforms advance first: movement then collides with where they are now, not where they were.
     const step = tickRun(this.run, seconds);
     this.feedback.tick(step);
+    this.letterFlights = this.letterFlights.filter(flight => (flight.age += step) < 0.65);
     this.hud.update(step, input, this.level, this.player.x);
     this.platforms = platformBodiesAt(this.level.platforms, this.run.seconds, step);
     const previousPosition = { x: this.player.x, y: this.player.y };
     const wasGrounded = this.player.onGround;
     const previousVelocityY = this.player.vy;
-    simulatePlayer(this.player, input, this.level, seconds, [...this.platforms, ...activeLedgePlatforms(this.run, this.level)]);
+    const trajectory = simulatePlayer(this.player, input, this.level, seconds, [...this.platforms, ...activeLedgePlatforms(this.run, this.level)]);
     if (previousVelocityY >= 0 && this.player.vy < -DEFAULT_MOVEMENT.jumpVelocity * 0.75) this.audio.play('jump');
-    if (isMeaningfulLanding(wasGrounded, previousVelocityY, this.player)) {
+    this.events = [];
+    stepEntities(this.run, this.level, this.player, seconds, this.events, previousPosition, trajectory);
+    if (!this.events.some(event => event.type === 'recover') && isMeaningfulLanding(wasGrounded, previousVelocityY, this.player)) {
       this.feedback.add('landing', this.player.x, this.player.y + DEFAULT_MOVEMENT.height);
       this.audio.play('landing');
     }
-    this.events = [];
-    stepEntities(this.run, this.level, this.player, seconds, this.events, previousPosition);
     if (this.player.y > this.level.height + 80) recoverFromFall(this.run, this.player, this.events, this.level);
     if (!wasGrounded || this.events.some(event => event.type === 'recover' || event.type === 'damage' || event.type === 'spring')) this.footsteps.reset();
     else if (this.footsteps.step(step, this.player, previousPosition.x)) this.audio.play('footstep');
-    if (this.player.x >= this.level.finish.x && this.screens.state === 'playing') {
+    if (this.player.x < this.level.finish.x - 70) this.finishArmed = true;
+    if (this.finishArmed && this.player.x >= this.level.finish.x && this.screens.state === 'playing') {
       this.screens.complete(this.run.collectedGems.size);
       this.celebration.reset();
       this.session.mark(this.level, this.run.collectedGems.size, this.run.collectedSpecials.size);
@@ -177,9 +193,11 @@ export class AdventureScene implements Scene {
       this.audio.stop();
       this.rumble?.stop();
       this.audio.play('complete');
+      if (this.hasWordActivity) this.educationOverlay.showAssembly(() => this.retraceFromFinish());
     }
     this.feedback.consume(this.events, this.level);
     this.hud.consume(this.events);
+    if (this.events.some(event => event.type === 'squash')) this.audio.play('squash');
     for (const event of this.events) {
       if (event.type === 'gem' || event.type === 'special') this.audio.play('gem');
       else if (event.type === 'checkpoint') this.audio.play('checkpoint');
@@ -190,18 +208,28 @@ export class AdventureScene implements Scene {
         else if (event.type === 'spring' || event.type === 'damage') this.rumble?.play(event.type);
       }
     }
+    if (this.hasWordActivity) for (const letter of this.education.pickups) {
+      if (Math.abs(this.player.x - letter.x) <= 22 && Math.abs(this.player.y + 17 - (surfaceY(this.level, letter.x) - 20)) <= 24 && this.education.collect(letter.id)) {
+        this.letterFlights.push({ letter: letter.letter, x: letter.x - this.camera.position.x,
+          y: surfaceY(this.level, letter.x) - 20 - this.camera.position.y, age: 0 });
+      }
+    }
     this.camera.update(this.player.x, this.player.y);
   }
 
   render(ctx: CanvasRenderingContext2D): void {
     if (this.screenState === 'story' && this.storyArtwork) { drawStory(ctx, this.storyArtwork, this.story, this.inputSource === 'controller'); return; }
-    if (this.screens.state === 'title') { this.drawMap(ctx); return; }
+    if (this.screens.state === 'title') {
+      this.drawMap(ctx);
+      if (this.educationOverlay.open) this.educationOverlay.draw(ctx);
+      return;
+    }
     drawWorld(ctx, this.world, this.level, this.camera,
       (entity) => isEntityActive(this.run, entity.id), (entity) => ({ ...entityPosition(this.run, entity),
         checkpointActive: entity.kind === 'checkpoint' && this.run.checkpointId === entity.id,
         springScale: entity.kind === 'spring' ? this.feedback.springScale(entity.id, this.reducedMotion) : undefined }), this.platforms,
       this.run.seconds, this.reducedMotion);
-    if (this.screens.state === 'playing') this.drawHenry(ctx);
+    if (this.screens.state === 'playing') { this.drawLetters(ctx); this.drawHenry(ctx); }
     drawWorldForeground(ctx, this.world, this.level, this.camera);
     this.feedback.draw(ctx, this.world, this.camera.position, this.reducedMotion);
     if (this.screens.state === 'playing') {
@@ -212,11 +240,64 @@ export class AdventureScene implements Scene {
       }
       drawGameplayHud(ctx, this.run, this.hud.hint, this.feedback.checkpointSeconds > 0
         ? 'Checkpoint reached!' : this.hud.locationSeconds > 0 ? this.hud.location : '', this.hud.progress(this.level, this.player.x));
+      this.drawWordProgress(ctx);
+      if (this.educationOverlay.open) this.educationOverlay.draw(ctx);
     } else if (this.screens.state === 'finish') {
       this.drawFinish(ctx);
+      if (this.educationOverlay.open) this.educationOverlay.draw(ctx);
     } else if (this.screens.state === 'error') {
       this.panel(ctx, 'LOADING ERROR', `${this.screens.error} · Reload to retry`);
     }
+  }
+
+  private retraceFromFinish(): void {
+    if (this.screens.state !== 'finish') return;
+    this.finishArmed = false;
+    this.screens.retrace();
+    const x = this.level.finish.x - 28;
+    Object.assign(this.player, { x, y: surfaceY(this.level, x) - DEFAULT_MOVEMENT.height, vx: 0, vy: 0, onGround: true,
+      coyoteSeconds: DEFAULT_MOVEMENT.coyoteSeconds, jumpBufferSeconds: 0, squashBounce: false,
+      platformId: null, groundVelocityX: 0 });
+    this.camera.update(this.player.x, this.player.y);
+    this.audio.startMusic(musicForLevel(this.level.id));
+  }
+
+  handleEducationInput(input: InputFrame): void {
+    if (this.educationOverlay.open) this.educationOverlay.update(input);
+    else if (input.activityPressed && this.screenState === 'title') this.educationOverlay.showStickers();
+  }
+
+  private drawLetters(ctx: CanvasRenderingContext2D): void {
+    if (!this.hasWordActivity) return;
+    ctx.save(); ctx.textAlign = 'center';
+    ctx.font = 'bold 16px monospace';
+    for (const letter of this.education.pickups) {
+      if (this.education.hasLetter(letter.id)) continue;
+      const x = Math.round(letter.x - this.camera.position.x), y = Math.round(surfaceY(this.level, letter.x) - 32 - this.camera.position.y);
+      ctx.fillStyle = '#ffda75'; ctx.fillRect(x - 11, y, 22, 24);
+      ctx.strokeStyle = '#17333b'; ctx.strokeRect(x - 11, y, 22, 24);
+      ctx.fillStyle = '#17333b'; ctx.fillText(letter.letter, x, y + 18);
+    }
+    ctx.restore();
+  }
+
+  private drawWordProgress(ctx: CanvasRenderingContext2D): void {
+    if (!this.hasWordActivity) return;
+    ctx.save(); ctx.textAlign = 'right'; ctx.font = 'bold 11px monospace';
+    ctx.fillStyle = '#10252cee'; ctx.fillRect(294, 31, 127, 34);
+    ctx.fillStyle = '#e9f2df'; ctx.fillText(`Bag ${this.education.letterCount}/4`, 376, 52);
+    ctx.fillStyle = '#ffda75'; ctx.fillRect(386, 42, 24, 18);
+    ctx.strokeStyle = '#ffda75'; ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.arc(398, 42, 7, Math.PI, 0); ctx.stroke();
+    ctx.textAlign = 'center'; ctx.fillStyle = '#17333b'; ctx.font = 'bold 10px monospace'; ctx.fillText('✦', 398, 55);
+    for (const flight of this.letterFlights) {
+      const t = flight.age / 0.65;
+      const x = this.reducedMotion ? 398 : flight.x + (398 - flight.x) * t;
+      const y = this.reducedMotion ? 74 : flight.y + (50 - flight.y) * t - Math.sin(t * Math.PI) * 25;
+      ctx.globalAlpha = 1 - t * 0.5; ctx.fillStyle = '#ffda75'; ctx.fillRect(x - 11, y - 18, 22, 24);
+      ctx.fillStyle = '#17333b'; ctx.font = 'bold 16px monospace'; ctx.fillText(flight.letter, x, y);
+    }
+    ctx.restore();
   }
 
   private drawMap(ctx: CanvasRenderingContext2D): void {
@@ -229,6 +310,9 @@ export class AdventureScene implements Scene {
       Math.round(this.marker.x) - 39, Math.round(this.marker.y) + 4, 28, 28);
     ctx.fillStyle = '#17333b'; ctx.font = '9px monospace'; ctx.textAlign = 'left';
     ctx.fillText(this.inputSource === 'controller' ? 'D-pad / stick: choose   Face button: play' : '← → Choose   Space: play   Click a landmark', 8, 234);
+    ctx.fillStyle = '#17333b'; ctx.fillRect(282, 7, 79, 29);
+    ctx.fillStyle = '#ffda75'; ctx.font = 'bold 9px monospace'; ctx.fillText('STICKERS', 286, 19);
+    ctx.font = '8px monospace'; ctx.fillText(`${this.education.stickers.length}/${TRAIL_WORDS.length} · ${this.inputSource === 'controller' ? 'D-pad ↑' : 'E / click'}`, 286, 30);
     if (this.storyArtwork) {
       ctx.fillStyle = '#17333b'; ctx.fillRect(367, 7, 47, 29);
       ctx.fillStyle = '#ffda75'; ctx.font = 'bold 22px monospace'; ctx.fillText('↶', 382, 29);
@@ -296,12 +380,15 @@ export class AdventureScene implements Scene {
   }
 
   get menuTargets(): MenuTarget[] {
+    if (this.educationOverlay.open) return this.educationOverlay.targets;
     if (this.screenState === 'story') return this.story.targets.map((target, index) => ({ ...target, action: () => this.activateStory(index) }));
     if (this.screens.state === 'title') return [
       ...LEVELS.map((level, index) => ({ label: level.name, x: MAP_POINTS[index][0] - 35, y: MAP_POINTS[index][1] - 30,
         description: this.session.description(level),
         width: 70, height: 60, selected: index === this.selectedIndex, action: () => this.selectDestination(index) })),
       { label: `Play ${this.selectedLevelName}`, ...OVERWORLD_LAYOUT.play, action: () => this.startSelected() },
+      { label: 'Open stickers', nativeSpace: true, description: `${this.education.stickers.length} of ${TRAIL_WORDS.length} stickers · E or controller D-pad up`,
+        x: 282, y: 7, width: 79, height: 29, action: () => this.educationOverlay.showStickers() },
       ...(this.storyArtwork ? [{ label: 'Replay story', nativeSpace: true, description: 'Pictures • R key or controller View button', x: 367, y: 7, width: 47, height: 29, action: () => this.openStory() }] : []),
     ];
     if (this.screens.state === 'finish') return [...this.finishActions.map((label, index) => ({
@@ -346,13 +433,17 @@ export class AdventureScene implements Scene {
   private loadLevel(level: LevelData): void {
     this.audio.stop();
     this.rumble?.stop();
+    this.educationOverlay.close();
     this.elapsed = 0;
+    this.finishArmed = true;
     this.celebration.reset();
     this.events = [];
     this.feedback.clear();
+    this.letterFlights = [];
     this.footsteps.reset();
     this.hud = new HudPresentation();
     this.level = level;
+    if (this.hasWordActivity) this.education.selectTrail(level.id);
     this.player = createPlayer(level.start.x, level);
     this.run = createRun(level);
     this.camera = new Camera({ width: 426, height: 240, worldWidth: level.width, worldHeight: level.height });

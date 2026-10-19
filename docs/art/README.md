@@ -32,11 +32,13 @@ instead of repeating, because the generated edges are not certified seamless.
 
 Sunset Site loads its own 16-cell construction atlas from
 `public/assets/site/`. It preserves the shared world-asset names while
-re-theming them as girders, a warning-cone/cement-mixer hazard, scaffold,
+re-theming them as girders, a warning-cone/cement-mixer prop, scaffold,
 culvert pipes, weeds, a pneumatic jack, cement slime, construction checkpoint,
 finish arch and sunset skyline. The large arrow on the jack distinguishes its
-bounce role; bright barricade beacons and cone grouping distinguish the hazard from
-the low, unlit scenery.
+bounce role; bright barricade beacons and cone grouping distinguish the obstacle
+art from low, unlit scenery. Under the interim #191 rule all static props are
+harmless pass-through scenery despite their warning-themed artwork; no raster
+art or original stripes are changed. Slimes retain their own contact/squash rules.
 
 The owner has confirmed completion of the child-readability playtest. See the
 [issue #85 acceptance record](../evidence/issue-85/README.md) and linked playtest

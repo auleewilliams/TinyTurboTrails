@@ -161,7 +161,7 @@ describe('adventure rumble triggers', () => {
     return { scene, live, sound, rumble };
   }
 
-  it.each([['hazard', 'damage', 'damage'], ['spring', 'spring', 'spring'], ['special', 'star', 'gem']] as const)(
+  it.each([['slime', 'damage', 'damage'], ['spring', 'spring', 'spring'], ['special', 'star', 'gem']] as const)(
     'pairs %s with its existing run-event sound', (kind, effect, soundEffect) => {
       const { scene, live, sound, rumble } = adventure();
       live.level = { ...live.level, checkpoints: [], entities: [{ id: 'contact', kind, x: live.player.x, y: live.player.y + 34, asset: kind, layer: 'world' }] };
@@ -172,6 +172,16 @@ describe('adventure rumble triggers', () => {
       scene.update(1 / 60, neutral);
       expect(rumble.play).toHaveBeenCalledTimes(1);
     });
+
+  it('static obstacle passage produces no damage sound or rumble', () => {
+    const { scene, live, sound, rumble } = adventure();
+    live.level = { ...live.level, checkpoints: [], entities: [{ id: 'prop', kind: 'hazard', x: live.player.x, y: live.player.y + 34, asset: 'stone', layer: 'world' }] };
+    live.run.entities = [{ id: 'prop', active: true, x: live.player.x, y: live.player.y + 34, direction: 1 }];
+    scene.update(1 / 60, neutral);
+    expect(rumble.play).not.toHaveBeenCalled();
+    expect(sound).not.toHaveBeenCalledWith('damage');
+    expect(live.run.health).toBe(3);
+  });
 
   it('does not rumble on ordinary movement, gems, map or finish; stops output on exit', () => {
     const { scene, live, rumble } = adventure();

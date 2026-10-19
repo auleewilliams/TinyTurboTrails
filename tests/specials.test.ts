@@ -80,6 +80,7 @@ it.each(['Replay', 'Next trail', 'Choose trail'])('%s clears specials on the nex
   live.player.x = LEVELS[2].finish.x;
   scene.update(1 / 60, neutral);
   expect(scene.screenState).toBe('finish'); expect(scene.specialTotal).toBe(3);
+  if (scene.educationOverlay.open) scene.menuTargets.find(target => target.label === 'Leave activity')!.action();
   expect(scene.menuTargets.map(target => target.label)).toEqual(['Replay', 'Next trail', 'Choose trail']);
   scene.activateFinish(action);
   if (action === 'Choose trail') { expect(scene.screenState).toBe('title'); scene.startSelected(); }
@@ -172,6 +173,7 @@ it.each(LEVELS)('$name can finish with no special rewards', level => {
   scene.update(1 / 60, neutral);
   expect(scene.screenState).toBe('finish');
   expect(scene.specialTotal).toBe(0);
+  if (scene.educationOverlay.open) scene.menuTargets.find(target => target.label === 'Leave activity')!.action();
   expect(scene.menuTargets.map(target => target.label)).toContain('Replay');
 });
 

@@ -1,0 +1,151 @@
+[
+  {
+    "id": "plains",
+    "obstacles": [
+      "hazard-001",
+      "hazard-002",
+      "hazard-003",
+      "hazard-004",
+      "hazard-005",
+      "hazard-006"
+    ],
+    "scenery": [
+      "deco-001",
+      "deco-002",
+      "deco-003",
+      "deco-004",
+      "deco-005",
+      "deco-006",
+      "deco-007",
+      "deco-008",
+      "deco-009",
+      "deco-010",
+      "deco-011",
+      "deco-012"
+    ]
+  },
+  {
+    "id": "quarry",
+    "obstacles": [
+      "quarry-hazard-001",
+      "quarry-hazard-002",
+      "quarry-hazard-003",
+      "quarry-hazard-004",
+      "quarry-hazard-005",
+      "quarry-hazard-006",
+      "quarry-hazard-007",
+      "quarry-hazard-008",
+      "quarry-hazard-009"
+    ],
+    "scenery": [
+      "quarry-deco-001",
+      "quarry-deco-002",
+      "quarry-deco-003",
+      "quarry-deco-004",
+      "quarry-deco-005",
+      "quarry-deco-006",
+      "quarry-deco-007",
+      "quarry-deco-008",
+      "quarry-deco-009",
+      "quarry-deco-010",
+      "quarry-deco-011",
+      "quarry-deco-012",
+      "quarry-deco-013"
+    ]
+  },
+  {
+    "id": "timbers",
+    "obstacles": [
+      "timber-sawhorse-1",
+      "timber-sawhorse-2",
+      "timber-sawhorse-3",
+      "timber-sawhorse-4",
+      "timber-sawhorse-5",
+      "timber-sawhorse-6",
+      "timber-sawhorse-7"
+    ],
+    "scenery": [
+      "timber-deco-1",
+      "timber-deco-2",
+      "timber-deco-3",
+      "timber-deco-4",
+      "timber-deco-5",
+      "timber-deco-6",
+      "timber-deco-7",
+      "timber-deco-8",
+      "timber-deco-9",
+      "timber-deco-10",
+      "timber-deco-11"
+    ]
+  },
+  {
+    "id": "sunset",
+    "obstacles": [
+      "site-hazard-001",
+      "site-hazard-002",
+      "site-hazard-003",
+      "site-hazard-004",
+      "site-hazard-005",
+      "site-hazard-006",
+      "site-hazard-007",
+      "site-hazard-008"
+    ],
+    "scenery": [
+      "site-deco-001",
+      "site-deco-002",
+      "site-deco-003",
+      "site-deco-004",
+      "site-deco-005",
+      "site-deco-006",
+      "site-deco-007",
+      "site-deco-008",
+      "site-deco-009",
+      "site-deco-010",
+      "site-deco-011",
+      "site-deco-012"
+    ]
+  },
+  {
+    "id": "frost",
+    "obstacles": [
+      "frost-hazard-1",
+      "frost-hazard-2",
+      "frost-hazard-3",
+      "frost-hazard-4",
+      "frost-hazard-5",
+      "frost-hazard-6"
+    ],
+    "scenery": [
+      "frost-decoration-1",
+      "frost-decoration-2",
+      "frost-decoration-3",
+      "frost-decoration-4",
+      "frost-decoration-5",
+      "frost-decoration-6",
+      "frost-decoration-7",
+      "frost-decoration-8",
+      "frost-decoration-9",
+      "frost-decoration-10",
+      "frost-decoration-11",
+      "frost-decoration-12"
+    ]
+  },
+  {
+    "id": "cove",
+    "obstacles": [],
+    "scenery": [
+      "cove-decoration-1",
+      "cove-decoration-2",
+      "cove-decoration-3",
+      "cove-decoration-4",
+      "cove-decoration-5",
+      "cove-decoration-6",
+      "cove-decoration-7",
+      "cove-decoration-8",
+      "cove-decoration-9",
+      "cove-decoration-10",
+      "cove-decoration-11",
+      "cove-decoration-12"
+    ]
+  }
+]

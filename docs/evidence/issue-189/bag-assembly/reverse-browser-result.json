@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "productionSha": "69958a9ca57af4c8f67dd7a7195679c6a4861a70",
+  "engine": "chromium",
+  "input": "real keyboard events and native pointer buttons; accelerated presentation timestamps only; no scene/position hooks",
+  "initialStatus": "Adventure preview · Finish · Build TREE · _ _ _ _ · Bag 3/4 · Choose a letter, then a space. · Gems 27/33 · X 10100 Y 164 V 220 F 1 · Escape to leave activity · M to mute",
+  "collectedStatus": "Adventure preview · Playing · Letter bag: 4/4 · T → bag · X 290 Y 164 V -100 F -1 · Escape to pause · M to mute",
+  "retryStatus": "Adventure preview · Finish · Build TREE · _ R _ _ · Bag 4/4 · Choose a letter, then a space. · Gems 31/33 · X 10102 Y 164 V 220 F 1 · Escape to leave activity · M to mute",
+  "finalStatus": "Adventure preview · Title · 1/1 stickers · Timbers TREE: earned · X 10102 Y 164 V 220 F 1 · Escape to leave activity · M to mute",
+  "pageErrors": []
+}

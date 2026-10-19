@@ -33,6 +33,8 @@ export interface PlatformBody { id: string; x: number; y: number; width: number;
 export interface Terrain { minX: number; maxX: number; surfaces: readonly Surface[] }
 export interface CollisionPlatform { id: string; x1: number; x2: number; y: number }
 export interface MovementInput { horizontal: number; jumpPressed: boolean; jumpHeld: boolean }
+/** Resolved movement substeps, including terrain/platform stops, for swept contacts. */
+export interface MovementSegment { from: { x: number; y: number }; to: { x: number; y: number }; falling: boolean }
 export type Facing = 1 | -1;
 export interface Player {
   x: number;
@@ -47,6 +49,8 @@ export interface Player {
   platformId: string | null;
   /** Horizontal velocity of whatever Henry is standing on; zero on terrain. */
   groundVelocityX: number;
+  /** Automatic squash launches ignore variable-jump gravity until landing. */
+  squashBounce?: boolean;
 }
 
 /** Vertical slack that keeps Henry glued to the platform he is already riding. */
@@ -117,7 +121,7 @@ function approach(value: number, target: number, amount: number): number {
  * then the moving platforms the caller sampled for this moment.
  */
 export function simulatePlayer(player: Player, input: MovementInput, terrain: Terrain, seconds: number,
-  platforms: readonly (PlatformBody | CollisionPlatform)[] = []): void {
+  platforms: readonly (PlatformBody | CollisionPlatform)[] = []): MovementSegment[] {
   const dt = Math.max(0, Math.min(seconds, MAX_STEP_SECONDS));
   // Static ledges use the same one-way support selection as moving slabs.
   const bodies: readonly PlatformBody[] = platforms.map((platform) => 'width' in platform ? platform : {
@@ -149,6 +153,7 @@ export function simulatePlayer(player: Player, input: MovementInput, terrain: Te
   else if (player.vx < -1) player.facing = -1;
 
   if (player.jumpBufferSeconds > 0 && (player.onGround || player.coyoteSeconds > 0)) {
+    player.squashBounce = false;
     player.vy = -DEFAULT_MOVEMENT.jumpVelocity;
     // Jumping off a ride keeps the ride's momentum, so a platform never jumps out from under Henry.
     if (player.platformId !== null) {
@@ -162,7 +167,9 @@ export function simulatePlayer(player: Player, input: MovementInput, terrain: Te
 
   const steps = Math.max(1, Math.ceil(Math.max(Math.abs(player.vx * dt), Math.abs(player.vy * dt)) / 4));
   const step = dt / steps;
+  const trajectory: MovementSegment[] = [];
   for (let index = 0; index < steps; index++) {
+    const from = { x: player.x, y: player.y };
     // A ride moves Henry with it on both axes; the snap below only corrects what gravity adds.
     const carrier = ridingPlatform(player, bodies);
     if (carrier) {
@@ -173,8 +180,9 @@ export function simulatePlayer(player: Player, input: MovementInput, terrain: Te
     if (player.x < terrain.minX) { player.x = terrain.minX; player.vx = Math.max(0, player.vx); }
     if (player.x > terrain.maxX) { player.x = terrain.maxX; player.vx = Math.min(0, player.vx); }
 
-    if (!input.jumpHeld && player.vy < 0) player.vy += DEFAULT_MOVEMENT.gravity * (1 - DEFAULT_MOVEMENT.jumpCutMultiplier) * step;
+    if (!player.squashBounce && !input.jumpHeld && player.vy < 0) player.vy += DEFAULT_MOVEMENT.gravity * (1 - DEFAULT_MOVEMENT.jumpCutMultiplier) * step;
     player.vy += DEFAULT_MOVEMENT.gravity * step;
+    const falling = player.vy >= 0;
     const previousFeet = player.y + DEFAULT_MOVEMENT.height;
     player.y += player.vy * step;
     const ground = surfaceY(terrain, player.x);
@@ -193,13 +201,19 @@ export function simulatePlayer(player: Player, input: MovementInput, terrain: Te
       grounded = true;
     }
     player.onGround = grounded;
-    if (grounded) player.coyoteSeconds = DEFAULT_MOVEMENT.coyoteSeconds;
+    if (grounded) {
+      player.coyoteSeconds = DEFAULT_MOVEMENT.coyoteSeconds;
+      player.squashBounce = false;
+    }
     player.platformId = support?.id ?? null;
     player.groundVelocityX = support?.vx ?? 0;
+    trajectory.push({ from, to: { x: player.x, y: player.y }, falling });
   }
+  return trajectory;
 }
 
-export function launchSpring(player: Player, velocity = DEFAULT_MOVEMENT.springVelocity): void {
+export function launchSpring(player: Player, velocity: number = DEFAULT_MOVEMENT.springVelocity): void {
+  player.squashBounce = false;
   player.vy = -Math.abs(velocity);
   player.onGround = false;
   player.coyoteSeconds = 0;

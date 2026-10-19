@@ -1,0 +1,133 @@
+===== recovery-unit.log =====
+
+> tiny-turbo-trails@0.1.0 test
+> vitest run --maxWorkers=2
+
+
+ RUN  v5.0.3 /home/leew/.hermes/cache/scratch/tinyturbotrails-142
+
+
+ Test Files  45 passed (45)
+      Tests  796 passed (796)
+   Start at  09:34:51
+   Duration  42.21s (tests 93%, import 4%, transform 2%, worker 1%)
+
+    Isolate  45 workers spawned · ~392ms startup each (spawn + environment, per file)
+             at least ~8.43s faster with isolate: false — reuses workers across files instead of one per file
+
+
+
+===== recovery-typecheck.log =====
+
+> tiny-turbo-trails@0.1.0 typecheck
+> tsc --noEmit
+
+
+
+===== recovery-build.log =====
+
+> tiny-turbo-trails@0.1.0 build
+> tsc --noEmit && vite build
+
+vite v8.3.3 building client environment for production...
+transforming...
+✓ 52 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                         1.53 kB │ gzip:  0.75 kB
+dist/build-assets/index-NeTVGo1d.css    2.11 kB │ gzip:  0.85 kB
+dist/build-assets/index-B3vYiNtM.js   108.45 kB │ gzip: 34.45 kB
+
+✓ built in 319ms
+
+
+===== recovery-script.log =====
+
+> tiny-turbo-trails@0.1.0 test:ci
+> node --test scripts/*.test.mjs
+
+TAP version 13
+# Subtest: overlapping successful runs complete a then b: latest never rolls back
+ok 1 - overlapping successful runs complete a then b: latest never rolls back
+  ---
+  duration_ms: 7.418393
+  type: 'test'
+  ...
+# Subtest: overlapping successful runs complete b then a: latest never rolls back
+ok 2 - overlapping successful runs complete b then a: latest never rolls back
+  ---
+  duration_ms: 0.500156
+  type: 'test'
+  ...
+# Subtest: main advances during the build: old run preserves previous latest even if new checks fail
+ok 3 - main advances during the build: old run preserves previous latest even if new checks fail
+  ---
+  duration_ms: 0.643704
+  type: 'test'
+  ...
+# Subtest: main advances after freshness read: shared lock prevents a newer publisher being overtaken
+ok 4 - main advances after freshness read: shared lock prevents a newer publisher being overtaken
+  ---
+  duration_ms: 0.926851
+  type: 'test'
+  ...
+# Subtest: freshness API errors and malformed identities fail without writing
+ok 5 - freshness API errors and malformed identities fail without writing
+  ---
+  duration_ms: 2.00461
+  type: 'test'
+  ...
+# Subtest: rerun reuses existing SHA digest, preserving immutable rollback image
+ok 6 - rerun reuses existing SHA digest, preserving immutable rollback image
+  ---
+  duration_ms: 104.328067
+  type: 'test'
+  ...
+# Subtest: only an explicit missing manifest permits a new SHA build
+ok 7 - only an explicit missing manifest permits a new SHA build
+  ---
+  duration_ms: 1.962959
+  type: 'test'
+  ...
+# Subtest: registry denial, outages, ambiguous 404s, and invalid digest fail closed
+ok 8 - registry denial, outages, ambiguous 404s, and invalid digest fail closed
+  ---
+  duration_ms: 5.970601
+  type: 'test'
+  ...
+1..8
+# tests 8
+# suites 0
+# pass 8
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 460.685202
+
+
+===== recovery-quarry.log =====
+
+Running 1 test using 1 worker
+
+[1/1] [webkit] › tests/browser.spec.ts:2402:3 › signature QUARRY RUN: nine-star route, native/small evidence and fresh navigation
+  1 passed (28.1s)
+
+
+===== recovery-selection.log =====
+
+Running 1 test using 1 worker
+
+[1/1] [webkit] › tests/browser.spec.ts:2377:1 › every destination accepts keyboard and standard-controller selection and start
+  1 passed (26.0s)
+
+
+===== full browser stats =====
+{
+  "startTime": "2026-10-17T09:35:48.927Z",
+  "duration": 1669070.626,
+  "expected": 283,
+  "skipped": 1,
+  "unexpected": 1,
+  "flaky": 0
+}
