@@ -9,6 +9,13 @@ export default defineConfig({
   fullyParallel: true,
   retries: 0,
   workers: process.env.CI ? 2 : undefined,
+  reporter: [['dot'], ['json', { outputFile: 'test-results/browser-report.json' }]],
+  metadata: {
+    sourceRevision: process.env.BROWSER_REPORT_SOURCE_SHA ?? null,
+    nodeVersion: process.version,
+    platform: process.platform,
+    arch: process.arch,
+  },
   use: { trace: 'retain-on-failure', screenshot: 'only-on-failure', baseURL: `http://127.0.0.1:${port}`, viewport: { width: 1366, height: 768 } },
   projects: [
     { name: 'chromium', use: { browserName: 'chromium' } },
