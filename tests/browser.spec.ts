@@ -3363,6 +3363,10 @@ async function installRetracePilot(page: Page, level: typeof PLAINS_LEVEL): Prom
         // Reverse pits have no spring on the far bank: jump before the drop.
         const onGround = Math.abs(y + 34 - ground(x)) < 4;
         const nearSlime = drawnSlimes.some(sx => (sx - henryX) * direction > -18 && (sx - henryX) * direction < 65);
+        // An unheld spring arc can land beside a slime before a ground-only
+        // jump takes effect. Brake to land clear, but keep moving through a
+        // deliberate held jump so the pilot can actually cross the slime.
+        if (nearSlime && !onGround && time >= pilot.jumpUntil) horizontal = 0;
         const drop = direction < 0 && ground(x - 50) > ground(x) + 60;
         const rise = direction < 0 ? ground(x) - ground(x - 50) : 0;
         if (onGround && (nearSlime || drop || rise > 28)) {
