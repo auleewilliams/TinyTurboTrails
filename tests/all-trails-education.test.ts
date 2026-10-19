@@ -40,7 +40,7 @@ it('keeps all six manual words, repeated identities and stickers independent wit
 import { AdventureScene } from '../src/game/adventure-scene';
 import { SilentAudio } from '../src/core/audio';
 import { surfaceY, type Player } from '../src/game/movement';
-import { damagePlayer, recoverFromFall, type RunState } from '../src/game/interactions';
+import { damagePlayer, entityPosition, isEntityActive, recoverFromFall, type RunState } from '../src/game/interactions';
 
 const neutral = { horizontal: 0, jumpHeld: false, jumpPressed: false, pausePressed: false, mutePressed: false };
 function adventure(index: number) {
@@ -143,4 +143,44 @@ it('shows all six independent sticker statuses on the map without changing trail
   scene.handleEducationInput({ ...neutral, source: 'controller', jumpPressed: true });
   expect(scene.educationOverlay.open).toBe(false);
   expect(scene.selectedLevelName).toBe(LEVELS[0].name);
+});
+
+it.each(LEVELS.map((level, index) => ({ level, index })))('$level.id retraces the real terrain from finish to every missed letter and re-enters using simulation input only', ({ level, index }) => {
+  const { scene, live } = adventure(index);
+  // The sole position fixture is the initial finish. All later movement is ordinary input.
+  live.player.x = level.finish.x;
+  scene.update(1 / 60, neutral);
+  const run = live.run;
+  scene.menuTargets.find(target => target.label === 'Find more letters')!.action();
+  const events: { type: string; entityId?: string }[] = [];
+  const springs = new Set<string>();
+  for (const direction of [-1, 1]) {
+    let held = 0;
+    for (let frame = 0; frame < 60 * 180 && (direction < 0 ? scene.playerX > 310 : scene.screenState === 'playing'); frame++) {
+      const x = scene.playerX;
+      const slime = level.entities.some(entity => entity.kind === 'slime' && isEntityActive(live.run, entity.id) && entityPosition(live.run, entity).squashProgress === undefined && (entityPosition(live.run, entity).x - x) * direction > -18 && (entityPosition(live.run, entity).x - x) * direction < 65);
+      const rise = surfaceY(level, x + direction * 50) < surfaceY(level, x) - 28;
+      const drop = direction < 0 && surfaceY(level, x + direction * 50) > surfaceY(level, x) + 60;
+      const jump = live.player.onGround && (slime || rise || drop);
+      if (jump) held = 24;
+      const target = scene.education.pickups.filter(pickup => !scene.education.hasLetter(pickup.id)).sort((a, b) => (a.x - b.x) * direction)[0];
+      const stop = x + Math.sign(live.player.vx) * live.player.vx ** 2 / 2400;
+      const horizontal = target && Math.abs(target.x - x) < 120 ? (stop < target.x - 3 ? 1 : stop > target.x + 3 ? -1 : 0) : direction;
+      scene.update(1 / 60, { ...neutral, horizontal, jumpPressed: jump, jumpHeld: held-- > 0 });
+      const frameEvents = (scene as unknown as { events: { type: string; entityId?: string }[] }).events;
+      events.push(...frameEvents);
+      for (const event of frameEvents) if (event.type === 'spring') springs.add(event.entityId!);
+    }
+    if (direction < 0) {
+      expect(scene.playerX, `${level.id} reverse stop`).toBeLessThanOrEqual(310);
+      console.log(`${level.id} reverse x=${scene.playerX} letters=${scene.education.letterCount} recoveries=${events.filter(event => event.type === 'recover').length}`);
+      expect(scene.education.letterCount, `${level.id} missing IDs: ${scene.education.pickups.filter(pickup => !scene.education.hasLetter(pickup.id)).map(pickup => pickup.id)}`).toBe(4);
+      expect(scene.education.hasWordSticker).toBe(false);
+    }
+  }
+  expect(scene.screenState).toBe('finish');
+  expect(scene.educationOverlay.open).toBe(true);
+  expect(live.run).toBe(run);
+  expect(events.filter(event => event.type === 'recover'), `${level.id} recovered`).toEqual([]);
+  console.log(`${level.id}: reverse/return complete; ${springs.size} springs, ${events.filter(event => event.type === 'damage').length} damage, ${live.run.collectedGems.size} gems, ${live.run.collectedSpecials.size} stars`);
 });

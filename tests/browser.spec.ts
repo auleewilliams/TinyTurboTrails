@@ -109,6 +109,7 @@ test('uniform viewport fit keeps story, map, gameplay, pause and finish clear af
     Object.assign((window as unknown as { trailPilot: object }).trailPilot, { active: true, controller: true, dangers });
   }, dangerXs(PLAINS_LEVEL));
   await expect(page.locator('#status')).toContainText('Finish', { timeout: 35_000 });
+  await page.getByRole('button', { name: 'Leave activity', exact: true }).click();
   await capture('finish');
   await page.getByRole('button', { name: 'Choose trail', exact: true }).click();
   await expect(page.getByRole('button', { name: 'Play PLAINS', exact: true })).toBeVisible();
@@ -1155,6 +1156,7 @@ test('adventure can complete the forgiving route and replay directly with a fres
   }
   await page.keyboard.up('ArrowRight');
   await expect(page.locator('#status')).toContainText('Adventure preview · Finish', { timeout: 5000 });
+  await page.getByRole('button', { name: 'Leave activity', exact: true }).click();
   const finishStatus = await page.locator('#status').innerText();
   expect(finishStatus).toMatch(new RegExp(`Gems [1-9]\\d*/${PLAINS_LEVEL.entities.filter((entity) => entity.kind === 'gem').length}\\b`));
   const celebrationPixels = await page.locator('canvas').evaluate((element) => {
@@ -1774,6 +1776,7 @@ for (const [biome, pickerSteps] of [['frost', 4], ['cove', 5]] as const) {
     await expect(page.locator('#status')).toContainText('Finish', { timeout: 85000 });
     await page.keyboard.up('ArrowRight');
     await expect(page.locator('#status')).toContainText(/Gems [1-9]\d*/);
+    await page.getByRole('button', { name: 'Leave activity', exact: true }).click();
     await page.waitForTimeout(60);
     await page.keyboard.press('Space');
     await expect(page.locator('#status')).toContainText('Playing');
@@ -2319,7 +2322,7 @@ for (const [index, level] of LEVELS.entries()) {
       }, { dangers: dangerXs(level), controller: index % 2 === 1 });
       await expect(page.locator('#status')).toContainText('Finish', { timeout: 35_000 });
       await expect(canvas).toHaveAttribute('data-ribbon', 'absent');
-      if (level.id === 'timbers') await page.getByRole('button', { name: 'Leave activity', exact: true }).click();
+      await page.getByRole('button', { name: 'Leave activity', exact: true }).click();
       // Stop the input pilot explicitly: a quick menu action can replace Finish
       // before its next RAF notices completion, leaving movement held in a new run.
       await page.evaluate(() => new Promise<void>(resolve => {
@@ -2613,7 +2616,7 @@ for (const [index, level] of LEVELS.slice(0, 3).entries()) {
     }
     await page.evaluate(() => { Object.assign((window as unknown as { starPilot: object }).starPilot, { active: true, frozen: false, pauseAt: 0 }); });
     await expect(page.locator('#status')).toContainText('Finish', { timeout: 75_000 });
-    if (level.id === 'timbers') await page.getByRole('button', { name: 'Leave activity', exact: true }).click();
+    await page.getByRole('button', { name: 'Leave activity', exact: true }).click();
     await expect(page.locator('canvas')).toHaveAttribute('data-stars', 'STARS 3/3');
     expect(await page.evaluate(() => (window as unknown as { starPilot: { signboards: string[] } }).starPilot.signboards)).toEqual([]);
     for (const width of [426, 320]) {
@@ -2780,6 +2783,8 @@ test('celebration freezes for pause and focus, then accepts finish actions durin
   await page.evaluate(dangers => {
     Object.assign((window as unknown as { trailPilot: object }).trailPilot, { active: true, dangers });
   }, dangerXs(LEVELS[0]));
+  await expect(page.getByRole('button', { name: 'Leave activity', exact: true })).toBeVisible({ timeout: 35000 });
+  await page.getByRole('button', { name: 'Leave activity', exact: true }).click();
   await expect(page.locator('#status')).toContainText('Paused', { timeout: 35000 });
   const canvas = page.locator('canvas');
   const pose = await canvas.getAttribute('data-celebration-pose');

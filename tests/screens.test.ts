@@ -215,6 +215,7 @@ it.each(['keyboard', 'controller'])('%s replay immediately restores the initial 
   scene.update(1 / 60, input);
   expect(scene.screenState).toBe('finish');
   expect(state.camera.position.x).toBeGreaterThan(0);
+  scene.menuTargets.find(target => target.label === 'Leave activity')!.action();
   const buttons = Array.from({ length: 17 }, () => ({ pressed: false, touched: false, value: 0 }));
   const pad = { connected: true, mapping: 'standard', axes: [0], buttons };
   const target = Object.assign(new EventTarget(), { navigator: { getGamepads: () => [pad] } });
@@ -307,6 +308,7 @@ it('emits dust only on meaningful landings and clears presentation on replay and
   state.feedback.checkpointSeconds = 2;
   state.player.x = PLAINS_LEVEL.finish.x;
   scene.update(1 / 60, neutral);
+  scene.menuTargets.find(target => target.label === 'Leave activity')!.action();
   scene.update(1 / 60, neutral);
   scene.update(1 / 60, { ...neutral, jumpPressed: true });
   expect(state.feedback.effects).toEqual([]);
