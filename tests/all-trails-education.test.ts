@@ -123,3 +123,24 @@ it.each(LEVELS.map((level, index) => ({ level, index })))('$level.id exposes mix
   expect(scene.education.stickers).toHaveLength(1);
   expect(scene.educationOverlay.description).toContain(`${words[index] === 'TREE' ? 'Tree' : words[index]} sticker earned!`);
 });
+
+it('shows all six independent sticker statuses on the map without changing trail selection', () => {
+  const { scene } = adventure(0);
+  scene.education.pickups.forEach((pickup, slot) => { scene.education.collect(pickup.id); scene.education.place(pickup.id, slot); });
+  scene.returnToTrails();
+  expect(scene.menuTargets.find(target => target.label === 'Open stickers')!.description).toContain('1 of 6 stickers');
+  scene.menuTargets.find(target => target.label === 'Open stickers')!.action();
+  expect(scene.educationOverlay.title).toBe('Trail stickers');
+  expect(scene.educationOverlay.description).toContain('1/6 stickers');
+  expect(scene.educationOverlay.description).toContain('Plains HILL: earned');
+  expect(scene.educationOverlay.description).toContain('Timbers TREE: find the letters');
+  expect(scene.menuTargets.map(target => target.label)).toEqual(['Return to map']);
+  const texts: string[] = [];
+  const ctx = new Proxy({}, { get: (_, key) => key === 'fillText' ? (value: string) => texts.push(value) : () => {}, set: () => true }) as CanvasRenderingContext2D;
+  scene.educationOverlay.draw(ctx);
+  for (const word of words) expect(texts.some(text => text.endsWith(` ${word}`))).toBe(true);
+  scene.handleEducationInput(neutral);
+  scene.handleEducationInput({ ...neutral, source: 'controller', jumpPressed: true });
+  expect(scene.educationOverlay.open).toBe(false);
+  expect(scene.selectedLevelName).toBe(LEVELS[0].name);
+});

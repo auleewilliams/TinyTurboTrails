@@ -50,7 +50,7 @@ function timbers() {
   return { scene, live: scene as unknown as { player: Player; run: RunState } };
 }
 
-it('collects on Timbers only and retains education through health/pit recovery, replay, map and other trails', () => {
+it('collects on Timbers and retains education through health/pit recovery, replay, map and other trails', () => {
   const { scene, live } = timbers();
   for (const letter of [...LETTER_PICKUPS].reverse()) {
     Object.assign(live.player, { x: letter.x, y: surfaceY(TREETOP_TIMBERS, letter.x) - 34, vx: 0, vy: 0, onGround: true });
@@ -81,11 +81,13 @@ it('collects on Timbers only and retains education through health/pit recovery, 
   expect(timbers().scene.education.stickers).toEqual([]);
 });
 
-it('does not collect pilot letters in another trail at the same position', () => {
+it('does not cross-collect Timbers identities when collecting on Plains', () => {
   const { scene, live } = timbers();
   scene.returnToTrails(); scene.selectDestination(0); scene.startSelected();
-  live.player.x = LETTER_PICKUPS[0].x;
+  Object.assign(live.player, { x: LETTER_PICKUPS[0].x, y: surfaceY(LEVELS[0], LETTER_PICKUPS[0].x) - 34, onGround: true });
   scene.update(1 / 60, neutral);
+  expect(scene.education.letterCount).toBe(1);
+  expect(scene.education.hasLetter(LETTER_PICKUPS[0].id)).toBe(false);
   expect(scene.education.wordProgress).toBe('_ _ _ _');
 });
 
@@ -102,17 +104,17 @@ it('has no activity spot, target or activation on the trail, including the forme
   expect(scene.playerX).toBeGreaterThan(before);
 });
 
-it('offers only the word sticker with one return target and no removed reward or answer controls', () => {
+it('offers the six trail word stickers with one return target and no removed reward or answer controls', () => {
   const { scene } = timbers();
   scene.returnToTrails();
-  expect(scene.menuTargets.find(target => target.label === 'Open stickers')!.description).toContain('0 of 1 sticker');
+  expect(scene.menuTargets.find(target => target.label === 'Open stickers')!.description).toContain('0 of 6 stickers');
   scene.handleEducationInput({ ...neutral, activityPressed: true });
-  expect(scene.educationOverlay.description).toBe('0/1 stickers · Timbers TREE: find the letters');
+  expect(scene.educationOverlay.description).toContain('Timbers TREE: find the letters');
   expect(scene.menuTargets.map(target => target.label)).toEqual(['Return to map']);
   for (const letter of LETTER_PICKUPS) scene.education.collect(letter.id);
-  expect(scene.educationOverlay.description).toBe('0/1 stickers · Timbers TREE: find the letters');
+  expect(scene.educationOverlay.description).toContain('Timbers TREE: find the letters');
   LETTER_PICKUPS.forEach((pickup, slot) => scene.education.place(pickup.id, slot));
-  expect(scene.educationOverlay.description).toBe('1/1 stickers · Timbers TREE: earned');
+  expect(scene.educationOverlay.description).toContain('Timbers TREE: earned');
   expect(scene.education.stickers).toEqual(['Timbers TREE']);
 });
 
@@ -151,13 +153,13 @@ it('opens a small session sticker collection from the map by pointer or activity
   const selected = scene.selectedLevelName;
   expect(scene.menuTargets.filter(target => LEVELS.some(level => level.name === target.label))).toHaveLength(6);
   scene.menuTargets.find(target => target.label === 'Open stickers')!.action();
-  expect(scene.educationOverlay.description).toContain('0/1 stickers');
+  expect(scene.educationOverlay.description).toContain('0/6 stickers');
   expect(scene.menuTargets.map(target => target.label)).toEqual(['Return to map']);
   scene.handleEducationInput({ ...neutral, pausePressed: true });
   for (const letter of LETTER_PICKUPS) scene.education.collect(letter.id);
   LETTER_PICKUPS.forEach((pickup, slot) => scene.education.place(pickup.id, slot));
   scene.handleEducationInput({ ...neutral, activityPressed: true, source: 'controller' });
-  expect(scene.educationOverlay.description).toContain('1/1 stickers');
+  expect(scene.educationOverlay.description).toContain('1/6 stickers');
   expect(scene.educationOverlay.description).toContain('Timbers TREE: earned');
   scene.menuTargets[0].action();
   expect(scene.screenState).toBe('title');

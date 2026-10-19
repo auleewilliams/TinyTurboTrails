@@ -1,6 +1,6 @@
 import type { InputFrame } from '../core/input';
 import type { MenuTarget } from './overworld';
-import { type EducationSession, type TrailWord } from './education';
+import { TRAIL_WORDS, type EducationSession, type TrailWord } from './education';
 
 /** Like PauseMenu, this consumes rendered-frame input while simulation is stopped. */
 export class EducationOverlay {
@@ -51,7 +51,7 @@ export class EducationOverlay {
   get title(): string { return this.assembly ? `Build ${this.session.config.word}` : 'Trail stickers'; }
   get description(): string {
     if (this.assembly) return `Build ${this.session.config.word} · ${this.session.wordProgress} · Bag ${this.session.letterCount}/4 · ${this.session.hasWordSticker ? this.earnedMessage : this.message}`;
-    return `${this.session.stickers.length}/1 stickers · Timbers TREE: ${this.session.hasWordSticker ? 'earned' : 'find the letters'}`;
+    return `${this.session.stickers.length}/${TRAIL_WORDS.length} stickers · ${TRAIL_WORDS.map(config => `${config.name} ${config.word}: ${this.session.progressFor(config.id).hasWordSticker ? 'earned' : 'find the letters'}`).join(' · ')}`;
   }
   update(input: InputFrame): void {
     if (input.pausePressed || input.activityPressed) { this.close(); return; }
@@ -101,15 +101,19 @@ export class EducationOverlay {
     if (this.assembly) { this.drawAssembly(ctx); return; }
     ctx.save(); ctx.fillStyle = '#0c1922e8'; ctx.fillRect(0, 0, 426, 240);
     ctx.fillStyle = '#ffda75'; ctx.textAlign = 'center'; ctx.font = 'bold 18px monospace';
-    ctx.fillText('TIMBERS STICKERS', 213, 35);
-    const earned = this.session.hasWordSticker;
-    ctx.fillStyle = '#17333b'; ctx.fillRect(135, 51, 156, 114);
-    drawTreeSticker(ctx, 213, 92, earned);
-    ctx.fillStyle = '#ffda75'; ctx.font = 'bold 11px monospace';
-    ctx.fillText('Timbers TREE', 213, 129);
-    ctx.fillStyle = '#e9f2df'; ctx.font = '10px monospace';
-    ctx.fillText(earned ? '✓ Earned this session' : this.session.wordProgress, 213, 149);
-    ctx.font = '9px monospace'; ctx.fillText(`${this.session.stickers.length}/1 stickers · Reload starts fresh`, 213, 175);
+    ctx.fillText('TRAIL STICKERS', 213, 26);
+    TRAIL_WORDS.forEach((config, index) => {
+      const x = 9 + index % 3 * 138, y = 36 + Math.floor(index / 3) * 69;
+      const progress = this.session.progressFor(config.id);
+      ctx.fillStyle = '#17333b'; ctx.fillRect(x, y, 132, 64);
+      ctx.save(); ctx.translate(x + 66, y + 21); ctx.scale(0.55, 0.55);
+      drawWordSticker(ctx, config, 0, 0, progress.hasWordSticker); ctx.restore();
+      ctx.fillStyle = '#ffda75'; ctx.font = 'bold 10px monospace';
+      ctx.fillText(`${config.name} ${config.word}`, x + 66, y + 46);
+      ctx.fillStyle = '#e9f2df'; ctx.font = '9px monospace';
+      ctx.fillText(progress.hasWordSticker ? '✓ Earned' : progress.wordProgress, x + 66, y + 59);
+    });
+    ctx.font = '9px monospace'; ctx.fillText(`${this.session.stickers.length}/${TRAIL_WORDS.length} stickers · Reload starts fresh`, 213, 175);
     for (const target of this.targets) {
       ctx.fillStyle = '#ffda75'; ctx.fillRect(target.x, target.y, target.width, target.height);
       ctx.strokeStyle = '#bfd5ce'; ctx.strokeRect(target.x, target.y, target.width, target.height);

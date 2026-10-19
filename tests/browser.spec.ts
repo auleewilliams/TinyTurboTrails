@@ -3076,7 +3076,7 @@ test('educational bag collects independent letters without early assembly or sti
   await page.keyboard.up('ArrowRight');
   await page.evaluate(() => Object.assign((window as unknown as { trailPilot: object }).trailPilot, { active: false, lastActive: false, frozen: false, pauseAt: 0 }));
   await page.getByRole('button', { name: 'Open stickers', exact: true }).click();
-  await expect(page.locator('#status')).toContainText('0/1 stickers');
+  await expect(page.locator('#status')).toContainText('0/6 stickers');
   await expect(page.locator('#status')).toContainText('Timbers TREE: find the letters');
   await expect(page.locator('#status')).not.toContainText(/number leaf|maths/i);
   await page.screenshot({ path: info.outputPath('stickers-word-only-small.png') });
@@ -3120,7 +3120,7 @@ for (const method of ['pointer', 'keyboard', 'controller'] as const) {
   test(`educational sticker collection ${method} access is optional and reload clears rewards`, async ({ page }) => {
     await installTrailPilot(page);
     await openAdventure(page, '/');
-    await expect(page.getByRole('button', { name: 'Open stickers', exact: true })).toHaveAttribute('aria-description', /0 of 1/);
+    await expect(page.getByRole('button', { name: 'Open stickers', exact: true })).toHaveAttribute('aria-description', /0 of 6/);
     if (method === 'pointer') await page.getByRole('button', { name: 'Open stickers', exact: true }).click();
     else if (method === 'keyboard') await page.keyboard.press('e');
     else {
@@ -3131,9 +3131,9 @@ for (const method of ['pointer', 'keyboard', 'controller'] as const) {
     }
     const close = page.getByRole('button', { name: 'Return to map', exact: true });
     await expect(close).toBeFocused();
-    await expect(page.locator('#status')).toContainText('0/1 stickers');
+    await expect(page.locator('#status')).toContainText('0/6 stickers');
     await expect(page.locator('#status')).toContainText('Timbers TREE: find the letters');
-    await expect(page.getByRole('dialog', { name: 'Timbers stickers', exact: true })).toBeVisible();
+    await expect(page.getByRole('dialog', { name: 'Trail stickers', exact: true })).toBeVisible();
     await expect(page.getByRole('button', { name: /Answer |Leave activity/ })).toHaveCount(0);
     const frozenCanvas = await page.locator('canvas').screenshot();
     await page.evaluate(() => new Promise<void>(resolve => {
@@ -3145,7 +3145,7 @@ for (const method of ['pointer', 'keyboard', 'controller'] as const) {
     await expect(close).toHaveCount(0);
     await page.evaluate(() => window.dispatchEvent(new Event('focus')));
     await expect(close).toBeFocused();
-    await expect(page.locator('#status')).toContainText('0/1 stickers');
+    await expect(page.locator('#status')).toContainText('0/6 stickers');
     if (method === 'controller') {
       await page.evaluate(() => { (window as unknown as { trailPad: { buttons: { pressed: boolean }[] } }).trailPad.buttons[12].pressed = false; });
       await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
@@ -3156,7 +3156,7 @@ for (const method of ['pointer', 'keyboard', 'controller'] as const) {
     await expect(page.getByRole('button', { name: 'Play PLAINS', exact: true })).toBeVisible();
     await page.reload();
     await page.getByRole('button', { name: 'Skip story', exact: true }).click();
-    await expect(page.getByRole('button', { name: 'Open stickers', exact: true })).toHaveAttribute('aria-description', /0 of 1/);
+    await expect(page.getByRole('button', { name: 'Open stickers', exact: true })).toHaveAttribute('aria-description', /0 of 6/);
     expect(await page.evaluate(() => ({ local: localStorage.length, session: sessionStorage.length }))).toEqual({ local: 0, session: 0 });
   });
 }
@@ -3228,7 +3228,7 @@ for (const method of ['pointer', 'keyboard', 'controller'] as const) {
     await expect(page.getByRole('button', { name: 'Choose trail', exact: true })).toBeVisible();
     await page.getByRole('button', { name: 'Choose trail', exact: true }).click();
     await page.getByRole('button', { name: 'Open stickers', exact: true }).click();
-    await expect(page.locator('#status')).toContainText('1/1 stickers');
+    await expect(page.locator('#status')).toContainText('1/6 stickers');
   });
 }
 
