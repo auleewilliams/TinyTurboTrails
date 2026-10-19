@@ -16,6 +16,7 @@ it('keeps all six manual words, repeated identities and stickers independent wit
     expect(session.collect('foreign-letter')).toBe(false);
     const foreign = session.progressFor(LEVELS[(index + 1) % 6].id).config.pickups[0].id;
     expect(session.collect(foreign)).toBe(false);
+    expect(session.place(foreign, 0)).toBe(false);
     for (const pickup of [...session.pickups].reverse()) expect(session.collect(pickup.id)).toBe(true);
     expect(session.hasWordSticker).toBe(false);
     expect(session.pile.map(pickup => pickup.letter).join('')).not.toBe(words[index]);
@@ -183,4 +184,14 @@ it.each(LEVELS.map((level, index) => ({ level, index })))('$level.id retraces th
   expect(live.run).toBe(run);
   expect(events.filter(event => event.type === 'recover'), `${level.id} recovered`).toEqual([]);
   console.log(`${level.id}: reverse/return complete; ${springs.size} springs, ${events.filter(event => event.type === 'damage').length} damage, ${live.run.collectedGems.size} gems, ${live.run.collectedSpecials.size} stars`);
+});
+
+it('allows either independent HILL L in either matching slot without reuse', () => {
+  const session = new EducationSession(); session.selectTrail('plains');
+  session.pickups.forEach(pickup => session.collect(pickup.id));
+  expect(session.place('plains-letter-l2', 2)).toBe(true);
+  expect(session.place('plains-letter-l2', 3)).toBe(false);
+  expect(session.place('plains-letter-l1', 3)).toBe(true);
+  expect(session.wordProgress).toBe('_ _ L L');
+  expect(session.stickers).toEqual([]);
 });

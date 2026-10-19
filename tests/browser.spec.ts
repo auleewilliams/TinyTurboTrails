@@ -8,6 +8,7 @@ import { DEFAULT_MOVEMENT, surfaceY } from '../src/game/movement';
 import { platformBodyAt } from '../src/game/platforms';
 import { drawSurfaceMaterials } from '../src/world/surface-materials';
 import { drawSlime, drawGem, drawSpecial, drawLandingBands, drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawTerrainTiles, drawWorld } from '../src/world/renderer';
+import { TRAIL_WORDS } from '../src/game/education';
 import { TRAIL_RIBBON, trailPosition } from '../src/game/hud';
 
 const VIEWPORT_CASES = [
@@ -3305,3 +3306,193 @@ test('educational missing-letter return preserves partial work and clears held a
   await page.getByRole('button', { name: 'Choose trail', exact: true }).click();
   await expect(page.getByRole('button', { name: 'TREETOP TIMBERS', exact: true })).toHaveAttribute('aria-description', /Session best:/);
 });
+
+/** Real keyboard input and rendered debug observations, with accelerated presentation time.
+ * Never reads or writes the scene, player, run or education session. */
+async function installRetracePilot(page: Page, level: typeof PLAINS_LEVEL): Promise<void> {
+  await page.addInitScript(level => {
+    const pilot = { direction: 0, stopAt: 0, targets: [] as number[], triggered: [] as number[],
+      collectAt: [] as number[], expectedCount: 0, jumping: false, jumpUntil: 0, lastX: 0,
+      recoveries: [] as string[], stopped: false };
+    Object.assign(window, { retracePilot: pilot });
+    // Observe actual sprite draws, so patrol timing and squashed slimes need no scene hooks.
+    let drawnSlimes: number[] = [], henryX = 0;
+    const fillRect = CanvasRenderingContext2D.prototype.fillRect;
+    CanvasRenderingContext2D.prototype.fillRect = function (x, y, width, height) {
+      if (this.canvas.id === 'game' && x === 0 && y === 0 && width === 426 && height === 240) drawnSlimes = [];
+      fillRect.call(this, x, y, width, height);
+    };
+    const drawImage = CanvasRenderingContext2D.prototype.drawImage;
+    CanvasRenderingContext2D.prototype.drawImage = function (this: CanvasRenderingContext2D, ...args: unknown[]) {
+      if (this.canvas.id === 'game' && args.length === 9 && args[0] instanceof HTMLImageElement) {
+        if (args[0].src.endsWith('/assets/slimes/slimes.png') && args[8] === 48) drawnSlimes.push(Number(args[5]) + 24);
+        if (args[0].src.endsWith('/assets/henry/henry-celebration.png')) henryX = this.getTransform().transformPoint(new DOMPoint(Number(args[5]) + 24, Number(args[6]) + 24)).x;
+      }
+      Reflect.apply(drawImage, this, args);
+    } as typeof drawImage;
+    const ground = (x: number): number => {
+      const part = level.surfaces.find(s => x >= s.x1 && x <= s.x2) ?? level.surfaces.at(-1)!;
+      return part.y1 + (part.y2 - part.y1) * (x - part.x1) / (part.x2 - part.x1);
+    };
+    const key = (code: string, down: boolean): void => { window.dispatchEvent(new KeyboardEvent(down ? 'keydown' : 'keyup', { code })); };
+    const raf = requestAnimationFrame.bind(window);
+    let previous: number | undefined, time = 0;
+    window.requestAnimationFrame = callback => raf(now => {
+      const status = document.querySelector('#status')?.textContent ?? '';
+      const x = Number(status.match(/X (\d+)/)?.[1] ?? 0);
+      const y = Number(status.match(/Y (-?\d+)/)?.[1] ?? 0);
+      const vx = Number(status.match(/V (-?\d+)/)?.[1] ?? 0);
+      const count = Number(status.match(/(?:Letter bag: |Bag )(\d)\/4/)?.[1] ?? 0);
+      if (status.includes('Finish')) pilot.direction = 0;
+      let horizontal = 0, jump = false;
+      if (pilot.direction && status.includes('Playing')) {
+        if ((x - pilot.lastX) * pilot.direction < -100) pilot.recoveries.push(status);
+        pilot.lastX = x;
+        const direction = pilot.direction;
+        if (pilot.collectAt.length && count >= pilot.expectedCount) { pilot.collectAt.shift(); pilot.expectedCount++; }
+        const target = pilot.collectAt[0];
+        const stop = x + Math.sign(vx) * vx ** 2 / 2400;
+        horizontal = target !== undefined && Math.abs(x - target) < 120 ? stop < target - 3 ? 1 : stop > target + 3 ? -1 : 0 : direction;
+        const danger = pilot.targets.find(d => !pilot.triggered.includes(d) && (d - x) * direction <= 65 && (d - x) * direction > -20);
+        if (danger !== undefined) { pilot.triggered.push(danger); pilot.jumpUntil = time + 400; }
+        // Reverse pits have no spring on the far bank: jump before the drop.
+        const onGround = Math.abs(y + 34 - ground(x)) < 4;
+        const nearSlime = drawnSlimes.some(sx => (sx - henryX) * direction > -18 && (sx - henryX) * direction < 65);
+        if (onGround && (nearSlime || (direction < 0 && (ground(x - 50) > ground(x) + 60 || ground(x - 50) < ground(x) - 28)))) {
+          key('Space', false); pilot.jumping = false; pilot.jumpUntil = time + 400;
+        }
+        jump = time < pilot.jumpUntil;
+        if (pilot.stopAt && (x - pilot.stopAt) * direction >= 0 && pilot.collectAt.length === 0) {
+          pilot.direction = 0; horizontal = 0; jump = false; pilot.stopped = true;
+        }
+      }
+      key('ArrowRight', horizontal > 0); key('ArrowLeft', horizontal < 0);
+      if (jump !== pilot.jumping) key('Space', jump);
+      pilot.jumping = jump;
+      // Sample reverse pit-bank jumps at normal frame cadence, like the star pilot.
+      const nearPit = level.surfaces.some(part => Math.max(part.y1, part.y2) > level.height + 50 && x > part.x1 - 120 && x < part.x2 + 120);
+      const speed = status.includes('Playing') && !(pilot.direction < 0 && nearPit) ? 6 : 1;
+      time += previous === undefined ? 0 : Math.min(now - previous, 32) * speed;
+      previous = now; callback(time);
+    });
+  }, level);
+}
+
+for (const [index, level] of LEVELS.entries()) {
+  test(`all-trail spelling ${level.id}: input-only missing-letter retrace, manual assembly and session sticker`, async ({ page }, info) => {
+    test.setTimeout(120_000);
+    const errors: string[] = [];
+    page.on('pageerror', error => errors.push(error.message));
+    const config = TRAIL_WORDS[index];
+    // Plains' first slime jump overlaps H; miss I on its separate clear approach.
+    const skippedSlot = index === 0 ? 1 : 0;
+    const labelFor = (slot: number): string => {
+      const pickup = config.pickups[slot], duplicates = config.pickups.filter(p => p.letter === pickup.letter);
+      return `Letter ${pickup.letter}${duplicates.length > 1 ? ` ${duplicates.indexOf(pickup) + 1}` : ''}`;
+    };
+    await installRetracePilot(page, level);
+    // The existing helper provides the same standard Gamepad API used by pilot regressions.
+    await page.addInitScript(() => {
+      const pad = { connected: true, mapping: 'standard', axes: [0, 0], buttons: Array.from({ length: 17 }, () => ({ pressed: false, value: 0, touched: false })) };
+      Object.assign(window, { spellingPad: pad });
+      Object.defineProperty(navigator, 'getGamepads', { configurable: true, value: () => [pad] });
+    });
+    await openAdventure(page, '/?debug=1');
+    await page.getByRole('button', { name: level.name, exact: true }).click();
+    await page.getByRole('button', { name: `Play ${level.name}`, exact: true }).click();
+    const drive = async (direction: number, collectAt: number[] = [], initialCount = 0): Promise<void> => {
+      const targets: number[] = [];
+      if (direction > 0 && !initialCount) targets.unshift(config.pickups[skippedSlot].x); // Intentionally miss a real letter.
+      await page.evaluate(({ direction, targets, collectAt, initialCount }) => {
+        const text = document.querySelector('#status')!.textContent!;
+        Object.assign((window as unknown as { retracePilot: object }).retracePilot, { direction, targets, triggered: [], collectAt,
+          expectedCount: initialCount + 1, stopAt: direction < 0 ? 310 : 0, stopped: false,
+          lastX: Number(text.match(/X (\d+)/)?.[1] ?? 0), jumpUntil: 0 });
+      }, { direction, targets, collectAt, initialCount });
+    };
+    const frames = async (): Promise<void> => page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
+    const capture = async (state: string): Promise<void> => {
+      for (const width of [426, 320]) {
+        await page.setViewportSize({ width, height: width === 426 ? 300 : 240 }); await frames();
+        await expectClearViewport(page);
+        const path = info.outputPath(`${level.id}-${state}-${width}.png`);
+        await page.screenshot({ path }); await info.attach(`${state}-${width}`, { path, contentType: 'image/png' });
+      }
+    };
+    await drive(1);
+    await expect(page.getByRole('dialog', { name: `Build ${config.word}`, exact: true })).toBeVisible({ timeout: 35_000 });
+    await expect(page.getByRole('button', { name: labelFor(skippedSlot), exact: true })).toHaveCount(0);
+    const initialStatus = await page.locator('#status').innerText();
+    const missing: number[] = [];
+    const available: number[] = [];
+    for (let slot = 0; slot < 4; slot++) (await page.getByRole('button', { name: labelFor(slot), exact: true }).count() ? available : missing).push(slot);
+    expect(available.length).toBeGreaterThan(0);
+    const partial = available[0];
+    await page.getByRole('button', { name: labelFor(partial), exact: true }).click();
+    await page.getByRole('button', { name: `Space ${partial + 1}: empty`, exact: true }).click();
+    await capture('missing-assembly');
+    await page.getByRole('button', { name: 'Find more letters', exact: true }).click();
+    await expect(page.locator('#status')).toContainText(`X ${level.finish.x - 28}`);
+    await expect(page.getByRole('dialog')).toHaveCount(0);
+    await capture('beside-finish');
+    await drive(-1, missing.map(slot => config.pickups[slot].x).sort((a, b) => b - a), available.length);
+    await page.waitForFunction(() => (window as unknown as { retracePilot: { stopped: boolean } }).retracePilot.stopped, undefined, { timeout: 35_000 });
+    await expect(page.locator('#status')).toContainText('Letter bag: 4/4');
+    const collectedStatus = await page.locator('#status').innerText();
+    await drive(1, [], 4);
+    await expect(page.getByRole('dialog', { name: `Build ${config.word}`, exact: true })).toBeVisible({ timeout: 35_000 });
+    await expect(page.getByRole('button', { name: `Space ${partial + 1}: ${config.word[partial]}`, exact: true })).toBeVisible();
+    const method = ['pointer', 'keyboard', 'controller'][index % 3];
+    const activate = async (name: string): Promise<void> => {
+      await frames();
+      const target = page.getByRole('button', { name, exact: true });
+      await expect(target).toBeVisible();
+      if (method === 'keyboard') {
+        for (let step = 0; step < 12 && !await target.evaluate(button => button === document.activeElement); step++) { await page.keyboard.press('Tab'); await frames(); }
+        await expect(target).toBeFocused(); await page.keyboard.press('Enter'); await frames();
+      } else {
+        for (let step = 0; step < 12 && !await target.evaluate(button => button === document.activeElement); step++) {
+          await page.evaluate(() => { (window as unknown as { spellingPad: { axes: number[] } }).spellingPad.axes[0] = 1; }); await frames();
+          await page.evaluate(() => { (window as unknown as { spellingPad: { axes: number[] } }).spellingPad.axes[0] = 0; }); await frames();
+        }
+        await expect(target).toBeFocused();
+        await page.evaluate(() => { (window as unknown as { spellingPad: { buttons: { pressed: boolean }[] } }).spellingPad.buttons[0].pressed = true; }); await frames();
+        await page.evaluate(() => { (window as unknown as { spellingPad: { buttons: { pressed: boolean }[] } }).spellingPad.buttons[0].pressed = false; }); await frames();
+      }
+    };
+    for (let slot = 0; slot < 4; slot++) {
+      if (slot === partial) continue;
+      await frames();
+      if (method === 'pointer') {
+        const from = (await page.getByRole('button', { name: labelFor(slot), exact: true }).boundingBox())!;
+        const to = (await page.getByRole('button', { name: `Space ${slot + 1}: empty`, exact: true }).boundingBox())!;
+        await page.mouse.move(from.x + from.width / 2, from.y + from.height / 2); await page.mouse.down();
+        await page.mouse.move(to.x + to.width / 2, to.y + to.height / 2, { steps: 5 }); await page.mouse.up();
+      } else { await activate(labelFor(slot)); await activate(`Space ${slot + 1}: empty`); }
+      await expect(page.getByRole('button', { name: `Space ${slot + 1}: ${config.word[slot]}`, exact: true })).toBeVisible();
+      await frames();
+    }
+    await expect(page.locator('#status')).toContainText(`${config.word === 'TREE' ? 'Tree' : config.word} sticker earned!`);
+    await capture('earned');
+    await page.getByRole('button', { name: 'Leave activity', exact: true }).click();
+    await expect(page.getByRole('button', { name: 'Replay', exact: true })).toBeVisible();
+    await page.getByRole('button', { name: 'Choose trail', exact: true }).click();
+    await expect(page.getByRole('button', { name: level.name, exact: true })).toHaveAttribute('aria-description', /Session best:/);
+    await page.getByRole('button', { name: 'Open stickers', exact: true }).click();
+    await expect(page.locator('#status')).toContainText('1/6 stickers');
+    await expect(page.locator('#status')).toContainText(`${config.name} ${config.word}: earned`);
+    for (const other of TRAIL_WORDS.filter(word => word.id !== config.id)) await expect(page.locator('#status')).toContainText(`${other.name} ${other.word}: find the letters`);
+    await capture('collection');
+    await page.keyboard.press('Escape');
+    await page.getByRole('button', { name: `Play ${level.name}`, exact: true }).click();
+    await expect(page.locator('#status')).toContainText('Letter bag: 4/4');
+    const recoveries = await page.evaluate(() => (window as unknown as { retracePilot: { recoveries: string[] } }).retracePilot.recoveries);
+    expect(recoveries).toEqual([]);
+    await reloadAndDismiss(page);
+    await page.getByRole('button', { name: level.name, exact: true }).click();
+    await page.getByRole('button', { name: `Play ${level.name}`, exact: true }).click();
+    await expect(page.locator('#status')).toContainText('Letter bag: 0/4');
+    expect(errors).toEqual([]);
+    await info.attach('route-result', { body: JSON.stringify({ initialStatus, collectedStatus, method, recoveries, errors }), contentType: 'application/json' });
+  });
+}
