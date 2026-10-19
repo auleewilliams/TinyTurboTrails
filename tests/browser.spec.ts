@@ -2088,7 +2088,7 @@ async function installTrailPilot(page: Page): Promise<void> {
   await page.addInitScript(() => {
     const buttons = Array.from({ length: 17 }, () => ({ pressed: false, value: 0, touched: false }));
     const pad = { connected: true, mapping: 'standard', axes: [0, 0], buttons };
-    const pilot = { active: false, lastActive: false, controller: false, dangers: [] as number[], index: 0, lastX: 0, jumpUntil: 0, jumping: false, pauseAt: 0, frozen: false };
+    const pilot = { active: false, lastActive: false, controller: false, dangers: [] as number[], index: 0, lastX: 0, jumpUntil: 0, jumping: false, pauseAt: 0, frozen: false, advanceMs: 0 };
     Object.assign(window, { trailPad: pad, trailPilot: pilot });
     Object.defineProperty(navigator, 'getGamepads', { configurable: true, value: () => pilot.controller ? [pad] : [] });
     let previousTime: number | undefined; let presentationTime = 0;
@@ -2119,6 +2119,7 @@ async function installTrailPilot(page: Page): Promise<void> {
       }
       pilot.jumping = jumping;
       pilot.lastActive = pilot.active;
+      presentationTime += pilot.advanceMs; pilot.advanceMs = 0;
       presentationTime += previousTime === undefined ? 0 : (now - previousTime) * (status.includes('Playing') ? 6 : 1);
       previousTime = now;
       callback(presentationTime);
@@ -2318,6 +2319,7 @@ for (const [index, level] of LEVELS.entries()) {
       }, { dangers: dangerXs(level), controller: index % 2 === 1 });
       await expect(page.locator('#status')).toContainText('Finish', { timeout: 35_000 });
       await expect(canvas).toHaveAttribute('data-ribbon', 'absent');
+      if (level.id === 'timbers') await page.getByRole('button', { name: 'Leave activity', exact: true }).click();
       // Stop the input pilot explicitly: a quick menu action can replace Finish
       // before its next RAF notices completion, leaving movement held in a new run.
       await page.evaluate(() => new Promise<void>(resolve => {
@@ -2611,6 +2613,7 @@ for (const [index, level] of LEVELS.slice(0, 3).entries()) {
     }
     await page.evaluate(() => { Object.assign((window as unknown as { starPilot: object }).starPilot, { active: true, frozen: false, pauseAt: 0 }); });
     await expect(page.locator('#status')).toContainText('Finish', { timeout: 75_000 });
+    if (level.id === 'timbers') await page.getByRole('button', { name: 'Leave activity', exact: true }).click();
     await expect(page.locator('canvas')).toHaveAttribute('data-stars', 'STARS 3/3');
     expect(await page.evaluate(() => (window as unknown as { starPilot: { signboards: string[] } }).starPilot.signboards)).toEqual([]);
     for (const width of [426, 320]) {
@@ -3042,9 +3045,24 @@ test('educational bag collects independent letters without early assembly or sti
   await page.getByRole('button', { name: 'TREETOP TIMBERS', exact: true }).click();
   await page.getByRole('button', { name: 'Play TREETOP TIMBERS', exact: true }).click();
   await expect(page.locator('#status')).toContainText('Letter bag: 0/4');
+  await page.setViewportSize({ width: 426, height: 300 });
+  await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
+  await page.screenshot({ path: info.outputPath('bag-native.png') });
+  await page.setViewportSize({ width: 320, height: 240 });
+  await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
+  await page.screenshot({ path: info.outputPath('bag-small.png') });
+  await page.setViewportSize({ width: 426, height: 300 });
   await page.evaluate(dangers => {
-    Object.assign((window as unknown as { trailPilot: object }).trailPilot, { active: true, dangers, pauseAt: 7150 });
+    Object.assign((window as unknown as { trailPilot: object }).trailPilot, { active: true, dangers, pauseAt: 345 });
   }, dangerXs(LEVELS[2]));
+  await expect(page.locator('#status')).toContainText('Letter bag: 1/4');
+  await expect.poll(() => page.evaluate(() => (window as unknown as { trailPilot: { frozen: boolean } }).trailPilot.frozen)).toBe(true);
+  await expect(page.locator('#status')).toContainText('T → bag');
+  await page.screenshot({ path: info.outputPath('pickup-flight-native.png') });
+  await page.setViewportSize({ width: 320, height: 240 });
+  await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
+  await page.screenshot({ path: info.outputPath('pickup-flight-small.png') });
+  await page.evaluate(() => Object.assign((window as unknown as { trailPilot: object }).trailPilot, { frozen: false, pauseAt: 7150 }));
   await expect(page.locator('#status')).toContainText('Letter bag: 4/4', { timeout: 25_000 });
   await expect.poll(() => page.evaluate(() => (window as unknown as { trailPilot: { frozen: boolean } }).trailPilot.frozen)).toBe(true);
   await page.screenshot({ path: info.outputPath('word-two-es.png') });
@@ -3161,11 +3179,17 @@ for (const method of ['pointer', 'keyboard', 'controller'] as const) {
     await frames();
     const capture = async (name: string) => { await page.screenshot({ path: info.outputPath(`${method}-${name}.png`) }); };
     await capture('assembly-native');
+    await page.setViewportSize({ width: 320, height: 240 }); await frames();
+    await expectClearViewport(page); await capture('assembly-small');
+    await page.setViewportSize({ width: 426, height: 300 }); await frames();
+    const frozen = await page.locator('canvas').screenshot();
+    await frames(); await frames();
+    expect((await page.locator('canvas').screenshot()).equals(frozen)).toBe(true);
     const activate = async (name: string) => {
       if (method === 'keyboard') {
         for (let i = 0; i < 12 && !await page.getByRole('button', { name, exact: true }).evaluate(button => button === document.activeElement); i++) await page.keyboard.press('Tab');
         await expect(page.getByRole('button', { name, exact: true })).toBeFocused();
-        await page.keyboard.press('Enter');
+        await page.keyboard.press(name.startsWith('Space ') ? 'Space' : 'Enter');
       } else {
         await page.evaluate(() => { (window as unknown as { trailPilot: { controller: boolean } }).trailPilot.controller = true; });
         for (let i = 0; i < 12 && !await page.getByRole('button', { name, exact: true }).evaluate(button => button === document.activeElement); i++) {
@@ -3207,3 +3231,72 @@ for (const method of ['pointer', 'keyboard', 'controller'] as const) {
     await expect(page.locator('#status')).toContainText('1/1 stickers');
   });
 }
+
+
+test('educational missing-letter return preserves partial work and clears held actions and clock debt', async ({ page }, info) => {
+  await installTrailPilot(page);
+  await openAdventure(page, '/?debug=1');
+  await page.getByRole('button', { name: 'TREETOP TIMBERS', exact: true }).click();
+  await page.getByRole('button', { name: 'Play TREETOP TIMBERS', exact: true }).click();
+  // Jump over T on the real outward route; no scene/position hooks or helper letters.
+  await page.evaluate(dangers => Object.assign((window as unknown as { trailPilot: object }).trailPilot, { active: true, dangers: [360, ...dangers] }), dangerXs(LEVELS[2]));
+  await expect(page.getByRole('dialog', { name: 'Build TREE', exact: true })).toBeVisible({ timeout: 25_000 });
+  await expect(page.locator('#status')).toContainText('Bag 3/4');
+  await expect(page.getByRole('button', { name: 'Letter T', exact: true })).toHaveCount(0);
+  await page.evaluate(() => Object.assign((window as unknown as { trailPilot: object }).trailPilot, { active: false, lastActive: false }));
+  await page.keyboard.up('ArrowRight');
+  await page.getByRole('button', { name: 'Letter R', exact: true }).click();
+  await page.getByRole('button', { name: 'Space 2: empty', exact: true }).click();
+  await expect(page.locator('#status')).toContainText('_ R _ _');
+  const frames = async (count = 3) => page.evaluate(count => new Promise<void>(resolve => {
+    let frame = 0; const next = () => { if (++frame >= count) resolve(); else requestAnimationFrame(next); }; requestAnimationFrame(next);
+  }), count);
+  await page.setViewportSize({ width: 426, height: 300 }); await frames();
+  await page.screenshot({ path: info.outputPath('missing-assembly-native.png') });
+  const frozen = await page.locator('canvas').screenshot();
+  const status = await page.locator('#status').innerText();
+  await page.evaluate(() => { (window as unknown as { trailPilot: { advanceMs: number } }).trailPilot.advanceMs = 60_000; });
+  await frames(15);
+  expect((await page.locator('canvas').screenshot()).equals(frozen)).toBe(true);
+  expect(await page.locator('#status').innerText()).toBe(status);
+  // Cancel a real in-progress drag on focus loss, keeping every collected letter.
+  const from = (await page.getByRole('button', { name: 'Letter E 2', exact: true }).boundingBox())!;
+  await page.mouse.move(from.x + from.width / 2, from.y + from.height / 2); await page.mouse.down();
+  await page.mouse.move(from.x + 20, from.y - 20);
+  await page.evaluate(() => window.dispatchEvent(new Event('blur')));
+  await expect(page.getByRole('dialog')).toHaveCount(0);
+  await page.mouse.up();
+  await page.evaluate(() => window.dispatchEvent(new Event('focus')));
+  await expect(page.getByRole('dialog', { name: 'Build TREE', exact: true })).toBeVisible();
+  await expect(page.locator('#status')).toContainText('_ R _ _');
+  await expect(page.getByRole('button', { name: /^Letter E/ })).toHaveCount(2);
+  await page.keyboard.down('ArrowRight'); await page.keyboard.down('Space');
+  await frames();
+  await page.getByRole('button', { name: 'Find more letters', exact: true }).click();
+  await expect(page.getByRole('dialog')).toHaveCount(0);
+  await expect(page.locator('#status')).toContainText('Playing · Letter bag: 3/4');
+  const playerStatus = async (page: Page) => {
+    const text = await page.locator('#status').innerText();
+    const match = text.match(/X (\d+) Y (-?\d+)/)!;
+    return { x: Number(match[1]), y: Number(match[2]) };
+  };
+  const returned = await playerStatus(page);
+  expect(returned.x).toBe(LEVELS[2].finish.x - 28);
+  await page.evaluate(() => { (window as unknown as { trailPilot: { advanceMs: number } }).trailPilot.advanceMs = 60_000; });
+  await frames(20);
+  const after = await playerStatus(page);
+  expect(after.x).toBe(returned.x); expect(after.y).toBe(returned.y);
+  await page.screenshot({ path: info.outputPath('missing-return-native.png') });
+  await page.setViewportSize({ width: 320, height: 240 }); await frames();
+  await expectClearViewport(page); await page.screenshot({ path: info.outputPath('missing-return-small.png') });
+  await page.keyboard.up('ArrowRight'); await page.keyboard.up('Space');
+  await page.keyboard.down('ArrowLeft');
+  await expect.poll(async () => (await playerStatus(page)).x).toBeLessThan(LEVELS[2].finish.x - 100);
+  await page.keyboard.up('ArrowLeft'); await page.keyboard.down('ArrowRight');
+  await expect(page.getByRole('dialog', { name: 'Build TREE', exact: true })).toBeVisible();
+  await page.keyboard.up('ArrowRight');
+  await expect(page.locator('#status')).toContainText('_ R _ _');
+  await page.getByRole('button', { name: 'Leave activity', exact: true }).click();
+  await page.getByRole('button', { name: 'Choose trail', exact: true }).click();
+  await expect(page.getByRole('button', { name: 'TREETOP TIMBERS', exact: true })).toHaveAttribute('aria-description', /Session best:/);
+});

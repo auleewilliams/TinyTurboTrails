@@ -58,6 +58,8 @@ it('collects on Timbers only and retains education through health/pit recovery, 
   }
   expect(scene.education.letterCount).toBe(4);
   expect(scene.education.wordProgress).toBe('_ _ _ _');
+  LETTER_PICKUPS.forEach((pickup, slot) => scene.education.place(pickup.id, slot));
+  expect(scene.education.hasWordSticker).toBe(true);
   const rewards = scene.education.stickers;
   recoverFromFall(live.run, live.player, [], TREETOP_TIMBERS);
   live.run.health = 1; live.run.invulnerableSeconds = 0;
@@ -68,14 +70,14 @@ it('collects on Timbers only and retains education through health/pit recovery, 
   scene.educationOverlay.close();
   scene.activateFinish('Replay');
   expect(scene.education.letterCount).toBe(4);
-  expect(scene.education.wordProgress).toBe('_ _ _ _');
-  expect(scene.education.stickers).toEqual([]);
+  expect(scene.education.wordProgress).toBe('T R E E');
+  expect(scene.education.stickers).toEqual(rewards);
   scene.returnToTrails();
   scene.selectDestination(0); scene.startSelected();
   expect(scene.education.stickers).toEqual(rewards);
   scene.returnToTrails(); scene.selectDestination(2); scene.startSelected();
   expect(scene.education.letterCount).toBe(4);
-  expect(scene.education.wordProgress).toBe('_ _ _ _');
+  expect(scene.education.wordProgress).toBe('T R E E');
   expect(timbers().scene.education.stickers).toEqual([]);
 });
 
@@ -300,4 +302,38 @@ it('rolls back wrong, outside and cancelled drags, and places each dragged E onl
   expect(scene.education.wordProgress).toBe('_ _ E _');
   expect(scene.education.letterCount).toBe(4);
   expect(scene.education.stickers).toEqual([]);
+});
+
+it('cancels a pending drag when select/place input takes over', () => {
+  const { scene, live } = timbers();
+  scene.education.collect(LETTER_PICKUPS[0].id);
+  live.player.x = TREETOP_TIMBERS.finish.x;
+  scene.update(1 / 60, neutral);
+  scene.educationOverlay.beginDrag(LETTER_PICKUPS[0].id, 236, 132);
+  scene.menuTargets.find(target => target.label === 'Letter T')!.action();
+  scene.menuTargets.find(target => target.label === 'Space 1: empty')!.action();
+  const ctx = new Proxy({}, { get: () => () => {}, set: () => true }) as CanvasRenderingContext2D;
+  expect(() => scene.educationOverlay.draw(ctx)).not.toThrow();
+  scene.educationOverlay.endDrag(184, 80);
+  expect(scene.education.wordProgress).toBe('T _ _ _');
+});
+
+
+it('bags all pickup permutations without filling and accepts either E in either matching space', () => {
+  const permutations = (ids: string[]): string[][] => ids.length === 0 ? [[]]
+    : ids.flatMap(id => permutations(ids.filter(other => other !== id)).map(rest => [id, ...rest]));
+  for (const order of permutations(LETTER_PICKUPS.map(pickup => pickup.id))) {
+    const session = new EducationSession();
+    order.forEach((id, index) => {
+      expect(session.collect(id)).toBe(true);
+      expect(session.letterCount).toBe(index + 1);
+      expect(session.wordProgress).toBe('_ _ _ _');
+      expect(session.stickers).toEqual([]);
+    });
+    session.place(LETTER_PICKUPS[3].id, 2);
+    session.place(LETTER_PICKUPS[2].id, 3);
+    session.place(LETTER_PICKUPS[1].id, 1);
+    session.place(LETTER_PICKUPS[0].id, 0);
+    expect(session.stickers).toEqual(['Timbers TREE']);
+  }
 });

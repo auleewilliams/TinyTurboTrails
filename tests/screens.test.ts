@@ -336,6 +336,7 @@ it('selects every level track only on start, preserves recovery, and silences fi
     state.player.y = level.finish.y;
     scene.update(1 / 60, neutral);
     expect(calls.slice(calls.indexOf('complete') - 1, calls.indexOf('complete') + 1)).toEqual(['stop', 'complete']);
+    if (scene.educationOverlay.open) scene.menuTargets.find(target => target.label === 'Leave activity')!.action();
     scene.activateFinish('Choose trail');
     expect(scene.screenState).toBe('title');
     expect(calls.at(-1)).toBe('stop');

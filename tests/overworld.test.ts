@@ -73,6 +73,7 @@ it.each(LEVELS.map((level, index) => ({ level, index })))('returns to $level.nam
   scene.update(1 / 60, neutral);
   const live = scene as unknown as Live;
   const result = { gems: live.run.collectedGems.size, stars: live.run.collectedSpecials.size };
+  if (scene.educationOverlay.open) scene.menuTargets.find(target => target.label === 'Leave activity')!.action();
   expect(scene.menuTargets.some(target => target.label === 'Next trail')).toBe(index < LEVELS.length - 1);
   scene.activateFinish('Choose trail');
   expect(scene.screenState).toBe('title');

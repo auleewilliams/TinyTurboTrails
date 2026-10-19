@@ -63,7 +63,7 @@ function recordingContext(): { ctx: CanvasRenderingContext2D; images: unknown[][
     fillRect: (x: number, y: number, width: number, height: number) => {
       rects.push({ x, y, width, height, fillStyle: ctx.fillStyle });
     },
-    clip: noop, beginPath: noop, moveTo: (x: number, y: number) => { moves.push([x, y]); }, lineTo: noop, closePath: noop, fill: noop, stroke: noop,
+    arc: noop, clip: noop, beginPath: noop, moveTo: (x: number, y: number) => { moves.push([x, y]); }, lineTo: noop, closePath: noop, fill: noop, stroke: noop,
     strokeRect: noop, strokeText: noop,
     measureText: (text: string) => ({ width: text.length * 6 }),
     translate: noop, transform: noop, scale: noop, save: noop, restore: noop,

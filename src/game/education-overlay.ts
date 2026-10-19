@@ -73,12 +73,13 @@ export class EducationOverlay {
         drag: { start: (x, y) => this.beginDrag(pickup.id, x, y), move: (x, y) => this.moveDrag(x, y),
           end: (x, y) => this.endDrag(x, y), cancel: () => this.cancelDrag() },
         description: this.heldLetter === pickup.id ? 'Selected. Choose a space.' : 'Select this collected letter.',
-        action: () => { this.heldLetter = pickup.id; this.message = `${pickup.letter} selected. Choose a space.`; },
+        action: () => { this.cancelDrag(); this.heldLetter = pickup.id; this.message = `${pickup.letter} selected. Choose a space.`; },
       }));
       this.session.wordProgress.split(' ').forEach((letter, slot) => targets.push({
         label: `Space ${slot + 1}: ${letter === '_' ? 'empty' : letter}`,
         description: 'Place the selected letter here.', x: 111 + slot * 52, y: 65, width: 42, height: 32,
         action: () => {
+          this.cancelDrag();
           const accepted = this.heldLetter && this.session.place(this.heldLetter, slot);
           this.message = accepted ? 'Great! Choose another letter.' : 'Try another space. Your letters are safe.';
           if (accepted) { this.heldLetter = undefined; this.selected = 0; }

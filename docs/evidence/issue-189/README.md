@@ -1,70 +1,55 @@
-# Issue #189 — revised scope and evidence
+# Issue #189 — bag and manual TREE assembly
 
-## Current scope
+The approved pilot collects T/R/E/E into a bag, with a brief letter flight and
+no automatic word fill or early reward. Finish opens optional manual assembly:
+TREE guide, four spaces, and a stable mixed pile containing only collected,
+unplaced identities. Pointer drag/drop and keyboard/controller select/place
+are implemented. Correct manual assembly earns one session tree sticker.
 
-Maths has been removed from PR #190 at the owner's request and deferred to
-[issue #193](https://github.com/auleewilliams/TinyTurboTrails/issues/193).
-No sign, prompt, question/answer route, number-leaf reward or maths artwork remains.
-The map collection offers only the existing tree sticker.
+Find more letters returns beside finish in the identical completed run. It
+retains progress and correct partial placements, disarms immediate finish entry,
+and rearms after leaving. No missing-letter teleport, helper tiles, restart,
+terrain change or storage is used. Maths remains deferred to
+[#193](https://github.com/auleewilliams/TinyTurboTrails/issues/193).
 
-Letter collection and its interim matching/reward behaviour remain functional.
-The owner wants collected letters used to make a word after finishing; the
-assembly interaction is awaiting clarification, not implemented or represented
-as finished here. No merge or deployment is authorised.
+## Verification
 
-## Removal verification
+Strict vertical RED → GREEN logs and progress summary are retained externally:
+`/home/leew/.hermes/cache/scratch/issue189-bag-assembly/`.
+They cover bag/no-auto-reward, manual identity placement, finish entry,
+same-run return/latch, pickup animation, drag rollback, real browser pointer
+integration and mixed pointer/keyboard takeover. Temporarily restoring the exact
+original `EducationSession` makes the bag regression fail; restoration is green.
 
-Strict vertical RED → GREEN checks cover absence of trail activation at the
-former sign x=2350 and availability of only one tree sticker / Return to map.
-The external logs are in
-`/home/leew/.hermes/cache/scratch/issue189-spelling-revision/`.
-Additional unit coverage preserves repeated Es, every pickup permutation,
-recovery/replay/trail retention, session reset, collection freeze, released
-confirmation and same-frame exit/re-entry revisions. Browser tests preserve real
-movement/letter collection and pointer/keyboard/standard-controller collection
-access, and assert absent activity routes at the former sign.
+- Full unit suite: 839 tests / 48 files (bounded to two workers locally),
+  typecheck, build and 8 CI script tests pass.
+- Real simulation inputs traverse from finish across all seven reverse springs,
+  collect all four missed letters with zero recovery, and return for retry.
+  Only the initial finish fixture positions the player; traversal never does.
+- Chromium real pointer, Tab/Enter/Space and standard Gamepad API paths assemble
+  TREE. Missing-letter coverage jumps over T during actual outward play,
+  preserves partial R, tests focus-loss drag cancellation, pixel freeze during
+  a 60-second clock gap, held-action clearing and finish re-entry.
+- Read-only independent review found no production logic/security blocker.
+  Existing finish/star tests now explicitly leave the optional activity before
+  retaining their normal finish assertions. No assertions/retries/timeouts were
+  weakened. Final cross-engine captures and exact-head CI are recorded below
+  when complete; intermediate results are not final-head verification.
 
-Old maths and two-sticker screenshots have been removed from this revision.
-Historical implementation/evidence remains in PR #190 history at `23e522f` and
-`68e1ff5`; their full CI/review results **do not verify this revised head**.
-The remaining word captures below are historical illustrations of the preserved
-interim collection, not evidence of a final assembly design or current-head CI.
+## Screenshots
 
-| Engine | Historical interim word capture |
-| --- | --- |
-| Chromium | [Word](chromium-word-small.png) |
-| Firefox | [Word](firefox-word-small.png) |
-| WebKit | [Word](webkit-word-small.png) |
+Fresh bag/flight/assembly/missing-return/sticker evidence will be linked here
+from the stable cross-browser snapshot. Older `*-word-small.png` and
+`*-stickers-word-only-small.png` files illustrate historical interim auto-fill
+behaviour and are not current design or verification evidence.
 
-## Verified removal snapshot
+## Retained accepted work and limitations
 
-- `npm test`: **832 passed**, 48 files; `npm run typecheck`, `npm run build`
-  and `npm run test:ci` (**8 passed**) succeeded.
-- Targeted Chromium/Firefox/WebKit: **15 passed**, no failures/skips/retries.
-  Real movement retains both Es and the tree reward; all three input methods
-  retain collection focus, pixel freeze, focus-loss recovery and reload reset.
-- The first browser run caught map selection changing to Plains: removing the
-  obsolete selection state must not remove the collection target's explicit
-  focus handler, which prevents the shared map-index fallback. Fixed and rerun.
-  A separate new screenshot assertion initially raced viewport resize; it now
-  waits the same two animation frames as existing viewport tests, without
-  changing bounds or retries/timeouts.
-- Fresh 320px captures inspected in all three engines: no maths sign or reward,
-  only the tree sticker and Return to map; no new overlap/clipping observed.
-  Downscaled-text child readability remains owner-led.
-- Full revised-head CI is pending; historical green CI is not current evidence.
+[All-six finish grounding](visual-clarity/README.md) and
+[harmless static props with preserved slimes](../issue-191/README.md) remain.
+No rejected ground markers were added. The original main working tree was
+untouched. No merge, deployment or issue closure is authorised.
 
-| Engine | Former activity location | Tree-only collection |
-| --- | --- | --- |
-| Chromium | [Trail](chromium-removed-activity-small.png) | [Collection](chromium-stickers-word-only-small.png) |
-| Firefox | [Trail](firefox-removed-activity-small.png) | [Collection](firefox-stickers-word-only-small.png) |
-| WebKit | [Trail](webkit-removed-activity-small.png) | [Collection](webkit-stickers-word-only-small.png) |
-
-## Unrelated accepted fixes retained
-
-- [Finish grounding](visual-clarity/README.md): all six trails; no new markings.
-- [Static-prop pass-through and preserved slimes](../issue-191/README.md).
-
-Those documents label their own snapshots and evidence. Automated input does not
-establish child comprehension, enjoyment, physical-controller ergonomics or
-owner approval. Fresh final-head CI and final spelling acceptance remain pending.
+Automated Gamepad API input does not establish physical-controller ergonomics,
+child comprehension, enjoyment or owner acceptance. Those playtests remain
+manual. This pilot applies only to Treetop Timbers / TREE.

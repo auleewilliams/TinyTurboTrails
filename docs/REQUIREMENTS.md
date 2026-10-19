@@ -250,11 +250,23 @@ identities for both Es and no duplicate pickup credit. Letter progress survives
 checkpoint/health/pit recovery, replay, map return and trail changes in memory;
 reload clears it. No browser storage, new gates or changes to gems/stars/totals.
 
-The current interim build still fills matching TREE slots during collection and
-awards its single tree sticker. This is preserved existing behaviour, **not the
-approved final spelling interaction**. The owner wants Henry to collect letters
-on the trail and use them to make the word after finishing; the end-of-trail
-assembly interaction is pending clarification and is not implemented here.
+The in-trail HUD shows a bag and collected count. Four pickups can be collected
+in any order; a brief letter flight gives feedback. Collection never fills the
+word or awards a sticker. Finishing automatically opens an optional activity:
+TREE is shown above four spaces, with a mixed pile containing only actual
+collected letters. Pointer drag/drop and keyboard/controller select/place build
+the word manually without typing. Either independent E can occupy either E
+space, once only. Wrong/occupied/outside placements roll back without loss.
+Only a correctly assembled TREE earns the tree sticker, once per session.
+
+When letters are missing, Find more letters closes the activity and puts Henry
+beside the finish in the same completed run. Preserve letters, gems, stars,
+checkpoint, squashed slimes and other run state. Henry retraces the existing
+trail himself; no missing-letter teleport, restart, substitute letters or terrain
+changes. The finish latch rearms after leaving the finish area and allows another
+crossing. Correct partial placements remain. Leave activity exposes ordinary
+finish choices. The overlay freezes deterministic simulation and clears held
+input/focus and clock debt at its boundary.
 
 The overworld's accessible collection offers only the tree sticker, via keyboard,
 pointer and standard controller. Preserve focus safety, held-input guards and
