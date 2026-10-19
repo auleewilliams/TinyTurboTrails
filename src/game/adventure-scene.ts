@@ -253,7 +253,9 @@ export class AdventureScene implements Scene {
     this.finishArmed = false;
     this.screens.retrace();
     const x = this.level.finish.x - 28;
-    Object.assign(this.player, { x, y: surfaceY(this.level, x) - DEFAULT_MOVEMENT.height, vx: 0, vy: 0, onGround: true });
+    Object.assign(this.player, { x, y: surfaceY(this.level, x) - DEFAULT_MOVEMENT.height, vx: 0, vy: 0, onGround: true,
+      coyoteSeconds: DEFAULT_MOVEMENT.coyoteSeconds, jumpBufferSeconds: 0, squashBounce: false,
+      platformId: null, groundVelocityX: 0 });
     this.camera.update(this.player.x, this.player.y);
     this.audio.startMusic(musicForLevel(this.level.id));
   }

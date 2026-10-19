@@ -221,6 +221,29 @@ it('returns missing-letter play beside finish in the identical completed run and
   expect(scene.session.results.has('timbers')).toBe(true);
 });
 
+it('clears an airborne finish jump buffer before returning beside finish', () => {
+  const { scene, live } = timbers();
+  Object.assign(live.player, { x: TREETOP_TIMBERS.finish.x - 2,
+    y: surfaceY(TREETOP_TIMBERS, TREETOP_TIMBERS.finish.x) - 90,
+    vx: 220, vy: 0, onGround: false, coyoteSeconds: 0 });
+  scene.update(1 / 60, { ...neutral, horizontal: 1, jumpHeld: true, jumpPressed: true });
+  expect(scene.screenState).toBe('finish');
+  expect(live.player.jumpBufferSeconds).toBeGreaterThan(0);
+  const run = live.run, progress = JSON.stringify(run);
+  scene.menuTargets.find(target => target.label === 'Find more letters')!.action();
+  expect(live.player.jumpBufferSeconds).toBe(0);
+  expect(live.player.platformId).toBeNull();
+  expect(live.player.groundVelocityX).toBe(0);
+  expect(live.player.squashBounce).toBe(false);
+  expect(live.run).toBe(run);
+  expect(JSON.stringify(run)).toBe(progress);
+  const groundedY = live.player.y;
+  scene.update(1 / 60, neutral);
+  expect(live.player.y).toBe(groundedY);
+  expect(live.player.vy).toBe(0);
+  expect(live.player.onGround).toBe(true);
+});
+
 it('retraces from finish past every reverse spring to all missed letters and retries with ordinary input', () => {
   const { scene, live } = timbers();
   // Finish fixture only. Every subsequent traversal uses the normal simulation input.
