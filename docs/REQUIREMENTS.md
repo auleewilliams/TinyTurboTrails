@@ -238,26 +238,30 @@ Explore mode are introduced. Exact bounce/edge tuning and child-facing readabili
 remain owner playtest decisions; implementation values are documented in
 `gameplay-interactions.md` rather than treated as approved requirements.
 
-## Treetop Timbers educational pilot (#189)
+## Optional spelling across all six trails (#189)
 
 The owner has removed maths from PR #190. The activity spot, sign/prompt,
 questions, answer controls and number-leaf reward are absent, not hidden or
 feature-flagged. The deferred design is tracked in
 [issue #193](https://github.com/auleewilliams/TinyTurboTrails/issues/193).
 
-Preserve Timbers' four stable letter pickups T, R, E, E, including independent
-identities for both Es and no duplicate pickup credit. Letter progress survives
+Use one shared activity with independent per-trail bags, partial assembly and
+stickers: Plains HILL, Quarry Run ROCK, Treetop Timbers TREE, Sunset Site BEAM,
+Frost Ridge SNOW and Sandy Cove SAND. Preserve Timbers' accepted positions and
+identities; both Es in TREE and both Ls in HILL have independent identities and
+cannot be credited or used twice. Letter progress survives
 checkpoint/health/pit recovery, replay, map return and trail changes in memory;
 reload clears it. No browser storage, new gates or changes to gems/stars/totals.
 
 The in-trail HUD shows a bag and collected count. Four pickups can be collected
 in any order; a brief letter flight gives feedback. Collection never fills the
 word or awards a sticker. Finishing automatically opens an optional activity:
-TREE is shown above four spaces, with a mixed pile containing only actual
-collected letters. Pointer drag/drop and keyboard/controller select/place build
-the word manually without typing. Either independent E can occupy either E
-space, once only. Wrong/occupied/outside placements roll back without loss.
-Only a correctly assembled TREE earns the tree sticker, once per session.
+the current trail word is shown above four spaces, with a mixed pile containing
+only actual collected letters. Pointer drag/drop and keyboard/controller
+select/place build the word manually without typing. Either repeated identity can occupy either
+matching space, once only. Wrong/occupied/outside placements roll back without loss.
+Only correct manual assembly earns that trail’s themed sticker, once per trail
+per session. Letters and stickers never cross-award between trails.
 
 When letters are missing, Find more letters closes the activity and puts Henry
 beside the finish in the same completed run. Preserve letters, gems, stars,
@@ -268,8 +272,10 @@ crossing. Correct partial placements remain. Leave activity exposes ordinary
 finish choices. The overlay freezes deterministic simulation and clears held
 input/focus and clock debt at its boundary.
 
-The overworld's accessible collection offers only the tree sticker, via keyboard,
+The overworld's accessible collection shows all six trail stickers, via keyboard,
 pointer and standard controller. Preserve focus safety, held-input guards and
 normal pause/navigation. Retain all-six-trail finish grounding and the interim
 harmless/pass-through static props (#191), without added markings or altered
-slime damage/squash behaviour. No expansion or merge is authorised.
+slime damage/squash behaviour. Current code-native visuals are accepted for V1;
+generated image/sprite polish is deferred to #194. No merge or deployment is
+authorised; owner/child and physical-controller acceptance remain manual.

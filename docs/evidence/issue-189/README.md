@@ -1,4 +1,11 @@
-# Issue #189 — bag and manual TREE assembly
+# Issue #189 — six-trail bags and manual word assembly
+
+The current expansion and its verification are documented in
+[all-trails/README.md](all-trails/README.md). The following records the accepted
+Timbers baseline and its historical exact-head CI; those counts do not establish
+the all-six expansion’s final verification.
+
+## Accepted Timbers baseline
 
 The approved pilot collects T/R/E/E into a bag, with a brief letter flight and
 no automatic word fill or early reward. Finish opens optional manual assembly:
@@ -93,4 +100,5 @@ untouched. No merge, deployment or issue closure is authorised.
 
 Automated Gamepad API input does not establish physical-controller ergonomics,
 child comprehension, enjoyment or owner acceptance. Those playtests remain
-manual. This pilot applies only to Treetop Timbers / TREE.
+manual. The historical pilot applied to Timbers; the approved expansion now covers
+all six trails as described in the linked all-trails evidence.

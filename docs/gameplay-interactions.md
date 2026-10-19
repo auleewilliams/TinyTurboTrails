@@ -139,7 +139,7 @@ approaches, safe returns, separate once-only star counter, checkpoint retention
 and fresh-run resets. `special` is an additional pickup event; its bounded 0.65s
 sparkle uses `+1 STAR` and the existing pickup sound. Stars never gate the finish.
 
-## Optional Timbers letter pilot (#189)
+## Optional six-trail spelling (#189)
 
 Maths is deferred to [issue #193](https://github.com/auleewilliams/TinyTurboTrails/issues/193).
 There is no activity sign/spot at the former x=2350 location, no in-trail activity
@@ -147,37 +147,47 @@ entry route, question generator, answer control or number-leaf sticker artwork.
 E / standard D-pad Up has no activity effect while playing.
 
 `EducationSession` belongs to `AdventureScene`, outside `RunState`. Its collected
-IDs, correct placements and earned sticker survive recovery, replay, map return
-and trail switching. Reload starts empty, with no browser storage.
+IDs, correct placements and earned stickers are independent for each trail and
+survive recovery, replay, map return and trail switching. Reload starts empty,
+with no browser storage.
 
-The letter blocks remain at x=360 (T), 1300 (R), 3600 (E), 7100 (E), 32px above
-ordinary terrain. Contact accepts ±22px horizontally and ±24px between Henry's
+Shared `TRAIL_WORDS` configuration assigns Plains HILL, Quarry ROCK, Timbers TREE,
+Sunset BEAM, Frost SNOW and Cove SAND. Each trail has four blocks at x=360,
+1300, 3600 and 7100, 32px above ordinary terrain. Contact accepts ±22px
+horizontally and ±24px between Henry's
 centre and a point 20px above ground. The bag count increases once per stable ID,
 with a 0.65-second letter flight toward the bag (a brief local cue with reduced
 motion). Collection never writes word spaces or earns rewards. These optional
 objects do not alter level entities, totals or physics.
 
-Finishing Timbers marks trail completion and opens Build TREE. The target TREE
-appears above four empty spaces; a deterministic E/R/T/E pile includes only
-collected, unplaced identities. Each E remains separate. Drag a tile into a
-matching space, or select a letter and then a space with Tab + Enter/Space or
+Finishing any of the six trails marks completion and opens Build plus its word.
+The target appears above four spaces; a deterministic pile ordered by original
+slots 4, 2, 1, 3 includes only collected, unplaced identities. Repeated Es and Ls
+remain separate. Native labels number repeated letters 1 and 2. Drag a tile into
+a matching space, or select a letter and then a space with Tab + Enter/Space or
 left/right + standard face button. Native buttons mirror canvas targets and
 report selection/placement through accessible labels and the status region.
 Wrong/occupied/outside drops leave letters safe; cancelled drags and switching
 input methods cannot commit a placement. Correct spaces persist forgivingly.
-Only manual TREE completion earns the once-session tree sticker.
+Only manual completion earns the trail sticker once per session: a hill, rock,
+accepted tree, beams, snowflake or sandcastle. Shapes are code-native and do not
+add asset requests; further artwork is deferred to #194.
 
 Find more letters appears while any pickup is missing. It closes the activity
 and places Henry 28px before finish, with zero velocity and grounded feet, while
 retaining the identical `RunState`, all progress and completion result. No level
 load/restart or missing-letter teleport occurs. The finish latch stays disarmed
 until Henry moves at least 70px before finish, then a fresh crossing opens the
-activity. Input-driven simulation coverage retraces every reverse spring to all
-four letters without recovery, then returns to finish. Leave activity or
+activity. Input-driven simulation coverage retraces the actual terrain of all
+six trails, including reverse pit-edge jumps, springs and platform areas, to all
+four missed letters without recovery, then returns to finish. No position writes
+occur after the initial finish fixture. Leave activity or
 Escape/Start exposes the ordinary finish choices; the activity is optional.
 
 The overworld STICKERS button, E or standard D-pad Up (button 12) opens the
-single-tree-sticker collection. Its only native target is Return to map, selected
+six-sticker collection in a three-column, two-row grid. Each trail shows its own
+earned status or partial word, and accessible text describes all six statuses.
+Its only native target is Return to map, selected
 and focused on entry. Pointer, Tab/Enter/Space and standard face-button access
 remain. Escape, Start, E or D-pad Up also closes it. Held confirmation must be
 released before controller confirmation. Normal pause, Return to Trails and
