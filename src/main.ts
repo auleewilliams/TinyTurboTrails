@@ -163,6 +163,9 @@ if (!context) {
     const nextEducationRevision = educationScene()?.educationOverlay.revision ?? 0;
     if (nextEducationRevision !== educationRevision) {
       // Pointer and polled entry share this boundary, before any opening-frame step.
+      // A finish activity may open inside advance and close before this frame.
+      // Force a suspension boundary even when the final overlay state is closed.
+      clock.setPaused(true);
       clearGameplayInput(); controls = input.poll(); educationRevision = nextEducationRevision; refreshPause();
     }
     if (focused && !userPaused && !educationOpen) { pendingJump ||= controls.jumpPressed; pendingStory ||= controls.storyPressed ?? false; }
