@@ -146,8 +146,12 @@ it('shows all six independent sticker statuses on the map without changing trail
   expect(scene.selectedLevelName).toBe(LEVELS[0].name);
 });
 
-it.each(LEVELS.map((level, index) => ({ level, index })))('$level.id retraces the real terrain from finish to every missed letter and re-enters using simulation input only', ({ level, index }) => {
+it.each([...LEVELS.map((level, index) => ({ level, index, crumbled: false })), { level: LEVELS[1], index: 1, crumbled: true }])('$level.id retraces the real terrain from finish to every missed letter and re-enters using simulation input only (crumbled: $crumbled)', ({ level, index, crumbled }) => {
   const { scene, live } = adventure(index);
+  // A completed outward run may already have used every optional crumbling ledge.
+  if (crumbled) for (const state of live.run.entities) {
+    if (level.entities.some(entity => entity.id === state.id && entity.kind === 'crumbling-ledge')) Object.assign(state, { ledgePhase: 'crumbled', ledgeSeconds: 0 });
+  }
   // The sole position fixture is the initial finish. All later movement is ordinary input.
   live.player.x = level.finish.x;
   scene.update(1 / 60, neutral);

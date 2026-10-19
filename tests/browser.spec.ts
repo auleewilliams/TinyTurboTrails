@@ -3313,7 +3313,7 @@ async function installRetracePilot(page: Page, level: typeof PLAINS_LEVEL): Prom
   await page.addInitScript(level => {
     const pilot = { direction: 0, stopAt: 0, targets: [] as number[], triggered: [] as number[],
       collectAt: [] as number[], expectedCount: 0, jumping: false, jumpUntil: 0, lastX: 0,
-      recoveries: [] as string[], stopped: false };
+      recoveries: [] as string[], stopped: false, history: [] as { x: number; y: number; jump: boolean; direction: number }[], recoveryHistory: [] as unknown[] };
     Object.assign(window, { retracePilot: pilot });
     // Observe actual sprite draws, so patrol timing and squashed slimes need no scene hooks.
     let drawnSlimes: number[] = [], henryX = 0;
@@ -3336,8 +3336,11 @@ async function installRetracePilot(page: Page, level: typeof PLAINS_LEVEL): Prom
     };
     const key = (code: string, down: boolean): void => { window.dispatchEvent(new KeyboardEvent(down ? 'keydown' : 'keyup', { code })); };
     const raf = requestAnimationFrame.bind(window);
-    let previous: number | undefined, time = 0;
+    let time = 0, observedFrame = -1;
     window.requestAnimationFrame = callback => raf(now => {
+      // Test waits may also request RAF: sample input/time once per physical frame.
+      if (now === observedFrame) { callback(time); return; }
+      observedFrame = now;
       const status = document.querySelector('#status')?.textContent ?? '';
       const x = Number(status.match(/X (\d+)/)?.[1] ?? 0);
       const y = Number(status.match(/Y (-?\d+)/)?.[1] ?? 0);
@@ -3346,7 +3349,7 @@ async function installRetracePilot(page: Page, level: typeof PLAINS_LEVEL): Prom
       if (status.includes('Finish')) pilot.direction = 0;
       let horizontal = 0, jump = false;
       if (pilot.direction && status.includes('Playing')) {
-        if ((x - pilot.lastX) * pilot.direction < -100) pilot.recoveries.push(status);
+        if ((x - pilot.lastX) * pilot.direction < -100) { pilot.recoveries.push(status); pilot.recoveryHistory.push([...pilot.history, { x, y, jump: false, direction: pilot.direction }]); }
         pilot.lastX = x;
         const direction = pilot.direction;
         if (pilot.collectAt.length && count >= pilot.expectedCount) { pilot.collectAt.shift(); pilot.expectedCount++; }
@@ -3358,22 +3361,31 @@ async function installRetracePilot(page: Page, level: typeof PLAINS_LEVEL): Prom
         // Reverse pits have no spring on the far bank: jump before the drop.
         const onGround = Math.abs(y + 34 - ground(x)) < 4;
         const nearSlime = drawnSlimes.some(sx => (sx - henryX) * direction > -18 && (sx - henryX) * direction < 65);
-        if (onGround && (nearSlime || (direction < 0 && (ground(x - 50) > ground(x) + 60 || ground(x - 50) < ground(x) - 28)))) {
-          key('Space', false); pilot.jumping = false; pilot.jumpUntil = time + 400;
+        const drop = direction < 0 && ground(x - 50) > ground(x) + 60;
+        const rise = direction < 0 ? ground(x) - ground(x - 50) : 0;
+        if (onGround && (nearSlime || drop || rise > 28)) {
+          key('Space', false); pilot.jumping = false;
+          // A short hop out of an already-crumbled 36px recess leaves room for
+          // the separate pit jump. A held rise jump overshoots the safe bank.
+          pilot.jumpUntil = time + (!nearSlime && !drop && rise < 45 ? 100 : 400);
         }
         jump = time < pilot.jumpUntil;
         if (pilot.stopAt && (x - pilot.stopAt) * direction >= 0 && pilot.collectAt.length === 0) {
           pilot.direction = 0; horizontal = 0; jump = false; pilot.stopped = true;
         }
       }
+      pilot.history.push({ x, y, jump, direction: pilot.direction });
+      if (pilot.history.length > 45) pilot.history.shift();
       key('ArrowRight', horizontal > 0); key('ArrowLeft', horizontal < 0);
       if (jump !== pilot.jumping) key('Space', jump);
       pilot.jumping = jump;
-      // Sample reverse pit-bank jumps at normal frame cadence, like the star pilot.
+      // Sample nearby actors and reverse pit banks at normal cadence, like the star pilot.
       const nearPit = level.surfaces.some(part => Math.max(part.y1, part.y2) > level.height + 50 && x > part.x1 - 120 && x < part.x2 + 120);
-      const speed = status.includes('Playing') && !(pilot.direction < 0 && nearPit) ? 6 : 1;
-      time += previous === undefined ? 0 : Math.min(now - previous, 32) * speed;
-      previous = now; callback(time);
+      const nearActor = drawnSlimes.some(sx => Math.abs(sx - henryX) < 100);
+      const speed = status.includes('Playing') && !nearActor && !(pilot.direction < 0 && nearPit) ? 6 : 1;
+      // Whole fixed steps make the observed-input cadence deterministic across engines.
+      time += 1000 / 60 * speed;
+      callback(time);
     });
   }, level);
 }
@@ -3487,12 +3499,17 @@ for (const [index, level] of LEVELS.entries()) {
     await page.getByRole('button', { name: `Play ${level.name}`, exact: true }).click();
     await expect(page.locator('#status')).toContainText('Letter bag: 4/4');
     const recoveries = await page.evaluate(() => (window as unknown as { retracePilot: { recoveries: string[] } }).retracePilot.recoveries);
+    const recoveryPath = info.outputPath('recovery-history.json');
+    await writeFile(recoveryPath, JSON.stringify(await page.evaluate(() => (window as unknown as { retracePilot: { recoveryHistory: unknown[] } }).retracePilot.recoveryHistory), null, 2));
+    await info.attach('recovery-history', { path: recoveryPath, contentType: 'application/json' });
     expect(recoveries).toEqual([]);
     await reloadAndDismiss(page);
     await page.getByRole('button', { name: level.name, exact: true }).click();
     await page.getByRole('button', { name: `Play ${level.name}`, exact: true }).click();
     await expect(page.locator('#status')).toContainText('Letter bag: 0/4');
     expect(errors).toEqual([]);
-    await info.attach('route-result', { body: JSON.stringify({ initialStatus, collectedStatus, method, recoveries, errors }), contentType: 'application/json' });
+    const resultPath = info.outputPath('route-result.json');
+    await writeFile(resultPath, JSON.stringify({ initialStatus, collectedStatus, method, recoveries, errors }, null, 2));
+    await info.attach('route-result', { path: resultPath, contentType: 'application/json' });
   });
 }
