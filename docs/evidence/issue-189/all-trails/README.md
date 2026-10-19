@@ -128,10 +128,14 @@ state/route suite passes 22/22 (`handoff-focused.log`). Viewport resizing across
 large/native/small sizes and normal finish celebration/pause/focus navigation
 pass 6/6 across all engines (`browser-finish-layout.log`).
 
-Final independent review and exact-head GitHub CI (including the full browser
-suite and container/production smoke) are delegated to the orchestrator.
-The complete suite catalog contains 336 browser cases; it was not run locally
-as a final CI substitute. Historical baseline CI is not expansion CI.
+Independent read-only review of final code/test head
+`1240c31d16a6a97664afc6b07e43c550eae406c5` passed with no security, logic or
+suggestion findings; it independently ran 157 focused tests and typecheck.
+[Review JSON](independent-review.json). The final documentation/evidence head
+has the identical source/test tree. Exact-head GitHub CI (including the full
+browser suite and container/production smoke) is recorded in PR #190 after
+completion. The complete suite catalog contains 336 browser cases; it was not
+run locally as a final CI substitute. Historical baseline CI is not expansion CI.
 
 Automated standard Gamepad API checks do not establish physical-controller
 comfort, child comprehension, reading comfort or enjoyment. Those acceptance
@@ -141,10 +145,14 @@ steps remain owner-led. No merge, deployment or issue closure is performed.
 
 The native game canvas is 426×240 within a 426×300 screenshot; small captures use
 a 320×240 viewport. Primary trail images are Chromium. Complete per-trail,
-per-engine capture sets remain in the external `browser-final-fixed/` output.
-Actual small earned images for all six trails and representative native/collection
-images were inspected during implementation. Orchestrator image inspection is
-part of the independent final review.
+per-engine final capture sets remain in external `browser-native-matrix/`, with
+passing WebKit Plains/Quarry captures in `browser-native-serial/`.
+The orchestrator inspected actual native/small partial assembly, earned sticker,
+six-sticker collection and same-finish return images for all six trails in all
+three engines. No clipping or overlapping controls were observed. Guides and
+partial slots match the approved words; six themed reward silhouettes and
+independent earned statuses are visible. Pixel-small instructions/grid text at
+320px still require owner/child readability acceptance.
 
 | Trail | Partial assembly | Earned sticker |
 | --- | --- | --- |
