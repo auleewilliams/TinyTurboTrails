@@ -1,0 +1,516 @@
+{
+  "baseline": "bee0f7d402395af8d9ed7a4693e6739d9f905607",
+  "runtimeBundle": {
+    "file": "index-Dt-S-TjL.js",
+    "sha256": "478d6d9f2585af9b848bab1aa04079d47d35d5dc784f0846c3404212af1ba12f"
+  },
+  "unit": {
+    "files": 51,
+    "passed": 870
+  },
+  "typecheck": "passed",
+  "build": "passed",
+  "scriptTests": {
+    "passed": 8
+  },
+  "focusedAssetChecks": [
+    {
+      "engine": "chromium",
+      "title": "shared spelling/pouch atlas failure is recoverable through retry",
+      "status": "expected"
+    },
+    {
+      "engine": "chromium",
+      "title": "shared spelling/tile atlas failure is recoverable through retry",
+      "status": "expected"
+    },
+    {
+      "engine": "chromium",
+      "title": "shared spelling/sunset-sticker atlas failure is recoverable through retry",
+      "status": "expected"
+    },
+    {
+      "engine": "chromium",
+      "title": "spelling artwork rejects wrong dimensions and recovers through retry",
+      "status": "expected"
+    },
+    {
+      "engine": "chromium",
+      "title": "approved spelling sprites have native sizes, real transparency and clear cell borders",
+      "status": "expected"
+    },
+    {
+      "engine": "chromium",
+      "title": "builder-kit reduced-motion pickup stays beside its pouch at native and small viewports",
+      "status": "expected"
+    },
+    {
+      "engine": "firefox",
+      "title": "shared spelling/pouch atlas failure is recoverable through retry",
+      "status": "expected"
+    },
+    {
+      "engine": "firefox",
+      "title": "shared spelling/tile atlas failure is recoverable through retry",
+      "status": "expected"
+    },
+    {
+      "engine": "firefox",
+      "title": "shared spelling/sunset-sticker atlas failure is recoverable through retry",
+      "status": "expected"
+    },
+    {
+      "engine": "firefox",
+      "title": "spelling artwork rejects wrong dimensions and recovers through retry",
+      "status": "expected"
+    },
+    {
+      "engine": "firefox",
+      "title": "approved spelling sprites have native sizes, real transparency and clear cell borders",
+      "status": "expected"
+    },
+    {
+      "engine": "firefox",
+      "title": "builder-kit reduced-motion pickup stays beside its pouch at native and small viewports",
+      "status": "expected"
+    },
+    {
+      "engine": "webkit",
+      "title": "shared spelling/pouch atlas failure is recoverable through retry",
+      "status": "expected"
+    },
+    {
+      "engine": "webkit",
+      "title": "shared spelling/tile atlas failure is recoverable through retry",
+      "status": "expected"
+    },
+    {
+      "engine": "webkit",
+      "title": "shared spelling/sunset-sticker atlas failure is recoverable through retry",
+      "status": "expected"
+    },
+    {
+      "engine": "webkit",
+      "title": "spelling artwork rejects wrong dimensions and recovers through retry",
+      "status": "expected"
+    },
+    {
+      "engine": "webkit",
+      "title": "approved spelling sprites have native sizes, real transparency and clear cell borders",
+      "status": "expected"
+    },
+    {
+      "engine": "webkit",
+      "title": "builder-kit reduced-motion pickup stays beside its pouch at native and small viewports",
+      "status": "expected"
+    }
+  ],
+  "browserRuns": [
+    {
+      "id": "broad-initial",
+      "baseline": false,
+      "report": "/private/tmp/ttt-194-browser-full.json",
+      "stats": {
+        "startTime": "2026-10-19T08:38:24.289Z",
+        "duration": 1718245.62,
+        "expected": 341,
+        "skipped": 0,
+        "unexpected": 13,
+        "flaky": 0
+      },
+      "cases": [
+        {
+          "engine": "firefox",
+          "title": "picture story supports keyboard, pointer and controller without timed pages or repeated retries",
+          "status": "unexpected",
+          "error": "Error: expect(locator).toHaveAttribute(expected) failed\n\nLocator:  getByRole('button', { name: 'Next picture' })\nExpected: \"true\"\nReceived: \"false\"\nTimeout:  5000ms\n\nCall log:\n  - Expect \"toHaveAttribute\" getByRole('button', { name: 'Next picture' }) with timeout 5000ms\n  - waiting for getByRole('button', { name: 'Next picture' })\n    14 \u00d7 locator resolved to <button type=\"button\" aria-pressed=\"false\" aria-label=\"Next picture\"></button>\n       - unexpected value \"false\"\n"
+        },
+        {
+          "engine": "firefox",
+          "title": "all-trail spelling plains: input-only missing-letter retrace, manual assembly and session sticker",
+          "status": "unexpected",
+          "error": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: 0.3\nReceived: 0.30000001192092896"
+        },
+        {
+          "engine": "firefox",
+          "title": "all-trail spelling quarry: input-only missing-letter retrace, manual assembly and session sticker",
+          "status": "unexpected",
+          "error": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: 0.3\nReceived: 0.30000001192092896"
+        },
+        {
+          "engine": "firefox",
+          "title": "all-trail spelling timbers: input-only missing-letter retrace, manual assembly and session sticker",
+          "status": "unexpected",
+          "error": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: 0.3\nReceived: 0.30000001192092896"
+        },
+        {
+          "engine": "firefox",
+          "title": "all-trail spelling frost: input-only missing-letter retrace, manual assembly and session sticker",
+          "status": "unexpected",
+          "error": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: 0.3\nReceived: 0.30000001192092896"
+        },
+        {
+          "engine": "firefox",
+          "title": "all-trail spelling cove: input-only missing-letter retrace, manual assembly and session sticker",
+          "status": "unexpected",
+          "error": "Error: expect(received).toBe(expected) // Object.is equality\n\nExpected: 0.3\nReceived: 0.30000001192092896"
+        },
+        {
+          "engine": "webkit",
+          "title": "adventure can complete the forgiving route and replay directly with a fresh camera",
+          "status": "unexpected",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('#status')\nExpected substring: \"Adventure preview \u00b7 Playing\"\nReceived string:    \"Adventure preview \u00b7 Finish \u00b7 Gems 34/45 \u00b7 X 9881 Y 132 V 220 F 1 \u00b7 Escape to pause \u00b7 M to mute\"\nTimeout: 15000ms\n\nCall log:\n  - Expect \"toContainText\" locator('#status') with timeout 15000ms\n  - waiting for locator('#status')\n    34 \u00d7 locator resolved to <p id=\"status\" role=\"status\">Adventure preview \u00b7 Finish \u00b7 Gems 34/45 \u00b7 X 9881 \u2026</p>\n       - unexpected value \"Adventure preview \u00b7 Finish \u00b7 Gems 34/45 \u00b7 X 9881 Y 132 V 220 F 1 \u00b7 Escape to pause \u00b7 M to mute\"\n"
+        },
+        {
+          "engine": "webkit",
+          "title": "pause return works through pointer, Tab, Enter and focused Space, and cancels on focus loss",
+          "status": "unexpected",
+          "error": "Error: expect(locator).toBeFocused() failed\n\nLocator: getByRole('button', { name: 'Return to Trails', exact: true })\nExpected: focused\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeFocused\" getByRole('button', { name: 'Return to Trails', exact: true }) with timeout 5000ms\n  - waiting for getByRole('button', { name: 'Return to Trails', exact: true })\n    2 \u00d7 locator resolved to <button type=\"button\" aria-pressed=\"false\" aria-label=\"Return to Trails\" aria-description=\"T for Trails. Confirm before leaving this run.\"></button>\n      - unexpected value \"inactive\"\n"
+        },
+        {
+          "engine": "webkit",
+          "title": "educational manual assembly keyboard places actual letters and earns only after TREE",
+          "status": "unexpected",
+          "error": "Test timeout of 30000ms exceeded."
+        },
+        {
+          "engine": "webkit",
+          "title": "all-trail spelling plains: input-only missing-letter retrace, manual assembly and session sticker",
+          "status": "unexpected",
+          "error": "Error: expect(locator).toBeVisible() failed\n\nLocator: getByRole('dialog', { name: 'Build HILL', exact: true })\nExpected: visible\nTimeout: 35000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" getByRole('dialog', { name: 'Build HILL', exact: true }) with timeout 35000ms\n  - waiting for getByRole('dialog', { name: 'Build HILL', exact: true })\n"
+        },
+        {
+          "engine": "webkit",
+          "title": "all-trail spelling quarry: input-only missing-letter retrace, manual assembly and session sticker",
+          "status": "unexpected",
+          "error": "TimeoutError: page.waitForFunction: Timeout 35000ms exceeded."
+        },
+        {
+          "engine": "webkit",
+          "title": "all-trail spelling sunset: input-only missing-letter retrace, manual assembly and session sticker",
+          "status": "unexpected",
+          "error": "TimeoutError: page.waitForFunction: Timeout 35000ms exceeded."
+        },
+        {
+          "engine": "webkit",
+          "title": "all-trail spelling frost: input-only missing-letter retrace, manual assembly and session sticker",
+          "status": "unexpected",
+          "error": "Test timeout of 120000ms exceeded."
+        }
+      ]
+    },
+    {
+      "id": "corrected-live-trails-chromium-firefox",
+      "baseline": false,
+      "report": "/private/tmp/ttt-194-browser-routes-cf.json",
+      "stats": {
+        "startTime": "2026-10-19T09:08:23.665Z",
+        "duration": 211587.895,
+        "expected": 12,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "cases": [
+        {
+          "engine": "chromium",
+          "title": "all-trail spelling plains: input-only missing-letter retrace, manual assembly and session sticker",
+          "status": "expected"
+        },
+        {
+          "engine": "chromium",
+          "title": "all-trail spelling quarry: input-only missing-letter retrace, manual assembly and session sticker",
+          "status": "expected"
+        },
+        {
+          "engine": "chromium",
+          "title": "all-trail spelling timbers: input-only missing-letter retrace, manual assembly and session sticker",
+          "status": "expected"
+        },
+        {
+          "engine": "chromium",
+          "title": "all-trail spelling sunset: input-only missing-letter retrace, manual assembly and session sticker",
+          "status": "expected"
+        },
+        {
+          "engine": "chromium",
+          "title": "all-trail spelling frost: input-only missing-letter retrace, manual assembly and session sticker",
+          "status": "expected"
+        },
+        {
+          "engine": "chromium",
+          "title": "all-trail spelling cove: input-only missing-letter retrace, manual assembly and session sticker",
+          "status": "expected"
+        },
+        {
+          "engine": "firefox",
+          "title": "all-trail spelling plains: input-only missing-letter retrace, manual assembly and session sticker",
+          "status": "expected"
+        },
+        {
+          "engine": "firefox",
+          "title": "all-trail spelling quarry: input-only missing-letter retrace, manual assembly and session sticker",
+          "status": "expected"
+        },
+        {
+          "engine": "firefox",
+          "title": "all-trail spelling timbers: input-only missing-letter retrace, manual assembly and session sticker",
+          "status": "expected"
+        },
+        {
+          "engine": "firefox",
+          "title": "all-trail spelling sunset: input-only missing-letter retrace, manual assembly and session sticker",
+          "status": "expected"
+        },
+        {
+          "engine": "firefox",
+          "title": "all-trail spelling frost: input-only missing-letter retrace, manual assembly and session sticker",
+          "status": "expected"
+        },
+        {
+          "engine": "firefox",
+          "title": "all-trail spelling cove: input-only missing-letter retrace, manual assembly and session sticker",
+          "status": "expected"
+        }
+      ]
+    },
+    {
+      "id": "webkit-serial",
+      "baseline": false,
+      "report": "/private/tmp/ttt-194-browser-webkit-serial.json",
+      "stats": {
+        "startTime": "2026-10-19T09:12:29.250Z",
+        "duration": 648307.626,
+        "expected": 2,
+        "skipped": 0,
+        "unexpected": 7,
+        "flaky": 0
+      },
+      "cases": [
+        {
+          "engine": "webkit",
+          "title": "adventure can complete the forgiving route and replay directly with a fresh camera",
+          "status": "expected"
+        },
+        {
+          "engine": "webkit",
+          "title": "pause return works through pointer, Tab, Enter and focused Space, and cancels on focus loss",
+          "status": "unexpected",
+          "error": "Error: expect(locator).toBeFocused() failed\n\nLocator: getByRole('button', { name: 'Return to Trails', exact: true })\nExpected: focused\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeFocused\" getByRole('button', { name: 'Return to Trails', exact: true }) with timeout 5000ms\n  - waiting for getByRole('button', { name: 'Return to Trails', exact: true })\n    - locator resolved to <button type=\"button\" aria-pressed=\"false\" aria-label=\"Return to Trails\" aria-description=\"T for Trails. Confirm before leaving this run.\"></button>\n    - unexpected value \"inactive\"\n"
+        },
+        {
+          "engine": "webkit",
+          "title": "educational manual assembly keyboard places actual letters and earns only after TREE",
+          "status": "unexpected",
+          "error": "Test timeout of 30000ms exceeded."
+        },
+        {
+          "engine": "webkit",
+          "title": "all-trail spelling plains: input-only missing-letter retrace, manual assembly and session sticker",
+          "status": "unexpected",
+          "error": "Error: expect(locator).toBeVisible() failed\n\nLocator: getByRole('dialog', { name: 'Build HILL', exact: true })\nExpected: visible\nTimeout: 35000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" getByRole('dialog', { name: 'Build HILL', exact: true }) with timeout 35000ms\n  - waiting for getByRole('dialog', { name: 'Build HILL', exact: true })\n"
+        },
+        {
+          "engine": "webkit",
+          "title": "all-trail spelling quarry: input-only missing-letter retrace, manual assembly and session sticker",
+          "status": "unexpected",
+          "error": "TimeoutError: page.waitForFunction: Timeout 35000ms exceeded."
+        },
+        {
+          "engine": "webkit",
+          "title": "all-trail spelling timbers: input-only missing-letter retrace, manual assembly and session sticker",
+          "status": "expected"
+        },
+        {
+          "engine": "webkit",
+          "title": "all-trail spelling sunset: input-only missing-letter retrace, manual assembly and session sticker",
+          "status": "unexpected",
+          "error": "TimeoutError: page.waitForFunction: Timeout 35000ms exceeded."
+        },
+        {
+          "engine": "webkit",
+          "title": "all-trail spelling frost: input-only missing-letter retrace, manual assembly and session sticker",
+          "status": "unexpected",
+          "error": "Test timeout of 120000ms exceeded."
+        },
+        {
+          "engine": "webkit",
+          "title": "all-trail spelling cove: input-only missing-letter retrace, manual assembly and session sticker",
+          "status": "unexpected",
+          "error": "Test timeout of 120000ms exceeded."
+        }
+      ]
+    },
+    {
+      "id": "baseline-comparison",
+      "baseline": true,
+      "report": "/private/tmp/ttt-194-baseline-diagnostic.json",
+      "stats": {
+        "startTime": "2026-10-19T09:08:20.283Z",
+        "duration": 165617.13,
+        "expected": 5,
+        "skipped": 0,
+        "unexpected": 3,
+        "flaky": 0
+      },
+      "cases": [
+        {
+          "engine": "firefox",
+          "title": "adventure can complete the forgiving route and replay directly with a fresh camera",
+          "status": "expected"
+        },
+        {
+          "engine": "firefox",
+          "title": "pause return works through pointer, Tab, Enter and focused Space, and cancels on focus loss",
+          "status": "expected"
+        },
+        {
+          "engine": "firefox",
+          "title": "picture story supports keyboard, pointer and controller without timed pages or repeated retries",
+          "status": "expected"
+        },
+        {
+          "engine": "firefox",
+          "title": "educational manual assembly keyboard places actual letters and earns only after TREE",
+          "status": "expected"
+        },
+        {
+          "engine": "webkit",
+          "title": "adventure can complete the forgiving route and replay directly with a fresh camera",
+          "status": "unexpected",
+          "error": "Error: expect(locator).toContainText(expected) failed\n\nLocator: locator('#status')\nExpected substring: \"Adventure preview \u00b7 Playing\"\nReceived string:    \"Adventure preview \u00b7 Finish \u00b7 Gems 34/45 \u00b7 X 9883 Y 132 V 220 F 1 \u00b7 Escape to pause \u00b7 M to mute\"\nTimeout: 15000ms\n\nCall log:\n  - Expect \"toContainText\" locator('#status') with timeout 15000ms\n  - waiting for locator('#status')\n    34 \u00d7 locator resolved to <p id=\"status\" role=\"status\">Adventure preview \u00b7 Finish \u00b7 Gems 34/45 \u00b7 X 9883 \u2026</p>\n       - unexpected value \"Adventure preview \u00b7 Finish \u00b7 Gems 34/45 \u00b7 X 9883 Y 132 V 220 F 1 \u00b7 Escape to pause \u00b7 M to mute\"\n"
+        },
+        {
+          "engine": "webkit",
+          "title": "pause return works through pointer, Tab, Enter and focused Space, and cancels on focus loss",
+          "status": "unexpected",
+          "error": "Error: expect(locator).toBeFocused() failed\n\nLocator: getByRole('button', { name: 'Return to Trails', exact: true })\nExpected: focused\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeFocused\" getByRole('button', { name: 'Return to Trails', exact: true }) with timeout 5000ms\n  - waiting for getByRole('button', { name: 'Return to Trails', exact: true })\n    - locator resolved to <button type=\"button\" aria-pressed=\"false\" aria-label=\"Return to Trails\" aria-description=\"T for Trails. Confirm before leaving this run.\"></button>\n    - unexpected value \"inactive\"\n"
+        },
+        {
+          "engine": "webkit",
+          "title": "picture story supports keyboard, pointer and controller without timed pages or repeated retries",
+          "status": "expected"
+        },
+        {
+          "engine": "webkit",
+          "title": "educational manual assembly keyboard places actual letters and earns only after TREE",
+          "status": "unexpected",
+          "error": "Test timeout of 30000ms exceeded."
+        }
+      ]
+    },
+    {
+      "id": "baseline-webkit-normal-environment",
+      "baseline": true,
+      "report": "/private/tmp/ttt-194-baseline-webkit-normal.json",
+      "stats": {
+        "startTime": "2026-10-19T09:15:59.988Z",
+        "duration": 38243.501,
+        "expected": 0,
+        "skipped": 0,
+        "unexpected": 2,
+        "flaky": 0
+      },
+      "cases": [
+        {
+          "engine": "webkit",
+          "title": "pause return works through pointer, Tab, Enter and focused Space, and cancels on focus loss",
+          "status": "unexpected",
+          "error": "Error: expect(locator).toBeFocused() failed\n\nLocator: getByRole('button', { name: 'Return to Trails', exact: true })\nExpected: focused\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeFocused\" getByRole('button', { name: 'Return to Trails', exact: true }) with timeout 5000ms\n  - waiting for getByRole('button', { name: 'Return to Trails', exact: true })\n    - locator resolved to <button type=\"button\" aria-pressed=\"false\" aria-label=\"Return to Trails\" aria-description=\"T for Trails. Confirm before leaving this run.\"></button>\n    - unexpected value \"inactive\"\n"
+        },
+        {
+          "engine": "webkit",
+          "title": "educational manual assembly keyboard places actual letters and earns only after TREE",
+          "status": "unexpected",
+          "error": "Test timeout of 30000ms exceeded."
+        }
+      ]
+    },
+    {
+      "id": "baseline-sunset",
+      "baseline": true,
+      "report": "/private/tmp/ttt-194-baseline-sunset.json",
+      "stats": {
+        "startTime": "2026-10-19T09:56:07.954Z",
+        "duration": 66469.188,
+        "expected": 0,
+        "skipped": 0,
+        "unexpected": 1,
+        "flaky": 0
+      },
+      "cases": [
+        {
+          "engine": "webkit",
+          "title": "all-trail spelling sunset: input-only missing-letter retrace, manual assembly and session sticker",
+          "status": "unexpected",
+          "error": "TimeoutError: page.waitForFunction: Timeout 35000ms exceeded."
+        }
+      ]
+    },
+    {
+      "id": "firefox-story-head",
+      "baseline": false,
+      "report": "/private/tmp/ttt-194-story-head.json",
+      "stats": {
+        "startTime": "2026-10-19T09:12:43.318Z",
+        "duration": 3547.703,
+        "expected": 1,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "cases": [
+        {
+          "engine": "firefox",
+          "title": "picture story supports keyboard, pointer and controller without timed pages or repeated retries",
+          "status": "expected"
+        }
+      ]
+    },
+    {
+      "id": "visual-chromium-webkit",
+      "baseline": false,
+      "report": "/private/tmp/ttt-194-browser-visual.json",
+      "stats": {
+        "startTime": "2026-10-19T09:54:09.026Z",
+        "duration": 8474.546999999999,
+        "expected": 2,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "cases": [
+        {
+          "engine": "chromium",
+          "title": "builder-kit visual fixture renders all six words and the approved sticker at native and small sizes",
+          "status": "expected"
+        },
+        {
+          "engine": "webkit",
+          "title": "builder-kit visual fixture renders all six words and the approved sticker at native and small sizes",
+          "status": "expected"
+        }
+      ]
+    },
+    {
+      "id": "visual-firefox",
+      "baseline": false,
+      "report": "/private/tmp/ttt-194-browser-visual-firefox.json",
+      "stats": {
+        "startTime": "2026-10-19T09:56:06.615Z",
+        "duration": 4437.610000000001,
+        "expected": 1,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "cases": [
+        {
+          "engine": "firefox",
+          "title": "builder-kit visual fixture renders all six words and the approved sticker at native and small sizes",
+          "status": "expected"
+        }
+      ]
+    }
+  ]
+}

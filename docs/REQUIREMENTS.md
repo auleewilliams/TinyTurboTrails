@@ -276,6 +276,9 @@ The overworld's accessible collection shows all six trail stickers, via keyboard
 pointer and standard controller. Preserve focus safety, held-input guards and
 normal pause/navigation. Retain all-six-trail finish grounding and the interim
 harmless/pass-through static props (#191), without added markings or altered
-slime damage/squash behaviour. Current code-native visuals are accepted for V1;
-generated image/sprite polish is deferred to #194. No merge or deployment is
+slime damage/squash behaviour. The owner-approved builder-kit pouch and wooden
+letter tiles are shared across all six trails; Sunset uses the approved hard-hat
+and beam sticker. Letters remain separately rendered, with clear focus/held
+markers. Other trail stickers and broader assembly artwork remain in #194.
+No merge or deployment is
 authorised; owner/child and physical-controller acceptance remain manual.
