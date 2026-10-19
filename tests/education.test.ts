@@ -6,39 +6,40 @@ import { LEVELS, TREETOP_TIMBERS } from '../src/world/levels';
 import { surfaceY, type Player } from '../src/game/movement';
 import { damagePlayer, recoverFromFall, type RunState } from '../src/game/interactions';
 
-it('matches TREE in any order by stable identity, including two separate Es', () => {
+it('bags every independent pickup without automatically assembling or earning a sticker', () => {
   const session = new EducationSession();
-  const [t, r, e1, e2] = LETTER_PICKUPS;
-  expect(session.wordProgress).toBe('_ _ _ _');
-  expect(session.collect(e2.id)).toBe(true);
-  expect(session.wordProgress).toBe('_ _ E _');
-  expect(session.collect(e2.id)).toBe(false);
-  expect(session.collect('unknown')).toBe(false);
-  expect(session.collect(r.id)).toBe(true);
-  expect(session.collect(e1.id)).toBe(true);
-  expect(session.wordProgress).toBe('_ R E E');
+  for (const pickup of [...LETTER_PICKUPS].reverse()) {
+    expect(session.collect(pickup.id)).toBe(true);
+    expect(session.wordProgress).toBe('_ _ _ _');
+    expect(session.hasWordSticker).toBe(false);
+  }
   expect(session.stickers).toEqual([]);
-  expect(session.collect(t.id)).toBe(true);
-  expect(session.wordProgress).toBe('T R E E');
-  expect(session.stickers).toEqual(['Timbers TREE']);
-  for (const letter of LETTER_PICKUPS) expect(session.collect(letter.id)).toBe(false);
-  expect(session.stickers).toHaveLength(1);
-  expect(new EducationSession().wordProgress).toBe('_ _ _ _');
+  for (const pickup of LETTER_PICKUPS) expect(session.collect(pickup.id)).toBe(false);
+  expect(session.collect('unknown')).toBe(false);
 });
 
-it('supports every pickup permutation and fills exactly one matching slot per pickup', () => {
-  function permutations(ids: string[]): string[][] {
-    return ids.length === 0 ? [[]] : ids.flatMap(id => permutations(ids.filter(other => other !== id)).map(rest => [id, ...rest]));
-  }
-  for (const order of permutations(LETTER_PICKUPS.map(letter => letter.id))) {
-    const session = new EducationSession();
-    order.forEach((id, index) => {
-      session.collect(id);
-      expect(session.wordProgress.split(' ').filter(letter => letter !== '_')).toHaveLength(index + 1);
-    });
-    expect(session.wordProgress).toBe('T R E E');
-    expect(session.stickers).toEqual(['Timbers TREE']);
-  }
+it('manually places only collected matching identities, with independent Es and forgiving rollback', () => {
+  const session = new EducationSession();
+  const [t, r, e1, e2] = LETTER_PICKUPS;
+  expect(session.place(t.id, 0)).toBe(false);
+  for (const pickup of LETTER_PICKUPS) session.collect(pickup.id);
+  expect(session.pile.map(pickup => pickup.id).sort()).toEqual(LETTER_PICKUPS.map(pickup => pickup.id).sort());
+  expect(session.pile.map(pickup => pickup.letter).join('')).not.toBe('TREE');
+  expect(session.place(e2.id, 0)).toBe(false);
+  expect(session.place(t.id, -1)).toBe(false);
+  expect(session.place(t.id, 4)).toBe(false);
+  expect(session.place(t.id, 0)).toBe(true);
+  expect(session.place(r.id, 1)).toBe(true);
+  expect(session.place(e2.id, 2)).toBe(true);
+  expect(session.place(e2.id, 3)).toBe(false);
+  expect(session.wordProgress).toBe('T R E _');
+  expect(session.stickers).toEqual([]);
+  expect(session.place(e1.id, 3)).toBe(true);
+  expect(session.wordProgress).toBe('T R E E');
+  expect(session.stickers).toEqual(['Timbers TREE']);
+  expect(session.place(e1.id, 3)).toBe(false);
+  expect(session.pile).toEqual([]);
+  expect(session.stickers).toHaveLength(1);
 });
 
 const neutral = { horizontal: 0, jumpHeld: false, jumpPressed: false, pausePressed: false, mutePressed: false };
@@ -55,7 +56,8 @@ it('collects on Timbers only and retains education through health/pit recovery, 
     Object.assign(live.player, { x: letter.x, y: surfaceY(TREETOP_TIMBERS, letter.x) - 34, vx: 0, vy: 0, onGround: true });
     scene.update(1 / 60, neutral);
   }
-  expect(scene.education.wordProgress).toBe('T R E E');
+  expect(scene.education.letterCount).toBe(4);
+  expect(scene.education.wordProgress).toBe('_ _ _ _');
   const rewards = scene.education.stickers;
   recoverFromFall(live.run, live.player, [], TREETOP_TIMBERS);
   live.run.health = 1; live.run.invulnerableSeconds = 0;
@@ -64,13 +66,15 @@ it('collects on Timbers only and retains education through health/pit recovery, 
   live.player.x = TREETOP_TIMBERS.finish.x;
   scene.update(1 / 60, neutral);
   scene.activateFinish('Replay');
-  expect(scene.education.wordProgress).toBe('T R E E');
-  expect(scene.educationDescription).toContain('TREE complete');
+  expect(scene.education.letterCount).toBe(4);
+  expect(scene.education.wordProgress).toBe('_ _ _ _');
+  expect(scene.education.stickers).toEqual([]);
   scene.returnToTrails();
   scene.selectDestination(0); scene.startSelected();
   expect(scene.education.stickers).toEqual(rewards);
   scene.returnToTrails(); scene.selectDestination(2); scene.startSelected();
-  expect(scene.education.wordProgress).toBe('T R E E');
+  expect(scene.education.letterCount).toBe(4);
+  expect(scene.education.wordProgress).toBe('_ _ _ _');
   expect(timbers().scene.education.stickers).toEqual([]);
 });
 
@@ -103,6 +107,8 @@ it('offers only the word sticker with one return target and no removed reward or
   expect(scene.educationOverlay.description).toBe('0/1 stickers · Timbers TREE: find the letters');
   expect(scene.menuTargets.map(target => target.label)).toEqual(['Return to map']);
   for (const letter of LETTER_PICKUPS) scene.education.collect(letter.id);
+  expect(scene.educationOverlay.description).toBe('0/1 stickers · Timbers TREE: find the letters');
+  LETTER_PICKUPS.forEach((pickup, slot) => scene.education.place(pickup.id, slot));
   expect(scene.educationOverlay.description).toBe('1/1 stickers · Timbers TREE: earned');
   expect(scene.education.stickers).toEqual(['Timbers TREE']);
 });
@@ -146,6 +152,7 @@ it('opens a small session sticker collection from the map by pointer or activity
   expect(scene.menuTargets.map(target => target.label)).toEqual(['Return to map']);
   scene.handleEducationInput({ ...neutral, pausePressed: true });
   for (const letter of LETTER_PICKUPS) scene.education.collect(letter.id);
+  LETTER_PICKUPS.forEach((pickup, slot) => scene.education.place(pickup.id, slot));
   scene.handleEducationInput({ ...neutral, activityPressed: true, source: 'controller' });
   expect(scene.educationOverlay.description).toContain('1/1 stickers');
   expect(scene.educationOverlay.description).toContain('Timbers TREE: earned');

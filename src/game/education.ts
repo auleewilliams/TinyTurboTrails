@@ -8,17 +8,27 @@ export const LETTER_PICKUPS = [
 
 export class EducationSession {
   private readonly collected = new Set<string>();
-  private readonly slots = ['_', '_', '_', '_'];
-  get wordProgress(): string { return this.slots.join(' '); }
-  get hasWordSticker(): boolean { return this.collected.size === 4; }
+  private readonly slots: (string | undefined)[] = Array(4).fill(undefined);
+  get wordProgress(): string { return this.slots.map(id => LETTER_PICKUPS.find(pickup => pickup.id === id)?.letter ?? '_').join(' '); }
+  get hasWordSticker(): boolean { return this.wordProgress === 'T R E E'; }
+  get letterCount(): number { return this.collected.size; }
+  get pile(): (typeof LETTER_PICKUPS)[number][] {
+    // A stable mixed order keeps the two Es independent without random simulation state.
+    return [LETTER_PICKUPS[3], LETTER_PICKUPS[1], LETTER_PICKUPS[0], LETTER_PICKUPS[2]]
+      .filter(pickup => this.collected.has(pickup.id) && !this.slots.includes(pickup.id));
+  }
+  place(id: string, slot: number): boolean {
+    const pickup = this.pile.find(letter => letter.id === id);
+    if (!pickup || !Number.isInteger(slot) || slot < 0 || slot >= 4 || this.slots[slot]
+      || pickup.letter !== 'TREE'[slot]) return false;
+    this.slots[slot] = id;
+    return true;
+  }
   get stickers(): string[] { return this.hasWordSticker ? ['Timbers TREE'] : []; }
   hasLetter(id: string): boolean { return this.collected.has(id); }
   collect(id: string): boolean {
     const pickup = LETTER_PICKUPS.find(letter => letter.id === id);
     if (!pickup || this.collected.has(id)) return false;
-    const index = [...'TREE'].findIndex((letter, slot) => letter === pickup.letter && this.slots[slot] === '_');
-    if (index < 0) return false;
-    this.slots[index] = pickup.letter;
     this.collected.add(id);
     return true;
   }
