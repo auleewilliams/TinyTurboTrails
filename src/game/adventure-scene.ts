@@ -76,11 +76,12 @@ export class AdventureScene implements Scene {
   private selectionDirection = 0;
   readonly session = new TrailSession();
   readonly education = new EducationSession();
+  private letterFlights: { letter: string; x: number; y: number; age: number }[] = [];
   readonly educationOverlay = new EducationOverlay(this.education);
   get educationDescription(): string {
     if (this.educationOverlay.open) return this.educationOverlay.description;
     if (this.level.id !== 'timbers' || this.screenState !== 'playing') return '';
-    return `TREE: ${this.education.wordProgress}${this.education.hasWordSticker ? ' · TREE complete · sticker earned' : ''}`;
+    return `Letter bag: ${this.education.letterCount}/4${this.letterFlights.length ? ` · ${this.letterFlights.at(-1)!.letter} → bag` : ''}`;
   }
   private finishIndex = 0;
   private finishArmed = true;
@@ -162,6 +163,7 @@ export class AdventureScene implements Scene {
     // Platforms advance first: movement then collides with where they are now, not where they were.
     const step = tickRun(this.run, seconds);
     this.feedback.tick(step);
+    this.letterFlights = this.letterFlights.filter(flight => (flight.age += step) < 0.65);
     this.hud.update(step, input, this.level, this.player.x);
     this.platforms = platformBodiesAt(this.level.platforms, this.run.seconds, step);
     const previousPosition = { x: this.player.x, y: this.player.y };
@@ -205,7 +207,10 @@ export class AdventureScene implements Scene {
       }
     }
     if (this.level.id === 'timbers') for (const letter of LETTER_PICKUPS) {
-      if (Math.abs(this.player.x - letter.x) <= 22 && Math.abs(this.player.y + 17 - (surfaceY(this.level, letter.x) - 20)) <= 24) this.education.collect(letter.id);
+      if (Math.abs(this.player.x - letter.x) <= 22 && Math.abs(this.player.y + 17 - (surfaceY(this.level, letter.x) - 20)) <= 24 && this.education.collect(letter.id)) {
+        this.letterFlights.push({ letter: letter.letter, x: letter.x - this.camera.position.x,
+          y: surfaceY(this.level, letter.x) - 20 - this.camera.position.y, age: 0 });
+      }
     }
     this.camera.update(this.player.x, this.player.y);
   }
@@ -274,10 +279,20 @@ export class AdventureScene implements Scene {
 
   private drawWordProgress(ctx: CanvasRenderingContext2D): void {
     if (this.level.id !== 'timbers') return;
-    ctx.save(); ctx.textAlign = 'right'; ctx.font = 'bold 10px monospace';
-    ctx.fillStyle = '#10252cee'; ctx.fillRect(251, 31, 170, 32);
-    ctx.fillStyle = '#ffda75'; ctx.fillText(this.education.hasWordSticker ? 'TREE complete!' : 'Match TREE', 415, 43);
-    ctx.fillStyle = '#e9f2df'; ctx.fillText(`${this.education.wordProgress}${this.education.hasWordSticker ? ' ✓ Sticker!' : ''}`, 415, 57);
+    ctx.save(); ctx.textAlign = 'right'; ctx.font = 'bold 11px monospace';
+    ctx.fillStyle = '#10252cee'; ctx.fillRect(294, 31, 127, 34);
+    ctx.fillStyle = '#e9f2df'; ctx.fillText(`Bag ${this.education.letterCount}/4`, 376, 52);
+    ctx.fillStyle = '#ffda75'; ctx.fillRect(386, 42, 24, 18);
+    ctx.strokeStyle = '#ffda75'; ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.arc(398, 42, 7, Math.PI, 0); ctx.stroke();
+    ctx.textAlign = 'center'; ctx.fillStyle = '#17333b'; ctx.font = 'bold 10px monospace'; ctx.fillText('✦', 398, 55);
+    for (const flight of this.letterFlights) {
+      const t = flight.age / 0.65;
+      const x = this.reducedMotion ? 398 : flight.x + (398 - flight.x) * t;
+      const y = this.reducedMotion ? 74 : flight.y + (50 - flight.y) * t - Math.sin(t * Math.PI) * 25;
+      ctx.globalAlpha = 1 - t * 0.5; ctx.fillStyle = '#ffda75'; ctx.fillRect(x - 11, y - 18, 22, 24);
+      ctx.fillStyle = '#17333b'; ctx.font = 'bold 16px monospace'; ctx.fillText(flight.letter, x, y);
+    }
     ctx.restore();
   }
 
@@ -420,6 +435,7 @@ export class AdventureScene implements Scene {
     this.celebration.reset();
     this.events = [];
     this.feedback.clear();
+    this.letterFlights = [];
     this.footsteps.reset();
     this.hud = new HudPresentation();
     this.level = level;

@@ -218,3 +218,86 @@ it('returns missing-letter play beside finish in the identical completed run and
   expect(live.run).toBe(run);
   expect(scene.session.results.has('timbers')).toBe(true);
 });
+
+it('retraces from finish past every reverse spring to all missed letters and retries with ordinary input', () => {
+  const { scene, live } = timbers();
+  // Finish fixture only. Every subsequent traversal uses the normal simulation input.
+  live.player.x = TREETOP_TIMBERS.finish.x;
+  scene.update(1 / 60, neutral);
+  const run = live.run;
+  scene.menuTargets.find(target => target.label === 'Find more letters')!.action();
+  const springs = new Set<string>();
+  const traversalEvents: { type: string; entityId?: string }[] = [];
+  const dangers = TREETOP_TIMBERS.entities.filter(entity => entity.kind === 'slime');
+  let held = 0;
+  for (let frame = 0; frame < 60 * 180 && scene.playerX > 320; frame++) {
+    const jump = live.player.onGround && dangers.some(danger => danger.x < scene.playerX && scene.playerX - danger.x < 65);
+    if (jump) held = 24;
+    scene.update(1 / 60, { ...neutral, horizontal: -1, jumpPressed: jump, jumpHeld: held-- > 0 });
+    const events = (scene as unknown as { events: { type: string; entityId?: string }[] }).events;
+    traversalEvents.push(...events);
+    for (const event of events) if (event.type === 'spring') springs.add(event.entityId!);
+  }
+  expect(scene.playerX).toBeLessThan(320);
+  expect([...springs].sort()).toEqual(TREETOP_TIMBERS.entities.filter(entity => entity.kind === 'spring').map(entity => entity.id).sort());
+  expect(traversalEvents.filter(event => event.type === 'recover')).toEqual([]);
+  expect(scene.education.letterCount).toBe(4);
+  expect(live.run).toBe(run);
+  expect(scene.education.stickers).toEqual([]);
+  held = 0;
+  for (let frame = 0; frame < 60 * 180 && scene.screenState === 'playing'; frame++) {
+    const jump = live.player.onGround && dangers.some(danger => danger.x > scene.playerX && danger.x - scene.playerX < 65);
+    if (jump) held = 24;
+    scene.update(1 / 60, { ...neutral, horizontal: 1, jumpPressed: jump, jumpHeld: held-- > 0 });
+  }
+  expect(scene.educationOverlay.open).toBe(true);
+  expect(scene.screenState).toBe('finish');
+  expect(live.run).toBe(run);
+});
+
+it('shows a bag instead of target slots, with a brief collected letter flight and no automatic reward', () => {
+  const { scene, live } = timbers();
+  expect(scene.educationDescription).toBe('Letter bag: 0/4');
+  Object.assign(live.player, { x: 360, y: surfaceY(TREETOP_TIMBERS, 360) - 34, vx: 0, vy: 0, onGround: true });
+  scene.update(1 / 60, neutral);
+  expect(scene.educationDescription).toContain('Letter bag: 1/4');
+  const text: string[] = [];
+  const ctx = new Proxy({}, { get: (_, key) => key === 'fillText' ? (value: string) => text.push(value) : () => {}, set: () => true }) as CanvasRenderingContext2D;
+  const draw = () => (scene as unknown as { drawWordProgress(ctx: CanvasRenderingContext2D): void }).drawWordProgress(ctx);
+  draw();
+  expect(text).toContain('T');
+  expect(text.join(' ')).not.toMatch(/Match TREE|_ _ _ _|Sticker!/);
+  text.length = 0;
+  for (let frame = 0; frame < 60; frame++) scene.update(1 / 60, neutral);
+  draw();
+  expect(text).not.toContain('T');
+  expect(scene.education.stickers).toEqual([]);
+});
+
+it('rolls back wrong, outside and cancelled drags, and places each dragged E only once', () => {
+  const { scene, live } = timbers();
+  for (const pickup of LETTER_PICKUPS) scene.education.collect(pickup.id);
+  live.player.x = TREETOP_TIMBERS.finish.x;
+  scene.update(1 / 60, neutral);
+  const overlay = scene.educationOverlay;
+  const e = LETTER_PICKUPS[3].id;
+  overlay.beginDrag(e, 132, 132);
+  overlay.moveDrag(132, 80);
+  overlay.endDrag(132, 80);
+  expect(scene.education.wordProgress).toBe('_ _ _ _');
+  overlay.beginDrag(e, 132, 132);
+  overlay.endDrag(-10, 80);
+  expect(scene.education.wordProgress).toBe('_ _ _ _');
+  overlay.beginDrag(e, 132, 132);
+  overlay.cancelDrag();
+  overlay.endDrag(236, 80);
+  expect(scene.education.wordProgress).toBe('_ _ _ _');
+  overlay.beginDrag(e, 132, 132);
+  overlay.endDrag(236, 80);
+  expect(scene.education.wordProgress).toBe('_ _ E _');
+  overlay.beginDrag(e, 132, 132);
+  overlay.endDrag(288, 80);
+  expect(scene.education.wordProgress).toBe('_ _ E _');
+  expect(scene.education.letterCount).toBe(4);
+  expect(scene.education.stickers).toEqual([]);
+});

@@ -3036,16 +3036,16 @@ test('diagnostic fullscreen frame geometry across repeated native transitions', 
     await info.attach('fullscreen-frames', { path, contentType: 'application/json' });
   }
 });
-test('educational word shows TREE and collects the two Es through real trail movement', async ({ page }, info) => {
+test('educational bag collects independent letters without early assembly or sticker through real trail movement', async ({ page }, info) => {
   await installTrailPilot(page);
   await openAdventure(page, '/?debug=1');
   await page.getByRole('button', { name: 'TREETOP TIMBERS', exact: true }).click();
   await page.getByRole('button', { name: 'Play TREETOP TIMBERS', exact: true }).click();
-  await expect(page.locator('#status')).toContainText('TREE: _ _ _ _');
+  await expect(page.locator('#status')).toContainText('Letter bag: 0/4');
   await page.evaluate(dangers => {
     Object.assign((window as unknown as { trailPilot: object }).trailPilot, { active: true, dangers, pauseAt: 7150 });
   }, dangerXs(LEVELS[2]));
-  await expect(page.locator('#status')).toContainText('TREE: T R E E', { timeout: 25_000 });
+  await expect(page.locator('#status')).toContainText('Letter bag: 4/4', { timeout: 25_000 });
   await expect.poll(() => page.evaluate(() => (window as unknown as { trailPilot: { frozen: boolean } }).trailPilot.frozen)).toBe(true);
   await page.screenshot({ path: info.outputPath('word-two-es.png') });
   await page.setViewportSize({ width: 320, height: 240 });
@@ -3058,18 +3058,18 @@ test('educational word shows TREE and collects the two Es through real trail mov
   await page.keyboard.up('ArrowRight');
   await page.evaluate(() => Object.assign((window as unknown as { trailPilot: object }).trailPilot, { active: false, lastActive: false, frozen: false, pauseAt: 0 }));
   await page.getByRole('button', { name: 'Open stickers', exact: true }).click();
-  await expect(page.locator('#status')).toContainText('1/1 stickers');
-  await expect(page.locator('#status')).toContainText('Timbers TREE: earned');
+  await expect(page.locator('#status')).toContainText('0/1 stickers');
+  await expect(page.locator('#status')).toContainText('Timbers TREE: find the letters');
   await expect(page.locator('#status')).not.toContainText(/number leaf|maths/i);
   await page.screenshot({ path: info.outputPath('stickers-word-only-small.png') });
   await page.getByRole('button', { name: 'Return to map', exact: true }).click();
   await page.getByRole('button', { name: 'Play TREETOP TIMBERS', exact: true }).click();
-  await expect(page.locator('#status')).toContainText('TREE: T R E E');
+  await expect(page.locator('#status')).toContainText('Letter bag: 4/4');
   await page.reload();
   await page.getByRole('button', { name: 'Skip story', exact: true }).click();
   await page.getByRole('button', { name: 'TREETOP TIMBERS', exact: true }).click();
   await page.getByRole('button', { name: 'Play TREETOP TIMBERS', exact: true }).click();
-  await expect(page.locator('#status')).toContainText('TREE: _ _ _ _');
+  await expect(page.locator('#status')).toContainText('Letter bag: 0/4');
 });
 
 test('educational trail has no removed activity route at the former sign and keeps letter progress', async ({ page }, info) => {
@@ -3080,7 +3080,7 @@ test('educational trail has no removed activity route at the former sign and kee
   await page.evaluate(dangers => {
     Object.assign((window as unknown as { trailPilot: object }).trailPilot, { active: true, dangers, pauseAt: 2350 });
   }, dangerXs(LEVELS[2]));
-  await expect(page.locator('#status')).toContainText('TREE: T R _ _');
+  await expect(page.locator('#status')).toContainText('Letter bag: 2/4');
   await expect.poll(() => page.evaluate(() => (window as unknown as { trailPilot: { frozen: boolean } }).trailPilot.frozen)).toBe(true);
   await page.keyboard.up('ArrowRight');
   await page.evaluate(() => Object.assign((window as unknown as { trailPilot: object }).trailPilot, { active: false, lastActive: false, frozen: false, pauseAt: 0 }));
@@ -3140,5 +3140,70 @@ for (const method of ['pointer', 'keyboard', 'controller'] as const) {
     await page.getByRole('button', { name: 'Skip story', exact: true }).click();
     await expect(page.getByRole('button', { name: 'Open stickers', exact: true })).toHaveAttribute('aria-description', /0 of 1/);
     expect(await page.evaluate(() => ({ local: localStorage.length, session: sessionStorage.length }))).toEqual({ local: 0, session: 0 });
+  });
+}
+
+
+for (const method of ['pointer', 'keyboard', 'controller'] as const) {
+  test(`educational manual assembly ${method} places actual letters and earns only after TREE`, async ({ page }, info) => {
+    await installTrailPilot(page);
+    await openAdventure(page, '/?debug=1');
+    await page.getByRole('button', { name: 'TREETOP TIMBERS', exact: true }).click();
+    await page.getByRole('button', { name: 'Play TREETOP TIMBERS', exact: true }).click();
+    await page.evaluate(dangers => Object.assign((window as unknown as { trailPilot: object }).trailPilot, { active: true, dangers }), dangerXs(LEVELS[2]));
+    await expect(page.getByRole('dialog')).toBeVisible({ timeout: 25_000 });
+    await expect(page.locator('#status')).toContainText('Build TREE · _ _ _ _ · Bag 4/4');
+    await expect(page.getByRole('button', { name: /^Letter / })).toHaveCount(4);
+    await page.evaluate(() => Object.assign((window as unknown as { trailPilot: object }).trailPilot, { active: false, lastActive: false }));
+    await page.keyboard.up('ArrowRight');
+    await page.setViewportSize({ width: 426, height: 300 });
+    const frames = async () => page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
+    await frames();
+    const capture = async (name: string) => { await page.screenshot({ path: info.outputPath(`${method}-${name}.png`) }); };
+    await capture('assembly-native');
+    const activate = async (name: string) => {
+      if (method === 'keyboard') {
+        for (let i = 0; i < 12 && !await page.getByRole('button', { name, exact: true }).evaluate(button => button === document.activeElement); i++) await page.keyboard.press('Tab');
+        await expect(page.getByRole('button', { name, exact: true })).toBeFocused();
+        await page.keyboard.press('Enter');
+      } else {
+        await page.evaluate(() => { (window as unknown as { trailPilot: { controller: boolean } }).trailPilot.controller = true; });
+        for (let i = 0; i < 12 && !await page.getByRole('button', { name, exact: true }).evaluate(button => button === document.activeElement); i++) {
+          await page.evaluate(() => { (window as unknown as { trailPad: { axes: number[] } }).trailPad.axes[0] = 1; }); await frames();
+          await page.evaluate(() => { (window as unknown as { trailPad: { axes: number[] } }).trailPad.axes[0] = 0; }); await frames();
+        }
+        await expect(page.getByRole('button', { name, exact: true })).toBeFocused();
+        await page.evaluate(() => { (window as unknown as { trailPad: { buttons: { pressed: boolean }[] } }).trailPad.buttons[0].pressed = true; }); await frames();
+        await page.evaluate(() => { (window as unknown as { trailPad: { buttons: { pressed: boolean }[] } }).trailPad.buttons[0].pressed = false; }); await frames();
+      }
+    };
+    const drag = async (letter: string, destination: string | { x: number; y: number }) => {
+      const from = (await page.getByRole('button', { name: `Letter ${letter}`, exact: true }).boundingBox())!;
+      const to = typeof destination === 'string' ? (await page.getByRole('button', { name: destination, exact: true }).boundingBox())! : { ...destination, width: 0, height: 0 };
+      await page.mouse.move(from.x + from.width / 2, from.y + from.height / 2); await page.mouse.down();
+      await page.mouse.move(to.x + to.width / 2, to.y + to.height / 2, { steps: 8 }); await page.mouse.up();
+    };
+    if (method === 'pointer') {
+      await drag('E 2', 'Space 1: empty');
+      await expect(page.locator('#status')).toContainText('_ _ _ _');
+      await drag('E 2', { x: 2, y: 2 });
+      await expect(page.getByRole('button', { name: 'Letter E 2', exact: true })).toBeVisible();
+    }
+    for (const [slot, letter] of ['T', 'R', 'E 2', 'E 1'].entries()) {
+      if (method === 'pointer') await drag(letter, `Space ${slot + 1}: empty`);
+      else { await activate(`Letter ${letter}`); await activate(`Space ${slot + 1}: empty`); }
+      await expect(page.getByRole('button', { name: `Space ${slot + 1}: ${letter[0]}`, exact: true })).toBeVisible();
+      if (slot < 3) await expect(page.locator('#status')).not.toContainText('Tree sticker earned!');
+    }
+    await expect(page.locator('#status')).toContainText('Tree sticker earned!');
+    await expect(page.getByRole('button', { name: /^Letter / })).toHaveCount(0);
+    await capture('earned-sticker-native');
+    await page.setViewportSize({ width: 320, height: 240 }); await frames();
+    await expectClearViewport(page); await capture('earned-sticker-small');
+    await page.keyboard.press('Escape');
+    await expect(page.getByRole('button', { name: 'Choose trail', exact: true })).toBeVisible();
+    await page.getByRole('button', { name: 'Choose trail', exact: true }).click();
+    await page.getByRole('button', { name: 'Open stickers', exact: true }).click();
+    await expect(page.locator('#status')).toContainText('1/1 stickers');
   });
 }
