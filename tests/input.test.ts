@@ -111,3 +111,24 @@ it('tracks used input rather than mere controller connection, and falls back on 
   target.dispatchEvent(new Event('gamepaddisconnected'));
   expect(input.poll()).toMatchObject({ source: 'keyboard', jumpHeld: false, horizontal: 0 });
 });
+
+it('emits deliberate activity E / standard D-pad up edges and blocks held activity input across clear', () => {
+  const buttons = Array.from({ length: 17 }, () => ({ pressed: false }));
+  const pad = { connected: true, mapping: 'standard', axes: [0, 0], buttons };
+  const target = Object.assign(new EventTarget(), { navigator: { getGamepads: () => [pad] } });
+  const input = new BrowserInput(target as unknown as Window, () => {});
+  const key = (type: string, repeat = false) => target.dispatchEvent(Object.assign(new Event(type), { code: 'KeyE', repeat }));
+  key('keydown'); expect(input.poll().activityPressed).toBe(true);
+  key('keydown', true); expect(input.poll().activityPressed).toBe(false);
+  key('keyup');
+  buttons[12].pressed = true;
+  expect(input.poll()).toMatchObject({ activityPressed: true, source: 'controller', jumpPressed: false });
+  expect(input.poll().activityPressed).toBe(false);
+  input.clear();
+  expect(input.poll().activityPressed).toBe(false);
+  buttons[12].pressed = false; input.poll();
+  buttons[12].pressed = true; expect(input.poll().activityPressed).toBe(true);
+  input.setFocused(false); expect(input.poll().activityPressed).toBeFalsy();
+  input.setFocused(true); expect(input.poll().activityPressed).toBe(false);
+  input.dispose();
+});

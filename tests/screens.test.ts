@@ -215,6 +215,7 @@ it.each(['keyboard', 'controller'])('%s replay immediately restores the initial 
   scene.update(1 / 60, input);
   expect(scene.screenState).toBe('finish');
   expect(state.camera.position.x).toBeGreaterThan(0);
+  scene.menuTargets.find(target => target.label === 'Leave activity')!.action();
   const buttons = Array.from({ length: 17 }, () => ({ pressed: false, touched: false, value: 0 }));
   const pad = { connected: true, mapping: 'standard', axes: [0], buttons };
   const target = Object.assign(new EventTarget(), { navigator: { getGamepads: () => [pad] } });
@@ -238,7 +239,7 @@ it.each(['keyboard', 'controller'])('%s replay immediately restores the initial 
 it.each([
   ['adventure', () => new AdventureScene({} as HTMLImageElement, {} as never, worlds, silentAudio(), PLAINS_LEVEL)],
   ['gameplay preview', () => new GameplayPreviewScene({} as never, {} as never, silentAudio(), PLAINS_LEVEL)],
-] as const)('the %s scene respawns on the last pip through shared health logic', (_name, createScene) => {
+] as const)('the %s scene respawns on the last pip from slime contact through shared health logic', (_name, createScene) => {
   const scene = createScene();
   const input = { horizontal: 0, jumpHeld: false, jumpPressed: false, pausePressed: false, mutePressed: false };
   if (scene instanceof AdventureScene) scene.update(1 / 60, { ...input, jumpPressed: true });
@@ -247,10 +248,10 @@ it.each([
     run: import('../src/game/interactions').RunState;
   };
   const checkpoint = PLAINS_LEVEL.checkpoints[0];
-  const hazard = PLAINS_LEVEL.entities.find((entity) => entity.kind === 'hazard')!;
+  const slime = PLAINS_LEVEL.entities.find((entity) => entity.kind === 'slime')!;
   state.run.checkpointId = checkpoint.id;
   state.run.health = 1;
-  Object.assign(state.player, createPlayer(hazard.x, PLAINS_LEVEL));
+  Object.assign(state.player, createPlayer(slime.x, PLAINS_LEVEL));
   scene.update(1 / 60, input);
   expect(state.player.x).toBe(checkpoint.x);
   expect(state.run.health).toBe(3);
@@ -307,6 +308,7 @@ it('emits dust only on meaningful landings and clears presentation on replay and
   state.feedback.checkpointSeconds = 2;
   state.player.x = PLAINS_LEVEL.finish.x;
   scene.update(1 / 60, neutral);
+  scene.menuTargets.find(target => target.label === 'Leave activity')!.action();
   scene.update(1 / 60, neutral);
   scene.update(1 / 60, { ...neutral, jumpPressed: true });
   expect(state.feedback.effects).toEqual([]);
@@ -336,6 +338,7 @@ it('selects every level track only on start, preserves recovery, and silences fi
     state.player.y = level.finish.y;
     scene.update(1 / 60, neutral);
     expect(calls.slice(calls.indexOf('complete') - 1, calls.indexOf('complete') + 1)).toEqual(['stop', 'complete']);
+    if (scene.educationOverlay.open) scene.menuTargets.find(target => target.label === 'Leave activity')!.action();
     scene.activateFinish('Choose trail');
     expect(scene.screenState).toBe('title');
     expect(calls.at(-1)).toBe('stop');

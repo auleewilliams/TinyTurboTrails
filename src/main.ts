@@ -47,6 +47,8 @@ if (!context) {
   let request = 0;
   let pendingJump = false;
   let pendingStory = false;
+  let educationRevision = 0;
+  const educationScene = (): AdventureScene | undefined => scenes.activeScene instanceof AdventureScene ? scenes.activeScene : undefined;
   let inputSource: InputSource = 'keyboard';
   const requestedScene = new URLSearchParams(location.search).get('scene')
     ?? (new URLSearchParams(location.search).has('audio') ? 'foundation' : 'adventure');
@@ -64,20 +66,20 @@ if (!context) {
   const adventureStatus = (): string => {
     const scene = scenes.activeScene;
     if (!(scene instanceof AdventureScene)) return '';
-    canvas.setAttribute('aria-label', scene.storyDescription || 'Tiny Turbo Trails game');
+    canvas.setAttribute('aria-label', scene.storyDescription || scene.educationDescription || 'Tiny Turbo Trails game');
     const state = scene.screenState[0].toUpperCase() + scene.screenState.slice(1);
-    return ` · ${state}${scene.screenState === 'finish' ? ` · Gems ${scene.gemTotal}/${scene.trailGemTotal}` : ''}${debugAdventure ? ` · X ${Math.round(scene.playerX)} Y ${Math.round(scene.playerY)} V ${Math.round(scene.playerVelocityX)} F ${scene.playerFacing}` : ''}`;
+    return ` · ${state}${scene.educationDescription ? ` · ${scene.educationDescription}` : ''}${scene.screenState === 'finish' ? ` · Gems ${scene.gemTotal}/${scene.trailGemTotal}` : ''}${debugAdventure ? ` · X ${Math.round(scene.playerX)} Y ${Math.round(scene.playerY)} V ${Math.round(scene.playerVelocityX)} F ${scene.playerFacing}` : ''}`;
   };
 
-  const previewStatus = (): string => `${artPreview ? 'Art' : movementPreview ? 'Movement' : worldPreview ? 'World' : gameplayPreview ? 'Gameplay' : adventure ? 'Adventure' : 'Foundation'} preview${adventure ? adventureStatus() : ''} · ${inputSource === 'controller' ? 'Start' : 'Escape'} to pause · ${muted ? 'Muted · M to unmute' : 'M to mute'}`;
+  const previewStatus = (): string => `${artPreview ? 'Art' : movementPreview ? 'Movement' : worldPreview ? 'World' : gameplayPreview ? 'Gameplay' : adventure ? 'Adventure' : 'Foundation'} preview${adventure ? adventureStatus() : ''} · ${inputSource === 'controller' ? 'Start' : 'Escape'} to ${educationScene()?.educationOverlay.open ? 'leave activity' : 'pause'} · ${muted ? 'Muted · M to unmute' : 'M to mute'}`;
 
   const refreshPause = (): void => {
     input.setFocused(focused);
-    const paused = !focused || userPaused;
+    const paused = !focused || userPaused || (educationScene()?.educationOverlay.open ?? false);
     clock.setPaused(paused);
     audio.setSuspended(paused);
     rumble.setSuspended(paused);
-    if (paused) {
+    if (!focused || userPaused) {
       input.clear();
       pendingJump = false;
       pendingStory = false;
@@ -136,14 +138,15 @@ if (!context) {
     refreshPause();
     location.reload();
   };
-  const refreshRumble = (): void => rumble.setGameplay(scenes.activeScene instanceof AdventureScene && scenes.activeScene.screenState === 'playing');
+  const refreshRumble = (): void => rumble.setGameplay(scenes.activeScene instanceof AdventureScene && scenes.activeScene.screenState === 'playing' && !scenes.activeScene.educationOverlay.open);
 
   const frame = (now: number): void => {
     let controls: InputFrame = input.poll();
     if (inputSource !== (controls.source ?? 'keyboard')) { inputSource = controls.source ?? 'keyboard'; refreshPause(); }
     if (focused) {
       if (controls.pausePressed) {
-        if (userPaused && pauseMenu.confirming) pauseMenu.cancel();
+        if (educationScene()?.educationOverlay.open) educationScene()!.educationOverlay.close();
+        else if (userPaused && pauseMenu.confirming) pauseMenu.cancel();
         else if (userPaused) resume();
         else { userPaused = true; pauseMenu.reset(); refreshPause(); }
         controls = input.poll();
@@ -155,7 +158,17 @@ if (!context) {
         if (!userPaused) controls = input.poll();
       }
     }
-    if (focused && !userPaused) { pendingJump ||= controls.jumpPressed; pendingStory ||= controls.storyPressed ?? false; }
+    if (focused && !userPaused) educationScene()?.handleEducationInput(controls);
+    const educationOpen = educationScene()?.educationOverlay.open ?? false;
+    const nextEducationRevision = educationScene()?.educationOverlay.revision ?? 0;
+    if (nextEducationRevision !== educationRevision) {
+      // Pointer and polled entry share this boundary, before any opening-frame step.
+      // A finish activity may open inside advance and close before this frame.
+      // Force a suspension boundary even when the final overlay state is closed.
+      clock.setPaused(true);
+      clearGameplayInput(); controls = input.poll(); educationRevision = nextEducationRevision; refreshPause();
+    }
+    if (focused && !userPaused && !educationOpen) { pendingJump ||= controls.jumpPressed; pendingStory ||= controls.storyPressed ?? false; }
     refreshRumble();
     clock.advance(now, (seconds) => {
       scenes.update(seconds, { ...controls, jumpPressed: pendingJump, storyPressed: pendingStory });

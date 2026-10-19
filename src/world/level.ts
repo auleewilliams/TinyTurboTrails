@@ -3,6 +3,7 @@ import { DEFAULT_MOVEMENT, MAX_SURFACE_FRICTION, MIN_SURFACE_FRICTION, surfaceY,
 import { PLATFORM_MAX_SPEED, platformSpeed, type MovingPlatform } from '../game/platforms';
 import type { WorldAsset } from './assets';
 
+/** Legacy 'hazard' tags identify static artwork props, now harmless pass-through scenery (#191). */
 export type WorldEntityKind = 'gem' | 'special' | 'slime' | 'spring' | 'checkpoint' | 'hazard' | 'decoration' | 'crumbling-ledge';
 /** Back-and-forth walk between two X bounds. The run owns the position; level data stays immutable. */
 export interface EntityPatrol { minX: number; maxX: number; speed: number }

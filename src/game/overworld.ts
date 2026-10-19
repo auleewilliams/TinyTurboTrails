@@ -1,7 +1,10 @@
 import type { LevelData } from '../world/level';
 import { drawRewardResult } from './reward-result';
 
-export interface MenuTarget { label: string; description?: string; x: number; y: number; width: number; height: number; selected?: boolean; action: () => void; focus?: () => void; nativeSpace?: boolean }
+export interface MenuTarget { label: string; description?: string; x: number; y: number; width: number; height: number; selected?: boolean; action: () => void; focus?: () => void; nativeSpace?: boolean;
+  drag?: { start: (x: number, y: number) => void; move: (x: number, y: number) => void;
+    end: (x: number, y: number) => void; cancel: () => void };
+}
 export const MAP_POINTS = [[48, 88], [140, 88], [232, 88], [232, 176], [140, 176], [48, 176]] as const;
 
 export const OVERWORLD_LAYOUT = {

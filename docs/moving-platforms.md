@@ -55,7 +55,7 @@ each step.
 `Player` gained `platformId` and `groundVelocityX`: the notion of ground velocity
 the movement step lacked. A jump off a ride adds the ride's horizontal velocity
 to Henry's, clamped to the usual top speed — so a platform never slides out from
-under a jump, though a jump already at top speed gains nothing. Springs, hazard
+under a jump, though a jump already at top speed gains nothing. Springs, slime
 knockback and fall recovery all call `detachFromGround`, so a ride can never
 outlive the moment it ended.
 
