@@ -1,5 +1,5 @@
 import { EducationOverlay } from './education-overlay';
-import { EducationSession, LETTER_PICKUPS, MATHS_SPOT } from './education';
+import { EducationSession, LETTER_PICKUPS } from './education';
 import { drawOverworld, MAP_POINTS, OVERWORLD_LAYOUT, TrailSession, type MenuTarget } from './overworld';
 import { musicForLevel } from '../core/music';
 import type { GameAudio } from '../core/audio';
@@ -239,34 +239,14 @@ export class AdventureScene implements Scene {
     }
   }
 
-  get nearMaths(): boolean {
-    return this.level.id === 'timbers' && this.screenState === 'playing'
-      && Math.abs(this.player.x - MATHS_SPOT.x) <= 64
-      && Math.abs(this.player.y + 34 - surfaceY(this.level, MATHS_SPOT.x)) <= 48;
-  }
-
   handleEducationInput(input: InputFrame): void {
     if (this.educationOverlay.open) this.educationOverlay.update(input);
     else if (input.activityPressed && this.screenState === 'title') this.educationOverlay.showStickers();
-    else if (input.activityPressed && this.nearMaths) this.educationOverlay.showMaths();
-  }
-
-  private get mathsTarget(): MenuTarget {
-    return { label: 'Open optional maths', description: 'Optional · E or controller D-pad up. Walking past keeps playing.',
-      x: MATHS_SPOT.x - this.camera.position.x - 40, y: surfaceY(this.level, MATHS_SPOT.x) - this.camera.position.y - 78,
-      width: 80, height: 44, nativeSpace: true, action: () => this.educationOverlay.showMaths() };
   }
 
   private drawLetters(ctx: CanvasRenderingContext2D): void {
     if (this.level.id !== 'timbers') return;
     ctx.save(); ctx.textAlign = 'center';
-    const sign = this.mathsTarget, center = sign.x + sign.width / 2;
-    ctx.fillStyle = '#704126'; ctx.fillRect(center - 2, sign.y + 20, 4, 58);
-    ctx.fillStyle = '#17333b'; ctx.fillRect(sign.x, sign.y, sign.width, sign.height);
-    ctx.strokeStyle = this.nearMaths ? '#ffda75' : '#bfd5ce'; ctx.strokeRect(sign.x, sign.y, sign.width, sign.height);
-    ctx.fillStyle = '#ffda75'; ctx.font = 'bold 12px monospace'; ctx.fillText('1 + 2 = ?', center, sign.y + 14);
-    ctx.font = '8px monospace'; ctx.fillText('Optional maths', center, sign.y + 26);
-    ctx.fillStyle = '#e9f2df'; ctx.fillText(this.nearMaths ? this.inputSource === 'controller' ? 'D-pad ↑: open' : 'E / click: open' : 'Stop to try', center, sign.y + 38);
     ctx.font = 'bold 16px monospace';
     for (const letter of LETTER_PICKUPS) {
       if (this.education.hasLetter(letter.id)) continue;
@@ -299,7 +279,7 @@ export class AdventureScene implements Scene {
     ctx.fillText(this.inputSource === 'controller' ? 'D-pad / stick: choose   Face button: play' : '← → Choose   Space: play   Click a landmark', 8, 234);
     ctx.fillStyle = '#17333b'; ctx.fillRect(282, 7, 79, 29);
     ctx.fillStyle = '#ffda75'; ctx.font = 'bold 9px monospace'; ctx.fillText('STICKERS', 286, 19);
-    ctx.font = '8px monospace'; ctx.fillText(`${this.education.stickers.length}/2 · ${this.inputSource === 'controller' ? 'D-pad ↑' : 'E / click'}`, 286, 30);
+    ctx.font = '8px monospace'; ctx.fillText(`${this.education.stickers.length}/1 · ${this.inputSource === 'controller' ? 'D-pad ↑' : 'E / click'}`, 286, 30);
     if (this.storyArtwork) {
       ctx.fillStyle = '#17333b'; ctx.fillRect(367, 7, 47, 29);
       ctx.fillStyle = '#ffda75'; ctx.font = 'bold 22px monospace'; ctx.fillText('↶', 382, 29);
@@ -368,14 +348,13 @@ export class AdventureScene implements Scene {
 
   get menuTargets(): MenuTarget[] {
     if (this.educationOverlay.open) return this.educationOverlay.targets;
-    if (this.nearMaths) return [this.mathsTarget];
     if (this.screenState === 'story') return this.story.targets.map((target, index) => ({ ...target, action: () => this.activateStory(index) }));
     if (this.screens.state === 'title') return [
       ...LEVELS.map((level, index) => ({ label: level.name, x: MAP_POINTS[index][0] - 35, y: MAP_POINTS[index][1] - 30,
         description: this.session.description(level),
         width: 70, height: 60, selected: index === this.selectedIndex, action: () => this.selectDestination(index) })),
       { label: `Play ${this.selectedLevelName}`, ...OVERWORLD_LAYOUT.play, action: () => this.startSelected() },
-      { label: 'Open stickers', nativeSpace: true, description: `${this.education.stickers.length} of 2 stickers · E or controller D-pad up`,
+      { label: 'Open stickers', nativeSpace: true, description: `${this.education.stickers.length} of 1 sticker · E or controller D-pad up`,
         x: 282, y: 7, width: 79, height: 29, action: () => this.educationOverlay.showStickers() },
       ...(this.storyArtwork ? [{ label: 'Replay story', nativeSpace: true, description: 'Pictures • R key or controller View button', x: 367, y: 7, width: 47, height: 29, action: () => this.openStory() }] : []),
     ];

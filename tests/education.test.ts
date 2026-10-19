@@ -1,5 +1,5 @@
 import { expect, it } from 'vitest';
-import { EducationSession, LETTER_PICKUPS, MATHS_SPOT, mathsQuestion } from '../src/game/education';
+import { EducationSession, LETTER_PICKUPS } from '../src/game/education';
 import { AdventureScene } from '../src/game/adventure-scene';
 import { SilentAudio } from '../src/core/audio';
 import { LEVELS, TREETOP_TIMBERS } from '../src/world/levels';
@@ -56,7 +56,6 @@ it('collects on Timbers only and retains education through health/pit recovery, 
     scene.update(1 / 60, neutral);
   }
   expect(scene.education.wordProgress).toBe('T R E E');
-  scene.education.answerMaths(scene.education.maths.answer);
   const rewards = scene.education.stickers;
   recoverFromFall(live.run, live.player, [], TREETOP_TIMBERS);
   live.run.health = 1; live.run.invulnerableSeconds = 0;
@@ -83,98 +82,58 @@ it('does not collect pilot letters in another trail at the same position', () =>
   expect(scene.education.wordProgress).toBe('_ _ _ _');
 });
 
-it('exhausts every valid operand pair for both operations with exactly one correct, distinct bounded choice', () => {
-  const operations = new Set<string>(), operands = new Set<number>(), answers = new Set<number>(), pairs = new Set<string>();
-  for (let index = 0; index < 2652; index++) {
-    const question = mathsQuestion(index);
-    expect(mathsQuestion(index)).toEqual(question);
-    operations.add(question.operation);
-    operands.add(question.left); operands.add(question.right); answers.add(question.answer);
-    pairs.add(`${question.left}${question.operation}${question.right}`);
-    for (const number of [question.left, question.right, question.answer, ...question.choices]) {
-      expect(Number.isInteger(number)).toBe(true);
-      expect(number).toBeGreaterThanOrEqual(0); expect(number).toBeLessThanOrEqual(50);
-    }
-    expect(question.answer).toBe(question.operation === '+' ? question.left + question.right : question.left - question.right);
-    expect(new Set(question.choices).size).toBe(3);
-    expect(question.choices.filter(choice => choice === question.answer)).toHaveLength(1);
-  }
-  expect(operations).toEqual(new Set(['+', '−']));
-  expect(pairs.size).toBe(2652);
-  expect([...operands].sort((a, b) => a - b)).toEqual(Array.from({ length: 51 }, (_, index) => index));
-  expect(answers.has(0) && answers.has(50)).toBe(true);
-});
-
-it('retries the same maths question without penalty and awards a distinct maths sticker exactly once', () => {
-  const session = new EducationSession();
-  const question = session.maths;
-  expect(session.answerMaths(question.choices.find(choice => choice !== question.answer)!)).toBe(false);
-  expect(session.maths).toEqual(question);
-  expect(session.mathsComplete).toBe(false);
-  expect(session.stickers).toEqual([]);
-  expect(session.answerMaths(question.answer)).toBe(true);
-  expect(session.answerMaths(question.answer)).toBe(false);
-  expect(session.stickers).toEqual(['Timbers number leaf']);
-  for (const letter of LETTER_PICKUPS) session.collect(letter.id);
-  expect(session.stickers).toEqual(['Timbers TREE', 'Timbers number leaf']);
-  expect(new EducationSession().mathsComplete).toBe(false);
-});
-
-it('requires deliberate nearby entry and freezes all simulation and feedback including the opening frame', () => {
+it('has no activity spot, target or activation on the trail, including the former sign position', () => {
   const { scene, live } = timbers();
+  Object.assign(live.player, { x: 2350, y: surfaceY(TREETOP_TIMBERS, 2350) - 34, vx: 0, vy: 0, onGround: true });
+  expect(scene.menuTargets).toEqual([]);
+  for (const source of ['keyboard', 'controller'] as const) {
+    scene.handleEducationInput({ ...neutral, activityPressed: true, source });
+    expect(scene.educationOverlay.open).toBe(false);
+  }
+  const before = scene.playerX;
+  scene.update(1 / 60, { ...neutral, horizontal: 1 });
+  expect(scene.playerX).toBeGreaterThan(before);
+});
+
+it('offers only the word sticker with one return target and no removed reward or answer controls', () => {
+  const { scene } = timbers();
+  scene.returnToTrails();
+  expect(scene.menuTargets.find(target => target.label === 'Open stickers')!.description).toContain('0 of 1 sticker');
   scene.handleEducationInput({ ...neutral, activityPressed: true });
-  expect(scene.educationOverlay.open).toBe(false);
-  Object.assign(live.player, { x: MATHS_SPOT.x, y: surfaceY(TREETOP_TIMBERS, MATHS_SPOT.x) - 34, vx: 80, vy: 0, onGround: true });
-  scene.update(1 / 60, neutral);
-  expect(scene.educationOverlay.open).toBe(false);
-  expect(scene.menuTargets.map(target => target.label)).toContain('Open optional maths');
+  expect(scene.educationOverlay.description).toBe('0/1 stickers · Timbers TREE: find the letters');
+  expect(scene.menuTargets.map(target => target.label)).toEqual(['Return to map']);
+  for (const letter of LETTER_PICKUPS) scene.education.collect(letter.id);
+  expect(scene.educationOverlay.description).toBe('1/1 stickers · Timbers TREE: earned');
+  expect(scene.education.stickers).toEqual(['Timbers TREE']);
+});
+
+it('freezes the map while the collection is open and requires released confirmation', () => {
+  const { scene } = timbers();
+  scene.returnToTrails();
   scene.handleEducationInput({ ...neutral, activityPressed: true });
   const before = JSON.stringify(scene);
   scene.update(10, { ...neutral, horizontal: 1, jumpPressed: true, jumpHeld: true });
   expect(JSON.stringify(scene)).toBe(before);
+  scene.handleEducationInput({ ...neutral, jumpPressed: true, jumpHeld: true });
   expect(scene.educationOverlay.open).toBe(true);
-  scene.handleEducationInput({ ...neutral, pausePressed: true });
+  scene.handleEducationInput(neutral);
+  scene.handleEducationInput({ ...neutral, jumpPressed: true, source: 'controller' });
   expect(scene.educationOverlay.open).toBe(false);
   scene.update(1 / 60, neutral);
   expect(JSON.stringify(scene)).not.toBe(before);
 });
 
-it('uses matching native pointer and keyboard/controller targets, retries safely and explains completion on revisit', () => {
-  const { scene, live } = timbers();
-  Object.assign(live.player, { x: MATHS_SPOT.x, y: surfaceY(TREETOP_TIMBERS, MATHS_SPOT.x) - 34 });
-  scene.menuTargets.find(target => target.label === 'Open optional maths')!.action();
-  const question = scene.education.maths;
-  const before = JSON.stringify(live.run);
-  scene.menuTargets.find(target => target.label === `Answer ${question.choices.find(choice => choice !== question.answer)}`)!.action();
-  expect(scene.educationOverlay.message).toContain('Try again');
-  expect(scene.education.maths).toEqual(question);
-  expect(JSON.stringify(live.run)).toBe(before);
-  const correctIndex = question.choices.indexOf(question.answer);
-  scene.menuTargets[correctIndex].focus!();
-  // Opening/held confirmation must release before a keyboard or pad confirms.
-  scene.handleEducationInput({ ...neutral, jumpPressed: true, jumpHeld: true });
-  expect(scene.education.mathsComplete).toBe(false);
-  scene.handleEducationInput(neutral);
-  scene.handleEducationInput({ ...neutral, jumpPressed: true, jumpHeld: true, source: 'controller' });
-  expect(scene.education.mathsComplete).toBe(true);
-  expect(scene.educationOverlay.message).toContain('Sticker earned');
-  scene.menuTargets.find(target => target.label === 'Leave activity')!.action();
-  expect(scene.educationOverlay.open).toBe(false);
-  scene.handleEducationInput({ ...neutral, activityPressed: true });
-  expect(scene.educationOverlay.message).toContain('Already complete');
-  expect(scene.menuTargets.map(target => target.label)).toEqual(['Leave activity']);
-  expect(scene.education.stickers).toEqual(['Timbers number leaf']);
-});
-
-it('publishes every overlay boundary even when a pointer exit and keyboard re-entry happen between frames', () => {
-  const { scene, live } = timbers();
-  Object.assign(live.player, { x: MATHS_SPOT.x, y: surfaceY(TREETOP_TIMBERS, MATHS_SPOT.x) - 34 });
+it('publishes collection boundaries even when pointer exit and keyboard re-entry occur between frames', () => {
+  const { scene } = timbers();
+  scene.returnToTrails();
   scene.handleEducationInput({ ...neutral, activityPressed: true });
   const revision = scene.educationOverlay.revision;
-  scene.menuTargets.at(-1)!.action();
+  scene.menuTargets[0].action();
   scene.handleEducationInput({ ...neutral, activityPressed: true });
   expect(scene.educationOverlay.revision).toBe(revision + 2);
   expect(scene.menuTargets[0].selected).toBe(true);
+  scene.handleEducationInput({ ...neutral, pausePressed: true });
+  expect(scene.educationOverlay.open).toBe(false);
 });
 
 it('opens a small session sticker collection from the map by pointer or activity input without changing selection or rewards', () => {
@@ -183,17 +142,15 @@ it('opens a small session sticker collection from the map by pointer or activity
   const selected = scene.selectedLevelName;
   expect(scene.menuTargets.filter(target => LEVELS.some(level => level.name === target.label))).toHaveLength(6);
   scene.menuTargets.find(target => target.label === 'Open stickers')!.action();
-  expect(scene.educationOverlay.description).toContain('0/2 stickers');
+  expect(scene.educationOverlay.description).toContain('0/1 stickers');
   expect(scene.menuTargets.map(target => target.label)).toEqual(['Return to map']);
   scene.handleEducationInput({ ...neutral, pausePressed: true });
   for (const letter of LETTER_PICKUPS) scene.education.collect(letter.id);
-  scene.education.answerMaths(scene.education.maths.answer);
   scene.handleEducationInput({ ...neutral, activityPressed: true, source: 'controller' });
-  expect(scene.educationOverlay.description).toContain('2/2 stickers');
+  expect(scene.educationOverlay.description).toContain('1/1 stickers');
   expect(scene.educationOverlay.description).toContain('Timbers TREE: earned');
-  expect(scene.educationOverlay.description).toContain('Timbers number leaf: earned');
   scene.menuTargets[0].action();
   expect(scene.screenState).toBe('title');
   expect(scene.selectedLevelName).toBe(selected);
-  expect(scene.education.stickers).toHaveLength(2);
+  expect(scene.education.stickers).toHaveLength(1);
 });

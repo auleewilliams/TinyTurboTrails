@@ -139,59 +139,42 @@ approaches, safe returns, separate once-only star counter, checkpoint retention
 and fresh-run resets. `special` is an additional pickup event; its bounded 0.65s
 sparkle uses `+1 STAR` and the existing pickup sound. Stars never gate the finish.
 
-## Optional Timbers educational pilot (#189)
+## Optional Timbers letter pilot (#189)
+
+Maths is deferred to [issue #193](https://github.com/auleewilliams/TinyTurboTrails/issues/193).
+There is no activity sign/spot at the former x=2350 location, no in-trail activity
+entry route, question generator, answer control or number-leaf sticker artwork.
+E / standard D-pad Up has no activity effect while playing.
 
 `EducationSession` belongs to `AdventureScene`, outside `RunState`. Its four
 pickup IDs and matching slots survive every run reset and both checkpoint
-recovery paths. A new scene/page session starts empty. TREE and its filled slots
-remain visible; a completed word says “TREE complete!” and shows its earned
-sticker. Both rewards are separate from gems/stars and cannot duplicate.
+recovery paths. A new scene/page session starts empty. The existing interim
+TREE matching/reward behaviour is preserved while the owner clarifies how to use
+collected letters to make a word after the trail. No assembly behaviour has been
+invented or approved by this removal.
 
-The authored letter blocks sit at world x=360 (T), 1300 (R), 3600 (E), 7100 (E),
-32px above ordinary terrain. Contact accepts ±22px horizontally and ±24px
-between Henry's centre and a point 20px above ground. Each stable ID fills the
-first unfilled matching TREE slot, so either E can be first. These are separate
-optional objects; existing level entities, totals and physics are unchanged.
+The letter blocks remain at x=360 (T), 1300 (R), 3600 (E), 7100 (E), 32px above
+ordinary terrain. Contact accepts ±22px horizontally and ±24px between Henry's
+centre and a point 20px above ground. Each stable ID fills the first unfilled
+matching TREE slot, so either E can be first. These optional objects do not alter
+existing level entities, totals or physics.
 
-An optional wooden maths sign stands at x=2350 beside ordinary trail ground,
-after the old-bridge checkpoint. Enter within ±64px horizontally and ±48px of
-its ground height using **E**, **standard D-pad Up (button 12)**, or its native
-**Open optional maths** button. Walking past never opens it. The overworld's
-**STICKERS** button, E or D-pad Up opens the two-sticker collection. These
-bindings/coordinates are implementation choices, not owner-approved tuning.
+The overworld STICKERS button, E or standard D-pad Up (button 12) opens the
+single-tree-sticker collection. Its only native target is Return to map, selected
+and focused on entry. Pointer, Tab/Enter/Space and standard face-button access
+remain. Escape, Start, E or D-pad Up also closes it. Held confirmation must be
+released before controller confirmation. Normal pause, Return to Trails and
+story/navigation remain intact. Focus loss hides collection targets until return.
 
-Activity controls reuse `MenuOverlay` native buttons and the rendered-frame
-input pattern from `PauseMenu`: Left/Right or A/D/stick/D-pad chooses; Space,
-Enter on a focused button, a standard face button, or pointer confirms. Native
-focus and the selected outline agree. Tab can visit the native controls.
-**Escape, Start, E or D-pad Up** leaves either overlay; its Leave/Return button
-also works. Leaving maths never requires an answer. Normal Escape/Start pause,
-T/Return to Trails confirmation and story/navigation behavior remain intact.
-Focus loss hides activity targets and preserves the question, then clears held
-input on return. No answer is submitted by restoring focus.
+The shared overlay boundary still stops simulation, animation, timers, audio and
+rumble before clock advancement. Closing clears time debt and held actions;
+revision counts every entry/exit, even between rendered frames. Rendering never
+advances state. Only the code-native tree sticker remains, separate from ordinary
+collectibles; reload resets the session without storage.
 
-The first maths question is fixed for the session on first maths access, using
-index `220 + collectedLetterCount * 151`. This deterministic choice can produce
-addition or subtraction depending on exploration order. The generator alternates
-operations and enumerates all 1,326 valid operand pairs per operation; it wraps
-after 2,652 questions. Choices are distinct integers in 0–50, rotated by index,
-with one correct answer. Wrong choices retain the question and all gameplay
-state. A single correct choice earns the number-leaf sticker immediately;
-revisiting says “Already complete” and offers Leave. No quiz length is required.
-
-Entry is checked before `SimulationClock.advance`, with a scene guard as a
-second boundary. While open, the clock, elapsed animation, run/hazard/platform
-and protection timers, feedback, HUD timers, weather and camera remain frozen.
-Audio and rumble suspend. Closing resets clock accumulation and pending actions,
-and the existing input release guard blocks held controller actions. A revision
-counts every entry/exit, even a pointer exit and keyboard re-entry between two
-rendered frames, so clearing input and restoring native selection cannot miss it.
-Rendering reads state without advancing it. The tree and number-leaf sticker
-shapes are small code-native canvas drawings; no new raster assets are needed.
-
-Automated checks cover permutations/repeated Es, retention/reset, every question
-pair, deliberate entry, no-penalty retries, full-state/pixel freeze, three input
-methods, native focus, focus loss, pause transitions and controller release.
-They do not establish child comprehension, enjoyment, suitable difficulty, sign
-readability while moving, or physical-controller ergonomics. Those remain
-parent/child and owner-led playtests before any expansion.
+Tests retain pickup permutations/repeated Es, recovery/replay/trail retention,
+reset, collection freeze/revisions, native focus and three input methods. Removal
+regressions cover the former sign location, absent trail targets and normal
+movement/pause. Automated results do not replace owner-led child/readability or
+physical-controller playtests. Finish grounding and static-prop/slime fixes are
+unchanged by this removal.

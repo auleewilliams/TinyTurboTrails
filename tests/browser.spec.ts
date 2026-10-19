@@ -3052,6 +3052,19 @@ test('educational word shows TREE and collects the two Es through real trail mov
   await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
   await expectClearViewport(page);
   await page.screenshot({ path: info.outputPath('word-small.png') });
+  await page.keyboard.press('Escape');
+  await page.getByRole('button', { name: 'Return to Trails', exact: true }).click();
+  await page.getByRole('button', { name: 'Return to Trails', exact: true }).click();
+  await page.keyboard.up('ArrowRight');
+  await page.evaluate(() => Object.assign((window as unknown as { trailPilot: object }).trailPilot, { active: false, lastActive: false, frozen: false, pauseAt: 0 }));
+  await page.getByRole('button', { name: 'Open stickers', exact: true }).click();
+  await expect(page.locator('#status')).toContainText('1/1 stickers');
+  await expect(page.locator('#status')).toContainText('Timbers TREE: earned');
+  await expect(page.locator('#status')).not.toContainText(/number leaf|maths/i);
+  await page.screenshot({ path: info.outputPath('stickers-word-only-small.png') });
+  await page.getByRole('button', { name: 'Return to map', exact: true }).click();
+  await page.getByRole('button', { name: 'Play TREETOP TIMBERS', exact: true }).click();
+  await expect(page.locator('#status')).toContainText('TREE: T R E E');
   await page.reload();
   await page.getByRole('button', { name: 'Skip story', exact: true }).click();
   await page.getByRole('button', { name: 'TREETOP TIMBERS', exact: true }).click();
@@ -3059,7 +3072,7 @@ test('educational word shows TREE and collects the two Es through real trail mov
   await expect(page.locator('#status')).toContainText('TREE: _ _ _ _');
 });
 
-async function arriveAtEducationalMaths(page: Page): Promise<void> {
+test('educational trail has no removed activity route at the former sign and keeps letter progress', async ({ page }, info) => {
   await installTrailPilot(page);
   await openAdventure(page, '/?debug=1');
   await page.getByRole('button', { name: 'TREETOP TIMBERS', exact: true }).click();
@@ -3069,162 +3082,27 @@ async function arriveAtEducationalMaths(page: Page): Promise<void> {
   }, dangerXs(LEVELS[2]));
   await expect(page.locator('#status')).toContainText('TREE: T R _ _');
   await expect.poll(() => page.evaluate(() => (window as unknown as { trailPilot: { frozen: boolean } }).trailPilot.frozen)).toBe(true);
-  await expect(page.getByRole('button', { name: 'Open optional maths', exact: true })).toBeVisible();
-  await expect(page.getByRole('button', { name: 'Leave activity', exact: true })).toHaveCount(0);
-  await page.keyboard.up('ArrowRight');
-  await page.evaluate(() => Object.assign((window as unknown as { trailPilot: object }).trailPilot, { active: false, lastActive: false }));
-}
-
-test('educational maths pointer entry freezes the opening frame, retries the same question and leaves safely', async ({ page }, info) => {
-  await arriveAtEducationalMaths(page);
-  const position = (await page.locator('#status').innerText()).match(/X \d+ Y \d+/)![0];
-  await page.getByRole('button', { name: 'Open optional maths', exact: true }).click();
-  await expect(page.getByRole('button', { name: 'Leave activity', exact: true })).toBeVisible();
-  await page.evaluate(() => Object.assign((window as unknown as { trailPilot: object }).trailPilot, { frozen: false, pauseAt: 0 }));
-  await expect(page.locator('#status')).toContainText(position);
-  const choices = page.getByRole('button', { name: /^Answer \d+$/ });
-  await expect(choices).toHaveCount(3);
-  await expect(choices.first()).toBeFocused();
-  // Accessible descriptions expose the same question as the canvas, not the answer.
-  const description = await choices.first().getAttribute('aria-description');
-  const [left, operation, right] = description!.match(/(\d+) ([+−]) (\d+)/)!.slice(1);
-  const answer = operation === '+' ? Number(left) + Number(right) : Number(left) - Number(right);
-  const labels = await choices.evaluateAll(buttons => buttons.map(button => button.getAttribute('aria-label')!));
-  await page.getByRole('button', { name: labels.find(label => label !== `Answer ${answer}`)!, exact: true }).click();
-  await expect(page.locator('#status')).toContainText('Try again');
-  expect(await choices.first().getAttribute('aria-description')).toContain(`${left} ${operation} ${right}`);
-  await expect(page.locator('#status')).toContainText(position);
-  const first = await page.locator('canvas').screenshot();
-  await page.evaluate(() => new Promise<void>(resolve => {
-    let frames = 0; const wait = () => { if (++frames === 20) resolve(); else requestAnimationFrame(wait); }; requestAnimationFrame(wait);
-  }));
-  expect((await page.locator('canvas').screenshot()).equals(first)).toBe(true);
-  await page.getByRole('button', { name: `Answer ${answer}`, exact: true }).click();
-  await expect(page.locator('#status')).toContainText('Sticker earned');
-  await expect(choices).toHaveCount(0);
-  await page.screenshot({ path: info.outputPath('maths-sticker.png') });
-  await page.keyboard.press('Escape');
-  await expect(page.getByRole('button', { name: 'Leave activity', exact: true })).toHaveCount(0);
-  await expect(page.getByRole('button', { name: 'Resume', exact: true })).toHaveCount(0);
-  await page.keyboard.press('e');
-  await expect(page.locator('#status')).toContainText('Already complete');
-  await page.screenshot({ path: info.outputPath('maths-already-complete.png') });
-  await page.getByRole('button', { name: 'Leave activity', exact: true }).click();
-  await page.evaluate(() => Object.assign((window as unknown as { trailPilot: object }).trailPilot, { active: true, pauseAt: 7150 }));
-  await expect(page.locator('#status')).toContainText('TREE: T R E E', { timeout: 25_000 });
-  await expect.poll(() => page.evaluate(() => (window as unknown as { trailPilot: { frozen: boolean } }).trailPilot.frozen)).toBe(true);
-  await page.keyboard.press('Escape');
-  await page.getByRole('button', { name: 'Return to Trails', exact: true }).click();
-  await page.getByRole('button', { name: 'Return to Trails', exact: true }).click();
   await page.keyboard.up('ArrowRight');
   await page.evaluate(() => Object.assign((window as unknown as { trailPilot: object }).trailPilot, { active: false, lastActive: false, frozen: false, pauseAt: 0 }));
-  await page.getByRole('button', { name: 'Open stickers', exact: true }).click();
-  await expect(page.locator('#status')).toContainText('2/2 stickers');
-  await expect(page.locator('#status')).toContainText('Timbers TREE: earned');
-  await expect(page.locator('#status')).toContainText('Timbers number leaf: earned');
-  await page.screenshot({ path: info.outputPath('stickers-both-earned.png') });
+  await page.keyboard.press('e');
+  await expect(page.getByRole('dialog')).toHaveCount(0);
+  await expect(page.getByRole('button', { name: /Open optional|Answer |Leave activity/ })).toHaveCount(0);
+  await expect(page.locator('#status')).not.toContainText(/maths|number leaf/i);
   await page.setViewportSize({ width: 320, height: 240 });
   await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
   await expectClearViewport(page);
-  await page.screenshot({ path: info.outputPath('stickers-small.png') });
-  await page.getByRole('button', { name: 'Return to map', exact: true }).click();
-  await page.getByRole('button', { name: 'Play TREETOP TIMBERS', exact: true }).click();
-  await expect(page.locator('#status')).toContainText('TREE: T R E E');
-  await expect(page.locator('#status')).toContainText('TREE complete');
-  await page.reload();
-  await page.getByRole('button', { name: 'Skip story', exact: true }).click();
-  await expect(page.getByRole('button', { name: 'Open stickers', exact: true })).toHaveAttribute('aria-description', /0 of 2/);
+  await page.screenshot({ path: info.outputPath('removed-activity-small.png') });
+  await page.keyboard.press('Escape');
+  await expect(page.getByRole('button', { name: 'Resume', exact: true })).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(page.getByRole('button', { name: 'Resume', exact: true })).toHaveCount(0);
 });
-
-for (const controller of [false, true]) {
-  test(`educational maths ${controller ? 'controller' : 'keyboard'} entry, selection, focus loss and pause boundaries`, async ({ page }, info) => {
-    await arriveAtEducationalMaths(page);
-    const frame = async (count = 3): Promise<void> => {
-      await page.evaluate(count => new Promise<void>(resolve => {
-        let frames = 0; const tick = () => { if (++frames >= count) resolve(); else requestAnimationFrame(tick); }; requestAnimationFrame(tick);
-      }), count);
-    };
-    const pad = async (button: number, pressed: boolean): Promise<void> => {
-      await page.evaluate(({ button, pressed }) => {
-        (window as unknown as { trailPilot: { controller: boolean } }).trailPilot.controller = true;
-        (window as unknown as { trailPad: { buttons: { pressed: boolean }[] } }).trailPad.buttons[button].pressed = pressed;
-      }, { button, pressed });
-      await frame();
-    };
-    const press = async (key: string, button: number): Promise<void> => {
-      if (controller) { await pad(button, true); await pad(button, false); }
-      else { await page.keyboard.down(key); await frame(); await page.keyboard.up(key); await frame(); }
-    };
-    await press('e', 12);
-    const answers = page.getByRole('button', { name: /^Answer \d+$/ });
-    await expect(answers).toHaveCount(3);
-    await expect(answers.first()).toBeFocused();
-    await page.evaluate(() => Object.assign((window as unknown as { trailPilot: object }).trailPilot, { frozen: false, pauseAt: 0 }));
-    const description = await answers.first().getAttribute('aria-description');
-    await page.evaluate(() => window.dispatchEvent(new Event('blur')));
-    await expect(page.locator('#status')).toContainText('Paused');
-    await expect(answers).toHaveCount(0);
-    if (controller) await pad(0, true);
-    else await page.keyboard.down('Space');
-    await page.evaluate(() => window.dispatchEvent(new Event('focus')));
-    await expect(answers).toHaveCount(3);
-    expect(await answers.first().getAttribute('aria-description')).toBe(description);
-    if (controller) await pad(0, false);
-    else await page.keyboard.up('Space');
-    await press('ArrowRight', 15);
-    await expect(answers.nth(1)).toHaveAttribute('aria-pressed', 'true');
-    await expect(answers.nth(1)).toBeFocused();
-    await press('Space', 0);
-    await expect(page.locator('#status')).toContainText('Try again');
-    await page.setViewportSize({ width: 320, height: 240 }); await frame();
-    await expectClearViewport(page);
-    await page.screenshot({ path: info.outputPath('maths-small.png') });
-    await press('Escape', 9);
-    await expect(page.getByRole('button', { name: 'Leave activity', exact: true })).toHaveCount(0);
-    await expect(page.getByRole('button', { name: 'Resume', exact: true })).toHaveCount(0);
-    await press('Escape', 9);
-    await expect(page.getByRole('button', { name: 'Resume', exact: true })).toBeVisible();
-    await press('Escape', 9);
-    await expect(page.getByRole('button', { name: 'Resume', exact: true })).toHaveCount(0);
-    await press('e', 12);
-    await expect(answers).toHaveCount(3);
-    if (controller) {
-      // Keep face/direction held while pointer exits.
-      await page.evaluate(() => {
-        const pad = (window as unknown as { trailPad: { buttons: { pressed: boolean }[]; axes: number[] } }).trailPad;
-        pad.axes[0] = 1; pad.buttons[0].pressed = true;
-      });
-      await page.getByRole('button', { name: 'Leave activity', exact: true }).click();
-      await frame(20);
-      await expect(answers).toHaveCount(0);
-      await expect(page.getByRole('button', { name: 'Resume', exact: true })).toHaveCount(0);
-      // The authored downhill surface has a 1px/s neutral drift; held right would reach 420px/s.
-      await expect(page.locator('#status')).toContainText('V 1');
-      await page.evaluate(() => {
-        const pad = (window as unknown as { trailPad: { buttons: { pressed: boolean }[]; axes: number[] } }).trailPad;
-        pad.axes[0] = 0; pad.buttons[0].pressed = false;
-      });
-      await frame();
-    } else await page.getByRole('button', { name: 'Leave activity', exact: true }).click();
-    await press('e', 12);
-    await expect(answers).toHaveCount(3);
-    const [left, operation, right] = (await answers.first().getAttribute('aria-description'))!.match(/(\d+) ([+−]) (\d+)/)!.slice(1);
-    const correct = operation === '+' ? Number(left) + Number(right) : Number(left) - Number(right);
-    const labels = await answers.evaluateAll(buttons => buttons.map(button => button.getAttribute('aria-label')));
-    const index = labels.indexOf(`Answer ${correct}`);
-    for (let step = 0; step < index; step++) await press('ArrowRight', 15);
-    await press('Space', 0);
-    await expect(page.locator('#status')).toContainText('Sticker earned');
-    await page.getByRole('button', { name: 'Leave activity', exact: true }).click();
-  });
-}
-
 
 for (const method of ['pointer', 'keyboard', 'controller'] as const) {
   test(`educational sticker collection ${method} access is optional and reload clears rewards`, async ({ page }) => {
     await installTrailPilot(page);
     await openAdventure(page, '/');
-    await expect(page.getByRole('button', { name: 'Open stickers', exact: true })).toHaveAttribute('aria-description', /0 of 2/);
+    await expect(page.getByRole('button', { name: 'Open stickers', exact: true })).toHaveAttribute('aria-description', /0 of 1/);
     if (method === 'pointer') await page.getByRole('button', { name: 'Open stickers', exact: true }).click();
     else if (method === 'keyboard') await page.keyboard.press('e');
     else {
@@ -3235,8 +3113,21 @@ for (const method of ['pointer', 'keyboard', 'controller'] as const) {
     }
     const close = page.getByRole('button', { name: 'Return to map', exact: true });
     await expect(close).toBeFocused();
-    await expect(page.locator('#status')).toContainText('0/2 stickers');
+    await expect(page.locator('#status')).toContainText('0/1 stickers');
     await expect(page.locator('#status')).toContainText('Timbers TREE: find the letters');
+    await expect(page.getByRole('dialog', { name: 'Timbers stickers', exact: true })).toBeVisible();
+    await expect(page.getByRole('button', { name: /Answer |Leave activity/ })).toHaveCount(0);
+    const frozenCanvas = await page.locator('canvas').screenshot();
+    await page.evaluate(() => new Promise<void>(resolve => {
+      let frames = 0; const tick = (): void => { if (++frames === 20) resolve(); else requestAnimationFrame(tick); }; requestAnimationFrame(tick);
+    }));
+    expect((await page.locator('canvas').screenshot()).equals(frozenCanvas)).toBe(true);
+    await page.evaluate(() => window.dispatchEvent(new Event('blur')));
+    await expect(page.locator('#status')).toContainText('Paused');
+    await expect(close).toHaveCount(0);
+    await page.evaluate(() => window.dispatchEvent(new Event('focus')));
+    await expect(close).toBeFocused();
+    await expect(page.locator('#status')).toContainText('0/1 stickers');
     if (method === 'controller') {
       await page.evaluate(() => { (window as unknown as { trailPad: { buttons: { pressed: boolean }[] } }).trailPad.buttons[12].pressed = false; });
       await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
@@ -3247,7 +3138,7 @@ for (const method of ['pointer', 'keyboard', 'controller'] as const) {
     await expect(page.getByRole('button', { name: 'Play PLAINS', exact: true })).toBeVisible();
     await page.reload();
     await page.getByRole('button', { name: 'Skip story', exact: true }).click();
-    await expect(page.getByRole('button', { name: 'Open stickers', exact: true })).toHaveAttribute('aria-description', /0 of 2/);
+    await expect(page.getByRole('button', { name: 'Open stickers', exact: true })).toHaveAttribute('aria-description', /0 of 1/);
     expect(await page.evaluate(() => ({ local: localStorage.length, session: sessionStorage.length }))).toEqual({ local: 0, session: 0 });
   });
 }

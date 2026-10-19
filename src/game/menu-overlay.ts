@@ -19,7 +19,7 @@ export class MenuOverlay {
     document.body.classList.toggle('pause-visible', pauseTargets.length > 0);
     this.element.setAttribute('aria-label', paused
       ? pauseTargets[0]?.label === 'Keep playing' ? 'Return to Trails confirmation' : 'Pause navigation'
-      : activityOpen ? scene?.educationOverlay.kind === 'stickers' ? 'Timbers stickers' : 'Optional Timbers maths' : 'Trail navigation');
+      : activityOpen ? 'Timbers stickers' : 'Trail navigation');
     const signature = JSON.stringify([
       activityOpen ? scene?.educationOverlay.revision : undefined,
       targets.map(({ label, selected, description, x, y, width, height }) => [label, selected, description, x, y, width, height]),

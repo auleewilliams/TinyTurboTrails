@@ -1,76 +1,70 @@
-# Timbers educational pilot — issue #189
+# Issue #189 — revised scope and evidence
 
-This bounded pilot adds TREE matching, an optional deliberately opened maths
-spot, and two session-only stickers. Placement, bindings, question selection and
-visuals are implementation choices in [the interaction guide](../../gameplay-interactions.md#optional-timbers-educational-pilot-189), not owner-approved tuning.
+## Current scope
 
-## Verification
+Maths has been removed from PR #190 at the owner's request and deferred to
+[issue #193](https://github.com/auleewilliams/TinyTurboTrails/issues/193).
+No sign, prompt, question/answer route, number-leaf reward or maths artwork remains.
+The map collection offers only the existing tree sticker.
 
-Node 22.22.1; lockfile installed with `npm ci`. From the isolated issue worktree:
+Letter collection and its interim matching/reward behaviour remain functional.
+The owner wants collected letters used to make a word after finishing; the
+assembly interaction is awaiting clarification, not implemented or represented
+as finished here. No merge or deployment is authorised.
 
-```sh
-npm test
-npm run typecheck
-npm run build
-npm run test:ci
-npx playwright test tests/browser.spec.ts --grep 'educational|paused T shortcut|pause return works through pointer|controller pause return requires confirmation' --workers 2
-```
+## Removal verification
 
-The full unit suite passes **807 tests in 46 files**; typecheck and production
-build pass; the CI script suite passes **8 tests**. **30 targeted browser cases pass with zero failures or skips**: 21 educational
-cases and 9 existing pause/navigation cases, across Chromium, Firefox and WebKit.
-The full browser matrix remains for orchestrator/CI.
+Strict vertical RED → GREEN checks cover absence of trail activation at the
+former sign x=2350 and availability of only one tree sticker / Return to map.
+The external logs are in
+`/home/leew/.hermes/cache/scratch/issue189-spelling-revision/`.
+Additional unit coverage preserves repeated Es, every pickup permutation,
+recovery/replay/trail retention, session reset, collection freeze, released
+confirmation and same-frame exit/re-entry revisions. Browser tests preserve real
+movement/letter collection and pointer/keyboard/standard-controller collection
+access, and assert absent activity routes at the former sign.
 
-The new browser tests use actual keyboard events, pointer/native buttons and
-standard-gamepad axes/buttons through `BrowserInput`. The existing trail pilot
-only drives those inputs and timestamps; there are no production scene hooks.
-They cover two separate Es, visible target/progress, explicit entry, wrong/correct
-answers, pixel-identical frozen frames, safe exit, native focus, focus loss,
-held controller release, pause transitions, both earned stickers, replay and
-reload reset. Unit tests cover all 24 letter orders, stable IDs, both recovery
-paths, trail changes and all 2,652 valid maths operand/operator pairs.
+Old maths and two-sticker screenshots have been removed from this revision.
+Historical implementation/evidence remains in PR #190 history at `23e522f` and
+`68e1ff5`; their full CI/review results **do not verify this revised head**.
+The remaining word captures below are historical illustrations of the preserved
+interim collection, not evidence of a final assembly design or current-head CI.
 
-## Test-first record
+| Engine | Historical interim word capture |
+| --- | --- |
+| Chromium | [Word](chromium-word-small.png) |
+| Firefox | [Word](firefox-word-small.png) |
+| WebKit | [Word](webkit-word-small.png) |
 
-Raw command logs, failures, traces and additional captures stay outside Git at
-`/home/leew/.hermes/cache/scratch/issue189-evidence/`. Its README gives chronology.
-Every log includes the actual exit status. Key RED → GREEN pairs:
+## Verified removal snapshot
 
-| Behavior | RED log | Passing log |
+- `npm test`: **832 passed**, 48 files; `npm run typecheck`, `npm run build`
+  and `npm run test:ci` (**8 passed**) succeeded.
+- Targeted Chromium/Firefox/WebKit: **15 passed**, no failures/skips/retries.
+  Real movement retains both Es and the tree reward; all three input methods
+  retain collection focus, pixel freeze, focus-loss recovery and reload reset.
+- The first browser run caught map selection changing to Plains: removing the
+  obsolete selection state must not remove the collection target's explicit
+  focus handler, which prevents the shared map-index fallback. Fixed and rerun.
+  A separate new screenshot assertion initially raced viewport resize; it now
+  waits the same two animation frames as existing viewport tests, without
+  changing bounds or retries/timeouts.
+- Fresh 320px captures inspected in all three engines: no maths sign or reward,
+  only the tree sticker and Return to map; no new overlap/clipping observed.
+  Downscaled-text child readability remains owner-led.
+- Full revised-head CI is pending; historical green CI is not current evidence.
+
+| Engine | Former activity location | Tree-only collection |
 | --- | --- | --- |
-| Letter identity/matching | `slice1-word-red.log` | `slice1-word-green.log` |
-| Real trail pickup/display | `slice1-browser-red.log` | `slice1-browser-green-final.log` |
-| Maths validity/retries | `slice2-maths-red.log` | `slice2-maths-green.log` |
-| Input/overlay freeze | `slice2-overlay-red.log` | `slice2-overlay-green.log` |
-| Native entry focus | `slice2-focus-red.log` | `slice2-browser-reentry-green.log` |
-| Exit/re-entry between frames | `slice2-reentry-red.log` | `slice2-reentry-green.log` |
-| Map collection | `slice3-collection-red.log`, `slice3-browser-red.log` | `slice3-collection-green.log`, `slice3-browser-green.log` |
-| Explicit word-complete replay state | `slice4-completion-red.log`, `slice4-browser-red.log` | `slice4-completion-green.log`, `final-browser.log` |
+| Chromium | [Trail](chromium-removed-activity-small.png) | [Collection](chromium-stickers-word-only-small.png) |
+| Firefox | [Trail](firefox-removed-activity-small.png) | [Collection](firefox-stickers-word-only-small.png) |
+| WebKit | [Trail](webkit-removed-activity-small.png) | [Collection](webkit-stickers-word-only-small.png) |
 
-Removing duplicate-ID rejection makes the repeated-E assertion fail
-(`slice1-sabotage.log`); restoring it passes (`slice1-restored.log`). Removing the
-scene's overlay freeze guard changes the full state snapshot and fails
-(`slice2-freeze-sabotage.log`); restoring it passes (`slice2-restored.log`).
-Failed exploratory runs are retained, including premature resize sampling,
-instant keyboard taps, the test's incorrect zero-velocity assumption on a slope,
-and the real stale Leave focus on same-frame exit/re-entry. The revision counter
-fixes that last bug; no existing assertions, retries or timeouts were weakened.
+## Unrelated accepted fixes retained
 
-## Captures and pending playtests
+- [Finish grounding](visual-clarity/README.md): all six trails; no new markings.
+- [Static-prop pass-through and preserved slimes](../issue-191/README.md).
 
-The PNGs here are genuine Playwright captures from the final targeted run. The
-small captures show the entire 320×240 window, including external Mute/rumble
-controls. Their readable layout was inspected separately from DOM assertions.
-
-| Engine | Repeated E / word complete | Maths retry / focus | Maths sticker | Both stickers |
-| --- | --- | --- | --- | --- |
-| Chromium | [Word](chromium-word-small.png) | [Maths](chromium-maths-small.png) | [Reward](chromium-maths-sticker.png) | [Collection](chromium-stickers-small.png) |
-| Firefox | [Word](firefox-word-small.png) | [Maths](firefox-maths-small.png) | [Reward](firefox-maths-sticker.png) | [Collection](firefox-stickers-small.png) |
-| WebKit | [Word](webkit-word-small.png) | [Maths](webkit-maths-small.png) | [Reward](webkit-maths-sticker.png) | [Collection](webkit-stickers-small.png) |
-
-Parent/child playtesting remains pending for comprehension, enjoyment, difficulty,
-letter/sign readability at speed, reward feedback and navigation. Physical
-controller checks remain pending; automated gamepad events are not hardware
-verification. Bundled Playwright WebKit is not installed Safari on macOS or the
-full supported installed-browser matrix. No owner-led tuning or child acceptance
-is claimed, and the pilot does not authorize expansion to other trails.
+Those documents label their own snapshots and evidence. Automated input does not
+establish child comprehension, enjoyment, physical-controller ergonomics or
+owner approval. Fresh final-head CI and final spelling acceptance remain pending.

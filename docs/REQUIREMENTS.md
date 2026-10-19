@@ -240,31 +240,24 @@ remain owner playtest decisions; implementation values are documented in
 
 ## Treetop Timbers educational pilot (#189)
 
-Treetop Timbers alone offers optional letter matching and an along-trail maths
-spot. Show the target TREE alongside filled matching slots. Four separate,
-stable pickups T, R, E, E fill one matching slot each in any order; revisiting
-one never credits it twice. Completing TREE earns a Timbers tree sticker.
+The owner has removed maths from PR #190. The activity spot, sign/prompt,
+questions, answer controls and number-leaf reward are absent, not hidden or
+feature-flagged. The deferred design is tracked in
+[issue #193](https://github.com/auleewilliams/TinyTurboTrails/issues/193).
 
-The clearly marked maths spot opens only on a deliberate keyboard, pointer or
-standard-controller action. Passing it keeps playing. Offer three distinct
-choices, exactly one correct, without typing. Deterministic addition/subtraction
-questions keep both operands and the answer within 0–50 inclusive, with no
-negative subtraction answers. One correct answer earns the distinct Timbers
-number-leaf sticker. Mistakes retry the same question without losing hearts or
-progress. Leave at any time. Opening the activity freezes the entire simulation
-and presentation, including its opening frame; closing discards time debt and
-held input. Preserve safe focus loss, native accessible controls and existing
-pause/navigation behavior.
+Preserve Timbers' four stable letter pickups T, R, E, E, including independent
+identities for both Es and no duplicate pickup credit. Letter progress survives
+checkpoint/health/pit recovery, replay, map return and trail changes in memory;
+reload clears it. No browser storage, new gates or changes to gems/stars/totals.
 
-These two stickers and partial educational progress persist in memory through
-checkpoint/health/pit recovery, replay, map return and changing trails within the
-page session. This is separate from ordinary run resets. Reload clears them;
-there is no localStorage, sessionStorage, IndexedDB or server save. Each activity
-awards its sticker once per session. The overworld offers a small collection via
-all three input methods, and completed activities explain their earned state on
-revisit. Neither activity gates a trail or changes gems, stars, finish or totals.
+The current interim build still fills matching TREE slots during collection and
+awards its single tree sticker. This is preserved existing behaviour, **not the
+approved final spelling interaction**. The owner wants Henry to collect letters
+on the trail and use them to make the word after finishing; the end-of-trail
+assembly interaction is pending clarification and is not implemented here.
 
-Placement, visuals, bindings and numeric tuning are implementation choices
-recorded in `gameplay-interactions.md`, pending owner-led parent/child and
-physical-controller playtesting. No educational expansion to other trails,
-construction/tools or additional exploration systems is approved here.
+The overworld's accessible collection offers only the tree sticker, via keyboard,
+pointer and standard controller. Preserve focus safety, held-input guards and
+normal pause/navigation. Retain all-six-trail finish grounding and the interim
+harmless/pass-through static props (#191), without added markings or altered
+slime damage/squash behaviour. No expansion or merge is authorised.
