@@ -83,6 +83,7 @@ export class AdventureScene implements Scene {
     return `TREE: ${this.education.wordProgress}${this.education.hasWordSticker ? ' · TREE complete · sticker earned' : ''}`;
   }
   private finishIndex = 0;
+  private finishArmed = true;
   private menuArmed = true;
   private marker = { x: 48, y: 88 };
   private readonly previews = new Map<string, HTMLCanvasElement>();
@@ -177,7 +178,8 @@ export class AdventureScene implements Scene {
     if (this.player.y > this.level.height + 80) recoverFromFall(this.run, this.player, this.events, this.level);
     if (!wasGrounded || this.events.some(event => event.type === 'recover' || event.type === 'damage' || event.type === 'spring')) this.footsteps.reset();
     else if (this.footsteps.step(step, this.player, previousPosition.x)) this.audio.play('footstep');
-    if (this.player.x >= this.level.finish.x && this.screens.state === 'playing') {
+    if (this.player.x < this.level.finish.x - 70) this.finishArmed = true;
+    if (this.finishArmed && this.player.x >= this.level.finish.x && this.screens.state === 'playing') {
       this.screens.complete(this.run.collectedGems.size);
       this.celebration.reset();
       this.session.mark(this.level, this.run.collectedGems.size, this.run.collectedSpecials.size);
@@ -187,6 +189,7 @@ export class AdventureScene implements Scene {
       this.audio.stop();
       this.rumble?.stop();
       this.audio.play('complete');
+      if (this.level.id === 'timbers') this.educationOverlay.showAssembly(() => this.retraceFromFinish());
     }
     this.feedback.consume(this.events, this.level);
     this.hud.consume(this.events);
@@ -234,9 +237,20 @@ export class AdventureScene implements Scene {
       if (this.educationOverlay.open) this.educationOverlay.draw(ctx);
     } else if (this.screens.state === 'finish') {
       this.drawFinish(ctx);
+      if (this.educationOverlay.open) this.educationOverlay.draw(ctx);
     } else if (this.screens.state === 'error') {
       this.panel(ctx, 'LOADING ERROR', `${this.screens.error} · Reload to retry`);
     }
+  }
+
+  private retraceFromFinish(): void {
+    if (this.screens.state !== 'finish') return;
+    this.finishArmed = false;
+    this.screens.retrace();
+    const x = this.level.finish.x - 28;
+    Object.assign(this.player, { x, y: surfaceY(this.level, x) - DEFAULT_MOVEMENT.height, vx: 0, vy: 0, onGround: true });
+    this.camera.update(this.player.x, this.player.y);
+    this.audio.startMusic(musicForLevel(this.level.id));
   }
 
   handleEducationInput(input: InputFrame): void {
@@ -402,6 +416,7 @@ export class AdventureScene implements Scene {
     this.rumble?.stop();
     this.educationOverlay.close();
     this.elapsed = 0;
+    this.finishArmed = true;
     this.celebration.reset();
     this.events = [];
     this.feedback.clear();

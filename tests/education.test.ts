@@ -65,6 +65,7 @@ it('collects on Timbers only and retains education through health/pit recovery, 
   expect(scene.education.stickers).toEqual(rewards);
   live.player.x = TREETOP_TIMBERS.finish.x;
   scene.update(1 / 60, neutral);
+  scene.educationOverlay.close();
   scene.activateFinish('Replay');
   expect(scene.education.letterCount).toBe(4);
   expect(scene.education.wordProgress).toBe('_ _ _ _');
@@ -160,4 +161,60 @@ it('opens a small session sticker collection from the map by pointer or activity
   expect(scene.screenState).toBe('title');
   expect(scene.selectedLevelName).toBe(selected);
   expect(scene.education.stickers).toHaveLength(1);
+});
+
+it('opens optional manual assembly at finish and accepts select/place through native targets and controller input', () => {
+  const { scene, live } = timbers();
+  for (const pickup of LETTER_PICKUPS) scene.education.collect(pickup.id);
+  live.player.x = TREETOP_TIMBERS.finish.x;
+  scene.update(1 / 60, neutral);
+  expect(scene.screenState).toBe('finish');
+  expect(scene.educationOverlay.open).toBe(true);
+  expect(scene.educationOverlay.description).toContain('Build TREE');
+  const snapshot = JSON.stringify(scene);
+  scene.update(9, { ...neutral, horizontal: 1, jumpHeld: true });
+  expect(JSON.stringify(scene)).toBe(snapshot);
+  expect(scene.education.stickers).toEqual([]);
+  expect(scene.menuTargets.filter(target => target.label.startsWith('Letter ')).map(target => target.label)).toEqual(['Letter E 2', 'Letter R', 'Letter T', 'Letter E 1']);
+  for (const [slot, name] of ['T', 'R', 'E 2', 'E 1'].entries()) {
+    scene.menuTargets.find(target => target.label === `Letter ${name}`)!.action();
+    const target = scene.menuTargets.find(target => target.label.startsWith(`Space ${slot + 1}:`))!;
+    if (slot === 0) {
+      target.focus!();
+      scene.handleEducationInput(neutral);
+      scene.handleEducationInput({ ...neutral, source: 'controller', jumpPressed: true });
+    } else target.action();
+  }
+  expect(scene.education.stickers).toEqual(['Timbers TREE']);
+  scene.menuTargets.find(target => target.label === 'Leave activity')!.action();
+  expect(scene.educationOverlay.open).toBe(false);
+  expect(scene.menuTargets.map(target => target.label)).toEqual(['Replay', 'Next trail', 'Choose trail']);
+});
+
+it('returns missing-letter play beside finish in the identical completed run and rearms only after leaving', () => {
+  const { scene, live } = timbers();
+  scene.education.collect(LETTER_PICKUPS[0].id);
+  scene.education.place(LETTER_PICKUPS[0].id, 0);
+  live.run.collectedGems.add('retained-gem');
+  live.run.collectedSpecials.add('retained-star');
+  live.player.x = TREETOP_TIMBERS.finish.x;
+  scene.update(1 / 60, neutral);
+  const run = live.run, before = JSON.stringify(run);
+  expect(scene.session.results.has('timbers')).toBe(true);
+  scene.menuTargets.find(target => target.label === 'Find more letters')!.action();
+  expect(scene.educationOverlay.open).toBe(false);
+  expect(scene.screenState).toBe('playing');
+  expect(live.run).toBe(run);
+  expect(JSON.stringify(run)).toBe(before);
+  expect(Math.abs(scene.playerX - TREETOP_TIMBERS.finish.x)).toBeLessThan(40);
+  expect(scene.education.wordProgress).toBe('T _ _ _');
+  for (let frame = 0; frame < 50; frame++) scene.update(1 / 60, { ...neutral, horizontal: 1 });
+  expect(scene.educationOverlay.open).toBe(false);
+  for (let frame = 0; frame < 150 && scene.playerX >= TREETOP_TIMBERS.finish.x - 100; frame++) scene.update(1 / 60, { ...neutral, horizontal: -1 });
+  expect(scene.playerX).toBeLessThan(TREETOP_TIMBERS.finish.x - 100);
+  for (let frame = 0; frame < 150 && scene.screenState === 'playing'; frame++) scene.update(1 / 60, { ...neutral, horizontal: 1 });
+  expect(scene.educationOverlay.open).toBe(true);
+  expect(scene.screenState).toBe('finish');
+  expect(live.run).toBe(run);
+  expect(scene.session.results.has('timbers')).toBe(true);
 });
