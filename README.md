@@ -8,6 +8,16 @@ Choose a landmark on the overworld, collect gems and reach the finish.
 Plains, Quarry Run and Treetop Timbers also offer three optional gold stars each;
 follow the slope, lift and spring signs to explore their signature challenges.
 
+## Published release
+
+[v0.1.0 — First playable six-trail release](https://github.com/auleewilliams/TinyTurboTrails/releases/tag/v0.1.0)
+is pinned to commit `bee0f7d402395af8d9ed7a4693e6739d9f905607`.
+The release notes link exact-commit test evidence, the verified container digest,
+remaining manual-check limitations and the process for future releases. This is
+an early playable milestone, not a claim that development is finished; newer
+`main` changes are not part of the published tag. See the
+[documentation index](docs/README.md) for current guidance and historical records.
+
 ## Play locally
 
 Install Node.js 22.12 or newer, then run:
