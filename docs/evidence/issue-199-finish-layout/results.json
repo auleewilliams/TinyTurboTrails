@@ -1,0 +1,375 @@
+{
+  "scope": "Issue 199, approved C12 only",
+  "date_utc": "2026-10-20",
+  "base_sha": "9ca5c7dd25ec02522442963ed3c27c46f79a0460",
+  "source_sha256": {
+    "original": "8d2ed8c0c298dc3f2b7f1591dfcd50f801bf80e6dea2c7e2912250229c4baa33",
+    "proposed": "8e8f699e06e71534227450faa6ed86d0ee0900f0c386b20da8fc7263c99137c3"
+  },
+  "equivalence": {
+    "equal_exact_multisets": true,
+    "equal_ordered_event_digest": true,
+    "events": 4287442,
+    "unique": 942,
+    "ordered_sha256": "2230073717d67b09d865899c65f8b822bff2ebd3c7192ba43534e9cfef88d506",
+    "multiset_sha256": "0872691b9397d506fa05a9b89c9c8cec5ae5c8af6855881fcc7ea24ae00177a3",
+    "kinds": {
+      "inside": 249305,
+      "overlaps": 1894405,
+      "expect": 2143732
+    }
+  },
+  "trace_method": {
+    "events": "JSON.stringify([kind, ...arguments]) plus newline into ordered SHA-256; tuples sorted lexicographically with exact integer multiplicities for direct original/proposed equality and multiset SHA-256. Rect object field order retained. Matcher events include actual value, matcher name, expected value.",
+    "instrumentation": "Only audit runs replace expect with Object.is-based toBe and numeric > toBeGreaterThan validators, recording all inputs. Original assertion expressions remain intact. Uninstrumented real Vitest green/sabotage runs separately validate both variants. No deadlines changed.",
+    "diagnostic": "An initial full-real-expect Proxy trace exceeded the unchanged 5000ms default in six heavy cases. Replaced only the temporary tracing mechanism, not committed test assertions or gate commands. One separate uninstrumented pre-change diagnostic hit 5019ms on the first gem case; later baseline whole-unit and all 14 retained benchmark executions passed unchanged. Not counted as a clean run."
+  },
+  "original_runs": [
+    {
+      "label": "original-green",
+      "exit": 0,
+      "wall_seconds": 21.749944603070617
+    },
+    {
+      "label": "original-trace",
+      "exit": 0,
+      "wall_seconds": 9.776090654078871
+    },
+    {
+      "label": "original-sabotage-sparkle-text-overlap",
+      "exit": 1,
+      "wall_seconds": 6.326470971573144,
+      "failed_tests": 5,
+      "failed_titles": [
+        "finish screen composition keeps Henry and the stars clear of the text with 0 gems",
+        "finish screen composition keeps Henry and the stars clear of the text with 1 gems",
+        "finish screen composition keeps Henry and the stars clear of the text with 7 gems",
+        "finish screen composition keeps Henry and the stars clear of the text with 42 gems",
+        "finish screen composition keeps Henry and the stars clear of the text with 999 gems"
+      ]
+    },
+    {
+      "label": "original-sabotage-payoff-outside-panel",
+      "exit": 1,
+      "wall_seconds": 5.566729635000229,
+      "failed_tests": 5,
+      "failed_titles": [
+        "finish screen composition keeps Henry and the stars clear of the text with 0 gems",
+        "finish screen composition keeps Henry and the stars clear of the text with 1 gems",
+        "finish screen composition keeps Henry and the stars clear of the text with 7 gems",
+        "finish screen composition keeps Henry and the stars clear of the text with 42 gems",
+        "finish screen composition keeps Henry and the stars clear of the text with 999 gems"
+      ]
+    },
+    {
+      "label": "original-sabotage-henry-text-overlap",
+      "exit": 1,
+      "wall_seconds": 1.7816475830040872,
+      "failed_tests": 6,
+      "failed_titles": [
+        "finish screen composition keeps Henry and the stars clear of the text with 0 gems",
+        "finish screen composition keeps Henry and the stars clear of the text with 1 gems",
+        "finish screen composition keeps Henry and the stars clear of the text with 7 gems",
+        "finish screen composition keeps Henry and the stars clear of the text with 42 gems",
+        "finish screen composition keeps Henry and the stars clear of the text with 999 gems",
+        "finish screen composition fits separate gem and star results on the result row for every star count"
+      ]
+    },
+    {
+      "label": "original-sabotage-run-gem-total",
+      "exit": 1,
+      "wall_seconds": 21.49464370496571,
+      "failed_tests": 6,
+      "failed_titles": [
+        "finish screen composition derives the PLAINS gem total from level data",
+        "finish screen composition derives the QUARRY RUN gem total from level data",
+        "finish screen composition derives the TREETOP TIMBERS gem total from level data",
+        "finish screen composition derives the SUNSET SITE gem total from level data",
+        "finish screen composition derives the FROST RIDGE gem total from level data",
+        "finish screen composition derives the SANDY COVE gem total from level data"
+      ]
+    },
+    {
+      "label": "original-restored-green",
+      "exit": 0,
+      "wall_seconds": 20.930962464772165
+    }
+  ],
+  "proposed_runs": [
+    {
+      "label": "proposed-green",
+      "exit": 0,
+      "wall_seconds": 19.77541380096227
+    },
+    {
+      "label": "proposed-trace",
+      "exit": 0,
+      "wall_seconds": 8.959075814113021
+    },
+    {
+      "label": "proposed-sabotage-sparkle-text-overlap",
+      "exit": 1,
+      "wall_seconds": 5.467429330106825,
+      "failed_tests": 5,
+      "failed_titles": [
+        "finish screen composition keeps Henry and the stars clear of the text with 0 gems",
+        "finish screen composition keeps Henry and the stars clear of the text with 1 gems",
+        "finish screen composition keeps Henry and the stars clear of the text with 7 gems",
+        "finish screen composition keeps Henry and the stars clear of the text with 42 gems",
+        "finish screen composition keeps Henry and the stars clear of the text with 999 gems"
+      ]
+    },
+    {
+      "label": "proposed-sabotage-payoff-outside-panel",
+      "exit": 1,
+      "wall_seconds": 5.356010019779205,
+      "failed_tests": 5,
+      "failed_titles": [
+        "finish screen composition keeps Henry and the stars clear of the text with 0 gems",
+        "finish screen composition keeps Henry and the stars clear of the text with 1 gems",
+        "finish screen composition keeps Henry and the stars clear of the text with 7 gems",
+        "finish screen composition keeps Henry and the stars clear of the text with 42 gems",
+        "finish screen composition keeps Henry and the stars clear of the text with 999 gems"
+      ]
+    },
+    {
+      "label": "proposed-sabotage-henry-text-overlap",
+      "exit": 1,
+      "wall_seconds": 1.6360838222317398,
+      "failed_tests": 6,
+      "failed_titles": [
+        "finish screen composition keeps Henry and the stars clear of the text with 0 gems",
+        "finish screen composition keeps Henry and the stars clear of the text with 1 gems",
+        "finish screen composition keeps Henry and the stars clear of the text with 7 gems",
+        "finish screen composition keeps Henry and the stars clear of the text with 42 gems",
+        "finish screen composition keeps Henry and the stars clear of the text with 999 gems",
+        "finish screen composition fits separate gem and star results on the result row for every star count"
+      ]
+    },
+    {
+      "label": "proposed-sabotage-run-gem-total",
+      "exit": 1,
+      "wall_seconds": 22.61643907101825,
+      "failed_tests": 6,
+      "failed_titles": [
+        "finish screen composition derives the PLAINS gem total from level data",
+        "finish screen composition derives the QUARRY RUN gem total from level data",
+        "finish screen composition derives the TREETOP TIMBERS gem total from level data",
+        "finish screen composition derives the SUNSET SITE gem total from level data",
+        "finish screen composition derives the FROST RIDGE gem total from level data",
+        "finish screen composition derives the SANDY COVE gem total from level data"
+      ]
+    },
+    {
+      "label": "proposed-restored-green",
+      "exit": 0,
+      "wall_seconds": 22.15799783030525
+    }
+  ],
+  "timing": {
+    "base_sha": "9ca5c7dd25ec02522442963ed3c27c46f79a0460",
+    "source_sha256": {
+      "original": "8d2ed8c0c298dc3f2b7f1591dfcd50f801bf80e6dea2c7e2912250229c4baa33",
+      "proposed": "8e8f699e06e71534227450faa6ed86d0ee0900f0c386b20da8fc7263c99137c3"
+    },
+    "environment": {
+      "node": "v22.22.1",
+      "npm": "9.2.0",
+      "platform": "Linux-7.0.0-31-generic-x86_64-with-glibc2.43",
+      "vitest": "5.0.4",
+      "lockfile_sha256": "1a0991b9c72247fbaf2410b5a17aaeb8c4f63f3f118cd7c0060ddaf1379a5db4"
+    },
+    "method": "One unmeasured warm-up per variant, alternating AB/BA pairs in the same worktree, dependencies and process command. Uninstrumented Vitest suite endTime-startTime; not instrumentation timings. All 7 completed pairs retained. Outer terminal request timed out after 420 seconds during planned pair 8; no pair 8 completed/report exists. Per-process wall timers were not persisted; only independently persisted Vitest suite timings are reported.",
+    "samples": [
+      {
+        "pair": 1,
+        "variant": "original",
+        "suite_ms": 19072.97705078125,
+        "tests": 15,
+        "start_epoch_ms": 1792485411701
+      },
+      {
+        "pair": 1,
+        "variant": "proposed",
+        "suite_ms": 19248.768798828125,
+        "tests": 15,
+        "start_epoch_ms": 1792485432328
+      },
+      {
+        "pair": 2,
+        "variant": "original",
+        "suite_ms": 19019.590087890625,
+        "tests": 15,
+        "start_epoch_ms": 1792485474927
+      },
+      {
+        "pair": 2,
+        "variant": "proposed",
+        "suite_ms": 20267.44384765625,
+        "tests": 15,
+        "start_epoch_ms": 1792485453101
+      },
+      {
+        "pair": 3,
+        "variant": "original",
+        "suite_ms": 18853.21484375,
+        "tests": 15,
+        "start_epoch_ms": 1792485495495
+      },
+      {
+        "pair": 3,
+        "variant": "proposed",
+        "suite_ms": 20446.59423828125,
+        "tests": 15,
+        "start_epoch_ms": 1792485515903
+      },
+      {
+        "pair": 4,
+        "variant": "original",
+        "suite_ms": 18244.151123046875,
+        "tests": 15,
+        "start_epoch_ms": 1792485558240
+      },
+      {
+        "pair": 4,
+        "variant": "proposed",
+        "suite_ms": 18830.587646484375,
+        "tests": 15,
+        "start_epoch_ms": 1792485537892
+      },
+      {
+        "pair": 5,
+        "variant": "original",
+        "suite_ms": 19137.0087890625,
+        "tests": 15,
+        "start_epoch_ms": 1792485578008
+      },
+      {
+        "pair": 5,
+        "variant": "proposed",
+        "suite_ms": 19869.603515625,
+        "tests": 15,
+        "start_epoch_ms": 1792485598661
+      },
+      {
+        "pair": 6,
+        "variant": "original",
+        "suite_ms": 19570.85791015625,
+        "tests": 15,
+        "start_epoch_ms": 1792485642017
+      },
+      {
+        "pair": 6,
+        "variant": "proposed",
+        "suite_ms": 20430.8408203125,
+        "tests": 15,
+        "start_epoch_ms": 1792485620043
+      },
+      {
+        "pair": 7,
+        "variant": "original",
+        "suite_ms": 18679.591796875,
+        "tests": 15,
+        "start_epoch_ms": 1792485663116
+      },
+      {
+        "pair": 7,
+        "variant": "proposed",
+        "suite_ms": 19548.472412109375,
+        "tests": 15,
+        "start_epoch_ms": 1792485683332
+      }
+    ],
+    "summary": {
+      "original": {
+        "median_ms": 19019.590087890625,
+        "min_ms": 18244.151123046875,
+        "max_ms": 19570.85791015625
+      },
+      "proposed": {
+        "median_ms": 19869.603515625,
+        "min_ms": 18830.587646484375,
+        "max_ms": 20446.59423828125
+      }
+    },
+    "median_difference_percent": -4.4691469364293015
+  },
+  "local_gates": [
+    {
+      "label": "baseline-unit",
+      "exit": 0,
+      "wall_seconds": 53.04273427231237
+    },
+    {
+      "label": "final-target",
+      "exit": 0,
+      "wall_seconds": 20.815560640767217
+    },
+    {
+      "label": "final-unit",
+      "exit": 0,
+      "wall_seconds": 48.02565324306488
+    },
+    {
+      "label": "final-typecheck",
+      "exit": 0,
+      "wall_seconds": 1.7401835350319743
+    },
+    {
+      "label": "final-build",
+      "exit": 0,
+      "wall_seconds": 2.667881228029728
+    },
+    {
+      "label": "final-script",
+      "exit": 0,
+      "wall_seconds": 1.4959811042062938
+    }
+  ],
+  "unit_counts": {
+    "baseline-unit": {
+      "numTotalTests": 953,
+      "numPassedTests": 953,
+      "numFailedTests": 0,
+      "success": true
+    },
+    "final-target": {
+      "numTotalTests": 15,
+      "numPassedTests": 15,
+      "numFailedTests": 0,
+      "success": true
+    },
+    "final-unit": {
+      "numTotalTests": 953,
+      "numPassedTests": 953,
+      "numFailedTests": 0,
+      "success": true
+    }
+  },
+  "sabotages": [
+    {
+      "name": "sparkle-text-overlap",
+      "file": "src/game/adventure-scene.ts",
+      "before": "x: x - size, y: y - size",
+      "after": "x: 200, y: 40"
+    },
+    {
+      "name": "payoff-outside-panel",
+      "file": "src/game/adventure-scene.ts",
+      "before": "payoff: { x: 68,",
+      "after": "payoff: { x: 0,"
+    },
+    {
+      "name": "henry-text-overlap",
+      "file": "src/game/adventure-scene.ts",
+      "before": "baseline - anchor.y + jump",
+      "after": "baseline - anchor.y + jump - 70"
+    },
+    {
+      "name": "run-gem-total",
+      "file": "src/game/interactions.ts",
+      "before": "gemTotal: countEntities(level, 'gem'),",
+      "after": "gemTotal: countEntities(level, 'gem') + 1,"
+    }
+  ]
+}

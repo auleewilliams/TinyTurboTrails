@@ -27,6 +27,8 @@ describe('finish screen composition', () => {
   const { panel, title, gems, actions, prompt } = FINISH_LAYOUT;
   const times = Array.from({ length: 121 }, (_, step) => step / 60);
   const bobs = times.map(time => celebrationJump(time));
+  // Sparkle geometry depends on sampled time, not Henry's bob, gems or star count.
+  const sparkleRects = [...times.flatMap(time => celebrationStarRects(time)), ...celebrationStarRects(0, true)];
 
   it('samples takeoff, peak and landing', () => {
     expect(Math.min(...bobs)).toBe(-8);
@@ -47,7 +49,7 @@ describe('finish screen composition', () => {
     for (const rect of text) expect(inside(rect, panel)).toBe(true);
     for (let i = 1; i < text.length; i++) expect(overlaps(text[i - 1], text[i])).toBe(false);
     for (const bob of bobs) {
-      const art = [celebrationHenryRect(henryManifest.anchor, bob), ...times.flatMap(time => celebrationStarRects(time)), ...celebrationStarRects(0, true), FINISH_LAYOUT.payoff];
+      const art = [celebrationHenryRect(henryManifest.anchor, bob), ...sparkleRects, FINISH_LAYOUT.payoff];
       for (const rect of art) {
         expect(inside(rect, panel)).toBe(true);
         for (const line of text) expect(overlaps(rect, line)).toBe(false);
@@ -81,7 +83,7 @@ describe('finish screen composition', () => {
       expect(inside(starBox, panel)).toBe(true);
       expect(overlaps(gemBox, starBox)).toBe(false);
       for (const bob of bobs) {
-        for (const art of [celebrationHenryRect(henryManifest.anchor, bob), ...times.flatMap(time => celebrationStarRects(time)), ...celebrationStarRects(0, true), FINISH_LAYOUT.payoff]) {
+        for (const art of [celebrationHenryRect(henryManifest.anchor, bob), ...sparkleRects, FINISH_LAYOUT.payoff]) {
           expect(overlaps(art, gemBox)).toBe(false);
           expect(overlaps(art, starBox)).toBe(false);
         }
