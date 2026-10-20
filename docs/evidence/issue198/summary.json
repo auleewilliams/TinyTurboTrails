@@ -1,0 +1,105 @@
+{
+  "runId": 39337249785,
+  "artifactId": 12228850731,
+  "artifactDigest": "sha256:a7f2e36393176ecb13a57d27835842f6630f28c43b24df9e9455bbf570911f94",
+  "runConclusion": "success",
+  "environment": {
+    "runnerVersion": "2.337.0",
+    "image": "ubuntu-24.04",
+    "imageVersion": "20261012.334.1",
+    "chromiumHeadlessShell": "156.0.8078.4 (build 1248)",
+    "firefox": "157.0 (build 1555)",
+    "webkit": "27.2 (build 2370)"
+  },
+  "prHeadSha": "732484288d6f2fb92859c4aced1406b6ca47ba54",
+  "testedCheckoutSha": "31d37007bd773cc936c5993bb60d77da8c697328",
+  "metadata": {
+    "sourceRevision": "31d37007bd773cc936c5993bb60d77da8c697328",
+    "nodeVersion": "v22.23.3",
+    "platform": "linux",
+    "arch": "x64",
+    "actualWorkers": 2
+  },
+  "playwrightVersion": "1.64.0",
+  "workers": 2,
+  "stats": {
+    "startTime": "2026-10-19T22:47:44.457Z",
+    "duration": 1729903.757,
+    "expected": 335,
+    "skipped": 1,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "configured": 336,
+  "enumerated": 336,
+  "attemptRows": 336,
+  "projects": {
+    "chromium": {
+      "configured": 112,
+      "enumerated": 112,
+      "outcomes": {
+        "expected": 112,
+        "unexpected": 0,
+        "skipped": 0,
+        "flaky": 0
+      },
+      "attempt_duration_ms": 1055722
+    },
+    "firefox": {
+      "configured": 112,
+      "enumerated": 112,
+      "outcomes": {
+        "expected": 111,
+        "unexpected": 0,
+        "skipped": 1,
+        "flaky": 0
+      },
+      "attempt_duration_ms": 1093088
+    },
+    "webkit": {
+      "configured": 112,
+      "enumerated": 112,
+      "outcomes": {
+        "expected": 112,
+        "unexpected": 0,
+        "skipped": 0,
+        "flaky": 0
+      },
+      "attempt_duration_ms": 1254960
+    }
+  },
+  "skippedCases": [
+    {
+      "id": "87be2dcdb54c25970a35-a58104302c5d4d963d58",
+      "file": "audio.spec.ts",
+      "line": 3,
+      "column": 1,
+      "title": "audio.spec.ts > audio stays locked until interaction and supports all effects, mute, pause and stop",
+      "project": "firefox",
+      "outcome": "skipped",
+      "expected_status": "skipped",
+      "skip_reason": "Native AudioContext cannot run on this host; requires an audio backend.",
+      "reasons": [
+        "Native AudioContext cannot run on this host; requires an audio backend."
+      ]
+    }
+  ],
+  "unexpectedCases": [],
+  "globalErrors": [],
+  "attachmentPathsChecked": 471,
+  "missingAttachmentPaths": [],
+  "downloadedFiles": {
+    "browser-report.json": {
+      "bytes": 61557799,
+      "sha256": "583e56bb7c92c57c032fb3d43ba7256e403a110261048d07e2725934a9f1260a"
+    },
+    "configured-cases.json": {
+      "bytes": 213212,
+      "sha256": "2fdff2d20f42c73a369a2e1e23861c3a35c4ad4a5921f8393cc48156222b3af1"
+    },
+    "browser-summary.json": {
+      "bytes": 194074,
+      "sha256": "8b365faecb5e9a9e94f15a47d33a82d023abf3024acd6794073b0236dc949f7f"
+    }
+  }
+}
