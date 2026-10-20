@@ -17,6 +17,17 @@
 - [LAN deployment and rollback](DEPLOYMENT.md)
 - [CI reliability](CI-RELIABILITY.md)
 
+## Published release
+
+- [v0.1.0 — First playable six-trail release](https://github.com/auleewilliams/TinyTurboTrails/releases/tag/v0.1.0):
+  source commit `bee0f7d402395af8d9ed7a4693e6739d9f905607`, exact-commit CI evidence,
+  verified container identity, owner-accepted manual-check limitations and a
+  reproducible future-release process are recorded in its release notes.
+
+The release tag is fixed; this documentation and `main` may subsequently change.
+Publishing a release is distinct from deploying it. Earlier certification and
+waivers below apply only to their dated candidates, not automatically to v0.1.0.
+
 ## Dated evidence, not current certification
 
 - [Suite purpose, coverage and cost audit for issue 167](evidence/issue-167/README.md)
