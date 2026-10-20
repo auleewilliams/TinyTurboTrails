@@ -1,8 +1,8 @@
-# Test consolidation review — owner decision required
+# Test consolidation review — dated audit and C12 follow-up
 
 ## Scope and snapshot
 
-This is a **proposal, not approval or implementation**, for #199. No test,
+This is a **documentation-only proposal, not implementation**, for #199. No test,
 application, engine, workflow or asset changes are included. Do not close #199
 on this documentation PR. Every coverage change still needs explicit owner
 agreement, followed by a separate, one-concern implementation PR and red/green
@@ -14,6 +14,28 @@ when inspected). Line references below refer to that immutable source snapshot;
 recheck after rebasing or after #196/#200 land. [Source manifest](source-manifest.json)
 records exact source hashes and historical-source drift. These are source-review
 results, **not current test execution or branch-coverage certification**.
+
+### Status update — 2026-10-20 UTC
+
+The owner has [approved C12's exact computation-only follow-up](https://github.com/auleewilliams/TinyTurboTrails/issues/199#issuecomment-6286765034):
+hoist only invariant sparkle-rectangle construction in `tests/finish-layout.test.ts`,
+preserving all 15 expanded cases, five gem parameters, 121 samples, four star
+counts and every assertion. Implementation and its validation belong in a
+**separate narrowly scoped follow-up PR**; they are not delivered or certified
+here. All other proposed changes still require their own owner agreement.
+#199 remains open; this is not blanket approval to consolidate or remove tests.
+
+This branch was refreshed by merging main
+`9ca5c7dd25ec02522442963ed3c27c46f79a0460` (including merged #197's shared
+retrace helper). That refresh is **not a new audit**. The matrix, source hashes,
+relative source-line anchors, counts and related-work observations below remain
+the **2026-10-19 snapshot at `4d3e9de`**, not current-main claims. Resolve those
+source anchors against that pinned commit, not today's shifted line offsets.
+The unchanged CSV's `approved=False` / `implemented=False` fields and manifest's
+`ownerApprovalReceived=false` describe that historical review state; the later
+C12-only approval above supersedes its approval status, not its evidence or
+implementation status. In particular, the snapshot's description of #197 as
+open does not describe its current merged state.
 
 Starting evidence remains historical and unchanged:
 [README](../issue-167/README.md), [18 candidates](../issue-167/candidate-verdicts.csv),
@@ -50,7 +72,7 @@ mirror the rows below.
   authoritative. That unmerged driver adjustment is not assumed present here
   and is not covered by this documentation-only PR's scope claim.
 
-## Revalidated decisions
+## Revalidated decisions — 2026-10-19 snapshot
 
 `Merge`, `move down`, and `remove` below describe possible future work only.
 **No removal is currently certified; no engine reduction is proposed.**
@@ -137,7 +159,7 @@ These are additions to the retain inventory, not a reason to prune old layers:
 
 ## First bounded proposal: finish-layout invariant construction only (C12)
 
-**Decision requested:** approve a separate test-only PR limited to
+**Historical proposal (C12 scope approved on 2026-10-20 above):** a separate test-only PR limited to
 `tests/finish-layout.test.ts`, hoisting the bob-independent sparkle rectangle
 construction out of its nested bob loops. This is the easiest clearly bounded
 computation reduction found here; it is **not claimed to be the largest suite
@@ -202,7 +224,8 @@ benefit, report that honestly rather than expanding to parameter deletion.
 
 ## Follow-up order / decisions still needed
 
-1. Owner reviews C12 and approves or rejects its exact computation-only scope.
+1. C12's exact computation-only scope is owner-approved as recorded above;
+   implement and validate it separately before considering it complete.
 2. Reporting #198 and reliability #200 proceed independently. No browser pilot
    implementation PR should race their shared helpers or claim their work.
 3. If later approved, C07 can transplant the exact idle-pixel **and boot/input**
@@ -223,9 +246,9 @@ benefit, report that honestly rather than expanding to parameter deletion.
 - Historical candidate names/count reconciled against all 18 rows; each has one
   current verdict and retained-predicate rationale above and in the CSV.
 - Relative file links and source-line bounds checked programmatically; exact
-  named single-line browser registrations checked against current source.
+  named single-line browser registrations checked against the pinned snapshot.
 - Exact source hashes and historical unit-file drift recorded in the manifest.
 - `git diff --check` and docs-only changed-path guard required before commit.
 - No full browser or unit suite run for this proposal; no sabotage performed,
-  no runtime pass or measurable speedup claimed. Implementation acceptance and
-  owner approval remain outstanding.
+  no runtime pass or measurable speedup claimed. Implementation acceptance
+  remains outstanding; C12-only owner approval is recorded above.
