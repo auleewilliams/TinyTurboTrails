@@ -1,0 +1,8 @@
+Use case: precise-object-edit
+Asset type: One transparent production-source Sunset Site reward sticker for Tiny Turbo Trails.
+Input image: The attached builder-kit sheet is the owner-approved design reference and extraction target.
+Primary request: Extract ONLY the approved sticker: a chunky silver-grey steel I-beam with a friendly bright yellow construction hard hat resting on top. Preserve the concept's composition, colors, friendly pixel illustration, dark blue-green outlines and cream die-cut border.
+Composition: One compact unified sticker centered on a square canvas, entirely in frame, with generous transparent padding on all sides. The sticker silhouette should remain roughly square. Keep the complete hard hat, its strong brim, and the recognizable beam flanges/web. Preserve the broad cream cut-out border and thin dark exterior keyline. No additional objects or scene.
+Small-size purpose: This will be shown at 56-by-56 logical pixels and at roughly 31-by-31 in a collection. Simplify beam chips/rust speckles into a few large material clusters; keep a few distinct yellow hat highlights and the cream border visible. Use crisp purposeful pixel edges, no subpixel blur.
+Text: No lettering, numbers, banners, labels or symbols.
+Transparency: The background outside the thin dark exterior keyline is genuinely transparent RGBA, including between silhouette concavities. The cream die-cut border itself remains opaque cream. No checkerboard texture, background fill, floor, drop shadow or black backdrop. No pouch or blocks.

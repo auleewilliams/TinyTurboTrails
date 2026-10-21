@@ -1,6 +1,7 @@
 import type { InputFrame } from '../core/input';
 import type { MenuTarget } from './overworld';
 import { TRAIL_WORDS, type EducationSession, type TrailWord } from './education';
+import { drawLetterTile, type SpellingAssets } from '../art/spelling';
 
 /** Like PauseMenu, this consumes rendered-frame input while simulation is stopped. */
 export class EducationOverlay {
@@ -24,7 +25,7 @@ export class EducationOverlay {
     this.direction = 0;
     this.message = 'Choose a letter, then a space.';
   }
-  constructor(private readonly session: EducationSession) {}
+  constructor(private readonly session: EducationSession, private readonly artwork?: SpellingAssets) {}
 
   showStickers(): void {
     this.revision++;
@@ -107,7 +108,7 @@ export class EducationOverlay {
       const progress = this.session.progressFor(config.id);
       ctx.fillStyle = '#17333b'; ctx.fillRect(x, y, 132, 64);
       ctx.save(); ctx.translate(x + 66, y + 21); ctx.scale(0.55, 0.55);
-      drawWordSticker(ctx, config, 0, 0, progress.hasWordSticker); ctx.restore();
+      drawWordSticker(ctx, config, 0, 0, progress.hasWordSticker, this.artwork); ctx.restore();
       ctx.fillStyle = '#ffda75'; ctx.font = 'bold 10px monospace';
       ctx.fillText(`${config.name} ${config.word}`, x + 66, y + 46);
       ctx.fillStyle = '#e9f2df'; ctx.font = '9px monospace';
@@ -131,18 +132,24 @@ export class EducationOverlay {
     [...this.session.config.word].forEach((letter, index) => ctx.fillText(letter, 132 + index * 52, 54));
     ctx.font = '10px monospace'; ctx.fillStyle = '#e9f2df';
     ctx.fillText(this.session.hasWordSticker ? this.earnedMessage : this.message, 213, 169);
-    for (const target of this.targets) {
+    for (const [index, target] of this.targets.entries()) {
+      const isLetter = target.label.startsWith('Letter '), isSpace = target.label.startsWith('Space ');
+      const glyph = isLetter ? target.label[7] : isSpace ? target.label.split(': ')[1] : '';
+      if (isLetter || (isSpace && glyph !== 'empty')) {
+        drawLetterTile(ctx, this.artwork?.tile, glyph, target.x, target.y, target.width, target.height,
+          target.selected, isLetter && this.session.pile[index]?.id === this.heldLetter);
+        continue;
+      }
       ctx.fillStyle = target.selected ? '#ffda75' : '#34515a'; ctx.fillRect(target.x, target.y, target.width, target.height);
       ctx.strokeStyle = '#bfd5ce'; ctx.strokeRect(target.x, target.y, target.width, target.height);
-      ctx.fillStyle = target.selected ? '#0c1922' : '#e9f2df'; ctx.font = !target.label.startsWith('Letter ') && !target.label.startsWith('Space ') ? 'bold 12px monospace' : 'bold 17px monospace';
-      const label = target.label.startsWith('Letter ') ? target.label[7] : target.label.startsWith('Space ') ? target.label.split(': ')[1].replace('empty', '_') : target.label;
+      ctx.fillStyle = target.selected ? '#0c1922' : '#e9f2df'; ctx.font = isSpace ? 'bold 17px monospace' : 'bold 12px monospace';
+      const label = isSpace ? '_' : target.label;
       ctx.fillText(label, target.x + target.width / 2, target.y + target.height / 2 + 5);
     }
-    if (this.session.hasWordSticker) drawWordSticker(ctx, this.session.config, 365, 91, true);
+    if (this.session.hasWordSticker) drawWordSticker(ctx, this.session.config, 365, 91, true, this.artwork);
     if (this.drag) {
-      ctx.fillStyle = '#ffda75'; ctx.fillRect(this.drag.x - 21, this.drag.y - 16, 42, 32);
-      ctx.fillStyle = '#0c1922'; ctx.font = 'bold 17px monospace';
-      ctx.fillText(this.session.pile.find(pickup => pickup.id === this.drag!.id)!.letter, this.drag.x, this.drag.y + 5);
+      drawLetterTile(ctx, this.artwork?.tile, this.session.pile.find(pickup => pickup.id === this.drag!.id)!.letter,
+        this.drag.x - 21, this.drag.y - 16, 42, 32, false, true);
     }
     ctx.fillStyle = '#e9f2df'; ctx.font = '9px monospace';
     ctx.fillText('Choose letter → space · Tab / arrows + Space / face', 213, 229);
@@ -160,8 +167,13 @@ function drawTreeSticker(ctx: CanvasRenderingContext2D, x: number, y: number, ea
   ctx.fillStyle = '#17333b'; ctx.font = 'bold 10px monospace'; ctx.fillText('TREE', x, y + 6);
 }
 
-/** Distinct small code-native trail stickers; artwork polish is a separate task. */
-function drawWordSticker(ctx: CanvasRenderingContext2D, config: TrailWord, x: number, y: number, earned: boolean): void {
+/** Approved Sunset artwork; the other five trail rewards retain their original shapes. */
+function drawWordSticker(ctx: CanvasRenderingContext2D, config: TrailWord, x: number, y: number, earned: boolean, artwork?: SpellingAssets): void {
+  if (config.id === 'sunset' && artwork) {
+    ctx.save(); ctx.globalAlpha *= earned ? 1 : 0.3;
+    ctx.drawImage(artwork.sunsetSticker, x - 28, y - 28, 56, 56); ctx.restore();
+    return;
+  }
   if (config.id === 'timbers') { drawTreeSticker(ctx, x, y, earned); return; }
   ctx.save(); ctx.translate(x, y);
   ctx.fillStyle = earned ? ({ plains: '#9ccf93', quarry: '#aebac9', sunset: '#e4b16f', frost: '#bbe6ff', cove: '#f1d797' } as Record<string, string>)[config.id] : '#637578';

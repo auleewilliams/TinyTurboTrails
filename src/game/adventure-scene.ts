@@ -1,5 +1,6 @@
 import { EducationOverlay } from './education-overlay';
 import { EducationSession, TRAIL_WORDS } from './education';
+import { drawLetterTile, type SpellingAssets } from '../art/spelling';
 import { drawOverworld, MAP_POINTS, OVERWORLD_LAYOUT, TrailSession, type MenuTarget } from './overworld';
 import { musicForLevel } from '../core/music';
 import type { GameAudio } from '../core/audio';
@@ -77,7 +78,7 @@ export class AdventureScene implements Scene {
   readonly session = new TrailSession();
   readonly education = new EducationSession();
   private letterFlights: { letter: string; x: number; y: number; age: number }[] = [];
-  readonly educationOverlay = new EducationOverlay(this.education);
+  readonly educationOverlay: EducationOverlay;
   private get hasWordActivity(): boolean { return TRAIL_WORDS.some(config => config.id === this.level.id); }
   get educationDescription(): string {
     if (this.educationOverlay.open) return this.educationOverlay.description;
@@ -90,7 +91,8 @@ export class AdventureScene implements Scene {
   private marker = { x: 48, y: 88 };
   private readonly previews = new Map<string, HTMLCanvasElement>();
   private inputSource: InputSource = 'keyboard';
-  constructor(private readonly titleArtwork: HTMLImageElement, private readonly henry: HenryAssets, private readonly worlds: WorldAssetMap, private readonly audio: GameAudio, level: LevelData, private readonly landmarks?: HTMLImageElement, private readonly mapBackground?: HTMLImageElement, private readonly storyArtwork?: HTMLImageElement, private readonly rumble?: GameRumble) {
+  constructor(private readonly titleArtwork: HTMLImageElement, private readonly henry: HenryAssets, private readonly worlds: WorldAssetMap, private readonly audio: GameAudio, level: LevelData, private readonly landmarks?: HTMLImageElement, private readonly mapBackground?: HTMLImageElement, private readonly storyArtwork?: HTMLImageElement, private readonly rumble?: GameRumble, private readonly spelling?: SpellingAssets) {
+    this.educationOverlay = new EducationOverlay(this.education, spelling);
     const missing = [...new Set(LEVELS.map((candidate) => candidate.atlas))]
       .filter((atlas) => !worlds[atlas]);
     if (missing.length > 0) throw new Error(`Missing world assets: ${missing.join(', ')}`);
@@ -274,9 +276,7 @@ export class AdventureScene implements Scene {
     for (const letter of this.education.pickups) {
       if (this.education.hasLetter(letter.id)) continue;
       const x = Math.round(letter.x - this.camera.position.x), y = Math.round(surfaceY(this.level, letter.x) - 32 - this.camera.position.y);
-      ctx.fillStyle = '#ffda75'; ctx.fillRect(x - 11, y, 22, 24);
-      ctx.strokeStyle = '#17333b'; ctx.strokeRect(x - 11, y, 22, 24);
-      ctx.fillStyle = '#17333b'; ctx.fillText(letter.letter, x, y + 18);
+      drawLetterTile(ctx, this.spelling?.tile, letter.letter, x - 11, y, 22, 24);
     }
     ctx.restore();
   }
@@ -286,16 +286,19 @@ export class AdventureScene implements Scene {
     ctx.save(); ctx.textAlign = 'right'; ctx.font = 'bold 11px monospace';
     ctx.fillStyle = '#10252cee'; ctx.fillRect(294, 31, 127, 34);
     ctx.fillStyle = '#e9f2df'; ctx.fillText(`Bag ${this.education.letterCount}/4`, 376, 52);
-    ctx.fillStyle = '#ffda75'; ctx.fillRect(386, 42, 24, 18);
-    ctx.strokeStyle = '#ffda75'; ctx.lineWidth = 3;
-    ctx.beginPath(); ctx.arc(398, 42, 7, Math.PI, 0); ctx.stroke();
-    ctx.textAlign = 'center'; ctx.fillStyle = '#17333b'; ctx.font = 'bold 10px monospace'; ctx.fillText('✦', 398, 55);
+    if (this.spelling) ctx.drawImage(this.spelling.pouch, 384, 33, 28, 28);
+    else {
+      ctx.fillStyle = '#ffda75'; ctx.fillRect(386, 42, 24, 18);
+      ctx.strokeStyle = '#ffda75'; ctx.lineWidth = 3;
+      ctx.beginPath(); ctx.arc(398, 42, 7, Math.PI, 0); ctx.stroke();
+      ctx.textAlign = 'center'; ctx.fillStyle = '#17333b'; ctx.font = 'bold 10px monospace'; ctx.fillText('✦', 398, 55);
+    }
     for (const flight of this.letterFlights) {
       const t = flight.age / 0.65;
       const x = this.reducedMotion ? 398 : flight.x + (398 - flight.x) * t;
       const y = this.reducedMotion ? 74 : flight.y + (50 - flight.y) * t - Math.sin(t * Math.PI) * 25;
-      ctx.globalAlpha = 1 - t * 0.5; ctx.fillStyle = '#ffda75'; ctx.fillRect(x - 11, y - 18, 22, 24);
-      ctx.fillStyle = '#17333b'; ctx.font = 'bold 16px monospace'; ctx.fillText(flight.letter, x, y);
+      ctx.globalAlpha = 1 - t * 0.5;
+      drawLetterTile(ctx, this.spelling?.tile, flight.letter, x - 11, y - 18, 22, 24);
     }
     ctx.restore();
   }

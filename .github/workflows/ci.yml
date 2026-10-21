@@ -25,7 +25,16 @@ jobs:
       - run: npm run test:ci
       - run: npm run build
       - run: npx playwright install --with-deps chromium firefox webkit
-      - run: npm run test:browser
+      - name: Browser checks
+        id: browser
+        run: BROWSER_REPORT_SOURCE_SHA="$(git rev-parse HEAD)" npm run test:browser
+      # List after execution: Playwright clears test-results at run startup.
+      # Override only the list report path; never overwrite the execution report.
+      - name: Reconcile browser report
+        if: always() && steps.browser.outcome != 'skipped'
+        run: |
+          PLAYWRIGHT_JSON_OUTPUT_FILE=test-results/configured-cases.json npx playwright test --list --reporter=json
+          node scripts/browser-report.mjs test-results/browser-report.json test-results/configured-cases.json test-results/browser-summary.json
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: always()
         with:

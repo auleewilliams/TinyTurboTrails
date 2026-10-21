@@ -1,0 +1,1096 @@
+{
+  "captures": [
+    {
+      "file": "chromium-fixture-plains-earned-426.png",
+      "engine": "chromium",
+      "trail": "plains",
+      "state": "earned",
+      "captureKind": "renderer-fixture",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "sourceRun": "ttt-194-browser-visual",
+      "sourceCase": "browser-builder-kit-visual-42ac3-r-at-native-and-small-sizes-chromium",
+      "sha256": "176fcd2728476efc90f5114dc365390e598daf0182a89ceebdc2a04e085571e3"
+    },
+    {
+      "file": "chromium-fixture-quarry-earned-426.png",
+      "engine": "chromium",
+      "trail": "quarry",
+      "state": "earned",
+      "captureKind": "renderer-fixture",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "sourceRun": "ttt-194-browser-visual",
+      "sourceCase": "browser-builder-kit-visual-42ac3-r-at-native-and-small-sizes-chromium",
+      "sha256": "04f7c4ccd536ffd5e5aa3effbc18e45238c28900d4ef0ebaa0784998b6bf04d9"
+    },
+    {
+      "file": "chromium-fixture-timbers-earned-426.png",
+      "engine": "chromium",
+      "trail": "timbers",
+      "state": "earned",
+      "captureKind": "renderer-fixture",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "sourceRun": "ttt-194-browser-visual",
+      "sourceCase": "browser-builder-kit-visual-42ac3-r-at-native-and-small-sizes-chromium",
+      "sha256": "aa848b1ea40424b29b4d66afaf230549c5bba04821522496591f6d178c027bba"
+    },
+    {
+      "file": "chromium-fixture-sunset-earned-426.png",
+      "engine": "chromium",
+      "trail": "sunset",
+      "state": "earned",
+      "captureKind": "renderer-fixture",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "sourceRun": "ttt-194-browser-visual",
+      "sourceCase": "browser-builder-kit-visual-42ac3-r-at-native-and-small-sizes-chromium",
+      "sha256": "ddd0710c0226cfe2279993d2ebb47cb3f0a3f30e5e187ce28bea27f11074be8d"
+    },
+    {
+      "file": "chromium-fixture-frost-earned-426.png",
+      "engine": "chromium",
+      "trail": "frost",
+      "state": "earned",
+      "captureKind": "renderer-fixture",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "sourceRun": "ttt-194-browser-visual",
+      "sourceCase": "browser-builder-kit-visual-42ac3-r-at-native-and-small-sizes-chromium",
+      "sha256": "b5422f4725981f908dd6e58ec24f0319d5fb265c51954f3a469c824277508637"
+    },
+    {
+      "file": "chromium-fixture-cove-earned-426.png",
+      "engine": "chromium",
+      "trail": "cove",
+      "state": "earned",
+      "captureKind": "renderer-fixture",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "sourceRun": "ttt-194-browser-visual",
+      "sourceCase": "browser-builder-kit-visual-42ac3-r-at-native-and-small-sizes-chromium",
+      "sha256": "218d1bd5404eedcc7f0aec7d7bbc4b46a8d5ea4d91fe9590979737bf0373bc58"
+    },
+    {
+      "file": "chromium-fixture-timbers-mixed-pile-426.png",
+      "engine": "chromium",
+      "trail": "timbers",
+      "state": "mixed-pile",
+      "captureKind": "renderer-fixture",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "sourceRun": "ttt-194-browser-visual",
+      "sourceCase": "browser-builder-kit-visual-42ac3-r-at-native-and-small-sizes-chromium",
+      "sha256": "5370539773089bdab952231a013133884634232ae2a627a31a6deddb92511eae"
+    },
+    {
+      "file": "chromium-fixture-sunset-held-426.png",
+      "engine": "chromium",
+      "trail": "sunset",
+      "state": "held",
+      "captureKind": "renderer-fixture",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "sourceRun": "ttt-194-browser-visual",
+      "sourceCase": "browser-builder-kit-visual-42ac3-r-at-native-and-small-sizes-chromium",
+      "sha256": "b228a02ea88488757dc97aa700c185c930281113e357ca47e9b5271be4be1aed"
+    },
+    {
+      "file": "chromium-fixture-all-collection-426.png",
+      "engine": "chromium",
+      "trail": "all",
+      "state": "collection",
+      "captureKind": "renderer-fixture",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "sourceRun": "ttt-194-browser-visual",
+      "sourceCase": "browser-builder-kit-visual-42ac3-r-at-native-and-small-sizes-chromium",
+      "sha256": "c5c013a3c7ff94a8a508941424a5e30bc2b128be9ea2b2e3b8e572ea0587dfc2"
+    },
+    {
+      "file": "chromium-timbers-bag-426.png",
+      "engine": "chromium",
+      "trail": "timbers",
+      "state": "bag",
+      "captureKind": "live-input",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "sourceRun": "ttt-194-browser-full",
+      "sourceCase": "browser-educational-bag-co-1e947-through-real-trail-movement-chromium",
+      "sha256": "60bfc2564728ef80122fb39a40869ff0b9d7c5937520ea649514009221c72c72"
+    },
+    {
+      "file": "chromium-timbers-pickup-flight-426.png",
+      "engine": "chromium",
+      "trail": "timbers",
+      "state": "pickup-flight",
+      "captureKind": "live-input",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "sourceRun": "ttt-194-browser-full",
+      "sourceCase": "browser-educational-bag-co-1e947-through-real-trail-movement-chromium",
+      "sha256": "386e87bebea759acf5bb5896a72d6f66ce9539033cdad43e2480b146f3112b25"
+    },
+    {
+      "file": "chromium-timbers-reduced-motion-426.png",
+      "engine": "chromium",
+      "trail": "timbers",
+      "state": "reduced-motion",
+      "captureKind": "live-input",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "sourceRun": "ttt-194-browser-full",
+      "sourceCase": "browser-builder-kit-reduce-2266e--native-and-small-viewports-chromium",
+      "sha256": "2fe9738cf6c0da1fd260dd367fdba74c262f0e3a31a7bf250ed98b422cc7e5fe"
+    },
+    {
+      "file": "chromium-sunset-earned-426.png",
+      "engine": "chromium",
+      "trail": "sunset",
+      "state": "earned",
+      "captureKind": "live-input",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "sourceRun": "ttt-194-browser-routes-cf",
+      "sourceCase": "browser-all-trail-spelling-c0dcf-ssembly-and-session-sticker-chromium",
+      "sha256": "8e7b81d082ad733599072948220389f9f521f0d070c05f668613305ca597dec4"
+    },
+    {
+      "file": "chromium-fixture-plains-earned-320.png",
+      "engine": "chromium",
+      "trail": "plains",
+      "state": "earned",
+      "captureKind": "renderer-fixture",
+      "viewport": {
+        "width": 320,
+        "height": 240
+      },
+      "sourceRun": "ttt-194-browser-visual",
+      "sourceCase": "browser-builder-kit-visual-42ac3-r-at-native-and-small-sizes-chromium",
+      "sha256": "f803786923cd4f56d653d2c69736f82031bbea83f8d02ffa291a039b0c02da20"
+    },
+    {
+      "file": "chromium-fixture-quarry-earned-320.png",
+      "engine": "chromium",
+      "trail": "quarry",
+      "state": "earned",
+      "captureKind": "renderer-fixture",
+      "viewport": {
+        "width": 320,
+        "height": 240
+      },
+      "sourceRun": "ttt-194-browser-visual",
+      "sourceCase": "browser-builder-kit-visual-42ac3-r-at-native-and-small-sizes-chromium",
+      "sha256": "c707032fe7df61a3541f9b8c13601e1e97a62f8a4218f7d3be1fc780097c8ef6"
+    },
+    {
+      "file": "chromium-fixture-timbers-earned-320.png",
+      "engine": "chromium",
+      "trail": "timbers",
+      "state": "earned",
+      "captureKind": "renderer-fixture",
+      "viewport": {
+        "width": 320,
+        "height": 240
+      },
+      "sourceRun": "ttt-194-browser-visual",
+      "sourceCase": "browser-builder-kit-visual-42ac3-r-at-native-and-small-sizes-chromium",
+      "sha256": "073db52b24380e7824ce5f8f4d5463946119bc5c2c1db869370f43c5c22b807f"
+    },
+    {
+      "file": "chromium-fixture-sunset-earned-320.png",
+      "engine": "chromium",
+      "trail": "sunset",
+      "state": "earned",
+      "captureKind": "renderer-fixture",
+      "viewport": {
+        "width": 320,
+        "height": 240
+      },
+      "sourceRun": "ttt-194-browser-visual",
+      "sourceCase": "browser-builder-kit-visual-42ac3-r-at-native-and-small-sizes-chromium",
+      "sha256": "73624ae4a65e135570b73f19fec49cd3fdcf2c6cacd8cdab2a4fa4b8b41ff50e"
+    },
+    {
+      "file": "chromium-fixture-frost-earned-320.png",
+      "engine": "chromium",
+      "trail": "frost",
+      "state": "earned",
+      "captureKind": "renderer-fixture",
+      "viewport": {
+        "width": 320,
+        "height": 240
+      },
+      "sourceRun": "ttt-194-browser-visual",
+      "sourceCase": "browser-builder-kit-visual-42ac3-r-at-native-and-small-sizes-chromium",
+      "sha256": "b90a3d2028d90923eb537b7dae7d559c099ea993e14fb40c9118e766f4345bea"
+    },
+    {
+      "file": "chromium-fixture-cove-earned-320.png",
+      "engine": "chromium",
+      "trail": "cove",
+      "state": "earned",
+      "captureKind": "renderer-fixture",
+      "viewport": {
+        "width": 320,
+        "height": 240
+      },
+      "sourceRun": "ttt-194-browser-visual",
+      "sourceCase": "browser-builder-kit-visual-42ac3-r-at-native-and-small-sizes-chromium",
+      "sha256": "8b6106aef5270cc86cdcc32b7bfa908e65f954524e8798fb17faa125a8e210f0"
+    },
+    {
+      "file": "chromium-fixture-timbers-mixed-pile-320.png",
+      "engine": "chromium",
+      "trail": "timbers",
+      "state": "mixed-pile",
+      "captureKind": "renderer-fixture",
+      "viewport": {
+        "width": 320,
+        "height": 240
+      },
+      "sourceRun": "ttt-194-browser-visual",
+      "sourceCase": "browser-builder-kit-visual-42ac3-r-at-native-and-small-sizes-chromium",
+      "sha256": "e10b7ca3e3d94532701412a2afff09405c9f3ffd1d3c139c8ac4e52888a591d6"
+    },
+    {
+      "file": "chromium-fixture-sunset-held-320.png",
+      "engine": "chromium",
+      "trail": "sunset",
+      "state": "held",
+      "captureKind": "renderer-fixture",
+      "viewport": {
+        "width": 320,
+        "height": 240
+      },
+      "sourceRun": "ttt-194-browser-visual",
+      "sourceCase": "browser-builder-kit-visual-42ac3-r-at-native-and-small-sizes-chromium",
+      "sha256": "baa134b93eba057d116f27fb7980dfe5d3bfa7192c254a79408abd6843423c0d"
+    },
+    {
+      "file": "chromium-fixture-all-collection-320.png",
+      "engine": "chromium",
+      "trail": "all",
+      "state": "collection",
+      "captureKind": "renderer-fixture",
+      "viewport": {
+        "width": 320,
+        "height": 240
+      },
+      "sourceRun": "ttt-194-browser-visual",
+      "sourceCase": "browser-builder-kit-visual-42ac3-r-at-native-and-small-sizes-chromium",
+      "sha256": "0089300c35b844a53e686cc464b657a2eabf396f15c767d1af15db36e1d9e495"
+    },
+    {
+      "file": "chromium-timbers-bag-320.png",
+      "engine": "chromium",
+      "trail": "timbers",
+      "state": "bag",
+      "captureKind": "live-input",
+      "viewport": {
+        "width": 320,
+        "height": 240
+      },
+      "sourceRun": "ttt-194-browser-full",
+      "sourceCase": "browser-educational-bag-co-1e947-through-real-trail-movement-chromium",
+      "sha256": "b345a24255e647e3b90e836a943c62c4720dc7300cc1b9c9bad297bf9e3919da"
+    },
+    {
+      "file": "chromium-timbers-pickup-flight-320.png",
+      "engine": "chromium",
+      "trail": "timbers",
+      "state": "pickup-flight",
+      "captureKind": "live-input",
+      "viewport": {
+        "width": 320,
+        "height": 240
+      },
+      "sourceRun": "ttt-194-browser-full",
+      "sourceCase": "browser-educational-bag-co-1e947-through-real-trail-movement-chromium",
+      "sha256": "0a8d9255b6abf34333a8e8bd614e0a728cb1ff1db32b89247696db34c1b5087a"
+    },
+    {
+      "file": "chromium-timbers-reduced-motion-320.png",
+      "engine": "chromium",
+      "trail": "timbers",
+      "state": "reduced-motion",
+      "captureKind": "live-input",
+      "viewport": {
+        "width": 320,
+        "height": 240
+      },
+      "sourceRun": "ttt-194-browser-full",
+      "sourceCase": "browser-builder-kit-reduce-2266e--native-and-small-viewports-chromium",
+      "sha256": "a639582a0590221742b5c7099be786e7f2530d86245d3d11275c57186503835f"
+    },
+    {
+      "file": "chromium-sunset-earned-320.png",
+      "engine": "chromium",
+      "trail": "sunset",
+      "state": "earned",
+      "captureKind": "live-input",
+      "viewport": {
+        "width": 320,
+        "height": 240
+      },
+      "sourceRun": "ttt-194-browser-routes-cf",
+      "sourceCase": "browser-all-trail-spelling-c0dcf-ssembly-and-session-sticker-chromium",
+      "sha256": "1389a5e310ac07445e71b0311f919107988b42b71203f74836be00224aff781c"
+    },
+    {
+      "file": "firefox-fixture-plains-earned-426.png",
+      "engine": "firefox",
+      "trail": "plains",
+      "state": "earned",
+      "captureKind": "renderer-fixture",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "sourceRun": "ttt-194-browser-visual-firefox",
+      "sourceCase": "browser-builder-kit-visual-42ac3-r-at-native-and-small-sizes-firefox",
+      "sha256": "0a524f3945f66df1ee6c7b47065cb5a6c477e10b28f75f7a4112405518fde9f4"
+    },
+    {
+      "file": "firefox-fixture-quarry-earned-426.png",
+      "engine": "firefox",
+      "trail": "quarry",
+      "state": "earned",
+      "captureKind": "renderer-fixture",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "sourceRun": "ttt-194-browser-visual-firefox",
+      "sourceCase": "browser-builder-kit-visual-42ac3-r-at-native-and-small-sizes-firefox",
+      "sha256": "e89147114b36497416988a61cd9b5b94dd01589f330917a98a5c3591146febd7"
+    },
+    {
+      "file": "firefox-fixture-timbers-earned-426.png",
+      "engine": "firefox",
+      "trail": "timbers",
+      "state": "earned",
+      "captureKind": "renderer-fixture",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "sourceRun": "ttt-194-browser-visual-firefox",
+      "sourceCase": "browser-builder-kit-visual-42ac3-r-at-native-and-small-sizes-firefox",
+      "sha256": "381967beb7b8e36b1b0f39384ed158eb91af55ddcb76ab93c725cd8a88bc830e"
+    },
+    {
+      "file": "firefox-fixture-sunset-earned-426.png",
+      "engine": "firefox",
+      "trail": "sunset",
+      "state": "earned",
+      "captureKind": "renderer-fixture",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "sourceRun": "ttt-194-browser-visual-firefox",
+      "sourceCase": "browser-builder-kit-visual-42ac3-r-at-native-and-small-sizes-firefox",
+      "sha256": "dfbb6ecdca3ccbd23f0241836490cb2ef7501344ea4123e2a6f1b0647974be73"
+    },
+    {
+      "file": "firefox-fixture-frost-earned-426.png",
+      "engine": "firefox",
+      "trail": "frost",
+      "state": "earned",
+      "captureKind": "renderer-fixture",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "sourceRun": "ttt-194-browser-visual-firefox",
+      "sourceCase": "browser-builder-kit-visual-42ac3-r-at-native-and-small-sizes-firefox",
+      "sha256": "2a9ba5b9816dd0938bbf5c4ce6dc66f0fef9b69677d97a753c73e513d26f5aa5"
+    },
+    {
+      "file": "firefox-fixture-cove-earned-426.png",
+      "engine": "firefox",
+      "trail": "cove",
+      "state": "earned",
+      "captureKind": "renderer-fixture",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "sourceRun": "ttt-194-browser-visual-firefox",
+      "sourceCase": "browser-builder-kit-visual-42ac3-r-at-native-and-small-sizes-firefox",
+      "sha256": "0cad5a5645d2d8f1c84cc809e612384781de614bda633b98c3c3ece066efb087"
+    },
+    {
+      "file": "firefox-fixture-timbers-mixed-pile-426.png",
+      "engine": "firefox",
+      "trail": "timbers",
+      "state": "mixed-pile",
+      "captureKind": "renderer-fixture",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "sourceRun": "ttt-194-browser-visual-firefox",
+      "sourceCase": "browser-builder-kit-visual-42ac3-r-at-native-and-small-sizes-firefox",
+      "sha256": "876d3629d98d07095c2dadb70940e5689f0763f627299a61b95bb54e2f80aa89"
+    },
+    {
+      "file": "firefox-fixture-sunset-held-426.png",
+      "engine": "firefox",
+      "trail": "sunset",
+      "state": "held",
+      "captureKind": "renderer-fixture",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "sourceRun": "ttt-194-browser-visual-firefox",
+      "sourceCase": "browser-builder-kit-visual-42ac3-r-at-native-and-small-sizes-firefox",
+      "sha256": "8a055865100effa55a8c70661f362189f8153133fb9c8de4236b195ff090e558"
+    },
+    {
+      "file": "firefox-fixture-all-collection-426.png",
+      "engine": "firefox",
+      "trail": "all",
+      "state": "collection",
+      "captureKind": "renderer-fixture",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "sourceRun": "ttt-194-browser-visual-firefox",
+      "sourceCase": "browser-builder-kit-visual-42ac3-r-at-native-and-small-sizes-firefox",
+      "sha256": "b96b5f9f068683b7c8294a02fad5a47b191da3e03e544a4ec1eb2320111cefab"
+    },
+    {
+      "file": "firefox-timbers-bag-426.png",
+      "engine": "firefox",
+      "trail": "timbers",
+      "state": "bag",
+      "captureKind": "live-input",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "sourceRun": "ttt-194-browser-full",
+      "sourceCase": "browser-educational-bag-co-1e947-through-real-trail-movement-firefox",
+      "sha256": "af62f44ed124aece72b94725c67b5fd8c39b9a1113e6d60ee973ff21777aa3e8"
+    },
+    {
+      "file": "firefox-timbers-pickup-flight-426.png",
+      "engine": "firefox",
+      "trail": "timbers",
+      "state": "pickup-flight",
+      "captureKind": "live-input",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "sourceRun": "ttt-194-browser-full",
+      "sourceCase": "browser-educational-bag-co-1e947-through-real-trail-movement-firefox",
+      "sha256": "29da2e66ae880b8379bb6f19fa16f221479e36f0efaebee1b454a67bc3daec0b"
+    },
+    {
+      "file": "firefox-timbers-reduced-motion-426.png",
+      "engine": "firefox",
+      "trail": "timbers",
+      "state": "reduced-motion",
+      "captureKind": "live-input",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "sourceRun": "ttt-194-browser-full",
+      "sourceCase": "browser-builder-kit-reduce-2266e--native-and-small-viewports-firefox",
+      "sha256": "dd292a8e7531c418df3437c6fcc1cba240eed5e16928588a6b62203c9ece62d9"
+    },
+    {
+      "file": "firefox-sunset-earned-426.png",
+      "engine": "firefox",
+      "trail": "sunset",
+      "state": "earned",
+      "captureKind": "live-input",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "sourceRun": "ttt-194-browser-routes-cf",
+      "sourceCase": "browser-all-trail-spelling-c0dcf-ssembly-and-session-sticker-firefox",
+      "sha256": "067317a387e7e56a235fd57814eed99ae155a97874456d30617874433ad0d5ca"
+    },
+    {
+      "file": "firefox-fixture-plains-earned-320.png",
+      "engine": "firefox",
+      "trail": "plains",
+      "state": "earned",
+      "captureKind": "renderer-fixture",
+      "viewport": {
+        "width": 320,
+        "height": 240
+      },
+      "sourceRun": "ttt-194-browser-visual-firefox",
+      "sourceCase": "browser-builder-kit-visual-42ac3-r-at-native-and-small-sizes-firefox",
+      "sha256": "563bb0ad0e62348527137c242f2b41583125f65e229477bd3dc21585978ebed3"
+    },
+    {
+      "file": "firefox-fixture-quarry-earned-320.png",
+      "engine": "firefox",
+      "trail": "quarry",
+      "state": "earned",
+      "captureKind": "renderer-fixture",
+      "viewport": {
+        "width": 320,
+        "height": 240
+      },
+      "sourceRun": "ttt-194-browser-visual-firefox",
+      "sourceCase": "browser-builder-kit-visual-42ac3-r-at-native-and-small-sizes-firefox",
+      "sha256": "2e97842d2996faad6129cf8017b848353659997a41a2e95aa61df5c252be0640"
+    },
+    {
+      "file": "firefox-fixture-timbers-earned-320.png",
+      "engine": "firefox",
+      "trail": "timbers",
+      "state": "earned",
+      "captureKind": "renderer-fixture",
+      "viewport": {
+        "width": 320,
+        "height": 240
+      },
+      "sourceRun": "ttt-194-browser-visual-firefox",
+      "sourceCase": "browser-builder-kit-visual-42ac3-r-at-native-and-small-sizes-firefox",
+      "sha256": "db65ae8e6aa5d52d78f68ee1495fefee7e202cc151f0f842d21366c8dbc7d134"
+    },
+    {
+      "file": "firefox-fixture-sunset-earned-320.png",
+      "engine": "firefox",
+      "trail": "sunset",
+      "state": "earned",
+      "captureKind": "renderer-fixture",
+      "viewport": {
+        "width": 320,
+        "height": 240
+      },
+      "sourceRun": "ttt-194-browser-visual-firefox",
+      "sourceCase": "browser-builder-kit-visual-42ac3-r-at-native-and-small-sizes-firefox",
+      "sha256": "a1521b0ff5e32048e53dcc1bfd770a060b5daa4c7dea0f8b352d0707d04da40e"
+    },
+    {
+      "file": "firefox-fixture-frost-earned-320.png",
+      "engine": "firefox",
+      "trail": "frost",
+      "state": "earned",
+      "captureKind": "renderer-fixture",
+      "viewport": {
+        "width": 320,
+        "height": 240
+      },
+      "sourceRun": "ttt-194-browser-visual-firefox",
+      "sourceCase": "browser-builder-kit-visual-42ac3-r-at-native-and-small-sizes-firefox",
+      "sha256": "c7eeacd1d3e9ea3b62a5031f2c058d91d61054008afa4b9a465bd85748d9dedd"
+    },
+    {
+      "file": "firefox-fixture-cove-earned-320.png",
+      "engine": "firefox",
+      "trail": "cove",
+      "state": "earned",
+      "captureKind": "renderer-fixture",
+      "viewport": {
+        "width": 320,
+        "height": 240
+      },
+      "sourceRun": "ttt-194-browser-visual-firefox",
+      "sourceCase": "browser-builder-kit-visual-42ac3-r-at-native-and-small-sizes-firefox",
+      "sha256": "f21d7d2f49f8f6707b1d211b364e155a6aa816926d3b1485e691452000ac30f3"
+    },
+    {
+      "file": "firefox-fixture-timbers-mixed-pile-320.png",
+      "engine": "firefox",
+      "trail": "timbers",
+      "state": "mixed-pile",
+      "captureKind": "renderer-fixture",
+      "viewport": {
+        "width": 320,
+        "height": 240
+      },
+      "sourceRun": "ttt-194-browser-visual-firefox",
+      "sourceCase": "browser-builder-kit-visual-42ac3-r-at-native-and-small-sizes-firefox",
+      "sha256": "5ed9d6a7ddf3890a3ea5ecddedf162a70843788edb2ab9213f523189ab3592f2"
+    },
+    {
+      "file": "firefox-fixture-sunset-held-320.png",
+      "engine": "firefox",
+      "trail": "sunset",
+      "state": "held",
+      "captureKind": "renderer-fixture",
+      "viewport": {
+        "width": 320,
+        "height": 240
+      },
+      "sourceRun": "ttt-194-browser-visual-firefox",
+      "sourceCase": "browser-builder-kit-visual-42ac3-r-at-native-and-small-sizes-firefox",
+      "sha256": "82e9c35ac0bf0088893ac3282bf1c508b7a7f40deae2373415decf3dbcf132c7"
+    },
+    {
+      "file": "firefox-fixture-all-collection-320.png",
+      "engine": "firefox",
+      "trail": "all",
+      "state": "collection",
+      "captureKind": "renderer-fixture",
+      "viewport": {
+        "width": 320,
+        "height": 240
+      },
+      "sourceRun": "ttt-194-browser-visual-firefox",
+      "sourceCase": "browser-builder-kit-visual-42ac3-r-at-native-and-small-sizes-firefox",
+      "sha256": "30388827717f3b95245a04ce9e392ffc3fde1900410610000fcca89f1ddaabf9"
+    },
+    {
+      "file": "firefox-timbers-bag-320.png",
+      "engine": "firefox",
+      "trail": "timbers",
+      "state": "bag",
+      "captureKind": "live-input",
+      "viewport": {
+        "width": 320,
+        "height": 240
+      },
+      "sourceRun": "ttt-194-browser-full",
+      "sourceCase": "browser-educational-bag-co-1e947-through-real-trail-movement-firefox",
+      "sha256": "b09778d4f5fd19906d20de416afe8bf6672eb35c73a176d1d30a7ad4a2755e55"
+    },
+    {
+      "file": "firefox-timbers-pickup-flight-320.png",
+      "engine": "firefox",
+      "trail": "timbers",
+      "state": "pickup-flight",
+      "captureKind": "live-input",
+      "viewport": {
+        "width": 320,
+        "height": 240
+      },
+      "sourceRun": "ttt-194-browser-full",
+      "sourceCase": "browser-educational-bag-co-1e947-through-real-trail-movement-firefox",
+      "sha256": "094cd1c77e14733f95edcf2db21724646a31c6697a41cfe8fc4bcf749b98ce11"
+    },
+    {
+      "file": "firefox-timbers-reduced-motion-320.png",
+      "engine": "firefox",
+      "trail": "timbers",
+      "state": "reduced-motion",
+      "captureKind": "live-input",
+      "viewport": {
+        "width": 320,
+        "height": 240
+      },
+      "sourceRun": "ttt-194-browser-full",
+      "sourceCase": "browser-builder-kit-reduce-2266e--native-and-small-viewports-firefox",
+      "sha256": "c071c822f5bba5462fde54c2d61569649c2819c788a295046a72be26778a67aa"
+    },
+    {
+      "file": "firefox-sunset-earned-320.png",
+      "engine": "firefox",
+      "trail": "sunset",
+      "state": "earned",
+      "captureKind": "live-input",
+      "viewport": {
+        "width": 320,
+        "height": 240
+      },
+      "sourceRun": "ttt-194-browser-routes-cf",
+      "sourceCase": "browser-all-trail-spelling-c0dcf-ssembly-and-session-sticker-firefox",
+      "sha256": "113d9d878a344ddb0dab7698b6c140a7de4ad51b82ded4656228a5cb2fb8f06f"
+    },
+    {
+      "file": "webkit-fixture-plains-earned-426.png",
+      "engine": "webkit",
+      "trail": "plains",
+      "state": "earned",
+      "captureKind": "renderer-fixture",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "sourceRun": "ttt-194-browser-visual",
+      "sourceCase": "browser-builder-kit-visual-42ac3-r-at-native-and-small-sizes-webkit",
+      "sha256": "b5501fd18da79544db224565bd713ee10159aa1dfcb713431276d56b18aeee3d"
+    },
+    {
+      "file": "webkit-fixture-quarry-earned-426.png",
+      "engine": "webkit",
+      "trail": "quarry",
+      "state": "earned",
+      "captureKind": "renderer-fixture",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "sourceRun": "ttt-194-browser-visual",
+      "sourceCase": "browser-builder-kit-visual-42ac3-r-at-native-and-small-sizes-webkit",
+      "sha256": "f78b5a7b597ed397966a1732332ccedcc11eee4cfe4e83885f2aa963715dfa9c"
+    },
+    {
+      "file": "webkit-fixture-timbers-earned-426.png",
+      "engine": "webkit",
+      "trail": "timbers",
+      "state": "earned",
+      "captureKind": "renderer-fixture",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "sourceRun": "ttt-194-browser-visual",
+      "sourceCase": "browser-builder-kit-visual-42ac3-r-at-native-and-small-sizes-webkit",
+      "sha256": "25e1c287aa827546854a4d95d5600dcad87296cce05b728bf7070b7a51b2240a"
+    },
+    {
+      "file": "webkit-fixture-sunset-earned-426.png",
+      "engine": "webkit",
+      "trail": "sunset",
+      "state": "earned",
+      "captureKind": "renderer-fixture",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "sourceRun": "ttt-194-browser-visual",
+      "sourceCase": "browser-builder-kit-visual-42ac3-r-at-native-and-small-sizes-webkit",
+      "sha256": "49bae9c82efcdbfbed6a9aba20a48992bba3f575d0a54b79ae3f1d6f5e97e3c4"
+    },
+    {
+      "file": "webkit-fixture-frost-earned-426.png",
+      "engine": "webkit",
+      "trail": "frost",
+      "state": "earned",
+      "captureKind": "renderer-fixture",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "sourceRun": "ttt-194-browser-visual",
+      "sourceCase": "browser-builder-kit-visual-42ac3-r-at-native-and-small-sizes-webkit",
+      "sha256": "3bca34c9f86307aaa4b298421fcaf89f8f3b6c61a735149ce8deb26972385efa"
+    },
+    {
+      "file": "webkit-fixture-cove-earned-426.png",
+      "engine": "webkit",
+      "trail": "cove",
+      "state": "earned",
+      "captureKind": "renderer-fixture",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "sourceRun": "ttt-194-browser-visual",
+      "sourceCase": "browser-builder-kit-visual-42ac3-r-at-native-and-small-sizes-webkit",
+      "sha256": "407a41f0938a98e77b0e8bbe0bd9029df2e8427c4208ff47ccd5959c5ad4187a"
+    },
+    {
+      "file": "webkit-fixture-timbers-mixed-pile-426.png",
+      "engine": "webkit",
+      "trail": "timbers",
+      "state": "mixed-pile",
+      "captureKind": "renderer-fixture",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "sourceRun": "ttt-194-browser-visual",
+      "sourceCase": "browser-builder-kit-visual-42ac3-r-at-native-and-small-sizes-webkit",
+      "sha256": "2d3e93678aa896dd05ad951881a84f4e391507764736dbd16379496fd3cc0779"
+    },
+    {
+      "file": "webkit-fixture-sunset-held-426.png",
+      "engine": "webkit",
+      "trail": "sunset",
+      "state": "held",
+      "captureKind": "renderer-fixture",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "sourceRun": "ttt-194-browser-visual",
+      "sourceCase": "browser-builder-kit-visual-42ac3-r-at-native-and-small-sizes-webkit",
+      "sha256": "acf8655b0c8adc7673abe5af1437152b988abf286d484c4b23ec1278a016821f"
+    },
+    {
+      "file": "webkit-fixture-all-collection-426.png",
+      "engine": "webkit",
+      "trail": "all",
+      "state": "collection",
+      "captureKind": "renderer-fixture",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "sourceRun": "ttt-194-browser-visual",
+      "sourceCase": "browser-builder-kit-visual-42ac3-r-at-native-and-small-sizes-webkit",
+      "sha256": "cffe38ed7192e3035a043bf356bfa93ce713614e1be33ea0e22e2d74702b6f22"
+    },
+    {
+      "file": "webkit-timbers-bag-426.png",
+      "engine": "webkit",
+      "trail": "timbers",
+      "state": "bag",
+      "captureKind": "live-input",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "sourceRun": "ttt-194-browser-full",
+      "sourceCase": "browser-educational-bag-co-1e947-through-real-trail-movement-webkit",
+      "sha256": "341be249290e3ac556287c4ee93d63f34d4b42cc2abec4aab964d560912952f5"
+    },
+    {
+      "file": "webkit-timbers-pickup-flight-426.png",
+      "engine": "webkit",
+      "trail": "timbers",
+      "state": "pickup-flight",
+      "captureKind": "live-input",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "sourceRun": "ttt-194-browser-full",
+      "sourceCase": "browser-educational-bag-co-1e947-through-real-trail-movement-webkit",
+      "sha256": "d6cc926f5eb4155f6a565a8da73cbcb394b399ab61e12bc61ee84322876b6f52"
+    },
+    {
+      "file": "webkit-timbers-reduced-motion-426.png",
+      "engine": "webkit",
+      "trail": "timbers",
+      "state": "reduced-motion",
+      "captureKind": "live-input",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "sourceRun": "ttt-194-browser-full",
+      "sourceCase": "browser-builder-kit-reduce-2266e--native-and-small-viewports-webkit",
+      "sha256": "42a7c1c21d6d839d4fa6c7522127e882556dcc82a8e419ccb2c0382b29dce926"
+    },
+    {
+      "file": "webkit-timbers-earned-426.png",
+      "engine": "webkit",
+      "trail": "timbers",
+      "state": "earned",
+      "captureKind": "live-input",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "sourceRun": "ttt-194-browser-webkit-serial",
+      "sourceCase": "browser-all-trail-spelling-8ba8a-ssembly-and-session-sticker-webkit",
+      "sha256": "0ac6c1e9363eb1eec571d24f3cbf62c138a6fa7f19ddb68690c088e7a338afec"
+    },
+    {
+      "file": "webkit-fixture-plains-earned-320.png",
+      "engine": "webkit",
+      "trail": "plains",
+      "state": "earned",
+      "captureKind": "renderer-fixture",
+      "viewport": {
+        "width": 320,
+        "height": 240
+      },
+      "sourceRun": "ttt-194-browser-visual",
+      "sourceCase": "browser-builder-kit-visual-42ac3-r-at-native-and-small-sizes-webkit",
+      "sha256": "6262a09f1e1062b7001dea1910655ff8c3527d67b98ce7feb65c6ac318fd9641"
+    },
+    {
+      "file": "webkit-fixture-quarry-earned-320.png",
+      "engine": "webkit",
+      "trail": "quarry",
+      "state": "earned",
+      "captureKind": "renderer-fixture",
+      "viewport": {
+        "width": 320,
+        "height": 240
+      },
+      "sourceRun": "ttt-194-browser-visual",
+      "sourceCase": "browser-builder-kit-visual-42ac3-r-at-native-and-small-sizes-webkit",
+      "sha256": "12c7c7975fa061a8f0f60b614b475fc3383cf8fc3c569a8cd12edb750b122d9e"
+    },
+    {
+      "file": "webkit-fixture-timbers-earned-320.png",
+      "engine": "webkit",
+      "trail": "timbers",
+      "state": "earned",
+      "captureKind": "renderer-fixture",
+      "viewport": {
+        "width": 320,
+        "height": 240
+      },
+      "sourceRun": "ttt-194-browser-visual",
+      "sourceCase": "browser-builder-kit-visual-42ac3-r-at-native-and-small-sizes-webkit",
+      "sha256": "140c21fc67a958862f0d7d3e89b258477af313c6705309625201197c6586d881"
+    },
+    {
+      "file": "webkit-fixture-sunset-earned-320.png",
+      "engine": "webkit",
+      "trail": "sunset",
+      "state": "earned",
+      "captureKind": "renderer-fixture",
+      "viewport": {
+        "width": 320,
+        "height": 240
+      },
+      "sourceRun": "ttt-194-browser-visual",
+      "sourceCase": "browser-builder-kit-visual-42ac3-r-at-native-and-small-sizes-webkit",
+      "sha256": "b1db5d662f3880691fbf59633bf8267b977b28d649b96e2b227dccd8518b0779"
+    },
+    {
+      "file": "webkit-fixture-frost-earned-320.png",
+      "engine": "webkit",
+      "trail": "frost",
+      "state": "earned",
+      "captureKind": "renderer-fixture",
+      "viewport": {
+        "width": 320,
+        "height": 240
+      },
+      "sourceRun": "ttt-194-browser-visual",
+      "sourceCase": "browser-builder-kit-visual-42ac3-r-at-native-and-small-sizes-webkit",
+      "sha256": "81d692856281fb9a63830ff45176af41b1dcb6e28482f3463f77f547925afb63"
+    },
+    {
+      "file": "webkit-fixture-cove-earned-320.png",
+      "engine": "webkit",
+      "trail": "cove",
+      "state": "earned",
+      "captureKind": "renderer-fixture",
+      "viewport": {
+        "width": 320,
+        "height": 240
+      },
+      "sourceRun": "ttt-194-browser-visual",
+      "sourceCase": "browser-builder-kit-visual-42ac3-r-at-native-and-small-sizes-webkit",
+      "sha256": "0e92be1096dca07f63657269c23b73d2feffab08652a8465a9a789c4f060f38a"
+    },
+    {
+      "file": "webkit-fixture-timbers-mixed-pile-320.png",
+      "engine": "webkit",
+      "trail": "timbers",
+      "state": "mixed-pile",
+      "captureKind": "renderer-fixture",
+      "viewport": {
+        "width": 320,
+        "height": 240
+      },
+      "sourceRun": "ttt-194-browser-visual",
+      "sourceCase": "browser-builder-kit-visual-42ac3-r-at-native-and-small-sizes-webkit",
+      "sha256": "42aa41d09182fa7a60df6dbd4717b84cb59f791763e98bd22002f5fa0f70e51d"
+    },
+    {
+      "file": "webkit-fixture-sunset-held-320.png",
+      "engine": "webkit",
+      "trail": "sunset",
+      "state": "held",
+      "captureKind": "renderer-fixture",
+      "viewport": {
+        "width": 320,
+        "height": 240
+      },
+      "sourceRun": "ttt-194-browser-visual",
+      "sourceCase": "browser-builder-kit-visual-42ac3-r-at-native-and-small-sizes-webkit",
+      "sha256": "6129b17893aef6b68d87c45782c18c1511119f4d7230e5d1210a0c64bc6ad868"
+    },
+    {
+      "file": "webkit-fixture-all-collection-320.png",
+      "engine": "webkit",
+      "trail": "all",
+      "state": "collection",
+      "captureKind": "renderer-fixture",
+      "viewport": {
+        "width": 320,
+        "height": 240
+      },
+      "sourceRun": "ttt-194-browser-visual",
+      "sourceCase": "browser-builder-kit-visual-42ac3-r-at-native-and-small-sizes-webkit",
+      "sha256": "c911757971817eed629c5fe0fdfaf235f25c72de04cededfed72ed7f6903703c"
+    },
+    {
+      "file": "webkit-timbers-bag-320.png",
+      "engine": "webkit",
+      "trail": "timbers",
+      "state": "bag",
+      "captureKind": "live-input",
+      "viewport": {
+        "width": 320,
+        "height": 240
+      },
+      "sourceRun": "ttt-194-browser-full",
+      "sourceCase": "browser-educational-bag-co-1e947-through-real-trail-movement-webkit",
+      "sha256": "1638111ae5cad5538dcc728b38b4898356ddaa7f75926ce0ebbe163784ee1321"
+    },
+    {
+      "file": "webkit-timbers-pickup-flight-320.png",
+      "engine": "webkit",
+      "trail": "timbers",
+      "state": "pickup-flight",
+      "captureKind": "live-input",
+      "viewport": {
+        "width": 320,
+        "height": 240
+      },
+      "sourceRun": "ttt-194-browser-full",
+      "sourceCase": "browser-educational-bag-co-1e947-through-real-trail-movement-webkit",
+      "sha256": "d6da48cebad4645e31552a70ddf2e9a7f55f87e8e4ed7ece1ff076c0dedf27d5"
+    },
+    {
+      "file": "webkit-timbers-reduced-motion-320.png",
+      "engine": "webkit",
+      "trail": "timbers",
+      "state": "reduced-motion",
+      "captureKind": "live-input",
+      "viewport": {
+        "width": 320,
+        "height": 240
+      },
+      "sourceRun": "ttt-194-browser-full",
+      "sourceCase": "browser-builder-kit-reduce-2266e--native-and-small-viewports-webkit",
+      "sha256": "9ffdac14e00aa455ffc59ff47e0f44319747601468b695099fa8f1cc23c5507b"
+    },
+    {
+      "file": "webkit-timbers-earned-320.png",
+      "engine": "webkit",
+      "trail": "timbers",
+      "state": "earned",
+      "captureKind": "live-input",
+      "viewport": {
+        "width": 320,
+        "height": 240
+      },
+      "sourceRun": "ttt-194-browser-webkit-serial",
+      "sourceCase": "browser-all-trail-spelling-8ba8a-ssembly-and-session-sticker-webkit",
+      "sha256": "6932aa606f60816aefbef2c4453558c555cf43594622a8f82c124f8899aa65ef"
+    }
+  ]
+}
