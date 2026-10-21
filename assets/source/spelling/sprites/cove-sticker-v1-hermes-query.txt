@@ -1,0 +1,16 @@
+Generate exactly one image, then stop. Call the image_generate tool exactly ONE time, with these arguments:
+- aspect_ratio: "square"
+- reference_image_urls: ["/home/leew/.hermes/cache/scratch/tinyturbotrails-194-stickers/assets/source/spelling/sprites/sunset-sticker-source-v1.png"]
+- prompt: the text between the BEGIN PROMPT and END PROMPT markers below, verbatim.
+Do not call image_generate more than once, do not retry, do not edit or post-process the image, and do not call any other image tool. The attached image is the approved 56x56 runtime version of the same Sunset sticker, for your information only; the high-resolution source path above must still be passed through reference_image_urls. After the single tool call, reply with the complete raw JSON result returned by image_generate, including the exact saved image path, unchanged.
+BEGIN PROMPT
+Asset type: One production-source reward sticker for the Tiny Turbo Trails children's game, part of a matching set.
+Reference image: The supplied reference image is the owner-approved Sunset Site sticker (a yellow hard hat on a steel I-beam). Use it ONLY as the art-direction and style reference. Match its cheerful chunky pixel-art illustration style, pixel scale, bold dark blue-green outlines, thin dark exterior keyline, broad opaque warm-cream die-cut border, soft top-left lighting and restrained palette. Do NOT include a hard hat, I-beam, or any construction object.
+Primary request: The Sandy Cove trail sticker for the word SAND: one sandcastle with two chunky crenellated towers and a lower wall with a small arched doorway, sitting on a mound of sand, with one small plain blue triangular flag on top of a tower.
+Palette: warm golden sand tans and light sand highlights, one small sea-blue accent for the flag, cream border, dark blue-green outline.
+Composition: One compact unified sticker centered on a square canvas, the complete sticker including its cream border and dark keyline entirely in frame, with generous empty padding of at least 12 percent of the canvas on every side. The silhouette should be simple, sturdy and roughly square. No additional objects or scene.
+Small-size purpose: This will be shown at 56-by-56 logical pixels and at roughly 31-by-31 in a collection, so use a few large clear colour clusters, a clearly readable silhouette and only a few purposeful highlights. Crisp purposeful pixel edges, no subpixel blur, no fine noise.
+Text: No lettering, numbers, words, banners, labels, symbols or UI.
+Character: No faces, eyes, mouths or characters.
+Background: Everything outside the thin dark exterior keyline, including any gaps or concavities in the silhouette, must be one perfectly flat uniform solid vivid magenta (#FF00FF) chroma-key colour. No gradient, no checkerboard, no texture, no vignette, no floor, no drop shadow, no glow on the background. Do not use magenta, pink or purple anywhere inside the sticker or its cream border.
+END PROMPT

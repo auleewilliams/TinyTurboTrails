@@ -2922,7 +2922,7 @@ test('slime atlas keeps identical bodies, transparent borders and ground anchors
   for (const body of result.bodies) expect(body).toEqual(result.bodies[0]);
 });
 
-for (const asset of ['slimes/slimes', 'gems/gems', 'spelling/pouch', 'spelling/tile', 'spelling/sunset-sticker']) test(`shared ${asset} atlas failure is recoverable through retry`, async ({ page }) => {
+for (const asset of ['slimes/slimes', 'gems/gems', 'spelling/pouch', 'spelling/tile', ...TRAIL_WORDS.map(config => `spelling/${config.id}-sticker`)]) test(`shared ${asset} atlas failure is recoverable through retry`, async ({ page }) => {
   await page.route(`**/assets/${asset}.png`, route => route.abort());
   await page.goto('/?debug=1');
   await expect(page.getByRole('button', { name: /Retry/i })).toBeVisible();
@@ -2932,10 +2932,10 @@ for (const asset of ['slimes/slimes', 'gems/gems', 'spelling/pouch', 'spelling/t
   await expect(page.locator('#status')).toContainText('Title');
 });
 
-test('spelling artwork rejects wrong dimensions and recovers through retry', async ({ page }) => {
-  const path = '**/assets/spelling/tile.png';
+for (const name of ['tile', 'frost-sticker']) test(`spelling ${name} artwork rejects wrong dimensions and recovers through retry`, async ({ page }) => {
+  const path = `**/assets/spelling/${name}.png`;
   await page.route(path, async route => {
-    const response = await route.fetch({ url: route.request().url().replace('tile.png', 'pouch.png') });
+    const response = await route.fetch({ url: route.request().url().replace(`${name}.png`, 'pouch.png') });
     await route.fulfill({ response });
   });
   await page.goto('/');
@@ -2946,9 +2946,9 @@ test('spelling artwork rejects wrong dimensions and recovers through retry', asy
 
 test('approved spelling sprites have native sizes, real transparency and clear cell borders', async ({ page }) => {
   await page.goto('/?scene=foundation');
-  const result = await page.evaluate(async () => {
+  const result = await page.evaluate(async names => {
     const samples = [];
-    for (const name of ['pouch', 'tile', 'sunset-sticker']) {
+    for (const name of names) {
       const image = new Image(); image.src = `/assets/spelling/${name}.png`; await image.decode();
       const canvas = document.createElement('canvas'); canvas.width = image.width; canvas.height = image.height;
       const ctx = canvas.getContext('2d')!; ctx.drawImage(image, 0, 0);
@@ -2962,8 +2962,8 @@ test('approved spelling sprites have native sizes, real transparency and clear c
       samples.push({ name, size: [canvas.width, canvas.height], visible, transparent, border });
     }
     return samples;
-  });
-  expect(result.map(sample => sample.size)).toEqual([[28, 28], [42, 32], [56, 56]]);
+  }, ['pouch', 'tile', ...TRAIL_WORDS.map(config => `${config.id}-sticker`)]);
+  expect(result.map(sample => sample.size)).toEqual([[28, 28], [42, 32], ...TRAIL_WORDS.map(() => [56, 56])]);
   for (const sample of result) {
     expect(sample.visible).toBeGreaterThan(0); expect(sample.transparent).toBeGreaterThan(0); expect(sample.border).toBe(0);
   }
@@ -3403,9 +3403,15 @@ for (const [index, level] of LEVELS.entries()) {
         await expectClearViewport(page);
         const artwork = JSON.parse((await page.locator('#game').getAttribute('data-spelling-draws'))!);
         if (state === 'missing-assembly' || state === 'earned') expect(artwork['tile.png']).toBeDefined();
-        if (state === 'earned') expect(Boolean(artwork['sunset-sticker.png'])).toBe(level.id === 'sunset');
-        // Firefox exposes Canvas alpha as float32 (0.3000000119 for 0.3).
-        if (state === 'collection') expect(artwork['sunset-sticker.png'].alpha).toBeCloseTo(level.id === 'sunset' ? 1 : 0.3, 7);
+        const stickers = Object.keys(artwork).filter(name => name.endsWith('-sticker.png'));
+        if (state === 'earned') {
+          expect(stickers).toEqual([`${level.id}-sticker.png`]);
+          expect(artwork[`${level.id}-sticker.png`]).toMatchObject({ rect: [337, 63, 56, 56], alpha: 1 });
+        } else if (state === 'collection') {
+          expect(stickers.sort()).toEqual(TRAIL_WORDS.map(word => `${word.id}-sticker.png`).sort());
+          // Firefox exposes Canvas alpha as float32 (0.3000000119 for 0.3).
+          for (const word of TRAIL_WORDS) expect(artwork[`${word.id}-sticker.png`].alpha).toBeCloseTo(word.id === level.id ? 1 : 0.3, 7);
+        } else expect(stickers).toEqual([]);
         for (const sprite of Object.values(artwork) as { smoothing: boolean }[]) expect(sprite.smoothing).toBe(false);
         const path = info.outputPath(`${level.id}-${state}-${width}.png`);
         await page.screenshot({ path }); await info.attach(`${state}-${width}`, { path, contentType: 'image/png' });
@@ -3544,7 +3550,7 @@ test('builder-kit reduced-motion pickup stays beside its pouch at native and sma
   }
 });
 
-test('builder-kit visual fixture renders all six words and the approved sticker at native and small sizes', async ({ page }, info) => {
+test('builder-kit visual fixture renders all six words and generated stickers at native and small sizes', async ({ page }, info) => {
   // Exercise the shipped renderers and native controls with explicit collected
   // letter fixtures. Route completion is tested separately; no game hook ships.
   const source = (name: string): string => readFileSync(new URL(`../src/${name}`, import.meta.url), 'utf8');
@@ -3566,7 +3572,9 @@ test('builder-kit visual fixture renders all six words and the approved sticker 
     ${fixture}
     window.createSpellingFixture = async () => {
       const load = async name => { const image = new Image(); image.src = '/assets/spelling/' + name + '.png'; await image.decode(); return image; };
-      const artwork = { pouch: await load('pouch'), tile: await load('tile'), sunsetSticker: await load('sunset-sticker') };
+      const stickers = {};
+      for (const config of TRAIL_WORDS) stickers[config.id] = await load(config.id + '-sticker');
+      const artwork = { pouch: await load('pouch'), tile: await load('tile'), stickers };
       const session = new EducationSession();
       const overlay = new EducationOverlay(session, artwork);
       const canvas = document.querySelector('#game');
@@ -3608,11 +3616,13 @@ test('builder-kit visual fixture renders all six words and the approved sticker 
     }
     const art = JSON.parse((await page.locator('#game').getAttribute('data-spelling-draws'))!);
     expect(art['tile.png']).toBeDefined();
-    expect(Boolean(art['sunset-sticker.png'])).toBe(config.id === 'sunset');
-    if (config.id === 'sunset') expect(art['sunset-sticker.png'].alpha).toBe(1);
+    expect(Object.keys(art).filter(name => name.endsWith('-sticker.png'))).toEqual([`${config.id}-sticker.png`]);
+    expect(art[`${config.id}-sticker.png`]).toMatchObject({ rect: [337, 63, 56, 56], alpha: 1 });
     await capture(config.id, 'earned');
   }
   await page.evaluate(() => (window as unknown as { spellingFixture: { overlay: EducationOverlay } }).spellingFixture.overlay.showStickers());
   await expect(page.getByRole('dialog', { name: 'Trail stickers', exact: true })).toBeVisible();
+  const collection = JSON.parse((await page.locator('#game').getAttribute('data-spelling-draws'))!);
+  for (const config of TRAIL_WORDS) expect(collection[`${config.id}-sticker.png`].alpha).toBe(1);
   await capture('all', 'collection');
 });
