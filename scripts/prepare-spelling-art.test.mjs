@@ -56,6 +56,10 @@ test('keys out only edge-connected chroma background and its blended fringe', ()
   assert.equal(isChromaKey(155, 131, 154), false); assert.equal(isChromaKey(80, 40, 90), true);
 });
 
+test('rejects a source with no visible sticker after keying', () => {
+  assert.throws(() => prepareSticker(image(3, 3, Array(9).fill(MAGENTA)), { width: 56, height: 56 }, 2), /No visible sticker pixels/);
+});
+
 test('fits and centers content exactly like the reviewed Sunset preparation', () => {
   const sunset = record.sprites['sunset-sticker'];
   assert.deepEqual(fitRect(sunset.sourceBounds, sunset.logicalSize, sunset.padding), sunset.contentRect);

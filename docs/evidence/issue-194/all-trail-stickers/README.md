@@ -46,7 +46,7 @@ six at the existing 0.55 scale: earned at full opacity, unearned at 0.3.
 | Check | Result |
 | --- | --- |
 | `npm test` | 961 passed, 52 files (main: 960; +1 loader test) |
-| `npm run test:ci` | 30 passed (main: 13; +17 sticker preparation/asset tests) |
+| `npm run test:ci` | 31 passed (main: 13; +18 sticker preparation/asset tests) |
 | `npm run typecheck`, `npm run build` | Pass |
 | `node scripts/prepare-spelling-art.mjs` | Re-derives the five stickers exactly; copies eight files unchanged |
 
@@ -54,6 +54,9 @@ The script tests decode every source and runtime PNG without dependencies. They
 check source hashes, opaque RGB/magenta corners, exact pixel reproduction, alpha
 values, 2 px clear padding, centering, cream border and dark-outline presence, no
 chroma remnants, Frost's white snow surviving, and distinct silhouettes at ~31 px.
+An independent read-only review session found no blockers; its should-fix (a
+stale gameplay description) and three minor findings were fixed, test-first
+where code changed.
 
 **Regression proof.** Before implementation, the new unit tests failed (6 overlay
 cases, then 7 including the loader). Deliberate sabotage was detected each time:
@@ -76,7 +79,8 @@ deadline, retry or engine was changed. The full three-engine matrix runs in CI.
 ## Screenshots
 
 [`capture-manifest.json`](capture-manifest.json) lists source run, case, viewport
-and SHA-256 for every file. Screenshots are uncropped full-window captures.
+and SHA-256 for every file. Screenshots are uncropped full-window captures; the
+asset proof is a composed canvas render.
 
 **Live gameplay** (production adventure with its existing input-only pilots;
 no scene or session mutation):

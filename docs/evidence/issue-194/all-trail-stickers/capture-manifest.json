@@ -1,6 +1,6 @@
 {
   "runtimeCommit": "df34e3013d1e45c2054ddbc2b46ba3adc60017f3",
-  "note": "Uncropped full-window Playwright screenshots copied byte-for-byte; local Linux run.",
+  "note": "Screenshots are uncropped full-window Playwright captures from a local Linux run, copied byte-for-byte. The final asset-proof entry is a composed canvas render, not a screenshot.",
   "captures": [
     {
       "file": "chromium-gameplay-plains-earned-426.png",

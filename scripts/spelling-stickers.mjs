@@ -110,7 +110,9 @@ export function fitRect(bounds, cell, padding) {
 /** Keys out the background, then nearest-neighbour samples the visible art into a transparent cell. */
 export function prepareSticker(source, cell, padding) {
   const { image: keyed, removed } = removeEdgeKey(source);
-  const sourceBounds = visibleBounds(keyed), contentRect = fitRect(sourceBounds, cell, padding);
+  const sourceBounds = visibleBounds(keyed);
+  if (sourceBounds.width < 1) throw new Error('No visible sticker pixels after removing the background');
+  const contentRect = fitRect(sourceBounds, cell, padding);
   const data = new Uint8Array(cell.width * cell.height * 4);
   for (let y = 0; y < contentRect.height; y++) for (let x = 0; x < contentRect.width; x++) {
     const sx = sourceBounds.x + Math.floor((x + 0.5) * sourceBounds.width / contentRect.width);
