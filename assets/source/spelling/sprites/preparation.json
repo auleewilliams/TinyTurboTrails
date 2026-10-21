@@ -1,5 +1,5 @@
 {
-  "status": "owner-approved; integrated into adventure via public/assets/spelling",
+  "status": "owner-approved builder-kit pass (pouch, tile, Sunset sticker); five generated trail stickers prepared for #194 review; all integrated via public/assets/spelling",
   "alphaThresholdForBounds": 128,
   "resampling": "nearest-neighbour; preserve sampled source alpha; aspect-preserving integer fit; centered using floor",
   "letters": "Separate bold 17px monospace dark #17333b; no glyphs in tile.png",
@@ -105,6 +105,282 @@
       },
       "sourceTransparentPixels": 787679,
       "preparedVisiblePixels": 1918
+    },
+    "plains-sticker": {
+      "image": "prepared/plains-sticker.png",
+      "source": "plains-sticker-source-v1.png",
+      "prompt": "plains-sticker-v1-prompt.txt",
+      "hermesQuery": "plains-sticker-v1-hermes-query.txt",
+      "sourceSha256": "622991198c172e2cb0af53608d18f85b8f44a1c6ae5d02c4567cd77afa561f25",
+      "sourceFormat": "opaque 8-bit RGB PNG; flat magenta chroma-key background; no source alpha",
+      "preparation": "chroma-key",
+      "generation": {
+        "tool": "Hermes image_generate (one native one-shot session, toolsets image_gen,vision)",
+        "provider": "openai-codex",
+        "hermesModelTier": "gpt-image-2-medium",
+        "requestedQuality": "medium",
+        "reportedQuality": "low",
+        "requestedSize": "1024x1024",
+        "reportedSize": "1254x1254",
+        "modality": "image",
+        "inputImageCount": 1,
+        "referenceImage": "sunset-sticker-source-v1.png (passed as reference_image_urls)",
+        "requestedBackground": "opaque (fixed by the Hermes openai-codex plugin)",
+        "imagegenRequestId": "ac0816ab-a5be-4eca-8b30-cab70eda9067",
+        "hermesSession": "20261021_220858_caac50",
+        "generatedFile": "openai_codex_gpt-image-2-medium_20261021_220933_d94187a9.png"
+      },
+      "outputSha256": "e3a3e9cecae7d252a017093f2d04cd2de6ddc7699f1e297ed3ccf59bbcf77f9c",
+      "pixelSha256": "dd3566a287d2a52f9ec3942341ba0ee0fee695b62bd23a69e0af9f8be290a15a",
+      "logicalSize": {
+        "width": 56,
+        "height": 56
+      },
+      "anchor": {
+        "x": 28,
+        "y": 28
+      },
+      "padding": 2,
+      "animation": "static; existing code-driven motion remains separate",
+      "sourceSize": {
+        "width": 1254,
+        "height": 1254
+      },
+      "sourceBounds": {
+        "x": 44,
+        "y": 237,
+        "width": 1166,
+        "height": 795
+      },
+      "contentRect": {
+        "x": 2,
+        "y": 10,
+        "width": 52,
+        "height": 35
+      },
+      "removedBackgroundPixels": 873210,
+      "preparedVisiblePixels": 1361
+    },
+    "quarry-sticker": {
+      "image": "prepared/quarry-sticker.png",
+      "source": "quarry-sticker-source-v1.png",
+      "prompt": "quarry-sticker-v1-prompt.txt",
+      "hermesQuery": "quarry-sticker-v1-hermes-query.txt",
+      "sourceSha256": "1c21bf3fb335c90d7b5adf4768ce07392c1ac3ea5e977a3bf4447b896350682d",
+      "sourceFormat": "opaque 8-bit RGB PNG; flat magenta chroma-key background; no source alpha",
+      "preparation": "chroma-key",
+      "generation": {
+        "tool": "Hermes image_generate (one native one-shot session, toolsets image_gen,vision)",
+        "provider": "openai-codex",
+        "hermesModelTier": "gpt-image-2-medium",
+        "requestedQuality": "medium",
+        "reportedQuality": "low",
+        "requestedSize": "1024x1024",
+        "reportedSize": "1254x1254",
+        "modality": "image",
+        "inputImageCount": 1,
+        "referenceImage": "sunset-sticker-source-v1.png (passed as reference_image_urls)",
+        "requestedBackground": "opaque (fixed by the Hermes openai-codex plugin)",
+        "imagegenRequestId": "c7c6fe18-cd3d-4ec3-a4d6-74a255d6d03e",
+        "hermesSession": "20261021_220859_9c6a68",
+        "generatedFile": "openai_codex_gpt-image-2-medium_20261021_220931_cc5b3d3d.png"
+      },
+      "outputSha256": "5b7a9ec01d88b73783ee31d772b0111549a6ac9b2b107aa19c7630ebae018592",
+      "pixelSha256": "0e15e01c033dbd0b6418ae94670a417478a64afed2366b0fb6a680e2e51f3d29",
+      "logicalSize": {
+        "width": 56,
+        "height": 56
+      },
+      "anchor": {
+        "x": 28,
+        "y": 28
+      },
+      "padding": 2,
+      "animation": "static; existing code-driven motion remains separate",
+      "sourceSize": {
+        "width": 1254,
+        "height": 1254
+      },
+      "sourceBounds": {
+        "x": 108,
+        "y": 187,
+        "width": 1036,
+        "height": 923
+      },
+      "contentRect": {
+        "x": 2,
+        "y": 5,
+        "width": 52,
+        "height": 46
+      },
+      "removedBackgroundPixels": 838971,
+      "preparedVisiblePixels": 1828
+    },
+    "timbers-sticker": {
+      "image": "prepared/timbers-sticker.png",
+      "source": "timbers-sticker-source-v1.png",
+      "prompt": "timbers-sticker-v1-prompt.txt",
+      "hermesQuery": "timbers-sticker-v1-hermes-query.txt",
+      "sourceSha256": "598d7b9e644eb2dab045522760d36aa0dbffa83534e7e5f2fbd36e20b154e5ec",
+      "sourceFormat": "opaque 8-bit RGB PNG; flat magenta chroma-key background; no source alpha",
+      "preparation": "chroma-key",
+      "generation": {
+        "tool": "Hermes image_generate (one native one-shot session, toolsets image_gen,vision)",
+        "provider": "openai-codex",
+        "hermesModelTier": "gpt-image-2-medium",
+        "requestedQuality": "medium",
+        "reportedQuality": "low",
+        "requestedSize": "1024x1024",
+        "reportedSize": "1254x1254",
+        "modality": "image",
+        "inputImageCount": 1,
+        "referenceImage": "sunset-sticker-source-v1.png (passed as reference_image_urls)",
+        "requestedBackground": "opaque (fixed by the Hermes openai-codex plugin)",
+        "imagegenRequestId": "509d5851-d71b-4201-abe8-cd52a9c7cbcd",
+        "hermesSession": "20261021_221013_841c01",
+        "generatedFile": "openai_codex_gpt-image-2-medium_20261021_221046_f5da0f9a.png"
+      },
+      "outputSha256": "e8e49bd81d71d089a1b6d11132ff97a52a280160d6754ebb0a88e10cf0931dff",
+      "pixelSha256": "0f2dab0de77ce3cd976f2a7643a0fdc6a2a7c2db29c5c743b212115fac89fdc1",
+      "logicalSize": {
+        "width": 56,
+        "height": 56
+      },
+      "anchor": {
+        "x": 28,
+        "y": 28
+      },
+      "padding": 2,
+      "animation": "static; existing code-driven motion remains separate",
+      "sourceSize": {
+        "width": 1254,
+        "height": 1254
+      },
+      "sourceBounds": {
+        "x": 114,
+        "y": 100,
+        "width": 1041,
+        "height": 1093
+      },
+      "contentRect": {
+        "x": 3,
+        "y": 2,
+        "width": 50,
+        "height": 52
+      },
+      "removedBackgroundPixels": 727576,
+      "preparedVisiblePixels": 1922
+    },
+    "frost-sticker": {
+      "image": "prepared/frost-sticker.png",
+      "source": "frost-sticker-source-v1.png",
+      "prompt": "frost-sticker-v1-prompt.txt",
+      "hermesQuery": "frost-sticker-v1-hermes-query.txt",
+      "sourceSha256": "af2a5333cfb9cb8d44e5124fd5f9a213e8f482ee2965cfd5018a9ec622d01ad2",
+      "sourceFormat": "opaque 8-bit RGB PNG; flat magenta chroma-key background; no source alpha",
+      "preparation": "chroma-key",
+      "generation": {
+        "tool": "Hermes image_generate (one native one-shot session, toolsets image_gen,vision)",
+        "provider": "openai-codex",
+        "hermesModelTier": "gpt-image-2-medium",
+        "requestedQuality": "medium",
+        "reportedQuality": "low",
+        "requestedSize": "1024x1024",
+        "reportedSize": "1254x1254",
+        "modality": "image",
+        "inputImageCount": 1,
+        "referenceImage": "sunset-sticker-source-v1.png (passed as reference_image_urls)",
+        "requestedBackground": "opaque (fixed by the Hermes openai-codex plugin)",
+        "imagegenRequestId": "bf057892-386c-41d1-b322-19dabd6d66cf",
+        "hermesSession": "20261021_221013_0dd9e3",
+        "generatedFile": "openai_codex_gpt-image-2-medium_20261021_221053_4f48b093.png"
+      },
+      "outputSha256": "efbed8411de577a746e54a4bc96ffed341b3f0d4116e7fc15fbdc40b15fbda62",
+      "pixelSha256": "1d7fd948f7557cb54ac3f8c9e2d6e832a45f08e551075b02078ff2b3da2070a1",
+      "logicalSize": {
+        "width": 56,
+        "height": 56
+      },
+      "anchor": {
+        "x": 28,
+        "y": 28
+      },
+      "padding": 2,
+      "animation": "static; existing code-driven motion remains separate",
+      "sourceSize": {
+        "width": 1254,
+        "height": 1254
+      },
+      "sourceBounds": {
+        "x": 87,
+        "y": 161,
+        "width": 1086,
+        "height": 993
+      },
+      "contentRect": {
+        "x": 2,
+        "y": 4,
+        "width": 52,
+        "height": 48
+      },
+      "removedBackgroundPixels": 838280,
+      "preparedVisiblePixels": 1691
+    },
+    "cove-sticker": {
+      "image": "prepared/cove-sticker.png",
+      "source": "cove-sticker-source-v1.png",
+      "prompt": "cove-sticker-v1-prompt.txt",
+      "hermesQuery": "cove-sticker-v1-hermes-query.txt",
+      "sourceSha256": "3f9adc1fefecb141a6f1e0911e6a9b9becb2e09bc20f708d47d2adfb8981da5d",
+      "sourceFormat": "opaque 8-bit RGB PNG; flat magenta chroma-key background; no source alpha",
+      "preparation": "chroma-key",
+      "generation": {
+        "tool": "Hermes image_generate (one native one-shot session, toolsets image_gen,vision)",
+        "provider": "openai-codex",
+        "hermesModelTier": "gpt-image-2-medium",
+        "requestedQuality": "medium",
+        "reportedQuality": "low",
+        "requestedSize": "1024x1024",
+        "reportedSize": "1254x1254",
+        "modality": "image",
+        "inputImageCount": 1,
+        "referenceImage": "sunset-sticker-source-v1.png (passed as reference_image_urls)",
+        "requestedBackground": "opaque (fixed by the Hermes openai-codex plugin)",
+        "imagegenRequestId": "1e97aa85-d504-43cd-b9b0-6360bfa7c914",
+        "hermesSession": "20261021_221115_855807",
+        "generatedFile": "openai_codex_gpt-image-2-medium_20261021_221148_218cded0.png"
+      },
+      "outputSha256": "25b50ddc5966755022dfe5cd3a55038cbf7147ed307fdae9b5be934dd144c87b",
+      "pixelSha256": "20683d0438ffab33ae532156e5200693900b03c84756ccba4c316c876924fcf2",
+      "logicalSize": {
+        "width": 56,
+        "height": 56
+      },
+      "anchor": {
+        "x": 28,
+        "y": 28
+      },
+      "padding": 2,
+      "animation": "static; existing code-driven motion remains separate",
+      "sourceSize": {
+        "width": 1254,
+        "height": 1254
+      },
+      "sourceBounds": {
+        "x": 93,
+        "y": 124,
+        "width": 1070,
+        "height": 1034
+      },
+      "contentRect": {
+        "x": 2,
+        "y": 3,
+        "width": 52,
+        "height": 50
+      },
+      "removedBackgroundPixels": 833766,
+      "preparedVisiblePixels": 1724
     }
-  }
+  },
+  "chromaKey": "Generated trail stickers only: pixels 4-connected to the image edge with red-green >= 24 and blue-green >= 24 become alpha 0; all other pixels keep their RGB and alpha 255. Bounds use the existing alpha >= 128 rule; nearest-neighbour samples are taken at destination pixel centres. See scripts/spelling-stickers.mjs."
 }

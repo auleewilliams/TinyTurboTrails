@@ -158,45 +158,10 @@ export class EducationOverlay {
 
 }
 
-/** Small code-native tree sticker, separate from collectible totals. */
-function drawTreeSticker(ctx: CanvasRenderingContext2D, x: number, y: number, earned: boolean): void {
-  ctx.fillStyle = earned ? '#9ccf93' : '#637578';
-  ctx.strokeStyle = '#e9f2df'; ctx.lineWidth = 2;
-  ctx.fillRect(x - 4, y + 10, 8, 17);
-  ctx.beginPath(); ctx.moveTo(x, y - 29); ctx.lineTo(x + 25, y + 12); ctx.lineTo(x - 25, y + 12); ctx.closePath(); ctx.fill(); ctx.stroke();
-  ctx.fillStyle = '#17333b'; ctx.font = 'bold 10px monospace'; ctx.fillText('TREE', x, y + 6);
-}
-
-/** Approved Sunset artwork; the other five trail rewards retain their original shapes. */
+/** Each trail's generated 56 x 56 sticker, dimmed until earned. */
 function drawWordSticker(ctx: CanvasRenderingContext2D, config: TrailWord, x: number, y: number, earned: boolean, artwork?: SpellingAssets): void {
-  if (config.id === 'sunset' && artwork) {
-    ctx.save(); ctx.globalAlpha *= earned ? 1 : 0.3;
-    ctx.drawImage(artwork.sunsetSticker, x - 28, y - 28, 56, 56); ctx.restore();
-    return;
-  }
-  if (config.id === 'timbers') { drawTreeSticker(ctx, x, y, earned); return; }
-  ctx.save(); ctx.translate(x, y);
-  ctx.fillStyle = earned ? ({ plains: '#9ccf93', quarry: '#aebac9', sunset: '#e4b16f', frost: '#bbe6ff', cove: '#f1d797' } as Record<string, string>)[config.id] : '#637578';
-  ctx.strokeStyle = '#e9f2df'; ctx.lineWidth = 2;
-  ctx.beginPath();
-  if (config.id === 'plains') {
-    ctx.moveTo(-26, 18); ctx.quadraticCurveTo(-12, -35, 12, -6); ctx.quadraticCurveTo(22, -15, 29, 18); ctx.closePath();
-  } else if (config.id === 'quarry') {
-    ctx.moveTo(-25, 12); ctx.lineTo(-17, -17); ctx.lineTo(4, -25); ctx.lineTo(24, -8); ctx.lineTo(21, 18); ctx.lineTo(-10, 23); ctx.closePath();
-  } else if (config.id === 'sunset') {
-    ctx.rect(-28, -17, 56, 12); ctx.rect(-22, 3, 44, 12);
-  } else if (config.id === 'frost') {
-    for (let arm = 0; arm < 6; arm++) {
-      const angle = arm * Math.PI / 3;
-      const dx = Math.cos(angle), dy = Math.sin(angle);
-      ctx.moveTo(0, 0); ctx.lineTo(dx * 25, dy * 25);
-      ctx.moveTo(dx * 17 - dy * 7, dy * 17 + dx * 7); ctx.lineTo(dx * 10, dy * 10);
-      ctx.lineTo(dx * 17 + dy * 7, dy * 17 - dx * 7);
-    }
-  } else {
-    ctx.moveTo(-28, 18); ctx.lineTo(-21, -1); ctx.lineTo(-8, -1); ctx.lineTo(-8, -19);
-    ctx.lineTo(8, -19); ctx.lineTo(8, -1); ctx.lineTo(21, -1); ctx.lineTo(28, 18); ctx.closePath();
-  }
-  if (config.id !== 'frost') ctx.fill();
-  ctx.stroke(); ctx.restore();
+  const sticker = artwork?.stickers[config.id];
+  if (!sticker) return;
+  ctx.save(); ctx.globalAlpha *= earned ? 1 : 0.3;
+  ctx.drawImage(sticker, x - 28, y - 28, 56, 56); ctx.restore();
 }

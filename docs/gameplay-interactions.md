@@ -170,13 +170,13 @@ report selection/placement through accessible labels and the status region.
 Wrong/occupied/outside drops leave letters safe; cancelled drags and switching
 input methods cannot commit a placement. Correct spaces persist forgivingly.
 Only manual completion earns the trail sticker once per session: a hill, rock,
-accepted tree, hard hat on a steel beam, snowflake or sandcastle. The approved
-builder-kit pouch and blank wooden tile are shared across all trails, with
-letters drawn separately. Only Sunset uses a generated sticker; the other five
-stickers retain their code-native shapes. Three small local images load through
-the adventure's existing required-artwork/Retry flow. Focus uses an outer frame
-and caret; the tile in hand retains an inset frame after focus moves to a space.
-Further artwork remains in #194.
+tree, hard hat on a steel beam, snow-capped mountain or sandcastle. Each is a
+generated 56 × 56 sticker in one matching style (#194), dimmed in the collection
+until earned. The approved builder-kit pouch and blank wooden tile are shared
+across all trails, with letters drawn separately. Eight small local images load
+through the adventure's existing required-artwork/Retry flow; a missing sticker
+shows Retry rather than a fallback. Focus uses an outer frame and caret; the
+tile in hand retains an inset frame after focus moves to a space.
 
 Find more letters appears while any pickup is missing. It closes the activity
 and places Henry 28px before finish, with zero velocity and grounded feet, while

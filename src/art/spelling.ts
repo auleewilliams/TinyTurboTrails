@@ -1,20 +1,23 @@
 import { loadImage } from './henry';
+import { TRAIL_WORDS } from '../game/education';
 
 export interface SpellingAssets {
   pouch: HTMLImageElement;
   tile: HTMLImageElement;
-  sunsetSticker: HTMLImageElement;
+  /** One generated reward sticker per trail id, e.g. `public/assets/spelling/plains-sticker.png`. */
+  stickers: Readonly<Record<string, HTMLImageElement>>;
 }
 
 export async function loadSpellingAssets(): Promise<SpellingAssets> {
   const base = `${import.meta.env.BASE_URL}assets/spelling/`;
-  const [pouch, tile, sunsetSticker] = await Promise.all([
-    loadImage(`${base}pouch.png`), loadImage(`${base}tile.png`), loadImage(`${base}sunset-sticker.png`),
+  const [pouch, tile, ...stickers] = await Promise.all([
+    loadImage(`${base}pouch.png`), loadImage(`${base}tile.png`),
+    ...TRAIL_WORDS.map(config => loadImage(`${base}${config.id}-sticker.png`)),
   ]);
-  for (const [image, width, height] of [[pouch, 28, 28], [tile, 42, 32], [sunsetSticker, 56, 56]] as const) {
+  for (const [image, width, height] of [[pouch, 28, 28], [tile, 42, 32], ...stickers.map(sticker => [sticker, 56, 56] as const)] as const) {
     if (image.naturalWidth !== width || image.naturalHeight !== height) throw new Error('Invalid spelling artwork dimensions');
   }
-  return { pouch, tile, sunsetSticker };
+  return { pouch, tile, stickers: Object.fromEntries(TRAIL_WORDS.map((config, index) => [config.id, stickers[index]])) };
 }
 
 /** Only the backing is illustrated; glyphs stay crisp and independent of pickup identity. */
