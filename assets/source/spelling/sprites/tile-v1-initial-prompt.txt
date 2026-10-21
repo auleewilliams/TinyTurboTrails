@@ -1,0 +1,9 @@
+Use case: precise-object-edit
+Asset type: One transparent production-source wooden letter-tile background for Tiny Turbo Trails.
+Input image: The supplied builder-kit sheet is the owner-approved reference and edit target.
+Primary request: Isolate the approved wooden block design and produce ONE blank block with the same warm honey-colored timber, dark blue-green outer pixel outline, simple golden bevel and narrow darker brown lower/right edge. Change only two things from the concept's block: remove all lettering to leave a clean blank face, and widen the silhouette to a 42-to-32 width/height proportion. Keep the shallow front-facing perspective and pixel illustration language.
+Composition: One centered horizontally rectangular block, visible silhouette approximately 1.35 times wider than tall, occupying about 70 percent of the square canvas width with generous transparent padding around every side. Fully visible, straight horizontal baseline, front face facing the viewer almost square-on, no significant perspective tilt. Corners gently bevelled with stepped pixel edges.
+Readability: The final artwork is a 42-by-32 logical-pixel game tile. Use a very broad quiet light-timber central face for a separately rendered dark letter. Restrict grain to a few subtle edge clusters. Thin simple bevel, not a deep frame. No tiny grain marks in the middle, no symbols, no screws, no holes or hardware. The face must have enough clean space for a bold uppercase M.
+Style: Match the reference's crisp pixel clusters, dark blue-green outline and warm woody palette. No photorealism, smooth vector art, glossy 3D render or blur.
+Text: ABSOLUTELY NO letters, numbers, labels or symbols anywhere on the block. It is a reusable blank sprite; production letters are drawn separately.
+Transparency: Real RGBA transparent background; no cream backdrop, baked checkerboard, floor or cast shadow. Only ONE blank block. No bag, sticker or other objects.

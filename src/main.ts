@@ -18,6 +18,7 @@ import { AdventureScene } from './game/adventure-scene';
 import { MenuOverlay } from './game/menu-overlay';
 import { PauseMenu } from './game/pause-menu';
 import { loadImage } from './art/henry';
+import { loadSpellingAssets } from './art/spelling';
 import { DEFAULT_LEVEL, LEVELS } from './world/levels';
 
 const canvas = document.querySelector<HTMLCanvasElement>('#game')!;
@@ -224,9 +225,10 @@ if (!context) {
       loadImage(`${import.meta.env.BASE_URL}assets/overworld/landmarks.png`),
       loadImage(`${import.meta.env.BASE_URL}assets/overworld/background.png`),
       loadImage(`${import.meta.env.BASE_URL}assets/story/patchwork-vale.png`),
-    ]).then(([titleArtwork, henry, worlds, landmarks, mapBackground, storyArtwork]) => {
+      loadSpellingAssets(),
+    ]).then(([titleArtwork, henry, worlds, landmarks, mapBackground, storyArtwork, spelling]) => {
       if (disposed) return;
-      scenes.change(new AdventureScene(titleArtwork, henry, worlds, audio, DEFAULT_LEVEL, landmarks, mapBackground, storyArtwork, rumble));
+      scenes.change(new AdventureScene(titleArtwork, henry, worlds, audio, DEFAULT_LEVEL, landmarks, mapBackground, storyArtwork, rumble, spelling));
       assetState = 'ready';
       refreshPause();
     }).catch(() => {

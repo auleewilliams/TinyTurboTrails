@@ -1,0 +1,110 @@
+{
+  "status": "owner-approved; integrated into adventure via public/assets/spelling",
+  "alphaThresholdForBounds": 128,
+  "resampling": "nearest-neighbour; preserve sampled source alpha; aspect-preserving integer fit; centered using floor",
+  "letters": "Separate bold 17px monospace dark #17333b; no glyphs in tile.png",
+  "sprites": {
+    "pouch": {
+      "image": "prepared/pouch.png",
+      "source": "pouch-source-v1.png",
+      "sourceSha256": "d982569f4e6bdd47ef332468f52a236e320e9df5e2d2376cef5ff98f96e26c61",
+      "outputSha256": "a044fb5b5a9c36d0a16405409d4d3fb3c04160098052d7fec3b58c388487dc40",
+      "logicalSize": {
+        "width": 28,
+        "height": 28
+      },
+      "anchor": {
+        "x": 14,
+        "y": 14
+      },
+      "padding": 2,
+      "animation": "static; existing code-driven motion remains separate",
+      "sourceSize": {
+        "width": 1254,
+        "height": 1254
+      },
+      "sourceBounds": {
+        "x": 197,
+        "y": 218,
+        "width": 858,
+        "height": 851
+      },
+      "contentRect": {
+        "x": 2,
+        "y": 2,
+        "width": 24,
+        "height": 24
+      },
+      "sourceTransparentPixels": 986535,
+      "preparedVisiblePixels": 457
+    },
+    "tile": {
+      "image": "prepared/tile.png",
+      "source": "tile-source-v1.png",
+      "sourceSha256": "3a1b5e0e7380a40690937e9e4fa98f73e67f5e81aaf7e485b0e70a4b0c6fa4d7",
+      "outputSha256": "c37ca9b6cf2baefc351bcdd88f08650baf700ba6d3e5fd2f5756eb2f2af22fd1",
+      "logicalSize": {
+        "width": 42,
+        "height": 32
+      },
+      "anchor": {
+        "x": 21,
+        "y": 16
+      },
+      "padding": 1,
+      "animation": "static; existing code-driven motion remains separate",
+      "sourceSize": {
+        "width": 1437,
+        "height": 1095
+      },
+      "sourceBounds": {
+        "x": 265,
+        "y": 188,
+        "width": 907,
+        "height": 716
+      },
+      "contentRect": {
+        "x": 2,
+        "y": 1,
+        "width": 38,
+        "height": 30
+      },
+      "sourceTransparentPixels": 921079,
+      "preparedVisiblePixels": 1125
+    },
+    "sunset-sticker": {
+      "image": "prepared/sunset-sticker.png",
+      "source": "sunset-sticker-source-v1.png",
+      "sourceSha256": "b53fac46b4b2402d252c02c471f6bd293a60b20acbbe4f2d7a137275153563ca",
+      "outputSha256": "854702e0cdd510926209e434775a70abf90310ce7625f782523f71d37ec7cb01",
+      "logicalSize": {
+        "width": 56,
+        "height": 56
+      },
+      "anchor": {
+        "x": 28,
+        "y": 28
+      },
+      "padding": 2,
+      "animation": "static; existing code-driven motion remains separate",
+      "sourceSize": {
+        "width": 1254,
+        "height": 1254
+      },
+      "sourceBounds": {
+        "x": 138,
+        "y": 156,
+        "width": 992,
+        "height": 1049
+      },
+      "contentRect": {
+        "x": 3,
+        "y": 2,
+        "width": 49,
+        "height": 52
+      },
+      "sourceTransparentPixels": 787679,
+      "preparedVisiblePixels": 1918
+    }
+  }
+}

@@ -1,0 +1,5 @@
+Use case: precise-object-edit
+Input image: This transparent blank wooden tile is the edit target.
+Change ONLY the tile silhouette proportions. It is currently a wide shallow sign/plank. Make it a squat letter block with visible outer width EXACTLY 1.32 times its outer height, almost square but a little wider than tall, comparable to a 42-by-32 rectangle. Increase the block height substantially, keeping its width and corner/bevel thickness proportional. This must read as a wooden alphabet toy block, not a wide signboard.
+Preserve the same honey timber palette, dark blue-green outer outline, golden shallow bevel, simple lower/right brown edge, almost-front-facing camera and clean quiet blank central face. Minimal edge grain only. Do not add any text, letters, numbers, symbols or other objects. One entire standalone block, centered with generous transparent padding on all sides.
+Real RGBA transparent background. Preserve crisp stepped pixel edges, no drop shadow, no cream/black/checkerboard background. Do not change its material or style.

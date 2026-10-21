@@ -197,3 +197,26 @@ an added outline. Amber, gold (Frost) and cyan (Cove) share identical alpha mask
 and bottom-center anchors. `node scripts/prepare-gems.mjs` reproduces the atlas.
 The original environment atlas cells remain as source history. See
 `assets/source/gems/PROVENANCE.md` for the generated source and prompt.
+
+## Approved builder-kit spelling artwork (#194)
+
+The owner-approved canvas pouch, blank timber tile and Sunset hard-hat/beam
+sticker live in `public/assets/spelling/`. Exact prompts, untouched generated
+sources, the approved concept and native-size copies are preserved under
+[`assets/source/spelling/`](../../assets/source/spelling/sprites/PROVENANCE.md).
+Run `node scripts/prepare-spelling-art.mjs` to copy the reviewed RGBA files
+byte-for-byte after validating their dimensions and hashes. The three images
+total 11,524 bytes; high-resolution source art is not loaded by the game.
+
+The shared tile is 42 × 32 for manual assembly and dragging, with separately
+rendered glyphs. World pickups and pickup flights scale only the backing to the
+existing 22 × 24 footprint. The pouch is 28 × 28; the Sunset reward is 56 × 56,
+scaled to approximately 31 × 31 in the collection. Transparent borders, center
+anchors and static-animation metadata are recorded in the source preparation
+record. Existing pickup timing, reduced-motion behavior and activity rules stay
+unchanged. Focus and held-tile frames remain visible independent of color.
+The other five stickers retain their original code-native art.
+
+See the [integration evidence](../evidence/issue-194/README.md) for checks and
+native/small in-game screenshots in Chromium, Firefox and WebKit. Owner-led
+in-game reading comfort and physical-controller ergonomics remain manual.
