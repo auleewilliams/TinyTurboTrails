@@ -277,8 +277,10 @@ pointer and standard controller. Preserve focus safety, held-input guards and
 normal pause/navigation. Retain all-six-trail finish grounding and the interim
 harmless/pass-through static props (#191), without added markings or altered
 slime damage/squash behaviour. The owner-approved builder-kit pouch and wooden
-letter tiles are shared across all six trails; Sunset uses the approved hard-hat
-and beam sticker. Letters remain separately rendered, with clear focus/held
-markers. Other trail stickers and broader assembly artwork remain in #194.
+letter tiles are shared across all six trails. Each trail's reward uses its own
+generated sticker in the approved Sunset style (#194): Plains grassy hills,
+Quarry Run rock, Treetop Timbers tree, Sunset Site hard hat and beam, Frost Ridge
+snow-capped mountain and Sandy Cove sandcastle, without baked lettering. Letters
+remain separately rendered, with clear focus/held markers.
 No merge or deployment is
 authorised; owner/child and physical-controller acceptance remain manual.

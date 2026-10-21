@@ -1,5 +1,10 @@
 # Approved builder-kit artwork integration
 
+> Historical record for PR #196. The remaining five trail stickers were added
+> later; see the [all-trail sticker evidence](all-trail-stickers/README.md).
+> Statements below about Sunset being the only generated sticker, three runtime
+> files and outstanding sticker work describe that earlier pass only.
+
 Integrates the owner-approved canvas pouch, reusable blank wooden tile and
 Sunset Site hard-hat/beam sticker on merged PR #190,
 `bee0f7d402395af8d9ed7a4693e6739d9f905607`.

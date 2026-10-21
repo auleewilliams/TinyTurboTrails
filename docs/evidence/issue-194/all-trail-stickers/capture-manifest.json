@@ -1,0 +1,404 @@
+{
+  "runtimeCommit": "df34e3013d1e45c2054ddbc2b46ba3adc60017f3",
+  "note": "Uncropped full-window Playwright screenshots copied byte-for-byte; local Linux run.",
+  "captures": [
+    {
+      "file": "chromium-gameplay-plains-earned-426.png",
+      "engine": "chromium",
+      "trail": "plains",
+      "state": "earned",
+      "captureKind": "live-gameplay",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "sourceRun": "focused3",
+      "sourceCase": "browser-all-trail-spelling-1898b-ssembly-and-session-sticker-chromium",
+      "sha256": "dcbc0a9df782eb6e1281276633d3440d9c5b63835b401a3d1e19a7597c0d317c"
+    },
+    {
+      "file": "chromium-gameplay-plains-earned-320.png",
+      "engine": "chromium",
+      "trail": "plains",
+      "state": "earned",
+      "captureKind": "live-gameplay",
+      "viewport": {
+        "width": 320,
+        "height": 240
+      },
+      "sourceRun": "focused3",
+      "sourceCase": "browser-all-trail-spelling-1898b-ssembly-and-session-sticker-chromium",
+      "sha256": "0add685c1cbfc345bca588c2919d2b88768e04cedbafc6f18dff3ec766e6e257"
+    },
+    {
+      "file": "chromium-gameplay-quarry-earned-426.png",
+      "engine": "chromium",
+      "trail": "quarry",
+      "state": "earned",
+      "captureKind": "live-gameplay",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "sourceRun": "focused3",
+      "sourceCase": "browser-all-trail-spelling-7d304-ssembly-and-session-sticker-chromium",
+      "sha256": "1835066aa510187f4b695c1c50396c551559bb8015eb092695ef03fd5515bb63"
+    },
+    {
+      "file": "chromium-gameplay-quarry-earned-320.png",
+      "engine": "chromium",
+      "trail": "quarry",
+      "state": "earned",
+      "captureKind": "live-gameplay",
+      "viewport": {
+        "width": 320,
+        "height": 240
+      },
+      "sourceRun": "focused3",
+      "sourceCase": "browser-all-trail-spelling-7d304-ssembly-and-session-sticker-chromium",
+      "sha256": "1ce84ad6bb827b532bdf479e560e029dbeaef7dd5a91dd27a6cfa28eb289e686"
+    },
+    {
+      "file": "chromium-gameplay-timbers-earned-426.png",
+      "engine": "chromium",
+      "trail": "timbers",
+      "state": "earned",
+      "captureKind": "live-gameplay",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "sourceRun": "focused3",
+      "sourceCase": "browser-all-trail-spelling-8ba8a-ssembly-and-session-sticker-chromium",
+      "sha256": "34f07ebad5957c792383608d4558d2181fb2cc489c51f6d5feb983c566196944"
+    },
+    {
+      "file": "chromium-gameplay-timbers-earned-320.png",
+      "engine": "chromium",
+      "trail": "timbers",
+      "state": "earned",
+      "captureKind": "live-gameplay",
+      "viewport": {
+        "width": 320,
+        "height": 240
+      },
+      "sourceRun": "focused3",
+      "sourceCase": "browser-all-trail-spelling-8ba8a-ssembly-and-session-sticker-chromium",
+      "sha256": "02cc138f16b3d39a10bd4eab226e60d93dbc2e7f416d6fb4434c5a866e729e03"
+    },
+    {
+      "file": "chromium-gameplay-sunset-earned-426.png",
+      "engine": "chromium",
+      "trail": "sunset",
+      "state": "earned",
+      "captureKind": "live-gameplay",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "sourceRun": "focused3",
+      "sourceCase": "browser-all-trail-spelling-c0dcf-ssembly-and-session-sticker-chromium",
+      "sha256": "445a67d25514a14ec319786618c0925e8bba828d45360a17f36ad9bbee3aaed7"
+    },
+    {
+      "file": "chromium-gameplay-sunset-earned-320.png",
+      "engine": "chromium",
+      "trail": "sunset",
+      "state": "earned",
+      "captureKind": "live-gameplay",
+      "viewport": {
+        "width": 320,
+        "height": 240
+      },
+      "sourceRun": "focused3",
+      "sourceCase": "browser-all-trail-spelling-c0dcf-ssembly-and-session-sticker-chromium",
+      "sha256": "a6b77c47aa235b77270a2092dc900dcad61ea6c0eba135e651c3e2d16e65f03a"
+    },
+    {
+      "file": "chromium-gameplay-frost-earned-426.png",
+      "engine": "chromium",
+      "trail": "frost",
+      "state": "earned",
+      "captureKind": "live-gameplay",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "sourceRun": "focused3",
+      "sourceCase": "browser-all-trail-spelling-0f2c5-ssembly-and-session-sticker-chromium",
+      "sha256": "fac35ddb82231b2d419d76097604abed05e405e5c0bc3e6ef33c7faa52f27c42"
+    },
+    {
+      "file": "chromium-gameplay-frost-earned-320.png",
+      "engine": "chromium",
+      "trail": "frost",
+      "state": "earned",
+      "captureKind": "live-gameplay",
+      "viewport": {
+        "width": 320,
+        "height": 240
+      },
+      "sourceRun": "focused3",
+      "sourceCase": "browser-all-trail-spelling-0f2c5-ssembly-and-session-sticker-chromium",
+      "sha256": "93c32b546c7cd932d10491fa5a6db7096d4c9ea781efec1d6475f44a37e08d53"
+    },
+    {
+      "file": "chromium-gameplay-cove-earned-426.png",
+      "engine": "chromium",
+      "trail": "cove",
+      "state": "earned",
+      "captureKind": "live-gameplay",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "sourceRun": "focused3",
+      "sourceCase": "browser-all-trail-spelling-c4444-ssembly-and-session-sticker-chromium",
+      "sha256": "f81563de49c195ea43ad444709729f24993637d5805355dab201f993a19b87b5"
+    },
+    {
+      "file": "chromium-gameplay-cove-earned-320.png",
+      "engine": "chromium",
+      "trail": "cove",
+      "state": "earned",
+      "captureKind": "live-gameplay",
+      "viewport": {
+        "width": 320,
+        "height": 240
+      },
+      "sourceRun": "focused3",
+      "sourceCase": "browser-all-trail-spelling-c4444-ssembly-and-session-sticker-chromium",
+      "sha256": "53a44288372fa97044cbdbed31a4dbda38a660e60a34a2c7a23bbdab04c7cd4c"
+    },
+    {
+      "file": "firefox-gameplay-plains-earned-426.png",
+      "engine": "firefox",
+      "trail": "plains",
+      "state": "earned",
+      "captureKind": "live-gameplay",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "sourceRun": "focused3",
+      "sourceCase": "browser-all-trail-spelling-1898b-ssembly-and-session-sticker-firefox",
+      "sha256": "1bf2fc20caa8c09d555c4f5af83726c88d593d946f248eb9551ac6daa7d09a1b"
+    },
+    {
+      "file": "firefox-gameplay-quarry-earned-426.png",
+      "engine": "firefox",
+      "trail": "quarry",
+      "state": "earned",
+      "captureKind": "live-gameplay",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "sourceRun": "focused3",
+      "sourceCase": "browser-all-trail-spelling-7d304-ssembly-and-session-sticker-firefox",
+      "sha256": "f1997d440db1784516f1d677c92a3e150958f450fc3f68c9d97bc9fecf938f5d"
+    },
+    {
+      "file": "firefox-gameplay-timbers-earned-426.png",
+      "engine": "firefox",
+      "trail": "timbers",
+      "state": "earned",
+      "captureKind": "live-gameplay",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "sourceRun": "focused3",
+      "sourceCase": "browser-all-trail-spelling-8ba8a-ssembly-and-session-sticker-firefox",
+      "sha256": "6730b6efcd40cf5095af246f81625cb699510618507b8239d3b71d0dca649e3e"
+    },
+    {
+      "file": "firefox-gameplay-sunset-earned-426.png",
+      "engine": "firefox",
+      "trail": "sunset",
+      "state": "earned",
+      "captureKind": "live-gameplay",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "sourceRun": "focused3",
+      "sourceCase": "browser-all-trail-spelling-c0dcf-ssembly-and-session-sticker-firefox",
+      "sha256": "97b6141cafc8e23534923e4ad496863fc68cbcbce83f952443f65267daa8e741"
+    },
+    {
+      "file": "firefox-gameplay-frost-earned-426.png",
+      "engine": "firefox",
+      "trail": "frost",
+      "state": "earned",
+      "captureKind": "live-gameplay",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "sourceRun": "focused3",
+      "sourceCase": "browser-all-trail-spelling-0f2c5-ssembly-and-session-sticker-firefox",
+      "sha256": "b4695a13ee2fb8cecd841297f34fe9ec62cdd23626f6b09c2ce5bd1618d363ff"
+    },
+    {
+      "file": "firefox-gameplay-cove-earned-426.png",
+      "engine": "firefox",
+      "trail": "cove",
+      "state": "earned",
+      "captureKind": "live-gameplay",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "sourceRun": "focused3",
+      "sourceCase": "browser-all-trail-spelling-c4444-ssembly-and-session-sticker-firefox",
+      "sha256": "71c0e9a86dbab9bccae53a398dcf78fd7ccbe73bfcad1febcf2e266cb9eb06c0"
+    },
+    {
+      "file": "webkit-gameplay-plains-earned-426.png",
+      "engine": "webkit",
+      "trail": "plains",
+      "state": "earned",
+      "captureKind": "live-gameplay",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "sourceRun": "webkit-serial-head",
+      "sourceCase": "browser-all-trail-spelling-1898b-ssembly-and-session-sticker-webkit",
+      "sha256": "9f9fffc20c527db59bbe9dccfc756629e386206af39cc135eb25ad56c5d0b6f7"
+    },
+    {
+      "file": "webkit-gameplay-quarry-earned-426.png",
+      "engine": "webkit",
+      "trail": "quarry",
+      "state": "earned",
+      "captureKind": "live-gameplay",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "sourceRun": "webkit-serial-head",
+      "sourceCase": "browser-all-trail-spelling-7d304-ssembly-and-session-sticker-webkit",
+      "sha256": "d8b71fbb93f2a2f1757ec5e1b617ef1f28cd6a4375e26d6019e59d7a032ee2bd"
+    },
+    {
+      "file": "webkit-gameplay-timbers-earned-426.png",
+      "engine": "webkit",
+      "trail": "timbers",
+      "state": "earned",
+      "captureKind": "live-gameplay",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "sourceRun": "webkit-serial-head",
+      "sourceCase": "browser-all-trail-spelling-8ba8a-ssembly-and-session-sticker-webkit",
+      "sha256": "a4b4ee8873240e01475cf33d7f00fd50f1a016b3b282597f117207cb30c7f106"
+    },
+    {
+      "file": "webkit-gameplay-sunset-earned-426.png",
+      "engine": "webkit",
+      "trail": "sunset",
+      "state": "earned",
+      "captureKind": "live-gameplay",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "sourceRun": "webkit-serial-head",
+      "sourceCase": "browser-all-trail-spelling-c0dcf-ssembly-and-session-sticker-webkit",
+      "sha256": "86c572f3cdac3ec481427cdf23f084d3418f433aec4df8ffc99be6f5d49697ed"
+    },
+    {
+      "file": "webkit-gameplay-frost-earned-426.png",
+      "engine": "webkit",
+      "trail": "frost",
+      "state": "earned",
+      "captureKind": "live-gameplay",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "sourceRun": "focused3",
+      "sourceCase": "browser-all-trail-spelling-0f2c5-ssembly-and-session-sticker-webkit",
+      "sha256": "0d11c398731bbea3e9beabdc06044f62e2c07f672e45cb51d79e02ef2dd92297"
+    },
+    {
+      "file": "webkit-gameplay-cove-earned-426.png",
+      "engine": "webkit",
+      "trail": "cove",
+      "state": "earned",
+      "captureKind": "live-gameplay",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "sourceRun": "focused3",
+      "sourceCase": "browser-all-trail-spelling-c4444-ssembly-and-session-sticker-webkit",
+      "sha256": "7ab79b2c5423c9d48f19bf9d0c18486fb20afa3cb752b55ee54591f6b6580f66"
+    },
+    {
+      "file": "chromium-gameplay-plains-collection-426.png",
+      "engine": "chromium",
+      "trail": "plains",
+      "state": "collection (Plains earned, five unearned)",
+      "captureKind": "live-gameplay",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "sourceRun": "focused3",
+      "sourceCase": "browser-all-trail-spelling-1898b-ssembly-and-session-sticker-chromium",
+      "sha256": "d074708cbbbba0c7d58c18dbdfb4a496fa6e36472d8d5ab0b01b0fb9d23d0ffb"
+    },
+    {
+      "file": "chromium-gameplay-plains-collection-320.png",
+      "engine": "chromium",
+      "trail": "plains",
+      "state": "collection (Plains earned, five unearned)",
+      "captureKind": "live-gameplay",
+      "viewport": {
+        "width": 320,
+        "height": 240
+      },
+      "sourceRun": "focused3",
+      "sourceCase": "browser-all-trail-spelling-1898b-ssembly-and-session-sticker-chromium",
+      "sha256": "b08bba7760eba51878497b5105bde3da49e7a698dc21431ac4a9b144538200bb"
+    },
+    {
+      "file": "chromium-FIXTURE-all-earned-collection-426.png",
+      "engine": "chromium",
+      "trail": "all",
+      "state": "collection (all six earned)",
+      "captureKind": "renderer-fixture",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "sourceRun": "focused3",
+      "sourceCase": "browser-builder-kit-visual-fd91a-s-at-native-and-small-sizes-chromium",
+      "sha256": "7da81796beba1fb00c8566634281217e4ca74edff4e59ff18af4c1fa1ea1dcce"
+    },
+    {
+      "file": "chromium-FIXTURE-all-earned-collection-320.png",
+      "engine": "chromium",
+      "trail": "all",
+      "state": "collection (all six earned)",
+      "captureKind": "renderer-fixture",
+      "viewport": {
+        "width": 320,
+        "height": 240
+      },
+      "sourceRun": "focused3",
+      "sourceCase": "browser-builder-kit-visual-fd91a-s-at-native-and-small-sizes-chromium",
+      "sha256": "c24f72a548c91e861dc74e895cf4a354e68acbd2766fcec091ab00665191ac6d"
+    },
+    {
+      "file": "asset-proof-six-stickers.png",
+      "captureKind": "asset-proof (not gameplay)",
+      "description": "Six runtime PNGs at 4x, native, collection 0.55x on #17333b, dimmed 0.3, and 2x; light (#e9f2df) and dark (#0c1922) rows. Rendered with Playwright Chromium canvas, imageSmoothingEnabled false.",
+      "sha256": "7cb0be85f6d8c132ed5bbb63e56bd235ca21574489efda089069de52d5aa1fc1"
+    }
+  ]
+}
