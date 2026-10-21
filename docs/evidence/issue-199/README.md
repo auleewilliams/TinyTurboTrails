@@ -15,7 +15,30 @@ recheck after rebasing or after #196/#200 land. [Source manifest](source-manifes
 records exact source hashes and historical-source drift. These are source-review
 results, **not current test execution or branch-coverage certification**.
 
-### Status update — 2026-10-20 UTC
+### Latest decision — 2026-10-21 UTC
+
+The owner approved **closing [PR #203](https://github.com/auleewilliams/TinyTurboTrails/pull/203)
+without merging** and retaining its findings. The C12 experiment preserved all
+cases and assertions, passed coverage-equivalence and sabotage checks, and passed
+CI. However, seven comparable timing pairs measured median suite durations of
+19,019.59 ms originally versus 19,869.60 ms proposed: **4.47% slower in that
+cohort**, not evidence of a useful speedup or proof of a universal slowdown.
+The implementation was not merged; the original tests remain in place.
+
+The closed PR retains its bounded results and complete historical discussion.
+This documentation preserves the experiment's outcome, not a recommendation to
+retry the same computation hoist or remove parameters. **#199 remains open** for
+individually approved, more promising proposals; none of the other candidates
+has gained implementation approval.
+
+This branch is refreshed against main
+`7e1ede152c64c77d14ee4421b445a91fec8a301e`. Reporting #198 and driver reliability
+#200 are now merged via PRs #202 and #197, and the approved artwork in PR #196
+is also merged. These are status updates, **not a fresh audit**: all dated tables,
+source hashes, historical related-work descriptions and source anchors below
+remain pinned to `4d3e9de`.
+
+### Earlier approval — 2026-10-20 UTC
 
 The owner has [approved C12's exact computation-only follow-up](https://github.com/auleewilliams/TinyTurboTrails/issues/199#issuecomment-6286765034):
 hoist only invariant sparkle-rectangle construction in `tests/finish-layout.test.ts`,
@@ -224,10 +247,12 @@ benefit, report that honestly rather than expanding to parameter deletion.
 
 ## Follow-up order / decisions still needed
 
-1. C12's exact computation-only scope is owner-approved as recorded above;
-   implement and validate it separately before considering it complete.
-2. Reporting #198 and reliability #200 proceed independently. No browser pilot
-   implementation PR should race their shared helpers or claim their work.
+1. C12's approved experiment was implemented and evaluated in #203, then closed
+   without merging because it demonstrated no performance benefit. Retain the
+   findings; do not treat its historical proposal above as pending execution.
+2. Reporting #198 and reliability #200 are merged. Use their current reporting
+   and regression protection when assessing future changes, without relabelling
+   the old audit tables or timing evidence as current.
 3. If later approved, C07 can transplant the exact idle-pixel **and boot/input**
    witness before considering one standalone registration removed (one per
    engine); its runtime benefit is unknown. Keep all data/model/squash layers.
@@ -250,5 +275,6 @@ benefit, report that honestly rather than expanding to parameter deletion.
 - Exact source hashes and historical unit-file drift recorded in the manifest.
 - `git diff --check` and docs-only changed-path guard required before commit.
 - No full browser or unit suite run for this proposal; no sabotage performed,
-  no runtime pass or measurable speedup claimed. Implementation acceptance
-  remains outstanding; C12-only owner approval is recorded above.
+  no runtime pass or measurable speedup claimed by this documentation change.
+  The later C12 experiment and owner-approved rejection are recorded above;
+  all other implementation decisions remain outstanding.
