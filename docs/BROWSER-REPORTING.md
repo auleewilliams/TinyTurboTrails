@@ -84,11 +84,11 @@ The API is `summarizeBrowserReport(report, configuredReport, { artifactRoot })`.
 Verification visits every nested case/project/result, including failed attempts,
 retries and skipped results. With verification enabled, the written summary and
 console JSON include `attachmentVerification` with `checked`, `inline`, `missing`,
-`invalid` and `diagnostics`. `checked` counts file references, including repeated
-references to the same file; `inline` counts attachments with an absent or empty
-string path (body content needs no file). Other path types, blank-only strings,
-NUL characters, malformed attachment entries and malformed traversal containers
-are invalid. Invalid containers count as one diagnostic each; unseen children
+`invalid` and `diagnostics`. `checked` counts successfully verified file references,
+including repeated references to the same file; `inline` counts attachments with
+an absent or empty string path (body content needs no file). Other path types,
+blank-only strings, NUL characters, malformed attachment entries and malformed
+traversal containers are invalid. Invalid containers count as one diagnostic each; unseen children
 cannot be counted. Missing and invalid references fail the command with exit 1
 and diagnostics on stderr, including available case ID/title, project,
 zero-based attempt/attachment indices, retry number and original reference.
@@ -104,12 +104,17 @@ Supported path conventions are deliberately narrow:
   Windows drive-absolute (`C:/...`) and UNC (`//server/share/...`) forms are
   recognized. Forward and backslashes are normalized as separators.
 - Absolute paths without exactly one `test-results` component, drive-relative
-  paths and URL schemes are rejected. There is no basename search or fallback to
-  the original absolute host path. Any literal `..` component is rejected before
-  normalization, including one before the CI root.
+  paths, URL schemes and colon-containing non-drive paths are rejected. There is
+  no basename search or fallback to the original absolute host path. Any literal
+  `..` component is rejected before normalization, including one before the CI root.
 
 Files must exist, be regular files and open for reading. Internal symlinks are
-allowed; symlink targets outside ROOT (including dangling escapes) and loops are
+allowed, including parent traversal within their targets when every visited
+directory stays inside ROOT. Targets are checked component by component before
+processing `..`; an intermediate outside symlink is rejected even if string
+normalization would hide it. Absolute symlink targets must start with the literal
+canonical ROOT path; non-canonical aliases are conservatively unsupported.
+Symlink targets outside ROOT (including dangling escapes) and loops are
 rejected before inspecting outside targets. Use a finished, unmodified downloaded
 artifact during verification; this tool does not lock directories against
 concurrent replacement. No attachment content is decoded or compared with visual
@@ -138,11 +143,27 @@ path relocation/containment (8 pass/3 fail, then 11 pass), malformed data
 scratch `TMPDIR`, not system `/tmp`. A temporary sabotage suppressing the
 missing-file failure produced 11 pass/3 fail (API, CLI and failed-attempt tests);
 the original implementation was restored exactly. Full downloaded artifacts are
-not committed. Final regression coverage (including unreadability and sibling-prefix
-containment) passed 15 reporting tests; the full script suite passed 41 tests.
-The unit suite passed 961 tests across 52 files with `--maxWorkers=2`; typecheck,
-production build, whitespace and relative documentation-link checks passed.
-Full local browsers were not run for this reporting-only change.
+not committed. The initial implementation passed 15 reporting tests and 41 script
+tests, but independent review found an indirect symlink escape: `sub -> OUTSIDE/deep`
+and `link -> sub/../x` could incorrectly certify ROOT's `x` instead of rejecting
+the outside target.
+
+The follow-up added real-filesystem regressions before changing the verifier:
+15 passed/6 failed, then 21 passed after preserving target component order.
+Fixtures cover relative and absolute targets, existing and dangling escapes,
+legitimate internal sibling traversal, dangling internal targets with decoy files,
+and traversal through a regular file. Native filesystem resolution confirms the
+fixture destinations. Outside fixture directories are made inaccessible while
+verifying, so an attempted outside inspection cannot satisfy the escape diagnostic.
+Temporarily restoring the old verifier reproduced 15 passed/6 failed; the fix was
+restored byte-for-byte and all 21 reporting tests passed again. Follow-up logs use
+the `review-` prefix under ignored `test-results/issue205/`.
+
+The follow-up full script suite passed 47 tests; the two-worker unit run passed
+961 tests across 52 files (70.82s). Typecheck, production build, whitespace and
+relative documentation-link checks passed. Read-only historical artifact
+verification again counted 525 verified references and 432 no-path entries, with
+zero missing/invalid. Full local browsers were not run for this reporting-only change.
 
 ## Conditional coverage versus physical verification
 

@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
-import { chmodSync, existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, symlinkSync, writeFileSync } from 'node:fs';
+import { chmodSync, existsSync, mkdirSync, mkdtempSync, readFileSync, realpathSync, rmSync, symlinkSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { test } from 'node:test';
@@ -213,6 +213,74 @@ test('contains real fixture symlinks, including directory and dangling escapes',
     assert.equal(totals.missing, 1);
     assert.match(totals.diagnostics.find(item => item.reference === 'outside-link').reason, /escape/i);
     assert.match(totals.diagnostics.find(item => item.reference === 'case').reason, /regular file/i);
+    return true;
+  });
+});
+
+for (const variant of ['existing', 'dangling-file', 'dangling-directory']) {
+  test(`rejects indirect parent traversal through an outside fixture symlink (${variant})`, t => {
+    const { dir, root, report } = attachmentFixture(t, [{ path: 'link' }, { path: 'absolute-link' }]);
+    const outside = join(dir, 'outside');
+    mkdirSync(outside);
+    if (variant !== 'dangling-directory') mkdirSync(join(outside, 'deep'));
+    if (variant === 'existing') writeFileSync(join(outside, 'x'), 'outside fixture');
+    writeFileSync(join(root, 'x'), 'internal decoy must not be substituted');
+    symlinkSync(join(outside, 'deep'), join(root, 'sub'));
+    symlinkSync('sub/../x', join(root, 'link'));
+    symlinkSync(`${root}/sub/../x`, join(root, 'absolute-link'));
+    // Use kernel resolution; the JavaScript realpath fallback collapses '..'.
+    for (const name of ['link', 'absolute-link']) {
+      if (variant === 'existing') assert.equal(realpathSync.native(join(root, name)), join(outside, 'x'));
+      else assert.throws(() => realpathSync.native(join(root, name)), { code: 'ENOENT' });
+    }
+    // Reject using the link text alone, before even inspecting outside targets.
+    chmodSync(outside, 0o000);
+    try {
+      assert.throws(() => verify(report, root), error => {
+        const totals = error.attachmentVerification;
+        assert.deepEqual([totals.checked, totals.inline, totals.missing, totals.invalid], [0, 0, 0, 2]);
+        assert.ok(totals.diagnostics.every(item => /escape/i.test(item.reason)));
+        return true;
+      });
+    } finally {
+      chmodSync(outside, 0o700);
+    }
+  });
+}
+
+for (const dangling of [false, true]) {
+  test(`follows internal sibling fixture symlinks before parent traversal (dangling=${dangling})`, t => {
+    const { root, report } = attachmentFixture(t, [{ path: 'link' }, { path: 'absolute-link' }]);
+    mkdirSync(join(root, 'sibling/deep'), { recursive: true });
+    symlinkSync('sibling/deep', join(root, 'sub'));
+    symlinkSync('sub/../x', join(root, 'link'));
+    symlinkSync(`${root}/sub/../x`, join(root, 'absolute-link'));
+    if (dangling) {
+      writeFileSync(join(root, 'x'), 'internal decoy must not be substituted');
+      assert.throws(() => realpathSync.native(join(root, 'link')), { code: 'ENOENT' });
+      assert.throws(() => verify(report, root), error => {
+        const totals = error.attachmentVerification;
+        assert.deepEqual([totals.checked, totals.inline, totals.missing, totals.invalid], [0, 0, 2, 0]);
+        return true;
+      });
+    } else {
+      writeFileSync(join(root, 'sibling/x'), 'actual internal fixture target');
+      assert.equal(realpathSync.native(join(root, 'link')), join(root, 'sibling/x'));
+      assert.deepEqual(verify(report, root), { checked: 2, inline: 0, missing: 0, invalid: 0, diagnostics: [] });
+    }
+  });
+}
+
+test('rejects parent traversal through a regular fixture file', t => {
+  const { root, report } = attachmentFixture(t, [{ path: 'link' }]);
+  writeFileSync(join(root, 'file'), 'not a directory');
+  writeFileSync(join(root, 'x'), 'internal decoy');
+  symlinkSync('file/../x', join(root, 'link'));
+  assert.throws(() => realpathSync.native(join(root, 'link')), { code: 'ENOTDIR' });
+  assert.throws(() => verify(report, root), error => {
+    const totals = error.attachmentVerification;
+    assert.deepEqual([totals.checked, totals.inline, totals.missing, totals.invalid], [0, 0, 0, 1]);
+    assert.match(totals.diagnostics[0].reason, /directory/i);
     return true;
   });
 });

@@ -1,5 +1,5 @@
 import { closeSync, constants, fstatSync, lstatSync, openSync, readFileSync, readlinkSync, realpathSync, statSync, writeFileSync } from 'node:fs';
-import { dirname, isAbsolute, relative, resolve, sep } from 'node:path';
+import { isAbsolute, relative, resolve, sep } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
 const emptyTotals = () => ({ expected: 0, unexpected: 0, skipped: 0, flaky: 0 });
@@ -54,8 +54,8 @@ function isContained(root, file) {
 function checkAttachmentFile(root, parts) {
   let current = root;
   let links = 0;
-  // Resolve one component at a time so even a dangling outside symlink is
-  // rejected before inspecting its target. Internal symlinks remain supported.
+  // Keep readlink components in filesystem order: collapsing sub/../x before
+  // inspecting sub can substitute a different file or conceal an outside link.
   const pending = [...parts];
   while (pending.length) {
     const candidate = resolve(current, pending.shift());
@@ -63,11 +63,19 @@ function checkAttachmentFile(root, parts) {
     const info = lstatSync(candidate);
     if (info.isSymbolicLink()) {
       if (++links > 40) throw new Error('Symlink loop or excessive symlink depth');
-      const target = resolve(dirname(candidate), readlinkSync(candidate));
-      if (!isContained(root, target)) throw new Error('Symlink escapes artifact root');
-      pending.unshift(...relative(root, target).split(sep).filter(Boolean));
-      current = root;
+      const target = readlinkSync(candidate);
+      if (isAbsolute(target)) {
+        // Require the literal canonical root prefix without normalizing '..'.
+        // Reject aliases conservatively rather than inspecting outside paths.
+        const prefix = root.endsWith(sep) ? root : `${root}${sep}`;
+        if (target !== root && !target.startsWith(prefix)) throw new Error('Symlink escapes artifact root');
+        pending.unshift(...target.slice(root.length).split(sep));
+        current = root;
+      } else {
+        pending.unshift(...target.split(sep));
+      }
     } else {
+      if (pending.length && !info.isDirectory()) throw new Error('Reference component is not a directory');
       current = candidate;
     }
   }
