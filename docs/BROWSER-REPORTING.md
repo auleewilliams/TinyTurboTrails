@@ -68,6 +68,82 @@ report's source revision matches the checkout in that run. Artifact retention is
 bounded by repository/Actions retention settings; committed measurement evidence
 under `docs/evidence/issue198/` is a bounded snapshot, not permanent full logs.
 
+## Opt-in attachment verification
+
+The three positional arguments retain their existing behavior and summary shape.
+To also verify file attachments in a downloaded artifact, append
+`--artifact-root ROOT`, where ROOT is the directory containing the uploaded
+**contents of `test-results/`** (not its parent):
+
+```sh
+mkdir -p test-results
+node scripts/browser-report.mjs DOWNLOADED_DIR/browser-report.json DOWNLOADED_DIR/configured-cases.json test-results/verified-summary.json --artifact-root DOWNLOADED_DIR
+```
+
+The API is `summarizeBrowserReport(report, configuredReport, { artifactRoot })`.
+Verification visits every nested case/project/result, including failed attempts,
+retries and skipped results. With verification enabled, the written summary and
+console JSON include `attachmentVerification` with `checked`, `inline`, `missing`,
+`invalid` and `diagnostics`. `checked` counts file references, including repeated
+references to the same file; `inline` counts attachments with an absent or empty
+string path (body content needs no file). Other path types, blank-only strings,
+NUL characters, malformed attachment entries and malformed traversal containers
+are invalid. Invalid containers count as one diagnostic each; unseen children
+cannot be counted. Missing and invalid references fail the command with exit 1
+and diagnostics on stderr, including available case ID/title, project,
+zero-based attempt/attachment indices, retry number and original reference.
+The API throws with these totals in `error.attachmentVerification`.
+
+Supported path conventions are deliberately narrow:
+
+- Artifact-relative paths such as `case/attachments/image.png`, optionally prefixed
+  with `test-results/`, resolve under ROOT.
+- Absolute CI paths such as
+  `/home/runner/work/repo/repo/test-results/case/attachments/image.png` resolve
+  using the exact suffix after the single `test-results` path component. POSIX,
+  Windows drive-absolute (`C:/...`) and UNC (`//server/share/...`) forms are
+  recognized. Forward and backslashes are normalized as separators.
+- Absolute paths without exactly one `test-results` component, drive-relative
+  paths and URL schemes are rejected. There is no basename search or fallback to
+  the original absolute host path. Any literal `..` component is rejected before
+  normalization, including one before the CI root.
+
+Files must exist, be regular files and open for reading. Internal symlinks are
+allowed; symlink targets outside ROOT (including dangling escapes) and loops are
+rejected before inspecting outside targets. Use a finished, unmodified downloaded
+artifact during verification; this tool does not lock directories against
+concurrent replacement. No attachment content is decoded or compared with visual
+expectations. A failed command does not write/replace OUTPUT; any pre-existing
+output is stale and its presence must not override the command's exit status.
+
+Reconciliation and complete attachments **do not establish test success or image
+correctness**. Native failed attempts, skips, errors and their annotations remain
+in the summary, and the browser command's exit code retains its meaning.
+
+### Historical readback for issue #205
+
+On 2026-10-22 the opt-in CLI read the existing downloaded [PR #204 browser
+artifact](https://github.com/auleewilliams/TinyTurboTrails/actions/runs/39689017770)
+without modifying it. Recomputed results: 375 configured/enumerated identities,
+374 expected, zero unexpected/flaky, one Firefox native-audio skip; 525 checked
+file references, 432 inline, zero missing/invalid. Its source revision is
+`291db2af5b4c9e69b8bebdccc68207d0bf8f4b0c`, the historical #204 tested merge,
+**not** the implementation branch for #205 or new browser execution evidence.
+
+Synthetic reports in `scripts/browser-report.test.mjs` are explicitly fixtures.
+Test-first slices retained local RED/GREEN logs under ignored
+`test-results/issue205/`: basic API/CLI behavior (5 pass/3 fail, then 8 pass),
+path relocation/containment (8 pass/3 fail, then 11 pass), malformed data
+(12 pass/2 fail, then 14 pass). Real fixture directories use the invoking Hermes
+scratch `TMPDIR`, not system `/tmp`. A temporary sabotage suppressing the
+missing-file failure produced 11 pass/3 fail (API, CLI and failed-attempt tests);
+the original implementation was restored exactly. Full downloaded artifacts are
+not committed. Final regression coverage (including unreadability and sibling-prefix
+containment) passed 15 reporting tests; the full script suite passed 41 tests.
+The unit suite passed 961 tests across 52 files with `--maxWorkers=2`; typecheck,
+production build, whitespace and relative documentation-link checks passed.
+Full local browsers were not run for this reporting-only change.
+
 ## Conditional coverage versus physical verification
 
 Keep conditional tests enabled. The native audio test in `tests/audio.spec.ts`
