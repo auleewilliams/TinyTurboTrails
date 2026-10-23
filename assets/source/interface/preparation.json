@@ -1,0 +1,209 @@
+{
+  "status": "Generated for issue #207. Implementation, coordinator review and merge are owner-authorized; the artwork itself has not been shown to or approved by the owner.",
+  "chromaKey": "Edge-connected 4-neighbour flood fill of pixels whose red and blue both exceed green by at least 24 (scripts/spelling-stickers.mjs isChromaKey); enclosed pixels are never cleared.",
+  "resampling": "Majority-colour (mode) downsample of the visible bounds into the logical cell: 4-bit RGB bins, output is the mean of the winning bin; a block that is at least half transparent stays transparent. Binary alpha.",
+  "pieces": {
+    "panel": {
+      "image": "prepared/panel.png",
+      "source": "panel-source-v1.png",
+      "prompt": "panel-v1-prompt.txt",
+      "hermesQuery": "panel-v1-hermes-query.txt",
+      "sourceSha256": "6b52ad74b5c4d593f8fa5e735fcc6ccde44cd846ed4d3c021e013ae7bc749ce9",
+      "sourceFormat": "opaque 8-bit RGB PNG; flat magenta chroma-key background; no source alpha",
+      "generation": {
+        "tool": "Hermes image_generate (one native one-shot session, toolsets image_gen,vision)",
+        "provider": "openai-codex",
+        "hermesModelTier": "gpt-image-2-medium",
+        "aspectRatio": "square",
+        "requestedQuality": "medium",
+        "reportedQuality": "low",
+        "requestedSize": "1024x1024",
+        "reportedSize": "1254x1254",
+        "modality": "image",
+        "inputImageCount": 1,
+        "referenceImages": [
+          "assets/source/spelling/concepts/builder-kit-v1.png"
+        ],
+        "requestedBackground": "opaque (fixed by the Hermes openai-codex plugin)",
+        "imagegenRequestId": "2fe50771-f2da-425f-93a8-2a4de4c9dca8",
+        "hermesSession": "20261023_221941_ef6812",
+        "generatedFile": "openai_codex_gpt-image-2-medium_20261023_222017_7b5f953d.png"
+      },
+      "logicalSize": {
+        "width": 92,
+        "height": 91
+      },
+      "slice": {
+        "left": 10,
+        "top": 10,
+        "right": 10,
+        "bottom": 10
+      },
+      "outputSha256": "5e6e2d33ae6b0f86941643e70b6cb28dbffd5d63c424332eeba84cbb058dc584",
+      "pixelSha256": "a8c71955cdb1ace8af942f9e3f41e58a6bcb8597fffd5720c783e96fda3b699e",
+      "sourceSize": {
+        "width": 1254,
+        "height": 1254
+      },
+      "sourceBounds": {
+        "x": 76,
+        "y": 77,
+        "width": 1104,
+        "height": 1089
+      },
+      "removedBackgroundPixels": 379245
+    },
+    "button": {
+      "image": "prepared/button.png",
+      "source": "button-source-v1.png",
+      "prompt": "button-v1-prompt.txt",
+      "hermesQuery": "button-v1-hermes-query.txt",
+      "sourceSha256": "79f75f4a59c4962a1040b7f412db71da81a3f54eb62f4f8b082f62a77f540079",
+      "sourceFormat": "opaque 8-bit RGB PNG; flat magenta chroma-key background; no source alpha",
+      "generation": {
+        "tool": "Hermes image_generate (one native one-shot session, toolsets image_gen,vision)",
+        "provider": "openai-codex",
+        "hermesModelTier": "gpt-image-2-medium",
+        "aspectRatio": "landscape",
+        "requestedQuality": "medium",
+        "reportedQuality": "low",
+        "requestedSize": "1536x1024",
+        "reportedSize": "1774x887",
+        "modality": "image",
+        "inputImageCount": 1,
+        "referenceImages": [
+          "assets/source/spelling/concepts/builder-kit-v1.png"
+        ],
+        "requestedBackground": "opaque (fixed by the Hermes openai-codex plugin)",
+        "imagegenRequestId": "7aa0e044-003c-47bd-9fd7-5ea9fe45f37a",
+        "hermesSession": "20261023_221941_e76ff8",
+        "generatedFile": "openai_codex_gpt-image-2-medium_20261023_222014_df7c66fb.png"
+      },
+      "logicalSize": {
+        "width": 82,
+        "height": 21
+      },
+      "slice": {
+        "left": 6,
+        "top": 6,
+        "right": 6,
+        "bottom": 6
+      },
+      "outputSha256": "04b29e064c318ca4a9f13368e9a4e0a632ccd8acc55fb22f1fd853131657d9c6",
+      "pixelSha256": "7c9a2fe3c8ad036eab3a2361de27379948bbc8238747ed8ba72a343972c5096f",
+      "sourceSize": {
+        "width": 1774,
+        "height": 887
+      },
+      "sourceBounds": {
+        "x": 113,
+        "y": 241,
+        "width": 1549,
+        "height": 393
+      },
+      "removedBackgroundPixels": 970833
+    },
+    "button-selected": {
+      "image": "prepared/button-selected.png",
+      "source": "button-selected-source-v1.png",
+      "prompt": "button-selected-v1-prompt.txt",
+      "hermesQuery": "button-selected-v1-hermes-query.txt",
+      "sourceSha256": "10beff5cbad3f7a3209056ad97dd19c1af6b4e5aab728527c1c6ecc010a1681d",
+      "sourceFormat": "opaque 8-bit RGB PNG; flat magenta chroma-key background; no source alpha",
+      "generation": {
+        "tool": "Hermes image_generate (one native one-shot session, toolsets image_gen,vision)",
+        "provider": "openai-codex",
+        "hermesModelTier": "gpt-image-2-medium",
+        "aspectRatio": "landscape",
+        "requestedQuality": "medium",
+        "reportedQuality": "low",
+        "requestedSize": "1536x1024",
+        "reportedSize": "1774x887",
+        "modality": "image",
+        "inputImageCount": 2,
+        "referenceImages": [
+          "assets/source/spelling/concepts/builder-kit-v1.png",
+          "assets/source/interface/button-source-v1.png"
+        ],
+        "requestedBackground": "opaque (fixed by the Hermes openai-codex plugin)",
+        "imagegenRequestId": "c3bc7f92-0787-47ec-9be3-8f2f6a32c555",
+        "hermesSession": "20261023_222113_d799cb",
+        "generatedFile": "openai_codex_gpt-image-2-medium_20261023_222146_ee0192f5.png"
+      },
+      "logicalSize": {
+        "width": 82,
+        "height": 21
+      },
+      "slice": {
+        "left": 6,
+        "top": 6,
+        "right": 6,
+        "bottom": 6
+      },
+      "outputSha256": "03a25bddbd69479462812d21b689465c6aa7fff84e5d0b86c49189f912640533",
+      "pixelSha256": "920bf862b23eaed9b7942cdf873f15f43c6ae334c9caace89f321a918107914e",
+      "sourceSize": {
+        "width": 1774,
+        "height": 887
+      },
+      "sourceBounds": {
+        "x": 113,
+        "y": 241,
+        "width": 1549,
+        "height": 393
+      },
+      "removedBackgroundPixels": 970780
+    },
+    "plaque": {
+      "image": "prepared/plaque.png",
+      "source": "plaque-source-v1.png",
+      "prompt": "plaque-v1-prompt.txt",
+      "hermesQuery": "plaque-v1-hermes-query.txt",
+      "sourceSha256": "e408f77f6fe5584b2f0d0f35d357e6d6dbd1fbec65bca3f956c61954eece22d2",
+      "sourceFormat": "opaque 8-bit RGB PNG; flat magenta chroma-key background; no source alpha",
+      "generation": {
+        "tool": "Hermes image_generate (one native one-shot session, toolsets image_gen,vision)",
+        "provider": "openai-codex",
+        "hermesModelTier": "gpt-image-2-medium",
+        "aspectRatio": "landscape",
+        "requestedQuality": "medium",
+        "reportedQuality": "medium",
+        "requestedSize": "1536x1024",
+        "reportedSize": "2172x724",
+        "modality": "image",
+        "inputImageCount": 2,
+        "referenceImages": [
+          "assets/source/spelling/concepts/builder-kit-v1.png",
+          "assets/source/interface/panel-source-v1.png"
+        ],
+        "requestedBackground": "opaque (fixed by the Hermes openai-codex plugin)",
+        "imagegenRequestId": "69e2e7d6-766e-4106-aea7-8733247f06c8",
+        "hermesSession": "20261023_222113_e43390",
+        "generatedFile": "openai_codex_gpt-image-2-medium_20261023_222149_880cfac2.png"
+      },
+      "logicalSize": {
+        "width": 112,
+        "height": 24
+      },
+      "slice": {
+        "left": 4,
+        "top": 4,
+        "right": 4,
+        "bottom": 4
+      },
+      "outputSha256": "fb99e6fffbd20c4c5e93ba714f506890757cc0c926c4b893e4d1bc6d691ff59d",
+      "pixelSha256": "41daf6bf844d357ec43084901f354cfdcef7b23a8b1c69caa36c4fb5e7c5be45",
+      "sourceSize": {
+        "width": 2172,
+        "height": 724
+      },
+      "sourceBounds": {
+        "x": 211,
+        "y": 171,
+        "width": 1750,
+        "height": 379
+      },
+      "removedBackgroundPixels": 912301
+    }
+  }
+}

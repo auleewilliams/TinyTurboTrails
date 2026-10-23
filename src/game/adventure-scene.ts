@@ -1,6 +1,7 @@
 import { EducationOverlay } from './education-overlay';
 import { EducationSession, TRAIL_WORDS } from './education';
 import { drawLetterTile, type SpellingAssets } from '../art/spelling';
+import { drawKitButton, drawKitFrame, type InterfaceKit } from '../art/interface-kit';
 import { drawOverworld, MAP_POINTS, OVERWORLD_LAYOUT, TrailSession, type MenuTarget } from './overworld';
 import { musicForLevel } from '../core/music';
 import type { GameAudio } from '../core/audio';
@@ -31,7 +32,7 @@ export interface Rect { x: number; y: number; width: number; height: number }
 /** Finish-screen composition: title, gem total, celebration band and replay prompt stacked without overlap. */
 export const FINISH_LAYOUT = {
   centerX: 213,
-  panel: { x: 44, y: 24, width: 338, height: 196 },
+  panel: { x: 44, y: 16, width: 338, height: 212 },
   title: { baseline: 52, size: 20 },
   gems: { baseline: 76, size: 10 },
   // Fixed feet anchor; the jump and bounded sparkles stay below results.
@@ -51,6 +52,14 @@ export function finishGemsText(gems: number, total: number): string {
 export function celebrationHenryRect(anchor: { x: number; y: number }, jump: number): Rect {
   return { x: 280 - anchor.x, y: FINISH_LAYOUT.celebration.baseline - anchor.y + jump,
     width: CELEBRATION_SIZE, height: CELEBRATION_SIZE };
+}
+
+/** Results panel and action backings; labels and icons are drawn separately on top. */
+export function drawFinishChrome(ctx: CanvasRenderingContext2D, ui: InterfaceKit | undefined, actions: readonly MenuTarget[]): void {
+  const { panel } = FINISH_LAYOUT;
+  drawKitFrame(ctx, ui, 'panel', panel.x, panel.y, panel.width, panel.height, { fill: '#10252cee' });
+  if (!ui) { ctx.strokeStyle = '#ffda75'; ctx.strokeRect(panel.x + 2, panel.y + 2, panel.width - 4, panel.height - 4); }
+  for (const target of actions) drawKitButton(ctx, ui, target, { fill: '#34515a', selectedFill: '#ffda75' });
 }
 
 export function celebrationStarRects(seconds: number, reduced = false): Rect[] {
@@ -91,7 +100,7 @@ export class AdventureScene implements Scene {
   private marker = { x: 48, y: 88 };
   private readonly previews = new Map<string, HTMLCanvasElement>();
   private inputSource: InputSource = 'keyboard';
-  constructor(private readonly titleArtwork: HTMLImageElement, private readonly henry: HenryAssets, private readonly worlds: WorldAssetMap, private readonly audio: GameAudio, level: LevelData, private readonly landmarks?: HTMLImageElement, private readonly mapBackground?: HTMLImageElement, private readonly storyArtwork?: HTMLImageElement, private readonly rumble?: GameRumble, private readonly spelling?: SpellingAssets) {
+  constructor(private readonly titleArtwork: HTMLImageElement, private readonly henry: HenryAssets, private readonly worlds: WorldAssetMap, private readonly audio: GameAudio, level: LevelData, private readonly landmarks?: HTMLImageElement, private readonly mapBackground?: HTMLImageElement, private readonly storyArtwork?: HTMLImageElement, private readonly rumble?: GameRumble, private readonly spelling?: SpellingAssets, private readonly ui?: InterfaceKit) {
     this.educationOverlay = new EducationOverlay(this.education, spelling);
     const missing = [...new Set(LEVELS.map((candidate) => candidate.atlas))]
       .filter((atlas) => !worlds[atlas]);
@@ -465,11 +474,9 @@ export class AdventureScene implements Scene {
   }
 
   private drawFinish(ctx: CanvasRenderingContext2D): void {
-    const { panel, title, gems } = FINISH_LAYOUT;
-    ctx.fillStyle = '#10252cee';
-    ctx.fillRect(panel.x, panel.y, panel.width, panel.height);
-    ctx.strokeStyle = '#ffda75';
-    ctx.strokeRect(panel.x + 2, panel.y + 2, panel.width - 4, panel.height - 4);
+    const { title, gems } = FINISH_LAYOUT;
+    const actions = this.menuTargets.slice(0, this.finishActions.length);
+    drawFinishChrome(ctx, this.ui, actions);
     ctx.textAlign = 'center';
     ctx.fillStyle = '#ffda75';
     ctx.font = `bold ${title.size}px monospace`;
@@ -481,9 +488,7 @@ export class AdventureScene implements Scene {
       ctx.fillStyle = '#ffda75';
       ctx.fillText(`STARS ${this.specialTotal}/${this.run.specialTotal}`, 292, gems.baseline);
     }
-    this.menuTargets.slice(0, this.finishActions.length).forEach((target, index) => {
-      ctx.fillStyle = index === this.finishIndex ? '#ffda75' : '#34515a';
-      ctx.fillRect(target.x, target.y, target.width, target.height);
+    actions.forEach((target, index) => {
       ctx.fillStyle = index === this.finishIndex ? '#10252c' : '#e9f2df';
       // Large symbols and short labels survive the 320px fractional downscale.
       ctx.font = 'bold 18px monospace';
