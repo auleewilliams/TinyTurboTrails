@@ -1,7 +1,7 @@
 import { MAX_HEALTH, type RunEvent, type RunState } from './interactions';
 import type { InputFrame, InputSource } from '../core/input';
 import type { LevelData } from '../world/level';
-import { drawKitFrame, type InterfaceKit } from '../art/interface-kit';
+import { drawKitFrame, PLAQUE_TEXT_SLICE, type InterfaceKit } from '../art/interface-kit';
 
 export const HUD_COLORS = { panel: '#10252cee', ink: '#e9f2df', full: '#ff5d5d', empty: '#31434a', hit: '#ffda75' } as const;
 const HEART = ['01100110', '11111111', '11111111', '01111110', '00111100', '00011000'];
@@ -167,7 +167,10 @@ export function drawGameplayHud(ctx: CanvasRenderingContext2D, run: RunState, hi
   }
   if (hint) {
     ctx.font = '10px monospace';
-    plaque(ctx, ui, { x: 5, y: 31, width: ctx.measureText(hint).width + 10, height: 18 });
+    // Round the real glyph extent up so the last glyph never reaches the plaque's right rim.
+    const metrics = ctx.measureText(hint);
+    const width = Math.ceil(Math.max(metrics.width, metrics.actualBoundingBoxRight ?? 0)) + 10;
+    drawKitFrame(ctx, ui, 'plaque', 5, 31, width, 18, { fill: HUD_COLORS.panel }, PLAQUE_TEXT_SLICE);
     ctx.fillStyle = HUD_COLORS.ink;
     ctx.fillText(hint, 10, 44);
   }

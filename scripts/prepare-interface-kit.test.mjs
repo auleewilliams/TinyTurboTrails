@@ -122,3 +122,22 @@ test('normal and selected buttons share one silhouette and differ in face colour
   assert.ok(sr + sg > nr + ng + 200 && sb < sr, 'selected face is warm and light; normal face is dark');
   assert.ok(nb >= nr, 'normal face is blue-green slate');
 });
+
+test('plaque text slice frames only face pixels, with rim pixels immediately outside it', () => {
+  const entry = record.pieces.plaque, art = decodePng(read('public/assets/interface/plaque.png'));
+  const { left, top, right, bottom } = entry.textSlice;
+  const { width, height } = entry.logicalSize;
+  // Face colour: the mean of the plaque's standard quiet centre.
+  const face = [0, 0, 0]; let count = 0;
+  for (let y = entry.slice.top; y < height - entry.slice.bottom; y++) for (let x = entry.slice.left; x < width - entry.slice.right; x++) {
+    at(art, x, y).slice(0, 3).forEach((value, channel) => { face[channel] += value; }); count++;
+  }
+  face.forEach((value, channel) => { face[channel] = value / count; });
+  const distance = (x, y) => Math.hypot(...at(art, x, y).slice(0, 3).map((value, channel) => value - face[channel]));
+  // A one-line hint uses at most 22 px, so its centre rows are top..(22 - bottom - 1) without repeating.
+  for (let y = top; y < 22 - bottom; y++) for (let x = left; x < width - right; x++) assert.ok(distance(x, y) < 24, `face at ${x},${y}`);
+  for (let x = left; x < width - right; x++) {
+    assert.ok(distance(x, top - 1) > 60, `top rim at ${x}`);
+    assert.ok(distance(x, height - bottom) > 60, `bottom rim at ${x}`);
+  }
+});

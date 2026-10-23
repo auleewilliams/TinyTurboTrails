@@ -2955,6 +2955,154 @@ for (const name of ['tile', 'frost-sticker']) test(`spelling ${name} artwork rej
   await expect(page.locator('#status')).toContainText('Title');
 });
 
+/**
+ * Records real glyph bounds (measureText actualBoundingBox*) for game-canvas text drawn over a
+ * generated kit piece, against that piece's quiet interior reconstructed from its own corner-slice
+ * draws. A full-screen fill (scrim or new frame) starts a new layer.
+ */
+async function observeKitTextClearance(page: Page): Promise<void> {
+  await page.addInitScript(pieces => {
+    type Rect = { piece: string; x: number; y: number; right: number; bottom: number; quiet: { left: number; top: number; right: number; bottom: number } };
+    const rects: Rect[] = [];
+    let pending: { piece: string; x: number; y: number; left: number; top: number } | undefined;
+    const probe = { checked: [] as string[], violations: [] as unknown[] };
+    Object.assign(window, { kitTextProbe: probe });
+    // Ownership is per rendered frame: clear before every animation-frame callback.
+    const raf = window.requestAnimationFrame.bind(window);
+    window.requestAnimationFrame = callback => raf(time => { rects.length = 0; pending = undefined; callback(time); });
+    const fillRect = CanvasRenderingContext2D.prototype.fillRect;
+    CanvasRenderingContext2D.prototype.fillRect = function (x, y, width, height) {
+      if (this.canvas.id === 'game' && x === 0 && y === 0 && width === 426 && height === 240) rects.length = 0;
+      fillRect.call(this, x, y, width, height);
+    };
+    const drawImage = CanvasRenderingContext2D.prototype.drawImage;
+    CanvasRenderingContext2D.prototype.drawImage = function (this: CanvasRenderingContext2D, ...args: unknown[]) {
+      const [image] = args;
+      const name = image instanceof HTMLImageElement ? image.src.match(/\/assets\/interface\/([a-z-]+)\.png$/)?.[1] : undefined;
+      // Spelling tiles carry their own glyphs over any kit piece beneath them (e.g. letter flights over the bag).
+      if (this.canvas.id === 'game' && image instanceof HTMLImageElement && image.src.endsWith('/assets/spelling/tile.png') && args.length === 5) {
+        const [dx, dy, dw, dh] = args.slice(1).map(Number);
+        rects.push({ piece: 'spelling-tile', x: dx, y: dy, right: dx + dw, bottom: dy + dh, quiet: { left: -Infinity, top: -Infinity, right: Infinity, bottom: Infinity } });
+      }
+      if (this.canvas.id === 'game' && name && args.length === 9) {
+        const [sx, sy, sw, sh, dx, dy, dw, dh] = args.slice(1).map(Number);
+        const size = (pieces as Record<string, { width: number; height: number }>)[name];
+        if (sx === 0 && sy === 0) pending = { piece: name, x: dx, y: dy, left: sw, top: sh };
+        if (pending?.piece === name && sx + sw === size.width && sy + sh === size.height) {
+          rects.push({ piece: name, x: pending.x, y: pending.y, right: dx + dw, bottom: dy + dh,
+            quiet: { left: pending.x + pending.left, top: pending.y + pending.top, right: dx + dw - sw, bottom: dy + dh - sh } });
+          pending = undefined;
+        }
+      }
+      Reflect.apply(drawImage, this, args);
+    } as typeof drawImage;
+    const fillText = CanvasRenderingContext2D.prototype.fillText;
+    CanvasRenderingContext2D.prototype.fillText = function (text, x, y, maxWidth) {
+      if (this.canvas.id === 'game' && text.trim()) {
+        // The innermost (latest) kit piece under the text anchor owns its clearance.
+        const owner = [...rects].reverse().find(rect => x >= rect.x && x <= rect.right && y >= rect.y && y <= rect.bottom);
+        const transform = this.getTransform();
+        if (owner && owner.piece !== 'spelling-tile' && transform.isIdentity) {
+          const metrics = this.measureText(text);
+          const box = { left: x - metrics.actualBoundingBoxLeft, right: x + metrics.actualBoundingBoxRight,
+            top: y - metrics.actualBoundingBoxAscent, bottom: y + metrics.actualBoundingBoxDescent };
+          const key = `${text}|${owner.piece}`;
+          if (!probe.checked.includes(key)) probe.checked.push(key);
+          const { quiet } = owner;
+          if (box.left < quiet.left || box.right > quiet.right || box.top < quiet.top || box.bottom > quiet.bottom) {
+            if (!probe.violations.some(entry => (entry as { key: string }).key === key)) probe.violations.push({ key, font: this.font, box, quiet });
+          }
+        }
+      }
+      if (maxWidth === undefined) fillText.call(this, text, x, y); else fillText.call(this, text, x, y, maxWidth);
+    };
+  }, INTERFACE_PIECES);
+}
+
+const kitTextProbe = (page: Page) => page.evaluate(() => (window as unknown as { kitTextProbe: { checked: string[]; violations: unknown[] } }).kitTextProbe);
+const twoFrames = (page: Page) => page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
+async function captureNativeAndSmall(page: Page, info: import('@playwright/test').TestInfo, name: string): Promise<void> {
+  for (const viewport of [{ width: 426, height: 300 }, { width: 320, height: 240 }]) {
+    await page.setViewportSize(viewport); await twoFrames(page); await twoFrames(page);
+    await page.screenshot({ path: info.outputPath(`${name}-${viewport.width}.png`) });
+  }
+}
+
+test('kit text clears generated rims for keyboard and controller prompts at native and small sizes', async ({ page }, info) => {
+  await observeKitTextClearance(page);
+  await page.addInitScript(() => {
+    const pad = { connected: true, mapping: 'standard', axes: [0, 0], buttons: Array.from({ length: 17 }, () => ({ pressed: false, value: 0, touched: false })) };
+    Object.assign(window, { kitPad: pad, kitPadOn: false });
+    Object.defineProperty(navigator, 'getGamepads', { configurable: true, value: () => (window as unknown as { kitPadOn: boolean }).kitPadOn ? [pad] : [] });
+  });
+  const tap = async (button: number) => {
+    await page.evaluate(index => { Object.assign(window, { kitPadOn: true }); (window as unknown as { kitPad: { buttons: { pressed: boolean; value: number }[] } }).kitPad.buttons[index].pressed = true; }, button);
+    await twoFrames(page);
+    await page.evaluate(index => { (window as unknown as { kitPad: { buttons: { pressed: boolean }[] } }).kitPad.buttons[index].pressed = false; }, button);
+    await twoFrames(page);
+  };
+  await openAdventure(page, '/');
+  await captureNativeAndSmall(page, info, 'map-keyboard');
+  await page.getByRole('button', { name: 'Open stickers', exact: true }).click();
+  await expect(page.getByRole('dialog')).toBeVisible(); await twoFrames(page);
+  await page.getByRole('button', { name: 'Return to map', exact: true }).click(); await twoFrames(page);
+  await page.getByRole('button', { name: /^Play / }).click();
+  await expect(page.locator('#status')).toContainText('Playing');
+  await captureNativeAndSmall(page, info, 'hud-keyboard-move');
+  await page.keyboard.down('ArrowRight'); await twoFrames(page); await page.keyboard.up('ArrowRight');
+  await expect.poll(async () => (await kitTextProbe(page)).checked.includes('Space: jump|plaque')).toBe(true);
+  await captureNativeAndSmall(page, info, 'hud-keyboard-jump');
+  await page.keyboard.press('Escape'); await twoFrames(page);
+  await page.keyboard.press('t'); await twoFrames(page);
+  await expect(page.getByRole('button', { name: 'Keep playing', exact: true })).toBeVisible();
+  await page.keyboard.press('Escape'); await twoFrames(page);
+  await page.keyboard.press('Escape'); await twoFrames(page);
+  // Controller: the HUD switches to controller prompts, then a fresh run teaches movement.
+  await tap(15);
+  await expect.poll(async () => (await kitTextProbe(page)).checked.includes('Face button: jump|plaque')).toBe(true);
+  await tap(9); await twoFrames(page);
+  await expect(page.getByRole('button', { name: 'Return to Trails', exact: true })).toBeVisible();
+  await page.getByRole('button', { name: 'Return to Trails', exact: true }).click();
+  await page.getByRole('button', { name: 'Return to Trails', exact: true }).click();
+  await expect(page.locator('#status')).toContainText('Title');
+  await tap(15);
+  await captureNativeAndSmall(page, info, 'map-controller');
+  await tap(0);
+  await expect(page.locator('#status')).toContainText('Playing');
+  await expect.poll(async () => (await kitTextProbe(page)).checked.includes('Stick / D-pad: move|plaque')).toBe(true);
+  await captureNativeAndSmall(page, info, 'hud-controller-move');
+  const { checked, violations } = await kitTextProbe(page);
+  await writeFile(info.outputPath('kit-text-clearance.json'), JSON.stringify({ checked, violations }, null, 2));
+  await info.attach('kit-text-clearance', { path: info.outputPath('kit-text-clearance.json'), contentType: 'application/json' });
+  for (const key of ['STICKERS|button', 'Arrows / A-D: move|plaque', 'Space: jump|plaque', 'Face button: jump|plaque', 'Stick / D-pad: move|plaque',
+    'PAUSED|panel', 'LEAVE THIS TRAIL?|panel', 'Resume|button-selected', 'Return to Trails|button', 'Return to map|button-selected', 'PLAY|button-selected']) {
+    expect(checked).toContain(key);
+  }
+  expect(checked.some(key => /^\d\/6 · .*E.*\|button$/.test(key))).toBe(true);
+  expect(checked.some(key => /^\d\/6 · .*D-pad.*\|button$/.test(key))).toBe(true);
+  expect(violations).toEqual([]);
+});
+
+test('kit text clears generated rims on the real assembly and finish results', { lock: 'native-route' }, async ({ page }, info) => {
+  await observeKitTextClearance(page);
+  await installTrailPilot(page);
+  await openAdventure(page, '/?debug=1');
+  await page.getByRole('button', { name: /^Play / }).click();
+  await page.evaluate(dangers => Object.assign((window as unknown as { trailPilot: object }).trailPilot, { active: true, dangers }), dangerXs(PLAINS_LEVEL));
+  await expect(page.getByRole('dialog')).toBeVisible({ timeout: 25_000 });
+  await page.evaluate(() => Object.assign((window as unknown as { trailPilot: object }).trailPilot, { active: false, lastActive: false }));
+  await page.keyboard.up('ArrowRight');
+  await captureNativeAndSmall(page, info, 'assembly');
+  await page.getByRole('button', { name: 'Leave activity', exact: true }).click();
+  await expect(page.getByRole('button', { name: 'Replay', exact: true })).toBeVisible();
+  await captureNativeAndSmall(page, info, 'finish');
+  const { checked, violations } = await kitTextProbe(page);
+  await writeFile(info.outputPath('kit-text-clearance.json'), JSON.stringify({ checked, violations }, null, 2));
+  await info.attach('kit-text-clearance', { path: info.outputPath('kit-text-clearance.json'), contentType: 'application/json' });
+  for (const key of ['Leave activity|button', '_|button', 'TRAIL COMPLETE!|panel', 'Replay|button-selected', 'Next|button', 'Trails|button']) expect(checked).toContain(key);
+  expect(violations).toEqual([]);
+});
+
 test('interface panel artwork rejects wrong dimensions and recovers through retry', async ({ page }) => {
   const path = '**/assets/interface/panel.png';
   await page.route(path, async route => {

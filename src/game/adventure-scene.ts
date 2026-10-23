@@ -322,8 +322,9 @@ export class AdventureScene implements Scene {
       Math.round(this.marker.x) - 39, Math.round(this.marker.y) + 4, 28, 28);
     ctx.fillStyle = '#17333b'; ctx.font = '9px monospace'; ctx.textAlign = 'left';
     ctx.fillText(this.inputSource === 'controller' ? 'D-pad / stick: choose   Face button: play' : '← → Choose   Space: play   Click a landmark', 8, 234);
-    ctx.fillStyle = '#ffda75'; ctx.font = 'bold 9px monospace'; ctx.fillText('STICKERS', 286, 19);
-    ctx.font = '8px monospace'; ctx.fillText(`${this.education.stickers.length}/${TRAIL_WORDS.length} · ${this.inputSource === 'controller' ? 'D-pad ↑' : 'E / click'}`, 286, 30);
+    // Both lines sit inside the plank's quiet face (x 288-355, y 13-30), including the ↑ descent.
+    ctx.fillStyle = '#ffda75'; ctx.font = 'bold 9px monospace'; ctx.fillText('STICKERS', 288, 20);
+    ctx.font = '8px monospace'; ctx.fillText(`${this.education.stickers.length}/${TRAIL_WORDS.length} · ${this.inputSource === 'controller' ? 'D-pad ↑' : 'E/click'}`, 288, 28);
     if (this.storyArtwork) {
       ctx.fillStyle = '#ffda75'; ctx.font = 'bold 22px monospace'; ctx.fillText('↶', 382, 29);
       ctx.font = '8px monospace'; ctx.fillStyle = '#17333b';
@@ -401,12 +402,17 @@ export class AdventureScene implements Scene {
         ...OVERWORLD_LAYOUT.stickers, action: () => this.educationOverlay.showStickers() },
       ...(this.storyArtwork ? [{ label: 'Replay story', nativeSpace: true, description: 'Pictures • R key or controller View button', ...OVERWORLD_LAYOUT.story, action: () => this.openStory() }] : []),
     ];
-    if (this.screens.state === 'finish') return [...this.finishActions.map((label, index) => ({
+    if (this.screens.state === 'finish') return [...this.finishTargets, ...(this.storyArtwork && this.level.id === LEVELS[0].id ? [{ label: 'View reunion picture', nativeSpace: true, description: 'R key or controller View button', ...FINISH_LAYOUT.payoff, action: () => this.openStory(true) }] : [])];
+    return [];
+  }
+
+  /** Results actions, independent of any activity drawn over the finish screen. */
+  private get finishTargets(): MenuTarget[] {
+    return this.finishActions.map((label, index) => ({
       label, x: FINISH_LAYOUT.actions.x + index * FINISH_LAYOUT.actions.spacing, y: FINISH_LAYOUT.actions.y,
       width: FINISH_LAYOUT.actions.width, height: FINISH_LAYOUT.actions.height, selected: index === this.finishIndex,
       action: () => this.activateFinish(label),
-    })), ...(this.storyArtwork && this.level.id === LEVELS[0].id ? [{ label: 'View reunion picture', nativeSpace: true, description: 'R key or controller View button', ...FINISH_LAYOUT.payoff, action: () => this.openStory(true) }] : [])];
-    return [];
+    }));
   }
 
   private preview(): HTMLCanvasElement | undefined {
@@ -473,7 +479,7 @@ export class AdventureScene implements Scene {
 
   private drawFinish(ctx: CanvasRenderingContext2D): void {
     const { title, gems } = FINISH_LAYOUT;
-    const actions = this.menuTargets.slice(0, this.finishActions.length);
+    const actions = this.finishTargets;
     drawFinishChrome(ctx, this.ui, actions);
     ctx.textAlign = 'center';
     ctx.fillStyle = '#ffda75';
@@ -494,7 +500,7 @@ export class AdventureScene implements Scene {
         for (const [dx, dy] of [[0, 0], [7, 0], [0, 7], [7, 7]]) ctx.fillRect(target.x + 9 + dx, target.y + 7 + dy, 5, 5);
       } else ctx.fillText(target.label === 'Replay' ? '↶' : '▶', target.x + 15, target.y + 19);
       ctx.font = 'bold 12px monospace';
-      ctx.fillText(target.label === 'Next trail' ? 'Next' : target.label === 'Choose trail' ? 'Trails' : 'Replay', target.x + 61, target.y + 18);
+      ctx.fillText(target.label === 'Next trail' ? 'Next' : target.label === 'Choose trail' ? 'Trails' : 'Replay', target.x + 61, target.y + 17);
     });
     ctx.fillStyle = '#e9f2df'; ctx.font = '9px monospace';
     ctx.fillText(this.inputSource === 'controller' ? 'D-pad + Face' + (this.level.id === LEVELS[0].id ? ' · View: picture' : '') : '← → + Space' + (this.level.id === LEVELS[0].id ? ' · R: picture' : ''), 213, 214);

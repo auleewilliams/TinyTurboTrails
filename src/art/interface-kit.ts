@@ -10,6 +10,13 @@ export const INTERFACE_PIECES = {
   'button-selected': { width: 82, height: 21, slice: { left: 6, top: 6, right: 6, bottom: 6 } },
   plaque: { width: 112, height: 24, slice: { left: 5, top: 5, right: 5, bottom: 5 } },
 } as const;
+/**
+ * Text-safe slicing of the same plaque for one-line HUD hints (at most 22 px tall): the top four
+ * rows (outline, wood, wood, cream) and bottom three (wood, wood, outline) frame face rows 4-18, so
+ * the centre never repeats and 10 px glyphs with descenders fit an 18 px plaque. The (4, 4) bevel
+ * pixel stays in the left edge strip, at its original position.
+ */
+export const PLAQUE_TEXT_SLICE = { left: 5, top: 4, right: 5, bottom: 3 } as const;
 export type InterfacePiece = keyof typeof INTERFACE_PIECES;
 export type InterfaceKit = Readonly<Record<InterfacePiece, HTMLImageElement>>;
 export interface NineSliceSource { width: number; height: number; slice: { left: number; top: number; right: number; bottom: number } }
@@ -52,14 +59,15 @@ export function nineSlicePlan(source: NineSliceSource, rect: { x: number; y: num
 
 /** Draws a kit piece into a logical-pixel rectangle; flat colours stand in only when no kit is supplied. */
 export function drawKitFrame(ctx: CanvasRenderingContext2D, kit: InterfaceKit | undefined, piece: InterfacePiece,
-  x: number, y: number, width: number, height: number, fallback: { fill: string; stroke?: string }): void {
+  x: number, y: number, width: number, height: number, fallback: { fill: string; stroke?: string },
+  slice: NineSliceSource['slice'] = INTERFACE_PIECES[piece].slice): void {
   if (!kit) {
     ctx.fillStyle = fallback.fill; ctx.fillRect(x, y, width, height);
     if (fallback.stroke) { ctx.strokeStyle = fallback.stroke; ctx.strokeRect(x, y, width, height); }
     return;
   }
   const image = kit[piece];
-  for (const op of nineSlicePlan(INTERFACE_PIECES[piece], { x, y, width, height })) {
+  for (const op of nineSlicePlan({ ...INTERFACE_PIECES[piece], slice }, { x, y, width, height })) {
     ctx.drawImage(image, op.sx, op.sy, op.sw, op.sh, op.dx, op.dy, op.dw, op.dh);
   }
 }

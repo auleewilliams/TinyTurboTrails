@@ -203,7 +203,14 @@
         "width": 1750,
         "height": 379
       },
-      "removedBackgroundPixels": 912301
+      "removedBackgroundPixels": 912301,
+      "textSlice": {
+        "left": 5,
+        "top": 4,
+        "right": 5,
+        "bottom": 3
+      },
+      "textSliceUse": "One-line HUD hints at most 22 px tall: frames face rows 4-18 so the centre never repeats; see PLAQUE_TEXT_SLICE."
     }
   }
 }

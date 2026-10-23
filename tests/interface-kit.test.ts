@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { expect, it, vi } from 'vitest';
-import { INTERFACE_PIECES, loadInterfaceKit, nineSlicePlan, type InterfacePiece } from '../src/art/interface-kit';
+import { INTERFACE_PIECES, PLAQUE_TEXT_SLICE, loadInterfaceKit, nineSlicePlan, type InterfacePiece } from '../src/art/interface-kit';
 
 const requested: string[] = [];
 const sizes = new Map<string, [number, number]>();
@@ -15,7 +15,7 @@ vi.mock('../src/art/henry', () => ({ loadImage: async (url: string) => {
 } }));
 
 const record = JSON.parse(readFileSync(new URL('../assets/source/interface/preparation.json', import.meta.url), 'utf8')) as
-  { pieces: Record<string, { logicalSize: { width: number; height: number }; slice: { left: number; top: number; right: number; bottom: number } }> };
+  { pieces: Record<string, { logicalSize: { width: number; height: number }; slice: { left: number; top: number; right: number; bottom: number }; textSlice?: unknown }> };
 const pieces = Object.keys(INTERFACE_PIECES) as InterfacePiece[];
 
 it('matches the prepared record for every kit piece', () => {
@@ -25,6 +25,7 @@ it('matches the prepared record for every kit piece', () => {
     expect({ width, height }).toEqual(record.pieces[name].logicalSize);
     expect(slice).toEqual(record.pieces[name].slice);
   }
+  expect(PLAQUE_TEXT_SLICE).toEqual(record.pieces.plaque.textSlice);
 });
 
 // Every dest size used by the scoped surfaces, plus degenerate and odd sizes.
