@@ -67,6 +67,13 @@ crop corners rather than squash them. All text, counts, glyphs and icons are dra
 separately by the game. The plaque inset is 5 so a single cream bevel pixel at
 (4, 4) stays in the corner instead of repeating through wide centres.
 
+One-line HUD hints use a text-safe slicing of the same plaque (`textSlice` in
+the record, `PLAQUE_TEXT_SLICE` in code): left/right 5, top 4, bottom 3. That
+frames face rows 4–18 between the outline/wood/cream top rows and the
+wood/wood/outline bottom rows, so an 18 px hint has an 11-row quiet face without
+repeating the centre. A script test checks those rows are face pixels and the rows
+just outside are rim. No new artwork was generated.
+
 Known artefact: the panel's right timber edge has small notches and a clear
 outer column (corner brackets overhang it). Both are uniform along the edge, so
 they tile without seams, but the right edge is slightly less regular than the left.
