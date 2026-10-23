@@ -2,6 +2,10 @@ import type { InputFrame } from '../core/input';
 import type { MenuTarget } from './overworld';
 import { TRAIL_WORDS, type EducationSession, type TrailWord } from './education';
 import { drawLetterTile, type SpellingAssets } from '../art/spelling';
+import { drawKitButton, drawKitFrame, type InterfaceKit } from '../art/interface-kit';
+
+/** Collection card size; cards sit on a 138 x 69 grid. */
+export const STICKER_CARD = { width: 132, height: 64 } as const;
 
 /** Like PauseMenu, this consumes rendered-frame input while simulation is stopped. */
 export class EducationOverlay {
@@ -25,7 +29,7 @@ export class EducationOverlay {
     this.direction = 0;
     this.message = 'Choose a letter, then a space.';
   }
-  constructor(private readonly session: EducationSession, private readonly artwork?: SpellingAssets) {}
+  constructor(private readonly session: EducationSession, private readonly artwork?: SpellingAssets, private readonly ui?: InterfaceKit) {}
 
   showStickers(): void {
     this.revision++;
@@ -106,18 +110,19 @@ export class EducationOverlay {
     TRAIL_WORDS.forEach((config, index) => {
       const x = 9 + index % 3 * 138, y = 36 + Math.floor(index / 3) * 69;
       const progress = this.session.progressFor(config.id);
-      ctx.fillStyle = '#17333b'; ctx.fillRect(x, y, 132, 64);
+      drawKitFrame(ctx, this.ui, 'plaque', x, y, STICKER_CARD.width, STICKER_CARD.height, { fill: '#17333b' });
       ctx.save(); ctx.translate(x + 66, y + 21); ctx.scale(0.55, 0.55);
       drawWordSticker(ctx, config, 0, 0, progress.hasWordSticker, this.artwork); ctx.restore();
+      // With the plaque, labels lift clear of its bottom border; underscores stay visible.
+      const lift = this.ui ? 1 : 0;
       ctx.fillStyle = '#ffda75'; ctx.font = 'bold 10px monospace';
-      ctx.fillText(`${config.name} ${config.word}`, x + 66, y + 46);
+      ctx.fillText(`${config.name} ${config.word}`, x + 66, y + 46 - lift);
       ctx.fillStyle = '#e9f2df'; ctx.font = '9px monospace';
-      ctx.fillText(progress.hasWordSticker ? '✓ Earned' : progress.wordProgress, x + 66, y + 59);
+      ctx.fillText(progress.hasWordSticker ? '✓ Earned' : progress.wordProgress, x + 66, y + 59 - lift * 2);
     });
     ctx.font = '9px monospace'; ctx.fillText(`${this.session.stickers.length}/${TRAIL_WORDS.length} stickers · Reload starts fresh`, 213, 175);
     for (const target of this.targets) {
-      ctx.fillStyle = '#ffda75'; ctx.fillRect(target.x, target.y, target.width, target.height);
-      ctx.strokeStyle = '#bfd5ce'; ctx.strokeRect(target.x, target.y, target.width, target.height);
+      drawKitButton(ctx, this.ui, target, { fill: '#ffda75', selectedFill: '#ffda75', stroke: '#bfd5ce' });
       ctx.fillStyle = '#0c1922'; ctx.font = 'bold 13px monospace';
       ctx.fillText(target.label, target.x + target.width / 2, target.y + target.height / 2 + 5);
     }
@@ -140,8 +145,7 @@ export class EducationOverlay {
           target.selected, isLetter && this.session.pile[index]?.id === this.heldLetter);
         continue;
       }
-      ctx.fillStyle = target.selected ? '#ffda75' : '#34515a'; ctx.fillRect(target.x, target.y, target.width, target.height);
-      ctx.strokeStyle = '#bfd5ce'; ctx.strokeRect(target.x, target.y, target.width, target.height);
+      drawKitButton(ctx, this.ui, target, { fill: '#34515a', selectedFill: '#ffda75', stroke: '#bfd5ce' });
       ctx.fillStyle = target.selected ? '#0c1922' : '#e9f2df'; ctx.font = isSpace ? 'bold 17px monospace' : 'bold 12px monospace';
       const label = isSpace ? '_' : target.label;
       ctx.fillText(label, target.x + target.width / 2, target.y + target.height / 2 + 5);

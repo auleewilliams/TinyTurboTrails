@@ -13,13 +13,12 @@ import { MovementPreviewScene } from './game/movement-preview';
 import { loadWorldAssetMap, loadWorldAssets } from './world/assets';
 import { WorldPreviewScene } from './world/preview-scene';
 import { GameplayPreviewScene, loadGameplayAssets } from './game/gameplay-preview';
-import { controlHints } from './game/hud';
 import { AdventureScene } from './game/adventure-scene';
 import { MenuOverlay } from './game/menu-overlay';
-import { PauseMenu } from './game/pause-menu';
+import { PauseMenu, drawFocusPause } from './game/pause-menu';
 import { loadImage } from './art/henry';
 import { loadSpellingAssets } from './art/spelling';
-import { loadInterfaceKit } from './art/interface-kit';
+import { loadInterfaceKit, type InterfaceKit } from './art/interface-kit';
 import { DEFAULT_LEVEL, LEVELS } from './world/levels';
 
 const canvas = document.querySelector<HTMLCanvasElement>('#game')!;
@@ -50,6 +49,7 @@ if (!context) {
   let pendingJump = false;
   let pendingStory = false;
   let educationRevision = 0;
+  let ui: InterfaceKit | undefined;
   const educationScene = (): AdventureScene | undefined => scenes.activeScene instanceof AdventureScene ? scenes.activeScene : undefined;
   let inputSource: InputSource = 'keyboard';
   const requestedScene = new URLSearchParams(location.search).get('scene')
@@ -184,21 +184,8 @@ if (!context) {
     const scene = scenes.activeScene instanceof AdventureScene ? scenes.activeScene : undefined;
     const trailPaused = focused && userPaused && scene?.screenState === 'playing';
     menu.update(scene, !focused || userPaused, trailPaused ? pauseMenu.targets : []);
-    if (trailPaused) pauseMenu.draw(context, inputSource);
-    else if (!focused || userPaused) {
-      // Save/restore so the centered overlay cannot leak into the next frame's scene HUD.
-      context.save();
-      context.fillStyle = '#0c1922cc';
-      context.fillRect(0, 0, 426, 240);
-      context.fillStyle = '#ffda75';
-      context.textAlign = 'center';
-      context.font = 'bold 20px monospace';
-      context.fillText('PAUSED', 213, 83);
-      context.font = '12px monospace';
-      context.fillStyle = '#e9f2df';
-      controlHints(controls.source ?? 'keyboard').forEach((hint, index) => context.fillText(hint, 213, 111 + index * 20));
-      context.restore();
-    }
+    if (trailPaused) pauseMenu.draw(context, inputSource, ui);
+    else if (!focused || userPaused) drawFocusPause(context, controls.source ?? 'keyboard', ui);
     request = requestAnimationFrame(frame);
   };
 
@@ -230,6 +217,7 @@ if (!context) {
       loadInterfaceKit(),
     ]).then(([titleArtwork, henry, worlds, landmarks, mapBackground, storyArtwork, spelling, kit]) => {
       if (disposed) return;
+      ui = kit;
       scenes.change(new AdventureScene(titleArtwork, henry, worlds, audio, DEFAULT_LEVEL, landmarks, mapBackground, storyArtwork, rumble, spelling, kit));
       assetState = 'ready';
       refreshPause();

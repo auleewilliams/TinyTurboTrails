@@ -105,6 +105,9 @@ test('text interiors stay quiet: centre tiles have low contrast against their me
     const mean = values.reduce((sum, value) => sum + value, 0) / values.length;
     const deviation = Math.sqrt(values.reduce((sum, value) => sum + (value - mean) ** 2, 0) / values.length);
     assert.ok(deviation < 12, `${name} centre luminance deviation ${deviation.toFixed(1)}`);
+    // Centre tiles repeat across wide panels, so even one stray bevel pixel would become a dotted pattern.
+    const outliers = values.filter(value => Math.abs(value - mean) > 30).length;
+    assert.equal(outliers, 0, `${name} centre has ${outliers} stray high-contrast pixels`);
   }
 });
 

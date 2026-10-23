@@ -8,7 +8,7 @@ export const INTERFACE_PIECES = {
   panel: { width: 92, height: 91, slice: { left: 10, top: 10, right: 10, bottom: 10 } },
   button: { width: 82, height: 21, slice: { left: 6, top: 6, right: 6, bottom: 6 } },
   'button-selected': { width: 82, height: 21, slice: { left: 6, top: 6, right: 6, bottom: 6 } },
-  plaque: { width: 112, height: 24, slice: { left: 4, top: 4, right: 4, bottom: 4 } },
+  plaque: { width: 112, height: 24, slice: { left: 5, top: 5, right: 5, bottom: 5 } },
 } as const;
 export type InterfacePiece = keyof typeof INTERFACE_PIECES;
 export type InterfaceKit = Readonly<Record<InterfacePiece, HTMLImageElement>>;

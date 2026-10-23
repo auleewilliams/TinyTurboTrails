@@ -22,7 +22,7 @@ import { LEVELS } from '../world/levels';
 import { Camera } from '../world/camera';
 import { drawWorld, drawWorldForeground } from '../world/renderer';
 import type { WorldAssetMap, WorldAssets } from '../world/assets';
-import { drawGameplayHud, HudPresentation } from './hud';
+import { drawBagBacking, drawGameplayHud, HudPresentation } from './hud';
 import { Feedback } from './feedback';
 import { CompletionCelebration, celebrationJump, celebrationSparkles } from './celebration';
 import { StoryBook, drawStory, drawStoryPicture, STORY_DESCRIPTIONS } from './story';
@@ -101,7 +101,7 @@ export class AdventureScene implements Scene {
   private readonly previews = new Map<string, HTMLCanvasElement>();
   private inputSource: InputSource = 'keyboard';
   constructor(private readonly titleArtwork: HTMLImageElement, private readonly henry: HenryAssets, private readonly worlds: WorldAssetMap, private readonly audio: GameAudio, level: LevelData, private readonly landmarks?: HTMLImageElement, private readonly mapBackground?: HTMLImageElement, private readonly storyArtwork?: HTMLImageElement, private readonly rumble?: GameRumble, private readonly spelling?: SpellingAssets, private readonly ui?: InterfaceKit) {
-    this.educationOverlay = new EducationOverlay(this.education, spelling);
+    this.educationOverlay = new EducationOverlay(this.education, spelling, ui);
     const missing = [...new Set(LEVELS.map((candidate) => candidate.atlas))]
       .filter((atlas) => !worlds[atlas]);
     if (missing.length > 0) throw new Error(`Missing world assets: ${missing.join(', ')}`);
@@ -250,7 +250,7 @@ export class AdventureScene implements Scene {
         ctx.fillStyle = '#ffda75'; ctx.font = 'bold 16px monospace'; ctx.fillText('→', 402, 119);
       }
       drawGameplayHud(ctx, this.run, this.hud.hint, this.feedback.checkpointSeconds > 0
-        ? 'Checkpoint reached!' : this.hud.locationSeconds > 0 ? this.hud.location : '', this.hud.progress(this.level, this.player.x));
+        ? 'Checkpoint reached!' : this.hud.locationSeconds > 0 ? this.hud.location : '', this.hud.progress(this.level, this.player.x), this.ui);
       this.drawWordProgress(ctx);
       if (this.educationOverlay.open) this.educationOverlay.draw(ctx);
     } else if (this.screens.state === 'finish') {
@@ -293,7 +293,7 @@ export class AdventureScene implements Scene {
   private drawWordProgress(ctx: CanvasRenderingContext2D): void {
     if (!this.hasWordActivity) return;
     ctx.save(); ctx.textAlign = 'right'; ctx.font = 'bold 11px monospace';
-    ctx.fillStyle = '#10252cee'; ctx.fillRect(294, 31, 127, 34);
+    drawBagBacking(ctx, this.ui);
     ctx.fillStyle = '#e9f2df'; ctx.fillText(`Bag ${this.education.letterCount}/4`, 376, 52);
     if (this.spelling) ctx.drawImage(this.spelling.pouch, 384, 33, 28, 28);
     else {
@@ -313,7 +313,7 @@ export class AdventureScene implements Scene {
   }
 
   private drawMap(ctx: CanvasRenderingContext2D): void {
-    drawOverworld(ctx, LEVELS, this.selectedIndex, this.session.results, this.titleArtwork, this.world.gems, this.landmarks, this.preview(), this.mapBackground);
+    drawOverworld(ctx, LEVELS, this.selectedIndex, this.session.results, this.titleArtwork, this.world.gems, this.landmarks, this.preview(), this.mapBackground, this.ui, Boolean(this.storyArtwork));
     const target = MAP_POINTS[this.selectedIndex];
     const moving = !this.reducedMotion && Math.hypot(target[0] - this.marker.x, target[1] - this.marker.y) > 2;
     const clip = this.henry.manifest.animations[moving ? 'run' : 'idle'];
@@ -322,11 +322,9 @@ export class AdventureScene implements Scene {
       Math.round(this.marker.x) - 39, Math.round(this.marker.y) + 4, 28, 28);
     ctx.fillStyle = '#17333b'; ctx.font = '9px monospace'; ctx.textAlign = 'left';
     ctx.fillText(this.inputSource === 'controller' ? 'D-pad / stick: choose   Face button: play' : '← → Choose   Space: play   Click a landmark', 8, 234);
-    ctx.fillStyle = '#17333b'; ctx.fillRect(282, 7, 79, 29);
     ctx.fillStyle = '#ffda75'; ctx.font = 'bold 9px monospace'; ctx.fillText('STICKERS', 286, 19);
     ctx.font = '8px monospace'; ctx.fillText(`${this.education.stickers.length}/${TRAIL_WORDS.length} · ${this.inputSource === 'controller' ? 'D-pad ↑' : 'E / click'}`, 286, 30);
     if (this.storyArtwork) {
-      ctx.fillStyle = '#17333b'; ctx.fillRect(367, 7, 47, 29);
       ctx.fillStyle = '#ffda75'; ctx.font = 'bold 22px monospace'; ctx.fillText('↶', 382, 29);
       ctx.font = '8px monospace'; ctx.fillStyle = '#17333b';
       ctx.fillText(this.inputSource === 'controller' ? 'View' : 'R', 381, 44);
@@ -400,8 +398,8 @@ export class AdventureScene implements Scene {
         width: 70, height: 60, selected: index === this.selectedIndex, action: () => this.selectDestination(index) })),
       { label: `Play ${this.selectedLevelName}`, ...OVERWORLD_LAYOUT.play, action: () => this.startSelected() },
       { label: 'Open stickers', nativeSpace: true, description: `${this.education.stickers.length} of ${TRAIL_WORDS.length} stickers · E or controller D-pad up`,
-        x: 282, y: 7, width: 79, height: 29, action: () => this.educationOverlay.showStickers() },
-      ...(this.storyArtwork ? [{ label: 'Replay story', nativeSpace: true, description: 'Pictures • R key or controller View button', x: 367, y: 7, width: 47, height: 29, action: () => this.openStory() }] : []),
+        ...OVERWORLD_LAYOUT.stickers, action: () => this.educationOverlay.showStickers() },
+      ...(this.storyArtwork ? [{ label: 'Replay story', nativeSpace: true, description: 'Pictures • R key or controller View button', ...OVERWORLD_LAYOUT.story, action: () => this.openStory() }] : []),
     ];
     if (this.screens.state === 'finish') return [...this.finishActions.map((label, index) => ({
       label, x: FINISH_LAYOUT.actions.x + index * FINISH_LAYOUT.actions.spacing, y: FINISH_LAYOUT.actions.y,

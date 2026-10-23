@@ -1,6 +1,28 @@
 import type { InputFrame, InputSource } from '../core/input';
 import { controlHints } from './hud';
 import type { MenuTarget } from './overworld';
+import { drawKitButton, drawKitFrame, type InterfaceKit } from '../art/interface-kit';
+
+/** Shared pause/confirmation panel; text stays inside its quiet interior. */
+export const PAUSE_PANEL = { x: 40, y: 18, width: 346, height: 218 } as const;
+
+function drawPauseBacking(ctx: CanvasRenderingContext2D, ui?: InterfaceKit): void {
+  ctx.fillStyle = '#0c1922cc'; ctx.fillRect(0, 0, 426, 240);
+  // Without the kit, the original full-screen dim remains the whole presentation.
+  if (ui) drawKitFrame(ctx, ui, 'panel', PAUSE_PANEL.x, PAUSE_PANEL.y, PAUSE_PANEL.width, PAUSE_PANEL.height, { fill: '#10252cee' });
+}
+
+/** Focus-loss pause: the same panel with the active control hints. */
+export function drawFocusPause(ctx: CanvasRenderingContext2D, source: InputSource, ui?: InterfaceKit): void {
+  // Save/restore so the centered overlay cannot leak into the next frame's scene HUD.
+  ctx.save();
+  drawPauseBacking(ctx, ui);
+  ctx.fillStyle = '#ffda75'; ctx.textAlign = 'center'; ctx.font = 'bold 20px monospace';
+  ctx.fillText('PAUSED', 213, 83);
+  ctx.font = '12px monospace'; ctx.fillStyle = '#e9f2df';
+  controlHints(source).forEach((hint, index) => ctx.fillText(hint, 213, 111 + index * 20));
+  ctx.restore();
+}
 
 /** Pause actions run on rendered frames while the simulation clock is stopped. */
 export class PauseMenu {
@@ -40,9 +62,9 @@ export class PauseMenu {
     }));
   }
 
-  draw(ctx: CanvasRenderingContext2D, source: InputSource): void {
+  draw(ctx: CanvasRenderingContext2D, source: InputSource, ui?: InterfaceKit): void {
     ctx.save();
-    ctx.fillStyle = '#0c1922cc'; ctx.fillRect(0, 0, 426, 240);
+    drawPauseBacking(ctx, ui);
     ctx.fillStyle = '#ffda75'; ctx.textAlign = 'center'; ctx.font = 'bold 20px monospace';
     ctx.fillText(this.confirming ? 'LEAVE THIS TRAIL?' : 'PAUSED', 213, 50);
     ctx.fillStyle = '#e9f2df'; ctx.font = '12px monospace';
@@ -52,9 +74,7 @@ export class PauseMenu {
       ctx.fillText('for this session.', 213, 131);
     } else controlHints(source).forEach((hint, index) => ctx.fillText(hint, 213, 78 + index * 20));
     for (const target of this.targets) {
-      ctx.fillStyle = target.selected ? '#ffda75' : '#17333b';
-      ctx.fillRect(target.x, target.y, target.width, target.height);
-      ctx.strokeStyle = '#bfd5ce'; ctx.strokeRect(target.x, target.y, target.width, target.height);
+      drawKitButton(ctx, ui, target, { fill: '#17333b', selectedFill: '#ffda75', stroke: '#bfd5ce' });
       ctx.fillStyle = target.selected ? '#0c1922' : '#e9f2df'; ctx.font = 'bold 10px monospace';
       ctx.fillText(target.label, target.x + target.width / 2, target.y + 19);
     }

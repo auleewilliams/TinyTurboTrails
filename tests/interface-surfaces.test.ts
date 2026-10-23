@@ -1,6 +1,13 @@
 import { expect, it } from 'vitest';
 import { INTERFACE_PIECES, type InterfaceKit, type InterfacePiece } from '../src/art/interface-kit';
 import { FINISH_LAYOUT, drawFinishChrome } from '../src/game/adventure-scene';
+import { PAUSE_PANEL, PauseMenu, drawFocusPause } from '../src/game/pause-menu';
+import { EducationOverlay, STICKER_CARD } from '../src/game/education-overlay';
+import { EducationSession, TRAIL_WORDS } from '../src/game/education';
+import { BAG_PLAQUE, HUD_PLAQUES, TRAIL_RIBBON, drawBagBacking, drawGameplayHud, drawTrailRibbon, HudPresentation } from '../src/game/hud';
+import { OVERWORLD_LAYOUT, drawOverworld, TrailSession } from '../src/game/overworld';
+import { createRun } from '../src/game/interactions';
+import { LEVELS } from '../src/world/levels';
 
 const kit = Object.fromEntries(Object.keys(INTERFACE_PIECES).map(name => [name, { piece: name }])) as unknown as InterfaceKit;
 interface Draw { piece: InterfacePiece; rect: number[] }
@@ -69,4 +76,98 @@ it('finish text and actions sit inside the panel interior, clear of its timber f
   expect(row.y + row.height).toBeLessThanOrEqual(interior.bottom);
   expect(row.x).toBeGreaterThanOrEqual(interior.left);
   expect(row.x + row.spacing * 2 + row.width).toBeLessThanOrEqual(interior.right);
+});
+
+const rect = (target: { x: number; y: number; width: number; height: number }) => ({ x: target.x, y: target.y, width: target.width, height: target.height });
+const inside = (inner: { x: number; y: number; width: number; height: number }, outer: typeof inner) =>
+  inner.x >= outer.x && inner.y >= outer.y && inner.x + inner.width <= outer.x + outer.width && inner.y + inner.height <= outer.y + outer.height;
+
+it.each([false, true])('pause (confirming: %s) frames its text in the panel and draws buttons at their hit targets', confirming => {
+  const menu = new PauseMenu(() => {}, () => {});
+  if (confirming) menu.update({ horizontal: 0, jumpHeld: false, jumpPressed: false, pausePressed: false, mutePressed: false, trailsPressed: true });
+  const { ctx, draws, text } = recordingContext();
+  menu.draw(ctx, 'keyboard', kit);
+  expect(bounds(draws, 'panel')).toEqual(PAUSE_PANEL);
+  for (const target of menu.targets) expect(bounds(draws, target.selected ? 'button-selected' : 'button', target)).toEqual(rect(target));
+  const inset = INTERFACE_PIECES.panel.slice;
+  for (const line of text) {
+    expect(line.y - 20).toBeGreaterThanOrEqual(PAUSE_PANEL.y + inset.top - 6);
+    expect(line.y + 3).toBeLessThanOrEqual(PAUSE_PANEL.y + PAUSE_PANEL.height - inset.bottom);
+  }
+  expect(text.map(line => line.text)).toContain(confirming ? 'LEAVE THIS TRAIL?' : 'PAUSED');
+});
+
+it('focus-loss pause uses the same panel with its live control hints', () => {
+  const { ctx, draws, text } = recordingContext();
+  drawFocusPause(ctx, 'controller', kit);
+  expect(bounds(draws, 'panel')).toEqual(PAUSE_PANEL);
+  expect(text.map(line => line.text)).toEqual(['PAUSED', 'Stick / D-pad: move', 'Face button: jump', 'Start: resume', 'Mute: screen button']);
+});
+
+it('sticker collection uses plaque cards and the selected return button without moving targets or covering stickers', () => {
+  const session = new EducationSession();
+  const overlay = new EducationOverlay(session, undefined, kit); overlay.showStickers();
+  const { ctx, draws, text } = recordingContext();
+  overlay.draw(ctx);
+  TRAIL_WORDS.forEach((_config, index) => {
+    const card = { x: 9 + index % 3 * 138, y: 36 + Math.floor(index / 3) * 69, width: STICKER_CARD.width, height: STICKER_CARD.height };
+    expect(bounds(draws, 'plaque', card)).toEqual(card);
+    // Labels sit inside the plaque's quiet interior, above its bottom border.
+    const lines = text.filter(line => line.x === card.x + 66 && line.y > card.y && line.y < card.y + card.height);
+    expect(lines).toHaveLength(2);
+    for (const line of lines) expect(line.y + 2).toBeLessThanOrEqual(card.y + card.height - INTERFACE_PIECES.plaque.slice.bottom);
+  });
+  const [back] = overlay.targets;
+  expect(bounds(draws, 'button-selected', back)).toEqual(rect(back));
+});
+
+it('assembly gives empty spaces and actions kit buttons while tiles, glyphs and targets stay unchanged', () => {
+  const session = new EducationSession(); session.selectTrail(LEVELS[0].id);
+  session.pickups.slice(0, 3).forEach(pickup => session.collect(pickup.id));
+  const overlay = new EducationOverlay(session, undefined, kit); overlay.showAssembly(() => {});
+  const { ctx, draws, text } = recordingContext();
+  overlay.draw(ctx);
+  for (const target of overlay.targets) {
+    if (target.label.startsWith('Letter ')) { expect(bounds(draws, 'button', target)).toBeUndefined(); continue; }
+    expect(bounds(draws, target.selected ? 'button-selected' : 'button', target)).toEqual(rect(target));
+  }
+  expect(text.map(line => line.text)).toEqual(expect.arrayContaining(['Find more letters', 'Leave activity', '_']));
+});
+
+it('HUD backings use compact plaques at the existing rectangles and never grow their coverage', () => {
+  const run = createRun(LEVELS[0]); run.specialTotal = 3;
+  const { ctx, draws } = recordingContext();
+  drawGameplayHud(ctx, run, 'Space: jump', 'PLAINS', new HudPresentation().progress(LEVELS[0], LEVELS[0].start.x), kit);
+  const plaques = draws.filter(draw => draw.piece === 'plaque');
+  for (const area of [HUD_PLAQUES.gems, HUD_PLAQUES.hearts, HUD_PLAQUES.stars]) expect(bounds(plaques, 'plaque', area)).toEqual(area);
+  expect(bounds(plaques, 'plaque', { x: 5, y: 31, width: 200, height: 18 })).toEqual({ x: 5, y: 31, width: 'Space: jump'.length * 6 + 10, height: 18 });
+  const noticeWidth = 'PLAINS'.length * 6 + 12;
+  expect(bounds(plaques, 'plaque', { x: 300, y: 5, width: 121, height: 22 })).toEqual({ x: 421 - noticeWidth, y: 5, width: noticeWidth, height: 22 });
+  expect(bounds(plaques, 'plaque', TRAIL_RIBBON)).toEqual(rect(TRAIL_RIBBON));
+  expect(draws.some(draw => draw.piece !== 'plaque')).toBe(false);
+});
+
+it('ribbon and bag backings use the plaque, while the pouch and ribbon marks stay separately drawn', () => {
+  const ribbon = recordingContext();
+  drawTrailRibbon(ribbon.ctx, new HudPresentation().progress(LEVELS[0], LEVELS[0].start.x), kit);
+  expect(bounds(ribbon.draws, 'plaque')).toEqual(rect(TRAIL_RIBBON));
+  expect(ribbon.fills.length).toBeGreaterThan(8);
+  const bag = recordingContext();
+  drawBagBacking(bag.ctx, kit);
+  expect(bounds(bag.draws, 'plaque')).toEqual(BAG_PLAQUE);
+});
+
+it('overworld info panel, Play, Stickers and story controls use the kit at their native target bounds', () => {
+  const { ctx, draws, text } = recordingContext();
+  drawOverworld(ctx, LEVELS, 0, new TrailSession().results, { naturalWidth: 1, naturalHeight: 1 } as HTMLImageElement, {} as HTMLImageElement,
+    undefined, undefined, undefined, kit, true);
+  const { panel, play, preview } = OVERWORLD_LAYOUT;
+  expect(bounds(draws, 'plaque', panel)).toEqual(panel);
+  // The trail preview sits inside the plaque's interior, never over its border.
+  const inset = INTERFACE_PIECES.plaque.slice;
+  expect(inside(preview, { x: panel.x + inset.left, y: panel.y + inset.top, width: panel.width - inset.left - inset.right, height: panel.height - inset.top - inset.bottom })).toBe(true);
+  expect(bounds(draws, 'button-selected', play)).toEqual(play);
+  expect(bounds(draws, 'button', OVERWORLD_LAYOUT.stickers)).toEqual(OVERWORLD_LAYOUT.stickers);
+  expect(bounds(draws, 'button', OVERWORLD_LAYOUT.story)).toEqual(OVERWORLD_LAYOUT.story);
+  expect(text.map(line => line.text)).toContain('PLAY');
 });

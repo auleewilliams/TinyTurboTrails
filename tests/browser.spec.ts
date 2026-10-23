@@ -14,6 +14,8 @@ import { drawSurfaceMaterials } from '../src/world/surface-materials';
 import { drawSlime, drawGem, drawSpecial, drawLandingBands, drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawTerrainTiles, drawWorld } from '../src/world/renderer';
 import { TRAIL_WORDS } from '../src/game/education';
 import { TRAIL_RIBBON, trailPosition } from '../src/game/hud';
+import { INTERFACE_PIECES } from '../src/art/interface-kit';
+import { PAUSE_PANEL } from '../src/game/pause-menu';
 
 const VIEWPORT_CASES = [
   { width: 2048, height: 1178 }, { width: 1366, height: 768 },
@@ -2922,7 +2924,8 @@ test('slime atlas keeps identical bodies, transparent borders and ground anchors
   for (const body of result.bodies) expect(body).toEqual(result.bodies[0]);
 });
 
-for (const asset of ['slimes/slimes', 'gems/gems', 'spelling/pouch', 'spelling/tile', ...TRAIL_WORDS.map(config => `spelling/${config.id}-sticker`)]) test(`shared ${asset} atlas failure is recoverable through retry`, async ({ page }) => {
+for (const asset of ['slimes/slimes', 'gems/gems', 'spelling/pouch', 'spelling/tile', ...TRAIL_WORDS.map(config => `spelling/${config.id}-sticker`),
+  ...Object.keys(INTERFACE_PIECES).map(name => `interface/${name}`)]) test(`shared ${asset} atlas failure is recoverable through retry`, async ({ page }) => {
   await page.route(`**/assets/${asset}.png`, route => route.abort());
   await page.goto('/?debug=1');
   await expect(page.getByRole('button', { name: /Retry/i })).toBeVisible();
@@ -2942,6 +2945,72 @@ for (const name of ['tile', 'frost-sticker']) test(`spelling ${name} artwork rej
   await expect(page.locator('#retry')).toBeVisible();
   await page.unroute(path); await retryAndDismiss(page);
   await expect(page.locator('#status')).toContainText('Title');
+});
+
+test('interface panel artwork rejects wrong dimensions and recovers through retry', async ({ page }) => {
+  const path = '**/assets/interface/panel.png';
+  await page.route(path, async route => {
+    const response = await route.fetch({ url: route.request().url().replace('panel.png', 'plaque.png') });
+    await route.fulfill({ response });
+  });
+  await page.goto('/');
+  await expect(page.locator('#retry')).toBeVisible();
+  await page.unroute(path); await retryAndDismiss(page);
+  await expect(page.locator('#status')).toContainText('Title');
+});
+
+test('illustrated pause panel draws generated art behind live text with aligned targets and kit feedback controls', async ({ page }, info) => {
+  await openAdventure(page, '/');
+  await page.getByRole('button', { name: /^Play / }).click();
+  await expect(page.locator('#status')).toContainText('Playing');
+  await page.keyboard.press('Escape');
+  await expect(page.getByRole('button', { name: 'Resume', exact: true })).toBeVisible();
+  const sample = () => page.locator('canvas').evaluate((element, panel) => {
+    const ctx = (element as HTMLCanvasElement).getContext('2d')!;
+    const at = (x: number, y: number) => [...ctx.getImageData(x, y, 1, 1).data];
+    // Timber mid-edge, interior, scrim outside the panel, and each button face beside its label.
+    return { wood: at(panel.x + 4, panel.y + 100), interior: at(panel.x + 20, panel.y + 40), scrim: at(10, 120),
+      resume: at(53 + 9, 157 + 15), leave: at(218 + 9, 157 + 15) };
+  }, PAUSE_PANEL);
+  const isWood = ([r, g, b]: number[]) => r > 170 && g > 90 && g < 210 && b < 110 && r > g && g > b;
+  const isGold = ([r, g, b]: number[]) => r > 200 && g > 160 && b < 150;
+  const isSlate = ([r, g, b]: number[]) => r < 110 && b >= r && g < 140;
+  let pixels = await sample();
+  expect(isWood(pixels.wood)).toBe(true);
+  expect(pixels.interior[0] + pixels.interior[1] + pixels.interior[2]).toBeLessThan(200);
+  expect(isWood(pixels.scrim)).toBe(false);
+  expect(isGold(pixels.resume)).toBe(true); expect(isSlate(pixels.leave)).toBe(true);
+  // Hold until a polled frame sees the direction, as in the other pause tests.
+  await page.keyboard.down('ArrowRight');
+  await expect(page.getByRole('button', { name: 'Return to Trails', exact: true })).toHaveAttribute('aria-pressed', 'true');
+  await page.keyboard.up('ArrowRight');
+  await expect.poll(async () => { pixels = await sample(); return isGold(pixels.leave) && isSlate(pixels.resume); }).toBe(true);
+  for (const viewport of [{ width: 426, height: 300 }, { width: 320, height: 240 }]) {
+    await page.setViewportSize(viewport);
+    await expectClearViewport(page);
+    const geometry = await page.evaluate(() => {
+      const canvas = document.querySelector('canvas')!.getBoundingClientRect();
+      return { canvas: { x: canvas.left, y: canvas.top, width: canvas.width },
+        buttons: Array.from(document.querySelectorAll<HTMLButtonElement>('.trail-menu button')).map(button => {
+          const box = button.getBoundingClientRect(); return { label: button.getAttribute('aria-label'), x: box.left, y: box.top, width: box.width, height: box.height };
+        }),
+        controls: ['#mute', '#rumble'].map(selector => {
+          const element = document.querySelector<HTMLElement>(selector)!, style = getComputedStyle(element);
+          return { image: style.borderImageSource, width: element.offsetWidth, height: element.offsetHeight };
+        }) };
+    });
+    const scale = geometry.canvas.width / 426;
+    expect(geometry.buttons.map(button => button.label)).toEqual(['Resume', 'Return to Trails']);
+    geometry.buttons.forEach((button, index) => {
+      expect(button.x).toBeCloseTo(geometry.canvas.x + (53 + index * 165) * scale, 0);
+      expect(button.y).toBeCloseTo(geometry.canvas.y + 157 * scale, 0);
+      expect(button.width).toBeCloseTo(155 * scale, 0); expect(button.height).toBeCloseTo(30 * scale, 0);
+    });
+    // Planks are drawn inside the unchanged feedback button boxes.
+    for (const control of geometry.controls) expect(control.image).toContain('assets/interface/button.png');
+    expect(geometry.controls.map(({ width, height }) => [width >= 64 || width === 44, height])).toEqual([[true, 36], [true, 36]]);
+    await page.screenshot({ path: info.outputPath(`illustrated-pause-${viewport.width}.png`) });
+  }
 });
 
 test('approved spelling sprites have native sizes, real transparency and clear cell borders', async ({ page }) => {

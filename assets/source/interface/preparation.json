@@ -186,10 +186,10 @@
         "height": 24
       },
       "slice": {
-        "left": 4,
-        "top": 4,
-        "right": 4,
-        "bottom": 4
+        "left": 5,
+        "top": 5,
+        "right": 5,
+        "bottom": 5
       },
       "outputSha256": "fb99e6fffbd20c4c5e93ba714f506890757cc0c926c4b893e4d1bc6d691ff59d",
       "pixelSha256": "41daf6bf844d357ec43084901f354cfdcef7b23a8b1c69caa36c4fb5e7c5be45",
