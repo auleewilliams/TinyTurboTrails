@@ -2224,6 +2224,14 @@ async function observeTrailRibbon(page: Page): Promise<void> {
     const drawImage = CanvasRenderingContext2D.prototype.drawImage;
     CanvasRenderingContext2D.prototype.drawImage = function (this: CanvasRenderingContext2D, ...args: unknown[]) {
       const [image] = args;
+      // The ribbon's generated plaque backing starts each sample with its top-left corner slice.
+      if (image instanceof HTMLImageElement && image.src.endsWith('/assets/interface/plaque.png') && args.length === 9
+        && args[5] === ribbon.x && args[6] === ribbon.y) {
+        let sample = samples.get(this.canvas);
+        if (!sample) { sample = { recording: false, points: [] }; samples.set(this.canvas, sample); }
+        sample.recording = true;
+        sample.points = [];
+      }
       if (image instanceof HTMLImageElement && image.src.endsWith('/assets/henry/henry-celebration.png') && args.length === 9) {
         const transform = this.getTransform();
         const from = transform.transformPoint(new DOMPoint(Number(args[5]), Number(args[6])));
@@ -2987,6 +2995,8 @@ test('illustrated pause panel draws generated art behind live text with aligned 
   await expect.poll(async () => { pixels = await sample(); return isGold(pixels.leave) && isSlate(pixels.resume); }).toBe(true);
   for (const viewport of [{ width: 426, height: 300 }, { width: 320, height: 240 }]) {
     await page.setViewportSize(viewport);
+    // Let the resize observer and a rendered frame apply the new layout before measuring.
+    await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
     await expectClearViewport(page);
     const geometry = await page.evaluate(() => {
       const canvas = document.querySelector('canvas')!.getBoundingClientRect();
