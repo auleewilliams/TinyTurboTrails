@@ -3786,38 +3786,77 @@ test('builder-kit visual fixture renders all six words and generated stickers at
   const tile = source('art/spelling.ts');
   const tileStart = tile.indexOf('export function drawLetterTile');
   expect(tileStart).toBeGreaterThan(0);
+  const henry = source('art/henry.ts');
+  const loaderStart = henry.indexOf('export async function loadImage');
+  expect(loaderStart).toBeGreaterThan(0);
+  // The shipped kit module, with Vite's build-time base substituted as the bundle does.
+  const kitSource = source('art/interface-kit.ts');
+  expect(kitSource.split('import.meta.env.BASE_URL')).toHaveLength(2);
+  const modules: Record<string, string> = {
+    'game/education.ts': source('game/education.ts'),
+    'art/interface-kit.ts': kitSource.replace('import.meta.env.BASE_URL', JSON.stringify('./')),
+    'game/education-overlay.ts': source('game/education-overlay.ts'),
+    'game/menu-overlay.ts': source('game/menu-overlay.ts'),
+  };
   const fixture = [
-    declarations('education.ts', source('game/education.ts')),
+    declarations('education.ts', modules['game/education.ts']),
     declarations('tile.ts', tile.slice(tileStart)),
-    declarations('overlay.ts', source('game/education-overlay.ts')),
-    declarations('menu.ts', source('game/menu-overlay.ts')),
+    declarations('loader.ts', henry.slice(loaderStart, henry.indexOf('\n}\n', loaderStart) + 3)),
+    declarations('interface-kit.ts', modules['art/interface-kit.ts']),
+    declarations('overlay.ts', modules['game/education-overlay.ts']),
+    declarations('menu.ts', modules['game/menu-overlay.ts']),
   ].join('\n');
+  expect(fixture).not.toContain('import.meta');
+  // Keep dependency drift visible: every runtime import of a concatenated module must be declared.
+  const runtimeImports = [...new Set(Object.values(modules).flatMap(text => [...text.matchAll(/^import (?!type )\{([^}]*)\} from .*;$/gm)]
+    .flatMap(([, names]) => names.split(',').map(name => name.trim()).filter(name => name && !name.startsWith('type ')))))];
+  expect(runtimeImports).toEqual(expect.arrayContaining(['drawKitButton', 'drawKitFrame', 'drawLetterTile', 'loadImage', 'TRAIL_WORDS']));
   await page.setViewportSize({ width: 426, height: 300 });
   await observeSpellingArtwork(page);
   await openAdventure(page, '/');
   await page.addScriptTag({ content: `(() => {
     ${fixture}
+    window.spellingFixtureMissing = [${runtimeImports.map(name => `typeof ${name} === 'undefined' && ${JSON.stringify(name)}`).join(', ')}].filter(Boolean);
     window.createSpellingFixture = async () => {
       const load = async name => { const image = new Image(); image.src = '/assets/spelling/' + name + '.png'; await image.decode(); return image; };
       const stickers = {};
       for (const config of TRAIL_WORDS) stickers[config.id] = await load(config.id + '-sticker');
       const artwork = { pouch: await load('pouch'), tile: await load('tile'), stickers };
       const session = new EducationSession();
-      const overlay = new EducationOverlay(session, artwork);
+      const ui = await loadInterfaceKit();
+      const overlay = new EducationOverlay(session, artwork, ui);
       const canvas = document.querySelector('#game');
       document.querySelector('.trail-menu').remove();
       const menu = new MenuOverlay(canvas);
       const scene = { screenState: 'finish', educationOverlay: overlay, get menuTargets() { return overlay.open ? overlay.targets : []; } };
-      const draw = () => { overlay.draw(canvas.getContext('2d')); menu.update(scene, false); };
+      // Record kit pieces drawn by the overlay alone, not the live game frame beneath it.
+      const ctx = canvas.getContext('2d'), drawImage = ctx.drawImage, kitDraws = new Set();
+      let recording = false;
+      ctx.drawImage = function (image, ...rest) {
+        if (recording && Object.values(ui).includes(image)) kitDraws.add(image.src.split('/').at(-1));
+        return drawImage.call(this, image, ...rest);
+      };
+      const draw = () => { kitDraws.clear(); recording = true; try { overlay.draw(ctx); } finally { recording = false; } menu.update(scene, false); };
       const raf = window.requestAnimationFrame.bind(window);
       window.requestAnimationFrame = callback => raf(time => { callback(time); draw(); });
-      window.spellingFixture = { overlay, reset(id) {
+      const kit = Object.entries(ui).map(([piece, image]) => ({ piece, file: image.src.split('/').at(-1), complete: image.complete,
+        size: [image.naturalWidth, image.naturalHeight], declared: [INTERFACE_PIECES[piece].width, INTERFACE_PIECES[piece].height] }));
+      window.spellingFixture = { overlay, kit, kitDraws: () => [...kitDraws].sort(), reset(id) {
         session.selectTrail(id); session.pickups.forEach(pickup => session.collect(pickup.id));
         overlay.showAssembly(() => {}); draw();
       } };
     };
   })();` });
+  expect(await page.evaluate(() => (window as unknown as { spellingFixtureMissing: string[] }).spellingFixtureMissing)).toEqual([]);
   await page.evaluate(() => (window as unknown as { createSpellingFixture(): Promise<void> }).createSpellingFixture());
+  type KitPiece = { piece: string; file: string; complete: boolean; size: number[]; declared: number[] };
+  const fixtureKit = (): Promise<{ kit: KitPiece[]; kitDraws: string[] }> => page.evaluate(() => {
+    const fixture = (window as unknown as { spellingFixture: { kit: KitPiece[]; kitDraws(): string[] } }).spellingFixture;
+    return { kit: fixture.kit, kitDraws: fixture.kitDraws() };
+  });
+  const { kit } = await fixtureKit();
+  expect(kit.map(entry => entry.file).sort()).toEqual(['button-selected.png', 'button.png', 'panel.png', 'plaque.png']);
+  for (const entry of kit) expect(entry).toMatchObject({ file: `${entry.piece}.png`, complete: true, size: entry.declared });
   const capture = async (trail: string, state: string): Promise<void> => {
     for (const width of [426, 320]) {
       await page.setViewportSize({ width, height: width === 426 ? 300 : 240 });
@@ -3831,6 +3870,7 @@ test('builder-kit visual fixture renders all six words and generated stickers at
     await page.evaluate(id => (window as unknown as { spellingFixture: { reset(id: string): void } }).spellingFixture.reset(id), config.id);
     await expect(page.getByRole('dialog', { name: `Build ${config.word}`, exact: true })).toBeVisible();
     expect(await page.evaluate(() => (window as unknown as { spellingFixture: { overlay: EducationOverlay } }).spellingFixture.overlay.description)).not.toContain('sticker earned!');
+    expect((await fixtureKit()).kitDraws).toContain('button.png');
     if (config.id === 'timbers') await capture(config.id, 'mixed-pile');
     for (const [slot, pickup] of config.pickups.entries()) {
       const duplicates = config.pickups.filter(letter => letter.letter === pickup.letter);
@@ -3851,5 +3891,6 @@ test('builder-kit visual fixture renders all six words and generated stickers at
   await expect(page.getByRole('dialog', { name: 'Trail stickers', exact: true })).toBeVisible();
   const collection = JSON.parse((await page.locator('#game').getAttribute('data-spelling-draws'))!);
   for (const config of TRAIL_WORDS) expect(collection[`${config.id}-sticker.png`].alpha).toBe(1);
+  expect((await fixtureKit()).kitDraws).toEqual(expect.arrayContaining(['button-selected.png', 'plaque.png']));
   await capture('all', 'collection');
 });
