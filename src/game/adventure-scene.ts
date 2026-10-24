@@ -1,6 +1,7 @@
 import { EducationOverlay } from './education-overlay';
 import { EducationSession, TRAIL_WORDS } from './education';
 import { drawLetterTile, type SpellingAssets } from '../art/spelling';
+import { drawKitButton, drawKitFrame, type InterfaceKit } from '../art/interface-kit';
 import { drawOverworld, MAP_POINTS, OVERWORLD_LAYOUT, TrailSession, type MenuTarget } from './overworld';
 import { musicForLevel } from '../core/music';
 import type { GameAudio } from '../core/audio';
@@ -21,7 +22,7 @@ import { LEVELS } from '../world/levels';
 import { Camera } from '../world/camera';
 import { drawWorld, drawWorldForeground } from '../world/renderer';
 import type { WorldAssetMap, WorldAssets } from '../world/assets';
-import { drawGameplayHud, HudPresentation } from './hud';
+import { drawBagBacking, drawGameplayHud, HudPresentation } from './hud';
 import { Feedback } from './feedback';
 import { CompletionCelebration, celebrationJump, celebrationSparkles } from './celebration';
 import { StoryBook, drawStory, drawStoryPicture, STORY_DESCRIPTIONS } from './story';
@@ -31,7 +32,7 @@ export interface Rect { x: number; y: number; width: number; height: number }
 /** Finish-screen composition: title, gem total, celebration band and replay prompt stacked without overlap. */
 export const FINISH_LAYOUT = {
   centerX: 213,
-  panel: { x: 44, y: 24, width: 338, height: 196 },
+  panel: { x: 44, y: 16, width: 338, height: 212 },
   title: { baseline: 52, size: 20 },
   gems: { baseline: 76, size: 10 },
   // Fixed feet anchor; the jump and bounded sparkles stay below results.
@@ -51,6 +52,14 @@ export function finishGemsText(gems: number, total: number): string {
 export function celebrationHenryRect(anchor: { x: number; y: number }, jump: number): Rect {
   return { x: 280 - anchor.x, y: FINISH_LAYOUT.celebration.baseline - anchor.y + jump,
     width: CELEBRATION_SIZE, height: CELEBRATION_SIZE };
+}
+
+/** Results panel and action backings; labels and icons are drawn separately on top. */
+export function drawFinishChrome(ctx: CanvasRenderingContext2D, ui: InterfaceKit | undefined, actions: readonly MenuTarget[]): void {
+  const { panel } = FINISH_LAYOUT;
+  drawKitFrame(ctx, ui, 'panel', panel.x, panel.y, panel.width, panel.height, { fill: '#10252cee' });
+  if (!ui) { ctx.strokeStyle = '#ffda75'; ctx.strokeRect(panel.x + 2, panel.y + 2, panel.width - 4, panel.height - 4); }
+  for (const target of actions) drawKitButton(ctx, ui, target, { fill: '#34515a', selectedFill: '#ffda75' });
 }
 
 export function celebrationStarRects(seconds: number, reduced = false): Rect[] {
@@ -91,8 +100,8 @@ export class AdventureScene implements Scene {
   private marker = { x: 48, y: 88 };
   private readonly previews = new Map<string, HTMLCanvasElement>();
   private inputSource: InputSource = 'keyboard';
-  constructor(private readonly titleArtwork: HTMLImageElement, private readonly henry: HenryAssets, private readonly worlds: WorldAssetMap, private readonly audio: GameAudio, level: LevelData, private readonly landmarks?: HTMLImageElement, private readonly mapBackground?: HTMLImageElement, private readonly storyArtwork?: HTMLImageElement, private readonly rumble?: GameRumble, private readonly spelling?: SpellingAssets) {
-    this.educationOverlay = new EducationOverlay(this.education, spelling);
+  constructor(private readonly titleArtwork: HTMLImageElement, private readonly henry: HenryAssets, private readonly worlds: WorldAssetMap, private readonly audio: GameAudio, level: LevelData, private readonly landmarks?: HTMLImageElement, private readonly mapBackground?: HTMLImageElement, private readonly storyArtwork?: HTMLImageElement, private readonly rumble?: GameRumble, private readonly spelling?: SpellingAssets, private readonly ui?: InterfaceKit) {
+    this.educationOverlay = new EducationOverlay(this.education, spelling, ui);
     const missing = [...new Set(LEVELS.map((candidate) => candidate.atlas))]
       .filter((atlas) => !worlds[atlas]);
     if (missing.length > 0) throw new Error(`Missing world assets: ${missing.join(', ')}`);
@@ -241,7 +250,7 @@ export class AdventureScene implements Scene {
         ctx.fillStyle = '#ffda75'; ctx.font = 'bold 16px monospace'; ctx.fillText('→', 402, 119);
       }
       drawGameplayHud(ctx, this.run, this.hud.hint, this.feedback.checkpointSeconds > 0
-        ? 'Checkpoint reached!' : this.hud.locationSeconds > 0 ? this.hud.location : '', this.hud.progress(this.level, this.player.x));
+        ? 'Checkpoint reached!' : this.hud.locationSeconds > 0 ? this.hud.location : '', this.hud.progress(this.level, this.player.x), this.ui);
       this.drawWordProgress(ctx);
       if (this.educationOverlay.open) this.educationOverlay.draw(ctx);
     } else if (this.screens.state === 'finish') {
@@ -284,7 +293,7 @@ export class AdventureScene implements Scene {
   private drawWordProgress(ctx: CanvasRenderingContext2D): void {
     if (!this.hasWordActivity) return;
     ctx.save(); ctx.textAlign = 'right'; ctx.font = 'bold 11px monospace';
-    ctx.fillStyle = '#10252cee'; ctx.fillRect(294, 31, 127, 34);
+    drawBagBacking(ctx, this.ui);
     ctx.fillStyle = '#e9f2df'; ctx.fillText(`Bag ${this.education.letterCount}/4`, 376, 52);
     if (this.spelling) ctx.drawImage(this.spelling.pouch, 384, 33, 28, 28);
     else {
@@ -304,7 +313,7 @@ export class AdventureScene implements Scene {
   }
 
   private drawMap(ctx: CanvasRenderingContext2D): void {
-    drawOverworld(ctx, LEVELS, this.selectedIndex, this.session.results, this.titleArtwork, this.world.gems, this.landmarks, this.preview(), this.mapBackground);
+    drawOverworld(ctx, LEVELS, this.selectedIndex, this.session.results, this.titleArtwork, this.world.gems, this.landmarks, this.preview(), this.mapBackground, this.ui, Boolean(this.storyArtwork));
     const target = MAP_POINTS[this.selectedIndex];
     const moving = !this.reducedMotion && Math.hypot(target[0] - this.marker.x, target[1] - this.marker.y) > 2;
     const clip = this.henry.manifest.animations[moving ? 'run' : 'idle'];
@@ -313,11 +322,10 @@ export class AdventureScene implements Scene {
       Math.round(this.marker.x) - 39, Math.round(this.marker.y) + 4, 28, 28);
     ctx.fillStyle = '#17333b'; ctx.font = '9px monospace'; ctx.textAlign = 'left';
     ctx.fillText(this.inputSource === 'controller' ? 'D-pad / stick: choose   Face button: play' : '← → Choose   Space: play   Click a landmark', 8, 234);
-    ctx.fillStyle = '#17333b'; ctx.fillRect(282, 7, 79, 29);
-    ctx.fillStyle = '#ffda75'; ctx.font = 'bold 9px monospace'; ctx.fillText('STICKERS', 286, 19);
-    ctx.font = '8px monospace'; ctx.fillText(`${this.education.stickers.length}/${TRAIL_WORDS.length} · ${this.inputSource === 'controller' ? 'D-pad ↑' : 'E / click'}`, 286, 30);
+    // Both lines sit inside the plank's quiet face (x 288-355, y 13-30), including the ↑ descent.
+    ctx.fillStyle = '#ffda75'; ctx.font = 'bold 9px monospace'; ctx.fillText('STICKERS', 288, 20);
+    ctx.font = '8px monospace'; ctx.fillText(`${this.education.stickers.length}/${TRAIL_WORDS.length} · ${this.inputSource === 'controller' ? 'D-pad ↑' : 'E/click'}`, 288, 28);
     if (this.storyArtwork) {
-      ctx.fillStyle = '#17333b'; ctx.fillRect(367, 7, 47, 29);
       ctx.fillStyle = '#ffda75'; ctx.font = 'bold 22px monospace'; ctx.fillText('↶', 382, 29);
       ctx.font = '8px monospace'; ctx.fillStyle = '#17333b';
       ctx.fillText(this.inputSource === 'controller' ? 'View' : 'R', 381, 44);
@@ -391,15 +399,20 @@ export class AdventureScene implements Scene {
         width: 70, height: 60, selected: index === this.selectedIndex, action: () => this.selectDestination(index) })),
       { label: `Play ${this.selectedLevelName}`, ...OVERWORLD_LAYOUT.play, action: () => this.startSelected() },
       { label: 'Open stickers', nativeSpace: true, description: `${this.education.stickers.length} of ${TRAIL_WORDS.length} stickers · E or controller D-pad up`,
-        x: 282, y: 7, width: 79, height: 29, action: () => this.educationOverlay.showStickers() },
-      ...(this.storyArtwork ? [{ label: 'Replay story', nativeSpace: true, description: 'Pictures • R key or controller View button', x: 367, y: 7, width: 47, height: 29, action: () => this.openStory() }] : []),
+        ...OVERWORLD_LAYOUT.stickers, action: () => this.educationOverlay.showStickers() },
+      ...(this.storyArtwork ? [{ label: 'Replay story', nativeSpace: true, description: 'Pictures • R key or controller View button', ...OVERWORLD_LAYOUT.story, action: () => this.openStory() }] : []),
     ];
-    if (this.screens.state === 'finish') return [...this.finishActions.map((label, index) => ({
+    if (this.screens.state === 'finish') return [...this.finishTargets, ...(this.storyArtwork && this.level.id === LEVELS[0].id ? [{ label: 'View reunion picture', nativeSpace: true, description: 'R key or controller View button', ...FINISH_LAYOUT.payoff, action: () => this.openStory(true) }] : [])];
+    return [];
+  }
+
+  /** Results actions, independent of any activity drawn over the finish screen. */
+  private get finishTargets(): MenuTarget[] {
+    return this.finishActions.map((label, index) => ({
       label, x: FINISH_LAYOUT.actions.x + index * FINISH_LAYOUT.actions.spacing, y: FINISH_LAYOUT.actions.y,
       width: FINISH_LAYOUT.actions.width, height: FINISH_LAYOUT.actions.height, selected: index === this.finishIndex,
       action: () => this.activateFinish(label),
-    })), ...(this.storyArtwork && this.level.id === LEVELS[0].id ? [{ label: 'View reunion picture', nativeSpace: true, description: 'R key or controller View button', ...FINISH_LAYOUT.payoff, action: () => this.openStory(true) }] : [])];
-    return [];
+    }));
   }
 
   private preview(): HTMLCanvasElement | undefined {
@@ -465,11 +478,9 @@ export class AdventureScene implements Scene {
   }
 
   private drawFinish(ctx: CanvasRenderingContext2D): void {
-    const { panel, title, gems } = FINISH_LAYOUT;
-    ctx.fillStyle = '#10252cee';
-    ctx.fillRect(panel.x, panel.y, panel.width, panel.height);
-    ctx.strokeStyle = '#ffda75';
-    ctx.strokeRect(panel.x + 2, panel.y + 2, panel.width - 4, panel.height - 4);
+    const { title, gems } = FINISH_LAYOUT;
+    const actions = this.finishTargets;
+    drawFinishChrome(ctx, this.ui, actions);
     ctx.textAlign = 'center';
     ctx.fillStyle = '#ffda75';
     ctx.font = `bold ${title.size}px monospace`;
@@ -481,9 +492,7 @@ export class AdventureScene implements Scene {
       ctx.fillStyle = '#ffda75';
       ctx.fillText(`STARS ${this.specialTotal}/${this.run.specialTotal}`, 292, gems.baseline);
     }
-    this.menuTargets.slice(0, this.finishActions.length).forEach((target, index) => {
-      ctx.fillStyle = index === this.finishIndex ? '#ffda75' : '#34515a';
-      ctx.fillRect(target.x, target.y, target.width, target.height);
+    actions.forEach((target, index) => {
       ctx.fillStyle = index === this.finishIndex ? '#10252c' : '#e9f2df';
       // Large symbols and short labels survive the 320px fractional downscale.
       ctx.font = 'bold 18px monospace';
@@ -491,7 +500,7 @@ export class AdventureScene implements Scene {
         for (const [dx, dy] of [[0, 0], [7, 0], [0, 7], [7, 7]]) ctx.fillRect(target.x + 9 + dx, target.y + 7 + dy, 5, 5);
       } else ctx.fillText(target.label === 'Replay' ? '↶' : '▶', target.x + 15, target.y + 19);
       ctx.font = 'bold 12px monospace';
-      ctx.fillText(target.label === 'Next trail' ? 'Next' : target.label === 'Choose trail' ? 'Trails' : 'Replay', target.x + 61, target.y + 18);
+      ctx.fillText(target.label === 'Next trail' ? 'Next' : target.label === 'Choose trail' ? 'Trails' : 'Replay', target.x + 61, target.y + 17);
     });
     ctx.fillStyle = '#e9f2df'; ctx.font = '9px monospace';
     ctx.fillText(this.inputSource === 'controller' ? 'D-pad + Face' + (this.level.id === LEVELS[0].id ? ' · View: picture' : '') : '← → + Space' + (this.level.id === LEVELS[0].id ? ' · R: picture' : ''), 213, 214);
