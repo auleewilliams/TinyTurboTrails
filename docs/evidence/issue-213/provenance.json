@@ -1,0 +1,282 @@
+{
+  "baseline": "0396194b0b4d30b94e26827eb3d0688e1f03abad",
+  "sourceRevisionAtCapture": null,
+  "sourceNote": "Precommit local report revision is null; source/build content hashes identify exact inputs. Published commit is recorded in the worker handoff.",
+  "assetProvenance": [
+    "assets/source/cove/PROVENANCE.md",
+    "assets/source/cove/background/PROVENANCE.md",
+    "assets/source/frost/PROVENANCE.md",
+    "assets/source/frost/background/PROVENANCE.md",
+    "assets/source/gems/PROVENANCE.md",
+    "assets/source/henry/PROVENANCE.md",
+    "assets/source/henry/celebration/PROVENANCE.md",
+    "assets/source/interface/PROVENANCE.md",
+    "assets/source/overworld/PROVENANCE.md",
+    "assets/source/plains/PROVENANCE.md",
+    "assets/source/plains/scenery/PROVENANCE.md",
+    "assets/source/site/PROVENANCE.md",
+    "assets/source/site/background/PROVENANCE.md",
+    "assets/source/slimes/PROVENANCE.md",
+    "assets/source/specials/PROVENANCE.md",
+    "assets/source/spelling/concepts/PROVENANCE.md",
+    "assets/source/spelling/sprites/PROVENANCE.md",
+    "assets/source/story/PROVENANCE.md",
+    "assets/source/timbers/PROVENANCE.md",
+    "assets/source/title/PROVENANCE.md",
+    "assets/source/trails/PROVENANCE.md"
+  ],
+  "fullEvidenceRoot": "/home/leew/.hermes/cache/scratch/m7-213-evidence",
+  "screenshotCount": 37,
+  "inventory": [
+    {
+      "file": "input-plains-426.png",
+      "kind": "shipped app; pointer/keyboard selection and Play/abandon; no scene mutation",
+      "origin": "/home/leew/.hermes/cache/scratch/m7-213-evidence/browser-split/browser-landmark-labels-re-e8678-d-native-targets-at-426x240-chromium/plains-window.png",
+      "sha256": "4011d4a9c1e525598c6014cc9ed42c84251e157215a3493e7d60fc4add0a9741"
+    },
+    {
+      "file": "input-plains-320.png",
+      "kind": "shipped app; pointer/keyboard selection and Play/abandon; no scene mutation",
+      "origin": "/home/leew/.hermes/cache/scratch/m7-213-evidence/browser-split/browser-landmark-labels-re-8ca42-d-native-targets-at-320x240-chromium/plains-window.png",
+      "sha256": "31aacadc57c9cba5241a2ebc89dd16a8c03d8b9d1fbe6fad9be657d0298fe875"
+    },
+    {
+      "file": "input-plains-1366.png",
+      "kind": "shipped app; pointer/keyboard selection and Play/abandon; no scene mutation",
+      "origin": "/home/leew/.hermes/cache/scratch/m7-213-evidence/browser-split/browser-landmark-labels-re-aa6e9--native-targets-at-1366x768-chromium/plains-window.png",
+      "sha256": "2de0818a4b3986be7c0290d083136033d7c1ccb280528d9e4f4f2c0ac9a2a9fd"
+    },
+    {
+      "file": "input-plains-logical.png",
+      "kind": "shipped app logical bitmap; pointer-selected state",
+      "origin": "/home/leew/.hermes/cache/scratch/m7-213-evidence/browser-split/browser-landmark-labels-re-e8678-d-native-targets-at-426x240-chromium/plains-logical.png",
+      "sha256": "c7d05b65cf19d2cdc0e47e62d169777459ddc747b8285346b054743a3cdc58e6"
+    },
+    {
+      "file": "fixture-plains-completed-logical.png",
+      "kind": "renderer fixture; all six cosmetic completions; not gameplay",
+      "origin": "/home/leew/.hermes/cache/scratch/m7-213-evidence/browser-split/browser-landmark-labels-re-91f61-y-in-every-completion-state-chromium/fixture-plains-completed-logical.png",
+      "sha256": "ecfbb49af6955be19e2958e90daea6aaed9bfd25aaac6e2aaa6bfcedb41b155b"
+    },
+    {
+      "file": "input-quarry-426.png",
+      "kind": "shipped app; pointer/keyboard selection and Play/abandon; no scene mutation",
+      "origin": "/home/leew/.hermes/cache/scratch/m7-213-evidence/browser-split/browser-landmark-labels-re-e8678-d-native-targets-at-426x240-chromium/quarry-window.png",
+      "sha256": "851f108d55913f92a7c39dcad3211c64f3452a2851d3229b66744cbd9b2d0a3a"
+    },
+    {
+      "file": "input-quarry-320.png",
+      "kind": "shipped app; pointer/keyboard selection and Play/abandon; no scene mutation",
+      "origin": "/home/leew/.hermes/cache/scratch/m7-213-evidence/browser-split/browser-landmark-labels-re-8ca42-d-native-targets-at-320x240-chromium/quarry-window.png",
+      "sha256": "77c2007b5f6b8bde004e7424433c80f8c4b165a7a6a99920b0b60ca1252d8aba"
+    },
+    {
+      "file": "input-quarry-1366.png",
+      "kind": "shipped app; pointer/keyboard selection and Play/abandon; no scene mutation",
+      "origin": "/home/leew/.hermes/cache/scratch/m7-213-evidence/browser-split/browser-landmark-labels-re-aa6e9--native-targets-at-1366x768-chromium/quarry-window.png",
+      "sha256": "235da129b32802d90cdf8bc2888b0adbd1a59a1d109cd6b068f812661d1e7ce5"
+    },
+    {
+      "file": "input-quarry-logical.png",
+      "kind": "shipped app logical bitmap; pointer-selected state",
+      "origin": "/home/leew/.hermes/cache/scratch/m7-213-evidence/browser-split/browser-landmark-labels-re-e8678-d-native-targets-at-426x240-chromium/quarry-logical.png",
+      "sha256": "bdb5b118e7b91a11a7a49ab4e787061b4bd0318434def297315d5311f1e6317a"
+    },
+    {
+      "file": "fixture-quarry-completed-logical.png",
+      "kind": "renderer fixture; all six cosmetic completions; not gameplay",
+      "origin": "/home/leew/.hermes/cache/scratch/m7-213-evidence/browser-split/browser-landmark-labels-re-87781-y-in-every-completion-state-chromium/fixture-quarry-completed-logical.png",
+      "sha256": "81bdbec57b2f9ee2306b6038ab6e9bc756e7850545fc7b498213cae19c8836c0"
+    },
+    {
+      "file": "input-timbers-426.png",
+      "kind": "shipped app; pointer/keyboard selection and Play/abandon; no scene mutation",
+      "origin": "/home/leew/.hermes/cache/scratch/m7-213-evidence/browser-split/browser-landmark-labels-re-e8678-d-native-targets-at-426x240-chromium/timbers-window.png",
+      "sha256": "02a7304dfc03269736c0ab3bf834d7554ba8118bfe7573c698fc7bc57cd33fee"
+    },
+    {
+      "file": "input-timbers-320.png",
+      "kind": "shipped app; pointer/keyboard selection and Play/abandon; no scene mutation",
+      "origin": "/home/leew/.hermes/cache/scratch/m7-213-evidence/browser-split/browser-landmark-labels-re-8ca42-d-native-targets-at-320x240-chromium/timbers-window.png",
+      "sha256": "0045aa1545890b82e08173505f006c49d3bf323360af79ce66ef489443e0752a"
+    },
+    {
+      "file": "input-timbers-1366.png",
+      "kind": "shipped app; pointer/keyboard selection and Play/abandon; no scene mutation",
+      "origin": "/home/leew/.hermes/cache/scratch/m7-213-evidence/browser-split/browser-landmark-labels-re-aa6e9--native-targets-at-1366x768-chromium/timbers-window.png",
+      "sha256": "f33ccdc12772d5d0d902b9518c31bf1837a6ade9d4d2e97e3118a53ca9fa15d1"
+    },
+    {
+      "file": "input-timbers-logical.png",
+      "kind": "shipped app logical bitmap; pointer-selected state",
+      "origin": "/home/leew/.hermes/cache/scratch/m7-213-evidence/browser-split/browser-landmark-labels-re-e8678-d-native-targets-at-426x240-chromium/timbers-logical.png",
+      "sha256": "55661cc39d12cc064cd0a83618871d52faef436bb4c13059185f3b1728231975"
+    },
+    {
+      "file": "fixture-timbers-completed-logical.png",
+      "kind": "renderer fixture; all six cosmetic completions; not gameplay",
+      "origin": "/home/leew/.hermes/cache/scratch/m7-213-evidence/browser-split/browser-landmark-labels-re-0885b-y-in-every-completion-state-chromium/fixture-timbers-completed-logical.png",
+      "sha256": "e76cc1fa071bd723407bf285878030b286a5863a6bf293e5b1acd8dad41c05c6"
+    },
+    {
+      "file": "input-sunset-426.png",
+      "kind": "shipped app; pointer/keyboard selection and Play/abandon; no scene mutation",
+      "origin": "/home/leew/.hermes/cache/scratch/m7-213-evidence/browser-split/browser-landmark-labels-re-e8678-d-native-targets-at-426x240-chromium/sunset-window.png",
+      "sha256": "0e3c69bdd616c094352128eb3111e98e28786f9ad34b7f85bc2773f09d0e478d"
+    },
+    {
+      "file": "input-sunset-320.png",
+      "kind": "shipped app; pointer/keyboard selection and Play/abandon; no scene mutation",
+      "origin": "/home/leew/.hermes/cache/scratch/m7-213-evidence/browser-split/browser-landmark-labels-re-8ca42-d-native-targets-at-320x240-chromium/sunset-window.png",
+      "sha256": "1d6a9920514e93a9c60b2e5e075bde3c2a16ca23f09e6a0864d4f9930a670658"
+    },
+    {
+      "file": "input-sunset-1366.png",
+      "kind": "shipped app; pointer/keyboard selection and Play/abandon; no scene mutation",
+      "origin": "/home/leew/.hermes/cache/scratch/m7-213-evidence/browser-split/browser-landmark-labels-re-aa6e9--native-targets-at-1366x768-chromium/sunset-window.png",
+      "sha256": "42e5f192fba614d0e3e1a7ecc1327c12b68ec712e1beba8095c2d48dc2d9570a"
+    },
+    {
+      "file": "input-sunset-logical.png",
+      "kind": "shipped app logical bitmap; pointer-selected state",
+      "origin": "/home/leew/.hermes/cache/scratch/m7-213-evidence/browser-split/browser-landmark-labels-re-e8678-d-native-targets-at-426x240-chromium/sunset-logical.png",
+      "sha256": "82594b63cc1dfd28634101d1711785552d33c0f1173e04e52f495685b20fcaab"
+    },
+    {
+      "file": "fixture-sunset-completed-logical.png",
+      "kind": "renderer fixture; all six cosmetic completions; not gameplay",
+      "origin": "/home/leew/.hermes/cache/scratch/m7-213-evidence/browser-split/browser-landmark-labels-re-ef245-y-in-every-completion-state-chromium/fixture-sunset-completed-logical.png",
+      "sha256": "31cde870385cc2d61ca201f616744156723c7364804759637c49c701f8067f44"
+    },
+    {
+      "file": "input-frost-426.png",
+      "kind": "shipped app; pointer/keyboard selection and Play/abandon; no scene mutation",
+      "origin": "/home/leew/.hermes/cache/scratch/m7-213-evidence/browser-split/browser-landmark-labels-re-e8678-d-native-targets-at-426x240-chromium/frost-window.png",
+      "sha256": "0d60c4453b8c031f6372273ffb1591d5528458c61c91654434bf3cfb3c880eac"
+    },
+    {
+      "file": "input-frost-320.png",
+      "kind": "shipped app; pointer/keyboard selection and Play/abandon; no scene mutation",
+      "origin": "/home/leew/.hermes/cache/scratch/m7-213-evidence/browser-split/browser-landmark-labels-re-8ca42-d-native-targets-at-320x240-chromium/frost-window.png",
+      "sha256": "cf5662b322134b59a6c56fa8d10dd505db950f96b3844c458d456abc0a87cefb"
+    },
+    {
+      "file": "input-frost-1366.png",
+      "kind": "shipped app; pointer/keyboard selection and Play/abandon; no scene mutation",
+      "origin": "/home/leew/.hermes/cache/scratch/m7-213-evidence/browser-split/browser-landmark-labels-re-aa6e9--native-targets-at-1366x768-chromium/frost-window.png",
+      "sha256": "e56c082aa26770d9b40ae35b2766ed162ff19585c7ab8c47d66df245264072b7"
+    },
+    {
+      "file": "input-frost-logical.png",
+      "kind": "shipped app logical bitmap; pointer-selected state",
+      "origin": "/home/leew/.hermes/cache/scratch/m7-213-evidence/browser-split/browser-landmark-labels-re-e8678-d-native-targets-at-426x240-chromium/frost-logical.png",
+      "sha256": "92eece3523a2ff4edcee9e7de83e7ba50498104e44ba86477cff1e91b5fb19df"
+    },
+    {
+      "file": "fixture-frost-completed-logical.png",
+      "kind": "renderer fixture; all six cosmetic completions; not gameplay",
+      "origin": "/home/leew/.hermes/cache/scratch/m7-213-evidence/browser-split/browser-landmark-labels-re-c64d8-y-in-every-completion-state-chromium/fixture-frost-completed-logical.png",
+      "sha256": "a578755dbe8683e40bec9f0d358fe1475518a7c4d8e6b9d70bbb187f566806c1"
+    },
+    {
+      "file": "input-cove-426.png",
+      "kind": "shipped app; pointer/keyboard selection and Play/abandon; no scene mutation",
+      "origin": "/home/leew/.hermes/cache/scratch/m7-213-evidence/browser-split/browser-landmark-labels-re-e8678-d-native-targets-at-426x240-chromium/cove-window.png",
+      "sha256": "7584e50ea96a49a395e25c1d9ade4e1eb6597c5c80600e0d0a02ac21598c9e4f"
+    },
+    {
+      "file": "input-cove-320.png",
+      "kind": "shipped app; pointer/keyboard selection and Play/abandon; no scene mutation",
+      "origin": "/home/leew/.hermes/cache/scratch/m7-213-evidence/browser-split/browser-landmark-labels-re-8ca42-d-native-targets-at-320x240-chromium/cove-window.png",
+      "sha256": "684eac6bbef85656ab2634697dab108fc829b2ee450ac2e9f6fb58e2c86d0480"
+    },
+    {
+      "file": "input-cove-1366.png",
+      "kind": "shipped app; pointer/keyboard selection and Play/abandon; no scene mutation",
+      "origin": "/home/leew/.hermes/cache/scratch/m7-213-evidence/browser-split/browser-landmark-labels-re-aa6e9--native-targets-at-1366x768-chromium/cove-window.png",
+      "sha256": "fcc2bee155f7d05078981253b02861ba7eb2209b6e25e199020036f8c7e35daf"
+    },
+    {
+      "file": "input-cove-logical.png",
+      "kind": "shipped app logical bitmap; pointer-selected state",
+      "origin": "/home/leew/.hermes/cache/scratch/m7-213-evidence/browser-split/browser-landmark-labels-re-e8678-d-native-targets-at-426x240-chromium/cove-logical.png",
+      "sha256": "fd3786b888fb4d1c0d617f561d374b5ae7749a0ffb17f707602e1dd3510d1b12"
+    },
+    {
+      "file": "fixture-cove-completed-logical.png",
+      "kind": "renderer fixture; all six cosmetic completions; not gameplay",
+      "origin": "/home/leew/.hermes/cache/scratch/m7-213-evidence/browser-split/browser-landmark-labels-re-5cc64-y-in-every-completion-state-chromium/fixture-cove-completed-logical.png",
+      "sha256": "a66e477460ee5bdc9c5eed13c99ac57262d809237e908c5cb3d56ec34c7efe69"
+    },
+    {
+      "file": "fixture-plains-completed-426.png",
+      "kind": "renderer fixture; all six cosmetic completions; not gameplay",
+      "origin": "/home/leew/.hermes/cache/scratch/m7-213-evidence/browser-split/browser-landmark-labels-re-91f61-y-in-every-completion-state-chromium/fixture-plains-completed-426.png",
+      "sha256": "5c6fe081fd7ad27db2b199000c076aaa30aa604b09a33fa1b910d30f60034a37"
+    },
+    {
+      "file": "fixture-timbers-completed-320.png",
+      "kind": "renderer fixture; all six cosmetic completions; not gameplay",
+      "origin": "/home/leew/.hermes/cache/scratch/m7-213-evidence/browser-split/browser-landmark-labels-re-0885b-y-in-every-completion-state-chromium/fixture-timbers-completed-320.png",
+      "sha256": "544583092904fe909cdb69f90ce2af47f43bf8a76997c932cf27d9d535c74618"
+    },
+    {
+      "file": "fixture-cove-completed-1366.png",
+      "kind": "renderer fixture; all six cosmetic completions; not gameplay",
+      "origin": "/home/leew/.hermes/cache/scratch/m7-213-evidence/browser-split/browser-landmark-labels-re-5cc64-y-in-every-completion-state-chromium/fixture-cove-completed-1366.png",
+      "sha256": "ef08458da6c003d5dfd46aa4d7e3ff5155c44240271d11b057755a4ecd49abfd"
+    },
+    {
+      "file": "gameplay-plains-map-426.png",
+      "kind": "existing input-only Plains route pilot; accelerated presentation clock; real earned session result; preceding broad cohort, same production hashes",
+      "origin": "/home/leew/.hermes/cache/scratch/m7-213-evidence/browser-final/browser-milestone-PLAINS-p-a2bf5-oute-return-replay-and-next-chromium/plains-map-results-426.png",
+      "sha256": "0d61e01727e2983bfa26ffcc80f7f15799732be5bac297c987fff4ae420c8431"
+    },
+    {
+      "file": "gameplay-plains-map-320.png",
+      "kind": "existing input-only Plains route pilot; accelerated presentation clock; real earned session result; preceding broad cohort, same production hashes",
+      "origin": "/home/leew/.hermes/cache/scratch/m7-213-evidence/browser-final/browser-milestone-PLAINS-p-a2bf5-oute-return-replay-and-next-chromium/plains-map-results-320.png",
+      "sha256": "082207d742a34797c3c5796da7cf898476034fac789e995dbd0deed282776c22"
+    },
+    {
+      "file": "input-fullscreen.png",
+      "kind": "shipped app; native label pointer hits and synthetic standard-controller selection",
+      "origin": "/home/leew/.hermes/cache/scratch/m7-213-evidence/browser-split/browser-landmark-labels-na-3ac75-size-and-browser-fullscreen-chromium/fullscreen.png",
+      "sha256": "8d2af8e530b0bd60bf7fced8fd9e6539db539e79ca9d191bce7fa957e707f831"
+    },
+    {
+      "file": "input-fullscreen-exit.png",
+      "kind": "shipped app; native label pointer hits and synthetic standard-controller selection",
+      "origin": "/home/leew/.hermes/cache/scratch/m7-213-evidence/browser-split/browser-landmark-labels-na-3ac75-size-and-browser-fullscreen-chromium/fullscreen-exit.png",
+      "sha256": "c4203be404abb2fb28340302f28e2764c6e5870870b8d36a81b5661c6bff1ad7"
+    }
+  ],
+  "provenanceNoteSha256": {
+    "assets/source/cove/PROVENANCE.md": "ebbe8f8029447a00fd1122c6f4139ba6ced5846490d22fa4a51a7ca69d65250e",
+    "assets/source/cove/background/PROVENANCE.md": "6d5dedd2d7a905b90f755d02dd0fc5bd06f01b49269c9cf5ab51a72b830d6116",
+    "assets/source/frost/PROVENANCE.md": "c524b605042c2c94d5a141fc6856d2240f5155191439eae39d42036a66cdb850",
+    "assets/source/frost/background/PROVENANCE.md": "9465c091a3408bc1e396a62be4db0c9bda4b41c8b9767753be72dc59a03bdf40",
+    "assets/source/gems/PROVENANCE.md": "5df7f548e0ede14af81aa4d778bcbd7d9a9014cad5b34f5942ba1561e01d8731",
+    "assets/source/henry/PROVENANCE.md": "68a38b10257758c8da508cd4091a8eeb6edbb56beb3c8eea27df35e972a6910d",
+    "assets/source/henry/celebration/PROVENANCE.md": "ab59bb27f95eaf8db17490d611022dfb44e6513a3fb3fdc607d6af1ed27a3c4b",
+    "assets/source/interface/PROVENANCE.md": "26ef1e077505fbd43ffb22aba3811f47fc4dc39266d4fc4b03f8881c6ec50833",
+    "assets/source/overworld/PROVENANCE.md": "f6df5d2532cc6a2adf5f050c41da87e7e142fde3e34038ff554e0f52ad66a2cf",
+    "assets/source/plains/PROVENANCE.md": "4ee1939d86b0df20615cbf680005f255a9d809fc7d116195b3f463c6d6408aef",
+    "assets/source/plains/scenery/PROVENANCE.md": "d22971cca984a9d975e1f8561a4aaeb1ec380d12119e7fe646e8a5a2d5ce195a",
+    "assets/source/site/PROVENANCE.md": "01842b5e63c33f83aa8cf4a2fea999f7df66c0722baedcc3113db5523ab956ef",
+    "assets/source/site/background/PROVENANCE.md": "ef16c2cec507f32f2ad20f1ac137df68da7eb00fb3f3df4669bc29948f8942eb",
+    "assets/source/slimes/PROVENANCE.md": "145b953f6ecc11d752fd7a0752bb16d59016bc326406075cf2db6ab1a5d4b3ed",
+    "assets/source/specials/PROVENANCE.md": "56b15a1b292db986e83a8bc28b52260c40bf1b0f8ff82a893d41696d7e5876ae",
+    "assets/source/spelling/concepts/PROVENANCE.md": "065968f2e7068797b77fc7fdb3cfa8fa4f2a8a8cc30fb3b8d1e58583dbc15c49",
+    "assets/source/spelling/sprites/PROVENANCE.md": "cfa942fe3177c770ab7b6c91569d33ab8758022d8f06ddc3f79c6581c1e0e260",
+    "assets/source/story/PROVENANCE.md": "d7d978eaad9117f3b8923abe68b6428374d3b0074f6202aaabb6eeeb8c688584",
+    "assets/source/timbers/PROVENANCE.md": "b43002d755fa7b381a734947a904bbb2ff1bedbcf67d2872b681e9b60094ddb7",
+    "assets/source/title/PROVENANCE.md": "4b1ad88ccd50cdf31398c2b0447064708f8ec066b3029b34e339d574616fe2b2",
+    "assets/source/trails/PROVENANCE.md": "52fdd1f8a4d20e04ad7653bcefb99263c02b40748d0d66d9ecf2ef3b3753dba4"
+  },
+  "fullscreenCapability": {
+    "chromium": true,
+    "firefox": true,
+    "webkit": true
+  }
+}

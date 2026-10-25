@@ -200,3 +200,60 @@ it('describes each unvisited destination as a standalone outing, Plains over gra
   expect(descriptions).toEqual(['Over grassy hills', 'Along quarry paths', 'Through tall trees', 'Past the busy yard', 'Over snowy hills', 'Down to the seaside']);
   expect(OVERWORLD_LAYOUT).not.toHaveProperty('story');
 });
+
+it.each(LEVELS.map((level, index) => ({ level, index })))('labels every landmark while retaining $level.name selection and session results', ({ level, index }) => {
+  const scene = make();
+  const shortNames = ['Plains', 'Quarry', 'Timbers', 'Sunset', 'Frost', 'Cove'];
+  const texts: { text: string; x: number; y: number }[] = [];
+  const ctx = new Proxy({} as Record<string, unknown>, {
+    get: (target, key) => key === 'fillText' ? (text: string, x: number, y: number) => texts.push({ text, x, y })
+      : Reflect.get(target, key) ?? (() => {}),
+    set: (target, key, value) => Reflect.set(target, key, value),
+  }) as unknown as CanvasRenderingContext2D;
+  for (const completed of [false, true]) {
+    if (completed) LEVELS.forEach(trail => scene.session.mark(trail, 2, 1));
+    scene.selectDestination(index);
+    texts.length = 0;
+    drawOverworld(ctx, LEVELS, index, scene.session.results, { naturalWidth: 1, naturalHeight: 1 } as HTMLImageElement, {} as HTMLImageElement);
+    shortNames.forEach((name, i) => {
+      const label = texts.filter(draw => draw.text === name);
+      expect(label).toHaveLength(1);
+      const [x, y] = MAP_POINTS[i], target = scene.menuTargets[i];
+      expect(label[0].y).toBeGreaterThan(y + 32); // Below the selected frame, including its stroke.
+      expect(label[0].y).toBeLessThan(target.y + target.height);
+      expect(target).toMatchObject({ label: LEVELS[i].name, x: x - 35, y: y - 30, width: 70, height: 73 });
+      expect(target.description).toMatch(completed ? /^Session best: 2 of / : /^Ready to explore$/);
+    });
+    const words = level.name.split(' ');
+    expect(texts).toContainEqual({ text: words.slice(0, -1).join(' ') || words[0], x: 350, y: 63 });
+    if (words.length > 1) expect(texts).toContainEqual({ text: words.at(-1)!, x: 350, y: 76 });
+    expect(scene.menuTargets).toHaveLength(8);
+    expect(scene.menuTargets.some(target => /story|replay|view/i.test(target.label))).toBe(false);
+    expect(scene.menuTargets[6].label).toBe(`Play ${level.name}`);
+  }
+  scene.menuTargets[6].action();
+  expect(scene.screenState).toBe('playing');
+  expect(scene.selectedLevelName).toBe(level.name);
+});
+
+it('keeps travelling Henry on a row or a landmark column, including mid-travel retargeting', () => {
+  const scene = make();
+  const marker = (scene as unknown as { marker: { x: number; y: number } }).marker;
+  for (const destination of [3, 0, 4, 2, 5, 1]) {
+    scene.selectDestination(destination);
+    for (let frame = 0; frame < 90; frame++) {
+      const before = { ...marker };
+      scene.update(1 / 60, neutral);
+      const changedX = Math.abs(marker.x - before.x) > 0.5;
+      const changedY = Math.abs(marker.y - before.y) > 0.5;
+      expect(changedX && changedY).toBe(false);
+      if (changedX) expect([88, 176]).toContain(Math.round(marker.y));
+      if (changedY) expect([48, 140, 232]).toContain(Math.round(marker.x));
+      // Retarget while the cosmetic marker is moving; selection is immediate.
+      if (frame === 8) scene.selectDestination((destination + 2) % 6);
+    }
+    const target = MAP_POINTS[(destination + 2) % 6];
+    expect(marker.x).toBeCloseTo(target[0], 0);
+    expect(marker.y).toBeCloseTo(target[1], 0);
+  }
+});

@@ -7,6 +7,23 @@ export interface MenuTarget { label: string; description?: string; x: number; y:
     end: (x: number, y: number) => void; cancel: () => void };
 }
 export const MAP_POINTS = [[48, 88], [140, 88], [232, 88], [232, 176], [140, 176], [48, 176]] as const;
+/** Map-only nicknames; full trail metadata and native names stay unchanged. */
+export const LANDMARK_LABELS = ['Plains', 'Quarry', 'Timbers', 'Sunset', 'Frost', 'Cove'] as const;
+
+/** Cosmetic travel uses clear rows/columns, including a new choice mid-trip. */
+export function advanceMapMarker(marker: { x: number; y: number }, target: readonly [number, number], seconds: number, reducedMotion: boolean): void {
+  const [x, y] = target;
+  if (reducedMotion) { marker.x = x; marker.y = y; return; }
+  const blend = Math.min(1, seconds * 12);
+  if (Math.abs(x - marker.x) > 0.5) {
+    const row = marker.y < 132 ? 88 : 176;
+    if (Math.abs(row - marker.y) > 0.5) marker.y += (row - marker.y) * blend;
+    else { marker.y = row; marker.x += (x - marker.x) * blend; }
+  } else {
+    marker.x = x;
+    marker.y += (y - marker.y) * blend;
+  }
+}
 
 export const OVERWORLD_LAYOUT = {
   panel: { x: 281, y: 47, width: 139, height: 170 },
@@ -72,6 +89,12 @@ export function drawOverworld(ctx: CanvasRenderingContext2D, levels: readonly Le
       ctx.fillStyle = '#17333b'; ctx.fillRect(x + 19, y - 29, 15, 14);
       ctx.fillStyle = '#ffda75'; ctx.font = 'bold 11px monospace'; ctx.fillText('✓', x + 21, y - 18);
     }
+    // Below the art/frame, to the right of Henry's resting marker. The small
+    // cream face keeps terrain texture out of the glyphs without covering art.
+    ctx.fillStyle = '#e9f2df'; ctx.fillRect(x - 11, y + 33, 44, 10);
+    ctx.fillStyle = '#17333b'; ctx.font = 'bold 9px monospace'; ctx.textAlign = 'center';
+    ctx.fillText(LANDMARK_LABELS[index], x + 11, y + 41);
+    ctx.textAlign = 'left';
   });
   const { panel, preview: previewBounds, results: row, play, stickers } = OVERWORLD_LAYOUT;
   // Control backings only; their labels are drawn by the scene with live input hints.
