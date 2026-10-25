@@ -60,11 +60,20 @@ export class EducationOverlay {
     const accepted = slot !== undefined && this.session.place(drag.id, slot);
     this.heldLetter = undefined; this.selected = 0;
     this.message = accepted ? 'Great! Choose another letter.' : 'Try another space. Your letters are safe.';
+    if (accepted) this.placementFinished();
+  }
+  private placementFinished(): void {
+    if (!this.session.hasWordSticker) return;
+    this.selected = 0;
+    this.heldLetter = undefined;
+    this.armed = false;
+    // Clear pending gameplay confirmation at the success boundary as on entry/exit.
+    this.revision++;
   }
   private get earnedMessage(): string { return `${this.session.config.word === 'TREE' ? 'Tree' : this.session.config.word} sticker earned!`; }
-  get title(): string { return this.assembly ? `Build ${this.session.config.word}` : 'Trail stickers'; }
+  get title(): string { return this.assembly ? `${this.session.hasWordSticker ? 'Completed' : 'Build'} ${this.session.config.word}` : 'Trail stickers'; }
   get description(): string {
-    if (this.assembly) return `Build ${this.session.config.word} · ${this.session.wordProgress} · Bag ${this.session.letterCount}/4 · ${this.session.hasWordSticker ? this.earnedMessage : this.message}`;
+    if (this.assembly) return `${this.title} · ${this.session.wordProgress} · Bag ${this.session.letterCount}/4 · ${this.session.hasWordSticker ? this.earnedMessage : this.message}`;
     return `${this.session.stickers.length}/${TRAIL_WORDS.length} stickers · ${TRAIL_WORDS.map(config => `${config.name} ${config.word}: ${this.session.progressFor(config.id).hasWordSticker ? 'earned' : 'find the letters'}`).join(' · ')}`;
   }
   update(input: InputFrame): void {
@@ -82,6 +91,9 @@ export class EducationOverlay {
   }
   get targets(): MenuTarget[] {
     if (this.assembly) {
+      if (this.session.hasWordSticker) return [{ label: 'Done', description: 'Return to trail results.',
+        x: 138, y: 182, width: 150, height: 30, selected: true, nativeSpace: true,
+        focus: () => { this.selected = 0; }, action: () => this.close() }];
       const targets: MenuTarget[] = this.session.pile.map(pickup => ({
         label: `Letter ${pickup.letter}${this.session.pickups.filter(letter => letter.letter === pickup.letter).length > 1 ? ` ${this.session.pickups.filter(letter => letter.letter === pickup.letter).findIndex(letter => letter.id === pickup.id) + 1}` : ''}`,
         x: 111 + [3, 1, 0, 2].findIndex(index => this.session.pickups[index].id === pickup.id) * 52,
@@ -98,7 +110,7 @@ export class EducationOverlay {
           this.cancelDrag();
           const accepted = this.heldLetter && this.session.place(this.heldLetter, slot);
           this.message = accepted ? 'Great! Choose another letter.' : 'Try another space. Your letters are safe.';
-          if (accepted) { this.heldLetter = undefined; this.selected = 0; }
+          if (accepted) { this.heldLetter = undefined; this.selected = 0; this.placementFinished(); }
         },
       }));
       if (this.session.letterCount < 4) targets.push({ label: 'Find more letters', x: 40, y: 182, width: 166, height: 30,
@@ -139,13 +151,14 @@ export class EducationOverlay {
     ctx.restore();
   }
   private drawAssembly(ctx: CanvasRenderingContext2D): void {
-    ctx.save(); ctx.fillStyle = '#0c1922f5'; ctx.fillRect(0, 0, 426, 240);
+    const complete = this.session.hasWordSticker;
+    ctx.save(); ctx.fillStyle = complete ? '#0c1922' : '#0c1922f5'; ctx.fillRect(0, 0, 426, 240);
     ctx.textAlign = 'center'; ctx.fillStyle = '#ffda75'; ctx.font = 'bold 18px monospace';
-    ctx.fillText(`BUILD ${this.session.config.word}`, 213, 24);
+    ctx.fillText(complete ? 'WORD COMPLETE!' : `BUILD ${this.session.config.word}`, 213, 24);
     ctx.font = 'bold 16px monospace';
     [...this.session.config.word].forEach((letter, index) => ctx.fillText(letter, 132 + index * 52, 54));
     ctx.font = '10px monospace'; ctx.fillStyle = '#e9f2df';
-    ctx.fillText(this.session.hasWordSticker ? this.earnedMessage : this.message, 213, 169);
+    ctx.fillText(this.session.hasWordSticker ? this.earnedMessage : this.message, 213, complete ? 173 : 169);
     for (const [index, target] of this.targets.entries()) {
       const isLetter = target.label.startsWith('Letter '), isSpace = target.label.startsWith('Space ');
       const glyph = isLetter ? target.label[7] : isSpace ? target.label.split(': ')[1] : '';
@@ -159,13 +172,18 @@ export class EducationOverlay {
       const label = isSpace ? '_' : target.label;
       ctx.fillText(label, target.x + target.width / 2, target.y + target.height / 2 + 5);
     }
-    if (this.session.hasWordSticker) drawWordSticker(ctx, this.session.config, 365, 91, true, this.artwork);
+    if (complete) {
+      // Preserve the guide and assembled word; the earned art has its own clear central space.
+      [...this.session.config.word].forEach((letter, index) =>
+        drawLetterTile(ctx, this.artwork?.tile, letter, 111 + index * 52, 65, 42, 32, false, false));
+      drawWordSticker(ctx, this.session.config, 213, 130, true, this.artwork);
+    }
     if (this.drag) {
       drawLetterTile(ctx, this.artwork?.tile, this.session.pile.find(pickup => pickup.id === this.drag!.id)!.letter,
         this.drag.x - 21, this.drag.y - 16, 42, 32, false, true);
     }
     ctx.fillStyle = '#e9f2df'; ctx.font = '9px monospace';
-    ctx.fillText('Choose letter → space · Tab / arrows + Space / face', 213, 229);
+    ctx.fillText(complete ? 'Done: return to trail results' : 'Choose letter → space · Tab / arrows + Space / face', 213, 229);
     ctx.restore();
   }
 

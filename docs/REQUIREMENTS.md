@@ -269,14 +269,24 @@ only actual collected letters. Pointer drag/drop and keyboard/controller
 select/place build the word manually without typing. Either repeated identity can occupy either
 matching space, once only. Wrong/occupied/outside placements roll back without loss.
 Only correct manual assembly earns that trail’s themed sticker, once per trail
-per session. Letters and stickers never cross-award between trails.
+per session. Letters and stickers never cross-award between trails. Completion immediately
+shows WORD COMPLETE!, the unobscured target and assembled word, the existing
+trail sticker centered below the tiles, and its success message. Its only action
+is Done, with that exact visible label and accessible name, selected and natively
+focused on completion and completed-word reentry. Done returns to the same trail
+results with Next trail (Map on the final trail) selected and focused. Placement
+instructions become a completion prompt. The still reward presentation is clear
+without animation or delay, including reduced motion. Held final placement
+Enter/Space/repeats/key release or controller confirmation cannot activate Done;
+a fresh confirmation acts once. Reentry, replay, map and trail switching retain
+letters, assembled words and exactly one sticker per completed trail.
 
 When letters are missing, Find more letters closes the activity and puts Henry
 beside the finish in the same completed run. Preserve letters, gems, stars,
 checkpoint, squashed slimes and other run state. Henry retraces the existing
 trail himself; no missing-letter teleport, restart, substitute letters or terrain
 changes. The finish latch rearms after leaving the finish area and allows another
-crossing. Correct partial placements remain. Leave activity exposes ordinary
+crossing. Correct partial placements remain. Incomplete Leave activity exposes ordinary
 finish choices. The overlay freezes deterministic simulation and clears held
 input/focus and clock debt at its boundary.
 

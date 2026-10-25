@@ -72,9 +72,9 @@ it.each(TRAIL_WORDS)('renders $word from separate glyphs and preserves independe
   session.pickups.forEach((pickup, slot) => session.place(pickup.id, slot));
   const earned = recordingContext(); overlay.draw(earned.ctx);
   expect(earned.images.filter(call => call.image === artwork.tile)).toHaveLength(4);
-  // Only this trail's generated sticker, centered in its existing 56 x 56 cell.
+  // Only this trail's generated sticker, centered prominently below the unobscured assembled tiles.
   expect(earned.images.filter(call => call.image !== artwork.tile)).toEqual([
-    { image: stickers[config.id], alpha: 1, rect: [337, 63, 56, 56] },
+    { image: stickers[config.id], alpha: 1, rect: [185, 102, 56, 56] },
   ]);
   overlay.showStickers();
   const collection = recordingContext(); overlay.draw(collection.ctx);

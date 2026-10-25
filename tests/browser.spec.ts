@@ -3098,6 +3098,14 @@ async function observeKitTextClearance(page: Page): Promise<void> {
         // The innermost (latest) kit piece under the text anchor owns its clearance.
         const owner = [...rects].reverse().find(rect => x >= rect.x && x <= rect.right && y >= rect.y && y <= rect.bottom);
         const transform = this.getTransform();
+        const successText = /^(WORD COMPLETE!|Done: return to trail results|(?:HILL|ROCK|Tree|BEAM|SNOW|SAND) sticker earned!)$/.test(text);
+        if (successText && transform.isIdentity) {
+          const metrics = this.measureText(text);
+          const box = { left: x - metrics.actualBoundingBoxLeft, right: x + metrics.actualBoundingBoxRight, top: y - metrics.actualBoundingBoxAscent, bottom: y + metrics.actualBoundingBoxDescent };
+          const key = `${text}|canvas`;
+          if (!probe.checked.includes(key)) probe.checked.push(key);
+          if (box.left < 0 || box.right > 426 || box.top < 0 || box.bottom > 240 || (box.left < 241 && box.right > 185 && box.top < 158 && box.bottom > 102)) probe.violations.push({ key, box });
+        }
         if (owner && owner.piece !== 'spelling-tile' && transform.isIdentity) {
           const metrics = this.measureText(text);
           const box = { left: x - metrics.actualBoundingBoxLeft, right: x + metrics.actualBoundingBoxRight,
@@ -3537,8 +3545,13 @@ for (const method of ['pointer', 'keyboard', 'controller'] as const) {
 }
 
 
-for (const method of ['pointer', 'keyboard', 'controller'] as const) {
-  test(`educational manual assembly ${method} places actual letters and earns only after TREE`, async ({ page }, info) => {
+for (const { method, placementKey } of [
+  { method: 'pointer', placementKey: 'Space' },
+  { method: 'keyboard', placementKey: 'Space' },
+  { method: 'keyboard', placementKey: 'Enter' },
+  { method: 'controller', placementKey: 'Space' },
+] as const) {
+  test(`educational manual assembly ${method} ${placementKey} places actual letters and earns only after TREE`, async ({ page }, info) => {
     await installTrailPilot(page);
     await openAdventure(page, '/?debug=1');
     await page.getByRole('button', { name: 'TREETOP TIMBERS', exact: true }).click();
@@ -3561,11 +3574,13 @@ for (const method of ['pointer', 'keyboard', 'controller'] as const) {
     const frozen = await page.locator('canvas').screenshot();
     await frames(); await frames();
     expect((await page.locator('canvas').screenshot()).equals(frozen)).toBe(true);
-    const activate = async (name: string) => {
+    const activate = async (name: string, hold = false) => {
+      if (method === 'pointer') { await page.getByRole('button', { name, exact: true }).click(); return; }
       if (method === 'keyboard') {
         for (let i = 0; i < 12 && !await page.getByRole('button', { name, exact: true }).evaluate(button => button === document.activeElement); i++) await page.keyboard.press('Tab');
         await expect(page.getByRole('button', { name, exact: true })).toBeFocused();
-        await page.keyboard.press(name.startsWith('Space ') ? 'Space' : 'Enter');
+        if (hold) await page.keyboard.down(placementKey);
+        else await page.keyboard.press(name.startsWith('Space ') ? 'Space' : 'Enter');
       } else {
         await page.evaluate(() => { (window as unknown as { trailPilot: { controller: boolean } }).trailPilot.controller = true; });
         for (let i = 0; i < 12 && !await page.getByRole('button', { name, exact: true }).evaluate(button => button === document.activeElement); i++) {
@@ -3574,7 +3589,7 @@ for (const method of ['pointer', 'keyboard', 'controller'] as const) {
         }
         await expect(page.getByRole('button', { name, exact: true })).toBeFocused();
         await page.evaluate(() => { (window as unknown as { trailPad: { buttons: { pressed: boolean }[] } }).trailPad.buttons[0].pressed = true; }); await frames();
-        await page.evaluate(() => { (window as unknown as { trailPad: { buttons: { pressed: boolean }[] } }).trailPad.buttons[0].pressed = false; }); await frames();
+        if (!hold) await page.evaluate(() => { (window as unknown as { trailPad: { buttons: { pressed: boolean }[] } }).trailPad.buttons[0].pressed = false; }); await frames();
       }
     };
     const drag = async (letter: string, destination: string | { x: number; y: number }) => {
@@ -3591,18 +3606,46 @@ for (const method of ['pointer', 'keyboard', 'controller'] as const) {
     }
     for (const [slot, letter] of ['T', 'R', 'E 2', 'E 1'].entries()) {
       if (method === 'pointer') await drag(letter, `Space ${slot + 1}: empty`);
-      else { await activate(`Letter ${letter}`); await activate(`Space ${slot + 1}: empty`); }
-      await expect(page.getByRole('button', { name: `Space ${slot + 1}: ${letter[0]}`, exact: true })).toBeVisible();
+      else { await activate(`Letter ${letter}`); await activate(`Space ${slot + 1}: empty`, slot === 3); }
+      if (slot < 3) await expect(page.getByRole('button', { name: `Space ${slot + 1}: ${letter[0]}`, exact: true })).toBeVisible();
+      else await expect(page.getByRole('button', { name: 'Done', exact: true })).toBeFocused();
       if (slot < 3) await expect(page.locator('#status')).not.toContainText('Tree sticker earned!');
     }
     await expect(page.locator('#status')).toContainText('Tree sticker earned!');
+    await expect(page.locator('#status')).toContainText('T R E E');
+    for (let frame = 0; frame < 8; frame++) {
+      if (method === 'keyboard') await page.keyboard.down(placementKey);
+      await frames();
+      await expect(page.getByRole('button', { name: 'Done', exact: true })).toBeFocused();
+    }
+    if (method === 'keyboard') await page.keyboard.up(placementKey);
+    if (method === 'controller') await page.evaluate(() => { (window as unknown as { trailPad: { buttons: { pressed: boolean }[] } }).trailPad.buttons[0].pressed = false; });
+    await frames();
+    await expect(page.getByRole('button', { name: 'Done', exact: true })).toBeFocused();
+    const success = await page.locator('canvas').screenshot();
+    await frames(); await frames();
+    expect((await page.locator('canvas').screenshot()).equals(success)).toBe(true);
     await expect(page.getByRole('button', { name: /^Letter / })).toHaveCount(0);
     await capture('earned-sticker-native');
     await page.setViewportSize({ width: 320, height: 240 }); await frames();
     await expectClearViewport(page); await capture('earned-sticker-small');
-    await page.keyboard.press('Escape');
+    await activate('Done', method !== 'pointer');
+    for (let frame = 0; frame < 8; frame++) {
+      if (method === 'keyboard') await page.keyboard.down(placementKey);
+      await frames();
+      await expect(page.getByRole('button', { name: 'Next trail', exact: true })).toBeFocused();
+    }
+    if (method === 'keyboard') await page.keyboard.up(placementKey);
+    if (method === 'controller') await page.evaluate(() => { (window as unknown as { trailPad: { buttons: { pressed: boolean }[] } }).trailPad.buttons[0].pressed = false; });
+    await frames();
+    await expect(page.getByRole('button', { name: 'Next trail', exact: true })).toBeFocused();
     // Leaving restores the default onward action, never Replay.
     await expectResultsFirst(page);
+    await openWordActivity(page, 'pointer');
+    await expect(page.getByRole('button', { name: 'Done', exact: true })).toBeFocused();
+    await page.keyboard.press('Escape');
+    await expectResultsFirst(page);
+    await expect(page.getByRole('button', { name: 'Next trail', exact: true })).toBeFocused();
     await page.getByRole('button', { name: 'Map', exact: true }).click();
     await page.getByRole('button', { name: 'Open stickers', exact: true }).click();
     await expect(page.locator('#status')).toContainText('1/6 stickers');
@@ -3810,6 +3853,7 @@ for (const [index, level] of LEVELS.entries()) {
     page.on('pageerror', error => errors.push(error.message));
     const config = TRAIL_WORDS[index];
     await observeSpellingArtwork(page);
+    await observeKitTextClearance(page);
     // Plains' first slime jump overlaps H; miss I on its separate clear approach.
     const skippedSlot = index === 0 ? 1 : 0;
     const labelFor = (slot: number): string => {
@@ -3842,15 +3886,15 @@ for (const [index, level] of LEVELS.entries()) {
     };
     const frames = async (): Promise<void> => page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
     const capture = async (state: string): Promise<void> => {
-      for (const width of [426, 320]) {
-        await page.setViewportSize({ width, height: width === 426 ? 300 : 240 }); await frames();
+      for (const width of state === 'earned' ? [426, 320, 1366] : [426, 320]) {
+        await page.setViewportSize({ width, height: width === 1366 ? 768 : width === 426 ? 300 : 240 }); await frames();
         await expectClearViewport(page);
         const artwork = JSON.parse((await page.locator('#game').getAttribute('data-spelling-draws'))!);
-        if (state === 'missing-assembly' || state === 'earned') expect(artwork['tile.png']).toBeDefined();
+        if (state === 'missing-assembly' || state === 'earned' || state === 'reentry') expect(artwork['tile.png']).toBeDefined();
         const stickers = Object.keys(artwork).filter(name => name.endsWith('-sticker.png'));
-        if (state === 'earned') {
+        if (state === 'earned' || state === 'reentry') {
           expect(stickers).toEqual([`${level.id}-sticker.png`]);
-          expect(artwork[`${level.id}-sticker.png`]).toMatchObject({ rect: [337, 63, 56, 56], alpha: 1 });
+          expect(artwork[`${level.id}-sticker.png`]).toMatchObject({ rect: [185, 102, 56, 56], alpha: 1 });
         } else if (state === 'collection') {
           expect(stickers.sort()).toEqual(TRAIL_WORDS.map(word => `${word.id}-sticker.png`).sort());
           // Firefox exposes Canvas alpha as float32 (0.3000000119 for 0.3).
@@ -3919,12 +3963,25 @@ for (const [index, level] of LEVELS.entries()) {
         await page.mouse.move(from.x + from.width / 2, from.y + from.height / 2); await page.mouse.down();
         await page.mouse.move(to.x + to.width / 2, to.y + to.height / 2, { steps: 5 }); await page.mouse.up();
       } else { await activate(labelFor(slot)); await activate(`Space ${slot + 1}: empty`); }
-      await expect(page.getByRole('button', { name: `Space ${slot + 1}: ${config.word[slot]}`, exact: true })).toBeVisible();
+      if (slot < 3) await expect(page.getByRole('button', { name: `Space ${slot + 1}: ${config.word[slot]}`, exact: true })).toBeVisible();
+      else await expect(page.getByRole('button', { name: 'Done', exact: true })).toBeFocused();
       await frames();
     }
     await expect(page.locator('#status')).toContainText(`${config.word === 'TREE' ? 'Tree' : config.word} sticker earned!`);
+    await expect(page.locator('#status')).toContainText([...config.word].join(' '));
     await capture('earned');
-    await page.getByRole('button', { name: 'Leave activity', exact: true }).click();
+    const clearance = await kitTextProbe(page);
+    for (const key of ['Done|button-selected', 'WORD COMPLETE!|canvas', 'Done: return to trail results|canvas', `${config.word === 'TREE' ? 'Tree' : config.word} sticker earned!|canvas`]) expect(clearance.checked).toContain(key);
+    expect(clearance.violations).toEqual([]);
+    await writeFile(info.outputPath('success-glyph-clearance.json'), JSON.stringify(clearance, null, 2));
+    await page.getByRole('button', { name: 'Done', exact: true }).click();
+    await expect(page.getByRole('button', { name: defaultAction, exact: true })).toBeFocused();
+    await capture('done-results');
+    await openWordActivity(page, 'pointer');
+    await expect(page.getByRole('button', { name: 'Done', exact: true })).toBeFocused();
+    await capture('reentry');
+    await page.getByRole('button', { name: 'Done', exact: true }).click();
+    await expect(page.getByRole('button', { name: defaultAction, exact: true })).toBeFocused();
     await expect(page.getByRole('button', { name: 'Replay', exact: true })).toBeVisible();
     await expectResultsFirst(page, defaultAction);
     await page.getByRole('button', { name: 'Map', exact: true }).click();
@@ -4038,6 +4095,7 @@ test('builder-kit visual fixture renders all six words and generated stickers at
     .flatMap(([, names]) => names.split(',').map(name => name.trim()).filter(name => name && !name.startsWith('type ')))))];
   expect(runtimeImports).toEqual(expect.arrayContaining(['drawKitButton', 'drawKitFrame', 'drawLetterTile', 'loadImage', 'TRAIL_WORDS']));
   await page.setViewportSize({ width: 426, height: 300 });
+  await page.emulateMedia({ reducedMotion: 'reduce' });
   await observeSpellingArtwork(page);
   await openAdventure(page, '/');
   await page.addScriptTag({ content: `(() => {
@@ -4105,12 +4163,13 @@ test('builder-kit visual fixture renders all six words and generated stickers at
       await page.getByRole('button', { name: `Space ${slot + 1}: empty`, exact: true }).focus();
       if (config.id === 'sunset' && slot === 0) await capture(config.id, 'held');
       await page.keyboard.press('Enter');
-      await expect(page.getByRole('button', { name: `Space ${slot + 1}: ${pickup.letter}`, exact: true })).toBeVisible();
+      if (slot < 3) await expect(page.getByRole('button', { name: `Space ${slot + 1}: ${pickup.letter}`, exact: true })).toBeVisible();
+      else await expect(page.getByRole('button', { name: 'Done', exact: true })).toBeFocused();
     }
     const art = JSON.parse((await page.locator('#game').getAttribute('data-spelling-draws'))!);
     expect(art['tile.png']).toBeDefined();
     expect(Object.keys(art).filter(name => name.endsWith('-sticker.png'))).toEqual([`${config.id}-sticker.png`]);
-    expect(art[`${config.id}-sticker.png`]).toMatchObject({ rect: [337, 63, 56, 56], alpha: 1 });
+    expect(art[`${config.id}-sticker.png`]).toMatchObject({ rect: [185, 102, 56, 56], alpha: 1 });
     await capture(config.id, 'earned');
   }
   await page.evaluate(() => (window as unknown as { spellingFixture: { overlay: EducationOverlay } }).spellingFixture.overlay.showStickers());

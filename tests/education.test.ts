@@ -198,7 +198,7 @@ it('opens optional manual assembly at finish and accepts select/place through na
     } else target.action();
   }
   expect(scene.education.stickers).toEqual(['Timbers TREE']);
-  scene.menuTargets.find(target => target.label === 'Leave activity')!.action();
+  scene.menuTargets.find(target => target.label === 'Done')!.action();
   expect(scene.educationOverlay.open).toBe(false);
   expect(scene.menuTargets.map(target => target.label)).toEqual(['Next trail', 'Map', 'Build your word', 'Replay']);
 });
