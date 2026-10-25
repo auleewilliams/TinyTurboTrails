@@ -114,8 +114,33 @@ export function areaName(level: LevelData, index: number): string {
 }
 export function controlHints(source: InputSource): readonly string[] {
   return source === 'controller'
-    ? ['Stick / D-pad: move', 'Face button: jump', 'Start: resume', 'Mute: screen button']
+    ? ['Stick / D-pad: move', 'Buttons 1–4: jump', 'Start: resume', 'Pause: sound / rumble']
     : ['Arrows / A-D: move', 'Space: jump', 'Escape: resume', 'M: mute'];
+}
+
+/** Illustrated keyboard keys and a brand-neutral standard face-button cluster.
+ * All four face positions are accepted by BrowserInput; no vendor lettering is implied. */
+export function drawControlCues(ctx: CanvasRenderingContext2D, source: InputSource, y: number): void {
+  ctx.save(); ctx.font = '10px monospace'; ctx.textAlign = 'center';
+  const key = (text: string, x: number, width: number, baseline: number) => {
+    ctx.fillStyle = '#bfd5ce'; ctx.fillRect(x, baseline - 11, width, 16);
+    ctx.fillStyle = '#10252c'; ctx.fillRect(x + 1, baseline - 10, width - 2, 13);
+    ctx.fillStyle = '#e9f2df'; ctx.fillText(text, x + width / 2, baseline);
+  };
+  ctx.fillStyle = '#e9f2df';
+  if (source === 'controller') {
+    ctx.fillText('Stick / D-pad: move', 124, y);
+    // Four equally lit positions match the four accepted standard face buttons.
+    for (const [dx, dy] of [[0, -5], [-5, 0], [5, 0], [0, 5]]) ctx.fillRect(246 + dx, y - 5 + dy, 3, 3);
+    ctx.fillText('Jump / select', 304, y);
+    key('Start', 154, 38, y + 24); ctx.fillText('Resume', 221, y + 24);
+  } else {
+    key('← →', 62, 32, y); ctx.fillText('Move', 116, y);
+    key('Space', 231, 38, y); ctx.fillText('Jump', 292, y);
+    key('Escape', 62, 44, y + 24); ctx.fillText('Resume', 132, y + 24);
+    key('M', 231, 18, y + 24); ctx.fillText('Sound', 280, y + 24);
+  }
+  ctx.restore();
 }
 
 /** Brief teaching and location labels are presentation state, reset with each run. */

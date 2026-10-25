@@ -2,7 +2,7 @@ import type { LevelData } from '../world/level';
 import { drawRewardResult } from './reward-result';
 import { drawKitButton, drawKitFrame, type InterfaceKit } from '../art/interface-kit';
 
-export interface MenuTarget { label: string; description?: string; x: number; y: number; width: number; height: number; selected?: boolean; action: () => void; focus?: () => void; nativeSpace?: boolean;
+export interface MenuTarget { label: string; description?: string; x: number; y: number; width: number; height: number; selected?: boolean; pressed?: boolean; action: () => void; focus?: () => void; nativeSpace?: boolean;
   drag?: { start: (x: number, y: number) => void; move: (x: number, y: number) => void;
     end: (x: number, y: number) => void; cancel: () => void };
 }

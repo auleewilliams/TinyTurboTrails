@@ -8,18 +8,10 @@
   </head>
   <body>
     <main>
-      <canvas id="game" width="426" height="240" aria-label="Tiny Turbo Trails game">This game requires a browser with Canvas 2D support.</canvas>
+      <canvas id="game" width="426" height="240" tabindex="-1" aria-label="Tiny Turbo Trails game">This game requires a browser with Canvas 2D support.</canvas>
       <p id="status" role="status">Loading Tiny Turbo Trails…</p>
       <div class="feedback-controls">
-        <button id="mute" type="button" aria-label="Mute audio" aria-pressed="false">Mute</button>
-        <button id="rumble" type="button" aria-label="Controller rumble" aria-pressed="true" title="Turn controller rumble off">
-          <svg viewBox="0 0 40 28" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M14 8h12c3 0 4 2 5 5l2 8c1 3-2 4-4 2l-4-4H15l-4 4c-2 2-5 1-4-2l2-8c1-3 2-5 5-5Z" />
-            <path d="M14 11v6m-3-3h6m8-1h.1m3 3h.1M17 8l1-4h4" />
-            <path class="rumble-waves" d="M4 9 2 14l2 5m32-10 2 5-2 5" />
-            <path class="rumble-slash" d="M7 25 33 3" />
-          </svg>
-        </button>
+        <button id="pause" type="button" aria-label="Pause"><span aria-hidden="true">Ⅱ</span> Pause</button>
       </div>
       <button id="retry" type="button" hidden>Retry loading</button>
     </main>

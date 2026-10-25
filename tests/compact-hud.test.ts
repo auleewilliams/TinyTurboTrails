@@ -68,7 +68,7 @@ it('queues a four-active-second ribbon introduction behind teaching, locations a
   hud.update(1 / 60, neutral, level, level.start.x);
   expect(hud.hint).toBe('Arrows / A-D: move');
   hud.update(1 / 60, { ...neutral, horizontal: 1, source: 'controller' }, level, level.start.x);
-  expect(hud.hint).toBe('Face button: jump');
+  expect(hud.hint).toBe('Buttons 1–4: jump');
   hud.update(1 / 60, { ...neutral, jumpPressed: true }, level, level.start.x);
   expect(hud.hint).toBe(''); // location still owns attention
   hud.update(3, neutral, level, level.start.x, true);

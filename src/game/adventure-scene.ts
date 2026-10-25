@@ -305,7 +305,7 @@ export class AdventureScene implements Scene {
     ctx.drawImage(this.henry.atlas, frame.x, frame.y, frame.width, frame.height,
       Math.round(this.marker.x) - 39, Math.round(this.marker.y) + 4, 28, 28);
     ctx.fillStyle = '#17333b'; ctx.font = '9px monospace'; ctx.textAlign = 'left';
-    ctx.fillText(this.inputSource === 'controller' ? 'D-pad / stick: choose   Face button: play' : '← → Choose   Space: play   Click a landmark', 8, 234);
+    ctx.fillText(this.inputSource === 'controller' ? 'D-pad: choose · Buttons 1–4: play' : '← → Choose · Space: play · Click trail', 8, 234);
     // Both lines sit inside the plank's quiet face (x 288-355, y 13-30), including the ↑ descent.
     ctx.fillStyle = '#ffda75'; ctx.font = 'bold 9px monospace'; ctx.fillText('STICKERS', 288, 20);
     ctx.font = '8px monospace'; ctx.fillText(`${this.education.stickers.length}/${TRAIL_WORDS.length} · ${this.inputSource === 'controller' ? 'D-pad ↑' : 'E/click'}`, 288, 28);
@@ -490,7 +490,7 @@ export class AdventureScene implements Scene {
     });
     ctx.textAlign = 'center';
     ctx.fillStyle = '#e9f2df'; ctx.font = '9px monospace';
-    ctx.fillText(this.inputSource === 'controller' ? 'D-pad + Face' : '← → + Space', 213, 214);
+    ctx.fillText(this.inputSource === 'controller' ? 'D-pad + buttons' : '← → + Space', 213, 214);
     ctx.textAlign = 'left';
     if (this.landmarks) {
       const w = this.landmarks.naturalWidth / 3, h = this.landmarks.naturalHeight / 2;

@@ -23,6 +23,7 @@ export class BrowserInput {
   readonly rumble = new BrowserRumble();
   private held = new Set<string>();
   private pressed = new Set<string>();
+  private freshMovement: string[] = [];
   private previousPadJump = false;
   private previousPadPause = false;
   private previousPadActivity = false;
@@ -32,10 +33,17 @@ export class BrowserInput {
   private previousPadAction = '';
 
   constructor(private readonly target: Window, private readonly interact: () => void) {
+    target.addEventListener('keydown', this.keyboardInteraction, true);
     target.addEventListener('keydown', this.keyDown);
     target.addEventListener('keyup', this.keyUp);
     target.addEventListener('gamepaddisconnected', this.clear);
   }
+
+  // Observe native menu keyboard gestures without sending them through gameplay bindings.
+  private keyboardInteraction = (event: KeyboardEvent): void => {
+    if (!this.focused || event.repeat || (!KEYS.has(event.code) && event.code !== 'Enter' && event.code !== 'Tab')) return;
+    this.source = 'keyboard'; this.interact();
+  };
 
   private keyDown = (event: KeyboardEvent): void => {
     if (!this.focused) return;
@@ -45,7 +53,6 @@ export class BrowserInput {
     if (!this.held.has(event.code)) this.pressed.add(event.code);
     this.held.add(event.code);
     this.source = 'keyboard';
-    this.interact();
   };
 
   private keyUp = (event: KeyboardEvent): void => {
@@ -55,6 +62,7 @@ export class BrowserInput {
   clear = (): void => {
     this.rumble.setController(null, 'keyboard');
     this.held.clear();
+    this.freshMovement = [];
     this.pressed.clear();
     this.previousPadJump = false;
     this.previousPadPause = false;
@@ -62,6 +70,13 @@ export class BrowserInput {
     // Require release after focus recovery before accepting held controller input.
     this.blockedPads = true;
   };
+
+  /** Ignore menu-held controls, but retain a new movement edge alongside Escape. */
+  clearForResume(): void {
+    const fresh = this.freshMovement.filter(code => this.held.has(code));
+    this.clear();
+    fresh.forEach(code => this.held.add(code));
+  }
 
   setFocused(focused: boolean): void {
     if (focused !== this.focused) this.clear();
@@ -106,6 +121,7 @@ export class BrowserInput {
       trailsPressed: this.pressed.has('KeyT'),
       activityPressed: this.pressed.has('KeyE') || (activity && !this.previousPadActivity),
     };
+    this.freshMovement = [...this.pressed].filter(code => ['ArrowLeft', 'ArrowRight', 'KeyA', 'KeyD'].includes(code));
     this.pressed.clear();
     this.previousPadJump = jump;
     this.previousPadPause = pause;
@@ -115,6 +131,7 @@ export class BrowserInput {
   }
 
   dispose(): void {
+    this.target.removeEventListener('keydown', this.keyboardInteraction, true);
     this.target.removeEventListener('keydown', this.keyDown);
     this.target.removeEventListener('keyup', this.keyUp);
     this.target.removeEventListener('gamepaddisconnected', this.clear);

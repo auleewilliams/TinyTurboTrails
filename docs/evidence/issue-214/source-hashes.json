@@ -1,0 +1,22 @@
+{
+  "baseline": "4bdc723ba2a3d303e1ee51d87070f70d3a4c020d",
+  "description": "Final production source and Vite output; no new image assets. Asset preparation record and the four reused approved kit images included.",
+  "hashes": {
+    "index.html": "5d916fd3e7a122b47953dfac450a72195520f66c74cf5c938b7bdc48e59f9935",
+    "src/style.css": "d8b1feb8f62889171555a48dfe61caffe8711df8269221ae227385f84b60fa8b",
+    "src/main.ts": "f701334f1b4d407953a6ae499880ae1c73612938377b4df4fae45bf3b52bbf87",
+    "src/core/input.ts": "00c5c3ff08c119cd1c22f17cebd53100f6c5ee7bfbc61da7ee5036e9e1fa228e",
+    "src/game/pause-menu.ts": "409839f100711b69e577e41d0f97a60fd6b6369f5e73dfa907c5b6b3c7a4aa1f",
+    "src/game/menu-overlay.ts": "f5b38ecec932a1bce936328d2d491f47d67cf93d826ebbb0f3456936a5615835",
+    "src/game/hud.ts": "15de2e9b633ff03cd192ae48b66e1129e17020aba3232f0721cc62e43e8d7a70",
+    "src/game/overworld.ts": "e6fc0f4700090c73f6a8220393a9a59d02ebae8fe86a5d2b93654a27fa0a729f",
+    "src/game/adventure-scene.ts": "cc922f0728ff143f99bb247be22a8749bd849a62496c54fee8f0e0393d32c551",
+    "dist/build-assets/index-BPlW3wju.js": "4d1119af077b04085c62d1470a03b2da3d1b6522b6f0fd8ca5f55911c4e98f5c",
+    "dist/build-assets/index-C4BHkq3Q.css": "e59d073694aba8eadff5f1cb256f92175c479fbf52aee0b68a5ae91954a8271b",
+    "assets/source/interface/preparation.json": "939a34273c6a30c79725370e68ca69bb96dcb692306f48cdd93cefda0aa30b56",
+    "public/assets/interface/panel.png": "5e6e2d33ae6b0f86941643e70b6cb28dbffd5d63c424332eeba84cbb058dc584",
+    "public/assets/interface/button.png": "04b29e064c318ca4a9f13368e9a4e0a632ccd8acc55fb22f1fd853131657d9c6",
+    "public/assets/interface/button-selected.png": "03a25bddbd69479462812d21b689465c6aa7fff84e5d0b86c49189f912640533",
+    "public/assets/interface/plaque.png": "fb99e6fffbd20c4c5e93ba714f506890757cc0c926c4b893e4d1bc6d691ff59d"
+  }
+}

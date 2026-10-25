@@ -48,7 +48,7 @@ it('teaches movement then jump briefly, switches device text, and clears learned
   hud.update(1 / 60, neutral, PLAINS_LEVEL, 50);
   expect(hud.hint).toBe('Arrows / A-D: move');
   hud.update(1 / 60, { ...neutral, horizontal: 1, source: 'controller' }, PLAINS_LEVEL, 52);
-  expect(hud.hint).toBe('Face button: jump');
+  expect(hud.hint).toBe('Buttons 1–4: jump');
   hud.update(1 / 60, { ...neutral, horizontal: 1, source: 'keyboard' }, PLAINS_LEVEL, 55);
   expect(hud.hint).toBe('Space: jump');
   hud.update(1 / 60, { ...neutral, jumpPressed: true }, PLAINS_LEVEL, 55);

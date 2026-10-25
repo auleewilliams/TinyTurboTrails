@@ -44,8 +44,11 @@ Docker/nginx deployment and rollback. Public internet hosting is outside scope.
 | Play / confirm | Space; Tab and Enter on buttons | Any face button | Play / action button |
 | Move | Left/Right or A/D | D-pad / left stick | Not supported |
 | Jump | Space | Any face button | Not supported |
-| Pause / resume | Escape | Start | — |
-| Mute | M | — | Mute button |
+| Pause / resume | Escape; Tab + Enter/Space on Pause / Resume | Start | Pause / Resume button |
+| Sound on/off | M; pause-menu Sound button | Choose Sound while paused, then a face button | Pause → Sound |
+| Rumble on/off | Pause-menu Controller rumble button | Choose Rumble while paused, then a face button | Pause → Rumble |
+
+Pause also offers settings on the map, results and diagnostic previews. Sound and rumble are independent, session-only choices; On/Off text reports their state while the gold plank marks menu selection. Return to Trails appears only during a live run and asks for confirmation before resetting it. Keyboard keycaps and a neutral four-position controller cue retain the existing bindings.
 
 Henry celebrates each finish with a jump and cheer (a still pose with reduced motion).
 Results come first: no activity covers the finish. Its buttons read Next trail, Map,

@@ -75,7 +75,11 @@ Art material choices never change collision geometry or movement tuning.
 
 ## Pause, audio and motion
 
-Escape/Start toggles pause. Focus loss pauses simulation and audio; returning
+The visible Pause button and Escape/Start open the shared pause surface. Resume
+keeps its primary position; Sound and Rumble show separate On/Off states. Settings
+are also reachable from map/results and diagnostic previews. Only a live trail
+offers Return to Trails, with confirmation. M still toggles sound globally.
+Escape/Start resume or cancel a pending return confirmation. Focus loss pauses simulation and audio; returning
 clears elapsed time and held input, preserving a deliberate pause. Each trail
 has its own local synthesized score. Music stops at the finish and resets on
 Replay/Next trail. See [audio](AUDIO.md) for unlock and silent fallback.
