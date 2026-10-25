@@ -196,7 +196,7 @@ Its only native target is Return to map, selected
 and focused on entry. Pointer, Tab/Enter/Space and standard face-button access
 remain. Escape, Start, E or D-pad Up also closes it. Held confirmation must be
 released before controller confirmation. Normal pause, Return to Trails and
-story/navigation remain intact. Focus loss hides targets and cancels dragging.
+map navigation remain intact. Focus loss hides targets and cancels dragging.
 
 The shared overlay revision boundary stops simulation, animation, timers, audio
 and rumble before clock advancement. Closing clears time debt and held actions;

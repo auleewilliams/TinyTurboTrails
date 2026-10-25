@@ -155,7 +155,7 @@ describe('adventure rumble triggers', () => {
     const sound = vi.spyOn(audio, 'play');
     const rumble = { play: vi.fn(), stop: vi.fn() };
     const worlds = Object.fromEntries(LEVELS.map(level => [level.atlas, {} as never]));
-    const scene = new AdventureScene({} as HTMLImageElement, {} as never, worlds, audio, LEVELS[0], undefined, undefined, undefined, rumble);
+    const scene = new AdventureScene({} as HTMLImageElement, {} as never, worlds, audio, LEVELS[0], undefined, undefined, rumble);
     scene.startSelected();
     const live = scene as unknown as { player: Player; run: RunState; level: LevelData };
     return { scene, live, sound, rumble };

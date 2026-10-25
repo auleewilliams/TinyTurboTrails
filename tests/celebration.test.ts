@@ -1,7 +1,6 @@
 import { afterEach, expect, it, vi } from 'vitest';
 import { CompletionCelebration, celebrationJump, celebrationSparkles } from '../src/game/celebration';
 import { AdventureScene } from '../src/game/adventure-scene';
-import { StoryBook } from '../src/game/story';
 import { SimulationClock } from '../src/core/clock';
 import { LEVELS } from '../src/world/levels';
 import manifest from '../public/assets/henry/manifest.json';
@@ -12,9 +11,11 @@ import type { RunState } from '../src/game/interactions';
 const neutral = { horizontal: 0, jumpHeld: false, jumpPressed: false, pausePressed: false, mutePressed: false };
 const audio = { unlock: async () => {}, setMuted() {}, setSuspended() {}, startMusic: vi.fn(), play: vi.fn(), stop() {}, dispose() {} };
 const worlds = Object.fromEntries(LEVELS.map(level => [level.atlas, {} as never]));
-const make = (index = 0) => new AdventureScene({} as never, { manifest } as never, worlds, audio, LEVELS[index], undefined, undefined, {} as never);
+const landmarks = { naturalWidth: 300, naturalHeight: 200 } as HTMLImageElement;
+const rumble = { play: vi.fn(), stop: vi.fn(), setGameplay() {}, setSuspended() {}, setEnabled() {} };
+// Same positional dependencies as the shipped entry point: no picture-story artwork.
+const make = (index = 0) => new AdventureScene({} as never, { manifest, atlas: {} } as never, worlds, audio, LEVELS[index], landmarks, {} as never, rumble as never);
 type Live = { celebration: CompletionCelebration; player: Player; run: RunState };
-const dismiss = (scene: AdventureScene) => scene.menuTargets.find(target => target.label === 'Skip story')!.action();
 const finish = (scene: AdventureScene, index = 0) => {
   (scene as unknown as Live).player.x = LEVELS[index].finish.x;
   scene.update(1 / 60, neutral);
@@ -47,7 +48,7 @@ it('reduced motion immediately holds victory and fixed sparkles', () => {
 });
 
 it.each(LEVELS.map((level, index) => ({ level, index })))('resets celebration on repeat completion of $level.name and advances while input waits for release', ({ index }) => {
-  const scene = make(index); dismiss(scene); scene.startSelected();
+  const scene = make(index); scene.startSelected();
   const live = scene as unknown as Live;
   scene.update(20, neutral); expect(live.celebration.seconds).toBe(0);
   finish(scene, index); expect(live.celebration.seconds).toBe(0);
@@ -61,7 +62,7 @@ it.each(LEVELS.map((level, index) => ({ level, index })))('resets celebration on
 });
 
 it('pause/focus clock suspension freezes finish time without a catch-up jump', () => {
-  const scene = make(); dismiss(scene); scene.startSelected(); finish(scene);
+  const scene = make(); scene.startSelected(); finish(scene);
   const clock = new SimulationClock(); const update = (seconds: number) => scene.update(seconds, neutral);
   clock.advance(0, update); clock.advance(100, update);
   const before = (scene as unknown as Live).celebration.seconds;
@@ -73,38 +74,47 @@ it('pause/focus clock suspension freezes finish time without a catch-up jump', (
   expect((scene as unknown as Live).celebration.seconds).toBeCloseTo(before + 1 / 60);
 });
 
-it('keeps pictures player-paced, dismissible and replayable with no simulation or music', () => {
+/** Records every image destination and live text on the finish screen. */
+function finishRecording(scene: AdventureScene) {
+  const images: { image: unknown; rect: number[] }[] = [], text: string[] = [];
+  const state: Record<string, unknown> = { fillStyle: '#000', font: '10px monospace' };
+  const ctx = new Proxy(state, { get: (target, key) => {
+    if (key === 'drawImage') return (image: unknown, ...args: number[]) => images.push({ image, rect: args.slice(-4) });
+    if (key === 'fillText') return (value: string) => text.push(value);
+    return Reflect.get(target, key) ?? (() => {});
+  }, set: (target, key, value) => Reflect.set(target, key, value) }) as unknown as CanvasRenderingContext2D;
+  (scene as unknown as { drawFinish(ctx: CanvasRenderingContext2D): void }).drawFinish(ctx);
+  return { images, text };
+}
+
+it('starts on the trail map with Plains selected and only map, Play and sticker targets', () => {
   const scene = make(); const live = scene as unknown as Live;
-  scene.update(500, neutral); expect(scene.screenState).toBe('story'); expect(live.run.seconds).toBe(0);
+  expect(scene.screenState).toBe('title');
+  expect(scene.selectedLevelName).toBe(LEVELS[0].name);
+  expect(scene).not.toHaveProperty('storyDescription');
+  expect(scene.menuTargets.map(target => target.label)).toEqual([...LEVELS.map(level => level.name), `Play ${LEVELS[0].name}`, 'Open stickers']);
+  // A long wait on the map, a stray retired story edge and held input never start or advance a trail.
+  scene.update(500, { ...neutral, storyPressed: true } as never);
+  expect(scene.screenState).toBe('title'); expect(live.run.seconds).toBe(0);
   scene.update(1 / 60, { ...neutral, jumpPressed: true, jumpHeld: true });
-  expect(scene.storyDescription).toContain('Rain');
-  for (let i = 0; i < 30; i++) scene.update(1 / 60, { ...neutral, jumpHeld: true });
-  expect(scene.storyDescription).toContain('Rain');
-  dismiss(scene); expect(scene.screenState).toBe('title');
-  scene.update(1 / 60, { ...neutral, jumpHeld: true, jumpPressed: true }); expect(scene.screenState).toBe('title');
-  scene.update(1 / 60, neutral);
-  scene.update(1 / 60, { ...neutral, storyPressed: true }); expect(scene.screenState).toBe('story');
-  expect(scene.storyDescription).toContain('prepare a picnic');
-  dismiss(scene); scene.startSelected(); finish(scene);
-  scene.activateFinish('Replay'); expect(scene.screenState).toBe('playing');
-  finish(scene); scene.activateFinish('Next trail'); expect(scene.screenState).toBe('playing');
+  expect(scene.screenState).toBe('playing'); expect(scene.selectedLevelName).toBe(LEVELS[0].name);
 });
 
-it('reunion picture returns to unchanged results and celebration; no automatic replay of opening', () => {
-  const scene = make(); dismiss(scene); scene.startSelected(); finish(scene);
-  scene.update(0.4, neutral);
-  scene.menuTargets.find(target => target.label === 'View reunion picture')!.action();
-  expect(scene.storyDescription).toContain('high-five');
-  scene.update(40, neutral); expect((scene as unknown as Live).celebration.seconds).toBe(0.4);
-  scene.menuTargets.find(target => target.label === 'Return to results')!.action();
+it.each(LEVELS.map((level, index) => ({ level, index })))('$level.name finishes with its landmark, cheer and ordinary results', ({ index }) => {
+  const scene = make(index); scene.startSelected(); finish(scene, index);
   expect(scene.screenState).toBe('finish');
-  scene.activateFinish('Choose trail'); expect(scene.screenState).toBe('title');
-});
-
-it('story controls expose meaningful labels and previous/next/skip actions', () => {
-  const book = new StoryBook(); book.targets[0].action(); expect(book.page).toBe(0);
-  book.targets[1].action(); expect(book.page).toBe(1);
-  book.targets[0].action(); expect(book.page).toBe(0);
-  book.advance(); book.advance(); expect(book.active).toBe(true);
-  book.advance(); expect(book.active).toBe(false);
+  const labels = scene.menuTargets.map(target => target.label);
+  expect(labels).toEqual(index < LEVELS.length - 1 ? ['Replay', 'Next trail', 'Choose trail'] : ['Replay', 'Choose trail']);
+  scene.update(1 / 60, { ...neutral, storyPressed: true } as never);
+  expect(scene.screenState).toBe('finish');
+  const { images, text } = finishRecording(scene);
+  // Exactly one landmark and Henry's cheer: no picture-story sheet on any trail.
+  expect(images.filter(draw => draw.image === landmarks)).toEqual([{ image: landmarks, rect: [88, 90, 80, 66] }]);
+  const henry = (scene as unknown as { henry: { atlas: unknown } }).henry.atlas;
+  expect(images.filter(draw => draw.image === henry)).toHaveLength(1);
+  expect(images).toHaveLength(2);
+  expect(text).toContain('Another trail explored!');
+  expect(text).toContain('TRAIL COMPLETE!');
+  expect(text.join(' ')).not.toMatch(/friend|picture|reunion/i);
+  expect(text).toContain('← → + Space');
 });

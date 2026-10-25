@@ -66,7 +66,6 @@ try {
       await page.setViewportSize({ width, height });
       for (const [id, name] of [['sunset', 'SUNSET SITE'], ['frost', 'FROST RIDGE'], ['cove', 'SANDY COVE']]) {
         await page.goto('http://127.0.0.1:4175/');
-        await page.getByRole('button', { name: 'Skip story', exact: true }).click();
         await page.getByRole('button', { name, exact: true }).click();
         await page.getByRole('button', { name: `Play ${name}`, exact: true }).waitFor();
         await page.screenshot({ path: `${directory}/${id}-map-${label}.png` });

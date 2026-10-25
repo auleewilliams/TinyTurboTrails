@@ -25,3 +25,12 @@ Adult visual inspection checks identity, simple visual cause/effect, native
 and small layouts. The parent-led child-comprehension follow-up is explicitly
 pending; see `docs/patchwork-vale-story.md`. The story does not depict a completed
 repair as a reward for simply reaching the trail finish.
+
+## Retired from the game (2026-10-25, #195)
+
+The owner replaced the storm-and-gathering opening with an exploration premise
+that starts directly on the trail map. The processed runtime sheet
+`public/assets/story/patchwork-vale.png` and its packaging step were removed; the
+game no longer loads or draws story art. This source artwork, prompt and
+provenance are retained unchanged as history. The paragraphs above describe the
+packaging as it was when generated.

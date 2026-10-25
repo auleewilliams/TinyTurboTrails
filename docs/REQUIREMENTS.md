@@ -67,7 +67,7 @@ Use natural portrait/wide margins for controls wherever possible; otherwise
 choose the larger fit beside or above a rail sized to the controls plus a small
 gap, without integer-scale drops.
 Unavoidable margins use the dark UI panel color rather than a broad teal surround.
-Controls remain independently operable by pointer and keyboard in story, map,
+Controls remain independently operable by pointer and keyboard in map,
 play, pause and finish states. Status announcements stay available to assistive
 technology without duplicating the gameplay HUD. Resize and app fullscreen retain
 the complete game, native menu targets and controls, with no document overflow.
@@ -193,18 +193,22 @@ art/provenance. Automated reachability and visual checks do not establish Henry'
 understanding or enjoyment; no child playtest is claimed for this milestone.
 
 
-## Henry's celebration and Patchwork Vale story (#119, #120)
+## Henry's celebration and Patchwork Vale exploration (#119, #195)
 
-The [story reference and visual storyboard](patchwork-vale-story.md) define Henry
-Turbo, the Great Rumble and the Vale Get-Together. Actual local illustrations
-communicate the opening, first-trail goal and reunion without requiring reading
-or sound. Player-paced previous/next/skip controls support keyboard, pointer and
-standard controllers with accessible labels. The opening appears once per page
-session and can be replayed deliberately; retries and finish navigation do not
-repeat it. All six trails stay open and all state stays in memory.
+The [story reference](patchwork-vale-story.md) defines Henry Turbo as an
+explorer of Patchwork Vale. Each of the six trails is an independent outing:
+choose a place, explore, discover collectibles and celebrate reaching the end.
+There is no crisis, gathering, mission, overall ending or completion obligation,
+and the game promises no quests, repairs, construction, interiors or new
+progression. Letters and stickers remain optional and never gate completion.
 
-Plains completion celebrates reaching the neighbour via the hill trail, not
-unimplemented repairs or deliveries. Every trail uses Henry's non-looping eight
+Both `/` and `/?scene=adventure` start and reload directly on the trail map with
+Plains selected; there is no opening picture story, story replay, reunion picture
+or story-only key/controller binding. All six trails stay open and all state
+stays in memory. Plains' map description is **Over grassy hills**.
+
+Every trail, Plains included, finishes with its own landmark, Henry's cheer, the
+**Another trail explored!** message and ordinary results. Every trail uses Henry's non-looping eight
 celebration poses over about 1.2 seconds, then holds victory. A bounded sparkle
 burst ends within two seconds. Reduced motion shows still victory and static
 sparkles immediately. A dedicated timer resets on finish/run reset, advances

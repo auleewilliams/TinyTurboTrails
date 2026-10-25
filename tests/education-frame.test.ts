@@ -24,12 +24,12 @@ it('discards activity clock debt when finish opens and pointer return closes bef
   expect(start).toBeGreaterThan(0); expect(end).toBeGreaterThan(start);
   const harness = `
     let focused = true, userPaused = false, inputSource = 'keyboard';
-    let pendingJump = false, pendingStory = false, educationRevision = 0, request = 0;
+    let pendingJump = false, educationRevision = 0, request = 0;
     const input = { poll: () => ({ ...neutral }), clear: () => {} };
     const educationScene = () => scene;
     const scenes = { activeScene: scene, update: (seconds, controls) => scene.update(seconds, controls), render: () => {} };
     const refreshPause = () => clock.setPaused(!focused || userPaused || scene.educationOverlay.open);
-    const clearGameplayInput = () => { input.clear(); pendingJump = false; pendingStory = false; };
+    const clearGameplayInput = () => { input.clear(); pendingJump = false; };
     const refreshRumble = () => {};
     const assetState = 'loading', adventure = true, context = {}, menu = { update: () => {} }, pauseMenu = {};
     const requestAnimationFrame = () => 0;

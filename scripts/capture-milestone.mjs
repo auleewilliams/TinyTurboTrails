@@ -30,8 +30,6 @@ if (stage === 'after') {
     await page.setViewportSize({ width, height });
     await page.goto('http://127.0.0.1:4175/');
     await page.waitForFunction(() => !document.querySelector('#status')?.textContent?.includes('Loading'));
-    const skip = page.getByRole('button', { name: 'Skip story', exact: true });
-    if (await skip.isVisible()) await skip.click();
     await page.getByRole('button', { name: 'Play PLAINS', exact: true }).waitFor();
     await page.screenshot({ path: `${directory}/map-${label}.png` });
   }
@@ -46,8 +44,6 @@ if (stage === 'after') {
   await page.route('**/assets/trails/backdrops.webp', route => route.abort());
   await page.goto('http://127.0.0.1:4175/?scene=adventure');
   await page.waitForFunction(() => !document.querySelector('#status')?.textContent?.includes('Loading'));
-  const skip = page.getByRole('button', { name: 'Skip story', exact: true });
-  if (await skip.isVisible()) await skip.click();
   await page.getByRole('button', { name: 'Play PLAINS', exact: true }).click();
   await page.getByText(/Adventure preview · Playing/).waitFor();
   await page.locator('canvas').screenshot({ path: `${directory}/plains-no-decorative-sheets.png` });

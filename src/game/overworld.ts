@@ -14,7 +14,6 @@ export const OVERWORLD_LAYOUT = {
   results: { baseline: 174, gemCenter: 320, starCenter: 382, center: 350 },
   play: { x: 298, y: 180, width: 104, height: 27 },
   stickers: { x: 282, y: 7, width: 79, height: 29 },
-  story: { x: 367, y: 7, width: 47, height: 29 },
 } as const;
 
 export interface TrailResult { readonly gems: number; readonly stars: number }
@@ -38,7 +37,7 @@ export class TrailSession {
 
 export function drawOverworld(ctx: CanvasRenderingContext2D, levels: readonly LevelData[], selected: number,
   results: ReadonlyMap<string, TrailResult>, title: HTMLImageElement, gemAtlas: HTMLImageElement, landmarks?: HTMLImageElement,
-  preview?: HTMLCanvasElement, background?: HTMLImageElement, ui?: InterfaceKit, story = false): void {
+  preview?: HTMLCanvasElement, background?: HTMLImageElement, ui?: InterfaceKit): void {
   ctx.save();
   ctx.fillStyle = '#dde5c1'; ctx.fillRect(0, 0, 426, 240);
   if (background) ctx.drawImage(background, 0, 0, 426, 240);
@@ -55,7 +54,7 @@ export function drawOverworld(ctx: CanvasRenderingContext2D, levels: readonly Le
   }
   levels.forEach((level, index) => {
     const [x, y] = MAP_POINTS[index];
-    // The opening's bunting marks the Vale's pictured gathering places.
+    // Decorative bunting marks each place Henry can explore.
     ctx.fillStyle = '#526f55'; ctx.fillRect(x - 14, y - 38, 28, 1);
     ['#dd534b', '#ffda75', '#408fc4'].forEach((color, flag) => {
       ctx.fillStyle = color;
@@ -74,10 +73,9 @@ export function drawOverworld(ctx: CanvasRenderingContext2D, levels: readonly Le
       ctx.fillStyle = '#ffda75'; ctx.font = 'bold 11px monospace'; ctx.fillText('✓', x + 21, y - 18);
     }
   });
-  const { panel, preview: previewBounds, results: row, play, stickers, story: storyButton } = OVERWORLD_LAYOUT;
+  const { panel, preview: previewBounds, results: row, play, stickers } = OVERWORLD_LAYOUT;
   // Control backings only; their labels are drawn by the scene with live input hints.
   drawKitButton(ctx, ui, stickers, { fill: '#17333b', selectedFill: '#17333b' });
-  if (story) drawKitButton(ctx, ui, storyButton, { fill: '#17333b', selectedFill: '#17333b' });
   drawKitFrame(ctx, ui, 'plaque', panel.x, panel.y, panel.width, panel.height, { fill: '#17333b' });
   ctx.fillStyle = '#ffda75'; ctx.textAlign = 'center'; ctx.font = 'bold 10px monospace';
   const words = levels[selected].name.split(' ');
@@ -98,7 +96,7 @@ export function drawOverworld(ctx: CanvasRenderingContext2D, levels: readonly Le
     const stars = level.entities.filter(entity => entity.kind === 'special').length;
     drawRewardResult(ctx, 'gem', `${result.gems}/${gems}`, stars ? row.gemCenter : row.center, row.baseline, level.atlas, gemAtlas);
     if (stars) drawRewardResult(ctx, 'star', `${result.stars}/${stars}`, row.starCenter, row.baseline, level.atlas, gemAtlas);
-  } else ctx.fillText(['Hills to a friend', 'Along quarry paths', 'Through tall trees', 'Past the busy yard', 'Over snowy hills', 'Down to the seaside'][selected], 350, 175);
+  } else ctx.fillText(['Over grassy hills', 'Along quarry paths', 'Through tall trees', 'Past the busy yard', 'Over snowy hills', 'Down to the seaside'][selected], 350, 175);
   drawKitButton(ctx, ui, { ...play, selected: true }, { fill: '#ffda75', selectedFill: '#ffda75' });
   ctx.fillStyle = '#17333b'; ctx.font = 'bold 12px monospace'; ctx.fillText('PLAY', 350, 198);
   ctx.restore();

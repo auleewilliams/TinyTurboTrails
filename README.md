@@ -28,8 +28,8 @@ npm run play
 ```
 
 This starts Vite and opens the game. Use the URL it prints if the browser does
-not open. Both `/` and `/?scene=adventure` open a short picture story, then the playable map.
-Skip or advance at your own pace; retries do not repeat the opening.
+not open. Both `/` and `/?scene=adventure` start on the trail map with Plains selected.
+Henry explores Patchwork Vale: choose any of the six open trails and play.
 Stop the local server with Ctrl+C. An adult sets this up for local play.
 
 For an already configured home server, open its LAN address instead; no local
@@ -42,7 +42,6 @@ Docker/nginx deployment and rollback. Public internet hosting is outside scope.
 | --- | --- | --- | --- |
 | Choose trail / finish action | Left/Right or A/D | D-pad / left stick | Click landmark / action |
 | Play / confirm | Space; Tab and Enter on buttons | Any face button | Play / action button |
-| Replay story / enlarge Plains reunion | R; Tab and Space/Enter on the picture button | View (button 8) | Rewind / reunion picture |
 | Move | Left/Right or A/D | D-pad / left stick | Not supported |
 | Jump | Space | Any face button | Not supported |
 | Pause / resume | Escape | Start | — |
@@ -94,4 +93,5 @@ local file is unsupported. No credentials or runtime generation are needed.
 The [2026-09-17 certification](docs/RELEASE-VERIFICATION-2026-09-17.md) is historical
 and does not certify later features. The [trail milestone record](docs/evidence/trail-milestone/README.md)
 retains its earlier scope. The [Henry / Patchwork Vale milestone](docs/evidence/henry-patchwork-vale/README.md)
-records the celebration and illustrated story, with a [parent-led checklist](docs/patchwork-vale-story.md).
+records the celebration and the since-retired illustrated opening. The current
+[exploration premise and owner-led checklist](docs/patchwork-vale-story.md) follow #195.

@@ -18,7 +18,5 @@ manifest['image'] = 'henry-celebration.png'
 manifest['frames'] = manifest['frames'][:16] + [dict(x=i%4*48, y=192+i//4*48, width=48, height=48) for i in range(8)]
 manifest['animations']['celebrate'] = dict(frames=list(range(16,24)), frameSeconds=0.15, loop=False)
 path.write_text(json.dumps(manifest, indent=2) + '\n')
-out = root / 'public/assets/story'
-out.mkdir(exist_ok=True)
-Image.open(root / 'assets/source/story/generated-panels.png').resize((768,512), Image.Resampling.NEAREST).save(out / 'patchwork-vale.png')
-print('Packaged story and celebration; original 16 gameplay frames pixel-identical.')
+# The processed story sheet (public/assets/story/patchwork-vale.png) was retired in #195.
+print('Packaged celebration; original 16 gameplay frames pixel-identical.')
