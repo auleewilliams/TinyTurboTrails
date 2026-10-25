@@ -38,6 +38,13 @@ Docker/nginx deployment and rollback. Public internet hosting is outside scope.
 
 ## Controls
 
+Play is supported on desktop/laptop only for now, using a keyboard or standard
+controller. Pointer input supports menus, Pause/settings and optional
+word-building, but provides no movement or jump controls. Phone/tablet play and
+touch gameplay are outside the current support boundary. Resizable desktop
+windows and fullscreen preserve the 426×240 camera's proportions. See the
+[device and browser policy](docs/REQUIREMENTS.md#supported-devices-and-input).
+
 | Action | Keyboard | Standard controller | Pointer |
 | --- | --- | --- | --- |
 | Choose trail / finish action | Left/Right or A/D | D-pad / left stick | Click landmark / action |

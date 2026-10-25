@@ -165,6 +165,44 @@ relative documentation-link checks passed. Read-only historical artifact
 verification again counted 525 verified references and 432 no-path entries, with
 zero missing/invalid. Full local browsers were not run for this reporting-only change.
 
+## Desktop support check guidance
+
+The [canonical device/input and browser policy](REQUIREMENTS.md#supported-devices-and-input)
+is desktop/laptop only for now. Existing automated coverage in
+[`tests/browser.spec.ts`](../tests/browser.spec.ts) checks uniform viewport fit,
+map/play/pause/finish layout after resize, fullscreen where available, native
+menu targets/focus, keyboard/pointer actions and simulated standard-controller
+navigation. Narrow/tall viewport cases exercise desktop-window layout; they do
+not establish phone/tablet or touch-gameplay support. Bundled Chromium, Firefox
+and WebKit results do not certify the installed target-browser matrix, including
+Safari on macOS.
+
+For an owner-led desktop check, use the existing [controls](../README.md#controls):
+
+- Resize a desktop window through wide, narrow and tall shapes, then enter and
+  exit fullscreen where available. Check that the complete 426×240 view keeps
+  its proportions and that HUD, readable menus, labels and native targets stay
+  clear of clipping, overlap and page overflow.
+- Choose/start a trail, move/jump and use finish actions with a keyboard; repeat
+  with a physical standard controller when available. Check deliberate input
+  after screen transitions, focus loss and controller disconnect/reconnect.
+- Use visible Pause/Resume and independent Sound/Rumble settings from map, play
+  and results with keyboard, pointer and available controller input. Check
+  On/Off text, focus return and the live-run Return to Trails confirmation.
+  Try pointer selection and optional word-building separately from gameplay.
+
+These are check instructions, not results or new release blockers. Record date,
+exact source commit, OS, desktop/laptop device, installed browser/version (or
+bundled engine), viewport/fullscreen state, input method and controller model
+when used, steps, actual outcomes and any coaching. Identify simulated input;
+mark unavailable or unperformed combinations **not run**. Assistive-technology
+observations need the actual AT/browser/input environment. Do not infer physical
+controller, audible output, native Safari, AT or child acceptance from automation.
+The completed owner map/navigation checks for #195/#213 remain completed; they
+do not automatically accept the later Pause/settings surface or those other
+environments. This guidance does not reopen the historical manual worksheet or
+extend its dated waivers.
+
 ## Conditional coverage versus physical verification
 
 Keep conditional tests enabled. The native audio test in `tests/audio.spec.ts`

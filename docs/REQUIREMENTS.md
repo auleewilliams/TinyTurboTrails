@@ -52,6 +52,22 @@ trails have six checkpoints and optional spring-launched bonus gems; their main
 routes remain forgiving, with short slime patrols to jump over. Moving platforms are drawn from
 the level's own theme colors.
 
+## Supported devices and input
+
+Desktop/laptop only for now, as agreed in
+[the owner decision for #215](https://github.com/auleewilliams/TinyTurboTrails/issues/215#issuecomment-6402075594).
+Gameplay uses the existing keyboard or standard-controller move/jump bindings.
+Pointer input operates menus, Pause/settings and optional word-building; it does
+not provide movement or jumping. Pointer-operable menus do not establish
+phone/tablet gameplay support.
+
+Phone/tablet play, touch movement/jump controls and mobile-specific portrait
+redesign are out of scope for now. Narrow or tall desktop windows remain layout
+checks, not phone/tablet acceptance. Keep the existing aspect-preserving camera,
+resizing and fullscreen behavior; this decision adds no minimum screen resolution
+or orientation lock. See [desktop check guidance](BROWSER-REPORTING.md#desktop-support-check-guidance)
+for applicable checks and reporting limits.
+
 ## Target browsers
 
 Current stable desktop Chrome, Firefox and Safari (Safari on macOS), plus the
@@ -64,7 +80,7 @@ visible Pause button clear of the entire canvas. Sound and rumble move into the
 shared pause surface, with independent On/Off text and accessible toggle state. Fractional
 scaling is approved: pixel widths can vary at non-integer scales, but artwork
 proportions, gameplay, HUD and menu targets must never be stretched or cropped.
-Use natural portrait/wide margins for controls wherever possible; otherwise
+Use natural tall/wide desktop-window margins for controls wherever possible; otherwise
 choose the larger fit beside or above a rail sized to the controls plus a small
 gap, without integer-scale drops.
 Unavoidable margins use the dark UI panel color rather than a broad teal surround.
