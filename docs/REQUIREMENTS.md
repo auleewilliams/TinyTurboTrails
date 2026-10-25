@@ -135,6 +135,11 @@ of mood, repetition and effect intelligibility; see `docs/AUDIO.md`.
 All six destinations remain unlocked, with recognizable landmarks, a stable
 dotted path, selected Henry marker, matching cached preview and accessible Play
 action. Keyboard, pointer and standard-controller selection share state.
+Each landmark has a readable short label beneath its art: Plains, Quarry,
+Timbers, Sunset, Frost and Cove (#213). Full trail names remain in the selected
+panel and native accessible names. Labels clear art, visible paths, selection
+frames, Henry and completion marks at logical 426 × 240, small 320 × 240 and
+desktop 1366 × 768; their visible area also accepts pointer selection.
 Finish shows its results first and offers Next trail (except the final trail), Map,
 Build your word and Replay. Next trail is the default, or Map on the final trail.
 Rendered labels, accessible names and input targets match.

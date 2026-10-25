@@ -1,0 +1,72 @@
+{
+  "final": {
+    "configured": 30,
+    "enumerated": 30,
+    "totals": {
+      "expected": 30,
+      "unexpected": 0,
+      "skipped": 0,
+      "flaky": 0
+    },
+    "projects": {
+      "chromium": {
+        "expected": 10,
+        "unexpected": 0,
+        "skipped": 0,
+        "flaky": 0
+      },
+      "firefox": {
+        "expected": 10,
+        "unexpected": 0,
+        "skipped": 0,
+        "flaky": 0
+      },
+      "webkit": {
+        "expected": 10,
+        "unexpected": 0,
+        "skipped": 0,
+        "flaky": 0
+      }
+    },
+    "errors": [],
+    "metadata": {
+      "sourceRevision": null,
+      "nodeVersion": "v22.22.1",
+      "platform": "linux",
+      "arch": "x64",
+      "actualWorkers": 2
+    }
+  },
+  "precedingBroadCohort": {
+    "configured": 42,
+    "enumerated": 42,
+    "totals": {
+      "expected": 41,
+      "unexpected": 1,
+      "skipped": 0,
+      "flaky": 0
+    },
+    "projects": {
+      "chromium": {
+        "expected": 14,
+        "unexpected": 0,
+        "skipped": 0,
+        "flaky": 0
+      },
+      "firefox": {
+        "expected": 13,
+        "unexpected": 1,
+        "skipped": 0,
+        "flaky": 0
+      },
+      "webkit": {
+        "expected": 14,
+        "unexpected": 0,
+        "skipped": 0,
+        "flaky": 0
+      }
+    },
+    "errors": [],
+    "sourceNote": "Same runtime and unit source hashes; browser fixture subsequently split without coverage or deadline changes."
+  }
+}

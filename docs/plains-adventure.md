@@ -11,6 +11,15 @@ Native buttons provide accessible names and Tab/Enter operation. Active input
 prompts fall back to keyboard after controller disconnect. See the
 [control table](../README.md#controls).
 
+Each landmark has a short map label: Plains, Quarry, Timbers, Sunset, Frost or
+Cove. The selected panel and native buttons retain the full trail names.
+Small cream backings separate the text from the meadow and bridge the dotted
+segment beneath Timbers. Landmark targets retain their original 70 × 60 area
+and extend 13 logical pixels downward to include the labels. Henry travels
+along clear rows and landmark columns so cross-row choices cannot cover text;
+selection and Play act immediately, independently of his cosmetic travel.
+See [label evidence](evidence/issue-213/README.md) for actual-art checks and captures.
+
 The selected destination shows a cached representative render of its environment.
 Preview rendering never advances gameplay or consumes input. All world, map and
 title assets load before play; failures expose the existing Reload retry button.

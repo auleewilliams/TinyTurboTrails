@@ -2,7 +2,7 @@ import { EducationOverlay } from './education-overlay';
 import { EducationSession, TRAIL_WORDS } from './education';
 import { drawLetterTile, type SpellingAssets } from '../art/spelling';
 import { drawKitButton, drawKitFrame, type InterfaceKit } from '../art/interface-kit';
-import { drawOverworld, MAP_POINTS, OVERWORLD_LAYOUT, TrailSession, type MenuTarget } from './overworld';
+import { advanceMapMarker, drawOverworld, MAP_POINTS, OVERWORLD_LAYOUT, TrailSession, type MenuTarget } from './overworld';
 import { musicForLevel } from '../core/music';
 import type { GameAudio } from '../core/audio';
 import type { GameRumble } from '../core/rumble';
@@ -149,10 +149,7 @@ export class AdventureScene implements Scene {
     this.elapsed += seconds;
     this.session.returnedSeconds = Math.max(0, this.session.returnedSeconds - seconds);
     if (this.screens.state === 'title' || this.screens.state === 'finish') {
-      const [x, y] = MAP_POINTS[this.selectedIndex];
-      const blend = this.reducedMotion ? 1 : Math.min(1, seconds * 12);
-      this.marker.x += (x - this.marker.x) * blend;
-      this.marker.y += (y - this.marker.y) * blend;
+      advanceMapMarker(this.marker, MAP_POINTS[this.selectedIndex], seconds, this.reducedMotion);
       if (!this.menuArmed) {
         if (!input.jumpHeld && !input.jumpPressed && input.horizontal === 0) this.menuArmed = true;
         return;
@@ -382,7 +379,7 @@ export class AdventureScene implements Scene {
     if (this.screens.state === 'title') return [
       ...LEVELS.map((level, index) => ({ label: level.name, x: MAP_POINTS[index][0] - 35, y: MAP_POINTS[index][1] - 30,
         description: this.session.description(level),
-        width: 70, height: 60, selected: index === this.selectedIndex, action: () => this.selectDestination(index) })),
+        width: 70, height: 73, selected: index === this.selectedIndex, action: () => this.selectDestination(index) })),
       { label: `Play ${this.selectedLevelName}`, ...OVERWORLD_LAYOUT.play, action: () => this.startSelected() },
       { label: 'Open stickers', nativeSpace: true, description: `${this.education.stickers.length} of ${TRAIL_WORDS.length} stickers · E or controller D-pad up`,
         ...OVERWORLD_LAYOUT.stickers, action: () => this.educationOverlay.showStickers() },

@@ -4332,3 +4332,275 @@ test('compact HUD ribbon introduction follows real input and freezes during paus
   const glyphs = await kitTextProbe(page); expect(glyphs.violations).toEqual([]);
   await writeFile(info.outputPath('gameplay-provenance.json'), JSON.stringify({ kind: 'keyboard-driven gameplay; no scene/run mutation or clock acceleration', captures, glyphs }, null, 2));
 });
+
+/** Observe actual map glyph extents and loaded art without changing scene state. */
+async function observeLandmarkLabels(page: Page): Promise<void> {
+  await page.addInitScript(() => {
+    const probe = { labels: [] as { text: string; left: number; top: number; right: number; bottom: number }[],
+      panel: [] as string[], assets: [] as string[] };
+    Object.assign(window, { landmarkLabelProbe: probe });
+    const fillText = CanvasRenderingContext2D.prototype.fillText;
+    CanvasRenderingContext2D.prototype.fillText = function (text, x, y, maxWidth) {
+      if (this.canvas.id === 'game') {
+        if (text === 'PATCHWORK VALE') { probe.labels = []; probe.panel = []; }
+        if (['Plains', 'Quarry', 'Timbers', 'Sunset', 'Frost', 'Cove'].includes(text)) {
+          const m = this.measureText(text);
+          probe.labels.push({ text, left: x - m.actualBoundingBoxLeft, top: y - m.actualBoundingBoxAscent,
+            right: x + m.actualBoundingBoxRight, bottom: y + m.actualBoundingBoxDescent });
+          this.canvas.dataset.landmarkLabels = JSON.stringify(probe.labels.map(label => label.text));
+        }
+        if (x === 350 && (y === 63 || y === 76)) probe.panel.push(text);
+        if (x === 415 && y === 20) this.canvas.dataset.gameplayTrail = text;
+      }
+      if (maxWidth === undefined) fillText.call(this, text, x, y); else fillText.call(this, text, x, y, maxWidth);
+    };
+    const drawImage = CanvasRenderingContext2D.prototype.drawImage;
+    CanvasRenderingContext2D.prototype.drawImage = function (image: CanvasImageSource, ...args: number[]) {
+      if (image instanceof HTMLImageElement && image.complete && !probe.assets.includes(image.src)) probe.assets.push(image.src);
+      return Reflect.apply(drawImage, this, [image, ...args]);
+    };
+  });
+}
+
+for (const viewport of [{ width: 426, height: 240 }, { width: 320, height: 240 }, { width: 1366, height: 768 }]) {
+  test(`landmark labels: real pointer, keyboard and native targets at ${viewport.width}x${viewport.height}`, async ({ page }, info) => {
+    await page.setViewportSize(viewport);
+    await observeLandmarkLabels(page);
+    await installTrailPilot(page);
+    await openAdventure(page, '/?debug=1');
+    const canvas = page.locator('#game');
+    const names = ['Plains', 'Quarry', 'Timbers', 'Sunset', 'Frost', 'Cove'];
+    await expect(canvas).toHaveAttribute('data-landmark-labels', JSON.stringify(names));
+    await expect(page.getByRole('button', { name: 'PLAINS', exact: true })).toHaveAttribute('aria-pressed', 'true');
+    for (const [index, level] of LEVELS.entries()) {
+      const target = page.getByRole('button', { name: level.name, exact: true });
+      const box = (await canvas.boundingBox())!;
+      const [x, y] = [[48, 88], [140, 88], [232, 88], [232, 176], [140, 176], [48, 176]][index];
+      // The visible label sits in the added strip, below every old target.
+      await page.mouse.click(box.x + (x + 11) * box.width / 426, box.y + (y + 38) * box.height / 240);
+      await expect(target).toHaveAttribute('aria-pressed', 'true');
+      await expect(target).toBeFocused();
+      await expect(page.getByRole('button', { name: `Play ${level.name}`, exact: true })).toBeVisible();
+      const measured = await page.evaluate(() => (window as unknown as { landmarkLabelProbe: { labels: { text: string; left: number; top: number; right: number; bottom: number }[]; panel: string[]; assets: string[] } }).landmarkLabelProbe);
+      expect(measured.panel.join(' ')).toBe(level.name);
+      expect(measured.labels.map(label => label.text)).toEqual(names);
+      measured.labels.forEach((label, i) => {
+        const [cx, cy] = [[48, 88], [140, 88], [232, 88], [232, 176], [140, 176], [48, 176]][i];
+        expect(label.left).toBeGreaterThanOrEqual(cx - 10);
+        expect(label.right).toBeLessThanOrEqual(cx + 32);
+        expect(label.top).toBeGreaterThan(cy + 32);
+        expect(label.bottom).toBeLessThanOrEqual(cy + 43);
+      });
+      expect(measured.assets.some(url => url.endsWith('/assets/overworld/landmarks.png'))).toBe(true);
+      await info.attach(`${level.id}-window`, { body: await page.screenshot({ path: info.outputPath(`${level.id}-window.png`) }), contentType: 'image/png' });
+      if (viewport.width === 426) await writeFile(info.outputPath(`${level.id}-logical.png`), Buffer.from((await canvas.evaluate(element => (element as HTMLCanvasElement).toDataURL())).split(',')[1], 'base64'));
+      // Real key input selects the next destination, with the existing repeat guard.
+      await page.keyboard.down('ArrowRight');
+      await expect(page.getByRole('button', { name: LEVELS[(index + 1) % 6].name, exact: true })).toHaveAttribute('aria-pressed', 'true');
+      await releasedFrames(page);
+      await expect(page.getByRole('button', { name: LEVELS[(index + 1) % 6].name, exact: true })).toHaveAttribute('aria-pressed', 'true');
+      await page.keyboard.up('ArrowRight');
+      await releasedFrames(page);
+      const next = LEVELS[(index + 1) % 6];
+      await page.getByRole('button', { name: `Play ${next.name}`, exact: true }).click();
+      await expect(page.locator('#status')).toContainText('Playing');
+      const openingArea = next.checkpoints.reduce((area, point, i) => next.start.x >= point.x - 180 ? i : area, -1);
+      await expect(canvas).toHaveAttribute('data-gameplay-trail', openingArea < 0 ? next.name : areaName(next, openingArea));
+      await page.keyboard.press('Escape');
+      await page.getByRole('button', { name: 'Return to Trails', exact: true }).click();
+      await page.getByRole('button', { name: 'Return to Trails', exact: true }).click();
+      await expect(page.getByRole('button', { name: next.name, exact: true })).toHaveAttribute('aria-pressed', 'true');
+    }
+    await expect(page.getByRole('button', { name: /story|replay|view/i })).toHaveCount(0);
+    await expectClearViewport(page);
+    // Tab enters the next native target and selects it via real focus navigation.
+    await page.getByRole('button', { name: 'PLAINS', exact: true }).click();
+    await page.keyboard.press('Tab');
+    await expect(page.getByRole('button', { name: 'QUARRY RUN', exact: true })).toBeFocused();
+    await expect(page.getByRole('button', { name: 'QUARRY RUN', exact: true })).toHaveAttribute('aria-pressed', 'true');
+    await page.keyboard.press('Enter');
+    await expect(page.locator('#status')).toContainText('Title');
+    await page.getByRole('button', { name: 'Play QUARRY RUN', exact: true }).click();
+    await expect(page.locator('#status')).toContainText('Playing');
+    await expect(canvas).toHaveAttribute('data-gameplay-trail', 'QUARRY RUN');
+    await page.reload(); await waitForMap(page);
+    await expect(page.getByRole('button', { name: 'PLAINS', exact: true })).toHaveAttribute('aria-pressed', 'true');
+    for (const level of LEVELS) await expect(page.getByRole('button', { name: level.name, exact: true })).toHaveAttribute('aria-description', 'Ready to explore');
+  });
+}
+
+for (const [selection, trail] of LEVELS.entries()) test(`landmark labels: renderer fixture ${trail.id} clears real art, paths, frames, badges and Henry in every completion state`, async ({ page }, info) => {
+  // Use the actual map method and its complete renderer dependency graph. These
+  // explicit presentation states are not completed gameplay or scene mutations.
+  const names = ['art/henry.ts', 'art/animation.ts', 'art/interface-kit.ts', 'game/education.ts',
+    'world/scenery.ts', 'world/assets.ts', 'world/trail-presentation.ts', 'world/ambient-weather.ts',
+    'world/surface-materials.ts', 'world/renderer.ts', 'game/reward-result.ts', 'game/overworld.ts'];
+  const modules = names.map(name => readFileSync(new URL(`../src/${name}`, import.meta.url), 'utf8'));
+  const runtimeImports = [...new Set(modules.flatMap(source => [...source.matchAll(/^import (?!type )\{([^}]*)\} from .*;$/gm)]
+    .flatMap(([, names]) => names.split(',').map(name => name.trim()).filter(name => name && !name.startsWith('type ')))))];
+  const declarations = (name: string, source: string) => transformSync(name, source.replace(/^import .*;\n/gm, '')
+    .replace(/\bexport /g, '').replaceAll('import.meta.env.BASE_URL', JSON.stringify('./')), {}).code;
+  const scene = readFileSync(new URL('../src/game/adventure-scene.ts', import.meta.url), 'utf8');
+  const start = scene.indexOf('  private drawMap('), end = scene.indexOf('\n  selectDestination(', start);
+  expect(start).toBeGreaterThan(0); expect(end).toBeGreaterThan(start);
+  const method = declarations('draw-map.ts', scene.slice(start, end).replace('private drawMap(', 'function drawMap('));
+  expect(runtimeImports).toEqual(expect.arrayContaining(['loadImage', 'drawGem', 'drawSpecial', 'drawRewardResult', 'drawKitButton', 'drawKitFrame']));
+  const errors: string[] = []; page.on('pageerror', error => errors.push(error.message));
+  await openAdventure(page, '/');
+  await page.addScriptTag({ content: `(() => {
+    ${modules.map((source, i) => declarations(names[i], source)).join('\n')}
+    const LEVELS = ${JSON.stringify(LEVELS)};
+    ${method}
+    window.mapFixtureMissing = [${[...runtimeImports, 'animationFrame', 'advanceMapMarker', 'TRAIL_WORDS', 'drawOverworld', 'drawWorld', 'drawMap'].map(name => `typeof ${name} === 'undefined' && ${JSON.stringify(name)}`).join(', ')}].filter(Boolean);
+    window.createMapFixture = async () => {
+      const [titleArtwork, landmarks, mapBackground, gems, ui, henry] = await Promise.all([
+        loadImage('/assets/title/tiny-turbo-trails-v2.png'), loadImage('/assets/overworld/landmarks.png'),
+        loadImage('/assets/overworld/background.png'), loadImage('/assets/gems/gems.png'), loadInterfaceKit(), loadHenry()]);
+      const previews = await Promise.all(LEVELS.map(async level => {
+        const assets = await loadWorldAssets(level.atlas), canvas = document.createElement('canvas'); canvas.width = 426; canvas.height = 240;
+        const ctx = canvas.getContext('2d'); ctx.imageSmoothingEnabled = false;
+        const camera = { position: { x: 0, y: 0 } };
+        drawWorld(ctx, assets, level, camera, undefined, undefined, undefined, 0, true); drawWorldForeground(ctx, assets, level, camera);
+        return canvas;
+      }));
+      const canvas = document.querySelector('#game'), ctx = canvas.getContext('2d');
+      const ink = document.createElement('canvas'); ink.width = 426; ink.height = 240;
+      const mask = ink.getContext('2d', { willReadFrequently: true }); mask.imageSmoothingEnabled = false;
+      const pathCanvas = document.createElement('canvas'); pathCanvas.width = 426; pathCanvas.height = 240;
+      const pathMask = pathCanvas.getContext('2d', { willReadFrequently: true });
+      const drawImage = ctx.drawImage.bind(ctx), fillText = ctx.fillText.bind(ctx), fillRect = ctx.fillRect.bind(ctx), strokeRect = ctx.strokeRect.bind(ctx);
+      let recording = false, glyphs = [], selected = 0, completed = 0, marker = { x: 48, y: 88 };
+      ctx.drawImage = (image, ...args) => {
+        if (recording && (image === landmarks || image === henry.atlas)) mask.drawImage(image, ...args);
+        drawImage(image, ...args);
+      };
+      ctx.fillRect = (x, y, w, h) => {
+        if (recording && ctx.fillStyle === '#788c63') pathMask.fillRect(x, y, w, h);
+        // The narrow backing intentionally bridges one dotted segment below
+        // Timbers. It clears path ink only, never landmark or marker pixels.
+        if (recording && ctx.fillStyle === '#e9f2df' && w === 44 && h === 10) pathMask.clearRect(x, y, w, h);
+        if (recording && w === 15 && h === 14) mask.fillRect(x, y, w, h);
+        fillRect(x, y, w, h);
+      };
+      ctx.strokeRect = (x, y, w, h) => {
+        if (recording && w === 70 && h === 60) { mask.lineWidth = ctx.lineWidth; mask.strokeRect(x, y, w, h); }
+        strokeRect(x, y, w, h);
+      };
+      ctx.fillText = (text, x, y) => {
+        if (recording && LANDMARK_LABELS.includes(text)) {
+          const m = ctx.measureText(text); glyphs.push({ text, left: x - m.actualBoundingBoxLeft, right: x + m.actualBoundingBoxRight,
+            top: y - m.actualBoundingBoxAscent, bottom: y + m.actualBoundingBoxDescent });
+        }
+        fillText(text, x, y);
+      };
+      const adapter = { selectedIndex: 0, session: new TrailSession(), titleArtwork, landmarks, mapBackground, ui, world: { gems }, henry,
+        preview: () => previews[selected], marker, reducedMotion: false, elapsed: 0, inputSource: 'keyboard', education: { stickers: [] } };
+      const draw = () => {
+        adapter.selectedIndex = selected; adapter.session.results.clear();
+        LEVELS.forEach((level, i) => { if (completed & (1 << i)) adapter.session.mark(level, 2, 1); });
+        adapter.session.returnedSeconds = completed ? 1 : 0;
+        mask.clearRect(0, 0, 426, 240); pathMask.clearRect(0, 0, 426, 240);
+        glyphs = []; recording = true; drawMap.call(adapter, ctx); recording = false;
+      };
+      window.mapFixture = {
+        set(next, completion, from = next, blend = 1) {
+          selected = next; completed = completion;
+          marker.x = MAP_POINTS[from][0]; marker.y = MAP_POINTS[from][1];
+          for (let frame = 0; frame < Math.round(blend * 80); frame++) advanceMapMarker(marker, MAP_POINTS[next], 1 / 60, false);
+          draw();
+          const pixels = mask.getImageData(0, 0, 426, 240).data;
+          const pathPixels = pathMask.getImageData(0, 0, 426, 240).data;
+          const collisions = [];
+          for (const glyph of glyphs) for (let y = Math.floor(glyph.top); y < Math.ceil(glyph.bottom); y++)
+            for (let x = Math.floor(glyph.left); x < Math.ceil(glyph.right); x++) if (pixels[(y * 426 + x) * 4 + 3] || pathPixels[(y * 426 + x) * 4 + 3]) collisions.push({ text: glyph.text, x, y });
+          return { selected, completed, marker: { ...marker }, glyphs, collisions, assets: [titleArtwork, landmarks, mapBackground, gems, henry.atlas, ...Object.values(ui)]
+            .map(image => ({ source: new URL(image.src).pathname, loaded: image.complete && image.naturalWidth > 0 })) };
+        }
+      };
+      const raf = window.requestAnimationFrame.bind(window);
+      window.requestAnimationFrame = callback => raf(time => { callback(time); draw(); });
+    };
+  })();` });
+  expect(await page.evaluate(() => (window as unknown as { mapFixtureMissing: string[] }).mapFixtureMissing)).toEqual([]);
+  await page.evaluate(() => (window as unknown as { createMapFixture(): Promise<void> }).createMapFixture());
+  const set = (selected: number, mask: number, from = selected, blend = 1) => page.evaluate(args =>
+    (window as unknown as { mapFixture: { set(s: number, m: number, f: number, b: number): { collisions: unknown[]; glyphs: unknown[]; assets: { loaded: boolean }[] } } }).mapFixture.set(...args as [number, number, number, number]), [selected, mask, from, blend]);
+  // All 64 badge combinations with every selected frame, not just a mock rectangle.
+  const samples = await page.evaluate(selected => {
+    const fixture = (window as unknown as { mapFixture: { set(s: number, m: number): { selected: number; completed: number; glyphs: unknown[]; assets: { loaded: boolean }[]; collisions: unknown[] } } }).mapFixture;
+    return Array.from({ length: 64 }, (_, mask) => fixture.set(selected, mask));
+  }, selection);
+  for (const sample of samples) {
+    expect(sample.glyphs).toHaveLength(6); expect(sample.assets.every(asset => asset.loaded)).toBe(true);
+    expect(sample.collisions, `selection ${sample.selected}, completion ${sample.completed}`).toEqual([]);
+  }
+  // Arbitrary pointer jumps can cross rows as well as adjacent destinations.
+  const transitions = await page.evaluate(selected => {
+    const fixture = (window as unknown as { mapFixture: { set(s: number, m: number, f: number, b: number): { collisions: unknown[] } } }).mapFixture;
+    const samples = [];
+    for (let from = 0; from < 6; from++) for (let frame = 0; frame <= 80; frame++) {
+      samples.push({ from, selected, frame, ...fixture.set(selected, 63, from, frame / 80) });
+    }
+    return samples;
+  }, selection);
+  for (const sample of transitions) {
+    expect(sample.collisions, `Henry ${sample.from} -> ${sample.selected} at frame ${sample.frame}`).toEqual([]);
+  }
+  for (const viewport of [{ width: 426, height: 240 }, { width: 320, height: 240 }, { width: 1366, height: 768 }]) {
+    await page.setViewportSize(viewport);
+    await set(selection, 63);
+    await twoFrames(page);
+    await page.screenshot({ path: info.outputPath(`fixture-${trail.id}-completed-${viewport.width}.png`) });
+    if (viewport.width === 426) await writeFile(info.outputPath(`fixture-${trail.id}-completed-logical.png`), Buffer.from((await page.locator('#game').evaluate(element => (element as HTMLCanvasElement).toDataURL())).split(',')[1], 'base64'));
+  }
+  expect(errors).toEqual([]);
+  await writeFile(info.outputPath('fixture-provenance.json'), JSON.stringify({ kind: 'actual renderer fixture; no scene/run gameplay claims', selection, trail: trail.id, names, runtimeImports, samples, transitions }, null, 2));
+});
+
+test('landmark labels: native label hits and controller selection survive resize and browser fullscreen', async ({ page }, info) => {
+  await observeLandmarkLabels(page);
+  await installTrailPilot(page);
+  await openAdventure(page, '/');
+  const state = () => page.evaluate(() => document.fullscreenElement?.tagName ?? null);
+  const verify = async (phase: string): Promise<void> => {
+    await twoFrames(page);
+    await expectClearViewport(page);
+    for (const [index, level] of LEVELS.entries()) {
+      const canvas = (await page.locator('#game').boundingBox())!;
+      const [x, y] = [[48, 88], [140, 88], [232, 88], [232, 176], [140, 176], [48, 176]][index];
+      const target = page.getByRole('button', { name: level.name, exact: true });
+      const bounds = (await target.boundingBox())!;
+      expect(bounds.x).toBeCloseTo(canvas.x + (x - 35) * canvas.width / 426, 1);
+      expect(bounds.y).toBeCloseTo(canvas.y + (y - 30) * canvas.height / 240, 1);
+      expect(bounds.width).toBeCloseTo(70 * canvas.width / 426, 1);
+      expect(bounds.height).toBeCloseTo(73 * canvas.height / 240, 1);
+      await page.mouse.click(canvas.x + (x + 11) * canvas.width / 426, canvas.y + (y + 38) * canvas.height / 240);
+      await expect(target).toBeFocused(); await expect(target).toHaveAttribute('aria-pressed', 'true');
+    }
+    await page.evaluate(() => { (window as unknown as { trailPilot: { controller: boolean } }).trailPilot.controller = true; });
+    for (const level of LEVELS) {
+      await page.evaluate(() => { (window as unknown as { trailPad: { buttons: { pressed: boolean }[] } }).trailPad.buttons[15].pressed = true; });
+      await expect(page.getByRole('button', { name: level.name, exact: true })).toHaveAttribute('aria-pressed', 'true');
+      await releasedFrames(page);
+      await expect(page.getByRole('button', { name: level.name, exact: true })).toHaveAttribute('aria-pressed', 'true');
+      await page.evaluate(() => { (window as unknown as { trailPad: { buttons: { pressed: boolean }[] } }).trailPad.buttons[15].pressed = false; });
+      await releasedFrames(page);
+    }
+    await info.attach(phase, { body: await page.screenshot({ path: info.outputPath(`${phase}.png`) }), contentType: 'image/png' });
+  };
+  await page.setViewportSize({ width: 320, height: 240 }); await verify('resized-small');
+  await page.setViewportSize({ width: 1366, height: 768 }); await verify('resized-desktop');
+  const supported = await page.evaluate(() => document.fullscreenEnabled);
+  await info.attach('fullscreen-capability', { body: JSON.stringify({ supported }), contentType: 'application/json' });
+  if (supported) {
+    await page.locator('#mute').evaluate(button => button.addEventListener('click', () => { void document.querySelector('main')!.requestFullscreen(); }, { once: true }));
+    await page.locator('#mute').click();
+    await expect.poll(state).toBe('MAIN'); await verify('fullscreen');
+    await page.evaluate(() => document.exitFullscreen());
+    await expect.poll(state).toBeNull(); await verify('fullscreen-exit');
+  }
+  await page.getByRole('button', { name: 'PLAINS', exact: true }).click();
+  await page.keyboard.press('Tab');
+  await expect(page.getByRole('button', { name: 'QUARRY RUN', exact: true })).toBeFocused();
+  await expect(page.getByRole('button', { name: 'QUARRY RUN', exact: true })).toHaveAttribute('aria-pressed', 'true');
+});
