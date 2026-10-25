@@ -51,6 +51,14 @@ function adventure(index: number) {
   return { scene, live: scene as unknown as { player: Player; run: RunState } };
 }
 
+/** Results come first: word building opens only through its deliberate finish action. */
+function buildYourWord(scene: AdventureScene): void {
+  expect(scene.screenState).toBe('finish');
+  expect(scene.educationOverlay.open).toBe(false);
+  scene.menuTargets.find(target => target.label === 'Build your word')!.action();
+  expect(scene.educationOverlay.open).toBe(true);
+}
+
 it.each(LEVELS.map((level, index) => ({ level, index })))('$level.id collects its own letters and keeps partial assembly through recovery, finish return, replay and switching', ({ level, index }) => {
   const { scene, live } = adventure(index);
   expect(scene.education.config.id).toBe(level.id);
@@ -68,7 +76,7 @@ it.each(LEVELS.map((level, index) => ({ level, index })))('$level.id collects it
   expect(scene.education.wordProgress).toBe(partial);
   live.player.x = level.finish.x;
   scene.update(1 / 60, neutral);
-  expect(scene.educationOverlay.open).toBe(true);
+  buildYourWord(scene);
   expect(scene.educationOverlay.description).toContain(`Build ${words[index]}`);
   const run = live.run, before = JSON.stringify(run);
   scene.menuTargets.find(target => target.label === 'Find more letters')!.action();
@@ -80,7 +88,7 @@ it.each(LEVELS.map((level, index) => ({ level, index })))('$level.id collects it
   expect(scene.screenState).toBe('playing');
   for (let frame = 0; frame < 100 && scene.playerX > level.finish.x - 100; frame++) scene.update(1 / 60, { ...neutral, horizontal: -1 });
   for (let frame = 0; frame < 100 && scene.screenState === 'playing'; frame++) scene.update(1 / 60, { ...neutral, horizontal: 1 });
-  expect(scene.educationOverlay.open).toBe(true);
+  buildYourWord(scene);
   expect(scene.education.wordProgress).toBe(partial);
   scene.menuTargets.find(target => target.label === 'Leave activity')!.action();
   expect(scene.menuTargets.map(target => target.label)).toContain('Replay');
@@ -97,6 +105,7 @@ it.each(LEVELS.map((level, index) => ({ level, index })))('$level.id exposes mix
   const { scene, live } = adventure(index);
   scene.education.pickups.forEach(pickup => scene.education.collect(pickup.id));
   live.player.x = level.finish.x; scene.update(1 / 60, neutral);
+  buildYourWord(scene);
   const letters = scene.menuTargets.filter(target => target.label.startsWith('Letter '));
   expect(new Set(letters.map(target => target.label)).size).toBe(4);
   expect(new Set(letters.map(target => target.x)).size).toBe(4);
@@ -156,6 +165,7 @@ it.each([...LEVELS.map((level, index) => ({ level, index, crumbled: false })), {
   live.player.x = level.finish.x;
   scene.update(1 / 60, neutral);
   const run = live.run;
+  buildYourWord(scene);
   scene.menuTargets.find(target => target.label === 'Find more letters')!.action();
   const events: { type: string; entityId?: string }[] = [];
   const springs = new Set<string>();
@@ -184,7 +194,7 @@ it.each([...LEVELS.map((level, index) => ({ level, index, crumbled: false })), {
     }
   }
   expect(scene.screenState).toBe('finish');
-  expect(scene.educationOverlay.open).toBe(true);
+  buildYourWord(scene);
   expect(live.run).toBe(run);
   expect(events.filter(event => event.type === 'recover'), `${level.id} recovered`).toEqual([]);
   console.log(`${level.id}: reverse/return complete; ${springs.size} springs, ${events.filter(event => event.type === 'damage').length} damage, ${live.run.collectedGems.size} gems, ${live.run.collectedSpecials.size} stars`);

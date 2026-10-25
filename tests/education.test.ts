@@ -50,6 +50,14 @@ function timbers() {
   return { scene, live: scene as unknown as { player: Player; run: RunState } };
 }
 
+/** Results come first: word building opens only through its deliberate finish action. */
+function buildYourWord(scene: AdventureScene): void {
+  expect(scene.screenState).toBe('finish');
+  expect(scene.educationOverlay.open).toBe(false);
+  scene.menuTargets.find(target => target.label === 'Build your word')!.action();
+  expect(scene.educationOverlay.open).toBe(true);
+}
+
 it('collects on Timbers and retains education through health/pit recovery, replay, map and other trails', () => {
   const { scene, live } = timbers();
   for (const letter of [...LETTER_PICKUPS].reverse()) {
@@ -173,7 +181,7 @@ it('opens optional manual assembly at finish and accepts select/place through na
   live.player.x = TREETOP_TIMBERS.finish.x;
   scene.update(1 / 60, neutral);
   expect(scene.screenState).toBe('finish');
-  expect(scene.educationOverlay.open).toBe(true);
+  buildYourWord(scene);
   expect(scene.educationOverlay.description).toContain('Build TREE');
   const snapshot = JSON.stringify(scene);
   scene.update(9, { ...neutral, horizontal: 1, jumpHeld: true });
@@ -192,7 +200,7 @@ it('opens optional manual assembly at finish and accepts select/place through na
   expect(scene.education.stickers).toEqual(['Timbers TREE']);
   scene.menuTargets.find(target => target.label === 'Leave activity')!.action();
   expect(scene.educationOverlay.open).toBe(false);
-  expect(scene.menuTargets.map(target => target.label)).toEqual(['Replay', 'Next trail', 'Choose trail']);
+  expect(scene.menuTargets.map(target => target.label)).toEqual(['Next trail', 'Map', 'Build your word', 'Replay']);
 });
 
 it('returns missing-letter play beside finish in the identical completed run and rearms only after leaving', () => {
@@ -205,6 +213,7 @@ it('returns missing-letter play beside finish in the identical completed run and
   scene.update(1 / 60, neutral);
   const run = live.run, before = JSON.stringify(run);
   expect(scene.session.results.has('timbers')).toBe(true);
+  buildYourWord(scene);
   scene.menuTargets.find(target => target.label === 'Find more letters')!.action();
   expect(scene.educationOverlay.open).toBe(false);
   expect(scene.screenState).toBe('playing');
@@ -217,7 +226,7 @@ it('returns missing-letter play beside finish in the identical completed run and
   for (let frame = 0; frame < 150 && scene.playerX >= TREETOP_TIMBERS.finish.x - 100; frame++) scene.update(1 / 60, { ...neutral, horizontal: -1 });
   expect(scene.playerX).toBeLessThan(TREETOP_TIMBERS.finish.x - 100);
   for (let frame = 0; frame < 150 && scene.screenState === 'playing'; frame++) scene.update(1 / 60, { ...neutral, horizontal: 1 });
-  expect(scene.educationOverlay.open).toBe(true);
+  buildYourWord(scene);
   expect(scene.screenState).toBe('finish');
   expect(live.run).toBe(run);
   expect(scene.session.results.has('timbers')).toBe(true);
@@ -232,6 +241,7 @@ it('clears an airborne finish jump buffer before returning beside finish', () =>
   expect(scene.screenState).toBe('finish');
   expect(live.player.jumpBufferSeconds).toBeGreaterThan(0);
   const run = live.run, progress = JSON.stringify(run);
+  buildYourWord(scene);
   scene.menuTargets.find(target => target.label === 'Find more letters')!.action();
   expect(live.player.jumpBufferSeconds).toBe(0);
   expect(live.player.platformId).toBeNull();
@@ -252,6 +262,7 @@ it('retraces from finish past every reverse spring to all missed letters and ret
   live.player.x = TREETOP_TIMBERS.finish.x;
   scene.update(1 / 60, neutral);
   const run = live.run;
+  buildYourWord(scene);
   scene.menuTargets.find(target => target.label === 'Find more letters')!.action();
   const springs = new Set<string>();
   const traversalEvents: { type: string; entityId?: string }[] = [];
@@ -277,7 +288,7 @@ it('retraces from finish past every reverse spring to all missed letters and ret
     if (jump) held = 24;
     scene.update(1 / 60, { ...neutral, horizontal: 1, jumpPressed: jump, jumpHeld: held-- > 0 });
   }
-  expect(scene.educationOverlay.open).toBe(true);
+  buildYourWord(scene);
   expect(scene.screenState).toBe('finish');
   expect(live.run).toBe(run);
 });
@@ -306,6 +317,7 @@ it('rolls back wrong, outside and cancelled drags, and places each dragged E onl
   for (const pickup of LETTER_PICKUPS) scene.education.collect(pickup.id);
   live.player.x = TREETOP_TIMBERS.finish.x;
   scene.update(1 / 60, neutral);
+  buildYourWord(scene);
   const overlay = scene.educationOverlay;
   const e = LETTER_PICKUPS[3].id;
   overlay.beginDrag(e, 132, 132);
@@ -334,6 +346,7 @@ it('cancels a pending drag when select/place input takes over', () => {
   scene.education.collect(LETTER_PICKUPS[0].id);
   live.player.x = TREETOP_TIMBERS.finish.x;
   scene.update(1 / 60, neutral);
+  buildYourWord(scene);
   scene.educationOverlay.beginDrag(LETTER_PICKUPS[0].id, 236, 132);
   scene.menuTargets.find(target => target.label === 'Letter T')!.action();
   scene.menuTargets.find(target => target.label === 'Space 1: empty')!.action();

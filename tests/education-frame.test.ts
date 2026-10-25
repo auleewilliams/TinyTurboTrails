@@ -8,7 +8,7 @@ import { LEVELS, TREETOP_TIMBERS } from '../src/world/levels';
 import type { Player } from '../src/game/movement';
 import type { RunState } from '../src/game/interactions';
 
-it('discards activity clock debt when finish opens and pointer return closes before the next rendered frame', () => {
+it('discards activity clock debt when the finish activity opens and pointer return closes before the next rendered frame', () => {
   const scene = new AdventureScene({} as never, {} as never,
     Object.fromEntries(LEVELS.map(level => [level.atlas, {} as never])), new SilentAudio(), TREETOP_TIMBERS);
   scene.startSelected();
@@ -40,8 +40,12 @@ it('discards activity clock debt when finish opens and pointer return closes bef
   const frame = new Function('scene', 'clock', 'neutral', 'AdventureScene',
     transformSync('education-frame-harness.ts', harness, {}).code)(scene, clock, neutral, AdventureScene) as (now: number) => void;
   frame(0); frame(17);
-  expect(scene.educationOverlay.open).toBe(true);
+  // Results come first; word building opens only through its deliberate action.
+  expect(scene.screenState).toBe('finish');
+  expect(scene.educationOverlay.open).toBe(false);
   const run = live.run, before = run.seconds;
+  scene.menuTargets.find(target => target.label === 'Build your word')!.action();
+  expect(scene.educationOverlay.open).toBe(true);
   scene.menuTargets.find(target => target.label === 'Find more letters')!.action();
   frame(60_017);
   expect(live.run).toBe(run);

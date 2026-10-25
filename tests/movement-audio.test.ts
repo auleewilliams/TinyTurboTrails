@@ -114,7 +114,7 @@ describe('adventure movement sounds', () => {
     scene.update(1 / 60, neutral); play.mockClear();
     for (let i = 0; i < 60; i++) scene.update(1 / 60, neutral);
     expect(play).not.toHaveBeenCalled();
-    scene.activateFinish('Choose trail');
+    scene.activateFinish('Map');
     for (let i = 0; i < 60; i++) scene.update(1 / 60, neutral);
     expect(play).not.toHaveBeenCalled();
   });

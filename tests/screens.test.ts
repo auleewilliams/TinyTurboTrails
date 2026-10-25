@@ -215,12 +215,21 @@ it.each(['keyboard', 'controller'])('%s replay immediately restores the initial 
   scene.update(1 / 60, input);
   expect(scene.screenState).toBe('finish');
   expect(state.camera.position.x).toBeGreaterThan(0);
-  scene.menuTargets.find(target => target.label === 'Leave activity')!.action();
+  // Results come first: no word activity covers them.
+  expect(scene.educationOverlay.open).toBe(false);
   const buttons = Array.from({ length: 17 }, () => ({ pressed: false, touched: false, value: 0 }));
   const pad = { connected: true, mapping: 'standard', axes: [0], buttons };
   const target = Object.assign(new EventTarget(), { navigator: { getGamepads: () => [pad] } });
   const controls = new BrowserInput(target as unknown as Window, () => {});
   scene.update(1 / 60, input); // Release gate before a new confirmation.
+  // Replay sits left of the default Next trail: one real left press and release.
+  if (device === 'controller') buttons[14].pressed = true;
+  else target.dispatchEvent(Object.assign(new Event('keydown'), { code: 'ArrowLeft', repeat: false }));
+  scene.update(1 / 60, controls.poll());
+  if (device === 'controller') buttons[14].pressed = false;
+  else target.dispatchEvent(Object.assign(new Event('keyup'), { code: 'ArrowLeft' }));
+  scene.update(1 / 60, controls.poll());
+  expect(scene.menuTargets.find(candidate => candidate.selected)?.label).toBe('Replay');
   if (device === 'controller') buttons[0].pressed = true;
   else target.dispatchEvent(Object.assign(new Event('keydown'), { code: 'Space', repeat: false }));
   scene.update(1 / 60, controls.poll());
@@ -308,7 +317,7 @@ it('emits dust only on meaningful landings and clears presentation on replay and
   state.feedback.checkpointSeconds = 2;
   state.player.x = PLAINS_LEVEL.finish.x;
   scene.update(1 / 60, neutral);
-  scene.menuTargets.find(target => target.label === 'Leave activity')!.action();
+  expect(scene.educationOverlay.open).toBe(false);
   scene.update(1 / 60, neutral);
   scene.update(1 / 60, { ...neutral, jumpPressed: true });
   expect(state.feedback.effects).toEqual([]);
@@ -338,8 +347,8 @@ it('selects every level track only on start, preserves recovery, and silences fi
     state.player.y = level.finish.y;
     scene.update(1 / 60, neutral);
     expect(calls.slice(calls.indexOf('complete') - 1, calls.indexOf('complete') + 1)).toEqual(['stop', 'complete']);
-    if (scene.educationOverlay.open) scene.menuTargets.find(target => target.label === 'Leave activity')!.action();
-    scene.activateFinish('Choose trail');
+    expect(scene.educationOverlay.open).toBe(false);
+    scene.activateFinish('Map');
     expect(scene.screenState).toBe('title');
     expect(calls.at(-1)).toBe('stop');
     scene.update(1 / 60, neutral);

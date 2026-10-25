@@ -19,7 +19,7 @@ type Live = { celebration: CompletionCelebration; player: Player; run: RunState 
 const finish = (scene: AdventureScene, index = 0) => {
   (scene as unknown as Live).player.x = LEVELS[index].finish.x;
   scene.update(1 / 60, neutral);
-  if (scene.educationOverlay.open) scene.menuTargets.find(target => target.label === 'Leave activity')!.action();
+  expect(scene.educationOverlay.open).toBe(false);
 };
 afterEach(() => vi.unstubAllGlobals());
 
@@ -104,7 +104,7 @@ it.each(LEVELS.map((level, index) => ({ level, index })))('$level.name finishes 
   const scene = make(index); scene.startSelected(); finish(scene, index);
   expect(scene.screenState).toBe('finish');
   const labels = scene.menuTargets.map(target => target.label);
-  expect(labels).toEqual(index < LEVELS.length - 1 ? ['Replay', 'Next trail', 'Choose trail'] : ['Replay', 'Choose trail']);
+  expect(labels).toEqual(index < LEVELS.length - 1 ? ['Next trail', 'Map', 'Build your word', 'Replay'] : ['Map', 'Build your word', 'Replay']);
   scene.update(1 / 60, { ...neutral, storyPressed: true } as never);
   expect(scene.screenState).toBe('finish');
   const { images, text } = finishRecording(scene);

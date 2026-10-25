@@ -39,9 +39,11 @@ it.each([FROST_RIDGE, SANDY_COVE])('can finish $name with simple slime-avoidance
   expect([...live.run.collectedGems].some((id) => id.includes('-bonus-'))).toBe(false);
   expect(effects.filter((e) => e === 'checkpoint')).toHaveLength(6);
   expect(effects.filter((e) => e === 'spring')).toHaveLength(6);
-  scene.menuTargets.find(target => target.label === 'Leave activity')!.action();
+  expect(scene.educationOverlay.open).toBe(false);
   console.info(`${level.name}: hazard-avoidance finish ${(frame / 60).toFixed(2)}s, ${scene.gemTotal} gems, no damage`);
   scene.update(1 / 60, neutral);
+  // Replay sits left of the default action (Next trail, or Map on the final trail).
+  scene.update(1 / 60, { ...neutral, horizontal: -1 }); scene.update(1 / 60, neutral);
   scene.update(1 / 60, { ...neutral, jumpPressed: true });
   expect(scene.screenState).toBe('playing');
   expect(live.run.seconds).toBe(0);
@@ -83,8 +85,9 @@ it('pauses slimes with gameplay and restores their initial positions on replay',
   clock.setPaused(false);
   live.player.x = SANDY_COVE.finish.x;
   scene.update(1 / 60, neutral);
-  scene.menuTargets.find(target => target.label === 'Leave activity')!.action();
+  expect(scene.educationOverlay.open).toBe(false);
   scene.update(1 / 60, neutral);
+  scene.update(1 / 60, { ...neutral, horizontal: -1 }); scene.update(1 / 60, neutral);
   scene.update(1 / 60, { ...neutral, jumpPressed: true });
   expect(entityPosition(live.run, slime)).toEqual({ x: slime.x, y: slime.y });
 });

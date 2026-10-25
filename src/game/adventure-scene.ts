@@ -28,20 +28,38 @@ import { CompletionCelebration, celebrationJump, celebrationSparkles } from './c
 
 export interface Rect { x: number; y: number; width: number; height: number }
 
-/** Finish-screen composition: title, gem total, celebration band and replay prompt stacked without overlap. */
+/** Finish-screen composition: title, gem total, celebration band and action prompt stacked without overlap. */
 export const FINISH_LAYOUT = {
   centerX: 213,
-  panel: { x: 44, y: 16, width: 338, height: 212 },
+  // Wide enough for four 12 px labels in one row inside the panel's 10 px timber frame.
+  panel: { x: 16, y: 16, width: 394, height: 212 },
   title: { baseline: 52, size: 20 },
   gems: { baseline: 76, size: 10 },
   // Fixed feet anchor; the jump and bounded sparkles stay below results.
   celebration: { baseline: 147 },
   landmark: { x: 88, y: 90, width: 80, height: 66 },
-  actions: { x: 56, y: 177, width: 102, height: 26, spacing: 106 },
+  actions: { y: 177, height: 26, gap: 4 },
   prompt: { baseline: 214, size: 9 },
 } as const;
 
 export const CELEBRATION_SIZE = 48;
+
+/** Results actions in navigation order; the first is the default (Next trail, or Map on the final trail). */
+export type FinishAction = 'Next trail' | 'Map' | 'Build your word' | 'Replay';
+/** Icon actions keep the existing symbol at x + 15 and a 12 px label from x + 24; Build your word is a centred label. */
+export const FINISH_ACTION_WIDTHS: Readonly<Record<FinishAction, number>> = { 'Next trail': 104, Map: 54, 'Build your word': 124, Replay: 76 };
+
+/** One centred row; widths fit each full label within the button's 6 px quiet interior. */
+export function finishActionRects(actions: readonly FinishAction[]): Rect[] {
+  const { y, height, gap } = FINISH_LAYOUT.actions;
+  const total = actions.reduce((sum, action) => sum + FINISH_ACTION_WIDTHS[action], 0) + gap * (actions.length - 1);
+  let x = FINISH_LAYOUT.centerX - Math.round(total / 2);
+  return actions.map(action => {
+    const rect = { x, y, width: FINISH_ACTION_WIDTHS[action], height };
+    x += rect.width + gap;
+    return rect;
+  });
+}
 
 /** Collected against the trail's total, in the same shape as the star result. */
 export function finishGemsText(gems: number, total: number): string {
@@ -186,7 +204,6 @@ export class AdventureScene implements Scene {
       this.audio.stop();
       this.rumble?.stop();
       this.audio.play('complete');
-      if (this.hasWordActivity) this.educationOverlay.showAssembly(() => this.retraceFromFinish());
     }
     this.feedback.consume(this.events, this.level);
     this.hud.consume(this.events);
@@ -322,8 +339,18 @@ export class AdventureScene implements Scene {
     this.audio.startMusic(musicForLevel(this.level.id));
   }
 
-  private get finishActions(): string[] {
-    return this.selectedIndex < LEVELS.length - 1 ? ['Replay', 'Next trail', 'Choose trail'] : ['Replay', 'Choose trail'];
+  /** The final trail has no successor: Map is its default, without wrapping to a new progression. */
+  private get finishActions(): FinishAction[] {
+    return [...this.selectedIndex < LEVELS.length - 1 ? ['Next trail' as const] : [], 'Map',
+      ...this.hasWordActivity ? ['Build your word' as const] : [], 'Replay'];
+  }
+
+  /** Leaving the activity restores the default action and waits for every held control to release. */
+  private restoreFinishDefault(): void {
+    if (this.screens.state !== 'finish') return;
+    this.finishIndex = 0;
+    this.selectionDirection = 0;
+    this.menuArmed = false;
   }
 
   returnToTrails(): void {
@@ -338,11 +365,16 @@ export class AdventureScene implements Scene {
   }
 
   activateFinish(action: string): void {
-    if (this.screenState !== 'finish' || !this.finishActions.includes(action)) return;
-    this.screens.replay();
+    if (this.screenState !== 'finish' || this.educationOverlay.open || !(this.finishActions as string[]).includes(action)) return;
     this.selectionDirection = 0;
     this.menuArmed = false;
-    if (action === 'Choose trail') {
+    if (action === 'Build your word') {
+      // Optional and deliberate: the finished run, results and celebration stay underneath, frozen.
+      this.educationOverlay.showAssembly(() => this.retraceFromFinish(), () => this.restoreFinishDefault());
+      return;
+    }
+    this.screens.replay();
+    if (action === 'Map') {
       this.session.returnedSeconds = 2;
       this.audio.stop();
     } else {
@@ -367,9 +399,9 @@ export class AdventureScene implements Scene {
 
   /** Results actions, independent of any activity drawn over the finish screen. */
   private get finishTargets(): MenuTarget[] {
+    const rects = finishActionRects(this.finishActions);
     return this.finishActions.map((label, index) => ({
-      label, x: FINISH_LAYOUT.actions.x + index * FINISH_LAYOUT.actions.spacing, y: FINISH_LAYOUT.actions.y,
-      width: FINISH_LAYOUT.actions.width, height: FINISH_LAYOUT.actions.height, selected: index === this.finishIndex,
+      label, ...rects[index], selected: index === this.finishIndex,
       action: () => this.activateFinish(label),
     }));
   }
@@ -453,14 +485,18 @@ export class AdventureScene implements Scene {
     }
     actions.forEach((target, index) => {
       ctx.fillStyle = index === this.finishIndex ? '#10252c' : '#e9f2df';
-      // Large symbols and short labels survive the 320px fractional downscale.
+      // Large symbols and full 12 px labels survive the 320px fractional downscale.
       ctx.font = 'bold 18px monospace';
-      if (target.label === 'Choose trail') {
+      ctx.textAlign = 'center';
+      if (target.label === 'Map') {
         for (const [dx, dy] of [[0, 0], [7, 0], [0, 7], [7, 7]]) ctx.fillRect(target.x + 9 + dx, target.y + 7 + dy, 5, 5);
-      } else ctx.fillText(target.label === 'Replay' ? '↶' : '▶', target.x + 15, target.y + 19);
+      } else if (target.label !== 'Build your word') ctx.fillText(target.label === 'Replay' ? '↶' : '▶', target.x + 15, target.y + 19);
       ctx.font = 'bold 12px monospace';
-      ctx.fillText(target.label === 'Next trail' ? 'Next' : target.label === 'Choose trail' ? 'Trails' : 'Replay', target.x + 61, target.y + 17);
+      // The rendered label is the accessible name and the input target's label.
+      if (target.label === 'Build your word') ctx.fillText(target.label, target.x + target.width / 2, target.y + 17);
+      else { ctx.textAlign = 'left'; ctx.fillText(target.label, target.x + 24, target.y + 17); }
     });
+    ctx.textAlign = 'center';
     ctx.fillStyle = '#e9f2df'; ctx.font = '9px monospace';
     ctx.fillText(this.inputSource === 'controller' ? 'D-pad + Face' : '← → + Space', 213, 214);
     ctx.textAlign = 'left';

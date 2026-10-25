@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import henryManifest from '../public/assets/henry/manifest.json';
 import {
-  FINISH_LAYOUT, celebrationHenryRect, celebrationStarRects, finishGemsText, type Rect,
+  FINISH_LAYOUT, celebrationHenryRect, celebrationStarRects, finishActionRects, finishGemsText, type Rect,
 } from '../src/game/adventure-scene';
 import { celebrationJump } from '../src/game/celebration';
 import { createRun, startNewRun } from '../src/game/interactions';
@@ -24,7 +24,7 @@ function inside(inner: Rect, outer: Rect): boolean {
 }
 
 describe('finish screen composition', () => {
-  const { panel, title, gems, actions, prompt } = FINISH_LAYOUT;
+  const { panel, title, gems, prompt } = FINISH_LAYOUT;
   const times = Array.from({ length: 121 }, (_, step) => step / 60);
   const bobs = times.map(time => celebrationJump(time));
 
@@ -41,7 +41,7 @@ describe('finish screen composition', () => {
     const text = [
       textRect('TRAIL COMPLETE!', title.baseline, title.size),
       textRect(finishGemsText(total, 999), gems.baseline, gems.size),
-      ...Array.from({ length: 3 }, (_, index) => ({ x: actions.x + index * actions.spacing, y: actions.y, width: actions.width, height: actions.height })),
+      ...finishActionRects(['Next trail', 'Map', 'Build your word', 'Replay']),
       textRect('D-pad: choose · Face button: confirm', prompt.baseline, prompt.size),
     ];
     for (const rect of text) expect(inside(rect, panel)).toBe(true);

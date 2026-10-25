@@ -135,7 +135,7 @@ it('plays a single squish for simultaneous tops in the scene event consumer', ()
   expect(play.mock.calls).toEqual([['squash']]);
 });
 
-it.each(['Replay', 'Next trail', 'Choose trail', 'pause return', 'change trail'] as const)('starts upright slimes after %s', action => {
+it.each(['Replay', 'Next trail', 'Map', 'pause return', 'change trail'] as const)('starts upright slimes after %s', action => {
   const scene = new AdventureScene({} as never, {} as never, worlds, new SilentAudio(), LEVELS[0]);
   scene.startSelected(); scene.update(1 / 60, neutral);
   const live = scene as unknown as { player: Player; run: RunState; level: LevelData };
@@ -152,7 +152,7 @@ it.each(['Replay', 'Next trail', 'Choose trail', 'pause return', 'change trail']
     live.player.x = live.level.finish.x;
     scene.update(1 / 60, neutral); expect(scene.screenState).toBe('finish');
     scene.activateFinish(action);
-    if (action === 'Choose trail') scene.startSelected();
+    if (action === 'Map') scene.startSelected();
   }
   expect(scene.screenState).toBe('playing');
   expect(live.run).not.toBe(oldRun);

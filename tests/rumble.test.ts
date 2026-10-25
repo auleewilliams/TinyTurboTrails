@@ -191,7 +191,7 @@ describe('adventure rumble triggers', () => {
     scene.update(1 / 60, neutral);
     expect(scene.screenState).toBe('finish');
     expect(rumble.stop).toHaveBeenCalled();
-    scene.activateFinish('Choose trail'); scene.update(1 / 60, neutral);
+    scene.activateFinish('Map'); scene.update(1 / 60, neutral);
     expect(scene.screenState).toBe('title');
     expect(rumble.play).not.toHaveBeenCalled();
     rumble.stop.mockClear(); scene.exit();
