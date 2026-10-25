@@ -160,7 +160,8 @@ with a 0.65-second letter flight toward the bag (a brief local cue with reduced
 motion). Collection never writes word spaces or earns rewards. These optional
 objects do not alter level entities, totals or physics.
 
-Finishing any of the six trails marks completion and opens Build plus its word.
+Finishing any of the six trails marks completion and opens results. Build your word
+deliberately opens the optional assembly.
 The target appears above four spaces; a deterministic pile ordered by original
 slots 4, 2, 1, 3 includes only collected, unplaced identities. Repeated Es and Ls
 remain separate. Native labels number repeated letters 1 and 2. Drag a tile into
@@ -178,6 +179,18 @@ through the adventure's existing required-artwork/Retry flow; a missing sticker
 shows Retry rather than a fallback. Focus uses an outer frame and caret; the
 tile in hand retains an inset frame after focus moves to a space.
 
+Correct manual completion switches to WORD COMPLETE!, keeping the target and
+assembled tiles visible above the centered existing sticker and earned message.
+Done is the sole action, with the same canvas label and accessible name; native
+focus and controller selection move to it immediately and on completed reentry.
+The footer says Done: return to trail results. This is a still presentation, with
+no motion or delay in either motion preference. Completion rearms controller
+confirmation and clears pending input at the overlay revision boundary; native
+Enter/Space keydown suppresses repeats and keyup activation. A fresh Done
+confirmation returns to the same results with Next trail (or final Map) selected
+and focused. World simulation remains paused throughout assembly and success,
+without catch-up; no word, collection, penalty or session reward rules change.
+
 Find more letters appears while any pickup is missing. It closes the activity
 and places Henry 28px before finish, with zero velocity and grounded feet, while
 retaining the identical `RunState`, all progress and completion result. No level
@@ -187,7 +200,8 @@ results again, without reopening the activity, and Build your word re-enters it.
 six trails, including reverse pit-edge jumps, springs and platform areas, to all
 four missed letters without recovery, then returns to finish. No position writes
 occur after the initial finish fixture. The finish never opens the activity by
-itself; Build your word opens it, and Leave activity or Escape/Start returns to the
+itself; Build your word opens it, and incomplete Leave activity, completed Done,
+or Escape/Start returns to the
 results with Next trail (or Map on the final trail) selected.
 
 The overworld STICKERS button, E or standard D-pad Up (button 12) opens the

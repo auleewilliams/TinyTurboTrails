@@ -187,12 +187,12 @@ it('re-entering a completed word cannot duplicate its sticker', () => {
   scene.activateFinish('Build your word');
   config.pickups.forEach((pickup, slot) => scene.education.place(pickup.id, slot));
   expect(scene.education.stickers).toEqual(['Timbers TREE']);
-  target(scene, 'Leave activity').action();
+  target(scene, 'Done').action();
   scene.activateFinish('Build your word');
   expect(scene.educationOverlay.open).toBe(true);
   expect(labels(scene)).not.toContain('Find more letters');
   config.pickups.forEach((pickup, slot) => expect(scene.education.place(pickup.id, slot)).toBe(false));
-  target(scene, 'Leave activity').action();
+  target(scene, 'Done').action();
   scene.activateFinish('Replay');
   expect(scene.education.stickers).toEqual(['Timbers TREE']);
 });

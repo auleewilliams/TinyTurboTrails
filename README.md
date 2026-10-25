@@ -51,7 +51,7 @@ Henry celebrates each finish with a jump and cheer (a still pose with reduced mo
 Results come first: no activity covers the finish. Its buttons read Next trail, Map,
 Build your word and Replay, matching their accessible names. Next trail is selected and starts the next registered trail;
 on Sandy Cove, the final trail, Map is selected instead (there is no wrap-around). Map returns to the map, Build your word
-opens the optional word activity, and Replay starts the same trail fresh. Leaving the activity reselects Next trail (or Map). Checkpoint recovery retains gems and special
+opens the optional word activity, and Replay starts the same trail fresh. Correct manual word assembly shows the completed word, its earned trail sticker and a focused Done button. Done returns to results with Next trail (or Map) selected and focused. Incomplete work still offers Leave activity and, when needed, Find more letters. Checkpoint recovery retains gems and special
 stars; replay, changing trails and reload clear the run's stars. Completion
 badges and each trail's best gem/star results last for this page session only;
 the selected trail's map panel shows those results. Replaying with fewer pickups
