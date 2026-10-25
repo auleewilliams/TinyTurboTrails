@@ -1,5 +1,6 @@
 import type { LevelData } from '../world/level';
 import { drawRewardResult } from './reward-result';
+import { drawKitButton, drawKitFrame, type InterfaceKit } from '../art/interface-kit';
 
 export interface MenuTarget { label: string; description?: string; x: number; y: number; width: number; height: number; selected?: boolean; action: () => void; focus?: () => void; nativeSpace?: boolean;
   drag?: { start: (x: number, y: number) => void; move: (x: number, y: number) => void;
@@ -12,6 +13,8 @@ export const OVERWORLD_LAYOUT = {
   preview: { x: 287, y: 84, width: 126, height: 71 },
   results: { baseline: 174, gemCenter: 320, starCenter: 382, center: 350 },
   play: { x: 298, y: 180, width: 104, height: 27 },
+  stickers: { x: 282, y: 7, width: 79, height: 29 },
+  story: { x: 367, y: 7, width: 47, height: 29 },
 } as const;
 
 export interface TrailResult { readonly gems: number; readonly stars: number }
@@ -35,7 +38,7 @@ export class TrailSession {
 
 export function drawOverworld(ctx: CanvasRenderingContext2D, levels: readonly LevelData[], selected: number,
   results: ReadonlyMap<string, TrailResult>, title: HTMLImageElement, gemAtlas: HTMLImageElement, landmarks?: HTMLImageElement,
-  preview?: HTMLCanvasElement, background?: HTMLImageElement): void {
+  preview?: HTMLCanvasElement, background?: HTMLImageElement, ui?: InterfaceKit, story = false): void {
   ctx.save();
   ctx.fillStyle = '#dde5c1'; ctx.fillRect(0, 0, 426, 240);
   if (background) ctx.drawImage(background, 0, 0, 426, 240);
@@ -71,8 +74,11 @@ export function drawOverworld(ctx: CanvasRenderingContext2D, levels: readonly Le
       ctx.fillStyle = '#ffda75'; ctx.font = 'bold 11px monospace'; ctx.fillText('✓', x + 21, y - 18);
     }
   });
-  const { panel, preview: previewBounds, results: row, play } = OVERWORLD_LAYOUT;
-  ctx.fillStyle = '#17333b'; ctx.fillRect(panel.x, panel.y, panel.width, panel.height);
+  const { panel, preview: previewBounds, results: row, play, stickers, story: storyButton } = OVERWORLD_LAYOUT;
+  // Control backings only; their labels are drawn by the scene with live input hints.
+  drawKitButton(ctx, ui, stickers, { fill: '#17333b', selectedFill: '#17333b' });
+  if (story) drawKitButton(ctx, ui, storyButton, { fill: '#17333b', selectedFill: '#17333b' });
+  drawKitFrame(ctx, ui, 'plaque', panel.x, panel.y, panel.width, panel.height, { fill: '#17333b' });
   ctx.fillStyle = '#ffda75'; ctx.textAlign = 'center'; ctx.font = 'bold 10px monospace';
   const words = levels[selected].name.split(' ');
   ctx.fillText(words.slice(0, -1).join(' ') || words[0], 350, 63);
@@ -93,7 +99,7 @@ export function drawOverworld(ctx: CanvasRenderingContext2D, levels: readonly Le
     drawRewardResult(ctx, 'gem', `${result.gems}/${gems}`, stars ? row.gemCenter : row.center, row.baseline, level.atlas, gemAtlas);
     if (stars) drawRewardResult(ctx, 'star', `${result.stars}/${stars}`, row.starCenter, row.baseline, level.atlas, gemAtlas);
   } else ctx.fillText(['Hills to a friend', 'Along quarry paths', 'Through tall trees', 'Past the busy yard', 'Over snowy hills', 'Down to the seaside'][selected], 350, 175);
-  ctx.fillStyle = '#ffda75'; ctx.fillRect(play.x, play.y, play.width, play.height);
+  drawKitButton(ctx, ui, { ...play, selected: true }, { fill: '#ffda75', selectedFill: '#ffda75' });
   ctx.fillStyle = '#17333b'; ctx.font = 'bold 12px monospace'; ctx.fillText('PLAY', 350, 198);
   ctx.restore();
 }

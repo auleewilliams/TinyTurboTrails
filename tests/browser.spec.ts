@@ -14,6 +14,8 @@ import { drawSurfaceMaterials } from '../src/world/surface-materials';
 import { drawSlime, drawGem, drawSpecial, drawLandingBands, drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawTerrainTiles, drawWorld } from '../src/world/renderer';
 import { TRAIL_WORDS } from '../src/game/education';
 import { TRAIL_RIBBON, trailPosition } from '../src/game/hud';
+import { INTERFACE_PIECES } from '../src/art/interface-kit';
+import { PAUSE_PANEL } from '../src/game/pause-menu';
 
 const VIEWPORT_CASES = [
   { width: 2048, height: 1178 }, { width: 1366, height: 768 },
@@ -2222,6 +2224,14 @@ async function observeTrailRibbon(page: Page): Promise<void> {
     const drawImage = CanvasRenderingContext2D.prototype.drawImage;
     CanvasRenderingContext2D.prototype.drawImage = function (this: CanvasRenderingContext2D, ...args: unknown[]) {
       const [image] = args;
+      // The ribbon's generated plaque backing starts each sample with its top-left corner slice.
+      if (image instanceof HTMLImageElement && image.src.endsWith('/assets/interface/plaque.png') && args.length === 9
+        && args[5] === ribbon.x && args[6] === ribbon.y) {
+        let sample = samples.get(this.canvas);
+        if (!sample) { sample = { recording: false, points: [] }; samples.set(this.canvas, sample); }
+        sample.recording = true;
+        sample.points = [];
+      }
       if (image instanceof HTMLImageElement && image.src.endsWith('/assets/henry/henry-celebration.png') && args.length === 9) {
         const transform = this.getTransform();
         const from = transform.transformPoint(new DOMPoint(Number(args[5]), Number(args[6])));
@@ -2922,7 +2932,8 @@ test('slime atlas keeps identical bodies, transparent borders and ground anchors
   for (const body of result.bodies) expect(body).toEqual(result.bodies[0]);
 });
 
-for (const asset of ['slimes/slimes', 'gems/gems', 'spelling/pouch', 'spelling/tile', ...TRAIL_WORDS.map(config => `spelling/${config.id}-sticker`)]) test(`shared ${asset} atlas failure is recoverable through retry`, async ({ page }) => {
+for (const asset of ['slimes/slimes', 'gems/gems', 'spelling/pouch', 'spelling/tile', ...TRAIL_WORDS.map(config => `spelling/${config.id}-sticker`),
+  ...Object.keys(INTERFACE_PIECES).map(name => `interface/${name}`)]) test(`shared ${asset} atlas failure is recoverable through retry`, async ({ page }) => {
   await page.route(`**/assets/${asset}.png`, route => route.abort());
   await page.goto('/?debug=1');
   await expect(page.getByRole('button', { name: /Retry/i })).toBeVisible();
@@ -2942,6 +2953,222 @@ for (const name of ['tile', 'frost-sticker']) test(`spelling ${name} artwork rej
   await expect(page.locator('#retry')).toBeVisible();
   await page.unroute(path); await retryAndDismiss(page);
   await expect(page.locator('#status')).toContainText('Title');
+});
+
+/**
+ * Records real glyph bounds (measureText actualBoundingBox*) for game-canvas text drawn over a
+ * generated kit piece, against that piece's quiet interior reconstructed from its own corner-slice
+ * draws. A full-screen fill (scrim or new frame) starts a new layer.
+ */
+async function observeKitTextClearance(page: Page): Promise<void> {
+  await page.addInitScript(pieces => {
+    type Rect = { piece: string; x: number; y: number; right: number; bottom: number; quiet: { left: number; top: number; right: number; bottom: number } };
+    const rects: Rect[] = [];
+    let pending: { piece: string; x: number; y: number; left: number; top: number } | undefined;
+    const probe = { checked: [] as string[], violations: [] as unknown[] };
+    Object.assign(window, { kitTextProbe: probe });
+    // Ownership is per rendered frame: clear before every animation-frame callback.
+    const raf = window.requestAnimationFrame.bind(window);
+    window.requestAnimationFrame = callback => raf(time => { rects.length = 0; pending = undefined; callback(time); });
+    const fillRect = CanvasRenderingContext2D.prototype.fillRect;
+    CanvasRenderingContext2D.prototype.fillRect = function (x, y, width, height) {
+      if (this.canvas.id === 'game' && x === 0 && y === 0 && width === 426 && height === 240) rects.length = 0;
+      fillRect.call(this, x, y, width, height);
+    };
+    const drawImage = CanvasRenderingContext2D.prototype.drawImage;
+    CanvasRenderingContext2D.prototype.drawImage = function (this: CanvasRenderingContext2D, ...args: unknown[]) {
+      const [image] = args;
+      const name = image instanceof HTMLImageElement ? image.src.match(/\/assets\/interface\/([a-z-]+)\.png$/)?.[1] : undefined;
+      // Spelling tiles carry their own glyphs over any kit piece beneath them (e.g. letter flights over the bag).
+      if (this.canvas.id === 'game' && image instanceof HTMLImageElement && image.src.endsWith('/assets/spelling/tile.png') && args.length === 5) {
+        const [dx, dy, dw, dh] = args.slice(1).map(Number);
+        rects.push({ piece: 'spelling-tile', x: dx, y: dy, right: dx + dw, bottom: dy + dh, quiet: { left: -Infinity, top: -Infinity, right: Infinity, bottom: Infinity } });
+      }
+      if (this.canvas.id === 'game' && name && args.length === 9) {
+        const [sx, sy, sw, sh, dx, dy, dw, dh] = args.slice(1).map(Number);
+        const size = (pieces as Record<string, { width: number; height: number }>)[name];
+        if (sx === 0 && sy === 0) pending = { piece: name, x: dx, y: dy, left: sw, top: sh };
+        if (pending?.piece === name && sx + sw === size.width && sy + sh === size.height) {
+          rects.push({ piece: name, x: pending.x, y: pending.y, right: dx + dw, bottom: dy + dh,
+            quiet: { left: pending.x + pending.left, top: pending.y + pending.top, right: dx + dw - sw, bottom: dy + dh - sh } });
+          pending = undefined;
+        }
+      }
+      Reflect.apply(drawImage, this, args);
+    } as typeof drawImage;
+    const fillText = CanvasRenderingContext2D.prototype.fillText;
+    CanvasRenderingContext2D.prototype.fillText = function (text, x, y, maxWidth) {
+      if (this.canvas.id === 'game' && text.trim()) {
+        // The innermost (latest) kit piece under the text anchor owns its clearance.
+        const owner = [...rects].reverse().find(rect => x >= rect.x && x <= rect.right && y >= rect.y && y <= rect.bottom);
+        const transform = this.getTransform();
+        if (owner && owner.piece !== 'spelling-tile' && transform.isIdentity) {
+          const metrics = this.measureText(text);
+          const box = { left: x - metrics.actualBoundingBoxLeft, right: x + metrics.actualBoundingBoxRight,
+            top: y - metrics.actualBoundingBoxAscent, bottom: y + metrics.actualBoundingBoxDescent };
+          const key = `${text}|${owner.piece}`;
+          if (!probe.checked.includes(key)) probe.checked.push(key);
+          const { quiet } = owner;
+          if (box.left < quiet.left || box.right > quiet.right || box.top < quiet.top || box.bottom > quiet.bottom) {
+            if (!probe.violations.some(entry => (entry as { key: string }).key === key)) probe.violations.push({ key, font: this.font, box, quiet });
+          }
+        }
+      }
+      if (maxWidth === undefined) fillText.call(this, text, x, y); else fillText.call(this, text, x, y, maxWidth);
+    };
+  }, INTERFACE_PIECES);
+}
+
+const kitTextProbe = (page: Page) => page.evaluate(() => (window as unknown as { kitTextProbe: { checked: string[]; violations: unknown[] } }).kitTextProbe);
+const twoFrames = (page: Page) => page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
+async function captureNativeAndSmall(page: Page, info: import('@playwright/test').TestInfo, name: string): Promise<void> {
+  for (const viewport of [{ width: 426, height: 300 }, { width: 320, height: 240 }]) {
+    await page.setViewportSize(viewport); await twoFrames(page); await twoFrames(page);
+    await page.screenshot({ path: info.outputPath(`${name}-${viewport.width}.png`) });
+  }
+}
+
+test('kit text clears generated rims for keyboard and controller prompts at native and small sizes', async ({ page }, info) => {
+  await observeKitTextClearance(page);
+  await page.addInitScript(() => {
+    const pad = { connected: true, mapping: 'standard', axes: [0, 0], buttons: Array.from({ length: 17 }, () => ({ pressed: false, value: 0, touched: false })) };
+    Object.assign(window, { kitPad: pad, kitPadOn: false });
+    Object.defineProperty(navigator, 'getGamepads', { configurable: true, value: () => (window as unknown as { kitPadOn: boolean }).kitPadOn ? [pad] : [] });
+  });
+  const tap = async (button: number) => {
+    await page.evaluate(index => { Object.assign(window, { kitPadOn: true }); (window as unknown as { kitPad: { buttons: { pressed: boolean; value: number }[] } }).kitPad.buttons[index].pressed = true; }, button);
+    await twoFrames(page);
+    await page.evaluate(index => { (window as unknown as { kitPad: { buttons: { pressed: boolean }[] } }).kitPad.buttons[index].pressed = false; }, button);
+    await twoFrames(page);
+  };
+  await openAdventure(page, '/');
+  await captureNativeAndSmall(page, info, 'map-keyboard');
+  await page.getByRole('button', { name: 'Open stickers', exact: true }).click();
+  await expect(page.getByRole('dialog')).toBeVisible(); await twoFrames(page);
+  await page.getByRole('button', { name: 'Return to map', exact: true }).click(); await twoFrames(page);
+  await page.getByRole('button', { name: /^Play / }).click();
+  await expect(page.locator('#status')).toContainText('Playing');
+  await captureNativeAndSmall(page, info, 'hud-keyboard-move');
+  await page.keyboard.down('ArrowRight'); await twoFrames(page); await page.keyboard.up('ArrowRight');
+  await expect.poll(async () => (await kitTextProbe(page)).checked.includes('Space: jump|plaque')).toBe(true);
+  await captureNativeAndSmall(page, info, 'hud-keyboard-jump');
+  await page.keyboard.press('Escape'); await twoFrames(page);
+  await page.keyboard.press('t'); await twoFrames(page);
+  await expect(page.getByRole('button', { name: 'Keep playing', exact: true })).toBeVisible();
+  await page.keyboard.press('Escape'); await twoFrames(page);
+  await page.keyboard.press('Escape'); await twoFrames(page);
+  // Controller: the HUD switches to controller prompts, then a fresh run teaches movement.
+  await tap(15);
+  await expect.poll(async () => (await kitTextProbe(page)).checked.includes('Face button: jump|plaque')).toBe(true);
+  await tap(9); await twoFrames(page);
+  await expect(page.getByRole('button', { name: 'Return to Trails', exact: true })).toBeVisible();
+  await page.getByRole('button', { name: 'Return to Trails', exact: true }).click();
+  await page.getByRole('button', { name: 'Return to Trails', exact: true }).click();
+  await expect(page.locator('#status')).toContainText('Title');
+  await tap(15);
+  await captureNativeAndSmall(page, info, 'map-controller');
+  await tap(0);
+  await expect(page.locator('#status')).toContainText('Playing');
+  await expect.poll(async () => (await kitTextProbe(page)).checked.includes('Stick / D-pad: move|plaque')).toBe(true);
+  await captureNativeAndSmall(page, info, 'hud-controller-move');
+  const { checked, violations } = await kitTextProbe(page);
+  await writeFile(info.outputPath('kit-text-clearance.json'), JSON.stringify({ checked, violations }, null, 2));
+  await info.attach('kit-text-clearance', { path: info.outputPath('kit-text-clearance.json'), contentType: 'application/json' });
+  for (const key of ['STICKERS|button', 'Arrows / A-D: move|plaque', 'Space: jump|plaque', 'Face button: jump|plaque', 'Stick / D-pad: move|plaque',
+    'PAUSED|panel', 'LEAVE THIS TRAIL?|panel', 'Resume|button-selected', 'Return to Trails|button', 'Return to map|button-selected', 'PLAY|button-selected']) {
+    expect(checked).toContain(key);
+  }
+  expect(checked.some(key => /^\d\/6 · .*E.*\|button$/.test(key))).toBe(true);
+  expect(checked.some(key => /^\d\/6 · .*D-pad.*\|button$/.test(key))).toBe(true);
+  expect(violations).toEqual([]);
+});
+
+test('kit text clears generated rims on the real assembly and finish results', { lock: 'native-route' }, async ({ page }, info) => {
+  await observeKitTextClearance(page);
+  await installTrailPilot(page);
+  await openAdventure(page, '/?debug=1');
+  await page.getByRole('button', { name: /^Play / }).click();
+  await page.evaluate(dangers => Object.assign((window as unknown as { trailPilot: object }).trailPilot, { active: true, dangers }), dangerXs(PLAINS_LEVEL));
+  await expect(page.getByRole('dialog')).toBeVisible({ timeout: 25_000 });
+  await page.evaluate(() => Object.assign((window as unknown as { trailPilot: object }).trailPilot, { active: false, lastActive: false }));
+  await page.keyboard.up('ArrowRight');
+  await captureNativeAndSmall(page, info, 'assembly');
+  await page.getByRole('button', { name: 'Leave activity', exact: true }).click();
+  await expect(page.getByRole('button', { name: 'Replay', exact: true })).toBeVisible();
+  await captureNativeAndSmall(page, info, 'finish');
+  const { checked, violations } = await kitTextProbe(page);
+  await writeFile(info.outputPath('kit-text-clearance.json'), JSON.stringify({ checked, violations }, null, 2));
+  await info.attach('kit-text-clearance', { path: info.outputPath('kit-text-clearance.json'), contentType: 'application/json' });
+  for (const key of ['Leave activity|button', '_|button', 'TRAIL COMPLETE!|panel', 'Replay|button-selected', 'Next|button', 'Trails|button']) expect(checked).toContain(key);
+  expect(violations).toEqual([]);
+});
+
+test('interface panel artwork rejects wrong dimensions and recovers through retry', async ({ page }) => {
+  const path = '**/assets/interface/panel.png';
+  await page.route(path, async route => {
+    const response = await route.fetch({ url: route.request().url().replace('panel.png', 'plaque.png') });
+    await route.fulfill({ response });
+  });
+  await page.goto('/');
+  await expect(page.locator('#retry')).toBeVisible();
+  await page.unroute(path); await retryAndDismiss(page);
+  await expect(page.locator('#status')).toContainText('Title');
+});
+
+test('illustrated pause panel draws generated art behind live text with aligned targets and kit feedback controls', async ({ page }, info) => {
+  await openAdventure(page, '/');
+  await page.getByRole('button', { name: /^Play / }).click();
+  await expect(page.locator('#status')).toContainText('Playing');
+  await page.keyboard.press('Escape');
+  await expect(page.getByRole('button', { name: 'Resume', exact: true })).toBeVisible();
+  const sample = () => page.locator('canvas').evaluate((element, panel) => {
+    const ctx = (element as HTMLCanvasElement).getContext('2d')!;
+    const at = (x: number, y: number) => [...ctx.getImageData(x, y, 1, 1).data];
+    // Timber mid-edge, interior, scrim outside the panel, and each button face beside its label.
+    return { wood: at(panel.x + 4, panel.y + 100), interior: at(panel.x + 20, panel.y + 40), scrim: at(10, 120),
+      resume: at(53 + 9, 157 + 15), leave: at(218 + 9, 157 + 15) };
+  }, PAUSE_PANEL);
+  const isWood = ([r, g, b]: number[]) => r > 170 && g > 90 && g < 210 && b < 110 && r > g && g > b;
+  const isGold = ([r, g, b]: number[]) => r > 200 && g > 160 && b < 150;
+  const isSlate = ([r, g, b]: number[]) => r < 110 && b >= r && g < 140;
+  let pixels = await sample();
+  expect(isWood(pixels.wood)).toBe(true);
+  expect(pixels.interior[0] + pixels.interior[1] + pixels.interior[2]).toBeLessThan(200);
+  expect(isWood(pixels.scrim)).toBe(false);
+  expect(isGold(pixels.resume)).toBe(true); expect(isSlate(pixels.leave)).toBe(true);
+  // Hold until a polled frame sees the direction, as in the other pause tests.
+  await page.keyboard.down('ArrowRight');
+  await expect(page.getByRole('button', { name: 'Return to Trails', exact: true })).toHaveAttribute('aria-pressed', 'true');
+  await page.keyboard.up('ArrowRight');
+  await expect.poll(async () => { pixels = await sample(); return isGold(pixels.leave) && isSlate(pixels.resume); }).toBe(true);
+  for (const viewport of [{ width: 426, height: 300 }, { width: 320, height: 240 }]) {
+    await page.setViewportSize(viewport);
+    // Let the resize observer and a rendered frame apply the new layout before measuring.
+    await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
+    await expectClearViewport(page);
+    const geometry = await page.evaluate(() => {
+      const canvas = document.querySelector('canvas')!.getBoundingClientRect();
+      return { canvas: { x: canvas.left, y: canvas.top, width: canvas.width },
+        buttons: Array.from(document.querySelectorAll<HTMLButtonElement>('.trail-menu button')).map(button => {
+          const box = button.getBoundingClientRect(); return { label: button.getAttribute('aria-label'), x: box.left, y: box.top, width: box.width, height: box.height };
+        }),
+        controls: ['#mute', '#rumble'].map(selector => {
+          const element = document.querySelector<HTMLElement>(selector)!, style = getComputedStyle(element);
+          return { image: style.borderImageSource, width: element.offsetWidth, height: element.offsetHeight };
+        }) };
+    });
+    const scale = geometry.canvas.width / 426;
+    expect(geometry.buttons.map(button => button.label)).toEqual(['Resume', 'Return to Trails']);
+    geometry.buttons.forEach((button, index) => {
+      expect(button.x).toBeCloseTo(geometry.canvas.x + (53 + index * 165) * scale, 0);
+      expect(button.y).toBeCloseTo(geometry.canvas.y + 157 * scale, 0);
+      expect(button.width).toBeCloseTo(155 * scale, 0); expect(button.height).toBeCloseTo(30 * scale, 0);
+    });
+    // Planks are drawn inside the unchanged feedback button boxes.
+    for (const control of geometry.controls) expect(control.image).toContain('assets/interface/button.png');
+    expect(geometry.controls.map(({ width, height }) => [width >= 64 || width === 44, height])).toEqual([[true, 36], [true, 36]]);
+    await page.screenshot({ path: info.outputPath(`illustrated-pause-${viewport.width}.png`) });
+  }
 });
 
 test('approved spelling sprites have native sizes, real transparency and clear cell borders', async ({ page }) => {
@@ -3559,38 +3786,77 @@ test('builder-kit visual fixture renders all six words and generated stickers at
   const tile = source('art/spelling.ts');
   const tileStart = tile.indexOf('export function drawLetterTile');
   expect(tileStart).toBeGreaterThan(0);
+  const henry = source('art/henry.ts');
+  const loaderStart = henry.indexOf('export async function loadImage');
+  expect(loaderStart).toBeGreaterThan(0);
+  // The shipped kit module, with Vite's build-time base substituted as the bundle does.
+  const kitSource = source('art/interface-kit.ts');
+  expect(kitSource.split('import.meta.env.BASE_URL')).toHaveLength(2);
+  const modules: Record<string, string> = {
+    'game/education.ts': source('game/education.ts'),
+    'art/interface-kit.ts': kitSource.replace('import.meta.env.BASE_URL', JSON.stringify('./')),
+    'game/education-overlay.ts': source('game/education-overlay.ts'),
+    'game/menu-overlay.ts': source('game/menu-overlay.ts'),
+  };
   const fixture = [
-    declarations('education.ts', source('game/education.ts')),
+    declarations('education.ts', modules['game/education.ts']),
     declarations('tile.ts', tile.slice(tileStart)),
-    declarations('overlay.ts', source('game/education-overlay.ts')),
-    declarations('menu.ts', source('game/menu-overlay.ts')),
+    declarations('loader.ts', henry.slice(loaderStart, henry.indexOf('\n}\n', loaderStart) + 3)),
+    declarations('interface-kit.ts', modules['art/interface-kit.ts']),
+    declarations('overlay.ts', modules['game/education-overlay.ts']),
+    declarations('menu.ts', modules['game/menu-overlay.ts']),
   ].join('\n');
+  expect(fixture).not.toContain('import.meta');
+  // Keep dependency drift visible: every runtime import of a concatenated module must be declared.
+  const runtimeImports = [...new Set(Object.values(modules).flatMap(text => [...text.matchAll(/^import (?!type )\{([^}]*)\} from .*;$/gm)]
+    .flatMap(([, names]) => names.split(',').map(name => name.trim()).filter(name => name && !name.startsWith('type ')))))];
+  expect(runtimeImports).toEqual(expect.arrayContaining(['drawKitButton', 'drawKitFrame', 'drawLetterTile', 'loadImage', 'TRAIL_WORDS']));
   await page.setViewportSize({ width: 426, height: 300 });
   await observeSpellingArtwork(page);
   await openAdventure(page, '/');
   await page.addScriptTag({ content: `(() => {
     ${fixture}
+    window.spellingFixtureMissing = [${runtimeImports.map(name => `typeof ${name} === 'undefined' && ${JSON.stringify(name)}`).join(', ')}].filter(Boolean);
     window.createSpellingFixture = async () => {
       const load = async name => { const image = new Image(); image.src = '/assets/spelling/' + name + '.png'; await image.decode(); return image; };
       const stickers = {};
       for (const config of TRAIL_WORDS) stickers[config.id] = await load(config.id + '-sticker');
       const artwork = { pouch: await load('pouch'), tile: await load('tile'), stickers };
       const session = new EducationSession();
-      const overlay = new EducationOverlay(session, artwork);
+      const ui = await loadInterfaceKit();
+      const overlay = new EducationOverlay(session, artwork, ui);
       const canvas = document.querySelector('#game');
       document.querySelector('.trail-menu').remove();
       const menu = new MenuOverlay(canvas);
       const scene = { screenState: 'finish', educationOverlay: overlay, get menuTargets() { return overlay.open ? overlay.targets : []; } };
-      const draw = () => { overlay.draw(canvas.getContext('2d')); menu.update(scene, false); };
+      // Record kit pieces drawn by the overlay alone, not the live game frame beneath it.
+      const ctx = canvas.getContext('2d'), drawImage = ctx.drawImage, kitDraws = new Set();
+      let recording = false;
+      ctx.drawImage = function (image, ...rest) {
+        if (recording && Object.values(ui).includes(image)) kitDraws.add(image.src.split('/').at(-1));
+        return drawImage.call(this, image, ...rest);
+      };
+      const draw = () => { kitDraws.clear(); recording = true; try { overlay.draw(ctx); } finally { recording = false; } menu.update(scene, false); };
       const raf = window.requestAnimationFrame.bind(window);
       window.requestAnimationFrame = callback => raf(time => { callback(time); draw(); });
-      window.spellingFixture = { overlay, reset(id) {
+      const kit = Object.entries(ui).map(([piece, image]) => ({ piece, file: image.src.split('/').at(-1), complete: image.complete,
+        size: [image.naturalWidth, image.naturalHeight], declared: [INTERFACE_PIECES[piece].width, INTERFACE_PIECES[piece].height] }));
+      window.spellingFixture = { overlay, kit, kitDraws: () => [...kitDraws].sort(), reset(id) {
         session.selectTrail(id); session.pickups.forEach(pickup => session.collect(pickup.id));
         overlay.showAssembly(() => {}); draw();
       } };
     };
   })();` });
+  expect(await page.evaluate(() => (window as unknown as { spellingFixtureMissing: string[] }).spellingFixtureMissing)).toEqual([]);
   await page.evaluate(() => (window as unknown as { createSpellingFixture(): Promise<void> }).createSpellingFixture());
+  type KitPiece = { piece: string; file: string; complete: boolean; size: number[]; declared: number[] };
+  const fixtureKit = (): Promise<{ kit: KitPiece[]; kitDraws: string[] }> => page.evaluate(() => {
+    const fixture = (window as unknown as { spellingFixture: { kit: KitPiece[]; kitDraws(): string[] } }).spellingFixture;
+    return { kit: fixture.kit, kitDraws: fixture.kitDraws() };
+  });
+  const { kit } = await fixtureKit();
+  expect(kit.map(entry => entry.file).sort()).toEqual(['button-selected.png', 'button.png', 'panel.png', 'plaque.png']);
+  for (const entry of kit) expect(entry).toMatchObject({ file: `${entry.piece}.png`, complete: true, size: entry.declared });
   const capture = async (trail: string, state: string): Promise<void> => {
     for (const width of [426, 320]) {
       await page.setViewportSize({ width, height: width === 426 ? 300 : 240 });
@@ -3604,6 +3870,7 @@ test('builder-kit visual fixture renders all six words and generated stickers at
     await page.evaluate(id => (window as unknown as { spellingFixture: { reset(id: string): void } }).spellingFixture.reset(id), config.id);
     await expect(page.getByRole('dialog', { name: `Build ${config.word}`, exact: true })).toBeVisible();
     expect(await page.evaluate(() => (window as unknown as { spellingFixture: { overlay: EducationOverlay } }).spellingFixture.overlay.description)).not.toContain('sticker earned!');
+    expect((await fixtureKit()).kitDraws).toContain('button.png');
     if (config.id === 'timbers') await capture(config.id, 'mixed-pile');
     for (const [slot, pickup] of config.pickups.entries()) {
       const duplicates = config.pickups.filter(letter => letter.letter === pickup.letter);
@@ -3624,5 +3891,6 @@ test('builder-kit visual fixture renders all six words and generated stickers at
   await expect(page.getByRole('dialog', { name: 'Trail stickers', exact: true })).toBeVisible();
   const collection = JSON.parse((await page.locator('#game').getAttribute('data-spelling-draws'))!);
   for (const config of TRAIL_WORDS) expect(collection[`${config.id}-sticker.png`].alpha).toBe(1);
+  expect((await fixtureKit()).kitDraws).toEqual(expect.arrayContaining(['button-selected.png', 'plaque.png']));
   await capture('all', 'collection');
 });
