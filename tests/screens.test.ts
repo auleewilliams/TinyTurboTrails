@@ -303,6 +303,7 @@ it('emits dust only on meaningful landings and clears presentation on replay and
     player: ReturnType<typeof createPlayer>;
     feedback: import('../src/game/feedback').Feedback;
     loadLevel: (level: typeof PLAINS_LEVEL) => void;
+    level: typeof PLAINS_LEVEL;
   };
   state.player.y -= 2; state.player.onGround = false; state.player.vy = 300;
   scene.update(1 / 60, neutral);
@@ -319,12 +320,22 @@ it('emits dust only on meaningful landings and clears presentation on replay and
   scene.update(1 / 60, neutral);
   expect(scene.educationOverlay.open).toBe(false);
   scene.update(1 / 60, neutral);
+  // Replay sits left of the default Next trail: choose it with real left input before confirming.
+  scene.update(1 / 60, { ...neutral, horizontal: -1 }); scene.update(1 / 60, neutral);
+  expect(scene.menuTargets.find(target => target.selected)?.label).toBe('Replay');
   scene.update(1 / 60, { ...neutral, jumpPressed: true });
+  // Replay witness: the same trail restarts, so the reset below is not a level change.
+  expect(scene.screenState).toBe('playing');
+  expect(scene.selectedLevelName).toBe(PLAINS_LEVEL.name);
+  expect(state.level).toBe(PLAINS_LEVEL);
   expect(state.feedback.effects).toEqual([]);
   expect(state.feedback.checkpointSeconds).toBe(0);
   state.feedback.add('landing', 10, 10);
+  state.feedback.checkpointSeconds = 2;
   state.loadLevel(SANDY_COVE);
+  expect(state.level).toBe(SANDY_COVE);
   expect(state.feedback.effects).toEqual([]);
+  expect(state.feedback.checkpointSeconds).toBe(0);
 });
 
 

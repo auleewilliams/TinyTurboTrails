@@ -2730,9 +2730,16 @@ async function openWordActivity(page: Page, method: 'pointer' | 'keyboard' | 'co
     await expect(build).toHaveAttribute('aria-pressed', 'true');
     if (method === 'controller') await press(0, true); else await page.keyboard.down('Space');
     await expect(page.getByRole('dialog')).toBeVisible();
-    // The held confirmation must not also act inside the activity.
+    // The held confirmation must not also act inside the activity: selection and progress stay unchanged.
+    const activityState = () => page.evaluate(() => ({ status: document.querySelector('#status')!.textContent!.replace(/ · (Muted|M to).*$/, ''),
+      selected: document.querySelector('.trail-menu button[aria-pressed="true"]')?.getAttribute('aria-label'),
+      labels: [...document.querySelectorAll('.trail-menu button')].map(button => button.getAttribute('aria-label')) }));
+    const opened = await activityState();
     await releasedFrames(page);
+    expect(await activityState()).toEqual(opened);
     if (method === 'controller') await press(0, false); else await page.keyboard.up('Space');
+    await releasedFrames(page);
+    expect(await activityState()).toEqual(opened);
   }
   await expect(page.getByRole('dialog')).toBeVisible();
 }
@@ -3678,6 +3685,117 @@ test('educational missing-letter return preserves partial work and clears held a
   await page.getByRole('button', { name: 'Map', exact: true }).click();
   await expect(page.getByRole('button', { name: 'TREETOP TIMBERS', exact: true })).toHaveAttribute('aria-description', /Session best:/);
 });
+
+for (const index of [0, LEVELS.length - 1]) {
+  const level = LEVELS[index], defaultAction = index < LEVELS.length - 1 ? 'Next trail' : 'Map';
+  test(`leaving ${level.name} word building restores native focus to ${defaultAction} without held activation`, async ({ page }, info) => {
+    test.setTimeout(120_000);
+    const errors: string[] = [];
+    page.on('pageerror', error => errors.push(error.message));
+    await installTrailPilot(page);
+    await openAdventure(page, '/?debug=1');
+    await page.getByRole('button', { name: level.name, exact: true }).click();
+    await page.getByRole('button', { name: `Play ${level.name}`, exact: true }).click();
+    await page.evaluate(dangers => Object.assign((window as unknown as { trailPilot: object }).trailPilot, { active: true, dangers }), dangerXs(level));
+    await expectResultsFirst(page, defaultAction, 35_000);
+    await page.evaluate(() => Object.assign((window as unknown as { trailPilot: object }).trailPilot, { active: false, lastActive: false }));
+    await page.keyboard.up('ArrowRight');
+    const status = page.locator('#status'), dialog = page.getByRole('dialog');
+    const target = page.getByRole('button', { name: defaultAction, exact: true });
+    const record: unknown[] = [];
+    const observe = async (step: string): Promise<void> => { record.push(await page.evaluate(step => ({ step,
+      focus: document.activeElement?.getAttribute('aria-label') ?? document.activeElement?.tagName,
+      selected: document.querySelector('.trail-menu button[aria-pressed="true"]')?.getAttribute('aria-label'),
+      status: document.querySelector('#status')!.textContent!.split(' · ').slice(0, 2).join(' · ') }), step)); };
+    const tabTo = async (name: string): Promise<void> => {
+      const button = page.getByRole('button', { name, exact: true });
+      for (let step = 0; step < 12 && !await button.evaluate(element => element === document.activeElement); step++) await page.keyboard.press('Tab');
+      await expect(button).toBeFocused();
+    };
+    const enterActivity = async (): Promise<void> => {
+      await tabTo('Build your word'); await page.keyboard.press('Enter');
+      await expect(dialog).toBeVisible();
+      await tabTo('Leave activity');
+    };
+    const expectRestored = async (step: string): Promise<void> => {
+      await expect(dialog).toHaveCount(0);
+      await expect(target).toBeFocused();
+      await expect(target).toHaveAttribute('aria-pressed', 'true');
+      await expect(status).toContainText('Finish');
+      await observe(step);
+    };
+    try {
+      // Held Enter: the repeats that follow focus onto the default action never activate it.
+      await enterActivity(); await observe('before held Enter on Leave activity');
+      await page.keyboard.down('Enter');
+      await expectRestored('after Enter keydown on Leave activity');
+      for (let repeat = 0; repeat < 3; repeat++) { await page.keyboard.down('Enter'); await releasedFrames(page); }
+      await page.keyboard.up('Enter'); await releasedFrames(page);
+      await expectRestored('after Enter repeats and release');
+      // Held Space, then its keyup on the newly focused default.
+      await enterActivity(); await observe('before held Space on Leave activity');
+      await page.keyboard.down('Space');
+      await expectRestored('after Space keydown on Leave activity');
+      for (let repeat = 0; repeat < 3; repeat++) { await page.keyboard.down('Space'); await releasedFrames(page); }
+      await page.keyboard.up('Space'); await releasedFrames(page);
+      await expectRestored('after Space repeats and release');
+      // Escape also returns focus to the default.
+      await enterActivity();
+      await page.keyboard.press('Escape');
+      await expectRestored('after Escape');
+      // Pointer Leave has the same native focus destination.
+      await enterActivity();
+      await page.getByRole('button', { name: 'Leave activity', exact: true }).click();
+      await expectRestored('after pointer Leave activity');
+      // Tab only moves focus; Shift+Tab returns without acting.
+      await page.keyboard.press('Tab'); await releasedFrames(page);
+      await expect(target).not.toBeFocused(); await expect(status).toContainText('Finish'); await observe('after Tab');
+      await page.keyboard.press('Shift+Tab'); await releasedFrames(page);
+      await expectRestored('after Shift+Tab');
+      // Held standard-gamepad confirmation on Leave activity.
+      await enterActivity();
+      await page.evaluate(() => { (window as unknown as { trailPilot: { controller: boolean } }).trailPilot.controller = true; });
+      const pad = (pressed: boolean, button = 0) => page.evaluate(({ pressed, button }) => {
+        (window as unknown as { trailPad: { buttons: { pressed: boolean }[] } }).trailPad.buttons[button].pressed = pressed;
+      }, { pressed, button });
+      await releasedFrames(page);
+      await pad(true);
+      await expectRestored('after held controller confirmation on Leave activity');
+      await releasedFrames(page); await releasedFrames(page);
+      await expectRestored('while controller confirmation is still held');
+      await pad(false); await releasedFrames(page);
+      await expectRestored('after controller release');
+      // Start closes the activity; keeping Start held must not open Pause on the results.
+      await enterActivity(); await releasedFrames(page);
+      await pad(true, 9);
+      await expectRestored('after controller Start');
+      await releasedFrames(page); await releasedFrames(page);
+      await expectRestored('while controller Start is still held');
+      await pad(false, 9); await releasedFrames(page);
+      await expectRestored('after controller Start release');
+      // A fresh Enter acts once, including its repeats and release on the next screen.
+      const expectDestination = async (): Promise<void> => {
+        if (defaultAction === 'Next trail') {
+          await expect(status).toContainText('Playing');
+          await expect(status).toContainText('X 60');
+        } else {
+          await expect(page.getByRole('button', { name: `Play ${level.name}`, exact: true })).toBeVisible();
+          await expect(status).toContainText('Title');
+        }
+      };
+      await page.keyboard.down('Enter'); await expectDestination();
+      for (let repeat = 0; repeat < 3; repeat++) { await page.keyboard.down('Enter'); await releasedFrames(page); }
+      await expectDestination();
+      await page.keyboard.up('Enter'); await releasedFrames(page);
+      await expectDestination(); await observe('after fresh Enter, repeats and release');
+    } finally {
+      const path = info.outputPath('focus-record.json');
+      await writeFile(path, JSON.stringify(record, null, 2));
+      await info.attach('focus-record', { path, contentType: 'application/json' });
+    }
+    expect(errors).toEqual([]);
+  });
+}
 
 /** Real keyboard input and rendered debug observations, with accelerated presentation time.
  * Never reads or writes the scene, player, run or education session. */

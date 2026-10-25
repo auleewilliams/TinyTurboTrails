@@ -170,9 +170,14 @@ it('requires neutral input after finishing and never advances gameplay on the ma
   for (let frame = 0; frame < 20; frame++) scene.update(1 / 60, { ...neutral, jumpHeld: true, horizontal: 1 });
   expect(scene.screenState).toBe('finish');
   expect(scene.educationOverlay.open).toBe(false);
+  const trail = scene.selectedLevelName;
   scene.update(1 / 60, neutral);
+  // As before #210, confirm Replay: it sits left of the default Next trail.
+  scene.update(1 / 60, { ...neutral, horizontal: -1 }); scene.update(1 / 60, neutral);
+  expect(scene.menuTargets.find(target => target.selected)?.label).toBe('Replay');
   scene.update(1 / 60, { ...neutral, jumpPressed: true });
   expect(scene.screenState).toBe('playing');
+  expect(scene.selectedLevelName).toBe(trail);
 });
 
 it('keeps every landmark hit area clear of the preview, prompts and other destinations', () => {

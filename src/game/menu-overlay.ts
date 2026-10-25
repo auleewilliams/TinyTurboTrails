@@ -7,6 +7,7 @@ export class MenuOverlay {
   private signature = '';
   private dragging?: { handlers: NonNullable<MenuTarget['drag']>; pointer: number; x: number; y: number; moved: boolean };
   private suppressClick = false;
+  private activityWasOpen = false;
   private point(event: PointerEvent): { x: number; y: number } {
     const bounds = this.canvas.getBoundingClientRect();
     return { x: (event.clientX - bounds.left) * 426 / bounds.width, y: (event.clientY - bounds.top) * 240 / bounds.height };
@@ -41,6 +42,10 @@ export class MenuOverlay {
   update(scene: AdventureScene | undefined, paused: boolean, pauseTargets: MenuTarget[] = []): void {
     document.body.classList.toggle('map-visible', (scene?.screenState === 'title' || scene?.screenState === 'finish') && !paused);
     const activityOpen = Boolean(scene?.educationOverlay.open && !paused);
+    // Leaving the activity removes its focused button: return focus to the results' default action.
+    const finishFocus = !paused && scene?.screenState === 'finish' && !activityOpen;
+    const restoreFocus = finishFocus && this.activityWasOpen;
+    this.activityWasOpen = activityOpen;
     if (paused || !scene?.educationOverlay.open) this.cancelDrag();
     const targets = paused ? pauseTargets : scene?.menuTargets ?? [];
     this.element.setAttribute('role', activityOpen ? 'dialog' : 'navigation');
@@ -54,7 +59,7 @@ export class MenuOverlay {
     ]);
     const bounds = this.canvas.getBoundingClientRect();
     Object.assign(this.element.style, { left: `${bounds.left}px`, top: `${bounds.top}px`, width: `${bounds.width}px`, height: `${bounds.height}px` });
-    if (signature === this.signature) return;
+    if (signature === this.signature && !restoreFocus) return;
     this.signature = signature;
     // Preserve focus when selection changes. Rebuild only when the screen changes.
     const existing = Array.from(this.element.querySelectorAll('button'));
@@ -76,8 +81,7 @@ export class MenuOverlay {
         target.drag.start(x, y);
         button.setPointerCapture(event.pointerId);
       };
-      // These auxiliary buttons sit outside the canvas direction/confirm selection.
-      // Handle focused Space before BrowserInput consumes it as Play/Replay, and
+      // Handle focused Space before BrowserInput consumes it as a menu confirmation, and
       // suppress native Enter repeats so one held key cannot confirm two screens.
       button.onkeydown = (event) => {
         if (!target.nativeSpace || (event.code !== 'Space' && event.code !== 'Enter')) return;
@@ -93,7 +97,10 @@ export class MenuOverlay {
         width: `${target.width / 426 * 100}%`, height: `${target.height / 240 * 100}%` });
       if (!button.isConnected) this.element.append(button);
     });
-    if (activityOpen) this.element.querySelectorAll('button')[Math.max(0, targets.findIndex(target => target.selected))]?.focus({ preventScroll: true });
+    // Focus follows the selection inside the activity, and on results once focus is in this menu.
+    if (activityOpen || restoreFocus || (finishFocus && this.element.contains(document.activeElement))) {
+      this.element.querySelectorAll('button')[Math.max(0, targets.findIndex(target => target.selected))]?.focus({ preventScroll: true });
+    }
   }
   dispose(): void { this.cancelDrag(); this.element.remove(); }
 }

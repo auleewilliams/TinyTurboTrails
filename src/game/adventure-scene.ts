@@ -402,7 +402,8 @@ export class AdventureScene implements Scene {
     const rects = finishActionRects(this.finishActions);
     return this.finishActions.map((label, index) => ({
       label, ...rects[index], selected: index === this.finishIndex,
-      action: () => this.activateFinish(label),
+      // Focused results buttons act once on a fresh Space/Enter; held repeats and keyups never act.
+      nativeSpace: true, action: () => this.activateFinish(label),
     }));
   }
 
