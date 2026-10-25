@@ -1,6 +1,6 @@
 import { expect, it } from 'vitest';
 import { INTERFACE_PIECES, type InterfaceKit, type InterfacePiece } from '../src/art/interface-kit';
-import { FINISH_LAYOUT, drawFinishChrome } from '../src/game/adventure-scene';
+import { FINISH_LAYOUT, drawFinishChrome, finishActionRects } from '../src/game/adventure-scene';
 import { PAUSE_PANEL, PauseMenu, drawFocusPause } from '../src/game/pause-menu';
 import { EducationOverlay, STICKER_CARD } from '../src/game/education-overlay';
 import { EducationSession, TRAIL_WORDS } from '../src/game/education';
@@ -43,9 +43,8 @@ export function bounds(draws: Draw[], piece: InterfacePiece, within?: { x: numbe
   return { x, y, width: Math.max(...rects.map(r => r.x + r.w)) - x, height: Math.max(...rects.map(r => r.y + r.h)) - y };
 }
 
-const actions = ['Replay', 'Next trail', 'Choose trail'].map((label, index) => ({ label,
-  x: FINISH_LAYOUT.actions.x + index * FINISH_LAYOUT.actions.spacing, y: FINISH_LAYOUT.actions.y,
-  width: FINISH_LAYOUT.actions.width, height: FINISH_LAYOUT.actions.height, selected: index === 1, action: () => {} }));
+const labels = ['Next trail', 'Map', 'Build your word', 'Replay'] as const;
+const actions = finishActionRects(labels).map((rect, index) => ({ label: labels[index], ...rect, selected: index === 1, action: () => {} }));
 
 it('finish results use the generated panel and focused/normal buttons at their existing bounds', () => {
   const { ctx, draws } = recordingContext();
@@ -74,8 +73,11 @@ it('finish text and actions sit inside the panel interior, clear of its timber f
   expect(title.baseline - title.size).toBeGreaterThanOrEqual(interior.top);
   expect(prompt.baseline + prompt.size * 0.2).toBeLessThanOrEqual(interior.bottom);
   expect(row.y + row.height).toBeLessThanOrEqual(interior.bottom);
-  expect(row.x).toBeGreaterThanOrEqual(interior.left);
-  expect(row.x + row.spacing * 2 + row.width).toBeLessThanOrEqual(interior.right);
+  for (const set of [labels, labels.slice(1)]) {
+    const rects = finishActionRects(set);
+    expect(rects[0].x).toBeGreaterThanOrEqual(interior.left);
+    expect(rects.at(-1)!.x + rects.at(-1)!.width).toBeLessThanOrEqual(interior.right);
+  }
 });
 
 const rect = (target: { x: number; y: number; width: number; height: number }) => ({ x: target.x, y: target.y, width: target.width, height: target.height });

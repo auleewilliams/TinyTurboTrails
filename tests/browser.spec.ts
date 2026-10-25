@@ -114,9 +114,9 @@ test('uniform viewport fit keeps map, gameplay, pause and finish clear after res
     Object.assign((window as unknown as { trailPilot: object }).trailPilot, { active: true, controller: true, dangers });
   }, dangerXs(PLAINS_LEVEL));
   await expect(page.locator('#status')).toContainText('Finish', { timeout: 35_000 });
-  await page.getByRole('button', { name: 'Leave activity', exact: true }).click();
+  await expectResultsFirst(page);
   await capture('finish');
-  await page.getByRole('button', { name: 'Choose trail', exact: true }).click();
+  await page.getByRole('button', { name: 'Map', exact: true }).click();
   await expect(page.getByRole('button', { name: 'Play PLAINS', exact: true })).toBeVisible();
   expect(errors).toEqual([]);
 });
@@ -1198,8 +1198,7 @@ test('adventure can complete the forgiving route and replay directly with a fres
   }
   await page.keyboard.up('ArrowRight');
   await expect(page.locator('#status')).toContainText('Adventure preview · Finish', { timeout: 5000 });
-  await page.getByRole('button', { name: 'Leave activity', exact: true }).click();
-  // Finish status also exists beneath the activity. Wait for its rendered input boundary.
+  await expectResultsFirst(page);
   await expect(page.getByRole('button', { name: 'Replay', exact: true })).toBeVisible();
   const finishStatus = await page.locator('#status').innerText();
   expect(finishStatus).toMatch(new RegExp(`Gems [1-9]\\d*/${PLAINS_LEVEL.entities.filter((entity) => entity.kind === 'gem').length}\\b`));
@@ -1214,9 +1213,9 @@ test('adventure can complete the forgiving route and replay directly with a fres
     return matches;
   });
   expect(celebrationPixels).toBeGreaterThan(20);
-  // Closing the activity resets the clock and clears input. Its first visible
-  // finish frame can precede the neutral simulation step that rearms Space.
+  // The first visible finish frame can precede the neutral simulation step that rearms Space.
   await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
+  await selectReplayWithKeyboard(page);
   await page.keyboard.press('Space');
   await expect(page.locator('#status')).toContainText('Adventure preview · Playing', { timeout: 15000 });
   await expect(page.locator('#status')).toContainText('X 60');
@@ -1823,8 +1822,9 @@ for (const [biome, pickerSteps] of [['frost', 4], ['cove', 5]] as const) {
     await expect(page.locator('#status')).toContainText('Finish', { timeout: 85000 });
     await page.keyboard.up('ArrowRight');
     await expect(page.locator('#status')).toContainText(/Gems [1-9]\d*/);
-    await page.getByRole('button', { name: 'Leave activity', exact: true }).click();
+    await expectResultsFirst(page, biome === 'cove' ? 'Map' : 'Next trail');
     await page.waitForTimeout(60);
+    await selectReplayWithKeyboard(page);
     await page.keyboard.press('Space');
     await expect(page.locator('#status')).toContainText('Playing');
     expect(await position()).toBe(60);
@@ -2365,7 +2365,7 @@ for (const [index, level] of LEVELS.entries()) {
       }, { dangers: dangerXs(level), controller: index % 2 === 1 });
       await expect(page.locator('#status')).toContainText('Finish', { timeout: 35_000 });
       await expect(canvas).toHaveAttribute('data-ribbon', 'absent');
-      await page.getByRole('button', { name: 'Leave activity', exact: true }).click();
+      await expectResultsFirst(page, index < LEVELS.length - 1 ? 'Next trail' : 'Map');
       // Stop the input pilot explicitly: a quick menu action can replace Finish
       // before its next RAF notices completion, leaving movement held in a new run.
       await page.evaluate(() => new Promise<void>(resolve => {
@@ -2388,13 +2388,15 @@ for (const [index, level] of LEVELS.entries()) {
     };
     const finishAction = async (label: string): Promise<void> => {
       if (index % 3 === 0) { await page.getByRole('button', { name: label, exact: true }).click(); return; }
-      const steps = label === 'Replay' ? 0 : label === 'Next trail' ? 1 : index === LEVELS.length - 1 ? 1 : 2;
+      // Default first; moving through Build your word never opens it.
+      const labels = index < LEVELS.length - 1 ? ['Next trail', 'Map', 'Build your word', 'Replay'] : ['Map', 'Build your word', 'Replay'];
+      const steps = labels.indexOf(label);
       const controller = index % 3 === 2;
       await page.evaluate(controller => {
         (window as unknown as { trailPilot: { controller: boolean } }).trailPilot.controller = controller;
       }, controller);
       for (let step = 0; step < steps; step++) {
-        const selected = step === 0 && index < LEVELS.length - 1 ? 'Next trail' : 'Choose trail';
+        const selected = labels[step + 1];
         if (controller) {
           await page.evaluate(() => { (window as unknown as { trailPad: { buttons: { pressed: boolean }[] } }).trailPad.buttons[15].pressed = true; });
           await expect(page.getByRole('button', { name: selected, exact: true })).toHaveAttribute('aria-pressed', 'true');
@@ -2405,15 +2407,8 @@ for (const [index, level] of LEVELS.entries()) {
           await page.keyboard.up('ArrowRight');
         }
         // Let neutral input reach simulation before sending the next edge.
-        await page.evaluate(() => new Promise<void>(resolve => {
-          requestAnimationFrame(start => {
-            const releasedFrame = (now: number): void => {
-              if (now - start >= 50) resolve();
-              else requestAnimationFrame(releasedFrame);
-            };
-            requestAnimationFrame(releasedFrame);
-          });
-        }));
+        await releasedFrames(page);
+        await expect(page.getByRole('dialog')).toHaveCount(0);
       }
       await expect(page.getByRole('button', { name: label, exact: true })).toHaveAttribute('aria-pressed', 'true');
       if (controller) {
@@ -2443,7 +2438,7 @@ for (const [index, level] of LEVELS.entries()) {
     };
     await captureResults('finish-results');
     await info.attach('finish', { body: await page.locator('canvas').screenshot(), contentType: 'image/png' });
-    await finishAction('Choose trail');
+    await finishAction('Map');
     await expect(canvas).toHaveAttribute('data-ribbon', 'absent');
     await expect(page.getByRole('button', { name: level.name, exact: true })).toHaveAttribute('aria-pressed', 'true');
     await expect(page.getByRole('button', { name: level.name, exact: true })).toHaveAttribute('aria-description',
@@ -2659,17 +2654,17 @@ for (const [index, level] of LEVELS.slice(0, 3).entries()) {
     }
     await page.evaluate(() => { Object.assign((window as unknown as { starPilot: object }).starPilot, { active: true, frozen: false, pauseAt: 0 }); });
     await expect(page.locator('#status')).toContainText('Finish', { timeout: 75_000 });
-    await page.getByRole('button', { name: 'Leave activity', exact: true }).click();
+    await expectResultsFirst(page);
     await expect(page.locator('canvas')).toHaveAttribute('data-stars', 'STARS 3/3');
     expect(await page.evaluate(() => (window as unknown as { starPilot: { signboards: string[] } }).starPilot.signboards)).toEqual([]);
     for (const width of [426, 320]) {
       await page.setViewportSize({ width, height: 240 });
       await page.screenshot({ path: info.outputPath(`${level.id}-finish-${width}.png`) });
       await info.attach(`finish-${width}`, { path: info.outputPath(`${level.id}-finish-${width}.png`), contentType: 'image/png' });
-      for (const label of ['Replay', 'Next trail', 'Choose trail']) await expect(page.getByRole('button', { name: label, exact: true })).toBeVisible();
+      for (const label of ['Next trail', 'Map', 'Build your word', 'Replay']) await expect(page.getByRole('button', { name: label, exact: true })).toBeVisible();
     }
     await page.evaluate(() => { Object.assign((window as unknown as { starPilot: object }).starPilot, { active: false }); });
-    await page.getByRole('button', { name: ['Replay', 'Next trail', 'Choose trail'][index], exact: true }).click();
+    await page.getByRole('button', { name: ['Replay', 'Next trail', 'Map'][index], exact: true }).click();
     if (index === 2) await page.getByRole('button', { name: `Play ${level.name}`, exact: true }).click();
     await expect(page.locator('canvas')).toHaveAttribute('data-stars', 'STARS 0/3');
     await reloadToMap(page);
@@ -2680,6 +2675,75 @@ for (const [index, level] of LEVELS.slice(0, 3).entries()) {
 }
 
 /** Startup lands directly on the trail map (or the retry screen); never a picture story. */
+/** Trail results come first: no activity covers them, and word building is an explicit choice beside the default. */
+async function expectResultsFirst(page: Page, defaultAction: 'Next trail' | 'Map' = 'Next trail', timeout?: number): Promise<void> {
+  await expect(page.getByRole('button', { name: 'Build your word', exact: true })).toBeVisible(timeout === undefined ? undefined : { timeout });
+  await expect(page.getByRole('dialog')).toHaveCount(0);
+  await expect(page.getByRole('button', { name: defaultAction, exact: true })).toHaveAttribute('aria-pressed', 'true');
+}
+
+const releasedFrames = (page: Page) => page.evaluate(() => new Promise<void>(resolve => {
+  requestAnimationFrame(start => {
+    const releasedFrame = (now: number): void => {
+      if (now - start >= 50) resolve();
+      else requestAnimationFrame(releasedFrame);
+    };
+    requestAnimationFrame(releasedFrame);
+  });
+}));
+
+/** Replay sits left of the default action. A real held ArrowLeft selects it once neutral input has rearmed the results. */
+async function selectReplayWithKeyboard(page: Page): Promise<void> {
+  await releasedFrames(page);
+  await page.keyboard.down('ArrowLeft');
+  await expect(page.getByRole('button', { name: 'Replay', exact: true })).toHaveAttribute('aria-pressed', 'true');
+  await page.keyboard.up('ArrowLeft');
+  await releasedFrames(page);
+}
+
+/**
+ * Opens word building deliberately from the results: a pointer click, Tab focus and Enter, or real arrow/D-pad
+ * steps to the highlighted Build your word action and a held Space/face press that acts once.
+ */
+async function openWordActivity(page: Page, method: 'pointer' | 'keyboard' | 'controller',
+  { pad = 'trailPad', keyboard = 'arrows' }: { pad?: string; keyboard?: 'arrows' | 'tab' } = {}): Promise<void> {
+  const build = page.getByRole('button', { name: 'Build your word', exact: true });
+  const press = (button: number, pressed: boolean) => page.evaluate(({ pad, button, pressed }) => {
+    (window as unknown as Record<string, { buttons: { pressed: boolean }[] }>)[pad].buttons[button].pressed = pressed;
+  }, { pad, button, pressed });
+  if (method === 'pointer') await build.click();
+  else if (method === 'keyboard' && keyboard === 'tab') {
+    for (let step = 0; step < 8 && !await build.evaluate(button => button === document.activeElement); step++) await page.keyboard.press('Tab');
+    await expect(build).toBeFocused();
+    await expect(build).toHaveAttribute('aria-pressed', 'true');
+    await page.keyboard.press('Enter');
+  } else {
+    if (method === 'controller' && pad === 'trailPad') await page.evaluate(() => { (window as unknown as { trailPilot: { controller: boolean } }).trailPilot.controller = true; });
+    await releasedFrames(page);
+    for (let step = 0; step < 4 && await build.getAttribute('aria-pressed') !== 'true'; step++) {
+      const before = await page.locator('.trail-menu button[aria-pressed="true"]').getAttribute('aria-label');
+      if (method === 'controller') await press(15, true); else await page.keyboard.down('ArrowRight');
+      await expect(page.locator('.trail-menu button[aria-pressed="true"]')).not.toHaveAttribute('aria-label', before!);
+      if (method === 'controller') await press(15, false); else await page.keyboard.up('ArrowRight');
+      await releasedFrames(page);
+    }
+    await expect(build).toHaveAttribute('aria-pressed', 'true');
+    if (method === 'controller') await press(0, true); else await page.keyboard.down('Space');
+    await expect(page.getByRole('dialog')).toBeVisible();
+    // The held confirmation must not also act inside the activity: selection and progress stay unchanged.
+    const activityState = () => page.evaluate(() => ({ status: document.querySelector('#status')!.textContent!.replace(/ · (Muted|M to).*$/, ''),
+      selected: document.querySelector('.trail-menu button[aria-pressed="true"]')?.getAttribute('aria-label'),
+      labels: [...document.querySelectorAll('.trail-menu button')].map(button => button.getAttribute('aria-label')) }));
+    const opened = await activityState();
+    await releasedFrames(page);
+    expect(await activityState()).toEqual(opened);
+    if (method === 'controller') await press(0, false); else await page.keyboard.up('Space');
+    await releasedFrames(page);
+    expect(await activityState()).toEqual(opened);
+  }
+  await expect(page.getByRole('dialog')).toBeVisible();
+}
+
 async function waitForMap(page: Page): Promise<void> {
   await expect(page.locator('#status')).not.toContainText('Loading artwork', { timeout: 15000 });
   await expect(page.locator('#status')).not.toContainText('Story');
@@ -2832,9 +2896,9 @@ test('celebration freezes for pause and focus, then accepts finish actions durin
   await page.evaluate(dangers => {
     Object.assign((window as unknown as { trailPilot: object }).trailPilot, { active: true, dangers });
   }, dangerXs(LEVELS[0]));
-  await expect(page.getByRole('button', { name: 'Leave activity', exact: true })).toBeVisible({ timeout: 35000 });
-  await page.getByRole('button', { name: 'Leave activity', exact: true }).click();
+  // The celebration plays straight away: no activity covers it, so the pose-18 pause fires on the results.
   await expect(page.locator('#status')).toContainText('Paused', { timeout: 35000 });
+  await expect(page.getByRole('dialog')).toHaveCount(0);
   const canvas = page.locator('canvas');
   const pose = await canvas.getAttribute('data-celebration-pose');
   expect(Number(pose)).toBeLessThan(23);
@@ -2852,10 +2916,11 @@ test('celebration freezes for pause and focus, then accepts finish actions durin
   await page.evaluate(() => window.dispatchEvent(new Event('focus')));
   await expect(page.locator('#status')).toContainText('Finish');
   await expect(page.getByRole('button', { name: 'Replay', exact: true })).toBeVisible();
+  await expectResultsFirst(page);
   await expect(canvas).toHaveAttribute('data-finish-message', 'Another trail explored!');
   await expect(canvas).toHaveAttribute('data-finish-landmark', '0,0');
   await expect(page.getByRole('button', { name: 'View reunion picture', exact: true })).toHaveCount(0);
-  await expect(page.locator('.trail-menu button')).toHaveCount(3);
+  await expect(page.locator('.trail-menu button')).toHaveCount(4);
   await page.keyboard.press('r');
   await expect(page.locator('#status')).toContainText('Finish');
   await expect(canvas).toHaveAttribute('aria-label', 'Tiny Turbo Trails game');
@@ -3120,17 +3185,19 @@ test('kit text clears generated rims on the real assembly and finish results', {
   await openAdventure(page, '/?debug=1');
   await page.getByRole('button', { name: /^Play / }).click();
   await page.evaluate(dangers => Object.assign((window as unknown as { trailPilot: object }).trailPilot, { active: true, dangers }), dangerXs(PLAINS_LEVEL));
-  await expect(page.getByRole('dialog')).toBeVisible({ timeout: 25_000 });
+  await expectResultsFirst(page, 'Next trail', 25_000);
   await page.evaluate(() => Object.assign((window as unknown as { trailPilot: object }).trailPilot, { active: false, lastActive: false }));
   await page.keyboard.up('ArrowRight');
+  await captureNativeAndSmall(page, info, 'finish');
+  await openWordActivity(page, 'pointer');
   await captureNativeAndSmall(page, info, 'assembly');
   await page.getByRole('button', { name: 'Leave activity', exact: true }).click();
-  await expect(page.getByRole('button', { name: 'Replay', exact: true })).toBeVisible();
-  await captureNativeAndSmall(page, info, 'finish');
+  await expectResultsFirst(page);
+  await captureNativeAndSmall(page, info, 'finish-after-activity');
   const { checked, violations } = await kitTextProbe(page);
   await writeFile(info.outputPath('kit-text-clearance.json'), JSON.stringify({ checked, violations }, null, 2));
   await info.attach('kit-text-clearance', { path: info.outputPath('kit-text-clearance.json'), contentType: 'application/json' });
-  for (const key of ['Leave activity|button', '_|button', 'TRAIL COMPLETE!|panel', 'Replay|button-selected', 'Next|button', 'Trails|button']) expect(checked).toContain(key);
+  for (const key of ['Leave activity|button', '_|button', 'TRAIL COMPLETE!|panel', 'Next trail|button-selected', 'Map|button', 'Build your word|button', 'Replay|button', 'Build your word|button-selected']) expect(checked).toContain(key);
   expect(violations).toEqual([]);
 });
 
@@ -3477,11 +3544,12 @@ for (const method of ['pointer', 'keyboard', 'controller'] as const) {
     await page.getByRole('button', { name: 'TREETOP TIMBERS', exact: true }).click();
     await page.getByRole('button', { name: 'Play TREETOP TIMBERS', exact: true }).click();
     await page.evaluate(dangers => Object.assign((window as unknown as { trailPilot: object }).trailPilot, { active: true, dangers }), dangerXs(LEVELS[2]));
-    await expect(page.getByRole('dialog')).toBeVisible({ timeout: 25_000 });
-    await expect(page.locator('#status')).toContainText('Build TREE · _ _ _ _ · Bag 4/4');
-    await expect(page.getByRole('button', { name: /^Letter / })).toHaveCount(4);
+    await expectResultsFirst(page, 'Next trail', 25_000);
     await page.evaluate(() => Object.assign((window as unknown as { trailPilot: object }).trailPilot, { active: false, lastActive: false }));
     await page.keyboard.up('ArrowRight');
+    await openWordActivity(page, method);
+    await expect(page.locator('#status')).toContainText('Build TREE · _ _ _ _ · Bag 4/4');
+    await expect(page.getByRole('button', { name: /^Letter / })).toHaveCount(4);
     await page.setViewportSize({ width: 426, height: 300 });
     const frames = async () => page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
     await frames();
@@ -3533,8 +3601,9 @@ for (const method of ['pointer', 'keyboard', 'controller'] as const) {
     await page.setViewportSize({ width: 320, height: 240 }); await frames();
     await expectClearViewport(page); await capture('earned-sticker-small');
     await page.keyboard.press('Escape');
-    await expect(page.getByRole('button', { name: 'Choose trail', exact: true })).toBeVisible();
-    await page.getByRole('button', { name: 'Choose trail', exact: true }).click();
+    // Leaving restores the default onward action, never Replay.
+    await expectResultsFirst(page);
+    await page.getByRole('button', { name: 'Map', exact: true }).click();
     await page.getByRole('button', { name: 'Open stickers', exact: true }).click();
     await expect(page.locator('#status')).toContainText('1/6 stickers');
   });
@@ -3548,11 +3617,13 @@ test('educational missing-letter return preserves partial work and clears held a
   await page.getByRole('button', { name: 'Play TREETOP TIMBERS', exact: true }).click();
   // Jump over T on the real outward route; no scene/position hooks or helper letters.
   await page.evaluate(dangers => Object.assign((window as unknown as { trailPilot: object }).trailPilot, { active: true, dangers: [360, ...dangers] }), dangerXs(LEVELS[2]));
-  await expect(page.getByRole('dialog', { name: 'Build TREE', exact: true })).toBeVisible({ timeout: 25_000 });
-  await expect(page.locator('#status')).toContainText('Bag 3/4');
-  await expect(page.getByRole('button', { name: 'Letter T', exact: true })).toHaveCount(0);
+  await expectResultsFirst(page, 'Next trail', 25_000);
   await page.evaluate(() => Object.assign((window as unknown as { trailPilot: object }).trailPilot, { active: false, lastActive: false }));
   await page.keyboard.up('ArrowRight');
+  await openWordActivity(page, 'pointer');
+  await expect(page.getByRole('dialog', { name: 'Build TREE', exact: true })).toBeVisible();
+  await expect(page.locator('#status')).toContainText('Bag 3/4');
+  await expect(page.getByRole('button', { name: 'Letter T', exact: true })).toHaveCount(0);
   await page.getByRole('button', { name: 'Letter R', exact: true }).click();
   await page.getByRole('button', { name: 'Space 2: empty', exact: true }).click();
   await expect(page.locator('#status')).toContainText('_ R _ _');
@@ -3601,13 +3672,130 @@ test('educational missing-letter return preserves partial work and clears held a
   await page.keyboard.down('ArrowLeft');
   await expect.poll(async () => (await playerStatus(page)).x).toBeLessThan(LEVELS[2].finish.x - 100);
   await page.keyboard.up('ArrowLeft'); await page.keyboard.down('ArrowRight');
-  await expect(page.getByRole('dialog', { name: 'Build TREE', exact: true })).toBeVisible();
+  // Re-entering the finish shows results again; the held run input neither opens the activity nor moves the selection.
+  await expectResultsFirst(page);
+  await frames(10);
   await page.keyboard.up('ArrowRight');
+  await expectResultsFirst(page);
+  await openWordActivity(page, 'keyboard');
+  await expect(page.getByRole('dialog', { name: 'Build TREE', exact: true })).toBeVisible();
   await expect(page.locator('#status')).toContainText('_ R _ _');
   await page.getByRole('button', { name: 'Leave activity', exact: true }).click();
-  await page.getByRole('button', { name: 'Choose trail', exact: true }).click();
+  await expectResultsFirst(page);
+  await page.getByRole('button', { name: 'Map', exact: true }).click();
   await expect(page.getByRole('button', { name: 'TREETOP TIMBERS', exact: true })).toHaveAttribute('aria-description', /Session best:/);
 });
+
+for (const index of [0, LEVELS.length - 1]) {
+  const level = LEVELS[index], defaultAction = index < LEVELS.length - 1 ? 'Next trail' : 'Map';
+  test(`leaving ${level.name} word building restores native focus to ${defaultAction} without held activation`, async ({ page }, info) => {
+    test.setTimeout(120_000);
+    const errors: string[] = [];
+    page.on('pageerror', error => errors.push(error.message));
+    await installTrailPilot(page);
+    await openAdventure(page, '/?debug=1');
+    await page.getByRole('button', { name: level.name, exact: true }).click();
+    await page.getByRole('button', { name: `Play ${level.name}`, exact: true }).click();
+    await page.evaluate(dangers => Object.assign((window as unknown as { trailPilot: object }).trailPilot, { active: true, dangers }), dangerXs(level));
+    await expectResultsFirst(page, defaultAction, 35_000);
+    await page.evaluate(() => Object.assign((window as unknown as { trailPilot: object }).trailPilot, { active: false, lastActive: false }));
+    await page.keyboard.up('ArrowRight');
+    const status = page.locator('#status'), dialog = page.getByRole('dialog');
+    const target = page.getByRole('button', { name: defaultAction, exact: true });
+    const record: unknown[] = [];
+    const observe = async (step: string): Promise<void> => { record.push(await page.evaluate(step => ({ step,
+      focus: document.activeElement?.getAttribute('aria-label') ?? document.activeElement?.tagName,
+      selected: document.querySelector('.trail-menu button[aria-pressed="true"]')?.getAttribute('aria-label'),
+      status: document.querySelector('#status')!.textContent!.split(' · ').slice(0, 2).join(' · ') }), step)); };
+    const tabTo = async (name: string): Promise<void> => {
+      const button = page.getByRole('button', { name, exact: true });
+      for (let step = 0; step < 12 && !await button.evaluate(element => element === document.activeElement); step++) await page.keyboard.press('Tab');
+      await expect(button).toBeFocused();
+    };
+    const enterActivity = async (): Promise<void> => {
+      await tabTo('Build your word'); await page.keyboard.press('Enter');
+      await expect(dialog).toBeVisible();
+      await tabTo('Leave activity');
+    };
+    const expectRestored = async (step: string): Promise<void> => {
+      await expect(dialog).toHaveCount(0);
+      await expect(target).toBeFocused();
+      await expect(target).toHaveAttribute('aria-pressed', 'true');
+      await expect(status).toContainText('Finish');
+      await observe(step);
+    };
+    try {
+      // Held Enter: the repeats that follow focus onto the default action never activate it.
+      await enterActivity(); await observe('before held Enter on Leave activity');
+      await page.keyboard.down('Enter');
+      await expectRestored('after Enter keydown on Leave activity');
+      for (let repeat = 0; repeat < 3; repeat++) { await page.keyboard.down('Enter'); await releasedFrames(page); }
+      await page.keyboard.up('Enter'); await releasedFrames(page);
+      await expectRestored('after Enter repeats and release');
+      // Held Space, then its keyup on the newly focused default.
+      await enterActivity(); await observe('before held Space on Leave activity');
+      await page.keyboard.down('Space');
+      await expectRestored('after Space keydown on Leave activity');
+      for (let repeat = 0; repeat < 3; repeat++) { await page.keyboard.down('Space'); await releasedFrames(page); }
+      await page.keyboard.up('Space'); await releasedFrames(page);
+      await expectRestored('after Space repeats and release');
+      // Escape also returns focus to the default.
+      await enterActivity();
+      await page.keyboard.press('Escape');
+      await expectRestored('after Escape');
+      // Pointer Leave has the same native focus destination.
+      await enterActivity();
+      await page.getByRole('button', { name: 'Leave activity', exact: true }).click();
+      await expectRestored('after pointer Leave activity');
+      // Tab only moves focus; Shift+Tab returns without acting.
+      await page.keyboard.press('Tab'); await releasedFrames(page);
+      await expect(target).not.toBeFocused(); await expect(status).toContainText('Finish'); await observe('after Tab');
+      await page.keyboard.press('Shift+Tab'); await releasedFrames(page);
+      await expectRestored('after Shift+Tab');
+      // Held standard-gamepad confirmation on Leave activity.
+      await enterActivity();
+      await page.evaluate(() => { (window as unknown as { trailPilot: { controller: boolean } }).trailPilot.controller = true; });
+      const pad = (pressed: boolean, button = 0) => page.evaluate(({ pressed, button }) => {
+        (window as unknown as { trailPad: { buttons: { pressed: boolean }[] } }).trailPad.buttons[button].pressed = pressed;
+      }, { pressed, button });
+      await releasedFrames(page);
+      await pad(true);
+      await expectRestored('after held controller confirmation on Leave activity');
+      await releasedFrames(page); await releasedFrames(page);
+      await expectRestored('while controller confirmation is still held');
+      await pad(false); await releasedFrames(page);
+      await expectRestored('after controller release');
+      // Start closes the activity; keeping Start held must not open Pause on the results.
+      await enterActivity(); await releasedFrames(page);
+      await pad(true, 9);
+      await expectRestored('after controller Start');
+      await releasedFrames(page); await releasedFrames(page);
+      await expectRestored('while controller Start is still held');
+      await pad(false, 9); await releasedFrames(page);
+      await expectRestored('after controller Start release');
+      // A fresh Enter acts once, including its repeats and release on the next screen.
+      const expectDestination = async (): Promise<void> => {
+        if (defaultAction === 'Next trail') {
+          await expect(status).toContainText('Playing');
+          await expect(status).toContainText('X 60');
+        } else {
+          await expect(page.getByRole('button', { name: `Play ${level.name}`, exact: true })).toBeVisible();
+          await expect(status).toContainText('Title');
+        }
+      };
+      await page.keyboard.down('Enter'); await expectDestination();
+      for (let repeat = 0; repeat < 3; repeat++) { await page.keyboard.down('Enter'); await releasedFrames(page); }
+      await expectDestination();
+      await page.keyboard.up('Enter'); await releasedFrames(page);
+      await expectDestination(); await observe('after fresh Enter, repeats and release');
+    } finally {
+      const path = info.outputPath('focus-record.json');
+      await writeFile(path, JSON.stringify(record, null, 2));
+      await info.attach('focus-record', { path, contentType: 'application/json' });
+    }
+    expect(errors).toEqual([]);
+  });
+}
 
 /** Real keyboard input and rendered debug observations, with accelerated presentation time.
  * Never reads or writes the scene, player, run or education session. */
@@ -3673,8 +3861,13 @@ for (const [index, level] of LEVELS.entries()) {
         await page.screenshot({ path }); await info.attach(`${state}-${width}`, { path, contentType: 'image/png' });
       }
     };
+    const method = (['pointer', 'keyboard', 'controller'] as const)[index % 3];
+    const defaultAction = index < LEVELS.length - 1 ? 'Next trail' : 'Map';
     await drive(1);
-    await expect(page.getByRole('dialog', { name: `Build ${config.word}`, exact: true })).toBeVisible({ timeout: 35_000 });
+    await expectResultsFirst(page, defaultAction, 35_000);
+    // The retrace pilot releases arrows every frame, so keyboard entry uses Tab focus and Enter like its letter activation.
+    await openWordActivity(page, method, { pad: 'spellingPad', keyboard: 'tab' });
+    await expect(page.getByRole('dialog', { name: `Build ${config.word}`, exact: true })).toBeVisible();
     await expect(page.getByRole('button', { name: labelFor(skippedSlot), exact: true })).toHaveCount(0);
     const initialStatus = await page.locator('#status').innerText();
     const missing: number[] = [];
@@ -3694,9 +3887,12 @@ for (const [index, level] of LEVELS.entries()) {
     await expect(page.locator('#status')).toContainText('Letter bag: 4/4');
     const collectedStatus = await page.locator('#status').innerText();
     await drive(1, [], 4);
-    await expect(page.getByRole('dialog', { name: `Build ${config.word}`, exact: true })).toBeVisible({ timeout: 35_000 });
+    // The same run's finish shows results again; only the explicit action re-enters the activity.
+    await expectResultsFirst(page, defaultAction, 35_000);
+    // The retrace pilot releases arrows every frame, so keyboard entry uses Tab focus and Enter like its letter activation.
+    await openWordActivity(page, method, { pad: 'spellingPad', keyboard: 'tab' });
+    await expect(page.getByRole('dialog', { name: `Build ${config.word}`, exact: true })).toBeVisible();
     await expect(page.getByRole('button', { name: `Space ${partial + 1}: ${config.word[partial]}`, exact: true })).toBeVisible();
-    const method = ['pointer', 'keyboard', 'controller'][index % 3];
     const activate = async (name: string): Promise<void> => {
       await frames();
       const target = page.getByRole('button', { name, exact: true });
@@ -3730,7 +3926,8 @@ for (const [index, level] of LEVELS.entries()) {
     await capture('earned');
     await page.getByRole('button', { name: 'Leave activity', exact: true }).click();
     await expect(page.getByRole('button', { name: 'Replay', exact: true })).toBeVisible();
-    await page.getByRole('button', { name: 'Choose trail', exact: true }).click();
+    await expectResultsFirst(page, defaultAction);
+    await page.getByRole('button', { name: 'Map', exact: true }).click();
     await expect(page.getByRole('button', { name: level.name, exact: true })).toHaveAttribute('aria-description', /Session best:/);
     await page.getByRole('button', { name: 'Open stickers', exact: true }).click();
     await expect(page.locator('#status')).toContainText('1/6 stickers');

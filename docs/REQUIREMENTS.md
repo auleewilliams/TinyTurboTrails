@@ -135,7 +135,9 @@ of mood, repetition and effect intelligibility; see `docs/AUDIO.md`.
 All six destinations remain unlocked, with recognizable landmarks, a stable
 dotted path, selected Henry marker, matching cached preview and accessible Play
 action. Keyboard, pointer and standard-controller selection share state.
-Finish offers Replay, Next trail (except the final trail), and Choose trail.
+Finish shows its results first and offers Next trail (except the final trail), Map,
+Build your word and Replay. Next trail is the default, or Map on the final trail.
+Rendered labels, accessible names and input targets match.
 New runs reset all simulation and presentation state. Map return retains the
 completed selection and gives brief nonblocking feedback; page reload clears
 cosmetic completion badges. Held input must not cross a screen boundary.
@@ -187,7 +189,7 @@ recovery. Other trails have no star requirement and no empty star HUD.
 Count stars separately from gems, once per stable entity ID. Both pit and health
 recovery preserve them. Replay, level changes and page reload create fresh star
 state. A compact in-run `STARS n/3` indicator and a separate finish result show
-progress even at zero; Replay, Next trail and Choose trail retain their behavior.
+progress even at zero; Replay, Next trail and Map retain their behavior.
 All progress remains in memory, with deterministic simulation and project-local
 art/provenance. Automated reachability and visual checks do not establish Henry's
 understanding or enjoyment; no child playtest is claimed for this milestone.
@@ -259,7 +261,9 @@ reload clears it. No browser storage, new gates or changes to gems/stars/totals.
 
 The in-trail HUD shows a bag and collected count. Four pickups can be collected
 in any order; a brief letter flight gives feedback. Collection never fills the
-word or awards a sticker. Finishing automatically opens an optional activity:
+word or awards a sticker. Finishing shows the ordinary celebration and results;
+only the deliberate Build your word action opens the optional activity, and skipping it
+keeps completion and every collected letter. In the activity,
 the current trail word is shown above four spaces, with a mixed pile containing
 only actual collected letters. Pointer drag/drop and keyboard/controller
 select/place build the word manually without typing. Either repeated identity can occupy either

@@ -20,9 +20,12 @@ export class EducationOverlay {
   private message = 'Choose a letter, then a space.';
   get isAssembly(): boolean { return this.assembly; }
   private findMore?: () => void;
-  showAssembly(findMore: () => void): void {
+  private onClose?: () => void;
+  /** `onClose` runs once whenever this assembly closes, including Find more letters and Escape/Start. */
+  showAssembly(findMore: () => void, onClose?: () => void): void {
     this.findMore = findMore;
     this.showStickers();
+    this.onClose = onClose;
     this.assembly = true;
     this.selected = 0;
     this.heldLetter = undefined;
@@ -32,12 +35,18 @@ export class EducationOverlay {
   constructor(private readonly session: EducationSession, private readonly artwork?: SpellingAssets, private readonly ui?: InterfaceKit) {}
 
   showStickers(): void {
+    this.onClose = undefined;
     this.revision++;
     this.assembly = false;
     this.open = true;
     this.armed = false;
   }
-  close(): void { if (this.open) this.revision++; this.open = false; this.cancelDrag(); this.heldLetter = undefined; }
+  close(): void {
+    const wasOpen = this.open, onClose = this.onClose;
+    if (wasOpen) this.revision++;
+    this.open = false; this.onClose = undefined; this.cancelDrag(); this.heldLetter = undefined;
+    if (wasOpen) onClose?.();
+  }
   beginDrag(id: string, x: number, y: number): void {
     if (this.open && this.assembly && this.session.pile.some(pickup => pickup.id === id)) this.drag = { id, x, y };
   }

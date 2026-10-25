@@ -72,7 +72,7 @@ it.each(LEVELS.slice(0, 3))('$name collects through contact once, separately, an
   expect(run).toEqual(createRun(level));
 });
 
-it.each(['Replay', 'Next trail', 'Choose trail'])('%s clears specials on the next run while preserving the finish count', action => {
+it.each(['Replay', 'Next trail', 'Map'])('%s clears specials on the next run while preserving the finish count', action => {
   const scene = new AdventureScene({} as HTMLImageElement, {} as never, worlds, audio, LEVELS[2]);
   scene.startSelected();
   const live = scene as unknown as Live;
@@ -80,10 +80,10 @@ it.each(['Replay', 'Next trail', 'Choose trail'])('%s clears specials on the nex
   live.player.x = LEVELS[2].finish.x;
   scene.update(1 / 60, neutral);
   expect(scene.screenState).toBe('finish'); expect(scene.specialTotal).toBe(3);
-  if (scene.educationOverlay.open) scene.menuTargets.find(target => target.label === 'Leave activity')!.action();
-  expect(scene.menuTargets.map(target => target.label)).toEqual(['Replay', 'Next trail', 'Choose trail']);
+  expect(scene.educationOverlay.open).toBe(false);
+  expect(scene.menuTargets.map(target => target.label)).toEqual(['Next trail', 'Map', 'Build your word', 'Replay']);
   scene.activateFinish(action);
-  if (action === 'Choose trail') { expect(scene.screenState).toBe('title'); scene.startSelected(); }
+  if (action === 'Map') { expect(scene.screenState).toBe('title'); scene.startSelected(); }
   expect(scene.screenState).toBe('playing'); expect(scene.specialTotal).toBe(0);
   expect(live.run.specialTotal).toBe(action === 'Next trail' ? 0 : 3);
 });
@@ -173,7 +173,7 @@ it.each(LEVELS)('$name can finish with no special rewards', level => {
   scene.update(1 / 60, neutral);
   expect(scene.screenState).toBe('finish');
   expect(scene.specialTotal).toBe(0);
-  if (scene.educationOverlay.open) scene.menuTargets.find(target => target.label === 'Leave activity')!.action();
+  expect(scene.educationOverlay.open).toBe(false);
   expect(scene.menuTargets.map(target => target.label)).toContain('Replay');
 });
 
