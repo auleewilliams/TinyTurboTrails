@@ -60,15 +60,19 @@ immediately preceding major version of each. Bundled Playwright engines are auto
 ## Viewport presentation
 
 Fit the existing 426×240 camera with the largest uniform scale that leaves the
-visible Mute and controller-rumble buttons clear of the entire canvas. Fractional
+visible Pause button clear of the entire canvas. Sound and rumble move into the
+shared pause surface, with independent On/Off text and accessible toggle state. Fractional
 scaling is approved: pixel widths can vary at non-integer scales, but artwork
 proportions, gameplay, HUD and menu targets must never be stretched or cropped.
 Use natural portrait/wide margins for controls wherever possible; otherwise
 choose the larger fit beside or above a rail sized to the controls plus a small
 gap, without integer-scale drops.
 Unavoidable margins use the dark UI panel color rather than a broad teal surround.
-Controls remain independently operable by pointer and keyboard in map,
-play, pause and finish states. Status announcements stay available to assistive
+Pause and its settings remain independently operable by pointer, native keyboard
+and standard-controller navigation in map, play and finish states. Resume receives
+native focus; leaving gameplay pause restores the canvas, and map/results restore
+the selected action. Return to Trails is available only for a live run, with the
+existing reset confirmation. Gold navigation selection never represents enablement. Status announcements stay available to assistive
 technology without duplicating the gameplay HUD. Resize and app fullscreen retain
 the complete game, native menu targets and controls, with no document overflow.
 

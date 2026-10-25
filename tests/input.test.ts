@@ -149,3 +149,19 @@ it('leaves R and the controller View button unbound now the picture story is ret
   expect(frame).toMatchObject({ source: 'keyboard', horizontal: 0, jumpPressed: false, pausePressed: false, activityPressed: false });
   input.dispose();
 });
+
+it('clears held menu directions on resume while retaining movement first pressed on the resume frame', () => {
+  const target = Object.assign(new EventTarget(), { navigator: { getGamepads: () => [] } });
+  const input = new BrowserInput(target as unknown as Window, () => {});
+  const key = (code: string) => target.dispatchEvent(Object.assign(new Event('keydown'), { code, repeat: false }));
+  key('ArrowRight'); input.poll(); input.poll();
+  input.clearForResume(); expect(input.poll().horizontal).toBe(0);
+  key('ArrowLeft'); input.poll();
+  input.clearForResume(); expect(input.poll().horizontal).toBe(-1);
+  input.clear();
+  key('ArrowRight');
+  target.dispatchEvent(Object.assign(new Event('keyup'), { code: 'ArrowRight' }));
+  input.poll(); input.clearForResume();
+  expect(input.poll().horizontal).toBe(0);
+  input.dispose();
+});

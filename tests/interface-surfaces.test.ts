@@ -103,7 +103,7 @@ it('focus-loss pause uses the same panel with its live control hints', () => {
   const { ctx, draws, text } = recordingContext();
   drawFocusPause(ctx, 'controller', kit);
   expect(bounds(draws, 'panel')).toEqual(PAUSE_PANEL);
-  expect(text.map(line => line.text)).toEqual(['PAUSED', 'Stick / D-pad: move', 'Face button: jump', 'Start: resume', 'Mute: screen button']);
+  expect(text.map(line => line.text)).toEqual(['PAUSED', 'Return to the game to continue', 'Stick / D-pad: move', 'Jump / select', 'Start', 'Resume']);
 });
 
 it('sticker collection uses plaque cards and the selected return button without moving targets or covering stickers', () => {

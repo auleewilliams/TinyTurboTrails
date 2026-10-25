@@ -1,5 +1,5 @@
 import type { InputFrame, InputSource } from '../core/input';
-import { controlHints } from './hud';
+import { drawControlCues } from './hud';
 import type { MenuTarget } from './overworld';
 import { drawKitButton, drawKitFrame, type InterfaceKit } from '../art/interface-kit';
 
@@ -20,8 +20,17 @@ export function drawFocusPause(ctx: CanvasRenderingContext2D, source: InputSourc
   ctx.fillStyle = '#ffda75'; ctx.textAlign = 'center'; ctx.font = 'bold 20px monospace';
   ctx.fillText('PAUSED', 213, 83);
   ctx.font = '12px monospace'; ctx.fillStyle = '#e9f2df';
-  controlHints(source).forEach((hint, index) => ctx.fillText(hint, 213, 111 + index * 20));
+  ctx.fillText('Return to the game to continue', 213, 111);
+  drawControlCues(ctx, source, 151);
   ctx.restore();
+}
+
+export interface PauseSettings {
+  hasRun: () => boolean;
+  soundEnabled: () => boolean;
+  rumbleEnabled: () => boolean;
+  toggleSound: () => void;
+  toggleRumble: () => void;
 }
 
 /** Pause actions run on rendered frames while the simulation clock is stopped. */
@@ -30,18 +39,18 @@ export class PauseMenu {
   private selected = 0;
   private direction = 0;
 
-  constructor(private readonly resume: () => void, private readonly returnToTrails: () => void) {}
+  constructor(private readonly resume: () => void, private readonly returnToTrails: () => void, private readonly settings?: PauseSettings) {}
 
   reset(): void { this.confirming = false; this.selected = 0; this.direction = 0; }
 
   cancel(): void { this.reset(); }
 
   update(input: InputFrame): void {
-    if (input.trailsPressed) { this.activate(1); return; }
+    if (input.trailsPressed && (this.settings?.hasRun() ?? true)) { this.activate(1); return; }
     const direction = Math.sign(input.horizontal);
-    if (direction && direction !== this.direction) this.selected = 1 - this.selected;
+    if (direction && direction !== this.direction) this.selected = (this.selected + direction + this.targets.length) % this.targets.length;
     this.direction = direction;
-    if (input.jumpPressed) this.activate(this.selected);
+    if (input.jumpPressed) this.targets[this.selected]?.action();
   }
 
   private activate(index: number): void {
@@ -53,13 +62,22 @@ export class PauseMenu {
   }
 
   get targets(): MenuTarget[] {
-    return [this.confirming ? 'Keep playing' : 'Resume', 'Return to Trails'].map((label, index) => ({
-      label, x: 53 + index * 165, y: 157, width: 155, height: 30,
-      selected: index === this.selected, nativeSpace: true,
-      description: this.confirming ? 'Leaving resets this run; completed trails stay recorded this session.'
-        : index === 1 ? 'T for Trails. Confirm before leaving this run.' : undefined,
-      action: () => this.activate(index), focus: () => { this.selected = index; },
-    }));
+    const target = (label: string, x: number, y: number, width: number, action: () => void, pressed?: boolean): MenuTarget => ({
+      label, x, y, width, height: 30, nativeSpace: true, pressed, action,
+    });
+    let targets: MenuTarget[];
+    if (this.confirming) {
+      targets = [target('Keep playing', 53, 157, 155, () => this.activate(0)),
+        target('Return to Trails', 218, 157, 155, () => this.activate(1))];
+      targets.forEach(item => { item.description = 'Leaving resets this run; completed trails stay recorded this session.'; });
+    } else {
+      targets = [target('Resume', 53, 62, 320, this.resume)];
+      if (this.settings?.hasRun() ?? true) targets.push(target('Return to Trails', 53, 99, 320, () => this.activate(1)));
+      if (this.settings) targets.push(
+        target('Sound', 53, 136, 155, this.settings.toggleSound, this.settings.soundEnabled()),
+        target('Controller rumble', 218, 136, 155, this.settings.toggleRumble, this.settings.rumbleEnabled()));
+    }
+    return targets.map((item, index) => ({ ...item, selected: index === this.selected, focus: () => { this.selected = index; } }));
   }
 
   draw(ctx: CanvasRenderingContext2D, source: InputSource, ui?: InterfaceKit): void {
@@ -72,15 +90,18 @@ export class PauseMenu {
       ctx.fillText('This run will reset.', 213, 88);
       ctx.fillText('Completed trails stay recorded', 213, 111);
       ctx.fillText('for this session.', 213, 131);
-    } else controlHints(source).forEach((hint, index) => ctx.fillText(hint, 213, 78 + index * 20));
+    } else drawControlCues(ctx, source, 186);
     for (const target of this.targets) {
       drawKitButton(ctx, ui, target, { fill: '#17333b', selectedFill: '#ffda75', stroke: '#bfd5ce' });
       ctx.fillStyle = target.selected ? '#0c1922' : '#e9f2df'; ctx.font = 'bold 10px monospace';
-      ctx.fillText(target.label, target.x + target.width / 2, target.y + 19);
+      const label = target.pressed === undefined ? target.label : `${target.label === 'Sound' ? 'Sound' : 'Rumble'}: ${target.pressed ? 'On' : 'Off'}`;
+      ctx.fillText(label, target.x + target.width / 2, target.y + 19);
     }
     ctx.fillStyle = '#e9f2df'; ctx.font = '10px monospace';
-    ctx.fillText(source === 'controller' ? '← → Choose · Face button: select' : '← → Choose · Space: select', 213, 205);
-    ctx.fillText(this.confirming ? `T: leave · ${source === 'controller' ? 'Start' : 'Escape'}: cancel` : 'T: Return to Trails', 213, 222);
+    if (this.confirming) {
+      ctx.fillText(source === 'controller' ? 'D-pad: choose · Buttons 1–4: select' : '← → Choose · Space / Enter: select', 213, 205);
+      ctx.fillText(`T: leave · ${source === 'controller' ? 'Start' : 'Escape'}: cancel`, 213, 222);
+    }
     ctx.restore();
   }
 }

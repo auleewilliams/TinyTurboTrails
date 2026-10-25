@@ -24,7 +24,11 @@ before stopping; scheduling uses the audio clock through loop boundaries.
 
 Run `npm run dev` and open `/?audio`. Choose a Level soundtrack, then click Start music or any effect button.
 Changing the selection auditions it immediately; Start music restarts that score.
-M mutes/unmutes all audio. Escape pauses/resumes; leaving the window also pauses.
+M mutes/unmutes all audio. Pause → Sound provides the same choice through a native
+toggle; its pressed state means sound is enabled. Rumble has its own independent
+toggle. Escape/Start or the visible Pause/Resume controls pause/resume; leaving the
+window also pauses. Native menu keyboard gestures still unlock audio without
+reaching gameplay input.
 Stop audio cancels the loop and every scheduled voice; Start music restarts it.
 The regular foundation preview also starts music after a supported keyboard,
 controller or canvas pointer interaction. Browser policy may require a keyboard

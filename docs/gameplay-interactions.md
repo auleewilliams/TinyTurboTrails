@@ -118,7 +118,7 @@ No new illustrated assets, audio triggers or collision behavior are introduced.
 Movement teaching lasts at most three seconds; jump teaching lasts at most four
 seconds after moving, ending immediately on a jump. Device labels follow standard
 controller actions or keyboard presses, with a keyboard fallback on disconnect.
-Pause exposes all movement/jump/resume/mute controls. Render calls alone cannot
+Pause exposes illustrated movement/jump/resume cues and separate Sound/Rumble toggles. The visible Pause control also opens settings from map/results; only live runs offer a confirmed Return to Trails. Render calls alone cannot
 advance any effect, teaching timer or location label.
 
 ## Crumbling ledges

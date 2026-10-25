@@ -1,0 +1,81 @@
+[
+  {
+    "file": "controller-settings-1366.png",
+    "cohort": "final-boundaries-all-engine",
+    "title": "pause settings controller states survive navigation, disconnect, visibility and word return",
+    "engine": "chromium",
+    "attachment": "controller-settings",
+    "sha256": "0cafc646f17a8994e05d024420904d097eed1a7901ea8b4c0754669dd28d5ebe",
+    "width": 1366,
+    "height": 768
+  },
+  {
+    "file": "gameplay-426.png",
+    "cohort": "final-boundaries-all-engine",
+    "path": "browser-uniform-viewport-f-441a9-finish-clear-after-resizing-chromium/gameplay-426x240.png",
+    "engine": "chromium",
+    "sha256": "bd3870411b03c83ed00c74f2ff2de34c40888c75fd57b9d948e7bfc557a32f28",
+    "width": 426,
+    "height": 240
+  },
+  {
+    "file": "gameplay-1366.png",
+    "cohort": "final-boundaries-all-engine",
+    "path": "browser-uniform-viewport-f-441a9-finish-clear-after-resizing-chromium/gameplay-1366x768.png",
+    "engine": "chromium",
+    "sha256": "f38a93074e739e828b625acd260707b4b24c4bbf7a090ccde07c90172da3dd8f",
+    "width": 1366,
+    "height": 768
+  },
+  {
+    "file": "confirmation-360.png",
+    "cohort": "final-boundaries-all-engine",
+    "path": "browser-paused-T-shortcut--2b817-o-Trails-and-resets-the-run-chromium/confirmation-small.png",
+    "engine": "chromium",
+    "sha256": "259d6965cd2237c97be834b934100cb4acec9397f5b28fa47842ef269487f3cf",
+    "width": 360,
+    "height": 240
+  },
+  {
+    "file": "word-return-426.png",
+    "cohort": "candidate-all-engine",
+    "engine": "chromium",
+    "note": "Live app after optional word activity; captured before final keyup input guard/accessible pause description, with identical visual layout.",
+    "sha256": "06fb47b717e4d0333eac9dd57cc7a5d1a9b14dea8beca72dc3644f1491c5b55d",
+    "width": 426,
+    "height": 300
+  },
+  {
+    "file": "pause-settings-426.png",
+    "cohort": "reduced-motion-all-engine",
+    "title": "visible Pause exposes independent settings with native focus and no held activation leak",
+    "engine": "chromium",
+    "attachment": "visible-pause-426",
+    "reducedMotion": false,
+    "sha256": "facfdfda6166b9301b3cbb73c635ba332efb03c98e1df4560c422385bfe512d1",
+    "width": 426,
+    "height": 240
+  },
+  {
+    "file": "pause-settings-320.png",
+    "cohort": "reduced-motion-all-engine",
+    "title": "visible Pause exposes independent settings with native focus and no held activation leak",
+    "engine": "chromium",
+    "attachment": "visible-pause-320",
+    "reducedMotion": true,
+    "sha256": "6fc08598f25da3506b1e68fb0b3f9460ef7b902608a4120b53173ead262d07cb",
+    "width": 320,
+    "height": 240
+  },
+  {
+    "file": "pause-settings-1366.png",
+    "cohort": "reduced-motion-all-engine",
+    "title": "visible Pause exposes independent settings with native focus and no held activation leak",
+    "engine": "chromium",
+    "attachment": "visible-pause-1366",
+    "reducedMotion": false,
+    "sha256": "6e7e6ef1259e2663be0f148a31383c2fc5541daf26a123552a1ec3769a3d078f",
+    "width": 1366,
+    "height": 768
+  }
+]

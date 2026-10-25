@@ -58,8 +58,10 @@ async function expectClearViewport(page: Page): Promise<void> {
   expect(geometry.fullFit || geometry.railFit || geometry.sideFit).toBe(true);
   expect(geometry.overflow).toBe(false);
   for (const target of geometry.targets) expect(target).toEqual({ inside: true, clickable: true });
-  await expect(page.locator('#mute')).toBeInViewport();
-  await expect(page.locator('#rumble')).toBeInViewport();
+  if (await page.getByRole('button', { name: 'Resume', exact: true }).count()) {
+    await expect(page.getByRole('button', { name: 'Sound', exact: true })).toBeInViewport();
+    await expect(page.getByRole('button', { name: 'Controller rumble', exact: true })).toBeInViewport();
+  } else await expect(page.locator('#pause')).toBeInViewport();
 }
 
 test('uniform viewport fit keeps map, gameplay, pause and finish clear after resizing', async ({ page }, info) => {
@@ -97,13 +99,15 @@ test('uniform viewport fit keeps map, gameplay, pause and finish clear after res
   await capture('gameplay');
   // Focused settings must not send Space through to jump or menu confirmation.
   const standingY = (await page.locator('#status').innerText()).match(/Y \d+/)![0];
-  await page.locator('#mute').focus();
+  await page.locator('#pause').click();
+  await page.getByRole('button', { name: 'Sound', exact: true }).focus();
   await page.keyboard.press('Space');
-  await expect(page.locator('#mute')).toHaveAttribute('aria-pressed', 'true');
-  await expect(page.locator('#rumble')).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.getByRole('button', { name: 'Sound', exact: true })).toHaveAttribute('aria-pressed', 'false');
+  await expect(page.getByRole('button', { name: 'Controller rumble', exact: true })).toHaveAttribute('aria-pressed', 'true');
   await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
+  await page.getByRole('button', { name: 'Resume', exact: true }).click();
   await expect(page.locator('#status')).toContainText(standingY);
-  await page.keyboard.press('Escape');
+  await page.locator('#pause').click();
   await capture('pause');
   await page.keyboard.press('t');
   await expect(page.getByRole('button', { name: 'Keep playing', exact: true })).toBeVisible();
@@ -126,10 +130,11 @@ test('app fullscreen retains feedback controls and native map and pause targets'
   await installTrailPilot(page);
   await openAdventure(page, '/');
   test.skip(!await page.evaluate(() => document.fullscreenEnabled), 'Fullscreen unavailable in this browser environment');
-  await page.locator('#mute').evaluate(button => {
+  await page.locator('#pause').evaluate(button => {
     button.addEventListener('click', () => { void document.querySelector('main')!.requestFullscreen(); }, { once: true });
   });
-  await page.locator('#mute').click();
+  await page.locator('#pause').click();
+  await page.getByRole('button', { name: 'Resume', exact: true }).click();
   await expect.poll(() => page.evaluate(() => document.fullscreenElement?.tagName)).toBe('MAIN');
   // Fullscreen element changes precede Firefox viewport/overlay layout settlement.
   await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
@@ -241,20 +246,24 @@ test('controller damage rumble is independent of audio and stops on pause, focus
   await axis(0);
   expect((await read()).effects).toEqual([]); // Controller map navigation has no output.
   await page.getByRole('button', { name: 'Play QUARRY RUN', exact: true }).click();
-  await page.locator('#mute').click();
+  await page.keyboard.press('m');
   await axis(1);
   await expect.poll(async () => (await read()).effects.length, { timeout: 10000 }).toBeGreaterThan(0);
   await axis(0);
   expect((await read()).effects[0]).toMatchObject({ duration: 100, strongMagnitude: 0.55, weakMagnitude: 0.3 });
+  await page.locator('#pause').click();
   const rumbleButton = page.getByRole('button', { name: 'Controller rumble', exact: true });
   await rumbleButton.click();
   await expect(rumbleButton).toHaveAttribute('aria-pressed', 'false');
   expect((await read()).resets).toBeGreaterThan(0);
   const disabled = await read();
+  await page.getByRole('button', { name: 'Resume', exact: true }).click();
   await axis(1); await page.waitForTimeout(1600); await axis(0);
   expect((await read()).effects).toEqual(disabled.effects);
+  await page.locator('#pause').click();
   await rumbleButton.click();
   await expect(rumbleButton).toHaveAttribute('aria-pressed', 'true');
+  await page.getByRole('button', { name: 'Resume', exact: true }).click();
   await axis(1);
   await expect.poll(async () => (await read()).effects.length, { timeout: 10000 }).toBeGreaterThan(disabled.effects.length);
   await axis(0);
@@ -279,39 +288,32 @@ test('controller damage rumble is independent of audio and stops on pause, focus
   expect(errors).toEqual([]);
 });
 
-test('rumble icon toggles independently with pointer and keyboard at desktop and small sizes', async ({ page }, info) => {
+test('rumble setting toggles independently with pointer and keyboard at desktop and small sizes', async ({ page }, info) => {
   await openAdventure(page, '/');
+  await page.locator('#pause').click();
   const button = page.getByRole('button', { name: 'Controller rumble', exact: true });
+  const sound = page.getByRole('button', { name: 'Sound', exact: true });
   await expect(button).toHaveAttribute('aria-pressed', 'true');
-  await expect(button.locator('.rumble-waves')).toBeVisible();
-  await expect(button.locator('.rumble-slash')).toBeHidden();
-  await button.focus();
-  await page.keyboard.press('Space');
+  await button.focus(); await page.keyboard.press('Space');
   await expect(button).toHaveAttribute('aria-pressed', 'false');
-  await expect(page.locator('#status')).toContainText('Title');
-  await expect(button.locator('.rumble-slash')).toBeVisible();
-  await expect(button.locator('.rumble-waves')).toBeHidden();
-  await expect(page.locator('#mute')).toHaveAttribute('aria-pressed', 'false');
+  await expect(sound).toHaveAttribute('aria-pressed', 'true');
   await page.keyboard.press('Enter');
   await expect(button).toHaveAttribute('aria-pressed', 'true');
-  await page.locator('#mute').click();
-  await expect(button).toHaveAttribute('aria-pressed', 'true');
-  await page.locator('#mute').click();
+  await sound.click(); await expect(button).toHaveAttribute('aria-pressed', 'true');
+  await sound.click();
   for (const width of [1366, 426, 320]) {
     await page.setViewportSize({ width, height: width === 1366 ? 768 : 240 });
     await expect(button).toBeInViewport();
-    const bounds = await button.boundingBox();
-    const mute = await page.locator('#mute').boundingBox();
-    const canvas = await page.locator('canvas').boundingBox();
+    const bounds = await button.boundingBox(), mute = await sound.boundingBox(), canvas = await page.locator('canvas').boundingBox();
     expect(bounds!.x).toBeGreaterThan(mute!.x + mute!.width);
-    expect(bounds!.y >= canvas!.y + canvas!.height - 0.1
-      || mute!.x >= canvas!.x + canvas!.width - 0.1).toBe(true);
+    expect(bounds!.y).toBeGreaterThanOrEqual(canvas!.y);
+    expect(bounds!.y + bounds!.height).toBeLessThanOrEqual(canvas!.y + canvas!.height);
     for (const state of ['on', 'off']) {
       await info.attach(`rumble-${state}-${width}`, { body: await page.screenshot({ path: info.outputPath(`rumble-${state}-${width}.png`) }), contentType: 'image/png' });
       await button.click();
     }
   }
-  await reloadToMap(page);
+  await reloadToMap(page); await page.locator('#pause').click();
   await expect(button).toHaveAttribute('aria-pressed', 'true');
 });
 
@@ -667,8 +669,8 @@ test('production canvas loads, scales and recovers from focus loss', async ({ pa
   await expect(canvas).toHaveAttribute('width', '426');
   await expect(canvas).toHaveAttribute('height', '240');
   expect(await page.evaluate(() => getComputedStyle(document.documentElement).backgroundColor)).toBe('rgb(12, 25, 34)');
-  expect((await canvas.boundingBox())!.height).toBeCloseTo(1286 * 240 / 426, 1);
-  expect((await canvas.boundingBox())!.width).toBeCloseTo(1286, 1);
+  expect((await canvas.boundingBox())!.height).toBeCloseTo(724, 1);
+  expect((await canvas.boundingBox())!.width).toBeCloseTo(724 * 426 / 240, 1);
   await page.setViewportSize({ width: 900, height: 600 });
   await expect.poll(async () => (await canvas.boundingBox())?.width).toBe(900);
   await page.keyboard.press('Escape');
@@ -688,8 +690,10 @@ test('production canvas loads, scales and recovers from focus loss', async ({ pa
   await expect(page.locator('#status')).toContainText('Foundation preview');
   await page.keyboard.press('m');
   await expect(page.locator('#status')).toContainText('Muted');
-  await expect(page.locator('#mute')).toHaveAttribute('aria-label', 'Unmute');
-  await page.locator('#mute').click();
+  await page.locator('#pause').click();
+  await expect(page.getByRole('button', { name: 'Sound', exact: true })).toHaveAttribute('aria-pressed', 'false');
+  await page.getByRole('button', { name: 'Sound', exact: true }).click();
+  await page.getByRole('button', { name: 'Resume', exact: true }).click();
   await expect(page.locator('#status')).not.toContainText('Muted');
   await reloadToMap(page);
   await expect(page.locator('#status')).toHaveText('Foundation preview · Escape to pause · M to mute');
@@ -1083,12 +1087,14 @@ test('title picker wraps back to Sunset Site and renders its terrain atlas', asy
 
 test('adventure mute control updates the audio state', async ({ page }) => {
   await openAdventure(page, '/?scene=adventure');
-  await expect(page.locator('#status')).toContainText('Adventure preview', { timeout: 15000 });
-  await page.locator('#mute').click();
-  await expect(page.locator('#mute')).toHaveAttribute('aria-pressed', 'true');
+  await page.locator('#pause').click();
+  const sound = page.getByRole('button', { name: 'Sound', exact: true });
+  await sound.click(); await expect(sound).toHaveAttribute('aria-pressed', 'false');
+  await page.getByRole('button', { name: 'Resume', exact: true }).click();
   await expect(page.locator('#status')).toContainText('Muted');
-  await page.locator('#mute').click();
-  await expect(page.locator('#mute')).toHaveAttribute('aria-pressed', 'false');
+  await page.locator('#pause').click(); await sound.click();
+  await expect(sound).toHaveAttribute('aria-pressed', 'true');
+  await page.getByRole('button', { name: 'Resume', exact: true }).click();
   await expect(page.locator('#status')).not.toContainText('Muted');
 });
 
@@ -1261,8 +1267,8 @@ test('paused T shortcut confirms before returning to Trails and resets the run',
   await expect(page.getByRole('button', { name: 'Return to Trails', exact: true })).toBeVisible();
   await expect(page.getByRole('button', { name: 'Resume', exact: true })).toHaveAttribute('aria-pressed', 'true');
   if (info.project.name === 'chromium') {
-    await mkdir('docs/evidence/issue-162', { recursive: true });
-    await page.screenshot({ path: 'docs/evidence/issue-162/keyboard-pause.png' });
+    await mkdir(info.outputPath('pause-evidence'), { recursive: true });
+    await page.screenshot({ path: info.outputPath('pause-evidence/keyboard-pause.png') });
   }
   const paused = await page.locator('canvas').evaluate(element => (element as HTMLCanvasElement).toDataURL());
   await page.keyboard.down('t');
@@ -1287,7 +1293,7 @@ test('paused T shortcut confirms before returning to Trails and resets the run',
   await page.keyboard.press('t');
   await expect(page.getByRole('button', { name: 'Keep playing', exact: true })).toBeVisible();
   await page.setViewportSize({ width: 360, height: 240 });
-  if (info.project.name === 'chromium') await page.screenshot({ path: 'docs/evidence/issue-162/confirmation-small.png' });
+  if (info.project.name === 'chromium') await page.screenshot({ path: info.outputPath('confirmation-small.png') });
   await page.keyboard.press('t');
   await expect(page.locator('#status')).toContainText('Title');
   await expect(page.getByRole('button', { name: `Play ${PLAINS_LEVEL.name}`, exact: true })).toBeVisible();
@@ -1312,6 +1318,8 @@ test('pause return works through pointer, Tab, Enter and focused Space, and canc
   await page.keyboard.down('Enter');
   await expect(page.locator('#status')).toContainText('Paused');
   await page.keyboard.up('Enter');
+  await expect(page.getByRole('button', { name: 'Keep playing', exact: true })).toBeFocused();
+  await page.keyboard.press('Tab');
   await page.keyboard.press('Space');
   await expect(page.locator('#status')).toContainText('Title');
   await page.getByRole('button', { name: `Play ${PLAINS_LEVEL.name}`, exact: true }).click();
@@ -1348,8 +1356,8 @@ test('controller pause return requires confirmation and clears held actions befo
   await button(15, true); await button(15, false);
   await expect(page.getByRole('button', { name: 'Return to Trails', exact: true })).toHaveAttribute('aria-pressed', 'true');
   if (info.project.name === 'chromium') {
-    await mkdir('docs/evidence/issue-162', { recursive: true });
-    await page.screenshot({ path: 'docs/evidence/issue-162/controller-pause.png' });
+    await mkdir(info.outputPath('pause-evidence'), { recursive: true });
+    await page.screenshot({ path: info.outputPath('pause-evidence/controller-pause.png') });
   }
   await button(0, true);
   await expect(page.getByRole('button', { name: 'Keep playing', exact: true })).toHaveAttribute('aria-pressed', 'true');
@@ -1891,19 +1899,19 @@ test('native HUD hints follow active input and pause controls fit small windows'
   await expect(canvas).toHaveAttribute('data-frame-text', /Arrows \/ A-D: move/);
   await info.attach('native-keyboard-hud', { body: await canvas.screenshot(), contentType: 'image/png' });
   await page.evaluate(() => { (window as unknown as { clarityPad: { axes: number[] } }).clarityPad.axes[0] = 1; });
-  await expect(canvas).toHaveAttribute('data-frame-text', /Face button: jump/);
+  await expect(canvas).toHaveAttribute('data-frame-text', /Buttons 1–4: jump/);
   await page.evaluate(() => {
     const pad = (window as unknown as { clarityPad: { axes: number[]; buttons: { pressed: boolean }[] } }).clarityPad;
     pad.axes[0] = 0; pad.buttons[9].pressed = true;
   });
   await expect(page.locator('#status')).toContainText('Paused');
-  await expect(canvas).toHaveAttribute('data-frame-text', /Stick \/ D-pad: move.*Face button: jump.*Start: resume/);
+  await expect(canvas).toHaveAttribute('data-frame-text', /Stick \/ D-pad: move.*Jump \/ select.*Start.*Resume/);
   await info.attach('native-controller-pause', { body: await canvas.screenshot(), contentType: 'image/png' });
   await page.evaluate(() => {
     (window as unknown as { clarityPad: { connected: boolean } }).clarityPad.connected = false;
     window.dispatchEvent(new Event('gamepaddisconnected'));
   });
-  await expect(canvas).toHaveAttribute('data-frame-text', /Arrows \/ A-D: move.*Space: jump.*Escape: resume/);
+  await expect(canvas).toHaveAttribute('data-frame-text', /← →.*Move.*Space.*Jump.*Escape.*Resume/);
   await page.keyboard.press('Escape');
   await expect(page.locator('#status')).toContainText('Playing');
   await expect(canvas).toHaveAttribute('data-frame-text', /Space: jump/);
@@ -3164,7 +3172,7 @@ test('kit text clears generated rims for keyboard and controller prompts at nati
   await page.keyboard.press('Escape'); await twoFrames(page);
   // Controller: the HUD switches to controller prompts, then a fresh run teaches movement.
   await tap(15);
-  await expect.poll(async () => (await kitTextProbe(page)).checked.includes('Face button: jump|plaque')).toBe(true);
+  await expect.poll(async () => (await kitTextProbe(page)).checked.includes('Buttons 1–4: jump|plaque')).toBe(true);
   await tap(9); await twoFrames(page);
   await expect(page.getByRole('button', { name: 'Return to Trails', exact: true })).toBeVisible();
   await page.getByRole('button', { name: 'Return to Trails', exact: true }).click();
@@ -3179,7 +3187,7 @@ test('kit text clears generated rims for keyboard and controller prompts at nati
   const { checked, violations } = await kitTextProbe(page);
   await writeFile(info.outputPath('kit-text-clearance.json'), JSON.stringify({ checked, violations }, null, 2));
   await info.attach('kit-text-clearance', { path: info.outputPath('kit-text-clearance.json'), contentType: 'application/json' });
-  for (const key of ['STICKERS|button', 'Arrows / A-D: move|plaque', 'Space: jump|plaque', 'Face button: jump|plaque', 'Stick / D-pad: move|plaque',
+  for (const key of ['STICKERS|button', 'Arrows / A-D: move|plaque', 'Space: jump|plaque', 'Buttons 1–4: jump|plaque', 'Stick / D-pad: move|plaque',
     'PAUSED|panel', 'LEAVE THIS TRAIL?|panel', 'Resume|button-selected', 'Return to Trails|button', 'Return to map|button-selected', 'PLAY|button-selected']) {
     expect(checked).toContain(key);
   }
@@ -3233,7 +3241,7 @@ test('illustrated pause panel draws generated art behind live text with aligned 
     const at = (x: number, y: number) => [...ctx.getImageData(x, y, 1, 1).data];
     // Timber mid-edge, interior, scrim outside the panel, and each button face beside its label.
     return { wood: at(panel.x + 4, panel.y + 100), interior: at(panel.x + 20, panel.y + 40), scrim: at(10, 120),
-      resume: at(53 + 9, 157 + 15), leave: at(218 + 9, 157 + 15) };
+      resume: at(53 + 9, 62 + 15), leave: at(53 + 9, 99 + 15) };
   }, PAUSE_PANEL);
   const isWood = ([r, g, b]: number[]) => r > 170 && g > 90 && g < 210 && b < 110 && r > g && g > b;
   const isGold = ([r, g, b]: number[]) => r > 200 && g > 160 && b < 150;
@@ -3259,21 +3267,22 @@ test('illustrated pause panel draws generated art behind live text with aligned 
         buttons: Array.from(document.querySelectorAll<HTMLButtonElement>('.trail-menu button')).map(button => {
           const box = button.getBoundingClientRect(); return { label: button.getAttribute('aria-label'), x: box.left, y: box.top, width: box.width, height: box.height };
         }),
-        controls: ['#mute', '#rumble'].map(selector => {
+        controls: ['#pause'].map(selector => {
           const element = document.querySelector<HTMLElement>(selector)!, style = getComputedStyle(element);
           return { image: style.borderImageSource, width: element.offsetWidth, height: element.offsetHeight };
         }) };
     });
     const scale = geometry.canvas.width / 426;
-    expect(geometry.buttons.map(button => button.label)).toEqual(['Resume', 'Return to Trails']);
+    expect(geometry.buttons.map(button => button.label)).toEqual(['Resume', 'Return to Trails', 'Sound', 'Controller rumble']);
     geometry.buttons.forEach((button, index) => {
-      expect(button.x).toBeCloseTo(geometry.canvas.x + (53 + index * 165) * scale, 0);
-      expect(button.y).toBeCloseTo(geometry.canvas.y + 157 * scale, 0);
-      expect(button.width).toBeCloseTo(155 * scale, 0); expect(button.height).toBeCloseTo(30 * scale, 0);
+      const [x, y, width] = [[53, 62, 320], [53, 99, 320], [53, 136, 155], [218, 136, 155]][index];
+      expect(button.x).toBeCloseTo(geometry.canvas.x + x * scale, 0);
+      expect(button.y).toBeCloseTo(geometry.canvas.y + y * scale, 0);
+      expect(button.width).toBeCloseTo(width * scale, 0); expect(button.height).toBeCloseTo(30 * scale, 0);
     });
     // Planks are drawn inside the unchanged feedback button boxes.
     for (const control of geometry.controls) expect(control.image).toContain('assets/interface/button.png');
-    expect(geometry.controls.map(({ width, height }) => [width >= 64 || width === 44, height])).toEqual([[true, 36], [true, 36]]);
+    expect(geometry.controls.map(({ width, height }) => [width >= 64 || width === 44, height])).toEqual([[true, 36]]);
     await page.screenshot({ path: info.outputPath(`illustrated-pause-${viewport.width}.png`) });
   }
 });
@@ -3391,7 +3400,7 @@ test('diagnostic fullscreen frame geometry across repeated native transitions', 
   try {
     for (let cycle = 1; cycle <= 8; cycle++) {
       await mark(cycle, 'request-enter');
-      await page.locator('#mute').evaluate(button => {
+      await page.locator('#pause').evaluate(button => {
         button.addEventListener('click', () => {
           const probe = (window as unknown as { fullscreenDiagnostic: { sample(reason: string): void } }).fullscreenDiagnostic;
           probe.sample('request-start');
@@ -3399,7 +3408,8 @@ test('diagnostic fullscreen frame geometry across repeated native transitions', 
             () => probe.sample('request-resolved'), () => probe.sample('request-rejected'));
         }, { once: true });
       });
-      await page.locator('#mute').click();
+      await page.locator('#pause').click();
+      await page.getByRole('button', { name: 'Resume', exact: true }).click();
       await expect.poll(() => page.evaluate(() => document.fullscreenElement?.tagName)).toBe('MAIN');
       await mark(cycle, 'after-fullscreen-element');
       await captureFrames();
@@ -3769,6 +3779,16 @@ for (const index of [0, LEVELS.length - 1]) {
       await observe(step);
     };
     try {
+      const resultStatus = await status.innerText();
+      await page.getByRole('button', { name: 'Pause', exact: true }).click();
+      await expect(page.getByRole('button', { name: 'Resume', exact: true })).toBeFocused();
+      await expect(page.getByRole('button', { name: 'Return to Trails', exact: true })).toHaveCount(0);
+      await page.getByRole('button', { name: 'Sound', exact: true }).click();
+      await page.getByRole('button', { name: 'Sound', exact: true }).click();
+      await page.getByRole('button', { name: 'Resume', exact: true }).click();
+      await expect(target).toBeFocused();
+      await expect(status).toHaveText(resultStatus);
+      await info.attach('results-settings-return', { body: await page.screenshot(), contentType: 'image/png' });
       // Held Enter: the repeats that follow focus onto the default action never activate it.
       await enterActivity(); await observe('before held Enter on Leave activity');
       await page.keyboard.down('Enter');
@@ -4269,7 +4289,7 @@ for (const level of LEVELS) test(`compact HUD renderer fixture: ${level.id} iden
   for (const viewport of [{ width: 426, height: 240 }, { width: 320, height: 240 }, { width: 1366, height: 768 }]) {
     await page.setViewportSize(viewport);
     for (let state = 0; state <= 4; state++) {
-      const hint = ['Arrows / A-D: move', 'Face button: jump', RIBBON_INTRO, 'Space: jump', ''][state];
+      const hint = ['Arrows / A-D: move', 'Buttons 1–4: jump', RIBBON_INTRO, 'Space: jump', ''][state];
       const notice = [level.name, 'Checkpoint reached!', '', areaName(level, level.checkpoints.length - 1), ''][state];
       await page.evaluate(({ state, hint, notice }) => (window as unknown as { hudFixture: { set(s: number, h: string, n: string): void } }).hudFixture.set(state, hint, notice), { state, hint, notice });
       await twoFrames(page);
@@ -4593,8 +4613,9 @@ test('landmark labels: native label hits and controller selection survive resize
   const supported = await page.evaluate(() => document.fullscreenEnabled);
   await info.attach('fullscreen-capability', { body: JSON.stringify({ supported }), contentType: 'application/json' });
   if (supported) {
-    await page.locator('#mute').evaluate(button => button.addEventListener('click', () => { void document.querySelector('main')!.requestFullscreen(); }, { once: true }));
-    await page.locator('#mute').click();
+    await page.locator('#pause').evaluate(button => button.addEventListener('click', () => { void document.querySelector('main')!.requestFullscreen(); }, { once: true }));
+    await page.locator('#pause').click();
+    await page.getByRole('button', { name: 'Resume', exact: true }).click();
     await expect.poll(state).toBe('MAIN'); await verify('fullscreen');
     await page.evaluate(() => document.exitFullscreen());
     await expect.poll(state).toBeNull(); await verify('fullscreen-exit');
@@ -4603,4 +4624,135 @@ test('landmark labels: native label hits and controller selection survive resize
   await page.keyboard.press('Tab');
   await expect(page.getByRole('button', { name: 'QUARRY RUN', exact: true })).toBeFocused();
   await expect(page.getByRole('button', { name: 'QUARRY RUN', exact: true })).toHaveAttribute('aria-pressed', 'true');
+});
+
+test('visible Pause exposes independent settings with native focus and no held activation leak', async ({ page }, info) => {
+  await openAdventure(page, '/?debug=1');
+  const pause = page.getByRole('button', { name: 'Pause', exact: true });
+  const resume = page.getByRole('button', { name: 'Resume', exact: true });
+  const sound = page.getByRole('button', { name: 'Sound', exact: true });
+  const rumble = page.getByRole('button', { name: 'Controller rumble', exact: true });
+  await expect(pause).toBeVisible();
+  await pause.click();
+  await expect(resume).toBeFocused();
+  await expect(page.getByRole('navigation', { name: 'Pause navigation' })).toHaveAttribute('aria-description', /Space\/Enter.*M: sound/);
+  await expect(page.getByRole('button', { name: 'Return to Trails', exact: true })).toHaveCount(0);
+  for (const [s, r] of [[true, true], [false, true], [false, false], [true, false]]) {
+    await expect(sound).toHaveAttribute('aria-pressed', String(s));
+    await expect(rumble).toHaveAttribute('aria-pressed', String(r));
+    await sound.focus(); await expect(sound).toBeFocused();
+    await rumble.focus(); await expect(rumble).toBeFocused();
+    await expect(sound).toHaveAttribute('aria-pressed', String(s));
+    await expect(rumble).toHaveAttribute('aria-pressed', String(r));
+    const toggle = s === r ? sound : rumble;
+    await toggle.focus(); await page.keyboard.down('Space');
+    await page.keyboard.down('Space');
+    await expect(resume).toBeVisible();
+    await page.keyboard.up('Space');
+  }
+  await page.keyboard.press('m');
+  await expect(sound).toHaveAttribute('aria-pressed', 'false');
+  await expect(rumble).toHaveAttribute('aria-pressed', 'true');
+  await resume.click();
+  await expect(page.getByRole('button', { name: 'Play PLAINS', exact: true })).toBeVisible();
+  await page.getByRole('button', { name: 'Play PLAINS', exact: true }).click();
+  await page.waitForTimeout(250);
+  const standing = (await page.locator('#status').innerText()).match(/X \d+ Y \d+/)![0];
+  for (const width of [426, 320, 1366]) {
+    await page.emulateMedia({ reducedMotion: width === 320 ? 'reduce' : 'no-preference' });
+    await page.setViewportSize({ width, height: width === 1366 ? 768 : 240 });
+    const geometry = await pause.evaluate(button => {
+      const bounds = button.getBoundingClientRect(), range = document.createRange(); range.selectNodeContents(button);
+      const glyphs = range.getBoundingClientRect();
+      return { quiet: glyphs.left >= bounds.left + 6 && glyphs.right <= bounds.right - 6
+        && glyphs.top >= bounds.top + 6 && glyphs.bottom <= bounds.bottom - 6,
+        hit: button.contains(document.elementFromPoint(bounds.left + bounds.width / 2, bounds.top + bounds.height / 2)) };
+    });
+    expect(geometry).toEqual({ quiet: true, hit: true });
+    await pause.focus(); await page.keyboard.down('Enter');
+    await expect(resume).toBeFocused();
+    await page.keyboard.down('Enter');
+    await expect(resume).toBeVisible();
+    await page.keyboard.up('Enter');
+    await expectClearViewport(page);
+    await info.attach(`visible-pause-${width}`, { body: await page.screenshot(), contentType: 'image/png' });
+    await resume.focus(); await page.keyboard.down('Space');
+    await expect(page.locator('#game')).toBeFocused();
+    await page.keyboard.down('Space'); await page.keyboard.up('Space');
+    await expect(page.locator('#status')).toContainText(standing);
+  }
+  await pause.click();
+  await page.evaluate(() => {
+    for (const [type, code] of [['keydown', 'Escape'], ['keydown', 'ArrowRight'], ['keyup', 'ArrowRight'], ['keyup', 'Escape']])
+      window.dispatchEvent(new KeyboardEvent(type, { code }));
+  });
+  await expect(page.locator('#status')).toContainText('Playing');
+  await page.waitForTimeout(200);
+  await expect(page.locator('#status')).toContainText(standing);
+});
+
+test('pause settings controller states survive navigation, disconnect, visibility and word return', async ({ page }, info) => {
+  await observeKitTextClearance(page);
+  await page.addInitScript(() => {
+    const pad = { connected: true, mapping: 'standard', index: 0, axes: [0, 0], buttons: Array.from({ length: 17 }, () => ({ pressed: false })) };
+    Object.defineProperty(navigator, 'getGamepads', { configurable: true, value: () => pad.connected ? [pad] : [] });
+    Object.assign(window, { settingsPad: pad });
+  });
+  const edge = async (index: number, pressed: boolean) => {
+    await page.evaluate(({ index, pressed }) => { (window as unknown as { settingsPad: { buttons: { pressed: boolean }[] } }).settingsPad.buttons[index].pressed = pressed; }, { index, pressed });
+    await twoFrames(page);
+  };
+  const tap = async (index: number) => { await edge(index, true); await edge(index, false); };
+  const sound = page.getByRole('button', { name: 'Sound', exact: true });
+  const rumble = page.getByRole('button', { name: 'Controller rumble', exact: true });
+  const resume = page.getByRole('button', { name: 'Resume', exact: true });
+  await openAdventure(page, '/?debug=1');
+  await tap(9); await expect(resume).toBeFocused();
+  await tap(15); await expect(sound).toBeFocused();
+  await edge(0, true); await expect(sound).toHaveAttribute('aria-pressed', 'false');
+  await twoFrames(page); await expect(sound).toHaveAttribute('aria-pressed', 'false');
+  await edge(0, false);
+  await tap(15); await expect(rumble).toBeFocused();
+  await expect(rumble).toHaveAttribute('aria-pressed', 'true');
+  await tap(0); await expect(rumble).toHaveAttribute('aria-pressed', 'false');
+  await tap(14); await expect(sound).toBeFocused();
+  await tap(0); await expect(sound).toHaveAttribute('aria-pressed', 'true');
+  await expect(rumble).toHaveAttribute('aria-pressed', 'false');
+  await tap(15); await tap(0);
+  await expect(sound).toHaveAttribute('aria-pressed', 'true');
+  await expect(rumble).toHaveAttribute('aria-pressed', 'true');
+  await info.attach('controller-settings', { body: await page.screenshot(), contentType: 'image/png' });
+  await page.evaluate(() => {
+    (window as unknown as { settingsPad: { connected: boolean } }).settingsPad.connected = false;
+    window.dispatchEvent(new Event('gamepaddisconnected'));
+  });
+  await page.keyboard.press('m');
+  await expect(sound).toHaveAttribute('aria-pressed', 'false');
+  await expect(rumble).toHaveAttribute('aria-pressed', 'true');
+  await page.evaluate(() => {
+    Object.defineProperty(document, 'hidden', { configurable: true, value: true });
+    document.dispatchEvent(new Event('visibilitychange'));
+  });
+  await expect(resume).toHaveCount(0);
+  await page.evaluate(() => {
+    Object.defineProperty(document, 'hidden', { configurable: true, value: false });
+    document.dispatchEvent(new Event('visibilitychange')); window.dispatchEvent(new Event('focus'));
+  });
+  await expect(resume).toBeFocused();
+  await expect(sound).toHaveAttribute('aria-pressed', 'false');
+  await resume.click();
+  await page.getByRole('button', { name: 'Open stickers', exact: true }).click();
+  await expect(page.getByRole('dialog')).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Pause', exact: true })).toBeHidden();
+  await page.keyboard.press('Escape');
+  await expect(page.getByRole('dialog')).toHaveCount(0);
+  await expect(page.getByRole('button', { name: 'Play PLAINS', exact: true })).toBeVisible();
+  await page.getByRole('button', { name: 'Pause', exact: true }).click();
+  await expect(resume).toBeFocused();
+  await expect(page.getByRole('button', { name: 'Return to Trails', exact: true })).toHaveCount(0);
+  await expect(sound).toHaveAttribute('aria-pressed', 'false');
+  await expect(rumble).toHaveAttribute('aria-pressed', 'true');
+  const glyphs = await kitTextProbe(page);
+  expect(glyphs.checked).toEqual(expect.arrayContaining(['Sound: On|button', 'Sound: Off|button-selected', 'Rumble: Off|button-selected']));
+  expect(glyphs.violations).toEqual([]);
 });

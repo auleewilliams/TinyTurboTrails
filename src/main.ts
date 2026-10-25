@@ -25,8 +25,7 @@ const canvas = document.querySelector<HTMLCanvasElement>('#game')!;
 const main = document.querySelector<HTMLElement>('main')!;
 const feedbackControls = document.querySelector<HTMLElement>('.feedback-controls')!;
 const status = document.querySelector<HTMLParagraphElement>('#status')!;
-const muteButton = document.querySelector<HTMLButtonElement>('#mute')!;
-const rumbleButton = document.querySelector<HTMLButtonElement>('#rumble')!;
+const pauseButton = document.querySelector<HTMLButtonElement>('#pause')!;
 const retryButton = document.querySelector<HTMLButtonElement>('#retry')!;
 const context = canvas.getContext('2d');
 
@@ -59,7 +58,6 @@ if (!context) {
   const gameplayPreview = requestedScene === 'gameplay';
   const adventure = requestedScene === 'adventure';
   document.body.classList.toggle('adventure-view', adventure);
-  rumbleButton.hidden = !adventure;
   const debugAdventure = new URLSearchParams(location.search).get('debug') === '1';
   let assetState: 'loading' | 'ready' | 'failed' = artPreview || movementPreview || worldPreview || gameplayPreview || adventure ? 'loading' : 'ready';
   let disposed = false;
@@ -89,10 +87,9 @@ if (!context) {
       : !focused ? 'Paused · Return to the game to continue'
       : userPaused ? `Paused · ${inputSource === 'controller' ? 'Start' : 'Escape'} to resume`
       : previewStatus();
-    muteButton.textContent = muted ? 'Unmute' : 'Mute';
-    muteButton.setAttribute('aria-label', muted ? 'Unmute' : 'Mute');
-    muteButton.setAttribute('aria-pressed', String(muted));
-    retryButton.hidden = assetState !== 'failed';
+    retryButton.hidden = assetState !== 'failed' || userPaused;
+    pauseButton.style.visibility = !focused || userPaused || educationScene()?.educationOverlay.open ? 'hidden' : '';
+    document.querySelector<HTMLElement>('.audio-preview')?.toggleAttribute('inert', userPaused || !focused);
     document.body.classList.toggle('asset-unavailable', assetState !== 'ready');
   };
 
@@ -106,7 +103,9 @@ if (!context) {
   const clearGameplayInput = (): void => {
     input.clear(); pendingJump = false;
   };
-  const resume = (): void => {
+  const resume = (preserveFreshMovement = false): void => {
+    if (preserveFreshMovement) input.clearForResume();
+    else clearGameplayInput();
     userPaused = false; pauseMenu.reset(); pendingJump = false; refreshPause();
   };
   const pauseMenu = new PauseMenu(resume, () => {
@@ -115,7 +114,12 @@ if (!context) {
     clearGameplayInput();
     scene.returnToTrails();
     resume();
+  }, {
+    hasRun: () => educationScene()?.screenState === 'playing',
+    soundEnabled: () => !muted, rumbleEnabled: () => rumbleEnabled,
+    toggleSound: () => toggleMute(), toggleRumble: () => toggleRumble(),
   });
+  const openPause = (): void => { unlockAudio(); userPaused = true; pauseMenu.reset(); refreshPause(); };
   const blur = (): void => { focused = false; pauseMenu.reset(); refreshPause(); };
   const focus = (): void => { focused = !document.hidden; refreshPause(); };
   const visibility = (): void => {
@@ -123,15 +127,16 @@ if (!context) {
     if (!focused) pauseMenu.reset();
     refreshPause();
   };
-  const toggleMute = (): void => { muted = !muted; audio.setMuted(muted); refreshPause(); };
+  const toggleMute = (): void => { unlockAudio(); muted = !muted; audio.setMuted(muted); refreshPause(); };
   const toggleRumble = (): void => {
     rumbleEnabled = !rumbleEnabled;
     rumble.setEnabled(rumbleEnabled);
-    rumbleButton.setAttribute('aria-pressed', String(rumbleEnabled));
-    rumbleButton.title = `Turn controller rumble ${rumbleEnabled ? 'off' : 'on'}`;
+    refreshPause();
   };
-  const feedbackKeyDown = (event: KeyboardEvent): void => {
-    if (event.code === 'Space') event.stopPropagation();
+  const pauseKeyDown = (event: KeyboardEvent): void => {
+    if (event.code !== 'Space' && event.code !== 'Enter') return;
+    event.preventDefault(); event.stopPropagation();
+    if (!event.repeat) openPause();
   };
   const retryLoading = (): void => {
     assetState = 'loading';
@@ -147,12 +152,12 @@ if (!context) {
       if (controls.pausePressed) {
         if (educationScene()?.educationOverlay.open) educationScene()!.educationOverlay.close();
         else if (userPaused && pauseMenu.confirming) pauseMenu.cancel();
-        else if (userPaused) resume();
-        else { userPaused = true; pauseMenu.reset(); refreshPause(); }
+        else if (userPaused) resume(true);
+        else openPause();
         controls = input.poll();
       }
-      if (controls.mutePressed) { muted = !muted; audio.setMuted(muted); refreshPause(); }
-      if (userPaused && scenes.activeScene instanceof AdventureScene && scenes.activeScene.screenState === 'playing') {
+      if (controls.mutePressed) toggleMute();
+      if (userPaused) {
         pauseMenu.update(controls);
         // A menu selection must not also reach gameplay or the overworld this frame.
         if (!userPaused) controls = input.poll();
@@ -179,7 +184,8 @@ if (!context) {
     context.imageSmoothingEnabled = false;
     scenes.render(context);
     const scene = scenes.activeScene instanceof AdventureScene ? scenes.activeScene : undefined;
-    const trailPaused = focused && userPaused && scene?.screenState === 'playing';
+    pauseButton.style.visibility = !focused || userPaused || scene?.educationOverlay.open ? 'hidden' : '';
+    const trailPaused = focused && userPaused;
     menu.update(scene, !focused || userPaused, trailPaused ? pauseMenu.targets : []);
     if (trailPaused) pauseMenu.draw(context, inputSource, ui);
     else if (!focused || userPaused) drawFocusPause(context, controls.source ?? 'keyboard', ui);
@@ -195,10 +201,8 @@ if (!context) {
   window.addEventListener('focus', focus);
   document.addEventListener('visibilitychange', visibility);
   canvas.addEventListener('pointerdown', unlockAudio);
-  muteButton.addEventListener('click', toggleMute);
-  muteButton.addEventListener('keydown', feedbackKeyDown);
-  rumbleButton.addEventListener('click', toggleRumble);
-  rumbleButton.addEventListener('keydown', feedbackKeyDown);
+  pauseButton.addEventListener('click', openPause);
+  pauseButton.addEventListener('keydown', pauseKeyDown);
   retryButton.addEventListener('click', retryLoading);
   scenes.change(new FoundationScene());
   if (!adventure && !new URLSearchParams(location.search).has('audio')) audio.startMusic();
@@ -285,10 +289,8 @@ if (!context) {
     scenes.dispose();
     menu.dispose();
     canvas.removeEventListener('pointerdown', unlockAudio);
-    muteButton.removeEventListener('click', toggleMute);
-    muteButton.removeEventListener('keydown', feedbackKeyDown);
-    rumbleButton.removeEventListener('click', toggleRumble);
-    rumbleButton.removeEventListener('keydown', feedbackKeyDown);
+    pauseButton.removeEventListener('click', openPause);
+    pauseButton.removeEventListener('keydown', pauseKeyDown);
     retryButton.removeEventListener('click', retryLoading);
     removeAudioPreview();
     audio.dispose();

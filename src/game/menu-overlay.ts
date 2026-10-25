@@ -8,6 +8,7 @@ export class MenuOverlay {
   private dragging?: { handlers: NonNullable<MenuTarget['drag']>; pointer: number; x: number; y: number; moved: boolean };
   private suppressClick = false;
   private activityWasOpen = false;
+  private pauseWasOpen = false;
   private point(event: PointerEvent): { x: number; y: number } {
     const bounds = this.canvas.getBoundingClientRect();
     return { x: (event.clientX - bounds.left) * 426 / bounds.width, y: (event.clientY - bounds.top) * 240 / bounds.height };
@@ -44,7 +45,10 @@ export class MenuOverlay {
     const activityOpen = Boolean(scene?.educationOverlay.open && !paused);
     // Leaving the activity removes its focused button: return focus to the results' default action.
     const finishFocus = !paused && scene?.screenState === 'finish' && !activityOpen;
-    const restoreFocus = finishFocus && this.activityWasOpen;
+    const pauseOpen = pauseTargets.length > 0;
+    const leavingPause = !paused && this.pauseWasOpen;
+    const restoreFocus = (finishFocus && this.activityWasOpen) || leavingPause;
+    this.pauseWasOpen = pauseOpen;
     this.activityWasOpen = activityOpen;
     if (paused || !scene?.educationOverlay.open) this.cancelDrag();
     const targets = paused ? pauseTargets : scene?.menuTargets ?? [];
@@ -53,9 +57,12 @@ export class MenuOverlay {
     this.element.setAttribute('aria-label', paused
       ? pauseTargets[0]?.label === 'Keep playing' ? 'Return to Trails confirmation' : 'Pause navigation'
       : activityOpen ? scene!.educationOverlay.title : 'Trail navigation');
+    if (pauseOpen) this.element.setAttribute('aria-description',
+      'Left/Right or A/D, controller stick or D-pad: choose. Space/Enter on a focused button or any standard face button: select. Escape/Start: resume or cancel. M: sound.');
+    else this.element.removeAttribute('aria-description');
     const signature = JSON.stringify([
       activityOpen ? scene?.educationOverlay.revision : undefined,
-      targets.map(({ label, selected, description, x, y, width, height }) => [label, selected, description, x, y, width, height]),
+      targets.map(({ label, selected, pressed, description, x, y, width, height }) => [label, selected, pressed, description, x, y, width, height]),
     ]);
     const bounds = this.canvas.getBoundingClientRect();
     Object.assign(this.element.style, { left: `${bounds.left}px`, top: `${bounds.top}px`, width: `${bounds.width}px`, height: `${bounds.height}px` });
@@ -69,8 +76,9 @@ export class MenuOverlay {
       button.type = 'button'; button.setAttribute('aria-label', target.label);
       if (target.description) button.setAttribute('aria-description', target.description);
       else button.removeAttribute('aria-description');
-      if (target.selected !== undefined) button.setAttribute('aria-pressed', String(target.selected));
+      if (target.pressed !== undefined || target.selected !== undefined) button.setAttribute('aria-pressed', String(target.pressed ?? target.selected));
       else button.removeAttribute('aria-pressed');
+      button.dataset.selected = String(Boolean(target.selected));
       button.onclick = () => target.action();
       button.style.touchAction = target.drag ? 'none' : '';
       button.onpointerdown = event => {
@@ -98,9 +106,10 @@ export class MenuOverlay {
       if (!button.isConnected) this.element.append(button);
     });
     // Focus follows the selection inside the activity, and on results once focus is in this menu.
-    if (activityOpen || restoreFocus || (finishFocus && this.element.contains(document.activeElement))) {
+    if (pauseOpen || activityOpen || restoreFocus || (finishFocus && this.element.contains(document.activeElement))) {
       this.element.querySelectorAll('button')[Math.max(0, targets.findIndex(target => target.selected))]?.focus({ preventScroll: true });
     }
+    if (leavingPause && !targets.length) this.canvas.focus({ preventScroll: true });
   }
   dispose(): void { this.cancelDrag(); this.element.remove(); }
 }

@@ -31,6 +31,7 @@ it('discards activity clock debt when the finish activity opens and pointer retu
     const refreshPause = () => clock.setPaused(!focused || userPaused || scene.educationOverlay.open);
     const clearGameplayInput = () => { input.clear(); pendingJump = false; };
     const refreshRumble = () => {};
+    const pauseButton = { style: {} };
     const assetState = 'loading', adventure = true, context = {}, menu = { update: () => {} }, pauseMenu = {};
     const requestAnimationFrame = () => 0;
     ${source.slice(start, end)}

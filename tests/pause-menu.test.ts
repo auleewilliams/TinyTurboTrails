@@ -48,3 +48,30 @@ it('keeps focused native button actions aligned with controller selection', () =
   menu.targets[0].action();
   expect(resume).toHaveBeenCalledOnce();
 });
+
+it('keeps all four sound/rumble states independent from navigation selection', () => {
+  let sound = true; let rumble = true;
+  const menu = new PauseMenu(vi.fn(), vi.fn(), {
+    hasRun: () => true, soundEnabled: () => sound, rumbleEnabled: () => rumble,
+    toggleSound: () => { sound = !sound; }, toggleRumble: () => { rumble = !rumble; },
+  });
+  for (const [expectedSound, expectedRumble] of [[true, true], [false, true], [false, false], [true, false]]) {
+    expect(menu.targets.find(target => target.label === 'Sound')?.pressed).toBe(expectedSound);
+    expect(menu.targets.find(target => target.label === 'Controller rumble')?.pressed).toBe(expectedRumble);
+    for (const target of menu.targets) target.focus!();
+    expect(menu.targets.find(target => target.label === 'Sound')?.pressed).toBe(expectedSound);
+    expect(menu.targets.find(target => target.label === 'Controller rumble')?.pressed).toBe(expectedRumble);
+    menu.targets.find(target => target.label === (sound === rumble ? 'Sound' : 'Controller rumble'))!.action();
+  }
+});
+
+it('offers settings and Resume on the map without a run-reset action or T shortcut', () => {
+  const leave = vi.fn();
+  const menu = new PauseMenu(vi.fn(), leave, {
+    hasRun: () => false, soundEnabled: () => true, rumbleEnabled: () => false,
+    toggleSound: vi.fn(), toggleRumble: vi.fn(),
+  });
+  expect(menu.targets.map(target => target.label)).toEqual(['Resume', 'Sound', 'Controller rumble']);
+  menu.update({ ...neutral, trailsPressed: true });
+  expect(menu.confirming).toBe(false); expect(leave).not.toHaveBeenCalled();
+});
