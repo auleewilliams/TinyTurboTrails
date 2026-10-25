@@ -119,6 +119,62 @@ candidate build was needed for this tests/docs-only revision. The accepted eight
 PNGs, capture origins and source/build/image provenance bytes are unchanged.
 The original 66/5/1 candidate cohort above remains historical evidence.
 
+## Rumble fixture revision
+
+Historical full CI run `40207087818` at `b3c1fc6` completed with 469 browser
+passes, one failure and one existing capability skip (471 configured cases).
+The failure was the renewed-positive rumble assertion: expected more than one
+actuator call, observed one after its existing 10-second assertion wait. It was
+not established as a whole-test deadline or infrastructure failure. The runtime
+and affected test were unchanged at `4844549`, so the earlier head does not
+invalidate that failure. One unchanged local pass was nonreproduction, not a fix.
+
+A bounded actual-app scheduling fixture demonstrated that a fresh synthetic axis
+emitted immediately after Resume, before any neutral gamepad poll, can remain
+blocked by the existing input-clear contract. Forcing that ordering with the old
+driver reproduced the same positive assertion failure. An observed neutral poll
+followed by a fresh axis restored movement and a real damage pulse. This proves
+a fixture defect; it does not establish the precise historical CI ordering.
+The historical logs, trace selection and diagnosis remain untouched.
+
+The affected test now waits for an actually observed `navigator.getGamepads()`
+neutral poll after each Resume before emitting fresh direction. Its off phase
+requires actual rendered movement and stable health decreasing from two to one,
+then verifies no actuator output. Heart-interior pixels are read from the real
+canvas; every yellow or unrecognized frame is ignored, so invulnerability or
+recovery highlighting cannot manufacture lost health. The on phase requires
+movement, renewed damage output with the original exact pulse parameters and
+changed stable health. Sound remains explicitly muted. Pause, focus-loss and
+disconnect assertions remain, as do the original timeouts, retries and engines.
+No production input, rumble, gameplay, UI, asset, configuration or bundle changed.
+
+Current bounded results (raw reports, per-frame RGB/position/health observations
+and actual poll/actuator JSONL are in `m7-214-rumble-fix-evidence/`):
+
+| Command / sensitivity | Observed result |
+| --- | --- |
+| `npx playwright test --workers=1 --grep 'controller damage rumble is independent of audio\|pause characterization:'` | 15/15 pass: affected case and all 12 native cases across Chromium, Firefox and WebKit; zero skips/retries |
+| Same-event-turn forced axis after second Resume, corrected driver | Chromium passes with real movement, stable health 3→2→1→3 and renewed damage pulse |
+| Isolated actual-source ignore-opt-out mutation | Expected failure at exact off-state actuator equality after real movement and stable health 2→1 |
+| Isolated actual-source broken-re-enablement mutation | Expected renewed-positive failure: >1 actuator calls required, one observed after the unchanged 10-second wait; movement and damage still observed |
+| Focused input/pause/HUD/frame/feedback/interface units, one worker | 6 files, 70/70 pass |
+| `npm run typecheck` | Pass |
+
+The scheduling fixture deliberately controls one ordering; it is not a replay of
+historical CI. Sensitivity copies use actual application source and assets and
+retain their mutation patches, bundles and failed traces outside the checkout.
+An initial sensitivity setup attempt stopped because port 4179 was occupied;
+its report/log is retained, and the existing process was left alone. A checked
+unused port was used for the actual opt-out probe. No blind retry loop was run.
+The accepted eight PNGs and source/build/image provenance remain byte-identical.
+No candidate build or full local browser suite was run for this test/docs change.
+
+The independent fresh Claude Code / actual Opus5.5 review of `4844549` passed
+without blockers, and its 70 unit/typecheck checks plus the coordinator's 12
+native browser passes remain historical evidence after this revision. The
+original 66/5/1 local cohort is retained above. A new head requires fresh review
+and full CI/artifact verification; neither prior review nor pending CI approves it.
+
 ## Limits and remaining gates
 
 Controller input and rumble actuator calls are simulated; they are not physical
@@ -127,8 +183,8 @@ headphone listening. No owner/child navigation, installed desktop browser matrix
 physical fullscreen/device acceptance or phone/touch policy was performed. #213's
 unobserved owner/child gate is unchanged. No historical dated worksheet is updated.
 
-The initial review's docs-only blocker is addressed here; fresh re-review and
-new-head full PR CI/artifact/source/count/skip verification remain with the
-coordinator. CI run `40207087818` belongs to the earlier `b3c1fc6` head and cannot
-approve this revision. Pending CI is not green. No
+The initial review's docs-only blocker was resolved at `4844549`; fresh review
+and new-head full PR CI/artifact/source/count/skip verification remain with the
+coordinator. CI runs `40207087818` (`b3c1fc6`, failed) and `40209575503`
+(`4844549`) are historical for this revision. Pending CI is not green. No
 merge, issue closure, deployment, release or #215 work is authorized to this worker.

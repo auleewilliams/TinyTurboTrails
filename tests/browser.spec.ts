@@ -221,71 +221,132 @@ test('controller damage rumble is independent of audio and stops on pause, focus
   const errors: string[] = [];
   page.on('pageerror', error => errors.push(error.message));
   page.on('console', message => { if (message.type() === 'error') errors.push(message.text()); });
+  type Sample = { time: number; x: number; y: number; velocity: number; health: number | null; colors: number[][] };
   await page.addInitScript(() => {
-    const probe = { effects: [] as { duration: number; strongMagnitude: number; weakMagnitude: number }[], resets: 0 };
+    const probe = { polls: 0, neutralPoll: 0, latest: null as Sample | null, stable: null as Sample | null,
+      samples: [] as Sample[], events: [] as Record<string, unknown>[], effects: [] as { duration: number; strongMagnitude: number; weakMagnitude: number }[], resets: 0 };
     const pad = {
       connected: true, mapping: 'standard', index: 0, axes: [0, 0],
       buttons: Array.from({ length: 17 }, () => ({ pressed: false })),
       vibrationActuator: {
-        playEffect(_type: string, parameters: typeof probe.effects[number]) { probe.effects.push(parameters); return Promise.resolve('complete'); },
-        reset() { probe.resets++; return Promise.resolve('complete'); },
+        playEffect(_type: string, parameters: typeof probe.effects[number]) { probe.effects.push(parameters); probe.events.push({ kind: 'effect', time: performance.now(), parameters }); return Promise.resolve('complete'); },
+        reset() { probe.resets++; probe.events.push({ kind: 'reset', time: performance.now() }); return Promise.resolve('complete'); },
       },
     };
-    Object.defineProperty(navigator, 'getGamepads', { configurable: true, value: () => [pad] });
+    Object.defineProperty(navigator, 'getGamepads', { configurable: true, value: () => {
+      probe.polls++;
+      if (pad.axes.every(value => value === 0) && pad.buttons.every(button => !button.pressed)) probe.neutralPoll = probe.polls;
+      probe.events.push({ kind: 'poll', time: performance.now(), poll: probe.polls, axis: pad.axes[0] });
+      return [pad];
+    } });
+    // Read actual interior pixels after all three heart sample pixels are drawn.
+    // Ignore every yellow-flash frame: a highlighted full pip after recovery must
+    // never look like lost health merely because it is temporarily not red.
+    const fillRect = CanvasRenderingContext2D.prototype.fillRect;
+    CanvasRenderingContext2D.prototype.fillRect = function(x, y, width, height) {
+      fillRect.call(this, x, y, width, height);
+      if (this.canvas.id !== 'game' || x !== 124 || y !== 12 || width !== 1 || height !== 1) return;
+      const status = document.querySelector('#status')?.textContent ?? '';
+      const position = status.match(/X (-?\d+) Y (-?\d+) V (-?\d+)/);
+      if (!status.includes('Playing') || !position) return;
+      const pixels = this.getImageData(92, 12, 33, 1).data;
+      const colors = [0, 16, 32].map(offset => Array.from(pixels.slice(offset * 4, offset * 4 + 3)));
+      const red = '255,93,93', empty = '49,67,74';
+      const steady = colors.every(color => [red, empty].includes(color.join(',')));
+      const sample = { time: performance.now(), x: Number(position[1]), y: Number(position[2]), velocity: Number(position[3]),
+        health: steady ? colors.filter(color => color.join(',') === red).length : null, colors };
+      probe.latest = sample; probe.samples.push(sample);
+      if (sample.health !== null) probe.stable = sample;
+    };
     Object.assign(window, { rumbleProbe: probe, rumblePad: pad });
   });
-  const read = () => page.evaluate(() => (window as unknown as {
-    rumbleProbe: { effects: { duration: number; strongMagnitude: number; weakMagnitude: number }[]; resets: number };
-  }).rumbleProbe);
+  const read = () => page.evaluate(() => { const { effects, resets, polls, neutralPoll, latest, stable } = (window as unknown as {
+    rumbleProbe: { effects: { duration: number; strongMagnitude: number; weakMagnitude: number }[]; resets: number; polls: number; neutralPoll: number; latest: Sample | null; stable: Sample | null };
+  }).rumbleProbe; return { effects, resets, polls, neutralPoll, latest, stable }; });
   const axis = (value: number) => page.evaluate(value => {
     (window as unknown as { rumblePad: { axes: number[] } }).rumblePad.axes[0] = value;
   }, value);
-  await openAdventure(page, '/');
-  await axis(1);
-  await expect(page.getByRole('button', { name: 'QUARRY RUN', exact: true })).toHaveAttribute('aria-pressed', 'true');
-  await axis(0);
-  expect((await read()).effects).toEqual([]); // Controller map navigation has no output.
-  await page.getByRole('button', { name: 'Play QUARRY RUN', exact: true }).click();
-  await page.keyboard.press('m');
-  await axis(1);
-  await expect.poll(async () => (await read()).effects.length, { timeout: 10000 }).toBeGreaterThan(0);
-  await axis(0);
-  expect((await read()).effects[0]).toMatchObject({ duration: 100, strongMagnitude: 0.55, weakMagnitude: 0.3 });
-  await page.locator('#pause').click();
-  const rumbleButton = page.getByRole('button', { name: 'Controller rumble', exact: true });
-  await rumbleButton.click();
-  await expect(rumbleButton).toHaveAttribute('aria-pressed', 'false');
-  expect((await read()).resets).toBeGreaterThan(0);
-  const disabled = await read();
-  await page.getByRole('button', { name: 'Resume', exact: true }).click();
-  await axis(1); await page.waitForTimeout(1600); await axis(0);
-  expect((await read()).effects).toEqual(disabled.effects);
-  await page.locator('#pause').click();
-  await rumbleButton.click();
-  await expect(rumbleButton).toHaveAttribute('aria-pressed', 'true');
-  await page.getByRole('button', { name: 'Resume', exact: true }).click();
-  await axis(1);
-  await expect.poll(async () => (await read()).effects.length, { timeout: 10000 }).toBeGreaterThan(disabled.effects.length);
-  await axis(0);
-  await page.keyboard.press('Escape');
-  await expect(page.locator('#status')).toContainText('Paused');
-  expect((await read()).resets).toBeGreaterThan(0);
-  const paused = await read();
-  await axis(1); await page.waitForTimeout(350);
-  expect((await read()).effects).toEqual(paused.effects);
-  await axis(0); await page.keyboard.press('Escape');
-  await page.evaluate(() => window.dispatchEvent(new Event('blur')));
-  await axis(1); await page.waitForTimeout(350);
-  expect((await read()).effects).toEqual(paused.effects);
-  await page.evaluate(() => {
-    (window as unknown as { rumblePad: { connected: boolean } }).rumblePad.connected = false;
-    window.dispatchEvent(new Event('gamepaddisconnected'));
-    window.dispatchEvent(new Event('focus'));
-  });
-  await page.waitForTimeout(350);
-  expect((await read()).effects).toEqual(paused.effects);
-  await info.attach('rumble-gameplay', { body: await page.screenshot({ path: info.outputPath('rumble-gameplay.png') }), contentType: 'image/png' });
-  expect(errors).toEqual([]);
+  const neutral = async (): Promise<void> => {
+    await axis(0);
+    const afterClear = (await read()).polls;
+    // Resume clears input again. Only a later real getGamepads call observing
+    // neutral releases that guard; Playing/aria state is not a poll witness.
+    await expect.poll(async () => (await read()).neutralPoll).toBeGreaterThan(afterClear);
+  };
+  const resume = async (): Promise<void> => {
+    await page.getByRole('button', { name: 'Resume', exact: true }).click();
+    await neutral();
+  };
+  const movedAfter = (time: number, x: number) => page.evaluate(({ time, x }) => (window as unknown as {
+    rumbleProbe: { samples: Sample[] };
+  }).rumbleProbe.samples.some(sample => sample.time > time && sample.x > x && sample.velocity > 0), { time, x });
+  try {
+    await openAdventure(page, '/?debug=1');
+    await axis(1);
+    await expect(page.getByRole('button', { name: 'QUARRY RUN', exact: true })).toHaveAttribute('aria-pressed', 'true');
+    await neutral();
+    expect((await read()).effects).toEqual([]); // Controller map navigation has no output.
+    await page.getByRole('button', { name: 'Play QUARRY RUN', exact: true }).click();
+    await page.keyboard.press('m');
+    await expect(page.locator('#status')).toContainText('Muted');
+    await axis(1);
+    await expect.poll(async () => (await read()).effects.length, { timeout: 10000 }).toBeGreaterThan(0);
+    await neutral();
+    await expect.poll(async () => (await read()).stable?.health).toBe(2);
+    expect((await read()).effects[0]).toMatchObject({ duration: 100, strongMagnitude: 0.55, weakMagnitude: 0.3 });
+    await page.locator('#pause').click();
+    const rumbleButton = page.getByRole('button', { name: 'Controller rumble', exact: true });
+    await rumbleButton.click();
+    await expect(rumbleButton).toHaveAttribute('aria-pressed', 'false');
+    expect((await read()).resets).toBeGreaterThan(0);
+    const disabled = await read();
+    await resume();
+    const offStart = (await read()).latest!;
+    await axis(1);
+    await expect.poll(async () => movedAfter(offStart.time, offStart.x)).toBe(true);
+    await expect.poll(async () => (await read()).stable?.health, { timeout: 10000 }).toBe(1);
+    await neutral();
+    expect((await read()).effects).toEqual(disabled.effects);
+    await page.locator('#pause').click();
+    await rumbleButton.click();
+    await expect(rumbleButton).toHaveAttribute('aria-pressed', 'true');
+    await resume();
+    const onStart = (await read()).latest!;
+    await axis(1);
+    await expect.poll(async () => movedAfter(onStart.time, onStart.x)).toBe(true);
+    await expect.poll(async () => (await read()).effects.length, { timeout: 10000 }).toBeGreaterThan(disabled.effects.length);
+    expect((await read()).effects[disabled.effects.length]).toMatchObject({ duration: 100, strongMagnitude: 0.55, weakMagnitude: 0.3 });
+    await expect.poll(async () => (await read()).stable?.health).not.toBe(1);
+    await expect(page.locator('#status')).toContainText('Muted');
+    await neutral();
+    await page.keyboard.press('Escape');
+    await expect(page.locator('#status')).toContainText('Paused');
+    expect((await read()).resets).toBeGreaterThan(0);
+    const paused = await read();
+    await axis(1); await page.waitForTimeout(350);
+    expect((await read()).effects).toEqual(paused.effects);
+    await axis(0); await page.keyboard.press('Escape'); await neutral();
+    await page.evaluate(() => window.dispatchEvent(new Event('blur')));
+    await axis(1); await page.waitForTimeout(350);
+    expect((await read()).effects).toEqual(paused.effects);
+    await page.evaluate(() => {
+      (window as unknown as { rumblePad: { connected: boolean } }).rumblePad.connected = false;
+      window.dispatchEvent(new Event('gamepaddisconnected'));
+      window.dispatchEvent(new Event('focus'));
+    });
+    await page.waitForTimeout(350);
+    expect((await read()).effects).toEqual(paused.effects);
+    await info.attach('rumble-gameplay', { body: await page.screenshot({ path: info.outputPath('rumble-gameplay.png') }), contentType: 'image/png' });
+    expect(errors).toEqual([]);
+  } finally {
+    const observations = await page.evaluate(() => (window as unknown as {
+      rumbleProbe: { samples: Sample[]; events: Record<string, unknown>[] };
+    }).rumbleProbe);
+    await writeFile(info.outputPath('rumble-render-health.jsonl'), observations.samples.map(sample => JSON.stringify(sample)).join('\n') + '\n');
+    await writeFile(info.outputPath('rumble-polls-actuator.jsonl'), observations.events.map(event => JSON.stringify(event)).join('\n') + '\n');
+    await info.attach('rumble-render-health', { path: info.outputPath('rumble-render-health.jsonl'), contentType: 'application/x-ndjson' });
+    await info.attach('rumble-polls-actuator', { path: info.outputPath('rumble-polls-actuator.jsonl'), contentType: 'application/x-ndjson' });
+  }
 });
 
 test('rumble setting toggles independently with pointer and keyboard at desktop and small sizes', async ({ page }, info) => {
