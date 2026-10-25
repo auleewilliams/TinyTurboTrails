@@ -119,7 +119,7 @@ candidate build was needed for this tests/docs-only revision. The accepted eight
 PNGs, capture origins and source/build/image provenance bytes are unchanged.
 The original 66/5/1 candidate cohort above remains historical evidence.
 
-## Rumble fixture revision
+## Rumble fixture revision at `e7739c2` (historical)
 
 Historical full CI run `40207087818` at `b3c1fc6` completed with 469 browser
 passes, one failure and one existing capability skip (471 configured cases).
@@ -174,6 +174,91 @@ without blockers, and its 70 unit/typecheck checks plus the coordinator's 12
 native browser passes remain historical evidence after this revision. The
 original 66/5/1 local cohort is retained above. A new head requires fresh review
 and full CI/artifact verification; neither prior review nor pending CI approves it.
+
+## Final fixture review revision
+
+Fresh Claude Code / actual Opus5.5 review of `e7739c2` (session
+`8233af43-c5bf-4d3a-aee9-d9fec843853b`) failed on two test-fixture blockers.
+The following full-CI results are separate historical cohorts, not approval of
+this revision:
+
+| Head / run | Browser result |
+| --- | --- |
+| `b3c1fc6` / `40207087818` | 469 pass, 1 fail, 1 existing skip; 471 configured |
+| `4844549` / `40209575503` | 480 pass, 2 fail, 1 existing skip; 483 configured |
+| `e7739c2` / `40213217693` | 481 pass, 1 WebKit fail, 1 existing Firefox skip; 483 configured |
+
+The retrieved e773 WebKit actuator log records initial damage at 4875 ms,
+spring's first pulse at 7582 ms and its second at 7627 ms. It has no X position;
+which spring fired remains unconfirmed. Treating the next call after re-enabling
+rumble as damage was incorrect. The revised test classifies exact known spring
+and star pulses before requiring an exact new damage pulse (100 ms, strong .55,
+weak .3, start delay zero). Unknown pulses, wrong damage parameters and orphan
+spring tails fail. Spring's second pulse may be absent under the existing expiry
+policy; the classifier does not add a delivery-timing guarantee.
+
+Both initial and renewed damage must now fall between adjacent stable rendered
+health observations that show loss, or defeat recovery from one to three hearts.
+Yellow/unknown frames remain excluded. A health transition elsewhere in time
+cannot satisfy that pulse. This tightens the real damage witness while retaining
+actual movement/contact in the Off phase, exact no-output equality, muted-sound
+independence and pause/focus/disconnect checks. The original 10-second positive
+assertion limits and 30-second rumble case limit remain unchanged.
+
+The uniform viewport pilot also had a latent Resume boundary: fresh held axis
+could arrive before any neutral poll after input clear. The shared pilot now
+records actual `getGamepads` calls. A fresh-controller helper stops only synthetic
+pilot controls, exposes a neutral pad and requires a later actual neutral poll
+before fresh controls. The viewport route, fullscreen Start, fullscreen landmark
+navigation and controller replay/route starts use it. Existing route, results,
+geometry and finish assertions remain. No new application clock, scene, player
+or private-state mutation was added; the pilot's existing time wrapper is intact.
+
+A permanent three-engine witness forces pilot activation in Resume's click event,
+observes more than 30 real polls while the required guard holds the player at
+X60/Y164/V0, then acknowledges neutral and requires fresh controls to move.
+A separate unchanged-driver scratch probe failed its movement predicate in that
+ordering; the corrected-driver comparator passed. These demonstrate the mechanism,
+not the exact historical CI poll sequence, which was not recorded.
+
+Current bounded results are retained in `m7-214-fixture-final-evidence/` outside
+the checkout. Reports identify the unchanged served runtime as `e7739c2`; test
+file hashes and the handoff identify the new test revision separately.
+
+| Check | Actual result |
+| --- | --- |
+| Classifier RED using an extraction of the old first-call assumption | 4 failures / 4 passes; not a production defect claim |
+| Final classifier and relevant input/pause/HUD/frame/feedback/interface/rumble units | 8 files, 96/96 pass |
+| Actual rumble case, all three engines | 3/3 pass |
+| Uniform viewport + four native Pause characterizations, all engines | 15/15 pass |
+| New permanent pilot witness, all engines | Initial 3 failures from an incorrect contiguous status substring; corrected parsing retains Playing and exact X/Y/V, then 3/3 pass |
+| Unsafe / acknowledged same-event-turn pilot scratch comparator | Expected movement failure at X60 / Chromium pass, unchanged 5-second predicate |
+| Isolated actual-source damage-as-known-spring sensitivity | Expected failure: real movement and health 3→2 occurred, legitimate non-damage calls did not satisfy exact damage within 10 seconds |
+| Audited shared-pilot callers and final rumble recheck | 18/18 pass across Chromium, Firefox and WebKit; zero skips/retries |
+| Script suite | 57/57 pass with command-scoped permission; earlier sandbox aggregate failures retained |
+| Typecheck | Pass |
+
+The new witness's three initial status-text failures, both sandbox script-file
+failures and an early scratch build request with a nonexistent working directory
+are preserved separately from intentional RED/sensitivity failures. The script
+file passed unchanged with command-scoped permission before the full script
+suite passed; its initial aggregate failure provided no narrower error, so no
+specific infrastructure cause is asserted. No existing predicate, retry,
+assertion timeout, case deadline or engine was weakened.
+
+Across the completed focused reports, 36 distinct engine-qualified cases passed
+(12 per engine); repeated rumble checks are not counted twice. The original
+15-pass/3-failure cohort remains separate, with its three new-witness text failures
+resolved only by the narrow three-engine rerun.
+
+The configured matrix is 486 cases after the new three-engine pilot witness;
+listing is not full local execution. No full local browser suite or candidate
+build was run. The isolated sensitivity copy's source was restored; its patch,
+bundle, actual RGB/health/poll/actuator logs and failed trace remain evidence.
+All eight accepted PNGs, source/capture manifests, runtime/build bytes and the
+historical base-exact worksheet remain unchanged. Fresh new-head review and full
+CI/artifact/source/identity/count/skip/tested-merge verification remain pending
+with the coordinator. Previous-head review and CI cannot approve the new head.
 
 ## Limits and remaining gates
 

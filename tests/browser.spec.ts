@@ -1,5 +1,6 @@
 import { drawTerrainMaterial, drawTerrainEdge, drawTrailBackdrop } from '../src/world/trail-presentation';
 import { installRetracePilotScript } from './retrace-pilot';
+import { observedDamage, type ActuatorCall, type HealthObservation } from './rumble-observation';
 import { drawAmbientWeather } from '../src/world/ambient-weather';
 import { expect, test, type Page } from '@playwright/test';
 import { mkdir, writeFile } from 'node:fs/promises';
@@ -115,10 +116,16 @@ test('uniform viewport fit keeps map, gameplay, pause and finish clear after res
   await page.getByRole('button', { name: 'Keep playing', exact: true }).click();
   await page.getByRole('button', { name: 'Resume', exact: true }).click();
   // Reach finish using the existing input-only controller pilot, not a scene hook.
+  await acknowledgeTrailNeutral(page);
   await page.evaluate(dangers => {
     Object.assign((window as unknown as { trailPilot: object }).trailPilot, { active: true, controller: true, dangers });
   }, dangerXs(PLAINS_LEVEL));
-  await expect(page.locator('#status')).toContainText('Finish', { timeout: 35_000 });
+  try {
+    await expect(page.locator('#status')).toContainText('Finish', { timeout: 35_000 });
+  } finally {
+    await writeFile(info.outputPath('trail-pilot-input.jsonl'), await page.evaluate(() =>
+      (window as unknown as { trailPilot: { inputEvents: object[] } }).trailPilot.inputEvents.map(event => JSON.stringify(event)).join('\n') + '\n'));
+  }
   await expectResultsFirst(page);
   await capture('finish');
   await page.getByRole('button', { name: 'Map', exact: true }).click();
@@ -141,7 +148,7 @@ test('app fullscreen retains feedback controls and native map and pause targets'
   await expectClearViewport(page);
   await page.getByRole('button', { name: 'Play PLAINS', exact: true }).click();
   // Escape belongs to browser fullscreen exit on WebKit. Use controller Start to pause.
-  await page.evaluate(() => { (window as unknown as { trailPilot: { controller: boolean } }).trailPilot.controller = true; });
+  await acknowledgeTrailNeutral(page);
   await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
   await page.evaluate(() => { (window as unknown as { trailPad: { buttons: { pressed: boolean }[] } }).trailPad.buttons[9].pressed = true; });
   await expect(page.getByRole('button', { name: 'Resume', exact: true })).toBeVisible();
@@ -263,6 +270,14 @@ test('controller damage rumble is independent of audio and stops on pause, focus
   const read = () => page.evaluate(() => { const { effects, resets, polls, neutralPoll, latest, stable } = (window as unknown as {
     rumbleProbe: { effects: { duration: number; strongMagnitude: number; weakMagnitude: number }[]; resets: number; polls: number; neutralPoll: number; latest: Sample | null; stable: Sample | null };
   }).rumbleProbe; return { effects, resets, polls, neutralPoll, latest, stable }; });
+  const damageAfter = async (index: number): Promise<ActuatorCall | undefined> => {
+    const { calls, samples } = await page.evaluate(() => {
+      const probe = (window as unknown as { rumbleProbe: { events: ({ kind: string } & ActuatorCall)[]; samples: HealthObservation[] } }).rumbleProbe;
+      return { calls: probe.events.filter(event => event.kind === 'effect'),
+        samples: probe.samples.map(({ time, health }) => ({ time, health })) };
+    });
+    return observedDamage(calls.slice(index), samples);
+  };
   const axis = (value: number) => page.evaluate(value => {
     (window as unknown as { rumblePad: { axes: number[] } }).rumblePad.axes[0] = value;
   }, value);
@@ -290,10 +305,11 @@ test('controller damage rumble is independent of audio and stops on pause, focus
     await page.keyboard.press('m');
     await expect(page.locator('#status')).toContainText('Muted');
     await axis(1);
-    await expect.poll(async () => (await read()).effects.length, { timeout: 10000 }).toBeGreaterThan(0);
+    await expect.poll(() => damageAfter(0), { timeout: 10000 }).toBeDefined();
+    expect((await read()).effects.length).toBeGreaterThan(0);
     await neutral();
     await expect.poll(async () => (await read()).stable?.health).toBe(2);
-    expect((await read()).effects[0]).toMatchObject({ duration: 100, strongMagnitude: 0.55, weakMagnitude: 0.3 });
+    expect((await damageAfter(0))!.parameters).toMatchObject({ duration: 100, strongMagnitude: 0.55, weakMagnitude: 0.3 });
     await page.locator('#pause').click();
     const rumbleButton = page.getByRole('button', { name: 'Controller rumble', exact: true });
     await rumbleButton.click();
@@ -314,8 +330,9 @@ test('controller damage rumble is independent of audio and stops on pause, focus
     const onStart = (await read()).latest!;
     await axis(1);
     await expect.poll(async () => movedAfter(onStart.time, onStart.x)).toBe(true);
-    await expect.poll(async () => (await read()).effects.length, { timeout: 10000 }).toBeGreaterThan(disabled.effects.length);
-    expect((await read()).effects[disabled.effects.length]).toMatchObject({ duration: 100, strongMagnitude: 0.55, weakMagnitude: 0.3 });
+    await expect.poll(() => damageAfter(disabled.effects.length), { timeout: 10000 }).toBeDefined();
+    expect((await read()).effects.length).toBeGreaterThan(disabled.effects.length);
+    expect((await damageAfter(disabled.effects.length))!.parameters).toMatchObject({ duration: 100, strongMagnitude: 0.55, weakMagnitude: 0.3 });
     await expect.poll(async () => (await read()).stable?.health).not.toBe(1);
     await expect(page.locator('#status')).toContainText('Muted');
     await neutral();
@@ -2196,9 +2213,16 @@ async function installTrailPilot(page: Page): Promise<void> {
   await page.addInitScript(() => {
     const buttons = Array.from({ length: 17 }, () => ({ pressed: false, value: 0, touched: false }));
     const pad = { connected: true, mapping: 'standard', axes: [0, 0], buttons };
-    const pilot = { active: false, lastActive: false, controller: false, dangers: [] as number[], index: 0, lastX: 0, jumpUntil: 0, jumping: false, pauseAt: 0, frozen: false, advanceMs: 0 };
+    const pilot = { active: false, lastActive: false, controller: false, dangers: [] as number[], index: 0, lastX: 0, jumpUntil: 0, jumping: false, pauseAt: 0, frozen: false, advanceMs: 0, polls: 0, neutralPoll: 0, inputEvents: [] as object[] };
     Object.assign(window, { trailPad: pad, trailPilot: pilot });
-    Object.defineProperty(navigator, 'getGamepads', { configurable: true, value: () => pilot.controller ? [pad] : [] });
+    Object.defineProperty(navigator, 'getGamepads', { configurable: true, value: () => {
+      pilot.polls++;
+      const neutral = pilot.controller && pad.axes.every(axis => axis === 0) && buttons.every(button => !button.pressed);
+      if (neutral) pilot.neutralPoll = pilot.polls;
+      pilot.inputEvents.push({ kind: 'poll', time: performance.now(), poll: pilot.polls, neutral,
+        controller: pilot.controller, axis: pad.axes[0], status: document.querySelector('#status')?.textContent, buttons: buttons.flatMap((button, index) => button.pressed ? [index] : []) });
+      return pilot.controller ? [pad] : [];
+    } });
     let previousTime: number | undefined; let presentationTime = 0;
     const raf = window.requestAnimationFrame.bind(window);
     window.requestAnimationFrame = (callback) => raf((now) => {
@@ -2233,6 +2257,27 @@ async function installTrailPilot(page: Page): Promise<void> {
       callback(presentationTime);
     });
   });
+}
+
+/** Arm fresh controller controls only after the actual app has sampled neutral. */
+async function acknowledgeTrailNeutral(page: Page): Promise<void> {
+  const afterClear = await page.evaluate(() => {
+    const state = window as unknown as {
+      trailPilot: { active: boolean; controller: boolean; polls: number };
+      trailPad: { axes: number[]; buttons: { pressed: boolean }[] };
+    };
+    Object.assign(state.trailPilot, { active: false, controller: true });
+    state.trailPad.axes.fill(0);
+    state.trailPad.buttons.forEach(button => { button.pressed = false; });
+    return state.trailPilot.polls;
+  });
+  await expect.poll(() => page.evaluate(() => (window as unknown as {
+    trailPilot: { neutralPoll: number };
+  }).trailPilot.neutralPoll)).toBeGreaterThan(afterClear);
+  await page.evaluate(afterClear => {
+    const pilot = (window as unknown as { trailPilot: { neutralPoll: number; inputEvents: object[] } }).trailPilot;
+    pilot.inputEvents.push({ kind: 'neutral-ack', time: performance.now(), afterClear, poll: pilot.neutralPoll });
+  }, afterClear);
 }
 
 test('Timbers static prop passage preserves hearts while slime-side contact still hurts', async ({ page }, info) => {
@@ -2429,6 +2474,7 @@ for (const [index, level] of LEVELS.entries()) {
       await page.evaluate(() => Object.assign((window as unknown as { trailPilot: object }).trailPilot, { frozen: false }));
     }
     const traverse = async (): Promise<void> => {
+      if (index % 2 === 1) await acknowledgeTrailNeutral(page);
       await page.evaluate(({ dangers, controller }) => {
         const pilot = (window as unknown as { trailPilot: { active: boolean; controller: boolean; dangers: number[]; index: number; lastX: number } }).trailPilot;
         Object.assign(pilot, { active: true, controller, dangers, index: 0, lastX: 0 });
@@ -4658,7 +4704,7 @@ test('landmark labels: native label hits and controller selection survive resize
       await page.mouse.click(canvas.x + (x + 11) * canvas.width / 426, canvas.y + (y + 38) * canvas.height / 240);
       await expect(target).toBeFocused(); await expect(target).toHaveAttribute('aria-pressed', 'true');
     }
-    await page.evaluate(() => { (window as unknown as { trailPilot: { controller: boolean } }).trailPilot.controller = true; });
+    await acknowledgeTrailNeutral(page);
     for (const level of LEVELS) {
       await page.evaluate(() => { (window as unknown as { trailPad: { buttons: { pressed: boolean }[] } }).trailPad.buttons[15].pressed = true; });
       await expect(page.getByRole('button', { name: level.name, exact: true })).toHaveAttribute('aria-pressed', 'true');
@@ -4946,3 +4992,33 @@ for (const method of ['Escape', 'Enter on Resume'] as const) {
     await info.attach('characterization-frames', { body: JSON.stringify({ engine: info.project.name, browser: browser.version(), method, standing, transition, settled, repeated, released, fresh }), contentType: 'application/json' });
   });
 }
+
+
+test('trail pilot: sampled neutral rearms fresh controls after native Resume', async ({ page }, info) => {
+  await installTrailPilot(page);
+  await openAdventure(page, '/?debug=1');
+  await page.getByRole('button', { name: 'Play PLAINS', exact: true }).click();
+  await page.locator('#pause').click();
+  const start = await page.evaluate(() => {
+    const pilot = (window as unknown as { trailPilot: { polls: number; active: boolean; controller: boolean; inputEvents: object[] } }).trailPilot;
+    // Deliberately activate in the same event turn after the app's native Resume handler.
+    // This is a mechanism fixture, not a replay of historical CI.
+    window.addEventListener('click', () => {
+      Object.assign(pilot, { active: true, controller: true });
+      pilot.inputEvents.push({ kind: 'forced-start', time: performance.now(), after: pilot.polls });
+    }, { once: true });
+    return pilot.polls;
+  });
+  try {
+    await page.getByRole('button', { name: 'Resume', exact: true }).click();
+    await expect.poll(() => page.evaluate(() => (window as unknown as { trailPilot: { polls: number } }).trailPilot.polls)).toBeGreaterThan(start + 30);
+    await expect(page.locator('#status')).toContainText(/Playing.*X 60 Y 164 V 0(?:\s|$)/);
+    await acknowledgeTrailNeutral(page);
+    await page.evaluate(() => { (window as unknown as { trailPilot: { active: boolean } }).trailPilot.active = true; });
+    await expect.poll(async () => Number((await page.locator('#status').innerText()).match(/X (\d+)/)?.[1])).toBeGreaterThan(60);
+    await info.attach('pilot-rearmed', { body: await page.screenshot(), contentType: 'image/png' });
+  } finally {
+    await writeFile(info.outputPath('trail-pilot-input.jsonl'), await page.evaluate(() =>
+      (window as unknown as { trailPilot: { inputEvents: object[] } }).trailPilot.inputEvents.map(event => JSON.stringify(event)).join('\n') + '\n'));
+  }
+});
