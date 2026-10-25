@@ -1,0 +1,7006 @@
+{
+  "engine": "firefox",
+  "fixtures": [
+    {
+      "kind": "renderer layout fixture; no scene/run gameplay claims",
+      "level": "timbers",
+      "samples": [
+        {
+          "viewport": {
+            "width": 426,
+            "height": 240
+          },
+          "state": 0,
+          "count": 0,
+          "health": 3,
+          "gems": 0,
+          "stars": null,
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/timbers/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Arrows / A-D: move",
+          "notice": "TREETOP TIMBERS"
+        },
+        {
+          "viewport": {
+            "width": 426,
+            "height": 240
+          },
+          "state": 1,
+          "count": 1,
+          "health": 2,
+          "gems": 1,
+          "stars": "1/3",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/timbers/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Face button: jump",
+          "notice": "Checkpoint reached!"
+        },
+        {
+          "viewport": {
+            "width": 426,
+            "height": 240
+          },
+          "state": 2,
+          "count": 2,
+          "health": 1,
+          "gems": 10,
+          "stars": "10/12",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/timbers/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Trail: Henry = you; posts = saves; flag = end",
+          "notice": ""
+        },
+        {
+          "viewport": {
+            "width": 426,
+            "height": 240
+          },
+          "state": 3,
+          "count": 3,
+          "health": 0,
+          "gems": 99,
+          "stars": "3/3",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/timbers/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Space: jump",
+          "notice": "Sunset trail"
+        },
+        {
+          "viewport": {
+            "width": 426,
+            "height": 240
+          },
+          "state": 4,
+          "count": 4,
+          "health": 3,
+          "gems": 44,
+          "stars": "3/3",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/timbers/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "",
+          "notice": ""
+        },
+        {
+          "viewport": {
+            "width": 320,
+            "height": 240
+          },
+          "state": 0,
+          "count": 0,
+          "health": 3,
+          "gems": 0,
+          "stars": null,
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/timbers/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Arrows / A-D: move",
+          "notice": "TREETOP TIMBERS"
+        },
+        {
+          "viewport": {
+            "width": 320,
+            "height": 240
+          },
+          "state": 1,
+          "count": 1,
+          "health": 2,
+          "gems": 1,
+          "stars": "1/3",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/timbers/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Face button: jump",
+          "notice": "Checkpoint reached!"
+        },
+        {
+          "viewport": {
+            "width": 320,
+            "height": 240
+          },
+          "state": 2,
+          "count": 2,
+          "health": 1,
+          "gems": 10,
+          "stars": "10/12",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/timbers/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Trail: Henry = you; posts = saves; flag = end",
+          "notice": ""
+        },
+        {
+          "viewport": {
+            "width": 320,
+            "height": 240
+          },
+          "state": 3,
+          "count": 3,
+          "health": 0,
+          "gems": 99,
+          "stars": "3/3",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/timbers/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Space: jump",
+          "notice": "Sunset trail"
+        },
+        {
+          "viewport": {
+            "width": 320,
+            "height": 240
+          },
+          "state": 4,
+          "count": 4,
+          "health": 3,
+          "gems": 44,
+          "stars": "3/3",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/timbers/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "",
+          "notice": ""
+        },
+        {
+          "viewport": {
+            "width": 1366,
+            "height": 768
+          },
+          "state": 0,
+          "count": 0,
+          "health": 3,
+          "gems": 0,
+          "stars": null,
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/timbers/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Arrows / A-D: move",
+          "notice": "TREETOP TIMBERS"
+        },
+        {
+          "viewport": {
+            "width": 1366,
+            "height": 768
+          },
+          "state": 1,
+          "count": 1,
+          "health": 2,
+          "gems": 1,
+          "stars": "1/3",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/timbers/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Face button: jump",
+          "notice": "Checkpoint reached!"
+        },
+        {
+          "viewport": {
+            "width": 1366,
+            "height": 768
+          },
+          "state": 2,
+          "count": 2,
+          "health": 1,
+          "gems": 10,
+          "stars": "10/12",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/timbers/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Trail: Henry = you; posts = saves; flag = end",
+          "notice": ""
+        },
+        {
+          "viewport": {
+            "width": 1366,
+            "height": 768
+          },
+          "state": 3,
+          "count": 3,
+          "health": 0,
+          "gems": 99,
+          "stars": "3/3",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/timbers/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Space: jump",
+          "notice": "Sunset trail"
+        },
+        {
+          "viewport": {
+            "width": 1366,
+            "height": 768
+          },
+          "state": 4,
+          "count": 4,
+          "health": 3,
+          "gems": 44,
+          "stars": "3/3",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/timbers/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "",
+          "notice": ""
+        }
+      ],
+      "glyphs": {
+        "checked": [
+          "PLAINS|plaque",
+          "Over grassy hills|plaque",
+          "PLAY|button-selected",
+          "STICKERS|button",
+          "0/6 \u00b7 E/click|button",
+          "0|plaque",
+          "Arrows / A-D: move|plaque",
+          "TREETOP TIMBERS|plaque",
+          "1|plaque",
+          "1/3|plaque",
+          "Face button: jump|plaque",
+          "Checkpoint reached!|plaque",
+          "10|plaque",
+          "10/12|plaque",
+          "Trail: Henry = you; posts = saves; flag = end|plaque",
+          "99|plaque",
+          "3/3|plaque",
+          "Space: jump|plaque",
+          "Sunset trail|plaque",
+          "44|plaque"
+        ],
+        "violations": []
+      },
+      "runtimeImports": [
+        "loadImage",
+        "MAX_HEALTH",
+        "drawKitFrame",
+        "PLAQUE_TEXT_SLICE",
+        "validateScenery",
+        "drawTerrainMaterial",
+        "drawTerrainEdge",
+        "drawTrailBackdrop",
+        "drawAmbientWeather",
+        "drawSceneryBackground",
+        "drawScenerySprite",
+        "foregroundPlacements",
+        "sceneryForDecoration",
+        "drawSurfaceMaterials"
+      ]
+    },
+    {
+      "kind": "renderer layout fixture; no scene/run gameplay claims",
+      "level": "plains",
+      "samples": [
+        {
+          "viewport": {
+            "width": 426,
+            "height": 240
+          },
+          "state": 0,
+          "count": 0,
+          "health": 3,
+          "gems": 0,
+          "stars": null,
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/plains/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/plains/scenery/background.webp",
+              "loaded": true
+            },
+            {
+              "source": "/assets/plains/scenery/foreground.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Arrows / A-D: move",
+          "notice": "PLAINS"
+        },
+        {
+          "viewport": {
+            "width": 426,
+            "height": 240
+          },
+          "state": 1,
+          "count": 1,
+          "health": 2,
+          "gems": 1,
+          "stars": "1/3",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/plains/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/plains/scenery/background.webp",
+              "loaded": true
+            },
+            {
+              "source": "/assets/plains/scenery/foreground.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Face button: jump",
+          "notice": "Checkpoint reached!"
+        },
+        {
+          "viewport": {
+            "width": 426,
+            "height": 240
+          },
+          "state": 2,
+          "count": 2,
+          "health": 1,
+          "gems": 10,
+          "stars": "10/12",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/plains/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/plains/scenery/background.webp",
+              "loaded": true
+            },
+            {
+              "source": "/assets/plains/scenery/foreground.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Trail: Henry = you; posts = saves; flag = end",
+          "notice": ""
+        },
+        {
+          "viewport": {
+            "width": 426,
+            "height": 240
+          },
+          "state": 3,
+          "count": 3,
+          "health": 0,
+          "gems": 99,
+          "stars": "3/3",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/plains/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/plains/scenery/background.webp",
+              "loaded": true
+            },
+            {
+              "source": "/assets/plains/scenery/foreground.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Space: jump",
+          "notice": "Summit"
+        },
+        {
+          "viewport": {
+            "width": 426,
+            "height": 240
+          },
+          "state": 4,
+          "count": 4,
+          "health": 3,
+          "gems": 44,
+          "stars": "3/3",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/plains/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/plains/scenery/background.webp",
+              "loaded": true
+            },
+            {
+              "source": "/assets/plains/scenery/foreground.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "",
+          "notice": ""
+        },
+        {
+          "viewport": {
+            "width": 320,
+            "height": 240
+          },
+          "state": 0,
+          "count": 0,
+          "health": 3,
+          "gems": 0,
+          "stars": null,
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/plains/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/plains/scenery/background.webp",
+              "loaded": true
+            },
+            {
+              "source": "/assets/plains/scenery/foreground.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Arrows / A-D: move",
+          "notice": "PLAINS"
+        },
+        {
+          "viewport": {
+            "width": 320,
+            "height": 240
+          },
+          "state": 1,
+          "count": 1,
+          "health": 2,
+          "gems": 1,
+          "stars": "1/3",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/plains/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/plains/scenery/background.webp",
+              "loaded": true
+            },
+            {
+              "source": "/assets/plains/scenery/foreground.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Face button: jump",
+          "notice": "Checkpoint reached!"
+        },
+        {
+          "viewport": {
+            "width": 320,
+            "height": 240
+          },
+          "state": 2,
+          "count": 2,
+          "health": 1,
+          "gems": 10,
+          "stars": "10/12",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/plains/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/plains/scenery/background.webp",
+              "loaded": true
+            },
+            {
+              "source": "/assets/plains/scenery/foreground.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Trail: Henry = you; posts = saves; flag = end",
+          "notice": ""
+        },
+        {
+          "viewport": {
+            "width": 320,
+            "height": 240
+          },
+          "state": 3,
+          "count": 3,
+          "health": 0,
+          "gems": 99,
+          "stars": "3/3",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/plains/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/plains/scenery/background.webp",
+              "loaded": true
+            },
+            {
+              "source": "/assets/plains/scenery/foreground.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Space: jump",
+          "notice": "Summit"
+        },
+        {
+          "viewport": {
+            "width": 320,
+            "height": 240
+          },
+          "state": 4,
+          "count": 4,
+          "health": 3,
+          "gems": 44,
+          "stars": "3/3",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/plains/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/plains/scenery/background.webp",
+              "loaded": true
+            },
+            {
+              "source": "/assets/plains/scenery/foreground.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "",
+          "notice": ""
+        },
+        {
+          "viewport": {
+            "width": 1366,
+            "height": 768
+          },
+          "state": 0,
+          "count": 0,
+          "health": 3,
+          "gems": 0,
+          "stars": null,
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/plains/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/plains/scenery/background.webp",
+              "loaded": true
+            },
+            {
+              "source": "/assets/plains/scenery/foreground.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Arrows / A-D: move",
+          "notice": "PLAINS"
+        },
+        {
+          "viewport": {
+            "width": 1366,
+            "height": 768
+          },
+          "state": 1,
+          "count": 1,
+          "health": 2,
+          "gems": 1,
+          "stars": "1/3",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/plains/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/plains/scenery/background.webp",
+              "loaded": true
+            },
+            {
+              "source": "/assets/plains/scenery/foreground.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Face button: jump",
+          "notice": "Checkpoint reached!"
+        },
+        {
+          "viewport": {
+            "width": 1366,
+            "height": 768
+          },
+          "state": 2,
+          "count": 2,
+          "health": 1,
+          "gems": 10,
+          "stars": "10/12",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/plains/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/plains/scenery/background.webp",
+              "loaded": true
+            },
+            {
+              "source": "/assets/plains/scenery/foreground.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Trail: Henry = you; posts = saves; flag = end",
+          "notice": ""
+        },
+        {
+          "viewport": {
+            "width": 1366,
+            "height": 768
+          },
+          "state": 3,
+          "count": 3,
+          "health": 0,
+          "gems": 99,
+          "stars": "3/3",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/plains/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/plains/scenery/background.webp",
+              "loaded": true
+            },
+            {
+              "source": "/assets/plains/scenery/foreground.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Space: jump",
+          "notice": "Summit"
+        },
+        {
+          "viewport": {
+            "width": 1366,
+            "height": 768
+          },
+          "state": 4,
+          "count": 4,
+          "health": 3,
+          "gems": 44,
+          "stars": "3/3",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/plains/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/plains/scenery/background.webp",
+              "loaded": true
+            },
+            {
+              "source": "/assets/plains/scenery/foreground.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "",
+          "notice": ""
+        }
+      ],
+      "glyphs": {
+        "checked": [
+          "PLAINS|plaque",
+          "Over grassy hills|plaque",
+          "PLAY|button-selected",
+          "STICKERS|button",
+          "0/6 \u00b7 E/click|button",
+          "0|plaque",
+          "Arrows / A-D: move|plaque",
+          "1|plaque",
+          "1/3|plaque",
+          "Face button: jump|plaque",
+          "Checkpoint reached!|plaque",
+          "10|plaque",
+          "10/12|plaque",
+          "Trail: Henry = you; posts = saves; flag = end|plaque",
+          "99|plaque",
+          "3/3|plaque",
+          "Space: jump|plaque",
+          "Summit|plaque",
+          "44|plaque"
+        ],
+        "violations": []
+      },
+      "runtimeImports": [
+        "loadImage",
+        "MAX_HEALTH",
+        "drawKitFrame",
+        "PLAQUE_TEXT_SLICE",
+        "validateScenery",
+        "drawTerrainMaterial",
+        "drawTerrainEdge",
+        "drawTrailBackdrop",
+        "drawAmbientWeather",
+        "drawSceneryBackground",
+        "drawScenerySprite",
+        "foregroundPlacements",
+        "sceneryForDecoration",
+        "drawSurfaceMaterials"
+      ]
+    },
+    {
+      "kind": "renderer layout fixture; no scene/run gameplay claims",
+      "level": "cove",
+      "samples": [
+        {
+          "viewport": {
+            "width": 426,
+            "height": 240
+          },
+          "state": 0,
+          "count": 0,
+          "health": 3,
+          "gems": 0,
+          "stars": null,
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/cove/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Arrows / A-D: move",
+          "notice": "SANDY COVE"
+        },
+        {
+          "viewport": {
+            "width": 426,
+            "height": 240
+          },
+          "state": 1,
+          "count": 1,
+          "health": 2,
+          "gems": 1,
+          "stars": "1/3",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/cove/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Face button: jump",
+          "notice": "Checkpoint reached!"
+        },
+        {
+          "viewport": {
+            "width": 426,
+            "height": 240
+          },
+          "state": 2,
+          "count": 2,
+          "health": 1,
+          "gems": 10,
+          "stars": "10/12",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/cove/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Trail: Henry = you; posts = saves; flag = end",
+          "notice": ""
+        },
+        {
+          "viewport": {
+            "width": 426,
+            "height": 240
+          },
+          "state": 3,
+          "count": 3,
+          "health": 0,
+          "gems": 99,
+          "stars": "3/3",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/cove/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Space: jump",
+          "notice": "Cove lookout"
+        },
+        {
+          "viewport": {
+            "width": 426,
+            "height": 240
+          },
+          "state": 4,
+          "count": 4,
+          "health": 3,
+          "gems": 44,
+          "stars": "3/3",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/cove/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "",
+          "notice": ""
+        },
+        {
+          "viewport": {
+            "width": 320,
+            "height": 240
+          },
+          "state": 0,
+          "count": 0,
+          "health": 3,
+          "gems": 0,
+          "stars": null,
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/cove/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Arrows / A-D: move",
+          "notice": "SANDY COVE"
+        },
+        {
+          "viewport": {
+            "width": 320,
+            "height": 240
+          },
+          "state": 1,
+          "count": 1,
+          "health": 2,
+          "gems": 1,
+          "stars": "1/3",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/cove/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Face button: jump",
+          "notice": "Checkpoint reached!"
+        },
+        {
+          "viewport": {
+            "width": 320,
+            "height": 240
+          },
+          "state": 2,
+          "count": 2,
+          "health": 1,
+          "gems": 10,
+          "stars": "10/12",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/cove/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Trail: Henry = you; posts = saves; flag = end",
+          "notice": ""
+        },
+        {
+          "viewport": {
+            "width": 320,
+            "height": 240
+          },
+          "state": 3,
+          "count": 3,
+          "health": 0,
+          "gems": 99,
+          "stars": "3/3",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/cove/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Space: jump",
+          "notice": "Cove lookout"
+        },
+        {
+          "viewport": {
+            "width": 320,
+            "height": 240
+          },
+          "state": 4,
+          "count": 4,
+          "health": 3,
+          "gems": 44,
+          "stars": "3/3",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/cove/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "",
+          "notice": ""
+        },
+        {
+          "viewport": {
+            "width": 1366,
+            "height": 768
+          },
+          "state": 0,
+          "count": 0,
+          "health": 3,
+          "gems": 0,
+          "stars": null,
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/cove/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Arrows / A-D: move",
+          "notice": "SANDY COVE"
+        },
+        {
+          "viewport": {
+            "width": 1366,
+            "height": 768
+          },
+          "state": 1,
+          "count": 1,
+          "health": 2,
+          "gems": 1,
+          "stars": "1/3",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/cove/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Face button: jump",
+          "notice": "Checkpoint reached!"
+        },
+        {
+          "viewport": {
+            "width": 1366,
+            "height": 768
+          },
+          "state": 2,
+          "count": 2,
+          "health": 1,
+          "gems": 10,
+          "stars": "10/12",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/cove/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Trail: Henry = you; posts = saves; flag = end",
+          "notice": ""
+        },
+        {
+          "viewport": {
+            "width": 1366,
+            "height": 768
+          },
+          "state": 3,
+          "count": 3,
+          "health": 0,
+          "gems": 99,
+          "stars": "3/3",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/cove/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Space: jump",
+          "notice": "Cove lookout"
+        },
+        {
+          "viewport": {
+            "width": 1366,
+            "height": 768
+          },
+          "state": 4,
+          "count": 4,
+          "health": 3,
+          "gems": 44,
+          "stars": "3/3",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/cove/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "",
+          "notice": ""
+        }
+      ],
+      "glyphs": {
+        "checked": [
+          "PLAINS|plaque",
+          "Over grassy hills|plaque",
+          "PLAY|button-selected",
+          "STICKERS|button",
+          "0/6 \u00b7 E/click|button",
+          "0|plaque",
+          "Arrows / A-D: move|plaque",
+          "SANDY COVE|plaque",
+          "1|plaque",
+          "1/3|plaque",
+          "Face button: jump|plaque",
+          "Checkpoint reached!|plaque",
+          "10|plaque",
+          "10/12|plaque",
+          "Trail: Henry = you; posts = saves; flag = end|plaque",
+          "99|plaque",
+          "3/3|plaque",
+          "Space: jump|plaque",
+          "Cove lookout|plaque",
+          "44|plaque"
+        ],
+        "violations": []
+      },
+      "runtimeImports": [
+        "loadImage",
+        "MAX_HEALTH",
+        "drawKitFrame",
+        "PLAQUE_TEXT_SLICE",
+        "validateScenery",
+        "drawTerrainMaterial",
+        "drawTerrainEdge",
+        "drawTrailBackdrop",
+        "drawAmbientWeather",
+        "drawSceneryBackground",
+        "drawScenerySprite",
+        "foregroundPlacements",
+        "sceneryForDecoration",
+        "drawSurfaceMaterials"
+      ]
+    },
+    {
+      "kind": "renderer layout fixture; no scene/run gameplay claims",
+      "level": "quarry",
+      "samples": [
+        {
+          "viewport": {
+            "width": 426,
+            "height": 240
+          },
+          "state": 0,
+          "count": 0,
+          "health": 3,
+          "gems": 0,
+          "stars": null,
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/plains/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/plains/scenery/background.webp",
+              "loaded": true
+            },
+            {
+              "source": "/assets/plains/scenery/foreground.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Arrows / A-D: move",
+          "notice": "QUARRY RUN"
+        },
+        {
+          "viewport": {
+            "width": 426,
+            "height": 240
+          },
+          "state": 1,
+          "count": 1,
+          "health": 2,
+          "gems": 1,
+          "stars": "1/3",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/plains/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/plains/scenery/background.webp",
+              "loaded": true
+            },
+            {
+              "source": "/assets/plains/scenery/foreground.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Face button: jump",
+          "notice": "Checkpoint reached!"
+        },
+        {
+          "viewport": {
+            "width": 426,
+            "height": 240
+          },
+          "state": 2,
+          "count": 2,
+          "health": 1,
+          "gems": 10,
+          "stars": "10/12",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/plains/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/plains/scenery/background.webp",
+              "loaded": true
+            },
+            {
+              "source": "/assets/plains/scenery/foreground.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Trail: Henry = you; posts = saves; flag = end",
+          "notice": ""
+        },
+        {
+          "viewport": {
+            "width": 426,
+            "height": 240
+          },
+          "state": 3,
+          "count": 3,
+          "health": 0,
+          "gems": 99,
+          "stars": "3/3",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/plains/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/plains/scenery/background.webp",
+              "loaded": true
+            },
+            {
+              "source": "/assets/plains/scenery/foreground.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Space: jump",
+          "notice": "Quarry summit"
+        },
+        {
+          "viewport": {
+            "width": 426,
+            "height": 240
+          },
+          "state": 4,
+          "count": 4,
+          "health": 3,
+          "gems": 44,
+          "stars": "3/3",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/plains/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/plains/scenery/background.webp",
+              "loaded": true
+            },
+            {
+              "source": "/assets/plains/scenery/foreground.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "",
+          "notice": ""
+        },
+        {
+          "viewport": {
+            "width": 320,
+            "height": 240
+          },
+          "state": 0,
+          "count": 0,
+          "health": 3,
+          "gems": 0,
+          "stars": null,
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/plains/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/plains/scenery/background.webp",
+              "loaded": true
+            },
+            {
+              "source": "/assets/plains/scenery/foreground.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Arrows / A-D: move",
+          "notice": "QUARRY RUN"
+        },
+        {
+          "viewport": {
+            "width": 320,
+            "height": 240
+          },
+          "state": 1,
+          "count": 1,
+          "health": 2,
+          "gems": 1,
+          "stars": "1/3",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/plains/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/plains/scenery/background.webp",
+              "loaded": true
+            },
+            {
+              "source": "/assets/plains/scenery/foreground.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Face button: jump",
+          "notice": "Checkpoint reached!"
+        },
+        {
+          "viewport": {
+            "width": 320,
+            "height": 240
+          },
+          "state": 2,
+          "count": 2,
+          "health": 1,
+          "gems": 10,
+          "stars": "10/12",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/plains/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/plains/scenery/background.webp",
+              "loaded": true
+            },
+            {
+              "source": "/assets/plains/scenery/foreground.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Trail: Henry = you; posts = saves; flag = end",
+          "notice": ""
+        },
+        {
+          "viewport": {
+            "width": 320,
+            "height": 240
+          },
+          "state": 3,
+          "count": 3,
+          "health": 0,
+          "gems": 99,
+          "stars": "3/3",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/plains/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/plains/scenery/background.webp",
+              "loaded": true
+            },
+            {
+              "source": "/assets/plains/scenery/foreground.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Space: jump",
+          "notice": "Quarry summit"
+        },
+        {
+          "viewport": {
+            "width": 320,
+            "height": 240
+          },
+          "state": 4,
+          "count": 4,
+          "health": 3,
+          "gems": 44,
+          "stars": "3/3",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/plains/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/plains/scenery/background.webp",
+              "loaded": true
+            },
+            {
+              "source": "/assets/plains/scenery/foreground.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "",
+          "notice": ""
+        },
+        {
+          "viewport": {
+            "width": 1366,
+            "height": 768
+          },
+          "state": 0,
+          "count": 0,
+          "health": 3,
+          "gems": 0,
+          "stars": null,
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/plains/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/plains/scenery/background.webp",
+              "loaded": true
+            },
+            {
+              "source": "/assets/plains/scenery/foreground.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Arrows / A-D: move",
+          "notice": "QUARRY RUN"
+        },
+        {
+          "viewport": {
+            "width": 1366,
+            "height": 768
+          },
+          "state": 1,
+          "count": 1,
+          "health": 2,
+          "gems": 1,
+          "stars": "1/3",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/plains/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/plains/scenery/background.webp",
+              "loaded": true
+            },
+            {
+              "source": "/assets/plains/scenery/foreground.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Face button: jump",
+          "notice": "Checkpoint reached!"
+        },
+        {
+          "viewport": {
+            "width": 1366,
+            "height": 768
+          },
+          "state": 2,
+          "count": 2,
+          "health": 1,
+          "gems": 10,
+          "stars": "10/12",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/plains/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/plains/scenery/background.webp",
+              "loaded": true
+            },
+            {
+              "source": "/assets/plains/scenery/foreground.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Trail: Henry = you; posts = saves; flag = end",
+          "notice": ""
+        },
+        {
+          "viewport": {
+            "width": 1366,
+            "height": 768
+          },
+          "state": 3,
+          "count": 3,
+          "health": 0,
+          "gems": 99,
+          "stars": "3/3",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/plains/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/plains/scenery/background.webp",
+              "loaded": true
+            },
+            {
+              "source": "/assets/plains/scenery/foreground.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Space: jump",
+          "notice": "Quarry summit"
+        },
+        {
+          "viewport": {
+            "width": 1366,
+            "height": 768
+          },
+          "state": 4,
+          "count": 4,
+          "health": 3,
+          "gems": 44,
+          "stars": "3/3",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/plains/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/plains/scenery/background.webp",
+              "loaded": true
+            },
+            {
+              "source": "/assets/plains/scenery/foreground.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "",
+          "notice": ""
+        }
+      ],
+      "glyphs": {
+        "checked": [
+          "PLAINS|plaque",
+          "Over grassy hills|plaque",
+          "PLAY|button-selected",
+          "STICKERS|button",
+          "0/6 \u00b7 E/click|button",
+          "0|plaque",
+          "Arrows / A-D: move|plaque",
+          "QUARRY RUN|plaque",
+          "1|plaque",
+          "1/3|plaque",
+          "Face button: jump|plaque",
+          "Checkpoint reached!|plaque",
+          "10|plaque",
+          "10/12|plaque",
+          "Trail: Henry = you; posts = saves; flag = end|plaque",
+          "99|plaque",
+          "3/3|plaque",
+          "Space: jump|plaque",
+          "Quarry summit|plaque",
+          "44|plaque"
+        ],
+        "violations": []
+      },
+      "runtimeImports": [
+        "loadImage",
+        "MAX_HEALTH",
+        "drawKitFrame",
+        "PLAQUE_TEXT_SLICE",
+        "validateScenery",
+        "drawTerrainMaterial",
+        "drawTerrainEdge",
+        "drawTrailBackdrop",
+        "drawAmbientWeather",
+        "drawSceneryBackground",
+        "drawScenerySprite",
+        "foregroundPlacements",
+        "sceneryForDecoration",
+        "drawSurfaceMaterials"
+      ]
+    },
+    {
+      "kind": "renderer layout fixture; no scene/run gameplay claims",
+      "level": "frost",
+      "samples": [
+        {
+          "viewport": {
+            "width": 426,
+            "height": 240
+          },
+          "state": 0,
+          "count": 0,
+          "health": 3,
+          "gems": 0,
+          "stars": null,
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/frost/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Arrows / A-D: move",
+          "notice": "FROST RIDGE"
+        },
+        {
+          "viewport": {
+            "width": 426,
+            "height": 240
+          },
+          "state": 1,
+          "count": 1,
+          "health": 2,
+          "gems": 1,
+          "stars": "1/3",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/frost/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Face button: jump",
+          "notice": "Checkpoint reached!"
+        },
+        {
+          "viewport": {
+            "width": 426,
+            "height": 240
+          },
+          "state": 2,
+          "count": 2,
+          "health": 1,
+          "gems": 10,
+          "stars": "10/12",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/frost/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Trail: Henry = you; posts = saves; flag = end",
+          "notice": ""
+        },
+        {
+          "viewport": {
+            "width": 426,
+            "height": 240
+          },
+          "state": 3,
+          "count": 3,
+          "health": 0,
+          "gems": 99,
+          "stars": "3/3",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/frost/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Space: jump",
+          "notice": "Frost summit"
+        },
+        {
+          "viewport": {
+            "width": 426,
+            "height": 240
+          },
+          "state": 4,
+          "count": 4,
+          "health": 3,
+          "gems": 44,
+          "stars": "3/3",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/frost/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "",
+          "notice": ""
+        },
+        {
+          "viewport": {
+            "width": 320,
+            "height": 240
+          },
+          "state": 0,
+          "count": 0,
+          "health": 3,
+          "gems": 0,
+          "stars": null,
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/frost/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Arrows / A-D: move",
+          "notice": "FROST RIDGE"
+        },
+        {
+          "viewport": {
+            "width": 320,
+            "height": 240
+          },
+          "state": 1,
+          "count": 1,
+          "health": 2,
+          "gems": 1,
+          "stars": "1/3",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/frost/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Face button: jump",
+          "notice": "Checkpoint reached!"
+        },
+        {
+          "viewport": {
+            "width": 320,
+            "height": 240
+          },
+          "state": 2,
+          "count": 2,
+          "health": 1,
+          "gems": 10,
+          "stars": "10/12",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/frost/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Trail: Henry = you; posts = saves; flag = end",
+          "notice": ""
+        },
+        {
+          "viewport": {
+            "width": 320,
+            "height": 240
+          },
+          "state": 3,
+          "count": 3,
+          "health": 0,
+          "gems": 99,
+          "stars": "3/3",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/frost/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Space: jump",
+          "notice": "Frost summit"
+        },
+        {
+          "viewport": {
+            "width": 320,
+            "height": 240
+          },
+          "state": 4,
+          "count": 4,
+          "health": 3,
+          "gems": 44,
+          "stars": "3/3",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/frost/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "",
+          "notice": ""
+        },
+        {
+          "viewport": {
+            "width": 1366,
+            "height": 768
+          },
+          "state": 0,
+          "count": 0,
+          "health": 3,
+          "gems": 0,
+          "stars": null,
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/frost/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Arrows / A-D: move",
+          "notice": "FROST RIDGE"
+        },
+        {
+          "viewport": {
+            "width": 1366,
+            "height": 768
+          },
+          "state": 1,
+          "count": 1,
+          "health": 2,
+          "gems": 1,
+          "stars": "1/3",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/frost/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Face button: jump",
+          "notice": "Checkpoint reached!"
+        },
+        {
+          "viewport": {
+            "width": 1366,
+            "height": 768
+          },
+          "state": 2,
+          "count": 2,
+          "health": 1,
+          "gems": 10,
+          "stars": "10/12",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/frost/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Trail: Henry = you; posts = saves; flag = end",
+          "notice": ""
+        },
+        {
+          "viewport": {
+            "width": 1366,
+            "height": 768
+          },
+          "state": 3,
+          "count": 3,
+          "health": 0,
+          "gems": 99,
+          "stars": "3/3",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/frost/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Space: jump",
+          "notice": "Frost summit"
+        },
+        {
+          "viewport": {
+            "width": 1366,
+            "height": 768
+          },
+          "state": 4,
+          "count": 4,
+          "health": 3,
+          "gems": 44,
+          "stars": "3/3",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/frost/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "",
+          "notice": ""
+        }
+      ],
+      "glyphs": {
+        "checked": [
+          "PLAINS|plaque",
+          "Over grassy hills|plaque",
+          "PLAY|button-selected",
+          "STICKERS|button",
+          "0/6 \u00b7 E/click|button",
+          "0|plaque",
+          "Arrows / A-D: move|plaque",
+          "FROST RIDGE|plaque",
+          "1|plaque",
+          "1/3|plaque",
+          "Face button: jump|plaque",
+          "Checkpoint reached!|plaque",
+          "10|plaque",
+          "10/12|plaque",
+          "Trail: Henry = you; posts = saves; flag = end|plaque",
+          "99|plaque",
+          "3/3|plaque",
+          "Space: jump|plaque",
+          "Frost summit|plaque",
+          "44|plaque"
+        ],
+        "violations": []
+      },
+      "runtimeImports": [
+        "loadImage",
+        "MAX_HEALTH",
+        "drawKitFrame",
+        "PLAQUE_TEXT_SLICE",
+        "validateScenery",
+        "drawTerrainMaterial",
+        "drawTerrainEdge",
+        "drawTrailBackdrop",
+        "drawAmbientWeather",
+        "drawSceneryBackground",
+        "drawScenerySprite",
+        "foregroundPlacements",
+        "sceneryForDecoration",
+        "drawSurfaceMaterials"
+      ]
+    },
+    {
+      "kind": "renderer layout fixture; no scene/run gameplay claims",
+      "level": "sunset",
+      "samples": [
+        {
+          "viewport": {
+            "width": 426,
+            "height": 240
+          },
+          "state": 0,
+          "count": 0,
+          "health": 3,
+          "gems": 0,
+          "stars": null,
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/site/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Arrows / A-D: move",
+          "notice": "SUNSET SITE"
+        },
+        {
+          "viewport": {
+            "width": 426,
+            "height": 240
+          },
+          "state": 1,
+          "count": 1,
+          "health": 2,
+          "gems": 1,
+          "stars": "1/3",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/site/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Face button: jump",
+          "notice": "Checkpoint reached!"
+        },
+        {
+          "viewport": {
+            "width": 426,
+            "height": 240
+          },
+          "state": 2,
+          "count": 2,
+          "health": 1,
+          "gems": 10,
+          "stars": "10/12",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/site/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Trail: Henry = you; posts = saves; flag = end",
+          "notice": ""
+        },
+        {
+          "viewport": {
+            "width": 426,
+            "height": 240
+          },
+          "state": 3,
+          "count": 3,
+          "health": 0,
+          "gems": 99,
+          "stars": "3/3",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/site/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Space: jump",
+          "notice": "Home stretch"
+        },
+        {
+          "viewport": {
+            "width": 426,
+            "height": 240
+          },
+          "state": 4,
+          "count": 4,
+          "health": 3,
+          "gems": 44,
+          "stars": "3/3",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/site/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "",
+          "notice": ""
+        },
+        {
+          "viewport": {
+            "width": 320,
+            "height": 240
+          },
+          "state": 0,
+          "count": 0,
+          "health": 3,
+          "gems": 0,
+          "stars": null,
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/site/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Arrows / A-D: move",
+          "notice": "SUNSET SITE"
+        },
+        {
+          "viewport": {
+            "width": 320,
+            "height": 240
+          },
+          "state": 1,
+          "count": 1,
+          "health": 2,
+          "gems": 1,
+          "stars": "1/3",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/site/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Face button: jump",
+          "notice": "Checkpoint reached!"
+        },
+        {
+          "viewport": {
+            "width": 320,
+            "height": 240
+          },
+          "state": 2,
+          "count": 2,
+          "health": 1,
+          "gems": 10,
+          "stars": "10/12",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/site/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Trail: Henry = you; posts = saves; flag = end",
+          "notice": ""
+        },
+        {
+          "viewport": {
+            "width": 320,
+            "height": 240
+          },
+          "state": 3,
+          "count": 3,
+          "health": 0,
+          "gems": 99,
+          "stars": "3/3",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/site/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Space: jump",
+          "notice": "Home stretch"
+        },
+        {
+          "viewport": {
+            "width": 320,
+            "height": 240
+          },
+          "state": 4,
+          "count": 4,
+          "health": 3,
+          "gems": 44,
+          "stars": "3/3",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/site/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "",
+          "notice": ""
+        },
+        {
+          "viewport": {
+            "width": 1366,
+            "height": 768
+          },
+          "state": 0,
+          "count": 0,
+          "health": 3,
+          "gems": 0,
+          "stars": null,
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/site/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Arrows / A-D: move",
+          "notice": "SUNSET SITE"
+        },
+        {
+          "viewport": {
+            "width": 1366,
+            "height": 768
+          },
+          "state": 1,
+          "count": 1,
+          "health": 2,
+          "gems": 1,
+          "stars": "1/3",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/site/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Face button: jump",
+          "notice": "Checkpoint reached!"
+        },
+        {
+          "viewport": {
+            "width": 1366,
+            "height": 768
+          },
+          "state": 2,
+          "count": 2,
+          "health": 1,
+          "gems": 10,
+          "stars": "10/12",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/site/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Trail: Henry = you; posts = saves; flag = end",
+          "notice": ""
+        },
+        {
+          "viewport": {
+            "width": 1366,
+            "height": 768
+          },
+          "state": 3,
+          "count": 3,
+          "health": 0,
+          "gems": 99,
+          "stars": "3/3",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/site/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "Space: jump",
+          "notice": "Home stretch"
+        },
+        {
+          "viewport": {
+            "width": 1366,
+            "height": 768
+          },
+          "state": 4,
+          "count": 4,
+          "health": 3,
+          "gems": 44,
+          "stars": "3/3",
+          "henryRect": {
+            "x": 36,
+            "y": 154,
+            "width": 48,
+            "height": 48
+          },
+          "clearance": {
+            "pouch": true,
+            "marks": true,
+            "icons": true,
+            "bag": true,
+            "hintAndNotice": true
+          },
+          "pouchQuiet": {
+            "left": 330,
+            "right": 416,
+            "top": 35,
+            "bottom": 56
+          },
+          "pouchBounds": {
+            "left": 332,
+            "right": 352,
+            "top": 35,
+            "bottom": 55
+          },
+          "assets": [
+            {
+              "source": "/assets/site/environment.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/gems/gems.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/spelling/pouch.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/henry/henry-celebration.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/panel.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/button-selected.png",
+              "loaded": true
+            },
+            {
+              "source": "/assets/interface/plaque.png",
+              "loaded": true
+            }
+          ],
+          "hint": "",
+          "notice": ""
+        }
+      ],
+      "glyphs": {
+        "checked": [
+          "PLAINS|plaque",
+          "Over grassy hills|plaque",
+          "PLAY|button-selected",
+          "STICKERS|button",
+          "0/6 \u00b7 E/click|button",
+          "0|plaque",
+          "Arrows / A-D: move|plaque",
+          "SUNSET SITE|plaque",
+          "1|plaque",
+          "1/3|plaque",
+          "Face button: jump|plaque",
+          "Checkpoint reached!|plaque",
+          "10|plaque",
+          "10/12|plaque",
+          "Trail: Henry = you; posts = saves; flag = end|plaque",
+          "99|plaque",
+          "3/3|plaque",
+          "Space: jump|plaque",
+          "Home stretch|plaque",
+          "44|plaque"
+        ],
+        "violations": []
+      },
+      "runtimeImports": [
+        "loadImage",
+        "MAX_HEALTH",
+        "drawKitFrame",
+        "PLAQUE_TEXT_SLICE",
+        "validateScenery",
+        "drawTerrainMaterial",
+        "drawTerrainEdge",
+        "drawTrailBackdrop",
+        "drawAmbientWeather",
+        "drawSceneryBackground",
+        "drawScenerySprite",
+        "foregroundPlacements",
+        "sceneryForDecoration",
+        "drawSurfaceMaterials"
+      ]
+    }
+  ]
+}

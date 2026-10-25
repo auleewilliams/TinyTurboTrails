@@ -1,0 +1,618 @@
+{
+  "metadata": {
+    "sourceRevision": null,
+    "nodeVersion": "v22.22.1",
+    "platform": "linux",
+    "arch": "x64",
+    "actualWorkers": 2
+  },
+  "stats": {
+    "startTime": "2026-10-25T12:41:15.748Z",
+    "duration": 119025.893,
+    "expected": 30,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "errors": [],
+  "configured": 30,
+  "enumerated": 30,
+  "totals": {
+    "expected": 30,
+    "unexpected": 0,
+    "skipped": 0,
+    "flaky": 0
+  },
+  "projects": {
+    "chromium": {
+      "expected": 10,
+      "unexpected": 0,
+      "skipped": 0,
+      "flaky": 0
+    },
+    "firefox": {
+      "expected": 10,
+      "unexpected": 0,
+      "skipped": 0,
+      "flaky": 0
+    },
+    "webkit": {
+      "expected": 10,
+      "unexpected": 0,
+      "skipped": 0,
+      "flaky": 0
+    }
+  },
+  "cases": [
+    {
+      "id": "fbeac1b2decfba2c3acd-2fda6d4fafb209218c26",
+      "title": "browser.spec.ts > kit text clears generated rims for keyboard and controller prompts at native and small sizes",
+      "file": "browser.spec.ts",
+      "line": 3136,
+      "column": 1,
+      "project": "chromium",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 3050,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "fbeac1b2decfba2c3acd-c00dcc0db605bfb8f614",
+      "title": "browser.spec.ts > educational bag collects independent letters without early assembly or sticker through real trail movement",
+      "file": "browser.spec.ts",
+      "line": 3428,
+      "column": 1,
+      "project": "chromium",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 8379,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "fbeac1b2decfba2c3acd-5dcdb10399e6f5cfc050",
+      "title": "browser.spec.ts > builder-kit reduced-motion pickup stays beside its pouch at native and small viewports",
+      "file": "browser.spec.ts",
+      "line": 4043,
+      "column": 1,
+      "project": "chromium",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 1183,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "fbeac1b2decfba2c3acd-595b6097189a7a03aa44",
+      "title": "browser.spec.ts > compact HUD renderer fixture: plains identity marks and real glyph clearance",
+      "file": "browser.spec.ts",
+      "line": 4185,
+      "column": 29,
+      "project": "chromium",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 3427,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "fbeac1b2decfba2c3acd-db43a569e6259817f655",
+      "title": "browser.spec.ts > compact HUD renderer fixture: quarry identity marks and real glyph clearance",
+      "file": "browser.spec.ts",
+      "line": 4185,
+      "column": 29,
+      "project": "chromium",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 3834,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "fbeac1b2decfba2c3acd-2b161adc464ce950c4cf",
+      "title": "browser.spec.ts > compact HUD renderer fixture: timbers identity marks and real glyph clearance",
+      "file": "browser.spec.ts",
+      "line": 4185,
+      "column": 29,
+      "project": "chromium",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 3972,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "fbeac1b2decfba2c3acd-8da851458c05c1948306",
+      "title": "browser.spec.ts > compact HUD renderer fixture: sunset identity marks and real glyph clearance",
+      "file": "browser.spec.ts",
+      "line": 4185,
+      "column": 29,
+      "project": "chromium",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 4271,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "fbeac1b2decfba2c3acd-90ffab1deb3a8898f821",
+      "title": "browser.spec.ts > compact HUD renderer fixture: frost identity marks and real glyph clearance",
+      "file": "browser.spec.ts",
+      "line": 4185,
+      "column": 29,
+      "project": "chromium",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 4239,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "fbeac1b2decfba2c3acd-5b3f3e750d44c69bee73",
+      "title": "browser.spec.ts > compact HUD renderer fixture: cove identity marks and real glyph clearance",
+      "file": "browser.spec.ts",
+      "line": 4185,
+      "column": 29,
+      "project": "chromium",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 4109,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "fbeac1b2decfba2c3acd-c7fcf93565dfa6d74a89",
+      "title": "browser.spec.ts > compact HUD ribbon introduction follows real input and freezes during pause",
+      "file": "browser.spec.ts",
+      "line": 4299,
+      "column": 1,
+      "project": "chromium",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 11172,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "fbeac1b2decfba2c3acd-b4c5ef4b36cc3fd52438",
+      "title": "browser.spec.ts > kit text clears generated rims for keyboard and controller prompts at native and small sizes",
+      "file": "browser.spec.ts",
+      "line": 3136,
+      "column": 1,
+      "project": "firefox",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 6015,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "fbeac1b2decfba2c3acd-56e4e390d312676520a5",
+      "title": "browser.spec.ts > educational bag collects independent letters without early assembly or sticker through real trail movement",
+      "file": "browser.spec.ts",
+      "line": 3428,
+      "column": 1,
+      "project": "firefox",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 10672,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "fbeac1b2decfba2c3acd-928624239871705b0c57",
+      "title": "browser.spec.ts > builder-kit reduced-motion pickup stays beside its pouch at native and small viewports",
+      "file": "browser.spec.ts",
+      "line": 4043,
+      "column": 1,
+      "project": "firefox",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 1793,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "fbeac1b2decfba2c3acd-dab2939804c7e57f6d0e",
+      "title": "browser.spec.ts > compact HUD renderer fixture: plains identity marks and real glyph clearance",
+      "file": "browser.spec.ts",
+      "line": 4185,
+      "column": 29,
+      "project": "firefox",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 5682,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "fbeac1b2decfba2c3acd-052575ae066c7bce1dc3",
+      "title": "browser.spec.ts > compact HUD renderer fixture: quarry identity marks and real glyph clearance",
+      "file": "browser.spec.ts",
+      "line": 4185,
+      "column": 29,
+      "project": "firefox",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 5614,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "fbeac1b2decfba2c3acd-fde47d52833f85b97154",
+      "title": "browser.spec.ts > compact HUD renderer fixture: timbers identity marks and real glyph clearance",
+      "file": "browser.spec.ts",
+      "line": 4185,
+      "column": 29,
+      "project": "firefox",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 5519,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "fbeac1b2decfba2c3acd-4f6282cb49ff9efadd81",
+      "title": "browser.spec.ts > compact HUD renderer fixture: sunset identity marks and real glyph clearance",
+      "file": "browser.spec.ts",
+      "line": 4185,
+      "column": 29,
+      "project": "firefox",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 5356,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "fbeac1b2decfba2c3acd-eb74d95561cbd126e67c",
+      "title": "browser.spec.ts > compact HUD renderer fixture: frost identity marks and real glyph clearance",
+      "file": "browser.spec.ts",
+      "line": 4185,
+      "column": 29,
+      "project": "firefox",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 5218,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "fbeac1b2decfba2c3acd-ce39e15413eca37b1b12",
+      "title": "browser.spec.ts > compact HUD renderer fixture: cove identity marks and real glyph clearance",
+      "file": "browser.spec.ts",
+      "line": 4185,
+      "column": 29,
+      "project": "firefox",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 5017,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "fbeac1b2decfba2c3acd-716eed6927ca0a3a27f8",
+      "title": "browser.spec.ts > compact HUD ribbon introduction follows real input and freezes during pause",
+      "file": "browser.spec.ts",
+      "line": 4299,
+      "column": 1,
+      "project": "firefox",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 11931,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "fbeac1b2decfba2c3acd-f3b6b934b4054e4c7b6a",
+      "title": "browser.spec.ts > kit text clears generated rims for keyboard and controller prompts at native and small sizes",
+      "file": "browser.spec.ts",
+      "line": 3136,
+      "column": 1,
+      "project": "webkit",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 11247,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "fbeac1b2decfba2c3acd-26935500820a802f07a5",
+      "title": "browser.spec.ts > educational bag collects independent letters without early assembly or sticker through real trail movement",
+      "file": "browser.spec.ts",
+      "line": 3428,
+      "column": 1,
+      "project": "webkit",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 14112,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "fbeac1b2decfba2c3acd-597b7e4c2c651c1889fc",
+      "title": "browser.spec.ts > builder-kit reduced-motion pickup stays beside its pouch at native and small viewports",
+      "file": "browser.spec.ts",
+      "line": 4043,
+      "column": 1,
+      "project": "webkit",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 3601,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "fbeac1b2decfba2c3acd-c1a887fc5a108df81dd1",
+      "title": "browser.spec.ts > compact HUD renderer fixture: plains identity marks and real glyph clearance",
+      "file": "browser.spec.ts",
+      "line": 4185,
+      "column": 29,
+      "project": "webkit",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 10374,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "fbeac1b2decfba2c3acd-4435f201a4424c530bb7",
+      "title": "browser.spec.ts > compact HUD renderer fixture: quarry identity marks and real glyph clearance",
+      "file": "browser.spec.ts",
+      "line": 4185,
+      "column": 29,
+      "project": "webkit",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 10278,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "fbeac1b2decfba2c3acd-e275b22ea67cccd9736a",
+      "title": "browser.spec.ts > compact HUD renderer fixture: timbers identity marks and real glyph clearance",
+      "file": "browser.spec.ts",
+      "line": 4185,
+      "column": 29,
+      "project": "webkit",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 10034,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "fbeac1b2decfba2c3acd-0ceeb4485655265da09d",
+      "title": "browser.spec.ts > compact HUD renderer fixture: sunset identity marks and real glyph clearance",
+      "file": "browser.spec.ts",
+      "line": 4185,
+      "column": 29,
+      "project": "webkit",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 10160,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "fbeac1b2decfba2c3acd-40a2f00e1166102c56da",
+      "title": "browser.spec.ts > compact HUD renderer fixture: frost identity marks and real glyph clearance",
+      "file": "browser.spec.ts",
+      "line": 4185,
+      "column": 29,
+      "project": "webkit",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 9870,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "fbeac1b2decfba2c3acd-e0b0eb65641708a0889c",
+      "title": "browser.spec.ts > compact HUD renderer fixture: cove identity marks and real glyph clearance",
+      "file": "browser.spec.ts",
+      "line": 4185,
+      "column": 29,
+      "project": "webkit",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 8430,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "fbeac1b2decfba2c3acd-5ff16df329c2902d502e",
+      "title": "browser.spec.ts > compact HUD ribbon introduction follows real input and freezes during pause",
+      "file": "browser.spec.ts",
+      "line": 4299,
+      "column": 1,
+      "project": "webkit",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 12207,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    }
+  ]
+}

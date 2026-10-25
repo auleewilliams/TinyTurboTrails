@@ -53,7 +53,7 @@ try {
   await page.addInitScript(() => {
     const fillText = CanvasRenderingContext2D.prototype.fillText;
     CanvasRenderingContext2D.prototype.fillText = function (text, ...args) {
-      if (/^GEMS \d+$/.test(text)) document.documentElement.dataset.gems = text;
+      if (args[0] === 28 && args[1] === 20 && /^\d+$/.test(text)) document.documentElement.dataset.gems = text;
       return fillText.call(this, text, ...args);
     };
   });
@@ -62,7 +62,7 @@ try {
   await page.waitForFunction(() => document.querySelector('#status').textContent.includes('Playing'));
   await page.screenshot({ path: `${directory}/sprite-play.png` });
   await page.keyboard.down('ArrowRight');
-  await page.waitForFunction(() => /^GEMS [1-9]/.test(document.documentElement.dataset.gems ?? ''));
+  await page.waitForFunction(() => /^[1-9]/.test(document.documentElement.dataset.gems ?? ''));
   await page.keyboard.up('ArrowRight');
   await page.keyboard.press('Escape');
   await page.screenshot({ path: `${directory}/sprite-collected.png` });

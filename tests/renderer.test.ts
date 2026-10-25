@@ -481,7 +481,7 @@ it('keeps the HUD left-aligned even after a centered overlay ran', () => {
   ctx.textAlign = 'center';
   scene.render(ctx);
   expect(texts).not.toHaveLength(0);
-  for (const drawn of texts.filter(({ text }) => text.startsWith('GEMS '))) expect(drawn).toMatchObject({ x: 10, textAlign: 'left' });
+  for (const drawn of texts.filter(({ text }) => /^\d+$/.test(text))) expect(drawn).toMatchObject({ x: 28, textAlign: 'left' });
 });
 
 function renderedHealthPips(scene: AdventureScene | GameplayPreviewScene, health: number, healthFlashSeconds = 0): FilledRect[] {

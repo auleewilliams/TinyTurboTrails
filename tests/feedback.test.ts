@@ -1,6 +1,6 @@
 import { expect, it } from 'vitest';
 import { Feedback, MAX_EFFECTS } from '../src/game/feedback';
-import { HudPresentation, TRAIL_RIBBON, areaName, controlHints, drawGameplayHud, drawTrailRibbon, trailPosition } from '../src/game/hud';
+import { HudPresentation, TRAIL_RIBBON, areaName, controlHints, drawGameplayHud, drawTrailRibbon, trailPosition, RIBBON_INTRO } from '../src/game/hud';
 import { LEVELS } from '../src/world/levels';
 import { PLAINS_LEVEL } from '../src/world/level';
 import { activateCheckpoint, createRun, recoverFromFall, stepEntities, type RunEvent } from '../src/game/interactions';
@@ -54,6 +54,8 @@ it('teaches movement then jump briefly, switches device text, and clears learned
   hud.update(1 / 60, { ...neutral, jumpPressed: true }, PLAINS_LEVEL, 55);
   expect(hud.hint).toBe('');
   const idle = new HudPresentation();
+  for (let index = 0; index < 300; index++) idle.update(1 / 60, neutral, PLAINS_LEVEL, 50);
+  expect(idle.hint).toBe(RIBBON_INTRO);
   for (let index = 0; index < 300; index++) idle.update(1 / 60, neutral, PLAINS_LEVEL, 50);
   expect(idle.hint).toBe('');
   expect(controlHints('controller')).toContain('Start: resume');

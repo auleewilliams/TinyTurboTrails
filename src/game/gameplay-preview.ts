@@ -40,7 +40,6 @@ export class GameplayPreviewScene implements Scene {
     this.elapsed += seconds;
     const step = tickRun(this.run, seconds);
     this.feedback.tick(step);
-    this.hud.update(step, input, this.level, this.player.x);
     this.platforms = platformBodiesAt(this.level.platforms, this.run.seconds, step);
     const previousPosition = { x: this.player.x, y: this.player.y };
     const wasGrounded = this.player.onGround;
@@ -65,6 +64,8 @@ export class GameplayPreviewScene implements Scene {
       else if (event.type === 'spring') this.audio.play('spring');
       else if (event.type === 'damage') this.audio.play('damage');
     }
+    this.hud.update(step, input, this.level, this.player.x, this.feedback.checkpointSeconds > 0
+      || this.run.invulnerableSeconds > 0 || this.feedback.effects.some(effect => effect.kind !== 'landing'));
     this.camera.update(this.player.x, this.player.y);
   }
 
