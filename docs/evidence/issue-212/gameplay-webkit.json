@@ -1,0 +1,51 @@
+{
+  "kind": "keyboard-driven gameplay; no scene/run mutation or clock acceleration",
+  "captures": [
+    {
+      "viewport": {
+        "width": 426,
+        "height": 240
+      },
+      "status": "Adventure preview · Playing · Letter bag: 0/4 · X 113 Y 164 V 0 F 1 · Escape to pause · M to mute"
+    },
+    {
+      "viewport": {
+        "width": 320,
+        "height": 240
+      },
+      "status": "Adventure preview · Playing · Letter bag: 0/4 · X 113 Y 164 V 0 F 1 · Escape to pause · M to mute"
+    },
+    {
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "status": "Adventure preview · Playing · Letter bag: 0/4 · X 113 Y 164 V 0 F 1 · Escape to pause · M to mute"
+    }
+  ],
+  "glyphs": {
+    "checked": [
+      "PLAINS|plaque",
+      "Over grassy hills|plaque",
+      "PLAY|button-selected",
+      "STICKERS|button",
+      "0/6 · E/click|button",
+      "0|plaque",
+      "0/3|plaque",
+      "Arrows / A-D: move|plaque",
+      "Space: jump|plaque",
+      "1|plaque",
+      "Trail: Henry = you; posts = saves; flag = end|plaque",
+      "PAUSED|panel",
+      "Arrows / A-D: move|panel",
+      "Space: jump|panel",
+      "Escape: resume|panel",
+      "M: mute|panel",
+      "Resume|button-selected",
+      "Return to Trails|button",
+      "← → Choose · Space: select|panel",
+      "T: Return to Trails|panel"
+    ],
+    "violations": []
+  }
+}

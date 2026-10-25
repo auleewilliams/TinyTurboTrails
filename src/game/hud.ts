@@ -1,5 +1,6 @@
 import { MAX_HEALTH, type RunEvent, type RunState } from './interactions';
 import type { InputFrame, InputSource } from '../core/input';
+import type { EducationSession } from './education';
 import type { LevelData } from '../world/level';
 import { drawKitFrame, PLAQUE_TEXT_SLICE, type InterfaceKit } from '../art/interface-kit';
 
@@ -7,17 +8,46 @@ export const HUD_COLORS = { panel: '#10252cee', ink: '#e9f2df', full: '#ff5d5d',
 const HEART = ['01100110', '11111111', '11111111', '01111110', '00111100', '00011000'];
 // Keep clear of Henry in low valleys, with five pixels inset at bottom-right.
 export const TRAIL_RIBBON = { x: 285, y: 221, width: 136, height: 14, startX: 292, finishX: 412, railY: 228 } as const;
-/** Compact HUD backings keep the original flat rectangles' footprint. */
+/** Shorter plaques retain native kit edges while giving counters less visual weight. */
 export const HUD_PLAQUES = {
-  gems: { x: 5, y: 5, width: 76, height: 22 },
-  hearts: { x: 85, y: 5, width: 56, height: 22 },
-  stars: { x: 145, y: 5, width: 80, height: 22 },
+  gems: { x: 5, y: 5, width: 60, height: 20 },
+  hearts: { x: 85, y: 5, width: 56, height: 20 },
+  stars: { x: 145, y: 5, width: 62, height: 20 },
 } as const;
-export const BAG_PLAQUE = { x: 294, y: 31, width: 127, height: 34 } as const;
+// The 24px pouch needs 28px of backing to keep its opaque pixels inside the kit rim.
+export const BAG_PLAQUE = { x: 325, y: 31, width: 96, height: 28 } as const;
 function plaque(ctx: CanvasRenderingContext2D, ui: InterfaceKit | undefined, { x, y, width, height }: { x: number; y: number; width: number; height: number }): void {
-  drawKitFrame(ctx, ui, 'plaque', x, y, width, height, { fill: HUD_COLORS.panel });
+  drawKitFrame(ctx, ui, 'plaque', x, y, width, height, { fill: HUD_COLORS.panel }, PLAQUE_TEXT_SLICE);
 }
 export function drawBagBacking(ctx: CanvasRenderingContext2D, ui?: InterfaceKit): void { plaque(ctx, ui, BAG_PLAQUE); }
+/** Identity marks stay filled after assembly; repeated letters remain separate pickups. */
+export function drawCollectionBag(ctx: CanvasRenderingContext2D, collection: Pick<EducationSession, 'pickups' | 'hasLetter'>,
+  pouch?: HTMLImageElement, ui?: InterfaceKit): void {
+  ctx.save();
+  drawBagBacking(ctx, ui);
+  if (pouch) ctx.drawImage(pouch, 330, 33, 24, 24);
+  else {
+    ctx.fillStyle = HUD_COLORS.hit;
+    ctx.fillRect(333, 40, 18, 13); ctx.fillRect(337, 36, 10, 3);
+  }
+  collection.pickups.forEach((pickup, index) => {
+    const x = 359 + index * 14;
+    ctx.fillStyle = HUD_COLORS.ink; ctx.fillRect(x - 1, 39, 8, 8);
+    ctx.fillStyle = collection.hasLetter(pickup.id) ? HUD_COLORS.hit : HUD_COLORS.empty;
+    ctx.fillRect(x, 40, 6, 6);
+  });
+  ctx.restore();
+}
+const GEM = ['001111100', '011111110', '111111111', '011111110', '001111100', '000111000', '000010000'];
+const STAR = ['00000100000', '00001110000', '00001110000', '11111111111',
+  '01111111110', '00111111100', '00111111100', '01110011110', '01100001110'];
+/** Same pixel silhouette and palette as the authored world star, at HUD scale. */
+function drawCounterIcon(ctx: CanvasRenderingContext2D, rows: readonly string[], x: number, y: number, color: string): void {
+  ctx.fillStyle = color;
+  rows.forEach((row, dy) => [...row].forEach((pixel, dx) => { if (pixel === '1') ctx.fillRect(x + dx, y + dy, 1, 1); }));
+  ctx.fillStyle = '#fff7d6'; ctx.fillRect(x + 4, y + 2, 2, 2);
+}
+export const RIBBON_INTRO = 'Trail: Henry = you; posts = saves; flag = end';
 export interface TrailProgress {
   position: number;
   checkpoints: readonly { id: string; position: number; activated: boolean }[];
@@ -99,6 +129,7 @@ export class HudPresentation {
   private jumpSeconds = 4;
   private moved = false;
   private jumped = false;
+  private ribbonSeconds = 4;
   private readonly activatedCheckpoints = new Set<string>();
   /** Event history is presentation-only and is discarded with this HUD on a new run. */
   consume(events: readonly RunEvent[]): void {
@@ -114,7 +145,7 @@ export class HudPresentation {
       })),
     };
   }
-  update(seconds: number, input: InputFrame, level: LevelData, x: number): void {
+  update(seconds: number, input: InputFrame, level: LevelData, x: number, importantFeedback = false): void {
     this.source = input.source ?? 'keyboard';
     this.locationSeconds = Math.max(0, this.locationSeconds - seconds);
     // Announce the approach to an area, ahead of its checkpoint celebration.
@@ -134,7 +165,13 @@ export class HudPresentation {
     } else if (this.moved && !this.jumped && this.jumpSeconds > 0) {
       this.jumpSeconds -= seconds;
       this.hint = controls[1];
-    } else this.hint = '';
+    } else {
+      this.hint = '';
+      if (!importantFeedback && this.locationSeconds === 0 && this.ribbonSeconds > 0) {
+        this.ribbonSeconds = Math.max(0, this.ribbonSeconds - seconds);
+        if (this.ribbonSeconds > 0) this.hint = RIBBON_INTRO;
+      }
+    }
   }
 }
 
@@ -145,11 +182,15 @@ export function drawGameplayHud(ctx: CanvasRenderingContext2D, run: RunState, hi
   ctx.fillStyle = HUD_COLORS.ink;
   ctx.font = 'bold 10px monospace';
   ctx.textAlign = 'left';
-  ctx.fillText(`GEMS ${run.collectedGems.size}`, 10, 20);
+  drawCounterIcon(ctx, GEM, 12, 12, '#8ee1e5');
+  ctx.fillStyle = HUD_COLORS.ink;
+  ctx.fillText(String(run.collectedGems.size), 28, 20);
   if (run.specialTotal > 0) {
     plaque(ctx, ui, HUD_PLAQUES.stars);
     ctx.fillStyle = HUD_COLORS.hit;
-    ctx.fillText(`STARS ${run.collectedSpecials.size}/${run.specialTotal}`, 150, 20);
+    drawCounterIcon(ctx, STAR, 151, 11, HUD_COLORS.hit);
+    ctx.fillStyle = HUD_COLORS.ink;
+    ctx.fillText(`${run.collectedSpecials.size}/${run.specialTotal}`, 168, 20);
   }
   for (let index = 0; index < MAX_HEALTH; index++) {
     const flashing = index === run.healthFlashPip && run.healthFlashSeconds > 0;

@@ -13,7 +13,8 @@ import { platformBodyAt } from '../src/game/platforms';
 import { drawSurfaceMaterials } from '../src/world/surface-materials';
 import { drawSlime, drawGem, drawSpecial, drawLandingBands, drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawTerrainTiles, drawWorld } from '../src/world/renderer';
 import { TRAIL_WORDS } from '../src/game/education';
-import { TRAIL_RIBBON, trailPosition } from '../src/game/hud';
+import { MAX_HEALTH, createRun } from '../src/game/interactions';
+import { TRAIL_RIBBON, trailPosition, RIBBON_INTRO, areaName } from '../src/game/hud';
 import { INTERFACE_PIECES } from '../src/art/interface-kit';
 import { PAUSE_PANEL } from '../src/game/pause-menu';
 
@@ -1529,7 +1530,7 @@ const recordHudDraws = async (page: import('@playwright/test').Page): Promise<vo
   await page.addInitScript(() => {
     const fillText = CanvasRenderingContext2D.prototype.fillText;
     CanvasRenderingContext2D.prototype.fillText = function (text, x, y, maxWidth) {
-      if (text.startsWith('GEMS ')) document.querySelector('canvas')?.setAttribute('data-test-hud-draw', `${this.textAlign} ${x} ${text}`);
+      if (x === 28 && y === 20 && /^\d+$/.test(text)) document.querySelector('canvas')?.setAttribute('data-test-hud-draw', `${this.textAlign} ${x} ${text}`);
       if (maxWidth === undefined) fillText.call(this, text, x, y);
       else fillText.call(this, text, x, y, maxWidth);
     };
@@ -1543,7 +1544,7 @@ test('adventure HUD stays left-aligned through keyboard pause and focus loss', a
   await page.keyboard.press('Space');
   await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
   const canvas = page.locator('canvas');
-  await expect(canvas).toHaveAttribute('data-test-hud-draw', /^left 10 /);
+  await expect(canvas).toHaveAttribute('data-test-hud-draw', /^left 28 /);
   const resample = async (): Promise<void> => {
     await page.evaluate(() => document.querySelector('canvas')?.removeAttribute('data-test-hud-draw'));
   };
@@ -1552,18 +1553,18 @@ test('adventure HUD stays left-aligned through keyboard pause and focus loss', a
   await resample();
   await page.keyboard.press('Escape');
   await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
-  await expect(canvas).toHaveAttribute('data-test-hud-draw', /^left 10 /);
+  await expect(canvas).toHaveAttribute('data-test-hud-draw', /^left 28 /);
   await page.evaluate(() => window.dispatchEvent(new Event('blur')));
   await expect(page.locator('#status')).toHaveText('Paused · Return to the game to continue');
   await resample();
   await page.evaluate(() => window.dispatchEvent(new Event('focus')));
   await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
-  await expect(canvas).toHaveAttribute('data-test-hud-draw', /^left 10 /);
+  await expect(canvas).toHaveAttribute('data-test-hud-draw', /^left 28 /);
   // The double-digit gem total must fit its own panel, before the hearts at x=85.
   const rightEdge = await canvas.evaluate((element) => {
     const ctx = (element as HTMLCanvasElement).getContext('2d')!;
     ctx.font = 'bold 10px monospace';
-    return 10 + ctx.measureText('GEMS 99').width;
+    return 28 + ctx.measureText('99').width;
   });
   expect(rightEdge).toBeLessThan(81);
 });
@@ -1582,7 +1583,7 @@ test('a collected gem stops being drawn where it stood', async ({ page }, info) 
     Array.from((element as HTMLCanvasElement).getContext('2d')!.getImageData(rect.x, rect.y, rect.size, rect.size).data), cell);
   const playerX = async (): Promise<number> => Number((await page.locator('#status').innerText()).match(/X (\d+)/)?.[1] ?? 0);
   const before = await readCell();
-  await expect(canvas).toHaveAttribute('data-test-hud-draw', /GEMS 0/);
+  await expect(canvas).toHaveAttribute('data-test-hud-draw', /left 28 0$/);
   await page.keyboard.down('ArrowRight');
   for (let step = 0; step < 40 && (await playerX()) < 100; step++) await page.waitForTimeout(50);
   // Jump before the gem and stay airborne across it, as #44 reproduced it.
@@ -1591,13 +1592,13 @@ test('a collected gem stops being drawn where it stood', async ({ page }, info) 
   await page.keyboard.up('Space');
   for (let step = 0; step < 40 && (await playerX()) < gem.x + 40; step++) await page.waitForTimeout(50);
   await page.keyboard.up('ArrowRight');
-  await expect(canvas).toHaveAttribute('data-test-hud-draw', /GEMS 1/);
+  await expect(canvas).toHaveAttribute('data-test-hud-draw', /left 28 1$/);
   // Walk back so Henry cannot be standing over the gem's cell when it is sampled.
   await page.keyboard.down('ArrowLeft');
   for (let step = 0; step < 40 && (await playerX()) > 60; step++) await page.waitForTimeout(50);
   await page.keyboard.up('ArrowLeft');
   await page.waitForTimeout(150);
-  await expect(canvas).toHaveAttribute('data-test-hud-draw', /GEMS 1/);
+  await expect(canvas).toHaveAttribute('data-test-hud-draw', /left 28 1$/);
   const after = await readCell();
   const changed = before.filter((value, index) => value !== after[index]).length;
   expect(changed, 'the collected gem is still drawn').toBeGreaterThan(200);
@@ -1877,7 +1878,7 @@ test('native HUD hints follow active input and pause controls fit small windows'
     (window as unknown as { clarityPad: typeof pad }).clarityPad = pad;
     const original = CanvasRenderingContext2D.prototype.fillText;
     CanvasRenderingContext2D.prototype.fillText = function (text, x, y, maxWidth) {
-      if (text.startsWith('GEMS ')) this.canvas.dataset.frameText = '';
+      if (x === 28 && y === 20 && /^\d+$/.test(text)) this.canvas.dataset.frameText = '';
       this.canvas.dataset.frameText = (this.canvas.dataset.frameText ?? '') + text + '|';
       if (maxWidth === undefined) original.call(this, text, x, y);
       else original.call(this, text, x, y, maxWidth);
@@ -2572,7 +2573,7 @@ for (const [index, level] of LEVELS.slice(0, 3).entries()) {
       Object.assign(window, { starPilot: pilot });
       const originalText = CanvasRenderingContext2D.prototype.fillText;
       CanvasRenderingContext2D.prototype.fillText = function (text, x, y, maxWidth) {
-        if (text.startsWith('STARS ')) this.canvas.dataset.stars = text;
+        if (x === 168 && y === 20 && /^\d+\/\d+$/.test(text)) this.canvas.dataset.stars = text;
         if (/^(STAR SLOPE >|SAFE RUNOUT|STAR LIFT >|SAFE RETURN|SPRING STARS >|LAND [1-3])$/.test(text)) pilot.signboards.push(text);
         return maxWidth === undefined ? originalText.call(this, text, x, y) : originalText.call(this, text, x, y, maxWidth);
       };
@@ -2604,7 +2605,7 @@ for (const [index, level] of LEVELS.slice(0, 3).entries()) {
           }
           if (id === 'quarry' && pilot.rode && x < 2650) pilot.jumpUntil = 0;
           if (id === 'timbers') for (const [target, required] of [[4850, 2], [8400, 3]]) {
-            const collected = Number((document.querySelector('canvas')?.dataset.stars ?? '').match(/STARS (\d+)/)?.[1] ?? 0);
+            const collected = Number((document.querySelector('canvas')?.dataset.stars ?? '').match(/^(\d+)/)?.[1] ?? 0);
             if (x < target - 95 || collected >= required) continue;
             const stop = x + Math.sign(vx) * vx ** 2 / 2400;
             horizontal = stop < target - 3 ? 1 : stop > target + 3 ? -1 : 0;
@@ -2633,7 +2634,7 @@ for (const [index, level] of LEVELS.slice(0, 3).entries()) {
     await openAdventure(page, '/?debug=1');
     await page.getByRole('button', { name: level.name, exact: true }).click();
     await page.getByRole('button', { name: `Play ${level.name}`, exact: true }).click();
-    await expect(page.locator('canvas')).toHaveAttribute('data-stars', 'STARS 0/3');
+    await expect(page.locator('canvas')).toHaveAttribute('data-stars', '0/3');
     const stops = index === 0 ? [620, 845] : index === 1 ? [2290, 2490] : [910, 1140, 4800, 4970, 8350, 8570];
     const capture = async (name: string): Promise<void> => {
       for (const width of [426, 320]) {
@@ -2655,7 +2656,7 @@ for (const [index, level] of LEVELS.slice(0, 3).entries()) {
     await page.evaluate(() => { Object.assign((window as unknown as { starPilot: object }).starPilot, { active: true, frozen: false, pauseAt: 0 }); });
     await expect(page.locator('#status')).toContainText('Finish', { timeout: 75_000 });
     await expectResultsFirst(page);
-    await expect(page.locator('canvas')).toHaveAttribute('data-stars', 'STARS 3/3');
+    await expect(page.locator('canvas')).toHaveAttribute('data-stars', '3/3');
     expect(await page.evaluate(() => (window as unknown as { starPilot: { signboards: string[] } }).starPilot.signboards)).toEqual([]);
     for (const width of [426, 320]) {
       await page.setViewportSize({ width, height: 240 });
@@ -2666,10 +2667,10 @@ for (const [index, level] of LEVELS.slice(0, 3).entries()) {
     await page.evaluate(() => { Object.assign((window as unknown as { starPilot: object }).starPilot, { active: false }); });
     await page.getByRole('button', { name: ['Replay', 'Next trail', 'Map'][index], exact: true }).click();
     if (index === 2) await page.getByRole('button', { name: `Play ${level.name}`, exact: true }).click();
-    await expect(page.locator('canvas')).toHaveAttribute('data-stars', 'STARS 0/3');
+    await expect(page.locator('canvas')).toHaveAttribute('data-stars', '0/3');
     await reloadToMap(page);
     await page.getByRole('button', { name: 'Play PLAINS', exact: true }).click();
-    await expect(page.locator('canvas')).toHaveAttribute('data-stars', 'STARS 0/3');
+    await expect(page.locator('canvas')).toHaveAttribute('data-stars', '0/3');
     expect(errors).toEqual([]);
   });
 }
@@ -4053,8 +4054,8 @@ test('builder-kit reduced-motion pickup stays beside its pouch at native and sma
     await page.setViewportSize({ width, height: width === 426 ? 300 : 240 });
     await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
     const art = JSON.parse((await page.locator('#game').getAttribute('data-spelling-draws'))!);
-    expect(art['pouch.png'].rect).toEqual([384, 33, 28, 28]);
-    expect(art['tile.png'].rect).toEqual([387, 56, 22, 24]);
+    expect(art['pouch.png'].rect).toEqual([330, 33, 24, 24]);
+    expect(art['tile.png'].rect).toEqual([331, 56, 22, 24]);
     await expectClearViewport(page);
     await info.attach(`reduced-motion-${width}`, { body: await page.screenshot({ path: info.outputPath(`reduced-motion-${width}.png`) }), contentType: 'image/png' });
   }
@@ -4178,4 +4179,156 @@ test('builder-kit visual fixture renders all six words and generated stickers at
   for (const config of TRAIL_WORDS) expect(collection[`${config.id}-sticker.png`].alpha).toBe(1);
   expect((await fixtureKit()).kitDraws).toEqual(expect.arrayContaining(['button-selected.png', 'plaque.png']));
   await capture('all', 'collection');
+});
+
+
+for (const level of LEVELS) test(`compact HUD renderer fixture: ${level.id} identity marks and real glyph clearance`, async ({ page }, info) => {
+  // Explicit layout states, not scene mutation or a claim of input-driven gameplay.
+  const names = ['game/education.ts', 'art/interface-kit.ts', 'game/hud.ts', 'world/scenery.ts',
+    'world/assets.ts', 'world/trail-presentation.ts', 'world/ambient-weather.ts', 'world/surface-materials.ts', 'world/renderer.ts'];
+  const errors: string[] = []; page.on('pageerror', error => errors.push(error.message));
+  const modules = names.map(name => readFileSync(new URL(`../src/${name}`, import.meta.url), 'utf8'));
+  const runtimeImports = [...new Set(modules.flatMap(source => [...source.matchAll(/^import (?!type )\{([^}]*)\} from .*;$/gm)]
+    .flatMap(([, names]) => names.split(',').map(name => name.trim()).filter(name => name && !name.startsWith('type ')))))];
+  const fixture = modules.map((source, index) => transformSync(names[index], source.replace(/^import .*;\n/gm, '')
+    .replace(/\bexport /g, '').replaceAll('import.meta.env.BASE_URL', JSON.stringify('./')), {}).code).join('\n');
+  expect(runtimeImports).toEqual(expect.arrayContaining(['MAX_HEALTH', 'drawKitFrame', 'loadImage', 'validateScenery', 'drawSceneryBackground', 'drawSurfaceMaterials']));
+  await observeKitTextClearance(page);
+  await openAdventure(page, '/');
+  await page.addScriptTag({ content: `(() => {
+    const MAX_HEALTH = ${MAX_HEALTH};
+    ${fixture}
+    window.hudFixtureMissing = [${runtimeImports.map(name => `typeof ${name} === 'undefined' && ${JSON.stringify(name)}`).join(', ')}].filter(Boolean);
+    window.createHudFixture = async (level, runTemplate) => {
+      const assets = await loadWorldAssets(level.atlas), ui = await loadInterfaceKit();
+      const pouch = await loadImage('/assets/spelling/pouch.png');
+      const manifest = await (await fetch('/assets/henry/manifest.json')).json();
+      const henry = await loadImage('/assets/henry/' + manifest.image), frame = manifest.frames[manifest.animations.idle.frames[0]];
+      const canvas = document.querySelector('#game'), ctx = canvas.getContext('2d');
+      const fillRect = ctx.fillRect.bind(ctx), fillText = ctx.fillText.bind(ctx), drawImage = ctx.drawImage.bind(ctx);
+      let recording = false, fills = [], texts = [], pouchRect;
+      ctx.drawImage = (image, ...args) => { if (recording && image === pouch) pouchRect = args; drawImage(image, ...args); };
+      ctx.fillRect = (x, y, width, height) => { if (recording) fills.push({ x, y, width, height, color: ctx.fillStyle }); fillRect(x, y, width, height); };
+      ctx.fillText = (text, x, y) => {
+        if (recording) { const m = ctx.measureText(text); texts.push({ text, left: x - m.actualBoundingBoxLeft,
+          right: x + m.actualBoundingBoxRight, top: y - m.actualBoundingBoxAscent, bottom: y + m.actualBoundingBoxDescent }); }
+        fillText(text, x, y);
+      };
+      let state = 0, hint = '', notice = '';
+      const draw = () => {
+        const session = new EducationSession(); session.selectTrail(level.id);
+        session.pickups.slice(0, state).forEach(pickup => session.collect(pickup.id));
+        const run = { ...runTemplate, collectedGems: new Set(Array.from({ length: [0, 1, 10, 99, 44][state] }, (_, i) => 'g' + i)),
+          specialTotal: [0, 3, 12, 3, 3][state], collectedSpecials: new Set(Array.from({ length: [0, 1, 10, 3, 3][state] }, (_, i) => 's' + i)),
+          health: [3, 2, 1, 0, 3][state], healthFlashPip: state === 1 ? 2 : null, healthFlashSeconds: state === 1 ? 1 : 0 };
+        ctx.imageSmoothingEnabled = false;
+        drawWorld(ctx, assets, level, { position: { x: 0, y: 0 } }, undefined, undefined, undefined, 0, true);
+        const surface = level.surfaces.find(s => level.start.x >= s.x1 && level.start.x <= s.x2);
+        const ground = surface.y1 + (surface.y2 - surface.y1) * (level.start.x - surface.x1) / (surface.x2 - surface.x1);
+        const henryRect = { x: level.start.x - manifest.anchor.x, y: ground - manifest.anchor.y, width: 48, height: 48 };
+        ctx.drawImage(henry, frame.x, frame.y, frame.width, frame.height, henryRect.x, henryRect.y, 48, 48);
+        drawWorldForeground(ctx, assets, level, { position: { x: 0, y: 0 } });
+        const hud = new HudPresentation(); if (state > 0) hud.consume([{ type: 'checkpoint', entityId: level.checkpoints[0].id }]);
+        fills = []; texts = []; recording = true;
+        drawGameplayHud(ctx, run, hint, notice, hud.progress(level, level.start.x), ui);
+        drawCollectionBag(ctx, session, pouch, ui); recording = false;
+        const marks = fills.filter(rect => rect.width === 6 && rect.height === 6);
+        const iconPixels = fills.filter(rect => rect.width <= 2 && rect.height <= 2 && rect.y < 22 && (rect.x < 24 || rect.x >= 151 && rect.x < 163));
+        const overlaps = (a, b) => a.x < b.right && a.x + a.width > b.left && a.y < b.bottom && a.y + a.height > b.top;
+        const mask = document.createElement('canvas'); mask.width = pouchRect[2]; mask.height = pouchRect[3];
+        const ink = mask.getContext('2d'); ink.imageSmoothingEnabled = false;
+        ink.drawImage(pouch, 0, 0, mask.width, mask.height);
+        const rgba = ink.getImageData(0, 0, mask.width, mask.height).data, opaque = [];
+        for (let y = 0; y < mask.height; y++) for (let x = 0; x < mask.width; x++) {
+          if (rgba[(y * mask.width + x) * 4 + 3] >= 128) opaque.push({ x: x + pouchRect[0], y: y + pouchRect[1] });
+        }
+        const quiet = { left: BAG_PLAQUE.x + PLAQUE_TEXT_SLICE.left, right: BAG_PLAQUE.x + BAG_PLAQUE.width - PLAQUE_TEXT_SLICE.right,
+          top: BAG_PLAQUE.y + PLAQUE_TEXT_SLICE.top, bottom: BAG_PLAQUE.y + BAG_PLAQUE.height - PLAQUE_TEXT_SLICE.bottom };
+        const clearance = {
+          pouch: opaque.length > 0 && opaque.every(pixel => pixel.x >= quiet.left && pixel.x < quiet.right && pixel.y >= quiet.top && pixel.y < quiet.bottom),
+          marks: marks.length === 4 && marks.filter(mark => mark.color === HUD_COLORS.hit).length === state,
+          icons: iconPixels.length > 0 && iconPixels.every(pixel => !texts.some(text => overlaps(pixel, text))),
+          bag: texts.every(text => text.right <= BAG_PLAQUE.x || text.bottom <= BAG_PLAQUE.y || text.top >= BAG_PLAQUE.y + BAG_PLAQUE.height),
+          hintAndNotice: !hint || !notice || texts.filter(text => text.text === hint)[0].top > texts.filter(text => text.text === notice)[0].bottom,
+        };
+        window.hudFixtureSample = { state, count: session.letterCount, health: run.health, gems: run.collectedGems.size,
+          stars: run.specialTotal ? run.collectedSpecials.size + '/' + run.specialTotal : null, henryRect, clearance, pouchQuiet: quiet, pouchBounds: {
+            left: Math.min(...opaque.map(p => p.x)), right: Math.max(...opaque.map(p => p.x)) + 1,
+            top: Math.min(...opaque.map(p => p.y)), bottom: Math.max(...opaque.map(p => p.y)) + 1 },
+          assets: [assets.atlas, assets.gems, assets.scenery?.background, assets.scenery?.foreground, pouch, henry, ...Object.values(ui)]
+            .filter(Boolean).map(image => ({ source: new URL(image.src).pathname, loaded: image.complete && image.naturalWidth > 0 })) };
+      };
+      window.hudFixture = { set(next, nextHint, nextNotice) { state = next; hint = nextHint; notice = nextNotice; draw(); } };
+      const raf = window.requestAnimationFrame.bind(window);
+      window.requestAnimationFrame = callback => raf(time => { callback(time); draw(); });
+    };
+  })();` });
+  expect(await page.evaluate(() => (window as unknown as { hudFixtureMissing: string[] }).hudFixtureMissing)).toEqual([]);
+  await page.evaluate(({ level, run }) => (window as unknown as { createHudFixture(level: unknown, run: unknown): Promise<void> }).createHudFixture(level, run), { level, run: createRun(level) });
+  const samples = [];
+  for (const viewport of [{ width: 426, height: 240 }, { width: 320, height: 240 }, { width: 1366, height: 768 }]) {
+    await page.setViewportSize(viewport);
+    for (let state = 0; state <= 4; state++) {
+      const hint = ['Arrows / A-D: move', 'Face button: jump', RIBBON_INTRO, 'Space: jump', ''][state];
+      const notice = [level.name, 'Checkpoint reached!', '', areaName(level, level.checkpoints.length - 1), ''][state];
+      await page.evaluate(({ state, hint, notice }) => (window as unknown as { hudFixture: { set(s: number, h: string, n: string): void } }).hudFixture.set(state, hint, notice), { state, hint, notice });
+      await twoFrames(page);
+      const sample = await page.evaluate(() => (window as unknown as { hudFixtureSample: { count: number; clearance: Record<string, boolean>; assets: { loaded: boolean }[]; henryRect: { x: number; y: number; width: number; height: number } } }).hudFixtureSample);
+      expect(sample.count).toBe(state); expect(sample.assets.every(asset => asset.loaded)).toBe(true);
+      expect(sample.clearance).toEqual({ pouch: true, marks: true, icons: true, bag: true, hintAndNotice: true });
+      // The actual sprite rectangle is clear of both top lanes and the bottom ribbon.
+      expect(sample.henryRect.y).toBeGreaterThan(59);
+      expect(sample.henryRect.x + sample.henryRect.width).toBeLessThan(TRAIL_RIBBON.x);
+      await expectClearViewport(page);
+      samples.push({ viewport, ...sample, hint, notice });
+      await page.screenshot({ path: info.outputPath(`fixture-${level.id}-bag${state}-${viewport.width}.png`) });
+      if (viewport.width === 426) {
+        const png = await page.locator('#game').evaluate(canvas => (canvas as HTMLCanvasElement).toDataURL().split(',')[1]);
+        await writeFile(info.outputPath(`fixture-${level.id}-bag${state}-logical.png`), Buffer.from(png, 'base64'));
+      }
+    }
+  }
+  const glyphs = await kitTextProbe(page);
+  expect(glyphs.checked).toContain(`${RIBBON_INTRO}|plaque`);
+  for (const count of ['0', '1', '10', '99', '44', '1/3', '10/12', '3/3']) expect(glyphs.checked).toContain(`${count}|plaque`);
+  expect(glyphs.violations).toEqual([]); expect(errors).toEqual([]);
+  await writeFile(info.outputPath('fixture-provenance.json'), JSON.stringify({ kind: 'renderer layout fixture; no scene/run gameplay claims', level: level.id, samples, glyphs, runtimeImports }, null, 2));
+});
+
+
+test('compact HUD ribbon introduction follows real input and freezes during pause', async ({ page }, info) => {
+  await observeKitTextClearance(page);
+  await page.addInitScript(() => {
+    const draw = CanvasRenderingContext2D.prototype.fillText;
+    CanvasRenderingContext2D.prototype.fillText = function (text, x, y, maxWidth) {
+      if (this.canvas.id === 'game') {
+        if (x === 28 && y === 20) this.canvas.dataset.hudHint = '';
+        if (x === 10 && y === 44) this.canvas.dataset.hudHint = text;
+      }
+      if (maxWidth === undefined) draw.call(this, text, x, y); else draw.call(this, text, x, y, maxWidth);
+    };
+  });
+  await openAdventure(page, '/?debug=1');
+  await page.getByRole('button', { name: 'Play PLAINS', exact: true }).click();
+  const canvas = page.locator('#game');
+  await expect(canvas).toHaveAttribute('data-hud-hint', 'Arrows / A-D: move');
+  await page.keyboard.down('ArrowRight'); await twoFrames(page); await page.keyboard.up('ArrowRight');
+  await expect(canvas).toHaveAttribute('data-hud-hint', 'Space: jump');
+  await page.keyboard.press('Space');
+  await expect(canvas).toHaveAttribute('data-hud-hint', RIBBON_INTRO);
+  await page.keyboard.press('Escape');
+  await expect(page.getByRole('button', { name: 'Resume', exact: true })).toBeVisible();
+  await page.waitForTimeout(4300); // Longer than the cue's entire active-play lifetime.
+  await page.keyboard.press('Escape');
+  await expect(canvas).toHaveAttribute('data-hud-hint', RIBBON_INTRO);
+  const captures = [];
+  for (const viewport of [{ width: 426, height: 240 }, { width: 320, height: 240 }, { width: 1366, height: 768 }]) {
+    await page.setViewportSize(viewport); await twoFrames(page); await expectClearViewport(page);
+    await expect(canvas).toHaveAttribute('data-hud-hint', RIBBON_INTRO);
+    await page.screenshot({ path: info.outputPath(`gameplay-ribbon-intro-${viewport.width}.png`) });
+    captures.push({ viewport, status: await page.locator('#status').innerText() });
+  }
+  await expect(canvas).toHaveAttribute('data-hud-hint', '');
+  const glyphs = await kitTextProbe(page); expect(glyphs.violations).toEqual([]);
+  await writeFile(info.outputPath('gameplay-provenance.json'), JSON.stringify({ kind: 'keyboard-driven gameplay; no scene/run mutation or clock acceleration', captures, glyphs }, null, 2));
 });

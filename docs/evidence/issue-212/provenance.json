@@ -1,0 +1,735 @@
+{
+  "baseline": "ce658d9f45ccde74245b474f587c06da6662d1d8",
+  "date": "2026-10-25",
+  "localEvidenceRoot": "/home/leew/.hermes/cache/scratch/m7-212-evidence",
+  "finalBrowserReport": "browser-final-report.json",
+  "finalSourceSnapshot": "browser-final-source.json",
+  "assetProvenance": [
+    "assets/source/interface/PROVENANCE.md",
+    "assets/source/interface/preparation.json",
+    "assets/source/spelling/sprites/PROVENANCE.md",
+    "assets/source/spelling/concepts/PROVENANCE.md",
+    "assets/source/gems/PROVENANCE.md"
+  ],
+  "selection": "Chromium image selection; all three engines retain complete layout/glyph/asset/opaque-pouch checks in layout-ENGINE.json. All PNGs copied byte-for-byte.",
+  "selected": [
+    {
+      "file": "gameplay-timbers-reduced-motion-320.png",
+      "origin": "browser-final/browser-builder-kit-reduce-2266e--native-and-small-viewports-chromium/reduced-motion-320.png",
+      "kind": "input-driven gameplay, synthetic keyboard pilot and accelerated presentation clock",
+      "sha256": "351d31de9eaa5a804449b12d0fa5a092c9350974f619fb1eed3455a1fb6a72fa",
+      "pixels": [
+        320,
+        240
+      ]
+    },
+    {
+      "file": "gameplay-timbers-reduced-motion-426.png",
+      "origin": "browser-final/browser-builder-kit-reduce-2266e--native-and-small-viewports-chromium/reduced-motion-426.png",
+      "kind": "input-driven gameplay, synthetic keyboard pilot and accelerated presentation clock",
+      "sha256": "201e477745db124f0343d6d89c7efdeb5ceed32482f0576db50c0262f54bef20",
+      "pixels": [
+        426,
+        300
+      ]
+    },
+    {
+      "file": "fixture-timbers-bag0-logical.png",
+      "origin": "browser-final/browser-compact-HUD-render-0c1ec-ks-and-real-glyph-clearance-chromium/fixture-timbers-bag0-logical.png",
+      "kind": "renderer fixture",
+      "sha256": "98e6867c0c2e8c687e66673e8ef1084566133b41aee34e7c9af6236879fc5377",
+      "pixels": [
+        426,
+        240
+      ]
+    },
+    {
+      "file": "fixture-timbers-bag1-426.png",
+      "origin": "browser-final/browser-compact-HUD-render-0c1ec-ks-and-real-glyph-clearance-chromium/fixture-timbers-bag1-426.png",
+      "kind": "renderer fixture",
+      "sha256": "7ff2cefb00bf1382f058f303974f566cb0a77469d1e60e3d9e7037c35a780518",
+      "pixels": [
+        426,
+        240
+      ]
+    },
+    {
+      "file": "fixture-timbers-bag1-logical.png",
+      "origin": "browser-final/browser-compact-HUD-render-0c1ec-ks-and-real-glyph-clearance-chromium/fixture-timbers-bag1-logical.png",
+      "kind": "renderer fixture",
+      "sha256": "5845a9c008c8f3242d5b36854e2bc14a7b68615180770f5c3142ffbdf01f668e",
+      "pixels": [
+        426,
+        240
+      ]
+    },
+    {
+      "file": "fixture-timbers-bag2-logical.png",
+      "origin": "browser-final/browser-compact-HUD-render-0c1ec-ks-and-real-glyph-clearance-chromium/fixture-timbers-bag2-logical.png",
+      "kind": "renderer fixture",
+      "sha256": "607f163263cbe83b8f7b969c734207dbf3d26282038dccf9e7fe61b7994ea3a9",
+      "pixels": [
+        426,
+        240
+      ]
+    },
+    {
+      "file": "fixture-timbers-bag3-320.png",
+      "origin": "browser-final/browser-compact-HUD-render-0c1ec-ks-and-real-glyph-clearance-chromium/fixture-timbers-bag3-320.png",
+      "kind": "renderer fixture",
+      "sha256": "677465604a6d0cf6e0d294af6948f2b230b9e872a86d4038f9cf3b75408fe49d",
+      "pixels": [
+        320,
+        240
+      ]
+    },
+    {
+      "file": "fixture-timbers-bag3-logical.png",
+      "origin": "browser-final/browser-compact-HUD-render-0c1ec-ks-and-real-glyph-clearance-chromium/fixture-timbers-bag3-logical.png",
+      "kind": "renderer fixture",
+      "sha256": "77ff46dbcfda9ed87d035ea239266aeb015bfe4396440f6739879e01118151ff",
+      "pixels": [
+        426,
+        240
+      ]
+    },
+    {
+      "file": "fixture-timbers-bag4-1366.png",
+      "origin": "browser-final/browser-compact-HUD-render-0c1ec-ks-and-real-glyph-clearance-chromium/fixture-timbers-bag4-1366.png",
+      "kind": "renderer fixture",
+      "sha256": "8679e4a7a7e3a14890f92a6488ef5c2137fe591cab127e7ef2d59405b9eddb4d",
+      "pixels": [
+        1366,
+        768
+      ]
+    },
+    {
+      "file": "fixture-timbers-bag4-logical.png",
+      "origin": "browser-final/browser-compact-HUD-render-0c1ec-ks-and-real-glyph-clearance-chromium/fixture-timbers-bag4-logical.png",
+      "kind": "renderer fixture",
+      "sha256": "e554d39ffb5c12db679e704bb16ad604c8bb5842f718519f4eb9ab7145c0a35a",
+      "pixels": [
+        426,
+        240
+      ]
+    },
+    {
+      "file": "fixture-plains-bag0-logical.png",
+      "origin": "browser-final/browser-compact-HUD-render-2053b-ks-and-real-glyph-clearance-chromium/fixture-plains-bag0-logical.png",
+      "kind": "renderer fixture",
+      "sha256": "1d33509066b5648e342fcc9269976ddc78437fb1a5cfce4b4e6c57380658ba35",
+      "pixels": [
+        426,
+        240
+      ]
+    },
+    {
+      "file": "fixture-plains-bag1-426.png",
+      "origin": "browser-final/browser-compact-HUD-render-2053b-ks-and-real-glyph-clearance-chromium/fixture-plains-bag1-426.png",
+      "kind": "renderer fixture",
+      "sha256": "c1713ce2f629c02eec422822d98b5ad756f8b8a770440bd78e8117a29b16a203",
+      "pixels": [
+        426,
+        240
+      ]
+    },
+    {
+      "file": "fixture-plains-bag1-logical.png",
+      "origin": "browser-final/browser-compact-HUD-render-2053b-ks-and-real-glyph-clearance-chromium/fixture-plains-bag1-logical.png",
+      "kind": "renderer fixture",
+      "sha256": "2d099cdf53026344fb4b1333d3343014e81231d23ad2c050a4d97e4bcf01d177",
+      "pixels": [
+        426,
+        240
+      ]
+    },
+    {
+      "file": "fixture-plains-bag2-logical.png",
+      "origin": "browser-final/browser-compact-HUD-render-2053b-ks-and-real-glyph-clearance-chromium/fixture-plains-bag2-logical.png",
+      "kind": "renderer fixture",
+      "sha256": "6584b4341b4f6b95058074f8e98776872c828a0c9f15481955796df146a3cb8c",
+      "pixels": [
+        426,
+        240
+      ]
+    },
+    {
+      "file": "fixture-plains-bag3-320.png",
+      "origin": "browser-final/browser-compact-HUD-render-2053b-ks-and-real-glyph-clearance-chromium/fixture-plains-bag3-320.png",
+      "kind": "renderer fixture",
+      "sha256": "b8caf8d86149602b857019203b170b3eb00860a276aa704746787486a34f0684",
+      "pixels": [
+        320,
+        240
+      ]
+    },
+    {
+      "file": "fixture-plains-bag3-logical.png",
+      "origin": "browser-final/browser-compact-HUD-render-2053b-ks-and-real-glyph-clearance-chromium/fixture-plains-bag3-logical.png",
+      "kind": "renderer fixture",
+      "sha256": "e6e11189025a05308c64ce13fcc13501d5d0e150f1332904b8474dab9376b691",
+      "pixels": [
+        426,
+        240
+      ]
+    },
+    {
+      "file": "fixture-plains-bag4-1366.png",
+      "origin": "browser-final/browser-compact-HUD-render-2053b-ks-and-real-glyph-clearance-chromium/fixture-plains-bag4-1366.png",
+      "kind": "renderer fixture",
+      "sha256": "5ed4f466c32eae54781f25e0d5c9613afa6de9d3bf2f5c70ef432623c3bf2954",
+      "pixels": [
+        1366,
+        768
+      ]
+    },
+    {
+      "file": "fixture-plains-bag4-logical.png",
+      "origin": "browser-final/browser-compact-HUD-render-2053b-ks-and-real-glyph-clearance-chromium/fixture-plains-bag4-logical.png",
+      "kind": "renderer fixture",
+      "sha256": "d2beb45ec51266f41134c23bcfc29456b8af7c4ea427e6fbf76b6e3b9a532b66",
+      "pixels": [
+        426,
+        240
+      ]
+    },
+    {
+      "file": "fixture-cove-bag0-logical.png",
+      "origin": "browser-final/browser-compact-HUD-render-6f9d9-ks-and-real-glyph-clearance-chromium/fixture-cove-bag0-logical.png",
+      "kind": "renderer fixture",
+      "sha256": "29154001f86ae6d1c0b18b8a7c4ba7da485e0c3b53a204022e3c368cc4d84539",
+      "pixels": [
+        426,
+        240
+      ]
+    },
+    {
+      "file": "fixture-cove-bag1-426.png",
+      "origin": "browser-final/browser-compact-HUD-render-6f9d9-ks-and-real-glyph-clearance-chromium/fixture-cove-bag1-426.png",
+      "kind": "renderer fixture",
+      "sha256": "2f27f06685a0f6b8f2211d992d070bfb89b300407dbe100b996dcd21672c9c0e",
+      "pixels": [
+        426,
+        240
+      ]
+    },
+    {
+      "file": "fixture-cove-bag1-logical.png",
+      "origin": "browser-final/browser-compact-HUD-render-6f9d9-ks-and-real-glyph-clearance-chromium/fixture-cove-bag1-logical.png",
+      "kind": "renderer fixture",
+      "sha256": "560c33ddfca478ae0a5a214faea04f255c89be0732737fe5e54c83ad948db2ba",
+      "pixels": [
+        426,
+        240
+      ]
+    },
+    {
+      "file": "fixture-cove-bag2-logical.png",
+      "origin": "browser-final/browser-compact-HUD-render-6f9d9-ks-and-real-glyph-clearance-chromium/fixture-cove-bag2-logical.png",
+      "kind": "renderer fixture",
+      "sha256": "3efddd88126730fcea774228d7ea7c36cf0021a52f7b314287cfc82c2c54e9b4",
+      "pixels": [
+        426,
+        240
+      ]
+    },
+    {
+      "file": "fixture-cove-bag3-320.png",
+      "origin": "browser-final/browser-compact-HUD-render-6f9d9-ks-and-real-glyph-clearance-chromium/fixture-cove-bag3-320.png",
+      "kind": "renderer fixture",
+      "sha256": "08cb32600bbf5312251f3ecc4187b4f22da906a8db9a66c1d34625666674eb22",
+      "pixels": [
+        320,
+        240
+      ]
+    },
+    {
+      "file": "fixture-cove-bag3-logical.png",
+      "origin": "browser-final/browser-compact-HUD-render-6f9d9-ks-and-real-glyph-clearance-chromium/fixture-cove-bag3-logical.png",
+      "kind": "renderer fixture",
+      "sha256": "7a78e42d976f1ec7484e2f02b01b6afaccd6492c612d6ea305a739dd966ceae4",
+      "pixels": [
+        426,
+        240
+      ]
+    },
+    {
+      "file": "fixture-cove-bag4-1366.png",
+      "origin": "browser-final/browser-compact-HUD-render-6f9d9-ks-and-real-glyph-clearance-chromium/fixture-cove-bag4-1366.png",
+      "kind": "renderer fixture",
+      "sha256": "d1a16d870febced5514b04cc7b5cac08bed769afecb5143ac9e4e10d2970d2d5",
+      "pixels": [
+        1366,
+        768
+      ]
+    },
+    {
+      "file": "fixture-cove-bag4-logical.png",
+      "origin": "browser-final/browser-compact-HUD-render-6f9d9-ks-and-real-glyph-clearance-chromium/fixture-cove-bag4-logical.png",
+      "kind": "renderer fixture",
+      "sha256": "9f69861afeb943a817528ae946dc9334c089397b0a14ed593a722e65cf366a33",
+      "pixels": [
+        426,
+        240
+      ]
+    },
+    {
+      "file": "fixture-quarry-bag0-logical.png",
+      "origin": "browser-final/browser-compact-HUD-render-70dd1-ks-and-real-glyph-clearance-chromium/fixture-quarry-bag0-logical.png",
+      "kind": "renderer fixture",
+      "sha256": "5abe0d6718fec5c4eb17ef8db0923d08229775aecbd1a2458bcdf3883005cfb7",
+      "pixels": [
+        426,
+        240
+      ]
+    },
+    {
+      "file": "fixture-quarry-bag1-426.png",
+      "origin": "browser-final/browser-compact-HUD-render-70dd1-ks-and-real-glyph-clearance-chromium/fixture-quarry-bag1-426.png",
+      "kind": "renderer fixture",
+      "sha256": "845a0560cba489386b922f53cc07498b8d7d6fcb6360daa700170a9d58a6cb34",
+      "pixels": [
+        426,
+        240
+      ]
+    },
+    {
+      "file": "fixture-quarry-bag1-logical.png",
+      "origin": "browser-final/browser-compact-HUD-render-70dd1-ks-and-real-glyph-clearance-chromium/fixture-quarry-bag1-logical.png",
+      "kind": "renderer fixture",
+      "sha256": "646fbb3aaadca1b2d3d713e948755e4bd691309bafa06347bb4eef1c0502fa8a",
+      "pixels": [
+        426,
+        240
+      ]
+    },
+    {
+      "file": "fixture-quarry-bag2-logical.png",
+      "origin": "browser-final/browser-compact-HUD-render-70dd1-ks-and-real-glyph-clearance-chromium/fixture-quarry-bag2-logical.png",
+      "kind": "renderer fixture",
+      "sha256": "0194842d933b9ea45abcff7ed837c9f21d5a562260836fc1ef98155b3e5d2962",
+      "pixels": [
+        426,
+        240
+      ]
+    },
+    {
+      "file": "fixture-quarry-bag3-320.png",
+      "origin": "browser-final/browser-compact-HUD-render-70dd1-ks-and-real-glyph-clearance-chromium/fixture-quarry-bag3-320.png",
+      "kind": "renderer fixture",
+      "sha256": "2eb26bc182367f53ac5fd4bd4efe9242eebc843087cc036caa21aae99f3a5a4a",
+      "pixels": [
+        320,
+        240
+      ]
+    },
+    {
+      "file": "fixture-quarry-bag3-logical.png",
+      "origin": "browser-final/browser-compact-HUD-render-70dd1-ks-and-real-glyph-clearance-chromium/fixture-quarry-bag3-logical.png",
+      "kind": "renderer fixture",
+      "sha256": "04980b87e55ad50f2e98c0310cab6637497dc1457c1437446defc6e9f0f1e622",
+      "pixels": [
+        426,
+        240
+      ]
+    },
+    {
+      "file": "fixture-quarry-bag4-1366.png",
+      "origin": "browser-final/browser-compact-HUD-render-70dd1-ks-and-real-glyph-clearance-chromium/fixture-quarry-bag4-1366.png",
+      "kind": "renderer fixture",
+      "sha256": "9c0985da1f1b1febdf088c2c139578b18446e8c956e9e3946e60cab5d04a3b5c",
+      "pixels": [
+        1366,
+        768
+      ]
+    },
+    {
+      "file": "fixture-quarry-bag4-logical.png",
+      "origin": "browser-final/browser-compact-HUD-render-70dd1-ks-and-real-glyph-clearance-chromium/fixture-quarry-bag4-logical.png",
+      "kind": "renderer fixture",
+      "sha256": "eb551fe5b1f1c4e2282c540f1baf32c841b797a7e4ab28c03d4b1dd4a10a66f1",
+      "pixels": [
+        426,
+        240
+      ]
+    },
+    {
+      "file": "fixture-frost-bag0-logical.png",
+      "origin": "browser-final/browser-compact-HUD-render-b70d0-ks-and-real-glyph-clearance-chromium/fixture-frost-bag0-logical.png",
+      "kind": "renderer fixture",
+      "sha256": "95829889daaa660bdec5329bdb3918e90e391348111cba67522a0d7db8586a38",
+      "pixels": [
+        426,
+        240
+      ]
+    },
+    {
+      "file": "fixture-frost-bag1-426.png",
+      "origin": "browser-final/browser-compact-HUD-render-b70d0-ks-and-real-glyph-clearance-chromium/fixture-frost-bag1-426.png",
+      "kind": "renderer fixture",
+      "sha256": "1c515e821f0ba5c352592bf58b46a9f65662ae715f676dda6fd126b351b5c3ca",
+      "pixels": [
+        426,
+        240
+      ]
+    },
+    {
+      "file": "fixture-frost-bag1-logical.png",
+      "origin": "browser-final/browser-compact-HUD-render-b70d0-ks-and-real-glyph-clearance-chromium/fixture-frost-bag1-logical.png",
+      "kind": "renderer fixture",
+      "sha256": "93dd33b70ad6868e12946e1a4f7dedac6bcd00d6edaf77803b4f4dad5852a796",
+      "pixels": [
+        426,
+        240
+      ]
+    },
+    {
+      "file": "fixture-frost-bag2-logical.png",
+      "origin": "browser-final/browser-compact-HUD-render-b70d0-ks-and-real-glyph-clearance-chromium/fixture-frost-bag2-logical.png",
+      "kind": "renderer fixture",
+      "sha256": "e69bcf7d5c70d7706b49bdfd59eb4ebbcb5c81c63cc7b37e0044e77062dcdc78",
+      "pixels": [
+        426,
+        240
+      ]
+    },
+    {
+      "file": "fixture-frost-bag3-320.png",
+      "origin": "browser-final/browser-compact-HUD-render-b70d0-ks-and-real-glyph-clearance-chromium/fixture-frost-bag3-320.png",
+      "kind": "renderer fixture",
+      "sha256": "611312da69b81374cb9edd8610e035d596ddb314d8c0baf2bc6b8e1ba18701cc",
+      "pixels": [
+        320,
+        240
+      ]
+    },
+    {
+      "file": "fixture-frost-bag3-logical.png",
+      "origin": "browser-final/browser-compact-HUD-render-b70d0-ks-and-real-glyph-clearance-chromium/fixture-frost-bag3-logical.png",
+      "kind": "renderer fixture",
+      "sha256": "9500cd33558db0204a96378b50d7a0a957b014f2dd1c60c7b66cf797498657e0",
+      "pixels": [
+        426,
+        240
+      ]
+    },
+    {
+      "file": "fixture-frost-bag4-1366.png",
+      "origin": "browser-final/browser-compact-HUD-render-b70d0-ks-and-real-glyph-clearance-chromium/fixture-frost-bag4-1366.png",
+      "kind": "renderer fixture",
+      "sha256": "08645d44b813c1757ad353b0430ac5130fd5eb2eed609360ae8d2e70cef2cf21",
+      "pixels": [
+        1366,
+        768
+      ]
+    },
+    {
+      "file": "fixture-frost-bag4-logical.png",
+      "origin": "browser-final/browser-compact-HUD-render-b70d0-ks-and-real-glyph-clearance-chromium/fixture-frost-bag4-logical.png",
+      "kind": "renderer fixture",
+      "sha256": "bb50981b30dd568a03faa68b3c3ad7a4c5ecf891e1f8cdf4581afb8af633a092",
+      "pixels": [
+        426,
+        240
+      ]
+    },
+    {
+      "file": "fixture-sunset-bag0-logical.png",
+      "origin": "browser-final/browser-compact-HUD-render-c2cb9-ks-and-real-glyph-clearance-chromium/fixture-sunset-bag0-logical.png",
+      "kind": "renderer fixture",
+      "sha256": "430ac029cc550e2b124f3889435448e4dd5776733c220940603b9570e94d90c4",
+      "pixels": [
+        426,
+        240
+      ]
+    },
+    {
+      "file": "fixture-sunset-bag1-426.png",
+      "origin": "browser-final/browser-compact-HUD-render-c2cb9-ks-and-real-glyph-clearance-chromium/fixture-sunset-bag1-426.png",
+      "kind": "renderer fixture",
+      "sha256": "d7ba5c9b182cb4d91ad3a3b6fc44762bd7110da9aaf4d3152344ed801bab62c9",
+      "pixels": [
+        426,
+        240
+      ]
+    },
+    {
+      "file": "fixture-sunset-bag1-logical.png",
+      "origin": "browser-final/browser-compact-HUD-render-c2cb9-ks-and-real-glyph-clearance-chromium/fixture-sunset-bag1-logical.png",
+      "kind": "renderer fixture",
+      "sha256": "20b612889dd3a7d9ad6b3ca09188b7e874935d611eca67f3d41018d8a361ba45",
+      "pixels": [
+        426,
+        240
+      ]
+    },
+    {
+      "file": "fixture-sunset-bag2-logical.png",
+      "origin": "browser-final/browser-compact-HUD-render-c2cb9-ks-and-real-glyph-clearance-chromium/fixture-sunset-bag2-logical.png",
+      "kind": "renderer fixture",
+      "sha256": "9ff5767f83886addf0eb4ba4766a7dc615f5c3811ca49c509bab85f9086e0742",
+      "pixels": [
+        426,
+        240
+      ]
+    },
+    {
+      "file": "fixture-sunset-bag3-320.png",
+      "origin": "browser-final/browser-compact-HUD-render-c2cb9-ks-and-real-glyph-clearance-chromium/fixture-sunset-bag3-320.png",
+      "kind": "renderer fixture",
+      "sha256": "f667db9b0ba4738c6f7ffc42d74504fd786188086f20e74493dfc262614889e0",
+      "pixels": [
+        320,
+        240
+      ]
+    },
+    {
+      "file": "fixture-sunset-bag3-logical.png",
+      "origin": "browser-final/browser-compact-HUD-render-c2cb9-ks-and-real-glyph-clearance-chromium/fixture-sunset-bag3-logical.png",
+      "kind": "renderer fixture",
+      "sha256": "8add4483113f7cf7930d1eb462397f065ba747601febfbe34bf47c6fdb8d8806",
+      "pixels": [
+        426,
+        240
+      ]
+    },
+    {
+      "file": "fixture-sunset-bag4-1366.png",
+      "origin": "browser-final/browser-compact-HUD-render-c2cb9-ks-and-real-glyph-clearance-chromium/fixture-sunset-bag4-1366.png",
+      "kind": "renderer fixture",
+      "sha256": "1255643aefe3a70515f0b86715a83cfb0a4630d26c11ac743e2815fe56ec64bf",
+      "pixels": [
+        1366,
+        768
+      ]
+    },
+    {
+      "file": "fixture-sunset-bag4-logical.png",
+      "origin": "browser-final/browser-compact-HUD-render-c2cb9-ks-and-real-glyph-clearance-chromium/fixture-sunset-bag4-logical.png",
+      "kind": "renderer fixture",
+      "sha256": "9c0fd50fae77f4ad6b4872cb6467432dddfb6b03fa6fd6dd650809ce536a25bc",
+      "pixels": [
+        426,
+        240
+      ]
+    },
+    {
+      "file": "gameplay-ribbon-intro-1366.png",
+      "origin": "browser-final/browser-compact-HUD-ribbon-da9b8-ut-and-freezes-during-pause-chromium/gameplay-ribbon-intro-1366.png",
+      "kind": "ordinary keyboard gameplay, unaccelerated clock",
+      "sha256": "b69f44a2e63672140411cb0b997774c6cf1132d58bb1fe586a32a9cba93da56a",
+      "pixels": [
+        1366,
+        768
+      ]
+    },
+    {
+      "file": "gameplay-ribbon-intro-320.png",
+      "origin": "browser-final/browser-compact-HUD-ribbon-da9b8-ut-and-freezes-during-pause-chromium/gameplay-ribbon-intro-320.png",
+      "kind": "ordinary keyboard gameplay, unaccelerated clock",
+      "sha256": "daeda36e5fd4ec54ac39e6505a469187e381f8152c3e17418810366db30e6381",
+      "pixels": [
+        320,
+        240
+      ]
+    },
+    {
+      "file": "gameplay-ribbon-intro-426.png",
+      "origin": "browser-final/browser-compact-HUD-ribbon-da9b8-ut-and-freezes-during-pause-chromium/gameplay-ribbon-intro-426.png",
+      "kind": "ordinary keyboard gameplay, unaccelerated clock",
+      "sha256": "9e6254989cb35482b0a620c16b398445c468bf86e5e5a311977b78df59cec266",
+      "pixels": [
+        426,
+        240
+      ]
+    },
+    {
+      "file": "gameplay-timbers-bag-native.png",
+      "origin": "browser-final/browser-educational-bag-co-1e947-through-real-trail-movement-chromium/bag-native.png",
+      "kind": "input-driven gameplay, synthetic keyboard pilot and accelerated presentation clock",
+      "sha256": "91bd0438a86883c71bca3bcd4540a14144f111953da0b02bca1629d5297ef90f",
+      "pixels": [
+        426,
+        300
+      ]
+    },
+    {
+      "file": "gameplay-timbers-bag-small.png",
+      "origin": "browser-final/browser-educational-bag-co-1e947-through-real-trail-movement-chromium/bag-small.png",
+      "kind": "input-driven gameplay, synthetic keyboard pilot and accelerated presentation clock",
+      "sha256": "4d4d4e3d7305516502861c22f502e53da518ecc0b8fb06c45a9b2e63f98a3564",
+      "pixels": [
+        320,
+        240
+      ]
+    },
+    {
+      "file": "gameplay-timbers-pickup-flight-native.png",
+      "origin": "browser-final/browser-educational-bag-co-1e947-through-real-trail-movement-chromium/pickup-flight-native.png",
+      "kind": "input-driven gameplay, synthetic keyboard pilot and accelerated presentation clock",
+      "sha256": "a898594aa47d41d5350b9cbf641fd557742a58870b6cb43ec7f50979c26aa1e5",
+      "pixels": [
+        426,
+        300
+      ]
+    },
+    {
+      "file": "gameplay-timbers-pickup-flight-small.png",
+      "origin": "browser-final/browser-educational-bag-co-1e947-through-real-trail-movement-chromium/pickup-flight-small.png",
+      "kind": "input-driven gameplay, synthetic keyboard pilot and accelerated presentation clock",
+      "sha256": "2af8f47139f2d3dcc03e4a186cc690ef3130e4c0646e88ba80f560038e099ee9",
+      "pixels": [
+        320,
+        240
+      ]
+    },
+    {
+      "file": "gameplay-timbers-word-small.png",
+      "origin": "browser-final/browser-educational-bag-co-1e947-through-real-trail-movement-chromium/word-small.png",
+      "kind": "input-driven gameplay, synthetic keyboard pilot and accelerated presentation clock",
+      "sha256": "10de8916298937be9ae4125c8d1cb9c86062b31fc91233717d077874e5c982dc",
+      "pixels": [
+        320,
+        240
+      ]
+    },
+    {
+      "file": "gameplay-timbers-word-two-es.png",
+      "origin": "browser-final/browser-educational-bag-co-1e947-through-real-trail-movement-chromium/word-two-es.png",
+      "kind": "input-driven gameplay, synthetic keyboard pilot and accelerated presentation clock",
+      "sha256": "10de8916298937be9ae4125c8d1cb9c86062b31fc91233717d077874e5c982dc",
+      "pixels": [
+        320,
+        240
+      ]
+    },
+    {
+      "file": "gameplay-chromium.json",
+      "origin": "browser-final/browser-compact-HUD-ribbon-da9b8-ut-and-freezes-during-pause-chromium/gameplay-provenance.json",
+      "kind": "ordinary keyboard gameplay provenance",
+      "sha256": "465afdc81f6f6cce0461237bb2b9d8a8dc836a4a306e56ebfec05f0e24bab611"
+    },
+    {
+      "file": "gameplay-firefox.json",
+      "origin": "browser-final/browser-compact-HUD-ribbon-da9b8-ut-and-freezes-during-pause-firefox/gameplay-provenance.json",
+      "kind": "ordinary keyboard gameplay provenance",
+      "sha256": "465afdc81f6f6cce0461237bb2b9d8a8dc836a4a306e56ebfec05f0e24bab611"
+    },
+    {
+      "file": "gameplay-webkit.json",
+      "origin": "browser-final/browser-compact-HUD-ribbon-da9b8-ut-and-freezes-during-pause-webkit/gameplay-provenance.json",
+      "kind": "ordinary keyboard gameplay provenance",
+      "sha256": "57c784e28d1994564f1c2207da214f0eb9430ddfd2c9db680b64fc851d4b686b"
+    },
+    {
+      "file": "browser-summary.json",
+      "origin": "browser-final-summary.json",
+      "kind": "final 30-case configured/executed report reconciliation",
+      "sha256": "9e1d5b900eb694cdaec0510475ffe5696a975fce2affbb965d3179e53b1ef176"
+    },
+    {
+      "file": "tested-source.json",
+      "origin": "browser-final-source.json",
+      "kind": "source and production-bundle hashes used by final browser cohort",
+      "sha256": "b1f2445b630a98355e6941f525d2de65c2b390bd32f7d22962d6307083334613"
+    }
+  ],
+  "sourceAndAssetSha256": {
+    "assets/source/gems/PROVENANCE.md": "5df7f548e0ede14af81aa4d778bcbd7d9a9014cad5b34f5942ba1561e01d8731",
+    "assets/source/interface/PROVENANCE.md": "26ef1e077505fbd43ffb22aba3811f47fc4dc39266d4fc4b03f8881c6ec50833",
+    "assets/source/interface/preparation.json": "939a34273c6a30c79725370e68ca69bb96dcb692306f48cdd93cefda0aa30b56",
+    "assets/source/spelling/concepts/PROVENANCE.md": "065968f2e7068797b77fc7fdb3cfa8fa4f2a8a8cc30fb3b8d1e58583dbc15c49",
+    "assets/source/spelling/sprites/PROVENANCE.md": "cfa942fe3177c770ab7b6c91569d33ab8758022d8f06ddc3f79c6581c1e0e260",
+    "public/assets/cove/background.png": "fad99d46c31f83c00407f0c622b227fb78ee34d68e454da3c51a97ae5dc197eb",
+    "public/assets/cove/environment.png": "4f637cb6a8c2012169fb5d404f16cd1f632cae18e386c40845c4c3ef21f9639e",
+    "public/assets/cove/manifest.json": "e545b2153db7d61786bf86df67a14cf4542ffc23e0c9cade932ff82166209b80",
+    "public/assets/frost/background.png": "294f76ac7f916f052e2c871ee375f0b322a478c96c85b2e12b3b5b9147315ecd",
+    "public/assets/frost/environment.png": "a15af628ecc734f76470b23f4e77109cefe4d2ae123aa5ccdbdd6f297576cf01",
+    "public/assets/frost/manifest.json": "17254c516c1999f9eb14d4f4a201d2a09c5199513a96c9dbca28123f3fbabcdc",
+    "public/assets/gems/gems.png": "1a8c3cedfeb31d9070b08c7d09fc1b40f96cbdb3377f178e8a47610872bd439e",
+    "public/assets/henry/henry-celebration.png": "490231dd210a1778bcbd1f7924961d635f77bea3e55052ec5c9de14de2fd8641",
+    "public/assets/henry/manifest.json": "e932fee8dc4581422ed6a6c4cc5df91aa8de98b2e0b578b51fdec1d61c317879",
+    "public/assets/henry/reference.png": "5614294920ca29f461ca0864d5fd89258928bb239cb7d7c26d81063c128f4e9a",
+    "public/assets/henry/starter.png": "b79ee31dd9b4096bf5899509a808cd5a8bf3459a00d3c736a0bd7b41f8791d1b",
+    "public/assets/interface/button-selected.png": "03a25bddbd69479462812d21b689465c6aa7fff84e5d0b86c49189f912640533",
+    "public/assets/interface/button.png": "04b29e064c318ca4a9f13368e9a4e0a632ccd8acc55fb22f1fd853131657d9c6",
+    "public/assets/interface/panel.png": "5e6e2d33ae6b0f86941643e70b6cb28dbffd5d63c424332eeba84cbb058dc584",
+    "public/assets/interface/plaque.png": "fb99e6fffbd20c4c5e93ba714f506890757cc0c926c4b893e4d1bc6d691ff59d",
+    "public/assets/overworld/background.png": "78c1687572c2e1d75aa267ff927ebaebcc4aa1c29cc1aada0ab453dc4de3d833",
+    "public/assets/overworld/landmarks.png": "576a54c210aee7981a0ae5688db4d323e979b34888bbe5b8482d5f88523fea75",
+    "public/assets/plains/environment.png": "626ded198036b4fe010774f4daade0bf35565e55c445e939e4867368638924f1",
+    "public/assets/plains/manifest.json": "5201702a38da318dbd0394bedf568a71bae43b0f1cbd92e193498ff4cf6d21fd",
+    "public/assets/plains/scenery/background.webp": "96a178c0fd20fb92680db02b63847b786ee3dc1f2a12bd3b0430cf9701aab72c",
+    "public/assets/plains/scenery/foreground.png": "14b1151f9e4a2518e960c42422fdd2b0d4ca92e671e87408e53ab2c6ec8bb868",
+    "public/assets/plains/scenery/manifest.json": "8bbf32ff1cbb3f1b42dc68ef948536b9a2f09afbcebab5559d35e7c7a27957f1",
+    "public/assets/site/background.png": "93ff5736166c7d28c6756f5396a1e2ba24dfae9c3418fa94b003c13923656bc9",
+    "public/assets/site/environment.png": "e492e65613ce577e742865db6fdfb70a1a16c0bfa84c2c9ad888b7a65e4e3666",
+    "public/assets/site/manifest.json": "176ce7b94cf713fa3c099f1e62511227b67c384e1159a4b8ecce3547c40333da",
+    "public/assets/slimes/slimes.png": "c75588d9baa06909b21fc5f591b25827cc0171806e321ea5e0966951f5f8f2bf",
+    "public/assets/spelling/cove-sticker.png": "25b50ddc5966755022dfe5cd3a55038cbf7147ed307fdae9b5be934dd144c87b",
+    "public/assets/spelling/frost-sticker.png": "efbed8411de577a746e54a4bc96ffed341b3f0d4116e7fc15fbdc40b15fbda62",
+    "public/assets/spelling/plains-sticker.png": "e3a3e9cecae7d252a017093f2d04cd2de6ddc7699f1e297ed3ccf59bbcf77f9c",
+    "public/assets/spelling/pouch.png": "a044fb5b5a9c36d0a16405409d4d3fb3c04160098052d7fec3b58c388487dc40",
+    "public/assets/spelling/quarry-sticker.png": "5b7a9ec01d88b73783ee31d772b0111549a6ac9b2b107aa19c7630ebae018592",
+    "public/assets/spelling/sunset-sticker.png": "854702e0cdd510926209e434775a70abf90310ce7625f782523f71d37ec7cb01",
+    "public/assets/spelling/tile.png": "c37ca9b6cf2baefc351bcdd88f08650baf700ba6d3e5fd2f5756eb2f2af22fd1",
+    "public/assets/spelling/timbers-sticker.png": "e8e49bd81d71d089a1b6d11132ff97a52a280160d6754ebb0a88e10cf0931dff",
+    "public/assets/timbers/environment.png": "db320df5c114e7e36ca27989d8530ac2aa0d1cc036b8e0b159a4ef38eb3b86fd",
+    "public/assets/timbers/manifest.json": "f9cc59f5a5e884d2bd42e45c36c1f56af9db82b53c42d163fc0941e67ac060af",
+    "public/assets/title/tiny-turbo-trails-v2.png": "1116404054d8772a3b212987221e8721df5d951b396e1c2a9c77a2223b622955",
+    "public/assets/trails/backdrops.webp": "bea7cd616d1abbb8fc7f5c2c514dd56e22aa25874767b9e5b57b5213b4c415a7",
+    "public/assets/trails/materials.png": "1dd3d71aed5bbd269257eee28b9be06407b74c1914b1d1fe795723b21095a46e",
+    "src/art/animation.ts": "3e825e333b8d59a7f92d15c8f5ddbc7838493476c8b7e4769d1ea243c2cb562c",
+    "src/art/henry.ts": "3eba98400a7075ae2b8834261c1e2536c55876a28f0eeb80f380f1b7a072eddf",
+    "src/art/hit-flash.ts": "46ffa55cd996fc0036d4a1b3adf28a8b6ac2766da1a80454af217955f1681764",
+    "src/art/interface-kit.ts": "68ee434bb32a427168b1d6f8731c4ecca9e9fb0074b02f993fed7009f85b7c40",
+    "src/art/preview-scene.ts": "937abc1fe17d11c7b517ceb74c85d54ec46c5942d25cca8a63edf010538fe001",
+    "src/art/spelling.ts": "8b5253ecdb7319c726c0226542f9ac7aa3a10ffbe9e232ced3eef2e848ee8943",
+    "src/art/sprite.ts": "2870bfc0f3f83f17fa082ee91d9451123f8ba12ab870f5abab924606c1c72b53",
+    "src/art/title.ts": "6fabc3a9143d688938b66dd97402de38f3f092057747f24248f73e65ffd8d1b8",
+    "src/audio-preview.ts": "1614b99228937cb6a97f888b3560eb3a4a6b1137b802ec463910cc8e5fc509d1",
+    "src/core/audio-effects.ts": "b24056b829504c4ca2e5f375dee9f4a283ef7e19c118f9fa09db13439ff3b017",
+    "src/core/audio.ts": "ed4576edbb66956210b122728c7d8ac0e2015e4a7f8b799e7004a7151950197d",
+    "src/core/clock.ts": "2d4ac31a13bedab33d3dd2aa28266cdd30906c6611189877a28de9223fdf6c74",
+    "src/core/input.ts": "fe5e127740e832d44f1c03da0f8314f466022c576674e838dbb1837f5bef51cc",
+    "src/core/music.ts": "d869e01a5e06e82dbb97efe02f85d6f774c55e00f458a2a9407fce54eac03aa7",
+    "src/core/retro-audio.ts": "a0ee2f40d2190683d42dc6287b1e102738f072c4f2cf7fb04576bcf43adb6a54",
+    "src/core/rumble.ts": "9d2725379ae8502c4d82598df1950b83af0de64755711237d6b90cd6cd26921d",
+    "src/core/scene.ts": "1aa3e43aac22051b3f30b0a157c6fbd746b70a0d9dbe23e1ef3f6b0535316fc8",
+    "src/core/viewport.ts": "41b9bd4b0c4daeef711621f398509f5a45da865445cfbb0a0362e6d5d225f515",
+    "src/foundation-scene.ts": "36dc8a7c82055439c173f0a437852d348bf994d7e81c6ac6fa8bdaad27a34437",
+    "src/game/adventure-scene.ts": "85e5ea15bc711941b424f42a26e22889de48b5ea9e93a514ca3079f61b718f10",
+    "src/game/celebration.ts": "cb98ec442c878ad599c67bffdcb902d9d772c775252744bd82b09d7183741c27",
+    "src/game/education-overlay.ts": "e7c939f0c23040b2496d984b78163e009767db0b03c2bbc5927393e38bafd86e",
+    "src/game/education.ts": "9abd1fe9375a4e9a915b7850667525d67942422a603c952ba6ea92e473a2cb3e",
+    "src/game/feedback.ts": "7d6927dedfafd72989ba78c88a35d0dd9ff3c8573cc4d256540a1e495753b6ea",
+    "src/game/gameplay-preview.ts": "87bf174741ddf1d2c41b229ac7671b24b12e3015b9129856f3ac6f22df014c8a",
+    "src/game/hud.ts": "7e4e870808ebb13ed519b1a2b3fcbd92b38459e42be0bc3b65ab315c22cdd249",
+    "src/game/interactions.ts": "e384198986820a04698e3e8e953b6ec172ec4cad2ca9b66294065bf4137bdf15",
+    "src/game/menu-overlay.ts": "4b16c119d583da29f590762bc30b53705f6e9c092c718b9199cf086e0f866eb8",
+    "src/game/movement-audio.ts": "dff0ca1cb2f7a363cf12a07a3d0cf4fe9a6f01e7eafc34aa95545bc7f1736310",
+    "src/game/movement-preview.ts": "92604716cd1e38ebec1195a369be95cda8b25589087871ea9d896d5e44eea3a6",
+    "src/game/movement.ts": "9ada7204034932805a6770a505b991a5215181467ab02f593950beea9a3c3c24",
+    "src/game/overworld.ts": "47b0706e81d9e43ef7681a6d2f0bc921405f211137d61746269bbe39bd725447",
+    "src/game/pause-menu.ts": "beef1f93f7f3cf851f8928b8c1182ab156dd2c33edb52a826c71a6c915a8c1d7",
+    "src/game/platforms.ts": "921e433e606cb951554e0d8c512b50c5c29e0360ae57a329a7b28b9bb056d280",
+    "src/game/reward-result.ts": "a19a68657461b95cf57255f01fcf2af9735cbbea07726ce3fdeed83cbc6a37f4",
+    "src/game/screens.ts": "565b463537417008497b4e06c73b5e7bf613451330c78f36efa758b812370221",
+    "src/main.ts": "fe3bc564208ca271cdbc8eb97a1071155dc00977cd217e2a77873a1f0f7ceff9",
+    "src/world/ambient-weather.ts": "c4dfcbbdf06780c6548ed096289c209afb703c190763c757eef6cbd85804d4f2",
+    "src/world/assets.ts": "57173d0eafacd5023308f8291b6ae56f40993c75cf128eade728f0876a2ce117",
+    "src/world/camera.ts": "476e5c02f9531ec8ef2872635d893ce466593beaa89762e84105de77cd242bcf",
+    "src/world/frost-ridge.ts": "0cc45285d61af8428619bfe4e8e7da7b79054ab99e35f96359357adaf4e38efc",
+    "src/world/level-kit.ts": "81647f7d1fd495a9f462172cc849ea624bffaac6ed4f81e3c20da19ed812b12c",
+    "src/world/level.ts": "0579ab3a2eca121a3382dfe9f85d42afc72a34bc58205ac3be13f27dcbfe4dd8",
+    "src/world/levels.ts": "0e2219af2ba276c9a6ba7bf3f70a7fdb4a734bf225d07a16d06266a99c02c62a",
+    "src/world/preview-scene.ts": "20bfdffb48398586eac4c43d44c1160faaa7076af72d5fc306c0b8a01c85634c",
+    "src/world/renderer.ts": "1f93834c10d3b696aa19383d91116bab7447061a35e45ba7e9cc384ba60a8a17",
+    "src/world/sandy-cove.ts": "ef8734b16f15009898a7752d66b47980ea5c3363bb285168c6ca01ac71e5b13b",
+    "src/world/scenery.ts": "310bdc9cc7e4c0dcefd871da44de4b82f4ce0441829d4196f40ceafc3e3f4086",
+    "src/world/slimes.ts": "cf53761fa33188a866b1f9932d610c42dd923063dee26aed7e018cfc1b8bd0c9",
+    "src/world/sunset-site.ts": "d28631ca11272fd27dcb9936ad0609aa24b8fbd72c8ccedf381f9a4141d15bfa",
+    "src/world/surface-materials.ts": "d18b81969d45a9de5b90697a1d2398076117193941a897963a1ffcfa9c9c7088",
+    "src/world/trail-presentation.ts": "5ee638f57842e9fddf6162573685d8a49e73dcecc460e79fae9fd19a3150c4ad"
+  }
+}

@@ -22,7 +22,7 @@ import { LEVELS } from '../world/levels';
 import { Camera } from '../world/camera';
 import { drawWorld, drawWorldForeground } from '../world/renderer';
 import type { WorldAssetMap, WorldAssets } from '../world/assets';
-import { drawBagBacking, drawGameplayHud, HudPresentation } from './hud';
+import { drawCollectionBag, drawGameplayHud, HudPresentation } from './hud';
 import { Feedback } from './feedback';
 import { CompletionCelebration, celebrationJump, celebrationSparkles } from './celebration';
 
@@ -177,7 +177,6 @@ export class AdventureScene implements Scene {
     const step = tickRun(this.run, seconds);
     this.feedback.tick(step);
     this.letterFlights = this.letterFlights.filter(flight => (flight.age += step) < 0.65);
-    this.hud.update(step, input, this.level, this.player.x);
     this.platforms = platformBodiesAt(this.level.platforms, this.run.seconds, step);
     const previousPosition = { x: this.player.x, y: this.player.y };
     const wasGrounded = this.player.onGround;
@@ -224,6 +223,9 @@ export class AdventureScene implements Scene {
           y: surfaceY(this.level, letter.x) - 20 - this.camera.position.y, age: 0 });
       }
     }
+    this.hud.update(step, input, this.level, this.player.x, this.feedback.checkpointSeconds > 0
+      || this.run.invulnerableSeconds > 0 || this.letterFlights.length > 0
+      || this.feedback.effects.some(effect => effect.kind !== 'landing'));
     this.camera.update(this.player.x, this.player.y);
   }
 
@@ -285,20 +287,12 @@ export class AdventureScene implements Scene {
 
   private drawWordProgress(ctx: CanvasRenderingContext2D): void {
     if (!this.hasWordActivity) return;
-    ctx.save(); ctx.textAlign = 'right'; ctx.font = 'bold 11px monospace';
-    drawBagBacking(ctx, this.ui);
-    ctx.fillStyle = '#e9f2df'; ctx.fillText(`Bag ${this.education.letterCount}/4`, 376, 52);
-    if (this.spelling) ctx.drawImage(this.spelling.pouch, 384, 33, 28, 28);
-    else {
-      ctx.fillStyle = '#ffda75'; ctx.fillRect(386, 42, 24, 18);
-      ctx.strokeStyle = '#ffda75'; ctx.lineWidth = 3;
-      ctx.beginPath(); ctx.arc(398, 42, 7, Math.PI, 0); ctx.stroke();
-      ctx.textAlign = 'center'; ctx.fillStyle = '#17333b'; ctx.font = 'bold 10px monospace'; ctx.fillText('✦', 398, 55);
-    }
+    ctx.save();
+    drawCollectionBag(ctx, this.education, this.spelling?.pouch, this.ui);
     for (const flight of this.letterFlights) {
       const t = flight.age / 0.65;
-      const x = this.reducedMotion ? 398 : flight.x + (398 - flight.x) * t;
-      const y = this.reducedMotion ? 74 : flight.y + (50 - flight.y) * t - Math.sin(t * Math.PI) * 25;
+      const x = this.reducedMotion ? 342 : flight.x + (342 - flight.x) * t;
+      const y = this.reducedMotion ? 74 : flight.y + (44 - flight.y) * t - Math.sin(t * Math.PI) * 25;
       ctx.globalAlpha = 1 - t * 0.5;
       drawLetterTile(ctx, this.spelling?.tile, flight.letter, x - 11, y - 18, 22, 24);
     }

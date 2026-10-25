@@ -1,0 +1,10 @@
+{
+  "src/game/hud.ts": "7e4e870808ebb13ed519b1a2b3fcbd92b38459e42be0bc3b65ab315c22cdd249",
+  "src/game/adventure-scene.ts": "85e5ea15bc711941b424f42a26e22889de48b5ea9e93a514ca3079f61b718f10",
+  "src/game/gameplay-preview.ts": "87bf174741ddf1d2c41b229ac7671b24b12e3015b9129856f3ac6f22df014c8a",
+  "tests/browser.spec.ts": "bb6c817290396547bd3e1f6181eeaa1f110a7dc445e3aa6dda7d03e7f5d8ec80",
+  "tests/compact-hud.test.ts": "f9b80bf34b5da7fafcbca55a1f64f45479f89d435430458f4620a0f534fc6d34",
+  "playwright.config.ts": "861209bdc3dd682bc65d885ec27633b06db90d0bfebe8b63a0b8ca8e99b03f14",
+  "dist/build-assets/index-BSH_JSFj.css": "b97aa16b5fe8898343a29c3741cdea81cd91a72765e12363915a00ae9ac682e3",
+  "dist/build-assets/index-BUvLy2x3.js": "3abb6249c96b220f19f3107a49720f30fb1e356f045ef14b465ad7e86eb371bf"
+}

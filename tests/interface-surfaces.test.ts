@@ -136,7 +136,7 @@ it('assembly gives empty spaces and actions kit buttons while tiles, glyphs and 
   expect(text.map(line => line.text)).toEqual(expect.arrayContaining(['Find more letters', 'Leave activity', '_']));
 });
 
-it('HUD backings use compact plaques at the existing rectangles and never grow their coverage', () => {
+it('HUD backings use compact plaques within compact rectangles and never grow their coverage', () => {
   const run = createRun(LEVELS[0]); run.specialTotal = 3;
   const { ctx, draws } = recordingContext();
   drawGameplayHud(ctx, run, 'Space: jump', 'PLAINS', new HudPresentation().progress(LEVELS[0], LEVELS[0].start.x), kit);
@@ -157,6 +157,13 @@ it('ribbon and bag backings use the plaque, while the pouch and ribbon marks sta
   const bag = recordingContext();
   drawBagBacking(bag.ctx, kit);
   expect(bounds(bag.draws, 'plaque')).toEqual(BAG_PLAQUE);
+});
+
+it('restores caller text alignment, ink, font and alpha after HUD rendering', () => {
+  const { ctx } = recordingContext();
+  ctx.textAlign = 'center'; ctx.fillStyle = '#abcdef'; ctx.font = '17px serif'; ctx.globalAlpha = 0.4;
+  drawGameplayHud(ctx, createRun(LEVELS[0]), 'Space: jump', 'Checkpoint reached!', new HudPresentation().progress(LEVELS[0], 50), kit);
+  expect([ctx.textAlign, ctx.fillStyle, ctx.font, ctx.globalAlpha]).toEqual(['center', '#abcdef', '17px serif', 0.4]);
 });
 
 it('overworld info panel, Play and Stickers use the kit at their native target bounds with no story control', () => {

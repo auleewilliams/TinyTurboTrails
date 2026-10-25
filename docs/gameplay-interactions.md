@@ -160,6 +160,22 @@ with a 0.65-second letter flight toward the bag (a brief local cue with reduced
 motion). Collection never writes word spaces or earns rewards. These optional
 objects do not alter level entities, totals or physics.
 
+The compact gameplay pouch has four hollow/filled marks, one per pickup ID.
+Marks use collected identities, including separate Es and Ls, and remain filled
+after manual placement. The target word and letter glyphs stay out of this HUD;
+the existing brief pickup flight still identifies a letter just collected.
+Gem and optional-star pixel icons sit beside numeric counts; hearts retain
+their full, empty and recently-hit colours. These shorter plaques reuse the
+existing interface image and its text-safe slices, without new generated art.
+
+Once per run, the existing hint lane briefly introduces the bottom ribbon:
+“Trail: Henry = you; posts = saves; flag = end”. Movement/jump teaching,
+location/checkpoint notices, damage recovery and pickup feedback take priority.
+The cue receives four seconds of unobstructed active presentation time; pause,
+activities and results do not spend it. Replay or starting another trail resets
+the cue. The ribbon remains at (285, 221), 136 × 14, with unchanged position,
+checkpoint and finish-boundary mapping. See [#212 evidence](evidence/issue-212/README.md).
+
 Finishing any of the six trails marks completion and opens results. Build your word
 deliberately opens the optional assembly.
 The target appears above four spaces; a deterministic pile ordered by original
