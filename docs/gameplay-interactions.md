@@ -182,12 +182,13 @@ Find more letters appears while any pickup is missing. It closes the activity
 and places Henry 28px before finish, with zero velocity and grounded feet, while
 retaining the identical `RunState`, all progress and completion result. No level
 load/restart or missing-letter teleport occurs. The finish latch stays disarmed
-until Henry moves at least 70px before finish, then a fresh crossing opens the
-activity. Input-driven simulation coverage retraces the actual terrain of all
+until Henry moves at least 70px before finish; a fresh crossing shows the same
+results again, without reopening the activity, and Build your word re-enters it. Input-driven simulation coverage retraces the actual terrain of all
 six trails, including reverse pit-edge jumps, springs and platform areas, to all
 four missed letters without recovery, then returns to finish. No position writes
-occur after the initial finish fixture. Leave activity or
-Escape/Start exposes the ordinary finish choices; the activity is optional.
+occur after the initial finish fixture. The finish never opens the activity by
+itself; Build your word opens it, and Leave activity or Escape/Start returns to the
+results with Next trail (or Map on the final trail) selected.
 
 The overworld STICKERS button, E or standard D-pad Up (button 12) opens the
 six-sticker collection in a three-column, two-row grid. Each trail shows its own

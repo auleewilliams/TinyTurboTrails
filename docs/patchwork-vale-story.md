@@ -28,8 +28,8 @@ shows the six illustrated landmarks, decorative bunting, the Patchwork Vale name
 and a short description of each place; Plains reads **Over grassy hills**.
 
 Every trail, Plains included, finishes the same way: its own landmark, Henry's
-cheer, the **Another trail explored!** message, gem/star results and Replay /
-Next trail / Choose trail. There is no picture story, replay control, reunion
+cheer, the **Another trail explored!** message, gem/star results and Next trail /
+Map / Build your word / Replay. There is no picture story, replay control, reunion
 picture or story-only key or controller binding.
 
 ## Celebration integration
@@ -56,9 +56,9 @@ With sound muted, let Henry choose an outing before explaining anything.
 
 - Ask him to pick a place from the map pictures and say where he is going.
 - At the finish, ask what he did there. Does he understand completion as having explored that place?
-- Ask him to choose another trail from the map, then return using Choose trail.
+- Ask him to choose another trail from the map, then return using Map.
 - Ask him to point out a gold star versus an ordinary gem and explain what he can collect.
-- Watch whether he recognises crouch, jump and cheer and can still find Replay, Next trail and Choose trail.
+- Watch whether he recognises crouch, jump and cheer and can still find Next trail, Map, Build your word and Replay.
 - Try controller input and the small window. Record any adult help or coaching needed.
 
 Record device, viewport, input, coaching and exact observations in the issue or

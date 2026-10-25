@@ -48,9 +48,10 @@ Docker/nginx deployment and rollback. Public internet hosting is outside scope.
 | Mute | M | — | Mute button |
 
 Henry celebrates each finish with a jump and cheer (a still pose with reduced motion).
-The finish buttons show Replay, Next and Trails with large symbols; their accessible
-names remain Replay, Next trail and Choose trail. Replay starts the same trail fresh. Next trail starts the next registered trail;
-Choose trail returns to the map. Checkpoint recovery retains gems and special
+Results come first: no activity covers the finish. Its buttons read Next trail, Map,
+Build your word and Replay, matching their accessible names. Next trail is selected and starts the next registered trail;
+on Sandy Cove, the final trail, Map is selected instead (there is no wrap-around). Map returns to the map, Build your word
+opens the optional word activity, and Replay starts the same trail fresh. Leaving the activity reselects Next trail (or Map). Checkpoint recovery retains gems and special
 stars; replay, changing trails and reload clear the run's stars. Completion
 badges and each trail's best gem/star results last for this page session only;
 the selected trail's map panel shows those results. Replaying with fewer pickups

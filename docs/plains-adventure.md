@@ -25,17 +25,20 @@ latest checkpoint with health refilled and gems retained. See
 
 The finish shows GEMS collected/total, with a matching star result
 only on trails that offer stars, and Henry's celebration. Totals come from the
-trail's entities. It offers three actions:
+trail's entities. No activity opens over it. It offers these actions, in order:
 
-- **Replay:** immediately starts a fresh run of the same trail.
 - **Next trail:** immediately starts the next registered trail; absent at Sandy Cove.
-- **Choose trail:** returns to the map with the completed destination selected
+- **Map:** returns to the map with the completed destination selected
   and a brief, nonblocking completion message.
+- **Build your word:** opens the optional word activity over the frozen results.
+- **Replay:** immediately starts a fresh run of the same trail.
 
 Left/Right selects a finish action; Space or a face button confirms it. Buttons
 also accept pointer/Tab/Enter. Input must return to neutral after arriving at
 the finish or map before another keyboard/controller confirmation is accepted.
-Replay is initially selected for continuity with earlier controls.
+Next trail is initially selected; Sandy Cove, the final trail, selects Map and
+never wraps to a new progression. Leaving the word activity reselects that default
+and again waits for neutral input.
 
 New runs reset player, camera, health, checkpoint, collectibles, platforms,
 entity animation, effects and HUD hints together. Cosmetic session badges and
@@ -93,7 +96,7 @@ grassy hills**. Like every trail, it finishes with its landmark, Henry's cheer,
 **Another trail explored!** and the ordinary results.
 
 Henry crouches, jumps, cheers and lands once before holding victory. Results
-and Replay / Next trail / Choose trail remain available throughout. Pause and
+and Next trail / Map / Build your word / Replay remain available throughout. Pause and
 focus loss freeze the sequence. Reduced motion uses still victory and fixed
 sparkles. Replays and new trails reset celebration and run state. See
 [story and owner checklist](patchwork-vale-story.md).
