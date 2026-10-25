@@ -132,3 +132,20 @@ it('emits deliberate activity E / standard D-pad up edges and blocks held activi
   input.setFocused(true); expect(input.poll().activityPressed).toBe(false);
   input.dispose();
 });
+
+it('leaves R and the controller View button unbound now the picture story is retired', () => {
+  const buttons = Array.from({ length: 17 }, () => ({ pressed: false, touched: false, value: 0 }));
+  const pad = { id: 'standard', index: 0, connected: true, mapping: 'standard', timestamp: 0,
+    axes: [0, 0, 0, 0], buttons, vibrationActuator: null };
+  const target = Object.assign(new EventTarget(), { navigator: { getGamepads: () => [pad] } });
+  const input = new BrowserInput(target as unknown as Window, () => {});
+  expect(input.poll()).not.toHaveProperty('storyPressed');
+  const r = Object.assign(new Event('keydown', { cancelable: true }), { code: 'KeyR', repeat: false });
+  target.dispatchEvent(r);
+  expect(r.defaultPrevented).toBe(false);
+  buttons[8].pressed = true;
+  const frame = input.poll();
+  expect(frame).not.toHaveProperty('storyPressed');
+  expect(frame).toMatchObject({ source: 'keyboard', horizontal: 0, jumpPressed: false, pausePressed: false, activityPressed: false });
+  input.dispose();
+});

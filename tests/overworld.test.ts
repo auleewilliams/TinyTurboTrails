@@ -185,3 +185,13 @@ it('keeps every landmark hit area clear of the preview, prompts and other destin
     for (const b of targets.slice(i + 1)) expect(a.x < b.x + b.width && b.x < a.x + a.width && a.y < b.y + b.height && b.y < a.y + a.height).toBe(false);
   }
 });
+
+it('describes each unvisited destination as a standalone outing, Plains over grassy hills', () => {
+  const lines: string[] = [];
+  const ctx = new Proxy({} as Record<string, unknown>, { get: (target, key) => key === 'fillText'
+    ? (value: string) => lines.push(value) : Reflect.get(target, key) ?? (() => {}),
+  set: (target, key, value) => Reflect.set(target, key, value) }) as unknown as CanvasRenderingContext2D;
+  const descriptions = LEVELS.map((_, index) => { lines.length = 0; drawOverworld(ctx, LEVELS, index, new Map(), { naturalWidth: 1, naturalHeight: 1 } as HTMLImageElement, {} as HTMLImageElement); return lines.at(-2); });
+  expect(descriptions).toEqual(['Over grassy hills', 'Along quarry paths', 'Through tall trees', 'Past the busy yard', 'Over snowy hills', 'Down to the seaside']);
+  expect(OVERWORLD_LAYOUT).not.toHaveProperty('story');
+});

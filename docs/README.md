@@ -6,7 +6,7 @@
 - [Contributor and testing rules](../AGENTS.md)
 - [Canonical product requirements](REQUIREMENTS.md)
 - [Adventure, map and finish navigation](plains-adventure.md)
-- [Patchwork Vale story, storyboard and parent checklist](patchwork-vale-story.md)
+- [Patchwork Vale exploration premise and owner checklist](patchwork-vale-story.md)
 - [Movement and authored traction](gameplay-movement.md)
 - [Run interactions and recovery](gameplay-interactions.md)
 - [Optional star challenges and safe returns](signature-challenges.md)

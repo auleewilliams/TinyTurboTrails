@@ -61,13 +61,13 @@ async function expectClearViewport(page: Page): Promise<void> {
   await expect(page.locator('#rumble')).toBeInViewport();
 }
 
-test('uniform viewport fit keeps story, map, gameplay, pause and finish clear after resizing', async ({ page }, info) => {
+test('uniform viewport fit keeps map, gameplay, pause and finish clear after resizing', async ({ page }, info) => {
   test.setTimeout(180_000);
   const errors: string[] = [];
   page.on('pageerror', error => errors.push(error.message));
   await installTrailPilot(page);
   await page.goto('/?debug=1');
-  await expect(page.locator('#status')).toContainText('Story');
+  await expect(page.locator('#status')).toContainText('Title');
   const capture = async (state: string): Promise<void> => {
     for (const viewport of VIEWPORT_CASES) {
       await page.setViewportSize(viewport);
@@ -87,8 +87,6 @@ test('uniform viewport fit keeps story, map, gameplay, pause and finish clear af
       });
     }
   };
-  await capture('story');
-  await page.getByRole('button', { name: 'Skip story', exact: true }).click();
   await capture('map');
   await page.getByRole('button', { name: 'QUARRY RUN', exact: true }).click();
   await expect(page.getByRole('button', { name: 'Play QUARRY RUN', exact: true })).toBeVisible();
@@ -312,7 +310,7 @@ test('rumble icon toggles independently with pointer and keyboard at desktop and
       await button.click();
     }
   }
-  await page.reload(); await dismissOpening(page);
+  await reloadToMap(page);
   await expect(button).toHaveAttribute('aria-pressed', 'true');
 });
 
@@ -692,7 +690,7 @@ test('production canvas loads, scales and recovers from focus loss', async ({ pa
   await expect(page.locator('#mute')).toHaveAttribute('aria-label', 'Unmute');
   await page.locator('#mute').click();
   await expect(page.locator('#status')).not.toContainText('Muted');
-  await reloadAndDismiss(page);
+  await reloadToMap(page);
   await expect(page.locator('#status')).toHaveText('Foundation preview · Escape to pause · M to mute');
   expect(errors).toEqual([]);
   await info.attach('browser-version', { body: browser.version(), contentType: 'text/plain' });
@@ -705,11 +703,11 @@ test('art preview loads local assets and reports a missing atlas', async ({ page
   await expect(page.locator('#status')).toContainText('Art preview', { timeout: 15000 });
   await expect(page.locator('#status')).not.toContainText('Loading', { timeout: 15000 });
   await page.route('**/assets/henry/henry-celebration.png', (route) => route.abort());
-  await reloadAndDismiss(page);
+  await reloadToMap(page);
   await expect(page.locator('#status')).toHaveText('Artwork could not load. Reload to retry.');
   await expect(page.locator('#retry')).toBeVisible();
   await page.unroute('**/assets/henry/henry-celebration.png');
-  await retryAndDismiss(page);
+  await retryToMap(page);
   await expect(page.locator('#status')).toContainText('Art preview', { timeout: 15000 });
 });
 
@@ -873,9 +871,46 @@ test('default main menu starts the Plains level with Space', async ({ page }) =>
   await expect(page.locator('#status')).toHaveText('Paused · Escape to resume');
   await page.keyboard.press('Escape');
   await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
-  await reloadAndDismiss(page);
+  await reloadToMap(page);
   await expect(page.locator('#status')).toContainText('Adventure preview · Title');
 });
+
+for (const url of ['/', '/?scene=adventure']) {
+  test(`${url} starts and reloads on the trail map with Plains selected and no picture story`, async ({ page }) => {
+    const errors: string[] = [], storyRequests: string[] = [];
+    page.on('pageerror', error => errors.push(error.message));
+    page.on('request', request => { if (request.url().includes('/assets/story/')) storyRequests.push(request.url()); });
+    await installTrailPilot(page);
+    const canvas = page.locator('canvas');
+    const expectMap = async (): Promise<void> => {
+      await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
+      await expect(page.getByRole('button', { name: 'PLAINS', exact: true })).toHaveAttribute('aria-pressed', 'true');
+      await expect(page.getByRole('button', { name: 'Play PLAINS', exact: true })).toBeVisible();
+      await expect(page.locator('.trail-menu button')).toHaveCount(LEVELS.length + 2);
+      for (const name of ['Skip story', 'Next picture', 'Replay story', 'View reunion picture']) {
+        await expect(page.getByRole('button', { name, exact: true })).toHaveCount(0);
+      }
+      await expect(canvas).toHaveAttribute('aria-label', 'Tiny Turbo Trails game');
+    };
+    await page.goto(url);
+    await expectMap();
+    // The retired R key and controller View button are inert on the map.
+    await page.keyboard.press('r');
+    await page.evaluate(() => {
+      const state = window as unknown as { trailPilot: { controller: boolean }; trailPad: { buttons: { pressed: boolean }[] } };
+      state.trailPilot.controller = true; state.trailPad.buttons[8].pressed = true;
+    });
+    await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
+    await page.evaluate(() => { (window as unknown as { trailPad: { buttons: { pressed: boolean }[] } }).trailPad.buttons[8].pressed = false; });
+    await expectMap();
+    await page.reload();
+    await expectMap();
+    await page.keyboard.press('Space');
+    await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
+    expect(storyRequests).toEqual([]);
+    expect(errors).toEqual([]);
+  });
+}
 
 test('title picker selects Quarry Run and starts the selected route', { lock: 'native-route' }, async ({ page }) => {
   // The extended Quarry Run (issue #73) takes about a minute of held-right real time.
@@ -1094,7 +1129,7 @@ test('adventure exposes retry when a required asset fails to load', async ({ pag
   await expect(page.locator('#status')).toHaveText('Artwork could not load. Reload to retry.', { timeout: 15000 });
   await expect(page.locator('#retry')).toBeVisible();
   await page.unroute('**/assets/henry/henry-celebration.png');
-  await retryAndDismiss(page);
+  await retryToMap(page);
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
 });
 
@@ -1207,7 +1242,7 @@ test('adventure pause freezes progress and reload starts a fresh in-memory run',
   expect(await page.locator('canvas').evaluate((element) => (element as HTMLCanvasElement).toDataURL())).toBe(pausedImage);
   await page.keyboard.press('Escape');
   await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
-  await reloadAndDismiss(page);
+  await reloadToMap(page);
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
 });
 
@@ -1728,7 +1763,7 @@ test('a failed scenery image exposes Retry loading and recovers', async ({ page 
   const statusBox = (await page.locator('#status').boundingBox())!;
   expect(retryBox.y + retryBox.height).toBeLessThan(statusBox.y);
   await page.unroute('**/assets/plains/scenery/foreground.png');
-  await retryAndDismiss(page);
+  await retryToMap(page);
   await expect(page.locator('#status')).toContainText('Adventure preview · Title');
   await expect(page.locator('#retry')).toBeHidden();
   await expect(page.locator('canvas')).toBeVisible();
@@ -1802,7 +1837,7 @@ for (const [biome, pickerSteps] of [['frost', 4], ['cove', 5]] as const) {
     await openAdventure(page, '/?scene=adventure');
     await expect(page.locator('#status')).toHaveText('Artwork could not load. Reload to retry.');
     await page.unroute(path);
-    await retryAndDismiss(page);
+    await retryToMap(page);
     await expect(page.locator('#status')).toContainText('Adventure preview · Title');
   });
 }
@@ -1879,29 +1914,23 @@ test('native HUD hints follow active input and pause controls fit small windows'
   await info.attach('small-keyboard-pause', { body: await page.screenshot(), contentType: 'image/png' });
 });
 
-test('all six trail previews show cached gameplay without story artwork and keep story replay', async ({ page }, info) => {
+test('all six trail previews show cached gameplay and the map requests no story artwork', async ({ page }, info) => {
   test.setTimeout(90_000);
+  const storyRequests: string[] = [];
+  page.on('request', request => { if (request.url().includes('/assets/story/')) storyRequests.push(request.url()); });
   await page.setViewportSize({ width: 426, height: 240 });
   await page.addInitScript(() => {
     const probe = { pixels: undefined as Uint8ClampedArray | undefined };
     Object.assign(window, { trailPreviewProbe: probe });
     const fill = CanvasRenderingContext2D.prototype.fillRect;
     CanvasRenderingContext2D.prototype.fillRect = function (x, y, width, height) {
-      if (x === 0 && y === 0 && width === 426 && height === 240) {
-        this.canvas.dataset.storyDraws = '0';
-        this.canvas.dataset.landmarkDraws = '0';
-      }
+      if (x === 0 && y === 0 && width === 426 && height === 240) this.canvas.dataset.landmarkDraws = '0';
       return fill.call(this, x, y, width, height);
     };
     const draw = CanvasRenderingContext2D.prototype.drawImage;
     CanvasRenderingContext2D.prototype.drawImage = function (image: CanvasImageSource, ...coordinates: number[]) {
-      if (image instanceof HTMLImageElement) {
-        if (image.src.endsWith('/assets/story/patchwork-vale.png')) {
-          this.canvas.dataset.storyDraws = String(Number(this.canvas.dataset.storyDraws ?? 0) + 1);
-        }
-        if (image.src.endsWith('/assets/overworld/landmarks.png')) {
-          this.canvas.dataset.landmarkDraws = String(Number(this.canvas.dataset.landmarkDraws ?? 0) + 1);
-        }
+      if (image instanceof HTMLImageElement && image.src.endsWith('/assets/overworld/landmarks.png')) {
+        this.canvas.dataset.landmarkDraws = String(Number(this.canvas.dataset.landmarkDraws ?? 0) + 1);
       }
       const result = Reflect.apply(draw, this, [image, ...coordinates]);
       if (image instanceof HTMLCanvasElement && coordinates.join(',') === '287,84,126,71') {
@@ -1916,7 +1945,6 @@ test('all six trail previews show cached gameplay without story artwork and keep
   for (const level of LEVELS) {
     await page.getByRole('button', { name: level.name, exact: true }).click();
     await expect(page.getByRole('button', { name: `Play ${level.name}`, exact: true })).toBeVisible();
-    await expect(canvas).toHaveAttribute('data-story-draws', '0');
     await expect(canvas).toHaveAttribute('data-landmark-draws', '6');
     expect(await canvas.evaluate(async (element) => {
       await new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve())));
@@ -1927,14 +1955,9 @@ test('all six trail previews show cached gameplay without story artwork and keep
     await info.attach(`${level.id}-map`, { body: await canvas.screenshot({ path: info.outputPath(`${level.id}-map.png`) }), contentType: 'image/png' });
   }
   await page.getByRole('button', { name: 'PLAINS', exact: true }).click();
-  await page.getByRole('button', { name: 'Replay story', exact: true }).click();
-  await expect(page.locator('#status')).toContainText('Story');
-  await expect(canvas).toHaveAttribute('data-story-draws', '1');
-  await expect(canvas).toHaveAttribute('aria-label', /prepare a picnic/);
-  await info.attach('story-replay', { body: await canvas.screenshot(), contentType: 'image/png' });
-  await page.getByRole('button', { name: 'Skip story', exact: true }).click();
+  await expect(page.getByRole('button', { name: 'Replay story', exact: true })).toHaveCount(0);
   await expect(page.locator('#status')).toContainText('Title');
-  await expect(canvas).toHaveAttribute('data-story-draws', '0');
+  expect(storyRequests).toEqual([]);
 });
 
 for (const viewport of [
@@ -1995,7 +2018,7 @@ test('title artwork failure recovers through the existing retry flow', async ({ 
   await expect(page.locator('#status')).toHaveText('Artwork could not load. Reload to retry.');
   await expect(page.locator('#retry')).toBeVisible();
   await page.unroute(path);
-  await retryAndDismiss(page);
+  await retryToMap(page);
   await expect(page.locator('#status')).toContainText('Adventure preview · Title');
   await expect(page.locator('#retry')).toBeHidden();
 });
@@ -2444,7 +2467,7 @@ for (const [index, level] of LEVELS.entries()) {
       await expect(canvas).toHaveAttribute('data-ribbon-marker', String(TRAIL_RIBBON.startX));
       expect(JSON.parse((await canvas.getAttribute('data-ribbon-checkpoints'))!).every((point: { filled: boolean }) => !point.filled)).toBe(true);
     } else await expect(page.getByRole('button', { name: 'Next trail', exact: true })).toHaveCount(0);
-    await reloadAndDismiss(page);
+    await reloadToMap(page);
     await expect(page.getByRole('button', { name: 'PLAINS', exact: true })).toHaveAttribute('aria-pressed', 'true');
     await expect(page.getByRole('button', { name: level.name, exact: true })).toHaveAttribute('aria-description', 'Ready to explore');
     await expect(canvas).toHaveAttribute('data-map-rewards', '[]');
@@ -2649,37 +2672,30 @@ for (const [index, level] of LEVELS.slice(0, 3).entries()) {
     await page.getByRole('button', { name: ['Replay', 'Next trail', 'Choose trail'][index], exact: true }).click();
     if (index === 2) await page.getByRole('button', { name: `Play ${level.name}`, exact: true }).click();
     await expect(page.locator('canvas')).toHaveAttribute('data-stars', 'STARS 0/3');
-    await reloadAndDismiss(page);
+    await reloadToMap(page);
     await page.getByRole('button', { name: 'Play PLAINS', exact: true }).click();
     await expect(page.locator('canvas')).toHaveAttribute('data-stars', 'STARS 0/3');
     expect(errors).toEqual([]);
   });
 }
 
-async function dismissOpening(page: Page): Promise<void> {
+/** Startup lands directly on the trail map (or the retry screen); never a picture story. */
+async function waitForMap(page: Page): Promise<void> {
   await expect(page.locator('#status')).not.toContainText('Loading artwork', { timeout: 15000 });
-  const skip = page.getByRole('button', { name: 'Skip story', exact: true });
-  if ((await page.locator('#status').innerText()).includes('Story')) {
-    await expect(skip).toBeVisible();
-    await skip.click();
-    await expect(page.locator('#status')).toContainText('Title');
-    await page.evaluate(() => new Promise<void>(resolve => {
-      requestAnimationFrame(() => requestAnimationFrame(() => resolve()));
-    })); // sample release even when rendering is deliberately delayed
-  }
+  await expect(page.locator('#status')).not.toContainText('Story');
 }
 async function openAdventure(page: Page, url: string): Promise<void> {
-  await page.goto(url); await dismissOpening(page);
+  await page.goto(url); await waitForMap(page);
 }
-async function reloadAndDismiss(page: Page): Promise<void> {
-  await page.reload(); await dismissOpening(page);
+async function reloadToMap(page: Page): Promise<void> {
+  await page.reload(); await waitForMap(page);
 }
 
-async function retryAndDismiss(page: Page): Promise<void> {
+async function retryToMap(page: Page): Promise<void> {
   // Retry reloads the document. Wait for that navigation before inspecting status,
   // otherwise the old error page can be mistaken for a finished loading screen.
   await Promise.all([page.waitForEvent('load'), page.locator('#retry').click()]);
-  await dismissOpening(page);
+  await waitForMap(page);
 }
 
 for (const level of LEVELS.slice(3)) {
@@ -2725,57 +2741,54 @@ for (const level of LEVELS.slice(3)) {
     await page.goto('/');
     await expect(page.locator('#status')).toHaveText('Artwork could not load. Reload to retry.');
     await page.unroute(path);
-    await retryAndDismiss(page);
+    await retryToMap(page);
     await expect(page.getByRole('button', { name: level.name, exact: true })).toBeVisible();
   });
 }
 
 
-test('picture story supports keyboard, pointer and controller without timed pages or repeated retries', async ({ page }, info) => {
+test('trail map supports keyboard, pointer and controller without timed screens or repeated starts', async ({ page }, info) => {
   await installTrailPilot(page);
   await page.goto('/?debug=1');
   const canvas = page.locator('canvas');
-  await expect(canvas).toHaveAttribute('aria-label', /prepare a picnic/);
-  await page.keyboard.press('m');
-  await page.keyboard.down('Space');
-  await expect(canvas).toHaveAttribute('aria-label', /Rain has broken/);
+  const status = page.locator('#status');
+  await waitForMap(page);
+  // Nothing advances on a timer: the map waits for the player.
   await page.waitForTimeout(500);
-  await expect(canvas).toHaveAttribute('aria-label', /Rain has broken/);
-  await page.keyboard.up('Space');
-  await page.getByRole('button', { name: 'Previous picture' }).click();
-  await expect(canvas).toHaveAttribute('aria-label', /prepare a picnic/);
+  await expect(status).toContainText('Title');
+  await expect(page.getByRole('button', { name: 'PLAINS', exact: true })).toHaveAttribute('aria-pressed', 'true');
+  await page.keyboard.press('m');
   await page.keyboard.press('Escape');
-  await expect(page.getByRole('button', { name: 'Skip story' })).toHaveCount(0);
+  await expect(status).toContainText('Paused');
+  await expect(page.getByRole('button', { name: 'Play PLAINS' })).toHaveCount(0);
   await page.keyboard.press('Escape');
-  await expect(page.getByRole('button', { name: 'Previous picture' })).toBeVisible();
+  await expect(status).toContainText('Title');
+  await page.getByRole('button', { name: 'QUARRY RUN', exact: true }).click();
+  await expect(page.getByRole('button', { name: 'Play QUARRY RUN' })).toBeVisible();
   await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
   await page.evaluate(() => {
     const state = window as unknown as { trailPilot: { controller: boolean }; trailPad: { buttons: { pressed: boolean }[] } };
-    state.trailPilot.controller = true; state.trailPad.buttons[15].pressed = true;
+    state.trailPilot.controller = true; state.trailPad.buttons[14].pressed = true;
   });
-  await expect(page.getByRole('button', { name: 'Next picture' })).toHaveAttribute('aria-pressed', 'true');
-  await page.evaluate(() => {
-    const pad = (window as unknown as { trailPad: { buttons: { pressed: boolean }[] } }).trailPad;
-    pad.buttons[15].pressed = false; pad.buttons[0].pressed = true;
-  });
-  await expect(canvas).toHaveAttribute('aria-label', /Rain has broken/);
-  await page.evaluate(() => { (window as unknown as { trailPad: { buttons: { pressed: boolean }[] } }).trailPad.buttons[0].pressed = false; });
-  await page.getByRole('button', { name: 'Skip story' }).click();
-  await expect(page.getByRole('button', { name: 'Play PLAINS' })).toBeVisible();
-  await page.evaluate(() => { (window as unknown as { trailPad: { buttons: { pressed: boolean }[] } }).trailPad.buttons[8].pressed = true; });
-  await expect(canvas).toHaveAttribute('aria-label', /prepare a picnic/);
-  await page.evaluate(() => { (window as unknown as { trailPad: { buttons: { pressed: boolean }[] } }).trailPad.buttons[8].pressed = false; });
-  await page.getByRole('button', { name: 'Skip story' }).click();
-  await page.getByRole('button', { name: 'Replay story', exact: true }).focus();
+  await expect(page.getByRole('button', { name: 'PLAINS', exact: true })).toHaveAttribute('aria-pressed', 'true');
+  await page.evaluate(() => { (window as unknown as { trailPad: { buttons: { pressed: boolean }[] } }).trailPad.buttons[14].pressed = false; });
+  // A held Space on a focused native control acts once and never also starts the selected trail.
+  await page.getByRole('button', { name: 'Open stickers', exact: true }).focus();
   await page.keyboard.down('Space');
-  await expect(canvas).toHaveAttribute('aria-label', /prepare a picnic/);
+  await expect(page.getByRole('button', { name: 'Return to map', exact: true })).toBeVisible();
   await page.waitForTimeout(200);
-  await expect(canvas).toHaveAttribute('aria-label', /prepare a picnic/);
+  await expect(status).not.toContainText('Playing');
   await page.keyboard.up('Space');
-  await page.getByRole('button', { name: 'Skip story' }).click();
-  await page.getByRole('button', { name: 'Play PLAINS' }).click();
-  await expect(page.locator('#status')).toContainText('Playing');
-  await info.attach('visual-goal', { body: await canvas.screenshot(), contentType: 'image/png' });
+  await page.getByRole('button', { name: 'Return to map', exact: true }).click();
+  await expect(page.getByRole('button', { name: 'Play PLAINS' })).toBeVisible();
+  await expect(status).toContainText('Title');
+  await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
+  await page.evaluate(() => { (window as unknown as { trailPad: { buttons: { pressed: boolean }[] } }).trailPad.buttons[0].pressed = true; });
+  await expect(status).toContainText('Playing');
+  await expect(status).toContainText('X 60');
+  await page.evaluate(() => { (window as unknown as { trailPad: { buttons: { pressed: boolean }[] } }).trailPad.buttons[0].pressed = false; });
+  await expect(canvas).toHaveAttribute('aria-label', /Letter bag|Tiny Turbo Trails game/);
+  await info.attach('map-start-play', { body: await canvas.screenshot(), contentType: 'image/png' });
 });
 
 test('celebration freezes for pause and focus, then accepts finish actions during playback', async ({ page }, info) => {
@@ -2796,6 +2809,22 @@ test('celebration freezes for pause and focus, then accepts finish actions durin
           window.dispatchEvent(new KeyboardEvent('keyup', { code: 'Escape' }));
         }
       }
+    };
+  });
+  await page.addInitScript(() => {
+    // Plains finishes like every trail: its landmark tile at the finish rect and the ordinary message.
+    const draw = CanvasRenderingContext2D.prototype.drawImage;
+    CanvasRenderingContext2D.prototype.drawImage = function (this: CanvasRenderingContext2D, ...args: unknown[]) {
+      const values = args as unknown as (number | HTMLImageElement)[];
+      if (values[0] instanceof HTMLImageElement && values[0].src.endsWith('/assets/overworld/landmarks.png') && values.slice(5).join(',') === '88,90,80,66') {
+        this.canvas.dataset.finishLandmark = `${values[1]},${values[2]}`;
+      }
+      return Reflect.apply(draw, this, args);
+    };
+    const text = CanvasRenderingContext2D.prototype.fillText;
+    CanvasRenderingContext2D.prototype.fillText = function (this: CanvasRenderingContext2D, value: string, ...rest: [number, number, number?]) {
+      if (/explored|friend|picture/i.test(value)) this.canvas.dataset.finishMessage = value;
+      return text.call(this, value, ...rest);
     };
   });
   await openAdventure(page, '/?debug=1');
@@ -2823,14 +2852,16 @@ test('celebration freezes for pause and focus, then accepts finish actions durin
   await page.evaluate(() => window.dispatchEvent(new Event('focus')));
   await expect(page.locator('#status')).toContainText('Finish');
   await expect(page.getByRole('button', { name: 'Replay', exact: true })).toBeVisible();
-  await page.getByRole('button', { name: 'View reunion picture', exact: true }).focus();
-  await page.keyboard.press('Space');
-  await expect(canvas).toHaveAttribute('aria-label', /high-five/);
-  await page.getByRole('button', { name: 'Return to results', exact: true }).click();
+  await expect(canvas).toHaveAttribute('data-finish-message', 'Another trail explored!');
+  await expect(canvas).toHaveAttribute('data-finish-landmark', '0,0');
+  await expect(page.getByRole('button', { name: 'View reunion picture', exact: true })).toHaveCount(0);
+  await expect(page.locator('.trail-menu button')).toHaveCount(3);
+  await page.keyboard.press('r');
   await expect(page.locator('#status')).toContainText('Finish');
+  await expect(canvas).toHaveAttribute('aria-label', 'Tiny Turbo Trails game');
+  await info.attach('plains-ordinary-finish', { body: await canvas.screenshot(), contentType: 'image/png' });
   await page.getByRole('button', { name: 'Replay', exact: true }).click();
   await expect(page.locator('#status')).toContainText('Playing');
-  await expect(page.getByRole('button', { name: 'Skip story' })).toHaveCount(0);
   await info.attach('replay-during-celebration', { body: await canvas.screenshot(), contentType: 'image/png' });
 });
 
@@ -2939,7 +2970,7 @@ for (const asset of ['slimes/slimes', 'gems/gems', 'spelling/pouch', 'spelling/t
   await expect(page.getByRole('button', { name: /Retry/i })).toBeVisible();
   await page.unroute(`**/assets/${asset}.png`);
   await Promise.all([page.waitForEvent('load'), page.getByRole('button', { name: /Retry/i }).click()]);
-  await dismissOpening(page);
+  await waitForMap(page);
   await expect(page.locator('#status')).toContainText('Title');
 });
 
@@ -2951,7 +2982,7 @@ for (const name of ['tile', 'frost-sticker']) test(`spelling ${name} artwork rej
   });
   await page.goto('/');
   await expect(page.locator('#retry')).toBeVisible();
-  await page.unroute(path); await retryAndDismiss(page);
+  await page.unroute(path); await retryToMap(page);
   await expect(page.locator('#status')).toContainText('Title');
 });
 
@@ -3111,7 +3142,7 @@ test('interface panel artwork rejects wrong dimensions and recovers through retr
   });
   await page.goto('/');
   await expect(page.locator('#retry')).toBeVisible();
-  await page.unroute(path); await retryAndDismiss(page);
+  await page.unroute(path); await retryToMap(page);
   await expect(page.locator('#status')).toContainText('Title');
 });
 
@@ -3362,8 +3393,7 @@ test('educational bag collects independent letters without early assembly or sti
   await page.getByRole('button', { name: 'Return to map', exact: true }).click();
   await page.getByRole('button', { name: 'Play TREETOP TIMBERS', exact: true }).click();
   await expect(page.locator('#status')).toContainText('Letter bag: 4/4');
-  await page.reload();
-  await page.getByRole('button', { name: 'Skip story', exact: true }).click();
+  await reloadToMap(page);
   await page.getByRole('button', { name: 'TREETOP TIMBERS', exact: true }).click();
   await page.getByRole('button', { name: 'Play TREETOP TIMBERS', exact: true }).click();
   await expect(page.locator('#status')).toContainText('Letter bag: 0/4');
@@ -3433,8 +3463,7 @@ for (const method of ['pointer', 'keyboard', 'controller'] as const) {
     else await close.click();
     await expect(close).toHaveCount(0);
     await expect(page.getByRole('button', { name: 'Play PLAINS', exact: true })).toBeVisible();
-    await page.reload();
-    await page.getByRole('button', { name: 'Skip story', exact: true }).click();
+    await reloadToMap(page);
     await expect(page.getByRole('button', { name: 'Open stickers', exact: true })).toHaveAttribute('aria-description', /0 of 6/);
     expect(await page.evaluate(() => ({ local: localStorage.length, session: sessionStorage.length }))).toEqual({ local: 0, session: 0 });
   });
@@ -3716,7 +3745,7 @@ for (const [index, level] of LEVELS.entries()) {
     await writeFile(recoveryPath, JSON.stringify(await page.evaluate(() => (window as unknown as { retracePilot: { recoveryHistory: unknown[] } }).retracePilot.recoveryHistory), null, 2));
     await info.attach('recovery-history', { path: recoveryPath, contentType: 'application/json' });
     expect(recoveries).toEqual([]);
-    await reloadAndDismiss(page);
+    await reloadToMap(page);
     await page.getByRole('button', { name: level.name, exact: true }).click();
     await page.getByRole('button', { name: `Play ${level.name}`, exact: true }).click();
     await expect(page.locator('#status')).toContainText('Letter bag: 0/4');

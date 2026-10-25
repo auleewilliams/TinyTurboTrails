@@ -47,7 +47,6 @@ if (!context) {
   let rumbleEnabled = true;
   let request = 0;
   let pendingJump = false;
-  let pendingStory = false;
   let educationRevision = 0;
   let ui: InterfaceKit | undefined;
   const educationScene = (): AdventureScene | undefined => scenes.activeScene instanceof AdventureScene ? scenes.activeScene : undefined;
@@ -68,7 +67,7 @@ if (!context) {
   const adventureStatus = (): string => {
     const scene = scenes.activeScene;
     if (!(scene instanceof AdventureScene)) return '';
-    canvas.setAttribute('aria-label', scene.storyDescription || scene.educationDescription || 'Tiny Turbo Trails game');
+    canvas.setAttribute('aria-label', scene.educationDescription || 'Tiny Turbo Trails game');
     const state = scene.screenState[0].toUpperCase() + scene.screenState.slice(1);
     return ` · ${state}${scene.educationDescription ? ` · ${scene.educationDescription}` : ''}${scene.screenState === 'finish' ? ` · Gems ${scene.gemTotal}/${scene.trailGemTotal}` : ''}${debugAdventure ? ` · X ${Math.round(scene.playerX)} Y ${Math.round(scene.playerY)} V ${Math.round(scene.playerVelocityX)} F ${scene.playerFacing}` : ''}`;
   };
@@ -84,7 +83,6 @@ if (!context) {
     if (!focused || userPaused) {
       input.clear();
       pendingJump = false;
-      pendingStory = false;
     }
     status.textContent = assetState === 'failed' ? 'Artwork could not load. Reload to retry.'
       : assetState === 'loading' ? 'Loading artwork…'
@@ -106,10 +104,10 @@ if (!context) {
     canvas.style.top = `${size.top}px`;
   };
   const clearGameplayInput = (): void => {
-    input.clear(); pendingJump = false; pendingStory = false;
+    input.clear(); pendingJump = false;
   };
   const resume = (): void => {
-    userPaused = false; pauseMenu.reset(); pendingJump = false; pendingStory = false; refreshPause();
+    userPaused = false; pauseMenu.reset(); pendingJump = false; refreshPause();
   };
   const pauseMenu = new PauseMenu(resume, () => {
     const scene = scenes.activeScene;
@@ -170,13 +168,12 @@ if (!context) {
       clock.setPaused(true);
       clearGameplayInput(); controls = input.poll(); educationRevision = nextEducationRevision; refreshPause();
     }
-    if (focused && !userPaused && !educationOpen) { pendingJump ||= controls.jumpPressed; pendingStory ||= controls.storyPressed ?? false; }
+    if (focused && !userPaused && !educationOpen) pendingJump ||= controls.jumpPressed;
     refreshRumble();
     clock.advance(now, (seconds) => {
-      scenes.update(seconds, { ...controls, jumpPressed: pendingJump, storyPressed: pendingStory });
+      scenes.update(seconds, { ...controls, jumpPressed: pendingJump });
       refreshRumble();
       pendingJump = false;
-      pendingStory = false;
     });
     if (assetState === 'ready' && focused && !userPaused && adventure) status.textContent = previewStatus();
     context.imageSmoothingEnabled = false;
@@ -212,13 +209,12 @@ if (!context) {
       loadWorldAssetMap(LEVELS.map(({ atlas }) => atlas)),
       loadImage(`${import.meta.env.BASE_URL}assets/overworld/landmarks.png`),
       loadImage(`${import.meta.env.BASE_URL}assets/overworld/background.png`),
-      loadImage(`${import.meta.env.BASE_URL}assets/story/patchwork-vale.png`),
       loadSpellingAssets(),
       loadInterfaceKit(),
-    ]).then(([titleArtwork, henry, worlds, landmarks, mapBackground, storyArtwork, spelling, kit]) => {
+    ]).then(([titleArtwork, henry, worlds, landmarks, mapBackground, spelling, kit]) => {
       if (disposed) return;
       ui = kit;
-      scenes.change(new AdventureScene(titleArtwork, henry, worlds, audio, DEFAULT_LEVEL, landmarks, mapBackground, storyArtwork, rumble, spelling, kit));
+      scenes.change(new AdventureScene(titleArtwork, henry, worlds, audio, DEFAULT_LEVEL, landmarks, mapBackground, rumble, spelling, kit));
       assetState = 'ready';
       refreshPause();
     }).catch(() => {

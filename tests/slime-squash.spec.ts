@@ -45,7 +45,6 @@ for (const controller of [false, true]) {
       });
     }, controller);
     await page.goto('/?debug=1');
-    await page.getByRole('button', { name: 'Skip story', exact: true }).click();
     await page.getByRole('button', { name: 'Play PLAINS', exact: true }).click();
     await page.locator('canvas').screenshot({ path: info.outputPath('slime-upright.png') });
     await page.evaluate(() => { (window as unknown as { squashPilot: { active: boolean } }).squashPilot.active = true; });

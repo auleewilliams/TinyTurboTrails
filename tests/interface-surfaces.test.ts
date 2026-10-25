@@ -157,10 +157,10 @@ it('ribbon and bag backings use the plaque, while the pouch and ribbon marks sta
   expect(bounds(bag.draws, 'plaque')).toEqual(BAG_PLAQUE);
 });
 
-it('overworld info panel, Play, Stickers and story controls use the kit at their native target bounds', () => {
+it('overworld info panel, Play and Stickers use the kit at their native target bounds with no story control', () => {
   const { ctx, draws, text } = recordingContext();
   drawOverworld(ctx, LEVELS, 0, new TrailSession().results, { naturalWidth: 1, naturalHeight: 1 } as HTMLImageElement, {} as HTMLImageElement,
-    undefined, undefined, undefined, kit, true);
+    undefined, undefined, undefined, kit);
   const { panel, play, preview } = OVERWORLD_LAYOUT;
   expect(bounds(draws, 'plaque', panel)).toEqual(panel);
   // The trail preview sits inside the plaque's interior, never over its border.
@@ -168,6 +168,8 @@ it('overworld info panel, Play, Stickers and story controls use the kit at their
   expect(inside(preview, { x: panel.x + inset.left, y: panel.y + inset.top, width: panel.width - inset.left - inset.right, height: panel.height - inset.top - inset.bottom })).toBe(true);
   expect(bounds(draws, 'button-selected', play)).toEqual(play);
   expect(bounds(draws, 'button', OVERWORLD_LAYOUT.stickers)).toEqual(OVERWORLD_LAYOUT.stickers);
-  expect(bounds(draws, 'button', OVERWORLD_LAYOUT.story)).toEqual(OVERWORLD_LAYOUT.story);
+  // The former story control (367, 7, 47×29) is gone: no kit piece is drawn right of Stickers.
+  const stickersRight = OVERWORLD_LAYOUT.stickers.x + OVERWORLD_LAYOUT.stickers.width;
+  expect(draws.filter(draw => draw.rect[0] >= stickersRight && draw.rect[1] < panel.y)).toEqual([]);
   expect(text.map(line => line.text)).toContain('PLAY');
 });

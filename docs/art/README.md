@@ -175,7 +175,7 @@ Issue #170 removed the in-level text signboards and posts, retaining the stars
 and gold terrain markings.
 
 
-## Henry celebration and illustrated story
+## Henry celebration and retired illustrated story
 
 Henry's required `celebrate` clip appends eight frames to the runtime atlas while
 preserving the original sixteen gameplay cells. Its normal preview is
@@ -184,9 +184,9 @@ four-animation preview remains unchanged at `/?scene=art`.
 
 The [celebration provenance](../../assets/source/henry/celebration/PROVENANCE.md)
 and [story provenance](../../assets/source/story/PROVENANCE.md) retain exact
-prompts, source art and reproducible packaging. The
-[storyboard](../patchwork-vale-story.md) explains how pictures connect opening,
-map, Plains goal and finish. Captions remain separate from the art.
+prompts and source art. Since #195 the game starts on the map and the processed
+story sheet is no longer shipped; the source artwork is retained as history.
+The [current premise](../patchwork-vale-story.md) needs no story art.
 
 ## Shared ordinary gems (#145)
 

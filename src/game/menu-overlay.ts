@@ -39,7 +39,7 @@ export class MenuOverlay {
     }, true);
   }
   update(scene: AdventureScene | undefined, paused: boolean, pauseTargets: MenuTarget[] = []): void {
-    document.body.classList.toggle('map-visible', (scene?.screenState === 'title' || scene?.screenState === 'story' || scene?.screenState === 'finish') && !paused);
+    document.body.classList.toggle('map-visible', (scene?.screenState === 'title' || scene?.screenState === 'finish') && !paused);
     const activityOpen = Boolean(scene?.educationOverlay.open && !paused);
     if (paused || !scene?.educationOverlay.open) this.cancelDrag();
     const targets = paused ? pauseTargets : scene?.menuTargets ?? [];
