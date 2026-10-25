@@ -79,6 +79,46 @@ local server in the sandbox; permitted runs retained the actual RED/GREEN traces
 No test coverage, retry, assertion or timeout was weakened. Inherited #162 capture
 paths now write to cohort output rather than rewriting historical tracked images.
 
+## PR227 review revision
+
+The initial fresh Claude Code / `claude-opus-5-5` review of `b3c1fc6` completed
+(session `3caec2ad-f001-4c47-84ed-19fb00286e6b`) with one blocker: this PR had
+modernized rows in the historical, waived manual worksheet. The review found no
+blocking runtime defect and refuted the old-key-repeat concern. This revision
+restores `docs/RELEASE-MANUAL-CHECKLIST.md` byte-for-byte from base
+`4bdc723ba2a3d303e1ee51d87070f70d3a4c020d`, including its existing historical
+scope. It does not correct older worksheet drift or certify new manual checks.
+Current control instructions remain in README and gameplay/audio requirements.
+
+Two bounded browser characterizations now cover real Tab navigation to Pause
+with Space and Enter held across native focus onto Resume, repeats and keyup,
+unchanged settings, and fresh Resume with 30 subsequent frames checked for a
+transient jump. Two more cases exercise an old ArrowRight held through
+Pause and Escape or native Enter-on-Resume, observe normal braking after Resume,
+then verify a repeat before keyup cannot restart movement. A released and fresh
+press must move. The existing direct-focus/Enter witness is retained unchanged.
+These characterize already-correct behavior; they are not new RED/GREEN fixes.
+
+Revision results (raw reports, per-case native key JSONL and frame observations
+are in `m7-214-revision-evidence/`, outside the checkout):
+
+| Command / probe | Observed result |
+| --- | --- |
+| `npx playwright test --workers=1 --grep 'pause characterization:'` | 12/12 pass across Chromium, Firefox and WebKit; zero skips/retries |
+| Focused input/pause/HUD/frame/feedback/interface unit suite, one worker | 6 files, 70/70 pass |
+| `npm run typecheck` | Pass |
+| Isolated actual-source repeat-guard removal, one Chromium case | Expected sensitivity failure: repeat restarted velocity at 31 instead of 0; candidate code never mutated |
+| Historical checklist comparison and runtime/bundle/PNG/provenance hashes | Exact base checklist; all 106 snapshotted immutable files unchanged |
+
+The sensitivity copy retained the actual application, assets and Vite settings;
+only BrowserInput's repeat early-return was removed from its application source.
+Its failed trace, mutation patch and bundle remain isolated evidence, and its
+copied source was restored after the check. No original failure or previous
+cohort was erased. No full local browser matrix, full unit/scripts rerun or
+candidate build was needed for this tests/docs-only revision. The accepted eight
+PNGs, capture origins and source/build/image provenance bytes are unchanged.
+The original 66/5/1 candidate cohort above remains historical evidence.
+
 ## Limits and remaining gates
 
 Controller input and rumble actuator calls are simulated; they are not physical
@@ -87,6 +127,8 @@ headphone listening. No owner/child navigation, installed desktop browser matrix
 physical fullscreen/device acceptance or phone/touch policy was performed. #213's
 unobserved owner/child gate is unchanged. No historical dated worksheet is updated.
 
-Fresh independent Claude Code / Opus 5.5 review, full PR CI and artifact/source/
-count/skip verification belong to the coordinator. Pending CI is not green. No
+The initial review's docs-only blocker is addressed here; fresh re-review and
+new-head full PR CI/artifact/source/count/skip verification remain with the
+coordinator. CI run `40207087818` belongs to the earlier `b3c1fc6` head and cannot
+approve this revision. Pending CI is not green. No
 merge, issue closure, deployment, release or #215 work is authorized to this worker.

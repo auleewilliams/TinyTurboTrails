@@ -4756,3 +4756,132 @@ test('pause settings controller states survive navigation, disconnect, visibilit
   expect(glyphs.checked).toEqual(expect.arrayContaining(['Sound: On|button', 'Sound: Off|button-selected', 'Rumble: Off|button-selected']));
   expect(glyphs.violations).toEqual([]);
 });
+
+/** Observe the real app after each rendered frame, without changing its clock/input/scene. */
+async function pauseCharacterizationFrames(page: Page, count: number) {
+  return page.evaluate(count => new Promise<{ status: string; x: number | null; y: number | null; velocity: number | null; focus: string | null }[]>(resolve => {
+    const frames: { status: string; x: number | null; y: number | null; velocity: number | null; focus: string | null }[] = [];
+    const sample = () => {
+      const status = document.querySelector('#status')!.textContent!;
+      const position = status.match(/X (-?\d+) Y (-?\d+) V (-?\d+)/);
+      frames.push({ status, x: position ? Number(position[1]) : null, y: position ? Number(position[2]) : null,
+        velocity: position ? Number(position[3]) : null, focus: document.activeElement?.getAttribute('aria-label') ?? document.activeElement?.id ?? null });
+      if (frames.length === count) resolve(frames);
+      else requestAnimationFrame(sample);
+    };
+    requestAnimationFrame(sample);
+  }), count);
+}
+
+async function installPauseCharacterizationKeys(page: Page): Promise<void> {
+  await page.addInitScript(() => {
+    const events: { type: string; code: string; repeat: boolean; target: string | null }[] = [];
+    Object.assign(window, { pauseCharacterizationKeys: events });
+    for (const type of ['keydown', 'keyup']) window.addEventListener(type, event => {
+      const key = event as KeyboardEvent;
+      const target = key.target instanceof Element ? key.target : null;
+      events.push({ type, code: key.code, repeat: key.repeat, target: target?.getAttribute('aria-label') ?? target?.id ?? null });
+    }, true);
+  });
+}
+
+for (const key of ['Space', 'Enter'] as const) {
+  test(`pause characterization: real Tab and held ${key} enter Pause without activating Resume or settings`, async ({ page, browser }, info) => {
+    await installPauseCharacterizationKeys(page);
+    await openAdventure(page, '/?debug=1');
+    await page.getByRole('button', { name: 'Play PLAINS', exact: true }).click();
+    const canvas = page.locator('#game');
+    const pause = page.getByRole('button', { name: 'Pause', exact: true });
+    const resume = page.getByRole('button', { name: 'Resume', exact: true });
+    const sound = page.getByRole('button', { name: 'Sound', exact: true });
+    const rumble = page.getByRole('button', { name: 'Controller rumble', exact: true });
+    const standing = (await pauseCharacterizationFrames(page, 30)).at(-1)!;
+    expect(standing.status).toContain('Playing'); expect(standing.velocity).toBe(0);
+    await canvas.focus();
+    await page.keyboard.press('Tab');
+    await expect(pause).toBeFocused();
+    await page.keyboard.down(key);
+    await expect(resume).toBeFocused();
+    const paused = [];
+    for (let repeat = 0; repeat < 3; repeat++) {
+      await page.keyboard.down(key);
+      paused.push(...await pauseCharacterizationFrames(page, 6));
+      await expect(resume).toBeFocused();
+      await expect(sound).toHaveAttribute('aria-pressed', 'true');
+      await expect(rumble).toHaveAttribute('aria-pressed', 'true');
+    }
+    await page.keyboard.up(key);
+    paused.push(...await pauseCharacterizationFrames(page, 6));
+    for (const frame of paused) {
+      expect(frame.status).toBe('Paused · Escape to resume'); expect(frame.focus).toBe('Resume');
+    }
+    await expect(sound).toHaveAttribute('aria-pressed', 'true');
+    await expect(rumble).toHaveAttribute('aria-pressed', 'true');
+    // Only a fresh activation may Resume. Watch subsequent frames for transient jumps.
+    await page.keyboard.press(key);
+    await expect(canvas).toBeFocused();
+    const resumed = await pauseCharacterizationFrames(page, 30);
+    for (const frame of resumed) {
+      expect(frame.status).toContain('Playing'); expect(frame.focus).toBe('Letter bag: 0/4');
+      expect([frame.x, frame.y, frame.velocity]).toEqual([standing.x, standing.y, 0]);
+    }
+    const events = await page.evaluate(() => (window as unknown as {
+      pauseCharacterizationKeys: { type: string; code: string; repeat: boolean; target: string | null }[];
+    }).pauseCharacterizationKeys);
+    expect(events).toEqual(expect.arrayContaining([
+      expect.objectContaining({ type: 'keydown', code: key, repeat: false, target: 'Pause' }),
+      expect.objectContaining({ type: 'keydown', code: key, repeat: true, target: 'Resume' }),
+      expect.objectContaining({ type: 'keyup', code: key, target: 'Resume' }),
+      expect.objectContaining({ type: 'keydown', code: key, repeat: false, target: 'Resume' }),
+    ]));
+    await writeFile(info.outputPath('native-key-events.jsonl'), events.map(event => JSON.stringify(event)).join('\n') + '\n');
+    await info.attach('native-key-events', { path: info.outputPath('native-key-events.jsonl'), contentType: 'application/x-ndjson' });
+    await info.attach('characterization-frames', { body: JSON.stringify({ engine: info.project.name, browser: browser.version(), key, standing, paused, resumed }), contentType: 'application/json' });
+  });
+}
+
+for (const method of ['Escape', 'Enter on Resume'] as const) {
+  test(`pause characterization: old held ArrowRight stays released after ${method} until a fresh press`, async ({ page, browser }, info) => {
+    await installPauseCharacterizationKeys(page);
+    await openAdventure(page, '/?debug=1');
+    await page.getByRole('button', { name: 'Play PLAINS', exact: true }).click();
+    const standing = (await pauseCharacterizationFrames(page, 30)).at(-1)!;
+    await page.keyboard.down('ArrowRight');
+    await expect.poll(async () => Number((await page.locator('#status').innerText()).match(/X (\d+)/)?.[1])).toBeGreaterThan(standing.x! + 5);
+    // The old Right remains physically held throughout entry, Resume and repeat.
+    await page.keyboard.press('Escape');
+    await expect(page.getByRole('button', { name: 'Resume', exact: true })).toBeFocused();
+    await pauseCharacterizationFrames(page, 6);
+    await page.keyboard.press(method === 'Escape' ? 'Escape' : 'Enter');
+    await expect(page.locator('#game')).toBeFocused();
+    const transition = await pauseCharacterizationFrames(page, 30);
+    for (const frame of transition) {
+      expect(frame.status).toContain('Playing'); expect(frame.y).toBe(standing.y);
+    }
+    // Existing player inertia may brake after Resume; it must settle without a
+    // new movement edge. The repeat itself must cause no further movement.
+    const settled = transition.at(-1)!;
+    expect(settled.velocity).toBe(0);
+    await page.keyboard.down('ArrowRight'); // Playwright emits repeat:true, before keyup.
+    const repeated = await pauseCharacterizationFrames(page, 24);
+    for (const frame of repeated) expect([frame.x, frame.y, frame.velocity]).toEqual([settled.x, settled.y, 0]);
+    await page.keyboard.up('ArrowRight');
+    const released = await pauseCharacterizationFrames(page, 6);
+    for (const frame of released) expect([frame.x, frame.y, frame.velocity]).toEqual([settled.x, settled.y, 0]);
+    await page.keyboard.down('ArrowRight');
+    const fresh = await pauseCharacterizationFrames(page, 12);
+    await page.keyboard.up('ArrowRight');
+    expect(fresh.at(-1)!.x).toBeGreaterThan(settled.x! + 5);
+    expect(fresh.some(frame => frame.velocity! > 0)).toBe(true);
+    const events = await page.evaluate(() => (window as unknown as {
+      pauseCharacterizationKeys: { type: string; code: string; repeat: boolean; target: string | null }[];
+    }).pauseCharacterizationKeys);
+    const arrows = events.filter(event => event.code === 'ArrowRight');
+    expect(arrows.map(({ type, repeat }) => [type, repeat])).toEqual([
+      ['keydown', false], ['keydown', true], ['keyup', false], ['keydown', false], ['keyup', false],
+    ]);
+    await writeFile(info.outputPath('native-key-events.jsonl'), events.map(event => JSON.stringify(event)).join('\n') + '\n');
+    await info.attach('native-key-events', { path: info.outputPath('native-key-events.jsonl'), contentType: 'application/x-ndjson' });
+    await info.attach('characterization-frames', { body: JSON.stringify({ engine: info.project.name, browser: browser.version(), method, standing, transition, settled, repeated, released, fresh }), contentType: 'application/json' });
+  });
+}
