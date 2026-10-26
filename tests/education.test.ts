@@ -92,7 +92,7 @@ it('collects on Timbers and retains education through health/pit recovery, repla
 it('does not cross-collect Timbers identities when collecting on Plains', () => {
   const { scene, live } = timbers();
   scene.returnToTrails(); scene.selectDestination(0); scene.startSelected();
-  Object.assign(live.player, { x: LETTER_PICKUPS[0].x, y: surfaceY(LEVELS[0], LETTER_PICKUPS[0].x) - 34, onGround: true });
+  Object.assign(live.player, { x: scene.education.pickups[0].x, y: surfaceY(LEVELS[0], scene.education.pickups[0].x) - 34, onGround: true });
   scene.update(1 / 60, neutral);
   expect(scene.education.letterCount).toBe(1);
   expect(scene.education.hasLetter(LETTER_PICKUPS[0].id)).toBe(false);

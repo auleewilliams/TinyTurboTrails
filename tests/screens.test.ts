@@ -177,11 +177,15 @@ it('returns to the latest checkpoint after three unavoided hits', () => {
   const scene = new AdventureScene({} as HTMLImageElement, {} as never, worlds, audio, PLAINS_LEVEL);
   const input = { horizontal: 1, jumpHeld: false, jumpPressed: false, pausePressed: false, mutePressed: false };
   scene.update(1 / 60, { ...input, horizontal: 0, jumpPressed: true });
-  for (let frame = 0; frame < 60 * 30 && effects.filter((effect) => effect === 'damage').length < 3; frame++) {
-    scene.update(1 / 60, input);
+  let direction = 1, hits = 0;
+  for (let frame = 0; frame < 60 * 60 && effects.filter(effect => effect === 'damage').length < 3; frame++) {
+    const count = effects.filter(effect => effect === 'damage').length;
+    if (count > hits) { direction = -1; hits = count; }
+    if (scene.playerX < 1500) direction = 1;
+    scene.update(1 / 60, { ...input, horizontal: direction });
   }
   const run = (scene as unknown as { run: import('../src/game/interactions').RunState }).run;
-  const checkpoint = PLAINS_LEVEL.checkpoints[0];
+  const checkpoint = PLAINS_LEVEL.checkpoints[1];
   expect(effects.filter((effect) => effect === 'damage')).toHaveLength(3);
   expect(run.checkpointId).toBe(checkpoint.id);
   expect(scene.playerX).toBe(checkpoint.x);

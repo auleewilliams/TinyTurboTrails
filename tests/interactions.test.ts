@@ -130,14 +130,16 @@ describe('in-memory run interactions', () => {
   });
 
   it('tracks springs independently and clears contact when recovering', () => {
-    const run = createRun(PLAINS_LEVEL);
+    // A two-spring fixture keeps the shared contact guard covered after Plains retires its repeats.
+    const level = { ...PLAINS_LEVEL, entities: [...PLAINS_LEVEL.entities, { ...PLAINS_LEVEL.entities.find(e => e.kind === 'spring')!, id: 'spring-002', x: 2600, y: surfaceY(PLAINS_LEVEL, 2600) }] };
+    const run = createRun(level);
     const henry = player();
     const log = events();
     applySpring(run, henry, 'spring-001', log);
     applySpring(run, henry, 'spring-002', log);
     applySpring(run, henry, 'spring-001', log);
     expect(log.map((event) => event.type)).toEqual(['spring', 'spring']);
-    recoverFromFall(run, henry, log, PLAINS_LEVEL);
+    recoverFromFall(run, henry, log, level);
     applySpring(run, henry, 'spring-001', log);
     expect(log.map((event) => event.type)).toEqual(['spring', 'spring', 'recover', 'spring']);
   });
@@ -163,10 +165,10 @@ describe('in-memory run interactions', () => {
     const run = createRun(PLAINS_LEVEL);
     const henry = player();
     const log = events();
-    activateCheckpoint(run, 'checkpoint-cave', log);
+    activateCheckpoint(run, 'checkpoint-orchard', log);
     henry.x = 2000; henry.y = -300; henry.vx = 200; henry.vy = 900;
     recoverFromFall(run, henry, log, PLAINS_LEVEL);
-    const checkpoint = PLAINS_LEVEL.checkpoints.find((candidate) => candidate.id === 'checkpoint-cave')!;
+    const checkpoint = PLAINS_LEVEL.checkpoints.find((candidate) => candidate.id === 'checkpoint-orchard')!;
     expect(henry.x).toBe(checkpoint.x);
     expect(henry.y).toBe(checkpoint.y - DEFAULT_MOVEMENT.height);
     expect(henry.vx).toBe(0);

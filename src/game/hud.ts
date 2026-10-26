@@ -102,7 +102,7 @@ export function drawTrailRibbon(ctx: CanvasRenderingContext2D, progress: TrailPr
   ctx.restore();
 }
 const AREAS: Record<string, readonly string[]> = {
-  plains: ['Meadow', 'Hillside', 'Canyon', 'Cave', 'Orchard', 'Summit'],
+  plains: ['Big downhill', 'Orchard bumps', 'Spring hill', 'Final climb'],
   quarry: ['Quarry entrance', 'Stone terraces', 'Deep pit', 'Tunnels', 'Burrows', 'Crusher crossing', 'Quarry summit'],
   timbers: ['Lumber yard', 'Old bridge', 'Canopy', 'Crane crossing', 'Lookout', 'Sunset trail'],
   sunset: ['Site gate', 'Girders', 'Work yard', 'Trench', 'Scaffolds', 'Site summit', 'Home stretch'],

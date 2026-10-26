@@ -1,3 +1,4 @@
+import { installPlainsRewardPilot } from './plains-pilot';
 import { drawTerrainMaterial, drawTerrainEdge, drawTrailBackdrop } from '../src/world/trail-presentation';
 import { installRetracePilotScript } from './retrace-pilot';
 import { observedDamage, type ActuatorCall, type HealthObservation } from './rumble-observation';
@@ -880,9 +881,11 @@ test('adventure flashes the sprite after damage without a rectangular overlay', 
       fill.call(this, x, y, width, height);
     };
   });
+  await page.setViewportSize({ width: 426, height: 300 });
   await openAdventure(page, '/?scene=adventure&debug=1');
   await expect(page.locator('#status')).toContainText('Title');
-  await page.keyboard.press('Space');
+  await page.getByRole('button', { name: 'QUARRY RUN', exact: true }).click();
+  await page.getByRole('button', { name: 'Play QUARRY RUN', exact: true }).click();
   await page.keyboard.down('ArrowRight');
   await expect(page.locator('canvas')).toHaveAttribute('data-hit-sprite', /tinted/, { timeout: 5000 });
   await page.keyboard.up('ArrowRight');
@@ -890,9 +893,11 @@ test('adventure flashes the sprite after damage without a rectangular overlay', 
 });
 
 test('adventure HUD shows three hearts and empties one after damage', async ({ page }) => {
+  await page.setViewportSize({ width: 426, height: 300 });
   await openAdventure(page, '/?scene=adventure&debug=1');
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
-  await page.keyboard.press('Space');
+  await page.getByRole('button', { name: 'QUARRY RUN', exact: true }).click();
+  await page.getByRole('button', { name: 'Play QUARRY RUN', exact: true }).click();
   await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
   const canvas = page.locator('canvas');
   const readPips = async (): Promise<number[][]> => canvas.evaluate((element) => {
@@ -911,21 +916,28 @@ test('adventure HUD shows three hearts and empties one after damage', async ({ p
 });
 
 test('a patrolling slime keeps moving while Henry stands still', async ({ page }) => {
+  await page.setViewportSize({ width: 426, height: 300 });
   await openAdventure(page, '/?scene=adventure&debug=1');
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
-  await page.keyboard.press('Space');
+  await page.getByRole('button', { name: 'QUARRY RUN', exact: true }).click();
+  await page.getByRole('button', { name: 'Play QUARRY RUN', exact: true }).click();
   await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
-  // Henry never moves, so the camera stays at x=0 and only slime-001's patrol
-  // (230-345 on the first ramp) can change this strip of the frame.
+  await page.keyboard.down('ArrowRight');
+  await expect.poll(async () => Number((await page.locator('#status').innerText()).match(/X (\d+)/)?.[1]), { timeout: 5000, intervals: [30] }).toBeGreaterThan(750);
+  await page.keyboard.up('ArrowRight');
+  await page.waitForTimeout(250);
+  const stationaryX = Number((await page.locator('#status').innerText()).match(/X (\d+)/)?.[1]);
+  // Henry now stands beside the first Quarry slime; only the patrol moves.
+  // With Henry stationary, the visible Quarry slime patrol changes this strip.
   const signature = async (): Promise<number> => page.locator('canvas').evaluate((element) => {
-    const pixels = (element as HTMLCanvasElement).getContext('2d')!.getImageData(200, 110, 180, 90).data;
+    const pixels = (element as HTMLCanvasElement).getContext('2d')!.getImageData(290, 110, 130, 90).data;
     let sum = 0;
     for (let i = 0; i < pixels.length; i += 4) sum += pixels[i] * 3 + pixels[i + 1] * 5 + pixels[i + 2] * 7;
     return sum;
   });
   const before = await signature();
   await expect.poll(signature, { timeout: 5000 }).not.toBe(before);
-  expect(Number((await page.locator('#status').innerText()).match(/X (\d+)/)?.[1] ?? -1)).toBe(60);
+  expect(Number((await page.locator('#status').innerText()).match(/X (\d+)/)?.[1] ?? -1)).toBe(stationaryX);
 });
 
 test('Henry faces the direction of travel, including after reversing while moving', async ({ page }) => {
@@ -1273,7 +1285,7 @@ test('adventure can complete the forgiving route and replay directly with a fres
   await page.keyboard.press('Space');
   await expect(page.locator('#status')).toContainText('Adventure preview · Playing', { timeout: 15000 });
   await page.keyboard.down('ArrowRight');
-  // The extended route (issue #45) takes well over a minute of held-right real time.
+  // The compact Plains route retains ordinary held-right traversal.
   // Jump near hazards so health loss does not intentionally return the run to a checkpoint.
   const progress = { index: 0 };
   const dangers = dangerXs(PLAINS_LEVEL);
@@ -1548,9 +1560,7 @@ test('controller jump works mid-gameplay via any face button, not just at the ti
 });
 
 test('all checkpoints activate along the ground route and render planted markers', { lock: 'native-route' }, async ({ page }, info) => {
-  // The extended route (issue #45) spreads six checkpoints across ~9,800px real
-  // held-right travel, so this needs a much larger budget than the original
-  // three-checkpoint level did.
+  // Observe every current Plains flag through real held-right traversal.
   test.setTimeout(200_000);
   // Observe the visible HUD without adding test-only state to the game.
   await page.addInitScript(() => {
@@ -1777,7 +1787,7 @@ test('ground scenery and slimes draw their opaque bases at terrain height', asyn
     }
     expect(call[5] + bases[entity.asset], entity.id).toBeCloseTo(surfaceY(PLAINS_LEVEL, drawnX), 5);
   });
-  // Frame the first slime on its ramp and the first tree on the meadow.
+  // Frame the new meadow rollers; the input-route captures separately show the orchard slime.
   await page.keyboard.down('ArrowRight');
   await expect.poll(async () => Number((await page.locator('#status').innerText()).match(/X (\d+)/)?.[1] ?? 0),
     { timeout: 5000, intervals: [30] }).toBeGreaterThan(320);
@@ -2684,7 +2694,7 @@ for (const [index, level] of LEVELS.slice(0, 3).entries()) {
     const errors: string[] = [];
     page.on('pageerror', error => errors.push(error.message));
     await page.addInitScript(({ id, dangers }) => {
-      const pilot = { active: false, pauseAt: 0, frozen: false, lastX: 0, index: 0, jumpUntil: 0, docked: false, rode: false, time: 0, signboards: [] as string[] };
+      const pilot = { active: false, pauseAt: 0, frozen: false, lastX: 0, index: 0, jumpUntil: 0, docked: false, rode: false, time: 0, signboards: [] as string[], downhill: false };
       Object.assign(window, { starPilot: pilot });
       const originalText = CanvasRenderingContext2D.prototype.fillText;
       CanvasRenderingContext2D.prototype.fillText = function (text, x, y, maxWidth) {
@@ -2708,6 +2718,15 @@ for (const [index, level] of LEVELS.slice(0, 3).entries()) {
           pilot.lastX = x;
           if (dangers[pilot.index] !== undefined && x >= dangers[pilot.index] - 65) {
             pilot.jumpUntil = pilot.time + 400; pilot.index++;
+          }
+          if (id === 'plains') {
+            if (!pilot.downhill && x >= 1065) { pilot.downhill = true; pilot.jumpUntil = pilot.time + 400; }
+            const collected = Number((document.querySelector('canvas')?.dataset.stars ?? '').match(/^(\d+)/)?.[1] ?? 0);
+            if (x >= 1840 && collected < 2) {
+              const stop = x + Math.sign(vx) * vx ** 2 / 2400;
+              horizontal = stop < 1927 ? 1 : stop > 1933 ? -1 : 0;
+              if (Math.abs(x - 1930) < 6 && y + 34 >= 222 && pilot.time >= pilot.jumpUntil) pilot.jumpUntil = pilot.time + 400;
+            }
           }
           if (id === 'quarry' && x > 2250 && !pilot.docked) {
             const stop = x + Math.sign(vx) * vx ** 2 / 2400;
@@ -2740,25 +2759,28 @@ for (const [index, level] of LEVELS.slice(0, 3).entries()) {
         }
         // Match the existing input pilot's accelerated wall clock outside the
         // challenge area; the production clock still integrates fixed steps.
-        const near = id === 'plains' ? x > 600 && x < 900 : id === 'quarry' ? x > 2200 && x < 2700
+        const near = id === 'plains' ? [[1000, 1320], [1650, 2030], [2680, 3100]].some(([l, r]) => x > l && x < r) : id === 'quarry' ? x > 2200 && x < 2700
           : [[850, 1180], [4750, 5120], [8300, 8680]].some(([left, right]) => x > left && x < right);
         pilot.time += Math.min(now - (last || now), 32) * (near ? 1 : 4); last = now;
         callback(pilot.time);
       });
     }, { id: level.id, dangers: dangerXs(level) });
+    await page.setViewportSize({ width: 426, height: 300 });
     await openAdventure(page, '/?debug=1');
+    expect((await page.locator('canvas').boundingBox())!.width).toBe(426);
     await page.getByRole('button', { name: level.name, exact: true }).click();
     await page.getByRole('button', { name: `Play ${level.name}`, exact: true }).click();
     await expect(page.locator('canvas')).toHaveAttribute('data-stars', '0/3');
-    const stops = index === 0 ? [620, 845] : index === 1 ? [2290, 2490] : [910, 1140, 4800, 4970, 8350, 8570];
+    const stops = index === 0 ? [1300, 1990, 2940] : index === 1 ? [2290, 2490] : [910, 1140, 4800, 4970, 8350, 8570];
     const capture = async (name: string): Promise<void> => {
       for (const width of [426, 320]) {
-        await page.setViewportSize({ width, height: 240 });
+        await page.setViewportSize({ width, height: width === 426 ? 300 : 240 });
         await page.waitForTimeout(50);
         await page.screenshot({ path: info.outputPath(`${level.id}-${name}-${width}.png`) });
         await info.attach(`${name}-${width}`, { path: info.outputPath(`${level.id}-${name}-${width}.png`), contentType: 'image/png' });
       }
-      await page.setViewportSize({ width: 1366, height: 768 });
+      await page.setViewportSize({ width: 426, height: 300 });
+      expect((await page.locator('canvas').boundingBox())!.width).toBe(426);
     };
     for (const x of stops) {
       await page.evaluate(x => {
@@ -2774,7 +2796,7 @@ for (const [index, level] of LEVELS.slice(0, 3).entries()) {
     await expect(page.locator('canvas')).toHaveAttribute('data-stars', '3/3');
     expect(await page.evaluate(() => (window as unknown as { starPilot: { signboards: string[] } }).starPilot.signboards)).toEqual([]);
     for (const width of [426, 320]) {
-      await page.setViewportSize({ width, height: 240 });
+      await page.setViewportSize({ width, height: width === 426 ? 300 : 240 });
       await page.screenshot({ path: info.outputPath(`${level.id}-finish-${width}.png`) });
       await info.attach(`finish-${width}`, { path: info.outputPath(`${level.id}-finish-${width}.png`), contentType: 'image/png' });
       for (const label of ['Next trail', 'Map', 'Build your word', 'Replay']) await expect(page.getByRole('button', { name: label, exact: true })).toBeVisible();
@@ -3982,7 +4004,7 @@ for (const [index, level] of LEVELS.entries()) {
     const config = TRAIL_WORDS[index];
     await observeSpellingArtwork(page);
     await observeKitTextClearance(page);
-    // Plains' first slime jump overlaps H; miss I on its separate clear approach.
+    // Miss I on its clear descent; the compact Plains H is now beyond the rollers.
     const skippedSlot = index === 0 ? 1 : 0;
     const labelFor = (slot: number): string => {
       const pickup = config.pickups[slot], duplicates = config.pickups.filter(p => p.letter === pickup.letter);
@@ -4031,6 +4053,11 @@ for (const [index, level] of LEVELS.entries()) {
         for (const sprite of Object.values(artwork) as { smoothing: boolean }[]) expect(sprite.smoothing).toBe(false);
         const path = info.outputPath(`${level.id}-${state}-${width}.png`);
         await page.screenshot({ path }); await info.attach(`${state}-${width}`, { path, contentType: 'image/png' });
+      }
+      if (level.id === 'plains') {
+        await page.setViewportSize({ width: 426, height: 300 }); await frames();
+        expect((await page.locator('#game').boundingBox())!.width).toBe(426);
+        expect((await page.locator('#game').boundingBox())!.height).toBe(240);
       }
     };
     const method = (['pointer', 'keyboard', 'controller'] as const)[index % 3];
@@ -5012,7 +5039,7 @@ test('trail pilot: sampled neutral rearms fresh controls after native Resume', a
   try {
     await page.getByRole('button', { name: 'Resume', exact: true }).click();
     await expect.poll(() => page.evaluate(() => (window as unknown as { trailPilot: { polls: number } }).trailPilot.polls)).toBeGreaterThan(start + 30);
-    await expect(page.locator('#status')).toContainText(/Playing.*X 60 Y 164 V 0(?:\s|$)/);
+    await expect(page.locator('#status')).toContainText(new RegExp(`Playing.*X ${PLAINS_LEVEL.start.x} Y ${PLAINS_LEVEL.start.y - DEFAULT_MOVEMENT.height} V 0(?:\\s|$)`));
     await acknowledgeTrailNeutral(page);
     await page.evaluate(() => { (window as unknown as { trailPilot: { active: boolean } }).trailPilot.active = true; });
     await expect.poll(async () => Number((await page.locator('#status').innerText()).match(/X (\d+)/)?.[1])).toBeGreaterThan(60);
@@ -5020,5 +5047,54 @@ test('trail pilot: sampled neutral rearms fresh controls after native Resume', a
   } finally {
     await writeFile(info.outputPath('trail-pilot-input.jsonl'), await page.evaluate(() =>
       (window as unknown as { trailPilot: { inputEvents: object[] } }).trailPilot.inputEvents.map(event => JSON.stringify(event)).join('\n') + '\n'));
+  }
+});
+
+
+test('Plains compact route: all rewards through keyboard input with five-section gameplay captures', async ({ page, browser }, info) => {
+  test.setTimeout(120_000);
+  const errors: string[] = [];
+  page.on('pageerror', error => errors.push(error.message));
+  await page.setViewportSize({ width: 426, height: 300 });
+  const targets = PLAINS_LEVEL.entities.filter(e => e.kind === 'gem' || e.kind === 'special').sort((a, b) => a.x - b.x);
+  await page.addInitScript(installPlainsRewardPilot, targets);
+  await observeKitTextClearance(page);
+  await openAdventure(page, '/?debug=1');
+  const canvas = page.locator('#game');
+  expect((await canvas.boundingBox())!.width).toBe(426);
+  expect((await canvas.boundingBox())!.height).toBe(240);
+  await page.getByRole('button', { name: 'Play PLAINS', exact: true }).click();
+  await page.evaluate(() => { (window as unknown as { plainsPilot: { active: boolean } }).plainsPilot.active = true; });
+  const captures = [];
+  try {
+    for (const name of ['meadow-hop', 'H', 'downhill-takeoff', 'downhill-runout', 'orchard-star', 'I', 'spring-arc', 'spring-landing', 'L1', 'L2', 'final-crest']) {
+      await page.waitForFunction(name => {
+        const pilot = (window as unknown as { plainsPilot: { frozen: boolean; capture: string } }).plainsPilot;
+        return pilot.frozen && pilot.capture === name;
+      }, name, { timeout: 20_000 });
+      const viewports = info.project.name === 'chromium' ?
+        [{ width: 426, height: 300 }, ...(['meadow-hop', 'orchard-star', 'spring-landing', 'final-crest'].includes(name) ? [{ width: 1366, height: 768 }, { width: 320, height: 240 }] : [])] : [];
+      for (const viewport of viewports) {
+        await page.setViewportSize(viewport); await twoFrames(page); await expectClearViewport(page);
+        const path = info.outputPath(`input-${name}-${viewport.width}.png`);
+        if (viewport.width === 426) await canvas.screenshot({ path }); else await page.screenshot({ path });
+        captures.push({ scenario: name, viewport, file: path, status: await page.locator('#status').innerText(), canvas: await canvas.boundingBox() });
+      }
+      await page.setViewportSize({ width: 426, height: 300 }); await twoFrames(page);
+      expect((await canvas.boundingBox())!.width).toBe(426);
+      await page.evaluate(() => { (window as unknown as { plainsPilot: { frozen: boolean } }).plainsPilot.frozen = false; });
+    }
+    await expectResultsFirst(page, 'Next trail', 20_000);
+    await expect(canvas).toHaveAttribute('data-stars', '3/3');
+    await expect(page.locator('#status')).toContainText('Gems 33/33');
+    await page.getByRole('button', { name: 'Build your word', exact: true }).click();
+    for (const label of ['Letter H', 'Letter I', 'Letter L 1', 'Letter L 2']) await expect(page.getByRole('button', { name: label, exact: true })).toBeVisible();
+    expect(errors).toEqual([]);
+  } finally {
+    const observed = await page.evaluate(() => (window as unknown as { plainsPilot: unknown }).plainsPilot);
+    const glyphs = await kitTextProbe(page);
+    expect(glyphs.checked.length).toBeGreaterThan(0);
+    expect(glyphs.violations).toEqual([]);
+    await writeFile(info.outputPath('plains-input-provenance.json'), JSON.stringify({ kind: 'keyboard input through real app; rendered observations; no scene mutation', sourceRevision: process.env.BROWSER_REPORT_SOURCE_SHA, project: info.project.name, browserVersion: browser.version(), captures, observed, glyphs, errors }, null, 2));
   }
 });

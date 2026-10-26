@@ -32,7 +32,7 @@ it.each(LEVELS.slice(0, 3))('$name keeps marked landing bands clear of pits and 
 
 it('keeps authored landing bands as non-textual route guidance', () => {
   expect(LEVELS.map(level => level.landingBands ?? [])).toEqual([
-    [{ x: 810, width: 100 }],
+    [{ x: 1320, width: 180 }],
     [{ x: 2660, width: 100 }],
     [{ x: 1100, width: 140 }, { x: 4960, width: 180 }, { x: 8510, width: 180 }],
     [], [], [],
@@ -108,6 +108,14 @@ it.each(LEVELS.slice(0, 3))('$name reaches all three stars from the start with o
     let jumpPressed = false;
     const danger = dangers[nextDanger];
     if (danger && player.x >= danger.x - 55) { jumpPressed = true; held = 24; nextDanger++; }
+    if (level.id === 'plains') {
+      if (player.x >= 1065 && player.x < 1100 && player.onGround && !live.run.collectedSpecials.has('plains-special-1')) { jumpPressed = true; held = 24; }
+      if (player.x >= 1840 && !live.run.collectedSpecials.has('plains-special-2')) {
+        const stop = player.x + Math.sign(player.vx) * player.vx ** 2 / 2400;
+        horizontal = stop < 1927 ? 1 : stop > 1933 ? -1 : 0;
+        if (Math.abs(player.x - 1930) < 6 && player.onGround) { jumpPressed = true; held = 24; }
+      }
+    }
     if (level.id === 'quarry' && player.x > 2250 && !docked) {
       const predictedStop = player.x + Math.sign(player.vx) * player.vx ** 2 / 2400;
       horizontal = predictedStop < 2376 ? 1 : predictedStop > 2384 ? -1 : 0;
@@ -134,7 +142,9 @@ it.each(LEVELS.slice(0, 3))('$name reaches all three stars from the start with o
 });
 
 it.each([
-  { level: LEVELS[0], entry: 650, exit: 900 },
+  { level: LEVELS[0], entry: 1065, exit: 1430 },
+  { level: LEVELS[0], entry: 1930, exit: 2180 },
+  { level: LEVELS[0], entry: 2760, exit: 3100 },
   { level: LEVELS[1], entry: 2380, exit: 2700 },
   ...[950, 1650, 3100, 4850, 8400].map(entry => ({ level: LEVELS[2], entry, exit: entry + 250 })),
 ])('$level.name failed approaches at $entry return to ordinary terrain', ({ level, entry, exit }) => {

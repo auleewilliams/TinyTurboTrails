@@ -20,7 +20,15 @@ is a detailed child in a blocky world — not a cuboid Minecraft avatar.
 
 Six desktop-browser levels selected from a illustrated overworld: Plains,
 Quarry Run, Treetop Timbers, Sunset Site, Frost Ridge and Sandy Cove. All routes target roughly
-3–5 minutes of exploratory play, with momentum, slopes and springs. Quarry Run adds spring pits, stepped terraces,
+3–5 minutes of exploratory play, with momentum, slopes and springs.
+Plains #218 is the owner-approved first compact pilot: a 4300×240 continuous
+soil route through Meadow rollers, Big downhill, Orchard bumps, Spring hill and
+Final climb, with 33 gems, three optional stars, four existing HILL identities,
+four grounded checkpoints and one existing spring. Its shorter draft has **not
+verified the 3–5 minute human exploratory target**. Owner measurement and a
+subsequent explicit length/target decision remain required; code completion does
+not waive that decision or establish fun/clarity acceptance. Do not pad it with
+repeated flats. See [the current Plains worksheet](PLAINS-PLAYTEST.md). Quarry Run adds spring pits, stepped terraces,
 grouped stone props and two slow moving platforms; both rides are optional
 and no route depends on timing one. Treetop Timbers adds plank trails, shallow
 rope-bridge contours, crane-hook springs and sawhorse props without changing
@@ -177,7 +185,7 @@ relying on colour. Previews, results, navigation targets and prompts stay clear
 of each other at native resolution and in small windows.
 
 Every route has a quiet material fill and illustrated contour edge, including
-Plains exposed rock sections, Quarry stone, Timbers wood, construction gravel,
+Plains soil, Quarry stone, Timbers wood, construction gravel,
 Frost snow over rock and Cove sand. Grip cues derive independently from authored
 friction and draw above decorative materials. Quarry and Timbers add continuous
 backgrounds with supported landmarks. Decorative art updates preserve collisions,

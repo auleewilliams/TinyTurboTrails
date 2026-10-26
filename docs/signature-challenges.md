@@ -11,7 +11,7 @@ per-level music and checkpoint music continuity are unchanged.
 
 | Trail | Approach and rewards | Miss / return |
 | --- | --- | --- |
-| Plains | After the Meadow checkpoint, follow the gold stars at x=680, 740, 820 close to the gentle downhill slope. | The slope and marked 100px runout are continuous ground. Brake or walk back for missed stars. Jumping past stars never blocks the route. |
+| Plains | Jump from the downhill shoulder around x1065–1095 through star 1 at (1150,78); hop in the orchard hollow for star 2 at (1930,150); ride the spring at x2760 through star 3 at (2800,135). | Continuous grass receives every miss. The downhill runout has a 180px contour-following gold band centered at x1320. Walk back for retries; a short ordinary jump near x2685 bypasses the spring. All stars remain optional. |
 | Quarry | Board the existing lift centered at x=2380 and wait. Its top meets a 200px stationary one-way shelf at y=66. Stars sit at x=2424, 2500, 2580. | Walking right leaves the shelf for the marked terrace return. Walking off the left or missing boarding lands on the original terrace; nearby existing hazards still use forgiving health/recovery. The main path beneath remains open. |
 | Timbers | Follow the first three springs (x=950, 1650, 3100). Each star is 80px ahead and 100px above that spring's ground. Keep moving right through the arc. | Each has a 140px gold landing band on continuous terrain at x=1100, 1820, 3320. No pit or timed platform is added. Stop/reverse to miss a star safely, or approach the spring again. |
 

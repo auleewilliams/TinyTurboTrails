@@ -2,7 +2,10 @@ import { runInNewContext } from 'node:vm';
 import { expect, it } from 'vitest';
 import { createPlayer, simulatePlayer } from '../src/game/movement';
 import { advancePatrols, createRun, stepEntities, tickRun, type RunEvent } from '../src/game/interactions';
-import { PLAINS_LEVEL } from '../src/world/level';
+import { readFileSync } from 'node:fs';
+import type { LevelData } from '../src/world/level';
+// Historical spring/slime seam fixture; current Plains routes are covered separately.
+const PLAINS_LEVEL: LevelData = JSON.parse(readFileSync(new URL('../docs/evidence/issue-171-plains/baseline.json', import.meta.url), 'utf8'));
 import { installRetracePilotScript } from './retrace-pilot';
 
 /** Explicit seam fixture, NOT a historical CI replay or native-browser renderer.

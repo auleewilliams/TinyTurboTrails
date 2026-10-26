@@ -80,7 +80,7 @@ it('stops a whole body before cliffs, gaps, discontinuities and level edges', ()
   ] };
   expect(withSlimePatrols(level).entities[0].patrol).toEqual({ minX: 20, maxX: 80, speed: SLIME_SPEED });
   const bad: LevelData = { ...LEVELS[0], entities: [{ ...LEVELS[0].entities.find((entity) => entity.kind === 'slime')!,
-    patrol: { minX: 0, maxX: 320, speed: SLIME_SPEED } }] };
+    x: 75, y: surfaceY(LEVELS[0], 75), patrol: { minX: 0, maxX: 320, speed: SLIME_SPEED } }] };
   expect(() => validateLevel(bad)).toThrow(/edge clearance/);
 });
 

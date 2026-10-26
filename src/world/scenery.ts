@@ -1,3 +1,5 @@
+import { surfaceY } from '../game/movement';
+import { TRAIL_WORDS } from '../game/education';
 import type { LevelData, WorldEntity } from './level';
 
 export const SCENERY_SPRITES = ['oak-round', 'oak-young', 'bush-round', 'bush-wide', 'grass', 'daisies', 'mossy-rock', 'pebbles'] as const;
@@ -63,6 +65,16 @@ export interface ForegroundPlacement { sprite: ScenerySpriteName; x: number; y: 
 
 export function foregroundPlacements(level: LevelData): ForegroundPlacement[] {
   if (!level.theme.scenery) return [];
+  // The compact Plains contour has short shelves and rollers. Four authored low
+  // tufts replace the >=180px-flat heuristic; no dense blanket on the new hills.
+  if (level.id === 'plains') {
+    const letters = TRAIL_WORDS.find(word => word.id === level.id)?.pickups ?? [];
+    return [800, 3340, 3950, 4140].flatMap((x, index): ForegroundPlacement[] => {
+      if (letters.some(letter => Math.abs(letter.x - x) < 60) ||
+        level.entities.some(entity => entity.kind !== 'decoration' && Math.abs(entity.x - x) < 60)) return [];
+      return [{ sprite: index === 3 ? 'daisies' : 'grass', x, y: surfaceY(level, x) + 5 }];
+    });
+  }
   return level.surfaces.flatMap((surface) => {
     // Flat ledges keep the whole prop planted; leave ramps and interactions clear.
     if (surface.y1 !== surface.y2 || surface.x2 - surface.x1 < 180) return [];

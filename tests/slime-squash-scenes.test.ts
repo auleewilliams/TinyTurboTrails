@@ -42,7 +42,7 @@ it('does not add a terrain landing thump when a fast fall actually squashes firs
       : new AdventureScene({} as never, {} as never, worlds, audio, level);
     if (scene instanceof AdventureScene) { scene.startSelected(); scene.update(1 / 60, neutral); }
     const live = scene as unknown as { player: Player; run: RunState; feedback: Feedback };
-    const state = entityState(live.run, 'slime-001')!;
+    const state = entityState(live.run, level.entities.find(e => e.kind === 'slime')!.id)!;
     Object.assign(live.player, { x: state.x, y: state.y - 110, vx: 0, vy: 1000, onGround: false, coyoteSeconds: 0 });
     play.mockClear(); scene.update(0.1, neutral);
     expect(play.mock.calls).toEqual([['squash']]);
