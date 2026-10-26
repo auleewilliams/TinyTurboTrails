@@ -12,7 +12,7 @@ per-level music and checkpoint music continuity are unchanged.
 | Trail | Approach and rewards | Miss / return |
 | --- | --- | --- |
 | Plains | Jump from the downhill shoulder around x1065–1095 through star 1 at (1150,78); hop in the orchard hollow for star 2 at (1930,150); ride the spring at x2760 through star 3 at (2800,135). | Continuous grass receives every miss. The downhill runout has a 180px contour-following gold band centered at x1320. Walk back for retries; a short ordinary jump near x2685 bypasses the spring. All stars remain optional. |
-| Quarry | Board the existing lift centered at x=2380 and wait. Its top meets a 200px stationary one-way shelf at y=66. Stars sit at x=2424, 2500, 2580. | Walking right leaves the shelf for the marked terrace return. Walking off the left or missing boarding lands on the original terrace; nearby existing hazards still use forgiving health/recovery. The main path beneath remains open. |
+| Quarry | Two optional side shelves on the descent, plus a fixed approach to lift B. | Permanent catches and bidirectional lifts allow retrying; see [Quarry](QUARRY-PLAYTEST.md). |
 | Timbers | Follow the first three springs (x=950, 1650, 3100). Each star is 80px ahead and 100px above that spring's ground. Keep moving right through the arc. | Each has a 140px gold landing band on continuous terrain at x=1100, 1820, 3320. No pit or timed platform is added. Stop/reverse to miss a star safely, or approach the spring again. |
 
 The shelf is represented by an existing platform with identical endpoints, so

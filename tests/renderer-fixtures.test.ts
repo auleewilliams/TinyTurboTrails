@@ -21,6 +21,8 @@ for (const title of ['compact HUD renderer fixture:', 'landmark labels: renderer
     const fixture = new Function('MAX_HEALTH', `${code}\nreturn { missing: [${imports.map(name => `typeof ${name} === 'undefined' && ${JSON.stringify(name)}`).join(',')}].filter(Boolean), height: typeof surfaceY === 'undefined' ? undefined : surfaceY };`)(MAX_HEALTH);
     expect(fixture.missing).toEqual([]);
     expect(names).toContain('game/movement.ts');
+    expect(names).toContain('game/platforms.ts');
+    expect(names).toContain('world/camera.ts');
     for (const x of [60, 370, 1065, 1930, 2760, 4230]) expect(fixture.height(PLAINS_LEVEL, x)).toBe(surfaceY(PLAINS_LEVEL, x));
   });
 }

@@ -28,9 +28,10 @@ four grounded checkpoints and one existing spring. Its shorter draft has **not
 verified the 3–5 minute human exploratory target**. Owner measurement and a
 subsequent explicit length/target decision remain required; code completion does
 not waive that decision or establish fun/clarity acceptance. Do not pad it with
-repeated flats. See [the current Plains worksheet](PLAINS-PLAYTEST.md). Quarry Run adds spring pits, stepped terraces,
-grouped stone props and two slow moving platforms; both rides are optional
-and no route depends on timing one. Treetop Timbers adds plank trails, shallow
+repeated flats. See [the current Plains worksheet](PLAINS-PLAYTEST.md). Quarry Run descends four resting levels on permanent staggered terraces, with
+three alternating vertical lifts for the return trip and a floor-only finish.
+The main descent needs no lift ride or reward collection; see the
+[Quarry worksheet](QUARRY-PLAYTEST.md). Treetop Timbers adds plank trails, shallow
 rope-bridge contours, crane-hook springs and sawhorse props without changing
 the single-height terrain model. Sunset Site adds a construction yard at dusk,
 patrolling hard-hat slimes, pneumatic-jack-cleared pits and one optional crane ferry. Keyboard
@@ -212,8 +213,7 @@ step; automated tests cannot satisfy it. Current controls live in the adventure 
 
 Plains, Quarry Run and Treetop Timbers each contain exactly three gold star
 collectibles, visually distinct from ordinary gems. Plains rewards controlled
-movement down a readable slope; Quarry offers a detour up the existing lift and
-along a broad shelf; Timbers rewards the first three existing springs with clear,
+movement down a readable slope; Quarry offers two side-shelf out-and-back discoveries and a fixed lift approach; Timbers rewards the first three existing springs with clear,
 wide landing markings. All use existing movement and one-way platform systems.
 Stars and challenges never gate completion, require new controls, or require
 precise timing. Misses land on ordinary terrain or use existing checkpoint

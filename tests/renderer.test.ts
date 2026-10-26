@@ -63,7 +63,7 @@ function recordingContext(): { ctx: CanvasRenderingContext2D; images: unknown[][
     fillRect: (x: number, y: number, width: number, height: number) => {
       rects.push({ x, y, width, height, fillStyle: ctx.fillStyle });
     },
-    arc: noop, clip: noop, beginPath: noop, moveTo: (x: number, y: number) => { moves.push([x, y]); }, lineTo: noop, closePath: noop, fill: noop, stroke: noop,
+    rect: noop, arc: noop, clip: noop, beginPath: noop, moveTo: (x: number, y: number) => { moves.push([x, y]); }, lineTo: noop, closePath: noop, fill: noop, stroke: noop,
     strokeRect: noop, strokeText: noop,
     measureText: (text: string) => ({ width: text.length * 6 }),
     translate: noop, transform: noop, scale: noop, save: noop, restore: noop,
@@ -76,7 +76,7 @@ function recordingContext(): { ctx: CanvasRenderingContext2D; images: unknown[][
 const worldAssets: WorldAssets = { atlas: {} as HTMLImageElement, gems: {} as HTMLImageElement, manifest, slimes: {} as HTMLImageElement };
 
 it.each(LEVELS)('$name renders terrain landing bands without text boards or posts', level => {
-  const positions = level.id === 'plains' ? [700, 810] : level.id === 'quarry' ? [2300, 2660]
+  const positions = level.id === 'plains' ? [700, 810] : level.id === 'quarry' ? [350, 450]
     : level.id === 'timbers' ? [900, 1100, 1820, 3320] : [level.start.x];
   for (const x of positions) {
     const offset = { x: x - 213, y: 0 };
@@ -192,7 +192,7 @@ it('selects a backdrop and parallax fallback entirely from theme metadata', () =
 
   const fallback = recordingContext();
   drawWorld(fallback.ctx, worldAssets, {
-    ...QUARRY_RUN, id: 'another-future-trail', theme: { ...QUARRY_RUN.theme, backdrop: undefined },
+    ...QUARRY_RUN, id: 'another-future-trail', theme: { ...QUARRY_RUN.theme, backdrop: undefined, parallax: [{ asset: 'cave', x: 180, y: 70, scale: 3 }] },
   }, { position: { x: 0, y: 0 } } as Camera);
   expect(fallback.images[0][0]).toBe(worldAssets.atlas);
   expect(Number(fallback.images[0][7])).toBeGreaterThan(48);

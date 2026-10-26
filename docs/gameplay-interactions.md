@@ -123,7 +123,9 @@ advance any effect, teaching timer or location label.
 
 ## Crumbling ledges
 
-Quarry's three 72-pixel ledges are one-way platforms above safe ordinary terrain.
+The crumbling-ledge runtime remains available; Quarry's current descent uses
+permanent shelves instead. Explicit ledge fixtures exercise the existing contract.
+Crumbling ledges are one-way platforms above ordinary terrain.
 First landing starts a deterministic 0.75-second warning; leaving does not stop
 the countdown. Warning shake/cracks increase before collision and visibility
 disappear. Recovery restores ledges while retaining gems; a fresh run resets all

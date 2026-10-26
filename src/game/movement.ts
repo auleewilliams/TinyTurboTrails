@@ -78,8 +78,8 @@ export function surfaceY(terrain: Terrain, x: number): number {
   return heightOnSurface(surfaceAt(terrain, clamped), clamped);
 }
 
-export function createPlayer(x: number, terrain: Terrain): Player {
-  return { x, y: surfaceY(terrain, x) - DEFAULT_MOVEMENT.height, vx: 0, vy: 0,
+export function createPlayer(x: number, terrain: Terrain, supportY = surfaceY(terrain, x)): Player {
+  return { x, y: supportY - DEFAULT_MOVEMENT.height, vx: 0, vy: 0,
     onGround: true, coyoteSeconds: DEFAULT_MOVEMENT.coyoteSeconds, jumpBufferSeconds: 0, facing: 1,
     platformId: null, groundVelocityX: 0 };
 }
@@ -107,6 +107,9 @@ function platformSupport(player: Player, platforms: readonly PlatformBody[], pre
     const crossed = previousFeet <= platform.y + 1 && feet >= platform.y;
     const carried = player.platformId === platform.id && Math.abs(feet - platform.y) <= PLATFORM_RIDE_SNAP;
     if (!crossed && !carried) continue;
+    // Retain a moving carriage across overlapping stationary one-way catches.
+    // Normal falls still choose the highest crossed top; walking clear detaches.
+    if (player.platformId === platform.id && (platform.vx !== 0 || platform.vy !== 0)) return platform;
     if (!support || platform.y < support.y) support = platform;
   }
   return support;
@@ -194,7 +197,12 @@ export function simulatePlayer(player: Player, input: MovementInput, terrain: Te
       grounded = true;
     }
     // Platforms resolve after terrain: a slab standing above the ground wins the contact.
-    const support = platformSupport(player, bodies, previousFeet, ground);
+    // Bodies are sampled at the end of the whole step. Collision needs their
+    // position at this substep, especially on an upward ride at the 100ms cap.
+    const remaining = dt - (index + 1) * step;
+    const currentBodies = remaining <= 0 ? bodies : bodies.map(body => ({ ...body,
+      x: body.x - body.vx * remaining, y: body.y - body.vy * remaining }));
+    const support = platformSupport(player, currentBodies, previousFeet, ground);
     if (support) {
       player.y = support.y - DEFAULT_MOVEMENT.height;
       player.vy = 0;

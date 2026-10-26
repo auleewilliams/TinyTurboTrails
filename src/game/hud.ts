@@ -54,8 +54,11 @@ export interface TrailProgress {
 }
 
 /** Use the same player-origin threshold as AdventureScene's finish trigger. */
-export function trailPosition(level: LevelData, x: number): number {
-  return Math.max(0, Math.min(1, (x - level.start.x) / (level.finish.x - level.start.x)));
+export function trailPosition(level: LevelData, x: number, supportY = level.start.y): number {
+  const position = level.progressAxis === 'y'
+    ? (supportY - level.start.y) / (level.finish.y - level.start.y)
+    : (x - level.start.x) / (level.finish.x - level.start.x);
+  return Math.max(0, Math.min(1, position));
 }
 
 function ribbonX(position: number): number {
@@ -110,6 +113,9 @@ const AREAS: Record<string, readonly string[]> = {
   cove: ['Beach path', 'Shell shore', 'Dune crossing', 'Tide pools', 'Sandy ridge', 'Cove lookout'],
 };
 export function areaName(level: LevelData, index: number): string {
+  if (level.id === 'quarry' && level.progressAxis === 'y') {
+    return ['Upper workings', 'Mine shelves', 'Quarry floor'][index] ?? level.name;
+  }
   return AREAS[level.id]?.[index] ?? level.name;
 }
 export function controlHints(source: InputSource): readonly string[] {
@@ -162,20 +168,20 @@ export class HudPresentation {
       if (event.type === 'checkpoint') this.activatedCheckpoints.add(event.entityId);
     }
   }
-  progress(level: LevelData, x: number): TrailProgress {
+  progress(level: LevelData, x: number, supportY = level.start.y): TrailProgress {
     return {
-      position: trailPosition(level, x),
+      position: trailPosition(level, x, supportY),
       checkpoints: level.checkpoints.map(point => ({
-        id: point.id, position: trailPosition(level, point.x), activated: this.activatedCheckpoints.has(point.id),
+        id: point.id, position: trailPosition(level, point.x, point.y), activated: this.activatedCheckpoints.has(point.id),
       })),
     };
   }
-  update(seconds: number, input: InputFrame, level: LevelData, x: number, importantFeedback = false): void {
+  update(seconds: number, input: InputFrame, level: LevelData, x: number, importantFeedback = false, supportY = level.start.y): void {
     this.source = input.source ?? 'keyboard';
     this.locationSeconds = Math.max(0, this.locationSeconds - seconds);
     // Announce the approach to an area, ahead of its checkpoint celebration.
     let index = -1;
-    level.checkpoints.forEach((point, candidate) => { if (x >= point.x - 180) index = candidate; });
+    level.checkpoints.forEach((point, candidate) => { if (level.progressAxis === 'y' ? supportY >= point.y - 35 : x >= point.x - 180) index = candidate; });
     if (index !== this.area) {
       this.area = index;
       this.location = index < 0 ? level.name : areaName(level, index);

@@ -89,11 +89,12 @@ export function drawTrailBackdrop(ctx: CanvasRenderingContext2D, assets: WorldAs
     const sourceY = assets.panorama ? 0 : (backdrop?.row ?? 0) * height;
     // Pan within the panorama, never wrap; its world-wide sweep has no repeat seam.
     // Limit both crop dimensions so even a narrower future panorama stays in bounds.
-    const sourceWidth = Math.min(image.naturalWidth, height * 426 / 240);
+    const sourceWidth = Math.min(image.naturalWidth, height * 426 / 240 * (level.progressAxis === 'y' ? 0.8 : 1));
     const sourceHeight = sourceWidth * 240 / 426;
     const progress = Math.max(0, Math.min(1, offset.x / Math.max(1, level.width - 426)));
-    const sourceX = (image.naturalWidth - sourceWidth) * progress;
-    ctx.drawImage(image, sourceX, sourceY, sourceWidth, sourceHeight, 0, 0, 426, 240);
+    const depth = Math.max(0, Math.min(1, offset.y / Math.max(1, level.height - 240)));
+    const sourceX = (image.naturalWidth - sourceWidth) * (level.progressAxis === 'y' ? progress * 0.3 + depth * 0.7 : progress);
+    ctx.drawImage(image, sourceX, sourceY + (level.progressAxis === 'y' ? (height - sourceHeight) * depth : 0), sourceWidth, sourceHeight, 0, 0, 426, 240);
   }
   if (!backdrop) return !!image;
   // World-anchored supports reach below the viewport. Their upper ends sit behind

@@ -56,7 +56,12 @@ export interface LevelData {
   minX: number;
   maxX: number;
   start: { x: number; y: number };
-  finish: { x: number; y: number; asset: string };
+  finish: { x: number; y: number; asset: string; supportOnly?: boolean };
+  /** Vertical trails measure progress by feet height; horizontal trails keep their defaults. */
+  progressAxis?: 'y';
+  checkpointActivation?: 'grounded';
+  /** Safe fixed support used by the existing Find more letters action. */
+  retrace?: { x: number; y: number };
   surfaces: readonly Surface[];
   checkpoints: readonly { id: string; x: number; y: number }[];
   entities: readonly WorldEntity[];
@@ -204,6 +209,20 @@ function validateCrumblingLedge(level: LevelData, entity: WorldEntity): void {
   if (blocker) throw new Error(`ledge overlaps ${blocker.kind}: ${entity.id}`);
 }
 
+/** A whole standing body must fit on permanent support, never an absent lift. */
+export function hasFixedSupport(level: LevelData, point: { x: number; y: number }): boolean {
+  const left = point.x - DEFAULT_MOVEMENT.width / 2;
+  const right = point.x + DEFAULT_MOVEMENT.width / 2;
+  if (left < level.minX || right > level.maxX) return false;
+  if ((level.platforms ?? []).some(platform => platform.from.x === platform.to.x
+    && platform.from.y === platform.to.y && platform.from.y === point.y
+    && platform.from.x <= left && platform.from.x + platform.width >= right)) return true;
+  // Sample the whole footprint, including any surface boundary under the body.
+  const samples = [left, point.x, right, ...level.surfaces.flatMap(surface =>
+    [surface.x1, surface.x2].filter(x => x > left && x < right))];
+  return samples.every(x => Math.abs(surfaceY(level, x) - point.y) < 0.01);
+}
+
 export function validateLevel(level: LevelData): void {
   if (level.theme.backdrop && (!Number.isInteger(level.theme.backdrop.row) ||
     level.theme.backdrop.row < 0 || level.theme.backdrop.row >= 2)) {
@@ -248,7 +267,13 @@ export function validateLevel(level: LevelData): void {
     if (!entity || entity.kind !== 'checkpoint' || entity.x !== checkpoint.x || entity.y !== checkpoint.y) {
       throw new Error(`checkpoint is not planted on terrain: ${checkpoint.id}`);
     }
-    if (checkpoint.y !== surfaceY(level, checkpoint.x)) throw new Error(`checkpoint is not planted on terrain: ${checkpoint.id}`);
+    if (level.checkpointActivation === 'grounded' ? !hasFixedSupport(level, checkpoint)
+      : checkpoint.y !== surfaceY(level, checkpoint.x)) throw new Error(`checkpoint lacks fixed support: ${checkpoint.id}`);
+  }
+  if (level.progressAxis === 'y' && !hasFixedSupport(level, level.start)) throw new Error('start lacks fixed support');
+  if (level.finish.supportOnly && !hasFixedSupport(level, level.finish)) throw new Error('finish lacks fixed support');
+  if (level.retrace && (!hasFixedSupport(level, level.retrace) || level.retrace.x >= level.finish.x - 28)) {
+    throw new Error('retrace requires safe fixed support outside the finish');
   }
   if (level.finish.x <= level.start.x || level.finish.x > level.width) throw new Error('finish must follow start');
   validatePlatforms(level, ids);

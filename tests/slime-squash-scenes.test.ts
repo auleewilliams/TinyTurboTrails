@@ -11,7 +11,7 @@ import type { Feedback } from '../src/game/feedback';
 const neutral = { horizontal: 0, jumpHeld: false, jumpPressed: false, pausePressed: false, mutePressed: false };
 const worlds = Object.fromEntries(LEVELS.map(level => [level.atlas, {} as never]));
 
-it.each(LEVELS)('$name adventure and preview emit one soft squish, no reward or damage', level => {
+it.each(LEVELS.filter(level => level.entities.some(entity => entity.kind === 'slime')))('$name adventure and preview emit one soft squish, no reward or damage', level => {
   for (const preview of [false, true]) {
     const audio = new SilentAudio(), play = vi.spyOn(audio, 'play');
     const scene = preview ? new GameplayPreviewScene({} as never, {} as never, audio, level)

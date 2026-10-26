@@ -18,6 +18,7 @@ const make = (index = 0) => new AdventureScene({} as never, { manifest, atlas: {
 type Live = { celebration: CompletionCelebration; player: Player; run: RunState };
 const finish = (scene: AdventureScene, index = 0) => {
   (scene as unknown as Live).player.x = LEVELS[index].finish.x;
+  (scene as unknown as Live).player.y = LEVELS[index].finish.y - 34;
   scene.update(1 / 60, neutral);
   expect(scene.educationOverlay.open).toBe(false);
 };

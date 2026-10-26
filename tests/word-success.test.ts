@@ -47,8 +47,8 @@ it.each(TRAIL_WORDS)('$word completion selects only Done, replaces placement pro
 it.each(LEVELS.map((level, index) => ({ level, index })))('$level.id Done returns to the same results with the onward default and frozen run', ({ level, index }) => {
   const scene = new AdventureScene({} as never, {} as never, Object.fromEntries(LEVELS.map(item => [item.atlas, {} as never])), new SilentAudio(), level);
   scene.startSelected();
-  const live = scene as unknown as { player: { x: number }; run: unknown };
-  live.player.x = level.finish.x; scene.update(1 / 60, neutral);
+  const live = scene as unknown as { player: { x: number; y: number }; run: unknown };
+  live.player.x = level.finish.x; live.player.y = level.finish.y - 34; scene.update(1 / 60, neutral);
   scene.activateFinish('Build your word');
   const before = JSON.stringify(live.run);
   for (const [slot, pickup] of scene.education.pickups.entries()) { scene.education.collect(pickup.id); scene.education.place(pickup.id, slot); }

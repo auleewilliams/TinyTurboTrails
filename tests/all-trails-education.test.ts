@@ -1,5 +1,5 @@
 import { expect, it } from 'vitest';
-import { EducationSession } from '../src/game/education';
+import { EducationSession, letterSupportY } from '../src/game/education';
 import { LEVELS } from '../src/world/levels';
 
 const words = ['HILL', 'ROCK', 'TREE', 'BEAM', 'SNOW', 'SAND'];
@@ -64,7 +64,7 @@ it.each(LEVELS.map((level, index) => ({ level, index })))('$level.id collects it
   expect(scene.education.config.id).toBe(level.id);
   expect(scene.educationDescription).toBe('Letter bag: 0/4');
   const first = scene.education.pickups[0];
-  Object.assign(live.player, { x: first.x, y: surfaceY(level, first.x) - 34, vx: 0, vy: 0, onGround: true });
+  Object.assign(live.player, { x: first.x, y: letterSupportY(first, level) - 34, vx: 0, vy: 0, onGround: true });
   scene.update(1 / 60, neutral);
   expect(scene.education.letterCount).toBe(1);
   expect(scene.educationDescription).toContain(`${first.letter} → bag`);
@@ -74,7 +74,7 @@ it.each(LEVELS.map((level, index) => ({ level, index })))('$level.id collects it
   live.run.health = 1; live.run.invulnerableSeconds = 0;
   damagePlayer(live.run, live.player, 1, [], level);
   expect(scene.education.wordProgress).toBe(partial);
-  live.player.x = level.finish.x;
+  live.player.x = level.finish.x; live.player.y = level.finish.y - 34;
   scene.update(1 / 60, neutral);
   buildYourWord(scene);
   expect(scene.educationOverlay.description).toContain(`Build ${words[index]}`);
@@ -83,7 +83,7 @@ it.each(LEVELS.map((level, index) => ({ level, index })))('$level.id collects it
   expect(live.run).toBe(run);
   expect(JSON.stringify(run)).toBe(before);
   expect(scene.session.results.has(level.id)).toBe(true);
-  expect(scene.playerX).toBe(level.finish.x - 28);
+  expect(scene.playerX).toBe(level.retrace?.x ?? level.finish.x - 28);
   for (let frame = 0; frame < 40; frame++) scene.update(1 / 60, neutral);
   expect(scene.screenState).toBe('playing');
   for (let frame = 0; frame < 100 && scene.playerX > level.finish.x - 100; frame++) scene.update(1 / 60, { ...neutral, horizontal: -1 });
@@ -104,7 +104,7 @@ it.each(LEVELS.map((level, index) => ({ level, index })))('$level.id collects it
 it.each(LEVELS.map((level, index) => ({ level, index })))('$level.id exposes mixed accessible identities and matching target letters for pointer and controller assembly', ({ level, index }) => {
   const { scene, live } = adventure(index);
   scene.education.pickups.forEach(pickup => scene.education.collect(pickup.id));
-  live.player.x = level.finish.x; scene.update(1 / 60, neutral);
+  live.player.x = level.finish.x; live.player.y = level.finish.y - 34; scene.update(1 / 60, neutral);
   buildYourWord(scene);
   const letters = scene.menuTargets.filter(target => target.label.startsWith('Letter '));
   expect(new Set(letters.map(target => target.label)).size).toBe(4);
@@ -155,14 +155,15 @@ it('shows all six independent sticker statuses on the map without changing trail
   expect(scene.selectedLevelName).toBe(LEVELS[0].name);
 });
 
-it.each([...LEVELS.map((level, index) => ({ level, index, crumbled: false })), { level: LEVELS[1], index: 1, crumbled: true }])('$level.id retraces the real terrain from finish to every missed letter and re-enters using simulation input only (crumbled: $crumbled)', ({ level, index, crumbled }) => {
+// Vertical Quarry input return is covered by quarry-descent.test.ts; this pilot characterizes horizontal terrain.
+it.each(LEVELS.map((level, index) => ({ level, index, crumbled: false })).filter(({ level }) => level.id !== 'quarry'))('$level.id retraces the real terrain from finish to every missed letter and re-enters using simulation input only (crumbled: $crumbled)', ({ level, index, crumbled }) => {
   const { scene, live } = adventure(index);
   // A completed outward run may already have used every optional crumbling ledge.
   if (crumbled) for (const state of live.run.entities) {
     if (level.entities.some(entity => entity.id === state.id && entity.kind === 'crumbling-ledge')) Object.assign(state, { ledgePhase: 'crumbled', ledgeSeconds: 0 });
   }
   // The sole position fixture is the initial finish. All later movement is ordinary input.
-  live.player.x = level.finish.x;
+  live.player.x = level.finish.x; live.player.y = level.finish.y - 34;
   scene.update(1 / 60, neutral);
   const run = live.run;
   buildYourWord(scene);

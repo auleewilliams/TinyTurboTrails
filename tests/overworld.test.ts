@@ -31,7 +31,7 @@ it.each(LEVELS.map((level, index) => ({ level, index })))('abandons $level.name 
   expect(scene.selectedLevelName).toBe(level.name);
   expect(scene.session.results).toEqual(results);
   expect(scene.session.returnedSeconds).toBe(0);
-  expect(live.player).toEqual(createPlayer(level.start.x, level));
+  expect(live.player).toEqual(createPlayer(level.start.x, level, level.start.y));
   expect(live.run).toEqual(createRun(level));
   expect(live.feedback.effects).toEqual([]);
   expect(live.platforms).toEqual(platformBodiesAt(level.platforms, 0));
@@ -49,7 +49,7 @@ it.each(LEVELS.map((level, index) => ({ level, index })))('resets every run doma
     live.run.health = 1; live.run.checkpointId = level.checkpoints[0].id;
     live.run.collectedGems.add(level.entities.find(e => e.kind === 'gem')!.id);
     live.run.seconds = 20; live.feedback.add('gem', 20, 30);
-    live.player.x = level.finish.x;
+    live.player.x = level.finish.x; live.player.y = level.finish.y - 34;
     scene.update(1 / 60, neutral);
     expect(scene.screenState).toBe('finish');
     const result = { gems: live.run.collectedGems.size, stars: live.run.collectedSpecials.size };
@@ -57,7 +57,7 @@ it.each(LEVELS.map((level, index) => ({ level, index })))('resets every run doma
     scene.activateFinish(action);
     const next = LEVELS[index + (action === 'Next trail' ? 1 : 0)];
     expect(scene.screenState).toBe('playing');
-    expect(live.player).toEqual(createPlayer(next.start.x, next));
+    expect(live.player).toEqual(createPlayer(next.start.x, next, next.start.y));
     expect(live.run).toEqual(createRun(next));
     expect(live.camera.position).toEqual({ x: 0, y: 0 });
     expect(live.platforms).toEqual(platformBodiesAt(next.platforms, 0));
@@ -69,7 +69,7 @@ it.each(LEVELS.map((level, index) => ({ level, index })))('resets every run doma
 
 it.each(LEVELS.map((level, index) => ({ level, index })))('returns to $level.name with only cosmetic completion retained', ({ level, index }) => {
   const scene = make(index); scene.startSelected();
-  (scene as unknown as Live).player.x = level.finish.x;
+  (scene as unknown as Live).player.x = level.finish.x; (scene as unknown as Live).player.y = level.finish.y - 34;
   scene.update(1 / 60, neutral);
   const live = scene as unknown as Live;
   const result = { gems: live.run.collectedGems.size, stars: live.run.collectedSpecials.size };
@@ -165,7 +165,7 @@ it('requires neutral input after finishing and never advances gameplay on the ma
   const live = scene as unknown as Live;
   for (let frame = 0; frame < 100; frame++) scene.update(1 / 60, { ...neutral, horizontal: 1 });
   expect(live.run.seconds).toBe(0);
-  scene.startSelected(); live.player.x = LEVELS[1].finish.x;
+  scene.startSelected(); live.player.x = LEVELS[1].finish.x; live.player.y = LEVELS[1].finish.y - 34;
   scene.update(1 / 60, { ...neutral, jumpHeld: true, horizontal: 1 });
   for (let frame = 0; frame < 20; frame++) scene.update(1 / 60, { ...neutral, jumpHeld: true, horizontal: 1 });
   expect(scene.screenState).toBe('finish');

@@ -1,5 +1,5 @@
 import { expect, it } from 'vitest';
-import { MAX_PATROL_SPEED, PLAINS_LEVEL, validateLevel, type WorldEntity } from '../src/world/level';
+import { MAX_PATROL_SPEED, PLAINS_LEVEL, validateLevel, hasFixedSupport, type WorldEntity } from '../src/world/level';
 import { DEFAULT_LEVEL, LEVELS, QUARRY_RUN, levelById } from '../src/world/levels';
 import { surfaceY } from '../src/game/movement';
 import { Camera } from '../src/world/camera';
@@ -26,7 +26,7 @@ it.each(LEVELS)('$id satisfies generic level invariants', (level) => {
     expect(level.surfaces[index - 1].y2).toBe(level.surfaces[index].y1);
   }
   for (const checkpoint of level.checkpoints) {
-    expect(checkpoint.y).toBeCloseTo(surfaceY(level, checkpoint.x), 5);
+    expect(hasFixedSupport(level, checkpoint) || checkpoint.y === surfaceY(level, checkpoint.x)).toBe(true);
     expect(checkpoint.x).toBeLessThan(level.finish.x);
   }
 });
@@ -40,7 +40,7 @@ it('rejects non-contiguous surfaces and unplanted checkpoints', () => {
   ] })).toThrow(/checkpoint/);
 });
 
-it.each(LEVELS)('plants every $name spring on the terrain', (level) => {
+it.each(LEVELS.filter(level => level.id !== 'quarry'))('plants every $name spring on the terrain', (level) => {
   const springs = level.entities.filter((entity) => entity.kind === 'spring');
   expect(springs.length).toBeGreaterThan(0);
   for (const spring of springs) {
@@ -72,7 +72,7 @@ it('rejects malformed or unsafe crumbling ledges', () => {
     id: 'unsafe-ledge', kind: 'crumbling-ledge', x: 3786, y: 330,
     width: 32, asset: 'stone', layer: 'world',
   } as WorldEntity;
-  expect(() => validateLevel({ ...QUARRY_RUN, entities: [...QUARRY_RUN.entities, unsafe] })).toThrow(/ledge fall/);
+  expect(() => validateLevel({ ...QUARRY_RUN, height: 240, width: 4300, maxX: 4300, surfaces: [{ x1: 0, x2: 4300, y1: 380, y2: 380 }], entities: [unsafe] })).toThrow(/ledge fall/);
 });
 it('keeps gems, hazards, slimes and springs reachable while walking, aside from optional elevated bonus gems', () => {
   const terrain = { minX: PLAINS_LEVEL.minX, maxX: PLAINS_LEVEL.maxX, surfaces: PLAINS_LEVEL.surfaces };

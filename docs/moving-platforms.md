@@ -19,7 +19,7 @@ terrain.
 | `offset` | fraction of the cycle already elapsed when the run starts |
 
 `LevelData.platforms` is optional, so a level built from terrain alone is
-unchanged. Plains has none; Quarry Run has two and Sunset Site has one (a crane ferry over its cement yard's paired hazards).
+unchanged. Plains has none; Quarry Run has three vertical lifts and Sunset Site has one (a crane ferry over its cement yard's paired hazards).
 
 Motion is a pure function of the run clock: `platformPhase` is a triangle wave
 with a dwell at both ends, and `platformBodyAt` turns it into a `PlatformBody`.
@@ -80,21 +80,17 @@ For a six-year-old, slow and predictable beats clever:
 
 ## Quarry Run
 
-Both rides are optional, and both dock on the walkable flat of their section, so a
-missed boarding costs a landing rather than a life.
+Quarry's three 96px lifts connect the four fixed resting levels, with four-second
+travel and 1.5-second endpoint pauses. A connects 140 ↔ 420 on the left, B
+420 ↔ 700 on the right, and C 700 ↔ 980 on the left. All docks allow walking
+on and off; permanent one-way catches limit absent boarding and shaft slips.
+Attached riders pass catch bridges with their carriage in both directions;
+free falls land on the highest crossed top. Platform collision interpolates
+within movement substeps while retaining the existing step-average velocities.
 
-- **`quarry-lift-terraces`** docks flush with the terrace at x=2356, between the
-  section's two stone hazards and directly under `quarry-bonus-002`. Standing on
-  the dock is enough: the lift is a second, forgiving way up to a bonus gem that
-  otherwise needs a well-aimed jump.
-- **`quarry-ferry-crusher`** rides 42 px above the crusher-yard flat and carries
-  riders over the paired stone hazards at x=7180 and x=7240. A *tapped* jump
-  reaches the deck, so boarding never needs a held jump, and hopping on the spot
-  under it catches the next pass without reading any timing.
-
-The spring pits keep their springs. A ferry across one would have to be timed to
-avoid a fall, which is exactly the trade this audience should not be asked to
-make, and the springs already clear them.
+The main descent does not require a ride. The lifts supply the intended full
+upward ROCK return. See the [Quarry worksheet](QUARRY-PLAYTEST.md) for geometry,
+proof boundaries and remaining owner acceptance.
 
 ## Known limitations
 
@@ -103,6 +99,6 @@ make, and the springs already clear them.
 - A rider who keeps holding a direction will run off the slab; the Quarry rides and the
   Sunset Site ferry are placed so that this is a short drop onto walkable ground.
 - No platform is ever load-bearing for finishing a level. Every shipped ride is
-  optional, which is what keeps the hold-Right route intact.
+  optional on the initial descent; Quarry uses alternating directions on fixed terraces.
 - Entities do not ride platforms — only Henry does. A gem or hazard is placed in
   world space and stays there.

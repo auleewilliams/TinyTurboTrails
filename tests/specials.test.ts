@@ -33,7 +33,7 @@ it.each(LEVELS.slice(0, 3))('$name keeps marked landing bands clear of pits and 
 it('keeps authored landing bands as non-textual route guidance', () => {
   expect(LEVELS.map(level => level.landingBands ?? [])).toEqual([
     [{ x: 1320, width: 180 }],
-    [{ x: 2660, width: 100 }],
+    [{ x: 450, width: 100 }],
     [{ x: 1100, width: 140 }, { x: 4960, width: 180 }, { x: 8510, width: 180 }],
     [], [], [],
   ]);
@@ -51,11 +51,12 @@ it.each(LEVELS.slice(0, 3))('$name collects through contact once, separately, an
   }
   expect(run.collectedSpecials).toEqual(new Set(stars.map(star => star.id)));
   expect(events.filter(event => event.type === 'special')).toHaveLength(3);
-  expect(run.collectedGems.size).toBe(0);
+  const contactedGems = new Set(run.collectedGems);
+  expect(contactedGems).toEqual(new Set(level.id === 'quarry' ? ['quarry-gem-015'] : []));
   const ordinaryGem = level.entities.find(entity => entity.kind === 'gem')!;
   player.x = ordinaryGem.x; player.y = ordinaryGem.y - 34;
   stepEntities(run, level, player, 1 / 60, events);
-  expect(run.collectedGems).toEqual(new Set([ordinaryGem.id]));
+  expect(run.collectedGems).toEqual(new Set([...contactedGems, ordinaryGem.id]));
   expect(run.collectedSpecials.size).toBe(3);
   const gems = new Set(run.collectedGems);
   activateCheckpoint(run, level.checkpoints[0].id, events);
@@ -90,15 +91,14 @@ it.each(['Replay', 'Next trail', 'Map'])('%s clears specials on the next run whi
 
 // This pilot uses only ordinary directional/jump inputs from the actual start.
 // It never moves Henry, changes a clock, grants rewards or disables hazards.
-it.each(LEVELS.slice(0, 3))('$name reaches all three stars from the start with ordinary controls', level => {
+// Quarry's input-only side branches and full retrace are covered in quarry-descent.test.ts.
+it.each(LEVELS.slice(0, 3).filter(level => level.id !== 'quarry'))('$name reaches all three stars from the start with ordinary controls', level => {
   const scene = new AdventureScene({} as HTMLImageElement, {} as never, worlds, audio, level);
   scene.startSelected();
   const live = scene as unknown as Live;
   const dangers = level.entities.filter(entity => entity.kind === 'hazard' || entity.kind === 'slime').sort((a, b) => a.x - b.x);
   let nextDanger = 0;
   let held = 0;
-  let docked = false;
-  let rodeLift = false;
   let lastX = 0;
   for (let frame = 0; frame < 60 * 160 && scene.screenState !== 'finish'; frame++) {
     const player = live.player;
@@ -116,16 +116,6 @@ it.each(LEVELS.slice(0, 3))('$name reaches all three stars from the start with o
         if (Math.abs(player.x - 1930) < 6 && player.onGround) { jumpPressed = true; held = 24; }
       }
     }
-    if (level.id === 'quarry' && player.x > 2250 && !docked) {
-      const predictedStop = player.x + Math.sign(player.vx) * player.vx ** 2 / 2400;
-      horizontal = predictedStop < 2376 ? 1 : predictedStop > 2384 ? -1 : 0;
-      if (Math.abs(player.x - 2380) < 12 && Math.abs(player.vx) < 15) docked = true;
-    }
-    if (level.id === 'quarry' && docked && !rodeLift) {
-      horizontal = 0; jumpPressed = false; held = 0;
-      if (player.platformId === 'quarry-lift-terraces' && player.y + 34 <= 67) rodeLift = true;
-    }
-    if (level.id === 'quarry' && rodeLift && player.x < 2650) { jumpPressed = false; held = 0; }
     if (level.id === 'timbers') for (const star of level.entities.filter(entity => entity.kind === 'special').slice(1)) {
       if (live.run.collectedSpecials.has(star.id) || player.x < star.x - 95) continue;
       const stop = player.x + Math.sign(player.vx) * player.vx ** 2 / 2400;
@@ -138,14 +128,12 @@ it.each(LEVELS.slice(0, 3))('$name reaches all three stars from the start with o
   }
   expect(scene.screenState).toBe('finish');
   expect([...live.run.collectedSpecials]).toEqual(level.entities.filter(entity => entity.kind === 'special').map(entity => entity.id));
-  if (level.id === 'quarry') expect(rodeLift).toBe(true);
 });
 
 it.each([
   { level: LEVELS[0], entry: 1065, exit: 1430 },
   { level: LEVELS[0], entry: 1930, exit: 2180 },
   { level: LEVELS[0], entry: 2760, exit: 3100 },
-  { level: LEVELS[1], entry: 2380, exit: 2700 },
   ...[950, 1650, 3100, 4850, 8400].map(entry => ({ level: LEVELS[2], entry, exit: entry + 250 })),
 ])('$level.name failed approaches at $entry return to ordinary terrain', ({ level, entry, exit }) => {
   for (const direction of [-1, 0, 1]) {
@@ -156,7 +144,6 @@ it.each([
     live.player = createPlayer(entry, level);
     const first = level.entities.find(entity => entity.kind === 'special')!;
     collectSpecial(live.run, first.id, []);
-    if (level.id === 'quarry') for (let frame = 0; frame < 360; frame++) scene.update(1 / 60, neutral);
     for (let frame = 0; frame < 45; frame++) scene.update(1 / 60, { ...neutral, horizontal: direction });
     for (let frame = 0; frame < 60 * 20 && live.player.x < exit; frame++) {
       scene.update(1 / 60, { ...neutral, horizontal: 1 });
@@ -165,14 +152,6 @@ it.each([
     expect(live.player.y).toBeLessThan(level.height + 80);
     expect(live.run.collectedSpecials.has(first.id)).toBe(true);
   }
-});
-
-it('keeps the optional Quarry shelf stationary above a continuous safe return', () => {
-  const shelf = LEVELS[1].platforms!.find(platform => platform.id === 'quarry-star-shelf')!;
-  expect(shelf.from).toEqual(shelf.to);
-  expect(shelf.width).toBe(200);
-  const surface = LEVELS[1].surfaces.filter(part => part.x2 >= shelf.from.x && part.x1 <= shelf.from.x + shelf.width);
-  expect(surface.every(part => part.y1 < 200 && part.y2 < 200)).toBe(true);
 });
 
 it.each(LEVELS)('$name can finish with no special rewards', level => {
@@ -185,22 +164,4 @@ it.each(LEVELS)('$name can finish with no special rewards', level => {
   expect(scene.specialTotal).toBe(0);
   expect(scene.educationOverlay.open).toBe(false);
   expect(scene.menuTargets.map(target => target.label)).toContain('Replay');
-});
-
-it('boards the existing lift across its full cycle without a timed jump', () => {
-  for (const x of [2368, 2380, 2392]) for (const phase of [0, 1, 2, 3, 4, 5]) {
-    const level = LEVELS[1];
-    const scene = new AdventureScene({} as HTMLImageElement, {} as never, worlds, audio, level);
-    scene.startSelected();
-    const live = scene as unknown as Live;
-    live.player = createPlayer(x, level);
-    live.run.seconds = phase;
-    for (let frame = 0; frame < 60 * 8; frame++) scene.update(1 / 60, neutral);
-    // Waiting reaches the shelf height at every phase; then walk onto it.
-    for (let frame = 0; frame < 480 && live.player.y + 34 > 67; frame++) scene.update(1 / 60, neutral);
-    expect(live.player.y + 34).toBeLessThanOrEqual(67);
-    for (let frame = 0; frame < 45; frame++) scene.update(1 / 60, { ...neutral, horizontal: 1 });
-    expect(live.run.collectedSpecials.has('quarry-special-1'), `dock ${x} phase ${phase}`).toBe(true);
-    expect(live.run.health).toBe(3);
-  }
 });

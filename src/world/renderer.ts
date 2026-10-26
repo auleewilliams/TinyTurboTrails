@@ -60,7 +60,7 @@ export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, le
   drawTerrainEdge(ctx, level, offset);
   drawSurfaceMaterials(ctx, level, offset);
   for (const surface of level.surfaces) drawSurfaceGrip(ctx, surface, offset);
-  drawPlatforms(ctx, level, offset, platforms);
+  drawPlatforms(ctx, level, offset, platforms, assets);
   drawLandingBands(ctx, level, offset);
   // Decorative silhouettes sit behind every collectible, hazard and checkpoint.
   const layerOrder: Record<WorldEntity['layer'], number> = { back: 0, world: 1, front: 2 };
@@ -251,11 +251,24 @@ function drawSun(ctx: CanvasRenderingContext2D, sun: LevelSun, cameraX: number):
 
 /** Paths are drawn before the slabs so a rider always sees where the ride goes next. */
 export function drawPlatforms(ctx: CanvasRenderingContext2D, level: LevelData, offset: { x: number; y: number },
-  platforms: readonly PlatformBody[]): void {
+  platforms: readonly PlatformBody[], assets?: WorldAssets): void {
   for (const platform of level.platforms ?? []) {
     drawPlatformPath(ctx, platform, offset);
     const body = platforms.find((candidate) => candidate.id === platform.id);
     if (!body) continue;
+    if (assets && level.progressAxis === 'y' && platform.from.x === platform.to.x && platform.from.y === platform.to.y) {
+      const x = body.x - offset.x, y = body.y - offset.y;
+      if (x + body.width >= 0 && x <= 426 && y >= -28 && y <= 240) {
+        const depth = body.width >= 140 ? 24 : 14;
+        ctx.fillStyle = level.theme.ground; ctx.fillRect(x, y + 3, body.width, depth);
+        ctx.save(); ctx.beginPath(); ctx.rect(x, y + 3, body.width, depth); ctx.clip();
+        drawTerrainMaterial(ctx, level, offset, assets, body.x, body.x + body.width);
+        for (let rock = body.x + 12; rock < body.x + body.width; rock += 30) {
+          drawAsset(ctx, assets, 'stone', rock - offset.x, y + depth + 7, 0.5);
+        }
+        ctx.restore();
+      }
+    }
     ctx.fillStyle = level.theme.ground;
     ctx.fillRect(body.x - offset.x, body.y - offset.y, body.width, body.height);
     ctx.fillStyle = level.theme.edge;
