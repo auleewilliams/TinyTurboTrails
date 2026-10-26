@@ -67,9 +67,9 @@ it.each(LEVELS)('names every $name area without internal identifiers and expires
     const name = areaName(level, index);
     expect(name).not.toBe(level.name);
     expect(name).not.toMatch(/checkpoint|-/);
-    hud.update(1 / 60, neutral, level, checkpoint.x - 100);
+    hud.update(1 / 60, neutral, level, checkpoint.x - 100, false, checkpoint.y);
     expect(hud.location).toBe(name);
-    hud.update(3, neutral, level, checkpoint.x - 100);
+    hud.update(3, neutral, level, checkpoint.x - 100, false, checkpoint.y);
     expect(hud.locationSeconds).toBe(0);
   });
 });
@@ -89,7 +89,7 @@ it('keeps simulation untouched when presenting events and clears every pending e
   expect(feedback.checkpointSeconds).toBe(0);
 });
 
-it.each(LEVELS)('maps $name progress from the real start to the exact finish trigger', level => {
+it.each(LEVELS.filter(level => level.progressAxis !== 'y'))('maps $name progress from the real start to the exact finish trigger', level => {
   expect(trailPosition(level, level.start.x - 100)).toBe(0);
   expect(trailPosition(level, level.start.x)).toBe(0);
   expect(trailPosition(level, (level.start.x + level.finish.x) / 2)).toBe(0.5);

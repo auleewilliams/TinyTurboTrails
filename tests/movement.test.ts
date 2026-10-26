@@ -417,3 +417,13 @@ describe('surface friction', () => {
     expect(distances[0]).toBeLessThan(34);
   });
 });
+
+it('keeps a vertical rider on the interpolated deck through a maximum step with horizontal substeps', () => {
+  const terrain = { minX: 0, maxX: 820, surfaces: [{ x1: 0, x2: 820, y1: 980, y2: 980 }] };
+  const player = createPlayer(710, terrain);
+  Object.assign(player, { y: 700 - 34, platformId: 'vertical', onGround: true, vx: -92 });
+  simulatePlayer(player, { horizontal: 0, jumpPressed: false, jumpHeld: false }, terrain, 0.1,
+    [{ id: 'vertical', x: 660, y: 693, width: 96, height: 10, vx: 0, vy: -70 }]);
+  expect(player.platformId).toBe('vertical');
+  expect(player.y + 34).toBeCloseTo(693);
+});

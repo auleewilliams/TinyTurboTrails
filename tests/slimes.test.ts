@@ -6,7 +6,7 @@ import { advancePatrols, createRun, entityState, startNewRun, stepEntities } fro
 import { createPlayer, surfaceY } from '../src/game/movement';
 import { drawSlime } from '../src/world/renderer';
 
-it.each(LEVELS)('$name gives every slime the common speed, a short safe route and no bounce', (level) => {
+it.each(LEVELS.filter(level => level.entities.some(entity => entity.kind === 'slime')))('$name gives every slime the common speed, a short safe route and no bounce', (level) => {
   const slimes = level.entities.filter((entity) => entity.kind === 'slime');
   expect(slimes.length).toBeGreaterThan(0);
   expect(() => validateLevel(level)).not.toThrow();

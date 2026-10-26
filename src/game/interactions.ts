@@ -176,7 +176,11 @@ export function stepEntities(run: RunState, level: LevelData, player: Player, se
   ]): void {
   // Resolve crossings before damage can teleport the player to a recovery point.
   for (const checkpoint of level.checkpoints) {
-    if (crossesCheckpoint(previous, player, checkpoint)) activateCheckpoint(run, checkpoint.id, events);
+    const matchingShelf = player.onGround && Math.abs(player.y + DEFAULT_MOVEMENT.height - checkpoint.y) < 2
+      && Math.abs(player.x - checkpoint.x) <= 28;
+    if (level.checkpointActivation === 'grounded' ? matchingShelf : crossesCheckpoint(previous, player, checkpoint)) {
+      activateCheckpoint(run, checkpoint.id, events);
+    }
   }
   advancePatrols(run, level, seconds);
   advanceBounces(run, level);

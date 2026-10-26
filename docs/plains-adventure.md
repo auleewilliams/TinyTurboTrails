@@ -63,7 +63,7 @@ every badge and result; there is no storage or server save.
 | Trail | Recognizable place and gameplay |
 | --- | --- |
 | Plains | Meadow rollers, big downhill, orchard bumps, spring hill and final climb |
-| Quarry Run | Rock terraces, framed mines, deep pits, crusher yard; two optional rides |
+| Quarry Run | Four quarry workings, staggered terraces, three vertical return lifts; floor finish |
 | Treetop Timbers | Sunset treehouses, supported woodland scenery and plank bridge valleys |
 | Sunset Site | Construction equipment, gravel, girders and an optional crane ferry |
 | Frost Ridge | Snowy mountain, authored ice patches and safe snow runouts |

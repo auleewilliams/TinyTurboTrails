@@ -20,6 +20,7 @@ function finished(index: number) {
   scene.startSelected();
   const live = scene as unknown as Live;
   live.player.x = LEVELS[index].finish.x;
+  live.player.y = LEVELS[index].finish.y - 34;
   scene.update(1 / 60, neutral);
   return { scene, live };
 }

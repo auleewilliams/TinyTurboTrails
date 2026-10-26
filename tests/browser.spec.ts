@@ -1,3 +1,5 @@
+import { installQuarryPilotScript } from './quarry-pilot';
+import { QUARRY_DESCENT, QUARRY_RETURN, QUARRY_STARS, type QuarryWaypoint } from './quarry-route';
 import { installPlainsRewardPilot } from './plains-pilot';
 import { drawTerrainMaterial, drawTerrainEdge, drawTrailBackdrop } from '../src/world/trail-presentation';
 import { installRetracePilotScript } from './retrace-pilot';
@@ -8,7 +10,7 @@ import { mkdir, writeFile } from 'node:fs/promises';
 import { readFileSync } from 'node:fs';
 import { transformSync } from 'rolldown/utils';
 import type { EducationOverlay } from '../src/game/education-overlay';
-import { PLAINS_LEVEL } from '../src/world/level';
+import { PLAINS_LEVEL, hasFixedSupport } from '../src/world/level';
 import { LEVELS, QUARRY_RUN } from '../src/world/levels';
 import { DEFAULT_MOVEMENT, surfaceY } from '../src/game/movement';
 import { platformBodyAt } from '../src/game/platforms';
@@ -185,7 +187,7 @@ test('ambient weather repeats the same pixels, respects reduced motion and stays
       const assets = { atlas, manifest, gems, materials, backdrops, slimes, panorama };
       const canvas = document.createElement('canvas'); canvas.width = 426; canvas.height = 240;
       const ctx = canvas.getContext('2d')!; ctx.imageSmoothingEnabled = false;
-      const camera = { position: { x: 1400.25, y: 0 } } as Parameters<typeof drawWorld>[3];
+      const camera = { position: { x: Math.min(1400.25, level.maxX - 426), y: level.progressAxis === 'y' ? level.height - 240 : 0 } } as Parameters<typeof drawWorld>[3];
       const render = (window as unknown as { drawWeatherTestWorld: typeof drawWorld }).drawWeatherTestWorld;
       const draw = (seconds: number, reduced = false, themed = base) => {
         render(ctx, assets, themed, camera, undefined, undefined, undefined, seconds, reduced);
@@ -203,7 +205,7 @@ test('ambient weather repeats the same pixels, respects reduced motion and stays
       for (let x = 0; x < 426; x++) {
         const worldX = x + camera.position.x;
         const surface = level.surfaces.find(s => worldX >= s.x1 && worldX <= s.x2)!;
-        const ground = surface.y1 + (surface.y2 - surface.y1) * (worldX - surface.x1) / (surface.x2 - surface.x1);
+        const ground = surface.y1 + (surface.y2 - surface.y1) * (worldX - surface.x1) / (surface.x2 - surface.x1) - camera.position.y;
         for (let y = 0; y < 240; y++) {
           const index = (y * 426 + x) * 4;
           if (pixels[index] === clearPixels[index] && pixels[index + 1] === clearPixels[index + 1]
@@ -244,14 +246,14 @@ test('controller damage rumble is independent of audio and stops on pause, focus
     };
     Object.defineProperty(navigator, 'getGamepads', { configurable: true, value: () => {
       // Keep side-contact checks on the first flat patrol. A polling wait must
-      // not carry Henry into Quarry's optional spring/steep terrace sequence.
+      // not carry Henry into Sunset's spring/steep terrace sequence.
       if (probe.drive && probe.latest) {
-        if (probe.retreat && probe.latest.x <= 760) {
+        if (probe.retreat && probe.latest.x <= 520) {
           probe.drive = false; probe.retreat = false; pad.axes[0] = 0;
           probe.events.push({ kind: 'safe-stop', time: performance.now(), x: probe.latest.x });
         } else {
-          if (probe.retreat || probe.latest.x >= 940) probe.direction = -1;
-          else if (probe.latest.x <= 810) probe.direction = 1;
+          if (probe.retreat || probe.latest.x >= 720) probe.direction = -1;
+          else if (probe.latest.x <= 580) probe.direction = 1;
           pad.axes[0] = probe.direction;
         }
       }
@@ -319,7 +321,7 @@ test('controller damage rumble is independent of audio and stops on pause, focus
   };
   const safeStop = async (): Promise<void> => {
     await expect.poll(() => page.evaluate(() => (window as unknown as { rumbleProbe: { drive: boolean } }).rumbleProbe.drive)).toBe(false);
-    expect((await read()).latest!.x).toBeLessThanOrEqual(780);
+    expect((await read()).latest!.x).toBeLessThanOrEqual(540);
   };
   const movedAfter = async (time: number, x: number): Promise<boolean> => sustainedControllerMovement(
     await page.evaluate(() => (window as unknown as { rumbleProbe: { samples: Sample[] } }).rumbleProbe.samples), time, x);
@@ -331,7 +333,8 @@ test('controller damage rumble is independent of audio and stops on pause, focus
     await expect(page.getByRole('button', { name: 'QUARRY RUN', exact: true })).toHaveAttribute('aria-pressed', 'true');
     await neutral();
     expect((await read()).effects).toEqual([]); // Controller map navigation has no output.
-    await page.getByRole('button', { name: 'Play QUARRY RUN', exact: true }).click();
+    await page.getByRole('button', { name: 'SUNSET SITE', exact: true }).click();
+    await page.getByRole('button', { name: 'Play SUNSET SITE', exact: true }).click();
     await page.keyboard.press('m');
     await expect(page.locator('#status')).toContainText('Muted');
     await axis(1, 2);
@@ -701,8 +704,7 @@ test('moving platform slabs and their telegraphed paths draw on the real canvas'
   await page.goto('/?scene=foundation');
   await page.addScriptTag({ content: `${RENDERER_SOURCE}\nwindow.drawTerrainTestWorld = ${drawWorld.toString()};` });
   const platforms = (QUARRY_RUN.platforms ?? []).filter(platform => platform.from.x !== platform.to.x || platform.from.y !== platform.to.y);
-  // At two seconds in, the lift is parked at the top of its path and the ferry is
-  // mid-crossing, so one sample covers both a parked and a travelling slab.
+  // Sample each vertical lift in transit and frame the deck at screen Y120.
   const views = platforms.map((platform) => ({
     id: platform.id,
     body: platformBodyAt(platform, 2),
@@ -722,21 +724,21 @@ test('moving platform slabs and their telegraphed paths draw on the real canvas'
     const render = (window as unknown as { drawTerrainTestWorld: typeof drawWorld }).drawTerrainTestWorld;
     const bare = { ...level, platforms: [] };
     return sampled.map(({ id, body }) => {
-      const offset = { x: body.x - 150, y: 0 };
+      const offset = { x: body.x - 150, y: body.y - 120 };
       const camera = { position: offset } as Parameters<typeof drawWorld>[3];
       // The same frame without any platform data, to prove what the telegraph itself draws.
       ctx.clearRect(0, 0, 426, 240);
       render(ctx, { atlas, manifest, gems }, bare, camera, () => true, (entity) => entity, []);
       const before = ctx.getImageData(0, 0, 426, 240).data;
       ctx.clearRect(0, 0, 426, 240);
-      render(ctx, { atlas, manifest, gems }, level, camera, () => true, (entity) => entity, [body]);
+      render(ctx, { atlas, manifest, gems }, { ...level, platforms: level.platforms!.filter(platform => platform.id === id) }, camera, () => true, (entity) => entity, [body]);
       const after = ctx.getImageData(0, 0, 426, 240).data;
       // Everything outside the deck is identical between the two frames except the telegraph,
       // so counting changed pixels there counts exactly the pips and their end markers.
       let telegraphed = 0;
       for (let y = 0; y < 240; y++) {
         for (let x = 0; x < 426; x++) {
-          if (x >= 150 && x <= 150 + body.width && y >= body.y - 3 && y <= body.y + body.height) continue;
+          if (x >= 150 && x <= 150 + body.width && y >= 120 - 3 && y <= 120 + body.height) continue;
           const pixel = (y * 426 + x) * 4;
           if (before[pixel] !== after[pixel] || before[pixel + 1] !== after[pixel + 1]) telegraphed++;
         }
@@ -754,8 +756,8 @@ test('moving platform slabs and their telegraphed paths draw on the real canvas'
       return {
         id,
         width: body.width,
-        cap: run(body.y + 1, colors.edge),
-        slab: run(body.y + 6, colors.ground),
+        cap: run(121, colors.edge),
+        slab: run(126, colors.ground),
         telegraphed,
         image: canvas.toDataURL(),
       };
@@ -921,8 +923,8 @@ test('adventure flashes the sprite after damage without a rectangular overlay', 
   await page.setViewportSize({ width: 426, height: 300 });
   await openAdventure(page, '/?scene=adventure&debug=1');
   await expect(page.locator('#status')).toContainText('Title');
-  await page.getByRole('button', { name: 'QUARRY RUN', exact: true }).click();
-  await page.getByRole('button', { name: 'Play QUARRY RUN', exact: true }).click();
+  await page.getByRole('button', { name: 'SUNSET SITE', exact: true }).click();
+  await page.getByRole('button', { name: 'Play SUNSET SITE', exact: true }).click();
   await page.keyboard.down('ArrowRight');
   await expect(page.locator('canvas')).toHaveAttribute('data-hit-sprite', /tinted/, { timeout: 5000 });
   await page.keyboard.up('ArrowRight');
@@ -933,8 +935,8 @@ test('adventure HUD shows three hearts and empties one after damage', async ({ p
   await page.setViewportSize({ width: 426, height: 300 });
   await openAdventure(page, '/?scene=adventure&debug=1');
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
-  await page.getByRole('button', { name: 'QUARRY RUN', exact: true }).click();
-  await page.getByRole('button', { name: 'Play QUARRY RUN', exact: true }).click();
+  await page.getByRole('button', { name: 'SUNSET SITE', exact: true }).click();
+  await page.getByRole('button', { name: 'Play SUNSET SITE', exact: true }).click();
   await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
   const canvas = page.locator('canvas');
   const readPips = async (): Promise<number[][]> => canvas.evaluate((element) => {
@@ -956,16 +958,16 @@ test('a patrolling slime keeps moving while Henry stands still', async ({ page }
   await page.setViewportSize({ width: 426, height: 300 });
   await openAdventure(page, '/?scene=adventure&debug=1');
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
-  await page.getByRole('button', { name: 'QUARRY RUN', exact: true }).click();
-  await page.getByRole('button', { name: 'Play QUARRY RUN', exact: true }).click();
+  await page.getByRole('button', { name: 'SUNSET SITE', exact: true }).click();
+  await page.getByRole('button', { name: 'Play SUNSET SITE', exact: true }).click();
   await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
   await page.keyboard.down('ArrowRight');
-  await expect.poll(async () => Number((await page.locator('#status').innerText()).match(/X (\d+)/)?.[1]), { timeout: 5000, intervals: [30] }).toBeGreaterThan(670);
+  await expect.poll(async () => Number((await page.locator('#status').innerText()).match(/X (\d+)/)?.[1]), { timeout: 5000, intervals: [30] }).toBeGreaterThan(500);
   await page.keyboard.up('ArrowRight');
   await page.waitForTimeout(250);
   const stationaryX = Number((await page.locator('#status').innerText()).match(/X (\d+)/)?.[1]);
-  // Henry now stands beside the first Quarry slime; only the patrol moves.
-  // With Henry stationary, the visible Quarry slime patrol changes this strip.
+  // Henry now stands beside the first Sunset slime; only the patrol moves.
+  // With Henry stationary, the visible Sunset slime patrol changes this strip.
   const signature = async (): Promise<number> => page.locator('canvas').evaluate((element) => {
     const pixels = (element as HTMLCanvasElement).getContext('2d')!.getImageData(290, 110, 130, 90).data;
     let sum = 0;
@@ -1045,92 +1047,19 @@ for (const url of ['/', '/?scene=adventure']) {
 }
 
 test('title picker selects Quarry Run and starts the selected route', { lock: 'native-route' }, async ({ page }) => {
-  // The extended Quarry Run (issue #73) takes about a minute of held-right real time.
-  // Issue #74 makes walking through every hazard fatal, so jump near each danger.
-  test.setTimeout(200_000);
-  await observeTitleSelection(page);
-  await openAdventure(page, '/?scene=adventure&debug=1');
-  await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
-  await selectNextLevel(page, 'QUARRY RUN');
-  await page.keyboard.press('Space');
-  await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
-  await page.keyboard.down('ArrowRight');
-  const progress = { index: 0 };
-  const dangers = dangerXs(QUARRY_RUN);
-  for (let step = 0; step < 1100; step++) {
-    if ((await advancePastDanger(page, dangers, progress)).includes('Finish')) break;
-  }
-  await page.keyboard.up('ArrowRight');
-  await expect(page.locator('#status')).toContainText('Adventure preview · Finish', { timeout: 5000 });
+  await startQuarryPilot(page);
+  await driveQuarry(page, QUARRY_DESCENT);
+  await quarryFinish(page);
 });
 
-test('Quarry crumbling ledge warns, disappears and returns after fall recovery', { lock: 'native-route' }, async ({ page }, info) => {
-  test.setTimeout(150_000);
-  await page.addInitScript(() => {
-    const fillRect = CanvasRenderingContext2D.prototype.fillRect;
-    const drawImage = CanvasRenderingContext2D.prototype.drawImage;
-    const stroke = CanvasRenderingContext2D.prototype.stroke;
-    CanvasRenderingContext2D.prototype.fillRect = function (x, y, width, height) {
-      if (x === 0 && y === 0 && width === 426 && height === 240 && this.fillStyle === '#657b8c') {
-        this.canvas.dataset.ledgeTiles = '0';
-        this.canvas.dataset.ledgeCracks = '0';
-      }
-      fillRect.call(this, x, y, width, height);
-    };
-    CanvasRenderingContext2D.prototype.drawImage = function (this: CanvasRenderingContext2D, ...args: unknown[]) {
-      if (args.length === 9 && args[7] === 24 && args[8] === 24) {
-        const count = Number(this.canvas.dataset.ledgeTiles ?? 0);
-        this.canvas.dataset.ledgeTiles = String(count + 1);
-      }
-      Reflect.apply(drawImage, this, args);
-    } as typeof drawImage;
-    CanvasRenderingContext2D.prototype.stroke = function (path?: Path2D) {
-      if (this.strokeStyle === '#49362d') {
-        const count = Number(this.canvas.dataset.ledgeCracks ?? 0);
-        this.canvas.dataset.ledgeCracks = String(count + 1);
-        if (!this.canvas.dataset.ledgeAutoPaused) {
-          this.canvas.dataset.ledgeAutoPaused = 'true';
-          window.dispatchEvent(new KeyboardEvent('keydown', { code: 'Escape' }));
-          window.dispatchEvent(new KeyboardEvent('keyup', { code: 'Escape' }));
-        }
-      }
-      Reflect.apply(stroke, this, path ? [path] : []);
-    };
-  });
-  await openAdventure(page, '/?scene=adventure&debug=1');
-  await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15_000 });
-  await page.keyboard.down('ArrowRight');
-  await page.waitForTimeout(100);
-  await page.keyboard.up('ArrowRight');
-  await page.keyboard.press('Space');
-  await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
-  const canvas = page.locator('canvas');
-  await expect(canvas).toHaveAttribute('data-ledge-tiles', '9');
-
-  const dangerProgress = { index: 0 };
-  const dangers = dangerXs(QUARRY_RUN);
-  await page.keyboard.down('ArrowRight');
-  for (let step = 0; step < 1_000; step++) {
-    const status = await advancePastDanger(page, dangers, dangerProgress);
-    if (status.includes('Paused')) break;
-  }
-  await expect(page.locator('#status')).toHaveText('Paused · Escape to resume', { timeout: 5_000 });
-  await page.keyboard.up('ArrowRight');
-  expect(Number(await canvas.getAttribute('data-ledge-cracks') ?? 0)).toBeGreaterThan(0);
-  await info.attach('crumbling-ledge-warning', {
-    body: await canvas.screenshot({ path: info.outputPath('crumbling-ledge-warning.png') }),
-    contentType: 'image/png',
-  });
-  await page.keyboard.press('Escape');
-  await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
-  await expect.poll(async () => Number(await canvas.getAttribute('data-ledge-tiles') ?? 0), { timeout: 5_000 })
-    .toBe(6);
-
-  await page.keyboard.down('ArrowLeft');
-  await expect.poll(async () => Number(await canvas.getAttribute('data-ledge-tiles') ?? 0), { timeout: 20_000 })
-    .toBe(9);
-  await page.keyboard.up('ArrowLeft');
-  expect(await page.locator('#status').innerText()).toContain('Playing');
+test('Quarry absent carriage has a permanent local catch and a return jump', { lock: 'native-route' }, async ({ page }, info) => {
+  await startQuarryPilot(page);
+  await driveQuarry(page, [{ x: 180, y: 140, tag: 'A waiting ledge' }]);
+  await page.waitForFunction(() => (window as unknown as { quarryPilot: { decks: { id: string; y: number }[] } }).quarryPilot.decks.some(deck => deck.id === 'quarry-lift-a' && deck.y > 240 && deck.y < 350));
+  await driveQuarry(page, [{ x: 112, y: 164, tag: 'absent A local catch' }]);
+  await info.attach('quarry-absent-carriage-catch', { body: await page.locator('#game').screenshot(), contentType: 'image/png' });
+  await driveQuarry(page, [{ x: 180, y: 140, jump: true, tag: 'catch return jump' }]);
+  await expect(page.locator('#status')).toContainText('Playing');
 });
 
 test('title picker renders Treetop Timbers with its own atlas', async ({ page }, info) => {
@@ -2236,7 +2165,7 @@ test('finish artwork pixels meet terrain in all six trails, including the sloped
       const panorama = manifest.panorama ? await image(`${base}${manifest.panorama}`) : undefined;
       const canvas = document.createElement('canvas'); canvas.width = 426; canvas.height = 240;
       const ctx = canvas.getContext('2d')!; ctx.imageSmoothingEnabled = false;
-      const offset = { x: level.finish.x - 213, y: 0 };
+      const offset = { x: level.finish.x - 213, y: level.progressAxis === 'y' ? level.finish.y - 180 : 0 };
       const assets = { atlas, manifest, gems, backdrops, materials, panorama };
       const route = { ...level, entities: [] };
       render(ctx, assets, route, { position: offset } as Parameters<typeof drawWorld>[3]);
@@ -2260,7 +2189,7 @@ test('finish artwork pixels meet terrain in all six trails, including the sloped
         }
         const wx = footX + offset.x;
         const surface = level.surfaces.find(s => wx >= s.x1 && wx <= s.x2)!;
-        const ground = surface.y1 + (surface.y2 - surface.y1) * (wx - surface.x1) / (surface.x2 - surface.x1);
+        const ground = surface.y1 + (surface.y2 - surface.y1) * (wx - surface.x1) / (surface.x2 - surface.x1) - offset.y;
         gaps.push(ground - (bottom + 1));
       }
       const source = document.createElement('canvas'); source.width = 48; source.height = 48;
@@ -2288,7 +2217,7 @@ test('finish artwork pixels meet terrain in all six trails, including the sloped
           for (let y = 0; y < 240; y++) if (pixels[(y * 426 + x) * 4 + 3] >= 128) bottom = y;
           const wx = x + 0.5 + offset.x;
           const surface = level.surfaces.find(s => wx >= s.x1 && wx <= s.x2)!;
-          const ground = surface.y1 + (surface.y2 - surface.y1) * (wx - surface.x1) / (surface.x2 - surface.x1);
+          const ground = surface.y1 + (surface.y2 - surface.y1) * (wx - surface.x1) / (surface.x2 - surface.x1) - offset.y;
           supportGaps.push(ground - (bottom + 1));
         }
       }
@@ -2503,6 +2432,15 @@ async function observeRewardResults(page: Page): Promise<void> {
 for (const [index, level] of LEVELS.entries()) {
   test(`milestone ${level.name}: pointer selection, full route, return, replay and next`, async ({ page }, info) => {
     test.setTimeout(100_000);
+    if (level.id === 'quarry') {
+      await startQuarryPilot(page); await driveQuarry(page, QUARRY_DESCENT); await quarryFinish(page);
+      await page.getByRole('button', { name: 'Replay', exact: true }).click();
+      await expect(page.locator('#status')).toContainText('X 300 Y 106');
+      await driveQuarry(page, QUARRY_DESCENT); await quarryFinish(page);
+      await page.getByRole('button', { name: 'Next trail', exact: true }).click();
+      await expect(page.locator('#status')).toContainText('Playing');
+      return;
+    }
     await installTrailPilot(page);
     await observeRewardResults(page);
     await observeTrailRibbon(page);
@@ -2554,7 +2492,7 @@ for (const [index, level] of LEVELS.entries()) {
     await page.evaluate(() => Object.assign((window as unknown as { trailPilot: object }).trailPilot, { active: false, frozen: false, pauseAt: 0 }));
     // These valleys put Henry's feet in the ribbon's vertical band. Check the
     // actual sprite bounds so a centered ribbon cannot silently obscure him.
-    const lowGroundX = ({ quarry: 4350, timbers: 5880, sunset: 5660 } as Record<string, number>)[level.id];
+    const lowGroundX = ({ timbers: 5880, sunset: 5660 } as Record<string, number>)[level.id];
     if (lowGroundX !== undefined) {
       await page.evaluate(pauseAt => Object.assign((window as unknown as { trailPilot: object }).trailPilot,
         { active: true, pauseAt }), lowGroundX);
@@ -2669,13 +2607,14 @@ for (const [index, level] of LEVELS.entries()) {
     await traverse();
     await finishAction('Replay');
     await expect(page.locator('#status')).toContainText('Playing');
-    await expect(page.locator('#status')).toContainText('X 60');
+    await expect(page.locator('#status')).toContainText(`X ${level.start.x}`);
     await expectFreshRibbon();
     await traverse();
     if (index < LEVELS.length - 1) {
       await finishAction('Next trail');
-      await expect(page.locator('#status')).toContainText('Playing');
-      await expect(page.locator('#status')).toContainText('X 60');
+      const next = LEVELS[index + 1];
+      expect(hasFixedSupport(next, next.start)).toBe(true);
+      await expect(page.locator('#status')).toContainText(`Playing · Letter bag: 0/4 · X ${next.start.x} Y ${next.start.y - DEFAULT_MOVEMENT.height} V 0`);
       await expect(canvas).toHaveAttribute('data-ribbon-marker', String(TRAIL_RIBBON.startX));
       expect(JSON.parse((await canvas.getAttribute('data-ribbon-checkpoints'))!).every((point: { filled: boolean }) => !point.filled)).toBe(true);
     } else await expect(page.getByRole('button', { name: 'Next trail', exact: true })).toHaveCount(0);
@@ -2773,7 +2712,7 @@ test('every destination accepts keyboard and standard-controller selection and s
     if (controller) await page.evaluate(() => { (window as unknown as { trailPad: { buttons: { pressed: boolean }[] } }).trailPad.buttons[0].pressed = true; });
     else await page.keyboard.press('Space', { delay: 60 });
     await expect(page.locator('#status')).toContainText('Playing');
-    await expect(page.locator('#status')).toContainText('X 60');
+    await expect(page.locator('#status')).toContainText(`X ${level.start.x}`);
   }
 });
 
@@ -2782,6 +2721,13 @@ test('every destination accepts keyboard and standard-controller selection and s
 for (const [index, level] of LEVELS.slice(0, 3).entries()) {
   test(`signature ${level.name}: nine-star route, native/small evidence and fresh navigation`, async ({ page }, info) => {
     test.setTimeout(120_000);
+    if (level.id === 'quarry') {
+      await startQuarryPilot(page); await driveQuarry(page, QUARRY_STARS); await quarryFinish(page);
+      await info.attach('quarry-star-route', { body: await page.locator('#game').screenshot(), contentType: 'image/png' });
+      await page.getByRole('button', { name: 'Replay', exact: true }).click();
+      await expect(page.locator('#status')).toContainText('X 300 Y 106');
+      return;
+    }
     const errors: string[] = [];
     page.on('pageerror', error => errors.push(error.message));
     await page.addInitScript(({ id, dangers }) => {
@@ -2819,16 +2765,6 @@ for (const [index, level] of LEVELS.slice(0, 3).entries()) {
               if (Math.abs(x - 1930) < 6 && y + 34 >= 222 && pilot.time >= pilot.jumpUntil) pilot.jumpUntil = pilot.time + 400;
             }
           }
-          if (id === 'quarry' && x > 2250 && !pilot.docked) {
-            const stop = x + Math.sign(vx) * vx ** 2 / 2400;
-            horizontal = stop < 2376 ? 1 : stop > 2384 ? -1 : 0;
-            if (Math.abs(x - 2380) < 12 && Math.abs(vx) < 15) pilot.docked = true;
-          }
-          if (id === 'quarry' && pilot.docked && !pilot.rode) {
-            horizontal = 0; pilot.jumpUntil = 0;
-            if (y + 34 <= 67) pilot.rode = true;
-          }
-          if (id === 'quarry' && pilot.rode && x < 2650) pilot.jumpUntil = 0;
           if (id === 'timbers') for (const [target, required] of [[4850, 2], [8400, 3]]) {
             const collected = Number((document.querySelector('canvas')?.dataset.stars ?? '').match(/^(\d+)/)?.[1] ?? 0);
             if (x < target - 95 || collected >= required) continue;
@@ -2850,8 +2786,7 @@ for (const [index, level] of LEVELS.slice(0, 3).entries()) {
         }
         // Match the existing input pilot's accelerated wall clock outside the
         // challenge area; the production clock still integrates fixed steps.
-        const near = id === 'plains' ? [[1000, 1320], [1650, 2030], [2680, 3100]].some(([l, r]) => x > l && x < r) : id === 'quarry' ? x > 2200 && x < 2700
-          : [[850, 1180], [4750, 5120], [8300, 8680]].some(([left, right]) => x > left && x < right);
+        const near = id === 'plains' ? [[1000, 1320], [1650, 2030], [2680, 3100]].some(([l, r]) => x > l && x < r) : [[850, 1180], [4750, 5120], [8300, 8680]].some(([left, right]) => x > left && x < right);
         pilot.time += Math.min(now - (last || now), 32) * (near ? 1 : 4); last = now;
         callback(pilot.time);
       });
@@ -3182,7 +3117,7 @@ test('celebration preview preserves gameplay pixels and final pose under reduced
   await info.attach('celebration-art-reduced', { body: await page.locator('canvas').screenshot(), contentType: 'image/png' });
 });
 
-for (const [costume, level] of LEVELS.entries()) {
+for (const [costume, level] of [...LEVELS.entries()].filter(([, level]) => level.entities.some(entity => entity.kind === 'slime'))) {
   test(`${level.id} uses the common slime atlas, patrols and pauses in play`, async ({ page }, info) => {
     test.setTimeout(45_000);
     await page.addInitScript((sky) => {
@@ -4062,8 +3997,9 @@ for (const index of [0, LEVELS.length - 1]) {
       // A fresh Enter acts once, including its repeats and release on the next screen.
       const expectDestination = async (): Promise<void> => {
         if (defaultAction === 'Next trail') {
-          await expect(status).toContainText('Playing');
-          await expect(status).toContainText('X 60');
+          const next = LEVELS[index + 1];
+          expect(hasFixedSupport(next, next.start)).toBe(true);
+          await expect(status).toContainText(`Playing · Letter bag: 0/4 · X ${next.start.x} Y ${next.start.y - DEFAULT_MOVEMENT.height} V 0`);
         } else {
           await expect(page.getByRole('button', { name: `Play ${level.name}`, exact: true })).toBeVisible();
           await expect(status).toContainText('Title');
@@ -4092,6 +4028,21 @@ async function installRetracePilot(page: Page, level: typeof PLAINS_LEVEL): Prom
 for (const [index, level] of LEVELS.entries()) {
   test(`all-trail spelling ${level.id}: input-only missing-letter retrace, manual assembly and session sticker`, async ({ page }, info) => {
     test.setTimeout(120_000);
+    if (level.id === 'quarry') {
+      await startQuarryPilot(page); await driveQuarry(page, QUARRY_DESCENT); await quarryFinish(page);
+      await page.getByRole('button', { name: 'Build your word', exact: true }).click();
+      await page.getByRole('button', { name: 'Find more letters', exact: true }).click();
+      await expect(page.locator('#status')).toContainText('Playing · Letter bag: 0/4 · X 470 Y 946 V 0');
+      await twoFrames(page); // Let the finish screen's last RAF and held input settle before piloting the return.
+      await driveQuarry(page, QUARRY_RETURN); await driveQuarry(page, QUARRY_DESCENT); await quarryFinish(page);
+      await page.getByRole('button', { name: 'Build your word', exact: true }).click();
+      for (const [slot, letter] of [...'ROCK'].entries()) {
+        await page.getByRole('button', { name: `Letter ${letter}`, exact: true }).click();
+        await page.getByRole('button', { name: `Space ${slot + 1}: empty`, exact: true }).click();
+      }
+      await expect(page.locator('#status')).toContainText('ROCK sticker earned!');
+      return;
+    }
     const errors: string[] = [];
     page.on('pageerror', error => errors.push(error.message));
     const config = TRAIL_WORDS[index];
@@ -4324,12 +4275,14 @@ test('builder-kit visual fixture renders all six words and generated stickers at
   const kitSource = source('art/interface-kit.ts');
   expect(kitSource.split('import.meta.env.BASE_URL')).toHaveLength(2);
   const modules: Record<string, string> = {
+    'game/movement.ts': source('game/movement.ts'),
     'game/education.ts': source('game/education.ts'),
     'art/interface-kit.ts': kitSource.replace('import.meta.env.BASE_URL', JSON.stringify('./')),
     'game/education-overlay.ts': source('game/education-overlay.ts'),
     'game/menu-overlay.ts': source('game/menu-overlay.ts'),
   };
   const fixture = [
+    declarations('movement.ts', modules['game/movement.ts']),
     declarations('education.ts', modules['game/education.ts']),
     declarations('tile.ts', tile.slice(tileStart)),
     declarations('loader.ts', henry.slice(loaderStart, henry.indexOf('\n}\n', loaderStart) + 3)),
@@ -4341,7 +4294,7 @@ test('builder-kit visual fixture renders all six words and generated stickers at
   // Keep dependency drift visible: every runtime import of a concatenated module must be declared.
   const runtimeImports = [...new Set(Object.values(modules).flatMap(text => [...text.matchAll(/^import (?!type )\{([^}]*)\} from .*;$/gm)]
     .flatMap(([, names]) => names.split(',').map(name => name.trim()).filter(name => name && !name.startsWith('type ')))))];
-  expect(runtimeImports).toEqual(expect.arrayContaining(['drawKitButton', 'drawKitFrame', 'drawLetterTile', 'loadImage', 'TRAIL_WORDS']));
+  expect(runtimeImports).toEqual(expect.arrayContaining(['drawKitButton', 'drawKitFrame', 'drawLetterTile', 'loadImage', 'TRAIL_WORDS', 'surfaceY']));
   await page.setViewportSize({ width: 426, height: 300 });
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await observeSpellingArtwork(page);
@@ -4431,7 +4384,7 @@ test('builder-kit visual fixture renders all six words and generated stickers at
 
 for (const level of LEVELS) test(`compact HUD renderer fixture: ${level.id} identity marks and real glyph clearance`, async ({ page }, info) => {
   // Explicit layout states, not scene mutation or a claim of input-driven gameplay.
-  const names = ['game/movement.ts', 'game/education.ts', 'art/interface-kit.ts', 'game/hud.ts', 'world/scenery.ts',
+  const names = ['world/camera.ts', 'game/platforms.ts', 'game/movement.ts', 'game/education.ts', 'art/interface-kit.ts', 'game/hud.ts', 'world/scenery.ts',
     'world/assets.ts', 'world/trail-presentation.ts', 'world/ambient-weather.ts', 'world/surface-materials.ts', 'world/renderer.ts'];
   const errors: string[] = []; page.on('pageerror', error => errors.push(error.message));
   const modules = names.map(name => readFileSync(new URL(`../src/${name}`, import.meta.url), 'utf8'));
@@ -4469,15 +4422,16 @@ for (const level of LEVELS) test(`compact HUD renderer fixture: ${level.id} iden
           specialTotal: [0, 3, 12, 3, 3][state], collectedSpecials: new Set(Array.from({ length: [0, 1, 10, 3, 3][state] }, (_, i) => 's' + i)),
           health: [3, 2, 1, 0, 3][state], healthFlashPip: state === 1 ? 2 : null, healthFlashSeconds: state === 1 ? 1 : 0 };
         ctx.imageSmoothingEnabled = false;
-        drawWorld(ctx, assets, level, { position: { x: 0, y: 0 } }, undefined, undefined, undefined, 0, true);
-        const surface = level.surfaces.find(s => level.start.x >= s.x1 && level.start.x <= s.x2);
-        const ground = surface.y1 + (surface.y2 - surface.y1) * (level.start.x - surface.x1) / (surface.x2 - surface.x1);
-        const henryRect = { x: level.start.x - manifest.anchor.x, y: ground - manifest.anchor.y, width: 48, height: 48 };
+        const camera = new Camera({ width: 426, height: 240, worldWidth: level.width, worldHeight: level.height, vertical: level.progressAxis === 'y' });
+        const ground = level.progressAxis === 'y' ? level.start.y : surfaceY(level, level.start.x);
+        camera.update(level.start.x, ground - 34);
+        drawWorld(ctx, assets, level, camera, undefined, undefined, platformBodiesAt(level.platforms, 0), 0, true);
+        const henryRect = { x: level.start.x - camera.position.x - manifest.anchor.x, y: ground - camera.position.y - manifest.anchor.y, width: 48, height: 48 };
         ctx.drawImage(henry, frame.x, frame.y, frame.width, frame.height, henryRect.x, henryRect.y, 48, 48);
-        drawWorldForeground(ctx, assets, level, { position: { x: 0, y: 0 } });
+        drawWorldForeground(ctx, assets, level, camera);
         const hud = new HudPresentation(); if (state > 0) hud.consume([{ type: 'checkpoint', entityId: level.checkpoints[0].id }]);
         fills = []; texts = []; recording = true;
-        drawGameplayHud(ctx, run, hint, notice, hud.progress(level, level.start.x), ui);
+        drawGameplayHud(ctx, run, hint, notice, hud.progress(level, level.start.x, ground), ui);
         drawCollectionBag(ctx, session, pouch, ui); recording = false;
         const marks = fills.filter(rect => rect.width === 6 && rect.height === 6);
         const iconPixels = fills.filter(rect => rect.width <= 2 && rect.height <= 2 && rect.y < 22 && (rect.x < 24 || rect.x >= 151 && rect.x < 163));
@@ -4651,7 +4605,8 @@ for (const viewport of [{ width: 426, height: 240 }, { width: 320, height: 240 }
       const next = LEVELS[(index + 1) % 6];
       await page.getByRole('button', { name: `Play ${next.name}`, exact: true }).click();
       await expect(page.locator('#status')).toContainText('Playing');
-      const openingArea = next.checkpoints.reduce((area, point, i) => next.start.x >= point.x - 180 ? i : area, -1);
+      const openingArea = next.checkpoints.reduce((area, point, i) =>
+        (next.progressAxis === 'y' ? next.start.y >= point.y - 35 : next.start.x >= point.x - 180) ? i : area, -1);
       await expect(canvas).toHaveAttribute('data-gameplay-trail', openingArea < 0 ? next.name : areaName(next, openingArea));
       await page.keyboard.press('Escape');
       await page.getByRole('button', { name: 'Return to Trails', exact: true }).click();
@@ -4679,7 +4634,7 @@ for (const viewport of [{ width: 426, height: 240 }, { width: 320, height: 240 }
 for (const [selection, trail] of LEVELS.entries()) test(`landmark labels: renderer fixture ${trail.id} clears real art, paths, frames, badges and Henry in every completion state`, async ({ page }, info) => {
   // Use the actual map method and its complete renderer dependency graph. These
   // explicit presentation states are not completed gameplay or scene mutations.
-  const names = ['game/movement.ts', 'art/henry.ts', 'art/animation.ts', 'art/interface-kit.ts', 'game/education.ts',
+  const names = ['world/camera.ts', 'game/platforms.ts', 'game/movement.ts', 'art/henry.ts', 'art/animation.ts', 'art/interface-kit.ts', 'game/education.ts',
     'world/scenery.ts', 'world/assets.ts', 'world/trail-presentation.ts', 'world/ambient-weather.ts',
     'world/surface-materials.ts', 'world/renderer.ts', 'game/reward-result.ts', 'game/overworld.ts'];
   const modules = names.map(name => readFileSync(new URL(`../src/${name}`, import.meta.url), 'utf8'));
@@ -5190,4 +5145,226 @@ test('Plains compact route: all rewards through keyboard input with five-section
     expect(glyphs.violations).toEqual([]);
     await writeFile(info.outputPath('plains-input-provenance.json'), JSON.stringify({ kind: 'keyboard input through real app; rendered observations; no scene mutation', sourceRevision: process.env.BROWSER_REPORT_SOURCE_SHA, project: info.project.name, browserVersion: browser.version(), captures, observed, glyphs, errors }, null, 2));
   }
+});
+
+async function driveQuarry(page: Page, route: QuarryWaypoint[]): Promise<void> {
+  await page.evaluate(route => {
+    const pilot = (window as unknown as { quarryPilot: object }).quarryPilot;
+    Object.assign(pilot, { route, index: 0, stageFrames: 0, jumped: false, active: true, frozen: false, error: '' });
+  }, route);
+  await page.waitForFunction(() => !(window as unknown as { quarryPilot: { active: boolean } }).quarryPilot.active, undefined, { timeout: 110_000 });
+  const result = await page.evaluate(() => {
+    const { index, error, observations } = (window as unknown as { quarryPilot: { index: number; error: string; observations: object[] } }).quarryPilot;
+    return { index, error, observations };
+  });
+  expect(result.error).toBe('');
+  if (route.at(-1)?.tag === 'finish') await expect(page.locator('#status')).toContainText('Finish');
+  else expect(result.index).toBe(route.length);
+}
+
+async function startQuarryPilot(page: Page): Promise<void> {
+  await page.addInitScript(installQuarryPilotScript);
+  await page.setViewportSize({ width: 426, height: 300 });
+  await openAdventure(page, '/?scene=adventure&debug=1');
+  await page.getByRole('button', { name: 'QUARRY RUN', exact: true }).click();
+  await page.getByRole('button', { name: 'Play QUARRY RUN', exact: true }).click();
+  await twoFrames(page);
+  expect((await page.locator('#game').boundingBox())!.width).toBe(426);
+  expect((await page.locator('#game').boundingBox())!.height).toBe(240);
+}
+
+async function quarryFinish(page: Page): Promise<void> {
+  await driveQuarry(page, [{ x: 710, y: 980, tag: 'finish' }]);
+}
+
+
+test('Quarry vertical journey: native floor finish, actual ROCK return, all side stars and replay', { lock: 'native-route' }, async ({ page }, info) => {
+  test.setTimeout(240_000);
+  const errors: string[] = []; page.on('pageerror', error => errors.push(error.message));
+  await observeTrailRibbon(page);
+  await page.addInitScript(() => {
+    const text = CanvasRenderingContext2D.prototype.fillText;
+    CanvasRenderingContext2D.prototype.fillText = function(value, x, y, maxWidth) {
+      if (this.canvas.id === 'game' && x === 168 && y === 20 && /^\d\/3$/.test(value)) this.canvas.dataset.quarryStars = value;
+      return maxWidth === undefined ? text.call(this, value, x, y) : text.call(this, value, x, y, maxWidth);
+    };
+  });
+  await startQuarryPilot(page);
+  const framingObservations: object[] = [];
+  const capture = async (name: string) => {
+    await page.evaluate(() => { (window as unknown as { quarryPilot: { frozen: boolean } }).quarryPilot.frozen = true; });
+    for (const viewport of [{ width: 426, height: 300 }, { width: 320, height: 240 }, { width: 1366, height: 768 }]) {
+      await page.setViewportSize(viewport); await twoFrames(page);
+      await expectClearViewport(page);
+      const frame = await page.evaluate(() => document.querySelector('#status')!.textContent!.includes('Playing')
+        ? (window as unknown as { quarryPilot: { frame: { henry: { y: number; height: number }; supports: object[] } } }).quarryPilot.frame : null);
+      if (frame) {
+        expect(frame.supports.length).toBeGreaterThan(0);
+        expect(frame.henry.y).toBeGreaterThanOrEqual(59);
+        expect(frame.henry.y + frame.henry.height).toBeLessThanOrEqual(221);
+        framingObservations.push({ name, viewport, ...frame });
+      }
+      await info.attach(`${name}-${viewport.width}`, { body: await page.screenshot({ path: info.outputPath(`${name}-${viewport.width}.png`) }), contentType: 'image/png' });
+    }
+    await page.setViewportSize({ width: 426, height: 300 }); await twoFrames(page);
+    expect((await page.locator('#game').boundingBox())!.width).toBe(426);
+    expect((await page.locator('#game').boundingBox())!.height).toBe(240);
+    await page.evaluate(() => { (window as unknown as { quarryPilot: { frozen: boolean } }).quarryPilot.frozen = false; });
+  };
+  await capture('quarry-rim');
+  for (const target of QUARRY_DESCENT) {
+    await driveQuarry(page, [target]);
+    if ([420,700,980].includes(target.y)) await capture(`quarry-landing-${target.y}`);
+  }
+  await expect(page.locator('#status')).toContainText('Letter bag: 0/4');
+  await expect(page.locator('#game')).toHaveAttribute('data-quarry-stars', '0/3');
+  const floorMarker = Number(await page.locator('#game').getAttribute('data-ribbon-marker'));
+  await quarryFinish(page);
+  await page.getByRole('button', { name: 'Build your word', exact: true }).click();
+  await page.getByRole('button', { name: 'Find more letters', exact: true }).click();
+  await expect(page.locator('#status')).toContainText('X 470');
+  await twoFrames(page);
+  await expect(page.locator('#status')).toContainText('Playing');
+  await capture('quarry-floor-return');
+  for (const target of QUARRY_RETURN) {
+    await driveQuarry(page, [target]);
+    if (/wait | up$|^R$|^O$|^C letter$/.test(target.tag)) await capture(`quarry-${target.tag.replaceAll(' ', '-')}`);
+  }
+  await expect(page.locator('#status')).toContainText('Letter bag: 4/4');
+  expect(Number(await page.locator('#game').getAttribute('data-ribbon-marker'))).toBeLessThan(floorMarker);
+  expect(JSON.parse((await page.locator('#game').getAttribute('data-ribbon-checkpoints'))!).every((point: { filled: boolean }) => point.filled)).toBe(true);
+  for (const target of QUARRY_STARS) {
+    await driveQuarry(page, [target]);
+    if (/star [123]$|return jump/.test(target.tag)) await capture(`quarry-${target.tag.replaceAll(' ', '-')}`);
+  }
+  await expect(page.locator('#game')).toHaveAttribute('data-quarry-stars', '3/3');
+  await quarryFinish(page);
+  await capture('quarry-finish');
+  await page.getByRole('button', { name: 'Build your word', exact: true }).click();
+  for (const [index, letter] of [...'ROCK'].entries()) {
+    await page.getByRole('button', { name: `Letter ${letter}`, exact: true }).click();
+    await page.getByRole('button', { name: `Space ${index + 1}: empty`, exact: true }).click();
+  }
+  await expect(page.locator('#status')).toContainText('ROCK sticker earned!');
+  await page.getByRole('button', { name: 'Done', exact: true }).click();
+  await page.getByRole('button', { name: 'Replay', exact: true }).click();
+  await expect(page.locator('#status')).toContainText('X 300 Y 106');
+  await expect(page.locator('#status')).toContainText('Letter bag: 4/4');
+  expect(errors).toEqual([]);
+  expect(framingObservations.length).toBeGreaterThan(40);
+  await info.attach('journey-framing-observations', { body: JSON.stringify(framingObservations), contentType: 'application/json' });
+  await info.attach('quarry-observations', { body: JSON.stringify(await page.evaluate(() => ({
+    browser: navigator.userAgent, pilot: (window as unknown as { quarryPilot: object }).quarryPilot,
+  }))), contentType: 'application/json' });
+});
+
+test('Quarry three lifts: actual downward boarding and exit at every dock', { lock: 'native-route' }, async ({ page }, info) => {
+  test.setTimeout(120_000);
+  await startQuarryPilot(page);
+  const route: QuarryWaypoint[] = [
+    { x: 180, y: 140, waitFor: { id: 'quarry-lift-a', y: 140 }, tag: 'wait A rim' },
+    { x: 112, y: 140, tag: 'board A rim' }, { x: 112, y: 420, tag: 'A down' },
+    { x: 450, y: 420, tag: 'A lower exit' }, { x: 540, y: 420, tag: 'B top approach' },
+    { x: 625, y: 420, jump: true, tag: 'B top dock' },
+    { x: 625, y: 420, waitFor: { id: 'quarry-lift-b', y: 420 }, tag: 'wait B upper' },
+    { x: 708, y: 420, tag: 'board B upper' }, { x: 708, y: 700, tag: 'B down' },
+    { x: 625, y: 700, tag: 'B lower exit' }, { x: 540, y: 700, jump: true, tag: 'B dock return' },
+    { x: 180, y: 700, waitFor: { id: 'quarry-lift-c', y: 700 }, tag: 'wait C mine' },
+    { x: 112, y: 700, tag: 'board C mine' }, { x: 112, y: 980, tag: 'C down' },
+    { x: 450, y: 980, tag: 'C lower exit' },
+  ];
+  for (const target of route) {
+    await driveQuarry(page, [target]);
+    if (/down$/.test(target.tag)) await info.attach(target.tag, { body: await page.locator('#game').screenshot(), contentType: 'image/png' });
+  }
+  await quarryFinish(page);
+});
+
+test('selected Quarry map thumbnail shows its real starting rim support', async ({ page }, info) => {
+  await page.addInitScript(() => {
+    const original = CanvasRenderingContext2D.prototype.drawImage;
+    CanvasRenderingContext2D.prototype.drawImage = function(image: CanvasImageSource, ...args: number[]) {
+      if (this.canvas.id === 'game' && image instanceof HTMLCanvasElement && args[0] === 287 && args[1] === 84
+        && args[2] === 126 && args[3] === 71) {
+        const pixels = image.getContext('2d')!.getImageData(0, 0, 426, 240).data;
+        let rimPixels = 0;
+        for (let y = 120; y <= 160; y++) for (let x = 150; x <= 350; x++) {
+          const at = (y * 426 + x) * 4;
+          if (pixels[at] === 177 && pixels[at + 1] === 199 && pixels[at + 2] === 125) rimPixels++;
+        }
+        Object.assign(window, { quarryMapPreview: { width: image.width, height: image.height, rimPixels,
+          image: image.toDataURL() } });
+      }
+      return Reflect.apply(original, this, [image, ...args]);
+    };
+  });
+  await openAdventure(page, '/?scene=adventure');
+  await page.getByRole('button', { name: 'QUARRY RUN', exact: true }).click();
+  const preview = await page.evaluate(() => (window as unknown as { quarryMapPreview: {
+    width: number; height: number; rimPixels: number; image: string } }).quarryMapPreview);
+  expect(preview.width).toBe(426); expect(preview.height).toBe(240);
+  expect(preview.rimPixels).toBeGreaterThan(80);
+  await info.attach('quarry-selected-map-preview', { body: Buffer.from(preview.image.split(',')[1], 'base64'), contentType: 'image/png' });
+  await info.attach('quarry-selected-map-window', { body: await page.screenshot(), contentType: 'image/png' });
+});
+
+test('Quarry native landing visibility: actual rest and approach frames reveal each next landing before stepping off', { lock: 'native-route' }, async ({ page }, info) => {
+  test.setTimeout(120_000);
+  await startQuarryPilot(page);
+  const nextIds = ['quarry-terrace-1', 'quarry-terrace-2', 'quarry-terrace-3', 'quarry-upper',
+    'quarry-terrace-4', 'quarry-terrace-5', 'quarry-terrace-6', 'quarry-mine',
+    'quarry-terrace-7', 'quarry-terrace-8', 'quarry-terrace-9', 'floor'];
+  const route = [{ x: 490, y: 140, tag: 'rim approach' }, ...QUARRY_DESCENT.slice(0, -1)];
+  const samples: object[] = [], failures: object[] = [];
+  for (const [index, target] of route.entries()) {
+    await driveQuarry(page, [target]);
+    await page.evaluate(() => { (window as unknown as { quarryPilot: { frozen: boolean } }).quarryPilot.frozen = true; });
+    const id = nextIds[index];
+    const platform = QUARRY_RUN.platforms!.find(platform => platform.id === id);
+    const next = platform ? { x: platform.from.x, y: platform.from.y, width: platform.width }
+      : { x: 0, y: 980, width: QUARRY_RUN.width };
+    for (const viewport of [{ width: 426, height: 300 }, { width: 320, height: 240 }, { width: 1366, height: 768 }]) {
+      await page.setViewportSize(viewport); await twoFrames(page);
+      await expectClearViewport(page);
+      const sample = await page.evaluate(({ next, id }) => {
+        const frame = (window as unknown as { quarryPilot: { frame: { status: string; x: number; feet: number;
+          camera: { x: number; y: number }; henry: { x: number; y: number; width: number; height: number };
+          supports: { x: number; y: number; width: number }[] } } }).quarryPilot.frame;
+        const ctx = document.querySelector<HTMLCanvasElement>('#game')!.getContext('2d')!;
+        const drawn = frame.supports.find(support => Math.abs(support.x + frame.camera.x - next.x) < 1.1
+          && Math.abs(support.y + frame.camera.y - next.y) < 1.1 && support.width === next.width);
+        const edge = drawn ?? { x: next.x - frame.camera.x, y: next.y - frame.camera.y, width: next.width };
+        const left = Math.max(0, Math.ceil(edge.x + 2)), right = Math.min(426, Math.floor(edge.x + edge.width - 2));
+        let capPixels = 0;
+        if (edge.y >= 0 && edge.y + 4 < 240 && right > left) {
+          const rgba = ctx.getImageData(left, Math.floor(edge.y), right - left, 4).data;
+          for (let pixel = 0; pixel < rgba.length; pixel += 4) {
+            if ((rgba[pixel] === 177 && rgba[pixel + 1] === 199 && rgba[pixel + 2] === 125)
+              || (rgba[pixel] === 154 && rgba[pixel + 1] === 171 && rgba[pixel + 2] === 150)) capPixels++;
+          }
+        }
+        return { ...frame, id, next, edge, drawn: Boolean(drawn), visibleWidth: right - left, capPixels };
+      }, { next, id });
+      expect(sample.status).toContain('Playing');
+      expect(Math.abs(sample.feet - target.y)).toBeLessThan(2);
+      expect(sample.supports.length).toBeGreaterThan(0);
+      if (id !== 'floor') expect(sample.drawn).toBe(true);
+      samples.push({ viewport, ...sample });
+      if (sample.edge.y <= 59 || sample.edge.y > 216 || sample.visibleWidth < 30 || sample.capPixels < 20
+        || sample.henry.y < 59 || sample.henry.y + sample.henry.height > 221) {
+        failures.push({ viewport, restY: target.y, next: id, screenY: sample.edge.y,
+          visibleWidth: sample.visibleWidth, capPixels: sample.capPixels, henry: sample.henry });
+      }
+      if ([140,420,700,910].includes(target.y)) await info.attach(`visible-landing-${target.y}-${viewport.width}`, {
+        body: await page.screenshot({ path: info.outputPath(`visible-landing-${target.y}-${viewport.width}.png`) }), contentType: 'image/png',
+      });
+    }
+    await page.setViewportSize({ width: 426, height: 300 }); await twoFrames(page);
+    expect((await page.locator('#game').boundingBox())!.width).toBe(426);
+    expect((await page.locator('#game').boundingBox())!.height).toBe(240);
+    await page.evaluate(() => { (window as unknown as { quarryPilot: { frozen: boolean } }).quarryPilot.frozen = false; });
+  }
+  await info.attach('landing-visibility-observations', { body: JSON.stringify({ samples, failures }), contentType: 'application/json' });
+  expect(samples).toHaveLength(36);
+  expect(failures).toEqual([]);
 });

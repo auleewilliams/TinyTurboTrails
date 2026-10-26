@@ -445,7 +445,7 @@ describe('patrolling entities', () => {
 });
 
 describe('forgiving checkpoint crossings', () => {
-  it.each(LEVELS)('catches walking, jumping and swept spring-height passes at every $name flag', (level) => {
+  it.each(LEVELS.filter(level => level.checkpointActivation !== 'grounded'))('catches walking, jumping and swept spring-height passes at every $name flag', (level) => {
     for (const checkpoint of level.checkpoints) for (const lift of [0, 80, 150]) for (const distance of [2, 120]) {
       const run = createRun(level);
       run.health = 2;

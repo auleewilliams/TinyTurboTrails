@@ -5,7 +5,7 @@ import { createRun, stepEntities, tickRun, type RunEvent } from '../src/game/int
 
 const move = { horizontal: 1, jumpPressed: false, jumpHeld: false, pausePressed: false, mutePressed: false };
 
-it.each(LEVELS)('$name static obstacle/scenery contacts have no damage, knockback or protection effects', level => {
+it.each(LEVELS.filter(level => level.entities.some(entity => entity.kind === 'hazard' || entity.kind === 'decoration')))('$name static obstacle/scenery contacts have no damage, knockback or protection effects', level => {
   const props = level.entities.filter(entity => entity.kind === 'hazard' || entity.kind === 'decoration');
   // Cove already authors only scenery props; cover real props, never an empty loop.
   expect(props.length).toBeGreaterThan(0);
@@ -21,7 +21,7 @@ it.each(LEVELS)('$name static obstacle/scenery contacts have no damage, knockbac
   }
 });
 
-it.each(LEVELS)('$name walks through every static obstacle without blocking or changing the terrain trajectory', level => {
+it.each(LEVELS.filter(level => level.entities.some(entity => entity.kind === 'hazard' || entity.kind === 'decoration')))('$name walks through every static obstacle without blocking or changing the terrain trajectory', level => {
   const props = level.entities.filter(entity => entity.kind === 'hazard' || entity.kind === 'decoration');
   expect(props.length).toBeGreaterThan(0);
   for (const prop of props) {
@@ -47,7 +47,7 @@ it.each(LEVELS)('$name walks through every static obstacle without blocking or c
   }
 });
 
-it.each(LEVELS)('$name still applies slime-side damage, knockback, flash and short protection', level => {
+it.each(LEVELS.filter(level => level.entities.some(entity => entity.kind === 'slime')))('$name still applies slime-side damage, knockback, flash and short protection', level => {
   const slime = level.entities.find(entity => entity.kind === 'slime')!;
   expect(slime).toBeDefined();
   const isolated = { ...level, entities: [slime] };

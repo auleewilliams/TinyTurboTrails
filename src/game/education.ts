@@ -1,4 +1,11 @@
-export interface LetterPickup { readonly id: string; readonly letter: string; readonly x: number }
+import { surfaceY, type Terrain } from './movement';
+
+export interface LetterPickup { readonly id: string; readonly letter: string; readonly x: number; readonly supportY?: number }
+/** The authored value is the floor under Henry, shared by contact, drawing and flight. */
+export function letterSupportY(letter: LetterPickup, terrain: Terrain): number {
+  return letter.supportY ?? surfaceY(terrain, letter.x);
+}
+
 export interface TrailWord {
   readonly id: string;
   readonly name: string;
@@ -6,17 +13,17 @@ export interface TrailWord {
   readonly pickups: readonly LetterPickup[];
 }
 
-function trailWord(id: string, name: string, word: string, positions: readonly number[]): TrailWord {
+function trailWord(id: string, name: string, word: string, positions: readonly number[], supports?: readonly number[]): TrailWord {
   return { id, name, word, pickups: [...word].map((letter, slot) => ({
     id: `${id}-letter-${letter.toLowerCase()}${word.indexOf(letter) !== word.lastIndexOf(letter) ? [...word].slice(0, slot + 1).filter(value => value === letter).length : ''}`,
-    letter, x: positions[slot],
+    letter, x: positions[slot], ...(supports ? { supportY: supports[slot] } : {}),
   })) };
 }
 
 /** Optional authored pickups, separate from terrain, gems, stars and run entities. */
 export const TRAIL_WORDS: readonly TrailWord[] = [
   trailWord('plains', 'Plains', 'HILL', [650, 2180, 3150, 3750]),
-  trailWord('quarry', 'Quarry', 'ROCK', [360, 1300, 3600, 7100]),
+  trailWord('quarry', 'Quarry', 'ROCK', [230, 370, 220, 330], [140, 420, 700, 980]),
   trailWord('timbers', 'Timbers', 'TREE', [360, 1300, 3600, 7100]),
   trailWord('sunset', 'Sunset', 'BEAM', [360, 1300, 3600, 7100]),
   trailWord('frost', 'Frost', 'SNOW', [360, 1300, 3600, 7100]),

@@ -29,9 +29,9 @@ export class GameplayPreviewScene implements Scene {
   private platforms: PlatformBody[] = [];
   private events: RunEvent[] = [];
   constructor(private readonly henry: HenryAssets, private readonly world: WorldAssets, private readonly audio: GameAudio, private readonly level: LevelData = DEFAULT_LEVEL) {
-    this.player = createPlayer(level.start.x, level);
+    this.player = createPlayer(level.start.x, level, level.start.y);
     this.run = createRun(level);
-    this.camera = new Camera({ width: 426, height: 240, worldWidth: level.width, worldHeight: level.height });
+    this.camera = new Camera({ width: 426, height: 240, worldWidth: level.width, worldHeight: level.height, vertical: level.progressAxis === 'y' });
   }
   enter(): void { this.elapsed = 0; }
   exit(): void { this.audio.stop(); }
@@ -65,7 +65,7 @@ export class GameplayPreviewScene implements Scene {
       else if (event.type === 'damage') this.audio.play('damage');
     }
     this.hud.update(step, input, this.level, this.player.x, this.feedback.checkpointSeconds > 0
-      || this.run.invulnerableSeconds > 0 || this.feedback.effects.some(effect => effect.kind !== 'landing'));
+      || this.run.invulnerableSeconds > 0 || this.feedback.effects.some(effect => effect.kind !== 'landing'), this.player.y + DEFAULT_MOVEMENT.height);
     this.camera.update(this.player.x, this.player.y);
   }
 
