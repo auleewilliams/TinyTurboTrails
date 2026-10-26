@@ -19,7 +19,7 @@ import { drawSurfaceMaterials } from '../src/world/surface-materials';
 import { drawSlime, drawGem, drawSpecial, drawLandingBands, drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawTerrainTiles, drawTimberTrunk, drawWorld } from '../src/world/renderer';
 import { TRAIL_WORDS } from '../src/game/education';
 import { MAX_HEALTH, createRun } from '../src/game/interactions';
-import { TRAIL_RIBBON, trailPosition, RIBBON_INTRO, areaName } from '../src/game/hud';
+import { HUD_COLORS, TRAIL_RIBBON, trailPosition, RIBBON_INTRO, areaName } from '../src/game/hud';
 import { INTERFACE_PIECES } from '../src/art/interface-kit';
 import { PAUSE_PANEL } from '../src/game/pause-menu';
 
@@ -2322,19 +2322,45 @@ test('Timbers roots keep a safe, open first-jump run-up', async ({ page }, info)
   await info.attach('old-prop-inventory-replaced', { body: JSON.stringify({ source: 'level data',
     hazards: level.entities.filter(entity => entity.kind === 'hazard'),
     slimes: level.entities.filter(entity => entity.kind === 'slime') }), contentType: 'application/json' });
+  await page.addInitScript(() => {
+    const probe = { paints: 0, latest: null as null | { status: string; colors: number[][]; x: number } };
+    const fillRect = CanvasRenderingContext2D.prototype.fillRect;
+    CanvasRenderingContext2D.prototype.fillRect = function(x, y, width, height) {
+      fillRect.call(this, x, y, width, height);
+      // This is the last of the three interior heart pixels sampled below.
+      if (this.canvas.id !== 'game' || x !== 126 || y !== 14 || width !== 1 || height !== 1) return;
+      const status = document.querySelector('#status')?.textContent ?? '';
+      if (!status.includes('Playing')) return;
+      const colors = [94, 110, 126].map(sampleX => Array.from(this.getImageData(sampleX, 14, 1, 1).data).slice(0, 3));
+      probe.paints++;
+      probe.latest = { status, colors, x: Number(status.match(/X (-?\d+)/)?.[1] ?? NaN) };
+    };
+    Object.assign(window, { timberHudPaint: probe });
+  });
   await openAdventure(page, '/?debug=1');
   await page.getByRole('button', { name: 'TREETOP TIMBERS', exact: true }).click();
+  const beforePlay = await page.evaluate(() => (window as unknown as { timberHudPaint: { paints: number } }).timberHudPaint.paints);
+  expect(beforePlay).toBe(0);
   await page.getByRole('button', { name: 'Play TREETOP TIMBERS', exact: true }).click();
-  const hearts = () => page.evaluate(() => {
-    const ctx = document.querySelector<HTMLCanvasElement>('#game')!.getContext('2d')!;
-    return [94, 110, 126].map(x => [...ctx.getImageData(x, 14, 1, 1).data].slice(0, 3));
-  });
-  const full = await hearts();
+  await expect(page.locator('#status')).toContainText('Playing');
+  await expect.poll(() => page.evaluate(() => (window as unknown as {
+    timberHudPaint: { paints: number } }).timberHudPaint.paints)).toBeGreaterThan(0);
+  const first = await page.evaluate(() => (window as unknown as { timberHudPaint: {
+    paints: number; latest: { status: string; colors: number[][]; x: number } } }).timberHudPaint);
+  const full = [1, 3, 5].map(index => Number.parseInt(HUD_COLORS.full.slice(index, index + 2), 16));
+  expect(first.latest.colors).toEqual([full, full, full]);
+  await info.attach('first-painted-full-hearts', { body: JSON.stringify(first), contentType: 'application/json' });
   await page.keyboard.down('ArrowRight');
   await expect.poll(async () => Number((await page.locator('#status').innerText()).match(/X (\d+)/)?.[1] ?? 0),
     { timeout: 10_000 }).toBeGreaterThan(700);
   await page.keyboard.up('ArrowRight');
-  expect(await hearts()).toEqual(full);
+  await expect.poll(() => page.evaluate(() => (window as unknown as { timberHudPaint: {
+    latest: { x: number } | null } }).timberHudPaint.latest?.x ?? -1)).toBeGreaterThan(700);
+  const after = await page.evaluate(() => (window as unknown as { timberHudPaint: {
+    paints: number; latest: { status: string; colors: number[][]; x: number } } }).timberHudPaint);
+  expect(after.paints).toBeGreaterThan(first.paints);
+  expect(after.latest.colors).toEqual(first.latest.colors);
+  await info.attach('post-run-painted-full-hearts', { body: JSON.stringify(after), contentType: 'application/json' });
   for (const width of [426, 320]) {
     await page.setViewportSize({ width, height: width === 426 ? 288 : 240 });
     await info.attach(`roots-run-up-${width}`, { body: await page.screenshot({ path: info.outputPath(`roots-run-up-${width}.png`) }), contentType: 'image/png' });
@@ -5290,29 +5316,49 @@ test('Quarry three lifts: actual downward boarding and exit at every dock', { lo
 
 test('selected Quarry map thumbnail shows its real starting rim support', async ({ page }, info) => {
   await page.addInitScript(() => {
+    type Preview = { heading: string; width: number; height: number; rimPixels: number; image: string };
+    const probe = { heading: '', plains: null as Preview | null, quarry: null as Preview | null };
+    const fillText = CanvasRenderingContext2D.prototype.fillText;
+    CanvasRenderingContext2D.prototype.fillText = function(...args) {
+      if (this.canvas.id === 'game' && args[1] === 350 && args[2] === 63) probe.heading = String(args[0]);
+      return Reflect.apply(fillText, this, args);
+    };
     const original = CanvasRenderingContext2D.prototype.drawImage;
     CanvasRenderingContext2D.prototype.drawImage = function(image: CanvasImageSource, ...args: number[]) {
       if (this.canvas.id === 'game' && image instanceof HTMLCanvasElement && args[0] === 287 && args[1] === 84
-        && args[2] === 126 && args[3] === 71) {
+        && args[2] === 126 && args[3] === 71 && (probe.heading === 'PLAINS' || probe.heading === 'QUARRY')) {
         const pixels = image.getContext('2d')!.getImageData(0, 0, 426, 240).data;
         let rimPixels = 0;
         for (let y = 120; y <= 160; y++) for (let x = 150; x <= 350; x++) {
           const at = (y * 426 + x) * 4;
           if (pixels[at] === 177 && pixels[at + 1] === 199 && pixels[at + 2] === 125) rimPixels++;
         }
-        Object.assign(window, { quarryMapPreview: { width: image.width, height: image.height, rimPixels,
-          image: image.toDataURL() } });
+        const sample = { heading: probe.heading, width: image.width, height: image.height, rimPixels,
+          image: image.toDataURL() };
+        if (probe.heading === 'PLAINS' && !probe.plains) probe.plains = sample;
+        if (probe.heading === 'QUARRY' && !probe.quarry) probe.quarry = sample;
       }
       return Reflect.apply(original, this, [image, ...args]);
     };
+    Object.assign(window, { quarryMapPreview: probe });
   });
   await openAdventure(page, '/?scene=adventure');
+  await expect.poll(() => page.evaluate(() => (window as unknown as { quarryMapPreview: {
+    plains: { heading: string } | null } }).quarryMapPreview.plains?.heading)).toBe('PLAINS');
+  const stale = await page.evaluate(() => (window as unknown as { quarryMapPreview: {
+    plains: { heading: string; rimPixels: number } } }).quarryMapPreview.plains);
+  expect(stale.rimPixels).toBe(0); // The old untagged observer could have mistaken this for Quarry.
+  await info.attach('preselection-plains-observer', { body: JSON.stringify(stale), contentType: 'application/json' });
   await page.getByRole('button', { name: 'QUARRY RUN', exact: true }).click();
-  const preview = await page.evaluate(() => (window as unknown as { quarryMapPreview: {
-    width: number; height: number; rimPixels: number; image: string } }).quarryMapPreview);
-  expect(preview.width).toBe(426); expect(preview.height).toBe(240);
-  expect(preview.rimPixels).toBeGreaterThan(80);
-  await info.attach('quarry-selected-map-preview', { body: Buffer.from(preview.image.split(',')[1], 'base64'), contentType: 'image/png' });
+  await expect(page.getByRole('button', { name: 'QUARRY RUN', exact: true })).toHaveAttribute('data-selected', 'true');
+  await expect.poll(() => page.evaluate(() => (window as unknown as { quarryMapPreview: {
+    quarry: { heading: string } | null } }).quarryMapPreview.quarry?.heading)).toBe('QUARRY');
+  const selectedPreview = await page.evaluate(() => (window as unknown as { quarryMapPreview: {
+    quarry: { heading: string; width: number; height: number; rimPixels: number; image: string } } }).quarryMapPreview.quarry);
+  expect(selectedPreview.heading).toBe('QUARRY');
+  expect(selectedPreview.width).toBe(426); expect(selectedPreview.height).toBe(240);
+  expect(selectedPreview.rimPixels).toBeGreaterThan(80);
+  await info.attach('quarry-selected-map-preview', { body: Buffer.from(selectedPreview.image.split(',')[1], 'base64'), contentType: 'image/png' });
   await info.attach('quarry-selected-map-window', { body: await page.screenshot(), contentType: 'image/png' });
 });
 
