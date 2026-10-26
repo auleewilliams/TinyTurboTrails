@@ -636,9 +636,14 @@ test('terrain joins stay solid while scrolling in both directions at integer and
             const x = surface.x2 - 213 + 0.25 + direction * frame * maxSpeed / 60;
             const camera = { position: { x, y: 0 } } as Parameters<typeof drawWorld>[3];
             render(ctx, { atlas, manifest, gems }, level, camera, () => false);
-            // Every terrain surface is above y=200; the finish arch also ends above this strip.
+            // The new hollow reaches y224. Keep the sample below the contour,
+            // and retain at least the original 3×20 scaled pixels per frame by
+            // widening the strip where fewer rows fit above the viewport bottom.
             const joinX = Math.floor((surface.x2 - x) * scale);
-            const pixels = ctx.getImageData(joinX - 1, Math.ceil(210 * scale), 3, Math.floor(20 * scale)).data;
+            const sampleTop = Math.max(210, Math.ceil(surface.y2) + 6);
+            const sampleHeight = Math.floor(Math.min(20, 239 - sampleTop) * scale);
+            const sampleWidth = Math.ceil(3 * Math.floor(20 * scale) / sampleHeight);
+            const pixels = ctx.getImageData(joinX - Math.floor(sampleWidth / 2), Math.ceil(sampleTop * scale), sampleWidth, sampleHeight).data;
             for (let i = 0; i < pixels.length; i += 4) {
               if (pixels[i] <= pixels[i + 1] || pixels[i + 1] <= pixels[i + 2] || pixels[i + 3] !== 255) {
                 if (failures.length < 10) failures.push(`join ${surface.x2}, scale ${scale}, direction ${direction}, frame ${frame}: ${Array.from(pixels.slice(i, i + 4))}`);
@@ -646,16 +651,16 @@ test('terrain joins stay solid while scrolling in both directions at integer and
               }
             }
             frames++;
-            if (surface.x2 === 650 && scale === 2 && direction === 1 && frame === 0) evidence = canvas.toDataURL();
+            if (surface.x2 === 1100 && scale === 2 && direction === 1 && frame === 0) evidence = canvas.toDataURL();
           }
         }
       }
     }
     return { failures, frames, evidence };
   }, { level: PLAINS_LEVEL, maxSpeed: DEFAULT_MOVEMENT.maxSpeed });
-  const evidencePath = info.outputPath('terrain-join-650.png');
+  const evidencePath = info.outputPath('terrain-join-1100.png');
   await writeFile(evidencePath, Buffer.from(result.evidence.split(',')[1], 'base64'));
-  await info.attach('terrain-join-650', { path: evidencePath, contentType: 'image/png' });
+  await info.attach('terrain-join-1100', { path: evidencePath, contentType: 'image/png' });
   expect(result.frames).toBe((PLAINS_LEVEL.surfaces.length - 1) * 4 * 2 * 12);
   expect(result.failures).toEqual([]);
 });
@@ -1814,13 +1819,20 @@ test('Plains renders its panorama and transparent scenery, and Quarry keeps its 
         if (source.endsWith('/scenery/background.webp') || source.endsWith('/trails/backdrops.webp') || (source.endsWith('/environment.png') && args[1] === 48 && args[2] === 48 && Number(args[7]) > 48)) {
           this.canvas.dataset.sceneryDraws = '[]';
         }
-        const calls = JSON.parse(this.canvas.dataset.sceneryDraws ?? '[]');
+        // The sparse foreground begins at x800; frame that tuft through real input
+  // instead of assuming decoration exists in the opening viewport.
+  expect((await page.locator('canvas').boundingBox())!.width).toBe(426);
+  await page.keyboard.down('ArrowRight');
+  await expect.poll(async () => Number((await page.locator('#status').innerText()).match(/X (\d+)/)?.[1]), { timeout: 5000, intervals: [30] }).toBeGreaterThan(620);
+  await page.keyboard.up('ArrowRight'); await page.waitForTimeout(250);
+  const calls = JSON.parse(this.canvas.dataset.sceneryDraws ?? '[]');
         calls.push({ source, args: args.slice(1) });
         this.canvas.dataset.sceneryDraws = JSON.stringify(calls);
       }
       Reflect.apply(original, this, args);
     } as typeof original;
   });
+  await page.setViewportSize({ width: 426, height: 300 });
   await openAdventure(page, '/?scene=adventure&debug=1');
   await expect(page.locator('#status')).toContainText('Adventure preview · Title');
   await page.keyboard.press('Space');
@@ -1829,7 +1841,7 @@ test('Plains renders its panorama and transparent scenery, and Quarry keeps its 
   expect(calls[0].source).toContain('/scenery/background.webp');
   const tree = calls.find((call) => call.source.endsWith('/foreground.png') && call.args[0] === 7.25 && call.args[4] > 400)!;
   expect(tree).toBeDefined();
-  expect(tree.args[5] + tree.args[7]).toBe(158);
+  expect(tree.args[5] + tree.args[7]).toBe(surfaceY(PLAINS_LEVEL, 2100));
   const henryIndex = calls.findIndex((call) => call.source.includes('/henry/'));
   expect(henryIndex).toBeGreaterThan(0);
   expect(calls.slice(henryIndex + 1).some((call) => call.source.endsWith('/foreground.png'))).toBe(true);
@@ -1840,9 +1852,9 @@ test('Plains renders its panorama and transparent scenery, and Quarry keeps its 
     return ctx.getImageData(0, 0, 1, 1).data[3];
   });
   expect(transparent).toBe(0);
-  const screenshot = info.outputPath('plains-scenery-start.png');
+  const screenshot = info.outputPath('plains-scenery-meadow.png');
   await page.locator('canvas').screenshot({ path: screenshot });
-  await info.attach('plains-scenery-start', { path: screenshot, contentType: 'image/png' });
+  await info.attach('plains-scenery-meadow', { path: screenshot, contentType: 'image/png' });
   await openAdventure(page, '/?scene=adventure&debug=1');
   await expect(page.locator('#status')).toContainText('Title');
   await page.keyboard.down('ArrowRight');
