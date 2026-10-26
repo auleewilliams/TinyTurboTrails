@@ -58,6 +58,29 @@ export const TIMBER_ONLY_E2_ASCENT: readonly TimberPilotStage[] = [
   { kind: 'jump', x: 400, y: 240 }, { kind: 'jump', x: 400, y: 180 }, { kind: 'finish' },
 ];
 
+/** Left fork, with both outer stars reached and rejoined by ordinary input. */
+export const TIMBER_LEFT_STARS_ASCENT: readonly TimberPilotStage[] = [
+  { kind: 'run', x: 150, y: 1080, frames: 60 }, { kind: 'jump', x: 260, y: 1020 },
+  { kind: 'walk', x: 255 }, { kind: 'jump', x: 175, y: 960 }, { kind: 'walk', x: 115 },
+  { kind: 'drop', edge: 230, direction: 1, y: 1020, x: 270 },
+  { kind: 'walk', x: 385 }, { kind: 'jump', x: 385, y: 960 }, { kind: 'jump', x: 385, y: 900 },
+  { kind: 'walk', x: 340 }, { kind: 'jump', x: 340, y: 840 }, { kind: 'jump', x: 340, y: 780 },
+  { kind: 'walk', x: 430 }, { kind: 'jump', x: 440, y: 720 }, { kind: 'jump', x: 440, y: 660 },
+  { kind: 'walk', x: 400 },
+  ...[600, 540, 480, 420, 360, 300].map(y => ({ kind: 'jump' as const, x: 400, y })),
+  { kind: 'walk', x: 245 }, { kind: 'jump', x: 150, y: 300 }, { kind: 'walk', x: 110 },
+  { kind: 'drop', edge: 200, direction: 1, y: 360, x: 230 },
+  { kind: 'jump', x: 280, y: 300 }, { kind: 'walk', x: 400 },
+  { kind: 'jump', x: 400, y: 240 }, { kind: 'jump', x: 400, y: 180 }, { kind: 'finish' },
+];
+
+/** Spring flight, reward landing, safe beside-spring catch, and repeat approach. */
+export const TIMBER_SPRING_RETRY: readonly TimberPilotStage[] = [
+  { kind: 'walk', x: 100 }, { kind: 'jump', x: 100, y: 510 }, { kind: 'walk', x: 180 },
+  { kind: 'drop', edge: 200, direction: 1, y: 540, x: 230 },
+  { kind: 'drop', edge: 130, direction: -1, y: 510, x: 180 },
+];
+
 export async function runTimberStages(page: Page, stages: readonly TimberPilotStage[], timeout = 45_000): Promise<object> {
   await page.evaluate(stages => {
     const pilot = (window as unknown as { timberKeyboardPilot: {
@@ -80,7 +103,7 @@ export async function runTimberStages(page: Page, stages: readonly TimberPilotSt
 }
 
 export const TIMBER_ASCENT_RIGHT: readonly TimberPilotStage[] = [
-      { kind: 'run', frames: 17 }, { kind: 'jump', x: 260, y: 1020 },
+      { kind: 'run', x: 150, y: 1080, frames: 60 }, { kind: 'jump', x: 260, y: 1020 },
       { kind: 'walk', x: 385 }, { kind: 'jump', x: 385, y: 960 }, { kind: 'jump', x: 385, y: 900 },
       { kind: 'walk', x: 500 }, { kind: 'jump', x: 500, y: 840 }, { kind: 'jump', x: 500, y: 780 },
       { kind: 'jump', x: 500, y: 720 }, { kind: 'jump', x: 500, y: 660 },
@@ -90,9 +113,11 @@ export const TIMBER_ASCENT_RIGHT: readonly TimberPilotStage[] = [
       { kind: 'jump', x: 400, y: 240 }, { kind: 'walk', x: 500 }, { kind: 'jump', x: 500, y: 180 }, { kind: 'finish' },
 ];
 
+/** The middle bough remains reachable without ever touching the optional spring. */
+export const TIMBER_TO_MIDDLE: readonly TimberPilotStage[] = TIMBER_ASCENT_RIGHT.slice(0, 10);
+
 /** Generates keyboard events at the shipped input boundary; it never touches scene or run state. */
-export async function installTimberKeyboardPilot(page: Page): Promise<void> {
-  await page.addInitScript((stages: TimberPilotStage[]) => {
+export function timberKeyboardPilotInit(stages: TimberPilotStage[]): void {
 
     const pilot = { active: false, paused: false, frozen: false, pauseAt: -1, stage: 0, frames: 0,
       stable: 0, previousY: NaN, startY: NaN, phase: 0, error: '', done: false, seenPlaying: false, advanceMs: 0,
@@ -124,7 +149,14 @@ export async function installTimberKeyboardPilot(page: Page): Promise<void> {
           if (pilot.frames > 130) pilot.error = `finish stalled ${status}`;
         } else if (stage.kind === 'run') {
           send('ArrowLeft', false); send('Space', false); send('ArrowRight', true);
-          if (++pilot.frames >= stage.frames!) next(status);
+          pilot.frames++;
+          // Read the grounded run-up position, not a callback count: 17 RAFs can
+          // advance very different game distances at 16 and 32 ms intervals.
+          if (stage.x !== undefined) {
+            if (y !== stage.y! - 34 || x > stage.x + 20) pilot.error = `run-up left safe takeoff ${status}`;
+            else if (x >= stage.x && vx >= 180) next(status);
+            else if (pilot.frames > stage.frames!) pilot.error = `run-up stalled ${status}`;
+          } else if (pilot.frames >= stage.frames!) next(status);
         } else if (stage.kind === 'walk') {
           const projected = x + Math.sign(vx) * vx ** 2 / 2400;
           const direction = projected < stage.x! - 3 ? 1 : projected > stage.x! + 3 ? -1 : 0;
@@ -181,6 +213,9 @@ export async function installTimberKeyboardPilot(page: Page): Promise<void> {
       pilot.advanceMs = 0; previousTime = now;
       callback(gameTime);
     });
-  }, [...TIMBER_ASCENT_RIGHT]);
+}
+
+export async function installTimberKeyboardPilot(page: Page): Promise<void> {
+  await page.addInitScript(timberKeyboardPilotInit, [...TIMBER_ASCENT_RIGHT]);
 }
 
