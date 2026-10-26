@@ -33,3 +33,13 @@ export function observedDamage(calls: ActuatorCall[], samples: HealthObservation
   }
   return undefined;
 }
+
+/** Require sustained fresh controller travel, excluding coasting and step jitter. */
+export function sustainedControllerMovement(samples: { time: number; x: number; velocity: number; axis: number }[], after: number, startX: number): boolean {
+  return samples.some((_, index) => {
+    const window = samples.slice(index, index + 6);
+    return window.length === 6 && Math.abs(window[5].x - startX) >= 10
+      && window.every(frame => frame.time > after && Math.abs(frame.axis) === 1
+        && Math.sign(frame.velocity) === frame.axis && Math.abs(frame.velocity) >= 100);
+  });
+}

@@ -66,7 +66,7 @@ it('rejects malformed or unsafe crumbling ledges', () => {
   expect(() => validateLevel(withLedge({ ...ledge, width: Number.NaN }))).toThrow(/ledge width/);
   expect(() => validateLevel(withLedge({ ...ledge, x: 20 }))).toThrow(/ledge leaves the level/);
   expect(() => validateLevel(withLedge({ ...ledge, y: 140 }))).toThrow(/ledge clearance/);
-  expect(() => validateLevel(withLedge({ ...ledge, x: 551, y: 100 }))).toThrow(/ledge overlaps/);
+  expect(() => validateLevel(withLedge({ ...ledge, x: PLAINS_LEVEL.checkpoints[0].x, y: 100 }))).toThrow(/ledge overlaps/);
 
   const unsafe = {
     id: 'unsafe-ledge', kind: 'crumbling-ledge', x: 3786, y: 330,
@@ -116,10 +116,8 @@ it('rejects patrols that leave the level, exclude their slime, outrun Henry or c
   expect(() => validateLevel(withPatrol({ minX: 0, maxX: 100, speed: 40 }))).toThrow(/excludes its own entity/);
   expect(() => validateLevel(withPatrol({ ...lane, speed: MAX_PATROL_SPEED + 1 }))).toThrow(/catchable/);
   expect(() => validateLevel(withPatrol({ ...lane, speed: 0 }))).toThrow(/catchable/);
-  expect(() => validateLevel({ ...withPatrol({ ...lane, speed: 40 }), surfaces: [
-    { x1: 0, x2: 300, y1: 198, y2: 198 },
-    { x1: 300, x2: 310, y1: 198, y2: 20 },
-    { x1: 310, x2: PLAINS_LEVEL.maxX, y1: 20, y2: 20 },
+  expect(() => validateLevel({ ...withPatrol({ minX: 1720, maxX: 1930, speed: 40 }), surfaces: [
+    ...PLAINS_LEVEL.surfaces.map(s => s.x1 === 1800 ? { ...s, y2: 400 } : s.x1 === 1900 ? { ...s, y1: 400 } : s),
   ] })).toThrow(/unwalkable/);
   expect(() => validateLevel(withPatrol(undefined))).not.toThrow();
 });

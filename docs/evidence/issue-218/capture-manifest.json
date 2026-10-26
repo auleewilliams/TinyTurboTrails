@@ -1,0 +1,739 @@
+{
+  "kind": "keyboard input through real app; rendered observations; no scene mutation",
+  "captureSnapshot": "Initial uncommitted candidate after baseline 4db7eaf89de65f453e7cac39505ea6a9161109b0; the raw attempt report records the baseline SHA, not a clean candidate commit. Source/build hashes below identify the actual candidate. Final committed-head browser results are retained in the worker evidence directory.",
+  "project": "chromium",
+  "browserVersion": "156.0.8078.4",
+  "captures": [
+    {
+      "scenario": "meadow-hop",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "file": "input-meadow-hop-426.png",
+      "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 302 Y 140 V 219 F 1 \u00b7 Escape to pause \u00b7 M to mute",
+      "canvas": {
+        "x": 0,
+        "y": 16,
+        "width": 426,
+        "height": 240
+      },
+      "sha256": "5c13e5fbebc5275e0baae5f3aa97a183f158c8e8af664ce34c943ec3f6c87689"
+    },
+    {
+      "scenario": "meadow-hop",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "file": "input-meadow-hop-1366.png",
+      "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 302 Y 140 V 219 F 1 \u00b7 Escape to pause \u00b7 M to mute",
+      "canvas": {
+        "x": 40.4375,
+        "y": 0,
+        "width": 1285.09375,
+        "height": 724
+      },
+      "sha256": "b07eb087e38a0be3a16c43f3d269f7d4049cc375c685317947dd41e4c5dc33a8"
+    },
+    {
+      "scenario": "meadow-hop",
+      "viewport": {
+        "width": 320,
+        "height": 240
+      },
+      "file": "input-meadow-hop-320.png",
+      "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 302 Y 140 V 219 F 1 \u00b7 Escape to pause \u00b7 M to mute",
+      "canvas": {
+        "x": 0,
+        "y": 15.703125,
+        "width": 320,
+        "height": 180.28125
+      },
+      "sha256": "2c268057498dac7a4294a63712b00ce6578b916c6b981d7162ab90de37c05a57"
+    },
+    {
+      "scenario": "H",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "file": "input-H-426.png",
+      "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 1/4 \u00b7 H \u2192 bag \u00b7 X 651 Y 164 V 220 F 1 \u00b7 Escape to pause \u00b7 M to mute",
+      "canvas": {
+        "x": 0,
+        "y": 16,
+        "width": 426,
+        "height": 240
+      },
+      "sha256": "2f37b8fa63d16e27c140b2a66d61760af02a7003436f720b6513010cd80d2193"
+    },
+    {
+      "scenario": "downhill-takeoff",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "file": "input-downhill-takeoff-426.png",
+      "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 1/4 \u00b7 X 1101 Y 47 V 220 F 1 \u00b7 Escape to pause \u00b7 M to mute",
+      "canvas": {
+        "x": 0,
+        "y": 16,
+        "width": 426,
+        "height": 240
+      },
+      "sha256": "d5600671212d1e7e973f7f889df592a4ec0702ee4e255c39c9e7a7d43c3c1759"
+    },
+    {
+      "scenario": "downhill-runout",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "file": "input-downhill-runout-426.png",
+      "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 1/4 \u00b7 X 1301 Y 184 V 220 F 1 \u00b7 Escape to pause \u00b7 M to mute",
+      "canvas": {
+        "x": 0,
+        "y": 16,
+        "width": 426,
+        "height": 240
+      },
+      "sha256": "5e9ef3819d7232583fabaef22f6da34eb081cd39f2f34d68dd5a33b79517844c"
+    },
+    {
+      "scenario": "orchard-star",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "file": "input-orchard-star-426.png",
+      "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 1/4 \u00b7 X 1902 Y 190 V 220 F 1 \u00b7 Escape to pause \u00b7 M to mute",
+      "canvas": {
+        "x": 0,
+        "y": 16,
+        "width": 426,
+        "height": 240
+      },
+      "sha256": "50534ff8bb33a5ba396836144505d7d53bcdecb37ad0c6ede30cea93aa187514"
+    },
+    {
+      "scenario": "orchard-star",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "file": "input-orchard-star-1366.png",
+      "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 1/4 \u00b7 X 1902 Y 190 V 220 F 1 \u00b7 Escape to pause \u00b7 M to mute",
+      "canvas": {
+        "x": 40.4375,
+        "y": 0,
+        "width": 1285.09375,
+        "height": 724
+      },
+      "sha256": "d649ab88c3a39121426004e3ccad53e57d7791e3141a4eb34c671f22a653b08d"
+    },
+    {
+      "scenario": "orchard-star",
+      "viewport": {
+        "width": 320,
+        "height": 240
+      },
+      "file": "input-orchard-star-320.png",
+      "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 1/4 \u00b7 X 1902 Y 190 V 220 F 1 \u00b7 Escape to pause \u00b7 M to mute",
+      "canvas": {
+        "x": 0,
+        "y": 15.703125,
+        "width": 320,
+        "height": 180.28125
+      },
+      "sha256": "eaabdf8a3d0fb0fd969b83e2de112524b26ba0c0042c7f9ddb89efcb9c4e620f"
+    },
+    {
+      "scenario": "I",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "file": "input-I-426.png",
+      "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 2/4 \u00b7 I \u2192 bag \u00b7 X 2181 Y 155 V 220 F 1 \u00b7 Escape to pause \u00b7 M to mute",
+      "canvas": {
+        "x": 0,
+        "y": 16,
+        "width": 426,
+        "height": 240
+      },
+      "sha256": "5f057b313a4867715ab83dce5836017e30732322f2008cf4da5882331f0b707c"
+    },
+    {
+      "scenario": "spring-arc",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "file": "input-spring-arc-426.png",
+      "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 2/4 \u00b7 X 2781 Y 112 V 200 F 1 \u00b7 Escape to pause \u00b7 M to mute",
+      "canvas": {
+        "x": 0,
+        "y": 16,
+        "width": 426,
+        "height": 240
+      },
+      "sha256": "1928dc7b4f0b5850e904db4c1402f69bbb9f46242fe3b51994c8f494c9b99411"
+    },
+    {
+      "scenario": "spring-landing",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "file": "input-spring-landing-426.png",
+      "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 2/4 \u00b7 X 2943 Y 160 V 219 F 1 \u00b7 Escape to pause \u00b7 M to mute",
+      "canvas": {
+        "x": 0,
+        "y": 16,
+        "width": 426,
+        "height": 240
+      },
+      "sha256": "bdbd981e3bfd02b5bd27108cf0658596547064f73e284cefa0f7aaffb9911e4f"
+    },
+    {
+      "scenario": "spring-landing",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "file": "input-spring-landing-1366.png",
+      "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 2/4 \u00b7 X 2943 Y 160 V 219 F 1 \u00b7 Escape to pause \u00b7 M to mute",
+      "canvas": {
+        "x": 40.4375,
+        "y": 0,
+        "width": 1285.09375,
+        "height": 724
+      },
+      "sha256": "d5c92ff4cab2b5049d00ce81a4003c715c3c72188f0ed23c8fdddeab07fedfa6"
+    },
+    {
+      "scenario": "spring-landing",
+      "viewport": {
+        "width": 320,
+        "height": 240
+      },
+      "file": "input-spring-landing-320.png",
+      "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 2/4 \u00b7 X 2943 Y 160 V 219 F 1 \u00b7 Escape to pause \u00b7 M to mute",
+      "canvas": {
+        "x": 0,
+        "y": 15.703125,
+        "width": 320,
+        "height": 180.28125
+      },
+      "sha256": "27619d2b1272066d848c065000813b7b76bb44695924b76f6718202d5d1871f5"
+    },
+    {
+      "scenario": "L1",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "file": "input-L1-426.png",
+      "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 3/4 \u00b7 L \u2192 bag \u00b7 X 3161 Y 170 V 220 F 1 \u00b7 Escape to pause \u00b7 M to mute",
+      "canvas": {
+        "x": 0,
+        "y": 16,
+        "width": 426,
+        "height": 240
+      },
+      "sha256": "18dd425d9a4ef72229309c004d3793584f0f731cf3d3160e7db5010960c500ea"
+    },
+    {
+      "scenario": "L2",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "file": "input-L2-426.png",
+      "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 4/4 \u00b7 L \u2192 bag \u00b7 X 3750 Y 114 V 220 F 1 \u00b7 Escape to pause \u00b7 M to mute",
+      "canvas": {
+        "x": 0,
+        "y": 16,
+        "width": 426,
+        "height": 240
+      },
+      "sha256": "52491296e9c96799ac3b3b803f3ed1cf7fbfebfe5c6b92d7f8218c8b5a7d2fce"
+    },
+    {
+      "scenario": "final-crest",
+      "viewport": {
+        "width": 426,
+        "height": 300
+      },
+      "file": "input-final-crest-426.png",
+      "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 4/4 \u00b7 X 4150 Y 94 V 220 F 1 \u00b7 Escape to pause \u00b7 M to mute",
+      "canvas": {
+        "x": 0,
+        "y": 16,
+        "width": 426,
+        "height": 240
+      },
+      "sha256": "713ea2691bdf1fc169d10c2bc2fbe1e14f1630ec998168131719d6862ece0872"
+    },
+    {
+      "scenario": "final-crest",
+      "viewport": {
+        "width": 1366,
+        "height": 768
+      },
+      "file": "input-final-crest-1366.png",
+      "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 4/4 \u00b7 X 4150 Y 94 V 220 F 1 \u00b7 Escape to pause \u00b7 M to mute",
+      "canvas": {
+        "x": 40.4375,
+        "y": 0,
+        "width": 1285.09375,
+        "height": 724
+      },
+      "sha256": "fbf1f7f2236a41abd82ded7f8bbaad7c3ad22eaa7b2322f80f91615cf8c844c6"
+    },
+    {
+      "scenario": "final-crest",
+      "viewport": {
+        "width": 320,
+        "height": 240
+      },
+      "file": "input-final-crest-320.png",
+      "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 4/4 \u00b7 X 4150 Y 94 V 220 F 1 \u00b7 Escape to pause \u00b7 M to mute",
+      "canvas": {
+        "x": 0,
+        "y": 15.703125,
+        "width": 320,
+        "height": 180.28125
+      },
+      "sha256": "0949e881ff98f5110053852e705687688fe4a0827106e11c81efa3460bf914b6"
+    }
+  ],
+  "assets": [
+    {
+      "url": "/assets/overworld/background.png",
+      "dimensions": [
+        426,
+        240
+      ],
+      "sha256": "78c1687572c2e1d75aa267ff927ebaebcc4aa1c29cc1aada0ab453dc4de3d833"
+    },
+    {
+      "url": "/assets/title/tiny-turbo-trails-v2.png",
+      "dimensions": [
+        282,
+        154
+      ],
+      "sha256": "1116404054d8772a3b212987221e8721df5d951b396e1c2a9c77a2223b622955"
+    },
+    {
+      "url": "/assets/overworld/landmarks.png",
+      "dimensions": [
+        288,
+        192
+      ],
+      "sha256": "576a54c210aee7981a0ae5688db4d323e979b34888bbe5b8482d5f88523fea75"
+    },
+    {
+      "url": "/assets/interface/button.png",
+      "dimensions": [
+        82,
+        21
+      ],
+      "sha256": "04b29e064c318ca4a9f13368e9a4e0a632ccd8acc55fb22f1fd853131657d9c6"
+    },
+    {
+      "url": "/assets/interface/plaque.png",
+      "dimensions": [
+        112,
+        24
+      ],
+      "sha256": "fb99e6fffbd20c4c5e93ba714f506890757cc0c926c4b893e4d1bc6d691ff59d"
+    },
+    {
+      "url": "/assets/interface/button-selected.png",
+      "dimensions": [
+        82,
+        21
+      ],
+      "sha256": "03a25bddbd69479462812d21b689465c6aa7fff84e5d0b86c49189f912640533"
+    },
+    {
+      "url": "/assets/henry/henry-celebration.png",
+      "dimensions": [
+        192,
+        288
+      ],
+      "sha256": "490231dd210a1778bcbd1f7924961d635f77bea3e55052ec5c9de14de2fd8641"
+    },
+    {
+      "url": "/assets/plains/scenery/background.webp",
+      "dimensions": [
+        768,
+        512
+      ],
+      "sha256": "96a178c0fd20fb92680db02b63847b786ee3dc1f2a12bd3b0430cf9701aab72c"
+    },
+    {
+      "url": "/assets/trails/materials.png",
+      "dimensions": [
+        576,
+        384
+      ],
+      "sha256": "1dd3d71aed5bbd269257eee28b9be06407b74c1914b1d1fe795723b21095a46e"
+    },
+    {
+      "url": "/assets/plains/scenery/foreground.png",
+      "dimensions": [
+        384,
+        256
+      ],
+      "sha256": "14b1151f9e4a2518e960c42422fdd2b0d4ca92e671e87408e53ab2c6ec8bb868"
+    },
+    {
+      "url": "/assets/gems/gems.png",
+      "dimensions": [
+        96,
+        24
+      ],
+      "sha256": "1a8c3cedfeb31d9070b08c7d09fc1b40f96cbdb3377f178e8a47610872bd439e"
+    },
+    {
+      "url": "/assets/slimes/slimes.png",
+      "dimensions": [
+        288,
+        48
+      ],
+      "sha256": "c75588d9baa06909b21fc5f591b25827cc0171806e321ea5e0966951f5f8f2bf"
+    },
+    {
+      "url": "/assets/plains/environment.png",
+      "dimensions": [
+        192,
+        192
+      ],
+      "sha256": "626ded198036b4fe010774f4daade0bf35565e55c445e939e4867368638924f1"
+    },
+    {
+      "url": "/assets/spelling/tile.png",
+      "dimensions": [
+        42,
+        32
+      ],
+      "sha256": "c37ca9b6cf2baefc351bcdd88f08650baf700ba6d3e5fd2f5756eb2f2af22fd1"
+    },
+    {
+      "url": "/assets/spelling/pouch.png",
+      "dimensions": [
+        28,
+        28
+      ],
+      "sha256": "a044fb5b5a9c36d0a16405409d4d3fb3c04160098052d7fec3b58c388487dc40"
+    },
+    {
+      "url": "/assets/interface/panel.png",
+      "dimensions": [
+        92,
+        91
+      ],
+      "sha256": "5e6e2d33ae6b0f86941643e70b6cb28dbffd5d63c424332eeba84cbb058dc584"
+    }
+  ],
+  "sourceFiles": [
+    {
+      "path": "src/art/animation.ts",
+      "sha256": "3e825e333b8d59a7f92d15c8f5ddbc7838493476c8b7e4769d1ea243c2cb562c"
+    },
+    {
+      "path": "src/art/henry.ts",
+      "sha256": "3eba98400a7075ae2b8834261c1e2536c55876a28f0eeb80f380f1b7a072eddf"
+    },
+    {
+      "path": "src/art/hit-flash.ts",
+      "sha256": "46ffa55cd996fc0036d4a1b3adf28a8b6ac2766da1a80454af217955f1681764"
+    },
+    {
+      "path": "src/art/interface-kit.ts",
+      "sha256": "68ee434bb32a427168b1d6f8731c4ecca9e9fb0074b02f993fed7009f85b7c40"
+    },
+    {
+      "path": "src/art/preview-scene.ts",
+      "sha256": "937abc1fe17d11c7b517ceb74c85d54ec46c5942d25cca8a63edf010538fe001"
+    },
+    {
+      "path": "src/art/spelling.ts",
+      "sha256": "8b5253ecdb7319c726c0226542f9ac7aa3a10ffbe9e232ced3eef2e848ee8943"
+    },
+    {
+      "path": "src/art/sprite.ts",
+      "sha256": "2870bfc0f3f83f17fa082ee91d9451123f8ba12ab870f5abab924606c1c72b53"
+    },
+    {
+      "path": "src/art/title.ts",
+      "sha256": "6fabc3a9143d688938b66dd97402de38f3f092057747f24248f73e65ffd8d1b8"
+    },
+    {
+      "path": "src/audio-preview.ts",
+      "sha256": "1614b99228937cb6a97f888b3560eb3a4a6b1137b802ec463910cc8e5fc509d1"
+    },
+    {
+      "path": "src/core/audio-effects.ts",
+      "sha256": "b24056b829504c4ca2e5f375dee9f4a283ef7e19c118f9fa09db13439ff3b017"
+    },
+    {
+      "path": "src/core/audio.ts",
+      "sha256": "ed4576edbb66956210b122728c7d8ac0e2015e4a7f8b799e7004a7151950197d"
+    },
+    {
+      "path": "src/core/clock.ts",
+      "sha256": "2d4ac31a13bedab33d3dd2aa28266cdd30906c6611189877a28de9223fdf6c74"
+    },
+    {
+      "path": "src/core/input.ts",
+      "sha256": "00c5c3ff08c119cd1c22f17cebd53100f6c5ee7bfbc61da7ee5036e9e1fa228e"
+    },
+    {
+      "path": "src/core/music.ts",
+      "sha256": "d869e01a5e06e82dbb97efe02f85d6f774c55e00f458a2a9407fce54eac03aa7"
+    },
+    {
+      "path": "src/core/retro-audio.ts",
+      "sha256": "a0ee2f40d2190683d42dc6287b1e102738f072c4f2cf7fb04576bcf43adb6a54"
+    },
+    {
+      "path": "src/core/rumble.ts",
+      "sha256": "9d2725379ae8502c4d82598df1950b83af0de64755711237d6b90cd6cd26921d"
+    },
+    {
+      "path": "src/core/scene.ts",
+      "sha256": "1aa3e43aac22051b3f30b0a157c6fbd746b70a0d9dbe23e1ef3f6b0535316fc8"
+    },
+    {
+      "path": "src/core/viewport.ts",
+      "sha256": "41b9bd4b0c4daeef711621f398509f5a45da865445cfbb0a0362e6d5d225f515"
+    },
+    {
+      "path": "src/foundation-scene.ts",
+      "sha256": "36dc8a7c82055439c173f0a437852d348bf994d7e81c6ac6fa8bdaad27a34437"
+    },
+    {
+      "path": "src/game/adventure-scene.ts",
+      "sha256": "cc922f0728ff143f99bb247be22a8749bd849a62496c54fee8f0e0393d32c551"
+    },
+    {
+      "path": "src/game/celebration.ts",
+      "sha256": "cb98ec442c878ad599c67bffdcb902d9d772c775252744bd82b09d7183741c27"
+    },
+    {
+      "path": "src/game/education-overlay.ts",
+      "sha256": "e7c939f0c23040b2496d984b78163e009767db0b03c2bbc5927393e38bafd86e"
+    },
+    {
+      "path": "src/game/education.ts",
+      "sha256": "862498644dab7a41a015f9b41a4032117075f17b4532f676e05c1fd4d620f945"
+    },
+    {
+      "path": "src/game/feedback.ts",
+      "sha256": "7d6927dedfafd72989ba78c88a35d0dd9ff3c8573cc4d256540a1e495753b6ea"
+    },
+    {
+      "path": "src/game/gameplay-preview.ts",
+      "sha256": "87bf174741ddf1d2c41b229ac7671b24b12e3015b9129856f3ac6f22df014c8a"
+    },
+    {
+      "path": "src/game/hud.ts",
+      "sha256": "3251a98d9a62d61ba4784954a5a3a99d5bc295131bc22364a66cf28fc27319d4"
+    },
+    {
+      "path": "src/game/interactions.ts",
+      "sha256": "e384198986820a04698e3e8e953b6ec172ec4cad2ca9b66294065bf4137bdf15"
+    },
+    {
+      "path": "src/game/menu-overlay.ts",
+      "sha256": "f5b38ecec932a1bce936328d2d491f47d67cf93d826ebbb0f3456936a5615835"
+    },
+    {
+      "path": "src/game/movement-audio.ts",
+      "sha256": "dff0ca1cb2f7a363cf12a07a3d0cf4fe9a6f01e7eafc34aa95545bc7f1736310"
+    },
+    {
+      "path": "src/game/movement-preview.ts",
+      "sha256": "92604716cd1e38ebec1195a369be95cda8b25589087871ea9d896d5e44eea3a6"
+    },
+    {
+      "path": "src/game/movement.ts",
+      "sha256": "9ada7204034932805a6770a505b991a5215181467ab02f593950beea9a3c3c24"
+    },
+    {
+      "path": "src/game/overworld.ts",
+      "sha256": "e6fc0f4700090c73f6a8220393a9a59d02ebae8fe86a5d2b93654a27fa0a729f"
+    },
+    {
+      "path": "src/game/pause-menu.ts",
+      "sha256": "409839f100711b69e577e41d0f97a60fd6b6369f5e73dfa907c5b6b3c7a4aa1f"
+    },
+    {
+      "path": "src/game/platforms.ts",
+      "sha256": "921e433e606cb951554e0d8c512b50c5c29e0360ae57a329a7b28b9bb056d280"
+    },
+    {
+      "path": "src/game/reward-result.ts",
+      "sha256": "a19a68657461b95cf57255f01fcf2af9735cbbea07726ce3fdeed83cbc6a37f4"
+    },
+    {
+      "path": "src/game/screens.ts",
+      "sha256": "565b463537417008497b4e06c73b5e7bf613451330c78f36efa758b812370221"
+    },
+    {
+      "path": "src/main.ts",
+      "sha256": "f701334f1b4d407953a6ae499880ae1c73612938377b4df4fae45bf3b52bbf87"
+    },
+    {
+      "path": "src/world/ambient-weather.ts",
+      "sha256": "c4dfcbbdf06780c6548ed096289c209afb703c190763c757eef6cbd85804d4f2"
+    },
+    {
+      "path": "src/world/assets.ts",
+      "sha256": "57173d0eafacd5023308f8291b6ae56f40993c75cf128eade728f0876a2ce117"
+    },
+    {
+      "path": "src/world/camera.ts",
+      "sha256": "476e5c02f9531ec8ef2872635d893ce466593beaa89762e84105de77cd242bcf"
+    },
+    {
+      "path": "src/world/frost-ridge.ts",
+      "sha256": "0cc45285d61af8428619bfe4e8e7da7b79054ab99e35f96359357adaf4e38efc"
+    },
+    {
+      "path": "src/world/level-kit.ts",
+      "sha256": "81647f7d1fd495a9f462172cc849ea624bffaac6ed4f81e3c20da19ed812b12c"
+    },
+    {
+      "path": "src/world/level.ts",
+      "sha256": "fdb952d1c33301d01e8fcc33c4026b3791a33477c4d932b93bf4f60675a1ef23"
+    },
+    {
+      "path": "src/world/levels.ts",
+      "sha256": "0e2219af2ba276c9a6ba7bf3f70a7fdb4a734bf225d07a16d06266a99c02c62a"
+    },
+    {
+      "path": "src/world/preview-scene.ts",
+      "sha256": "20bfdffb48398586eac4c43d44c1160faaa7076af72d5fc306c0b8a01c85634c"
+    },
+    {
+      "path": "src/world/renderer.ts",
+      "sha256": "1f93834c10d3b696aa19383d91116bab7447061a35e45ba7e9cc384ba60a8a17"
+    },
+    {
+      "path": "src/world/sandy-cove.ts",
+      "sha256": "ef8734b16f15009898a7752d66b47980ea5c3363bb285168c6ca01ac71e5b13b"
+    },
+    {
+      "path": "src/world/scenery.ts",
+      "sha256": "c27e6c51e64aa83395eca5582f95fdce66116cdcf0ee484dfb0a36d4207d4ac0"
+    },
+    {
+      "path": "src/world/slimes.ts",
+      "sha256": "cf53761fa33188a866b1f9932d610c42dd923063dee26aed7e018cfc1b8bd0c9"
+    },
+    {
+      "path": "src/world/sunset-site.ts",
+      "sha256": "d28631ca11272fd27dcb9936ad0609aa24b8fbd72c8ccedf381f9a4141d15bfa"
+    },
+    {
+      "path": "src/world/surface-materials.ts",
+      "sha256": "d18b81969d45a9de5b90697a1d2398076117193941a897963a1ffcfa9c9c7088"
+    },
+    {
+      "path": "src/world/trail-presentation.ts",
+      "sha256": "5ee638f57842e9fddf6162573685d8a49e73dcecc460e79fae9fd19a3150c4ad"
+    }
+  ],
+  "buildFiles": [
+    {
+      "path": "dist/build-assets/index-C4BHkq3Q.css",
+      "sha256": "e59d073694aba8eadff5f1cb256f92175c479fbf52aee0b68a5ae91954a8271b"
+    },
+    {
+      "path": "dist/build-assets/index-CFDdqaas.js",
+      "sha256": "85348cc7b1e8ab6bc1181e1690a2762b6e9f49d85a10be58b2db2acd99a0cc36"
+    },
+    {
+      "path": "dist/index.html",
+      "sha256": "810c8a4ebb1e0232e4626ee0b2388a92be5f5127a31e7385551ef696ec8f2cda"
+    }
+  ],
+  "glyphs": {
+    "checked": [
+      "PLAINS|plaque",
+      "Over grassy hills|plaque",
+      "PLAY|button-selected",
+      "STICKERS|button",
+      "0/6 \u00b7 E/click|button",
+      "0|plaque",
+      "0/3|plaque",
+      "Arrows / A-D: move|plaque",
+      "Space: jump|plaque",
+      "1|plaque",
+      "2|plaque",
+      "3|plaque",
+      "Trail: Henry = you; posts = saves; flag = end|plaque",
+      "4|plaque",
+      "5|plaque",
+      "6|plaque",
+      "7|plaque",
+      "Big downhill|plaque",
+      "8|plaque",
+      "Checkpoint reached!|plaque",
+      "9|plaque",
+      "10|plaque",
+      "11|plaque",
+      "1/3|plaque",
+      "12|plaque",
+      "Orchard bumps|plaque",
+      "13|plaque",
+      "14|plaque",
+      "15|plaque",
+      "16|plaque",
+      "17|plaque",
+      "18|plaque",
+      "19|plaque",
+      "2/3|plaque",
+      "20|plaque",
+      "21|plaque",
+      "Spring hill|plaque",
+      "22|plaque",
+      "23|plaque",
+      "24|plaque",
+      "25|plaque",
+      "3/3|plaque",
+      "26|plaque",
+      "27|plaque",
+      "28|plaque",
+      "Final climb|plaque",
+      "29|plaque",
+      "30|plaque",
+      "31|plaque",
+      "32|plaque",
+      "33|plaque",
+      "TRAIL COMPLETE!|panel",
+      "GEMS 33/33|panel",
+      "STARS 3/3|panel",
+      "\u25b6|button-selected",
+      "Next trail|button-selected",
+      "Map|button",
+      "Build your word|button",
+      "\u21b6|button",
+      "Replay|button",
+      "\u2190 \u2192 + Space|panel",
+      "Another trail explored!|panel",
+      "\u25b6|button",
+      "Next trail|button",
+      "Build your word|button-selected",
+      "_|button",
+      "Leave activity|button"
+    ],
+    "violations": []
+  },
+  "errors": []
+}

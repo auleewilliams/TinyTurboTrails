@@ -1,6 +1,8 @@
 import { readFileSync } from 'node:fs';
 import { expect, it } from 'vitest';
 import { foregroundPlacements, validateScenery, type SceneryManifest } from '../src/world/scenery';
+import { TRAIL_WORDS } from '../src/game/education';
+import { surfaceY } from '../src/game/movement';
 import { PLAINS_LEVEL } from '../src/world/level';
 import { QUARRY_RUN } from '../src/world/levels';
 
@@ -16,13 +18,16 @@ it('rejects missing sprites and out-of-sheet crops before rendering', () => {
   expect(() => validateScenery(missing)).toThrow(/Missing scenery sprite/);
 });
 
-it('keeps foreground plants on flat ground and clear of every gameplay interaction', () => {
+it('keeps sparse foreground plants grounded on flats and gentle slopes and clear of every gameplay interaction', () => {
   const plants = foregroundPlacements(PLAINS_LEVEL);
-  expect(plants.length).toBeGreaterThan(0);
+  expect(plants.map(p => p.x)).toEqual([800, 3340, 3950, 4140]);
+  for (const plant of plants) for (const letter of TRAIL_WORDS[0].pickups) {
+    expect(Math.abs(plant.x - letter.x)).toBeGreaterThanOrEqual(60);
+  }
   for (const plant of plants) {
     const surface = PLAINS_LEVEL.surfaces.find((s) => s.x1 <= plant.x && s.x2 >= plant.x)!;
-    expect(surface.y1).toBe(surface.y2);
-    expect(plant.y).toBe(surface.y1 + 5);
+    expect(Math.abs(surface.y2 - surface.y1) / (surface.x2 - surface.x1)).toBeLessThanOrEqual(0.1);
+    expect(plant.y).toBe(surfaceY(PLAINS_LEVEL, plant.x) + 5);
     for (const entity of PLAINS_LEVEL.entities.filter((e) => e.kind !== 'decoration')) {
       expect(Math.abs(entity.x - plant.x)).toBeGreaterThanOrEqual(60);
     }

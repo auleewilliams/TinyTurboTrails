@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { observedDamage, type ActuatorCall } from './rumble-observation';
+import { observedDamage, sustainedControllerMovement, type ActuatorCall } from './rumble-observation';
 
 const pulse = (time: number, duration: number, strongMagnitude: number, weakMagnitude: number): ActuatorCall => ({
   time, parameters: { duration, strongMagnitude, weakMagnitude, startDelay: 0 },
@@ -30,4 +30,15 @@ describe('actual actuator classification and rendered health boundaries', () => 
   it('ignores yellow/unknown frames without manufacturing a health transition', () => {
     expect(observedDamage([damage], [{ time: 90, health: 3 }, { time: 110, health: null }, { time: 470, health: 3 }])).toBeUndefined();
   });
+});
+
+it('rejects positive coasting/step jitter as a witness of sustained controls', () => {
+  const samples = [20, 3, -11, 14, 1, 7].map((velocity, i) => ({ time: 10 + i * 16, x: i ? 1054 : 1049, velocity, axis: 1 }));
+  expect(sustainedControllerMovement(samples, 0, 1049)).toBe(false);
+  for (const direction of [-1, 1]) {
+    const moving = Array.from({ length: 6 }, (_, i) => ({ time: 10 + i * 16, x: 1049 + direction * (i + 1) * 3, velocity: direction * 180, axis: direction }));
+    expect(sustainedControllerMovement(moving, 0, 1049)).toBe(true);
+    expect(sustainedControllerMovement(moving.map(frame => ({ ...frame, axis: 0 })), 0, 1049)).toBe(false);
+    expect(sustainedControllerMovement(moving, 1000, 1049)).toBe(false);
+  }
 });

@@ -139,7 +139,7 @@ it.each(['Replay', 'Next trail', 'Map', 'pause return', 'change trail'] as const
   const scene = new AdventureScene({} as never, {} as never, worlds, new SilentAudio(), LEVELS[0]);
   scene.startSelected(); scene.update(1 / 60, neutral);
   const live = scene as unknown as { player: Player; run: RunState; level: LevelData };
-  const state = entityState(live.run, 'slime-001')!;
+  const state = entityState(live.run, LEVELS[0].entities.find(e => e.kind === 'slime')!.id)!;
   Object.assign(live.player, { x: state.x, y: state.y - 56, vy: 200, onGround: false });
   scene.update(1 / 60, neutral);
   expect(state.squashed).toBe(true);

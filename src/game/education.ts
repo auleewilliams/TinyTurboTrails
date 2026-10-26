@@ -15,7 +15,7 @@ function trailWord(id: string, name: string, word: string, positions: readonly n
 
 /** Optional authored pickups, separate from terrain, gems, stars and run entities. */
 export const TRAIL_WORDS: readonly TrailWord[] = [
-  trailWord('plains', 'Plains', 'HILL', [360, 1300, 3600, 7100]),
+  trailWord('plains', 'Plains', 'HILL', [650, 2180, 3150, 3750]),
   trailWord('quarry', 'Quarry', 'ROCK', [360, 1300, 3600, 7100]),
   trailWord('timbers', 'Timbers', 'TREE', [360, 1300, 3600, 7100]),
   trailWord('sunset', 'Sunset', 'BEAM', [360, 1300, 3600, 7100]),

@@ -7,29 +7,55 @@ for (const controller of [false, true]) {
   test(`slime squash through real ${controller ? 'controller' : 'keyboard'} controls leaves a flattened costume`, async ({ page }, info) => {
     const errors: string[] = [];
     page.on('pageerror', error => errors.push(error.message));
+    await page.setViewportSize({ width: 426, height: 300 });
     await page.addInitScript(controller => {
       const pad = { connected: true, mapping: 'standard', axes: [0, 0],
         buttons: Array.from({ length: 17 }, () => ({ pressed: false, touched: false, value: 0 })) };
-      const pilot = { active: false, jumped: false, jumpFrames: 0, flattened: false, settled: 0 };
+      const pilot = { active: false, jumped: false, jumpFrames: 0, flattened: false, settled: 0,
+        ready: false, frozen: false, henryX: 0, slimeX: Infinity, polls: 0, neutralPoll: 0,
+        minHealth: 3, healthSamples: 0, frames: [] as object[], launch: undefined as object | undefined };
       Object.assign(window, { squashPilot: pilot });
-      Object.defineProperty(navigator, 'getGamepads', { configurable: true, value: () => controller ? [pad] : [] });
+      Object.defineProperty(navigator, 'getGamepads', { configurable: true, value: () => {
+        pilot.polls++;
+        if (!pad.axes[0] && pad.buttons.every(button => !button.pressed)) pilot.neutralPoll = pilot.polls;
+        return controller ? [pad] : [];
+      } });
       const drawImage = CanvasRenderingContext2D.prototype.drawImage;
       CanvasRenderingContext2D.prototype.drawImage = function (this: CanvasRenderingContext2D, ...args: unknown[]) {
         const image = args[0];
-        if (this.canvas.id === 'game' && image instanceof HTMLImageElement
-          && image.src.endsWith('/assets/slimes/slimes.png') && Number(args[8]) < 47) {
-          pilot.flattened = true;
-          this.canvas.dataset.squashed = 'true';
+        if (this.canvas.id === 'game' && image instanceof HTMLImageElement) {
+          if (image.src.endsWith('/assets/slimes/slimes.png')) {
+            pilot.slimeX = Number(args[5]) + 24;
+            if (Number(args[8]) < 47) { pilot.flattened = true; this.canvas.dataset.squashed = 'true'; }
+          }
+          if (image.src.endsWith('/assets/henry/henry-celebration.png')) {
+            pilot.henryX = this.getTransform().transformPoint(new DOMPoint(Number(args[5]) + 24, Number(args[6]) + 24)).x;
+          }
         }
         Reflect.apply(drawImage, this, args);
       } as typeof drawImage;
+      const fillRect = CanvasRenderingContext2D.prototype.fillRect;
+      CanvasRenderingContext2D.prototype.fillRect = function (x, y, w, h) {
+        fillRect.call(this, x, y, w, h);
+        if (this.canvas.id === 'game' && x === 124 && y === 12 && w === 1 && h === 1) {
+          const colors = [92, 108, 124].map(x => Array.from(this.getImageData(x, 12, 1, 1).data).slice(0, 3).join(','));
+          if (colors.every(color => ['255,93,93', '49,67,74'].includes(color))) {
+            pilot.healthSamples++;
+            pilot.minHealth = Math.min(pilot.minHealth, colors.filter(color => color === '255,93,93').length);
+          }
+        }
+      };
       const raf = requestAnimationFrame.bind(window);
-      let time = 0;
-      window.requestAnimationFrame = callback => raf(() => {
+      let time = 0, observed = -1;
+      window.requestAnimationFrame = callback => raf(now => {
+        if (now === observed || pilot.frozen) { callback(time); return; }
+        observed = now;
         const status = document.querySelector('#status')?.textContent ?? '';
+        const dx = pilot.slimeX - pilot.henryX;
         if (pilot.active && status.includes('Playing')) {
           const x = Number(status.match(/X (\d+)/)?.[1] ?? 0);
-          if (!pilot.jumped && x >= 200) { pilot.jumped = true; pilot.jumpFrames = 8; }
+          if (!pilot.ready && x > 1200 && dx <= 150) { pilot.ready = true; pilot.frozen = true; callback(time); return; }
+          if (!pilot.jumped && x > 1200 && dx <= 130) { pilot.jumped = true; pilot.jumpFrames = 8; pilot.launch = { x, dx }; }
           const moving = !pilot.flattened;
           const jumping = pilot.jumpFrames-- > 0;
           if (controller) { pad.axes[0] = moving ? 1 : 0; pad.buttons[0].pressed = jumping; }
@@ -37,21 +63,34 @@ for (const controller of [false, true]) {
             window.dispatchEvent(new KeyboardEvent(moving ? 'keydown' : 'keyup', { code: 'ArrowRight' }));
             window.dispatchEvent(new KeyboardEvent(jumping ? 'keydown' : 'keyup', { code: 'Space' }));
           }
+          pilot.frames.push({ x, dx, moving, jumping, flattened: pilot.flattened, time });
           if (pilot.flattened) pilot.settled++;
         }
-        // Drive the real input/clock boundary, never scene or entity state.
-        if (pilot.settled < 40) time += 1000 / 60;
+        // Fine sampling around the observed actor; bounded fixed steps on approach.
+        if (pilot.settled < 40) time += 1000 / 60 * (pilot.active && dx > 180 ? 4 : 1);
         callback(time);
       });
     }, controller);
     await page.goto('/?debug=1');
     await page.getByRole('button', { name: 'Play PLAINS', exact: true }).click();
-    await page.locator('canvas').screenshot({ path: info.outputPath('slime-upright.png') });
+    expect((await page.locator('canvas').boundingBox())!.width).toBe(426);
+    expect((await page.locator('canvas').boundingBox())!.height).toBe(240);
+    if (controller) {
+      const afterStart = await page.evaluate(() => (window as unknown as { squashPilot: { polls: number } }).squashPilot.polls);
+      await expect.poll(() => page.evaluate(() => (window as unknown as { squashPilot: { neutralPoll: number } }).squashPilot.neutralPoll)).toBeGreaterThan(afterStart);
+    }
     await page.evaluate(() => { (window as unknown as { squashPilot: { active: boolean } }).squashPilot.active = true; });
+    await expect.poll(() => page.evaluate(() => (window as unknown as { squashPilot: { ready: boolean } }).squashPilot.ready)).toBe(true);
+    await page.locator('canvas').screenshot({ path: info.outputPath('slime-upright.png') });
+    await page.evaluate(() => { (window as unknown as { squashPilot: { frozen: boolean } }).squashPilot.frozen = false; });
     await expect(page.locator('canvas')).toHaveAttribute('data-squashed', 'true', { timeout: 15_000 });
     await expect.poll(() => page.evaluate(() => (window as unknown as { squashPilot: { settled: number } }).squashPilot.settled)).toBeGreaterThanOrEqual(40);
     await page.locator('canvas').screenshot({ path: info.outputPath('slime-flattened-gameplay.png') });
     await info.attach('flattened-gameplay', { path: info.outputPath('slime-flattened-gameplay.png'), contentType: 'image/png' });
+    const observed = await page.evaluate(() => (window as unknown as { squashPilot: { minHealth: number; healthSamples: number } }).squashPilot);
+    await writeFile(info.outputPath('squash-input-observations.json'), JSON.stringify({ controller, sourceRevision: process.env.BROWSER_REPORT_SOURCE_SHA, observed }, null, 2));
+    expect(observed.healthSamples).toBeGreaterThan(40);
+    expect(observed.minHealth).toBe(3);
     expect(errors).toEqual([]);
   });
 }

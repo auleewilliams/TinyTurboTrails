@@ -143,7 +143,7 @@ const worldMap = (plains: WorldAssets, timbers: WorldAssets = plains, site: Worl
 
 it('pans the plains background within its source bounds over the entire route', () => {
   const crops: number[] = [];
-  for (const x of [0, 4000, PLAINS_LEVEL.width - 426]) {
+  for (const x of [0, (PLAINS_LEVEL.width - 426) / 2, PLAINS_LEVEL.width - 426]) {
     const { ctx, images } = recordingContext();
     drawWorld(ctx, sceneryAssets, PLAINS_LEVEL, { position: { x, y: 0 } } as Camera);
     const background = images.find((call) => call[0] === sceneryAssets.scenery.background);
@@ -163,12 +163,13 @@ it('pans the plains background within its source bounds over the entire route', 
 it('uses new art only for Plains decoration, keeping hazards distinct and Quarry scenery unchanged', () => {
   const { ctx, images } = recordingContext();
   const camera = new Camera({ width: 426, height: 240, worldWidth: PLAINS_LEVEL.width, worldHeight: 240 });
-  drawWorld(ctx, sceneryAssets, PLAINS_LEVEL, camera);
+  const hazardFixture = { ...PLAINS_LEVEL, entities: [...PLAINS_LEVEL.entities, { id: 'fixture-stone', kind: 'hazard' as const, x: 1045, y: surfaceY(PLAINS_LEVEL, 1045), asset: 'stone', layer: 'world' as const }] };
+  drawWorld(ctx, sceneryAssets, hazardFixture, camera);
   const treeSourceX = sceneryAssets.scenery.manifest.foreground.sprites['oak-round'].source.x;
   const trees = images.filter((call) => call[0] === sceneryAssets.scenery.foreground && call[1] === treeSourceX);
   expect(trees.length).toBeGreaterThan(0);
   const tree = trees.find((call) => Number(call[5]) > 400)!;
-  expect(Number(tree[6]) + Number(tree[8])).toBe(158);
+  expect(Number(tree[6]) + Number(tree[8])).toBe(surfaceY(PLAINS_LEVEL, 2100));
   const hazard = images.find((call) => call[0] === worldAssets.atlas && call[5] === 1045 - 24);
   expect(hazard).toBeDefined();
   expect(images.indexOf(tree)).toBeLessThan(images.indexOf(hazard!));
@@ -376,6 +377,10 @@ it('draws low foreground plants after Henry in both playable scenes', () => {
   adventure.update(1 / 60, start);
   const preview = new GameplayPreviewScene(henryAssets, sceneryAssets, silentAudio, PLAINS_LEVEL);
   for (const scene of [adventure, preview]) {
+    // Move the rendering fixture to a surviving low tuft, rather than assuming
+    // the start has foreground decoration. No gameplay claim is made here.
+    (scene as unknown as { player: { x: number }; camera: Camera }).player.x = 800;
+    (scene as unknown as { camera: Camera }).camera.update(800, 170);
     const { ctx, images } = recordingContext();
     scene.render(ctx);
     const henryIndex = images.findIndex((call) => call[0] === henryAssets.atlas);
