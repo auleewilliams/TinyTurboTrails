@@ -10,7 +10,7 @@ import { mkdir, writeFile } from 'node:fs/promises';
 import { readFileSync } from 'node:fs';
 import { transformSync } from 'rolldown/utils';
 import type { EducationOverlay } from '../src/game/education-overlay';
-import { PLAINS_LEVEL } from '../src/world/level';
+import { PLAINS_LEVEL, hasFixedSupport } from '../src/world/level';
 import { LEVELS, QUARRY_RUN } from '../src/world/levels';
 import { DEFAULT_MOVEMENT, surfaceY } from '../src/game/movement';
 import { platformBodyAt } from '../src/game/platforms';
@@ -187,7 +187,7 @@ test('ambient weather repeats the same pixels, respects reduced motion and stays
       const assets = { atlas, manifest, gems, materials, backdrops, slimes, panorama };
       const canvas = document.createElement('canvas'); canvas.width = 426; canvas.height = 240;
       const ctx = canvas.getContext('2d')!; ctx.imageSmoothingEnabled = false;
-      const camera = { position: { x: 1400.25, y: 0 } } as Parameters<typeof drawWorld>[3];
+      const camera = { position: { x: Math.min(1400.25, level.maxX - 426), y: level.progressAxis === 'y' ? level.height - 240 : 0 } } as Parameters<typeof drawWorld>[3];
       const render = (window as unknown as { drawWeatherTestWorld: typeof drawWorld }).drawWeatherTestWorld;
       const draw = (seconds: number, reduced = false, themed = base) => {
         render(ctx, assets, themed, camera, undefined, undefined, undefined, seconds, reduced);
@@ -205,7 +205,7 @@ test('ambient weather repeats the same pixels, respects reduced motion and stays
       for (let x = 0; x < 426; x++) {
         const worldX = x + camera.position.x;
         const surface = level.surfaces.find(s => worldX >= s.x1 && worldX <= s.x2)!;
-        const ground = surface.y1 + (surface.y2 - surface.y1) * (worldX - surface.x1) / (surface.x2 - surface.x1);
+        const ground = surface.y1 + (surface.y2 - surface.y1) * (worldX - surface.x1) / (surface.x2 - surface.x1) - camera.position.y;
         for (let y = 0; y < 240; y++) {
           const index = (y * 426 + x) * 4;
           if (pixels[index] === clearPixels[index] && pixels[index + 1] === clearPixels[index + 1]
@@ -2165,7 +2165,7 @@ test('finish artwork pixels meet terrain in all six trails, including the sloped
       const panorama = manifest.panorama ? await image(`${base}${manifest.panorama}`) : undefined;
       const canvas = document.createElement('canvas'); canvas.width = 426; canvas.height = 240;
       const ctx = canvas.getContext('2d')!; ctx.imageSmoothingEnabled = false;
-      const offset = { x: level.finish.x - 213, y: 0 };
+      const offset = { x: level.finish.x - 213, y: level.progressAxis === 'y' ? level.finish.y - 180 : 0 };
       const assets = { atlas, manifest, gems, backdrops, materials, panorama };
       const route = { ...level, entities: [] };
       render(ctx, assets, route, { position: offset } as Parameters<typeof drawWorld>[3]);
@@ -2189,7 +2189,7 @@ test('finish artwork pixels meet terrain in all six trails, including the sloped
         }
         const wx = footX + offset.x;
         const surface = level.surfaces.find(s => wx >= s.x1 && wx <= s.x2)!;
-        const ground = surface.y1 + (surface.y2 - surface.y1) * (wx - surface.x1) / (surface.x2 - surface.x1);
+        const ground = surface.y1 + (surface.y2 - surface.y1) * (wx - surface.x1) / (surface.x2 - surface.x1) - offset.y;
         gaps.push(ground - (bottom + 1));
       }
       const source = document.createElement('canvas'); source.width = 48; source.height = 48;
@@ -2217,7 +2217,7 @@ test('finish artwork pixels meet terrain in all six trails, including the sloped
           for (let y = 0; y < 240; y++) if (pixels[(y * 426 + x) * 4 + 3] >= 128) bottom = y;
           const wx = x + 0.5 + offset.x;
           const surface = level.surfaces.find(s => wx >= s.x1 && wx <= s.x2)!;
-          const ground = surface.y1 + (surface.y2 - surface.y1) * (wx - surface.x1) / (surface.x2 - surface.x1);
+          const ground = surface.y1 + (surface.y2 - surface.y1) * (wx - surface.x1) / (surface.x2 - surface.x1) - offset.y;
           supportGaps.push(ground - (bottom + 1));
         }
       }
@@ -2612,8 +2612,9 @@ for (const [index, level] of LEVELS.entries()) {
     await traverse();
     if (index < LEVELS.length - 1) {
       await finishAction('Next trail');
-      await expect(page.locator('#status')).toContainText('Playing');
-      await expect(page.locator('#status')).toContainText(`X ${level.start.x}`);
+      const next = LEVELS[index + 1];
+      expect(hasFixedSupport(next, next.start)).toBe(true);
+      await expect(page.locator('#status')).toContainText(`Playing · Letter bag: 0/4 · X ${next.start.x} Y ${next.start.y - DEFAULT_MOVEMENT.height} V 0`);
       await expect(canvas).toHaveAttribute('data-ribbon-marker', String(TRAIL_RIBBON.startX));
       expect(JSON.parse((await canvas.getAttribute('data-ribbon-checkpoints'))!).every((point: { filled: boolean }) => !point.filled)).toBe(true);
     } else await expect(page.getByRole('button', { name: 'Next trail', exact: true })).toHaveCount(0);
@@ -3996,8 +3997,9 @@ for (const index of [0, LEVELS.length - 1]) {
       // A fresh Enter acts once, including its repeats and release on the next screen.
       const expectDestination = async (): Promise<void> => {
         if (defaultAction === 'Next trail') {
-          await expect(status).toContainText('Playing');
-          await expect(status).toContainText('X 60');
+          const next = LEVELS[index + 1];
+          expect(hasFixedSupport(next, next.start)).toBe(true);
+          await expect(status).toContainText(`Playing · Letter bag: 0/4 · X ${next.start.x} Y ${next.start.y - DEFAULT_MOVEMENT.height} V 0`);
         } else {
           await expect(page.getByRole('button', { name: `Play ${level.name}`, exact: true })).toBeVisible();
           await expect(status).toContainText('Title');
@@ -4030,6 +4032,8 @@ for (const [index, level] of LEVELS.entries()) {
       await startQuarryPilot(page); await driveQuarry(page, QUARRY_DESCENT); await quarryFinish(page);
       await page.getByRole('button', { name: 'Build your word', exact: true }).click();
       await page.getByRole('button', { name: 'Find more letters', exact: true }).click();
+      await expect(page.locator('#status')).toContainText('Playing · Letter bag: 0/4 · X 470 Y 946 V 0');
+      await twoFrames(page); // Let the finish screen's last RAF and held input settle before piloting the return.
       await driveQuarry(page, QUARRY_RETURN); await driveQuarry(page, QUARRY_DESCENT); await quarryFinish(page);
       await page.getByRole('button', { name: 'Build your word', exact: true }).click();
       for (const [slot, letter] of [...'ROCK'].entries()) {
@@ -4271,12 +4275,14 @@ test('builder-kit visual fixture renders all six words and generated stickers at
   const kitSource = source('art/interface-kit.ts');
   expect(kitSource.split('import.meta.env.BASE_URL')).toHaveLength(2);
   const modules: Record<string, string> = {
+    'game/movement.ts': source('game/movement.ts'),
     'game/education.ts': source('game/education.ts'),
     'art/interface-kit.ts': kitSource.replace('import.meta.env.BASE_URL', JSON.stringify('./')),
     'game/education-overlay.ts': source('game/education-overlay.ts'),
     'game/menu-overlay.ts': source('game/menu-overlay.ts'),
   };
   const fixture = [
+    declarations('movement.ts', modules['game/movement.ts']),
     declarations('education.ts', modules['game/education.ts']),
     declarations('tile.ts', tile.slice(tileStart)),
     declarations('loader.ts', henry.slice(loaderStart, henry.indexOf('\n}\n', loaderStart) + 3)),
@@ -4288,7 +4294,7 @@ test('builder-kit visual fixture renders all six words and generated stickers at
   // Keep dependency drift visible: every runtime import of a concatenated module must be declared.
   const runtimeImports = [...new Set(Object.values(modules).flatMap(text => [...text.matchAll(/^import (?!type )\{([^}]*)\} from .*;$/gm)]
     .flatMap(([, names]) => names.split(',').map(name => name.trim()).filter(name => name && !name.startsWith('type ')))))];
-  expect(runtimeImports).toEqual(expect.arrayContaining(['drawKitButton', 'drawKitFrame', 'drawLetterTile', 'loadImage', 'TRAIL_WORDS']));
+  expect(runtimeImports).toEqual(expect.arrayContaining(['drawKitButton', 'drawKitFrame', 'drawLetterTile', 'loadImage', 'TRAIL_WORDS', 'surfaceY']));
   await page.setViewportSize({ width: 426, height: 300 });
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await observeSpellingArtwork(page);
@@ -4599,7 +4605,8 @@ for (const viewport of [{ width: 426, height: 240 }, { width: 320, height: 240 }
       const next = LEVELS[(index + 1) % 6];
       await page.getByRole('button', { name: `Play ${next.name}`, exact: true }).click();
       await expect(page.locator('#status')).toContainText('Playing');
-      const openingArea = next.checkpoints.reduce((area, point, i) => next.start.x >= point.x - 180 ? i : area, -1);
+      const openingArea = next.checkpoints.reduce((area, point, i) =>
+        (next.progressAxis === 'y' ? next.start.y >= point.y - 35 : next.start.x >= point.x - 180) ? i : area, -1);
       await expect(canvas).toHaveAttribute('data-gameplay-trail', openingArea < 0 ? next.name : areaName(next, openingArea));
       await page.keyboard.press('Escape');
       await page.getByRole('button', { name: 'Return to Trails', exact: true }).click();

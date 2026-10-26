@@ -31,3 +31,12 @@ for (const title of ['compact HUD renderer fixture:', 'landmark labels: renderer
     for (const x of [60, 370, 1065, 1930, 2760, 4230]) expect(fixture.height(PLAINS_LEVEL, x)).toBe(surfaceY(PLAINS_LEVEL, x));
   });
 }
+
+it('builder-kit fixture includes the real terrain dependency and keeps its runtime guard', () => {
+  const section = source.slice(source.indexOf("test('builder-kit visual fixture"), source.indexOf("test('compact HUD renderer fixture:"));
+  expect(section).toContain("'game/movement.ts': source('game/movement.ts')");
+  expect(section).toContain("declarations('movement.ts', modules['game/movement.ts'])");
+  expect(section).toContain("'surfaceY'");
+  expect(section).toContain('spellingFixtureMissing');
+  expect(section).toContain('runtimeImports.map');
+});

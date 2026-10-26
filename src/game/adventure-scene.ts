@@ -413,7 +413,7 @@ export class AdventureScene implements Scene {
       if (level.progressAxis === 'y') camera.update(level.start.x, level.start.y - 34);
       // A cached map thumbnail stays clear; ambient motion belongs to the run.
       drawWorld(ctx, this.worlds[level.atlas], level, camera, undefined, undefined,
-        platformBodiesAt(level.platforms, 0), 0, true);
+        level.progressAxis === 'y' ? platformBodiesAt(level.platforms, 0) : [], 0, true);
       drawWorldForeground(ctx, this.worlds[level.atlas], level, camera);
       this.previews.set(level.id, canvas);
     }
