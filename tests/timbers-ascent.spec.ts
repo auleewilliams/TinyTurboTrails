@@ -145,6 +145,26 @@ test('Timbers left fork visits both outer stars and returns to the lookout by in
     version: browser.version(), lowStar, leftFork, upperStar, finish }), contentType: 'application/json' });
 });
 
+test('Timbers Star 3 wrong-end walk-off catches locally and rejoins by input', async ({ page, browser }, info) => {
+  test.setTimeout(120_000);
+  await installTimberKeyboardPilot(page);
+  await page.setViewportSize({ width: 426, height: 300 });
+  await page.goto('/?scene=adventure&debug=1');
+  await page.getByRole('button', { name: 'TREETOP TIMBERS', exact: true }).click();
+  await page.getByRole('button', { name: 'Play TREETOP TIMBERS', exact: true }).click();
+  expect(await runTimberStages(page, TIMBER_LEFT_STARS_ASCENT.slice(0, 25))).toMatchObject({ done: true, error: '' });
+  await expect(page.locator('#status')).toContainText('Y 266');
+  const leftMiss = await runTimberStages(page, [{ kind: 'walk', x: 40 }]);
+  expect(leftMiss).toMatchObject({ done: true, error: '' });
+  await expect(page.locator('#status')).toContainText('Y 326');
+  await info.attach('star-3-left-catch', { body: await page.locator('#game').screenshot(), contentType: 'image/png' });
+  const rejoin = await runTimberStages(page, [{ kind: 'walk', x: 180 }, ...TIMBER_LEFT_STARS_ASCENT.slice(26)]);
+  expect(rejoin).toMatchObject({ done: true, error: '' });
+  await expect(page.locator('#status')).toContainText('Finish');
+  await info.attach('star-3-wrong-end-input', { body: JSON.stringify({ browser: browser.browserType().name(),
+    version: browser.version(), viewport: { width: 426, height: 300 }, leftMiss, rejoin }), contentType: 'application/json' });
+});
+
 test('Timbers optional spring reaches Star 2 and permits a safe repeat approach', async ({ page, browser }, info) => {
   test.setTimeout(120_000);
   await installTimberKeyboardPilot(page);
@@ -158,6 +178,9 @@ test('Timbers optional spring reaches Star 2 and permits a safe repeat approach'
   expect(firstFlight).toMatchObject({ done: true, error: '' });
   await expect(page.locator('#status')).toContainText('Y 476');
   await info.attach('spring-reward-landing', { body: await page.locator('#game').screenshot(), contentType: 'image/png' });
+  expect(await runTimberStages(page, [{ kind: 'walk', x: 40 }])).toMatchObject({ done: true, error: '' });
+  await expect(page.locator('#status')).toContainText('Y 476');
+  await info.attach('spring-reward-left-bound', { body: await page.locator('#game').screenshot(), contentType: 'image/png' });
   expect(await runTimberStages(page, TIMBER_SPRING_RETRY.slice(2, 4))).toMatchObject({ done: true, error: '' });
   await expect(page.locator('#status')).toContainText('Y 506');
   await page.evaluate(async () => { for (let frame = 0; frame < 24; frame++) {

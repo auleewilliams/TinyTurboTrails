@@ -56,10 +56,10 @@ const checkpoints = [
 // branch approach or landing and retain stable collectible IDs.
 const gemPlaces: readonly (readonly [number, number])[] = [
   [260, 1080], [330, 1020], [410, 1020], [410, 960], [500, 960],
-  [120, 960], [270, 900], [370, 900], [540, 900],
+  [205, 960], [320, 900], [370, 900], [540, 900],
   [240, 840], [350, 840], [530, 840], [320, 780], [440, 780], [550, 780],
   [440, 720], [490, 720], [160, 660], [360, 660], [540, 660],
-  [310, 600], [390, 600], [100, 600], [115, 510],
+  [310, 600], [390, 600], [165, 600], [175, 510],
   [370, 540], [480, 540], [300, 480], [410, 480],
   [270, 420], [410, 420], [400, 360], [320, 300], [440, 240],
 ];
@@ -85,11 +85,13 @@ export const TREETOP_TIMBERS: LevelData = {
     backdrop: { row: 1, support: '#60443260' },
     sky: '#d97667', ground: '#704126', edge: '#e6a04b', parallax: [],
   },
-  width: 820, height: 1180, minX: 0, maxX: 820,
+  // Outer left boughs/catches begin at x40. The play bound meets their wood
+  // tops, so a held-left miss cannot slip through an unguarded 40px sky strip.
+  width: 820, height: 1180, minX: 40, maxX: 820,
   start: { x: 100, y: 1080 },
   finish: { x: 530, y: 180, asset: 'finish-arch', supportOnly: true, boundedWidth: 46, rearmBelowY: 240, rearmLeftX: 300 },
   retrace: { x: 440, y: 180 }, progressAxis: 'y', checkpointActivation: 'grounded',
-  surfaces: [{ x1: 0, x2: 820, y1: 1080, y2: 1080 }],
+  surfaces: [{ x1: 40, x2: 820, y1: 1080, y2: 1080 }],
   checkpoints, platforms, entities,
   landingBands: [{ x: 330, width: 120 }, { x: 270, width: 150 }, { x: 440, width: 140 }],
 };

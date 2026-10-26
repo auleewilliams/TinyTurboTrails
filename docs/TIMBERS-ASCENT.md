@@ -15,6 +15,13 @@ scenic stems are drawn behind Henry and have no collision. Branch platforms
 use the existing one-way platform model and wood materials; no new art assets
 or movement controls were introduced.
 
+The left play bound meets the outer wooden catches at X40. The Star 3 bough
+starts at X60, so a left walk-off lands on its Y360 catch; continued held-left
+input stays on that catch. The optional spring and middle boughs also reach the
+bound, keeping their left ends supported. The low Star 1 miss reaches the root
+floor 120px below. The four gems nearest the first two stars, R tile and spring
+sit on separate supported approaches, so each reward has a distinct silhouette.
+
 TREE keeps its four stable pickup IDs, including separate E1 and E2 tiles.
 Thirty-three gems, three independent stars and one optional spring remain.
 The low left, spring reward and upper left canopy branches each hold one star;

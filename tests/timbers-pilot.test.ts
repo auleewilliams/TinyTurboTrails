@@ -38,6 +38,20 @@ it('keeps three separate, reachable side reward silhouettes with local catches',
   });
 });
 
+it('separates every star silhouette and contact from all 33 gem identities', () => {
+  for (const star of stars) {
+    for (const gem of gems) if (Math.abs(gem.y - star.y) <= 28) {
+      expect(Math.abs(gem.x - star.x), `${star.id} and ${gem.id}`).toBeGreaterThanOrEqual(45);
+    }
+    // Local contact fixture for the star alone; route input is tested elsewhere.
+    const player = createPlayer(star.x, level, star.y);
+    const run = createRun(level);
+    stepEntities(run, level, player, 1 / 60, []);
+    expect(run.collectedSpecials, star.id).toContain(star.id);
+    expect(run.collectedGems, star.id).toEqual(new Set());
+  }
+});
+
 it('keeps the sole optional spring below Star 2 and off the ordinary main branch', () => {
   const springs = level.entities.filter(entity => entity.kind === 'spring');
   expect(springs).toMatchObject([{ id: 'timber-spring-1', x: 100, y: 600 }]);
