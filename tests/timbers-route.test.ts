@@ -135,7 +135,7 @@ it('walks off real return edges from finish to roots and recovers every missed T
   walk(510);
   expect(run.checkpointId).toBe('timber-checkpoint-fork');
   drop(620, 1, 960, 650);
-  drop(580, -1, 1020, 540);
+  drop(620, -1, 1020, 580);
   for (let i = 0; i < 100 && player.y + 34 < 1080; i++) tick(-1);
   expect(player.y + 34).toBe(1080);
   walk(220);

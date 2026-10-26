@@ -13,22 +13,22 @@ export interface TimberPilotStage {
 export const TIMBER_DESCENT_ALL: readonly TimberPilotStage[] = [
   { kind: 'walk', x: 350 }, { kind: 'walk', x: 560 },
   { kind: 'drop', edge: 590, direction: 1, y: 240, x: 650 },
-  { kind: 'drop', edge: 570, direction: -1, y: 300, x: 540 },
+  { kind: 'drop', edge: 570, direction: -1, y: 300, x: 580 },
   { kind: 'drop', edge: 660, direction: 1, y: 360, x: 620 },
   { kind: 'drop', edge: 580, direction: -1, y: 420, x: 540 },
   { kind: 'walk', x: 300 }, { kind: 'walk', x: 510 },
   { kind: 'drop', edge: 620, direction: 1, y: 480, x: 650 },
-  { kind: 'drop', edge: 580, direction: -1, y: 540, x: 540 },
+  { kind: 'drop', edge: 580, direction: -1, y: 540, x: 580 },
   { kind: 'drop', edge: 660, direction: 1, y: 600, x: 690 },
   { kind: 'drop', edge: 580, direction: -1, y: 660, x: 540 },
   { kind: 'walk', x: 260 }, { kind: 'walk', x: 570 },
   { kind: 'drop', edge: 620, direction: 1, y: 720, x: 650 },
-  { kind: 'drop', edge: 580, direction: -1, y: 780, x: 540 },
+  { kind: 'drop', edge: 580, direction: -1, y: 780, x: 580 },
   { kind: 'drop', edge: 660, direction: 1, y: 840, x: 690 },
   { kind: 'drop', edge: 470, direction: -1, y: 900, x: 440 },
   { kind: 'walk', x: 270 }, { kind: 'walk', x: 510 },
   { kind: 'drop', edge: 620, direction: 1, y: 960, x: 650 },
-  { kind: 'drop', edge: 580, direction: -1, y: 1020, x: 540 },
+  { kind: 'drop', edge: 620, direction: -1, y: 1020, x: 580 },
   { kind: 'fall', direction: -1, y: 1080 }, { kind: 'walk', x: 220 },
 ];
 
@@ -69,7 +69,7 @@ export const TIMBER_LEFT_STARS_ASCENT: readonly TimberPilotStage[] = [
   { kind: 'walk', x: 400 },
   ...[600, 540, 480, 420, 360, 300].map(y => ({ kind: 'jump' as const, x: 400, y })),
   { kind: 'walk', x: 245 }, { kind: 'jump', x: 150, y: 300 }, { kind: 'walk', x: 110 },
-  { kind: 'drop', edge: 200, direction: 1, y: 360, x: 230 },
+  { kind: 'drop', edge: 200, direction: 1, y: 360, x: 180 },
   { kind: 'jump', x: 280, y: 300 }, { kind: 'walk', x: 400 },
   { kind: 'jump', x: 400, y: 240 }, { kind: 'jump', x: 400, y: 180 }, { kind: 'finish' },
 ];
@@ -78,7 +78,7 @@ export const TIMBER_LEFT_STARS_ASCENT: readonly TimberPilotStage[] = [
 export const TIMBER_SPRING_RETRY: readonly TimberPilotStage[] = [
   { kind: 'walk', x: 100 }, { kind: 'jump', x: 100, y: 510 }, { kind: 'walk', x: 180 },
   { kind: 'drop', edge: 200, direction: 1, y: 540, x: 230 },
-  { kind: 'drop', edge: 130, direction: -1, y: 510, x: 180 },
+  { kind: 'drop', edge: 130, direction: -1, y: 510, x: 165 },
 ];
 
 export async function runTimberStages(page: Page, stages: readonly TimberPilotStage[], timeout = 45_000): Promise<object> {
@@ -181,8 +181,11 @@ export function timberKeyboardPilotInit(stages: TimberPilotStage[]): void {
               pilot.phase = 1; pilot.startY = y; pilot.frames = 0;
             }
           } else if (pilot.phase === 1) {
-            direction = stage.direction!;
-            if (y > pilot.startY + 1) pilot.phase = 2;
+            const clear = stage.direction === 1 ? x - 9 > stage.edge! : x + 9 < stage.edge!;
+            // Brake as soon as the full 18px body clears the top. Waiting for
+            // rounded Y to change can carry a fast walk-off past the next bough.
+            direction = clear ? 0 : stage.direction!;
+            if (clear && y > pilot.startY + 1) pilot.phase = 2;
           } else {
             direction = projected < stage.x! - 4 ? 1 : projected > stage.x! + 4 ? -1 : 0;
           }
@@ -190,7 +193,9 @@ export function timberKeyboardPilotInit(stages: TimberPilotStage[]): void {
           pilot.frames++;
           pilot.stable = pilot.phase === 2 && y === stage.y! - 34 && y === pilot.previousY ? pilot.stable + 1 : 0;
           pilot.previousY = y;
-          if (pilot.stable >= 2) next(status);
+          // A brief y match can occur while Henry is already leaving a narrow
+          // bough. Require a settled, centered landing before the next walk-off.
+          if (pilot.stable >= 2 && Math.abs(x - stage.x!) < 16 && Math.abs(vx) < 30) next(status);
           else if (pilot.frames > 200) pilot.error = `drop ${pilot.stage} phase ${pilot.phase} stalled ${status}`;
         } else {
           const projected = x + Math.sign(vx) * vx ** 2 / 2400;

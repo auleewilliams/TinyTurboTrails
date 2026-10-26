@@ -1,4 +1,5 @@
 import { expect, it } from 'vitest';
+import { DEFAULT_MOVEMENT } from '../src/game/movement';
 import { TRAIL_WORDS } from '../src/game/education';
 import { HudPresentation, trailPosition } from '../src/game/hud';
 import { Camera } from '../src/world/camera';
@@ -24,6 +25,13 @@ it('authors one permanent tree ascent, both forks, and a walk-off return', () =>
   const spring = level.entities.find(entity => entity.kind === 'spring')!;
   expect(() => validateLevel({ ...level, entities: level.entities.map(entity => entity.id === spring.id
     ? { ...entity, y: spring.y - 12 } : entity) })).toThrow(/spring lacks fixed support/);
+});
+
+it('leaves a forgiving full-body gap between the distinct y960 low and return boughs', () => {
+  const low = TREETOP_TIMBERS.platforms!.find(platform => platform.id === 'timber-low-2')!;
+  const outer = TREETOP_TIMBERS.platforms!.find(platform => platform.id === 'timber-return-960')!;
+  expect(low.from.y).toBe(outer.from.y);
+  expect(outer.from.x - (low.from.x + low.width)).toBeGreaterThanOrEqual(DEFAULT_MOVEMENT.width + 20);
 });
 
 it('keeps separate TREE identities at four branch heights', () => {

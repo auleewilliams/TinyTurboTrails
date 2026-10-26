@@ -35,7 +35,9 @@ const platforms: readonly MovingPlatform[] = [
     [240, 570, 740], [300, 520, 660], [360, 580, 740],
     [480, 580, 740], [540, 520, 660], [600, 580, 740],
     [720, 580, 740], [780, 520, 660], [840, 580, 740],
-    [960, 580, 740], [1020, 520, 660],
+    // The low y960 bough ends at 560; this separate return starts at 620,
+    // leaving 60px for a full-body left walk-off onto the y1020 return.
+    [960, 620, 740], [1020, 520, 660],
   ].map(([y, left, right]) => bough(`return-${y}`, left, right, y)),
   // Outer wrong-end walk-offs land here, then feed back into the zigzag.
   ...[300, 420, 540, 660, 780, 900, 1020].map(y => bough(`outer-catch-${y}`, 700, 820, y)),
