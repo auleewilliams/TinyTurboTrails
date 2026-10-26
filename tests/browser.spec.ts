@@ -1739,7 +1739,15 @@ test('a collected gem stops being drawn where it stood', async ({ page }, info) 
   const authoredGems = PLAINS_LEVEL.entities.filter(entity => entity.kind === 'gem');
   const missingGemIds = async (): Promise<string[]> => {
     const anchors = JSON.parse((await canvas.getAttribute('data-gem-anchors'))!) as number[][];
-    return authoredGems.filter(gem => !anchors.some(([x, y]) => x === gem.x && y === gem.y)).map(gem => gem.id);
+    // Draw positions are camera-relative. Calibrate the shared translation from
+    // a unique, untouched far gem rather than assuming the camera stayed at zero.
+    const reference = authoredGems[authoredGems.length - 1];
+    expect(authoredGems.filter(gem => gem.y === reference.y)).toHaveLength(1);
+    expect(await playerX() + 24).toBeLessThan(reference.x);
+    const referenceDraws = anchors.filter(([, y]) => y === reference.y);
+    expect(referenceDraws).toHaveLength(1);
+    const cameraX = reference.x - referenceDraws[0][0];
+    return authoredGems.filter(gem => !anchors.some(([x, y]) => x + cameraX === gem.x && y === gem.y)).map(gem => gem.id);
   };
   expect(await missingGemIds()).toEqual([]);
   const before = await readCell();
