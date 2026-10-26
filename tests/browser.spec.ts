@@ -1,7 +1,7 @@
 import { installPlainsRewardPilot } from './plains-pilot';
 import { drawTerrainMaterial, drawTerrainEdge, drawTrailBackdrop } from '../src/world/trail-presentation';
 import { installRetracePilotScript } from './retrace-pilot';
-import { observedDamage, type ActuatorCall, type HealthObservation } from './rumble-observation';
+import { observedDamage, sustainedControllerMovement, type ActuatorCall, type HealthObservation } from './rumble-observation';
 import { drawAmbientWeather } from '../src/world/ambient-weather';
 import { expect, test, type Page } from '@playwright/test';
 import { mkdir, writeFile } from 'node:fs/promises';
@@ -229,10 +229,11 @@ test('controller damage rumble is independent of audio and stops on pause, focus
   const errors: string[] = [];
   page.on('pageerror', error => errors.push(error.message));
   page.on('console', message => { if (message.type() === 'error') errors.push(message.text()); });
-  type Sample = { time: number; x: number; y: number; velocity: number; health: number | null; colors: number[][] };
+  type Sample = { time: number; x: number; y: number; velocity: number; axis: number; health: number | null; colors: number[][] };
+  await page.setViewportSize({ width: 426, height: 300 });
   await page.addInitScript(() => {
     const probe = { polls: 0, neutralPoll: 0, latest: null as Sample | null, stable: null as Sample | null,
-      samples: [] as Sample[], events: [] as Record<string, unknown>[], effects: [] as { duration: number; strongMagnitude: number; weakMagnitude: number }[], resets: 0 };
+      drive: false, retreat: false, direction: 1, stopHealth: undefined as number | undefined, samples: [] as Sample[], events: [] as Record<string, unknown>[], effects: [] as { duration: number; strongMagnitude: number; weakMagnitude: number }[], resets: 0 };
     const pad = {
       connected: true, mapping: 'standard', index: 0, axes: [0, 0],
       buttons: Array.from({ length: 17 }, () => ({ pressed: false })),
@@ -242,9 +243,21 @@ test('controller damage rumble is independent of audio and stops on pause, focus
       },
     };
     Object.defineProperty(navigator, 'getGamepads', { configurable: true, value: () => {
+      // Keep side-contact checks on the first flat patrol. A polling wait must
+      // not carry Henry into Quarry's optional spring/steep terrace sequence.
+      if (probe.drive && probe.latest) {
+        if (probe.retreat && probe.latest.x <= 760) {
+          probe.drive = false; probe.retreat = false; pad.axes[0] = 0;
+          probe.events.push({ kind: 'safe-stop', time: performance.now(), x: probe.latest.x });
+        } else {
+          if (probe.retreat || probe.latest.x >= 940) probe.direction = -1;
+          else if (probe.latest.x <= 810) probe.direction = 1;
+          pad.axes[0] = probe.direction;
+        }
+      }
       probe.polls++;
       if (pad.axes.every(value => value === 0) && pad.buttons.every(button => !button.pressed)) probe.neutralPoll = probe.polls;
-      probe.events.push({ kind: 'poll', time: performance.now(), poll: probe.polls, axis: pad.axes[0] });
+      probe.events.push({ kind: 'poll', time: performance.now(), poll: probe.polls, axis: pad.axes[0], drive: probe.drive, status: document.querySelector('#status')?.textContent, focus: document.activeElement?.getAttribute('aria-label') });
       return [pad];
     } });
     // Read actual interior pixels after all three heart sample pixels are drawn.
@@ -262,9 +275,13 @@ test('controller damage rumble is independent of audio and stops on pause, focus
       const red = '255,93,93', empty = '49,67,74';
       const steady = colors.every(color => [red, empty].includes(color.join(',')));
       const sample = { time: performance.now(), x: Number(position[1]), y: Number(position[2]), velocity: Number(position[3]),
-        health: steady ? colors.filter(color => color.join(',') === red).length : null, colors };
+        axis: pad.axes[0], health: steady ? colors.filter(color => color.join(',') === red).length : null, colors };
       probe.latest = sample; probe.samples.push(sample);
       if (sample.health !== null) probe.stable = sample;
+      if (probe.drive && sample.health === probe.stopHealth) {
+        probe.retreat = true; probe.stopHealth = undefined; pad.axes[0] = -1;
+        probe.events.push({ kind: 'health-retreat', time: performance.now(), sample });
+      }
     };
     Object.assign(window, { rumbleProbe: probe, rumblePad: pad });
   });
@@ -279,25 +296,37 @@ test('controller damage rumble is independent of audio and stops on pause, focus
     });
     return observedDamage(calls.slice(index), samples);
   };
-  const axis = (value: number) => page.evaluate(value => {
-    (window as unknown as { rumblePad: { axes: number[] } }).rumblePad.axes[0] = value;
-  }, value);
+  const axis = (value: number, stopHealth?: number) => page.evaluate(({ value, stopHealth }) => {
+    const state = window as unknown as { rumblePad: { axes: number[] }; rumbleProbe: { drive: boolean; retreat: boolean; direction: number; stopHealth?: number; events: object[] } };
+    Object.assign(state.rumbleProbe, { drive: value !== 0, retreat: false, direction: value || 1, stopHealth });
+    state.rumblePad.axes[0] = value;
+    state.rumbleProbe.events.push({ kind: 'drive-request', time: performance.now(), value, stopHealth });
+  }, { value, stopHealth });
   const neutral = async (): Promise<void> => {
     await axis(0);
     const afterClear = (await read()).polls;
     // Resume clears input again. Only a later real getGamepads call observing
     // neutral releases that guard; Playing/aria state is not a poll witness.
     await expect.poll(async () => (await read()).neutralPoll).toBeGreaterThan(afterClear);
+    await page.evaluate(afterClear => {
+      const probe = (window as unknown as { rumbleProbe: { neutralPoll: number; events: object[] } }).rumbleProbe;
+      probe.events.push({ kind: 'neutral-ack', time: performance.now(), afterClear, poll: probe.neutralPoll });
+    }, afterClear);
   };
   const resume = async (): Promise<void> => {
     await page.getByRole('button', { name: 'Resume', exact: true }).click();
     await neutral();
   };
-  const movedAfter = (time: number, x: number) => page.evaluate(({ time, x }) => (window as unknown as {
-    rumbleProbe: { samples: Sample[] };
-  }).rumbleProbe.samples.some(sample => sample.time > time && sample.x > x && sample.velocity > 0), { time, x });
+  const safeStop = async (): Promise<void> => {
+    await expect.poll(() => page.evaluate(() => (window as unknown as { rumbleProbe: { drive: boolean } }).rumbleProbe.drive)).toBe(false);
+    expect((await read()).latest!.x).toBeLessThanOrEqual(780);
+  };
+  const movedAfter = async (time: number, x: number): Promise<boolean> => sustainedControllerMovement(
+    await page.evaluate(() => (window as unknown as { rumbleProbe: { samples: Sample[] } }).rumbleProbe.samples), time, x);
   try {
     await openAdventure(page, '/?debug=1');
+    expect((await page.locator('canvas').boundingBox())!.width).toBe(426);
+    expect((await page.locator('canvas').boundingBox())!.height).toBe(240);
     await axis(1);
     await expect(page.getByRole('button', { name: 'QUARRY RUN', exact: true })).toHaveAttribute('aria-pressed', 'true');
     await neutral();
@@ -305,9 +334,10 @@ test('controller damage rumble is independent of audio and stops on pause, focus
     await page.getByRole('button', { name: 'Play QUARRY RUN', exact: true }).click();
     await page.keyboard.press('m');
     await expect(page.locator('#status')).toContainText('Muted');
-    await axis(1);
+    await axis(1, 2);
     await expect.poll(() => damageAfter(0), { timeout: 10000 }).toBeDefined();
     expect((await read()).effects.length).toBeGreaterThan(0);
+    await safeStop();
     await neutral();
     await expect.poll(async () => (await read()).stable?.health).toBe(2);
     expect((await damageAfter(0))!.parameters).toMatchObject({ duration: 100, strongMagnitude: 0.55, weakMagnitude: 0.3 });
@@ -319,9 +349,10 @@ test('controller damage rumble is independent of audio and stops on pause, focus
     const disabled = await read();
     await resume();
     const offStart = (await read()).latest!;
-    await axis(1);
+    await axis(1, 1);
     await expect.poll(async () => movedAfter(offStart.time, offStart.x)).toBe(true);
     await expect.poll(async () => (await read()).stable?.health, { timeout: 10000 }).toBe(1);
+    await safeStop();
     await neutral();
     expect((await read()).effects).toEqual(disabled.effects);
     await page.locator('#pause').click();
@@ -329,13 +360,14 @@ test('controller damage rumble is independent of audio and stops on pause, focus
     await expect(rumbleButton).toHaveAttribute('aria-pressed', 'true');
     await resume();
     const onStart = (await read()).latest!;
-    await axis(1);
+    await axis(1, 3);
     await expect.poll(async () => movedAfter(onStart.time, onStart.x)).toBe(true);
     await expect.poll(() => damageAfter(disabled.effects.length), { timeout: 10000 }).toBeDefined();
     expect((await read()).effects.length).toBeGreaterThan(disabled.effects.length);
     expect((await damageAfter(disabled.effects.length))!.parameters).toMatchObject({ duration: 100, strongMagnitude: 0.55, weakMagnitude: 0.3 });
     await expect.poll(async () => (await read()).stable?.health).not.toBe(1);
     await expect(page.locator('#status')).toContainText('Muted');
+    await safeStop();
     await neutral();
     await page.keyboard.press('Escape');
     await expect(page.locator('#status')).toContainText('Paused');
@@ -1678,6 +1710,21 @@ test('adventure HUD stays left-aligned through keyboard pause and focus loss', a
 
 test('a collected gem stops being drawn where it stood', async ({ page }, info) => {
   await recordHudDraws(page);
+  await page.setViewportSize({ width: 426, height: 300 });
+  await page.addInitScript(() => {
+    const draw = CanvasRenderingContext2D.prototype.drawImage;
+    CanvasRenderingContext2D.prototype.drawImage = function (this: CanvasRenderingContext2D, ...args: unknown[]) {
+      if (this.canvas.id === 'game' && args[0] instanceof HTMLImageElement) {
+        if (args[0].src.endsWith('/scenery/background.webp')) this.canvas.dataset.gemAnchors = '[]';
+        if (args[0].src.endsWith('/assets/gems/gems.png')) {
+          const anchors = JSON.parse(this.canvas.dataset.gemAnchors ?? '[]');
+          anchors.push([Number(args[5]) + 16, Number(args[6]) + 24]);
+          this.canvas.dataset.gemAnchors = JSON.stringify(anchors);
+        }
+      }
+      Reflect.apply(draw, this, args);
+    } as typeof draw;
+  });
   await openAdventure(page, '/?scene=adventure&debug=1');
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
   await page.keyboard.press('Space');
@@ -1689,6 +1736,12 @@ test('a collected gem stops being drawn where it stood', async ({ page }, info) 
   const readCell = async (): Promise<number[]> => canvas.evaluate((element, rect) =>
     Array.from((element as HTMLCanvasElement).getContext('2d')!.getImageData(rect.x, rect.y, rect.size, rect.size).data), cell);
   const playerX = async (): Promise<number> => Number((await page.locator('#status').innerText()).match(/X (\d+)/)?.[1] ?? 0);
+  const authoredGems = PLAINS_LEVEL.entities.filter(entity => entity.kind === 'gem');
+  const missingGemIds = async (): Promise<string[]> => {
+    const anchors = JSON.parse((await canvas.getAttribute('data-gem-anchors'))!) as number[][];
+    return authoredGems.filter(gem => !anchors.some(([x, y]) => x === gem.x && y === gem.y)).map(gem => gem.id);
+  };
+  expect(await missingGemIds()).toEqual([]);
   const before = await readCell();
   await expect(canvas).toHaveAttribute('data-test-hud-draw', /left 28 0$/);
   await page.keyboard.down('ArrowRight');
@@ -1699,13 +1752,20 @@ test('a collected gem stops being drawn where it stood', async ({ page }, info) 
   await page.keyboard.up('Space');
   for (let step = 0; step < 40 && (await playerX()) < gem.x + 40; step++) await page.waitForTimeout(50);
   await page.keyboard.up('ArrowRight');
-  await expect(canvas).toHaveAttribute('data-test-hud-draw', /left 28 1$/);
+  const collected = await missingGemIds();
+  expect(collected).toContain(gem.id);
+  await expect(canvas).toHaveAttribute('data-test-hud-draw', `left 28 ${collected.length}`);
   // Walk back so Henry cannot be standing over the gem's cell when it is sampled.
   await page.keyboard.down('ArrowLeft');
-  for (let step = 0; step < 40 && (await playerX()) > 60; step++) await page.waitForTimeout(50);
+  for (let step = 0; step < 40 && (await playerX()) > 40; step++) await page.waitForTimeout(50);
   await page.keyboard.up('ArrowLeft');
   await page.waitForTimeout(150);
-  await expect(canvas).toHaveAttribute('data-test-hud-draw', /left 28 1$/);
+  expect(await playerX() + 24).toBeLessThan(cell.x);
+  const returnedCollected = await missingGemIds();
+  expect(returnedCollected).toEqual(expect.arrayContaining(collected));
+  expect(returnedCollected).toContain(gem.id);
+  await expect(canvas).toHaveAttribute('data-test-hud-draw', `left 28 ${returnedCollected.length}`);
+  await writeFile(info.outputPath('gem-pickup-observations.json'), JSON.stringify({ target: gem.id, collected, returnedCollected, clearCell: cell, playerX: await playerX() }, null, 2));
   const after = await readCell();
   const changed = before.filter((value, index) => value !== after[index]).length;
   expect(changed, 'the collected gem is still drawn').toBeGreaterThan(200);
@@ -2787,6 +2847,7 @@ for (const [index, level] of LEVELS.slice(0, 3).entries()) {
       });
     }, { id: level.id, dangers: dangerXs(level) });
     await page.setViewportSize({ width: 426, height: 300 });
+    await twoFrames(page);
     await openAdventure(page, '/?debug=1');
     expect((await page.locator('canvas').boundingBox())!.width).toBe(426);
     await page.getByRole('button', { name: level.name, exact: true }).click();
@@ -2801,6 +2862,7 @@ for (const [index, level] of LEVELS.slice(0, 3).entries()) {
         await info.attach(`${name}-${width}`, { path: info.outputPath(`${level.id}-${name}-${width}.png`), contentType: 'image/png' });
       }
       await page.setViewportSize({ width: 426, height: 300 });
+      await twoFrames(page);
       expect((await page.locator('canvas').boundingBox())!.width).toBe(426);
     };
     for (const x of stops) {
@@ -4359,7 +4421,7 @@ test('builder-kit visual fixture renders all six words and generated stickers at
 
 for (const level of LEVELS) test(`compact HUD renderer fixture: ${level.id} identity marks and real glyph clearance`, async ({ page }, info) => {
   // Explicit layout states, not scene mutation or a claim of input-driven gameplay.
-  const names = ['game/education.ts', 'art/interface-kit.ts', 'game/hud.ts', 'world/scenery.ts',
+  const names = ['game/movement.ts', 'game/education.ts', 'art/interface-kit.ts', 'game/hud.ts', 'world/scenery.ts',
     'world/assets.ts', 'world/trail-presentation.ts', 'world/ambient-weather.ts', 'world/surface-materials.ts', 'world/renderer.ts'];
   const errors: string[] = []; page.on('pageerror', error => errors.push(error.message));
   const modules = names.map(name => readFileSync(new URL(`../src/${name}`, import.meta.url), 'utf8'));
@@ -4607,7 +4669,7 @@ for (const viewport of [{ width: 426, height: 240 }, { width: 320, height: 240 }
 for (const [selection, trail] of LEVELS.entries()) test(`landmark labels: renderer fixture ${trail.id} clears real art, paths, frames, badges and Henry in every completion state`, async ({ page }, info) => {
   // Use the actual map method and its complete renderer dependency graph. These
   // explicit presentation states are not completed gameplay or scene mutations.
-  const names = ['art/henry.ts', 'art/animation.ts', 'art/interface-kit.ts', 'game/education.ts',
+  const names = ['game/movement.ts', 'art/henry.ts', 'art/animation.ts', 'art/interface-kit.ts', 'game/education.ts',
     'world/scenery.ts', 'world/assets.ts', 'world/trail-presentation.ts', 'world/ambient-weather.ts',
     'world/surface-materials.ts', 'world/renderer.ts', 'game/reward-result.ts', 'game/overworld.ts'];
   const modules = names.map(name => readFileSync(new URL(`../src/${name}`, import.meta.url), 'utf8'));
