@@ -38,7 +38,7 @@ for (const controller of [false, true]) {
       CanvasRenderingContext2D.prototype.fillRect = function (x, y, w, h) {
         fillRect.call(this, x, y, w, h);
         if (this.canvas.id === 'game' && x === 124 && y === 12 && w === 1 && h === 1) {
-          const colors = [94, 110, 126].map(x => Array.from(this.getImageData(x, 13, 1, 1).data).slice(0, 3).join(','));
+          const colors = [92, 108, 124].map(x => Array.from(this.getImageData(x, 12, 1, 1).data).slice(0, 3).join(','));
           if (colors.every(color => ['255,93,93', '49,67,74'].includes(color))) {
             pilot.healthSamples++;
             pilot.minHealth = Math.min(pilot.minHealth, colors.filter(color => color === '255,93,93').length);
@@ -88,9 +88,9 @@ for (const controller of [false, true]) {
     await page.locator('canvas').screenshot({ path: info.outputPath('slime-flattened-gameplay.png') });
     await info.attach('flattened-gameplay', { path: info.outputPath('slime-flattened-gameplay.png'), contentType: 'image/png' });
     const observed = await page.evaluate(() => (window as unknown as { squashPilot: { minHealth: number; healthSamples: number } }).squashPilot);
+    await writeFile(info.outputPath('squash-input-observations.json'), JSON.stringify({ controller, sourceRevision: process.env.BROWSER_REPORT_SOURCE_SHA, observed }, null, 2));
     expect(observed.healthSamples).toBeGreaterThan(40);
     expect(observed.minHealth).toBe(3);
-    await writeFile(info.outputPath('squash-input-observations.json'), JSON.stringify({ controller, sourceRevision: process.env.BROWSER_REPORT_SOURCE_SHA, observed }, null, 2));
     expect(errors).toEqual([]);
   });
 }
