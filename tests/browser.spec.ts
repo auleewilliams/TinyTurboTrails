@@ -2528,6 +2528,7 @@ for (const [index, level] of LEVELS.entries()) {
         await info.attach(`ribbon-${state}-${width}`, { path, contentType: 'image/png' });
       }
       await page.setViewportSize(level.id === 'plains' ? { width: 426, height: 300 } : { width: 1366, height: 768 });
+      await twoFrames(page);
       if (level.id === 'plains') { expect((await canvas.boundingBox())!.width).toBe(426); expect((await canvas.boundingBox())!.height).toBe(240); }
     };
     await captureRibbon('start');
@@ -2641,6 +2642,7 @@ for (const [index, level] of LEVELS.entries()) {
         await info.attach(`${state}-${width}`, { path: info.outputPath(`${level.id}-${state}-${width}.png`), contentType: 'image/png' });
       }
       await page.setViewportSize(level.id === 'plains' ? { width: 426, height: 300 } : { width: 1366, height: 768 });
+      await twoFrames(page);
       if (level.id === 'plains') { expect((await canvas.boundingBox())!.width).toBe(426); expect((await canvas.boundingBox())!.height).toBe(240); }
     };
     await captureResults('finish-results');
