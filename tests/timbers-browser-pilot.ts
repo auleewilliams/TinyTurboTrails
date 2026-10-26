@@ -223,4 +223,3 @@ export function timberKeyboardPilotInit(stages: TimberPilotStage[]): void {
 export async function installTimberKeyboardPilot(page: Page): Promise<void> {
   await page.addInitScript(timberKeyboardPilotInit, [...TIMBER_ASCENT_RIGHT]);
 }
-
