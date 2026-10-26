@@ -1819,13 +1819,7 @@ test('Plains renders its panorama and transparent scenery, and Quarry keeps its 
         if (source.endsWith('/scenery/background.webp') || source.endsWith('/trails/backdrops.webp') || (source.endsWith('/environment.png') && args[1] === 48 && args[2] === 48 && Number(args[7]) > 48)) {
           this.canvas.dataset.sceneryDraws = '[]';
         }
-        // The sparse foreground begins at x800; frame that tuft through real input
-  // instead of assuming decoration exists in the opening viewport.
-  expect((await page.locator('canvas').boundingBox())!.width).toBe(426);
-  await page.keyboard.down('ArrowRight');
-  await expect.poll(async () => Number((await page.locator('#status').innerText()).match(/X (\d+)/)?.[1]), { timeout: 5000, intervals: [30] }).toBeGreaterThan(620);
-  await page.keyboard.up('ArrowRight'); await page.waitForTimeout(250);
-  const calls = JSON.parse(this.canvas.dataset.sceneryDraws ?? '[]');
+        const calls = JSON.parse(this.canvas.dataset.sceneryDraws ?? '[]');
         calls.push({ source, args: args.slice(1) });
         this.canvas.dataset.sceneryDraws = JSON.stringify(calls);
       }
@@ -1837,7 +1831,13 @@ test('Plains renders its panorama and transparent scenery, and Quarry keeps its 
   await expect(page.locator('#status')).toContainText('Adventure preview · Title');
   await page.keyboard.press('Space');
   await expect(page.locator('#status')).toContainText('Playing');
-  const calls = JSON.parse(await page.locator('canvas').getAttribute('data-scenery-draws') ?? '[]') as { source: string; args: number[] }[];
+  // The sparse foreground begins at x800; frame that tuft through real input
+  // instead of assuming decoration exists in the opening viewport.
+  expect((await page.locator('canvas').boundingBox())!.width).toBe(426);
+  await page.keyboard.down('ArrowRight');
+  await expect.poll(async () => Number((await page.locator('#status').innerText()).match(/X (\d+)/)?.[1]), { timeout: 5000, intervals: [30] }).toBeGreaterThan(620);
+  await page.keyboard.up('ArrowRight'); await page.waitForTimeout(250);
+    const calls = JSON.parse(await page.locator('canvas').getAttribute('data-scenery-draws') ?? '[]') as { source: string; args: number[] }[];
   expect(calls[0].source).toContain('/scenery/background.webp');
   const tree = calls.find((call) => call.source.endsWith('/foreground.png') && call.args[0] === 7.25 && call.args[4] > 400)!;
   expect(tree).toBeDefined();
