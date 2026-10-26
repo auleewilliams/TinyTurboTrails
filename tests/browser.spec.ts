@@ -1280,7 +1280,10 @@ test('adventure clears held controller input after disconnect', async ({ page })
 
 test('adventure can complete the forgiving route and replay directly with a fresh camera', { lock: 'native-route' }, async ({ page }, info) => {
   test.setTimeout(200_000);
+  await page.setViewportSize({ width: 426, height: 300 });
   await openAdventure(page, '/?scene=adventure&debug=1');
+  expect((await page.locator('canvas').boundingBox())!.width).toBe(426);
+  expect((await page.locator('canvas').boundingBox())!.height).toBe(240);
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
   await page.keyboard.press('Space');
   await expect(page.locator('#status')).toContainText('Adventure preview · Playing', { timeout: 15000 });
@@ -1571,7 +1574,10 @@ test('all checkpoints activate along the ground route and render planted markers
       else fillText.call(this, text, x, y, maxWidth);
     };
   });
+  await page.setViewportSize({ width: 426, height: 300 });
   await openAdventure(page, '/?scene=adventure&debug=1');
+  expect((await page.locator('canvas').boundingBox())!.width).toBe(426);
+  expect((await page.locator('canvas').boundingBox())!.height).toBe(240);
   await expect(page.locator('#status')).toContainText('Adventure preview · Title');
   await page.keyboard.press('Space');
   await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
@@ -2420,6 +2426,7 @@ for (const [index, level] of LEVELS.entries()) {
     await installTrailPilot(page);
     await observeRewardResults(page);
     await observeTrailRibbon(page);
+    if (level.id === 'plains') await page.setViewportSize({ width: 426, height: 300 });
     await openAdventure(page, '/?debug=1');
     const canvas = page.locator('canvas');
     await expect(canvas).toHaveAttribute('data-map-rewards', '[]');
@@ -2448,7 +2455,8 @@ for (const [index, level] of LEVELS.entries()) {
         await page.screenshot({ path });
         await info.attach(`ribbon-${state}-${width}`, { path, contentType: 'image/png' });
       }
-      await page.setViewportSize({ width: 1366, height: 768 });
+      await page.setViewportSize(level.id === 'plains' ? { width: 426, height: 300 } : { width: 1366, height: 768 });
+      if (level.id === 'plains') { expect((await canvas.boundingBox())!.width).toBe(426); expect((await canvas.boundingBox())!.height).toBe(240); }
     };
     await captureRibbon('start');
     await page.evaluate(({ dangers, pauseAt }) => {
@@ -2560,7 +2568,8 @@ for (const [index, level] of LEVELS.entries()) {
         await page.screenshot({ path: info.outputPath(`${level.id}-${state}-${width}.png`) });
         await info.attach(`${state}-${width}`, { path: info.outputPath(`${level.id}-${state}-${width}.png`), contentType: 'image/png' });
       }
-      await page.setViewportSize({ width: 1366, height: 768 });
+      await page.setViewportSize(level.id === 'plains' ? { width: 426, height: 300 } : { width: 1366, height: 768 });
+      if (level.id === 'plains') { expect((await canvas.boundingBox())!.width).toBe(426); expect((await canvas.boundingBox())!.height).toBe(240); }
     };
     await captureResults('finish-results');
     await info.attach('finish', { body: await page.locator('canvas').screenshot(), contentType: 'image/png' });
