@@ -67,6 +67,27 @@ source/build hashes and screenshots live in the task evidence directory:
 The worker handoff there records actual final results and any unfinished gates.
 Historical or draft files alone do not establish that a cohort passed.
 
+## Review corrections and CI failure disposition
+
+Fresh review of the first published revision found that gem 015 occupied the
+same position as star 2, and that a shared star-contact test had been relaxed
+to accept the accidental gem pickup. Gem 015 now sits separately on the fixed
+upper approach; the cross-trail test again requires zero gems from star contact.
+The coordinator separately identified that the next descent shelf was outside
+the native view at the upper and mine landings. Quarry-only camera framing now
+shows those lower shelves while preserving the horizontal trails' camera rule.
+Real-input native and small-window captures and pixel observations accompany
+the correction. The map thumbnail now renders the starting rim and platform
+bodies rather than showing a support-free view.
+
+The first published revision's full CI run `40341439231` failed 26 browser
+identities on its tested merge of base `cdc3312` and head `6d268a0`; its 465
+passes and one existing conditional Firefox audio skip do not clear this
+revision. Follow-up evidence in the worker handoff records the corrected
+fixtures and actual new results. Old Quarry-only crumbling browser coverage
+was retired with the geometry; the generic mechanic has unit, renderer and
+world-fixture coverage, not browser coverage.
+
 ## Old test assumptions
 
 The obsolete Quarry spring/pit/ferry/crumbling counts and X-sorted routes were

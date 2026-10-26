@@ -31,7 +31,7 @@ export class GameplayPreviewScene implements Scene {
   constructor(private readonly henry: HenryAssets, private readonly world: WorldAssets, private readonly audio: GameAudio, private readonly level: LevelData = DEFAULT_LEVEL) {
     this.player = createPlayer(level.start.x, level, level.start.y);
     this.run = createRun(level);
-    this.camera = new Camera({ width: 426, height: 240, worldWidth: level.width, worldHeight: level.height });
+    this.camera = new Camera({ width: 426, height: 240, worldWidth: level.width, worldHeight: level.height, vertical: level.progressAxis === 'y' });
   }
   enter(): void { this.elapsed = 0; }
   exit(): void { this.audio.stop(); }

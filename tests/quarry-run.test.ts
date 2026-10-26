@@ -58,12 +58,15 @@ it.each(lifts.flatMap(lift => [1, -1].flatMap(direction => [2, 3.5, 4.8, 7.7, 9.
   expect(player.x).toBeLessThanOrEqual(820);
 });
 
-it('proves overlapping one-way catch handoff and provides fixed recovery with zero ride velocity', () => {
+it('keeps catch shelves permanent and provides fixed recovery with zero ride velocity', () => {
   const catches = QUARRY_RUN.platforms!.filter(p => /-(inner|outer)-/.test(p.id));
   expect(catches.length).toBeGreaterThan(20);
-  for (const lift of lifts) for (const catcher of catches) {
-    if (catcher.from.y < lift.from.y || catcher.from.y > lift.to.y) continue;
+  // The slip/ride matrix above checks the actual moving-deck handoff.
+  for (const catcher of catches) {
+    expect(catcher.to).toEqual(catcher.from);
     expect(catcher.from.y).toBeLessThanOrEqual(980);
+    expect(catcher.from.x).toBeGreaterThanOrEqual(0);
+    expect(catcher.from.x + catcher.width).toBeLessThanOrEqual(QUARRY_RUN.width);
   }
   const run = createRun(QUARRY_RUN), player = createPlayer(112, QUARRY_RUN, 700);
   Object.assign(player, { platformId: 'quarry-lift-c', vx: 70, vy: -70, groundVelocityX: 12 });

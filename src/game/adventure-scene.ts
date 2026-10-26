@@ -126,7 +126,7 @@ export class AdventureScene implements Scene {
     this.selectedIndex = levelIndex >= 0 ? levelIndex : 0;
     this.player = createPlayer(level.start.x, level, level.start.y);
     this.run = createRun(level);
-    this.camera = new Camera({ width: 426, height: 240, worldWidth: level.width, worldHeight: level.height });
+    this.camera = new Camera({ width: 426, height: 240, worldWidth: level.width, worldHeight: level.height, vertical: level.progressAxis === 'y' });
     this.platforms = platformBodiesAt(level.platforms, 0);
   }
   get screenState(): ScreenController['state'] { return this.screens.state; }
@@ -407,9 +407,13 @@ export class AdventureScene implements Scene {
     if (!this.previews.has(level.id)) {
       const canvas = document.createElement('canvas'); canvas.width = 426; canvas.height = 240;
       const ctx = canvas.getContext('2d')!; ctx.imageSmoothingEnabled = false;
-      const camera = new Camera({ width: 426, height: 240, worldWidth: level.width, worldHeight: level.height });
+      const camera = new Camera({ width: 426, height: 240, worldWidth: level.width, worldHeight: level.height, vertical: level.progressAxis === 'y' });
+      // The selected Quarry preview begins at its rim and renders the same fixed
+      // shelves that support Henry; a zero-time snapshot keeps lifts deterministic.
+      if (level.progressAxis === 'y') camera.update(level.start.x, level.start.y - 34);
       // A cached map thumbnail stays clear; ambient motion belongs to the run.
-      drawWorld(ctx, this.worlds[level.atlas], level, camera, undefined, undefined, undefined, 0, true);
+      drawWorld(ctx, this.worlds[level.atlas], level, camera, undefined, undefined,
+        platformBodiesAt(level.platforms, 0), 0, true);
       drawWorldForeground(ctx, this.worlds[level.atlas], level, camera);
       this.previews.set(level.id, canvas);
     }
@@ -448,7 +452,7 @@ export class AdventureScene implements Scene {
     if (this.hasWordActivity) this.education.selectTrail(level.id);
     this.player = createPlayer(level.start.x, level, level.start.y);
     this.run = createRun(level);
-    this.camera = new Camera({ width: 426, height: 240, worldWidth: level.width, worldHeight: level.height });
+    this.camera = new Camera({ width: 426, height: 240, worldWidth: level.width, worldHeight: level.height, vertical: level.progressAxis === 'y' });
     this.platforms = platformBodiesAt(level.platforms, 0);
   }
 

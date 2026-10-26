@@ -18,11 +18,16 @@ for (const title of ['compact HUD renderer fixture:', 'landmark labels: renderer
       .flatMap(([, names]) => names.split(',').map(name => name.trim()).filter(name => name && !name.startsWith('type ')))))];
     const code = modules.map((text, i) => transformSync(names[i], text.replace(/^import .*;\n/gm, '')
       .replace(/\bexport /g, '').replaceAll('import.meta.env.BASE_URL', JSON.stringify('./')), {}).code).join('\n');
-    const fixture = new Function('MAX_HEALTH', `${code}\nreturn { missing: [${imports.map(name => `typeof ${name} === 'undefined' && ${JSON.stringify(name)}`).join(',')}].filter(Boolean), height: typeof surfaceY === 'undefined' ? undefined : surfaceY };`)(MAX_HEALTH);
+    const fixture = new Function('MAX_HEALTH', `${code}\nreturn { missing: [${imports.map(name => `typeof ${name} === 'undefined' && ${JSON.stringify(name)}`).join(',')}].filter(Boolean), height: typeof surfaceY === 'undefined' ? undefined : surfaceY, camera: typeof Camera === 'undefined' ? undefined : Camera };`)(MAX_HEALTH);
     expect(fixture.missing).toEqual([]);
     expect(names).toContain('game/movement.ts');
     expect(names).toContain('game/platforms.ts');
     expect(names).toContain('world/camera.ts');
+    const bounds = { width: 426, height: 240, worldWidth: 820, worldHeight: 1080 };
+    const horizontal = new fixture.camera(bounds), vertical = new fixture.camera({ ...bounds, vertical: true });
+    horizontal.update(420, 386); vertical.update(420, 386);
+    expect(horizontal.position.y).toBe(220);
+    expect(vertical.position.y).toBe(282);
     for (const x of [60, 370, 1065, 1930, 2760, 4230]) expect(fixture.height(PLAINS_LEVEL, x)).toBe(surfaceY(PLAINS_LEVEL, x));
   });
 }

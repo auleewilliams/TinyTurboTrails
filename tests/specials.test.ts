@@ -51,12 +51,11 @@ it.each(LEVELS.slice(0, 3))('$name collects through contact once, separately, an
   }
   expect(run.collectedSpecials).toEqual(new Set(stars.map(star => star.id)));
   expect(events.filter(event => event.type === 'special')).toHaveLength(3);
-  const contactedGems = new Set(run.collectedGems);
-  expect(contactedGems).toEqual(new Set(level.id === 'quarry' ? ['quarry-gem-015'] : []));
+  expect(run.collectedGems.size).toBe(0);
   const ordinaryGem = level.entities.find(entity => entity.kind === 'gem')!;
   player.x = ordinaryGem.x; player.y = ordinaryGem.y - 34;
   stepEntities(run, level, player, 1 / 60, events);
-  expect(run.collectedGems).toEqual(new Set([...contactedGems, ordinaryGem.id]));
+  expect(run.collectedGems).toEqual(new Set([ordinaryGem.id]));
   expect(run.collectedSpecials.size).toBe(3);
   const gems = new Set(run.collectedGems);
   activateCheckpoint(run, level.checkpoints[0].id, events);

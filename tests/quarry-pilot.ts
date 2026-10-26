@@ -4,14 +4,18 @@ import type { QuarryWaypoint } from './quarry-route';
 export function installQuarryPilotScript(): void {
   const pilot = { active: false, frozen: false, route: [] as QuarryWaypoint[], index: 0, stageFrames: 0,
     jumped: false, jumping: false, pauseIndex: -1, time: 0, observations: [] as object[],
-    decks: [] as { id: string; y: number; stationary: boolean }[], error: '' };
+    decks: [] as { id: string; y: number; stationary: boolean }[], error: '',
+    frame: null as null | { status: string; x: number; feet: number; camera: { x: number; y: number };
+      henry: { x: number; y: number; width: number; height: number }; supports: { x: number; y: number; width: number }[] } };
   Object.assign(window, { quarryPilot: pilot });
   let slabs: { x: number; y: number }[] = [];
+  let supports: { x: number; y: number; width: number }[] = [];
   const fill = CanvasRenderingContext2D.prototype.fillRect;
   CanvasRenderingContext2D.prototype.fillRect = function(x, y, width, height) {
     if (this.canvas.id === 'game') {
-      if (x === 0 && y === 0 && width === 426 && height === 240) slabs = [];
+      if (x === 0 && y === 0 && width === 426 && height === 240) { slabs = []; supports = []; }
       if (width === 96 && height === 10) slabs.push({ x, y });
+      if (height === 10 && this.fillStyle === '#59616a') supports.push({ x, y, width });
     }
     fill.call(this, x, y, width, height);
   };
@@ -23,6 +27,8 @@ export function installQuarryPilotScript(): void {
       if (match && status.includes('Playing')) {
         const feet = this.getTransform().transformPoint(new DOMPoint(Number(args[5]) + 24, Number(args[6]) + 44));
         const camera = { x: Number(match[1]) - feet.x, y: Number(match[2]) + 34 - feet.y };
+        pilot.frame = { status, x: Number(match[1]), feet: Number(match[2]) + 34, camera,
+          henry: { x: feet.x - 24, y: feet.y - 44, width: 48, height: 48 }, supports: [...supports] };
         const previous = pilot.decks;
         pilot.decks = slabs.map(slab => {
           const x = slab.x + camera.x, y = slab.y + camera.y;

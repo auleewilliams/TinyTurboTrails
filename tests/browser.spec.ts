@@ -4416,7 +4416,7 @@ for (const level of LEVELS) test(`compact HUD renderer fixture: ${level.id} iden
           specialTotal: [0, 3, 12, 3, 3][state], collectedSpecials: new Set(Array.from({ length: [0, 1, 10, 3, 3][state] }, (_, i) => 's' + i)),
           health: [3, 2, 1, 0, 3][state], healthFlashPip: state === 1 ? 2 : null, healthFlashSeconds: state === 1 ? 1 : 0 };
         ctx.imageSmoothingEnabled = false;
-        const camera = new Camera({ width: 426, height: 240, worldWidth: level.width, worldHeight: level.height });
+        const camera = new Camera({ width: 426, height: 240, worldWidth: level.width, worldHeight: level.height, vertical: level.progressAxis === 'y' });
         const ground = level.progressAxis === 'y' ? level.start.y : surfaceY(level, level.start.x);
         camera.update(level.start.x, ground - 34);
         drawWorld(ctx, assets, level, camera, undefined, undefined, platformBodiesAt(level.platforms, 0), 0, true);
@@ -5183,10 +5183,20 @@ test('Quarry vertical journey: native floor finish, actual ROCK return, all side
     };
   });
   await startQuarryPilot(page);
+  const framingObservations: object[] = [];
   const capture = async (name: string) => {
     await page.evaluate(() => { (window as unknown as { quarryPilot: { frozen: boolean } }).quarryPilot.frozen = true; });
     for (const viewport of [{ width: 426, height: 300 }, { width: 320, height: 240 }, { width: 1366, height: 768 }]) {
       await page.setViewportSize(viewport); await twoFrames(page);
+      await expectClearViewport(page);
+      const frame = await page.evaluate(() => document.querySelector('#status')!.textContent!.includes('Playing')
+        ? (window as unknown as { quarryPilot: { frame: { henry: { y: number; height: number }; supports: object[] } } }).quarryPilot.frame : null);
+      if (frame) {
+        expect(frame.supports.length).toBeGreaterThan(0);
+        expect(frame.henry.y).toBeGreaterThanOrEqual(59);
+        expect(frame.henry.y + frame.henry.height).toBeLessThanOrEqual(221);
+        framingObservations.push({ name, viewport, ...frame });
+      }
       await info.attach(`${name}-${viewport.width}`, { body: await page.screenshot({ path: info.outputPath(`${name}-${viewport.width}.png`) }), contentType: 'image/png' });
     }
     await page.setViewportSize({ width: 426, height: 300 }); await twoFrames(page);
@@ -5234,6 +5244,8 @@ test('Quarry vertical journey: native floor finish, actual ROCK return, all side
   await expect(page.locator('#status')).toContainText('X 300 Y 106');
   await expect(page.locator('#status')).toContainText('Letter bag: 4/4');
   expect(errors).toEqual([]);
+  expect(framingObservations.length).toBeGreaterThan(40);
+  await info.attach('journey-framing-observations', { body: JSON.stringify(framingObservations), contentType: 'application/json' });
   await info.attach('quarry-observations', { body: JSON.stringify(await page.evaluate(() => ({
     browser: navigator.userAgent, pilot: (window as unknown as { quarryPilot: object }).quarryPilot,
   }))), contentType: 'application/json' });
@@ -5259,4 +5271,93 @@ test('Quarry three lifts: actual downward boarding and exit at every dock', { lo
     if (/down$/.test(target.tag)) await info.attach(target.tag, { body: await page.locator('#game').screenshot(), contentType: 'image/png' });
   }
   await quarryFinish(page);
+});
+
+test('selected Quarry map thumbnail shows its real starting rim support', async ({ page }, info) => {
+  await page.addInitScript(() => {
+    const original = CanvasRenderingContext2D.prototype.drawImage;
+    CanvasRenderingContext2D.prototype.drawImage = function(image: CanvasImageSource, ...args: number[]) {
+      if (this.canvas.id === 'game' && image instanceof HTMLCanvasElement && args[0] === 287 && args[1] === 84
+        && args[2] === 126 && args[3] === 71) {
+        const pixels = image.getContext('2d')!.getImageData(0, 0, 426, 240).data;
+        let rimPixels = 0;
+        for (let y = 120; y <= 160; y++) for (let x = 150; x <= 350; x++) {
+          const at = (y * 426 + x) * 4;
+          if (pixels[at] === 177 && pixels[at + 1] === 199 && pixels[at + 2] === 125) rimPixels++;
+        }
+        Object.assign(window, { quarryMapPreview: { width: image.width, height: image.height, rimPixels,
+          image: image.toDataURL() } });
+      }
+      return Reflect.apply(original, this, [image, ...args]);
+    };
+  });
+  await openAdventure(page, '/?scene=adventure');
+  await page.getByRole('button', { name: 'QUARRY RUN', exact: true }).click();
+  const preview = await page.evaluate(() => (window as unknown as { quarryMapPreview: {
+    width: number; height: number; rimPixels: number; image: string } }).quarryMapPreview);
+  expect(preview.width).toBe(426); expect(preview.height).toBe(240);
+  expect(preview.rimPixels).toBeGreaterThan(80);
+  await info.attach('quarry-selected-map-preview', { body: Buffer.from(preview.image.split(',')[1], 'base64'), contentType: 'image/png' });
+  await info.attach('quarry-selected-map-window', { body: await page.screenshot(), contentType: 'image/png' });
+});
+
+test('Quarry native landing visibility: actual rest and approach frames reveal each next landing before stepping off', { lock: 'native-route' }, async ({ page }, info) => {
+  test.setTimeout(120_000);
+  await startQuarryPilot(page);
+  const nextIds = ['quarry-terrace-1', 'quarry-terrace-2', 'quarry-terrace-3', 'quarry-upper',
+    'quarry-terrace-4', 'quarry-terrace-5', 'quarry-terrace-6', 'quarry-mine',
+    'quarry-terrace-7', 'quarry-terrace-8', 'quarry-terrace-9', 'floor'];
+  const route = [{ x: 490, y: 140, tag: 'rim approach' }, ...QUARRY_DESCENT.slice(0, -1)];
+  const samples: object[] = [], failures: object[] = [];
+  for (const [index, target] of route.entries()) {
+    await driveQuarry(page, [target]);
+    await page.evaluate(() => { (window as unknown as { quarryPilot: { frozen: boolean } }).quarryPilot.frozen = true; });
+    const id = nextIds[index];
+    const platform = QUARRY_RUN.platforms!.find(platform => platform.id === id);
+    const next = platform ? { x: platform.from.x, y: platform.from.y, width: platform.width }
+      : { x: 0, y: 980, width: QUARRY_RUN.width };
+    for (const viewport of [{ width: 426, height: 300 }, { width: 320, height: 240 }, { width: 1366, height: 768 }]) {
+      await page.setViewportSize(viewport); await twoFrames(page);
+      await expectClearViewport(page);
+      const sample = await page.evaluate(({ next, id }) => {
+        const frame = (window as unknown as { quarryPilot: { frame: { status: string; x: number; feet: number;
+          camera: { x: number; y: number }; henry: { x: number; y: number; width: number; height: number };
+          supports: { x: number; y: number; width: number }[] } } }).quarryPilot.frame;
+        const ctx = document.querySelector<HTMLCanvasElement>('#game')!.getContext('2d')!;
+        const drawn = frame.supports.find(support => Math.abs(support.x + frame.camera.x - next.x) < 1.1
+          && Math.abs(support.y + frame.camera.y - next.y) < 1.1 && support.width === next.width);
+        const edge = drawn ?? { x: next.x - frame.camera.x, y: next.y - frame.camera.y, width: next.width };
+        const left = Math.max(0, Math.ceil(edge.x + 2)), right = Math.min(426, Math.floor(edge.x + edge.width - 2));
+        let capPixels = 0;
+        if (edge.y >= 0 && edge.y + 4 < 240 && right > left) {
+          const rgba = ctx.getImageData(left, Math.floor(edge.y), right - left, 4).data;
+          for (let pixel = 0; pixel < rgba.length; pixel += 4) {
+            if ((rgba[pixel] === 177 && rgba[pixel + 1] === 199 && rgba[pixel + 2] === 125)
+              || (rgba[pixel] === 154 && rgba[pixel + 1] === 171 && rgba[pixel + 2] === 150)) capPixels++;
+          }
+        }
+        return { ...frame, id, next, edge, drawn: Boolean(drawn), visibleWidth: right - left, capPixels };
+      }, { next, id });
+      expect(sample.status).toContain('Playing');
+      expect(Math.abs(sample.feet - target.y)).toBeLessThan(2);
+      expect(sample.supports.length).toBeGreaterThan(0);
+      if (id !== 'floor') expect(sample.drawn).toBe(true);
+      samples.push({ viewport, ...sample });
+      if (sample.edge.y <= 59 || sample.edge.y > 216 || sample.visibleWidth < 30 || sample.capPixels < 20
+        || sample.henry.y < 59 || sample.henry.y + sample.henry.height > 221) {
+        failures.push({ viewport, restY: target.y, next: id, screenY: sample.edge.y,
+          visibleWidth: sample.visibleWidth, capPixels: sample.capPixels, henry: sample.henry });
+      }
+      if ([140,420,700,910].includes(target.y)) await info.attach(`visible-landing-${target.y}-${viewport.width}`, {
+        body: await page.screenshot({ path: info.outputPath(`visible-landing-${target.y}-${viewport.width}.png`) }), contentType: 'image/png',
+      });
+    }
+    await page.setViewportSize({ width: 426, height: 300 }); await twoFrames(page);
+    expect((await page.locator('#game').boundingBox())!.width).toBe(426);
+    expect((await page.locator('#game').boundingBox())!.height).toBe(240);
+    await page.evaluate(() => { (window as unknown as { quarryPilot: { frozen: boolean } }).quarryPilot.frozen = false; });
+  }
+  await info.attach('landing-visibility-observations', { body: JSON.stringify({ samples, failures }), contentType: 'application/json' });
+  expect(samples).toHaveLength(36);
+  expect(failures).toEqual([]);
 });
