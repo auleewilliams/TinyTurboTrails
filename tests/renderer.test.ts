@@ -235,34 +235,28 @@ it('uses the level theme for sky, terrain and parallax placement', () => {
   expect(images[0][6]).toBe(-33);
 });
 
-it('draws all shared terrain cell roles for textured Treetop surfaces', () => {
+it('draws the roots and real timber branch tops without stone slab art', () => {
   const assets: WorldAssets = { atlas: {} as HTMLImageElement, gems: {} as HTMLImageElement, manifest: timberManifest };
-  const sampled = new Set<number>();
-  for (const x of [0, 1200, TREETOP_TIMBERS.width - 426]) {
-    const { ctx, images } = recordingContext();
-    drawWorld(ctx, assets, TREETOP_TIMBERS, { position: { x, y: 0 } } as Camera);
-    for (const call of images) {
-      if (call[0] === assets.atlas && call[2] === 0) sampled.add(Number(call[1]) / timberManifest.cellSize);
-    }
-  }
-  expect([...sampled].sort((a, b) => a - b)).toEqual([0, 1, 2, 3]);
+  const { ctx, images, rects } = recordingContext();
+  const platforms = TREETOP_TIMBERS.platforms!.map(platform => platformBodyAt(platform, 0));
+  drawWorld(ctx, assets, TREETOP_TIMBERS, { position: { x: 0, y: 940 } } as Camera,
+    undefined, undefined, platforms);
+  expect(images.some(call => call[0] === assets.atlas && call[1] === 0 && call[2] === 0)).toBe(true);
+  expect(images.some(call => call[0] === assets.atlas && call[1] === 4 * timberManifest.cellSize && call[2] === timberManifest.cellSize)).toBe(false);
+  expect(rects.some(rect => rect.x === 240 && rect.y === 80 && rect.width === 200
+    && rect.fillStyle === TREETOP_TIMBERS.theme.edge)).toBe(true);
 });
 
-it('aligns flat and ramp artwork bounds with the playable contour', () => {
+it('aligns lookout and Star 3 catch wood tops to their collision bodies', () => {
   const assets: WorldAssets = { atlas: {} as HTMLImageElement, gems: {} as HTMLImageElement, manifest: timberManifest };
-  const start = recordingContext();
-  drawWorld(start.ctx, assets, TREETOP_TIMBERS, { position: { x: 0, y: 0 } } as Camera);
-  const flat = start.images.find((call) => call[1] === 0 && call[2] === 0)!;
-  expect(Number(flat[6]) + 24).toBe(198);
-
-  const bridge = recordingContext();
-  const cameraX = 1200;
-  drawWorld(bridge.ctx, assets, TREETOP_TIMBERS, { position: { x: cameraX, y: 0 } } as Camera);
-  const ramp = bridge.images.find((call) => call[1] === 3 * timberManifest.cellSize && call[2] === 0
-    && Number(call[5]) === 1230 - cameraX)!;
-  const scaleY = Number(ramp[8]) / timberManifest.cellSize;
-  expect(Number(ramp[6]) + 30 * scaleY).toBeCloseTo(surfaceY(TREETOP_TIMBERS, 1230), 5);
-  expect(Number(ramp[6]) + 11 * scaleY).toBeCloseTo(surfaceY(TREETOP_TIMBERS, 1278), 5);
+  const platforms = TREETOP_TIMBERS.platforms!.map(platform => platformBodyAt(platform, 0));
+  for (const [offsetY, x, worldY, width] of [[0, 250, 180, 340], [270, 40, 360, 210]]) {
+    const { ctx, rects } = recordingContext();
+    drawWorld(ctx, assets, TREETOP_TIMBERS, { position: { x: 0, y: offsetY } } as Camera,
+      undefined, undefined, platforms);
+    expect(rects.some(rect => rect.x === x && rect.y === worldY - offsetY
+      && rect.width === width && rect.fillStyle === TREETOP_TIMBERS.theme.edge)).toBe(true);
+  }
 });
 
 it.each([
@@ -338,7 +332,8 @@ it('uses the run clock for weather, freezes it on pause and resets it on replay'
     return rects.filter(rect => rect.fillStyle === QUARRY_RUN.theme.weather!.color);
   };
   const expected = recordingContext();
-  drawAmbientWeather(expected.ctx, QUARRY_RUN.theme.weather, { x: 0, y: 0 }, 37.5);
+  const initialCamera = (scene as unknown as { camera: Camera }).camera.position;
+  drawAmbientWeather(expected.ctx, QUARRY_RUN.theme.weather, initialCamera, 37.5);
   const before = sample(); expect(before).toEqual(expected.rects);
   const screens = (scene as unknown as { screens: { pause(): void; resume(): void; complete(gems: number): void } }).screens;
   screens.pause();
@@ -347,7 +342,8 @@ it('uses the run clock for weather, freezes it on pause and resets it on replay'
   // Return to playing solely to reach the public replay action.
   screens.resume(); screens.complete(0); scene.activateFinish('Replay');
   const initial = recordingContext();
-  drawAmbientWeather(initial.ctx, QUARRY_RUN.theme.weather, { x: 0, y: 0 }, 0);
+  drawAmbientWeather(initial.ctx, QUARRY_RUN.theme.weather,
+    (scene as unknown as { camera: Camera }).camera.position, 0);
   expect(sample()).toEqual(initial.rects);
   expect(sample()).not.toEqual(before);
 });

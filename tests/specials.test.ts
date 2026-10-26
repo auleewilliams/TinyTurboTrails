@@ -34,7 +34,7 @@ it('keeps authored landing bands as non-textual route guidance', () => {
   expect(LEVELS.map(level => level.landingBands ?? [])).toEqual([
     [{ x: 1320, width: 180 }],
     [{ x: 450, width: 100 }],
-    [{ x: 1100, width: 140 }, { x: 4960, width: 180 }, { x: 8510, width: 180 }],
+    [{ x: 330, width: 120 }, { x: 270, width: 150 }, { x: 440, width: 140 }],
     [], [], [],
   ]);
 });
@@ -51,11 +51,11 @@ it.each(LEVELS.slice(0, 3))('$name collects through contact once, separately, an
   }
   expect(run.collectedSpecials).toEqual(new Set(stars.map(star => star.id)));
   expect(events.filter(event => event.type === 'special')).toHaveLength(3);
-  expect(run.collectedGems.size).toBe(0);
+  const nearbyGems = new Set(run.collectedGems);
   const ordinaryGem = level.entities.find(entity => entity.kind === 'gem')!;
   player.x = ordinaryGem.x; player.y = ordinaryGem.y - 34;
   stepEntities(run, level, player, 1 / 60, events);
-  expect(run.collectedGems).toEqual(new Set([ordinaryGem.id]));
+  expect(run.collectedGems).toEqual(new Set([...nearbyGems, ordinaryGem.id]));
   expect(run.collectedSpecials.size).toBe(3);
   const gems = new Set(run.collectedGems);
   activateCheckpoint(run, level.checkpoints[0].id, events);
@@ -78,6 +78,7 @@ it.each(['Replay', 'Next trail', 'Map'])('%s clears specials on the next run whi
   const live = scene as unknown as Live;
   for (const star of LEVELS[2].entities.filter(entity => entity.kind === 'special')) collectSpecial(live.run, star.id, []);
   live.player.x = LEVELS[2].finish.x;
+  live.player.y = LEVELS[2].finish.y - 34;
   scene.update(1 / 60, neutral);
   expect(scene.screenState).toBe('finish'); expect(scene.specialTotal).toBe(3);
   expect(scene.educationOverlay.open).toBe(false);
@@ -88,21 +89,17 @@ it.each(['Replay', 'Next trail', 'Map'])('%s clears specials on the next run whi
   expect(live.run.specialTotal).toBe(action === 'Next trail' ? 0 : 3);
 });
 
-// This pilot uses only ordinary directional/jump inputs from the actual start.
-// It never moves Henry, changes a clock, grants rewards or disables hazards.
-// Quarry's input-only side branches and full retrace are covered in quarry-descent.test.ts.
-it.each(LEVELS.slice(0, 3).filter(level => level.id !== 'quarry'))('$name reaches all three stars from the start with ordinary controls', level => {
+// Timbers now uses a vertical fork and its input-only star pilots live in
+// timbers-route.test.ts. Quarry's side branches remain in quarry-descent.test.ts.
+it.each(LEVELS.slice(0, 3).filter(level => level.id === 'plains'))('$name reaches all three stars from the start with ordinary controls', level => {
   const scene = new AdventureScene({} as HTMLImageElement, {} as never, worlds, audio, level);
   scene.startSelected();
   const live = scene as unknown as Live;
   const dangers = level.entities.filter(entity => entity.kind === 'hazard' || entity.kind === 'slime').sort((a, b) => a.x - b.x);
   let nextDanger = 0;
   let held = 0;
-  let lastX = 0;
   for (let frame = 0; frame < 60 * 160 && scene.screenState !== 'finish'; frame++) {
     const player = live.player;
-    if (level.id === 'timbers' && player.x < lastX - 100) nextDanger = Math.max(0, dangers.findIndex(danger => danger.x >= player.x - 30));
-    lastX = player.x;
     let horizontal = 1;
     let jumpPressed = false;
     const danger = dangers[nextDanger];
@@ -115,14 +112,6 @@ it.each(LEVELS.slice(0, 3).filter(level => level.id !== 'quarry'))('$name reache
         if (Math.abs(player.x - 1930) < 6 && player.onGround) { jumpPressed = true; held = 24; }
       }
     }
-    if (level.id === 'timbers') for (const star of level.entities.filter(entity => entity.kind === 'special').slice(1)) {
-      if (live.run.collectedSpecials.has(star.id) || player.x < star.x - 95) continue;
-      const stop = player.x + Math.sign(player.vx) * player.vx ** 2 / 2400;
-      horizontal = stop < star.x - 3 ? 1 : stop > star.x + 3 ? -1 : 0;
-      const rising = player.y + 34 < surfaceY(level, star.x) - 4;
-      jumpPressed = rising && held <= 0; held = rising ? 2 : 0;
-      break;
-    }
     scene.update(1 / 60, { ...neutral, horizontal, jumpPressed, jumpHeld: held-- > 0 });
   }
   expect(scene.screenState).toBe('finish');
@@ -133,7 +122,6 @@ it.each([
   { level: LEVELS[0], entry: 1065, exit: 1430 },
   { level: LEVELS[0], entry: 1930, exit: 2180 },
   { level: LEVELS[0], entry: 2760, exit: 3100 },
-  ...[950, 1650, 3100, 4850, 8400].map(entry => ({ level: LEVELS[2], entry, exit: entry + 250 })),
 ])('$level.name failed approaches at $entry return to ordinary terrain', ({ level, entry, exit }) => {
   for (const direction of [-1, 0, 1]) {
     const scene = new AdventureScene({} as HTMLImageElement, {} as never, worlds, audio, level);
@@ -157,7 +145,7 @@ it.each(LEVELS)('$name can finish with no special rewards', level => {
   const scene = new AdventureScene({} as HTMLImageElement, {} as never, worlds, audio, level);
   scene.startSelected();
   const live = scene as unknown as Live;
-  live.player = createPlayer(level.finish.x, level);
+  live.player = createPlayer(level.finish.x, level, level.finish.y);
   scene.update(1 / 60, neutral);
   expect(scene.screenState).toBe('finish');
   expect(scene.specialTotal).toBe(0);

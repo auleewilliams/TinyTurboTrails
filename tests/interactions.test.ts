@@ -94,7 +94,7 @@ describe('in-memory run interactions', () => {
   it.each(LEVELS)('launches from every grounded $name spring and rearms after separation', (level) => {
     for (const spring of level.entities.filter((entity) => entity.kind === 'spring')) {
       const run = createRun(level);
-      const henry = createPlayer(spring.x, level);
+      const henry = createPlayer(spring.x, level, spring.y);
       henry.vx = 180;
       const log = events();
       stepEntities(run, level, henry, 1 / 60, log);
@@ -105,7 +105,7 @@ describe('in-memory run interactions', () => {
       expect(log.filter((event) => event.type === 'spring')).toHaveLength(1);
       Object.assign(henry, createPlayer(spring.x - 100, level));
       stepEntities(run, level, henry, 1 / 60, log);
-      Object.assign(henry, createPlayer(spring.x, level));
+      Object.assign(henry, createPlayer(spring.x, level, spring.y));
       stepEntities(run, level, henry, 1 / 60, log);
       expect(log.filter((event) => event.type === 'spring')).toHaveLength(2);
       expect(henry.vy, spring.id).toBe(-DEFAULT_MOVEMENT.springVelocity);

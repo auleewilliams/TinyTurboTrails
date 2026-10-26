@@ -107,7 +107,7 @@ export function drawTrailRibbon(ctx: CanvasRenderingContext2D, progress: TrailPr
 const AREAS: Record<string, readonly string[]> = {
   plains: ['Big downhill', 'Orchard bumps', 'Spring hill', 'Final climb'],
   quarry: ['Quarry entrance', 'Stone terraces', 'Deep pit', 'Tunnels', 'Burrows', 'Crusher crossing', 'Quarry summit'],
-  timbers: ['Lumber yard', 'Old bridge', 'Canopy', 'Crane crossing', 'Lookout', 'Sunset trail'],
+  timbers: ['First fork', 'Middle bough', 'Canopy', 'Lookout'],
   sunset: ['Site gate', 'Girders', 'Work yard', 'Trench', 'Scaffolds', 'Site summit', 'Home stretch'],
   frost: ['Snowy start', 'Ice fields', 'Snow bridge', 'Frozen ridge', 'High snow', 'Frost summit'],
   cove: ['Beach path', 'Shell shore', 'Dune crossing', 'Tide pools', 'Sandy ridge', 'Cove lookout'],
@@ -181,7 +181,11 @@ export class HudPresentation {
     this.locationSeconds = Math.max(0, this.locationSeconds - seconds);
     // Announce the approach to an area, ahead of its checkpoint celebration.
     let index = -1;
-    level.checkpoints.forEach((point, candidate) => { if (level.progressAxis === 'y' ? supportY >= point.y - 35 : x >= point.x - 180) index = candidate; });
+    level.checkpoints.forEach((point, candidate) => { if (level.progressAxis === 'y'
+      ? (level.finish.y < level.start.y ? supportY <= point.y + 35 : supportY >= point.y - 35)
+      : x >= point.x - 180) index = candidate; });
+    if (level.progressAxis === 'y' && level.finish.y < level.start.y
+      && supportY <= level.finish.y + 35) index = level.checkpoints.length;
     if (index !== this.area) {
       this.area = index;
       this.location = index < 0 ? level.name : areaName(level, index);

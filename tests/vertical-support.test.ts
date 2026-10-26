@@ -133,7 +133,7 @@ it('uses the same shelf anchor for letter contact, tile drawing and collection f
   const ctx = new Proxy({}, { get: (_, key) => key === 'fillText' ? (...args: unknown[]) => drawn.push(args) : () => {}, set: () => true }) as CanvasRenderingContext2D;
   const view = scene as unknown as { drawLetters(ctx: CanvasRenderingContext2D): void; letterFlights: { x: number; y: number; letter: string }[]; camera: { position: { x: number; y: number } } };
   view.drawLetters(ctx);
-  expect(drawn.find(args => args[0] === letter.letter)?.[2]).toBe(126);
+  expect(drawn.find(args => args[0] === letter.letter)?.[2]).toBe(126 - view.camera.position.y);
   // The same X at the bottom cannot collect a letter planted on the rim.
   Object.assign(live.player, { x: 230, y: 980 - 34, onGround: true });
   scene.update(1 / 60, neutral);

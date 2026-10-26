@@ -40,18 +40,18 @@ it('rejects non-contiguous surfaces and unplanted checkpoints', () => {
   ] })).toThrow(/checkpoint/);
 });
 
-it.each(LEVELS.filter(level => level.id !== 'quarry'))('plants every $name spring on the terrain', (level) => {
+it.each(LEVELS.filter(level => level.id !== 'quarry'))('plants every $name spring on permanent support', (level) => {
   const springs = level.entities.filter((entity) => entity.kind === 'spring');
   expect(springs.length).toBeGreaterThan(0);
   for (const spring of springs) {
-    expect(spring.y, spring.id).toBe(surfaceY(level, spring.x));
+    expect(hasFixedSupport(level, spring) || spring.y === surfaceY(level, spring.x), spring.id).toBe(true);
   }
 });
 
 it.each([-12, 12, NaN])('rejects a spring offset from its terrain by %s', (offset) => {
   const entities = PLAINS_LEVEL.entities.map((entity) => entity.kind === 'spring'
     ? { ...entity, y: surfaceY(PLAINS_LEVEL, entity.x) + offset } : entity);
-  expect(() => validateLevel({ ...PLAINS_LEVEL, entities })).toThrow(/spring is not planted/);
+  expect(() => validateLevel({ ...PLAINS_LEVEL, entities })).toThrow(/spring lacks fixed support/);
 });
 
 it('rejects malformed or unsafe crumbling ledges', () => {

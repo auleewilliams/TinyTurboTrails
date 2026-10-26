@@ -1,6 +1,7 @@
 import { installQuarryPilotScript } from './quarry-pilot';
 import { QUARRY_DESCENT, QUARRY_RETURN, QUARRY_STARS, type QuarryWaypoint } from './quarry-route';
 import { installPlainsRewardPilot } from './plains-pilot';
+import { installTimberKeyboardPilot, runTimberStages, TIMBER_ONLY_E2_ASCENT } from './timbers-browser-pilot';
 import { drawTerrainMaterial, drawTerrainEdge, drawTrailBackdrop } from '../src/world/trail-presentation';
 import { installRetracePilotScript } from './retrace-pilot';
 import { observedDamage, sustainedControllerMovement, type ActuatorCall, type HealthObservation } from './rumble-observation';
@@ -15,7 +16,7 @@ import { LEVELS, QUARRY_RUN } from '../src/world/levels';
 import { DEFAULT_MOVEMENT, surfaceY } from '../src/game/movement';
 import { platformBodyAt } from '../src/game/platforms';
 import { drawSurfaceMaterials } from '../src/world/surface-materials';
-import { drawSlime, drawGem, drawSpecial, drawLandingBands, drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawTerrainTiles, drawWorld } from '../src/world/renderer';
+import { drawSlime, drawGem, drawSpecial, drawLandingBands, drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawTerrainTiles, drawTimberTrunk, drawWorld } from '../src/world/renderer';
 import { TRAIL_WORDS } from '../src/game/education';
 import { MAX_HEALTH, createRun } from '../src/game/interactions';
 import { TRAIL_RIBBON, trailPosition, RIBBON_INTRO, areaName } from '../src/game/hud';
@@ -166,7 +167,7 @@ test('app fullscreen retains feedback controls and native map and pause targets'
 });
 
 /** The renderer is injected as plain functions, so every helper it calls has to travel with it. */
-const RENDERER_SOURCE = [drawAmbientWeather, drawSlime, drawGem, drawSpecial, drawLandingBands, drawTerrainMaterial, drawTerrainEdge, drawTrailBackdrop, drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawTerrainTiles, drawSurfaceMaterials].map((helper) => helper.toString()).join('\n');
+const RENDERER_SOURCE = [drawAmbientWeather, drawSlime, drawGem, drawSpecial, drawLandingBands, drawTerrainMaterial, drawTerrainEdge, drawTrailBackdrop, drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawTerrainTiles, drawTimberTrunk, drawSurfaceMaterials].map((helper) => helper.toString()).join('\n');
 
 test('ambient weather repeats the same pixels, respects reduced motion and stays behind terrain', async ({ page }, info) => {
   // Six full-image comparisons need extra readback time on constrained WebKit hosts.
@@ -183,7 +184,8 @@ test('ambient weather repeats the same pixels, respects reduced motion and stays
         manifest.panorama ? load(`/assets/${level.atlas}/${manifest.panorama}`) : undefined,
       ]);
       // Scenery has its own established tests; this isolates the weather field.
-      const base = { ...level, theme: { ...level.theme, scenery: false, parallax: [] } };
+      // Isolate weather from trail-specific scenery, including Timbers' trunk.
+      const base = { ...level, id: 'weather-fixture', theme: { ...level.theme, scenery: false, parallax: [] } };
       const assets = { atlas, manifest, gems, materials, backdrops, slimes, panorama };
       const canvas = document.createElement('canvas'); canvas.width = 426; canvas.height = 240;
       const ctx = canvas.getContext('2d')!; ctx.imageSmoothingEnabled = false;
@@ -562,7 +564,11 @@ test('all springs keep their visible bases on terrain at rest, compressed and re
     for (const spring of level.entities.filter((entity) => entity.kind === 'spring')) {
       // Check the entire actual silhouette, including ledge/pit boundaries.
       for (let dx = results.left; dx <= results.right; dx++) {
-        expect(surfaceY(level, spring.x + dx), `${spring.id} footprint ${dx}`).toBe(spring.y);
+        const x = spring.x + dx;
+        const planted = surfaceY(level, x) === spring.y || (level.platforms ?? []).some(platform =>
+          platform.from.x === platform.to.x && platform.from.y === platform.to.y
+          && platform.from.y === spring.y && x >= platform.from.x && x <= platform.from.x + platform.width);
+        expect(planted, `${spring.id} footprint ${dx}`).toBe(true);
       }
     }
     for (const sample of results.samples) {
@@ -1087,7 +1093,7 @@ test('title picker renders Treetop Timbers with its own atlas', async ({ page },
   await page.keyboard.down('ArrowRight');
   await expect.poll(async () => Number(
     (await page.locator('#status').innerText()).match(/X (\d+)/)?.[1] ?? 0,
-  ), { timeout: 10000 }).toBeGreaterThan(1000);
+  ), { timeout: 10000 }).toBeGreaterThan(250);
   await page.keyboard.up('ArrowRight');
   const screenshot = info.outputPath('treetop-timbers.png');
   await page.locator('canvas').screenshot({ path: screenshot });
@@ -2168,7 +2174,10 @@ test('finish artwork pixels meet terrain in all six trails, including the sloped
       const offset = { x: level.finish.x - 213, y: level.progressAxis === 'y' ? level.finish.y - 180 : 0 };
       const assets = { atlas, manifest, gems, backdrops, materials, panorama };
       const route = { ...level, entities: [] };
-      render(ctx, assets, route, { position: offset } as Parameters<typeof drawWorld>[3]);
+      const fixed = (level.platforms ?? []).filter(platform => platform.from.x === platform.to.x && platform.from.y === platform.to.y)
+        .map(platform => ({ id: platform.id, x: platform.from.x, y: platform.from.y,
+          width: platform.width, height: 10, vx: 0, vy: 0 }));
+      render(ctx, assets, route, { position: offset } as Parameters<typeof drawWorld>[3], undefined, undefined, fixed);
       const world = canvas.toDataURL();
       // Retain only the intercepted finish draw on a transparent canvas.
       const arch = document.createElement('canvas'); arch.width = 426; arch.height = 240;
@@ -2178,7 +2187,7 @@ test('finish artwork pixels meet terrain in all six trails, including the sloped
         if (args[0] === atlas && args[1] === 0 && args[2] === manifest.cellSize * 3 && args[7] === 96)
           finishCalls.push({ args, matrix: ctx.getTransform() });
       }) as typeof ctx.drawImage;
-      render(ctx, assets, route, { position: offset } as Parameters<typeof drawWorld>[3]);
+      render(ctx, assets, route, { position: offset } as Parameters<typeof drawWorld>[3], undefined, undefined, fixed);
       for (const call of finishCalls) { ink.setTransform(call.matrix); Reflect.apply(ink.drawImage, ink, call.args); }
       const pixels = ink.getImageData(0, 0, 426, 240).data;
       const gaps = [];
@@ -2189,7 +2198,8 @@ test('finish artwork pixels meet terrain in all six trails, including the sloped
         }
         const wx = footX + offset.x;
         const surface = level.surfaces.find(s => wx >= s.x1 && wx <= s.x2)!;
-        const ground = surface.y1 + (surface.y2 - surface.y1) * (wx - surface.x1) / (surface.x2 - surface.x1) - offset.y;
+        const ground = (level.finish.supportOnly ? level.finish.y
+          : surface.y1 + (surface.y2 - surface.y1) * (wx - surface.x1) / (surface.x2 - surface.x1)) - offset.y;
         gaps.push(ground - (bottom + 1));
       }
       const source = document.createElement('canvas'); source.width = 48; source.height = 48;
@@ -2217,7 +2227,8 @@ test('finish artwork pixels meet terrain in all six trails, including the sloped
           for (let y = 0; y < 240; y++) if (pixels[(y * 426 + x) * 4 + 3] >= 128) bottom = y;
           const wx = x + 0.5 + offset.x;
           const surface = level.surfaces.find(s => wx >= s.x1 && wx <= s.x2)!;
-          const ground = surface.y1 + (surface.y2 - surface.y1) * (wx - surface.x1) / (surface.x2 - surface.x1) - offset.y;
+          const ground = (level.finish.supportOnly ? level.finish.y
+            : surface.y1 + (surface.y2 - surface.y1) * (wx - surface.x1) / (surface.x2 - surface.x1)) - offset.y;
           supportGaps.push(ground - (bottom + 1));
         }
       }
@@ -2305,38 +2316,29 @@ async function acknowledgeTrailNeutral(page: Page): Promise<void> {
   }, afterClear);
 }
 
-test('Timbers static prop passage preserves hearts while slime-side contact still hurts', async ({ page }, info) => {
-  await info.attach('static-prop-inventory', { body: JSON.stringify(LEVELS.map(level => ({ id: level.id,
-    obstacles: level.entities.filter(entity => entity.kind === 'hazard').map(entity => entity.id),
-    scenery: level.entities.filter(entity => entity.kind === 'decoration').map(entity => entity.id) }))), contentType: 'application/json' });
-  await installTrailPilot(page);
+test('Timbers roots keep a safe, open first-jump run-up', async ({ page }, info) => {
+  const level = LEVELS.find(candidate => candidate.id === 'timbers')!;
+  expect(level.entities.filter(entity => entity.kind === 'hazard' || entity.kind === 'slime')).toEqual([]);
+  await info.attach('old-prop-inventory-replaced', { body: JSON.stringify({ source: 'level data',
+    hazards: level.entities.filter(entity => entity.kind === 'hazard'),
+    slimes: level.entities.filter(entity => entity.kind === 'slime') }), contentType: 'application/json' });
   await openAdventure(page, '/?debug=1');
   await page.getByRole('button', { name: 'TREETOP TIMBERS', exact: true }).click();
   await page.getByRole('button', { name: 'Play TREETOP TIMBERS', exact: true }).click();
-  const runTo = async (x: number): Promise<void> => {
-    await page.evaluate(x => {
-      const pilot = (window as unknown as { trailPilot: { active: boolean; frozen: boolean; pauseAt: number; dangers: number[] } }).trailPilot;
-      // No jump input at either the sawhorse or the slime.
-      Object.assign(pilot, { active: true, frozen: false, pauseAt: x, dangers: [] });
-    }, x);
-    await expect.poll(() => page.evaluate(() => (window as unknown as { trailPilot: { frozen: boolean } }).trailPilot.frozen)).toBe(true);
-  };
   const hearts = () => page.evaluate(() => {
     const ctx = document.querySelector<HTMLCanvasElement>('#game')!.getContext('2d')!;
     return [94, 110, 126].map(x => [...ctx.getImageData(x, 14, 1, 1).data].slice(0, 3));
   });
-  const full = [[255, 93, 93], [255, 93, 93], [255, 93, 93]];
-  await runTo(750);
+  const full = await hearts();
+  await page.keyboard.down('ArrowRight');
+  await expect.poll(async () => Number((await page.locator('#status').innerText()).match(/X (\d+)/)?.[1] ?? 0),
+    { timeout: 10_000 }).toBeGreaterThan(700);
+  await page.keyboard.up('ArrowRight');
   expect(await hearts()).toEqual(full);
   for (const width of [426, 320]) {
     await page.setViewportSize({ width, height: width === 426 ? 288 : 240 });
-    await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
-    await info.attach(`static-prop-passage-${width}`, { body: await page.screenshot({ path: info.outputPath(`static-prop-passage-${width}.png`) }), contentType: 'image/png' });
+    await info.attach(`roots-run-up-${width}`, { body: await page.screenshot({ path: info.outputPath(`roots-run-up-${width}.png`) }), contentType: 'image/png' });
   }
-  await runTo(820);
-  expect(await hearts()).toEqual(full);
-  await runTo(1700);
-  expect(await hearts()).not.toEqual(full);
 });
 
 /** Observe the shipped ribbon drawing; no production scene or run-state access. */
@@ -2429,7 +2431,9 @@ async function observeRewardResults(page: Page): Promise<void> {
   });
 }
 
+// Timbers' full vertical route is exercised by timbers-ascent.spec.ts.
 for (const [index, level] of LEVELS.entries()) {
+  if (level.id === 'timbers') continue;
   test(`milestone ${level.name}: pointer selection, full route, return, replay and next`, async ({ page }, info) => {
     test.setTimeout(100_000);
     if (level.id === 'quarry') {
@@ -2718,7 +2722,9 @@ test('every destination accepts keyboard and standard-controller selection and s
 
 // Input-only star pilot: observes the shipped debug position and dispatches the
 // same keyboard events as a player. No scene access, teleports or reward writes.
+// Timbers' branch rewards have their own vertical route and spring witnesses.
 for (const [index, level] of LEVELS.slice(0, 3).entries()) {
+  if (level.id === 'timbers') continue;
   test(`signature ${level.name}: nine-star route, native/small evidence and fresh navigation`, async ({ page }, info) => {
     test.setTimeout(120_000);
     if (level.id === 'quarry') {
@@ -3592,11 +3598,23 @@ test('diagnostic fullscreen frame geometry across repeated native transitions', 
     await info.attach('fullscreen-frames', { path, contentType: 'application/json' });
   }
 });
-test('educational bag collects independent letters without early assembly or sticker through real trail movement', async ({ page }, info) => {
-  await installTrailPilot(page);
+async function startInputTimbers(page: Page): Promise<void> {
+  await installTimberKeyboardPilot(page);
+  await page.addInitScript(() => {
+    const buttons = Array.from({ length: 17 }, () => ({ pressed: false, value: 0, touched: false }));
+    const pad = { connected: true, mapping: 'standard', axes: [0, 0], buttons };
+    const pilot = { controller: false };
+    Object.assign(window, { trailPad: pad, trailPilot: pilot });
+    Object.defineProperty(navigator, 'getGamepads', { configurable: true, value: () => pilot.controller ? [pad] : [] });
+  });
   await openAdventure(page, '/?debug=1');
   await page.getByRole('button', { name: 'TREETOP TIMBERS', exact: true }).click();
   await page.getByRole('button', { name: 'Play TREETOP TIMBERS', exact: true }).click();
+}
+
+test('educational bag collects independent letters without early assembly or sticker through real trail movement', async ({ page }, info) => {
+  test.setTimeout(120_000);
+  await startInputTimbers(page);
   await expect(page.locator('#status')).toContainText('Letter bag: 0/4');
   await page.setViewportSize({ width: 426, height: 300 });
   await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
@@ -3605,19 +3623,20 @@ test('educational bag collects independent letters without early assembly or sti
   await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
   await page.screenshot({ path: info.outputPath('bag-small.png') });
   await page.setViewportSize({ width: 426, height: 300 });
-  await page.evaluate(dangers => {
-    Object.assign((window as unknown as { trailPilot: object }).trailPilot, { active: true, dangers, pauseAt: 345 });
-  }, dangerXs(LEVELS[2]));
+  expect(await runTimberStages(page, [{ kind: 'walk', x: 170 }])).toMatchObject({ done: true, error: '' });
   await expect(page.locator('#status')).toContainText('Letter bag: 1/4');
-  await expect.poll(() => page.evaluate(() => (window as unknown as { trailPilot: { frozen: boolean } }).trailPilot.frozen)).toBe(true);
   await expect(page.locator('#status')).toContainText('T → bag');
   await page.screenshot({ path: info.outputPath('pickup-flight-native.png') });
   await page.setViewportSize({ width: 320, height: 240 });
   await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
   await page.screenshot({ path: info.outputPath('pickup-flight-small.png') });
-  await page.evaluate(() => Object.assign((window as unknown as { trailPilot: object }).trailPilot, { frozen: false, pauseAt: 7150 }));
-  await expect(page.locator('#status')).toContainText('Letter bag: 4/4', { timeout: 25_000 });
-  await expect.poll(() => page.evaluate(() => (window as unknown as { trailPilot: { frozen: boolean } }).trailPilot.frozen)).toBe(true);
+  expect(await runTimberStages(page, TIMBER_ONLY_E2_ASCENT.slice(1))).toMatchObject({ done: true, error: '' });
+  await expect(page.locator('#status')).toContainText('Finish');
+  await page.getByRole('button', { name: 'Build your word', exact: true }).click();
+  await expect(page.locator('#status')).toContainText('Bag 3/4');
+  await page.getByRole('button', { name: 'Find more letters', exact: true }).click();
+  expect(await runTimberStages(page, [{ kind: 'walk', x: 350 }])).toMatchObject({ done: true, error: '' });
+  await expect(page.locator('#status')).toContainText('Letter bag: 4/4');
   await page.screenshot({ path: info.outputPath('word-two-es.png') });
   await page.setViewportSize({ width: 320, height: 240 });
   await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
@@ -3626,8 +3645,6 @@ test('educational bag collects independent letters without early assembly or sti
   await page.keyboard.press('Escape');
   await page.getByRole('button', { name: 'Return to Trails', exact: true }).click();
   await page.getByRole('button', { name: 'Return to Trails', exact: true }).click();
-  await page.keyboard.up('ArrowRight');
-  await page.evaluate(() => Object.assign((window as unknown as { trailPilot: object }).trailPilot, { active: false, lastActive: false, frozen: false, pauseAt: 0 }));
   await page.getByRole('button', { name: 'Open stickers', exact: true }).click();
   await expect(page.locator('#status')).toContainText('0/6 stickers');
   await expect(page.locator('#status')).toContainText('Timbers TREE: find the letters');
@@ -3643,17 +3660,9 @@ test('educational bag collects independent letters without early assembly or sti
 });
 
 test('educational trail has no removed activity route at the former sign and keeps letter progress', async ({ page }, info) => {
-  await installTrailPilot(page);
-  await openAdventure(page, '/?debug=1');
-  await page.getByRole('button', { name: 'TREETOP TIMBERS', exact: true }).click();
-  await page.getByRole('button', { name: 'Play TREETOP TIMBERS', exact: true }).click();
-  await page.evaluate(dangers => {
-    Object.assign((window as unknown as { trailPilot: object }).trailPilot, { active: true, dangers, pauseAt: 2350 });
-  }, dangerXs(LEVELS[2]));
-  await expect(page.locator('#status')).toContainText('Letter bag: 2/4');
-  await expect.poll(() => page.evaluate(() => (window as unknown as { trailPilot: { frozen: boolean } }).trailPilot.frozen)).toBe(true);
-  await page.keyboard.up('ArrowRight');
-  await page.evaluate(() => Object.assign((window as unknown as { trailPilot: object }).trailPilot, { active: false, lastActive: false, frozen: false, pauseAt: 0 }));
+  await startInputTimbers(page);
+  expect(await runTimberStages(page, TIMBER_ONLY_E2_ASCENT.slice(0, 1))).toMatchObject({ done: true, error: '' });
+  await expect(page.locator('#status')).toContainText('Letter bag: 1/4');
   await page.keyboard.press('e');
   await expect(page.getByRole('dialog')).toHaveCount(0);
   await expect(page.getByRole('button', { name: /Open optional|Answer |Leave activity/ })).toHaveCount(0);
@@ -3720,14 +3729,14 @@ for (const { method, placementKey } of [
   { method: 'controller', placementKey: 'Space' },
 ] as const) {
   test(`educational manual assembly ${method} ${placementKey} places actual letters and earns only after TREE`, async ({ page }, info) => {
-    await installTrailPilot(page);
-    await openAdventure(page, '/?debug=1');
-    await page.getByRole('button', { name: 'TREETOP TIMBERS', exact: true }).click();
-    await page.getByRole('button', { name: 'Play TREETOP TIMBERS', exact: true }).click();
-    await page.evaluate(dangers => Object.assign((window as unknown as { trailPilot: object }).trailPilot, { active: true, dangers }), dangerXs(LEVELS[2]));
+    test.setTimeout(120_000);
+    await startInputTimbers(page);
+    expect(await runTimberStages(page, TIMBER_ONLY_E2_ASCENT)).toMatchObject({ done: true, error: '' });
     await expectResultsFirst(page, 'Next trail', 25_000);
-    await page.evaluate(() => Object.assign((window as unknown as { trailPilot: object }).trailPilot, { active: false, lastActive: false }));
-    await page.keyboard.up('ArrowRight');
+    await page.getByRole('button', { name: 'Build your word', exact: true }).click();
+    await page.getByRole('button', { name: 'Find more letters', exact: true }).click();
+    expect(await runTimberStages(page, [{ kind: 'walk', x: 350 }, { kind: 'walk', x: 290 }, { kind: 'finish' }])).toMatchObject({ done: true, error: '' });
+    await expectResultsFirst(page, 'Next trail', 25_000);
     await openWordActivity(page, method);
     await expect(page.locator('#status')).toContainText('Build TREE · _ _ _ _ · Bag 4/4');
     await expect(page.getByRole('button', { name: /^Letter / })).toHaveCount(4);
@@ -3822,19 +3831,15 @@ for (const { method, placementKey } of [
 
 
 test('educational missing-letter return preserves partial work and clears held actions and clock debt', async ({ page }, info) => {
-  await installTrailPilot(page);
-  await openAdventure(page, '/?debug=1');
-  await page.getByRole('button', { name: 'TREETOP TIMBERS', exact: true }).click();
-  await page.getByRole('button', { name: 'Play TREETOP TIMBERS', exact: true }).click();
-  // Jump over T on the real outward route; no scene/position hooks or helper letters.
-  await page.evaluate(dangers => Object.assign((window as unknown as { trailPilot: object }).trailPilot, { active: true, dangers: [360, ...dangers] }), dangerXs(LEVELS[2]));
+  test.setTimeout(120_000);
+  await startInputTimbers(page);
+  // The real ascent takes T, R and E1, deliberately skirts the summit E2.
+  expect(await runTimberStages(page, TIMBER_ONLY_E2_ASCENT)).toMatchObject({ done: true, error: '' });
   await expectResultsFirst(page, 'Next trail', 25_000);
-  await page.evaluate(() => Object.assign((window as unknown as { trailPilot: object }).trailPilot, { active: false, lastActive: false }));
-  await page.keyboard.up('ArrowRight');
   await openWordActivity(page, 'pointer');
   await expect(page.getByRole('dialog', { name: 'Build TREE', exact: true })).toBeVisible();
   await expect(page.locator('#status')).toContainText('Bag 3/4');
-  await expect(page.getByRole('button', { name: 'Letter T', exact: true })).toHaveCount(0);
+  await expect(page.getByRole('button', { name: 'Letter E 2', exact: true })).toHaveCount(0);
   await page.getByRole('button', { name: 'Letter R', exact: true }).click();
   await page.getByRole('button', { name: 'Space 2: empty', exact: true }).click();
   await expect(page.locator('#status')).toContainText('_ R _ _');
@@ -3845,12 +3850,12 @@ test('educational missing-letter return preserves partial work and clears held a
   await page.screenshot({ path: info.outputPath('missing-assembly-native.png') });
   const frozen = await page.locator('canvas').screenshot();
   const status = await page.locator('#status').innerText();
-  await page.evaluate(() => { (window as unknown as { trailPilot: { advanceMs: number } }).trailPilot.advanceMs = 60_000; });
+  await page.evaluate(() => { (window as unknown as { timberKeyboardPilot: { advanceMs: number } }).timberKeyboardPilot.advanceMs = 60_000; });
   await frames(15);
   expect((await page.locator('canvas').screenshot()).equals(frozen)).toBe(true);
   expect(await page.locator('#status').innerText()).toBe(status);
   // Cancel a real in-progress drag on focus loss, keeping every collected letter.
-  const from = (await page.getByRole('button', { name: 'Letter E 2', exact: true }).boundingBox())!;
+  const from = (await page.getByRole('button', { name: 'Letter E 1', exact: true }).boundingBox())!;
   await page.mouse.move(from.x + from.width / 2, from.y + from.height / 2); await page.mouse.down();
   await page.mouse.move(from.x + 20, from.y - 20);
   await page.evaluate(() => window.dispatchEvent(new Event('blur')));
@@ -3859,7 +3864,7 @@ test('educational missing-letter return preserves partial work and clears held a
   await page.evaluate(() => window.dispatchEvent(new Event('focus')));
   await expect(page.getByRole('dialog', { name: 'Build TREE', exact: true })).toBeVisible();
   await expect(page.locator('#status')).toContainText('_ R _ _');
-  await expect(page.getByRole('button', { name: /^Letter E/ })).toHaveCount(2);
+  await expect(page.getByRole('button', { name: /^Letter E/ })).toHaveCount(1);
   await page.keyboard.down('ArrowRight'); await page.keyboard.down('Space');
   await frames();
   await page.getByRole('button', { name: 'Find more letters', exact: true }).click();
@@ -3871,8 +3876,8 @@ test('educational missing-letter return preserves partial work and clears held a
     return { x: Number(match[1]), y: Number(match[2]) };
   };
   const returned = await playerStatus(page);
-  expect(returned.x).toBe(LEVELS[2].finish.x - 28);
-  await page.evaluate(() => { (window as unknown as { trailPilot: { advanceMs: number } }).trailPilot.advanceMs = 60_000; });
+  expect(returned.x).toBe(LEVELS[2].retrace!.x);
+  await page.evaluate(() => { (window as unknown as { timberKeyboardPilot: { advanceMs: number } }).timberKeyboardPilot.advanceMs = 60_000; });
   await frames(20);
   const after = await playerStatus(page);
   expect(after.x).toBe(returned.x); expect(after.y).toBe(returned.y);
@@ -3880,13 +3885,11 @@ test('educational missing-letter return preserves partial work and clears held a
   await page.setViewportSize({ width: 320, height: 240 }); await frames();
   await expectClearViewport(page); await page.screenshot({ path: info.outputPath('missing-return-small.png') });
   await page.keyboard.up('ArrowRight'); await page.keyboard.up('Space');
-  await page.keyboard.down('ArrowLeft');
-  await expect.poll(async () => (await playerStatus(page)).x).toBeLessThan(LEVELS[2].finish.x - 100);
-  await page.keyboard.up('ArrowLeft'); await page.keyboard.down('ArrowRight');
-  // Re-entering the finish shows results again; the held run input neither opens the activity nor moves the selection.
+  // Brake on the lookout before reversing; an abrupt turn at its edge is a real fall.
+  expect(await runTimberStages(page, [{ kind: 'walk', x: 290 }, { kind: 'finish' }])).toMatchObject({ done: true, error: '' });
+  // Re-entering shows the normal results; the run input does not open the activity.
   await expectResultsFirst(page);
   await frames(10);
-  await page.keyboard.up('ArrowRight');
   await expectResultsFirst(page);
   await openWordActivity(page, 'keyboard');
   await expect(page.getByRole('dialog', { name: 'Build TREE', exact: true })).toBeVisible();
@@ -4025,7 +4028,9 @@ async function installRetracePilot(page: Page, level: typeof PLAINS_LEVEL): Prom
   await page.addInitScript(installRetracePilotScript, level);
 }
 
+// Timbers' input-only TREE return and assembly live in timbers-ascent.spec.ts.
 for (const [index, level] of LEVELS.entries()) {
+  if (level.id === 'timbers') continue;
   test(`all-trail spelling ${level.id}: input-only missing-letter retrace, manual assembly and session sticker`, async ({ page }, info) => {
     test.setTimeout(120_000);
     if (level.id === 'quarry') {
@@ -4241,13 +4246,9 @@ async function observeSpellingArtwork(page: Page): Promise<void> {
 test('builder-kit reduced-motion pickup stays beside its pouch at native and small viewports', async ({ page }, info) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.setViewportSize({ width: 426, height: 300 });
-  await observeSpellingArtwork(page); await installTrailPilot(page);
-  await openAdventure(page, '/?debug=1');
-  await page.getByRole('button', { name: 'TREETOP TIMBERS', exact: true }).click();
-  await page.getByRole('button', { name: 'Play TREETOP TIMBERS', exact: true }).click();
-  await page.evaluate(() => Object.assign((window as unknown as { trailPilot: object }).trailPilot, { active: true, dangers: [], pauseAt: 345 }));
+  await observeSpellingArtwork(page); await startInputTimbers(page);
+  expect(await runTimberStages(page, [{ kind: 'walk', x: 170 }])).toMatchObject({ done: true, error: '' });
   await expect(page.locator('#status')).toContainText('T → bag');
-  await expect.poll(() => page.evaluate(() => (window as unknown as { trailPilot: { frozen: boolean } }).trailPilot.frozen)).toBe(true);
   for (const width of [426, 320]) {
     await page.setViewportSize({ width, height: width === 426 ? 300 : 240 });
     await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
@@ -4398,7 +4399,7 @@ for (const level of LEVELS) test(`compact HUD renderer fixture: ${level.id} iden
   await page.addScriptTag({ content: `(() => {
     const MAX_HEALTH = ${MAX_HEALTH};
     ${fixture}
-    window.hudFixtureMissing = [${runtimeImports.map(name => `typeof ${name} === 'undefined' && ${JSON.stringify(name)}`).join(', ')}].filter(Boolean);
+    window.hudFixtureMissing = [${[...runtimeImports, 'drawTimberTrunk'].map(name => `typeof ${name} === 'undefined' && ${JSON.stringify(name)}`).join(', ')}].filter(Boolean);
     window.createHudFixture = async (level, runTemplate) => {
       const assets = await loadWorldAssets(level.atlas), ui = await loadInterfaceKit();
       const pouch = await loadImage('/assets/spelling/pouch.png');
@@ -4606,7 +4607,9 @@ for (const viewport of [{ width: 426, height: 240 }, { width: 320, height: 240 }
       await page.getByRole('button', { name: `Play ${next.name}`, exact: true }).click();
       await expect(page.locator('#status')).toContainText('Playing');
       const openingArea = next.checkpoints.reduce((area, point, i) =>
-        (next.progressAxis === 'y' ? next.start.y >= point.y - 35 : next.start.x >= point.x - 180) ? i : area, -1);
+        (next.progressAxis === 'y'
+          ? (next.finish.y < next.start.y ? next.start.y <= point.y + 35 : next.start.y >= point.y - 35)
+          : next.start.x >= point.x - 180) ? i : area, -1);
       await expect(canvas).toHaveAttribute('data-gameplay-trail', openingArea < 0 ? next.name : areaName(next, openingArea));
       await page.keyboard.press('Escape');
       await page.getByRole('button', { name: 'Return to Trails', exact: true }).click();
@@ -4653,7 +4656,7 @@ for (const [selection, trail] of LEVELS.entries()) test(`landmark labels: render
     ${modules.map((source, i) => declarations(names[i], source)).join('\n')}
     const LEVELS = ${JSON.stringify(LEVELS)};
     ${method}
-    window.mapFixtureMissing = [${[...runtimeImports, 'animationFrame', 'advanceMapMarker', 'TRAIL_WORDS', 'drawOverworld', 'drawWorld', 'drawMap'].map(name => `typeof ${name} === 'undefined' && ${JSON.stringify(name)}`).join(', ')}].filter(Boolean);
+    window.mapFixtureMissing = [${[...runtimeImports, 'animationFrame', 'advanceMapMarker', 'TRAIL_WORDS', 'drawOverworld', 'drawWorld', 'drawMap', 'platformBodiesAt', 'drawTimberTrunk'].map(name => `typeof ${name} === 'undefined' && ${JSON.stringify(name)}`).join(', ')}].filter(Boolean);
     window.createMapFixture = async () => {
       const [titleArtwork, landmarks, mapBackground, gems, ui, henry] = await Promise.all([
         loadImage('/assets/title/tiny-turbo-trails-v2.png'), loadImage('/assets/overworld/landmarks.png'),
@@ -4661,8 +4664,12 @@ for (const [selection, trail] of LEVELS.entries()) test(`landmark labels: render
       const previews = await Promise.all(LEVELS.map(async level => {
         const assets = await loadWorldAssets(level.atlas), canvas = document.createElement('canvas'); canvas.width = 426; canvas.height = 240;
         const ctx = canvas.getContext('2d'); ctx.imageSmoothingEnabled = false;
-        const camera = { position: { x: 0, y: 0 } };
-        drawWorld(ctx, assets, level, camera, undefined, undefined, undefined, 0, true); drawWorldForeground(ctx, assets, level, camera);
+        const camera = new Camera({ width: 426, height: 240, worldWidth: level.width,
+          worldHeight: level.height, vertical: level.progressAxis === 'y' });
+        if (level.progressAxis === 'y') camera.update(level.start.x, level.start.y - 34);
+        drawWorld(ctx, assets, level, camera, undefined, undefined,
+          level.progressAxis === 'y' ? platformBodiesAt(level.platforms, 0) : [], 0, true);
+        drawWorldForeground(ctx, assets, level, camera);
         return canvas;
       }));
       const canvas = document.querySelector('#game'), ctx = canvas.getContext('2d');
