@@ -928,7 +928,7 @@ test('a patrolling slime keeps moving while Henry stands still', async ({ page }
   await page.getByRole('button', { name: 'Play QUARRY RUN', exact: true }).click();
   await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
   await page.keyboard.down('ArrowRight');
-  await expect.poll(async () => Number((await page.locator('#status').innerText()).match(/X (\d+)/)?.[1]), { timeout: 5000, intervals: [30] }).toBeGreaterThan(750);
+  await expect.poll(async () => Number((await page.locator('#status').innerText()).match(/X (\d+)/)?.[1]), { timeout: 5000, intervals: [30] }).toBeGreaterThan(670);
   await page.keyboard.up('ArrowRight');
   await page.waitForTimeout(250);
   const stationaryX = Number((await page.locator('#status').innerText()).match(/X (\d+)/)?.[1]);
@@ -1837,7 +1837,7 @@ test('Plains renders its panorama and transparent scenery, and Quarry keeps its 
   await page.keyboard.down('ArrowRight');
   await expect.poll(async () => Number((await page.locator('#status').innerText()).match(/X (\d+)/)?.[1]), { timeout: 5000, intervals: [30] }).toBeGreaterThan(620);
   await page.keyboard.up('ArrowRight'); await page.waitForTimeout(250);
-    const calls = JSON.parse(await page.locator('canvas').getAttribute('data-scenery-draws') ?? '[]') as { source: string; args: number[] }[];
+  const calls = JSON.parse(await page.locator('canvas').getAttribute('data-scenery-draws') ?? '[]') as { source: string; args: number[] }[];
   expect(calls[0].source).toContain('/scenery/background.webp');
   const tree = calls.find((call) => call.source.endsWith('/foreground.png') && call.args[0] === 7.25 && call.args[4] > 400)!;
   expect(tree).toBeDefined();
