@@ -252,7 +252,7 @@ it('clears movement and pending input on summit retrace', () => {
 it('shows a bag instead of target slots, with a brief collected letter flight and no automatic reward', () => {
   const { scene, live } = timbers();
   expect(scene.educationDescription).toBe('Letter bag: 0/4');
-  Object.assign(live.player, { x: 180, y: TREETOP_TIMBERS.start.y - 34, vx: 0, vy: 0, onGround: true });
+  Object.assign(live.player, { x: 220, y: TREETOP_TIMBERS.start.y - 34, vx: 0, vy: 0, onGround: true });
   scene.update(1 / 60, neutral);
   expect(scene.educationDescription).toContain('Letter bag: 1/4');
   const text: string[] = [];

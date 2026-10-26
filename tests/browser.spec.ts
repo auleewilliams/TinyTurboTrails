@@ -3623,7 +3623,7 @@ test('educational bag collects independent letters without early assembly or sti
   await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
   await page.screenshot({ path: info.outputPath('bag-small.png') });
   await page.setViewportSize({ width: 426, height: 300 });
-  expect(await runTimberStages(page, [{ kind: 'walk', x: 170 }])).toMatchObject({ done: true, error: '' });
+  expect(await runTimberStages(page, [{ kind: 'walk', x: 205 }])).toMatchObject({ done: true, error: '' });
   await expect(page.locator('#status')).toContainText('Letter bag: 1/4');
   await expect(page.locator('#status')).toContainText('T → bag');
   await page.screenshot({ path: info.outputPath('pickup-flight-native.png') });
@@ -4247,8 +4247,9 @@ test('builder-kit reduced-motion pickup stays beside its pouch at native and sma
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.setViewportSize({ width: 426, height: 300 });
   await observeSpellingArtwork(page); await startInputTimbers(page);
-  expect(await runTimberStages(page, [{ kind: 'walk', x: 170 }])).toMatchObject({ done: true, error: '' });
+  expect(await runTimberStages(page, [{ kind: 'walk', x: 205 }])).toMatchObject({ done: true, error: '' });
   await expect(page.locator('#status')).toContainText('T → bag');
+  await page.evaluate(() => { (window as unknown as { timberKeyboardPilot: { frozen: boolean } }).timberKeyboardPilot.frozen = true; });
   for (const width of [426, 320]) {
     await page.setViewportSize({ width, height: width === 426 ? 300 : 240 });
     await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));

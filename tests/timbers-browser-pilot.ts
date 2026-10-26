@@ -14,7 +14,7 @@ export const TIMBER_DESCENT_ALL: readonly TimberPilotStage[] = [
   { kind: 'walk', x: 350 }, { kind: 'walk', x: 560 },
   { kind: 'drop', edge: 590, direction: 1, y: 240, x: 650 },
   { kind: 'drop', edge: 570, direction: -1, y: 300, x: 540 },
-  { kind: 'drop', edge: 660, direction: 1, y: 360, x: 690 },
+  { kind: 'drop', edge: 660, direction: 1, y: 360, x: 620 },
   { kind: 'drop', edge: 580, direction: -1, y: 420, x: 540 },
   { kind: 'walk', x: 300 }, { kind: 'walk', x: 510 },
   { kind: 'drop', edge: 620, direction: 1, y: 480, x: 650 },
@@ -29,7 +29,7 @@ export const TIMBER_DESCENT_ALL: readonly TimberPilotStage[] = [
   { kind: 'walk', x: 270 }, { kind: 'walk', x: 510 },
   { kind: 'drop', edge: 620, direction: 1, y: 960, x: 650 },
   { kind: 'drop', edge: 580, direction: -1, y: 1020, x: 540 },
-  { kind: 'fall', direction: -1, y: 1080 }, { kind: 'walk', x: 180 },
+  { kind: 'fall', direction: -1, y: 1080 }, { kind: 'walk', x: 220 },
 ];
 
 export const TIMBER_REASCENT: readonly TimberPilotStage[] = [
@@ -46,7 +46,7 @@ export const TIMBER_REASCENT: readonly TimberPilotStage[] = [
 ];
 
 export const TIMBER_ONLY_E2_ASCENT: readonly TimberPilotStage[] = [
-  { kind: 'walk', x: 180 }, { kind: 'walk', x: 270 }, { kind: 'jump', x: 270, y: 1020 },
+  { kind: 'walk', x: 220 }, { kind: 'walk', x: 270 }, { kind: 'jump', x: 270, y: 1020 },
   { kind: 'walk', x: 385 }, { kind: 'jump', x: 385, y: 960 }, { kind: 'jump', x: 385, y: 900 },
   { kind: 'walk', x: 270 }, { kind: 'walk', x: 500 },
   { kind: 'jump', x: 500, y: 840 }, { kind: 'jump', x: 500, y: 780 },
@@ -80,7 +80,7 @@ export async function runTimberStages(page: Page, stages: readonly TimberPilotSt
 }
 
 export const TIMBER_ASCENT_RIGHT: readonly TimberPilotStage[] = [
-      { kind: 'run', frames: 12 }, { kind: 'jump', x: 260, y: 1020 },
+      { kind: 'run', frames: 17 }, { kind: 'jump', x: 260, y: 1020 },
       { kind: 'walk', x: 385 }, { kind: 'jump', x: 385, y: 960 }, { kind: 'jump', x: 385, y: 900 },
       { kind: 'walk', x: 500 }, { kind: 'jump', x: 500, y: 840 }, { kind: 'jump', x: 500, y: 780 },
       { kind: 'jump', x: 500, y: 720 }, { kind: 'jump', x: 500, y: 660 },
@@ -94,7 +94,7 @@ export const TIMBER_ASCENT_RIGHT: readonly TimberPilotStage[] = [
 export async function installTimberKeyboardPilot(page: Page): Promise<void> {
   await page.addInitScript((stages: TimberPilotStage[]) => {
 
-    const pilot = { active: false, paused: false, pauseAt: -1, stage: 0, frames: 0,
+    const pilot = { active: false, paused: false, frozen: false, pauseAt: -1, stage: 0, frames: 0,
       stable: 0, previousY: NaN, startY: NaN, phase: 0, error: '', done: false, seenPlaying: false, advanceMs: 0,
       stages, history: [] as object[] };
     Object.assign(window, { timberKeyboardPilot: pilot });
@@ -109,6 +109,7 @@ export async function installTimberKeyboardPilot(page: Page): Promise<void> {
     const original = requestAnimationFrame.bind(window);
     let previousTime = 0, gameTime = 0;
     window.requestAnimationFrame = callback => original(now => {
+      if (pilot.frozen) { previousTime = now; callback(gameTime); return; }
       const status = document.querySelector('#status')?.textContent ?? '';
       const x = Number(status.match(/X (-?\d+)/)?.[1] ?? NaN);
       const y = Number(status.match(/Y (-?\d+)/)?.[1] ?? NaN);

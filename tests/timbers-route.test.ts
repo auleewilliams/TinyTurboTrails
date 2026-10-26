@@ -138,7 +138,7 @@ it('walks off real return edges from finish to roots and recovers every missed T
   drop(580, -1, 1020, 540);
   for (let i = 0; i < 100 && player.y + 34 < 1080; i++) tick(-1);
   expect(player.y + 34).toBe(1080);
-  walk(180);
+  walk(220);
   expect(scene.education.hasLetter('timbers-letter-t')).toBe(true);
   expect(scene.education.letterCount).toBe(4);
   expect(scene.session.results.has('timbers')).toBe(true);
@@ -192,7 +192,7 @@ it('catches a wrong-end return walk-off on the next visible outer bough', () => 
 it('allows the only-missed-summit-E flow to rearm by a deliberate lookout turn', () => {
   const route = pilot();
   const { scene, walk, tick } = route;
-  walk(180);
+  walk(220);
   expect(scene.education.hasLetter('timbers-letter-t')).toBe(true);
   walk(270); route.jump(1020, 270);
   walk(385); route.jump(960, 385); route.jump(900, 385);
