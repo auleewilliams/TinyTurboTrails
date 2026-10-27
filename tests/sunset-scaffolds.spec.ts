@@ -64,6 +64,7 @@ for (const only of ['M', 'A']) test(`Sunset only missed ${only} uses native retr
   const outward = await driveSunset(page, route);
   await page.getByRole('button', { name: 'Build your word', exact: true }).click();
   await expect(page.locator('#status')).toContainText('Bag 3/4');
+  await info.attach(`${only}-only-before-retrace`, { body: await page.locator('#game').screenshot(), contentType: 'image/png' });
   await page.getByRole('button', { name: 'Find more letters', exact: true }).click();
   const recovery = only === 'M'
     ? [DOWN_FINAL[0], walk(2000), walk(2100), jump(2130, 140), { kind: 'finish' as const }]
@@ -71,6 +72,7 @@ for (const only of ['M', 'A']) test(`Sunset only missed ${only} uses native retr
   const returned = await driveSunset(page, recovery);
   await page.getByRole('button', { name: 'Build your word', exact: true }).click();
   await expect(page.locator('#status')).toContainText('Bag 4/4');
+  await info.attach(`${only}-only-after-retrace`, { body: await page.locator('#game').screenshot(), contentType: 'image/png' });
   await info.attach(`${only}-only-input-provenance`, { body: JSON.stringify({ source: process.env.BROWSER_REPORT_SOURCE_SHA,
     browser: browser.browserType().name(), version: browser.version(), outward, returned }), contentType: 'application/json' });
 });
@@ -107,6 +109,16 @@ test('Sunset optional crane boards, carries and disembarks by walking in both di
   await driveSunset(page, [walk(440)]);
   await expect(page.locator('#status')).toContainText('Y 286');
   await info.attach('returned-near-dock', { body: await page.locator('#game').screenshot(), contentType: 'image/png' });
+  // Walking left has placed Henry at the camera's 110px left dead zone.
+  // Observe the carriage at the far end before walking off the absent near edge.
+  const absentFarX = 664 - Number((await page.locator('#status').innerText()).match(/X (\d+)/)?.[1]);
+  await expect.poll(async () => Number(await page.locator('#game').getAttribute('data-crane-screen-x')), { timeout: 8000, intervals: [16] }).toBeCloseTo(absentFarX, 0);
+  await driveSunset(page, [drop(470, 1, 520, 380)]);
+  await expect(page.locator('#status')).toContainText('Y 346');
+  await info.attach('absent-carriage-catch', { body: await page.locator('#game').screenshot(), contentType: 'image/png' });
+  await driveSunset(page, [walk(440), jump(440, 320)]);
+  await expect(page.locator('#status')).toContainText('Y 286');
+  await info.attach('fixed-return-from-catch', { body: await page.locator('#game').screenshot(), contentType: 'image/png' });
   await info.attach('crane-input-provenance', { body: JSON.stringify({ source: process.env.BROWSER_REPORT_SOURCE_SHA,
     browser: browser.browserType().name(), version: browser.version(), route: 'entrance, near fixed dock, observed carriage, far fixed dock, observed return carriage, near fixed dock; keyboard only' }), contentType: 'application/json' });
 });
