@@ -249,15 +249,15 @@ test('controller damage rumble is independent of audio and stops on pause, focus
       },
     };
     Object.defineProperty(navigator, 'getGamepads', { configurable: true, value: () => {
-      // Keep side-contact checks on the first flat patrol. A polling wait must
-      // not carry Henry into Sunset's spring/steep terrace sequence.
+      // Use Plains' existing orchard encounter, then retreat onto its flat
+      // x1560–1620 rest. Sunset's approved scaffolds have no damaging actor.
       if (probe.drive && probe.latest) {
-        if (probe.retreat && probe.latest.x <= 520) {
+        if (probe.retreat && probe.latest.x <= 1600) {
           probe.drive = false; probe.retreat = false; pad.axes[0] = 0;
           probe.events.push({ kind: 'safe-stop', time: performance.now(), x: probe.latest.x });
         } else {
-          if (probe.retreat || probe.latest.x >= 720) probe.direction = -1;
-          else if (probe.latest.x <= 580) probe.direction = 1;
+          if (probe.retreat || probe.latest.x >= 1820) probe.direction = -1;
+          else if (probe.latest.x <= 1660) probe.direction = 1;
           pad.axes[0] = probe.direction;
         }
       }
@@ -325,7 +325,7 @@ test('controller damage rumble is independent of audio and stops on pause, focus
   };
   const safeStop = async (): Promise<void> => {
     await expect.poll(() => page.evaluate(() => (window as unknown as { rumbleProbe: { drive: boolean } }).rumbleProbe.drive)).toBe(false);
-    expect((await read()).latest!.x).toBeLessThanOrEqual(540);
+    expect((await read()).latest!.x).toBeLessThanOrEqual(1620);
   };
   const movedAfter = async (time: number, x: number): Promise<boolean> => sustainedControllerMovement(
     await page.evaluate(() => (window as unknown as { rumbleProbe: { samples: Sample[] } }).rumbleProbe.samples), time, x);
@@ -337,8 +337,8 @@ test('controller damage rumble is independent of audio and stops on pause, focus
     await expect(page.getByRole('button', { name: 'QUARRY RUN', exact: true })).toHaveAttribute('aria-pressed', 'true');
     await neutral();
     expect((await read()).effects).toEqual([]); // Controller map navigation has no output.
-    await page.getByRole('button', { name: 'SUNSET SITE', exact: true }).click();
-    await page.getByRole('button', { name: 'Play SUNSET SITE', exact: true }).click();
+    await page.getByRole('button', { name: 'PLAINS', exact: true }).click();
+    await page.getByRole('button', { name: 'Play PLAINS', exact: true }).click();
     await page.keyboard.press('m');
     await expect(page.locator('#status')).toContainText('Muted');
     await axis(1, 2);

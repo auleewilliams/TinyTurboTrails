@@ -114,7 +114,7 @@ stacked-support input driver for Sunset. It still requires the deliberately
 missed letter to be absent, partial assembly to survive, no recoveries, all four
 letters to return, correct sticker creation and a fresh reload to start empty.
 
-Shared sprite-damage, heart-depletion and stationary-patrol browser tests now use
+Shared sprite-damage, heart-depletion, controller-rumble and stationary-patrol browser tests now use
 the existing Plains orchard slime. The patrol witness stops on its actual flat
 x1900–1960 and keeps exact stationary-X assertions. The old Sunset ribbon-valley geometry is retired. The live yard capture proves
 route state only. The shared compact HUD renderer fixture draws the actual Henry
@@ -123,7 +123,13 @@ ribbon bottom235 AND sprite right <= ribbon left285. This preserves the original
 nonvacuous band-overlap plus horizontal-clearance obligation; being above the
 ribbon cannot satisfy it.
 Renderer fixture graphs include the scaffold helper and retain dependency guards.
-No skip, retry, frame-guard, timeout, physics or coverage-engine relaxation is used.
+Historical full CI40437011667 also exposed three controller-rumble failures:
+the unchanged test still selected the removed Sunset slime encounter. Its target
+is now the existing Plains orchard slime, with controller oscillation1660–1820
+and retreat to the flat x1560–1620 rest. All actual rendered-health/actuator,
+muted/off/on, sustained movement, neutral acknowledgement, pause, focus-loss and
+disconnect assertions and original deadlines remain. No skip, retry, frame-guard,
+timeout, physics or coverage-engine relaxation is used.
 The original missing-catch mutation remains historical evidence. A new temporary
 lower-floor bridge makes the bypass regressions fail; the exact source is restored.
 The independent6978 native failure remains preserved. A bounded real far-dock
