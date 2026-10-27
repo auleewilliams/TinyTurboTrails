@@ -51,7 +51,7 @@ it('finishes with the straightforward route and no bonus hop required', () => {
   expect(route.scene.education.letterCount).toBe(0);
 });
 
-it('detects the former rebounding spring landing through the same input pilot', () => {
-  // Explicit test-driver fault injection: the old landing target overlaps the retry approach.
-  expect(()=>frostRewards([0.016],3100)).toThrow(/unclear spring landing/);
+it('detects a second spring launch from an adverse landing through the unchanged input pilot', () => {
+  // Explicit adverse-input seam: require an actual second launch, not the clearance guard.
+  expect(()=>frostRewards([0.016],3050)).toThrow(/unclear spring landing frost-bonus-3: 2 launches at /);
 });

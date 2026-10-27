@@ -120,7 +120,7 @@ function traverseUnrearmedFinish(route: ReturnType<typeof frostPilot>): void {
   for(let f=0;f<100 && route.player.x<5590;f++) {
     route.tick(1);
     const p=route.player;
-    expect(p.x).toBeGreaterThanOrEqual(5360);
+    expect(p.x).toBeGreaterThan(5360);
     expect(p.y+34).toBe(240); // Neither the left nor below rearm boundary was crossed.
     expect(p.onGround).toBe(true);
     entered ||= p.x>=5520 && p.x<=5580;

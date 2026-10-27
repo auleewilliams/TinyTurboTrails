@@ -29,11 +29,16 @@ with exactly one spring launch; the right-side landing returns over the spring b
 direction. SNOW keeps its original identities on snow at x110, x1190, x2620 and
 x5320. S moved away from the starting body so a zero-letter journey is possible.
 The summit return point is x5410, left of the arch at x5520. Deliberate departure
-left of x5360 rearms the finish; an airborne crossing cannot finish.
+at or left of x5360 rearms the finish; an airborne crossing cannot finish.
 
 The review correction traverses the complete x5520–5580 finish band through
 ordinary input while unrearmed, then deliberately departs and returns. An
-always-armed test seam must fail that same witness. Native map navigation uses
+always-armed test seam must fail that same witness. The unrearmed traversal
+requires x > 5360 throughout, since x <= 5360 rearms the existing finish.
+The spring adverse-input control uses landing target 3050 and requires the
+third attempt's exact two-launch error through the unchanged pilot. The five
+positive all-gem cadence journeys retain exactly one launch per attempt.
+Native map navigation uses
 the authored opening section (`FIRST SLIDE`) while preserving exact destinations.
 Sunset's test driver observes intermediate points on long fixed decks without
 braking at each generated point; requested destinations and physical jump/drop
@@ -61,6 +66,15 @@ the old bundle after a build failed on unused test imports; its six failures are
 retained and do not evaluate the new geometry. Later failures and dispositions
 remain in the handoff; none is silently relabelled as passing.
 
+The b508 control with landing target 3100 accepted a first-attempt clearance
+error with only one launch; it did not prove a rebounce. Its earlier scratch
+mutant report imported a live working-tree helper whose exact bytes were not
+pinned with that report. Those historical outputs and handoffs remain unchanged
+and cannot establish the final b508 control's rebounce sensitivity. The new
+precision evidence records the old input failing the tightened predicate and
+3050 producing the required third-attempt two-launch failure, with every pilot
+guard still active.
+
 ## Coverage migration ledger
 
 | Existing coverage | Preserved purpose and replacement |
@@ -80,7 +94,9 @@ remain in the handoff; none is silently relabelled as passing.
 
 Multiplicity: the complete baseline has 1820 unit identities. Three obsolete Frost slime parameters and one legacy checkpoint parameter retire; 16 route cases are added, yielding 1832 before review correction. The correction adds five unit identities
 (two negative controls and three higher-step retry cases), yielding 1837; no
-existing identity is retired in the correction. Native discovery retires the generated Frost slime/patrol case in each engine (three cases), retains the other 537 existing identities, and adds four Frost cases per engine (12 cases), yielding 549.
+existing identity is retired in that correction. The subsequent precision pass
+replaces one adverse-control title with the same purpose and total 1837; no
+native identity changes. Native discovery retires the generated Frost slime/patrol case in each engine (three cases), retains the other 537 existing identities, and adds four Frost cases per engine (12 cases), yielding 549.
 
 The shared renderer adds only Frost's snow-top presentation within the existing
 platform drawer. It adds no import or fixture dependency. Cached previews already
