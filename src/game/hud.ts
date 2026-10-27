@@ -113,6 +113,7 @@ const AREAS: Record<string, readonly string[]> = {
   cove: ['Beach path', 'Shell shore', 'Dune crossing', 'Tide pools', 'Sandy ridge', 'Cove lookout'],
 };
 export function areaName(level: LevelData, index: number): string {
+  if (level.sections?.[index]) return level.sections[index].name;
   if (level.id === 'quarry' && level.progressAxis === 'y') {
     return ['Upper workings', 'Mine shelves', 'Quarry floor'][index] ?? level.name;
   }

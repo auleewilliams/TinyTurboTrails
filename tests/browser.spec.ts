@@ -1,3 +1,5 @@
+import { installCovePilot, driveCove } from './cove-browser-pilot';
+import { COVE_RETURN, COVE_LOWER, walk as coveWalk, jump as coveJump } from './cove-pilot';
 import { FROST_MAIN, FROST_RETURN, FROST_REASCENT, FROST_MISS_S } from './frost-pilot';
 import { driveSunset } from './sunset-browser-pilot';
 import { MAIN_ROUTE as SUNSET_MAIN, FIRST_CLIMB as SUNSET_FIRST, CROSS_DESCENT as SUNSET_CROSS, FINAL_CLIMB as SUNSET_FINAL, ALL_RETURN as SUNSET_RETURN, REASCENT as SUNSET_REASCENT, SUNSET_MISS_B } from './sunset-pilot';
@@ -1929,7 +1931,7 @@ for (const [biome, pickerSteps] of [['frost', 4], ['cove', 5]] as const) {
     const velocity = async (): Promise<number> => Number((await page.locator('#status').innerText()).match(/V (-?\d+)/)?.[1] ?? 0);
     if (biome === 'frost') await driveSunset(page, [...FROST_MAIN.slice(0, 4), { kind: 'walk', x: 2100 }]);
     await page.keyboard.down('ArrowRight');
-    await expect.poll(position, { intervals: [20], timeout: 10000 }).toBeGreaterThan(biome === 'frost' ? 2240 : 420);
+    await expect.poll(position, { intervals: [20], timeout: 10000 }).toBeGreaterThan(biome === 'frost' ? 2240 : 560);
     if (biome === 'frost') {
       const slideVelocity = await page.evaluate(async () => {
         window.dispatchEvent(new KeyboardEvent('keyup', { code: 'ArrowRight' }));
@@ -1944,13 +1946,13 @@ for (const [biome, pickerSteps] of [['frost', 4], ['cove', 5]] as const) {
       expect(slideVelocity).toBeGreaterThan(80);
     } else {
       expect(await velocity()).toBe(176);
-      await expect.poll(position, { intervals: [20], timeout: 10000 }).toBeGreaterThan(1000);
+      await expect.poll(position, { intervals: [20], timeout: 10000 }).toBeGreaterThan(1750);
       expect(await velocity()).toBe(143);
       await page.keyboard.up('ArrowRight');
     }
     await page.keyboard.press('Escape');
     await expect(page.locator('#status')).toContainText('Paused');
-    const pausedObservation = async () => biome === 'frost' ? page.locator('#status').innerText() : page.locator('canvas').getAttribute('data-creature-y');
+    const pausedObservation = async () => page.locator('#status').innerText();
     const frozen = await pausedObservation();
     await page.waitForTimeout(200);
     expect(await pausedObservation()).toBe(frozen);
@@ -4108,7 +4110,8 @@ for (const [index, level] of LEVELS.entries()) {
     };
     // These evidence routes exercise native/small play; the viewport suite covers large sizes.
     await page.setViewportSize({ width: 426, height: 300 });
-    if (level.id === 'sunset' || level.id === 'frost') await installTimberKeyboardPilot(page);
+    if (level.id === 'cove') await installCovePilot(page);
+    else if (level.id === 'sunset' || level.id === 'frost') await installTimberKeyboardPilot(page);
     else await installRetracePilot(page, level);
     // The existing helper provides the same standard Gamepad API used by pilot regressions.
     await page.addInitScript(() => {
@@ -4122,6 +4125,10 @@ for (const [index, level] of LEVELS.entries()) {
     await page.getByRole('button', { name: `Play ${level.name}`, exact: true }).click();
     await expect(page.locator('#game')).toHaveAttribute('data-spelling-draws', /pouch\.png/);
     const drive = async (direction: number, collectAt: number[] = [], initialCount = 0): Promise<void> => {
+      if (level.id === 'cove') {
+        await driveCove(page,direction<0?COVE_RETURN:initialCount?COVE_LOWER:[coveWalk(235),coveJump(340,312),coveWalk(4030),{kind:'finish'}]);
+        return;
+      }
       if (level.id === 'frost') {
         await driveSunset(page, direction < 0 ? FROST_RETURN : initialCount ? FROST_REASCENT : FROST_MISS_S);
         return;
@@ -4187,7 +4194,7 @@ for (const [index, level] of LEVELS.entries()) {
     await expect(page.getByRole('dialog')).toHaveCount(0);
     await capture('beside-finish');
     await drive(-1, missing.map(slot => config.pickups[slot].x).sort((a, b) => b - a), available.length);
-    if (level.id !== 'sunset' && level.id !== 'frost') await page.waitForFunction(() => (window as unknown as { retracePilot: { stopped: boolean } }).retracePilot.stopped, undefined, { timeout: 35_000 });
+    if (level.id !== 'sunset' && level.id !== 'frost' && level.id !== 'cove') await page.waitForFunction(() => (window as unknown as { retracePilot: { stopped: boolean } }).retracePilot.stopped, undefined, { timeout: 35_000 });
     await expect(page.locator('#status')).toContainText('Letter bag: 4/4');
     const collectedStatus = await page.locator('#status').innerText();
     await drive(1, [], 4);
@@ -4256,11 +4263,11 @@ for (const [index, level] of LEVELS.entries()) {
     await expect(page.locator('#status')).toContainText('Letter bag: 4/4');
     const recoveries = await page.evaluate(sunset => sunset
       ? (window as unknown as { timberKeyboardPilot: { recoveries: string[] } }).timberKeyboardPilot.recoveries
-      : (window as unknown as { retracePilot: { recoveries: string[] } }).retracePilot.recoveries, level.id === 'sunset' || level.id === 'frost');
+      : (window as unknown as { retracePilot: { recoveries: string[] } }).retracePilot.recoveries, level.id === 'sunset' || level.id === 'frost' || level.id === 'cove');
     const recoveryPath = info.outputPath('recovery-history.json');
     await writeFile(recoveryPath, JSON.stringify(await page.evaluate(sunset => sunset
       ? (window as unknown as { timberKeyboardPilot: { history: unknown[] } }).timberKeyboardPilot.history
-      : (window as unknown as { retracePilot: { recoveryHistory: unknown[] } }).retracePilot.recoveryHistory, level.id === 'sunset' || level.id === 'frost'), null, 2));
+      : (window as unknown as { retracePilot: { recoveryHistory: unknown[] } }).retracePilot.recoveryHistory, level.id === 'sunset' || level.id === 'frost' || level.id === 'cove'), null, 2));
     await info.attach('recovery-history', { path: recoveryPath, contentType: 'application/json' });
     expect(recoveries).toEqual([]);
     await reloadToMap(page);

@@ -15,7 +15,7 @@ const worlds = Object.fromEntries(LEVELS.map(level => [level.atlas, {} as never]
 const make = (index = 0) => new AdventureScene({} as HTMLImageElement, {} as never, worlds, audio, LEVELS[index]);
 type Live = { player: Player; run: RunState; camera: Camera; platforms: ReturnType<typeof platformBodiesAt>; feedback: Feedback; elapsed: number };
 const startCamera = (id: string) => id === 'timbers' ? { x: 0, y: 940 }
-  : id === 'quarry' ? { x: 50, y: 2 } : id === 'sunset' ? { x: 0, y: 422 } : id === 'frost' ? { x: 0, y: 362 } : { x: 0, y: 0 };
+  : id === 'quarry' ? { x: 50, y: 2 } : id === 'sunset' ? { x: 0, y: 422 } : id === 'frost' ? { x: 0, y: 362 } : id === 'cove' ? { x: 0, y: 222 } : { x: 0, y: 0 };
 
 it.each(LEVELS.map((level, index) => ({ level, index })))('abandons $level.name cleanly while keeping completed session results', ({ level, index }) => {
   const scene = make(index); scene.startSelected();

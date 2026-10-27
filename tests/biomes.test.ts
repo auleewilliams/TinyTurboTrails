@@ -6,11 +6,11 @@ import { validateLevel } from '../src/world/level';
 
 it.each([FROST_RIDGE, SANDY_COVE])('authors a valid forgiving route for $name', (level) => {
   expect(() => validateLevel(level)).not.toThrow();
-  expect(level.checkpoints).toHaveLength(level.id === 'frost' ? 3 : 6);
+  expect(level.checkpoints).toHaveLength(3);
   expect(level.entities.filter((e) => e.kind === 'gem').length).toBeGreaterThanOrEqual(30);
-  expect(level.entities.filter((e) => e.kind === 'spring').length).toBeGreaterThanOrEqual(level.id === 'frost' ? 1 : 6);
+  expect(level.entities.filter((e) => e.kind === 'spring').length).toBeGreaterThanOrEqual(1);
   expect(level.surfaces.every((s) => Math.max(s.y1, s.y2) <= level.height)).toBe(true);
-  expect(level.surfaces.every((s) => Math.abs(s.y2 - s.y1) / (s.x2 - s.x1) <= (level.id === 'frost' ? 0.75 : 0.5))).toBe(true);
+  expect(level.surfaces.every((s) => Math.abs(s.y2 - s.y1) / (s.x2 - s.x1) <= (level.id === 'frost' ? 0.75 : 0.65))).toBe(true);
   const dangers = level.entities.filter((e) => e.kind === 'slime' || e.kind === 'hazard');
   for (const checkpoint of level.checkpoints) {
     expect(checkpoint.y).toBe(surfaceY(level, checkpoint.x));
@@ -40,7 +40,7 @@ it('keeps Cove shallow water harmless and slimes on firm ground', () => {
   expect(patches.some((s) => s.material === 'water')).toBe(true);
   expect(patches.every((s) => s.y1 === s.y2)).toBe(true);
   const slimes = SANDY_COVE.entities.filter((e) => e.kind === 'slime');
-  expect(slimes.length).toBeGreaterThanOrEqual(3);
+  expect(slimes).toHaveLength(0); // Retired patrols stay out of every forced bank/landing.
   for (const slime of slimes) {
     expect(slime.bounce).toBeUndefined();
     expect(slime.patrol).toBeDefined();

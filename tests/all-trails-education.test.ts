@@ -1,3 +1,4 @@
+import { covePilot, COVE_MISS_ALL, COVE_RETURN, COVE_LOWER } from './cove-pilot';
 import { frostPilot, FROST_MAIN, FROST_RETURN, FROST_REASCENT } from './frost-pilot';
 import { ALL_RETURN, MAIN_ROUTE, REASCENT, sunsetPilot } from './sunset-pilot';
 import { expect, it } from 'vitest';
@@ -159,6 +160,16 @@ it('shows all six independent sticker statuses on the map without changing trail
 
 // Vertical Quarry and Timbers input returns are covered by their route suites; this pilot characterizes horizontal terrain.
 it.each(LEVELS.map((level, index) => ({ level, index, crumbled: false })).filter(({ level }) => level.progressAxis !== 'y'))('$level.id retraces the real terrain from finish to every missed letter and re-enters using simulation input only (crumbled: $crumbled)', ({ level, index, crumbled }) => {
+  if (level.id === 'cove') {
+    const route=covePilot();route.run(COVE_MISS_ALL);
+    expect(route.scene.education.letterCount).toBe(0);
+    route.scene.activateFinish('Build your word');
+    route.scene.menuTargets.find(t=>t.label==='Find more letters')!.action();
+    route.run(COVE_RETURN);expect(route.scene.education.letterCount).toBe(4);
+    route.run(COVE_LOWER);expect(route.scene.screenState).toBe('finish');
+    expect(route.events.filter(e=>['damage','recover'].includes(e.type))).toEqual([]);
+    return;
+  }
   if (level.id === 'sunset' || level.id === 'frost') {
     // Each mixed-height trail keeps its own identity and authored input route.
     const route = level.id === 'frost' ? frostPilot() : sunsetPilot(); route.run(level.id === 'frost' ? FROST_MAIN : MAIN_ROUTE);

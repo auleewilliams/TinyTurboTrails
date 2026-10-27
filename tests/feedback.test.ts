@@ -63,6 +63,16 @@ it('teaches movement then jump briefly, switches device text, and clears learned
 
 it.each(LEVELS)('names every $name area without internal identifiers and expires location text', (level) => {
   const hud = new HudPresentation();
+  if (level.id === 'cove') {
+    for(const section of level.sections!) {
+      hud.update(1/60,neutral,level,section.x,false,surfaceY(level,section.x));
+      expect(hud.location).toBe(section.name);
+      expect(hud.location).not.toMatch(/checkpoint|-/);
+      hud.update(3,neutral,level,section.x,false,surfaceY(level,section.x));
+      expect(hud.locationSeconds).toBe(0);
+    }
+    return;
+  }
   if (level.id === 'frost') {
     const areas = [[1, 'FIRST SLIDE'], [701, 'FIR CLIMB'], [1401, 'ICE BOWL'],
       [2801, 'HIGH LEDGES'], [3451, 'UPPER GLIDE'], [4201, 'SNOWY SUMMIT']] as const;
