@@ -16,8 +16,8 @@ export async function driveSunset(page: Page, stages: readonly TimberPilotStage[
   let x = Number((await page.locator('#status').innerText()).match(/X (-?\d+)/)?.[1]);
   const bounded: TimberPilotStage[] = [];
   for (const stage of stages) {
-    if (stage.kind === 'walk') while (Math.abs(stage.x! - x) > 320) {
-      x += Math.sign(stage.x! - x) * 300; bounded.push({ kind: 'walk', x });
+    if (stage.kind === 'walk' || stage.kind === 'travel') while (Math.abs(stage.x! - x) > 320) {
+      x += Math.sign(stage.x! - x) * 300; bounded.push({ ...stage, x });
     }
     bounded.push(stage);
     if (stage.x !== undefined) x = stage.x;

@@ -1,3 +1,5 @@
+import { frostRewards } from './frost-pilot';
+import { frostPilot, FROST_MAIN } from './frost-pilot';
 import { expect, it } from 'vitest';
 import { AdventureScene } from '../src/game/adventure-scene';
 import type { GameAudio } from '../src/core/audio';
@@ -18,6 +20,23 @@ it('registers both playable biome selections after the existing trails', () => {
 });
 
 it.each([FROST_RIDGE, SANDY_COVE])('can finish $name with simple slime-avoidance jumps and replay fresh', (level) => {
+  if (level.id === 'frost') {
+    const route = frostPilot(); route.run(FROST_MAIN);
+    expect(route.scene.screenState).toBe('finish');
+    expect(route.runState.health).toBe(3);
+    expect(route.runState.collectedGems.size).toBeGreaterThanOrEqual(25);
+    expect([...route.runState.collectedGems].some(id => id.includes('-bonus-'))).toBe(false);
+    expect(route.events.filter(e => e.type === 'checkpoint')).toHaveLength(3);
+    expect(route.events.filter(e => e.type === 'spring')).toHaveLength(0);
+    route.scene.activateFinish('Replay');
+    expect(route.scene.screenState).toBe('playing');
+    expect((route.scene as unknown as { run: RunState }).run.collectedGems.size).toBe(0);
+    expect(route.scene.playerX).toBe(60);
+    const replay = (route.scene as unknown as { run: RunState }).run;
+    expect(replay.seconds).toBe(0); expect(replay.health).toBe(3);
+    expect(route.scene.selectedLevelName).toBe(level.name);
+    return;
+  }
   const effects: string[] = [];
   const scene = new AdventureScene({} as HTMLImageElement, {} as never, worlds(), audio(effects), level);
   scene.update(1 / 60, { ...neutral, jumpPressed: true });
@@ -93,6 +112,12 @@ it('pauses slimes with gameplay and restores their initial positions on replay',
 });
 
 it.each([FROST_RIDGE, SANDY_COVE])('collects the intended rewards along the full $name route', (level) => {
+  if (level.id === 'frost') {
+    const route = frostRewards();
+    expect(route.runState.collectedGems.size).toBe(39);
+    expect(route.scene.screenState).toBe('finish');
+    return;
+  }
   const scene = new AdventureScene({} as HTMLImageElement, {} as never, worlds(), audio([]), level);
   scene.update(1 / 60, { ...neutral, jumpPressed: true });
   const live = scene as unknown as { run: RunState; player: Player };
