@@ -11,11 +11,19 @@ export const jump = (x: number, y: number): SunsetStage => ({ kind: 'jump', x, y
 export const drop = (edge: number, direction: -1 | 1, x: number, y: number): SunsetStage => ({ kind: 'drop', edge, direction, x, y });
 
 export const FIRST_CLIMB: readonly SunsetStage[] = [walk(210), jump(210, 500), walk(275), jump(275, 440), jump(275, 380), jump(300, 320), walk(350)];
-export const CROSS_DESCENT: readonly SunsetStage[] = [drop(260, -1, 220, 380), walk(1000), drop(1050, 1, 1100, 440), drop(1160, 1, 1240, 500), walk(1310), drop(1400, 1, 1430, 560), drop(1500, 1, 1530, 620)];
-export const FINAL_CLIMB: readonly SunsetStage[] = [walk(1760), jump(1800, 560), walk(1870), jump(1870, 500), walk(1970), jump(2000, 440), walk(2080), walk(1970), jump(1970, 380), jump(2000, 320), walk(2090), jump(2090, 260), jump(2100, 200), jump(2130, 140)];
+const finalStage = (stage: SunsetStage): SunsetStage => ({ ...stage,
+  ...(stage.x !== undefined && stage.x >= 800 ? { x: stage.x + 720 } : {}),
+  ...(stage.edge !== undefined && stage.edge >= 800 ? { edge: stage.edge + 720 } : {}),
+});
+const frameStage = (stage: SunsetStage): SunsetStage => ({ ...stage,
+  ...(stage.x !== undefined && stage.x >= 800 ? { x: stage.x + 720 } : {}),
+  ...(stage.edge !== undefined && stage.edge >= 800 ? { edge: stage.edge + 720 } : {}),
+});
+export const CROSS_DESCENT: readonly SunsetStage[] = [drop(260, -1, 220, 380), walk(1000), drop(1050, 1, 1100, 440), drop(1160, 1, 1240, 500), walk(1310), drop(1400, 1, 1430, 560), drop(1500, 1, 1530, 620)].map(frameStage);
+export const FINAL_CLIMB: readonly SunsetStage[] = [walk(1760), jump(1800, 560), walk(1870), jump(1870, 500), walk(1970), jump(2000, 440), walk(2080), walk(1970), jump(1970, 380), jump(2000, 320), walk(2090), jump(2090, 260), jump(2100, 200), jump(2130, 140)].map(finalStage);
 export const MAIN_ROUTE: readonly SunsetStage[] = [...FIRST_CLIMB, ...CROSS_DESCENT, ...FINAL_CLIMB, { kind: 'finish' }];
-export const DOWN_FINAL: readonly SunsetStage[] = [drop(2080, -1, 2030, 200), walk(2000), drop(1940, -1, 1910, 260), drop(1820, -1, 1780, 320), drop(1880, 1, 1930, 380), drop(2020, 1, 2080, 440), drop(1940, -1, 1900, 500), drop(1840, -1, 1790, 560), drop(1660, -1, 1610, 620), walk(1530)];
-export const UP_DESCENT: readonly SunsetStage[] = [walk(1450), jump(1430, 560), walk(1370), jump(1350, 500), walk(1120), walk(1130), jump(1100, 440), walk(1000), jump(1000, 380), walk(740), jump(740, 320), walk(740)];
+export const DOWN_FINAL: readonly SunsetStage[] = [drop(2080, -1, 2030, 200), walk(2000), drop(1940, -1, 1910, 260), drop(1820, -1, 1780, 320), drop(1880, 1, 1930, 380), drop(2020, 1, 2080, 440), drop(1940, -1, 1900, 500), drop(1840, -1, 1790, 560), drop(1660, -1, 1610, 620), walk(1530)].map(finalStage);
+export const UP_DESCENT: readonly SunsetStage[] = [walk(1450), jump(1430, 560), walk(1370), jump(1350, 500), walk(1120), walk(1130), jump(1100, 440), walk(1000), jump(1000, 380), walk(740), jump(740, 320), walk(740)].map(frameStage);
 export const BACK_FIRST: readonly SunsetStage[] = [drop(800, 1, 850, 380), walk(440), jump(440, 320), walk(350), drop(260, -1, 220, 380), drop(160, -1, 120, 440), walk(350)];
 export const ALL_RETURN: readonly SunsetStage[] = [...DOWN_FINAL, ...UP_DESCENT, ...BACK_FIRST];
 export const REASCENT: readonly SunsetStage[] = [walk(275), jump(275, 380), jump(300, 320), walk(350), ...CROSS_DESCENT, ...FINAL_CLIMB, { kind: 'finish' }];
@@ -23,8 +31,8 @@ export const REASCENT: readonly SunsetStage[] = [walk(275), jump(275, 380), jump
 /** Initial spelling cohort intentionally misses B, retaining strict missed-ID checks. */
 export const SUNSET_MISS_B: readonly SunsetStage[] = [
   ...FIRST_CLIMB, CROSS_DESCENT[0], walk(740), jump(740, 320), walk(740), drop(800, 1, 850, 380),
-  ...CROSS_DESCENT.slice(1, 4), walk(1120), ...CROSS_DESCENT.slice(4),
-  ...FINAL_CLIMB.slice(0, -1), walk(2000), walk(2100), FINAL_CLIMB.at(-1)!, { kind: 'finish' },
+  ...CROSS_DESCENT.slice(1, 4), walk(1840), ...CROSS_DESCENT.slice(4),
+  ...FINAL_CLIMB.slice(0, -1), walk(2720), walk(2820), FINAL_CLIMB.at(-1)!, { kind: 'finish' },
 ];
 
 /** Simulation-input driver: all movement starts at the authored entrance. */
@@ -37,12 +45,16 @@ export function sunsetPilot(cadence: readonly number[] = [0.016], heldSeconds = 
   const events: { type: string; entityId?: string }[] = [];
   const history: object[] = [];
   const supports = new Set<string>();
+  const supportOrder: string[] = [];
   let ticks = 0;
   function tick(horizontal = 0, jumpPressed = false, jumpHeld = false): number {
     const dt = cadence[ticks++ % cadence.length];
     scene.update(dt, { ...neutral, horizontal, jumpPressed, jumpHeld });
     events.push(...live.events);
-    if (live.player.platformId) supports.add(live.player.platformId);
+    if (live.player.platformId) {
+      supports.add(live.player.platformId);
+      if (supportOrder.at(-1) !== live.player.platformId) supportOrder.push(live.player.platformId);
+    }
     return dt;
   }
   const steer = (x: number) => {
@@ -50,7 +62,15 @@ export function sunsetPilot(cadence: readonly number[] = [0.016], heldSeconds = 
     return projected < x - 3 ? 1 : projected > x + 3 ? -1 : 0;
   };
   function run(stages: readonly SunsetStage[]): void {
-    for (const [index, stage] of stages.entries()) {
+    const bounded: SunsetStage[] = [];
+    let plannedX = live.player.x;
+    for (const stage of stages) {
+      if (stage.kind === 'walk') while (Math.abs(stage.x! - plannedX) > 320) {
+        plannedX += Math.sign(stage.x! - plannedX) * 300; bounded.push(walk(plannedX));
+      }
+      bounded.push(stage); if (stage.x !== undefined) plannedX = stage.x;
+    }
+    for (const [index, stage] of bounded.entries()) {
       const p = live.player;
       let passed = false, elapsed = 0, phase = 0;
       for (let frame = 0; frame < 260; frame++) {
@@ -83,5 +103,5 @@ export function sunsetPilot(cadence: readonly number[] = [0.016], heldSeconds = 
       for (let i = 0; i < 3; i++) tick();
     }
   }
-  return { scene, player: live.player, runState: live.run, tick, run, events, history, supports };
+  return { scene, player: live.player, runState: live.run, tick, run, events, history, supports, supportOrder };
 }

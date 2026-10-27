@@ -311,7 +311,7 @@ export function drawPlatforms(ctx: CanvasRenderingContext2D, level: LevelData, o
 /** Pass-through frame behind the actual support tops, composed with site art. */
 export function drawSiteFrame(ctx: CanvasRenderingContext2D, assets: WorldAssets, offset: { x: number; y: number }): void {
   ctx.save();
-  for (const [left, right, top, bottom] of [[100, 410, 320, 620], [980, 1430, 380, 680], [1800, 2360, 140, 680]]) {
+  for (const [left, right, top, bottom] of [[100, 410, 320, 620], [1700, 2150, 380, 680], [2520, 3080, 140, 680]]) {
     ctx.fillStyle = '#51404b88';
     for (let x = left; x <= right; x += 140) {
       ctx.fillRect(x - offset.x, top - offset.y, 5, bottom - top);
@@ -323,7 +323,7 @@ export function drawSiteFrame(ctx: CanvasRenderingContext2D, assets: WorldAssets
       }
     }
   }
-  drawAsset(ctx, assets, 'tree', 900 - offset.x, 680 - offset.y, 1.5);
+  drawAsset(ctx, assets, 'tree', 1620 - offset.x, 680 - offset.y, 1.5);
   ctx.restore();
 }
 

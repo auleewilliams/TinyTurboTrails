@@ -54,3 +54,31 @@ it.each(cases)('boards or catches safely from direction $direction at phase $pha
     expect(Math.abs(player.x - edge)).toBeLessThan(140);
   }
 });
+
+it.each(([-1, 1] as const).flatMap(direction => [[0.016], [0.032], [0.016, 0.032, 0.024]].map(cadence => ({ direction, cadence }))))(
+  'positively boards, rides and walks onto the opposite fixed dock / $direction / $cadence', ({ direction, cadence }) => {
+    // Prepositioned dock/clock fixture, distinct from safety-catch outcomes above.
+    const player = createPlayer(direction === 1 ? 440 : 680, SUNSET_SITE, 320);
+    let clock = direction === 1 ? 0 : 2.6, frame = 0;
+    const tick = (horizontal: number) => {
+      const dt = cadence[frame++ % cadence.length]; clock += dt;
+      simulatePlayer(player, { horizontal, jumpPressed: false, jumpHeld: false }, SUNSET_SITE, dt,
+        platformBodiesAt(SUNSET_SITE.platforms, clock, dt));
+    };
+    for (let i = 0; i < 100; i++) {
+      tick(direction);
+      const carriage = platformBodiesAt(SUNSET_SITE.platforms, clock).find(body => body.id === 'site-crane-ferry')!;
+      if (player.platformId === carriage.id && (direction === 1 ? player.x >= carriage.x + 24 : player.x <= carriage.x + 72)) break;
+    }
+    expect(player.platformId).toBe('site-crane-ferry');
+    for (let i = 0; i < 20; i++) tick(0);
+    const boardedX = player.x;
+    for (let i = 0; i < 180 && (player.x - boardedX) * direction < 60; i++) tick(0);
+    expect((player.x - boardedX) * direction).toBeGreaterThanOrEqual(60);
+    expect(player.platformId).toBe('site-crane-ferry');
+    const destination = direction === 1 ? 'site-far-dock' : 'site-high-deck';
+    for (let i = 0; i < 100 && player.platformId !== destination; i++) tick(direction);
+    for (let i = 0; i < 20; i++) tick(0);
+    expect(player.platformId).toBe(destination);
+    expect(player.y + 34).toBe(320); expect(player.vx).toBe(0); expect(player.vy).toBe(0);
+  });

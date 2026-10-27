@@ -5,7 +5,7 @@ import { TRAIL_WORDS } from '../src/game/education';
 import { trailPosition } from '../src/game/hud';
 
 it('connects two scaffold climbs across a descent and yard with four permanent checkpoints', () => {
-  expect(SUNSET_SITE.width).toBeLessThanOrEqual(3000);
+  expect(SUNSET_SITE.width).toBeLessThanOrEqual(3200);
   expect(SUNSET_SITE.checkpoints).toHaveLength(4);
   expect(SUNSET_SITE.checkpointActivation).toBe('grounded');
   expect(SUNSET_SITE.finish.supportOnly).toBe(true);
@@ -33,6 +33,11 @@ it.each([[[0.016]], [[0.032]], [[0.016, 0.032, 0.024]]])('finishes with zero let
   route.run(MAIN_ROUTE);
   expect(route.scene.screenState).toBe('finish');
   expect(route.scene.education.letterCount).toBe(0);
+  let previous = -1;
+  for (const id of ['site-high-deck', 'site-crane-catch', 'site-descent-1', 'site-descent-e', 'site-descent-3', 'site-yard', 'site-rest', 'site-roof']) {
+    const index = route.supportOrder.indexOf(id);
+    expect(index, id).toBeGreaterThan(previous); previous = index;
+  }
   const earned = new Set(route.runState.collectedGems);
   expect(route.supports.has('site-crane-ferry')).toBe(false);
   route.scene.activateFinish('Build your word');
@@ -88,8 +93,8 @@ it.each(TRAIL_WORDS.find(word => word.id === 'sunset')!.pickups)('$id ignores th
 it('frames fixed downward targets and both dock approaches in the native camera', () => {
   const camera = new Camera({ width: 426, height: 240, worldWidth: SUNSET_SITE.width, worldHeight: SUNSET_SITE.height,
     vertical: SUNSET_SITE.verticalCamera, lead: SUNSET_SITE.cameraLead });
-  for (const [x, top, below] of [[350, 320, 380], [1040, 380, 440], [1140, 440, 500], [1380, 500, 560],
-    [1480, 560, 620], [2100, 140, 200], [1950, 200, 260], [1830, 260, 320], [1870, 320, 380], [2000, 380, 440]] as const) {
+  for (const [x, top, below] of [[350, 320, 380], [1760, 380, 440], [1860, 440, 500], [2100, 500, 560],
+    [2200, 560, 620], [2820, 140, 200], [2670, 200, 260], [2550, 260, 320], [2590, 320, 380], [2720, 380, 440]] as const) {
     camera.update(x, top - 34);
     expect(below - camera.position.y).toBeGreaterThan(30);
     expect(below - camera.position.y).toBeLessThan(240);

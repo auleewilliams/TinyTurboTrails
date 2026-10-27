@@ -64,6 +64,8 @@ export interface LevelData {
   /** Extra forward view for wide crossing approaches, in native canvas pixels. */
   cameraLead?: number;
   checkpointActivation?: 'grounded';
+  /** Current mixed-route section, independent of checkpoint history. */
+  sections?: readonly { x: number; name: string; minY?: number; maxY?: number }[];
   /** Safe fixed support used by the existing Find more letters action. */
   retrace?: { x: number; y: number };
   surfaces: readonly Surface[];

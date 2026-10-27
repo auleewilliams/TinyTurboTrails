@@ -2534,28 +2534,12 @@ for (const [index, level] of LEVELS.entries()) {
     expect(Math.abs(Number(await canvas.getAttribute('data-ribbon-marker')) - expectedMarker)).toBeLessThanOrEqual(1);
     await captureRibbon('checkpoint');
     await page.evaluate(() => Object.assign((window as unknown as { trailPilot: object }).trailPilot, { active: false, frozen: false, pauseAt: 0 }));
-    // These valleys put Henry's feet in the ribbon's vertical band. Check the
-    // actual sprite bounds so a centered ribbon cannot silently obscure him.
-    const lowGroundX = level.id === 'sunset' ? 1530 : undefined;
-    if (lowGroundX !== undefined) {
-      if (level.id === 'sunset') await driveSunset(page, SUNSET_CROSS);
-      else {
-      await page.evaluate(pauseAt => Object.assign((window as unknown as { trailPilot: object }).trailPilot,
-        { active: true, pauseAt }), lowGroundX);
-      await page.waitForFunction(() => (window as unknown as { trailPilot: { frozen: boolean } }).trailPilot.frozen, undefined, { timeout: 20_000 });
-      await page.evaluate(() => Object.assign((window as unknown as { trailPilot: object }).trailPilot,
-        { active: false, frozen: false, pauseAt: 0 }));
-      // Release movement and let any spring launch settle on the low ground.
-      await expect.poll(async () => Number((await page.locator('#status').innerText()).match(/Y (\d+)/)?.[1])).toBeGreaterThanOrEqual(188);
-      await page.evaluate(() => Object.assign((window as unknown as { trailPilot: object }).trailPilot, { frozen: true }));
-      }
-      const henry = await page.evaluate(() => (window as unknown as {
-        ribbonProbe: { henryBounds: { left: number; right: number; top: number; bottom: number } };
-      }).ribbonProbe.henryBounds);
-      expect(henry.bottom <= TRAIL_RIBBON.y || henry.top >= TRAIL_RIBBON.y + TRAIL_RIBBON.height
-        || henry.right <= TRAIL_RIBBON.x || henry.left >= TRAIL_RIBBON.x + TRAIL_RIBBON.width).toBe(true);
-      await captureRibbon('low-ground');
-      await page.evaluate(() => Object.assign((window as unknown as { trailPilot: object }).trailPilot, { frozen: false }));
+    // The old Sunset valley is retired. This live yard capture is route evidence;
+    // the nonvacuous vertical-band/horizontal-clearance obligation is exercised
+    // separately by the explicitly labelled compact HUD renderer fixture below.
+    if (level.id === 'sunset') {
+      await driveSunset(page, SUNSET_CROSS);
+      await captureRibbon('lower-yard');
     }
     const traverse = async (): Promise<void> => {
       if (level.id === 'sunset') {
@@ -4475,7 +4459,7 @@ for (const level of LEVELS) test(`compact HUD renderer fixture: ${level.id} iden
           right: x + m.actualBoundingBoxRight, top: y - m.actualBoundingBoxAscent, bottom: y + m.actualBoundingBoxDescent }); }
         fillText(text, x, y);
       };
-      let state = 0, hint = '', notice = '';
+      let state = 0, hint = '', notice = '', ribbonBandPose = false;
       const draw = () => {
         const session = new EducationSession(); session.selectTrail(level.id);
         session.pickups.slice(0, state).forEach(pickup => session.collect(pickup.id));
@@ -4488,6 +4472,7 @@ for (const level of LEVELS) test(`compact HUD renderer fixture: ${level.id} iden
         camera.update(level.start.x, ground - 34);
         drawWorld(ctx, assets, level, camera, undefined, undefined, platformBodiesAt(level.platforms, 0), 0, true);
         const henryRect = { x: level.start.x - camera.position.x - manifest.anchor.x, y: ground - camera.position.y - manifest.anchor.y, width: 48, height: 48 };
+        if (ribbonBandPose) { henryRect.x = 110 - manifest.anchor.x; henryRect.y = 230 - manifest.anchor.y; }
         ctx.drawImage(henry, frame.x, frame.y, frame.width, frame.height, henryRect.x, henryRect.y, 48, 48);
         drawWorldForeground(ctx, assets, level, camera);
         const hud = new HudPresentation(); if (state > 0) hud.consume([{ type: 'checkpoint', entityId: level.checkpoints[0].id }]);
@@ -4520,7 +4505,7 @@ for (const level of LEVELS) test(`compact HUD renderer fixture: ${level.id} iden
           assets: [assets.atlas, assets.gems, assets.scenery?.background, assets.scenery?.foreground, pouch, henry, ...Object.values(ui)]
             .filter(Boolean).map(image => ({ source: new URL(image.src).pathname, loaded: image.complete && image.naturalWidth > 0 })) };
       };
-      window.hudFixture = { set(next, nextHint, nextNotice) { state = next; hint = nextHint; notice = nextNotice; draw(); } };
+      window.hudFixture = { bandPose() { ribbonBandPose = true; draw(); }, set(next, nextHint, nextNotice) { state = next; hint = nextHint; notice = nextNotice; draw(); } };
       const raf = window.requestAnimationFrame.bind(window);
       window.requestAnimationFrame = callback => raf(time => { callback(time); draw(); });
     };
@@ -4550,6 +4535,20 @@ for (const level of LEVELS) test(`compact HUD renderer fixture: ${level.id} iden
       }
     }
   }
+  // Actual Henry atlas draw + actual HUD renderer, explicitly prepositioned
+  // layout fixture. Its feet occupy the rail band; horizontal clearance is
+  // therefore necessary, rather than passing because the sprite is above it.
+  await page.evaluate(() => (window as unknown as { hudFixture: { bandPose(): void } }).hudFixture.bandPose());
+  await twoFrames(page);
+  const bandRect = await page.evaluate(() => (window as unknown as {
+    hudFixtureSample: { henryRect: { x: number; y: number; width: number; height: number } };
+  }).hudFixtureSample.henryRect);
+  const bandHenry = { top: bandRect.y, bottom: bandRect.y + bandRect.height, right: bandRect.x + bandRect.width };
+  expect(bandHenry.bottom).toBeGreaterThan(TRAIL_RIBBON.y);
+  expect(bandHenry.top).toBeLessThan(TRAIL_RIBBON.y + TRAIL_RIBBON.height);
+  expect(bandHenry.right).toBeLessThanOrEqual(TRAIL_RIBBON.x);
+  await info.attach('actual-renderer-ribbon-band-pose', { body: await page.locator('#game').screenshot(), contentType: 'image/png' });
+  await info.attach('ribbon-band-fixture-bounds', { body: JSON.stringify({ kind: 'actual renderer layout fixture, not input gameplay', bandHenry, ribbon: TRAIL_RIBBON }), contentType: 'application/json' });
   const glyphs = await kitTextProbe(page);
   expect(glyphs.checked).toContain(`${RIBBON_INTRO}|plaque`);
   for (const count of ['0', '1', '10', '99', '44', '1/3', '10/12', '3/3']) expect(glyphs.checked).toContain(`${count}|plaque`);

@@ -22,6 +22,11 @@ terrain.
 unchanged. Plains has none; Quarry Run has three vertical lifts. Sunset Site has permanent
 stationary girders and one automatic crane ferry between flush fixed docks,
 above a full-span lower work deck. Its main route and BEAM return require no ride.
+The first tower's lower recovery island is separated from the later yard by a
+visible terrain gap; only the high fixed crossing connects those sections. See
+[the current support graph](SUNSET-SCAFFOLDS.md) for exact catch extents. Native
+crane checks compare carriage and fixed dock within one rendered camera frame,
+including a real dock overshoot/reverse, rather than caching player-derived screen X.
 
 Motion is a pure function of the run clock: `platformPhase` is a triangle wave
 with a dwell at both ends, and `platformBodyAt` turns it into a `PlatformBody`.

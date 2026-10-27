@@ -22,7 +22,7 @@ const cases = tops.flatMap(top => ([-1, 1] as const).flatMap(direction =>
 
 /** Find an overlapping fixed-step path, then execute every edge using input. */
 function rejoin(player: Player, source: { left: number; right: number; y: number }, cadence: number[]): void {
-  const graph = [...tops, { left: 0, right: 2400, y: 680 }];
+  const graph = [...tops, { left: 0, right: 1000, y: 680 }, { left: 1200, right: 3120, y: 680 }];
   const start = graph.findIndex(top => top.y === player.y + 34 && player.x >= top.left - 9 && player.x <= top.right + 9);
   const goal = graph.findIndex(top => top.left === source.left && top.right === source.right && top.y === source.y);
   const parents = new Map<number, number>([[start, -1]]), queue = [start];
@@ -51,6 +51,7 @@ function rejoin(player: Player, source: { left: number; right: number; y: number
     return projected < x - 3 ? 1 : projected > x + 3 ? -1 : 0;
   };
   const walk = (x: number) => {
+    if (Math.abs(player.x - x) > 320) walk(player.x + Math.sign(x - player.x) * 280);
     for (let i = 0; i < 260; i++) {
       tick(steer(x));
       if (Math.abs(player.x - x) < 4 && Math.abs(player.vx) < 20 && player.onGround) return;

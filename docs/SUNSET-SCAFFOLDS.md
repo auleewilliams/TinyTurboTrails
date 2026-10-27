@@ -4,7 +4,7 @@ The route climbs the first scaffold to CP1, crosses the fixed lower work deck,
 descends through the frame past E/CP2 into the calm CP3 yard, then climbs the
 taller final scaffold past CP4 and M to the highest roof. The automatic crane
 is an optional upper discovery; A stands on its far fixed dock. The route spans
-2400 world pixels. The high crossing is at y320, the yard at y620 and the roof
+3120 world pixels. The high crossing is at y320, the yard at y620 and the roof
 at y140. Four checkpoints reactivate in either travel direction without losing
 collected rewards or completed-trail history.
 
@@ -16,9 +16,39 @@ and pausing 1.2 seconds at each dock. The fixed y380 deck covers its entire
 travel and both boarding edges. Walking off the near dock's left edge provides
 a main route that cannot accidentally board an arriving carriage.
 
-The rooftop finish requires a grounded body at y140 inside x2330–2376.
-Find more letters returns to x2210 on the same roof with no inherited motion.
-Completion is disarmed until moving left to x2150 or descending to y200.
+The entrance itself is x0–300 at y560. The adjoining x280–720 top is a local
+right-side catch, so the combined y560 floor still ends at720. Its lower catch is
+x0–880 at y620, then terrain x0–1000 at y680. These supports lead back into the
+first tower. They do not join the later yard. The visible terrain gap from x1000
+to1200 descends to y1000; walking into it invokes existing fall recovery at the
+active checkpoint. It is outside the intended route, not a new damage mechanic.
+The high fixed crossing spans x340–1770 at y380 over that gap. The descent's
+left catches step through x1560@y500, x1440@y560, x1320@y620 and terrain beginning
+at x1200@y680. All exposed fixed-platform edges retain a settled catch no more
+than60 pixels below and an ordinary fixed-support rejoin. Continuing to walk off
+the lower terrain island is tested separately as a recovery, not a local landing.
+
+```mermaid
+flowchart LR
+  start[Entrance / local catches] --> climb[First climb / CP1 y320]
+  climb --> crossing[Fixed high crossing y380]
+  crossing --> descent[Frame descent / E / CP2 y500]
+  descent --> yard[Yard / CP3 y620]
+  yard --> tower[Final climb / CP4 y440]
+  tower --> roof[Highest roof y140]
+  start --> floor[First lower terrain island y680]
+  floor --> recovery[Gap fall returns to active checkpoint]
+```
+
+The extra horizontal separation is authored tuning of the nominal sketch: it
+prevents lower catch travel from becoming a shortcut while preserving generous
+landing/braking room. The final tower starts at2440. Current section names use
+authored horizontal/height bands, so the roof has its own label independently
+of the four checkpoint slots.
+
+The rooftop finish requires a grounded body at y140 inside x3050–3096.
+Find more letters returns to x2930 on the same roof with no inherited motion.
+Completion is disarmed until moving left to x2870 or descending to y200.
 Lower crossings of finish X remain inert. M, the return point and the arch have
 separate standing areas. Existing results-first word building and replay remain.
 
@@ -40,10 +70,16 @@ Crane optionality was not established for a new player. The driver accelerates
 quiet stretches: this is not a human-duration or enjoyment observation.
 
 Task-local raw source, input histories, logs, screenshots and provenance remain
-under `/home/leew/.hermes/cache/scratch/m8-221-evidence`. The worker handoff records
+under `/home/leew/.hermes/cache/scratch/m8-221-evidence`. Correction evidence is
+separate in `/home/leew/.hermes/cache/scratch/m8-221-review-fix-evidence`; original
+source, working images, failed reports and review findings remain unchanged. The worker handoff records
 exact source revisions, outcomes and final native report identities. Historical
 certification worksheets are unchanged.
 
+- [Bypass regressions](../tests/sunset-bypass.test.ts): held-right, actual entrance
+  and first-girder walk-offs, full running jumps and coyote-edge jumps at16/32/mixed
+  cadence cannot reach later supports or complete the final climb. Positive main
+  journeys separately require ordered first deck→crossing→descent→yard→roof contact.
 - [Scaffold regressions](../tests/sunset-scaffolds.test.ts): strict zero-letter,
   no-crane main finish; actual finish→BEAM→roof without restart at 16ms, 32ms and
   mixed cadence, neutral pauses, variable jump duration, reward retention,
@@ -55,7 +91,9 @@ certification worksheets are unchanged.
 - [Crane fixtures](../tests/sunset-crane.test.ts): both directions, seven phase
   starts and three cadences; boarding or a safe catch and input return to both
   fixed docks. [Carry/step-off fixtures](../tests/sunset-site.test.ts) also inspect
-  moving support identity. Clock fixtures are labelled.
+  moving support identity and all four leading/trailing exits at three cadences.
+  Six additional fixtures require positive boarding, carried movement and walking
+  onto the opposite fixed dock. Clock fixtures are labelled.
 - [Exploration](../tests/sunset-exploration.test.ts): all 62 stable gem IDs are
   collected in a single input journey, including catch-shelf bonuses. Zero stars.
 - [Native browser journeys](../tests/sunset-scaffolds.spec.ts): main route at
@@ -78,11 +116,21 @@ letters to return, correct sticker creation and a fresh reload to start empty.
 
 Shared sprite-damage, heart-depletion and stationary-patrol browser tests now use
 the existing Plains orchard slime. The patrol witness stops on its actual flat
-x1900–1960 and keeps exact stationary-X assertions. Sunset's ribbon valley
-fixture uses the actual lower yard and checks sprite/ribbon nonintersection.
+x1900–1960 and keeps exact stationary-X assertions. The old Sunset ribbon-valley geometry is retired. The live yard capture proves
+route state only. The shared compact HUD renderer fixture draws the actual Henry
+atlas with feet at logical y230: sprite bottom > ribbon y221 AND sprite top <
+ribbon bottom235 AND sprite right <= ribbon left285. This preserves the original
+nonvacuous band-overlap plus horizontal-clearance obligation; being above the
+ribbon cannot satisfy it.
 Renderer fixture graphs include the scaffold helper and retain dependency guards.
 No skip, retry, frame-guard, timeout, physics or coverage-engine relaxation is used.
-A missing-catch mutation fails the route witness; its source was restored exactly.
+The original missing-catch mutation remains historical evidence. A new temporary
+lower-floor bridge makes the bypass regressions fail; the exact source is restored.
+The independent6978 native failure remains preserved. A bounded real far-dock
+overshoot/reverse diagnostic reproduced its cached screen-target defect (cached
+−46 versus actual dock−72.97). Same-frame carriage/dock comparison fixes the
+observer while preserving0.5px/8s/retry0 and bidirectional ride assertions. No
+production crane, movement or camera timing change was needed.
 
 Owner-led enjoyment, clarity, waiting, retry encouragement and rooftop payoff
 remain unobserved. Physical controller, child, hardware Safari and assistive

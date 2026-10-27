@@ -25,7 +25,7 @@ it('paints a warm low sun with a readable gold girder edge', () => {
 });
 
 it('replaces repeated spring pits with permanent scaffolds, a calm yard and a taller roof', () => {
-  expect(SUNSET_SITE.width).toBe(2400);
+  expect(SUNSET_SITE.width).toBe(3120);
   expect(SUNSET_SITE.entities.filter(entity => ['spring', 'slime', 'crumbling-ledge'].includes(entity.kind))).toEqual([]);
   expect(SUNSET_SITE.checkpoints).toHaveLength(4);
   expect(SUNSET_SITE.entities.filter(entity => entity.kind === 'checkpoint')).toEqual(
@@ -83,25 +83,33 @@ it('rides one slow crane with pauses and flush fixed docks over a permanent catc
   expect(hasFixedSupport(SUNSET_SITE, { x: ferry.to.x + ferry.width + 12, y: 320 })).toBe(true);
 });
 
-it.each([-1, 1])('carries Henry in direction %i and catches a midspan step-off without recovery', direction => {
-  // Prepositioned moving-platform mechanism fixture, not an entrance journey.
-  const seconds = direction === 1 ? 1.5 : 4.1;
-  const body = platformBodyAt(ferry, seconds);
+it.each(([-1, 1] as const).flatMap(direction => ([-1, 1] as const).flatMap(side =>
+  [[0.016], [0.032], [0.016, 0.032, 0.024]].map(cadence => ({ direction, side, cadence })))))
+('catches an actual midspan $side-side exit while travelling $direction / $cadence', ({ direction, side, cadence }) => {
+  // Prepositioned carriage mechanism fixture; side is world-left/world-right,
+  // so both leading and trailing exits are covered in each travel direction.
+  let clock = direction === 1 ? 1.3 : 3.9, frame = 0;
+  const body = platformBodyAt(ferry, clock);
   const player = createPlayer(body.x + 48, SUNSET_SITE, 320);
   player.platformId = ferry.id;
-  let clock = seconds;
+  const tick = (horizontal: number) => {
+    const dt = cadence[frame++ % cadence.length]; clock += dt;
+    simulatePlayer(player, { horizontal, jumpPressed: false, jumpHeld: false }, SUNSET_SITE, dt,
+      platformBodiesAt(SUNSET_SITE.platforms, clock, dt));
+  };
   const start = player.x;
-  for (let frame = 0; frame < 20; frame++) {
-    clock += 0.016;
-    simulatePlayer(player, { horizontal: 0, jumpPressed: false, jumpHeld: false }, SUNSET_SITE, 0.016, platformBodiesAt(SUNSET_SITE.platforms, clock, 0.016));
-  }
+  for (let i = 0; i < 6; i++) tick(0);
   expect((player.x - start) * direction).toBeGreaterThan(1);
-  for (let frame = 0; frame < 70; frame++) {
-    clock += 0.016;
-    simulatePlayer(player, { horizontal: direction, jumpPressed: false, jumpHeld: false }, SUNSET_SITE, 0.016, platformBodiesAt(SUNSET_SITE.platforms, clock, 0.016));
-    if (player.onGround && player.platformId !== ferry.id && frame > 5) break;
+  let leftCarriage = false;
+  for (let i = 0; i < 100; i++) {
+    tick(side);
+    leftCarriage ||= !player.onGround;
+    if (leftCarriage && player.onGround) break;
   }
+  expect(leftCarriage).toBe(true);
+  for (let i = 0; i < 30; i++) tick(0);
   expect(player.onGround).toBe(true);
-  expect(player.y + DEFAULT_MOVEMENT.height).toBeLessThanOrEqual(380);
-  expect(player.platformId).not.toBe(ferry.id);
+  expect(player.y + DEFAULT_MOVEMENT.height).toBe(380);
+  expect(player.platformId).toBe('site-crane-catch');
+  expect(player.vx).toBe(0); expect(player.vy).toBe(0);
 });

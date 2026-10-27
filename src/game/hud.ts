@@ -186,9 +186,16 @@ export class HudPresentation {
       : x >= point.x - 180) index = candidate; });
     if (level.progressAxis === 'y' && level.finish.y < level.start.y
       && supportY <= level.finish.y + 35) index = level.checkpoints.length;
+    if (level.sections) {
+      index = -1;
+      level.sections.forEach((section, candidate) => {
+        if (x >= section.x && supportY >= (section.minY ?? -Infinity)
+          && supportY <= (section.maxY ?? Infinity)) index = candidate;
+      });
+    }
     if (index !== this.area) {
       this.area = index;
-      this.location = index < 0 ? level.name : areaName(level, index);
+      this.location = index < 0 ? level.name : level.sections?.[index]?.name ?? areaName(level, index);
       this.locationSeconds = 2;
     }
     this.moved ||= Math.abs(input.horizontal) > 0;
