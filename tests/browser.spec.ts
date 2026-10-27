@@ -1927,8 +1927,9 @@ for (const [biome, pickerSteps] of [['frost', 4], ['cove', 5]] as const) {
     await expect(page.locator('canvas')).toHaveAttribute('data-biome-atlas', new RegExp(`/assets/${biome}/environment.png$`));
     const position = async (): Promise<number> => Number((await page.locator('#status').innerText()).match(/X (\d+)/)?.[1] ?? 0);
     const velocity = async (): Promise<number> => Number((await page.locator('#status').innerText()).match(/V (-?\d+)/)?.[1] ?? 0);
+    if (biome === 'frost') await driveSunset(page, [...FROST_MAIN.slice(0, 4), { kind: 'walk', x: 2100 }]);
     await page.keyboard.down('ArrowRight');
-    await expect.poll(position, { intervals: [20], timeout: 10000 }).toBeGreaterThan(biome === 'frost' ? 240 : 420);
+    await expect.poll(position, { intervals: [20], timeout: 10000 }).toBeGreaterThan(biome === 'frost' ? 2240 : 420);
     if (biome === 'frost') {
       const slideVelocity = await page.evaluate(async () => {
         window.dispatchEvent(new KeyboardEvent('keyup', { code: 'ArrowRight' }));
@@ -1957,7 +1958,7 @@ for (const [biome, pickerSteps] of [['frost', 4], ['cove', 5]] as const) {
     await page.locator('canvas').screenshot({ path: screenshot });
     await info.attach(`${biome}-material`, { path: screenshot, contentType: 'image/png' });
     await page.keyboard.press('Escape');
-    if (biome === 'frost') { await twoFrames(page); await driveSunset(page, FROST_MAIN.slice(1)); }
+    if (biome === 'frost') { await twoFrames(page); await driveSunset(page, FROST_MAIN.slice(4)); }
     else await page.keyboard.down('ArrowRight');
     await expect(page.locator('#status')).toContainText('Finish', { timeout: 85000 });
     await page.keyboard.up('ArrowRight');

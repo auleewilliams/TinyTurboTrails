@@ -1,9 +1,14 @@
 import { expect, it } from 'vitest';
+import { Camera } from '../src/world/camera';
 import { FROST_RIDGE } from '../src/world/frost-ridge';
 import { hasFixedSupport, validateLevel, type LevelData } from '../src/world/level';
 import { TRAIL_WORDS } from '../src/game/education';
 it('authors three downhill terrain ice experiences with snow decisions and a higher summit', () => {
   expect(FROST_RIDGE.verticalCamera).toBe(true);
+  const camera = new Camera({width:426,height:240,worldWidth:FROST_RIDGE.width,worldHeight:FROST_RIDGE.height,vertical:true,lead:FROST_RIDGE.cameraLead});
+  camera.update(3440,410);
+  expect(3650-camera.position.x).toBeLessThanOrEqual(406); // At least 20px of next snow before committing.
+
   expect(FROST_RIDGE.progressAxis).toBeUndefined();
   expect(FROST_RIDGE.checkpoints).toHaveLength(3);
   expect(FROST_RIDGE.entities.filter(e => e.kind === 'spring')).toHaveLength(1);

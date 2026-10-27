@@ -7,7 +7,7 @@ is above the first ridge. All six trails remain freely selectable.
 
 Ice remains terrain at friction 0.45. No movement, jump, recovery, input,
 progression, persistence or camera defaults changed. Frost enables the existing
-vertical camera while retaining horizontal progress, grounded checkpoints,
+vertical camera with a local 60px forward lead while retaining horizontal progress, grounded checkpoints,
 supported finish activation and the existing finish/retrace/word flow.
 
 The terrain spans 5600px. Snow runouts follow ice at x360, x2350 and x3650.
@@ -57,7 +57,7 @@ remain in the handoff; none is silently relabelled as passing.
 | Frost ice-flat case | Replace six flat patches with three contiguous downhill experiences, a flattening bowl and clear snow runouts. |
 | Grouped biome gameplay: seven cases | Keep both selection/finish/replay/reward identities. Frost uses its own input route and all-gem journey; Cove assertions remain applicable and unchanged. |
 | All-trails education Frost identity | Explicitly route Frost to Frost's actual-finish missed-SNOW journey. Sunset retains Sunset's pilot; no generic vertical-camera dispatch remains. |
-| Existing native material/completion/replay | Reanchor the ice observation, keep the 120ms/>80 velocity obligation, Pause freeze, finish rewards and fresh replay. Frost observes its actual status during Pause instead of a removed slime. Cove retains its creature observation. |
+| Existing native material/completion/replay | Observe the bowl's flat ice, keeping the 120ms/>80 terrain-grip obligation (the downhill intro can briefly be airborne), Pause freeze, finish rewards and fresh replay. Frost observes its actual status during Pause instead of a removed slime. Cove retains its creature observation. |
 | Existing native spelling Frost | Preserve missed-ID/partial assembly/manual assembly/sticker/navigation/reload checks, using Frost's returns and real keyboard input. |
 | Three generated Frost slime cases | Retire Frost's patrol, slime-side-damage and scene-squash parameters because Frost now has no slimes. Other trails retain those positive contracts; Frost's complete main/reward/retrace journeys assert no damage and clear runouts. |
 | Generated Frost checkpoint-crossing case | Retire the legacy airborne/spring-height flag parameter when enabling grounded activation. The new full input trips require exact forward/reverse checkpoint order and supported recovery without repeated standing feedback. |

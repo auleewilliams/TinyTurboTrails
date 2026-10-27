@@ -45,7 +45,7 @@ export const FROST_RIDGE: LevelData = {
   start: { x: 60, y: 500 },
   finish: { x: 5520, y: 240, asset: 'finish-arch', supportOnly: true, boundedWidth: 60,
     rearmBelowY: 300, rearmLeftX: 5360 },
-  retrace: { x: 5410, y: 240 }, verticalCamera: true, checkpointActivation: 'grounded',
+  retrace: { x: 5410, y: 240 }, verticalCamera: true, cameraLead: 60, checkpointActivation: 'grounded',
   sections: [{ x: 0, name: 'FIRST SLIDE' }, { x: 700, name: 'FIR CLIMB' },
     { x: 1400, name: 'ICE BOWL' }, { x: 2800, name: 'HIGH LEDGES' },
     { x: 3450, name: 'UPPER GLIDE' }, { x: 4200, name: 'SNOWY SUMMIT' }],
