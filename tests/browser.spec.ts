@@ -4667,7 +4667,7 @@ for (const viewport of [{ width: 426, height: 240 }, { width: 320, height: 240 }
       await page.getByRole('button', { name: `Play ${next.name}`, exact: true }).click();
       await expect(page.locator('#status')).toContainText('Playing');
       const openingArea = next.checkpoints.reduce((area, point, i) =>
-        (next.verticalCamera || next.progressAxis === 'y'
+        (next.progressAxis === 'y'
           ? (next.finish.y < next.start.y ? next.start.y <= point.y + 35 : next.start.y >= point.y - 35)
           : next.start.x >= point.x - 180) ? i : area, -1);
       await expect(canvas).toHaveAttribute('data-gameplay-trail', openingArea < 0 ? next.name : areaName(next, openingArea));
