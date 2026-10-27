@@ -59,8 +59,13 @@ remain in the handoff; none is silently relabelled as passing.
 | All-trails education Frost identity | Explicitly route Frost to Frost's actual-finish missed-SNOW journey. Sunset retains Sunset's pilot; no generic vertical-camera dispatch remains. |
 | Existing native material/completion/replay | Reanchor the ice observation, keep the 120ms/>80 velocity obligation, Pause freeze, finish rewards and fresh replay. Frost observes its actual status during Pause instead of a removed slime. Cove retains its creature observation. |
 | Existing native spelling Frost | Preserve missed-ID/partial assembly/manual assembly/sticker/navigation/reload checks, using Frost's returns and real keyboard input. |
+| Three generated Frost slime cases | Retire Frost's patrol, slime-side-damage and scene-squash parameters because Frost now has no slimes. Other trails retain those positive contracts; Frost's complete main/reward/retrace journeys assert no damage and clear runouts. |
+| Generated Frost checkpoint-crossing case | Retire the legacy airborne/spring-height flag parameter when enabling grounded activation. The new full input trips require exact forward/reverse checkpoint order and supported recovery without repeated standing feedback. |
+| Area and camera fixtures | Preserve all six route labels and expiry, plus exact reset framing for abandon/replay/Next; reanchor Frost to its authored sections and y362 starting camera. |
 | New Frost route units | Mixed cadence complete returns, W and N/S trips, stopping/reversal/boundary jumps, full sprite clearance, finish height/rearm, failed-jump retries and support/bypass-removal controls. |
 | Four new native cases per engine | 426px/320px keyboard journeys, full missed-SNOW retrace/manual assembly, and actual Gamepad API movement/jumps through finish. Moving-paint captures supplement resting screenshots. |
+
+Multiplicity: the complete baseline has 1820 unit identities. Three obsolete Frost slime parameters and one legacy checkpoint parameter retire; 16 route cases are added, yielding 1832. Native discovery retains all 540 existing identities and adds four Frost cases per engine, yielding 552.
 
 The shared renderer adds only Frost's snow-top presentation within the existing
 platform drawer. It adds no import or fixture dependency. Cached previews already
