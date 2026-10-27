@@ -59,7 +59,16 @@ for(const scenario of [
 test('Cove lower route accepts standard controller movement through the final trail finish',async({page,browser},info)=>{
   test.setTimeout(90_000);await page.setViewportSize({width:426,height:300});
   const evidence=observeCove(page,info);await startCove(page,true);const result=await driveCove(page,COVE_LOWER);
+  await expect(page.locator('#status')).toContainText('Finish');
+  await page.getByRole('button',{name:'Build your word',exact:true}).click();
+  await page.getByRole('button',{name:'Leave activity',exact:true}).click();
   await expect(page.getByRole('button',{name:'Map',exact:true})).toBeFocused();await evidence.paint('controller-finish');
+  const boundary=await page.evaluate(()=>(window as unknown as {covePadEvents:object[]}).covePadEvents.length);
+  await page.waitForFunction(index=>(window as unknown as {covePadEvents:{kind:string;axis?:number;jump?:boolean}[]}).covePadEvents
+    .slice(index).some(e=>e.kind==='poll'&&e.axis===0&&!e.jump),boundary);
+  await page.evaluate(()=>{const p=(window as unknown as {covePad:{buttons:{pressed:boolean;value:number}[]}}).covePad;p.buttons[0].pressed=true;p.buttons[0].value=1;});
+  await expect(page.getByRole('button',{name:'Play SANDY COVE',exact:true})).toBeVisible();
+  await page.evaluate(()=>{const p=(window as unknown as {covePad:{buttons:{pressed:boolean;value:number}[]}}).covePad;p.buttons[0].pressed=false;p.buttons[0].value=0;});
   const polls=await page.evaluate(()=>(window as unknown as {covePadEvents:object[]}).covePadEvents);
   expect(polls.length).toBeGreaterThan(100);
   await info.attach('controller-input-and-accepted-route',{body:JSON.stringify({result,polls}),contentType:'application/json'});await evidence.finish(browser.version());
