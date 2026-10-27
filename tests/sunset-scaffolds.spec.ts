@@ -70,15 +70,21 @@ for (const only of ['M', 'A']) test(`Sunset only missed ${only} uses native retr
   await expect(page.locator('#status')).toContainText('Bag 3/4');
   await info.attach(`${only}-only-before-retrace`, { body: await page.locator('#game').screenshot(), contentType: 'image/png' });
   await page.getByRole('button', { name: 'Find more letters', exact: true }).click();
+  // Stop on the long fixed deck before the drop approach. The former1720
+  // stop added an unnecessary brake/restart after the descent moved right.
+  // Keep the existing200-frame drop guard and45s return budget unchanged.
   const recovery = only === 'M'
     ? [DOWN_FINAL[0], walk(2720), walk(2820), jump(2850, 140), { kind: 'finish' as const }]
-    : [...DOWN_FINAL, ...UP_DESCENT, drop(800, 1, 850, 380), walk(1720), ...CROSS_DESCENT.slice(2), ...FINAL_CLIMB, { kind: 'finish' as const }];
+    : [...DOWN_FINAL, ...UP_DESCENT, drop(800, 1, 850, 380), walk(1450), ...CROSS_DESCENT.slice(2), ...FINAL_CLIMB, { kind: 'finish' as const }];
+  const returnStarted = Date.now();
   const returned = await driveSunset(page, recovery);
+  const returnElapsedMs = Date.now() - returnStarted;
+  expect(returnElapsedMs).toBeLessThan(45_000);
   await page.getByRole('button', { name: 'Build your word', exact: true }).click();
   await expect(page.locator('#status')).toContainText('Bag 4/4');
   await info.attach(`${only}-only-after-retrace`, { body: await page.locator('#game').screenshot(), contentType: 'image/png' });
   await info.attach(`${only}-only-input-provenance`, { body: JSON.stringify({ source: process.env.BROWSER_REPORT_SOURCE_SHA,
-    browser: browser.browserType().name(), version: browser.version(), outward, returned }), contentType: 'application/json' });
+    browser: browser.browserType().name(), version: browser.version(), outward, returned, returnElapsedMs }), contentType: 'application/json' });
 });
 
 test('Sunset optional crane boards, carries and disembarks by walking in both directions', async ({ page, browser }, info) => {
