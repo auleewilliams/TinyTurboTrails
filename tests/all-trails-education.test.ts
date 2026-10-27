@@ -1,3 +1,4 @@
+import { ALL_RETURN, MAIN_ROUTE, REASCENT, sunsetPilot } from './sunset-pilot';
 import { expect, it } from 'vitest';
 import { EducationSession, letterSupportY } from '../src/game/education';
 import { LEVELS } from '../src/world/levels';
@@ -157,6 +158,20 @@ it('shows all six independent sticker statuses on the map without changing trail
 
 // Vertical Quarry and Timbers input returns are covered by their route suites; this pilot characterizes horizontal terrain.
 it.each(LEVELS.map((level, index) => ({ level, index, crumbled: false })).filter(({ level }) => level.progressAxis !== 'y'))('$level.id retraces the real terrain from finish to every missed letter and re-enters using simulation input only (crumbled: $crumbled)', ({ level, index, crumbled }) => {
+  if (level.verticalCamera) {
+    // Mixed-height Sunset keeps this cohort's identity, using its fixed-deck
+    // input journey instead of the terrain-only horizontal driver below.
+    const route = sunsetPilot(); route.run(MAIN_ROUTE);
+    expect(route.scene.education.letterCount).toBe(0);
+    route.scene.activateFinish('Build your word');
+    route.scene.menuTargets.find(target => target.label === 'Find more letters')!.action();
+    route.run(ALL_RETURN);
+    expect(route.scene.education.letterCount).toBe(4);
+    route.run(REASCENT);
+    expect(route.scene.screenState).toBe('finish');
+    expect(route.events.filter(event => event.type === 'recover')).toEqual([]);
+    return;
+  }
   const { scene, live } = adventure(index);
   // A completed outward run may already have used every optional crumbling ledge.
   if (crumbled) for (const state of live.run.entities) {

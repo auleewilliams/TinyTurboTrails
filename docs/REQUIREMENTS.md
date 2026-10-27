@@ -35,8 +35,11 @@ The main descent needs no lift ride or reward collection; see the
 from roots to a lookout through two optional forks and a shared middle bough.
 Permanent timber branches provide the descent and local catches; the main climb
 uses ordinary jumps without spring or reward gates. See the
-[Timbers worksheet](TIMBERS-ASCENT.md). Sunset Site adds a construction yard at dusk,
-patrolling hard-hat slimes, pneumatic-jack-cleared pits and one optional crane ferry. Keyboard
+[Timbers worksheet](TIMBERS-ASCENT.md). Sunset Site climbs a scaffold, crosses high girders, descends through a frame into
+a lower yard, then climbs a taller tower to the highest rooftop. Four fixed-deck
+checkpoints and permanent catches support the return for optional BEAM letters.
+Its automatic crane is optional in both directions; 62 gems and no stars remain.
+See the [Sunset scaffold worksheet](SUNSET-SCAFFOLDS.md). Keyboard
 and standard-controller support.
 Henry starts each run with three visible hearts. Each unblocked slime contact
 removes one pip; losing the last pip returns him to the latest

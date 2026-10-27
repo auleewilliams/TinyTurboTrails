@@ -1,141 +1,98 @@
-import { withSlimePatrols, SLIME_SPEED } from './slimes';
 import type { MovingPlatform } from '../game/platforms';
 import type { LevelData, WorldEntity } from './level';
-import { contourTerrain, levelKit, type Contour } from './level-kit';
 
-// Sunset Site is one left-to-right ground profile split into six construction sections,
-// plus a late checkpoint so the double pit at the end never sends Henry far back.
-const contour: Contour = [
-  // Site gate (0–1650): a gentle ramp onto the first girder, then a spring step up.
-  [0, 198], [360, 198], [470, 168], [760, 168], [860, 198], [1100, 198],
-  [1116, 148], [1380, 148], [1480, 198], [1650, 198],
-  // Girder stairs (1650–3300): stepped ramps up to a hazard deck and back down.
-  [1800, 198], [1900, 174], [2000, 174], [2100, 150], [2200, 150], [2300, 126],
-  [2560, 126], [2660, 150], [2760, 150], [2860, 174], [2960, 174], [3060, 198], [3300, 198],
-  // Cement yard (3300–5000): low mounds, patrolling slimes and a crane ferry over two hazards.
-  [3700, 198], [3800, 180], [4100, 180], [4200, 198], [5000, 198],
-  // Trench (5000–6800): back-to-back pneumatic-jack pits, then a long open run.
-  [5240, 198], [5252, 380], [5320, 380], [5332, 210], [5480, 210], [5492, 380],
-  [5560, 380], [5572, 222], [5900, 222], [6000, 198], [6100, 170], [6800, 170],
-  // Scaffold climb (6800-8400): a gradual workbench approach, then the original hazard deck.
-  [6900, 170], [7200, 126], [7500, 126], [7600, 146],
-  [7700, 146], [7800, 170], [7900, 170], [8000, 198], [8400, 198],
-  // Sunset summit (8400–10000): a last rise, a double pit and the finish arch.
-  [8800, 198], [8900, 174], [9100, 174], [9200, 198], [9300, 198], [9312, 380],
-  [9380, 380], [9392, 210], [9540, 210], [9552, 380], [9620, 380], [9632, 222],
-  [9800, 222], [9900, 198], [10000, 198],
-];
+function girder(id: string, left: number, right: number, y: number): MovingPlatform {
+  return { id: `site-${id}`, from: { x: left, y }, to: { x: left, y }, width: right - left, seconds: 1 };
+}
 
-const terrain = contourTerrain(contour);
-const kit = levelKit(terrain);
-const { gem, thing, decoration } = kit;
-
-const checkpoints = kit.checkpoints([
-  { id: 'site-checkpoint-gate', x: 560 },
-  { id: 'site-checkpoint-girders', x: 1650 },
-  { id: 'site-checkpoint-yard', x: 3400 },
-  { id: 'site-checkpoint-trench', x: 4900 },
-  { id: 'site-checkpoint-scaffold', x: 6850 },
-  { id: 'site-checkpoint-summit', x: 8500 },
-  { id: 'site-checkpoint-finale', x: 9000 },
-]);
-
-/**
- * One optional crane ferry over the yard's paired hazards: slow, parked at both ends and
- * docked over the walkable flat, so a missed boarding costs a landing, never a life.
- */
+// Three connected bays. Permanent tops are authored together with their return
+// edges; machinery and braces are scenery. The lower crane deck spans both docks.
 const platforms: readonly MovingPlatform[] = [
-  { id: 'site-crane-ferry', from: { x: 4330, y: 156 }, to: { x: 4462, y: 156 }, width: 48, seconds: 2.2, pause: 0.8 },
+  girder('entrance', 0, 720, 560),
+  girder('first-1', 160, 340, 500),
+  girder('first-b', 0, 430, 440),
+  girder('first-3', 160, 340, 380),
+  girder('high-deck', 260, 470, 320),
+  girder('far-dock', 650, 800, 320),
+  girder('crane-catch', 340, 1050, 380),
+  girder('first-left-1', 0, 180, 500),
+  girder('first-right', 400, 560, 500),
+  girder('lower-catch', 0, 1160, 620),
+  girder('descent-outside', 700, 980, 560),
+  { id: 'site-crane-ferry', from: { x: 470, y: 320 }, to: { x: 554, y: 320 }, width: 96, seconds: 1.4, pause: 1.2 },
+  girder('descent-1', 980, 1160, 440),
+  girder('descent-e', 1080, 1400, 500),
+  girder('descent-3', 1300, 1500, 560),
+  girder('yard', 1160, 1800, 620),
+  girder('descent-left-1', 800, 1020, 500),
+  girder('descent-left-2', 980, 1180, 560),
+  girder('final-1', 1720, 1900, 560),
+  girder('final-2', 1840, 2020, 500),
+  girder('rest', 1940, 2200, 440),
+  girder('final-4', 1840, 2020, 380),
+  girder('final-5', 1940, 2120, 320),
+  girder('final-6', 2040, 2280, 260),
+  girder('final-m', 1940, 2160, 200),
+  girder('roof', 2080, 2400, 140),
+  // Local wrong-end catches, with ordinary fixed jumps back into the frame.
+  girder('final-base-catch', 1800, 2400, 620),
+  girder('final-right-560', 1980, 2400, 560),
+  girder('final-right-500', 2160, 2400, 500),
+  girder('final-left-440', 1740, 1880, 440),
+  girder('final-right-380', 2060, 2400, 380),
+  girder('final-right-320', 2160, 2400, 320),
+  girder('final-left-320', 1680, 1880, 320),
+  girder('final-left-260', 1820, 2000, 260),
+  girder('final-outside-380', 1540, 1780, 380),
+  girder('final-outside-440', 1420, 1680, 440),
+  girder('final-outside-500', 1500, 1780, 500),
+  girder('final-outside-560', 1660, 1800, 560),
 ];
 
-// Main-route gems sit in the walking window; array order preserves their established ids.
-// A quiet yard cluster and scaffold approach/return pair invite a pause without gating progress.
-const mainGems = [
-  200, 300, 560, 680, 940, 1000, 1200, 1300, 1520, 1740,
-  1860, 2050, 2150, 2380, 2520, 2710, 2900, 3140, 3240,
-  3460, 3690, 3750, 3810, 4250, 4620, 4780, 4950,
-  5100, 5160, 5400, 5440, 5700, 5820, 6050, 6250, 6450, 6650,
-  6760, 6940, 7070, 7260, 7450, 7650, 7850, 8100, 8250,
-  8560, 8700, 8950, 9050, 9420, 9480, 9700, 9780, 9850, 9940,
-].map((x, index): WorldEntity => gem(`site-gem-${String(index + 1).padStart(3, '0')}`, x));
+const checkpoints = [
+  { id: 'site-checkpoint-girders', x: 350, y: 320 },
+  { id: 'site-checkpoint-descent', x: 1310, y: 500 },
+  { id: 'site-checkpoint-yard', x: 1530, y: 620 },
+  { id: 'site-checkpoint-scaffold', x: 2080, y: 440 },
+];
 
-export const SUNSET_SITE: LevelData = withSlimePatrols({
-  id: 'sunset',
-  name: 'SUNSET SITE',
-  atlas: 'site',
+const gemPlaces: readonly (readonly [number, number])[] = [
+  [100, 560], [160, 560], [220, 560], [210, 500], [290, 500],
+  [280, 440], [350, 440], [400, 440], [200, 380], [280, 380],
+  [300, 320], [390, 320], [430, 320], [500, 380], [570, 380],
+  [680, 320], [740, 320], [780, 320], [700, 380], [800, 380],
+  [900, 380], [1020, 440], [1110, 440], [1120, 500], [1200, 500],
+  [1280, 500], [1360, 500], [1340, 560], [1430, 560], [1570, 620],
+  [1600, 620], [1660, 620], [1720, 620], [1760, 560], [1850, 560],
+  [1880, 500], [1970, 500], [1980, 440], [2035, 440], [2150, 440],
+  [1880, 380], [1970, 380], [1980, 320], [2070, 320], [2080, 260],
+  [2170, 260], [1980, 200], [2060, 200], [2120, 200], [2110, 140],
+  [2160, 140], [2190, 140], [2250, 140], [2290, 140], [1925, 500], [2025, 320],
+  [120, 440], [470, 500], [870, 500], [1060, 560], [1820, 440], [1930, 260],
+];
+const entities: WorldEntity[] = [
+  ...gemPlaces.map(([x, supportY], index) => ({
+    id: index < 56 ? `site-gem-${String(index + 1).padStart(3, '0')}` : `site-bonus-${String(index - 55).padStart(3, '0')}`,
+    kind: 'gem' as const, x, y: supportY - 18, asset: 'gem', layer: 'world' as const,
+  })),
+  ...checkpoints.map(point => ({ ...point, kind: 'checkpoint' as const, asset: 'checkpoint', layer: 'world' as const })),
+  ...[[100, 560, 'cave'], [880, 380, 'bush'], [1600, 620, 'cave']].map(([x, y, asset], index) => ({
+    id: `site-deco-${index + 1}`, kind: 'decoration' as const, x: x as number, y: y as number,
+    asset: asset as string, layer: 'back' as const,
+  })),
+];
+
+export const SUNSET_SITE: LevelData = {
+  id: 'sunset', name: 'SUNSET SITE', atlas: 'site',
   theme: {
-    slimeAccessory: 'hard-hat',
-    material: 'gravel',
-    sky: '#e88f6a',
-    ground: '#5a3b4a',
-    edge: '#cda66b',
-    sun: { x: 300, y: 96, radius: 22, color: '#ffe08a', glow: '#ffb36a66' },
-    parallax: [
-      { asset: 'hills', x: 240, y: 170, scale: 3 },
-      { asset: 'hills', x: 720, y: 170, scale: 3 },
-      { asset: 'hills', x: 1200, y: 170, scale: 3 },
-      { asset: 'hills', x: 1680, y: 170, scale: 3 },
-      { asset: 'hills', x: 2160, y: 170, scale: 3 },
-    ],
+    slimeAccessory: 'hard-hat', material: 'gravel', sky: '#e88f6a', ground: '#5a3b4a', edge: '#cda66b',
+    sun: { x: 340, y: 96, radius: 22, color: '#ffe08a', glow: '#ffb36a66' },
+    parallax: [{ asset: 'hills', x: 240, y: 170, scale: 3 }, { asset: 'hills', x: 720, y: 170, scale: 3 }],
   },
-  width: 10000,
-  height: 240,
-  minX: terrain.minX,
-  maxX: terrain.maxX,
-  start: { x: 60, y: 198 },
-  finish: { x: 9950, y: 198, asset: 'finish-arch' },
-  surfaces: terrain.surfaces,
-  checkpoints,
-  platforms,
-  entities: [
-    ...mainGems,
-    // Site gate
-    thing('slime', 'site-slime-001', 660, { minX: 620, maxX: 700, speed: SLIME_SPEED }),
-    thing('spring', 'site-spring-001', 1060),
-    gem('site-bonus-001', 1240, 50),
-    decoration('site-deco-001', 330, 'cave'),
-    decoration('site-deco-002', 1300, 'bush'),
-    // Girder stairs
-    thing('hazard', 'site-hazard-001', 2400),
-    thing('hazard', 'site-hazard-002', 2470),
-    gem('site-bonus-002', 2435, 45),
-    thing('slime', 'site-slime-002', 3200, { minX: 3120, maxX: 3260, speed: SLIME_SPEED }),
-    decoration('site-deco-003', 2240, 'bush'),
-    decoration('site-deco-004', 2950, 'cave'),
-    // Cement yard
-    thing('slime', 'site-slime-003', 3520, { minX: 3440, maxX: 3620, speed: SLIME_SPEED }),
-    thing('slime', 'site-slime-004', 3950, { minX: 3860, maxX: 4040, speed: SLIME_SPEED }),
-    thing('hazard', 'site-hazard-003', 4380),
-    thing('hazard', 'site-hazard-004', 4440),
-    gem('site-bonus-003', 4560, 50),
-    thing('slime', 'site-slime-005', 4780, { minX: 4680, maxX: 4860, speed: SLIME_SPEED }),
-    decoration('site-deco-005', 3350, 'bush'),
-    decoration('site-deco-006', 4700, 'cave'),
-    // Trench
-    thing('spring', 'site-spring-002', 5220),
-    thing('spring', 'site-spring-003', 5460),
-    gem('site-bonus-004', 5540, 120, 5460),
-    thing('hazard', 'site-hazard-005', 5760),
-    thing('slime', 'site-slime-006', 6250, { minX: 6150, maxX: 6350, speed: SLIME_SPEED }),
-    thing('hazard', 'site-hazard-006', 6550),
-    decoration('site-deco-007', 5950, 'bush'),
-    decoration('site-deco-008', 6700, 'cave'),
-    // Scaffold climb
-    thing('hazard', 'site-hazard-007', 7320),
-    thing('hazard', 'site-hazard-008', 7390),
-    gem('site-bonus-005', 7000, 64),
-    thing('slime', 'site-slime-007', 8200, { minX: 8080, maxX: 8300, speed: SLIME_SPEED }),
-    decoration('site-deco-009', 7000, 'bush'),
-    decoration('site-deco-010', 7950, 'cave'),
-    // Sunset summit
-    thing('slime', 'site-slime-008', 8620, { minX: 8520, maxX: 8720, speed: SLIME_SPEED }),
-    thing('spring', 'site-spring-004', 9280),
-    thing('spring', 'site-spring-005', 9520),
-    gem('site-bonus-006', 9600, 120, 9520),
-    // Past the spring's landing zone (9640–9720), so the launch never ends in a knockback into the pit.
-    thing('slime', 'site-slime-009', 9770, { minX: 9740, maxX: 9800, speed: SLIME_SPEED }),
-    decoration('site-deco-011', 8850, 'cave'),
-    decoration('site-deco-012', 9980, 'bush'),
-    ...kit.checkpointEntities(checkpoints),
-  ],
-});
+  width: 2400, height: 760, minX: 0, maxX: 2400,
+  start: { x: 60, y: 560 },
+  finish: { x: 2330, y: 140, asset: 'finish-arch', supportOnly: true, boundedWidth: 46, rearmBelowY: 200, rearmLeftX: 2150 },
+  retrace: { x: 2210, y: 140 }, verticalCamera: true, cameraLead: 110, checkpointActivation: 'grounded',
+  surfaces: [{ x1: 0, x2: 2400, y1: 680, y2: 680 }],
+  platforms, checkpoints, entities,
+};

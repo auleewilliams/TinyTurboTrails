@@ -1,0 +1,91 @@
+# Sunset Site scaffold route — issue #221
+
+The route climbs the first scaffold to CP1, crosses the fixed lower work deck,
+descends through the frame past E/CP2 into the calm CP3 yard, then climbs the
+taller final scaffold past CP4 and M to the highest roof. The automatic crane
+is an optional upper discovery; A stands on its far fixed dock. The route spans
+2400 world pixels. The high crossing is at y320, the yard at y620 and the roof
+at y140. Four checkpoints reactivate in either travel direction without losing
+collected rewards or completed-trail history.
+
+[Level data](../src/world/sunset-site.ts) uses permanent one-way support tops.
+Dark posts, braces and machinery are pass-through scenery. Most adjacent tiers
+rise 60 pixels. Both panel joins have a fixed support spanning the seam. The
+96-pixel crane moves between x470 and x554 at y320, taking 1.4 seconds each way
+and pausing 1.2 seconds at each dock. The fixed y380 deck covers its entire
+travel and both boarding edges. Walking off the near dock's left edge provides
+a main route that cannot accidentally board an arriving carriage.
+
+The rooftop finish requires a grounded body at y140 inside x2330–2376.
+Find more letters returns to x2210 on the same roof with no inherited motion.
+Completion is disarmed until moving left to x2150 or descending to y200.
+Lower crossings of finish X remain inert. M, the return point and the arch have
+separate standing areas. Existing results-first word building and replay remain.
+
+`verticalCamera` and `cameraLead` separate support framing from ribbon progress.
+Sunset retains horizontal progress through the rise/descent/rise sequence;
+the marker moves back during retracing while completed results and visited posts
+remain. It uses the existing site panorama, girder tiles, machinery, checkpoint,
+gem and finish assets. The native view leads forward on crane approaches.
+
+## Evidence and proof boundaries
+
+The old 10,000-pixel route was observed before replacement, at base
+`7b6e62b1e76b57907e1a3862f9e24d281d2ee59c`, using Chromium 156.0.8078.4,
+viewport 426×300 and native canvas 426×240. One keyboard-event pilot attempt
+reached the actual finish, without recovery, with 55/62 gems and all four letters.
+The repeated trench/finale spring-pit pairs and long ground runs shared the same
+rhythm. The warm skyline, crane silhouettes and checkpoint feedback read clearly.
+Crane optionality was not established for a new player. The driver accelerates
+quiet stretches: this is not a human-duration or enjoyment observation.
+
+Task-local raw source, input histories, logs, screenshots and provenance remain
+under `/home/leew/.hermes/cache/scratch/m8-221-evidence`. The worker handoff records
+exact source revisions, outcomes and final native report identities. Historical
+certification worksheets are unchanged.
+
+- [Scaffold regressions](../tests/sunset-scaffolds.test.ts): strict zero-letter,
+  no-crane main finish; actual finish→BEAM→roof without restart at 16ms, 32ms and
+  mixed cadence, neutral pauses, variable jump duration, reward retention,
+  checkpoint reactivation and supported finish independence.
+- [Edge fixtures](../tests/sunset-catches.test.ts): every combined fixed top's
+  two ends, held direction/release/brake, three cadences, a settled local catch
+  within 60 pixels, and an input-driven fixed-support path back to the source.
+  These begin prepositioned at the tested support and are not complete journeys.
+- [Crane fixtures](../tests/sunset-crane.test.ts): both directions, seven phase
+  starts and three cadences; boarding or a safe catch and input return to both
+  fixed docks. [Carry/step-off fixtures](../tests/sunset-site.test.ts) also inspect
+  moving support identity. Clock fixtures are labelled.
+- [Exploration](../tests/sunset-exploration.test.ts): all 62 stable gem IDs are
+  collected in a single input journey, including catch-shelf bonuses. Zero stars.
+- [Native browser journeys](../tests/sunset-scaffolds.spec.ts): main route at
+  native, small and large sizes, actual all-missing return, M-only and A-only
+  trips, manual BEAM assembly and walking crane boarding in both directions.
+  The shared milestone, spelling, renderer/glyph and damage/patrol cohorts remain.
+
+## Coverage reconciliation
+
+Old Sunset geometry tests required seven checkpoints, five springs, four pits,
+10,000-pixel length, per-section enemy counts and held-right damage. Those
+requirements were superseded by the approved four-checkpoint fixed-scaffold
+route. Their source is preserved in the task evidence. Palette/registration,
+reward identities, reachable optional rewards, safe recovery, completed routes
+and deterministic optional ferry semantics have explicit replacements above.
+The shared horizontal spelling case retains its case identity and uses the
+stacked-support input driver for Sunset. It still requires the deliberately
+missed letter to be absent, partial assembly to survive, no recoveries, all four
+letters to return, correct sticker creation and a fresh reload to start empty.
+
+Shared sprite-damage, heart-depletion and stationary-patrol browser tests now use
+the existing Plains orchard slime. The patrol witness stops on its actual flat
+x1900–1960 and keeps exact stationary-X assertions. Sunset's ribbon valley
+fixture uses the actual lower yard and checks sprite/ribbon nonintersection.
+Renderer fixture graphs include the scaffold helper and retain dependency guards.
+No skip, retry, frame-guard, timeout, physics or coverage-engine relaxation is used.
+A missing-catch mutation fails the route witness; its source was restored exactly.
+
+Owner-led enjoyment, clarity, waiting, retry encouragement and rooftop payoff
+remain unobserved. Physical controller, child, hardware Safari and assistive
+technology checks are unperformed. Automated WebKit is not hardware Safari.
+Fresh opposite-family review, complete PR CI/artifact verification, and owner
+acceptance remain coordinator gates. This worksheet does not certify those gates.

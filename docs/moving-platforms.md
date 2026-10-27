@@ -19,7 +19,9 @@ terrain.
 | `offset` | fraction of the cycle already elapsed when the run starts |
 
 `LevelData.platforms` is optional, so a level built from terrain alone is
-unchanged. Plains has none; Quarry Run has three vertical lifts and Sunset Site has one (a crane ferry over its cement yard's paired hazards).
+unchanged. Plains has none; Quarry Run has three vertical lifts. Sunset Site has permanent
+stationary girders and one automatic crane ferry between flush fixed docks,
+above a full-span lower work deck. Its main route and BEAM return require no ride.
 
 Motion is a pure function of the run clock: `platformPhase` is a triangle wave
 with a dwell at both ends, and `platformBodyAt` turns it into a `PlatformBody`.

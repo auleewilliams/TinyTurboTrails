@@ -121,7 +121,7 @@ it.each([SUNSET_SITE, FROST_RIDGE, SANDY_COVE])('pans $name without seams, repea
     if (level.theme.sun) expect(rects.some(rect => rect.fillStyle === level.theme.sun!.color)).toBe(false);
     crops.push(sx);
   }
-  expect(crops).toEqual([0, 0, 294 * 0.25 / span, 147, 294, 294, 147, 0]);
+  expect(crops).toEqual([0, 0, 294 * (0.25 / span), 147, 294, 294, 147, 0]);
 });
 
 it('keeps a panorama crop finite and inside the image for a viewport-wide custom route', () => {

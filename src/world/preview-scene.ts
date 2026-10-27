@@ -15,7 +15,7 @@ export class WorldPreviewScene implements Scene {
   constructor(private readonly assets: WorldAssets, private readonly level: LevelData = DEFAULT_LEVEL) {
     this.targetX = level.start.x;
     this.targetY = level.start.y;
-    this.camera = new Camera({ width: 426, height: 240, worldWidth: level.width, worldHeight: level.height, vertical: level.progressAxis === 'y' });
+    this.camera = new Camera({ width: 426, height: 240, worldWidth: level.width, worldHeight: level.height, vertical: level.verticalCamera || level.progressAxis === 'y', lead: level.cameraLead });
   }
   enter(): void { this.elapsed = 0; }
   exit(): void {}

@@ -32,6 +32,7 @@ export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, le
     }
   }
   if (level.id === 'timbers') drawTimberTrunk(ctx, assets, offset);
+  if (level.id === 'sunset' && level.verticalCamera) drawSiteFrame(ctx, assets, offset);
   drawAmbientWeather(ctx, level.theme.weather, offset, runSeconds, reducedMotion);
   ctx.fillStyle = level.theme.ground;
   // Fill each connected ground contour once: separately antialiased polygon
@@ -257,6 +258,18 @@ export function drawPlatforms(ctx: CanvasRenderingContext2D, level: LevelData, o
     drawPlatformPath(ctx, platform, offset);
     const body = platforms.find((candidate) => candidate.id === platform.id);
     if (!body) continue;
+    if (assets && level.id === 'sunset' && level.verticalCamera) {
+      const x = body.x - offset.x, y = body.y - offset.y;
+      // Existing site girder tiles supply texture; the gold top is exactly the
+      // collision plane. Dark braces are drawn separately behind the action.
+      ctx.save(); ctx.beginPath(); ctx.rect(x, y, body.width, 12); ctx.clip();
+      for (let tile = 0; tile < body.width; tile += 32) drawAsset(ctx, assets!, 'terrain-flat', x + tile + 16, y + 28, 1);
+      ctx.fillStyle = '#3c3343'; ctx.fillRect(x, y + 3, body.width, 8);
+      ctx.fillStyle = level.theme.edge; ctx.fillRect(x, y, body.width, 3);
+      for (let bolt = 8; bolt < body.width; bolt += 24) { ctx.fillStyle = '#e9bd78'; ctx.fillRect(x + bolt, y + 6, 2, 2); }
+      ctx.restore();
+      continue;
+    }
     if (assets && level.progressAxis === 'y' && platform.from.x === platform.to.x && platform.from.y === platform.to.y) {
       const x = body.x - offset.x, y = body.y - offset.y;
       if (x + body.width >= 0 && x <= 426 && y >= -28 && y <= 240) {
@@ -293,6 +306,25 @@ export function drawPlatforms(ctx: CanvasRenderingContext2D, level: LevelData, o
     ctx.fillStyle = '#ffffff22';
     for (let x = 6; x < body.width - 4; x += 11) ctx.fillRect(body.x - offset.x + x, body.y - offset.y + 5, 4, 1);
   }
+}
+
+/** Pass-through frame behind the actual support tops, composed with site art. */
+export function drawSiteFrame(ctx: CanvasRenderingContext2D, assets: WorldAssets, offset: { x: number; y: number }): void {
+  ctx.save();
+  for (const [left, right, top, bottom] of [[100, 410, 320, 620], [980, 1430, 380, 680], [1800, 2360, 140, 680]]) {
+    ctx.fillStyle = '#51404b88';
+    for (let x = left; x <= right; x += 140) {
+      ctx.fillRect(x - offset.x, top - offset.y, 5, bottom - top);
+      for (let y = top + 12; y < bottom; y += 60) {
+        ctx.strokeStyle = '#75546180'; ctx.lineWidth = 3; ctx.beginPath();
+        ctx.moveTo(x - offset.x, y - offset.y);
+        ctx.lineTo(Math.min(x + 140, right) - offset.x, y + 54 - offset.y);
+        ctx.stroke();
+      }
+    }
+  }
+  drawAsset(ctx, assets, 'tree', 900 - offset.x, 680 - offset.y, 1.5);
+  ctx.restore();
 }
 
 /** The nonblocking trunk stays behind all actual top faces and collectibles. */

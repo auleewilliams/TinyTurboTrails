@@ -25,7 +25,7 @@ export const TRAIL_WORDS: readonly TrailWord[] = [
   trailWord('plains', 'Plains', 'HILL', [650, 2180, 3150, 3750]),
   trailWord('quarry', 'Quarry', 'ROCK', [230, 370, 220, 330], [140, 420, 700, 980]),
   trailWord('timbers', 'Timbers', 'TREE', [220, 270, 300, 350], [1080, 900, 420, 180]),
-  trailWord('sunset', 'Sunset', 'BEAM', [360, 1300, 3600, 7100]),
+  trailWord('sunset', 'Sunset', 'BEAM', [350, 1120, 740, 2000], [440, 500, 320, 200]),
   trailWord('frost', 'Frost', 'SNOW', [360, 1300, 3600, 7100]),
   trailWord('cove', 'Cove', 'SAND', [360, 1300, 3600, 7100]),
 ];

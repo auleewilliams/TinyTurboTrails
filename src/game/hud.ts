@@ -108,7 +108,7 @@ const AREAS: Record<string, readonly string[]> = {
   plains: ['Big downhill', 'Orchard bumps', 'Spring hill', 'Final climb'],
   quarry: ['Quarry entrance', 'Stone terraces', 'Deep pit', 'Tunnels', 'Burrows', 'Crusher crossing', 'Quarry summit'],
   timbers: ['First fork', 'Middle bough', 'Canopy', 'Lookout'],
-  sunset: ['Site gate', 'Girders', 'Work yard', 'Trench', 'Scaffolds', 'Site summit', 'Home stretch'],
+  sunset: ['High girders', 'Frame descent', 'Lower work yard', 'Final scaffold', 'Rooftop'],
   frost: ['Snowy start', 'Ice fields', 'Snow bridge', 'Frozen ridge', 'High snow', 'Frost summit'],
   cove: ['Beach path', 'Shell shore', 'Dune crossing', 'Tide pools', 'Sandy ridge', 'Cove lookout'],
 };
