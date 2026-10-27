@@ -1,0 +1,1496 @@
+{
+  "kind": "pre-commit working-source captures; real keyboard journeys, no player/run placement",
+  "base": "7b6e62b1e76b57907e1a3862f9e24d281d2ee59c",
+  "headBeforeCommit": "6978b6acd7b92c504c69aa474f72d15e943fef67",
+  "productionDiffSHA256": "b52dbfea8870843ae590863165ddc2c74bac444feb63215e13a54c04a023f5a3",
+  "scope": "Revised first-island catch geometry, full zero-letter main route, actual finish/all-BEAM return, held-right negative recovery; not human acceptance or final stable-head proof",
+  "shots": [
+    {
+      "file": "entrance.png",
+      "sha256": "41b87485dd05b6701e8368c30ea82b4f39485876d3e1091e3a538ac79dd50cf9",
+      "caseID": "707918baf227603e52bc-b2d9e7c9e3b53b2796a8",
+      "caseTitle": "Sunset fixed main route has zero BEAM letters at 426px",
+      "attachment": "entrance",
+      "project": "chromium",
+      "retry": 0
+    },
+    {
+      "file": "near-dock.png",
+      "sha256": "f0edef46e77fbfa63d90ed1643790d8191fa8d8edf0e8ab968eb8df794972da7",
+      "caseID": "707918baf227603e52bc-b2d9e7c9e3b53b2796a8",
+      "caseTitle": "Sunset fixed main route has zero BEAM letters at 426px",
+      "attachment": "first-high-deck-docks",
+      "project": "chromium",
+      "retry": 0
+    },
+    {
+      "file": "descent.png",
+      "sha256": "ed4d4c31df4964cb83f39b9683161572bee83683289c26f49b1abd820c95264c",
+      "caseID": "707918baf227603e52bc-b2d9e7c9e3b53b2796a8",
+      "caseTitle": "Sunset fixed main route has zero BEAM letters at 426px",
+      "attachment": "frame-descent-CP2",
+      "project": "chromium",
+      "retry": 0
+    },
+    {
+      "file": "yard.png",
+      "sha256": "3c77163b7e63219dc4b8d708c3ce383ccea1dcb4bf7b38101b8be8732a7637f5",
+      "caseID": "707918baf227603e52bc-b2d9e7c9e3b53b2796a8",
+      "caseTitle": "Sunset fixed main route has zero BEAM letters at 426px",
+      "attachment": "lower-yard",
+      "project": "chromium",
+      "retry": 0
+    },
+    {
+      "file": "rest.png",
+      "sha256": "7dc40ff3410eab1d1678b4ee74b040d12a6e3b246e025eebb8de31d49408f9d4",
+      "caseID": "707918baf227603e52bc-b2d9e7c9e3b53b2796a8",
+      "caseTitle": "Sunset fixed main route has zero BEAM letters at 426px",
+      "attachment": "broad-rest-CP4",
+      "project": "chromium",
+      "retry": 0
+    },
+    {
+      "file": "roof.png",
+      "sha256": "15d21ac10caa457e8a85aadf3403270965151555c232744042068bc0e48c5e76",
+      "caseID": "707918baf227603e52bc-b2d9e7c9e3b53b2796a8",
+      "caseTitle": "Sunset fixed main route has zero BEAM letters at 426px",
+      "attachment": "highest-roof",
+      "project": "chromium",
+      "retry": 0
+    },
+    {
+      "file": "far-fixed-dock.png",
+      "sha256": "d2b18251111393dabd7a925126a4934393a12ae6b0e7937336bf3c2ff5a38adf",
+      "caseID": "707918baf227603e52bc-cdb5ff01ea19c7807d32",
+      "caseTitle": "Sunset actual finish retrace recovers all missed BEAM, reactivates checkpoints and returns",
+      "attachment": "fixed-A-dock",
+      "project": "chromium",
+      "retry": 0
+    },
+    {
+      "file": "B-return.png",
+      "sha256": "166e76065d96711f623ee412243d0bc1cdc4ad4e599c24d276a5dadc65a00e58",
+      "caseID": "707918baf227603e52bc-cdb5ff01ea19c7807d32",
+      "caseTitle": "Sunset actual finish retrace recovers all missed BEAM, reactivates checkpoints and returns",
+      "attachment": "B-return-landing",
+      "project": "chromium",
+      "retry": 0
+    }
+  ],
+  "observations": [
+    {
+      "attachment": "input-provenance",
+      "data": {
+        "source": "working-fix",
+        "browser": "chromium",
+        "version": "156.0.8078.4",
+        "viewport": {
+          "width": 426,
+          "height": 300
+        },
+        "nativeCanvas": {
+          "width": 426,
+          "height": 240
+        },
+        "first": {
+          "active": false,
+          "paused": false,
+          "frozen": false,
+          "pauseAt": -1,
+          "stage": 7,
+          "frames": 0,
+          "stable": 0,
+          "previousY": null,
+          "startY": null,
+          "phase": 0,
+          "error": "",
+          "done": true,
+          "seenPlaying": true,
+          "advanceMs": 0,
+          "stages": [
+            {
+              "kind": "walk",
+              "x": 210
+            },
+            {
+              "kind": "jump",
+              "x": 210,
+              "y": 500
+            },
+            {
+              "kind": "walk",
+              "x": 275
+            },
+            {
+              "kind": "jump",
+              "x": 275,
+              "y": 440
+            },
+            {
+              "kind": "jump",
+              "x": 275,
+              "y": 380
+            },
+            {
+              "kind": "jump",
+              "x": 300,
+              "y": 320
+            },
+            {
+              "kind": "walk",
+              "x": 350
+            }
+          ],
+          "history": [
+            {
+              "stage": 0,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 208 Y 526 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 1,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 208 Y 466 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 2,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 274 Y 466 V 15 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 3,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 274 Y 406 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 4,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 274 Y 346 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 5,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 298 Y 286 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 6,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 349 Y 286 V 15 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            }
+          ],
+          "recoveries": [],
+          "observedX": 349,
+          "observedY": 286
+        },
+        "descent": {
+          "active": false,
+          "paused": false,
+          "frozen": false,
+          "pauseAt": -1,
+          "stage": 9,
+          "frames": 0,
+          "stable": 0,
+          "previousY": null,
+          "startY": 406,
+          "phase": 0,
+          "error": "",
+          "done": true,
+          "seenPlaying": true,
+          "advanceMs": 0,
+          "stages": [
+            {
+              "kind": "drop",
+              "edge": 260,
+              "direction": -1,
+              "x": 220,
+              "y": 380
+            },
+            {
+              "kind": "walk",
+              "x": 520
+            },
+            {
+              "kind": "walk",
+              "x": 820
+            },
+            {
+              "kind": "walk",
+              "x": 1120
+            },
+            {
+              "kind": "walk",
+              "x": 1420
+            },
+            {
+              "kind": "walk",
+              "x": 1720
+            },
+            {
+              "kind": "drop",
+              "edge": 1770,
+              "direction": 1,
+              "x": 1820,
+              "y": 440
+            },
+            {
+              "kind": "drop",
+              "edge": 1880,
+              "direction": 1,
+              "x": 1960,
+              "y": 500
+            },
+            {
+              "kind": "walk",
+              "x": 2030
+            }
+          ],
+          "history": [
+            {
+              "stage": 0,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 223 Y 346 V 0 F -1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 1,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 517 Y 346 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 2,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 822 Y 346 V -16 F -1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 3,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 1119 Y 346 V 15 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 4,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 1417 Y 346 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 5,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 1722 Y 346 V -16 F -1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 6,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 1819 Y 406 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 7,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 1957 Y 466 V 15 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 8,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 2028 Y 466 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            }
+          ],
+          "recoveries": [],
+          "observedX": 2028,
+          "observedY": 466
+        },
+        "crossing": {
+          "active": false,
+          "paused": false,
+          "frozen": false,
+          "pauseAt": -1,
+          "stage": 2,
+          "frames": 0,
+          "stable": 0,
+          "previousY": null,
+          "startY": 526,
+          "phase": 0,
+          "error": "",
+          "done": true,
+          "seenPlaying": true,
+          "advanceMs": 0,
+          "stages": [
+            {
+              "kind": "drop",
+              "edge": 2120,
+              "direction": 1,
+              "x": 2150,
+              "y": 560
+            },
+            {
+              "kind": "drop",
+              "edge": 2220,
+              "direction": 1,
+              "x": 2250,
+              "y": 620
+            }
+          ],
+          "history": [
+            {
+              "stage": 0,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 2149 Y 526 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 1,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 2249 Y 586 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            }
+          ],
+          "recoveries": [],
+          "observedX": 2249,
+          "observedY": 586
+        },
+        "rest": {
+          "active": false,
+          "paused": false,
+          "frozen": false,
+          "pauseAt": -1,
+          "stage": 7,
+          "frames": 0,
+          "stable": 0,
+          "previousY": null,
+          "startY": 526,
+          "phase": 0,
+          "error": "",
+          "done": true,
+          "seenPlaying": true,
+          "advanceMs": 0,
+          "stages": [
+            {
+              "kind": "walk",
+              "x": 2480
+            },
+            {
+              "kind": "jump",
+              "x": 2520,
+              "y": 560
+            },
+            {
+              "kind": "walk",
+              "x": 2590
+            },
+            {
+              "kind": "jump",
+              "x": 2590,
+              "y": 500
+            },
+            {
+              "kind": "walk",
+              "x": 2690
+            },
+            {
+              "kind": "jump",
+              "x": 2720,
+              "y": 440
+            },
+            {
+              "kind": "walk",
+              "x": 2800
+            }
+          ],
+          "history": [
+            {
+              "stage": 0,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 2478 Y 586 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 1,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 2518 Y 526 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 2,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 2591 Y 526 V -16 F -1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 3,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 2591 Y 466 V 0 F -1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 4,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 2688 Y 466 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 5,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 2716 Y 406 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 6,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 2798 Y 406 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            }
+          ],
+          "recoveries": [],
+          "observedX": 2798,
+          "observedY": 406
+        },
+        "final": {
+          "active": false,
+          "paused": false,
+          "frozen": false,
+          "pauseAt": -1,
+          "stage": 7,
+          "frames": 0,
+          "stable": 0,
+          "previousY": null,
+          "startY": 526,
+          "phase": 0,
+          "error": "",
+          "done": true,
+          "seenPlaying": true,
+          "advanceMs": 0,
+          "stages": [
+            {
+              "kind": "walk",
+              "x": 2690
+            },
+            {
+              "kind": "jump",
+              "x": 2690,
+              "y": 380
+            },
+            {
+              "kind": "jump",
+              "x": 2720,
+              "y": 320
+            },
+            {
+              "kind": "walk",
+              "x": 2810
+            },
+            {
+              "kind": "jump",
+              "x": 2810,
+              "y": 260
+            },
+            {
+              "kind": "jump",
+              "x": 2820,
+              "y": 200
+            },
+            {
+              "kind": "jump",
+              "x": 2850,
+              "y": 140
+            }
+          ],
+          "history": [
+            {
+              "stage": 0,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 2692 Y 406 V -15 F -1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 1,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 2692 Y 346 V 0 F -1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 2,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 2718 Y 286 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 3,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 2808 Y 286 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 4,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 2808 Y 226 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 5,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 2817 Y 166 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 6,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 2848 Y 106 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            }
+          ],
+          "recoveries": [],
+          "observedX": 2848,
+          "observedY": 106
+        }
+      }
+    },
+    {
+      "attachment": "all-missing-input-provenance",
+      "data": {
+        "source": "working-fix",
+        "browser": "chromium",
+        "version": "156.0.8078.4",
+        "viewport": {
+          "width": 426,
+          "height": 300
+        },
+        "outward": {
+          "active": false,
+          "paused": false,
+          "frozen": false,
+          "pauseAt": -1,
+          "stage": 32,
+          "frames": 62,
+          "stable": 0,
+          "previousY": null,
+          "startY": 526,
+          "phase": 0,
+          "error": "",
+          "done": true,
+          "seenPlaying": true,
+          "advanceMs": 0,
+          "stages": [
+            {
+              "kind": "walk",
+              "x": 210
+            },
+            {
+              "kind": "jump",
+              "x": 210,
+              "y": 500
+            },
+            {
+              "kind": "walk",
+              "x": 275
+            },
+            {
+              "kind": "jump",
+              "x": 275,
+              "y": 440
+            },
+            {
+              "kind": "jump",
+              "x": 275,
+              "y": 380
+            },
+            {
+              "kind": "jump",
+              "x": 300,
+              "y": 320
+            },
+            {
+              "kind": "walk",
+              "x": 350
+            },
+            {
+              "kind": "drop",
+              "edge": 260,
+              "direction": -1,
+              "x": 220,
+              "y": 380
+            },
+            {
+              "kind": "walk",
+              "x": 520
+            },
+            {
+              "kind": "walk",
+              "x": 820
+            },
+            {
+              "kind": "walk",
+              "x": 1120
+            },
+            {
+              "kind": "walk",
+              "x": 1420
+            },
+            {
+              "kind": "walk",
+              "x": 1720
+            },
+            {
+              "kind": "drop",
+              "edge": 1770,
+              "direction": 1,
+              "x": 1820,
+              "y": 440
+            },
+            {
+              "kind": "drop",
+              "edge": 1880,
+              "direction": 1,
+              "x": 1960,
+              "y": 500
+            },
+            {
+              "kind": "walk",
+              "x": 2030
+            },
+            {
+              "kind": "drop",
+              "edge": 2120,
+              "direction": 1,
+              "x": 2150,
+              "y": 560
+            },
+            {
+              "kind": "drop",
+              "edge": 2220,
+              "direction": 1,
+              "x": 2250,
+              "y": 620
+            },
+            {
+              "kind": "walk",
+              "x": 2480
+            },
+            {
+              "kind": "jump",
+              "x": 2520,
+              "y": 560
+            },
+            {
+              "kind": "walk",
+              "x": 2590
+            },
+            {
+              "kind": "jump",
+              "x": 2590,
+              "y": 500
+            },
+            {
+              "kind": "walk",
+              "x": 2690
+            },
+            {
+              "kind": "jump",
+              "x": 2720,
+              "y": 440
+            },
+            {
+              "kind": "walk",
+              "x": 2800
+            },
+            {
+              "kind": "walk",
+              "x": 2690
+            },
+            {
+              "kind": "jump",
+              "x": 2690,
+              "y": 380
+            },
+            {
+              "kind": "jump",
+              "x": 2720,
+              "y": 320
+            },
+            {
+              "kind": "walk",
+              "x": 2810
+            },
+            {
+              "kind": "jump",
+              "x": 2810,
+              "y": 260
+            },
+            {
+              "kind": "jump",
+              "x": 2820,
+              "y": 200
+            },
+            {
+              "kind": "jump",
+              "x": 2850,
+              "y": 140
+            },
+            {
+              "kind": "finish"
+            }
+          ],
+          "history": [
+            {
+              "stage": 0,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 208 Y 526 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 1,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 208 Y 466 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 2,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 274 Y 466 V 15 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 3,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 274 Y 406 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 4,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 274 Y 346 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 5,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 298 Y 286 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 6,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 349 Y 286 V 15 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 7,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 223 Y 346 V 0 F -1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 8,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 517 Y 346 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 9,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 822 Y 346 V -16 F -1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 10,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 1119 Y 346 V 15 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 11,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 1417 Y 346 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 12,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 1722 Y 346 V -16 F -1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 13,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 1819 Y 406 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 14,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 1957 Y 466 V 15 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 15,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 2028 Y 466 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 16,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 2149 Y 526 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 17,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 2249 Y 586 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 18,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 2478 Y 586 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 19,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 2518 Y 526 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 20,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 2591 Y 526 V -16 F -1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 21,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 2591 Y 466 V 0 F -1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 22,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 2688 Y 466 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 23,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 2716 Y 406 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 24,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 2798 Y 406 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 25,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 2692 Y 406 V -15 F -1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 26,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 2692 Y 346 V 0 F -1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 27,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 2718 Y 286 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 28,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 2808 Y 286 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 29,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 2808 Y 226 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 30,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 2817 Y 166 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 31,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 2848 Y 106 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            }
+          ],
+          "recoveries": [],
+          "observedX": 3047,
+          "observedY": 106
+        },
+        "down": {
+          "active": false,
+          "paused": false,
+          "frozen": false,
+          "pauseAt": -1,
+          "stage": 10,
+          "frames": 0,
+          "stable": 0,
+          "previousY": null,
+          "startY": 526,
+          "phase": 0,
+          "error": "",
+          "done": true,
+          "seenPlaying": true,
+          "advanceMs": 0,
+          "stages": [
+            {
+              "kind": "drop",
+              "edge": 2800,
+              "direction": -1,
+              "x": 2750,
+              "y": 200
+            },
+            {
+              "kind": "walk",
+              "x": 2720
+            },
+            {
+              "kind": "drop",
+              "edge": 2660,
+              "direction": -1,
+              "x": 2630,
+              "y": 260
+            },
+            {
+              "kind": "drop",
+              "edge": 2540,
+              "direction": -1,
+              "x": 2500,
+              "y": 320
+            },
+            {
+              "kind": "drop",
+              "edge": 2600,
+              "direction": 1,
+              "x": 2650,
+              "y": 380
+            },
+            {
+              "kind": "drop",
+              "edge": 2740,
+              "direction": 1,
+              "x": 2800,
+              "y": 440
+            },
+            {
+              "kind": "drop",
+              "edge": 2660,
+              "direction": -1,
+              "x": 2620,
+              "y": 500
+            },
+            {
+              "kind": "drop",
+              "edge": 2560,
+              "direction": -1,
+              "x": 2510,
+              "y": 560
+            },
+            {
+              "kind": "drop",
+              "edge": 2380,
+              "direction": -1,
+              "x": 2330,
+              "y": 620
+            },
+            {
+              "kind": "walk",
+              "x": 2250
+            }
+          ],
+          "history": [
+            {
+              "stage": 0,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 2752 Y 166 V 0 F -1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 1,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 1/4 \u00b7 M \u2192 bag \u00b7 X 2719 Y 166 V -4 F -1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 2,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 1/4 \u00b7 X 2629 Y 226 V 0 F -1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 3,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 1/4 \u00b7 X 2503 Y 286 V 0 F -1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 4,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 1/4 \u00b7 X 2648 Y 346 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 5,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 1/4 \u00b7 X 2798 Y 406 V 20 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 6,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 1/4 \u00b7 X 2622 Y 466 V 0 F -1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 7,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 1/4 \u00b7 X 2513 Y 526 V 0 F -1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 8,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 1/4 \u00b7 X 2332 Y 586 V 0 F -1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 9,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 1/4 \u00b7 X 2251 Y 586 V -15 F -1 \u00b7 Escape to pause \u00b7 M to mute"
+            }
+          ],
+          "recoveries": [],
+          "observedX": 2251,
+          "observedY": 586
+        },
+        "up": {
+          "active": false,
+          "paused": false,
+          "frozen": false,
+          "pauseAt": -1,
+          "stage": 15,
+          "frames": 0,
+          "stable": 0,
+          "previousY": null,
+          "startY": 526,
+          "phase": 0,
+          "error": "",
+          "done": true,
+          "seenPlaying": true,
+          "advanceMs": 0,
+          "stages": [
+            {
+              "kind": "walk",
+              "x": 2170
+            },
+            {
+              "kind": "jump",
+              "x": 2150,
+              "y": 560
+            },
+            {
+              "kind": "walk",
+              "x": 2090
+            },
+            {
+              "kind": "jump",
+              "x": 2070,
+              "y": 500
+            },
+            {
+              "kind": "walk",
+              "x": 1840
+            },
+            {
+              "kind": "walk",
+              "x": 1850
+            },
+            {
+              "kind": "jump",
+              "x": 1820,
+              "y": 440
+            },
+            {
+              "kind": "walk",
+              "x": 1720
+            },
+            {
+              "kind": "jump",
+              "x": 1720,
+              "y": 380
+            },
+            {
+              "kind": "walk",
+              "x": 1420
+            },
+            {
+              "kind": "walk",
+              "x": 1120
+            },
+            {
+              "kind": "walk",
+              "x": 820
+            },
+            {
+              "kind": "walk",
+              "x": 740
+            },
+            {
+              "kind": "jump",
+              "x": 740,
+              "y": 320
+            },
+            {
+              "kind": "walk",
+              "x": 740
+            }
+          ],
+          "history": [
+            {
+              "stage": 0,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 1/4 \u00b7 X 2173 Y 586 V 0 F -1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 1,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 1/4 \u00b7 X 2152 Y 526 V 0 F -1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 2,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 1/4 \u00b7 X 2093 Y 526 V 0 F -1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 3,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 1/4 \u00b7 X 2072 Y 466 V 0 F -1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 4,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 2/4 \u00b7 E \u2192 bag \u00b7 X 1841 Y 466 V -15 F -1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 5,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 2/4 \u00b7 E \u2192 bag \u00b7 X 1847 Y 466 V 17 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 6,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 2/4 \u00b7 X 1823 Y 406 V 0 F -1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 7,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 2/4 \u00b7 X 1723 Y 406 V 0 F -1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 8,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 2/4 \u00b7 X 1723 Y 346 V 0 F -1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 9,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 2/4 \u00b7 X 1418 Y 346 V 16 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 10,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 2/4 \u00b7 X 1121 Y 346 V -15 F -1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 11,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 2/4 \u00b7 X 823 Y 346 V 0 F -1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 12,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 2/4 \u00b7 X 739 Y 346 V 16 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 13,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 3/4 \u00b7 A \u2192 bag \u00b7 X 739 Y 286 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 14,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 3/4 \u00b7 A \u2192 bag \u00b7 X 739 Y 286 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            }
+          ],
+          "recoveries": [],
+          "observedX": 739,
+          "observedY": 286
+        },
+        "remaining": {
+          "active": false,
+          "paused": false,
+          "frozen": false,
+          "pauseAt": -1,
+          "stage": 8,
+          "frames": 0,
+          "stable": 0,
+          "previousY": null,
+          "startY": 346,
+          "phase": 0,
+          "error": "",
+          "done": true,
+          "seenPlaying": true,
+          "advanceMs": 0,
+          "stages": [
+            {
+              "kind": "drop",
+              "edge": 800,
+              "direction": 1,
+              "x": 850,
+              "y": 380
+            },
+            {
+              "kind": "walk",
+              "x": 550
+            },
+            {
+              "kind": "walk",
+              "x": 440
+            },
+            {
+              "kind": "jump",
+              "x": 440,
+              "y": 320
+            },
+            {
+              "kind": "walk",
+              "x": 350
+            },
+            {
+              "kind": "drop",
+              "edge": 260,
+              "direction": -1,
+              "x": 220,
+              "y": 380
+            },
+            {
+              "kind": "drop",
+              "edge": 160,
+              "direction": -1,
+              "x": 120,
+              "y": 440
+            },
+            {
+              "kind": "walk",
+              "x": 350
+            }
+          ],
+          "history": [
+            {
+              "stage": 0,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 3/4 \u00b7 X 847 Y 346 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 1,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 3/4 \u00b7 X 553 Y 346 V 0 F -1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 2,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 3/4 \u00b7 X 442 Y 346 V 0 F -1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 3,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 3/4 \u00b7 X 442 Y 286 V 0 F -1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 4,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 3/4 \u00b7 X 353 Y 286 V 0 F -1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 5,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 3/4 \u00b7 X 222 Y 346 V 0 F -1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 6,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 3/4 \u00b7 X 123 Y 406 V 0 F -1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 7,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 4/4 \u00b7 B \u2192 bag \u00b7 X 347 Y 406 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            }
+          ],
+          "recoveries": [],
+          "observedX": 347,
+          "observedY": 406
+        },
+        "back": {
+          "active": false,
+          "paused": false,
+          "frozen": false,
+          "pauseAt": -1,
+          "stage": 29,
+          "frames": 62,
+          "stable": 0,
+          "previousY": null,
+          "startY": 526,
+          "phase": 0,
+          "error": "",
+          "done": true,
+          "seenPlaying": true,
+          "advanceMs": 0,
+          "stages": [
+            {
+              "kind": "walk",
+              "x": 275
+            },
+            {
+              "kind": "jump",
+              "x": 275,
+              "y": 380
+            },
+            {
+              "kind": "jump",
+              "x": 300,
+              "y": 320
+            },
+            {
+              "kind": "walk",
+              "x": 350
+            },
+            {
+              "kind": "drop",
+              "edge": 260,
+              "direction": -1,
+              "x": 220,
+              "y": 380
+            },
+            {
+              "kind": "walk",
+              "x": 520
+            },
+            {
+              "kind": "walk",
+              "x": 820
+            },
+            {
+              "kind": "walk",
+              "x": 1120
+            },
+            {
+              "kind": "walk",
+              "x": 1420
+            },
+            {
+              "kind": "walk",
+              "x": 1720
+            },
+            {
+              "kind": "drop",
+              "edge": 1770,
+              "direction": 1,
+              "x": 1820,
+              "y": 440
+            },
+            {
+              "kind": "drop",
+              "edge": 1880,
+              "direction": 1,
+              "x": 1960,
+              "y": 500
+            },
+            {
+              "kind": "walk",
+              "x": 2030
+            },
+            {
+              "kind": "drop",
+              "edge": 2120,
+              "direction": 1,
+              "x": 2150,
+              "y": 560
+            },
+            {
+              "kind": "drop",
+              "edge": 2220,
+              "direction": 1,
+              "x": 2250,
+              "y": 620
+            },
+            {
+              "kind": "walk",
+              "x": 2480
+            },
+            {
+              "kind": "jump",
+              "x": 2520,
+              "y": 560
+            },
+            {
+              "kind": "walk",
+              "x": 2590
+            },
+            {
+              "kind": "jump",
+              "x": 2590,
+              "y": 500
+            },
+            {
+              "kind": "walk",
+              "x": 2690
+            },
+            {
+              "kind": "jump",
+              "x": 2720,
+              "y": 440
+            },
+            {
+              "kind": "walk",
+              "x": 2800
+            },
+            {
+              "kind": "walk",
+              "x": 2690
+            },
+            {
+              "kind": "jump",
+              "x": 2690,
+              "y": 380
+            },
+            {
+              "kind": "jump",
+              "x": 2720,
+              "y": 320
+            },
+            {
+              "kind": "walk",
+              "x": 2810
+            },
+            {
+              "kind": "jump",
+              "x": 2810,
+              "y": 260
+            },
+            {
+              "kind": "jump",
+              "x": 2820,
+              "y": 200
+            },
+            {
+              "kind": "jump",
+              "x": 2850,
+              "y": 140
+            },
+            {
+              "kind": "finish"
+            }
+          ],
+          "history": [
+            {
+              "stage": 0,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 4/4 \u00b7 X 277 Y 406 V 0 F -1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 1,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 4/4 \u00b7 X 277 Y 346 V 0 F -1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 2,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 4/4 \u00b7 X 297 Y 286 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 3,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 4/4 \u00b7 X 351 Y 286 V 15 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 4,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 4/4 \u00b7 X 222 Y 346 V 0 F -1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 5,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 4/4 \u00b7 X 519 Y 346 V 15 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 6,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 4/4 \u00b7 X 818 Y 346 V 15 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 7,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 4/4 \u00b7 X 1119 Y 346 V 15 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 8,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 4/4 \u00b7 X 1417 Y 346 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 9,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 4/4 \u00b7 X 1722 Y 346 V -16 F -1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 10,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 4/4 \u00b7 X 1819 Y 406 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 11,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 4/4 \u00b7 X 1957 Y 466 V 15 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 12,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 4/4 \u00b7 X 2028 Y 466 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 13,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 4/4 \u00b7 X 2149 Y 526 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 14,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 4/4 \u00b7 X 2249 Y 586 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 15,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 4/4 \u00b7 X 2478 Y 586 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 16,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 4/4 \u00b7 X 2518 Y 526 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 17,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 4/4 \u00b7 X 2591 Y 526 V -16 F -1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 18,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 4/4 \u00b7 X 2591 Y 466 V 0 F -1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 19,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 4/4 \u00b7 X 2688 Y 466 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 20,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 4/4 \u00b7 X 2716 Y 406 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 21,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 4/4 \u00b7 X 2798 Y 406 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 22,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 4/4 \u00b7 X 2692 Y 406 V -15 F -1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 23,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 4/4 \u00b7 X 2692 Y 346 V 0 F -1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 24,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 4/4 \u00b7 X 2718 Y 286 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 25,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 4/4 \u00b7 X 2808 Y 286 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 26,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 4/4 \u00b7 X 2808 Y 226 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 27,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 4/4 \u00b7 X 2817 Y 166 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            },
+            {
+              "stage": 28,
+              "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 4/4 \u00b7 X 2848 Y 106 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+            }
+          ],
+          "recoveries": [],
+          "observedX": 3047,
+          "observedY": 106
+        }
+      }
+    },
+    {
+      "attachment": "negative-input-provenance",
+      "data": {
+        "source": "working-fix",
+        "browser": "chromium",
+        "version": "156.0.8078.4",
+        "viewport": {
+          "width": 426,
+          "height": 300
+        },
+        "proof": {
+          "previous": 60,
+          "recoveries": 2,
+          "maximumX": 1110,
+          "samples": [
+            "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 60 Y 526 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute",
+            "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 60 Y 526 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+          ]
+        },
+        "route": "real entrance, held-right without jump until two observed recoveries, then ordinary first climb"
+      }
+    }
+  ],
+  "loadedAssets": "Final stable-head loaded-asset probe is recorded separately in the correction evidence and handoff; this manifest does not claim its own asset response capture."
+}

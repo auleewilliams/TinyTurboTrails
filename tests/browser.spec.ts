@@ -1,3 +1,5 @@
+import { driveSunset } from './sunset-browser-pilot';
+import { MAIN_ROUTE as SUNSET_MAIN, FIRST_CLIMB as SUNSET_FIRST, CROSS_DESCENT as SUNSET_CROSS, FINAL_CLIMB as SUNSET_FINAL, ALL_RETURN as SUNSET_RETURN, REASCENT as SUNSET_REASCENT, SUNSET_MISS_B } from './sunset-pilot';
 import { installQuarryPilotScript } from './quarry-pilot';
 import { QUARRY_DESCENT, QUARRY_RETURN, QUARRY_STARS, type QuarryWaypoint } from './quarry-route';
 import { installPlainsRewardPilot } from './plains-pilot';
@@ -16,7 +18,7 @@ import { LEVELS, QUARRY_RUN } from '../src/world/levels';
 import { DEFAULT_MOVEMENT, surfaceY } from '../src/game/movement';
 import { platformBodyAt } from '../src/game/platforms';
 import { drawSurfaceMaterials } from '../src/world/surface-materials';
-import { drawSlime, drawGem, drawSpecial, drawLandingBands, drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawTerrainTiles, drawTimberTrunk, drawWorld } from '../src/world/renderer';
+import { drawSlime, drawGem, drawSpecial, drawLandingBands, drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawTerrainTiles, drawTimberTrunk, drawSiteFrame, drawWorld } from '../src/world/renderer';
 import { TRAIL_WORDS } from '../src/game/education';
 import { MAX_HEALTH, createRun } from '../src/game/interactions';
 import { HUD_COLORS, TRAIL_RIBBON, trailPosition, RIBBON_INTRO, areaName } from '../src/game/hud';
@@ -167,7 +169,7 @@ test('app fullscreen retains feedback controls and native map and pause targets'
 });
 
 /** The renderer is injected as plain functions, so every helper it calls has to travel with it. */
-const RENDERER_SOURCE = [drawAmbientWeather, drawSlime, drawGem, drawSpecial, drawLandingBands, drawTerrainMaterial, drawTerrainEdge, drawTrailBackdrop, drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawTerrainTiles, drawTimberTrunk, drawSurfaceMaterials].map((helper) => helper.toString()).join('\n');
+const RENDERER_SOURCE = [drawAmbientWeather, drawSlime, drawGem, drawSpecial, drawLandingBands, drawTerrainMaterial, drawTerrainEdge, drawTrailBackdrop, drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawTerrainTiles, drawTimberTrunk, drawSiteFrame, drawSurfaceMaterials].map((helper) => helper.toString()).join('\n');
 
 test('ambient weather repeats the same pixels, respects reduced motion and stays behind terrain', async ({ page }, info) => {
   // Six full-image comparisons need extra readback time on constrained WebKit hosts.
@@ -247,15 +249,15 @@ test('controller damage rumble is independent of audio and stops on pause, focus
       },
     };
     Object.defineProperty(navigator, 'getGamepads', { configurable: true, value: () => {
-      // Keep side-contact checks on the first flat patrol. A polling wait must
-      // not carry Henry into Sunset's spring/steep terrace sequence.
+      // Use Plains' existing orchard encounter, then retreat onto its flat
+      // x1560–1620 rest. Sunset's approved scaffolds have no damaging actor.
       if (probe.drive && probe.latest) {
-        if (probe.retreat && probe.latest.x <= 520) {
+        if (probe.retreat && probe.latest.x <= 1600) {
           probe.drive = false; probe.retreat = false; pad.axes[0] = 0;
           probe.events.push({ kind: 'safe-stop', time: performance.now(), x: probe.latest.x });
         } else {
-          if (probe.retreat || probe.latest.x >= 720) probe.direction = -1;
-          else if (probe.latest.x <= 580) probe.direction = 1;
+          if (probe.retreat || probe.latest.x >= 1820) probe.direction = -1;
+          else if (probe.latest.x <= 1660) probe.direction = 1;
           pad.axes[0] = probe.direction;
         }
       }
@@ -323,7 +325,7 @@ test('controller damage rumble is independent of audio and stops on pause, focus
   };
   const safeStop = async (): Promise<void> => {
     await expect.poll(() => page.evaluate(() => (window as unknown as { rumbleProbe: { drive: boolean } }).rumbleProbe.drive)).toBe(false);
-    expect((await read()).latest!.x).toBeLessThanOrEqual(540);
+    expect((await read()).latest!.x).toBeLessThanOrEqual(1620);
   };
   const movedAfter = async (time: number, x: number): Promise<boolean> => sustainedControllerMovement(
     await page.evaluate(() => (window as unknown as { rumbleProbe: { samples: Sample[] } }).rumbleProbe.samples), time, x);
@@ -335,8 +337,8 @@ test('controller damage rumble is independent of audio and stops on pause, focus
     await expect(page.getByRole('button', { name: 'QUARRY RUN', exact: true })).toHaveAttribute('aria-pressed', 'true');
     await neutral();
     expect((await read()).effects).toEqual([]); // Controller map navigation has no output.
-    await page.getByRole('button', { name: 'SUNSET SITE', exact: true }).click();
-    await page.getByRole('button', { name: 'Play SUNSET SITE', exact: true }).click();
+    await page.getByRole('button', { name: 'PLAINS', exact: true }).click();
+    await page.getByRole('button', { name: 'Play PLAINS', exact: true }).click();
     await page.keyboard.press('m');
     await expect(page.locator('#status')).toContainText('Muted');
     await axis(1, 2);
@@ -912,6 +914,7 @@ test('gameplay preview collects a gem and reaches a checkpoint', async ({ page }
 });
 
 test('adventure flashes the sprite after damage without a rectangular overlay', async ({ page }) => {
+  await installTrailPilot(page);
   await page.addInitScript(() => {
     const draw = CanvasRenderingContext2D.prototype.drawImage;
     CanvasRenderingContext2D.prototype.drawImage = function (this: CanvasRenderingContext2D, ...args: unknown[]) {
@@ -929,8 +932,8 @@ test('adventure flashes the sprite after damage without a rectangular overlay', 
   await page.setViewportSize({ width: 426, height: 300 });
   await openAdventure(page, '/?scene=adventure&debug=1');
   await expect(page.locator('#status')).toContainText('Title');
-  await page.getByRole('button', { name: 'SUNSET SITE', exact: true }).click();
-  await page.getByRole('button', { name: 'Play SUNSET SITE', exact: true }).click();
+  await page.getByRole('button', { name: 'PLAINS', exact: true }).click();
+  await page.getByRole('button', { name: 'Play PLAINS', exact: true }).click();
   await page.keyboard.down('ArrowRight');
   await expect(page.locator('canvas')).toHaveAttribute('data-hit-sprite', /tinted/, { timeout: 5000 });
   await page.keyboard.up('ArrowRight');
@@ -938,11 +941,12 @@ test('adventure flashes the sprite after damage without a rectangular overlay', 
 });
 
 test('adventure HUD shows three hearts and empties one after damage', async ({ page }) => {
+  await installTrailPilot(page);
   await page.setViewportSize({ width: 426, height: 300 });
   await openAdventure(page, '/?scene=adventure&debug=1');
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
-  await page.getByRole('button', { name: 'SUNSET SITE', exact: true }).click();
-  await page.getByRole('button', { name: 'Play SUNSET SITE', exact: true }).click();
+  await page.getByRole('button', { name: 'PLAINS', exact: true }).click();
+  await page.getByRole('button', { name: 'Play PLAINS', exact: true }).click();
   await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
   const canvas = page.locator('canvas');
   const readPips = async (): Promise<number[][]> => canvas.evaluate((element) => {
@@ -961,21 +965,27 @@ test('adventure HUD shows three hearts and empties one after damage', async ({ p
 });
 
 test('a patrolling slime keeps moving while Henry stands still', async ({ page }) => {
+  await installTrailPilot(page);
   await page.setViewportSize({ width: 426, height: 300 });
   await openAdventure(page, '/?scene=adventure&debug=1');
   await expect(page.locator('#status')).toContainText('Adventure preview · Title', { timeout: 15000 });
-  await page.getByRole('button', { name: 'SUNSET SITE', exact: true }).click();
-  await page.getByRole('button', { name: 'Play SUNSET SITE', exact: true }).click();
+  await page.getByRole('button', { name: 'PLAINS', exact: true }).click();
+  await page.getByRole('button', { name: 'Play PLAINS', exact: true }).click();
   await expect(page.locator('#status')).toContainText('Adventure preview · Playing');
-  await page.keyboard.down('ArrowRight');
-  await expect.poll(async () => Number((await page.locator('#status').innerText()).match(/X (\d+)/)?.[1]), { timeout: 5000, intervals: [30] }).toBeGreaterThan(500);
+  // Stop on the orchard's actual flat x1900–1960, past the slime. Its
+  // sloping approach accelerates a released player and cannot prove standing still.
+  await page.evaluate(() => Object.assign((window as unknown as { trailPilot: object }).trailPilot,
+    { active: true, dangers: [], pauseAt: 1910 }));
+  await page.waitForFunction(() => (window as unknown as { trailPilot: { frozen: boolean } }).trailPilot.frozen, undefined, { timeout: 5000 });
   await page.keyboard.up('ArrowRight');
-  await page.waitForTimeout(250);
+  await page.evaluate(() => Object.assign((window as unknown as { trailPilot: object }).trailPilot,
+    { active: false, frozen: false, pauseAt: 0 }));
+  await expect(page.locator('#status')).toContainText('V 0');
   const stationaryX = Number((await page.locator('#status').innerText()).match(/X (\d+)/)?.[1]);
-  // Henry now stands beside the first Sunset slime; only the patrol moves.
-  // With Henry stationary, the visible Sunset slime patrol changes this strip.
+  // Henry now stands beside the Plains orchard slime; only the patrol moves.
+  // With Henry stationary, the visible Plains slime patrol changes this strip.
   const signature = async (): Promise<number> => page.locator('canvas').evaluate((element) => {
-    const pixels = (element as HTMLCanvasElement).getContext('2d')!.getImageData(290, 110, 130, 90).data;
+    const pixels = (element as HTMLCanvasElement).getContext('2d')!.getImageData(20, 120, 130, 90).data;
     let sum = 0;
     for (let i = 0; i < pixels.length; i += 4) sum += pixels[i] * 3 + pixels[i + 1] * 5 + pixels[i + 2] * 7;
     return sum;
@@ -2472,6 +2482,7 @@ for (const [index, level] of LEVELS.entries()) {
       return;
     }
     await installTrailPilot(page);
+    if (level.id === 'sunset') await installTimberKeyboardPilot(page);
     await observeRewardResults(page);
     await observeTrailRibbon(page);
     if (level.id === 'plains') await page.setViewportSize({ width: 426, height: 300 });
@@ -2508,10 +2519,13 @@ for (const [index, level] of LEVELS.entries()) {
       if (level.id === 'plains') { expect((await canvas.boundingBox())!.width).toBe(426); expect((await canvas.boundingBox())!.height).toBe(240); }
     };
     await captureRibbon('start');
+    if (level.id === 'sunset') await driveSunset(page, SUNSET_FIRST);
+    else {
     await page.evaluate(({ dangers, pauseAt }) => {
       Object.assign((window as unknown as { trailPilot: object }).trailPilot, { active: true, dangers, pauseAt });
     }, { dangers: dangerXs(level), pauseAt: level.checkpoints[0].x + 40 });
     await page.waitForFunction(() => (window as unknown as { trailPilot: { frozen: boolean } }).trailPilot.frozen, undefined, { timeout: 15_000 });
+    }
     const checkpointPoints = JSON.parse((await canvas.getAttribute('data-ribbon-checkpoints'))!) as { filled: boolean }[];
     expect(checkpointPoints.map(point => point.filled)).toEqual(level.checkpoints.map((_, i) => i === 0));
     const checkpointX = Number((await page.locator('#status').innerText()).match(/X (\d+)/)?.[1]);
@@ -2520,27 +2534,21 @@ for (const [index, level] of LEVELS.entries()) {
     expect(Math.abs(Number(await canvas.getAttribute('data-ribbon-marker')) - expectedMarker)).toBeLessThanOrEqual(1);
     await captureRibbon('checkpoint');
     await page.evaluate(() => Object.assign((window as unknown as { trailPilot: object }).trailPilot, { active: false, frozen: false, pauseAt: 0 }));
-    // These valleys put Henry's feet in the ribbon's vertical band. Check the
-    // actual sprite bounds so a centered ribbon cannot silently obscure him.
-    const lowGroundX = ({ timbers: 5880, sunset: 5660 } as Record<string, number>)[level.id];
-    if (lowGroundX !== undefined) {
-      await page.evaluate(pauseAt => Object.assign((window as unknown as { trailPilot: object }).trailPilot,
-        { active: true, pauseAt }), lowGroundX);
-      await page.waitForFunction(() => (window as unknown as { trailPilot: { frozen: boolean } }).trailPilot.frozen, undefined, { timeout: 20_000 });
-      await page.evaluate(() => Object.assign((window as unknown as { trailPilot: object }).trailPilot,
-        { active: false, frozen: false, pauseAt: 0 }));
-      // Release movement and let any spring launch settle on the low ground.
-      await expect.poll(async () => Number((await page.locator('#status').innerText()).match(/Y (\d+)/)?.[1])).toBeGreaterThanOrEqual(188);
-      await page.evaluate(() => Object.assign((window as unknown as { trailPilot: object }).trailPilot, { frozen: true }));
-      const henry = await page.evaluate(() => (window as unknown as {
-        ribbonProbe: { henryBounds: { left: number; right: number; top: number; bottom: number } };
-      }).ribbonProbe.henryBounds);
-      expect(henry.bottom).toBeGreaterThan(TRAIL_RIBBON.y);
-      expect(henry.right <= TRAIL_RIBBON.x || henry.left >= TRAIL_RIBBON.x + TRAIL_RIBBON.width).toBe(true);
-      await captureRibbon('low-ground');
-      await page.evaluate(() => Object.assign((window as unknown as { trailPilot: object }).trailPilot, { frozen: false }));
+    // The old Sunset valley is retired. This live yard capture is route evidence;
+    // the nonvacuous vertical-band/horizontal-clearance obligation is exercised
+    // separately by the explicitly labelled compact HUD renderer fixture below.
+    if (level.id === 'sunset') {
+      await driveSunset(page, SUNSET_CROSS);
+      await captureRibbon('lower-yard');
     }
     const traverse = async (): Promise<void> => {
+      if (level.id === 'sunset') {
+        const status = await page.locator('#status').innerText();
+        await driveSunset(page, status.includes('Y 586') ? [...SUNSET_FINAL, { kind: 'finish' }] : SUNSET_MAIN);
+        await expect(canvas).toHaveAttribute('data-ribbon', 'absent');
+        await expectResultsFirst(page, 'Next trail');
+        return;
+      }
       if (index % 2 === 1) await acknowledgeTrailNeutral(page);
       await page.evaluate(({ dangers, controller }) => {
         const pilot = (window as unknown as { trailPilot: { active: boolean; controller: boolean; dangers: number[]; index: number; lastX: number } }).trailPilot;
@@ -4087,7 +4095,8 @@ for (const [index, level] of LEVELS.entries()) {
     };
     // These evidence routes exercise native/small play; the viewport suite covers large sizes.
     await page.setViewportSize({ width: 426, height: 300 });
-    await installRetracePilot(page, level);
+    if (level.id === 'sunset') await installTimberKeyboardPilot(page);
+    else await installRetracePilot(page, level);
     // The existing helper provides the same standard Gamepad API used by pilot regressions.
     await page.addInitScript(() => {
       const pad = { connected: true, mapping: 'standard', axes: [0, 0], buttons: Array.from({ length: 17 }, () => ({ pressed: false, value: 0, touched: false })) };
@@ -4100,6 +4109,10 @@ for (const [index, level] of LEVELS.entries()) {
     await page.getByRole('button', { name: `Play ${level.name}`, exact: true }).click();
     await expect(page.locator('#game')).toHaveAttribute('data-spelling-draws', /pouch\.png/);
     const drive = async (direction: number, collectAt: number[] = [], initialCount = 0): Promise<void> => {
+      if (level.id === 'sunset') {
+        await driveSunset(page, direction < 0 ? SUNSET_RETURN : initialCount ? SUNSET_REASCENT : SUNSET_MISS_B);
+        return;
+      }
       const targets: number[] = [];
       if (direction > 0 && !initialCount) targets.unshift(config.pickups[skippedSlot].x); // Intentionally miss a real letter.
       await page.evaluate(({ direction, targets, collectAt, initialCount }) => {
@@ -4153,11 +4166,11 @@ for (const [index, level] of LEVELS.entries()) {
     await page.getByRole('button', { name: `Space ${partial + 1}: empty`, exact: true }).click();
     await capture('missing-assembly');
     await page.getByRole('button', { name: 'Find more letters', exact: true }).click();
-    await expect(page.locator('#status')).toContainText(`X ${level.finish.x - 28}`);
+    await expect(page.locator('#status')).toContainText(`X ${level.retrace?.x ?? level.finish.x - 28}`);
     await expect(page.getByRole('dialog')).toHaveCount(0);
     await capture('beside-finish');
     await drive(-1, missing.map(slot => config.pickups[slot].x).sort((a, b) => b - a), available.length);
-    await page.waitForFunction(() => (window as unknown as { retracePilot: { stopped: boolean } }).retracePilot.stopped, undefined, { timeout: 35_000 });
+    if (level.id !== 'sunset') await page.waitForFunction(() => (window as unknown as { retracePilot: { stopped: boolean } }).retracePilot.stopped, undefined, { timeout: 35_000 });
     await expect(page.locator('#status')).toContainText('Letter bag: 4/4');
     const collectedStatus = await page.locator('#status').innerText();
     await drive(1, [], 4);
@@ -4224,9 +4237,13 @@ for (const [index, level] of LEVELS.entries()) {
     await page.keyboard.press('Escape');
     await page.getByRole('button', { name: `Play ${level.name}`, exact: true }).click();
     await expect(page.locator('#status')).toContainText('Letter bag: 4/4');
-    const recoveries = await page.evaluate(() => (window as unknown as { retracePilot: { recoveries: string[] } }).retracePilot.recoveries);
+    const recoveries = await page.evaluate(sunset => sunset
+      ? (window as unknown as { timberKeyboardPilot: { recoveries: string[] } }).timberKeyboardPilot.recoveries
+      : (window as unknown as { retracePilot: { recoveries: string[] } }).retracePilot.recoveries, level.id === 'sunset');
     const recoveryPath = info.outputPath('recovery-history.json');
-    await writeFile(recoveryPath, JSON.stringify(await page.evaluate(() => (window as unknown as { retracePilot: { recoveryHistory: unknown[] } }).retracePilot.recoveryHistory), null, 2));
+    await writeFile(recoveryPath, JSON.stringify(await page.evaluate(sunset => sunset
+      ? (window as unknown as { timberKeyboardPilot: { history: unknown[] } }).timberKeyboardPilot.history
+      : (window as unknown as { retracePilot: { recoveryHistory: unknown[] } }).retracePilot.recoveryHistory, level.id === 'sunset'), null, 2));
     await info.attach('recovery-history', { path: recoveryPath, contentType: 'application/json' });
     expect(recoveries).toEqual([]);
     await reloadToMap(page);
@@ -4426,7 +4443,7 @@ for (const level of LEVELS) test(`compact HUD renderer fixture: ${level.id} iden
   await page.addScriptTag({ content: `(() => {
     const MAX_HEALTH = ${MAX_HEALTH};
     ${fixture}
-    window.hudFixtureMissing = [${[...runtimeImports, 'drawTimberTrunk'].map(name => `typeof ${name} === 'undefined' && ${JSON.stringify(name)}`).join(', ')}].filter(Boolean);
+    window.hudFixtureMissing = [${[...runtimeImports, 'drawTimberTrunk', 'drawSiteFrame'].map(name => `typeof ${name} === 'undefined' && ${JSON.stringify(name)}`).join(', ')}].filter(Boolean);
     window.createHudFixture = async (level, runTemplate) => {
       const assets = await loadWorldAssets(level.atlas), ui = await loadInterfaceKit();
       const pouch = await loadImage('/assets/spelling/pouch.png');
@@ -4442,7 +4459,7 @@ for (const level of LEVELS) test(`compact HUD renderer fixture: ${level.id} iden
           right: x + m.actualBoundingBoxRight, top: y - m.actualBoundingBoxAscent, bottom: y + m.actualBoundingBoxDescent }); }
         fillText(text, x, y);
       };
-      let state = 0, hint = '', notice = '';
+      let state = 0, hint = '', notice = '', ribbonBandPose = false;
       const draw = () => {
         const session = new EducationSession(); session.selectTrail(level.id);
         session.pickups.slice(0, state).forEach(pickup => session.collect(pickup.id));
@@ -4450,11 +4467,12 @@ for (const level of LEVELS) test(`compact HUD renderer fixture: ${level.id} iden
           specialTotal: [0, 3, 12, 3, 3][state], collectedSpecials: new Set(Array.from({ length: [0, 1, 10, 3, 3][state] }, (_, i) => 's' + i)),
           health: [3, 2, 1, 0, 3][state], healthFlashPip: state === 1 ? 2 : null, healthFlashSeconds: state === 1 ? 1 : 0 };
         ctx.imageSmoothingEnabled = false;
-        const camera = new Camera({ width: 426, height: 240, worldWidth: level.width, worldHeight: level.height, vertical: level.progressAxis === 'y' });
-        const ground = level.progressAxis === 'y' ? level.start.y : surfaceY(level, level.start.x);
+        const camera = new Camera({ width: 426, height: 240, worldWidth: level.width, worldHeight: level.height, vertical: level.verticalCamera || level.progressAxis === 'y', lead: level.cameraLead });
+        const ground = level.verticalCamera || level.progressAxis === 'y' ? level.start.y : surfaceY(level, level.start.x);
         camera.update(level.start.x, ground - 34);
         drawWorld(ctx, assets, level, camera, undefined, undefined, platformBodiesAt(level.platforms, 0), 0, true);
         const henryRect = { x: level.start.x - camera.position.x - manifest.anchor.x, y: ground - camera.position.y - manifest.anchor.y, width: 48, height: 48 };
+        if (ribbonBandPose) { henryRect.x = 110 - manifest.anchor.x; henryRect.y = 230 - manifest.anchor.y; }
         ctx.drawImage(henry, frame.x, frame.y, frame.width, frame.height, henryRect.x, henryRect.y, 48, 48);
         drawWorldForeground(ctx, assets, level, camera);
         const hud = new HudPresentation(); if (state > 0) hud.consume([{ type: 'checkpoint', entityId: level.checkpoints[0].id }]);
@@ -4487,7 +4505,7 @@ for (const level of LEVELS) test(`compact HUD renderer fixture: ${level.id} iden
           assets: [assets.atlas, assets.gems, assets.scenery?.background, assets.scenery?.foreground, pouch, henry, ...Object.values(ui)]
             .filter(Boolean).map(image => ({ source: new URL(image.src).pathname, loaded: image.complete && image.naturalWidth > 0 })) };
       };
-      window.hudFixture = { set(next, nextHint, nextNotice) { state = next; hint = nextHint; notice = nextNotice; draw(); } };
+      window.hudFixture = { bandPose() { ribbonBandPose = true; draw(); }, set(next, nextHint, nextNotice) { state = next; hint = nextHint; notice = nextNotice; draw(); } };
       const raf = window.requestAnimationFrame.bind(window);
       window.requestAnimationFrame = callback => raf(time => { callback(time); draw(); });
     };
@@ -4517,6 +4535,20 @@ for (const level of LEVELS) test(`compact HUD renderer fixture: ${level.id} iden
       }
     }
   }
+  // Actual Henry atlas draw + actual HUD renderer, explicitly prepositioned
+  // layout fixture. Its feet occupy the rail band; horizontal clearance is
+  // therefore necessary, rather than passing because the sprite is above it.
+  await page.evaluate(() => (window as unknown as { hudFixture: { bandPose(): void } }).hudFixture.bandPose());
+  await twoFrames(page);
+  const bandRect = await page.evaluate(() => (window as unknown as {
+    hudFixtureSample: { henryRect: { x: number; y: number; width: number; height: number } };
+  }).hudFixtureSample.henryRect);
+  const bandHenry = { top: bandRect.y, bottom: bandRect.y + bandRect.height, right: bandRect.x + bandRect.width };
+  expect(bandHenry.bottom).toBeGreaterThan(TRAIL_RIBBON.y);
+  expect(bandHenry.top).toBeLessThan(TRAIL_RIBBON.y + TRAIL_RIBBON.height);
+  expect(bandHenry.right).toBeLessThanOrEqual(TRAIL_RIBBON.x);
+  await info.attach('actual-renderer-ribbon-band-pose', { body: await page.locator('#game').screenshot(), contentType: 'image/png' });
+  await info.attach('ribbon-band-fixture-bounds', { body: JSON.stringify({ kind: 'actual renderer layout fixture, not input gameplay', bandHenry, ribbon: TRAIL_RIBBON }), contentType: 'application/json' });
   const glyphs = await kitTextProbe(page);
   expect(glyphs.checked).toContain(`${RIBBON_INTRO}|plaque`);
   for (const count of ['0', '1', '10', '99', '44', '1/3', '10/12', '3/3']) expect(glyphs.checked).toContain(`${count}|plaque`);
@@ -4683,7 +4715,7 @@ for (const [selection, trail] of LEVELS.entries()) test(`landmark labels: render
     ${modules.map((source, i) => declarations(names[i], source)).join('\n')}
     const LEVELS = ${JSON.stringify(LEVELS)};
     ${method}
-    window.mapFixtureMissing = [${[...runtimeImports, 'animationFrame', 'advanceMapMarker', 'TRAIL_WORDS', 'drawOverworld', 'drawWorld', 'drawMap', 'platformBodiesAt', 'drawTimberTrunk'].map(name => `typeof ${name} === 'undefined' && ${JSON.stringify(name)}`).join(', ')}].filter(Boolean);
+    window.mapFixtureMissing = [${[...runtimeImports, 'animationFrame', 'advanceMapMarker', 'TRAIL_WORDS', 'drawOverworld', 'drawWorld', 'drawMap', 'platformBodiesAt', 'drawTimberTrunk', 'drawSiteFrame'].map(name => `typeof ${name} === 'undefined' && ${JSON.stringify(name)}`).join(', ')}].filter(Boolean);
     window.createMapFixture = async () => {
       const [titleArtwork, landmarks, mapBackground, gems, ui, henry] = await Promise.all([
         loadImage('/assets/title/tiny-turbo-trails-v2.png'), loadImage('/assets/overworld/landmarks.png'),
@@ -4692,10 +4724,10 @@ for (const [selection, trail] of LEVELS.entries()) test(`landmark labels: render
         const assets = await loadWorldAssets(level.atlas), canvas = document.createElement('canvas'); canvas.width = 426; canvas.height = 240;
         const ctx = canvas.getContext('2d'); ctx.imageSmoothingEnabled = false;
         const camera = new Camera({ width: 426, height: 240, worldWidth: level.width,
-          worldHeight: level.height, vertical: level.progressAxis === 'y' });
-        if (level.progressAxis === 'y') camera.update(level.start.x, level.start.y - 34);
+          worldHeight: level.height, vertical: level.verticalCamera || level.progressAxis === 'y', lead: level.cameraLead });
+        if (level.verticalCamera || level.progressAxis === 'y') camera.update(level.start.x, level.start.y - 34);
         drawWorld(ctx, assets, level, camera, undefined, undefined,
-          level.progressAxis === 'y' ? platformBodiesAt(level.platforms, 0) : [], 0, true);
+          level.verticalCamera || level.progressAxis === 'y' ? platformBodiesAt(level.platforms, 0) : [], 0, true);
         drawWorldForeground(ctx, assets, level, camera);
         return canvas;
       }));

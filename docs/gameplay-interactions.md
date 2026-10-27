@@ -154,8 +154,11 @@ survive recovery, replay, map return and trail switching. Reload starts empty,
 with no browser storage.
 
 Shared `TRAIL_WORDS` configuration assigns Plains HILL, Quarry ROCK, Timbers TREE,
-Sunset BEAM, Frost SNOW and Cove SAND. Each trail has four blocks at x=360,
-1300, 3600 and 7100, 32px above ordinary terrain. Contact accepts ±22px
+Sunset BEAM, Frost SNOW and Cove SAND. Each trail has four stable pickup IDs.
+`supportY` gives the explicit fixed-deck height for Quarry, Timbers and Sunset;
+other pickups use terrain height. Rendering, contact and collection effects share
+`letterSupportY`. Sunset places B on the first intermediate girder, A on the far
+fixed crane dock, E on the descent and M beneath the roof. Contact accepts ±22px
 horizontally and ±24px between Henry's
 centre and a point 20px above ground. The bag count increases once per stable ID,
 with a 0.65-second letter flight toward the bag (a brief local cue with reduced

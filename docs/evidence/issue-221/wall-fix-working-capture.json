@@ -1,0 +1,35 @@
+{
+  "base": "7292fdd938bf717f10dd1296511befc0cbf68491",
+  "working": true,
+  "productionDiffSHA256": "2bfe6bfc841e3d2e785e4410b38020d49bc18509591736f2756f09f6d9377e38",
+  "sourceSHA256": "5ef2db7021744d2b04dfff636b22842ce3d53d15c91bd9d91c4eca25f53be0d5",
+  "viewport": {
+    "width": 426,
+    "height": 300
+  },
+  "canvas": {
+    "width": 426,
+    "height": 240
+  },
+  "browser": "Chromium",
+  "report": "/home/leew/.hermes/cache/scratch/m8-221-wall-fix-evidence/native-working-multi.json",
+  "captures": [
+    {
+      "title": "Sunset held-right cannot bypass the first tower and recovers to its local entrance",
+      "caseID": "707918baf227603e52bc-be28868faca645023010",
+      "project": "chromium",
+      "path": "docs/evidence/issue-221/wall-fix-lower-lip.png",
+      "sha256": "4a0e7bd7671b0896aafda7777035ae4573fccbd77494f0e2c1ce17f965aa37e7"
+    }
+  ],
+  "browserVersion": "156.0.8078.4",
+  "inputProof": {
+    "previous": 60,
+    "recoveries": 2,
+    "maximumX": 1069,
+    "samples": [
+      "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 60 Y 526 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute",
+      "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 60 Y 526 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute"
+    ]
+  }
+}

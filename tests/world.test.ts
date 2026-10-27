@@ -42,7 +42,8 @@ it('rejects non-contiguous surfaces and unplanted checkpoints', () => {
 
 it.each(LEVELS.filter(level => level.id !== 'quarry'))('plants every $name spring on permanent support', (level) => {
   const springs = level.entities.filter((entity) => entity.kind === 'spring');
-  expect(springs.length).toBeGreaterThan(0);
+  if (level.id === 'sunset') expect(springs).toEqual([]);
+  else expect(springs.length).toBeGreaterThan(0);
   for (const spring of springs) {
     expect(hasFixedSupport(level, spring) || spring.y === surfaceY(level, spring.x), spring.id).toBe(true);
   }

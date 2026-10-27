@@ -88,7 +88,7 @@ export async function runTimberStages(page: Page, stages: readonly TimberPilotSt
       frames: number; stable: number; previousY: number; phase: number; error: string; done: boolean; seenPlaying: boolean; history: object[];
     } }).timberKeyboardPilot;
     Object.assign(pilot, { stages, active: true, paused: false, pauseAt: -1, stage: 0,
-      frames: 0, stable: 0, previousY: NaN, phase: 0, error: '', done: false, seenPlaying: false, history: [] });
+      frames: 0, stable: 0, previousY: NaN, phase: 0, error: '', done: false, seenPlaying: false, observedX: NaN, observedY: NaN, history: [] });
   }, stages);
   await page.waitForFunction(() => {
     const pilot = (window as unknown as { timberKeyboardPilot: { done: boolean; error: string } }).timberKeyboardPilot;
@@ -121,7 +121,7 @@ export function timberKeyboardPilotInit(stages: TimberPilotStage[]): void {
 
     const pilot = { active: false, paused: false, frozen: false, pauseAt: -1, stage: 0, frames: 0,
       stable: 0, previousY: NaN, startY: NaN, phase: 0, error: '', done: false, seenPlaying: false, advanceMs: 0,
-      stages, history: [] as object[] };
+      stages, history: [] as object[], recoveries: [] as string[], observedX: NaN, observedY: NaN };
     Object.assign(window, { timberKeyboardPilot: pilot });
     const send = (code: string, down: boolean): void => { window.dispatchEvent(new KeyboardEvent(down ? 'keydown' : 'keyup', { code })); };
     const release = (): void => { send('ArrowLeft', false); send('ArrowRight', false); send('Space', false); };
@@ -141,6 +141,8 @@ export function timberKeyboardPilotInit(stages: TimberPilotStage[]): void {
       const vx = Number(status.match(/V (-?\d+)/)?.[1] ?? 0);
       if (now !== previousTime && pilot.active && status.includes('Playing')) pilot.seenPlaying = true;
       if (now !== previousTime && pilot.active && !pilot.paused && !pilot.done && !pilot.error && status.includes('Playing')) {
+        if (Number.isFinite(pilot.observedX) && (Math.abs(x - pilot.observedX) > 80 || Math.abs(y - pilot.observedY) > 120)) pilot.recoveries.push(status);
+        pilot.observedX = x; pilot.observedY = y;
         const stage = pilot.stages[pilot.stage];
         if (!stage) { pilot.error = `stage overflow ${pilot.stage}`; release(); }
         else if (stage.kind === 'finish') {

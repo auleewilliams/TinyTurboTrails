@@ -59,7 +59,13 @@ export interface LevelData {
   finish: { x: number; y: number; asset: string; supportOnly?: boolean; boundedWidth?: number; rearmBelowY?: number; rearmLeftX?: number };
   /** Vertical trails measure progress by feet height; horizontal trails keep their defaults. */
   progressAxis?: 'y';
+  /** Follow stacked supports independently of the ribbon's progress axis. */
+  verticalCamera?: boolean;
+  /** Extra forward view for wide crossing approaches, in native canvas pixels. */
+  cameraLead?: number;
   checkpointActivation?: 'grounded';
+  /** Current mixed-route section, independent of checkpoint history. */
+  sections?: readonly { x: number; name: string; minY?: number; maxY?: number }[];
   /** Safe fixed support used by the existing Find more letters action. */
   retrace?: { x: number; y: number };
   surfaces: readonly Surface[];
@@ -271,17 +277,17 @@ export function validateLevel(level: LevelData): void {
     if (level.checkpointActivation === 'grounded' ? !hasFixedSupport(level, checkpoint)
       : checkpoint.y !== surfaceY(level, checkpoint.x)) throw new Error(`checkpoint lacks fixed support: ${checkpoint.id}`);
   }
-  if (level.progressAxis === 'y' && !hasFixedSupport(level, level.start)) throw new Error('start lacks fixed support');
+  if ((level.verticalCamera || level.progressAxis === 'y') && !hasFixedSupport(level, level.start)) throw new Error('start lacks fixed support');
   if (level.finish.supportOnly && !hasFixedSupport(level, level.finish)) throw new Error('finish lacks fixed support');
   if (level.finish.boundedWidth !== undefined && (!Number.isFinite(level.finish.boundedWidth)
     || level.finish.boundedWidth <= 0 || level.finish.x + level.finish.boundedWidth > level.maxX)) {
     throw new Error('finish bounds are invalid');
   }
-  if (level.finish.rearmBelowY !== undefined && (level.progressAxis !== 'y'
+  if (level.finish.rearmBelowY !== undefined && (!level.finish.supportOnly
     || level.finish.rearmBelowY <= level.finish.y + DEFAULT_MOVEMENT.height)) {
     throw new Error('finish rearm height is invalid');
   }
-  if (level.finish.rearmLeftX !== undefined && (level.progressAxis !== 'y' || !level.retrace
+  if (level.finish.rearmLeftX !== undefined && (!level.finish.supportOnly || !level.retrace
     || level.finish.rearmLeftX >= level.retrace.x || level.finish.rearmLeftX < level.minX)) {
     throw new Error('finish left rearm point is invalid');
   }
