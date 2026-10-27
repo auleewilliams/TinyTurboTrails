@@ -39,3 +39,14 @@ and the terrain lip from1000 to960. These upper-route working views retain their
 original source hash; they are not relabelled as final-head captures. The final
 native held-right case separately captures the corrected lower-island lip, with
 source/browser/viewport and PNG hashes in the worker evidence.
+
+The subsequent7292 wall-contact review invalidated the single-jump safety claim.
+The former images and manifest above remain historical. The current
+[lower-island lip](wall-fix-lower-lip.png) is an actual held-right input capture
+before recovery, from the wall correction's working source.
+[Its manifest](wall-fix-working-capture.json) records exact source/diff and PNG
+hashes. The far terrain wall now starts at1320 and the moved descent steps follow
+the current guide; the former descent image shows the former step positions.
+Separate new native multi-jump journeys require physical ascent, observe exact
+rendered terrain contacts and keep subsequent ordinary jumps available. These
+working images do not claim final stable-head provenance or owner acceptance.

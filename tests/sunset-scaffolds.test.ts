@@ -93,7 +93,7 @@ it.each(TRAIL_WORDS.find(word => word.id === 'sunset')!.pickups)('$id ignores th
 it('frames fixed downward targets and both dock approaches in the native camera', () => {
   const camera = new Camera({ width: 426, height: 240, worldWidth: SUNSET_SITE.width, worldHeight: SUNSET_SITE.height,
     vertical: SUNSET_SITE.verticalCamera, lead: SUNSET_SITE.cameraLead });
-  for (const [x, top, below] of [[350, 320, 380], [1760, 380, 440], [1860, 440, 500], [2100, 500, 560],
+  for (const [x, top, below] of [[350, 320, 380], [1900, 380, 440], [2020, 440, 500], [2100, 500, 560],
     [2200, 560, 620], [2820, 140, 200], [2670, 200, 260], [2550, 260, 320], [2590, 320, 380], [2720, 380, 440]] as const) {
     camera.update(x, top - 34);
     expect(below - camera.position.y).toBeGreaterThan(30);

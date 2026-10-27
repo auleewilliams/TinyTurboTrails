@@ -20,11 +20,11 @@ The entrance itself is x0–300 at y560. The adjoining x280–720 top is a local
 right-side catch, so the combined y560 floor still ends at720. Its lower catch is
 x0–840 at y620, then terrain x0–960 at y680. These supports lead back into the
 first tower. They do not join the later yard. The visible terrain gap from x960
-to1200 descends to y1000; walking into it invokes existing fall recovery at the
+to1340 descends to y1000; walking into it invokes existing fall recovery at the
 active checkpoint. It is outside the intended route, not a new damage mechanic.
-The high fixed crossing spans x340–1770 at y380 over that gap. The descent's
-left catches step through x1560@y500, x1440@y560, x1320@y620 and terrain beginning
-at x1200@y680. All exposed fixed-platform edges retain a settled catch no more
+The high fixed crossing spans x340–1900 at y380 over that gap. The descent's
+left catches step through x1700@y500, x1580@y560, x1460@y620 and terrain beginning
+at x1340@y680. All exposed fixed-platform edges retain a settled catch no more
 than60 pixels below and an ordinary fixed-support rejoin. Continuing to walk off
 the lower terrain island is tested separately as a recovery, not a local landing.
 
@@ -40,12 +40,37 @@ flowchart LR
   floor --> recovery[Gap fall returns to active checkpoint]
 ```
 
-A93-case actual-input takeoff sweep found seven full-jump bypasses at the
-previous1000px terrain lip. Those failures are preserved. The lower catch now
-ends840 and terrain960, retaining120px braking margins while separating the
-terrain islands by240px. The same93 real-input takeoff checks are repeated at
-the corrected lip; these are bounded adversarial journeys, not a proof of all
-possible inputs. The fifteen named regressions use the actual new takeoff edge.
+The earlier 93 single-jump takeoffs did not establish sequence safety. Independent
+review of7292fdd found ten of840 takeoffs could ground on the far terrain wall,
+jump again, reach the yard and finish with onlyCP4. The initial final-climb pilot
+stalled at the yard; continuing ordinary jumps from that actual support finished.
+Those counterexamples and the initial stall remain preserved.
+
+The far wall now begins at1320,140px beyond its former1180 start. This is outside
+a conservative reach-and-recovery envelope, not a sampled one-pixel adjustment.
+With unchanged speed220, jump510, gravity1500, coyote0.1s, maximum callback0.1s
+and recovery feet874, grant a fresh launch at x980 with feet680 (higher and farther
+right than any live first-island terrain contact). Full-hold airtime to874 is
+0.952s. Adding full coyote travel22px, an entire callback22px and body half-width9px
+gives x<1243, over77px before the wall. Lower-catch and entrance launches have
+smaller bounds despite their higher tops. The y380 crossing cannot be reached
+from the lower island. The y1000 floor is below recovery, so it cannot renew a
+jump; no other live landing exists between the envelope and the far wall. Stop,
+reverse and early release cannot exceed this full-speed/full-hold bound. Terrain
+snapping, recovery height and ordinary9px platform overhang remain unchanged.
+This argument covers the lower-island route; it does not claim exhaustive model
+checking or human comfort. Main forward and reverse travel use the fixed bridge.
+
+[Wall-contact regressions](../tests/sunset-wall.test.ts) preserve the reviewer's
+exact pre/k definitions and seven cadences.143 expanded unit identities exercise
+2271 actual entrance journeys: three primary witnesses, all840 original takeoffs,
+840 repeated-contact variants and588 pause/reverse/short-hold variants. A contact
+permits another ordinary jump and actual reached terrain/yard gets continued
+movement toward a real finish; a stale pilot stall cannot satisfy the negative.
+All original fifteen negatives remain. New native cases observe exact sprite and
+fixed-girder draw coordinates with actual keyboard input, record physical ascent
+and try further jumps on any reached terrain contact; native scheduling is not
+claimed to reproduce a forced simulation cadence.
 
 The extra horizontal separation is authored tuning of the nominal sketch: it
 prevents lower catch travel from becoming a shortcut while preserving generous
@@ -78,7 +103,8 @@ quiet stretches: this is not a human-duration or enjoyment observation.
 
 Task-local raw source, input histories, logs, screenshots and provenance remain
 under `/home/leew/.hermes/cache/scratch/m8-221-evidence`. Correction evidence is
-separate in `/home/leew/.hermes/cache/scratch/m8-221-review-fix-evidence`; original
+separate in `/home/leew/.hermes/cache/scratch/m8-221-review-fix-evidence`; wall-correction evidence is
+`/home/leew/.hermes/cache/scratch/m8-221-wall-fix-evidence`; original
 source, working images, failed reports and review findings remain unchanged. The worker handoff records
 exact source revisions, outcomes and final native report identities. Historical
 certification worksheets are unchanged.
@@ -95,6 +121,9 @@ certification worksheets are unchanged.
   two ends, held direction/release/brake, three cadences, a settled local catch
   within 60 pixels, and an input-driven fixed-support path back to the source.
   These begin prepositioned at the tested support and are not complete journeys.
+  The moved left y500 catch now joins E at the same height:558 actual combined-top
+  cases replace576 former cases because the internal touching edges disappear;
+  both exposed ends and all safety/rejoin predicates remain.
 - [Crane fixtures](../tests/sunset-crane.test.ts): both directions, seven phase
   starts and three cadences; boarding or a safe catch and input return to both
   fixed docks. [Carry/step-off fixtures](../tests/sunset-site.test.ts) also inspect
