@@ -3172,15 +3172,9 @@ test('celebration preview preserves gameplay pixels and final pose under reduced
   await info.attach('celebration-art-reduced', { body: await page.locator('canvas').screenshot(), contentType: 'image/png' });
 });
 
-for (const [costume, selected] of [...LEVELS.entries()].filter(([, level]) => level.id === 'cove' || level.entities.some(entity => entity.kind === 'slime'))) {
-  test(`${selected.id} uses the common slime atlas, patrols and pauses in play`, async ({ page }, info) => {
+for (const [costume, level] of [...LEVELS.entries()].filter(([, level]) => level.entities.some(entity => entity.kind === 'slime'))) {
+  test(`${level.id} uses the common slime atlas, patrols and pauses in play`, async ({ page }, info) => {
     test.setTimeout(45_000);
-    // Keep Cove's native identity after retiring its patrols. The live movement/
-    // pause contract uses Plains' existing orchard, while the shared atlas test
-    // below retains every accessory cell, including the snorkel.
-    const level = selected.id === 'cove' ? LEVELS[0] : selected;
-    const spriteCostume = selected.id === 'cove' ? 0 : costume;
-    if (selected.id === 'cove') expect(selected.entities.filter(e => e.kind === 'slime')).toHaveLength(0);
     await page.addInitScript((sky) => {
       const fillRect = CanvasRenderingContext2D.prototype.fillRect;
       const drawImage = CanvasRenderingContext2D.prototype.drawImage;
@@ -3204,7 +3198,7 @@ for (const [costume, selected] of [...LEVELS.entries()].filter(([, level]) => le
     const read = async (): Promise<number[][]> => JSON.parse(await canvas.getAttribute('data-live-slimes') ?? '[]');
     await expect.poll(async () => (await read()).length).toBe(level.entities.filter(e => e.kind === 'slime').length);
     const initial = await read();
-    for (const call of initial) expect([call[0], call[1], call[2], call[3], call[6], call[7]]).toEqual([spriteCostume * 48, 0, 48, 48, 48, 48]);
+    for (const call of initial) expect([call[0], call[1], call[2], call[3], call[6], call[7]]).toEqual([costume * 48, 0, 48, 48, 48, 48]);
     await expect.poll(async () => (await read())[0][4]).not.toBe(initial[0][4]);
     const first = level.entities.find(e => e.kind === 'slime')!;
     // Walk to a clear viewing distance through the actual controls.

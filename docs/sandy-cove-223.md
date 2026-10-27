@@ -36,10 +36,12 @@ manual word activity and final-trail Map flow remain in place.
 
 ## Coverage purpose ledger
 
-The full native identities remain configured in their original Chromium,
-Firefox and WebKit projects. No existing native title, viewport loop, timeout,
-retry setting, guard or assertion policy is removed. The local focused selection
-is separate from the full configured suite and from coordinator-owned CI.
+The configured suite has 570 native identities: 546 of the original 549 remain,
+three obsolete Cove patrol identities are explicitly retired, and 24 new Cove
+identities are added. The applicable live-slime cases retain their original
+45-second limits, atlas, patrol, movement and Pause assertions. No viewport,
+engine, retry, guard or assertion policy is weakened. Configured discovery is
+separate from local execution and coordinator-owned full CI.
 
 | Existing identity / fixture | Disposition and preserved purpose |
 | --- | --- |
@@ -48,12 +50,47 @@ is separate from the full configured suite and from coordinator-owned CI.
 | `all six trail previews show cached gameplay and the map requests no story artwork` | Retained for all six destinations; added an actual cached Cove source-canvas/stone/framing witness. |
 | `compact HUD renderer fixture: cove identity marks and real glyph clearance` | Retained with the complete manual-strip import graph, runtime missing-dependency guard, actual assets and glyph bounds. Authored section labels take priority over the old checkpoint-derived names. |
 | `landmark labels: renderer fixture cove clears real art, paths, frames, badges and Henry in every completion state` | Retained in every engine, including complete transitive renderer dependencies and missing-dependency guard. |
-| `cove uses the common slime atlas, patrols and pauses in play` | Preserve all three original native identities after Cove retires patrols; reanchor actual live atlas/patrol/Pause assertions to Plains' existing orchard. The separate shared atlas case still checks all six accessory cells, including Cove's snorkel. |
+| `cove uses the common slime atlas, patrols and pauses in play` | Explicitly retire the three obsolete Cove-only identities listed below: Cove has no live slimes. The existing Plains case and every other applicable trail's live atlas/patrol/Pause case retain their purpose. The shared atlas case still checks all six accessory cells, including Cove's snorkel. |
 | `controller damage rumble is independent of audio and stops on pause, focus loss and disconnect` | Unchanged Plains orchard fixture: real movement/health contact, duration 100 ms, strong .55 / weak .3, mute independence, Pause/focus/disconnect and neutral polling. |
 | Shared Pause/native focus/held confirmation/neutral input and all-six selection cases | Retained unchanged; focused native selection records actual executed identities separately. |
 | `cove-exploration.test.ts` original six-spring/six-CP and fixed-coordinate low-find fixtures | Replaced stale layout expectations with stable 42 IDs, firm start + three CP, unchanged short materials, no-jump bypass/replay at three cadences, both low finds and all rewards in one journey, every real union-edge miss in both directions/cadences, bank exits/rejoins/retries, spring count/negative control and retained recovery. Original source/tests and raw baseline observations are retained outside the checkout. |
 | `biome-gameplay.test.ts` moving-creature Pause/replay case | Reanchor to the existing Plains orchard slime after Cove retires its slimes. Keep real patrol advance, frozen clock and reset position. Other Cove checks retain actual finish/replay and now collect all 42 through its explicit discovery route. |
 | `all-trails-education.test.ts`, `feedback.test.ts`, `overworld.test.ts`, `biomes.test.ts` | Reanchor Cove shelf input, authored sections, initial vertical camera y222, three checkpoints and retired patrols. Preserve the other trails' cases. |
+
+The exact retired native rows all have file `browser.spec.ts` and title
+`cove uses the common slime atlas, patrols and pauses in play`:
+
+| Project | Retired identity |
+| --- | --- |
+| Chromium | `fbeac1b2decfba2c3acd-f225d9625761fba70150` |
+| Firefox | `fbeac1b2decfba2c3acd-75eb8ba0732653421dcd` |
+| WebKit | `fbeac1b2decfba2c3acd-ad68afb4705f847c076a` |
+
+The external identity audit requires exactly the original set minus these three,
+plus the same 24 additions. It rejects any other removal, substitution, extra
+identity or duplicate. Earlier 573/zero-removal claims are superseded historical
+records. Their Cove-labelled Plains alias passes do not prove Cove behavior.
+
+The full unit purpose delta is 1837 to 1855: 1824 original identities retained,
+13 retired or reanchored, and 31 new or replacement identities. Nine former
+`cove-exploration.test.ts` layout fixtures (two low-find approaches, paired low
+finds, six-bonus spring route, old no-jump finish, individual reachability,
+six-checkpoint/spring/slime totals, reward recovery and third-pool geometry) are
+replaced by the current route, reachability, union-edge miss/retry, checkpoint,
+material, spring-count and recovery assertions described above. The other four
+conditional Cove-only retirements have these explicit purpose mappings:
+
+| Retired conditional unit purpose | Applicable retained or replacement purpose |
+| --- | --- |
+| `interactions.test.ts`: airborne/swept crossings at every SANDY COVE flag | Approved grounded Cove activation replaces airborne activation; `cove-exploration.test.ts` checks actual activation, earlier reactivation and zero-motion recovery. The other applicable trails retain walking/jumping/swept checkpoint crossings. |
+| `obstacle-pass-through.test.ts`: SANDY COVE slime-side damage, knockback, flash and protection | No Cove actor remains; the same conditional test keeps actual live-slime trails and all its damage/protection assertions. |
+| `slime-squash-scenes.test.ts`: SANDY COVE adventure/preview soft squish | No Cove actor remains; applicable trails retain scene/preview soft-squish, no reward/damage assertions and the shared audio scoring check. |
+| `slimes.test.ts`: SANDY COVE common speed, safe patrol and no bounce | No Cove patrol remains; applicable live-slime trails retain speed/safe-bound/no-bounce checks, with global reversal/contact/reset tests and the six-cell atlas/snorkel coverage retained. |
+
+The 31 additions/replacements comprise 21 Cove exploration cases, five Cove
+finish/return cases, three Cove route cases, one authored HUD-section case and
+one distinct stone-top renderer case. The source-bound complete unit identity
+delta is preserved externally in `m8-223-author-primary-readback/unit-identity-delta.json`.
 
 The three manual-strip fixture groups remain: builder/word overlays (movement,
 education, tile/loader, interface kit and menu/education overlays); compact HUD
@@ -74,6 +111,10 @@ Raw baseline, RED/GREEN, failed/interrupted attempts, source/bundle/PNG bindings
 configured identity inventories and executed native JSON live in the task's
 external `m8-223-evidence` directory. The worker handoff distinguishes exact
 revisions, configured versus executed cases, and historical versus final runs.
+The 75 native executions on 9bcde2a, six on ba3b2af, and coordinator's 81 on
+ba3b2af remain historical executions on those revisions. The bounded honesty
+correction records its fresh affected-scope execution separately in
+`m8-223-honesty-fix-evidence`; it does not relabel old runs as current-head proof.
 Existing dated certification/waiver worksheets are not rewritten.
 
 Automated completion and visual inspection do not establish owner enjoyment,
