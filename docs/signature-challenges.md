@@ -13,10 +13,9 @@ per-level music and checkpoint music continuity are unchanged.
 | --- | --- | --- |
 | Plains | Jump from the downhill shoulder around x1065–1095 through star 1 at (1150,78); hop in the orchard hollow for star 2 at (1930,150); ride the spring at x2760 through star 3 at (2800,135). | Continuous grass receives every miss. The downhill runout has a 180px contour-following gold band centered at x1320. Walk back for retries; a short ordinary jump near x2685 bypasses the spring. All stars remain optional. |
 | Quarry | Two optional side shelves on the descent, plus a fixed approach to lift B. | Permanent catches and bidirectional lifts allow retrying; see [Quarry](QUARRY-PLAYTEST.md). |
-| Timbers | Follow the first three springs (x=950, 1650, 3100). Each star is 80px ahead and 100px above that spring's ground. Keep moving right through the arc. | Each has a 140px gold landing band on continuous terrain at x=1100, 1820, 3320. No pit or timed platform is added. Stop/reverse to miss a star safely, or approach the spring again. |
+| Timbers | Star 1 is on the low left bough, star 2 is beyond the single optional spring, and star 3 is on the upper left canopy branch. | Permanent lower and side boughs catch misses and give an ordinary jump route back; see [Timbers](TIMBERS-ASCENT.md). The main route needs no spring. |
 
-The shelf is represented by an existing platform with identical endpoints, so
-there is no new terrain model or collision rule. Contour-following gold landing
+The optional shelves use the existing platform collision model. Plains' contour-following gold landing
 bands remain visible; the in-level text signboards and posts were removed in #170.
 All nine rewards can be collected and each trail
 finished with ordinary directional/jump input from the actual level start.

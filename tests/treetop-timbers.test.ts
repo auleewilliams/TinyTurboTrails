@@ -1,13 +1,9 @@
 import { readFileSync } from 'node:fs';
 import { expect, it } from 'vitest';
-import type { GameAudio } from '../src/core/audio';
-import { AdventureScene } from '../src/game/adventure-scene';
-import { surfaceY } from '../src/game/movement';
-import { validateLevel, type WorldEntity } from '../src/world/level';
+import { hasFixedSupport, validateLevel, type WorldEntity } from '../src/world/level';
 import { LEVELS, TREETOP_TIMBERS, levelById } from '../src/world/levels';
 
-const ofKind = (kind: WorldEntity['kind']) =>
-  TREETOP_TIMBERS.entities.filter((entity) => entity.kind === kind);
+const ofKind = (kind: WorldEntity['kind']) => TREETOP_TIMBERS.entities.filter(entity => entity.kind === kind);
 
 it('registers Treetop Timbers with its own atlas and valid level data', () => {
   expect(levelById('timbers')).toBe(TREETOP_TIMBERS);
@@ -17,70 +13,26 @@ it('registers Treetop Timbers with its own atlas and valid level data', () => {
   expect(TREETOP_TIMBERS.atlas).toBe('timbers');
 });
 
-it('builds a long forgiving timber route with six checkpointed sections', () => {
-  expect(TREETOP_TIMBERS.width).toBeGreaterThanOrEqual(9980);
-  expect(TREETOP_TIMBERS.checkpoints).toHaveLength(6);
-  expect(ofKind('checkpoint')).toHaveLength(6);
-  expect(ofKind('spring').length).toBeGreaterThanOrEqual(6);
-  expect(ofKind('hazard').length).toBeGreaterThanOrEqual(6);
-  expect(ofKind('gem').length).toBeGreaterThanOrEqual(30);
-  expect(ofKind('hazard').every(({ asset }) => asset === 'stone')).toBe(true);
+it('replaces the former long contour with three resting checkpoints and permanent wood branches', () => {
+  const level = TREETOP_TIMBERS;
+  expect(level.width).toBe(820);
+  expect(level.start.y - level.finish.y).toBe(900);
+  expect(level.checkpoints.map(point => point.y)).toEqual([900, 660, 420]);
+  expect(ofKind('checkpoint')).toHaveLength(3);
+  expect(ofKind('spring')).toHaveLength(1);
+  expect(ofKind('hazard')).toHaveLength(0);
+  expect(ofKind('slime')).toHaveLength(0);
+  expect(ofKind('gem')).toHaveLength(33);
+  expect(ofKind('special')).toHaveLength(3);
+  expect(level.theme.material).toBe('wood');
+  expect(level.platforms?.every(platform => platform.from.x === platform.to.x && platform.from.y === platform.to.y)).toBe(true);
 });
 
-it('uses shallow V contours that read as rope bridges while remaining walkable', () => {
-  const surfaces = TREETOP_TIMBERS.surfaces;
-  const valleys = surfaces.filter((down, index) => {
-    const up = surfaces[index + 1];
-    return up && down.y2 > down.y1 && up.y2 < up.y1 && down.x2 === up.x1 && down.y2 === up.y1;
-  });
-  expect(valleys.length).toBeGreaterThanOrEqual(4);
-  for (const valley of valleys) {
-    expect(valley.y2 - valley.y1).toBeLessThanOrEqual(48);
+it('seats every checkpoint, spring and finish on a whole fixed footprint', () => {
+  const level = TREETOP_TIMBERS;
+  for (const point of [...level.checkpoints, level.finish, level.retrace!, ...ofKind('spring')]) {
+    expect(hasFixedSupport(level, point), JSON.stringify(point)).toBe(true);
   }
-});
-
-it('plants grounded interactions on the timber trail', () => {
-  for (const entity of TREETOP_TIMBERS.entities) {
-    if (entity.kind === 'special') {
-      const introduction = entity.id === 'timbers-special-1';
-      expect(entity.y, entity.id).toBe(surfaceY(TREETOP_TIMBERS, introduction ? entity.x - 80 : entity.x) - (introduction ? 100 : 120));
-      continue;
-    }
-    if (entity.kind === 'gem' || entity.kind === 'decoration') continue;
-    expect(entity.y, entity.id).toBeCloseTo(surfaceY(TREETOP_TIMBERS, entity.x), 5);
-  }
-});
-
-it('can finish Treetop Timbers with simple hazard-avoidance jumps', () => {
-  const effects: string[] = [];
-  const audio: GameAudio = {
-    unlock: async () => {}, setMuted: () => {}, setSuspended: () => {}, startMusic: () => {},
-    play: (effect) => effects.push(effect), stop: () => {}, dispose: () => {},
-  };
-  const scene = new AdventureScene({} as HTMLImageElement, {} as never,
-    { plains: {} as never, timbers: {} as never, site: {} as never, frost: {} as never, cove: {} as never }, audio, TREETOP_TIMBERS);
-  const input = { horizontal: 1, jumpPressed: false, jumpHeld: false, pausePressed: false, mutePressed: false };
-  scene.update(1 / 60, { ...input, horizontal: 0, jumpPressed: true });
-  const dangers = TREETOP_TIMBERS.entities
-    .filter((entity) => entity.kind === 'slime' || entity.kind === 'hazard')
-    .sort((left, right) => left.x - right.x);
-  let dangerIndex = 0;
-  let jumpFrames = 0;
-  for (let frame = 0; frame < 60 * 150 && scene.screenState !== 'finish'; frame++) {
-    const danger = dangers[dangerIndex];
-    const jumpPressed = danger !== undefined && scene.playerX >= danger.x - 50;
-    if (jumpPressed) {
-      dangerIndex++;
-      jumpFrames = 24;
-    }
-    scene.update(1 / 60, { ...input, jumpPressed, jumpHeld: jumpFrames-- > 0 });
-  }
-  expect(scene.screenState).toBe('finish');
-  expect(effects.filter((effect) => effect === 'spring')).toHaveLength(ofKind('spring').length);
-  // A hazard-avoidance jump can carry Henry over a nearby checkpoint's trigger.
-  expect(effects.filter((effect) => effect === 'checkpoint').length).toBeGreaterThan(0);
-  expect(effects).not.toContain('recover');
-  expect(effects.filter((effect) => effect === 'damage').length).toBeLessThan(3);
 });
 
 it('ships a complete 4 by 4 timber atlas contract', () => {

@@ -13,7 +13,7 @@ it('discards activity clock debt when the finish activity opens and pointer retu
     Object.fromEntries(LEVELS.map(level => [level.atlas, {} as never])), new SilentAudio(), TREETOP_TIMBERS);
   scene.startSelected();
   const live = scene as unknown as { player: Player; run: RunState };
-  live.player.x = TREETOP_TIMBERS.finish.x;
+  live.player.x = TREETOP_TIMBERS.finish.x; live.player.y = TREETOP_TIMBERS.finish.y - 34;
   const clock = new SimulationClock();
   const neutral = { horizontal: 0, jumpHeld: false, jumpPressed: false, pausePressed: false, mutePressed: false };
   // Exercise the shipped frame boundary, not a copied implementation. Stub only

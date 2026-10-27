@@ -1,5 +1,5 @@
 import { expect, it } from 'vitest';
-import { EducationSession, LETTER_PICKUPS } from '../src/game/education';
+import { EducationSession, LETTER_PICKUPS, letterSupportY } from '../src/game/education';
 import { AdventureScene } from '../src/game/adventure-scene';
 import { SilentAudio } from '../src/core/audio';
 import { LEVELS, TREETOP_TIMBERS } from '../src/world/levels';
@@ -61,7 +61,7 @@ function buildYourWord(scene: AdventureScene): void {
 it('collects on Timbers and retains education through health/pit recovery, replay, map and other trails', () => {
   const { scene, live } = timbers();
   for (const letter of [...LETTER_PICKUPS].reverse()) {
-    Object.assign(live.player, { x: letter.x, y: surfaceY(TREETOP_TIMBERS, letter.x) - 34, vx: 0, vy: 0, onGround: true });
+    Object.assign(live.player, { x: letter.x, y: letterSupportY(letter, TREETOP_TIMBERS) - 34, vx: 0, vy: 0, onGround: true });
     scene.update(1 / 60, neutral);
   }
   expect(scene.education.letterCount).toBe(4);
@@ -73,7 +73,7 @@ it('collects on Timbers and retains education through health/pit recovery, repla
   live.run.health = 1; live.run.invulnerableSeconds = 0;
   damagePlayer(live.run, live.player, 1, [], TREETOP_TIMBERS);
   expect(scene.education.stickers).toEqual(rewards);
-  live.player.x = TREETOP_TIMBERS.finish.x;
+  live.player.x = TREETOP_TIMBERS.finish.x; live.player.y = TREETOP_TIMBERS.finish.y - 34;
   scene.update(1 / 60, neutral);
   scene.educationOverlay.close();
   scene.activateFinish('Replay');
@@ -101,7 +101,7 @@ it('does not cross-collect Timbers identities when collecting on Plains', () => 
 
 it('has no activity spot, target or activation on the trail, including the former sign position', () => {
   const { scene, live } = timbers();
-  Object.assign(live.player, { x: 2350, y: surfaceY(TREETOP_TIMBERS, 2350) - 34, vx: 0, vy: 0, onGround: true });
+  Object.assign(live.player, { x: 235, y: TREETOP_TIMBERS.start.y - 34, vx: 0, vy: 0, onGround: true });
   expect(scene.menuTargets).toEqual([]);
   for (const source of ['keyboard', 'controller'] as const) {
     scene.handleEducationInput({ ...neutral, activityPressed: true, source });
@@ -178,7 +178,7 @@ it('opens a small session sticker collection from the map by pointer or activity
 it('opens optional manual assembly at finish and accepts select/place through native targets and controller input', () => {
   const { scene, live } = timbers();
   for (const pickup of LETTER_PICKUPS) scene.education.collect(pickup.id);
-  live.player.x = TREETOP_TIMBERS.finish.x;
+  live.player.x = TREETOP_TIMBERS.finish.x; live.player.y = TREETOP_TIMBERS.finish.y - 34;
   scene.update(1 / 60, neutral);
   expect(scene.screenState).toBe('finish');
   buildYourWord(scene);
@@ -203,100 +203,56 @@ it('opens optional manual assembly at finish and accepts select/place through na
   expect(scene.menuTargets.map(target => target.label)).toEqual(['Next trail', 'Map', 'Build your word', 'Replay']);
 });
 
-it('returns missing-letter play beside finish in the identical completed run and rearms only after leaving', () => {
+it('returns beside the summit in the same run and waits for deliberate re-entry', () => {
   const { scene, live } = timbers();
   scene.education.collect(LETTER_PICKUPS[0].id);
   scene.education.place(LETTER_PICKUPS[0].id, 0);
   live.run.collectedGems.add('retained-gem');
   live.run.collectedSpecials.add('retained-star');
-  live.player.x = TREETOP_TIMBERS.finish.x;
+  live.player.x = TREETOP_TIMBERS.finish.x; live.player.y = TREETOP_TIMBERS.finish.y - 34;
   scene.update(1 / 60, neutral);
   const run = live.run, before = JSON.stringify(run);
-  expect(scene.session.results.has('timbers')).toBe(true);
   buildYourWord(scene);
   scene.menuTargets.find(target => target.label === 'Find more letters')!.action();
-  expect(scene.educationOverlay.open).toBe(false);
   expect(scene.screenState).toBe('playing');
   expect(live.run).toBe(run);
   expect(JSON.stringify(run)).toBe(before);
-  expect(Math.abs(scene.playerX - TREETOP_TIMBERS.finish.x)).toBeLessThan(40);
-  expect(scene.education.wordProgress).toBe('T _ _ _');
-  for (let frame = 0; frame < 50; frame++) scene.update(1 / 60, { ...neutral, horizontal: 1 });
-  expect(scene.educationOverlay.open).toBe(false);
-  for (let frame = 0; frame < 150 && scene.playerX >= TREETOP_TIMBERS.finish.x - 100; frame++) scene.update(1 / 60, { ...neutral, horizontal: -1 });
-  expect(scene.playerX).toBeLessThan(TREETOP_TIMBERS.finish.x - 100);
-  for (let frame = 0; frame < 150 && scene.screenState === 'playing'; frame++) scene.update(1 / 60, { ...neutral, horizontal: 1 });
-  buildYourWord(scene);
+  expect(scene.playerX).toBe(TREETOP_TIMBERS.retrace!.x);
+  for (let frame = 0; frame < 40; frame++) scene.update(1 / 60, neutral);
+  expect(scene.screenState).toBe('playing');
+  for (let frame = 0; frame < 100 && scene.playerX > TREETOP_TIMBERS.finish.rearmLeftX!; frame++)
+    scene.update(1 / 60, { ...neutral, horizontal: -1 });
+  expect(scene.playerX).toBeLessThanOrEqual(TREETOP_TIMBERS.finish.rearmLeftX!);
+  for (let frame = 0; frame < 100 && scene.screenState === 'playing'; frame++)
+    scene.update(1 / 60, { ...neutral, horizontal: 1 });
   expect(scene.screenState).toBe('finish');
   expect(live.run).toBe(run);
   expect(scene.session.results.has('timbers')).toBe(true);
 });
 
-it('clears an airborne finish jump buffer before returning beside finish', () => {
+it('clears movement and pending input on summit retrace', () => {
   const { scene, live } = timbers();
-  Object.assign(live.player, { x: TREETOP_TIMBERS.finish.x - 2,
-    y: surfaceY(TREETOP_TIMBERS, TREETOP_TIMBERS.finish.x) - 90,
-    vx: 220, vy: 0, onGround: false, coyoteSeconds: 0 });
-  scene.update(1 / 60, { ...neutral, horizontal: 1, jumpHeld: true, jumpPressed: true });
+  live.player.x = TREETOP_TIMBERS.finish.x; live.player.y = TREETOP_TIMBERS.finish.y - 34;
+  scene.update(1 / 60, neutral);
   expect(scene.screenState).toBe('finish');
-  expect(live.player.jumpBufferSeconds).toBeGreaterThan(0);
+  Object.assign(live.player, { vx: 220, vy: -90, jumpBufferSeconds: 0.1, platformId: 'timber-lookout', groundVelocityX: 30 });
   const run = live.run, progress = JSON.stringify(run);
   buildYourWord(scene);
   scene.menuTargets.find(target => target.label === 'Find more letters')!.action();
   expect(live.player.jumpBufferSeconds).toBe(0);
   expect(live.player.platformId).toBeNull();
   expect(live.player.groundVelocityX).toBe(0);
-  expect(live.player.squashBounce).toBe(false);
-  expect(live.run).toBe(run);
-  expect(JSON.stringify(run)).toBe(progress);
-  const groundedY = live.player.y;
-  scene.update(1 / 60, neutral);
-  expect(live.player.y).toBe(groundedY);
+  expect(live.player.vx).toBe(0);
   expect(live.player.vy).toBe(0);
   expect(live.player.onGround).toBe(true);
-});
-
-it('retraces from finish past every reverse spring to all missed letters and retries with ordinary input', () => {
-  const { scene, live } = timbers();
-  // Finish fixture only. Every subsequent traversal uses the normal simulation input.
-  live.player.x = TREETOP_TIMBERS.finish.x;
-  scene.update(1 / 60, neutral);
-  const run = live.run;
-  buildYourWord(scene);
-  scene.menuTargets.find(target => target.label === 'Find more letters')!.action();
-  const springs = new Set<string>();
-  const traversalEvents: { type: string; entityId?: string }[] = [];
-  const dangers = TREETOP_TIMBERS.entities.filter(entity => entity.kind === 'slime');
-  let held = 0;
-  for (let frame = 0; frame < 60 * 180 && scene.playerX > 320; frame++) {
-    const jump = live.player.onGround && dangers.some(danger => danger.x < scene.playerX && scene.playerX - danger.x < 65);
-    if (jump) held = 24;
-    scene.update(1 / 60, { ...neutral, horizontal: -1, jumpPressed: jump, jumpHeld: held-- > 0 });
-    const events = (scene as unknown as { events: { type: string; entityId?: string }[] }).events;
-    traversalEvents.push(...events);
-    for (const event of events) if (event.type === 'spring') springs.add(event.entityId!);
-  }
-  expect(scene.playerX).toBeLessThan(320);
-  expect([...springs].sort()).toEqual(TREETOP_TIMBERS.entities.filter(entity => entity.kind === 'spring').map(entity => entity.id).sort());
-  expect(traversalEvents.filter(event => event.type === 'recover')).toEqual([]);
-  expect(scene.education.letterCount).toBe(4);
   expect(live.run).toBe(run);
-  expect(scene.education.stickers).toEqual([]);
-  held = 0;
-  for (let frame = 0; frame < 60 * 180 && scene.screenState === 'playing'; frame++) {
-    const jump = live.player.onGround && dangers.some(danger => danger.x > scene.playerX && danger.x - scene.playerX < 65);
-    if (jump) held = 24;
-    scene.update(1 / 60, { ...neutral, horizontal: 1, jumpPressed: jump, jumpHeld: held-- > 0 });
-  }
-  buildYourWord(scene);
-  expect(scene.screenState).toBe('finish');
-  expect(live.run).toBe(run);
+  expect(JSON.stringify(run)).toBe(progress);
 });
 
 it('shows a bag instead of target slots, with a brief collected letter flight and no automatic reward', () => {
   const { scene, live } = timbers();
   expect(scene.educationDescription).toBe('Letter bag: 0/4');
-  Object.assign(live.player, { x: 360, y: surfaceY(TREETOP_TIMBERS, 360) - 34, vx: 0, vy: 0, onGround: true });
+  Object.assign(live.player, { x: 220, y: TREETOP_TIMBERS.start.y - 34, vx: 0, vy: 0, onGround: true });
   scene.update(1 / 60, neutral);
   expect(scene.educationDescription).toContain('Letter bag: 1/4');
   const text: string[] = [];
@@ -315,7 +271,7 @@ it('shows a bag instead of target slots, with a brief collected letter flight an
 it('rolls back wrong, outside and cancelled drags, and places each dragged E only once', () => {
   const { scene, live } = timbers();
   for (const pickup of LETTER_PICKUPS) scene.education.collect(pickup.id);
-  live.player.x = TREETOP_TIMBERS.finish.x;
+  live.player.x = TREETOP_TIMBERS.finish.x; live.player.y = TREETOP_TIMBERS.finish.y - 34;
   scene.update(1 / 60, neutral);
   buildYourWord(scene);
   const overlay = scene.educationOverlay;
@@ -344,7 +300,7 @@ it('rolls back wrong, outside and cancelled drags, and places each dragged E onl
 it('cancels a pending drag when select/place input takes over', () => {
   const { scene, live } = timbers();
   scene.education.collect(LETTER_PICKUPS[0].id);
-  live.player.x = TREETOP_TIMBERS.finish.x;
+  live.player.x = TREETOP_TIMBERS.finish.x; live.player.y = TREETOP_TIMBERS.finish.y - 34;
   scene.update(1 / 60, neutral);
   buildYourWord(scene);
   scene.educationOverlay.beginDrag(LETTER_PICKUPS[0].id, 236, 132);

@@ -31,6 +31,7 @@ export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, le
         parallax.x - offset.x * 0.18, parallax.y - offset.y * 0.1, parallax.scale);
     }
   }
+  if (level.id === 'timbers') drawTimberTrunk(ctx, assets, offset);
   drawAmbientWeather(ctx, level.theme.weather, offset, runSeconds, reducedMotion);
   ctx.fillStyle = level.theme.ground;
   // Fill each connected ground contour once: separately antialiased polygon
@@ -259,11 +260,27 @@ export function drawPlatforms(ctx: CanvasRenderingContext2D, level: LevelData, o
     if (assets && level.progressAxis === 'y' && platform.from.x === platform.to.x && platform.from.y === platform.to.y) {
       const x = body.x - offset.x, y = body.y - offset.y;
       if (x + body.width >= 0 && x <= 426 && y >= -28 && y <= 240) {
-        const depth = body.width >= 140 ? 24 : 14;
-        ctx.fillStyle = level.theme.ground; ctx.fillRect(x, y + 3, body.width, depth);
-        ctx.save(); ctx.beginPath(); ctx.rect(x, y + 3, body.width, depth); ctx.clip();
+        const timber = level.theme.material === 'wood';
+        const depth = timber ? (body.width >= 300 ? 18 : 12) : body.width >= 140 ? 24 : 14;
+        ctx.save(); ctx.beginPath();
+        if (timber) {
+          const center = Math.max(x + 20, Math.min(410 - offset.x, x + body.width - 20));
+          ctx.moveTo(x, y + 3); ctx.lineTo(x + body.width, y + 3);
+          ctx.lineTo(x + body.width, y + 8);
+          ctx.lineTo(center + (x + body.width - center) / 2, y + depth);
+          ctx.lineTo(center, y + depth + 4);
+          ctx.lineTo(x + (center - x) / 2, y + depth);
+          ctx.lineTo(x, y + 8); ctx.closePath();
+        } else ctx.rect(x, y + 3, body.width, depth);
+        ctx.fillStyle = level.theme.ground; ctx.fill(); ctx.clip();
         drawTerrainMaterial(ctx, level, offset, assets, body.x, body.x + body.width);
-        for (let rock = body.x + 12; rock < body.x + body.width; rock += 30) {
+        if (timber) {
+          ctx.fillStyle = '#402b20';
+          for (let grain = body.x + 14; grain < body.x + body.width; grain += 31) {
+            ctx.fillRect(grain - offset.x, y + 7, 16, 2);
+            ctx.fillRect(grain - offset.x + 8, y + depth, 2, 3);
+          }
+        } else for (let rock = body.x + 12; rock < body.x + body.width; rock += 30) {
           drawAsset(ctx, assets, 'stone', rock - offset.x, y + depth + 7, 0.5);
         }
         ctx.restore();
@@ -276,6 +293,48 @@ export function drawPlatforms(ctx: CanvasRenderingContext2D, level: LevelData, o
     ctx.fillStyle = '#ffffff22';
     for (let x = 6; x < body.width - 4; x += 11) ctx.fillRect(body.x - offset.x + x, body.y - offset.y + 5, 4, 1);
   }
+}
+
+/** The nonblocking trunk stays behind all actual top faces and collectibles. */
+export function drawTimberTrunk(ctx: CanvasRenderingContext2D, assets: WorldAssets, offset: { x: number; y: number }): void {
+  const left = 345 - offset.x, right = 475 - offset.x;
+  if (right < 0 || left > 426) return;
+  ctx.save();
+  const sections = [
+    [180, 390, 430], [300, 382, 440], [420, 376, 447], [540, 374, 449],
+    [660, 364, 456], [780, 361, 460], [900, 351, 468], [1080, 343, 478],
+  ];
+  ctx.beginPath();
+  sections.forEach(([y, x], index) => index ? ctx.lineTo(x - offset.x, y - offset.y) : ctx.moveTo(x - offset.x, y - offset.y));
+  [...sections].reverse().forEach(([y, , x]) => ctx.lineTo(x - offset.x, y - offset.y));
+  ctx.closePath(); ctx.fillStyle = '#3e2c27'; ctx.fill();
+  ctx.save(); ctx.clip();
+  ctx.fillStyle = '#755036'; ctx.fillRect(372 - offset.x, 180 - offset.y, 67, 900);
+  ctx.fillStyle = '#a07146'; ctx.fillRect(386 - offset.x, 180 - offset.y, 9, 900);
+  ctx.fillStyle = '#5b3e2d'; ctx.fillRect(428 - offset.x, 180 - offset.y, 8, 900);
+  for (let y = Math.floor(offset.y / 42) * 42; y < offset.y + 282; y += 42) {
+    ctx.fillStyle = '#3c2924aa';
+    ctx.fillRect(403 + (y % 3) * 5 - offset.x, y - offset.y, 21, 3);
+    ctx.fillRect(357 - offset.x, y + 18 - offset.y, 11, 2);
+    ctx.fillStyle = '#b0805138'; ctx.fillRect(395 + (y % 5) * 3 - offset.x, y + 7 - offset.y, 2, 26);
+  }
+  ctx.restore();
+  // Tapered, diagonal limbs are scenic connections. Only the brighter level
+  // platform tops drawn later are standing surfaces.
+  for (const [y, outer] of [[300, 210], [420, 170], [540, 585], [660, 65], [780, 600], [900, 185]]) {
+    ctx.fillStyle = '#57392b';
+    ctx.beginPath(); ctx.moveTo(410 - offset.x, y + 28 - offset.y);
+    ctx.lineTo(outer - offset.x, y - 4 - offset.y);
+    ctx.lineTo(outer - offset.x, y + 6 - offset.y);
+    ctx.lineTo(410 - offset.x, y + 43 - offset.y); ctx.closePath(); ctx.fill();
+  }
+  for (const [x, y, scale] of [[115, 265, 2.4], [650, 320, 2.6], [130, 390, 2.2], [670, 460, 2.3], [95, 565, 1.8]]) {
+    drawAsset(ctx, assets, 'tree', x - offset.x, y - offset.y, scale);
+  }
+  for (const [x, y] of [[40, 580], [770, 620], [60, 740], [785, 795], [70, 930], [780, 1030]]) {
+    drawAsset(ctx, assets, 'bush', x - offset.x, y - offset.y, 2.2);
+  }
+  ctx.restore();
 }
 
 export function drawPlatformPath(ctx: CanvasRenderingContext2D, platform: MovingPlatform, offset: { x: number; y: number }): void {

@@ -64,7 +64,7 @@ every badge and result; there is no storage or server save.
 | --- | --- |
 | Plains | Meadow rollers, big downhill, orchard bumps, spring hill and final climb |
 | Quarry Run | Four quarry workings, staggered terraces, three vertical return lifts; floor finish |
-| Treetop Timbers | Sunset treehouses, supported woodland scenery and plank bridge valleys |
+| Treetop Timbers | Roots, two fork choices, a middle bough and canopy climb to a lookout; permanent branch return |
 | Sunset Site | Construction equipment, gravel, girders and an optional crane ferry |
 | Frost Ridge | Snowy mountain, authored ice patches and safe snow runouts |
 | Sandy Cove | Palms, sand, harmless shallow water and patrolling snorkel slimes |

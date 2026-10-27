@@ -2,6 +2,7 @@ import { execFileSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import { expect, it, vi } from 'vitest';
 import { LEVELS } from '../src/world/levels';
+import { hasFixedSupport } from '../src/world/level';
 import { surfaceY } from '../src/game/movement';
 import { drawAsset } from '../src/world/renderer';
 import type { WorldAssets } from '../src/world/assets';
@@ -27,7 +28,7 @@ print(json.dumps(result))
 it.each(LEVELS)('$name plants both visible finish feet on the collision surface, excluding PNG padding', level => {
   const manifest = JSON.parse(readFileSync(new URL(`../public/assets/${level.atlas}/manifest.json`, import.meta.url), 'utf8'));
   const assets = { atlas: {}, manifest } as WorldAssets;
-  expect(level.finish.y).toBe(surfaceY(level, level.finish.x));
+  expect(hasFixedSupport(level, level.finish) || level.finish.y === surfaceY(level, level.finish.x)).toBe(true);
   for (const scale of [1, 2]) for (const offset of [0, 0.25]) {
     const drawImage = vi.fn();
     drawAsset({ drawImage } as unknown as CanvasRenderingContext2D, assets, 'finish-arch',

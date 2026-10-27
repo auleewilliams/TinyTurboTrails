@@ -14,6 +14,8 @@ const audio = { unlock: async () => {}, setMuted() {}, setSuspended() {}, startM
 const worlds = Object.fromEntries(LEVELS.map(level => [level.atlas, {} as never]));
 const make = (index = 0) => new AdventureScene({} as HTMLImageElement, {} as never, worlds, audio, LEVELS[index]);
 type Live = { player: Player; run: RunState; camera: Camera; platforms: ReturnType<typeof platformBodiesAt>; feedback: Feedback; elapsed: number };
+const startCamera = (id: string) => id === 'timbers' ? { x: 0, y: 940 }
+  : id === 'quarry' ? { x: 50, y: 2 } : { x: 0, y: 0 };
 
 it.each(LEVELS.map((level, index) => ({ level, index })))('abandons $level.name cleanly while keeping completed session results', ({ level, index }) => {
   const scene = make(index); scene.startSelected();
@@ -35,7 +37,7 @@ it.each(LEVELS.map((level, index) => ({ level, index })))('abandons $level.name 
   expect(live.run).toEqual(createRun(level));
   expect(live.feedback.effects).toEqual([]);
   expect(live.platforms).toEqual(platformBodiesAt(level.platforms, 0));
-  expect(live.camera.position).toEqual({ x: 0, y: 0 });
+  expect(live.camera.position).toEqual(startCamera(level.id));
   expect(live.elapsed).toBe(0);
   scene.update(1 / 60, { ...neutral, jumpPressed: true });
   expect(scene.screenState).toBe('playing');
@@ -59,7 +61,7 @@ it.each(LEVELS.map((level, index) => ({ level, index })))('resets every run doma
     expect(scene.screenState).toBe('playing');
     expect(live.player).toEqual(createPlayer(next.start.x, next, next.start.y));
     expect(live.run).toEqual(createRun(next));
-    expect(live.camera.position).toEqual({ x: 0, y: 0 });
+    expect(live.camera.position).toEqual(startCamera(next.id));
     expect(live.platforms).toEqual(platformBodiesAt(next.platforms, 0));
     expect(live.feedback.effects).toEqual([]);
     expect(live.elapsed).toBe(0);

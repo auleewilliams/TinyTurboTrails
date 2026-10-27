@@ -12,6 +12,7 @@
 - [Optional star challenges and safe returns](signature-challenges.md)
 - [Moving platforms](moving-platforms.md)
 - [World and level architecture](plains-world.md)
+- [Timbers ascent and playtest notes](TIMBERS-ASCENT.md)
 - [Art direction and provenance](art/README.md)
 - [Music and effects](AUDIO.md)
 - [LAN deployment and rollback](DEPLOYMENT.md)

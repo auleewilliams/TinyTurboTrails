@@ -127,6 +127,7 @@ export class AdventureScene implements Scene {
     this.player = createPlayer(level.start.x, level, level.start.y);
     this.run = createRun(level);
     this.camera = new Camera({ width: 426, height: 240, worldWidth: level.width, worldHeight: level.height, vertical: level.progressAxis === 'y' });
+    this.camera.update(this.player.x, this.player.y);
     this.platforms = platformBodiesAt(level.platforms, 0);
   }
   get screenState(): ScreenController['state'] { return this.screens.state; }
@@ -189,8 +190,13 @@ export class AdventureScene implements Scene {
     if (this.player.y > this.level.height + 80) recoverFromFall(this.run, this.player, this.events, this.level);
     if (!wasGrounded || this.events.some(event => event.type === 'recover' || event.type === 'damage' || event.type === 'spring')) this.footsteps.reset();
     else if (this.footsteps.step(step, this.player, previousPosition.x)) this.audio.play('footstep');
-    if (this.player.x < this.level.finish.x - 70) this.finishArmed = true;
-    if (this.finishArmed && this.player.x >= this.level.finish.x && this.screens.state === 'playing'
+    if (this.level.finish.rearmBelowY !== undefined) {
+      if (this.player.y + DEFAULT_MOVEMENT.height >= this.level.finish.rearmBelowY
+        || this.player.x <= (this.level.finish.rearmLeftX ?? this.level.minX)) this.finishArmed = true;
+    } else if (this.player.x < this.level.finish.x - 70) this.finishArmed = true;
+    if (this.finishArmed && this.player.x >= this.level.finish.x
+      && (this.level.finish.boundedWidth === undefined || this.player.x <= this.level.finish.x + this.level.finish.boundedWidth)
+      && this.screens.state === 'playing'
       && (!this.level.finish.supportOnly || (this.player.onGround
         && Math.abs(this.player.y + DEFAULT_MOVEMENT.height - this.level.finish.y) < 2))) {
       this.screens.complete(this.run.collectedGems.size);
@@ -453,6 +459,7 @@ export class AdventureScene implements Scene {
     this.player = createPlayer(level.start.x, level, level.start.y);
     this.run = createRun(level);
     this.camera = new Camera({ width: 426, height: 240, worldWidth: level.width, worldHeight: level.height, vertical: level.progressAxis === 'y' });
+    this.camera.update(this.player.x, this.player.y);
     this.platforms = platformBodiesAt(level.platforms, 0);
   }
 

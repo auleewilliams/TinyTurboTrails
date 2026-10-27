@@ -56,7 +56,7 @@ export interface LevelData {
   minX: number;
   maxX: number;
   start: { x: number; y: number };
-  finish: { x: number; y: number; asset: string; supportOnly?: boolean };
+  finish: { x: number; y: number; asset: string; supportOnly?: boolean; boundedWidth?: number; rearmBelowY?: number; rearmLeftX?: number };
   /** Vertical trails measure progress by feet height; horizontal trails keep their defaults. */
   progressAxis?: 'y';
   checkpointActivation?: 'grounded';
@@ -248,8 +248,9 @@ export function validateLevel(level: LevelData): void {
     if (!entity.id || ids.has(entity.id)) throw new Error(`duplicate entity id: ${entity.id}`);
     ids.add(entity.id);
     if (entity.x < level.minX || entity.x > level.maxX) throw new Error(`entity outside level: ${entity.id}`);
-    if (entity.kind === 'spring' && entity.y !== surfaceY(level, entity.x)) {
-      throw new Error(`spring is not planted on terrain: ${entity.id}`);
+    if (entity.kind === 'spring' && entity.y !== surfaceY(level, entity.x)
+      && !hasFixedSupport(level, entity)) {
+      throw new Error(`spring lacks fixed support: ${entity.id}`);
     }
     validatePatrol(level, entity);
     if (entity.bounce) {
@@ -272,6 +273,18 @@ export function validateLevel(level: LevelData): void {
   }
   if (level.progressAxis === 'y' && !hasFixedSupport(level, level.start)) throw new Error('start lacks fixed support');
   if (level.finish.supportOnly && !hasFixedSupport(level, level.finish)) throw new Error('finish lacks fixed support');
+  if (level.finish.boundedWidth !== undefined && (!Number.isFinite(level.finish.boundedWidth)
+    || level.finish.boundedWidth <= 0 || level.finish.x + level.finish.boundedWidth > level.maxX)) {
+    throw new Error('finish bounds are invalid');
+  }
+  if (level.finish.rearmBelowY !== undefined && (level.progressAxis !== 'y'
+    || level.finish.rearmBelowY <= level.finish.y + DEFAULT_MOVEMENT.height)) {
+    throw new Error('finish rearm height is invalid');
+  }
+  if (level.finish.rearmLeftX !== undefined && (level.progressAxis !== 'y' || !level.retrace
+    || level.finish.rearmLeftX >= level.retrace.x || level.finish.rearmLeftX < level.minX)) {
+    throw new Error('finish left rearm point is invalid');
+  }
   if (level.retrace && (!hasFixedSupport(level, level.retrace) || level.retrace.x >= level.finish.x - 28)) {
     throw new Error('retrace requires safe fixed support outside the finish');
   }

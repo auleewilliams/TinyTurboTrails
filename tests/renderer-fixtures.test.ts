@@ -23,6 +23,8 @@ for (const title of ['compact HUD renderer fixture:', 'landmark labels: renderer
     expect(names).toContain('game/movement.ts');
     expect(names).toContain('game/platforms.ts');
     expect(names).toContain('world/camera.ts');
+    expect(typeof fixture.camera).toBe('function');
+    expect(code).toContain('function drawTimberTrunk');
     const bounds = { width: 426, height: 240, worldWidth: 820, worldHeight: 1080 };
     const horizontal = new fixture.camera(bounds), vertical = new fixture.camera({ ...bounds, vertical: true });
     horizontal.update(420, 386); vertical.update(420, 386);

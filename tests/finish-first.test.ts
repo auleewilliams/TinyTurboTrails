@@ -2,7 +2,7 @@ import { expect, it, vi } from 'vitest';
 import manifest from '../public/assets/henry/manifest.json';
 import { AdventureScene, FINISH_LAYOUT, celebrationHenryRect, celebrationStarRects, type Rect } from '../src/game/adventure-scene';
 import { INTERFACE_PIECES } from '../src/art/interface-kit';
-import { TRAIL_WORDS } from '../src/game/education';
+import { TRAIL_WORDS, letterSupportY } from '../src/game/education';
 import { surfaceY, type Player } from '../src/game/movement';
 import type { RunState } from '../src/game/interactions';
 import { LEVELS } from '../src/world/levels';
@@ -129,10 +129,10 @@ it('skipping the activity keeps completion, letters, repeated identities and rew
   // Collected letters stay in the bag, untouched by finishing without the activity.
   scene.activateFinish('Replay');
   for (const pickup of config.pickups) {
-    Object.assign(live.player, { x: pickup.x, y: surfaceY(LEVELS[index], pickup.x) - 34, vx: 0, vy: 0, onGround: true });
+    Object.assign(live.player, { x: pickup.x, y: letterSupportY(pickup, LEVELS[index]) - 34, vx: 0, vy: 0, onGround: true });
     scene.update(1 / 60, neutral);
   }
-  live.player.x = LEVELS[index].finish.x; scene.update(1 / 60, neutral);
+  live.player.x = LEVELS[index].finish.x; live.player.y = LEVELS[index].finish.y - 34; scene.update(1 / 60, neutral);
   expect(scene.educationOverlay.open).toBe(false);
   const result = scene.session.results.get('timbers');
   expect(result).toBeDefined();
@@ -143,7 +143,7 @@ it('skipping the activity keeps completion, letters, repeated identities and rew
   expect(scene.education.pile.map(pickup => pickup.id).sort()).toEqual(config.pickups.map(pickup => pickup.id).sort());
   expect(scene.education.stickers).toEqual([]);
   expect(scene.session.results.get('timbers')).toEqual(result);
-  live.player.x = LEVELS[index].finish.x; scene.update(1 / 60, neutral);
+  live.player.x = LEVELS[index].finish.x; live.player.y = LEVELS[index].finish.y - 34; scene.update(1 / 60, neutral);
   scene.activateFinish('Map');
   expect(scene.screenState).toBe('title');
   expect(scene.education.letterCount).toBe(4);

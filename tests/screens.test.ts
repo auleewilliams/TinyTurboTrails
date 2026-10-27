@@ -359,7 +359,7 @@ it('selects every level track only on start, preserves recovery, and silences fi
     scene.update(1 / 60, neutral);
     expect(calls.filter(call => call.startsWith('music:'))).toHaveLength(1);
     state.player.x = level.finish.x;
-    state.player.y = level.finish.y;
+    state.player.y = level.finish.y - 34;
     scene.update(1 / 60, neutral);
     expect(calls.slice(calls.indexOf('complete') - 1, calls.indexOf('complete') + 1)).toEqual(['stop', 'complete']);
     expect(scene.educationOverlay.open).toBe(false);

@@ -7,7 +7,7 @@ export class Camera {
   constructor(private readonly bounds: CameraBounds) {
     // A descending trail needs the next 70px landing below Henry before takeoff.
     // Keep the established horizontal framing; leave sky room above Quarry's rim.
-    if (bounds.vertical) this.deadZone.bottom = 104;
+    if (bounds.vertical) { this.deadZone.bottom = 104; this.deadZone.top = 90; }
   }
   reset(): void { this.x = 0; this.y = 0; }
   update(targetX: number, targetY: number): void {

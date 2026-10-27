@@ -31,9 +31,11 @@ not waive that decision or establish fun/clarity acceptance. Do not pad it with
 repeated flats. See [the current Plains worksheet](PLAINS-PLAYTEST.md). Quarry Run descends four resting levels on permanent staggered terraces, with
 three alternating vertical lifts for the return trip and a floor-only finish.
 The main descent needs no lift ride or reward collection; see the
-[Quarry worksheet](QUARRY-PLAYTEST.md). Treetop Timbers adds plank trails, shallow
-rope-bridge contours, crane-hook springs and sawhorse props without changing
-the single-height terrain model. Sunset Site adds a construction yard at dusk,
+[Quarry worksheet](QUARRY-PLAYTEST.md). Treetop Timbers climbs one giant tree
+from roots to a lookout through two optional forks and a shared middle bough.
+Permanent timber branches provide the descent and local catches; the main climb
+uses ordinary jumps without spring or reward gates. See the
+[Timbers worksheet](TIMBERS-ASCENT.md). Sunset Site adds a construction yard at dusk,
 patrolling hard-hat slimes, pneumatic-jack-cleared pits and one optional crane ferry. Keyboard
 and standard-controller support.
 Henry starts each run with three visible hearts. Each unblocked slime contact
@@ -189,7 +191,8 @@ Every route has a quiet material fill and illustrated contour edge, including
 Plains soil, Quarry stone, Timbers wood, construction gravel,
 Frost snow over rock and Cove sand. Grip cues derive independently from authored
 friction and draw above decorative materials. Quarry and Timbers add continuous
-backgrounds with supported landmarks. Decorative art updates preserve collisions,
+backgrounds with supported landmarks. Timbers' scenic trunk and stems sit behind
+Henry and do not become collision walls. Decorative art updates preserve collisions,
 anchors and movement; optional challenge additions follow the rules below.
 Respect reduced motion and loading/error/retry.
 
@@ -213,8 +216,8 @@ step; automated tests cannot satisfy it. Current controls live in the adventure 
 
 Plains, Quarry Run and Treetop Timbers each contain exactly three gold star
 collectibles, visually distinct from ordinary gems. Plains rewards controlled
-movement down a readable slope; Quarry offers two side-shelf out-and-back discoveries and a fixed lift approach; Timbers rewards the first three existing springs with clear,
-wide landing markings. All use existing movement and one-way platform systems.
+movement down a readable slope; Quarry offers two side-shelf out-and-back discoveries and a fixed lift approach; Timbers has a low left branch, an optional spring branch and an upper left canopy branch.
+All use existing movement and one-way platform systems.
 Stars and challenges never gate completion, require new controls, or require
 precise timing. Misses land on ordinary terrain or use existing checkpoint
 recovery. Other trails have no star requirement and no empty star HUD.
@@ -287,7 +290,7 @@ feature-flagged. The deferred design is tracked in
 Use one shared activity with independent per-trail bags, partial assembly and
 stickers: Plains HILL, Quarry Run ROCK, Treetop Timbers TREE, Sunset Site BEAM,
 Frost Ridge SNOW and Sandy Cove SAND. Preserve Timbers' accepted positions and
-identities; both Es in TREE and both Ls in HILL have independent identities and
+identities; Timbers' positions move to supported tree boughs while both Es in TREE and both Ls in HILL have independent identities and
 cannot be credited or used twice. Letter progress survives
 checkpoint/health/pit recovery, replay, map return and trail changes in memory;
 reload clears it. No browser storage, new gates or changes to gems/stars/totals.
