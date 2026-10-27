@@ -4686,7 +4686,11 @@ for (const viewport of [{ width: 426, height: 240 }, { width: 320, height: 240 }
         (next.progressAxis === 'y'
           ? (next.finish.y < next.start.y ? next.start.y <= point.y + 35 : next.start.y >= point.y - 35)
           : next.start.x >= point.x - 180) ? i : area, -1);
-      await expect(canvas).toHaveAttribute('data-gameplay-trail', openingArea < 0 ? next.name : areaName(next, openingArea));
+      const openingSection = next.sections?.filter(section => next.start.x >= section.x
+        && next.start.y >= (section.minY ?? -Infinity) && next.start.y <= (section.maxY ?? Infinity)).at(-1);
+      const openingLabel = next.sections ? openingSection?.name ?? next.name : (openingArea < 0 ? next.name : areaName(next, openingArea));
+      if (next.id === 'frost') expect(openingLabel).toBe('FIRST SLIDE');
+      await expect(canvas).toHaveAttribute('data-gameplay-trail', openingLabel);
       await page.keyboard.press('Escape');
       await page.getByRole('button', { name: 'Return to Trails', exact: true }).click();
       await page.getByRole('button', { name: 'Return to Trails', exact: true }).click();

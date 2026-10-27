@@ -12,12 +12,14 @@ export async function startSunsetPilot(page: Page): Promise<void> {
 
 export async function driveSunset(page: Page, stages: readonly TimberPilotStage[]): Promise<object> {
   // Keep each walk within the existing 200-frame guard. Long horizontal decks
-  // use explicit intermediate stops, just as the climb uses separate landings.
+  // use intermediate travel observations; only the requested destination stops.
   let x = Number((await page.locator('#status').innerText()).match(/X (-?\d+)/)?.[1]);
   const bounded: TimberPilotStage[] = [];
   for (const stage of stages) {
     if (stage.kind === 'walk' || stage.kind === 'travel') while (Math.abs(stage.x! - x) > 320) {
-      x += Math.sign(stage.x! - x) * 300; bounded.push({ ...stage, x });
+      const direction = Math.sign(stage.x! - x) as -1 | 1;
+      x += direction * 300;
+      bounded.push(stage.kind === 'walk' ? { kind: 'travel', x, direction } : { ...stage, x });
     }
     bounded.push(stage);
     if (stage.x !== undefined) x = stage.x;

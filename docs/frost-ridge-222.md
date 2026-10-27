@@ -16,15 +16,28 @@ normal-grip one-way tops. The intro uses three steps rather than copying the
 sketch's two close overhead supports. Bowl returns use five steps and the upper
 glide uses two. Their undersides clear the full 48px sprite during grounded
 forward travel. A boundary jump may board a return support; its real outer edge
-reconnects to continuous terrain. There is no drop-through control.
+reconnects to continuous terrain. After a missed return takeoff, Henry can stop
+on the connected terrain; a release does not guarantee an automatic slide.
+Ordinary right input follows that support downhill to the snow approach for a
+new attempt, without requiring uphill ice travel. There is no drop-through control.
 
 The original 36 main gem IDs and three bonus IDs remain, with no stars. The
 spring and its higher gem arc are optional; a held flight permits collection,
-landing beside it and another attempt. Main-route jumps can bypass it in either
+landing fully clear on normal snow and another deliberate attempt. Each of the
+three reward flights is counted from setup through settled landing and repositioning,
+with exactly one spring launch; the right-side landing returns over the spring by a jump. Main-route jumps can bypass it in either
 direction. SNOW keeps its original identities on snow at x110, x1190, x2620 and
 x5320. S moved away from the starting body so a zero-letter journey is possible.
 The summit return point is x5410, left of the arch at x5520. Deliberate departure
 left of x5360 rearms the finish; an airborne crossing cannot finish.
+
+The review correction traverses the complete x5520–5580 finish band through
+ordinary input while unrearmed, then deliberately departs and returns. An
+always-armed test seam must fail that same witness. Native map navigation uses
+the authored opening section (`FIRST SLIDE`) while preserving exact destinations.
+Sunset's test driver observes intermediate points on long fixed decks without
+braking at each generated point; requested destinations and physical jump/drop
+contacts remain, with unchanged frame guards, clock protocol and deadlines.
 
 ## Observation and evidence limits
 
@@ -65,7 +78,9 @@ remain in the handoff; none is silently relabelled as passing.
 | New Frost route units | Mixed cadence complete returns, W and N/S trips, stopping/reversal/boundary jumps, full sprite clearance, finish height/rearm, failed-jump retries and support/bypass-removal controls. |
 | Four new native cases per engine | 426px/320px keyboard journeys, full missed-SNOW retrace/manual assembly, and actual Gamepad API movement/jumps through finish. Moving-paint captures supplement resting screenshots. |
 
-Multiplicity: the complete baseline has 1820 unit identities. Three obsolete Frost slime parameters and one legacy checkpoint parameter retire; 16 route cases are added, yielding 1832. Native discovery retires the generated Frost slime/patrol case in each engine (three cases), retains the other 537 existing identities, and adds four Frost cases per engine (12 cases), yielding 549.
+Multiplicity: the complete baseline has 1820 unit identities. Three obsolete Frost slime parameters and one legacy checkpoint parameter retire; 16 route cases are added, yielding 1832 before review correction. The correction adds five unit identities
+(two negative controls and three higher-step retry cases), yielding 1837; no
+existing identity is retired in the correction. Native discovery retires the generated Frost slime/patrol case in each engine (three cases), retains the other 537 existing identities, and adds four Frost cases per engine (12 cases), yielding 549.
 
 The shared renderer adds only Frost's snow-top presentation within the existing
 platform drawer. It adds no import or fixture dependency. Cached previews already

@@ -15,7 +15,14 @@ it.each([{label:'16ms',cadence:[0.016]}, {label:'20ms',cadence:[0.020]}, {label:
   expect(route.scene.screenState).toBe('finish');
   expect(route.runState.collectedGems.size).toBe(39);
   expect(route.events.filter(e=>e.type==='damage'||e.type==='recover')).toEqual([]);
-  expect(route.events.filter(e=>e.type==='spring').length).toBeGreaterThanOrEqual(1);
+  expect(route.events.filter(e=>e.type==='spring')).toHaveLength(3);
+  expect(route.springAttempts.map(attempt=>attempt.launches)).toEqual([1,1,1]);
+  expect(route.springAttempts.map(attempt=>attempt.id)).toEqual(['frost-bonus-1','frost-bonus-2','frost-bonus-3']);
+  for(const landing of route.springAttempts) {
+    expect(Math.abs(landing.x-3140)).toBeGreaterThan(48);
+    expect(landing.feet).toBe(surfaceY(FROST_RIDGE,landing.x));
+    expect(surfaceAt(FROST_RIDGE,landing.x).material).toBeUndefined();
+  }
 });
 it('keeps the spring rewards optional and permits a clear snow bypass', () => {
   const route=frostPilot(); route.run(FROST_MAIN);
@@ -42,4 +49,9 @@ it('finishes with the straightforward route and no bonus hop required', () => {
   const route=frostPilot(); route.run(FROST_MAIN);
   expect(route.scene.screenState).toBe('finish');
   expect(route.scene.education.letterCount).toBe(0);
+});
+
+it('detects the former rebounding spring landing through the same input pilot', () => {
+  // Explicit test-driver fault injection: the old landing target overlaps the retry approach.
+  expect(()=>frostRewards([0.016],3100)).toThrow(/unclear spring landing/);
 });

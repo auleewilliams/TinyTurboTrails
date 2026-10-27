@@ -114,6 +114,23 @@ it('clears the full forward sprite below permanent snow tops and reconnects ever
   }
   expect(trailPosition(FROST_RIDGE,2600,540)).toBeGreaterThan(trailPosition(FROST_RIDGE,1350,380));
 });
+// Input-only witness shared with the always-armed negative control below.
+function traverseUnrearmedFinish(route: ReturnType<typeof frostPilot>): void {
+  let entered=false, traversed=false;
+  for(let f=0;f<100 && route.player.x<5590;f++) {
+    route.tick(1);
+    const p=route.player;
+    expect(p.x).toBeGreaterThanOrEqual(5360);
+    expect(p.y+34).toBe(240); // Neither the left nor below rearm boundary was crossed.
+    expect(p.onGround).toBe(true);
+    entered ||= p.x>=5520 && p.x<=5580;
+    traversed ||= p.x>5580;
+    expect(route.scene.screenState).toBe('playing');
+  }
+  expect(entered).toBe(true);
+  expect(traversed).toBe(true);
+}
+
 it('rejects airborne finish entry at the arch and rearms only after deliberate departure', () => {
   const route=frostPilot();
   // Explicit finish contract seam, not an input journey.
@@ -124,7 +141,7 @@ it('rejects airborne finish entry at the arch and rearms only after deliberate d
   route.scene.activateFinish('Build your word'); route.scene.menuTargets.find(t=>t.label==='Find more letters')!.action();
   for(let f=0;f<80;f++) route.tick();
   expect(route.scene.screenState).toBe('playing');
-  route.run([walk(5490)]); expect(route.scene.screenState).toBe('playing');
+  traverseUnrearmedFinish(route);
   route.run([walk(5320),walk(5400),{kind:'finish'}]); expect(route.scene.screenState).toBe('finish');
 });
 
@@ -153,5 +170,39 @@ it.each(['intro','bowl','upper'])('a missed %s return jump lands on connected te
   expect(route.player.platformId).toBeNull();
   expect(route.player.y+34).toBe(surfaceY(FROST_RIDGE,route.player.x));
   route.run(chain==='upper'?FROST_UPPER_RETURN:chain==='bowl'?FROST_BOWL_RETURN:FROST_RETURN.slice(-7));
+  expect(route.events.filter(e=>['damage','recover','spring'].includes(e.type))).toEqual([]);
+});
+
+it('detects an always-armed finish with the full-band input witness', () => {
+  const route=frostPilot(); route.run(FROST_MAIN);
+  route.scene.activateFinish('Build your word'); route.scene.menuTargets.find(t=>t.label==='Find more letters')!.action();
+  // Explicit test-only level seam: no runtime activation/retrace logic is modified.
+  (route.scene as unknown as {level:LevelData}).level={...FROST_RIDGE,finish:{...FROST_RIDGE.finish,rearmLeftX:99999}};
+  expect(()=>traverseUnrearmedFinish(route)).toThrow(/playing/);
+});
+
+it.each(['intro','bowl','upper'])('a higher %s return walk-off miss retains rewards and reconnects to an ordinary retry', chain => {
+  const route=frostPilot(); route.run(FROST_MAIN);
+  route.scene.activateFinish('Build your word'); route.scene.menuTargets.find(t=>t.label==='Find more letters')!.action();
+  route.run(FROST_DOWN_SUMMIT);
+  if(chain!=='upper') route.run(FROST_UPPER_RETURN);
+  if(chain==='intro') route.run(FROST_BOWL_RETURN);
+  const steps=chain==='upper'?FROST_UPPER_RETURN:chain==='bowl'?FROST_BOWL_RETURN:FROST_RETURN.slice(-7);
+  route.run(steps.slice(0,chain==='bowl'?8:4));
+  expect(route.player.platformId).not.toBeNull();
+  const gems=new Set(route.runState.collectedGems), letters=route.scene.education.letterCount;
+  const edge=chain==='upper'?3440:chain==='bowl'?1710:330;
+  // Explicit input fault injection: miss the higher takeoff by walking off its
+  // left edge, then release on the actual connected terrain (no position seam).
+  for(let f=0;f<180 && !(route.player.x<edge-12 && route.player.onGround && !route.player.platformId);f++) route.tick(-1);
+  for(let f=0;f<60;f++) route.tick();
+  expect(route.player.x).toBeLessThan(edge-12);
+  expect(route.player.onGround).toBe(true);
+  expect(route.player.platformId).toBeNull();
+  expect(route.player.y+34).toBe(surfaceY(FROST_RIDGE,route.player.x));
+  expect(route.runState.collectedGems).toEqual(gems);
+  expect(route.scene.education.letterCount).toBe(letters);
+  // Walk right along connected terrain to the snow approach; uphill ice is unnecessary.
+  route.run(steps);
   expect(route.events.filter(e=>['damage','recover','spring'].includes(e.type))).toEqual([]);
 });
