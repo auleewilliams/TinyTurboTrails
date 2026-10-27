@@ -1,0 +1,77 @@
+[
+  {
+    "path": "docs/evidence/issue-223-cove/hollow-underpass.png",
+    "sha256": "65e17722bcb7743a434d22f868cb6996a8bb45c6c1f8c8a60527087ce81f3fdf",
+    "case": "Cove lower dune, island pools and beach viewpoint at 426px",
+    "source": "831b11153a8195a0e6fb1f4a63ea6b7a022f7187",
+    "browser": "chromium 156.0.8078.4",
+    "viewport": {
+      "width": 426,
+      "height": 300
+    },
+    "png": {
+      "width": 426,
+      "height": 240
+    }
+  },
+  {
+    "path": "docs/evidence/issue-223-cove/first-wade.png",
+    "sha256": "0c172ad8c450a9155449323b0b3724fdc51ca943f7a48cef571db17440bf31da",
+    "case": "Cove lower dune, island pools and beach viewpoint at 426px",
+    "source": "831b11153a8195a0e6fb1f4a63ea6b7a022f7187",
+    "browser": "chromium 156.0.8078.4",
+    "viewport": {
+      "width": 426,
+      "height": 300
+    },
+    "png": {
+      "width": 426,
+      "height": 240
+    }
+  },
+  {
+    "path": "docs/evidence/issue-223-cove/viewpoint-rest.png",
+    "sha256": "f6ffdc3e8ac09780593e827c5f6e1305caa5a83355bfe5424b60beacd2a52773",
+    "case": "Cove lower dune, island pools and beach viewpoint at 426px",
+    "source": "831b11153a8195a0e6fb1f4a63ea6b7a022f7187",
+    "browser": "chromium 156.0.8078.4",
+    "viewport": {
+      "width": 426,
+      "height": 300
+    },
+    "png": {
+      "width": 426,
+      "height": 240
+    }
+  },
+  {
+    "path": "docs/evidence/issue-223-cove/reverse-upper-bank.png",
+    "sha256": "ebe267dbdbb680ad170906fd18d570d5e3c854e4ccbe0dd2210844d5e2a20b67",
+    "case": "Cove all 42 gems use native input, fixed stones, low finds and three optional spring attempts",
+    "source": "831b11153a8195a0e6fb1f4a63ea6b7a022f7187",
+    "browser": "chromium 156.0.8078.4",
+    "viewport": {
+      "width": 426,
+      "height": 300
+    },
+    "png": {
+      "width": 426,
+      "height": 240
+    }
+  },
+  {
+    "path": "docs/evidence/issue-223-cove/all-42-finish.png",
+    "sha256": "9f925161477c694c6f43329923907826289f5af89320f99da4a2d36ceed1d38c",
+    "case": "Cove all 42 gems use native input, fixed stones, low finds and three optional spring attempts",
+    "source": "831b11153a8195a0e6fb1f4a63ea6b7a022f7187",
+    "browser": "chromium 156.0.8078.4",
+    "viewport": {
+      "width": 426,
+      "height": 300
+    },
+    "png": {
+      "width": 426,
+      "height": 240
+    }
+  }
+]

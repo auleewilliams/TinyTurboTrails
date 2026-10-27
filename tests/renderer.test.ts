@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { expect, it, vi } from 'vitest';
-import { drawAsset, drawGem, drawLandingBands, drawSurfaceGrip, drawWorld } from '../src/world/renderer';
+import { drawAsset, drawPlatforms, drawGem, drawLandingBands, drawSurfaceGrip, drawWorld } from '../src/world/renderer';
 import type { WorldAsset, WorldAssets } from '../src/world/assets';
 import type { HenryAssets } from '../src/art/henry';
 import type { GameAudio } from '../src/core/audio';
@@ -588,4 +588,14 @@ it.each(LEVELS)('draws $name gems from the shared sprite with a bottom-center an
   drawGem(ctx, worldAssets.gems, 100.25, 150.25, level.atlas);
   const cell = level.atlas === 'cove' ? 2 : level.atlas === 'frost' ? 1 : 0;
   expect(drawImage).toHaveBeenCalledExactlyOnceWith(worldAssets.gems, cell * 32, 0, 32, 24, 84, 126, 32, 24);
+});
+
+it('distinguishes Cove permanent stone tops from sandy terrain at the actual collision plane',()=>{
+  const {ctx,rects}=recordingContext();
+  const bodies=SANDY_COVE.platforms!.map(p=>platformBodyAt(p,0));
+  drawPlatforms(ctx,SANDY_COVE,{x:1600,y:220},bodies);
+  for(const body of bodies) {
+    expect(rects).toContainEqual(expect.objectContaining({fillStyle:'#87979b',x:body.x-1600,y:body.y-220,width:body.width,height:body.height}));
+    expect(rects).toContainEqual(expect.objectContaining({fillStyle:'#e3e6ce',x:body.x-1600,y:body.y-220,width:body.width,height:3}));
+  }
 });

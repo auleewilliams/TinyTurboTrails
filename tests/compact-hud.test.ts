@@ -1,5 +1,5 @@
 import { expect, it } from 'vitest';
-import { drawCollectionBag, drawGameplayHud, HudPresentation, RIBBON_INTRO, HUD_COLORS } from '../src/game/hud';
+import { drawCollectionBag, drawGameplayHud, HudPresentation, RIBBON_INTRO, HUD_COLORS, areaName } from '../src/game/hud';
 import { EducationSession, TRAIL_WORDS } from '../src/game/education';
 import { createRun } from '../src/game/interactions';
 import { LEVELS } from '../src/world/levels';
@@ -104,4 +104,10 @@ it.each(LEVELS)('$id counters retain zero, single/double digits, optional absenc
     expect(fills.some(fill => fill.color === HUD_COLORS.hit)).toBe(health < 3 || total > 0);
     if (health < 2) expect(fills.some(fill => fill.color === HUD_COLORS.empty)).toBe(true);
   }
+});
+
+it('uses authored Cove sections for the opening map/HUD label instead of retired checkpoint labels',()=>{
+  const level=LEVELS.find(l=>l.id==='cove')!;
+  expect(areaName(level,0)).toBe('Beach dunes');
+  expect(areaName(level,3)).toBe('Sheltered bay');
 });

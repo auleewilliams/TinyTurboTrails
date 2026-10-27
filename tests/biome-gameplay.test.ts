@@ -1,3 +1,5 @@
+import { PLAINS_LEVEL } from '../src/world/level';
+import { coveRewards } from './cove-pilot';
 import { frostRewards } from './frost-pilot';
 import { frostPilot, FROST_MAIN } from './frost-pilot';
 import { expect, it } from 'vitest';
@@ -5,7 +7,7 @@ import { AdventureScene } from '../src/game/adventure-scene';
 import type { GameAudio } from '../src/core/audio';
 import { SimulationClock } from '../src/core/clock';
 import { FROST_RIDGE, SANDY_COVE, LEVELS, levelById } from '../src/world/levels';
-import { createPlayer, simulatePlayer, type Player } from '../src/game/movement';
+import { createPlayer, simulatePlayer, surfaceY, type Player } from '../src/game/movement';
 import { createRun, entityPosition, stepEntities, tickRun, type RunEvent, type RunState } from '../src/game/interactions';
 
 const neutral = { horizontal: 0, jumpPressed: false, jumpHeld: false, pausePressed: false, mutePressed: false };
@@ -51,13 +53,13 @@ it.each([FROST_RIDGE, SANDY_COVE])('can finish $name with simple slime-avoidance
     scene.update(1 / 60, { ...neutral, horizontal: 1,
       jumpPressed: nearSlime && live.player.onGround, jumpHeld: nearSlime });
     expect(live.run.health, `damage at x=${scene.playerX}, y=${scene.playerY}, t=${live.run.seconds}`).toBe(3);
-    expect(live.player.y).toBeLessThan(320);
+    expect(live.player.y).toBeLessThan(level.height);
   }
   expect(scene.screenState).toBe('finish');
   expect(scene.gemTotal).toBeGreaterThanOrEqual(25);
   expect([...live.run.collectedGems].some((id) => id.includes('-bonus-'))).toBe(false);
-  expect(effects.filter((e) => e === 'checkpoint')).toHaveLength(6);
-  expect(effects.filter((e) => e === 'spring')).toHaveLength(6);
+  expect(effects.filter((e) => e === 'checkpoint')).toHaveLength(3);
+  expect(effects.filter((e) => e === 'spring')).toHaveLength(0);
   expect(scene.educationOverlay.open).toBe(false);
   console.info(`${level.name}: hazard-avoidance finish ${(frame / 60).toFixed(2)}s, ${scene.gemTotal} gems, no damage`);
   scene.update(1 / 60, neutral);
@@ -89,20 +91,20 @@ it('crosses each shallow pool without damage, knockback or recovery', () => {
 });
 
 it('pauses slimes with gameplay and restores their initial positions on replay', () => {
-  const scene = new AdventureScene({} as HTMLImageElement, {} as never, worlds(), audio([]), SANDY_COVE);
+  const scene = new AdventureScene({} as HTMLImageElement, {} as never, worlds(), audio([]), PLAINS_LEVEL);
   scene.update(1 / 60, { ...neutral, jumpPressed: true });
   for (let i = 0; i < 40; i++) scene.update(1 / 60, neutral);
   const live = scene as unknown as { run: RunState; player: Player };
-  const slime = SANDY_COVE.entities.find((e) => e.kind === 'slime')!;
+  const slime = PLAINS_LEVEL.entities.find((e) => e.kind === 'slime')!;
   const position = entityPosition(live.run, slime);
   expect(position.x).not.toBe(slime.x);
-  expect(position.y).toBe(slime.y);
+  expect(position.y).toBe(surfaceY(PLAINS_LEVEL, position.x));
   const clock = new SimulationClock();
   clock.setPaused(true);
   for (let i = 0; i < 100; i++) clock.advance(i * 1000 / 60, (dt) => scene.update(dt, neutral));
   expect(entityPosition(live.run, slime)).toEqual(position);
   clock.setPaused(false);
-  live.player.x = SANDY_COVE.finish.x;
+  live.player.x = PLAINS_LEVEL.finish.x; live.player.y = PLAINS_LEVEL.finish.y - 34;
   scene.update(1 / 60, neutral);
   expect(scene.educationOverlay.open).toBe(false);
   scene.update(1 / 60, neutral);
@@ -118,17 +120,8 @@ it.each([FROST_RIDGE, SANDY_COVE])('collects the intended rewards along the full
     expect(route.scene.screenState).toBe('finish');
     return;
   }
-  const scene = new AdventureScene({} as HTMLImageElement, {} as never, worlds(), audio([]), level);
-  scene.update(1 / 60, { ...neutral, jumpPressed: true });
-  const live = scene as unknown as { run: RunState; player: Player };
-  let snowHop = false;
-  for (let frame = 0; frame < 60 * 180 && scene.screenState !== 'finish'; frame++) {
-    const jumpPressed: boolean = level.id === 'frost' && !snowHop && live.player.x >= 5090 && live.player.onGround;
-    snowHop ||= jumpPressed;
-    scene.update(1 / 60, { ...neutral, horizontal: 1, jumpPressed, jumpHeld: live.player.vy < 0 || jumpPressed });
-  }
-  expect(scene.screenState).toBe('finish');
-  const bonusIds = [...live.run.collectedGems].filter((id) => id.includes('-bonus-'));
-  if (level.id === 'cove') expect(bonusIds.sort()).toEqual(['cove-bonus-1', 'cove-bonus-3', 'cove-bonus-5', 'cove-bonus-6']);
-  else expect(bonusIds).toHaveLength(3);
+  const route = coveRewards();
+  expect(route.scene.screenState).toBe('finish');
+  expect(route.runState.collectedGems.size).toBe(42);
+  expect([...route.runState.collectedGems].filter(id=>id.includes('-bonus-'))).toHaveLength(6);
 });

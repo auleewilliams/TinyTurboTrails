@@ -258,6 +258,15 @@ export function drawPlatforms(ctx: CanvasRenderingContext2D, level: LevelData, o
     drawPlatformPath(ctx, platform, offset);
     const body = platforms.find((candidate) => candidate.id === platform.id);
     if (!body) continue;
+    if (level.id === 'cove' && platform.from.x === platform.to.x && platform.from.y === platform.to.y) {
+      const x = body.x - offset.x, y = body.y - offset.y;
+      ctx.fillStyle = '#87979b'; ctx.fillRect(x, y, body.width, body.height);
+      ctx.fillStyle = '#e3e6ce'; ctx.fillRect(x, y, body.width, 3);
+      ctx.fillStyle = '#54686b'; ctx.fillRect(x, y + body.height - 2, body.width, 2);
+      ctx.fillStyle = '#b7c5bd';
+      for (let rock = 8; rock < body.width - 6; rock += 23) ctx.fillRect(x + rock, y + 5, 9, 2);
+      continue;
+    }
     if (level.id === 'frost' && platform.from.x === platform.to.x && platform.from.y === platform.to.y) {
       const x = body.x - offset.x, y = body.y - offset.y;
       ctx.fillStyle = '#7997b0'; ctx.fillRect(x, y, body.width, body.height);

@@ -1,25 +1,21 @@
-import { withSlimePatrols } from './slimes';
+import type { MovingPlatform } from '../game/platforms';
 import { surfaceY, type Surface, type Terrain } from '../game/movement';
 import type { LevelData, WorldEntity } from './level';
 
+// A continuous, reversible shoreline. Only the explicitly marked short patches slow walking.
 const contour: readonly (readonly [number, number])[] = [
-  // Beach arrival: dry sand, then the first shallow pool, all on one safe flat.
-  [0, 198], [300, 198], [600, 198], [900, 198], [1200, 198], [1700, 198], [1900, 180],
-  // Palm dunes: a raised beach with short slow stretches.
-  [2200, 180], [2450, 180], [2700, 180], [3000, 180], [3400, 180], [3600, 202],
-  // First shallows: a shorter paddle opens onto a broad, firm return.
-  [3900, 202], [4100, 202], [4350, 202], [4570, 202], [4700, 202], [5100, 202], [5400, 174],
-  // Driftwood bay: a broad shallow basin, then a gentle rise.
-  [5700, 174], [6000, 174], [6200, 174], [6500, 174], [6900, 174], [7200, 194],
-  // Tide pools: the last slime is well beyond the water.
-  [7500, 194], [7850, 194], [8020, 194], [8250, 194], [8750, 194], [9050, 178],
-  // Sunny exit: a final short paddle and a clear run to the arch.
-  [9350, 178], [9600, 178], [9750, 178], [9970, 178], [10300, 178], [10600, 198],
+  [0, 360], [75, 360], [105, 360], [120, 360], [220, 312], [380, 312],
+  [500, 352], [520, 352], [600, 352], [620, 352], [740, 304], [840, 304],
+  [940, 368], [1100, 368], [1220, 320], [1400, 320],
+  [1620, 320], [1660, 344], [1860, 344], [1900, 320], [2160, 320],
+  [2200, 344], [2500, 344], [2560, 320], [2800, 320],
+  [2920, 320], [3000, 344], [3040, 344], [3220, 344], [3480, 344],
+  [3600, 296], [3740, 296], [3820, 248], [3900, 248], [3980, 200], [4200, 200],
 ];
-const sandStarts = new Set([300, 2200, 3900, 5700, 7500, 9350]);
-const waterStarts = new Set([900, 2700, 4350, 6200, 8020, 9750]);
+const sandStarts = new Set([75, 520]);
+const waterStarts = new Set([1660, 2200, 3040]);
 const terrain: Terrain = {
-  minX: 0, maxX: 10600,
+  minX: 0, maxX: 4200,
   surfaces: contour.slice(1).map(([x2, y2], index): Surface => {
     const [x1, y1] = contour[index];
     return { x1, x2, y1, y2,
@@ -28,43 +24,55 @@ const terrain: Terrain = {
     };
   }),
 };
-const checkpoints = [120, 1990, 3700, 5500, 7300, 9150].map((x, index) => ({
+const checkpoints = [1320, 2070, 3660].map((x, index) => ({
   id: `cove-checkpoint-${index + 1}`, x, y: surfaceY(terrain, x),
 }));
 function grounded(kind: WorldEntity['kind'], asset: string, x: number, index: number): WorldEntity {
   return { id: `cove-${kind}-${index + 1}`, kind, asset, x, y: surfaceY(terrain, x),
     layer: kind === 'decoration' ? 'back' : 'world' };
 }
-const gems = [220, 410, 700, 1010, 1350, 1760, 2110, 2360, 2600, 2900, 3030, 3340,
-  3810, 4020, 4250, 4510, 4760, 5200, 5610, 5810, 6110, 6410, 6515, 6860,
-  7420, 7610, 7920, 8140, 8350, 8860, 9260, 9460, 9660, 9880, 10070, 10460];
-const springs = [1490, 3190, 4890, 6640, 8450, 10100];
+const gems = [100, 180, 260, 330, 450, 550, 680, 780, 900, 1140, 1260, 1360,
+  1480, 1590, 1660, 1750, 1850, 1950, 2050, 2150, 2260, 2420, 2530, 2640,
+  2760, 2870, 2940, 3060, 3160, 3300, 3540, 3640, 3750, 3850, 3990, 4090];
 
-export const SANDY_COVE: LevelData = withSlimePatrols({
+const platforms: readonly MovingPlatform[] = [
+  ['cove-hollow-shelf', 980, 320, 140],
+  ['cove-pool-stone-1', 1700, 296, 100],
+  ['cove-pool-stone-2', 2230, 296, 90],
+  ['cove-pool-stone-3', 2380, 284, 90],
+  ['cove-bay-ledge-1', 2960, 272, 140],
+  ['cove-bay-ledge-2', 3140, 260, 160],
+  ['cove-bay-ledge-3', 3340, 272, 180],
+].map(([id, x, y, width]) => ({ id: id as string, from: { x: x as number, y: y as number },
+  to: { x: x as number, y: y as number }, width: width as number, seconds: 1 }));
+
+export const SANDY_COVE: LevelData = {
   id: 'cove', name: 'SANDY COVE', atlas: 'cove',
-  width: 10600, height: 240, ...terrain,
-  start: { x: 60, y: 198 }, finish: { x: 10500, y: surfaceY(terrain, 10500), asset: 'finish-arch' },
+  width: 4200, height: 480, ...terrain,
+  start: { x: 60, y: 360 },
+  finish: { x: 4140, y: 200, asset: 'finish-arch', supportOnly: true, boundedWidth: 30,
+    rearmBelowY: 250, rearmLeftX: 3960 },
+  retrace: { x: 4030, y: 200 }, verticalCamera: true, cameraLead: 45,
+  checkpointActivation: 'grounded',
+  sections: [
+    { x: 0, name: 'Beach dunes' }, { x: 900, name: 'Palm hollow' },
+    { x: 1400, name: 'Island pools' }, { x: 2800, name: 'Sheltered bay' },
+    { x: 3740, name: 'Beach viewpoint' },
+  ],
   theme: {
-    slimeAccessory: 'snorkel',
-    material: 'sand',
+    slimeAccessory: 'snorkel', material: 'sand',
     weather: { kind: 'spray', count: 18, color: '#dbf9ff70', drift: 8, fall: -5, sway: 3 },
     sky: '#a9e8ec', ground: '#eacb85', edge: '#87603c',
     parallax: [150, 700, 1240, 1800, 2320].map((x) => ({ asset: 'hills', x, y: 110, scale: 3 })),
   },
-  checkpoints,
+  checkpoints, platforms,
   entities: [
-    ...gems.map((x, index) => ({ ...grounded('gem', 'gem', x, index), y: surfaceY(terrain, x) - 18 })),
-    ...springs.map((x, index) => grounded('spring', 'spring', x, index)),
-    ...[1550, 4950, 8510].map((x, index) => grounded('slime', 'slime', x, index)),
-    // Two low finds on dry beach vary the spring arcs without gating progress.
-    ...springs.map((springX, index): WorldEntity => {
-      const x = index === 1 ? 3080 : index === 3 ? 6560 : springX + 65;
-      const lift = index === 1 ? 50 : index === 3 ? 45 : 115;
-      return { id: `cove-bonus-${index + 1}`, kind: 'gem', asset: 'gem',
-        x, y: surfaceY(terrain, x) - lift, layer: 'world' };
-    }),
-    ...[760, 1400, 2080, 3090, 4200, 4800, 6080, 6550, 7390, 8360, 9700, 10250]
-      .map((x, index) => grounded('decoration', index % 4 === 0 ? 'cave' : 'tree', x, index)),
+    { id: 'cove-spring-1', kind: 'spring', asset: 'spring', x: 3420, y: 272, layer: 'world' },
+    ...gems.map((x, index) => ({ ...grounded('gem', 'gem', x, index), y: ({ 1750: 296, 2260: 296, 2420: 284 }[x] ?? surfaceY(terrain, x)) - 18 })),
+    ...[[1065, 302], [950, 318], [3380, 172], [3240, 299], [3420, 160], [3460, 172]]
+      .map(([x, y], index): WorldEntity => ({ id: `cove-bonus-${index + 1}`, kind: 'gem', asset: 'gem', x, y, layer: 'world' })),
+    ...[400, 890, 1160, 1510, 1990, 2650, 2860, 3570, 3940]
+      .map((x, index) => grounded('decoration', index % 4 === 0 ? 'stone' : 'tree', x, index)),
     ...checkpoints.map((checkpoint): WorldEntity => ({ ...checkpoint, kind: 'checkpoint', asset: 'checkpoint', layer: 'world' })),
   ],
-});
+};

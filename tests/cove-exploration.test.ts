@@ -1,147 +1,110 @@
 import { expect, it } from 'vitest';
-import { AdventureScene } from '../src/game/adventure-scene';
-import { createPlayer, simulatePlayer, surfaceAt, surfaceY, type Player } from '../src/game/movement';
-import { createRun, damagePlayer, recoverFromFall, stepEntities, tickRun, type RunEvent, type RunState } from '../src/game/interactions';
+import { createPlayer, surfaceAt, surfaceY } from '../src/game/movement';
+import { createRun, damagePlayer, recoverFromFall } from '../src/game/interactions';
 import { SANDY_COVE } from '../src/world/sandy-cove';
-import { validateLevel } from '../src/world/level';
+import { hasFixedSupport, validateLevel } from '../src/world/level';
+import { covePilot, coveRewards, COVE_LOWER, COVE_SUPPORT_APPROACH, walk, jump, drop } from './cove-pilot';
 
-const neutral = { horizontal: 0, jumpPressed: false, jumpHeld: false, pausePressed: false, mutePressed: false };
-const audio = { unlock: async () => {}, setMuted() {}, setSuspended() {}, startMusic() {}, play() {}, stop() {}, dispose() {} };
-const lowFinds = SANDY_COVE.entities.filter(entity => ['cove-bonus-2', 'cove-bonus-4'].includes(entity.id));
-type Live = { player: Player; run: RunState; events: RunEvent[] };
-
-function drive(optional: boolean, holdSpringArcs = false) {
-  const scene = new AdventureScene({} as HTMLImageElement, {} as never,
-    { timbers: {} as never, plains: {} as never, quarry: {} as never, site: {} as never, frost: {} as never, cove: {} as never }, audio, SANDY_COVE);
-  scene.startSelected();
-  const live = scene as unknown as Live;
-  let held = 0;
-  const events: RunEvent[] = [];
-  const triggered = new Set<string>();
-  for (let frame = 0; frame < 60 * 100 && scene.screenState !== 'finish'; frame++) {
-    let jumpPressed = false;
-    if (optional) for (const gem of lowFinds) {
-      if (!triggered.has(gem.id) && live.player.x >= gem.x - 55) {
-        triggered.add(gem.id); jumpPressed = true; held = 12;
-      }
-    }
-    scene.update(1 / 60, { ...neutral, horizontal: 1, jumpPressed, jumpHeld: held-- > 0 || (holdSpringArcs && live.player.vy < 0) });
-    events.push(...live.events);
-    expect(live.player.y).toBeLessThan(SANDY_COVE.height);
-    expect(live.run.health).toBe(3);
-  }
-  return { scene, live, events };
-}
-
-it('preserves Cove totals, every collectible ID, safe checkpoints and original springs/slimes', () => {
-  expect(() => validateLevel(SANDY_COVE)).not.toThrow();
-  const gems = SANDY_COVE.entities.filter(entity => entity.kind === 'gem');
-  expect(gems.map(gem => gem.id).sort()).toEqual([
-    ...Array.from({ length: 36 }, (_, index) => `cove-gem-${index + 1}`),
-    ...Array.from({ length: 6 }, (_, index) => `cove-bonus-${index + 1}`),
+it('preserves Cove totals and collectible identities with three firm checkpoints and one optional spring', () => {
+  expect(()=>validateLevel(SANDY_COVE)).not.toThrow();
+  expect(SANDY_COVE.entities.filter(e=>e.kind==='gem').map(e=>e.id).sort()).toEqual([
+    ...Array.from({length:36},(_,i)=>`cove-gem-${i+1}`),...Array.from({length:6},(_,i)=>`cove-bonus-${i+1}`),
   ].sort());
-  expect(gems).toHaveLength(42);
-  expect(lowFinds.map(gem => [gem.id, gem.x, gem.y])).toEqual([['cove-bonus-2', 3080, 130], ['cove-bonus-4', 6560, 129]]);
-  for (const gem of lowFinds) expect(surfaceAt(SANDY_COVE, gem.x).material).toBeUndefined();
-  expect(SANDY_COVE.entities.filter(entity => entity.kind === 'special' || entity.kind === 'hazard')).toHaveLength(0);
-  expect(SANDY_COVE.entities.filter(entity => entity.kind === 'spring').map(entity => [entity.id, entity.x]))
-    .toEqual([1490, 3190, 4890, 6640, 8450, 10100].map((x, index) => [`cove-spring-${index + 1}`, x]));
-  expect(SANDY_COVE.entities.filter(entity => entity.kind === 'slime').map(entity => [entity.id, entity.x]))
-    .toEqual([1550, 4950, 8510].map((x, index) => [`cove-slime-${index + 1}`, x]));
-  expect(SANDY_COVE.checkpoints).toEqual([120, 1990, 3700, 5500, 7300, 9150]
-    .map((x, index) => ({ id: `cove-checkpoint-${index + 1}`, x, y: surfaceY(SANDY_COVE, x) })));
-  expect(SANDY_COVE.start).toEqual({ x: 60, y: 198 });
-  expect(SANDY_COVE.finish.x).toBe(10500);
-});
-
-it('shortens only the third harmless pool and preserves dry, continuous gentle terrain', () => {
-  expect(SANDY_COVE.surfaces.filter(surface => surface.material === 'water').map(surface => [surface.x1, surface.x2, surface.speedMultiplier]))
-    .toEqual([[900, 1200, 0.65], [2700, 3000, 0.65], [4350, 4570, 0.65], [6200, 6500, 0.65], [8020, 8250, 0.65], [9750, 9970, 0.65]]);
-  expect(SANDY_COVE.surfaces.filter(surface => surface.material === 'sand').map(surface => [surface.x1, surface.x2, surface.speedMultiplier]))
-    .toEqual([[300, 600, 0.8], [2200, 2450, 0.8], [3900, 4100, 0.8], [5700, 6000, 0.8], [7500, 7850, 0.8], [9350, 9600, 0.8]]);
-  const surfaces = SANDY_COVE.surfaces;
-  for (let index = 0; index < surfaces.length; index++) {
-    const part = surfaces[index], next = surfaces[index + 1];
-    if (next) { expect(part.x2).toBe(next.x1); expect(part.y2).toBe(next.y1); }
-    expect(Math.max(part.y1, part.y2)).toBeLessThan(240);
-    expect(Math.abs((part.y2 - part.y1) / (part.x2 - part.x1))).toBeLessThanOrEqual(0.11);
+  expect(SANDY_COVE.entities.filter(e=>['special','hazard','slime','crumbling-ledge'].includes(e.kind))).toEqual([]);
+  expect(SANDY_COVE.entities.filter(e=>e.kind==='spring')).toHaveLength(1);
+  expect(SANDY_COVE.checkpoints).toHaveLength(3);
+  for(const p of [SANDY_COVE.start,...SANDY_COVE.checkpoints,SANDY_COVE.retrace!]) {
+    expect(hasFixedSupport(SANDY_COVE,p)).toBe(true);
+    for(const x of [p.x-9,p.x,p.x+9]) expect(surfaceAt(SANDY_COVE,x).material).toBeUndefined();
   }
-  expect(surfaceAt(SANDY_COVE, 4600)).toMatchObject({ y1: 202, y2: 202 });
-  expect(surfaceAt(SANDY_COVE, 4600).material).toBeUndefined();
 });
-
-it('finishes the easy route without pressing jump, damage, recovery or optional rewards', () => {
-  const { scene, live, events } = drive(false);
-  expect(scene.screenState).toBe('finish');
-  expect(events.filter(event => event.type === 'damage' || event.type === 'recover')).toHaveLength(0);
-  expect(events.filter(event => event.type === 'spring')).toHaveLength(6);
-  expect(events.filter(event => event.type === 'checkpoint')).toHaveLength(6);
-  expect([...live.run.collectedGems].some(id => id.includes('-bonus-'))).toBe(false);
+it('keeps two short pool beds and bay shallows continuous with brief sand and unchanged movement multipliers', () => {
+  expect(SANDY_COVE.surfaces.filter(s=>s.material==='water').map(s=>[s.x1,s.x2,s.speedMultiplier])).toEqual([[1660,1860,.65],[2200,2500,.65],[3040,3220,.65]]);
+  expect(SANDY_COVE.surfaces.filter(s=>s.material==='sand').map(s=>[s.x1,s.x2,s.speedMultiplier])).toEqual([[75,105,.8],[520,600,.8]]);
+  for(const [i,s] of SANDY_COVE.surfaces.entries()) {
+    const next=SANDY_COVE.surfaces[i+1];
+    if(next) {expect(s.x2).toBe(next.x1);expect(s.y2).toBe(next.y1);}
+    expect(Math.abs((s.y2-s.y1)/(s.x2-s.x1))).toBeLessThanOrEqual(.65);
+  }
 });
-
-it('collects both low optional finds with two ordinary running hops on a complete route', () => {
-  const { scene, live } = drive(true);
-  expect(scene.screenState).toBe('finish');
-  expect(lowFinds.every(gem => live.run.collectedGems.has(gem.id))).toBe(true);
+it.each([[.016],[.032],[.01,.022,.016]].map(cadence=>({cadence})))('finishes and replays the lower route with no optional support, spring, damage or recovery at %j cadence', ({cadence}) => {
+  const route=covePilot(cadence);route.run(COVE_LOWER);
+  expect(route.scene.screenState).toBe('finish');
+  expect(route.events.filter(e=>['spring','damage','recover'].includes(e.type))).toEqual([]);
+  expect(route.supports.size).toBe(0);expect(route.runState.health).toBe(3);
+  route.scene.activateFinish('Replay');expect(route.scene.playerX).toBe(60);
+  const replay=(route.scene as unknown as {run: typeof route.runState}).run;
+  expect(replay.collectedGems.size).toBe(0);expect(replay.seconds).toBe(0);
 });
-
-it('earns all six bonuses together through held spring arcs and two ordinary hops on one complete route', () => {
-  const { scene, live, events } = drive(true, true);
-  expect(scene.screenState).toBe('finish');
-  expect([...live.run.collectedGems].filter(id => id.includes('-bonus-')).sort())
-    .toEqual(Array.from({ length: 6 }, (_, index) => `cove-bonus-${index + 1}`));
-  expect(events.filter(event => event.type === 'damage' || event.type === 'recover')).toHaveLength(0);
+it.each([[.016],[.032],[.01,.022,.016]].map(cadence=>({cadence})))('earns all 42 gems through complete ordinary-input discoveries at %j cadence', ({cadence})=>{
+  const route=coveRewards(cadence);
+  expect(route.scene.screenState).toBe('finish');expect(route.runState.collectedGems.size).toBe(42);
+  expect(route.springAttempts).toHaveLength(3);
+  expect(route.events.filter(e=>['damage','recover'].includes(e.type))).toEqual([]);
 });
-
-it.each(lowFinds)('allows forgiving ordinary-hop approaches and safe dry returns at $id', gem => {
-  for (const onset of [-55, -40]) for (const heldFrames of [6, 12, 24]) {
-    const player = createPlayer(gem.x + onset, SANDY_COVE), run = createRun(SANDY_COVE);
-    player.vx = 220;
-    const events: RunEvent[] = [];
-    let landed = false;
-    for (let frame = 0; frame < 90; frame++) {
-      const previous = { x: player.x, y: player.y };
-      tickRun(run, 1 / 60);
-      simulatePlayer(player, { horizontal: player.x < gem.x + 4 ? 1 : 0,
-        jumpPressed: frame === 0, jumpHeld: frame < heldFrames }, SANDY_COVE, 1 / 60);
-      stepEntities(run, SANDY_COVE, player, 1 / 60, events, previous);
-      if (frame > 1 && player.onGround) { landed = true; break; }
+it('bounds the unsafe landing negative control to an actual second spring launch',()=>{
+  expect(()=>coveRewards([.016],true)).toThrow(/second spring launch violation: [2-9]/);
+});
+it.each((SANDY_COVE.platforms??[]).map((platform,index)=>({platform,index})))('misses the actual union edge of $platform.id, lands supported and rejoins both banks before retrying',({platform,index})=>{
+  for(const cadence of [[.016],[.032]]) for(const direction of [-1,1] as const) {
+    const route=covePilot(cadence);route.run(COVE_SUPPORT_APPROACH[index]);
+    expect(route.player.platformId).toBe(platform.id);
+    if(index===6&&direction===1)route.run([walk(3370),jump(3480,272)]);
+    const edge=direction<0?platform.from.x:platform.from.x+platform.width;
+    const target=edge+direction*28;
+    route.run([drop(edge,direction,target,surfaceY(SANDY_COVE,target))]);
+    expect(direction<0?route.player.x+9<edge:route.player.x-9>edge).toBe(true);
+    expect(route.player.platformId).toBeNull();expect(route.player.onGround).toBe(true);
+    // Continue away from the miss, reverse to the far bank and retry the support.
+    const pool=SANDY_COVE.surfaces.find(s=>s.material==='water'
+      &&platform.from.x>=s.x1&&platform.from.x<s.x2);
+    const banks=pool?[pool.x1-60,pool.x2+80]:index===0?[840,1320]:[2920,3660];
+    route.run([walk(banks[0]),walk(banks[1]),...COVE_SUPPORT_APPROACH[index]]);
+    expect(route.player.platformId).toBe(platform.id);
+    expect(route.events.filter(e=>['spring','damage','recover'].includes(e.type))).toEqual([]);
+  }
+});
+it('retains actual earned rewards and completion through zero-motion start and checkpoint recovery and earlier reactivation',()=>{
+  const route=covePilot();route.run(COVE_LOWER);const gems=new Set(route.runState.collectedGems);
+  route.scene.activateFinish('Build your word');route.scene.menuTargets.find(t=>t.label==='Find more letters')!.action();
+  for(const cp of [...SANDY_COVE.checkpoints].reverse()) {
+    route.run([walk(cp.x)]);expect(route.runState.checkpointId).toBe(cp.id);
+    const before=route.events.filter(e=>e.type==='checkpoint').length;
+    for(let f=0;f<30;f++)route.tick();expect(route.events.filter(e=>e.type==='checkpoint')).toHaveLength(before);
+    for(const cause of ['fall','health']) {
+      if(cause==='fall')recoverFromFall(route.runState,route.player,[],SANDY_COVE);
+      else {route.runState.health=1;route.runState.invulnerableSeconds=0;damagePlayer(route.runState,route.player,1,[],SANDY_COVE);}
+      expect(route.player).toMatchObject({x:cp.x,y:cp.y-34,vx:0,vy:0,onGround:true,platformId:null,jumpBufferSeconds:0});
+      expect(route.runState.collectedGems).toEqual(gems);expect(route.scene.session.results.has('cove')).toBe(true);
     }
-    expect(run.collectedGems.has(gem.id), `${gem.id}, onset ${onset}, held ${heldFrames}`).toBe(true);
-    expect(landed).toBe(true);
-    expect(surfaceAt(SANDY_COVE, player.x).material).toBeUndefined();
-    expect(player.x).toBeGreaterThan(gem.x === 3080 ? 3000 : 6500);
-    expect(player.x).toBeLessThan(gem.x === 3080 ? 3172 : 6622);
-    expect(events.filter(event => ['spring', 'damage', 'recover'].includes(event.type))).toHaveLength(0);
-    expect(run.health).toBe(3);
   }
+  const all=coveRewards();
+  for(const cause of ['fall','health']) {
+    if(cause==='fall') recoverFromFall(all.runState,all.player,[],SANDY_COVE);
+    else {all.runState.health=1;all.runState.invulnerableSeconds=0;damagePlayer(all.runState,all.player,1,[],SANDY_COVE);}
+    expect(all.runState.collectedGems.size).toBe(42);
+    expect(all.scene.session.results.has('cove')).toBe(true);
+    expect(all.player).toMatchObject({vx:0,vy:0,onGround:true,platformId:null});
+  }
+  const player=createPlayer(60,SANDY_COVE),run=createRun(SANDY_COVE);player.vx=200;player.vy=100;
+  recoverFromFall(run,player,[],SANDY_COVE);expect(player).toMatchObject({x:60,y:326,vx:0,vy:0,onGround:true});
 });
 
-it('keeps all 42 gems individually reachable using walking, ordinary hops or existing spring arcs', () => {
-  for (const gem of SANDY_COVE.entities.filter(entity => entity.kind === 'gem')) {
-    const bonus = gem.id.includes('-bonus-'), low = lowFinds.some(find => find.id === gem.id);
-    const player = createPlayer(bonus && !low ? gem.x - 65 : gem.x, SANDY_COVE), run = createRun(SANDY_COVE);
-    for (let frame = 0; frame < 100 && !run.collectedGems.has(gem.id); frame++) {
-      tickRun(run, 1 / 60);
-      simulatePlayer(player, { horizontal: bonus && !low ? 1 : 0,
-        jumpPressed: low && frame === 0, jumpHeld: bonus && (!low || frame < 12) }, SANDY_COVE, 1 / 60);
-      stepEntities(run, SANDY_COVE, player, 1 / 60, []);
-    }
-    expect(run.collectedGems.has(gem.id), gem.id).toBe(true);
-  }
+it.each([[.016],[.032]].map(cadence=>({cadence})))('crosses the dry upper bay reversibly without launching the spring at $cadence',({cadence})=>{
+  const route=covePilot(cadence);
+  route.run([walk(2940),jump(3020,272),walk(3080),jump(3170,260),walk(3280),jump(3360,272),walk(3370),jump(3480,272),walk(3500)]);
+  route.run([walk(3480),jump(3380,272),walk(3360),jump(3280,260),walk(3160),jump(3080,272),walk(3020),walk(2920)]);
+  expect(route.player.platformId).toBeNull();expect(route.player.onGround).toBe(true);
+  expect(route.events.filter(e=>['spring','damage','recover'].includes(e.type))).toEqual([]);
+  route.run(COVE_LOWER);expect(route.scene.screenState).toBe('finish');
 });
-
-it('retains gems earned through actual route movement after fall and depleted-health recovery', () => {
-  const { live } = drive(true);
-  const earned = new Set(live.run.collectedGems);
-  expect(lowFinds.every(gem => earned.has(gem.id))).toBe(true);
-  const checkpoint = SANDY_COVE.checkpoints.find(point => point.id === live.run.checkpointId)!;
-  for (const cause of ['fall', 'health']) {
-    if (cause === 'fall') recoverFromFall(live.run, live.player, [], SANDY_COVE);
-    else { live.run.health = 1; live.run.invulnerableSeconds = 0; damagePlayer(live.run, live.player, 1, [], SANDY_COVE); }
-    expect(live.player.x).toBe(checkpoint.x);
-    expect(live.player.y + 34).toBeCloseTo(checkpoint.y);
-    expect(live.run.collectedGems).toEqual(earned);
-    expect(surfaceAt(SANDY_COVE, live.player.x).material).toBeUndefined();
+it.each([[.016],[.032]].map(cadence=>({cadence})))('takes off at reduced water speed and settles on each pool stone at $cadence',({cadence})=>{
+  for(const platform of SANDY_COVE.platforms!.filter(p=>p.id.includes('pool-stone'))) {
+    const route=covePilot(cadence);route.run([walk(platform.from.x-40)]);
+    for(let f=0;f<80&&route.player.x<platform.from.x-8;f++)route.tick(1);
+    expect(route.player.vx).toBeGreaterThan(130);expect(route.player.vx).toBeLessThanOrEqual(143);
+    route.run([jump(platform.from.x+platform.width/2,platform.from.y)]);
+    expect(route.player.platformId).toBe(platform.id);expect(route.player.onGround).toBe(true);
+    expect(route.events.filter(e=>['spring','damage','recover'].includes(e.type))).toEqual([]);
   }
 });
