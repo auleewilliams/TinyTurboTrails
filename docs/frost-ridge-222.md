@@ -65,7 +65,7 @@ remain in the handoff; none is silently relabelled as passing.
 | New Frost route units | Mixed cadence complete returns, W and N/S trips, stopping/reversal/boundary jumps, full sprite clearance, finish height/rearm, failed-jump retries and support/bypass-removal controls. |
 | Four new native cases per engine | 426px/320px keyboard journeys, full missed-SNOW retrace/manual assembly, and actual Gamepad API movement/jumps through finish. Moving-paint captures supplement resting screenshots. |
 
-Multiplicity: the complete baseline has 1820 unit identities. Three obsolete Frost slime parameters and one legacy checkpoint parameter retire; 16 route cases are added, yielding 1832. Native discovery retains all 540 existing identities and adds four Frost cases per engine, yielding 552.
+Multiplicity: the complete baseline has 1820 unit identities. Three obsolete Frost slime parameters and one legacy checkpoint parameter retire; 16 route cases are added, yielding 1832. Native discovery retires the generated Frost slime/patrol case in each engine (three cases), retains the other 537 existing identities, and adds four Frost cases per engine (12 cases), yielding 549.
 
 The shared renderer adds only Frost's snow-top presentation within the existing
 platform drawer. It adds no import or fixture dependency. Cached previews already
