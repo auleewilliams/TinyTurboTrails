@@ -1,5 +1,6 @@
 import { AdventureScene } from '../src/game/adventure-scene';
 import { SUNSET_SITE } from '../src/world/levels';
+import type { LevelData } from '../src/world/level';
 import type { Player } from '../src/game/movement';
 import type { RunState } from '../src/game/interactions';
 import type { TimberPilotStage } from './timbers-browser-pilot';
@@ -37,9 +38,14 @@ export const SUNSET_MISS_B: readonly SunsetStage[] = [
 
 /** Simulation-input driver: all movement starts at the authored entrance. */
 export function sunsetPilot(cadence: readonly number[] = [0.016], heldSeconds = 0.24) {
+  return routePilot(SUNSET_SITE, cadence, heldSeconds);
+}
+
+/** Shared bounded simulation driver for fixed supports and connected terrain. */
+export function routePilot(level: LevelData, cadence: readonly number[] = [0.016], heldSeconds = 0.24) {
   const scene = new AdventureScene({} as HTMLImageElement, {} as never,
     { timbers: {} as never, plains: {} as never, quarry: {} as never, site: {} as never, frost: {} as never, cove: {} as never },
-    { unlock: async () => {}, setMuted() {}, setSuspended() {}, startMusic() {}, play() {}, stop() {}, dispose() {} }, SUNSET_SITE);
+    { unlock: async () => {}, setMuted() {}, setSuspended() {}, startMusic() {}, play() {}, stop() {}, dispose() {} }, level);
   scene.startSelected();
   const live = scene as unknown as { player: Player; run: RunState; events: { type: string; entityId?: string }[] };
   const events: { type: string; entityId?: string }[] = [];
@@ -65,8 +71,8 @@ export function sunsetPilot(cadence: readonly number[] = [0.016], heldSeconds = 
     const bounded: SunsetStage[] = [];
     let plannedX = live.player.x;
     for (const stage of stages) {
-      if (stage.kind === 'walk') while (Math.abs(stage.x! - plannedX) > 320) {
-        plannedX += Math.sign(stage.x! - plannedX) * 300; bounded.push(walk(plannedX));
+      if (stage.kind === 'walk' || stage.kind === 'travel') while (Math.abs(stage.x! - plannedX) > 320) {
+        plannedX += Math.sign(stage.x! - plannedX) * 300; bounded.push({ ...stage, x: plannedX });
       }
       bounded.push(stage); if (stage.x !== undefined) plannedX = stage.x;
     }
@@ -76,6 +82,8 @@ export function sunsetPilot(cadence: readonly number[] = [0.016], heldSeconds = 
       for (let frame = 0; frame < 260; frame++) {
         if (stage.kind === 'finish') {
           tick(1); passed = scene.screenState === 'finish';
+        } else if (stage.kind === 'travel') {
+          tick(stage.direction!); passed=(p.x-stage.x!)*stage.direction!>=0;
         } else if (stage.kind === 'walk') {
           tick(steer(stage.x!));
           passed = Math.abs(p.x - stage.x!) < 4 && Math.abs(p.vx) < 20 && p.onGround;

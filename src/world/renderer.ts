@@ -258,6 +258,14 @@ export function drawPlatforms(ctx: CanvasRenderingContext2D, level: LevelData, o
     drawPlatformPath(ctx, platform, offset);
     const body = platforms.find((candidate) => candidate.id === platform.id);
     if (!body) continue;
+    if (level.id === 'frost' && platform.from.x === platform.to.x && platform.from.y === platform.to.y) {
+      const x = body.x - offset.x, y = body.y - offset.y;
+      ctx.fillStyle = '#7997b0'; ctx.fillRect(x, y, body.width, body.height);
+      ctx.fillStyle = '#eff8ff'; ctx.fillRect(x, y, body.width, 4);
+      ctx.fillStyle = '#dcebf3';
+      for (let snow = 8; snow < body.width - 6; snow += 19) ctx.fillRect(x + snow, y + 4, 9, 2);
+      continue;
+    }
     if (assets && level.id === 'sunset' && level.verticalCamera) {
       const x = body.x - offset.x, y = body.y - offset.y;
       // Existing site girder tiles supply texture; the gold top is exactly the

@@ -6,11 +6,11 @@ import { validateLevel } from '../src/world/level';
 
 it.each([FROST_RIDGE, SANDY_COVE])('authors a valid forgiving route for $name', (level) => {
   expect(() => validateLevel(level)).not.toThrow();
-  expect(level.checkpoints).toHaveLength(6);
+  expect(level.checkpoints).toHaveLength(level.id === 'frost' ? 3 : 6);
   expect(level.entities.filter((e) => e.kind === 'gem').length).toBeGreaterThanOrEqual(30);
-  expect(level.entities.filter((e) => e.kind === 'spring').length).toBeGreaterThanOrEqual(6);
-  expect(level.surfaces.every((s) => Math.max(s.y1, s.y2) <= 240)).toBe(true);
-  expect(level.surfaces.every((s) => Math.abs(s.y2 - s.y1) / (s.x2 - s.x1) <= 0.5)).toBe(true);
+  expect(level.entities.filter((e) => e.kind === 'spring').length).toBeGreaterThanOrEqual(level.id === 'frost' ? 1 : 6);
+  expect(level.surfaces.every((s) => Math.max(s.y1, s.y2) <= level.height)).toBe(true);
+  expect(level.surfaces.every((s) => Math.abs(s.y2 - s.y1) / (s.x2 - s.x1) <= (level.id === 'frost' ? 0.75 : 0.5))).toBe(true);
   const dangers = level.entities.filter((e) => e.kind === 'slime' || e.kind === 'hazard');
   for (const checkpoint of level.checkpoints) {
     expect(checkpoint.y).toBe(surfaceY(level, checkpoint.x));
@@ -20,17 +20,17 @@ it.each([FROST_RIDGE, SANDY_COVE])('authors a valid forgiving route for $name', 
   }
 });
 
-it('keeps ice on safe flats with ordinary runouts before hazards', () => {
-  const ice = FROST_RIDGE.surfaces.filter((s) => s.material === 'ice');
-  expect(ice.length).toBeGreaterThanOrEqual(6);
-  for (const patch of ice) {
-    expect(patch.y1).toBe(patch.y2);
-    const runout = FROST_RIDGE.surfaces[FROST_RIDGE.surfaces.indexOf(patch) + 1];
+it('keeps three connected ice descents followed by clear ordinary snow runouts', () => {
+  const surfaces = FROST_RIDGE.surfaces;
+  const ends = surfaces.filter((s, i) => s.material === 'ice' && surfaces[i + 1]?.material !== 'ice');
+  expect(ends).toHaveLength(3);
+  for (const patch of ends) {
+    const runout = surfaces[surfaces.indexOf(patch) + 1];
     expect(runout.material).toBeUndefined();
     expect(runout.y1).toBe(runout.y2);
-    expect(runout.x2 - runout.x1).toBeGreaterThanOrEqual(240);
-    expect(FROST_RIDGE.entities.filter((e) => e.kind === 'slime' || e.kind === 'hazard')
-      .every((e) => e.x < patch.x1 - 120 || e.x > patch.x2 + 240)).toBe(true);
+    expect(runout.x2 - runout.x1).toBeGreaterThanOrEqual(150);
+    expect(FROST_RIDGE.entities.filter(e => ['slime', 'spring', 'hazard'].includes(e.kind))
+      .every(e => e.x < patch.x1 - 120 || e.x > runout.x2 + 120)).toBe(true);
   }
 });
 

@@ -1,3 +1,4 @@
+import { FROST_MAIN, FROST_RETURN, FROST_REASCENT, FROST_MISS_S } from './frost-pilot';
 import { driveSunset } from './sunset-browser-pilot';
 import { MAIN_ROUTE as SUNSET_MAIN, FIRST_CLIMB as SUNSET_FIRST, CROSS_DESCENT as SUNSET_CROSS, FINAL_CLIMB as SUNSET_FINAL, ALL_RETURN as SUNSET_RETURN, REASCENT as SUNSET_REASCENT, SUNSET_MISS_B } from './sunset-pilot';
 import { installQuarryPilotScript } from './quarry-pilot';
@@ -1912,6 +1913,7 @@ for (const [biome, pickerSteps] of [['frost', 4], ['cove', 5]] as const) {
         Reflect.apply(original, this, args);
       } as typeof original;
     });
+    if (biome === 'frost') await installTimberKeyboardPilot(page);
     await openAdventure(page, '/?scene=adventure&debug=1');
     await expect(page.locator('#status')).toContainText('Adventure preview · Title');
     for (let i = 0; i < pickerSteps; i++) {
@@ -1925,12 +1927,21 @@ for (const [biome, pickerSteps] of [['frost', 4], ['cove', 5]] as const) {
     await expect(page.locator('canvas')).toHaveAttribute('data-biome-atlas', new RegExp(`/assets/${biome}/environment.png$`));
     const position = async (): Promise<number> => Number((await page.locator('#status').innerText()).match(/X (\d+)/)?.[1] ?? 0);
     const velocity = async (): Promise<number> => Number((await page.locator('#status').innerText()).match(/V (-?\d+)/)?.[1] ?? 0);
+    if (biome === 'frost') await driveSunset(page, [...FROST_MAIN.slice(0, 4), { kind: 'walk', x: 2100 }]);
     await page.keyboard.down('ArrowRight');
-    await expect.poll(position, { intervals: [20], timeout: 10000 }).toBeGreaterThan(420);
+    await expect.poll(position, { intervals: [20], timeout: 10000 }).toBeGreaterThan(biome === 'frost' ? 2240 : 420);
     if (biome === 'frost') {
+      const slideVelocity = await page.evaluate(async () => {
+        window.dispatchEvent(new KeyboardEvent('keyup', { code: 'ArrowRight' }));
+        const start = performance.now();
+        await new Promise<void>(resolve => {
+          const sample = () => performance.now() - start >= 120 ? resolve() : requestAnimationFrame(sample);
+          requestAnimationFrame(sample);
+        });
+        return Number(document.querySelector('#status')!.textContent!.match(/V (-?\d+)/)?.[1]);
+      });
       await page.keyboard.up('ArrowRight');
-      await page.waitForTimeout(120);
-      expect(await velocity()).toBeGreaterThan(80);
+      expect(slideVelocity).toBeGreaterThan(80);
     } else {
       expect(await velocity()).toBe(176);
       await expect.poll(position, { intervals: [20], timeout: 10000 }).toBeGreaterThan(1000);
@@ -1939,14 +1950,16 @@ for (const [biome, pickerSteps] of [['frost', 4], ['cove', 5]] as const) {
     }
     await page.keyboard.press('Escape');
     await expect(page.locator('#status')).toContainText('Paused');
-    const frozen = await page.locator('canvas').getAttribute('data-creature-y');
+    const pausedObservation = async () => biome === 'frost' ? page.locator('#status').innerText() : page.locator('canvas').getAttribute('data-creature-y');
+    const frozen = await pausedObservation();
     await page.waitForTimeout(200);
-    expect(await page.locator('canvas').getAttribute('data-creature-y')).toBe(frozen);
+    expect(await pausedObservation()).toBe(frozen);
     const screenshot = info.outputPath(`${biome}-material.png`);
     await page.locator('canvas').screenshot({ path: screenshot });
     await info.attach(`${biome}-material`, { path: screenshot, contentType: 'image/png' });
     await page.keyboard.press('Escape');
-    await page.keyboard.down('ArrowRight');
+    if (biome === 'frost') { await twoFrames(page); await driveSunset(page, FROST_MAIN.slice(4)); }
+    else await page.keyboard.down('ArrowRight');
     await expect(page.locator('#status')).toContainText('Finish', { timeout: 85000 });
     await page.keyboard.up('ArrowRight');
     await expect(page.locator('#status')).toContainText(/Gems [1-9]\d*/);
@@ -4095,7 +4108,7 @@ for (const [index, level] of LEVELS.entries()) {
     };
     // These evidence routes exercise native/small play; the viewport suite covers large sizes.
     await page.setViewportSize({ width: 426, height: 300 });
-    if (level.id === 'sunset') await installTimberKeyboardPilot(page);
+    if (level.id === 'sunset' || level.id === 'frost') await installTimberKeyboardPilot(page);
     else await installRetracePilot(page, level);
     // The existing helper provides the same standard Gamepad API used by pilot regressions.
     await page.addInitScript(() => {
@@ -4109,6 +4122,10 @@ for (const [index, level] of LEVELS.entries()) {
     await page.getByRole('button', { name: `Play ${level.name}`, exact: true }).click();
     await expect(page.locator('#game')).toHaveAttribute('data-spelling-draws', /pouch\.png/);
     const drive = async (direction: number, collectAt: number[] = [], initialCount = 0): Promise<void> => {
+      if (level.id === 'frost') {
+        await driveSunset(page, direction < 0 ? FROST_RETURN : initialCount ? FROST_REASCENT : FROST_MISS_S);
+        return;
+      }
       if (level.id === 'sunset') {
         await driveSunset(page, direction < 0 ? SUNSET_RETURN : initialCount ? SUNSET_REASCENT : SUNSET_MISS_B);
         return;
@@ -4170,7 +4187,7 @@ for (const [index, level] of LEVELS.entries()) {
     await expect(page.getByRole('dialog')).toHaveCount(0);
     await capture('beside-finish');
     await drive(-1, missing.map(slot => config.pickups[slot].x).sort((a, b) => b - a), available.length);
-    if (level.id !== 'sunset') await page.waitForFunction(() => (window as unknown as { retracePilot: { stopped: boolean } }).retracePilot.stopped, undefined, { timeout: 35_000 });
+    if (level.id !== 'sunset' && level.id !== 'frost') await page.waitForFunction(() => (window as unknown as { retracePilot: { stopped: boolean } }).retracePilot.stopped, undefined, { timeout: 35_000 });
     await expect(page.locator('#status')).toContainText('Letter bag: 4/4');
     const collectedStatus = await page.locator('#status').innerText();
     await drive(1, [], 4);
@@ -4239,11 +4256,11 @@ for (const [index, level] of LEVELS.entries()) {
     await expect(page.locator('#status')).toContainText('Letter bag: 4/4');
     const recoveries = await page.evaluate(sunset => sunset
       ? (window as unknown as { timberKeyboardPilot: { recoveries: string[] } }).timberKeyboardPilot.recoveries
-      : (window as unknown as { retracePilot: { recoveries: string[] } }).retracePilot.recoveries, level.id === 'sunset');
+      : (window as unknown as { retracePilot: { recoveries: string[] } }).retracePilot.recoveries, level.id === 'sunset' || level.id === 'frost');
     const recoveryPath = info.outputPath('recovery-history.json');
     await writeFile(recoveryPath, JSON.stringify(await page.evaluate(sunset => sunset
       ? (window as unknown as { timberKeyboardPilot: { history: unknown[] } }).timberKeyboardPilot.history
-      : (window as unknown as { retracePilot: { recoveryHistory: unknown[] } }).retracePilot.recoveryHistory, level.id === 'sunset'), null, 2));
+      : (window as unknown as { retracePilot: { recoveryHistory: unknown[] } }).retracePilot.recoveryHistory, level.id === 'sunset' || level.id === 'frost'), null, 2));
     await info.attach('recovery-history', { path: recoveryPath, contentType: 'application/json' });
     expect(recoveries).toEqual([]);
     await reloadToMap(page);
@@ -4669,7 +4686,11 @@ for (const viewport of [{ width: 426, height: 240 }, { width: 320, height: 240 }
         (next.progressAxis === 'y'
           ? (next.finish.y < next.start.y ? next.start.y <= point.y + 35 : next.start.y >= point.y - 35)
           : next.start.x >= point.x - 180) ? i : area, -1);
-      await expect(canvas).toHaveAttribute('data-gameplay-trail', openingArea < 0 ? next.name : areaName(next, openingArea));
+      const openingSection = next.sections?.filter(section => next.start.x >= section.x
+        && next.start.y >= (section.minY ?? -Infinity) && next.start.y <= (section.maxY ?? Infinity)).at(-1);
+      const openingLabel = next.sections ? openingSection?.name ?? next.name : (openingArea < 0 ? next.name : areaName(next, openingArea));
+      if (next.id === 'frost') expect(openingLabel).toBe('FIRST SLIDE');
+      await expect(canvas).toHaveAttribute('data-gameplay-trail', openingLabel);
       await page.keyboard.press('Escape');
       await page.getByRole('button', { name: 'Return to Trails', exact: true }).click();
       await page.getByRole('button', { name: 'Return to Trails', exact: true }).click();

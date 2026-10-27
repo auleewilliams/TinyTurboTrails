@@ -1,7 +1,7 @@
 import type { Page } from '@playwright/test';
 
 export interface TimberPilotStage {
-  kind: 'run' | 'walk' | 'jump' | 'drop' | 'fall' | 'finish';
+  kind: 'travel' | 'run' | 'walk' | 'jump' | 'drop' | 'fall' | 'finish';
   x?: number;
   y?: number;
   frames?: number;
@@ -159,6 +159,12 @@ export function timberKeyboardPilotInit(stages: TimberPilotStage[]): void {
             else if (x >= stage.x && vx >= 180) next(status);
             else if (pilot.frames > stage.frames!) pilot.error = `run-up stalled ${status}`;
           } else if (pilot.frames >= stage.frames!) next(status);
+        } else if (stage.kind === 'travel') {
+          const direction=stage.direction!;
+          send('ArrowRight',direction>0); send('ArrowLeft',direction<0); send('Space',false);
+          pilot.frames++;
+          if((x-stage.x!)*direction>=0) next(status);
+          else if(pilot.frames>200) pilot.error=`travel ${pilot.stage} stalled ${status}`;
         } else if (stage.kind === 'walk') {
           const projected = x + Math.sign(vx) * vx ** 2 / 2400;
           const direction = projected < stage.x! - 3 ? 1 : projected > stage.x! + 3 ? -1 : 0;

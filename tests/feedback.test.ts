@@ -4,7 +4,7 @@ import { HudPresentation, TRAIL_RIBBON, areaName, controlHints, drawGameplayHud,
 import { LEVELS } from '../src/world/levels';
 import { PLAINS_LEVEL } from '../src/world/level';
 import { activateCheckpoint, createRun, recoverFromFall, stepEntities, type RunEvent } from '../src/game/interactions';
-import { createPlayer } from '../src/game/movement';
+import { createPlayer, surfaceY } from '../src/game/movement';
 import { fitViewport } from '../src/core/viewport';
 
 it('consumes one gem/checkpoint/spring event per contact and expires bounded effects', () => {
@@ -63,6 +63,18 @@ it('teaches movement then jump briefly, switches device text, and clears learned
 
 it.each(LEVELS)('names every $name area without internal identifiers and expires location text', (level) => {
   const hud = new HudPresentation();
+  if (level.id === 'frost') {
+    const areas = [[1, 'FIRST SLIDE'], [701, 'FIR CLIMB'], [1401, 'ICE BOWL'],
+      [2801, 'HIGH LEDGES'], [3451, 'UPPER GLIDE'], [4201, 'SNOWY SUMMIT']] as const;
+    for (const [x, name] of areas) {
+      hud.update(1 / 60, neutral, level, x, false, surfaceY(level, x));
+      expect(hud.location).toBe(name);
+      expect(hud.location).not.toMatch(/checkpoint|-/);
+      hud.update(3, neutral, level, x, false, surfaceY(level, x));
+      expect(hud.locationSeconds).toBe(0);
+    }
+    return;
+  }
   level.checkpoints.forEach((checkpoint, index) => {
     const name = areaName(level, index);
     expect(name).not.toBe(level.name);

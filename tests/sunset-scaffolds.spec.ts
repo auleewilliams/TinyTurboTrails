@@ -81,6 +81,14 @@ for (const only of ['M', 'A']) test(`Sunset only missed ${only} uses native retr
   const returned = await driveSunset(page, recovery);
   const returnElapsedMs = Date.now() - returnStarted;
   expect(returnElapsedMs).toBeLessThan(45_000);
+  if (only === 'A') {
+    // Long fixed decks retain all intermediate observations without artificial
+    // brake/restart cycles. Replacing these with the old walk stops fails this witness.
+    const witness = returned as { stages: { kind: string }[]; history: { stage: number; status: string }[] };
+    const crossings = witness.history.filter(sample => witness.stages[sample.stage].kind === 'travel');
+    expect(crossings).toHaveLength(4);
+    for (const sample of crossings) expect(Math.abs(Number(sample.status.match(/V (-?\d+)/)?.[1]))).toBeGreaterThanOrEqual(180);
+  }
   await page.getByRole('button', { name: 'Build your word', exact: true }).click();
   await expect(page.locator('#status')).toContainText('Bag 4/4');
   await info.attach(`${only}-only-after-retrace`, { body: await page.locator('#game').screenshot(), contentType: 'image/png' });
