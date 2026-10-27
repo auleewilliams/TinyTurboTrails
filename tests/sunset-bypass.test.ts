@@ -10,8 +10,8 @@ for (const cadence of cadences) for (const attempt of ['held-right', 'entrance-e
       route.run([drop(720, 1, 780, 620)]);
     }
     if (attempt === 'lower-floor-running-jump' || attempt === 'edge-coyote-jump') {
-      route.run([walk(940)]);
-      for (let i = 0; i < 100 && route.player.x < (attempt === 'edge-coyote-jump' ? 1005 : 980); i++) route.tick(1);
+      route.run([walk(900)]);
+      for (let i = 0; i < 100 && route.player.x < (attempt === 'edge-coyote-jump' ? 965 : 950); i++) route.tick(1);
       let elapsed = route.tick(1, true, true);
       for (; elapsed < 2;) elapsed += route.tick(1, false, elapsed < 0.6);
     }

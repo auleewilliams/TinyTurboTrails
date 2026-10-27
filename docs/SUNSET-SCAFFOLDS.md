@@ -18,8 +18,8 @@ a main route that cannot accidentally board an arriving carriage.
 
 The entrance itself is x0–300 at y560. The adjoining x280–720 top is a local
 right-side catch, so the combined y560 floor still ends at720. Its lower catch is
-x0–880 at y620, then terrain x0–1000 at y680. These supports lead back into the
-first tower. They do not join the later yard. The visible terrain gap from x1000
+x0–840 at y620, then terrain x0–960 at y680. These supports lead back into the
+first tower. They do not join the later yard. The visible terrain gap from x960
 to1200 descends to y1000; walking into it invokes existing fall recovery at the
 active checkpoint. It is outside the intended route, not a new damage mechanic.
 The high fixed crossing spans x340–1770 at y380 over that gap. The descent's
@@ -39,6 +39,13 @@ flowchart LR
   start --> floor[First lower terrain island y680]
   floor --> recovery[Gap fall returns to active checkpoint]
 ```
+
+A93-case actual-input takeoff sweep found seven full-jump bypasses at the
+previous1000px terrain lip. Those failures are preserved. The lower catch now
+ends840 and terrain960, retaining120px braking margins while separating the
+terrain islands by240px. The same93 real-input takeoff checks are repeated at
+the corrected lip; these are bounded adversarial journeys, not a proof of all
+possible inputs. The fifteen named regressions use the actual new takeoff edge.
 
 The extra horizontal separation is authored tuning of the nominal sketch: it
 prevents lower catch travel from becoming a shortcut while preserving generous

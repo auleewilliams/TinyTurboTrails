@@ -155,6 +155,11 @@ test('Sunset held-right cannot bypass the first tower and recovers to its local 
     requestAnimationFrame(sample);
   });
   await page.keyboard.down('ArrowRight');
+  await page.waitForFunction(() => (window as unknown as { sunsetBypassProof: { maximumX: number } }).sunsetBypassProof.maximumX >= 900, undefined, { timeout: 10_000 });
+  await page.keyboard.up('ArrowRight');
+  await expect(page.locator('#status')).toContainText('V 0');
+  await info.attach('corrected-lower-island-lip', { body: await page.locator('#game').screenshot(), contentType: 'image/png' });
+  await page.keyboard.down('ArrowRight');
   await page.waitForFunction(() => (window as unknown as { sunsetBypassProof: { recoveries: number } }).sunsetBypassProof.recoveries >= 2, undefined, { timeout: 20_000 });
   await page.keyboard.up('ArrowRight');
   const proof = await page.evaluate(() => (window as unknown as { sunsetBypassProof: { maximumX: number; samples: string[] } }).sunsetBypassProof);

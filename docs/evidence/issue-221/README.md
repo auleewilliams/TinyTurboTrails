@@ -33,3 +33,9 @@ Additional views: [entrance](entrance.png), [final rest deck](rest.png),
 
 Enjoyment, clarity, waiting, encouraging retries, rooftop payoff, physical
 controller, child, hardware Safari and assistive technology remain unobserved.
+
+The final takeoff sweep subsequently moved the first lower catch end from880 to840
+and the terrain lip from1000 to960. These upper-route working views retain their
+original source hash; they are not relabelled as final-head captures. The final
+native held-right case separately captures the corrected lower-island lip, with
+source/browser/viewport and PNG hashes in the worker evidence.
