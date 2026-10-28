@@ -41,7 +41,13 @@ export function prepareCoveKit(sources, record, level) {
     parts[name] = part; put(part, out); pieces[name] = { ...out };
   }
   if (!level || level.width !== 4200 || level.height !== 480) throw new Error('Missing pinned Cove preparation contour');
-  const surfaceAt = x => level.surfaces.find(s => x >= s.x1 && x <= s.x2);
+  // Half-open slope joins keep junction indices in 0..15. Preserve material
+  // ownership at unrelated flat-to-flat boundaries and the final world endpoint.
+  const surfaceAt = x => level.surfaces.find((s, index) => {
+    if (x < s.x1 || x > s.x2) return false;
+    const next = level.surfaces[index + 1];
+    return x < s.x2 || !next || (s.y1 === s.y2 && next.y1 === next.y2);
+  });
   const groundY = x => { const s = surfaceAt(x); return s.y1 + (s.y2 - s.y1) * (x - s.x1) / (s.x2 - s.x1); };
   const repeat = (x, size) => { const p = ((x % (size * 2)) + size * 2) % (size * 2); return p < size ? p : size * 2 - p - 1; };
   const shelf = level.platforms.find(p => p.id === 'cove-hollow-shelf');

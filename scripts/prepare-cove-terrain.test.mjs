@@ -3,7 +3,8 @@ import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { test } from 'node:test';
 import { transformSync } from 'rolldown/utils';
-import { decodePng, isChromaKey } from './spelling-stickers.mjs';
+import { modeDownsample } from './interface-kit.mjs';
+import { decodePng, isChromaKey, removeEdgeKey } from './spelling-stickers.mjs';
 import { prepareCoveKit } from './cove-terrain.mjs';
 
 const root = new URL('../assets/source/cove/terrain-kit/', import.meta.url);
@@ -112,4 +113,69 @@ test('all approved existing images/provenance and gameplay declarations remain b
   const manifest = JSON.parse(readFileSync(new URL('../public/assets/cove/manifest.json', import.meta.url)));
   assert.equal(manifest.terrainKit, 'terrain-kit/manifest.json'); delete manifest.terrainKit;
   assert.deepEqual(manifest, pins.coveManifestBefore, 'existing world metadata is unchanged apart from additive linkage');
+});
+
+test('all 13 slope starts and ends bake in-range junction columns and exact adjacent source pixels', () => {
+  const record = JSON.parse(read('preparation.json')), level = JSON.parse(read('geometry-pin.json'));
+  const sources = Object.fromEntries(['ground', 'platform'].map(name => [name, read(`${name}-source.png`)]));
+  const result = prepareCoveKit(sources, record, level);
+  // Independent oracle: derive native pieces directly from the original ground sheet,
+  // then assign columns by the latest authored start, never by the producer's lookup.
+  const keyed = removeEdgeKey(decodePng(sources.ground)).image;
+  const parts = Object.fromEntries(Object.entries(record.pieces).filter(([, p]) => p.source === 'ground')
+    .map(([name, p]) => [name, modeDownsample(keyed, p.crop, p.output.width, p.output.height)]));
+  const rgba = (image, x, y) => {
+    assert.ok(x >= 0 && x < image.width && y >= 0 && y < image.height, `source coordinate ${x},${y} in ${image.width}x${image.height}`);
+    return [...image.data.subarray((y * image.width + x) * 4, (y * image.width + x) * 4 + 4)];
+  };
+  const mirror = (value, width) => { const n = value % (width * 2); return n < width ? n : width * 2 - 1 - n; };
+  const slopes = level.surfaces.filter(s => s.y1 !== s.y2), mismatches = [];
+  assert.equal(slopes.length, 13);
+  for (const slope of slopes) for (const edge of ['start', 'end']) {
+    const boundary = edge === 'start' ? slope.x1 : slope.x2, columns = new Set();
+    // Entire 16-column junction window, plus its outside boundary and adjacent columns.
+    const first = edge === 'start' ? boundary - 1 : boundary - 17;
+    const last = edge === 'start' ? boundary + 16 : boundary + 1;
+    for (let x = first; x <= last; x++) {
+      const owner = level.surfaces.findLast(s => s.x1 <= x);
+      const top = Math.floor(owner.y1 + (owner.y2 - owner.y1) * (x - owner.x1) / (owner.x2 - owner.x1));
+      const junctionColumn = edge === 'start' ? x - slope.x1 : x - slope.x2 + 16;
+      if (junctionColumn >= 0 && junctionColumn < 16) {
+        assert.equal(owner, slope, `${edge} ${boundary} column ${junctionColumn} belongs to slope`);
+        columns.add(junctionColumn);
+      }
+      for (let depth = 0; depth <= 16; depth++) {
+        const fill = parts['sand-fill'];
+        let expected = rgba(fill, mirror(x, fill.width), mirror(top + depth, fill.height));
+        const lip = parts[owner.material === 'water' ? 'wet-sand-lip' : 'sand-lip'];
+        let paint = depth < lip.height ? rgba(lip, mirror(x, lip.width), depth) : null;
+        const rising = owner.y2 < owner.y1;
+        if (owner.y1 !== owner.y2 && depth < 16) {
+          const startColumn = x - owner.x1, endColumn = x - (owner.x2 - 16);
+          const atStart = startColumn >= 0 && startColumn < 16, atEnd = endColumn >= 0 && endColumn < 16;
+          if (atStart || atEnd) {
+            const name = rising ? (atEnd ? 'up-to-flat' : 'flat-to-up') : (atEnd ? 'down-to-flat' : 'flat-to-down');
+            paint = rgba(parts[name], atEnd ? endColumn : startColumn, depth);
+          }
+        }
+        if (paint?.[3]) expected = paint;
+        const actual = rgba(result.ground, x, top + depth);
+        if (!actual.every((value, i) => value === expected[i])) mismatches.push({ edge, boundary, x, depth, expected, actual });
+      }
+    }
+    assert.deepEqual([...columns].sort((a, b) => a - b), Array.from({ length: 16 }, (_, i) => i), `${edge} ${boundary} uses source columns 0..15 exactly`);
+  }
+  // J1 must not move the existing water/sand pixels at unrelated flat joins.
+  for (let i = 1; i < level.surfaces.length; i++) {
+    const previous = level.surfaces[i - 1], next = level.surfaces[i];
+    if (previous.y1 !== previous.y2 || next.y1 !== next.y2 || previous.material === next.material) continue;
+    const x = next.x1, top = next.y1;
+    for (let depth = 0; depth <= 16; depth++) {
+      const lip = parts[previous.material === 'water' ? 'wet-sand-lip' : 'sand-lip'], fill = parts['sand-fill'];
+      const paint = depth < lip.height ? rgba(lip, mirror(x, lip.width), depth) : null;
+      const expected = paint?.[3] ? paint : rgba(fill, mirror(x, fill.width), mirror(top + depth, fill.height));
+      assert.deepEqual(rgba(result.ground, x, top + depth), expected, `unchanged flat material boundary ${x} depth ${depth}`);
+    }
+  }
+  assert.equal(mismatches.length, 0, JSON.stringify({ mismatchCount: mismatches.length, first: mismatches.slice(0, 12) }));
 });
