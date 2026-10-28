@@ -80,10 +80,14 @@ test('Cove cached map preview renders fixed stones and its initial dune framing'
   await page.addInitScript(()=>{
     const fills=new Map<HTMLCanvasElement,{x:number;y:number;width:number;height:number}[]>();
     const urls=new Set<string>();
-    const probe={tops:[] as object[],png:'',sources:0,kitUrls:[] as string[]};Object.assign(window,{covePreviewProbe:probe});
+    const materialDraws=new Map<HTMLCanvasElement,object[]>();
+    const probe={tops:[] as object[],png:'',sources:0,kitUrls:[] as string[],materialDraws:[] as object[]};Object.assign(window,{covePreviewProbe:probe});
     const draw=CanvasRenderingContext2D.prototype.drawImage;
     CanvasRenderingContext2D.prototype.drawImage=function(this:CanvasRenderingContext2D,...args:Parameters<typeof draw>){
       const [image,sx,,sw,sh,dx,dy,dw,dh]=args;
+      if(this.canvas.id!=='game'&&image instanceof HTMLImageElement&&image.src.endsWith('/assets/cove/materials/atlas.png')&&sh===8) {
+        const rows=materialDraws.get(this.canvas)??[];rows.push({source:image.src,sourceY:args[2],width:dw,height:dh,dx,dy});materialDraws.set(this.canvas,rows);
+      }
       if(this.canvas.id!=='game'&&image instanceof HTMLImageElement&&image.src.endsWith('/assets/cove/terrain-kit/atlas.png')
         &&sx===256&&sw===dw&&sh===dh&&sw>=90&&sw<=180) {
         urls.add(image.src);
@@ -94,16 +98,17 @@ test('Cove cached map preview renders fixed stones and its initial dune framing'
       }
       Reflect.apply(draw,this,args);
       if(image instanceof HTMLCanvasElement&&image.width===426&&image.height===240&&fills.has(image)) {
-        probe.tops=fills.get(image)!;probe.png=image.toDataURL();probe.sources=fills.size;probe.kitUrls=[...urls];
+        probe.tops=fills.get(image)!;probe.png=image.toDataURL();probe.sources=fills.size;probe.kitUrls=[...urls];probe.materialDraws=materialDraws.get(image)??[];
       }
     } as typeof draw;
   });
   await page.goto('/?debug=1');await page.getByRole('button',{name:'SANDY COVE',exact:true}).click();
   await expect.poll(()=>page.evaluate(()=>(window as unknown as {covePreviewProbe:{tops:object[]}}).covePreviewProbe.tops.length)).toBe(7);
-  const first=await page.evaluate(()=>(window as unknown as {covePreviewProbe:{tops:{x:number}[];png:string;sources:number;kitUrls:string[]}}).covePreviewProbe);
+  const first=await page.evaluate(()=>(window as unknown as {covePreviewProbe:{tops:{x:number}[];png:string;sources:number;kitUrls:string[];materialDraws:object[]}}).covePreviewProbe);
   expect(first.tops).toContainEqual({x:1700,y:74,width:100,height:6});
   expect(first.tops.map(top=>top.x)).toEqual([980,1700,2230,2380,2960,3140,3340]);
   expect(first.kitUrls).toEqual([expect.stringContaining('/assets/cove/terrain-kit/atlas.png')]);
+  expect(first.materialDraws).toContainEqual({source:expect.stringContaining('/assets/cove/materials/atlas.png'),sourceY:64,width:30,height:8,dx:75,dy:138});
   await info.attach('actual-cached-preview-source',{body:Buffer.from(first.png.split(',')[1],'base64'),contentType:'image/png'});
   for(const width of [426,320]) {await page.setViewportSize({width,height:width===426?300:240});await evidence.paint(`cached-preview-${width}`);}
   await page.getByRole('button',{name:'PLAINS',exact:true}).click();await page.getByRole('button',{name:'SANDY COVE',exact:true}).click();

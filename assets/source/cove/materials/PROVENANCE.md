@@ -1,0 +1,17 @@
+# Cove water B and soft sand — generated production source
+
+Owner selected gentle water ripple motion and warm loose wind-rippled sand. This kit is a Cove-only owner-test candidate, not visual acceptance, wider rollout or merge clearance.
+
+`source.png` is the untouched original generated sheet, SHA256 `f2f3e0497d2e4808b397d2dc707b1448aafaa53f5218474b97e321b49ff7fe11`. `executed-generation-prompt.txt` and `generation-record.json` are literal coordinator records. Prompt requested1024×768/6×; tool requested1536×1024; actual returned1448×1086, medium. Requested coordinates/scale were NOT honored. The two concept references are style images, not shipped scene crops or engine footage.
+
+Measured crops in `preparation.json` use an exact16:1 isotropic scale across all seven roles. Water centre uses768×128 for48×8; sand centre uses384×128 for24×8 from its much longer painted centre. Ends and ripple use the same16:1 ratio. The right water cap was refined inward from1134 to1138 based on actual join pixels. A single cream glint termination remains at the left-cap row1 join of the third pool: generated artwork, not a gap or a vertical stripe. Unit/source checks do not grant visual acceptance of this detail.
+
+Preparation removes edge-connected magenta using established `removeEdgeKey`, then uses established majority-bin downsampling. No threshold removes pale cream and no replacement RGB or seam painting is authored. Native bottom rows6/7 are alpha170/85; two outer cap columns are alpha85/170 (combined multiplicatively at corners). Existing transparent source corners remain transparent over the unchanged opaque terrain. All clear pixels have RGBzero. Only alpha is modified after downsampling.
+
+Centres repeat with deterministic mirrored world-X indexing, including partial remainders; end pieces remain native. Complete strips are baked for the actual30/80px sand and200/300/180px water spans, exactly8px below the unchanged surface. Separate real generated glints are baked with1px sampling guards and alpha feathering inside the static ends. Runtime draws one static base raster plus one contiguous ripple raster per water patch, sampling sideways by at most1px over4seconds and opacity0.5–0.8. Sand and base/ends never move. Existing render time is the only phase input; fixed time freezes output and reduced-motion uses neutral position/opacity0.65. No gameplay data or clock is changed.
+
+Reproduce: `node scripts/prepare-cove-materials.mjs [optional-output-directory]`. All outputs are computed and validated before writes. Default source/runtime copies must match; `prepared/pixel-hashes.json` records actual RGBA hash. The original terrain preparation/provenance and every preexisting PNG remain immutable.
+
+`prechange-byte-pins.json` is the retained exact1687 catalog. `baseline-1687/` copies and `current-presentation.json` record ONLY the four permitted existing presentation/manifest changes. Tests enforce exact current hashes for those four and original hashes for every other catalog path, with negative controls. This is a new current-feature record, not rewriting historical approved files. Existing source/gameplay and nine placements/three visual anchors remain protected by the original terrain/grounding regressions.
+
+Source-only light/dark/native/small compositions are diagnostics. Real three-engine normal-input gameplay, raster, pause/focus/reduced-motion/Retry and cache witnesses are authored but require coordinator execution. No candidate browser result or owner approval is implied here.

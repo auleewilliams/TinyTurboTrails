@@ -1,0 +1,11 @@
+# Sandy Cove material pilot for owner testing (#235)
+
+Adds original generated shallow turquoise water and warm loose sand within the existing8px surface cue band. The two sand and three water regions, slowing, contour, supports, scenery grounding and gameplay are unchanged. Water uses a stationary painted base and wet ends plus sparse generated glints moving at most1px sideways over4seconds; soft sand stays still. Existing run presentation time freezes on pause/focus loss and reduced-motion selects a static neutral treatment. Other trails retain their previous assets/rendering.
+
+Source provenance and measured16:1 crops: `assets/source/cove/materials/PROVENANCE.md`. Run `node scripts/prepare-cove-materials.mjs` to reproduce; supply an evidence directory as its argument for an independent comparison. Generated input/provider dimensions differ from the request and are recorded honestly. No old art is replaced or screenshot scene cropped into the game.
+
+The current-feature record protects every original source/art byte except the exact three presentation modules and additive Cove manifest linkage, which have their own exact hash/baseline oracles. Existing gameplay/grounding guards continue to protect all level state and approved placements/anchors.
+
+Coordinator must exercise new `tests/cove-materials.spec.ts` and existing cached-preview/grounding/art-rest/all42 cases in Chromium, Firefox and WebKit at native426 and small320, inspect actual contact/visibility and gentle motion, bind original reports/screenshots/HTTP bytes to the candidate and publish the independently checked owner-test preview. The new normal-input witness reuses COVE_LOWER/RETURN; because RETURN ends at280, ordinary held Left then crosses the remaining dune. No new waypoint steering protocol or injected actor/clock state exists. The isolated fractional-camera case uses production helpers/actual source with explicitly fixture time values; it is not a replay or gameplay capture.
+
+Worker evidence and exact deferred gates are in the task handoff. Local source-only diagnostics do not establish native raster/gameplay or visual acceptance. Historical failures remain retained. Fresh whole-PR Claude review, revised-head gates and owner acceptance remain open; no merge/deploy/closure/wider rollout is authorized.

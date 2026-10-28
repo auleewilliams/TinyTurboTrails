@@ -130,7 +130,8 @@ it.each(['site', 'frost', 'cove'])('loads the %s panorama and can retry a failed
   expect([bytes.readUInt32BE(16), bytes.readUInt32BE(20)]).toEqual([720, 240]);
   const requests: string[] = [];
   let fail = true;
-  vi.stubGlobal('fetch', vi.fn(async (url: string) => ({ ok: true, json: async () => url.endsWith('/terrain-kit/manifest.json')
+  vi.stubGlobal('fetch', vi.fn(async (url: string) => ({ ok: true, json: async () => url.endsWith('/materials/manifest.json')
+    ? JSON.parse(readFileSync(new URL('../public/assets/cove/materials/manifest.json', import.meta.url), 'utf8')) : url.endsWith('/terrain-kit/manifest.json')
     ? JSON.parse(readFileSync(new URL('../public/assets/cove/terrain-kit/manifest.json', import.meta.url), 'utf8')) : world })));
   class FakeImage {
     naturalWidth = 512;
@@ -139,6 +140,7 @@ it.each(['site', 'frost', 'cove'])('loads the %s panorama and can retry a failed
     onerror = (): void => {};
     set src(url: string) {
       requests.push(url);
+      if (url.endsWith('/materials/atlas.png')) this.naturalHeight = 160;
       if (url.endsWith('/terrain-kit/ground.png')) { this.naturalWidth = 4200; this.naturalHeight = 480; }
       queueMicrotask(fail && url.endsWith('/background.png') ? this.onerror : this.onload);
     }
@@ -158,7 +160,7 @@ it('requires declared Cove kit metadata and pixels, validates dimensions and ret
   let failImage = true, failGround = false, failMetadata = false, wrongSize = false;
   vi.stubGlobal('fetch', vi.fn(async (url: string) => ({
     ok: !(failMetadata && url.endsWith('/terrain-kit/manifest.json')),
-    json: async () => url.endsWith('/terrain-kit/manifest.json') ? kit : world,
+    json: async () => url.endsWith('/materials/manifest.json') ? JSON.parse(readFileSync(new URL('../public/assets/cove/materials/manifest.json', import.meta.url), 'utf8')) : url.endsWith('/terrain-kit/manifest.json') ? kit : world,
   })));
   class FakeImage {
     naturalWidth = 512;
@@ -166,6 +168,7 @@ it('requires declared Cove kit metadata and pixels, validates dimensions and ret
     onload = (): void => {};
     onerror = (): void => {};
     set src(url: string) {
+      if (url.endsWith('/materials/atlas.png')) this.naturalHeight = 160;
       if (url.endsWith('/terrain-kit/ground.png')) { this.naturalWidth = 4200; this.naturalHeight = 480; }
       if (wrongSize && url.endsWith('/terrain-kit/atlas.png')) this.naturalWidth = 255;
       queueMicrotask(() => ((failImage && url.endsWith('/terrain-kit/atlas.png')) || (failGround && url.endsWith('/terrain-kit/ground.png'))) ? this.onerror() : this.onload());
@@ -183,4 +186,37 @@ it('requires declared Cove kit metadata and pixels, validates dimensions and ret
   expect(await loadWorldAssets('cove')).toHaveProperty('coveTerrain.manifest.pieces.stone-thin-left');
   kit.pieces['stone-thin-left'].height = 12;
   await expect(loadWorldAssets('cove')).rejects.toThrow(/Cove terrain/i);
+});
+
+it('requires declared Cove material metadata and image, rejects bad rectangles/dimensions and retries without stale failures', async () => {
+  const world = JSON.parse(readFileSync(new URL('../public/assets/cove/manifest.json', import.meta.url), 'utf8'));
+  const terrain = JSON.parse(readFileSync(new URL('../public/assets/cove/terrain-kit/manifest.json', import.meta.url), 'utf8'));
+  const original = JSON.parse(readFileSync(new URL('../public/assets/cove/materials/manifest.json', import.meta.url), 'utf8'));
+  let mode = 'metadata', attempts = 0, kit = structuredClone(original);
+  vi.stubGlobal('fetch', vi.fn(async (url: string) => {
+    if (url.endsWith('/materials/manifest.json')) attempts++;
+    return { ok: !(mode === 'metadata' && url.endsWith('/materials/manifest.json')), json: async () =>
+      url.endsWith('/materials/manifest.json') ? kit : url.endsWith('/terrain-kit/manifest.json') ? terrain : world };
+  }));
+  class FakeImage {
+    naturalWidth = 512; naturalHeight = 256;
+    onload = (): void => {}; onerror = (): void => {};
+    set src(url: string) {
+      if (url.endsWith('/terrain-kit/ground.png')) { this.naturalWidth = 4200; this.naturalHeight = 480; }
+      if (url.endsWith('/materials/atlas.png')) { this.naturalWidth = mode === 'size' ? 511 : 512; this.naturalHeight = 160; }
+      queueMicrotask(() => mode === 'image' && url.endsWith('/materials/atlas.png') ? this.onerror() : this.onload());
+    }
+  }
+  vi.stubGlobal('Image', FakeImage);
+  for (const fail of ['metadata', 'image', 'size', 'rect', 'extra']) {
+    mode = fail; kit = structuredClone(original);
+    if (fail === 'rect') kit.bands[0].base.width++;
+    if (fail === 'extra') kit.extra = true;
+    await expect(loadWorldAssets('cove')).rejects.toThrow(/Cove material/i);
+    mode = 'ok'; kit = structuredClone(original);
+    const loaded = await loadWorldAssets('cove');
+    expect(loaded.coveMaterials?.manifest).toEqual(original);
+    expect(loaded.coveMaterials?.image).toBeInstanceOf(FakeImage);
+  }
+  expect(attempts).toBe(10);
 });

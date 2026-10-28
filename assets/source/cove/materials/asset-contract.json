@@ -1,0 +1,348 @@
+{
+  "version": 1,
+  "status": "generation contract only; no production source supplied or integration executed",
+  "inspectedHead": "1687f5525b757221b47a21287f6b8c48e5403ae0",
+  "concepts": [
+    {
+      "path": "/home/leew/.hermes/cache/generated/images/openai_codex_gpt-image-2-medium_20261028_193003_9bf8b6c6.png",
+      "sha256": "0df536482bfd8a39ca8f62b96605f34d0f6712fa87c2f5dd21da63997e9bbc8d",
+      "pixelSize": [
+        1822,
+        863
+      ],
+      "role": "style concept only; no production crop"
+    },
+    {
+      "path": "/home/leew/.hermes/cache/generated/images/openai_codex_gpt-image-2-medium_20261028_193002_f08bd291.png",
+      "sha256": "a2bbdc9fcdd26f730f1fea2ef8bf77f0a5c164250dcc86629493e67c16ee7571",
+      "pixelSize": [
+        1578,
+        997
+      ],
+      "role": "style concept only; no production crop"
+    }
+  ],
+  "scope": "Cove-only water B and soft sand; existing 8px surface cue band",
+  "surfaces": [
+    {
+      "material": "sand",
+      "x1": 75,
+      "x2": 105,
+      "y1": 360,
+      "y2": 360,
+      "width": 30,
+      "speedMultiplier": 0.8
+    },
+    {
+      "material": "sand",
+      "x1": 520,
+      "x2": 600,
+      "y1": 352,
+      "y2": 352,
+      "width": 80,
+      "speedMultiplier": 0.8
+    },
+    {
+      "material": "water",
+      "x1": 1660,
+      "x2": 1860,
+      "y1": 344,
+      "y2": 344,
+      "width": 200,
+      "speedMultiplier": 0.65
+    },
+    {
+      "material": "water",
+      "x1": 2200,
+      "x2": 2500,
+      "y1": 344,
+      "y2": 344,
+      "width": 300,
+      "speedMultiplier": 0.65
+    },
+    {
+      "material": "water",
+      "x1": 3040,
+      "x2": 3220,
+      "y1": 344,
+      "y2": 344,
+      "width": 180,
+      "speedMultiplier": 0.65
+    }
+  ],
+  "geometry": {
+    "nativeCanvas": [
+      426,
+      240
+    ],
+    "smallCssExport": [
+      320,
+      181
+    ],
+    "browserSmallViewport": [
+      320,
+      240
+    ],
+    "anchor": "surface y is native row0; depth below only",
+    "maxDepthPx": 8,
+    "maxAboveSurfacePx": 0,
+    "horizontalBleedPx": 0,
+    "slopePiecesRequired": false,
+    "reason": "all five authored material spans are flat; preserve adjacent slopes and ownership",
+    "collisionEndpointRule": "actual movement surfaceAt gives first inclusive segment ownership at shared endpoints; no changes"
+  },
+  "sourceRequest": {
+    "canvas": [
+      1024,
+      768
+    ],
+    "uniformScale": 6,
+    "scaleStatus": "requested target, NOT returned-pixel fact; source crops must independently prove equal x/y scale and common grain",
+    "gutterMinSourcePx": 24,
+    "layoutStatus": "requested positions ONLY; inspect actual source before fixing crops",
+    "background": "true alpha preferred; otherwise uniform pure #ff00ff with no art magenta",
+    "components": [
+      {
+        "name": "water-left",
+        "nativeSize": [
+          8,
+          8
+        ],
+        "requestedSourceCrop": [
+          96,
+          128,
+          48,
+          48
+        ],
+        "proposedAtlasRect": [
+          0,
+          0,
+          8,
+          8
+        ]
+      },
+      {
+        "name": "water-repeat",
+        "nativeSize": [
+          48,
+          8
+        ],
+        "requestedSourceCrop": [
+          240,
+          128,
+          288,
+          48
+        ],
+        "proposedAtlasRect": [
+          16,
+          0,
+          48,
+          8
+        ]
+      },
+      {
+        "name": "water-right",
+        "nativeSize": [
+          8,
+          8
+        ],
+        "requestedSourceCrop": [
+          624,
+          128,
+          48,
+          48
+        ],
+        "proposedAtlasRect": [
+          72,
+          0,
+          8,
+          8
+        ]
+      },
+      {
+        "name": "water-ripples",
+        "nativeSize": [
+          48,
+          4
+        ],
+        "requestedSourceCrop": [
+          240,
+          320,
+          288,
+          24
+        ],
+        "proposedAtlasRect": [
+          16,
+          16,
+          48,
+          4
+        ]
+      },
+      {
+        "name": "sand-left",
+        "nativeSize": [
+          6,
+          8
+        ],
+        "requestedSourceCrop": [
+          96,
+          512,
+          36,
+          48
+        ],
+        "proposedAtlasRect": [
+          0,
+          32,
+          6,
+          8
+        ]
+      },
+      {
+        "name": "sand-repeat",
+        "nativeSize": [
+          24,
+          8
+        ],
+        "requestedSourceCrop": [
+          240,
+          512,
+          144,
+          48
+        ],
+        "proposedAtlasRect": [
+          16,
+          32,
+          24,
+          8
+        ]
+      },
+      {
+        "name": "sand-right",
+        "nativeSize": [
+          6,
+          8
+        ],
+        "requestedSourceCrop": [
+          624,
+          512,
+          36,
+          48
+        ],
+        "proposedAtlasRect": [
+          48,
+          32,
+          6,
+          8
+        ]
+      }
+    ]
+  },
+  "prepared": {
+    "atlasSize": [
+      128,
+      48
+    ],
+    "format": "RGBA PNG, straight alpha, zero RGB at alpha0",
+    "runtimeScale": 1,
+    "sourceScaleRule": "one measured isotropic source/native scale shared across all water modules; one across all sand modules, target6 for both. No fit-whole-component anisotropic squeeze. Refinement if incoherent.",
+    "repeats": {
+      "water": 48,
+      "sand": 24,
+      "worldAnchor": "world x, never camera x; use true periodic source or deterministic mirror if independently seam-safe",
+      "widthAssembly": "native end caps plus full or partial repeat crops; never stretch. Prefer prepare complete fixed-width strips to avoid internal fractional-camera gaps.",
+      "waterCenterWidthsAndRemainders": [
+        [
+          200,
+          184,
+          40
+        ],
+        [
+          300,
+          284,
+          44
+        ],
+        [
+          180,
+          164,
+          20
+        ]
+      ],
+      "sandCenterWidthsAndRemainders": [
+        [
+          30,
+          18,
+          18
+        ],
+        [
+          80,
+          68,
+          20
+        ]
+      ]
+    },
+    "fullStrips": {
+      "sand": [
+        [
+          30,
+          8
+        ],
+        [
+          80,
+          8
+        ]
+      ],
+      "waterBase": [
+        [
+          200,
+          8
+        ],
+        [
+          300,
+          8
+        ],
+        [
+          180,
+          8
+        ]
+      ],
+      "waterRippleLayers": "each width+2 by4, at local y2, 1px horizontal sampling guard each side; alpha feather to zero inside both existing end caps"
+    },
+    "alpha": "gutter alpha0; water/sand readable interior, bottom2rows and outer end tips blend into unchanged ground; no holes mistaken for new collision edges. Existing prepared ground stays opaque below. Cream highlights retained.",
+    "verification": "source PNG dimensions/hash, measured crop bounds/top, equal scale ratios, actual-source alpha/core/base columns, no chroma fringe, actual repeated joins/cap joins/partial widths, separate deterministic reproduction pixel hashes"
+  },
+  "paletteTargets": {
+    "water": [
+      "#3dbbc4",
+      "#69d8d4",
+      "#a6ece0",
+      "#fff3cc"
+    ],
+    "softSand": [
+      "#edc47a",
+      "#f8dda2",
+      "#d9a95d"
+    ],
+    "note": "direction targets, not mandatory sampled concept pixels; subtle teal and warm cream distinct from dry banks and each other; no dark hazard rim"
+  },
+  "motion": {
+    "input": "existing drawWorld runSeconds and reducedMotion only",
+    "periodSeconds": 4,
+    "phase": "p=((max(0,runSeconds)%4)/4), repeats continuously",
+    "horizontalRippleOffsetPx": "sin(2*pi*p), bounded [-1,1]",
+    "verticalOffsetPx": 0,
+    "rippleOpacity": "0.65+0.15*sin(2*pi*p), bounded[0.5,0.8]",
+    "baseAndEnds": "static world position, alpha and dimensions; only generated ripple layer moves",
+    "pause": "same frozen runSeconds => exact same pixels; no Date.now, performance.now, RAF clock, timer, state mutation or gameplay tick",
+    "reducedMotion": "offset0, opacity0.65 independent of runSeconds",
+    "cachedPreview": "existing drawWorld time0/reducedMotiontrue keeps actual cached canvas static",
+    "sand": "entirely static; no sinking/displacement"
+  },
+  "pins": {
+    "catalog": "prechange-byte-pins.json",
+    "catalogSha256": "9f563f442fdf0f593502af648f37ba434b6b47e338b4f4bd4876c0a801d84449",
+    "unchangedFileCount": 241,
+    "baselineRecords": "never edit preserved-files.json, geometry-pin.json, old preparation/source provenance; add new materials provenance separately",
+    "gameplay": "all current level/grounding/entities/material spans/speedMultiplier/collision/camera/session immutable"
+  },
+  "acceptance": "source/concept/asset proofs are distinct from actual normal-input game captures; owner test preview still requires fresh review and explicit visual inspection"
+}

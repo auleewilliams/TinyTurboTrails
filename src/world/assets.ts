@@ -1,3 +1,4 @@
+import { loadCoveMaterials, type CoveMaterialAssets } from './surface-materials';
 import { validateScenery, type SceneryAssets, type SceneryManifest } from './scenery';
 import { loadCoveTerrain, type CoveTerrainAssets } from './cove-terrain';
 
@@ -12,12 +13,13 @@ export interface WorldManifest {
   scenery?: string;
   panorama?: string;
   terrainKit?: string;
+  surfaceKit?: string;
   cellSize: number;
   assets: Record<WorldAsset, number>;
   anchors?: Partial<Record<WorldAsset, { x: number; y: number }>>;
   terrainTops?: Partial<Record<WorldAsset, { left: number; right: number }>>;
 }
-export interface WorldAssets { atlas: HTMLImageElement; manifest: WorldManifest; gems: HTMLImageElement; scenery?: SceneryAssets; materials?: HTMLImageElement; backdrops?: HTMLImageElement; panorama?: HTMLImageElement; slimes?: HTMLImageElement; coveTerrain?: CoveTerrainAssets }
+export interface WorldAssets { atlas: HTMLImageElement; manifest: WorldManifest; gems: HTMLImageElement; scenery?: SceneryAssets; materials?: HTMLImageElement; backdrops?: HTMLImageElement; panorama?: HTMLImageElement; slimes?: HTMLImageElement; coveTerrain?: CoveTerrainAssets; coveMaterials?: CoveMaterialAssets }
 export type WorldAssetMap = Readonly<Record<string, WorldAssets>>;
 
 async function loadImage(url: string, label: string): Promise<HTMLImageElement> {
@@ -38,13 +40,15 @@ export async function loadWorldAssets(directory = 'plains'): Promise<WorldAssets
   for (const asset of WORLD_ASSETS) {
     if (!Number.isInteger(manifest.assets?.[asset])) throw new Error(`Missing world asset: ${asset}`);
   }
+  if (manifest.surfaceKit !== undefined && directory !== 'cove') throw new Error('Cove materials declared by another world');
   const atlas = await loadImage(`${base}${manifest.image}`, 'world atlas');
-  const [{ materials, backdrops, slimes, gems }, panorama, coveTerrain] = await Promise.all([
+  const [{ materials, backdrops, slimes, gems }, panorama, coveTerrain, coveMaterials] = await Promise.all([
     loadPresentation(),
     manifest.panorama ? loadImage(`${base}${manifest.panorama}`, 'trail panorama') : undefined,
     loadCoveTerrain(base, manifest.terrainKit),
+    loadCoveMaterials(base, manifest.surfaceKit),
   ]);
-  if (!manifest.scenery) return { atlas, manifest, materials, backdrops, panorama, slimes, gems, coveTerrain };
+  if (!manifest.scenery) return { atlas, manifest, materials, backdrops, panorama, slimes, gems, coveTerrain, coveMaterials };
   const sceneryUrl = `${base}${manifest.scenery}`;
   const sceneryResponse = await fetch(sceneryUrl);
   if (!sceneryResponse.ok) throw new Error('Could not load scenery metadata');
@@ -55,7 +59,7 @@ export async function loadWorldAssets(directory = 'plains'): Promise<WorldAssets
     loadImage(`${sceneryBase}${sceneryManifest.background.image}`, 'scenery background'),
     loadImage(`${sceneryBase}${sceneryManifest.foreground.image}`, 'scenery foreground'),
   ]);
-  return { atlas, manifest, materials, backdrops, panorama, slimes, gems, coveTerrain, scenery: { background, foreground, manifest: sceneryManifest } };
+  return { atlas, manifest, materials, backdrops, panorama, slimes, gems, coveTerrain, coveMaterials, scenery: { background, foreground, manifest: sceneryManifest } };
 }
 
 let presentation: Promise<Pick<WorldAssets, 'materials' | 'backdrops' | 'slimes' | 'gems'>> | undefined;

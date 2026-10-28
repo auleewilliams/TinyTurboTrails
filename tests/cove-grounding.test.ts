@@ -77,7 +77,7 @@ it('pins every gameplay field and all non-placement decoration data to the origi
   for (const pin of pins.files) if (!['src/world/sandy-cove.ts', 'public/assets/cove/manifest.json'].includes(pin.path)) {
     expect(createHash('sha256').update(read(pin.path)).digest('hex'), pin.path).toBe(pin.sha256);
   }
-  const original = structuredClone(pins.coveManifestBefore); original.terrainKit = 'terrain-kit/manifest.json';
+  const original = structuredClone(pins.coveManifestBefore); original.terrainKit = 'terrain-kit/manifest.json'; original.surfaceKit = 'materials/manifest.json';
   const visual = structuredClone(manifest);
   for (const asset of ['stone', 'tree', 'checkpoint']) visual.anchors[asset].y = original.anchors[asset].y;
   expect(visual).toEqual(original);

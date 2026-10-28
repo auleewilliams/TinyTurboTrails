@@ -62,7 +62,7 @@ export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, le
   }
   if (level.theme.material === 'wood') drawTerrainTiles(ctx, assets, level, offset);
   if (!(level.id === 'cove' && assets.coveTerrain)) drawTerrainEdge(ctx, level, offset);
-  drawSurfaceMaterials(ctx, level, offset);
+  drawSurfaceMaterials(ctx, level, offset, assets.coveMaterials, runSeconds, reducedMotion);
   for (const surface of level.surfaces) drawSurfaceGrip(ctx, surface, offset);
   drawPlatforms(ctx, level, offset, platforms, assets);
   drawLandingBands(ctx, level, offset);

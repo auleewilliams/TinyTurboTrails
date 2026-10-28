@@ -1,0 +1,24 @@
+{
+  "provider": "openai-codex",
+  "model": "gpt-image-2-medium",
+  "request_id": "5f1fdc94-9020-48db-8801-37f28afa7f03",
+  "original_source": "/home/leew/.hermes/cache/generated/images/openai_codex_gpt-image-2-medium_20261028_194927_9f7df28a.png",
+  "sha256": "f2f3e0497d2e4808b397d2dc707b1448aafaa53f5218474b97e321b49ff7fe11",
+  "prompt_requested_canvas": [
+    1024,
+    768
+  ],
+  "tool_requested_size": "1536x1024",
+  "actual_size": [
+    1448,
+    1086
+  ],
+  "requested_quality": "medium",
+  "reported_quality": "medium",
+  "reference_images": [
+    "/home/leew/.hermes/cache/generated/images/openai_codex_gpt-image-2-medium_20261028_193003_9bf8b6c6.png",
+    "/home/leew/.hermes/cache/generated/images/openai_codex_gpt-image-2-medium_20261028_193002_f08bd291.png"
+  ],
+  "actual_inspection": "7separatedroles/puremagenta; actualpositions/dimensions differ substantially from requests. Watercentre approx773x128; sandcentre alsoapprox773x128 despite requestedhalfwidth. Must crop native-aspect windows at ONE actual isotropic measuredscale per material, NEVER squeeze wholecomponents to requestednativeboxes. Alpha/fade/seams require realpixelinspection.",
+  "executed_prompt_file": "/home/leew/.hermes/cache/scratch/ttt-art-235/phase7-materials-evidence/executed-generation-prompt.txt"
+}

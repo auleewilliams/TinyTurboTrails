@@ -142,6 +142,7 @@ function assertApprovedCoveManifest(manifest, baseline) {
     expected.anchors[asset].y = y;
   }
   expected.terrainKit = 'terrain-kit/manifest.json';
+  expected.surfaceKit = 'materials/manifest.json';
   assert.deepEqual(manifest, expected, 'only additive kit linkage and three exact approved anchorY changes');
 }
 function currentCoveLevel() {
@@ -196,7 +197,7 @@ test('preservation guard rejects unrelated extra manifest metadata and unauthori
   assertApprovedCoveManifest(manifest, baseline);
   for (const mutate of [m => m.extra = true, m => m.panorama = 'other.png', m => m.assets.tree++,
     m => m.anchors.spring.y++, m => m.anchors.tree.y++, m => m.anchors.stone.x++,
-    m => m.anchors.checkpoint.extra = true, m => m.terrainKit = 'other.json']) {
+    m => m.anchors.checkpoint.extra = true, m => m.terrainKit = 'other.json', m => m.surfaceKit = 'other.json']) {
     const bad = structuredClone(manifest); mutate(bad);
     assert.throws(() => assertApprovedCoveManifest(bad, baseline), { code: 'ERR_ASSERTION' });
   }

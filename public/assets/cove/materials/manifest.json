@@ -1,0 +1,130 @@
+{
+  "version": 1,
+  "image": "atlas.png",
+  "width": 512,
+  "height": 160,
+  "pieces": {
+    "water-left": {
+      "x": 0,
+      "y": 0,
+      "width": 8,
+      "height": 8
+    },
+    "water-repeat": {
+      "x": 16,
+      "y": 0,
+      "width": 48,
+      "height": 8
+    },
+    "water-right": {
+      "x": 72,
+      "y": 0,
+      "width": 8,
+      "height": 8
+    },
+    "water-ripples": {
+      "x": 16,
+      "y": 16,
+      "width": 48,
+      "height": 4
+    },
+    "sand-left": {
+      "x": 0,
+      "y": 32,
+      "width": 6,
+      "height": 8
+    },
+    "sand-repeat": {
+      "x": 16,
+      "y": 32,
+      "width": 24,
+      "height": 8
+    },
+    "sand-right": {
+      "x": 48,
+      "y": 32,
+      "width": 6,
+      "height": 8
+    }
+  },
+  "bands": [
+    {
+      "material": "sand",
+      "x1": 75,
+      "x2": 105,
+      "top": 360,
+      "base": {
+        "x": 0,
+        "y": 64,
+        "width": 30,
+        "height": 8
+      }
+    },
+    {
+      "material": "sand",
+      "x1": 520,
+      "x2": 600,
+      "top": 352,
+      "base": {
+        "x": 0,
+        "y": 72,
+        "width": 80,
+        "height": 8
+      }
+    },
+    {
+      "material": "water",
+      "x1": 1660,
+      "x2": 1860,
+      "top": 344,
+      "base": {
+        "x": 0,
+        "y": 80,
+        "width": 200,
+        "height": 8
+      },
+      "ripple": {
+        "x": 0,
+        "y": 128,
+        "width": 202,
+        "height": 4
+      }
+    },
+    {
+      "material": "water",
+      "x1": 2200,
+      "x2": 2500,
+      "top": 344,
+      "base": {
+        "x": 0,
+        "y": 96,
+        "width": 300,
+        "height": 8
+      },
+      "ripple": {
+        "x": 0,
+        "y": 136,
+        "width": 302,
+        "height": 4
+      }
+    },
+    {
+      "material": "water",
+      "x1": 3040,
+      "x2": 3220,
+      "top": 344,
+      "base": {
+        "x": 0,
+        "y": 112,
+        "width": 180,
+        "height": 8
+      },
+      "ripple": {
+        "x": 0,
+        "y": 144,
+        "width": 182,
+        "height": 4
+      }
+    }
+  ]
+}
