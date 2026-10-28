@@ -71,7 +71,7 @@ export const SANDY_COVE: LevelData = {
     ...gems.map((x, index) => ({ ...grounded('gem', 'gem', x, index), y: ({ 1750: 296, 2260: 296, 2420: 284 }[x] ?? surfaceY(terrain, x)) - 18 })),
     ...[[1065, 302], [950, 318], [3380, 172], [3240, 299], [3420, 160], [3460, 172]]
       .map(([x, y], index): WorldEntity => ({ id: `cove-bonus-${index + 1}`, kind: 'gem', asset: 'gem', x, y, layer: 'world' })),
-    ...[400, 890, 1160, 1510, 1990, 2650, 2860, 3570, 3940]
+    ...[295, 820, 1295, 1510, 1990, 2685, 2830, 3700, 4050]
       .map((x, index) => grounded('decoration', index % 4 === 0 ? 'stone' : 'tree', x, index)),
     ...checkpoints.map((checkpoint): WorldEntity => ({ ...checkpoint, kind: 'checkpoint', asset: 'checkpoint', layer: 'world' })),
   ],

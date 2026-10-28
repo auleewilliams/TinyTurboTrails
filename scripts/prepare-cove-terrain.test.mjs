@@ -107,12 +107,99 @@ test('real prepared stone pixels cover every support top and respect native dept
   }
 });
 
+// Immutable baseline remains authoritative: reverse only the exact owner-approved
+// placement literal, then hash every source byte (including non-gameplay code).
+const originalDecorationXs = '[400, 890, 1160, 1510, 1990, 2650, 2860, 3570, 3940]';
+const approvedDecorationXs = '[295, 820, 1295, 1510, 1990, 2685, 2830, 3700, 4050]';
+function assertApprovedCoveSource(source, expectedHash) {
+  assert.equal(source.split(approvedDecorationXs).length, 2, 'exact approved decoration literal occurs once');
+  assert.equal(hash(source.replace(approvedDecorationXs, originalDecorationXs)), expectedHash,
+    'all source bytes outside the exact approved decoration-array delta remain pinned');
+}
+function gameplayProjection(level) {
+  return { ...level, entities: level.entities.map(entity => {
+    if (entity.kind !== 'decoration') return entity;
+    const { x, y, ...fixed } = entity;
+    return fixed;
+  }) };
+}
+function assertApprovedCoveLevel(level, baseline) {
+  assert.deepEqual(gameplayProjection(level), gameplayProjection(baseline), 'complete gameplay projection remains pinned');
+  const xs = JSON.parse(approvedDecorationXs);
+  const expected = baseline.entities.filter(e => e.kind === 'decoration').map((entity, index) => {
+    const x = xs[index], surface = baseline.surfaces.find(s => x >= s.x1 && x <= s.x2);
+    assert.ok(surface, 'approved placement has immutable baseline support');
+    const y = surface.y1 + (surface.y2 - surface.y1) * (x - surface.x1) / (surface.x2 - surface.x1);
+    return { ...entity, x, y };
+  });
+  assert.equal(expected.length, 9);
+  assert.deepEqual(level.entities.filter(e => e.kind === 'decoration'), expected, 'only the exact nine approved placements');
+}
+function assertApprovedCoveManifest(manifest, baseline) {
+  const expected = structuredClone(baseline);
+  for (const [asset, y] of Object.entries({ stone: 42, tree: 43, checkpoint: 42 })) {
+    assert.equal(expected.anchors[asset].y, 44, 'immutable original anchor');
+    expected.anchors[asset].y = y;
+  }
+  expected.terrainKit = 'terrain-kit/manifest.json';
+  assert.deepEqual(manifest, expected, 'only additive kit linkage and three exact approved anchorY changes');
+}
+function currentCoveLevel() {
+  const code = ['game/movement.ts', 'world/sandy-cove.ts'].map(name => transformSync(name,
+    readFileSync(new URL(`../src/${name}`, import.meta.url), 'utf8')
+      .replace(/^import .*;\n/gm, '').replace(/\bexport /g, ''), {}).code).join('\n');
+  return new Function(`${code}\nreturn SANDY_COVE;`)();
+}
+
 test('all approved existing images/provenance and gameplay declarations remain byte-for-byte pinned', () => {
   const pins = JSON.parse(read('preserved-files.json'));
-  for (const pin of pins.files) assert.equal(hash(readFileSync(new URL(`../${pin.path}`, import.meta.url))), pin.sha256, pin.path);
+  for (const pin of pins.files) {
+    const bytes = readFileSync(new URL(`../${pin.path}`, import.meta.url));
+    if (pin.path === 'src/world/sandy-cove.ts') assertApprovedCoveSource(bytes.toString('utf8'), pin.sha256);
+    else assert.equal(hash(bytes), pin.sha256, pin.path);
+  }
+  assertApprovedCoveLevel(currentCoveLevel(), JSON.parse(read('geometry-pin.json')));
+  assertApprovedCoveManifest(JSON.parse(readFileSync(new URL('../public/assets/cove/manifest.json', import.meta.url))), pins.coveManifestBefore);
+});
+
+test('preservation guard rejects unrelated source bytes and unauthorized decoration literals', () => {
+  const source = readFileSync(new URL('../src/world/sandy-cove.ts', import.meta.url), 'utf8');
+  const pin = JSON.parse(read('preserved-files.json')).files.find(p => p.path === 'src/world/sandy-cove.ts');
+  assertApprovedCoveSource(source, pin.sha256);
+  for (const bad of [source + '// unrelated source edit\n', source.replace('cameraLead: 45', 'cameraLead: 46'),
+    source.replace(approvedDecorationXs, approvedDecorationXs.replace('295', '296')),
+    source.replace("'stone' : 'tree'", "'stone' : 'bush'")]) {
+    assert.notEqual(bad, source, 'negative control actually changes input');
+    assert.throws(() => assertApprovedCoveSource(bad, pin.sha256), { code: 'ERR_ASSERTION' });
+  }
+});
+
+test('preservation guard rejects gameplay edits and unauthorized decoration position identity asset layer or count', () => {
+  const baseline = JSON.parse(read('geometry-pin.json')), level = currentCoveLevel();
+  assertApprovedCoveLevel(level, baseline);
+  for (const mutate of [l => l.start.x++, l => l.surfaces[0].y1++, l => l.platforms[0].width++,
+    l => l.entities.find(e => e.kind === 'gem').x++, l => l.cameraLead++,
+    l => l.entities.find(e => e.kind === 'decoration').x++,
+    l => l.entities.find(e => e.kind === 'decoration').y++,
+    l => l.entities.find(e => e.kind === 'decoration').id += '-extra',
+    l => l.entities.find(e => e.kind === 'decoration').asset = 'bush',
+    l => l.entities.find(e => e.kind === 'decoration').layer = 'world',
+    l => l.entities.splice(l.entities.findIndex(e => e.kind === 'decoration'), 1)]) {
+    const bad = structuredClone(level); mutate(bad);
+    assert.throws(() => assertApprovedCoveLevel(bad, baseline), { code: 'ERR_ASSERTION' });
+  }
+});
+
+test('preservation guard rejects unrelated extra manifest metadata and unauthorized anchors', () => {
+  const baseline = JSON.parse(read('preserved-files.json')).coveManifestBefore;
   const manifest = JSON.parse(readFileSync(new URL('../public/assets/cove/manifest.json', import.meta.url)));
-  assert.equal(manifest.terrainKit, 'terrain-kit/manifest.json'); delete manifest.terrainKit;
-  assert.deepEqual(manifest, pins.coveManifestBefore, 'existing world metadata is unchanged apart from additive linkage');
+  assertApprovedCoveManifest(manifest, baseline);
+  for (const mutate of [m => m.extra = true, m => m.panorama = 'other.png', m => m.assets.tree++,
+    m => m.anchors.spring.y++, m => m.anchors.tree.y++, m => m.anchors.stone.x++,
+    m => m.anchors.checkpoint.extra = true, m => m.terrainKit = 'other.json']) {
+    const bad = structuredClone(manifest); mutate(bad);
+    assert.throws(() => assertApprovedCoveManifest(bad, baseline), { code: 'ERR_ASSERTION' });
+  }
 });
 
 test('all 13 slope starts and ends bake in-range junction columns and exact adjacent source pixels', () => {
