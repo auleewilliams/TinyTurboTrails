@@ -5,6 +5,9 @@ import { createRequire } from 'node:module';
 const { decodePng } = createRequire(import.meta.url)('../scripts/spelling-stickers.mjs') as {
   decodePng(bytes: Uint8Array): { width: number; height: number; data: Uint8Array };
 };
+const { beforeWaterLanding } = createRequire(import.meta.url)('../scripts/water-landing-preservation.mjs') as {
+  beforeWaterLanding(path: string, bytes: Buffer): Buffer;
+};
 import { SANDY_COVE } from '../src/world/sandy-cove';
 import { surfaceAt, surfaceY } from '../src/game/movement';
 import { drawAsset } from '../src/world/renderer';
@@ -75,10 +78,24 @@ it('pins every gameplay field and all non-placement decoration data to the origi
   expect(projection(SANDY_COVE)).toEqual(projection(baseline));
   const pins = JSON.parse(read('assets/source/cove/terrain-kit/preserved-files.json').toString());
   for (const pin of pins.files) if (!['src/world/sandy-cove.ts', 'public/assets/cove/manifest.json'].includes(pin.path)) {
-    expect(createHash('sha256').update(read(pin.path)).digest('hex'), pin.path).toBe(pin.sha256);
+    expect(createHash('sha256').update(beforeWaterLanding(pin.path, read(pin.path))).digest('hex'), pin.path).toBe(pin.sha256);
   }
   const original = structuredClone(pins.coveManifestBefore); original.terrainKit = 'terrain-kit/manifest.json'; original.surfaceKit = 'materials/manifest.json';
   const visual = structuredClone(manifest);
   for (const asset of ['stone', 'tree', 'checkpoint']) visual.anchors[asset].y = original.anchors[asset].y;
   expect(visual).toEqual(original);
+});
+
+
+it('rejects extra source bytes and player-position mutations outside exact approved landing presentation deltas', () => {
+  const pins = JSON.parse(read('assets/source/cove/terrain-kit/preserved-files.json').toString());
+  for (const path of ['src/game/adventure-scene.ts', 'src/game/gameplay-preview.ts', 'src/game/feedback.ts']) {
+    const bytes = read(path), pin = pins.files.find((entry: { path: string }) => entry.path === path);
+    expect(createHash('sha256').update(beforeWaterLanding(path, bytes)).digest('hex'), path).toBe(pin.sha256);
+    const positionEdit = Buffer.from(bytes.toString().replace('player.x', 'player.x + 1'));
+    expect(positionEdit.equals(bytes), `${path} negative control changes input`).toBe(false);
+    for (const bad of [Buffer.concat([bytes, Buffer.from('\n// unrelated extra source\n')]), positionEdit]) {
+      expect(() => beforeWaterLanding(path, bad), path).toThrow();
+    }
+  }
 });

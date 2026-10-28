@@ -1,3 +1,4 @@
+import { beforeWaterLanding } from './water-landing-preservation.mjs';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
@@ -157,7 +158,7 @@ test('all approved existing images/provenance and gameplay declarations remain b
   for (const pin of pins.files) {
     const bytes = readFileSync(new URL(`../${pin.path}`, import.meta.url));
     if (pin.path === 'src/world/sandy-cove.ts') assertApprovedCoveSource(bytes.toString('utf8'), pin.sha256);
-    else assert.equal(hash(bytes), pin.sha256, pin.path);
+    else assert.equal(hash(beforeWaterLanding(pin.path, bytes)), pin.sha256, pin.path);
   }
   assertApprovedCoveLevel(currentCoveLevel(), JSON.parse(read('geometry-pin.json')));
   assertApprovedCoveManifest(JSON.parse(readFileSync(new URL('../public/assets/cove/manifest.json', import.meta.url))), pins.coveManifestBefore);
