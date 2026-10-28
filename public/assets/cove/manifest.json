@@ -1,6 +1,7 @@
 {
   "image": "environment.png",
   "panorama": "background.png",
+  "terrainKit": "terrain-kit/manifest.json",
   "cellSize": 48,
   "assets": {
     "terrain-flat": 0,

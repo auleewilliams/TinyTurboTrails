@@ -77,27 +77,32 @@ test('Cove lower route accepts standard controller movement through the final tr
 test('Cove cached map preview renders fixed stones and its initial dune framing',async({page,browser},info)=>{
   await page.setViewportSize({width:426,height:300});const evidence=observeCove(page,info);
   await page.addInitScript(()=>{
-    const fills=new Map<HTMLCanvasElement,object[]>();
-    const probe={tops:[] as object[],png:'',sources:0};Object.assign(window,{covePreviewProbe:probe});
-    const fill=CanvasRenderingContext2D.prototype.fillRect;
-    CanvasRenderingContext2D.prototype.fillRect=function(x,y,width,height){
-      if(this.canvas.id!=='game'&&this.fillStyle==='#87979b'&&height===10) {
-        const rows=fills.get(this.canvas)??[];rows.push({x,y,width,height});fills.set(this.canvas,rows);
-      }
-      fill.call(this,x,y,width,height);
-    };
+    const fills=new Map<HTMLCanvasElement,{x:number;y:number;width:number;height:number}[]>();
+    const urls=new Set<string>();
+    const probe={tops:[] as object[],png:'',sources:0,kitUrls:[] as string[]};Object.assign(window,{covePreviewProbe:probe});
     const draw=CanvasRenderingContext2D.prototype.drawImage;
     CanvasRenderingContext2D.prototype.drawImage=function(this:CanvasRenderingContext2D,...args:Parameters<typeof draw>){
+      const [image,sx,sy,sw,,dx,dy,dw,dh]=args;
+      if(this.canvas.id!=='game'&&image instanceof HTMLImageElement&&image.src.endsWith('/assets/cove/terrain-kit/atlas.png')
+        &&sw===1&&(sy===30||sy===46)&&sx>=104) {
+        urls.add(image.src);
+        const rows=fills.get(this.canvas)??[];
+        const row=rows.find(row=>row.y===dy&&row.x+row.width===dx);
+        if(row){row.width+=dw;row.height=Math.max(row.height,dh);}else rows.push({x:dx,y:dy,width:dw,height:dh});
+        fills.set(this.canvas,rows);
+      }
       Reflect.apply(draw,this,args);
-      if(args[0] instanceof HTMLCanvasElement&&args[0].width===426&&args[0].height===240&&fills.has(args[0])) {
-        probe.tops=fills.get(args[0])!;probe.png=args[0].toDataURL();probe.sources=fills.size;
+      if(image instanceof HTMLCanvasElement&&image.width===426&&image.height===240&&fills.has(image)) {
+        probe.tops=fills.get(image)!;probe.png=image.toDataURL();probe.sources=fills.size;probe.kitUrls=[...urls];
       }
     } as typeof draw;
   });
   await page.goto('/?debug=1');await page.getByRole('button',{name:'SANDY COVE',exact:true}).click();
   await expect.poll(()=>page.evaluate(()=>(window as unknown as {covePreviewProbe:{tops:object[]}}).covePreviewProbe.tops.length)).toBe(7);
-  const first=await page.evaluate(()=>(window as unknown as {covePreviewProbe:{tops:object[];png:string;sources:number}}).covePreviewProbe);
-  expect(first.tops).toContainEqual({x:1700,y:74,width:100,height:10});
+  const first=await page.evaluate(()=>(window as unknown as {covePreviewProbe:{tops:{x:number}[];png:string;sources:number;kitUrls:string[]}}).covePreviewProbe);
+  expect(first.tops).toContainEqual({x:1700,y:74,width:100,height:6});
+  expect(first.tops.map(top=>top.x)).toEqual([980,1700,2230,2380,2960,3140,3340]);
+  expect(first.kitUrls).toEqual([expect.stringContaining('/assets/cove/terrain-kit/atlas.png')]);
   await info.attach('actual-cached-preview-source',{body:Buffer.from(first.png.split(',')[1],'base64'),contentType:'image/png'});
   for(const width of [426,320]) {await page.setViewportSize({width,height:width===426?300:240});await evidence.paint(`cached-preview-${width}`);}
   await page.getByRole('button',{name:'PLAINS',exact:true}).click();await page.getByRole('button',{name:'SANDY COVE',exact:true}).click();
@@ -158,4 +163,69 @@ test('Cove all 42 gems use native input, fixed stones, low finds and three optio
   await drive([walk(3300),walk(3540),walk(3640),walk(3750),walk(3850),walk(3990),walk(4090),{kind:'finish'}]);
   await expect(page.locator('#status')).toContainText('Gems 42/42');await evidence.paint('all-42-finish');
   await info.attach('all-42-input-journey',{body:JSON.stringify(records),contentType:'application/json'});await evidence.finish(browser.version());
+});
+
+for (const resource of ['manifest.json', 'atlas.png']) test(`Cove terrain kit ${resource} failure recovers through ordinary Retry`, async ({ page }) => {
+  const path = `**/assets/cove/terrain-kit/${resource}`;
+  await page.route(path, route => route.abort());
+  await page.goto('/?debug=1');
+  await expect(page.locator('#status')).toHaveText('Artwork could not load. Reload to retry.');
+  await expect(page.locator('#retry')).toBeVisible();
+  await page.unroute(path);
+  await page.locator('#retry').click();
+  await expect(page.getByRole('button', { name: 'SANDY COVE', exact: true })).toBeVisible();
+  await page.getByRole('button', { name: 'SANDY COVE', exact: true }).click();
+  await page.getByRole('button', { name: 'Play SANDY COVE', exact: true }).click();
+  await expect(page.locator('#status')).toContainText('X 60 Y 326 V 0');
+});
+
+for (const width of [426, 320]) test(`Cove illustrated kit keeps underpass and upper-return rests at ${width}px`, async ({ page, browser }, info) => {
+  test.setTimeout(120_000);
+  await page.setViewportSize({ width, height: width === 426 ? 300 : 240 });
+  const evidence = observeCove(page, info);
+  await page.addInitScript(() => {
+    const probe = { afterHenryKit: 0, paintedHenry: false, kitColumns: 0 };
+    Object.assign(window, { coveArtOrder: probe });
+    const fill = CanvasRenderingContext2D.prototype.fillRect;
+    CanvasRenderingContext2D.prototype.fillRect = function (x, y, w, h) {
+      if (this.canvas.id === 'game' && x === 0 && y === 0 && w === 426 && h === 240) {
+        probe.afterHenryKit = 0; probe.paintedHenry = false; probe.kitColumns = 0;
+      }
+      fill.call(this, x, y, w, h);
+    };
+    const draw = CanvasRenderingContext2D.prototype.drawImage;
+    CanvasRenderingContext2D.prototype.drawImage = function (this: CanvasRenderingContext2D, ...args: Parameters<typeof draw>) {
+      if (this.canvas.id === 'game' && args[0] instanceof HTMLImageElement) {
+        if (args[0].src.endsWith('/assets/cove/terrain-kit/atlas.png')) {
+          probe.kitColumns++; if (probe.paintedHenry) probe.afterHenryKit++;
+        }
+        if (args[0].src.endsWith('/assets/henry/henry-celebration.png')) probe.paintedHenry = true;
+      }
+      Reflect.apply(draw, this, args);
+    } as typeof draw;
+  });
+  await startCove(page);
+  const captures = async (name: string) => {
+    const geometry = await page.evaluate(() => {
+      const canvas = document.querySelector<HTMLCanvasElement>('#game')!, rect = canvas.getBoundingClientRect();
+      return { backing: [canvas.width, canvas.height], css: { x: rect.x, y: rect.y, width: rect.width, height: rect.height },
+        dpr: devicePixelRatio, order: (window as unknown as { coveArtOrder: { afterHenryKit: number; paintedHenry: boolean; kitColumns: number } }).coveArtOrder,
+        native: canvas.toDataURL() };
+    });
+    expect(geometry.backing).toEqual([426, 240]); expect(geometry.css.width).toBeCloseTo(width, 1);
+    expect(geometry.order.paintedHenry).toBe(true); expect(geometry.order.kitColumns).toBeGreaterThan(0);
+    expect(geometry.order.afterHenryKit).toBe(0);
+    await info.attach(`${name}-native-backing`, { body: Buffer.from(geometry.native.split(',')[1], 'base64'), contentType: 'image/png' });
+    await info.attach(`${name}-spaces`, { body: JSON.stringify({ ...geometry, native: undefined }), contentType: 'application/json' });
+    await evidence.paint(name);
+  };
+  await driveCove(page, [walk(1040)]); await captures('actual-A-underpass-rest');
+  await driveCove(page, [walk(1110)]); await captures('actual-hollow-right-slope');
+  await driveCove(page, [walk(1600), jump(1750, 296)]); await captures('actual-first-stone-rest');
+  await driveCove(page, [walk(2070), jump(2260, 296), jump(2395, 284), walk(2600), walk(2940), jump(3020, 272), walk(3080), jump(3170, 260)]);
+  await captures('actual-upper-bay-lower-landing-before-step');
+  await driveCove(page, [walk(3280), jump(3360, 272)]); await captures('actual-upper-bay-rest');
+  await driveCove(page, [jump(3280, 260), walk(3160), jump(3080, 272), walk(3020), walk(2940)]);
+  await captures('actual-reverse-bank-rest');
+  await evidence.finish(browser.version());
 });

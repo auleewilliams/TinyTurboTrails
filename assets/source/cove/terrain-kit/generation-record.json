@@ -1,0 +1,43 @@
+{
+  "purpose": "Original generated Sandy Cove pilot source art; not prepared/integrated/owner-accepted assets",
+  "ground": {
+    "success": true,
+    "image": "/home/leew/.hermes/cache/generated/images/openai_codex_gpt-image-2-medium_20261028_045242_de2434a0.png",
+    "model": "gpt-image-2-medium",
+    "provider": "openai-codex",
+    "prompt": "Generate one original modular SOURCE ART SHEET for Sandy Cove's continuous sandy ground in a tiny side-view platform game. Use ONLY the LEFT ILLUSTRATED/CHUNKY column, especially bottom coastal row, of the attached comparison. Ignore all right geometric art. Second reference is unchanged game palette/context only. No screenshot/character/HUD/scenery reproduction. This is not a gameplay scene.\nRequested canvas1536x1024. Nine clearly separate extractable painted components on perfectly uniform bright magenta #FF00FF. No magenta/purple in art, no cast background shadows, checkerboard/grid/labels/text/arrows. Untouched broad magenta gutters.\nStyle: sunny coastal sand, soft cream landing rim, golden ochre sand cross-section, a few broad subdued grey/tan rock facets, warm muted edge shadows. CHUNKY HAND-PAINTED organic material matching left column, NOT flat geometric/vector rectangles, photoreal dirt, noisy grunge. Broad shapes survive8:1 reduction. Flat 2D SIDE ELEVATION, no isometric top face. No grass/roots/shells/decorations. All surface tops exactly straight horizontal at top of own rectangle, no overhangs above/outside it; depth only below contour. Seamless repeats.\nRequested component bounds:\n1 x64,y64,w512,h128: continuous sand surface LIP, thin cream top rim over layered golden sand; left/right seamless, no end caps. Intended64x16native.\n2 x64,y256,w512,h64: thinner slightly darker damp-sand surface lip; cream/gold not blue water; seamless left/right.64x8native.\n3 x64,y448,w512,h512: sand/rock CROSS-SECTION FILL swatch, no top rim/border, warm golden sand with broad muted grey/tan inclusions, seamless both axes.64x64native.\n4 x640,y448,w128,h512: left outer cliff face, rugged shaded left silhouette within bounds and material on its right, no new shelf.16x64native.\n5 x832,y448,w128,h512: matching right outer cliff face, opposite-facing silhouette, natural facets.16x64native.\n6 x640,y64,w128,h128: small flat-to-up sand-junction swatch.\n7 x832,y64,w128,h128: up-to-flat sand-junction swatch.\n8 x1024,y64,w128,h128: flat-to-down sand-junction swatch.\n9 x1216,y64,w128,h128: down-to-flat sand-junction swatch.\nFour junction swatches have FLAT straight tops: game shears/clips below existing slopes; do NOT paint diagonal ramps or floating islands.\nNo art outside its own rectangle, no borders/footer, no water, no separate platform stones or other theme. Prioritize coherent generated material and separated modular pieces, not a beautiful scene.",
+    "image_url": "/home/leew/.hermes/cache/generated/images/openai_codex_gpt-image-2-medium_20261028_021358_70b0d8c9.png",
+    "reference_image_urls": ["/home/leew/.hermes/cache/scratch/tinyturbotrails-m8-223/docs/evidence/issue-223-cove/first-wade.png"],
+    "aspect_ratio": "landscape",
+    "size": "1536x1024",
+    "quality": "medium",
+    "input_image_count": 2,
+    "requested_size": "1536x1024",
+    "pixel_size": "1536x1024",
+    "reported_quality": "low",
+    "reported_size": "1536x1024",
+    "imagegen_request_id": "df0f1534-609f-4ab1-a524-c6b518d75717",
+    "coordinator_inspection": "Nine isolated illustrated golden sand components visible on opaque flat magenta. Actual positions/sizes do NOT match requested rectangles. Derive actual slices from pixels. Fill/cap seam behavior and alpha still require deterministic preparation and native inspection. No integration claim."
+  },
+  "platform": {
+    "success": true,
+    "image": "/home/leew/.hermes/cache/generated/images/openai_codex_gpt-image-2-medium_20261028_045424_c857adc6.png",
+    "model": "gpt-image-2-medium",
+    "provider": "openai-codex",
+    "prompt": "Create a SECOND companion source-art sheet for the SAME illustrated Sandy Cove kit, this time ONLY MODULAR COASTAL STONE PLATFORM PIECES, not sandy ground. Reference1 is newly generated sand kit for exact warm palette and chunky painted treatment; reference2's LEFT bottom coastal row is approved style; ignore its right geometric column. No scene, characters, grass, water, tree, pillars, sky, text, labels or checkerboards.\nRequested source canvas1024x512 landscape (actual output size may differ). Perfectly uniform magenta #FF00FF everywhere outside artwork. Magenta/purple must not occur within painted stones. Seven clearly separated pieces in two ordered rows with generous background gutters. These are modular source cuts, not separate complete floating island pictures. Broad painterly rock facets, cream/warm sandy rim, substantial slate-grey/grey-brown undersides with warm ochre highlights and soft dark warm edge outlines. Same lively CHUNKY ILLUSTRATED art, NOT smooth geometric/vector blocks or photoreal grunge. 2D SIDE ELEVATION; no visible perspective top plane. Straight continuous landing top, no protruding stones or plants above it. Transparent-background shadows forbidden.\nTop row has THREE THIN pieces, left-to-right: outer-left CAP (native16x6), repeatable CENTRE (native32x6), outer-right CAP(native16x6). Source8x sizes128x48,256x48,128x48, approximate requested positions x64/256/576,y64. All three share identical straight top baseline and total height; light cream top rim occupies first2 of6 logical rows, remaining4 rows are broad faceted rock. Thin variant is separately painted, not a squeezed tall rock.\nBottom row has FOUR REGULAR pieces, left-to-right: outer-left CAP(native16x12), repeatable CENTRE(native32x12), outer-right CAP(native16x12), alternate repeatable CENTRE(native32x12). Source8x sizes128x96,256x96,128x96,256x96, approximate x64/256/576/736,y256. Cream top rim occupies first2 of12 rows; grey rock facets occupy10 below. Match common edge colors and flat baseline across this row. Alt centre should share boundary colors and scale.\nBoth rows: top rim reaches full supported width, no opaque pixel above top or beyond declared width. Outer caps may have softly ragged inward cut undersides, but the INNER cap ends and both CENTRE ends are straight vertical module boundaries, not rounded separate islands. Centre texture should repeat seamlessly horizontally and join cap edges. Keep the underside within each row's total height, no stalactites/roots/drop shadows below it. Every piece fully separated on solid magenta; no framing borders, labels, swatches or extra pieces. Source art only; later deterministic extraction will verify actual crop rectangles rather than assuming these requested coordinates.",
+    "image_url": "/home/leew/.hermes/cache/generated/images/openai_codex_gpt-image-2-medium_20261028_045242_de2434a0.png",
+    "reference_image_urls": ["/home/leew/.hermes/cache/generated/images/openai_codex_gpt-image-2-medium_20261028_021358_70b0d8c9.png"],
+    "aspect_ratio": "landscape",
+    "size": "1536x1024",
+    "quality": "medium",
+    "input_image_count": 2,
+    "requested_size": "1536x1024",
+    "pixel_size": "1774x887",
+    "reported_quality": "medium",
+    "reported_size": "1774x887",
+    "imagegen_request_id": "4b34f051-9fb1-4c25-b122-123f1df68c9d",
+    "coordinator_inspection": "Seven isolated painted coastal-stone components, three thin row1 and four regular row2. Opaque magenta background, flat cream tops and chunky grey/tan facets visible. Requested text canvas1024x512 differs from tool requested1536x1024 and actual1774x887; record all separately. Actual crop/scale, alpha, cap/centre seams and minimum-width coverage not yet verified. No in-game approval."
+  },
+  "draft_prompt_note": "ground-generation-prompt.txt is an earlier draft; the exact actual tool-call prompts are the prompt fields above. Do not label the draft as the executed prompt.",
+  "bounded_generation": "2 initial native-image calls, no refinements yet"
+}

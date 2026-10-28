@@ -4,6 +4,8 @@ import { transformSync } from 'rolldown/utils';
 import { MAX_HEALTH } from '../src/game/interactions';
 import { surfaceY } from '../src/game/movement';
 import { PLAINS_LEVEL } from '../src/world/level';
+import { SANDY_COVE } from '../src/world/sandy-cove';
+import { platformBodyAt } from '../src/game/platforms';
 
 // Exercise the same module lists and import stripping as the two browser fixtures.
 // Missing real production dependencies must remain visible to their guards.
@@ -23,6 +25,7 @@ for (const title of ['compact HUD renderer fixture:', 'landmark labels: renderer
     expect(names).toContain('game/movement.ts');
     expect(names).toContain('game/platforms.ts');
     expect(names).toContain('world/camera.ts');
+    expect(names).toContain('world/cove-terrain.ts');
     expect(typeof fixture.camera).toBe('function');
     expect(code).toContain('function drawTimberTrunk');
     expect(code).toContain('function drawSiteFrame');
@@ -42,4 +45,20 @@ it('builder-kit fixture includes the real terrain dependency and keeps its runti
   expect(section).toContain("'surfaceY'");
   expect(section).toContain('spellingFixtureMissing');
   expect(section).toContain('runtimeImports.map');
+});
+
+it('function-string fixtures carry and execute the actual Cove helper dependency graph', () => {
+  const list = source.match(/const RENDERER_SOURCE = \[([^\]]+)\]\.map/)![1].split(',').map(name => name.trim());
+  const names = ['world/cove-terrain.ts', 'world/trail-presentation.ts', 'world/ambient-weather.ts', 'world/surface-materials.ts', 'world/renderer.ts'];
+  const code = names.map(name => transformSync(name, readFileSync(new URL('../src/' + name, import.meta.url), 'utf8')
+    .replace(/^import .*;\n/gm, '').replace(/\bexport /g, ''), {}).code).join('\n');
+  const helpers = new Function(`${code}\nreturn { ${list.join(',')} };`)() as Record<string, (...args: unknown[]) => unknown>;
+  const injected = list.map(name => helpers[name].toString()).join('\n');
+  const fixture = new Function(`${injected}\nreturn { drawCoveGround, drawCovePlatform };`)();
+  const manifest = JSON.parse(readFileSync(new URL('../public/assets/cove/terrain-kit/manifest.json', import.meta.url), 'utf8'));
+  const calls: unknown[][] = [];
+  const ctx = { save() {}, restore() {}, translate() {}, scale() {}, transform() {}, drawImage(...args: unknown[]) { calls.push(args); } };
+  fixture.drawCoveGround(ctx, { manifest, image: {} }, SANDY_COVE, { x: 940.25, y: 220.5 }, 0, 4200);
+  fixture.drawCovePlatform(ctx, { manifest, image: {} }, SANDY_COVE, platformBodyAt(SANDY_COVE.platforms![0], 0), { x: 940.25, y: 220.5 });
+  expect(calls.length).toBeGreaterThan(426);
 });

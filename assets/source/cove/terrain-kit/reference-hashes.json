@@ -1,0 +1,26 @@
+{
+  "role": "actual recorded generation references, not new baseline executions",
+  "references": [
+    {
+      "actualRecordedInputPath": "/home/leew/.hermes/cache/generated/images/openai_codex_gpt-image-2-medium_20261028_021358_70b0d8c9.png",
+      "sha256": "20b133c9801542d07cc00dc0debb24a80feefdfaaed70a705b26492c2197149f",
+      "bytes": 2018069,
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "actualRecordedInputPath": "/home/leew/.hermes/cache/generated/images/openai_codex_gpt-image-2-medium_20261028_045242_de2434a0.png",
+      "sha256": "d61a31eae616e347ba0e10182d37355d16b39733db93bdd077cc64a795825bb2",
+      "bytes": 1743370,
+      "width": 1536,
+      "height": 1024
+    },
+    {
+      "actualRecordedInputPath": "/home/leew/.hermes/cache/scratch/tinyturbotrails-m8-223/docs/evidence/issue-223-cove/first-wade.png",
+      "sha256": "0c172ad8c450a9155449323b0b3724fdc51ca943f7a48cef571db17440bf31da",
+      "bytes": 107194,
+      "width": 426,
+      "height": 240
+    }
+  ]
+}

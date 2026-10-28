@@ -130,8 +130,11 @@ it.each(['site', 'frost', 'cove'])('loads the %s panorama and can retry a failed
   expect([bytes.readUInt32BE(16), bytes.readUInt32BE(20)]).toEqual([720, 240]);
   const requests: string[] = [];
   let fail = true;
-  vi.stubGlobal('fetch', vi.fn(async () => ({ ok: true, json: async () => world })));
+  vi.stubGlobal('fetch', vi.fn(async (url: string) => ({ ok: true, json: async () => url.endsWith('/terrain-kit/manifest.json')
+    ? JSON.parse(readFileSync(new URL('../public/assets/cove/terrain-kit/manifest.json', import.meta.url), 'utf8')) : world })));
   class FakeImage {
+    naturalWidth = 256;
+    naturalHeight = 128;
     onload = (): void => {};
     onerror = (): void => {};
     set src(url: string) {
@@ -145,4 +148,35 @@ it.each(['site', 'frost', 'cove'])('loads the %s panorama and can retry a failed
   const loaded = await loadWorldAssets(directory);
   expect(loaded.panorama).toBeInstanceOf(FakeImage);
   expect(requests.filter(url => url === `/assets/${directory}/background.png`)).toHaveLength(2);
+});
+
+it('requires declared Cove kit metadata and pixels, validates dimensions and retries failures', async () => {
+  const world = JSON.parse(readFileSync(new URL('../public/assets/cove/manifest.json', import.meta.url), 'utf8'));
+  world.terrainKit = 'terrain-kit/manifest.json';
+  const kit = JSON.parse(readFileSync(new URL('../public/assets/cove/terrain-kit/manifest.json', import.meta.url), 'utf8'));
+  let failImage = true, failMetadata = false, wrongSize = false;
+  vi.stubGlobal('fetch', vi.fn(async (url: string) => ({
+    ok: !(failMetadata && url.endsWith('/terrain-kit/manifest.json')),
+    json: async () => url.endsWith('/terrain-kit/manifest.json') ? kit : world,
+  })));
+  class FakeImage {
+    naturalWidth = 256;
+    naturalHeight = 128;
+    onload = (): void => {};
+    onerror = (): void => {};
+    set src(url: string) {
+      if (wrongSize && url.endsWith('/terrain-kit/atlas.png')) this.naturalWidth = 255;
+      queueMicrotask(() => failImage && url.endsWith('/terrain-kit/atlas.png') ? this.onerror() : this.onload());
+    }
+  }
+  vi.stubGlobal('Image', FakeImage);
+  await expect(loadWorldAssets('cove')).rejects.toThrow(/Cove terrain/i);
+  failImage = false; failMetadata = true;
+  await expect(loadWorldAssets('cove')).rejects.toThrow(/Cove terrain/i);
+  failMetadata = false; wrongSize = true;
+  await expect(loadWorldAssets('cove')).rejects.toThrow(/Cove terrain/i);
+  wrongSize = false;
+  expect(await loadWorldAssets('cove')).toHaveProperty('coveTerrain.manifest.pieces.stone-thin-left');
+  kit.pieces['stone-thin-left'].height = 12;
+  await expect(loadWorldAssets('cove')).rejects.toThrow(/Cove terrain/i);
 });
