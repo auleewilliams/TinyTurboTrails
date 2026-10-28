@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import { COVE_ART_PILOT_STAGES } from './cove-art-pilot-stages';
 import { startCove, driveCove, observeCove } from './cove-browser-pilot';
 import { COVE_LOWER, COVE_MISS_ALL, COVE_RETURN, COVE_A, COVE_N, walk, jump } from './cove-pilot';
 
@@ -205,13 +206,18 @@ for (const width of [426, 320]) test(`Cove illustrated kit keeps underpass and u
     } as typeof draw;
   });
   await startCove(page);
-  const captures = async (name: string) => {
+  const captures = async (name: string, stages: readonly { kind: string; x?: number; y?: number }[]) => {
     const geometry = await page.evaluate(() => {
       const canvas = document.querySelector<HTMLCanvasElement>('#game')!, rect = canvas.getBoundingClientRect();
       return { backing: [canvas.width, canvas.height], css: { x: rect.x, y: rect.y, width: rect.width, height: rect.height },
-        dpr: devicePixelRatio, order: (window as unknown as { coveArtOrder: { afterHenryKit: number; paintedHenry: boolean; kitColumns: number } }).coveArtOrder,
+        status: document.querySelector('#status')!.textContent!, dpr: devicePixelRatio, order: (window as unknown as { coveArtOrder: { afterHenryKit: number; paintedHenry: boolean; kitColumns: number } }).coveArtOrder,
         native: canvas.toDataURL() };
     });
+    const target = stages.at(-1)!, position = geometry.status.match(/X (-?\d+) Y (-?\d+) V (-?\d+)/)!;
+    expect(position).not.toBeNull();
+    expect(Math.abs(Number(position[1]) - target.x!)).toBeLessThan(8);
+    expect(Math.abs(Number(position[3]))).toBeLessThan(20);
+    if (target.kind === 'jump') expect(Number(position[2])).toBe(target.y! - 34);
     expect(geometry.backing).toEqual([426, 240]); expect(geometry.css.width).toBeCloseTo(width, 1);
     expect(geometry.order.paintedHenry).toBe(true); expect(geometry.order.kitColumns).toBeGreaterThan(0);
     expect(geometry.order.afterHenryKit).toBe(0);
@@ -219,13 +225,13 @@ for (const width of [426, 320]) test(`Cove illustrated kit keeps underpass and u
     await info.attach(`${name}-spaces`, { body: JSON.stringify({ ...geometry, native: undefined }), contentType: 'application/json' });
     await evidence.paint(name);
   };
-  await driveCove(page, [walk(1040)]); await captures('actual-A-underpass-rest');
-  await driveCove(page, [walk(1110)]); await captures('actual-hollow-right-slope');
-  await driveCove(page, [walk(1600), jump(1750, 296)]); await captures('actual-first-stone-rest');
-  await driveCove(page, [walk(2070), jump(2260, 296), jump(2395, 284), walk(2600), walk(2940), jump(3020, 272), walk(3080), jump(3170, 260)]);
-  await captures('actual-upper-bay-lower-landing-before-step');
-  await driveCove(page, [walk(3280), jump(3360, 272)]); await captures('actual-upper-bay-rest');
-  await driveCove(page, [jump(3280, 260), walk(3160), jump(3080, 272), walk(3020), walk(2940)]);
-  await captures('actual-reverse-bank-rest');
+  await driveCove(page, COVE_ART_PILOT_STAGES.underpass); await captures('actual-A-underpass-rest', COVE_ART_PILOT_STAGES.underpass);
+  await driveCove(page, COVE_ART_PILOT_STAGES.hollowSlope); await captures('actual-hollow-right-slope', COVE_ART_PILOT_STAGES.hollowSlope);
+  await driveCove(page, COVE_ART_PILOT_STAGES.firstStone); await captures('actual-first-stone-rest', COVE_ART_PILOT_STAGES.firstStone);
+  await driveCove(page, COVE_ART_PILOT_STAGES.upperLanding);
+  await captures('actual-upper-bay-lower-landing-before-step', COVE_ART_PILOT_STAGES.upperLanding);
+  await driveCove(page, COVE_ART_PILOT_STAGES.upperRest); await captures('actual-upper-bay-rest', COVE_ART_PILOT_STAGES.upperRest);
+  await driveCove(page, COVE_ART_PILOT_STAGES.reverseBank);
+  await captures('actual-reverse-bank-rest', COVE_ART_PILOT_STAGES.reverseBank);
   await evidence.finish(browser.version());
 });
