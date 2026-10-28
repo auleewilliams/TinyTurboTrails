@@ -14,7 +14,8 @@ const code = (await Promise.all(names.map(async name => transformSync(name,
 const { ground, platform, level, bodies, groundY } = new Function(`${code}\nreturn { ground: drawCoveGround, platform: drawCovePlatform, level: SANDY_COVE, bodies: platformBodiesAt(SANDY_COVE.platforms,0), groundY: coveGroundY };`)();
 const atlas = decodePng(await readFile('public/assets/cove/terrain-kit/atlas.png'));
 const manifest = JSON.parse(await readFile('public/assets/cove/terrain-kit/manifest.json', 'utf8'));
-const kit = { image: atlas, manifest };
+const groundImage = decodePng(await readFile('public/assets/cove/terrain-kit/ground.png'));
+const kit = { image: atlas, ground: groundImage, manifest };
 const records = [];
 const hash = bytes => createHash('sha256').update(bytes).digest('hex');
 async function emit(name, image, detail) {
@@ -59,8 +60,8 @@ function resize(source,width,height) {
   return out;
 }
 for(const [name,color]of [['light',[242,234,211]],['dark',[19,37,44]]]) {
-  const proof=canvas(256,128,color);proof.ctx.drawImage(atlas,0,0,256,128,0,0,256,128);
-  await emit(`atlas-native-${name}`,proof.image,{});await emit(`atlas-small-${name}`,resize(proof.image,192,96),{scale:.75});
+  const proof=canvas(atlas.width,atlas.height,color);proof.ctx.drawImage(atlas,0,0,atlas.width,atlas.height,0,0,atlas.width,atlas.height);
+  await emit(`atlas-native-${name}`,proof.image,{});await emit(`atlas-small-${name}`,resize(proof.image,384,192),{scale:.75});
   const widths=canvas(426,190,color);
   for(const [row,width]of [90,100,140,160,180].entries())for(const [column,id]of ['cove-pool-stone-1','cove-pool-stone-3'].entries()) {
     platform(widths.ctx,kit,level,{id,x:8+column*210,y:12+row*36,width,height:10,vx:0,vy:0},{x:0,y:0});
@@ -92,22 +93,27 @@ const constraints = [];
 for (const body of bodies) {
   const calls = [];
   platform({ save() {}, restore() {}, drawImage(...args) { calls.push(args); } }, kit, level, body, { x: 0, y: 0 });
-  const topAlphas = calls.map(([, sx, sy]) => atlas.data[(sy * atlas.width + sx) * 4 + 3]);
-  const seamDeltas = [16, body.width - 16].map(boundary => {
-    const left = calls[boundary - 1], right = calls[boundary];
-    let maxRgbSum = 0;
-    for (let y = 0; y < Math.min(left[4], right[4]); y++) {
-      const a = ((left[2] + y) * atlas.width + left[1]) * 4, b = ((right[2] + y) * atlas.width + right[1]) * 4;
-      if (atlas.data[a + 3] && atlas.data[b + 3]) maxRgbSum = Math.max(maxRgbSum,
-        [0, 1, 2].reduce((sum, ch) => sum + Math.abs(atlas.data[a + ch] - atlas.data[b + ch]), 0));
-    }
-    return { boundary, maxRgbSum };
+  const [, sx, sy, sw, sh] = calls[0];
+  const topAlphas = Array.from({ length: sw }, (_, x) => atlas.data[(sy * atlas.width + sx + x) * 4 + 3]);
+  const nativeDepths = Array.from({ length: sw }, (_, x) => {
+    let depth = 0;
+    for (let y = 0; y < sh; y++) if (atlas.data[((sy + y) * atlas.width + sx + x) * 4 + 3]) depth = y + 1;
+    return depth;
   });
-  constraints.push({ id: body.id, x: body.x, topY: body.y, width: body.width, nominalCollisionHeight: body.height,
-    actualTopOpaqueColumns: topAlphas.filter(a => a === 255).length,
-    nativeDepths: calls.map(call => call[4]), seamDeltas,
-    sourceBoundsChecked: calls.every(call => call[1] >= 0 && call[2] >= 0 && call[1] + call[3] <= atlas.width && call[2] + call[4] <= atlas.height),
-    destinationBoundsChecked: calls.every(call => call[5] >= body.x && call[5] + call[7] <= body.x + body.width && call[6] === body.y && call[4] === call[8]) });
+  const cap = body.id.includes('shelf') || /stone-[12]$/.test(body.id) ? 14 : 12;
+  const capSeams = [cap, sw - cap].map(x => {
+    const deltas = [];
+    for (let y = 0; y < sh; y++) {
+      const a = atlas.data.subarray(((sy + y) * atlas.width + sx + x) * 4, ((sy + y) * atlas.width + sx + x) * 4 + 4);
+      const b = atlas.data.subarray(((sy + y) * atlas.width + sx + x - 1) * 4, ((sy + y) * atlas.width + sx + x - 1) * 4 + 4);
+      if (a[3] && b[3]) deltas.push(a.slice(0, 3).reduce((sum, v, i) => sum + Math.abs(v - b[i]), 0));
+    }
+    return { column: x, opaqueRgbDeltas: deltas, maxRgbDelta: Math.max(0, ...deltas) };
+  });
+  constraints.push({ capSeams, id: body.id, x: body.x, topY: body.y, width: body.width, nominalCollisionHeight: body.height,
+    actualTopOpaqueColumns: topAlphas.filter(a => a === 255).length, nativeDepths, drawSpans: calls.length,
+    sourceBoundsChecked: sx >= 0 && sy >= 0 && sx + sw <= atlas.width && sy + sh <= atlas.height,
+    destinationBoundsChecked: calls.every(call => call[5] === body.x && call[7] === body.width && call[6] === body.y && call[4] === call[8]) });
 }
 await writeFile(`${destination}/constraint-diagnostics.json`, `${JSON.stringify({ kind: 'actual prepared-pixel/production-helper unit diagnostics, not gameplay', constraints }, null, 2)}\n`);
 const sourceModuleHashes = Object.fromEntries(await Promise.all(names.map(async name => [name, hash(await readFile(`src/${name}`))])));

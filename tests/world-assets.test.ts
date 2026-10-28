@@ -133,12 +133,13 @@ it.each(['site', 'frost', 'cove'])('loads the %s panorama and can retry a failed
   vi.stubGlobal('fetch', vi.fn(async (url: string) => ({ ok: true, json: async () => url.endsWith('/terrain-kit/manifest.json')
     ? JSON.parse(readFileSync(new URL('../public/assets/cove/terrain-kit/manifest.json', import.meta.url), 'utf8')) : world })));
   class FakeImage {
-    naturalWidth = 256;
-    naturalHeight = 128;
+    naturalWidth = 512;
+    naturalHeight = 256;
     onload = (): void => {};
     onerror = (): void => {};
     set src(url: string) {
       requests.push(url);
+      if (url.endsWith('/terrain-kit/ground.png')) { this.naturalWidth = 4200; this.naturalHeight = 480; }
       queueMicrotask(fail && url.endsWith('/background.png') ? this.onerror : this.onload);
     }
   }
@@ -154,24 +155,27 @@ it('requires declared Cove kit metadata and pixels, validates dimensions and ret
   const world = JSON.parse(readFileSync(new URL('../public/assets/cove/manifest.json', import.meta.url), 'utf8'));
   world.terrainKit = 'terrain-kit/manifest.json';
   const kit = JSON.parse(readFileSync(new URL('../public/assets/cove/terrain-kit/manifest.json', import.meta.url), 'utf8'));
-  let failImage = true, failMetadata = false, wrongSize = false;
+  let failImage = true, failGround = false, failMetadata = false, wrongSize = false;
   vi.stubGlobal('fetch', vi.fn(async (url: string) => ({
     ok: !(failMetadata && url.endsWith('/terrain-kit/manifest.json')),
     json: async () => url.endsWith('/terrain-kit/manifest.json') ? kit : world,
   })));
   class FakeImage {
-    naturalWidth = 256;
-    naturalHeight = 128;
+    naturalWidth = 512;
+    naturalHeight = 256;
     onload = (): void => {};
     onerror = (): void => {};
     set src(url: string) {
+      if (url.endsWith('/terrain-kit/ground.png')) { this.naturalWidth = 4200; this.naturalHeight = 480; }
       if (wrongSize && url.endsWith('/terrain-kit/atlas.png')) this.naturalWidth = 255;
-      queueMicrotask(() => failImage && url.endsWith('/terrain-kit/atlas.png') ? this.onerror() : this.onload());
+      queueMicrotask(() => ((failImage && url.endsWith('/terrain-kit/atlas.png')) || (failGround && url.endsWith('/terrain-kit/ground.png'))) ? this.onerror() : this.onload());
     }
   }
   vi.stubGlobal('Image', FakeImage);
   await expect(loadWorldAssets('cove')).rejects.toThrow(/Cove terrain/i);
-  failImage = false; failMetadata = true;
+  failImage = false; failGround = true;
+  await expect(loadWorldAssets('cove')).rejects.toThrow(/Cove terrain/i);
+  failGround = false; failMetadata = true;
   await expect(loadWorldAssets('cove')).rejects.toThrow(/Cove terrain/i);
   failMetadata = false; wrongSize = true;
   await expect(loadWorldAssets('cove')).rejects.toThrow(/Cove terrain/i);

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "method": "edge-connected magenta removal; explicit measured crop; deterministic majority-colour block downsample; no auto-fit or drawn replacement pixels",
+  "method": "edge-connected chroma; explicit native-aspect crops at exactly 6 source px/native sand pixel and 20 source px/native stone pixel; precompose opaque ground and native platform spans before runtime",
   "sourceMetadata": "generation-record.json",
   "sources": {
     "ground": {
@@ -17,17 +17,17 @@
     }
   },
   "atlasSize": {
-    "width": 256,
-    "height": 128
+    "width": 512,
+    "height": 256
   },
   "pieces": {
     "sand-lip": {
       "source": "ground",
       "crop": {
-        "x": 44,
+        "x": 160,
         "y": 108,
-        "width": 684,
-        "height": 122
+        "width": 384,
+        "height": 96
       },
       "output": {
         "x": 2,
@@ -36,15 +36,15 @@
         "height": 16
       },
       "topBaseline": 0,
-      "note": "Measured component, not requested coordinates"
+      "note": "Isotropic native-aspect window inside measured painting; scale derived from returned pixels, not original requested 8x layout"
     },
     "wet-sand-lip": {
       "source": "ground",
       "crop": {
-        "x": 44,
+        "x": 160,
         "y": 280,
-        "width": 684,
-        "height": 58
+        "width": 384,
+        "height": 48
       },
       "output": {
         "x": 2,
@@ -53,15 +53,15 @@
         "height": 8
       },
       "topBaseline": 0,
-      "note": "Measured component, not requested coordinates"
+      "note": "Isotropic native-aspect window inside measured painting; scale derived from returned pixels, not original requested 8x layout"
     },
     "sand-fill": {
       "source": "ground",
       "crop": {
-        "x": 44,
-        "y": 385,
-        "width": 684,
-        "height": 594
+        "x": 140,
+        "y": 420,
+        "width": 384,
+        "height": 384
       },
       "output": {
         "x": 2,
@@ -70,15 +70,15 @@
         "height": 64
       },
       "topBaseline": 0,
-      "note": "Measured component, not requested coordinates"
+      "note": "Isotropic native-aspect window inside measured painting; scale derived from returned pixels, not original requested 8x layout"
     },
     "cliff-left": {
       "source": "ground",
       "crop": {
-        "x": 838,
+        "x": 850,
         "y": 384,
-        "width": 234,
-        "height": 593
+        "width": 96,
+        "height": 384
       },
       "output": {
         "x": 68,
@@ -87,15 +87,15 @@
         "height": 64
       },
       "topBaseline": 0,
-      "note": "Measured component, not requested coordinates"
+      "note": "Isotropic native-aspect window inside measured painting; scale derived from returned pixels, not original requested 8x layout"
     },
     "cliff-right": {
       "source": "ground",
       "crop": {
-        "x": 1173,
+        "x": 1300,
         "y": 384,
-        "width": 251,
-        "height": 593
+        "width": 96,
+        "height": 384
       },
       "output": {
         "x": 86,
@@ -104,15 +104,15 @@
         "height": 64
       },
       "topBaseline": 0,
-      "note": "Measured component, not requested coordinates"
+      "note": "Isotropic native-aspect window inside measured painting; scale derived from returned pixels, not original requested 8x layout"
     },
     "flat-to-up": {
       "source": "ground",
       "crop": {
-        "x": 780,
+        "x": 800,
         "y": 108,
-        "width": 136,
-        "height": 122
+        "width": 96,
+        "height": 96
       },
       "output": {
         "x": 68,
@@ -121,15 +121,15 @@
         "height": 16
       },
       "topBaseline": 0,
-      "note": "Measured component, not requested coordinates"
+      "note": "Isotropic native-aspect window inside measured painting; scale derived from returned pixels, not original requested 8x layout"
     },
     "up-to-flat": {
       "source": "ground",
       "crop": {
-        "x": 968,
+        "x": 980,
         "y": 108,
-        "width": 138,
-        "height": 122
+        "width": 96,
+        "height": 96
       },
       "output": {
         "x": 86,
@@ -138,15 +138,15 @@
         "height": 16
       },
       "topBaseline": 0,
-      "note": "Measured component, not requested coordinates"
+      "note": "Isotropic native-aspect window inside measured painting; scale derived from returned pixels, not original requested 8x layout"
     },
     "flat-to-down": {
       "source": "ground",
       "crop": {
-        "x": 1159,
+        "x": 1180,
         "y": 108,
-        "width": 138,
-        "height": 122
+        "width": 96,
+        "height": 96
       },
       "output": {
         "x": 104,
@@ -155,15 +155,15 @@
         "height": 16
       },
       "topBaseline": 0,
-      "note": "Measured component, not requested coordinates"
+      "note": "Isotropic native-aspect window inside measured painting; scale derived from returned pixels, not original requested 8x layout"
     },
     "down-to-flat": {
       "source": "ground",
       "crop": {
-        "x": 1362,
+        "x": 1380,
         "y": 108,
-        "width": 136,
-        "height": 122
+        "width": 96,
+        "height": 96
       },
       "output": {
         "x": 122,
@@ -172,132 +172,138 @@
         "height": 16
       },
       "topBaseline": 0,
-      "note": "Measured component, not requested coordinates"
+      "note": "Isotropic native-aspect window inside measured painting; scale derived from returned pixels, not original requested 8x layout"
     },
     "stone-thin-left": {
       "source": "platform",
       "crop": {
-        "x": 167,
-        "y": 170,
-        "width": 276,
-        "height": 128
+        "x": 163,
+        "y": 171,
+        "width": 280,
+        "height": 120
       },
       "output": {
         "x": 104,
         "y": 30,
-        "width": 16,
+        "width": 14,
         "height": 6
       },
       "topBaseline": 0,
-      "note": "Measured opaque top run, inward crop removes rounded unsupported top corner"
+      "note": "Isotropic native-aspect window inside measured painting; scale derived from returned pixels, not original requested 8x layout"
     },
     "stone-thin-repeat": {
       "source": "platform",
       "crop": {
-        "x": 499,
+        "x": 500,
         "y": 171,
-        "width": 778,
-        "height": 127
+        "width": 760,
+        "height": 120
       },
       "output": {
-        "x": 122,
+        "x": 120,
         "y": 30,
-        "width": 32,
+        "width": 38,
         "height": 6
       },
       "topBaseline": 0,
-      "note": "Measured component, not requested coordinates"
+      "note": "Isotropic native-aspect window inside measured painting; scale derived from returned pixels, not original requested 8x layout"
     },
     "stone-thin-right": {
       "source": "platform",
       "crop": {
         "x": 1333,
         "y": 171,
-        "width": 277,
-        "height": 127
+        "width": 280,
+        "height": 120
       },
       "output": {
-        "x": 156,
+        "x": 160,
         "y": 30,
-        "width": 16,
+        "width": 14,
         "height": 6
       },
       "topBaseline": 0,
-      "note": "Measured opaque top run, inward crop removes rounded unsupported top corner"
+      "note": "Isotropic native-aspect window inside measured painting; scale derived from returned pixels, not original requested 8x layout"
     },
     "stone-regular-left": {
       "source": "platform",
       "crop": {
         "x": 95,
         "y": 444,
-        "width": 253,
-        "height": 247
+        "width": 240,
+        "height": 240
       },
       "output": {
         "x": 104,
         "y": 46,
-        "width": 16,
+        "width": 12,
         "height": 12
       },
       "topBaseline": 0,
-      "note": "Measured opaque top run, inward crop removes rounded unsupported top corner"
+      "note": "Isotropic native-aspect window inside measured painting; scale derived from returned pixels, not original requested 8x layout"
     },
     "stone-regular-repeat": {
       "source": "platform",
       "crop": {
         "x": 403,
         "y": 444,
-        "width": 475,
-        "height": 247
+        "width": 440,
+        "height": 240
       },
       "output": {
-        "x": 122,
+        "x": 118,
         "y": 46,
-        "width": 32,
+        "width": 22,
         "height": 12
       },
       "topBaseline": 0,
-      "note": "Measured component, not requested coordinates"
+      "note": "Isotropic native-aspect window inside measured painting; scale derived from returned pixels, not original requested 8x layout"
     },
     "stone-regular-right": {
       "source": "platform",
       "crop": {
-        "x": 933,
+        "x": 932,
         "y": 444,
-        "width": 227,
-        "height": 247
+        "width": 240,
+        "height": 240
       },
       "output": {
-        "x": 156,
+        "x": 142,
         "y": 46,
-        "width": 16,
+        "width": 12,
         "height": 12
       },
       "topBaseline": 0,
-      "note": "Measured opaque top run, inward crop removes rounded unsupported top corner"
+      "note": "Isotropic native-aspect window inside measured painting; scale derived from returned pixels, not original requested 8x layout"
     },
     "stone-regular-repeat-alt": {
       "source": "platform",
       "crop": {
         "x": 1235,
         "y": 444,
-        "width": 468,
-        "height": 247
+        "width": 440,
+        "height": 240
       },
       "output": {
-        "x": 174,
+        "x": 156,
         "y": 46,
-        "width": 32,
+        "width": 22,
         "height": 12
       },
       "topBaseline": 0,
-      "note": "Measured component, not requested coordinates"
+      "note": "Isotropic native-aspect window inside measured painting; scale derived from returned pixels, not original requested 8x layout"
     }
   },
-  "pixelSha256": "77a1b483b4b4c7e6616283a744d85219eca73350b64d44b50e5eed1bd41097d5",
-  "outputSha256": "74efde7852670381f50467d2eb8a50018db1ba47ca036adcdc3cab8ccaca639c",
+  "pixelSha256": "8e4895b251145c6f5380ab678bbdddeadc5f51beeebb31ea689793ccb91110e1",
+  "outputSha256": "2aa8847a4538069e4207661b424ff71ddd74af3dbc7d391c19f550e73d40fe4a",
   "removedBackgroundPixels": {
     "ground": 726041,
     "platform": 1061957
-  }
+  },
+  "materialScales": {
+    "ground": 6,
+    "platform": 20
+  },
+  "groundPixelSha256": "974322b2825ed9934ac6ff6977a198de6227b02c3894b636223694f249cbe512",
+  "groundOutputSha256": "b9bb8559f07367c51ab3da88f20b0b1c62028da2325600dc60d3abfb148bf0cf"
 }

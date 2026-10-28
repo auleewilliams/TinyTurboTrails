@@ -10,15 +10,29 @@ const root = new URL('../assets/source/cove/terrain-kit/', import.meta.url);
 const read = name => readFileSync(new URL(name, root));
 const hash = bytes => createHash('sha256').update(bytes).digest('hex');
 
+test('all modules of each material use one exact isotropic source/native scale', () => {
+  const record = JSON.parse(read('preparation.json'));
+  const scales = new Map();
+  for (const [name, part] of Object.entries(record.pieces)) {
+    const sx = part.crop.width / part.output.width, sy = part.crop.height / part.output.height;
+    assert.equal(sx, sy, `${name}: no anisotropic preparation`);
+    const material = part.source;
+    if (scales.has(material)) assert.equal(sx, scales.get(material), `${name}: same material grain scale`);
+    scales.set(material, sx);
+  }
+});
+
 test('actual generated Cove sources reproduce the complete RGBA atlas without losing cream', () => {
   const record = JSON.parse(read('preparation.json'));
   const sources = Object.fromEntries(['ground', 'platform'].map(name => [name, read(`${name}-source.png`)]));
   assert.equal(hash(sources.ground), 'd61a31eae616e347ba0e10182d37355d16b39733db93bdd077cc64a795825bb2');
   assert.equal(hash(sources.platform), 'ed16a3fbdfe9ece989c83a1c1f1eb2c9eeb47499150ce43335660575650e1f96');
-  const result = prepareCoveKit(sources, record);
+  const result = prepareCoveKit(sources, record, JSON.parse(read('geometry-pin.json')));
   assert.deepEqual(result.png, read('prepared/atlas.png'));
   assert.deepEqual(result.png, readFileSync(new URL('../public/assets/cove/terrain-kit/atlas.png', import.meta.url)));
   assert.equal(hash(result.image.data), record.pixelSha256);
+  assert.deepEqual(result.groundPng, read('prepared/ground.png'));
+  assert.equal(hash(result.ground.data), record.groundPixelSha256);
   const atlas = decodePng(result.png);
   let transparent = 0, cream = 0;
   for (let i = 0; i < atlas.data.length; i += 4) {
@@ -36,7 +50,7 @@ test('actual generated Cove sources reproduce the complete RGBA atlas without lo
     }
     assert.ok(visible > part.width, `${name} nonempty actual-source crop`);
   }
-  assert.throws(() => prepareCoveKit({ ...sources, ground: Buffer.alloc(0) }, record), /source/i);
+  assert.throws(() => prepareCoveKit({ ...sources, ground: Buffer.alloc(0) }, record, JSON.parse(read('geometry-pin.json'))), /source/i);
 });
 
 test('generation metadata retains actual prompts and all requested/reported discrepancies', () => {
@@ -65,20 +79,27 @@ test('real prepared stone pixels cover every support top and respect native dept
   for (const body of bodies) for (const offset of [{ x: 0, y: 0 }, { x: 800.25, y: 220.5 }]) {
     const calls = [], ctx = { save() {}, restore() {}, drawImage(...args) { calls.push(args); } };
     draw(ctx, kit, level, body, offset);
-    assert.equal(calls.length, body.width, body.id);
-    const pixels = Array.from({ length: body.width }, () => []);
-    for (const [image, sx, sy, sw, sh, dx, dy, dw, dh] of calls) {
-      assert.equal(image, atlas); assert.equal(sw, 1); assert.equal(dw, 1); assert.equal(sh, dh, 'crop without vertical squeezing');
-      assert.equal(dy, body.y - offset.y); assert.ok(dh >= 1 && dh <= (body.id.includes('shelf') || /stone-[12]$/.test(body.id) ? 6 : 12));
-      const x = dx + offset.x - body.x; assert.ok(x >= 0 && x < body.width);
-      for (let y = 0; y < sh; y++) pixels[x][y] = [...atlas.data.subarray(((sy + y) * atlas.width + sx) * 4, ((sy + y) * atlas.width + sx) * 4 + 4)];
-    }
-    for (const column of pixels) assert.equal(column[0][3], 255, 'actual pixels cover entire collision top');
-    for (const x of [16, body.width - 16]) for (let y = 0; y < Math.min(pixels[x].length, pixels[x - 1].length); y++) {
-      const a = pixels[x][y], b = pixels[x - 1][y];
+    assert.equal(calls.length, 1, body.id);
+    const [image, sx, sy, sw, sh, dx, dy, dw, dh] = calls[0];
+    assert.equal(image, atlas); assert.equal(sw, body.width); assert.equal(sw, dw); assert.equal(sh, dh);
+    assert.equal(dx, body.x - offset.x); assert.equal(dy, body.y - offset.y);
+    const cap = body.id.includes('shelf') || /stone-[12]$/.test(body.id) ? 14 : 12;
+    for (const x of [cap, sw - cap]) for (let y = 0; y < sh; y++) {
+      const a = atlas.data.subarray(((sy + y) * atlas.width + sx + x) * 4, ((sy + y) * atlas.width + sx + x) * 4 + 4);
+      const b = atlas.data.subarray(((sy + y) * atlas.width + sx + x - 1) * 4, ((sy + y) * atlas.width + sx + x - 1) * 4 + 4);
       if (a[3] && b[3]) assert.ok(a.slice(0, 3).reduce((n, v, i) => n + Math.abs(v - b[i]), 0) <= 360, `${body.id} actual cap seam`);
     }
-    if (body.id === 'cove-hollow-shelf') { assert.equal(pixels[0].length, 6); assert.equal(pixels.at(-1).length, 1); }
+    const limit = body.id.includes('shelf') || /stone-[12]$/.test(body.id) ? 6 : 12;
+    assert.ok(sh <= limit);
+    for (let x = 0; x < sw; x++) {
+      assert.equal(atlas.data[(sy * atlas.width + sx + x) * 4 + 3], 255, 'entire actual collision top');
+      if (body.id === 'cove-hollow-shelf') {
+        const top = level.surfaces.find(s => body.x + x >= s.x1 && body.x + x <= s.x2);
+        const gy = top.y1 + (top.y2 - top.y1) * (body.x + x - top.x1) / (top.x2 - top.x1);
+        const depth = Math.min(6, Math.max(1, Math.floor(gy - body.y - 42)));
+        for (let y = depth; y < sh; y++) assert.equal(atlas.data[((sy + y) * atlas.width + sx + x) * 4 + 3], 0, 'taper masks source pixels without squeezing');
+      }
+    }
   }
   for (const width of [32, 64]) for (let boundary = -width * 2; boundary <= width * 3; boundary += width) {
     assert.equal(repeat(boundary - 1, width), repeat(boundary, width), 'mirrored native repeats share identical actual edge columns');

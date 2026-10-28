@@ -58,7 +58,8 @@ it('function-string fixtures carry and execute the actual Cove helper dependency
   const manifest = JSON.parse(readFileSync(new URL('../public/assets/cove/terrain-kit/manifest.json', import.meta.url), 'utf8'));
   const calls: unknown[][] = [];
   const ctx = { save() {}, restore() {}, translate() {}, scale() {}, transform() {}, drawImage(...args: unknown[]) { calls.push(args); } };
-  fixture.drawCoveGround(ctx, { manifest, image: {} }, SANDY_COVE, { x: 940.25, y: 220.5 }, 0, 4200);
-  fixture.drawCovePlatform(ctx, { manifest, image: {} }, SANDY_COVE, platformBodyAt(SANDY_COVE.platforms![0], 0), { x: 940.25, y: 220.5 });
-  expect(calls.length).toBeGreaterThan(426);
+  fixture.drawCoveGround(ctx, { manifest, image: {}, ground: {} }, SANDY_COVE, { x: 940.25, y: 220.5 }, 0, 4200);
+  fixture.drawCovePlatform(ctx, { manifest, image: {}, ground: {} }, SANDY_COVE, platformBodyAt(SANDY_COVE.platforms![0], 0), { x: 940.25, y: 220.5 });
+  expect(calls).toHaveLength(2);
+  expect(calls.every(call => call[3] === call[7] && call[4] === call[8])).toBe(true);
 });

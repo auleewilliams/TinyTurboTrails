@@ -82,9 +82,9 @@ test('Cove cached map preview renders fixed stones and its initial dune framing'
     const probe={tops:[] as object[],png:'',sources:0,kitUrls:[] as string[]};Object.assign(window,{covePreviewProbe:probe});
     const draw=CanvasRenderingContext2D.prototype.drawImage;
     CanvasRenderingContext2D.prototype.drawImage=function(this:CanvasRenderingContext2D,...args:Parameters<typeof draw>){
-      const [image,sx,sy,sw,,dx,dy,dw,dh]=args;
+      const [image,sx,,sw,sh,dx,dy,dw,dh]=args;
       if(this.canvas.id!=='game'&&image instanceof HTMLImageElement&&image.src.endsWith('/assets/cove/terrain-kit/atlas.png')
-        &&sw===1&&(sy===30||sy===46)&&sx>=104) {
+        &&sx===256&&sw===dw&&sh===dh&&sw>=90&&sw<=180) {
         urls.add(image.src);
         const rows=fills.get(this.canvas)??[];
         const row=rows.find(row=>row.y===dy&&row.x+row.width===dx);
@@ -165,7 +165,7 @@ test('Cove all 42 gems use native input, fixed stones, low finds and three optio
   await info.attach('all-42-input-journey',{body:JSON.stringify(records),contentType:'application/json'});await evidence.finish(browser.version());
 });
 
-for (const resource of ['manifest.json', 'atlas.png']) test(`Cove terrain kit ${resource} failure recovers through ordinary Retry`, async ({ page }) => {
+for (const resource of ['manifest.json', 'atlas.png', 'ground.png']) test(`Cove terrain kit ${resource} failure recovers through ordinary Retry`, async ({ page }) => {
   const path = `**/assets/cove/terrain-kit/${resource}`;
   await page.route(path, route => route.abort());
   await page.goto('/?debug=1');
