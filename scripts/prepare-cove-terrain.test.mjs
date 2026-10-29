@@ -1,3 +1,4 @@
+import { assertPngPixelContract } from './png-pixel-contract.mjs';
 import { beforeWaterLanding } from './water-landing-preservation.mjs';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
@@ -30,10 +31,16 @@ test('actual generated Cove sources reproduce the complete RGBA atlas without lo
   assert.equal(hash(sources.ground), 'd61a31eae616e347ba0e10182d37355d16b39733db93bdd077cc64a795825bb2');
   assert.equal(hash(sources.platform), 'ed16a3fbdfe9ece989c83a1c1f1eb2c9eeb47499150ce43335660575650e1f96');
   const result = prepareCoveKit(sources, record, JSON.parse(read('geometry-pin.json')));
-  assert.deepEqual(result.png, read('prepared/atlas.png'));
-  assert.deepEqual(result.png, readFileSync(new URL('../public/assets/cove/terrain-kit/atlas.png', import.meta.url)));
+  const committed = read('prepared/atlas.png'), committedGround = read('prepared/ground.png');
+  assertPngPixelContract(result.png, committed, { ...record.atlasSize, pixelSha256: record.pixelSha256 });
+  assert.deepEqual(committed, readFileSync(new URL('../public/assets/cove/terrain-kit/atlas.png', import.meta.url)));
   assert.equal(hash(result.image.data), record.pixelSha256);
-  assert.deepEqual(result.groundPng, read('prepared/ground.png'));
+  const level = JSON.parse(read('geometry-pin.json'));
+  assertPngPixelContract(result.groundPng, committedGround, { width: level.width, height: level.height, pixelSha256: record.groundPixelSha256 });
+  assert.deepEqual(committedGround, readFileSync(new URL('../public/assets/cove/terrain-kit/ground.png', import.meta.url)));
+  const repeated = prepareCoveKit(sources, record, level);
+  assert.ok(repeated.png.equals(result.png), 'same-environment atlas encoding is deterministic');
+  assert.ok(repeated.groundPng.equals(result.groundPng), 'same-environment ground encoding is deterministic');
   assert.equal(hash(result.ground.data), record.groundPixelSha256);
   const atlas = decodePng(result.png);
   let transparent = 0, cream = 0;

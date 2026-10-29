@@ -1,3 +1,4 @@
+import { assertPngPixelContract } from './png-pixel-contract.mjs';
 import { beforeWaterLanding } from './water-landing-preservation.mjs';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
@@ -28,9 +29,11 @@ test('measured source has seven native roles at one exact isotropic 16:1 scale, 
   assert.throws(() => prepareCoveMaterials(bytes, bad), /native role/);
 });
 
-test('real source RGBA preparation reproduces shipped bytes, retains cream and eliminates key/fringes', () => {
-  assert.deepEqual(result.png, read('prepared/atlas.png'));
-  assert.deepEqual(result.png, readFileSync(new URL('../public/assets/cove/materials/atlas.png', import.meta.url)));
+test('real source RGBA preparation reproduces exact shipped pixels, retains cream and eliminates key/fringes', () => {
+  const committed = read('prepared/atlas.png');
+  assertPngPixelContract(result.png, committed, { width: 512, height: 160,
+    pixelSha256: JSON.parse(read('prepared/pixel-hashes.json')).pixelSha256 });
+  assert.deepEqual(committed, readFileSync(new URL('../public/assets/cove/materials/atlas.png', import.meta.url)));
   assert.equal(result.pixelSha256, JSON.parse(read('prepared/pixel-hashes.json')).pixelSha256);
   assert.deepEqual(prepareCoveMaterials(bytes, record).png, result.png);
   let clear = 0, cream = 0, partial = 0;
