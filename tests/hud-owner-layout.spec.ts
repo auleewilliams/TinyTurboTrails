@@ -1,3 +1,4 @@
+import { createHudResponseObserver } from './hud-response-observation';
 import { test, expect, type Page } from '@playwright/test';
 import { readFileSync } from 'node:fs';
 import { writeFile } from 'node:fs/promises';
@@ -80,7 +81,8 @@ for (const level of LEVELS) test(`owner HUD order real-font fixture: ${level.id}
   // Explicit layout states, not scene mutation or a claim of input-driven gameplay.
   const names = ['world/camera.ts', 'game/platforms.ts', 'game/movement.ts', 'game/education.ts', 'art/interface-kit.ts', 'game/hud.ts', 'world/scenery.ts',
     'world/cove-terrain.ts', 'world/surface-materials.ts', 'world/assets.ts', 'world/trail-presentation.ts', 'world/ambient-weather.ts', 'world/renderer.ts'];
-  const served:object[]=[],pending:Promise<void>[]=[];page.on('response',response=>pending.push((async()=>{const bytes=await response.body();served.push({url:response.url(),status:response.status(),sha256:createHash('sha256').update(bytes).digest('hex')});})()));
+  const transport = createHudResponseObserver();
+  page.on('response', transport.observe);
   const errors: string[] = []; page.on('pageerror', error => errors.push(error.message));
   const modules = names.map(name => readFileSync(new URL(`../src/${name}`, import.meta.url), 'utf8'));
   const runtimeImports = [...new Set(modules.flatMap(source => [...source.matchAll(/^import (?!type )\{([^}]*)\} from .*;$/gm)]
@@ -171,22 +173,25 @@ for (const level of LEVELS) test(`owner HUD order real-font fixture: ${level.id}
       const notice = [longest, 'Checkpoint reached!', longest, areaName(level, level.checkpoints.length - 1), ''][state];
       await page.evaluate(({ state, hint, notice }) => (window as unknown as { hudFixture: { set(s: number, h: string, n: string): void } }).hudFixture.set(state, hint, notice), { state, hint, notice });
       await twoFrames(page);
-      const sample = await page.evaluate(() => (window as unknown as { hudFixtureSample: { count: number; clearance: Record<string, boolean>; assets: { loaded: boolean }[]; henryRect: { x: number; y: number; width: number; height: number } } }).hudFixtureSample);
+      const sample = await page.evaluate(() => (window as unknown as { hudFixtureSample: { count: number; clearance: Record<string, boolean>; assets: { source: string; loaded: boolean }[]; henryRect: { x: number; y: number; width: number; height: number } } }).hudFixtureSample);
       const geometry=await page.locator('#game').evaluate((c:HTMLCanvasElement)=>({native:[c.width,c.height],css:{width:c.getBoundingClientRect().width,height:c.getBoundingClientRect().height}}));
       const png=await page.locator('#game').screenshot();
       await info.attach(`observed-${level.id}-${viewport.width}-${state}`,{body:JSON.stringify({kind:'isolated actual renderer/font/art fixture, NOT input gameplay',viewport,geometry,pngSize:[png.readUInt32BE(16),png.readUInt32BE(20)],sample,hint,notice}),contentType:'application/json'});
       await info.attach(`observed-png-${level.id}-${viewport.width}-${state}`,{body:png,contentType:'image/png'});
       samples.push({ viewport, ...sample, hint, notice });
       await page.screenshot({ path: info.outputPath(`fixture-${level.id}-bag${state}-${viewport.width}.png`) });
+      transport.assertHealthy();
       if (viewport.width === 426) {
         const png = await page.locator('#game').evaluate(canvas => (canvas as HTMLCanvasElement).toDataURL().split(',')[1]);
         await writeFile(info.outputPath(`fixture-${level.id}-bag${state}-logical.png`), Buffer.from(png, 'base64'));
       }
     }
   }
-  await Promise.all(pending);
+  await transport.settle();
+  page.off('response', transport.observe);
   const glyphs=await kitTextProbe(page);
-  await info.attach('source-glyph-ledger',{body:JSON.stringify({kind:'isolated renderer fixture, NOT gameplay',samples,glyphs,runtimeImports,served,sourceHashes:Object.fromEntries(names.map((name,i)=>[name,createHash('sha256').update(modules[i]).digest('hex')]))}),contentType:'application/json'});
+  await info.attach('source-glyph-ledger',{body:JSON.stringify({kind:'isolated renderer fixture, NOT gameplay',samples,glyphs,runtimeImports,served:transport.records,sourceHashes:Object.fromEntries(names.map((name,i)=>[name,createHash('sha256').update(modules[i]).digest('hex')]))}),contentType:'application/json'});
+  transport.assertComplete([...new Set(samples.flatMap(entry => entry.assets.map(asset => asset.source)))]);
   for(const entry of samples) {
     const actual=entry as unknown as {bag:{x:number;y:number;width:number;height:number};pouchRect:number[];fills:{x:number;y:number;width:number;height:number;color:string}[];texts:{text:string;top:number;bottom:number;left:number;right:number}[];notice:string;state:number;clearance:{pouch:boolean;marks:boolean;icons:boolean;bag:boolean;hintAndNotice:boolean}};
     expect(actual.bag).toEqual({x:325,y:5,width:96,height:28});

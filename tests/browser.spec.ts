@@ -1,3 +1,4 @@
+import { landmarkLabelProbeInit, landmarkGameplayAnchor } from './landmark-label-observation';
 import { installCovePilot, driveCove } from './cove-browser-pilot';
 import { COVE_RETURN, COVE_LOWER, walk as coveWalk, jump as coveJump } from './cove-pilot';
 import { FROST_MAIN, FROST_RETURN, FROST_REASCENT, FROST_MISS_S } from './frost-pilot';
@@ -4668,31 +4669,7 @@ test('compact HUD learned hints stay cleared through real input and pause while 
 
 /** Observe actual map glyph extents and loaded art without changing scene state. */
 async function observeLandmarkLabels(page: Page): Promise<void> {
-  await page.addInitScript(() => {
-    const probe = { labels: [] as { text: string; left: number; top: number; right: number; bottom: number }[],
-      panel: [] as string[], assets: [] as string[] };
-    Object.assign(window, { landmarkLabelProbe: probe });
-    const fillText = CanvasRenderingContext2D.prototype.fillText;
-    CanvasRenderingContext2D.prototype.fillText = function (text, x, y, maxWidth) {
-      if (this.canvas.id === 'game') {
-        if (text === 'PATCHWORK VALE') { probe.labels = []; probe.panel = []; }
-        if (['Plains', 'Quarry', 'Timbers', 'Sunset', 'Frost', 'Cove'].includes(text)) {
-          const m = this.measureText(text);
-          probe.labels.push({ text, left: x - m.actualBoundingBoxLeft, top: y - m.actualBoundingBoxAscent,
-            right: x + m.actualBoundingBoxRight, bottom: y + m.actualBoundingBoxDescent });
-          this.canvas.dataset.landmarkLabels = JSON.stringify(probe.labels.map(label => label.text));
-        }
-        if (x === 350 && (y === 63 || y === 76)) probe.panel.push(text);
-        if (x === 415 && y === 20) this.canvas.dataset.gameplayTrail = text;
-      }
-      if (maxWidth === undefined) fillText.call(this, text, x, y); else fillText.call(this, text, x, y, maxWidth);
-    };
-    const drawImage = CanvasRenderingContext2D.prototype.drawImage;
-    CanvasRenderingContext2D.prototype.drawImage = function (image: CanvasImageSource, ...args: number[]) {
-      if (image instanceof HTMLImageElement && image.complete && !probe.assets.includes(image.src)) probe.assets.push(image.src);
-      return Reflect.apply(drawImage, this, [image, ...args]);
-    };
-  });
+  await page.addInitScript(landmarkLabelProbeInit, landmarkGameplayAnchor);
 }
 
 for (const viewport of [{ width: 426, height: 240 }, { width: 320, height: 240 }, { width: 1366, height: 768 }]) {
@@ -4746,6 +4723,12 @@ for (const viewport of [{ width: 426, height: 240 }, { width: 320, height: 240 }
       const openingLabel = next.sections ? openingSection?.name ?? next.name : (openingArea < 0 ? next.name : areaName(next, openingArea));
       if (next.id === 'frost') expect(openingLabel).toBe('FIRST SLIDE');
       await expect(canvas).toHaveAttribute('data-gameplay-trail', openingLabel);
+      const gameplayGlyph = JSON.parse((await canvas.getAttribute('data-gameplay-glyph'))!) as { text: string; x: number; y: number; left: number; right: number; top: number; bottom: number };
+      expect(gameplayGlyph.text).toBe(openingLabel);
+      expect({ x: gameplayGlyph.x, y: gameplayGlyph.y }).toEqual(landmarkGameplayAnchor);
+      expect(gameplayGlyph.right).toBeGreaterThan(gameplayGlyph.left);
+      expect(gameplayGlyph.bottom).toBeGreaterThan(gameplayGlyph.top);
+      await info.attach(`${next.id}-gameplay-label`, { body: JSON.stringify(gameplayGlyph), contentType: 'application/json' });
       await page.keyboard.press('Escape');
       await page.getByRole('button', { name: 'Return to Trails', exact: true }).click();
       await page.getByRole('button', { name: 'Return to Trails', exact: true }).click();
