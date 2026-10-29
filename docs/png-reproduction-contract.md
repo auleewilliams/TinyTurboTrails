@@ -1,6 +1,6 @@
 # Cove PNG reproduction contract (#235)
 
-The owner approved comparing regenerated PNGs with committed PNGs by exact decoded dimensions, complete RGBA bytes (including transparent RGB and alpha), and SHA256 computed independently from decoded pixels against the existing immutable records. This applies to the material atlas, terrain atlas and baked ground. Different valid IDAT compression is permitted. No visual tolerance or pixel change is permitted.
+The owner approved comparing regenerated PNGs with committed PNGs by exact decoded dimensions, complete RGBA bytes (including transparent RGB and alpha), and SHA256 computed independently from decoded pixels against the existing immutable records. This applies to the material atlas, terrain atlas, baked ground and separately versioned bay1 platform. Different valid IDAT compression is permitted. No visual tolerance or pixel change is permitted.
 
 The test-only `scripts/png-pixel-contract.mjs` additionally checks the complete prepared PNG profile: signature, IHDR dimensions/8-bit RGBA/noninterlaced format, chunk bounds/order, every chunk CRC, final IEND/no trailing data, complete zlib consumption, exact inflated row length and valid filter bytes. It then uses the unchanged production preparation decoder. This helper is deliberately limited to generated IHDR/IDAT/IEND RGBA outputs; it is not a replacement production codec or general-purpose PNG loader.
 
