@@ -3,7 +3,7 @@ import type { LevelData } from './level';
 
 export interface CovePiece { x: number; y: number; width: number; height: number }
 export interface CoveTerrainManifest { version: number; image: string; width: number; height: number; pieces: Record<string, CovePiece>; platforms: Record<string, CovePiece>; ground: { image: string; width: number; height: number } }
-export interface CoveTerrainAssets { image: HTMLImageElement; ground: HTMLImageElement; manifest: CoveTerrainManifest }
+export interface CoveTerrainAssets { image: HTMLImageElement; ground: HTMLImageElement; bay1?: HTMLImageElement; manifest: CoveTerrainManifest }
 
 /** Exact native dimensions are a presentation contract, independent of collision bodies. */
 export function validateCoveTerrain(value: unknown): asserts value is CoveTerrainManifest {
@@ -44,18 +44,19 @@ export async function loadCoveTerrain(base: string, path?: string): Promise<Cove
   if (!response.ok) throw new Error('Could not load Cove terrain metadata');
   const manifest: unknown = await response.json();
   validateCoveTerrain(manifest);
-  const images = await Promise.all([manifest.image, manifest.ground.image].map(async name => {
+  const images = await Promise.all([`terrain-kit/${manifest.image}`, `terrain-kit/${manifest.ground.image}`, 'bay1-b-v1/platform.png'].map(async name => {
     const image = new Image();
     await new Promise<void>((resolve, reject) => {
       image.onload = () => resolve(); image.onerror = () => reject(new Error('Could not load Cove terrain image'));
-      image.src = `${base}terrain-kit/${name}`;
+      image.src = `${base}${name}`;
     });
     return image;
   }));
-  const [image, ground] = images;
+  const [image, ground, bay1] = images;
   if (image.naturalWidth !== manifest.width || image.naturalHeight !== manifest.height
-    || ground.naturalWidth !== manifest.ground.width || ground.naturalHeight !== manifest.ground.height) throw new Error('Invalid Cove terrain image dimensions');
-  return { image, ground, manifest };
+    || ground.naturalWidth !== manifest.ground.width || ground.naturalHeight !== manifest.ground.height
+    || bay1.naturalWidth !== 140 || bay1.naturalHeight !== 30) throw new Error('Invalid Cove terrain image dimensions');
+  return { image, ground, bay1, manifest };
 }
 
 /** A mirrored repeat preserves original generated boundary pixels, without painting seam fixes. */
@@ -85,6 +86,15 @@ export function drawCoveGround(ctx: CanvasRenderingContext2D, kit: CoveTerrainAs
 /** One native bitmap per support: fractional camera positions cannot expose joins between separate draws. */
 export function drawCovePlatform(ctx: CanvasRenderingContext2D, kit: CoveTerrainAssets, _level: LevelData,
   body: PlatformBody, offset: { x: number; y: number }): void {
+  if (body.id === 'cove-bay-ledge-1' && kit.bay1) {
+    if (body.width !== 140) throw new Error('Invalid Cove bay1 presentation width');
+    ctx.save();
+    try {
+      ctx.imageSmoothingEnabled = false;
+      ctx.drawImage(kit.bay1, 0, 0, 140, 30, body.x - offset.x, body.y - offset.y, 140, 30);
+    } finally { ctx.restore(); }
+    return;
+  }
   const thin = body.id === 'cove-pool-stone-1' || body.id === 'cove-pool-stone-2';
   const key = body.id === 'cove-hollow-shelf' ? 'hollow-140' : body.id === 'cove-bay-ledge-2'
     ? 'regular-alt-160' : `${thin ? 'thin' : 'regular'}-${body.width}`;

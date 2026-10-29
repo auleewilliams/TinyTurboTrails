@@ -103,14 +103,15 @@ it('normalizes only exact approved presentation deltas and rejects unrelated sou
   const { createRequire }=await import('node:module');
   const {readFileSync}=await import('node:fs');
   const {createHash}=await import('node:crypto');
+  const {beforeOwnerHud}=createRequire(import.meta.url)('../scripts/hud-owner-preservation.mjs');
   const {beforeWaterLanding}=createRequire(import.meta.url)('../scripts/water-landing-preservation.mjs');
   const record=JSON.parse(readFileSync(new URL('../assets/source/cove/water-landing/presentation.json',import.meta.url),'utf8'));
   for(const [path,entry]of Object.entries(record.files) as [string,{baselineSha256:string}][]) {
     const bytes=readFileSync(new URL('../'+path,import.meta.url));
-    expect(createHash('sha256').update(beforeWaterLanding(path,bytes)).digest('hex')).toBe(entry.baselineSha256);
+    expect(createHash('sha256').update(beforeWaterLanding(path,beforeOwnerHud(path,bytes))).digest('hex')).toBe(entry.baselineSha256);
     for(const bad of [Buffer.concat([bytes,Buffer.from('\n// unrelated edit')]),Buffer.from(bytes.toString().replace('this.player.x','this.player.x + 1'))]) {
       if(bad.equals(bytes))continue;
-      expect(()=>beforeWaterLanding(path,bad)).toThrow();
+      expect(()=>beforeWaterLanding(path,beforeOwnerHud(path,bad))).toThrow();
     }
   }
   const movement=readFileSync(new URL('../src/game/movement.ts',import.meta.url));

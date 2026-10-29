@@ -9,13 +9,14 @@ const code = transformSync('cove-terrain.ts', readFileSync(new URL('../src/world
   .replace(/^import .*;\n/gm, '').replace(/\bexport /g, ''), {}).code;
 const manifest = JSON.parse(readFileSync(new URL('../public/assets/cove/terrain-kit/manifest.json', import.meta.url), 'utf8'));
 const atlas = readFileSync(new URL('../public/assets/cove/terrain-kit/atlas.png', import.meta.url)).toString('base64');
+const bay1 = readFileSync(new URL('../public/assets/cove/bay1-b-v1/platform.png', import.meta.url)).toString('base64');
 const ground = readFileSync(new URL('../public/assets/cove/terrain-kit/ground.png', import.meta.url)).toString('base64');
 
 test('Cove production raster has no internal coverage gaps at fractional cameras', async ({ page, browser }, info) => {
   // Isolated real browser rasterization, not a played route or generated replacement art.
   await page.setContent('<canvas width="426" height="240"></canvas>');
   await page.addScriptTag({ content: `${code}\nwindow.coveRaster = { drawCoveGround, drawCovePlatform, coveGroundY };` });
-  const result = await page.evaluate(async ({ manifest, atlas, ground, level, bodies }) => {
+  const result = await page.evaluate(async ({ manifest, atlas, ground, bay1, level, bodies }) => {
     type RasterLevel = typeof level;
     type RasterBody = typeof bodies[number];
     const helpers = (window as unknown as { coveRaster: {
@@ -24,7 +25,7 @@ test('Cove production raster has no internal coverage gaps at fractional cameras
       coveGroundY: (level: RasterLevel, x: number) => number;
     } }).coveRaster;
     const decode = async (png: string) => { const image = new Image(); image.src = `data:image/png;base64,${png}`; await image.decode(); return image; };
-    const actual = { image: await decode(atlas), ground: await decode(ground), manifest };
+    const actual = { image: await decode(atlas), ground: await decode(ground), bay1: await decode(bay1), manifest };
     const diagnostic = (width: number, height: number) => {
       const c = document.createElement('canvas'); c.width = width; c.height = height;
       const ctx = c.getContext('2d')!; ctx.fillStyle = '#ff0000'; ctx.fillRect(0, 0, width, height); return c;
@@ -37,6 +38,10 @@ test('Cove production raster has no internal coverage gaps at fractional cameras
     const sourceCanvas = document.createElement('canvas'); sourceCanvas.width = manifest.width; sourceCanvas.height = manifest.height;
     const sourceCtx = sourceCanvas.getContext('2d')!; sourceCtx.drawImage(actual.image, 0, 0);
     const sourcePixels = sourceCtx.getImageData(0, 0, manifest.width, manifest.height).data;
+    const bayCanvas = document.createElement('canvas'); bayCanvas.width = 140; bayCanvas.height = 30;
+    const bayCtx = bayCanvas.getContext('2d')!; bayCtx.drawImage(actual.bay1, 0, 0);
+    const bayPixels = bayCtx.getImageData(0, 0, 140, 30).data;
+    let baySamples = 0;
     let groundSamples = 0, stoneSamples = 0, actualStoneSamples = 0, intentionalAlphaExcluded = 0, frames = 0;
     const errors: object[] = [];
     for (const fraction of [0, .25, .5, .75, 1]) for (const origin of [100, 820, 940, 1600, 2920, 3740]) {
@@ -76,7 +81,9 @@ test('Cove production raster has no internal coverage gaps at fractional cameras
       const body = { ...sourceBody, x: 20, y: 30 };
       const thin = body.id === 'cove-pool-stone-1' || body.id === 'cove-pool-stone-2';
       const key = body.id === 'cove-hollow-shelf' ? 'hollow-140' : body.id === 'cove-bay-ledge-2' ? 'regular-alt-160' : `${thin ? 'thin' : 'regular'}-${body.width}`;
-      const part = manifest.platforms[key];
+      const isBay1 = body.id === 'cove-bay-ledge-1';
+      const part = isBay1 ? { x: 0, y: 0, width: 140, height: 30 } : manifest.platforms[key];
+      const samples = isBay1 ? bayPixels : sourcePixels, sourceWidth = isBay1 ? 140 : manifest.width;
       ctx.clearRect(0, 0, 426, 240); helpers.drawCovePlatform(ctx, actual, level, body, { x: fraction, y: fraction });
       const pixels = ctx.getImageData(0, 0, 426, 240).data;
       for (let x = 22; x < 18 + body.width; x++) for (let y = 31; y < 29 + part.height; y++) {
@@ -86,19 +93,20 @@ test('Cove production raster has no internal coverage gaps at fractional cameras
         let opaque = true;
         for (let oy = -1; oy <= 1; oy++) for (let ox = -1; ox <= 1; ox++) {
           if (sx + ox < 0 || sx + ox >= part.width || sy + oy < 0 || sy + oy >= part.height
-            || sourcePixels[((part.y + sy + oy) * manifest.width + part.x + sx + ox) * 4 + 3] !== 255) opaque = false;
+            || samples[((part.y + sy + oy) * sourceWidth + part.x + sx + ox) * 4 + 3] !== 255) opaque = false;
         }
         if (!opaque) { intentionalAlphaExcluded++; continue; }
-        actualStoneSamples++;
+        actualStoneSamples++; if (isBay1) baySamples++;
         const alpha = pixels[(y * 426 + x) * 4 + 3];
         if (alpha !== 255 && errors.length < 10) errors.push({ kind: 'actual-source opaque stone interior', fraction, id: body.id, x, y, alpha });
       }
     }
-    return { errors, groundSamples, stoneSamples, actualStoneSamples, intentionalAlphaExcluded, frames, png: ctx.canvas.toDataURL(), scope: 'isolated production-helper real-browser raster; synthetic fixture explicitly separated from generated art and gameplay' };
-  }, { manifest, atlas, ground, level: SANDY_COVE, bodies: platformBodiesAt(SANDY_COVE.platforms, 0) });
+    return { baySamples, errors, groundSamples, stoneSamples, actualStoneSamples, intentionalAlphaExcluded, frames, png: ctx.canvas.toDataURL(), scope: 'isolated production-helper real-browser raster; synthetic fixture explicitly separated from generated art and gameplay' };
+  }, { manifest, atlas, ground, bay1, level: SANDY_COVE, bodies: platformBodiesAt(SANDY_COVE.platforms, 0) });
   await info.attach('isolated-raster-observations', { body: JSON.stringify({ ...result, png: undefined, browser: browser.version() }), contentType: 'application/json' });
-  await info.attach('synthetic-regression-fixture-last-frame-not-gameplay', { body: Buffer.from(result.png.split(',')[1], 'base64'), contentType: 'image/png' });
+  await info.attach('actual-source-raster-last-frame-not-gameplay', { body: Buffer.from(result.png.split(',')[1], 'base64'), contentType: 'image/png' });
   expect(result.groundSamples).toBeGreaterThan(1000); expect(result.stoneSamples).toBeGreaterThan(1000);
   expect(result.actualStoneSamples).toBeGreaterThan(1000); expect(result.intentionalAlphaExcluded).toBeGreaterThan(0);
+  expect(result.baySamples).toBeGreaterThan(500);
   expect(result.errors).toEqual([]);
 });

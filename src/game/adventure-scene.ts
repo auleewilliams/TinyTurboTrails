@@ -22,7 +22,7 @@ import { LEVELS } from '../world/levels';
 import { Camera } from '../world/camera';
 import { drawWorld, drawWorldForeground } from '../world/renderer';
 import type { WorldAssetMap, WorldAssets } from '../world/assets';
-import { drawCollectionBag, drawGameplayHud, HudPresentation } from './hud';
+import { BAG_PICKUP, drawCollectionBag, drawGameplayHud, HudPresentation } from './hud';
 import { Feedback } from './feedback';
 import { CompletionCelebration, celebrationJump, celebrationSparkles } from './celebration';
 
@@ -297,8 +297,8 @@ export class AdventureScene implements Scene {
     drawCollectionBag(ctx, this.education, this.spelling?.pouch, this.ui);
     for (const flight of this.letterFlights) {
       const t = flight.age / 0.65;
-      const x = this.reducedMotion ? 342 : flight.x + (342 - flight.x) * t;
-      const y = this.reducedMotion ? 74 : flight.y + (44 - flight.y) * t - Math.sin(t * Math.PI) * 25;
+      const x = this.reducedMotion ? BAG_PICKUP.x : flight.x + (BAG_PICKUP.x - flight.x) * t;
+      const y = this.reducedMotion ? BAG_PICKUP.reducedY : flight.y + (BAG_PICKUP.y - flight.y) * t - Math.sin(t * Math.PI) * 25;
       ctx.globalAlpha = 1 - t * 0.5;
       drawLetterTile(ctx, this.spelling?.tile, flight.letter, x - 11, y - 18, 22, 24);
     }

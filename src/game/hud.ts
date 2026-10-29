@@ -15,7 +15,10 @@ export const HUD_PLAQUES = {
   stars: { x: 145, y: 5, width: 62, height: 20 },
 } as const;
 // The 24px pouch needs 28px of backing to keep its opaque pixels inside the kit rim.
-export const BAG_PLAQUE = { x: 325, y: 31, width: 96, height: 28 } as const;
+export const BAG_PLAQUE = { x: 325, y: 5, width: 96, height: 28 } as const;
+/** Letter baseline targets; reduced motion keeps the whole24px tile over the pouch. */
+export const BAG_PICKUP = { x: BAG_PLAQUE.x + 17, y: BAG_PLAQUE.y + 13, reducedY: BAG_PLAQUE.y + 20 } as const;
+export const HUD_NOTICE_Y = BAG_PLAQUE.y + BAG_PLAQUE.height + 4;
 function plaque(ctx: CanvasRenderingContext2D, ui: InterfaceKit | undefined, { x, y, width, height }: { x: number; y: number; width: number; height: number }): void {
   drawKitFrame(ctx, ui, 'plaque', x, y, width, height, { fill: HUD_COLORS.panel }, PLAQUE_TEXT_SLICE);
 }
@@ -25,16 +28,17 @@ export function drawCollectionBag(ctx: CanvasRenderingContext2D, collection: Pic
   pouch?: HTMLImageElement, ui?: InterfaceKit): void {
   ctx.save();
   drawBagBacking(ctx, ui);
-  if (pouch) ctx.drawImage(pouch, 330, 33, 24, 24);
+  const { x: bagX, y: bagY } = BAG_PLAQUE;
+  if (pouch) ctx.drawImage(pouch, bagX + 5, bagY + 2, 24, 24);
   else {
     ctx.fillStyle = HUD_COLORS.hit;
-    ctx.fillRect(333, 40, 18, 13); ctx.fillRect(337, 36, 10, 3);
+    ctx.fillRect(bagX + 8, bagY + 9, 18, 13); ctx.fillRect(bagX + 12, bagY + 5, 10, 3);
   }
   collection.pickups.forEach((pickup, index) => {
-    const x = 359 + index * 14;
-    ctx.fillStyle = HUD_COLORS.ink; ctx.fillRect(x - 1, 39, 8, 8);
+    const x = bagX + 34 + index * 14;
+    ctx.fillStyle = HUD_COLORS.ink; ctx.fillRect(x - 1, bagY + 8, 8, 8);
     ctx.fillStyle = collection.hasLetter(pickup.id) ? HUD_COLORS.hit : HUD_COLORS.empty;
-    ctx.fillRect(x, 40, 6, 6);
+    ctx.fillRect(x, bagY + 9, 6, 6);
   });
   ctx.restore();
 }
@@ -47,7 +51,6 @@ function drawCounterIcon(ctx: CanvasRenderingContext2D, rows: readonly string[],
   rows.forEach((row, dy) => [...row].forEach((pixel, dx) => { if (pixel === '1') ctx.fillRect(x + dx, y + dy, 1, 1); }));
   ctx.fillStyle = '#fff7d6'; ctx.fillRect(x + 4, y + 2, 2, 2);
 }
-export const RIBBON_INTRO = 'Trail: Henry = you; posts = saves; flag = end';
 export interface TrailProgress {
   position: number;
   checkpoints: readonly { id: string; position: number; activated: boolean }[];
@@ -161,7 +164,6 @@ export class HudPresentation {
   private jumpSeconds = 4;
   private moved = false;
   private jumped = false;
-  private ribbonSeconds = 4;
   private readonly activatedCheckpoints = new Set<string>();
   /** Event history is presentation-only and is discarded with this HUD on a new run. */
   consume(events: readonly RunEvent[]): void {
@@ -177,7 +179,7 @@ export class HudPresentation {
       })),
     };
   }
-  update(seconds: number, input: InputFrame, level: LevelData, x: number, importantFeedback = false, supportY = level.start.y): void {
+  update(seconds: number, input: InputFrame, level: LevelData, x: number, _importantFeedback = false, supportY = level.start.y): void {
     this.source = input.source ?? 'keyboard';
     this.locationSeconds = Math.max(0, this.locationSeconds - seconds);
     // Announce the approach to an area, ahead of its checkpoint celebration.
@@ -210,10 +212,6 @@ export class HudPresentation {
       this.hint = controls[1];
     } else {
       this.hint = '';
-      if (!importantFeedback && this.locationSeconds === 0 && this.ribbonSeconds > 0) {
-        this.ribbonSeconds = Math.max(0, this.ribbonSeconds - seconds);
-        if (this.ribbonSeconds > 0) this.hint = RIBBON_INTRO;
-      }
     }
   }
 }
@@ -261,10 +259,10 @@ export function drawGameplayHud(ctx: CanvasRenderingContext2D, run: RunState, hi
   if (notice) {
     ctx.font = 'bold 10px monospace';
     const width = ctx.measureText(notice).width + 12;
-    plaque(ctx, ui, { x: 421 - width, y: 5, width, height: 22 });
+    plaque(ctx, ui, { x: 421 - width, y: HUD_NOTICE_Y, width, height: 22 });
     ctx.fillStyle = HUD_COLORS.hit;
     ctx.textAlign = 'right';
-    ctx.fillText(notice, 415, 20);
+    ctx.fillText(notice, 415, HUD_NOTICE_Y + 15);
   }
   if (progress) drawTrailRibbon(ctx, progress, ui);
   ctx.restore();

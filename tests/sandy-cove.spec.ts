@@ -1,4 +1,6 @@
 import { expect, test } from '@playwright/test';
+import { Camera } from '../src/world/camera';
+import { SANDY_COVE } from '../src/world/sandy-cove';
 import { COVE_ART_PILOT_STAGES } from './cove-art-pilot-stages';
 import { startCove, driveCove, observeCove } from './cove-browser-pilot';
 import { COVE_LOWER, COVE_MISS_ALL, COVE_RETURN, COVE_A, COVE_N, walk, jump } from './cove-pilot';
@@ -88,8 +90,8 @@ test('Cove cached map preview renders fixed stones and its initial dune framing'
       if(this.canvas.id!=='game'&&image instanceof HTMLImageElement&&image.src.endsWith('/assets/cove/materials/atlas.png')&&sh===8) {
         const rows=materialDraws.get(this.canvas)??[];rows.push({source:image.src,sourceY:args[2],width:dw,height:dh,dx,dy});materialDraws.set(this.canvas,rows);
       }
-      if(this.canvas.id!=='game'&&image instanceof HTMLImageElement&&image.src.endsWith('/assets/cove/terrain-kit/atlas.png')
-        &&sx===256&&sw===dw&&sh===dh&&sw>=90&&sw<=180) {
+      if(this.canvas.id!=='game'&&image instanceof HTMLImageElement&&(image.src.endsWith('/assets/cove/terrain-kit/atlas.png') && sx===256 || image.src.endsWith('/assets/cove/bay1-b-v1/platform.png') && sx===0)
+        &&sw===dw&&sh===dh&&sw>=90&&sw<=180) {
         urls.add(image.src);
         const rows=fills.get(this.canvas)??[];
         const row=rows.find(row=>row.y===dy&&row.x+row.width===dx);
@@ -107,7 +109,16 @@ test('Cove cached map preview renders fixed stones and its initial dune framing'
   const first=await page.evaluate(()=>(window as unknown as {covePreviewProbe:{tops:{x:number}[];png:string;sources:number;kitUrls:string[];materialDraws:object[]}}).covePreviewProbe);
   expect(first.tops).toContainEqual({x:1700,y:74,width:100,height:6});
   expect(first.tops.map(top=>top.x)).toEqual([980,1700,2230,2380,2960,3140,3340]);
-  expect(first.kitUrls).toEqual([expect.stringContaining('/assets/cove/terrain-kit/atlas.png')]);
+  expect(first.kitUrls).toEqual([expect.stringContaining('/assets/cove/terrain-kit/atlas.png'), expect.stringContaining('/assets/cove/bay1-b-v1/platform.png')]);
+  // preview() initializes this camera from the standing body's top; draw calls
+  // contain world-minus-camera coordinates before the thumbnail is scaled.
+  const level=SANDY_COVE;
+  const previewCamera=new Camera({width:426,height:240,worldWidth:level.width,worldHeight:level.height,
+    vertical:level.verticalCamera||level.progressAxis==='y',lead:level.cameraLead});
+  previewCamera.update(level.start.x,level.start.y-34);
+  const bay1=level.platforms!.find(platform=>platform.id==='cove-bay-ledge-1')!;
+  expect(first.tops).toContainEqual({x:bay1.from.x-previewCamera.position.x,
+    y:bay1.from.y-previewCamera.position.y,width:bay1.width,height:30});
   expect(first.materialDraws).toContainEqual({source:expect.stringContaining('/assets/cove/materials/atlas.png'),sourceY:64,width:30,height:8,dx:75,dy:138});
   await info.attach('actual-cached-preview-source',{body:Buffer.from(first.png.split(',')[1],'base64'),contentType:'image/png'});
   for(const width of [426,320]) {await page.setViewportSize({width,height:width===426?300:240});await evidence.paint(`cached-preview-${width}`);}
@@ -202,7 +213,7 @@ for (const width of [426, 320]) test(`Cove illustrated kit keeps underpass and u
     const draw = CanvasRenderingContext2D.prototype.drawImage;
     CanvasRenderingContext2D.prototype.drawImage = function (this: CanvasRenderingContext2D, ...args: Parameters<typeof draw>) {
       if (this.canvas.id === 'game' && args[0] instanceof HTMLImageElement) {
-        if (args[0].src.endsWith('/assets/cove/terrain-kit/atlas.png')) {
+        if (args[0].src.endsWith('/assets/cove/terrain-kit/atlas.png') || args[0].src.endsWith('/assets/cove/bay1-b-v1/platform.png')) {
           probe.kitColumns++; if (probe.paintedHenry) probe.afterHenryKit++;
         }
         if (args[0].src.endsWith('/assets/henry/henry-celebration.png')) probe.paintedHenry = true;

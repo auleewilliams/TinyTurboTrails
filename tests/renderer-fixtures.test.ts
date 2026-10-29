@@ -63,6 +63,11 @@ it('function-string fixtures carry and execute the actual Cove helper dependency
   fixture.drawCoveGround(ctx, { manifest, image: {}, ground: {} }, SANDY_COVE, { x: 940.25, y: 220.5 }, 0, 4200);
   fixture.drawCovePlatform(ctx, { manifest, image: {}, ground: {} }, SANDY_COVE, platformBodyAt(SANDY_COVE.platforms![0], 0), { x: 940.25, y: 220.5 });
   expect(calls).toHaveLength(2);
+  const bay1 = {};
+  const body = platformBodyAt(SANDY_COVE.platforms!.find(p => p.id === 'cove-bay-ledge-1')!, 0);
+  fixture.drawCovePlatform(ctx, { manifest, image: {}, ground: {}, bay1 }, SANDY_COVE, body, { x: 0, y: 0 });
+  expect(calls.at(-1)).toEqual([bay1, 0, 0, 140, 30, 2960, 272, 140, 30]);
+  expect(calls).toHaveLength(3);
   const materialManifest = JSON.parse(readFileSync(new URL('../public/assets/cove/materials/manifest.json', import.meta.url), 'utf8'));
   fixture.validateCoveMaterials(materialManifest);
   const materialCalls: unknown[][] = [];

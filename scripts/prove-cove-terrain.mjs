@@ -15,7 +15,8 @@ const { ground, platform, level, bodies, groundY } = new Function(`${code}\nretu
 const atlas = decodePng(await readFile('public/assets/cove/terrain-kit/atlas.png'));
 const manifest = JSON.parse(await readFile('public/assets/cove/terrain-kit/manifest.json', 'utf8'));
 const groundImage = decodePng(await readFile('public/assets/cove/terrain-kit/ground.png'));
-const kit = { image: atlas, ground: groundImage, manifest };
+const bay1 = decodePng(await readFile('public/assets/cove/bay1-b-v1/platform.png'));
+const kit = { image: atlas, ground: groundImage, bay1, manifest };
 const records = [];
 const hash = bytes => createHash('sha256').update(bytes).digest('hex');
 async function emit(name, image, detail) {
@@ -60,6 +61,9 @@ function resize(source,width,height) {
   return out;
 }
 for(const [name,color]of [['light',[242,234,211]],['dark',[19,37,44]]]) {
+  const single=canvas(140,30,color); single.ctx.drawImage(bay1,0,0,140,30,0,0,140,30);
+  await emit(`bay1-native-${name}-NOT-GAMEPLAY`,single.image,{id:'cove-bay-ledge-1',scale:1});
+  await emit(`bay1-enlarged-${name}-NOT-GAMEPLAY`,resize(single.image,560,120),{id:'cove-bay-ledge-1',scale:4});
   const proof=canvas(atlas.width,atlas.height,color);proof.ctx.drawImage(atlas,0,0,atlas.width,atlas.height,0,0,atlas.width,atlas.height);
   await emit(`atlas-native-${name}`,proof.image,{});await emit(`atlas-small-${name}`,resize(proof.image,384,192),{scale:.75});
   const widths=canvas(426,190,color);
@@ -93,29 +97,29 @@ const constraints = [];
 for (const body of bodies) {
   const calls = [];
   platform({ save() {}, restore() {}, drawImage(...args) { calls.push(args); } }, kit, level, body, { x: 0, y: 0 });
-  const [, sx, sy, sw, sh] = calls[0];
-  const topAlphas = Array.from({ length: sw }, (_, x) => atlas.data[(sy * atlas.width + sx + x) * 4 + 3]);
+  const [drawn, sx, sy, sw, sh] = calls[0];
+  const topAlphas = Array.from({ length: sw }, (_, x) => drawn.data[(sy * drawn.width + sx + x) * 4 + 3]);
   const nativeDepths = Array.from({ length: sw }, (_, x) => {
     let depth = 0;
-    for (let y = 0; y < sh; y++) if (atlas.data[((sy + y) * atlas.width + sx + x) * 4 + 3]) depth = y + 1;
+    for (let y = 0; y < sh; y++) if (drawn.data[((sy + y) * drawn.width + sx + x) * 4 + 3]) depth = y + 1;
     return depth;
   });
   const cap = body.id.includes('shelf') || /stone-[12]$/.test(body.id) ? 14 : 12;
-  const capSeams = [cap, sw - cap].map(x => {
+  const capSeams = (body.id === 'cove-bay-ledge-1' ? [] : [cap, sw - cap]).map(x => {
     const deltas = [];
     for (let y = 0; y < sh; y++) {
-      const a = atlas.data.subarray(((sy + y) * atlas.width + sx + x) * 4, ((sy + y) * atlas.width + sx + x) * 4 + 4);
-      const b = atlas.data.subarray(((sy + y) * atlas.width + sx + x - 1) * 4, ((sy + y) * atlas.width + sx + x - 1) * 4 + 4);
+      const a = drawn.data.subarray(((sy + y) * drawn.width + sx + x) * 4, ((sy + y) * drawn.width + sx + x) * 4 + 4);
+      const b = drawn.data.subarray(((sy + y) * drawn.width + sx + x - 1) * 4, ((sy + y) * drawn.width + sx + x - 1) * 4 + 4);
       if (a[3] && b[3]) deltas.push(a.slice(0, 3).reduce((sum, v, i) => sum + Math.abs(v - b[i]), 0));
     }
     return { column: x, opaqueRgbDeltas: deltas, maxRgbDelta: Math.max(0, ...deltas) };
   });
   constraints.push({ capSeams, id: body.id, x: body.x, topY: body.y, width: body.width, nominalCollisionHeight: body.height,
     actualTopOpaqueColumns: topAlphas.filter(a => a === 255).length, nativeDepths, drawSpans: calls.length,
-    sourceBoundsChecked: sx >= 0 && sy >= 0 && sx + sw <= atlas.width && sy + sh <= atlas.height,
+    sourceBoundsChecked: sx >= 0 && sy >= 0 && sx + sw <= drawn.width && sy + sh <= drawn.height,
     destinationBoundsChecked: calls.every(call => call[5] === body.x && call[7] === body.width && call[6] === body.y && call[4] === call[8]) });
 }
 await writeFile(`${destination}/constraint-diagnostics.json`, `${JSON.stringify({ kind: 'actual prepared-pixel/production-helper unit diagnostics, not gameplay', constraints }, null, 2)}\n`);
 const sourceModuleHashes = Object.fromEntries(await Promise.all(names.map(async name => [name, hash(await readFile(`src/${name}`))])));
-await writeFile(`${destination}/proof-ledger.json`, `${JSON.stringify({ kind: 'asset/unit proofs only', sourceModuleHashes, records }, null, 2)}\n`);
+await writeFile(`${destination}/proof-ledger.json`, `${JSON.stringify({ kind: 'asset/unit proofs only', sourceModuleHashes, preparedImages: { bay1: hash(await readFile('public/assets/cove/bay1-b-v1/platform.png')), legacy: hash(await readFile('public/assets/cove/terrain-kit/atlas.png')) }, records }, null, 2)}\n`);
 console.log(JSON.stringify({destination,proofs:records.length,kind:'software asset/unit proofs only; no browser launched'}));

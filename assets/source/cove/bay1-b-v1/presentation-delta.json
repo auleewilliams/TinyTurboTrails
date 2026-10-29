@@ -1,0 +1,38 @@
+{
+  "baselineRevision": "be0e8ec6d42826c6c61f064f01422bd33e0ded43",
+  "path": "src/world/cove-terrain.ts",
+  "baselineSha256": "d360a89ab697806c952490b92841f800f0025d03ddbca358a45d6d4f15b168d7",
+  "currentSha256": "05f03441491d238807069c7c193cb8634a850986a74c24d04d226d36596cf20e",
+  "changes": [
+    {
+      "before": "export interface CoveTerrainAssets { image: HTMLImageElement; ground: HTMLImageElement; manifest: CoveTerrainManifest }\n",
+      "after": "export interface CoveTerrainAssets { image: HTMLImageElement; ground: HTMLImageElement; bay1?: HTMLImageElement; manifest: CoveTerrainManifest }\n",
+      "baselineLine": 6
+    },
+    {
+      "before": "  const images = await Promise.all([manifest.image, manifest.ground.image].map(async name => {\n",
+      "after": "  const images = await Promise.all([`terrain-kit/${manifest.image}`, `terrain-kit/${manifest.ground.image}`, 'bay1-b-v1/platform.png'].map(async name => {\n",
+      "baselineLine": 47
+    },
+    {
+      "before": "      image.src = `${base}terrain-kit/${name}`;\n",
+      "after": "      image.src = `${base}${name}`;\n",
+      "baselineLine": 51
+    },
+    {
+      "before": "  const [image, ground] = images;\n",
+      "after": "  const [image, ground, bay1] = images;\n",
+      "baselineLine": 55
+    },
+    {
+      "before": "    || ground.naturalWidth !== manifest.ground.width || ground.naturalHeight !== manifest.ground.height) throw new Error('Invalid Cove terrain image dimensions');\n  return { image, ground, manifest };\n",
+      "after": "    || ground.naturalWidth !== manifest.ground.width || ground.naturalHeight !== manifest.ground.height\n    || bay1.naturalWidth !== 140 || bay1.naturalHeight !== 30) throw new Error('Invalid Cove terrain image dimensions');\n  return { image, ground, bay1, manifest };\n",
+      "baselineLine": 57
+    },
+    {
+      "before": "  const thin = body.id === 'cove-pool-stone-1' || body.id === 'cove-pool-stone-2';\n",
+      "after": "  if (body.id === 'cove-bay-ledge-1' && kit.bay1) {\n    if (body.width !== 140) throw new Error('Invalid Cove bay1 presentation width');\n    ctx.save();\n    try {\n      ctx.imageSmoothingEnabled = false;\n      ctx.drawImage(kit.bay1, 0, 0, 140, 30, body.x - offset.x, body.y - offset.y, 140, 30);\n    } finally { ctx.restore(); }\n    return;\n  }\n  const thin = body.id === 'cove-pool-stone-1' || body.id === 'cove-pool-stone-2';\n",
+      "baselineLine": 88
+    }
+  ]
+}

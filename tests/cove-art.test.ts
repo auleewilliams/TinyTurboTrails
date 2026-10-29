@@ -31,3 +31,21 @@ it('restores canvas state when native terrain image drawing throws', () => {
   expect(() => drawCovePlatform(ctx, kit, SANDY_COVE, platformBodiesAt(SANDY_COVE.platforms, 0)[0], { x: .5, y: .5 })).toThrow('diagnostic image failure');
   expect(depth).toBe(0);
 });
+
+
+it('routes only the approved bay1 ID to its single native B bitmap without legacy bleed', () => {
+  const manifest = JSON.parse(readFileSync(new URL('../public/assets/cove/terrain-kit/manifest.json', import.meta.url), 'utf8'));
+  const image = {} as HTMLImageElement, bay1 = {} as HTMLImageElement;
+  const kit = { image, ground: image, bay1, manifest };
+  const drawImage = vi.fn();
+  const ctx = { drawImage, save() {}, restore() {} } as unknown as CanvasRenderingContext2D;
+  for (const body of platformBodiesAt(SANDY_COVE.platforms, 0)) {
+    drawImage.mockClear();
+    drawCovePlatform(ctx, kit, SANDY_COVE, body, { x: .5, y: .25 });
+    expect(drawImage).toHaveBeenCalledTimes(1);
+    if (body.id === 'cove-bay-ledge-1') {
+      expect(drawImage).toHaveBeenCalledWith(bay1, 0, 0, 140, 30, body.x - .5, body.y - .25, 140, 30);
+      expect(() => drawCovePlatform(ctx, kit, SANDY_COVE, { ...body, width: 139 }, { x: 0, y: 0 })).toThrow();
+    } else expect(drawImage.mock.calls[0][0]).toBe(image);
+  }
+});

@@ -1,0 +1,72 @@
+{
+  "baselineRevision": "be0e8ec6d42826c6c61f064f01422bd33e0ded43",
+  "scope": "Owner-authorized shared HUD presentation only; distinct from Cove B source and historical water landing",
+  "files": {
+    "src/game/hud.ts": {
+      "baselineCopy": "baseline/hud.ts",
+      "baselineSha256": "028b17604b52a02658537f70eb6855cc992f370795fe24a1ea2d77779eb9c0c1",
+      "currentSha256": "8eb429ec2fd997095485bfab8a1a9254781d11748b566ff3aba390e6fb42d402",
+      "changes": [
+        {
+          "before": "export const BAG_PLAQUE = { x: 325, y: 31, width: 96, height: 28 } as const;\n",
+          "after": "export const BAG_PLAQUE = { x: 325, y: 5, width: 96, height: 28 } as const;\n/** Letter baseline targets; reduced motion keeps the whole24px tile over the pouch. */\nexport const BAG_PICKUP = { x: BAG_PLAQUE.x + 17, y: BAG_PLAQUE.y + 13, reducedY: BAG_PLAQUE.y + 20 } as const;\nexport const HUD_NOTICE_Y = BAG_PLAQUE.y + BAG_PLAQUE.height + 4;\n"
+        },
+        {
+          "before": "  if (pouch) ctx.drawImage(pouch, 330, 33, 24, 24);\n",
+          "after": "  const { x: bagX, y: bagY } = BAG_PLAQUE;\n  if (pouch) ctx.drawImage(pouch, bagX + 5, bagY + 2, 24, 24);\n"
+        },
+        {
+          "before": "    ctx.fillRect(333, 40, 18, 13); ctx.fillRect(337, 36, 10, 3);\n",
+          "after": "    ctx.fillRect(bagX + 8, bagY + 9, 18, 13); ctx.fillRect(bagX + 12, bagY + 5, 10, 3);\n"
+        },
+        {
+          "before": "    const x = 359 + index * 14;\n    ctx.fillStyle = HUD_COLORS.ink; ctx.fillRect(x - 1, 39, 8, 8);\n",
+          "after": "    const x = bagX + 34 + index * 14;\n    ctx.fillStyle = HUD_COLORS.ink; ctx.fillRect(x - 1, bagY + 8, 8, 8);\n"
+        },
+        {
+          "before": "    ctx.fillRect(x, 40, 6, 6);\n",
+          "after": "    ctx.fillRect(x, bagY + 9, 6, 6);\n"
+        },
+        {
+          "before": "export const RIBBON_INTRO = 'Trail: Henry = you; posts = saves; flag = end';\n",
+          "after": ""
+        },
+        {
+          "before": "  private ribbonSeconds = 4;\n",
+          "after": ""
+        },
+        {
+          "before": "  update(seconds: number, input: InputFrame, level: LevelData, x: number, importantFeedback = false, supportY = level.start.y): void {\n",
+          "after": "  update(seconds: number, input: InputFrame, level: LevelData, x: number, _importantFeedback = false, supportY = level.start.y): void {\n"
+        },
+        {
+          "before": "      if (!importantFeedback && this.locationSeconds === 0 && this.ribbonSeconds > 0) {\n        this.ribbonSeconds = Math.max(0, this.ribbonSeconds - seconds);\n        if (this.ribbonSeconds > 0) this.hint = RIBBON_INTRO;\n      }\n",
+          "after": ""
+        },
+        {
+          "before": "    plaque(ctx, ui, { x: 421 - width, y: 5, width, height: 22 });\n",
+          "after": "    plaque(ctx, ui, { x: 421 - width, y: HUD_NOTICE_Y, width, height: 22 });\n"
+        },
+        {
+          "before": "    ctx.fillText(notice, 415, 20);\n",
+          "after": "    ctx.fillText(notice, 415, HUD_NOTICE_Y + 15);\n"
+        }
+      ]
+    },
+    "src/game/adventure-scene.ts": {
+      "baselineCopy": "baseline/adventure-scene.ts",
+      "baselineSha256": "c751fe5a5736918833cbf81971317091f8e3da13c339c32f9fc181b02201c6ee",
+      "currentSha256": "311c222b38c65c46f775b5a887a61b77d50d5680e2382ef0544653eb27a5067e",
+      "changes": [
+        {
+          "before": "import { drawCollectionBag, drawGameplayHud, HudPresentation } from './hud';\n",
+          "after": "import { BAG_PICKUP, drawCollectionBag, drawGameplayHud, HudPresentation } from './hud';\n"
+        },
+        {
+          "before": "      const x = this.reducedMotion ? 342 : flight.x + (342 - flight.x) * t;\n      const y = this.reducedMotion ? 74 : flight.y + (44 - flight.y) * t - Math.sin(t * Math.PI) * 25;\n",
+          "after": "      const x = this.reducedMotion ? BAG_PICKUP.x : flight.x + (BAG_PICKUP.x - flight.x) * t;\n      const y = this.reducedMotion ? BAG_PICKUP.reducedY : flight.y + (BAG_PICKUP.y - flight.y) * t - Math.sin(t * Math.PI) * 25;\n"
+        }
+      ]
+    }
+  }
+}
