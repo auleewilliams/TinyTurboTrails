@@ -1,0 +1,20 @@
+{
+  "image": "/home/leew/.hermes/cache/generated/images/openai_codex_gpt-image-2-medium_20261030_222553_a8eed0ac.png",
+  "provider": "openai-codex",
+  "model": "gpt-image-2-medium",
+  "requestedSize": "1536x1024",
+  "actualPixelSize": [
+    1536,
+    1024
+  ],
+  "requestedQuality": "medium",
+  "reportedQuality": "low",
+  "reportedSize": "1536x1024",
+  "requestId": "5336d6f9-4b06-4b95-9b74-363b7ddae552",
+  "inputImageCount": 3,
+  "sha256": "9f233313fccf660149ee7734172089e4adda39b671b1d2142d2bc699603929be",
+  "status": "SOURCE_GENERATED_NOT_FIT_VALIDATED_NOT_INTEGRATED",
+  "callsUsed": 1,
+  "maxInitialCalls": 6,
+  "automaticRefinements": 0
+}

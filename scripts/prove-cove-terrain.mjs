@@ -16,7 +16,8 @@ const atlas = decodePng(await readFile('public/assets/cove/terrain-kit/atlas.png
 const manifest = JSON.parse(await readFile('public/assets/cove/terrain-kit/manifest.json', 'utf8'));
 const groundImage = decodePng(await readFile('public/assets/cove/terrain-kit/ground.png'));
 const bay1 = decodePng(await readFile('public/assets/cove/bay1-b-v1/platform.png'));
-const kit = { image: atlas, ground: groundImage, bay1, manifest };
+const bay2 = decodePng(await readFile('public/assets/cove/bay2-mask-v1/platform.png'));
+const kit = { image: atlas, ground: groundImage, bay1, bay2, manifest };
 const records = [];
 const hash = bytes => createHash('sha256').update(bytes).digest('hex');
 async function emit(name, image, detail) {
@@ -105,7 +106,7 @@ for (const body of bodies) {
     return depth;
   });
   const cap = body.id.includes('shelf') || /stone-[12]$/.test(body.id) ? 14 : 12;
-  const capSeams = (body.id === 'cove-bay-ledge-1' ? [] : [cap, sw - cap]).map(x => {
+  const capSeams = (['cove-bay-ledge-1','cove-bay-ledge-2'].includes(body.id) ? [] : [cap, sw - cap]).map(x => {
     const deltas = [];
     for (let y = 0; y < sh; y++) {
       const a = drawn.data.subarray(((sy + y) * drawn.width + sx + x) * 4, ((sy + y) * drawn.width + sx + x) * 4 + 4);
