@@ -16,7 +16,7 @@ const atlas = decodePng(await readFile('public/assets/cove/terrain-kit/atlas.png
 const manifest = JSON.parse(await readFile('public/assets/cove/terrain-kit/manifest.json', 'utf8'));
 const groundImage = decodePng(await readFile('public/assets/cove/terrain-kit/ground.png'));
 const bay1 = decodePng(await readFile('public/assets/cove/bay1-b-v1/platform.png'));
-const bay2 = decodePng(await readFile('public/assets/cove/bay2-mask-v1/platform.png'));
+const bay2 = decodePng(await readFile('public/assets/cove/bay2-whole-v1/platform.png'));
 const kit = { image: atlas, ground: groundImage, bay1, bay2, manifest };
 const records = [];
 const hash = bytes => createHash('sha256').update(bytes).digest('hex');

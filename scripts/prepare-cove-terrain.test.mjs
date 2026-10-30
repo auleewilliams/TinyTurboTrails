@@ -1,3 +1,4 @@
+import { beforeWholeBay2, beforeWholeBay2Level } from './whole-bay2-preservation.mjs';
 import { beforeOwnerHud } from './hud-owner-preservation.mjs';
 import { assertPngPixelContract } from './png-pixel-contract.mjs';
 import { beforeWaterLanding } from './water-landing-preservation.mjs';
@@ -121,6 +122,7 @@ test('real prepared stone pixels cover every support top and respect native dept
 const originalDecorationXs = '[400, 890, 1160, 1510, 1990, 2650, 2860, 3570, 3940]';
 const approvedDecorationXs = '[295, 820, 1295, 1510, 1990, 2685, 2830, 3700, 4050]';
 function assertApprovedCoveSource(source, expectedHash) {
+  source=beforeWholeBay2('src/world/sandy-cove.ts',Buffer.from(source)).toString();
   assert.equal(source.split(approvedDecorationXs).length, 2, 'exact approved decoration literal occurs once');
   assert.equal(hash(source.replace(approvedDecorationXs, originalDecorationXs)), expectedHash,
     'all source bytes outside the exact approved decoration-array delta remain pinned');
@@ -133,6 +135,7 @@ function gameplayProjection(level) {
   }) };
 }
 function assertApprovedCoveLevel(level, baseline) {
+  level=beforeWholeBay2Level(level);
   assert.deepEqual(gameplayProjection(level), gameplayProjection(baseline), 'complete gameplay projection remains pinned');
   const xs = JSON.parse(approvedDecorationXs);
   const expected = baseline.entities.filter(e => e.kind === 'decoration').map((entity, index) => {

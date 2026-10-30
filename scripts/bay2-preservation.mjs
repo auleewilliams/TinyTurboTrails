@@ -2,10 +2,10 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 const hash = bytes => createHash('sha256').update(bytes).digest('hex');
-/** Reverse ONLY this exact bay2 presentation delta before immutable old oracles. */
+/** HISTORICAL rejectedphase17 oracle, not activeassetpreparation. Reverse ONLY this exact bay2 presentation delta before immutable old oracles. */
 export function beforeBay2(path, bytes) {
   if (path !== 'src/world/cove-terrain.ts') return bytes;
-  const root = new URL('../assets/source/cove/bay2-mask-v1/', import.meta.url);
+  const root = new URL('../assets/source/cove/rejected-bay2-mask-v1/', import.meta.url);
   const recordBytes = readFileSync(new URL('presentation-delta.json', root));
   assert.equal(hash(recordBytes), '86acd72ece5603f9b75b0bc8013706cebc4b5bf49223fe4546d2c455355a114a');
   const r = JSON.parse(recordBytes), baseline = readFileSync(new URL('baseline/cove-terrain.ts', root));

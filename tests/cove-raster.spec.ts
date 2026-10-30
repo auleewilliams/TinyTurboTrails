@@ -10,7 +10,7 @@ const code = transformSync('cove-terrain.ts', readFileSync(new URL('../src/world
 const manifest = JSON.parse(readFileSync(new URL('../public/assets/cove/terrain-kit/manifest.json', import.meta.url), 'utf8'));
 const atlas = readFileSync(new URL('../public/assets/cove/terrain-kit/atlas.png', import.meta.url)).toString('base64');
 const bay1 = readFileSync(new URL('../public/assets/cove/bay1-b-v1/platform.png', import.meta.url)).toString('base64');
-const bay2 = readFileSync(new URL('../public/assets/cove/bay2-mask-v1/platform.png', import.meta.url)).toString('base64');
+const bay2 = readFileSync(new URL('../public/assets/cove/bay2-whole-v1/platform.png', import.meta.url)).toString('base64');
 const ground = readFileSync(new URL('../public/assets/cove/terrain-kit/ground.png', import.meta.url)).toString('base64');
 
 test('Cove production raster has no internal coverage gaps at fractional cameras', async ({ page, browser }, info) => {
@@ -42,9 +42,9 @@ test('Cove production raster has no internal coverage gaps at fractional cameras
     const bayCanvas = document.createElement('canvas'); bayCanvas.width = 140; bayCanvas.height = 30;
     const bayCtx = bayCanvas.getContext('2d')!; bayCtx.drawImage(actual.bay1, 0, 0);
     const bayPixels = bayCtx.getImageData(0, 0, 140, 30).data;
-    const bay2Canvas = document.createElement('canvas'); bay2Canvas.width = 160; bay2Canvas.height = 30;
+    const bay2Canvas = document.createElement('canvas'); bay2Canvas.width = 160; bay2Canvas.height = 35;
     const bay2Ctx = bay2Canvas.getContext('2d')!; bay2Ctx.drawImage(actual.bay2, 0, 0);
-    const bay2Pixels = bay2Ctx.getImageData(0, 0, 160, 30).data;
+    const bay2Pixels = bay2Ctx.getImageData(0, 0, 160, 35).data;
     let bay2Samples = 0;
     let baySamples = 0;
     let groundSamples = 0, stoneSamples = 0, actualStoneSamples = 0, intentionalAlphaExcluded = 0, frames = 0;
@@ -88,7 +88,7 @@ test('Cove production raster has no internal coverage gaps at fractional cameras
       const key = body.id === 'cove-hollow-shelf' ? 'hollow-140' : body.id === 'cove-bay-ledge-2' ? 'regular-alt-160' : `${thin ? 'thin' : 'regular'}-${body.width}`;
       const isBay1 = body.id === 'cove-bay-ledge-1';
       const isBay2 = body.id === 'cove-bay-ledge-2';
-      const part = isBay2 ? {x:0,y:0,width:160,height:30} : isBay1 ? { x: 0, y: 0, width: 140, height: 30 } : manifest.platforms[key];
+      const part = isBay2 ? {x:0,y:0,width:160,height:35} : isBay1 ? { x: 0, y: 0, width: 140, height: 30 } : manifest.platforms[key];
       const samples = isBay2 ? bay2Pixels : isBay1 ? bayPixels : sourcePixels, sourceWidth = isBay2 ? 160 : isBay1 ? 140 : manifest.width;
       ctx.clearRect(0, 0, 426, 240); helpers.drawCovePlatform(ctx, actual, level, body, { x: fraction, y: fraction });
       const pixels = ctx.getImageData(0, 0, 426, 240).data;

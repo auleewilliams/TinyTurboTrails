@@ -1,3 +1,5 @@
+import { createRequire as wholeRequire } from 'node:module';
+const {beforeWholeBay2Level}=wholeRequire(import.meta.url)('../scripts/whole-bay2-preservation.mjs') as {beforeWholeBay2Level<T>(value:T):T};
 import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { expect, it } from 'vitest';
@@ -76,7 +78,7 @@ it('pins every gameplay field and all non-placement decoration data to the origi
     if (e.kind !== 'decoration') return e;
     const { x: _x, y: _y, ...fixed } = e; return fixed;
   }) });
-  expect(projection(SANDY_COVE)).toEqual(projection(baseline));
+  expect(projection(beforeWholeBay2Level(SANDY_COVE))).toEqual(projection(baseline));
   const pins = JSON.parse(read('assets/source/cove/terrain-kit/preserved-files.json').toString());
   for (const pin of pins.files) if (!['src/world/sandy-cove.ts', 'public/assets/cove/manifest.json'].includes(pin.path)) {
     expect(createHash('sha256').update(beforeWaterLanding(pin.path, beforeOwnerHud(pin.path, read(pin.path)))).digest('hex'), pin.path).toBe(pin.sha256);

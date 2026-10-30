@@ -30,7 +30,7 @@ export function coveRewards(cadence: readonly number[] = [0.016], unsafeLanding 
   for(const gem of groundGems.filter(e=>e.x>1750&&e.x<=2150)) route.run([walk(gem.x)]);
   route.run([walk(2210),jump(2260,296),walk(2300),jump(2395,284),walk(2420)]);
   for(const gem of groundGems.filter(e=>e.x>2420&&e.x<=3160)) route.run([walk(gem.x)]);
-  route.run([walk(3240),jump(3240,344),walk(3300),walk(3360),jump(3360,272)]);
+  route.run([walk(2940),jump(3020,272),walk(3080),jump(3170,260),walk(3240),walk(3320),walk(3300),walk(3360),jump(3360,272)]);
   const steer=(x:number)=>{
     const p=route.player, stop=p.x+Math.sign(p.vx)*p.vx**2/2400;
     return stop<x-3?1:stop>x+3?-1:0;

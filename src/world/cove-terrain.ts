@@ -44,7 +44,7 @@ export async function loadCoveTerrain(base: string, path?: string): Promise<Cove
   if (!response.ok) throw new Error('Could not load Cove terrain metadata');
   const manifest: unknown = await response.json();
   validateCoveTerrain(manifest);
-  const images = await Promise.all([`terrain-kit/${manifest.image}`, `terrain-kit/${manifest.ground.image}`, 'bay1-b-v1/platform.png', 'bay2-mask-v1/platform.png'].map(async name => {
+  const images = await Promise.all([`terrain-kit/${manifest.image}`, `terrain-kit/${manifest.ground.image}`, 'bay1-b-v1/platform.png', 'bay2-whole-v1/platform.png'].map(async name => {
     const image = new Image();
     await new Promise<void>((resolve, reject) => {
       image.onload = () => resolve(); image.onerror = () => reject(new Error('Could not load Cove terrain image'));
@@ -56,7 +56,7 @@ export async function loadCoveTerrain(base: string, path?: string): Promise<Cove
   if (image.naturalWidth !== manifest.width || image.naturalHeight !== manifest.height
     || ground.naturalWidth !== manifest.ground.width || ground.naturalHeight !== manifest.ground.height
     || bay1.naturalWidth !== 140 || bay1.naturalHeight !== 30
-    || bay2.naturalWidth !== 160 || bay2.naturalHeight !== 30) throw new Error('Invalid Cove terrain image dimensions');
+    || bay2.naturalWidth !== 160 || bay2.naturalHeight !== 35) throw new Error('Invalid Cove terrain image dimensions');
   return { image, ground, bay1, bay2, manifest };
 }
 
@@ -92,7 +92,7 @@ export function drawCovePlatform(ctx: CanvasRenderingContext2D, kit: CoveTerrain
     ctx.save();
     try {
       ctx.imageSmoothingEnabled = false;
-      ctx.drawImage(kit.bay2, 0, 0, 160, 30, body.x - offset.x, body.y - offset.y, 160, 30);
+      ctx.drawImage(kit.bay2, 0, 0, 160, 35, body.x - offset.x, body.y - offset.y, 160, 35);
     } finally { ctx.restore(); }
     return;
   }

@@ -1,0 +1,30 @@
+{
+  "image": "/home/leew/.hermes/cache/generated/images/openai_codex_gpt-image-2-medium_20261029_185649_c1992480.png",
+  "sha256": "2602a27083566049e701104c27534d7426b7a601e8f37e0e4921aba460346d93",
+  "actualSize": [
+    1536,
+    1024
+  ],
+  "actualMode": "RGB",
+  "provider": "openai-codex",
+  "model": "gpt-image-2-medium",
+  "requestedToolSize": "1536x1024",
+  "requestedPromptSize": "1536x1024",
+  "reportedSize": "1536x1024",
+  "requestedQuality": "medium",
+  "reportedQuality": "low",
+  "inputImageCount": 2,
+  "imagegenRequestID": "d2c7b882-58b3-4062-883e-f6a507cb99ec",
+  "executedPromptFile": "/home/leew/.hermes/cache/scratch/ttt-art-235/phase13-platform-B-single-pilot/generation/executed-generation-prompt.txt",
+  "references": [
+    {
+      "path": "/home/leew/.hermes/cache/scratch/ttt-art-235/phase13-platform-B-single-pilot/pilot-inputs/generation-layout-guide.png",
+      "sha256": "74fd7efff2485b567698805c1f1c4a115a9e5a6772bbaadd537d56825e75623d"
+    },
+    {
+      "path": "/home/leew/.hermes/cache/scratch/ttt-art-235/phase13-platform-B-single-pilot/pilot-inputs/B-style-isolated-reference.png",
+      "sha256": "cbf4b3fd2f1feb2617dafe40294f1c5badc047c5824a53211da01abb0b526d1c"
+    }
+  ],
+  "parentInspection": "Exactly one coherent B-style whole platform on magenta, no guide remnants or other objects. It is visibly much wider/deeper than requested560x120 guide. Need actual source/native-aspect whole-preservation and depth-cap validation. No source or gameplay acceptance."
+}

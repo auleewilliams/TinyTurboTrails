@@ -1,4 +1,4 @@
-import { bay2LowGemOrigin } from './cove-bay2-observation';
+import { bay2GemOrigin } from './cove-bay2-observation';
 import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { test, expect } from '@playwright/test';
@@ -6,17 +6,19 @@ import { pilotSourceRevision } from './cove-bay1-provenance';
 import { bay1KeyboardPilotInit } from './cove-bay1-input';
 import { driveCove, observeCove } from './cove-browser-pilot';
 
-for (const width of [426, 320]) test(`B bay2 masked real input pilot at ${width}px`, async ({ page, browser }, info) => {
+for (const width of [426, 320]) test(`B bay2 whole real input pilot at ${width}px`, async ({ page, browser }, info) => {
   test.setTimeout(120_000);
   const sourceRevision = pilotSourceRevision(process.env.BROWSER_REPORT_SOURCE_SHA, info.config.metadata);
-  const checkpoint = Object.fromEntries(['src/world/cove-terrain.ts', 'tests/cove-bay2.spec.ts', 'tests/cove-bay1-provenance.ts', 'tests/cove-bay1-input.ts', 'public/assets/cove/bay2-mask-v1/platform.png'].map(path => [path, createHash('sha256').update(readFileSync(new URL('../' + path, import.meta.url))).digest('hex')]));
+  const checkpoint = Object.fromEntries(['src/world/cove-terrain.ts', 'src/world/sandy-cove.ts', 'tests/cove-bay2.spec.ts', 'tests/cove-bay1-provenance.ts', 'tests/cove-bay1-input.ts', 'public/assets/cove/bay2-whole-v1/platform.png'].map(path => [path, createHash('sha256').update(readFileSync(new URL('../' + path, import.meta.url))).digest('hex')]));
   await info.attach('pilot-source-identity', { body: JSON.stringify({ sourceRevision, checkpoint, requestedCssWidth: width, native: [426, 240] }), contentType: 'application/json' });
   await page.setViewportSize({ width, height: width === 426 ? 300 : 240 });
   const evidence = observeCove(page, info);
   await page.addInitScript(gemObserverSource => {
-    const lowGemOrigin = new Function(`return (${gemObserverSource});`)() as (rock: readonly number[]) => readonly number[];
-    const probe = { draws: [] as object[], gem: null as null | {alphaPixels:number;visiblePixels:number;overlapPixels:number;source:string}, flight: [] as { status: string; png: string }[], henry: null as null | { status: string; source: string; sourceFrame: number[]; alphaPixels: number; visiblePixels: number; overlapPixels: number; top: number; bottom: number } };
+    const gemOrigin = new Function(`return (${gemObserverSource});`)() as (rock: readonly number[]) => readonly number[];
+    const probe = { gemCount: null as number|null, oldLocationGemSeen:false, draws: [] as object[], gem: null as null | {alphaPixels:number;visiblePixels:number;overlapPixels:number;source:string}, flight: [] as { status: string; png: string }[], henry: null as null | { status: string; source: string; sourceFrame: number[]; alphaPixels: number; visiblePixels: number; overlapPixels: number; top: number; bottom: number } };
     Object.assign(window, { bay2Probe: probe });
+    const text=CanvasRenderingContext2D.prototype.fillText;
+    CanvasRenderingContext2D.prototype.fillText=function(value,x,y,maxWidth){if(this.canvas.id==='game'&&x===28&&y===20&&/^\d+$/.test(value))probe.gemCount=Number(value);if(maxWidth===undefined)text.call(this,value,x,y);else text.call(this,value,x,y,maxWidth);};
     let priorY = 0, ascent = false, descent = false;
     const draw = CanvasRenderingContext2D.prototype.drawImage;
     const pixels = new WeakMap<HTMLImageElement, Uint8ClampedArray>();
@@ -38,15 +40,16 @@ for (const width of [426, 320]) test(`B bay2 masked real input pilot at ${width}
     };
     CanvasRenderingContext2D.prototype.drawImage = function(this: CanvasRenderingContext2D, ...args: Parameters<typeof draw>) {
       Reflect.apply(draw, this, args);
-      if (this.canvas.id === 'game' && args[0] instanceof HTMLImageElement && args[0].src.endsWith('/assets/cove/bay2-mask-v1/platform.png')) {
+      if (this.canvas.id === 'game' && args[0] instanceof HTMLImageElement && args[0].src.endsWith('/assets/cove/bay2-whole-v1/platform.png')) {
         probe.gem = null; probe.henry = null; // Fresh witnesses for this actual rendered frame.
         rockOrigin = args.slice(5,7) as number[];
         rock = new Set(points(this, args).map(([x, y]) => `${x},${y}`));
         const status = document.querySelector('#status')?.textContent ?? '';
         if (probe.draws.length < 5000) probe.draws.push({ status, source: args[0].src, args: args.slice(1) });
       }
+      if(this.canvas.id==='game'&&args[0] instanceof HTMLImageElement&&args[0].src.endsWith('/assets/gems/gems.png')&&Number(args[5])===Math.round(rockOrigin[0]+100)-16&&Number(args[6])===Math.round(rockOrigin[1]+39)-24)probe.oldLocationGemSeen=true;
       if (this.canvas.id === 'game' && args[0] instanceof HTMLImageElement && args[0].src.endsWith('/assets/gems/gems.png')
-        && Number(args[5])===lowGemOrigin(rockOrigin)[0] && Number(args[6])===lowGemOrigin(rockOrigin)[1]) {
+        && Number(args[5])===gemOrigin(rockOrigin)[0] && Number(args[6])===gemOrigin(rockOrigin)[1]) {
         const alpha=points(this,args);probe.gem={source:args[0].src,alphaPixels:alpha.length,visiblePixels:alpha.filter(([x,y])=>x>=0&&x<426&&y>=0&&y<240).length,overlapPixels:alpha.filter(([x,y])=>rock.has(`${x},${y}`)).length};
       }
       if (this.canvas.id === 'game' && args[0] instanceof HTMLImageElement && args[0].src.endsWith('/assets/henry/henry-celebration.png')) {
@@ -70,8 +73,8 @@ for (const width of [426, 320]) test(`B bay2 masked real input pilot at ${width}
       }
       requestAnimationFrame(sample);
     }; requestAnimationFrame(sample);
-  }, bay2LowGemOrigin.toString());
-  const assetResponse = page.waitForResponse(response => response.url().endsWith('/assets/cove/bay2-mask-v1/platform.png'));
+  }, bay2GemOrigin.toString());
+  const assetResponse = page.waitForResponse(response => response.url().endsWith('/assets/cove/bay2-whole-v1/platform.png'));
   await page.addInitScript(bay1KeyboardPilotInit, []);
   await page.goto('/?debug=1');
   await page.getByRole('button', { name: 'SANDY COVE', exact: true }).click();
@@ -79,7 +82,7 @@ for (const width of [426, 320]) test(`B bay2 masked real input pilot at ${width}
   await expect(page.locator('#status')).toContainText('X 60 Y 326 V 0');
   const served = await assetResponse, servedBytes = await served.body();
   expect(served.status()).toBe(200);
-  expect(createHash('sha256').update(servedBytes).digest('hex')).toBe('5a36a231604e70fc02dd630e38e3cc94c3d872be9c685389d10eda16cb8bc54f');
+  expect(createHash('sha256').update(servedBytes).digest('hex')).toBe('595d98c49269f0231dddcd95e5323a508eae5c28d9185257d15ec3daf19e6b5f');
   await info.attach('required-bay2-resource', { body: JSON.stringify({ url: served.url(), status: served.status(), sha256: createHash('sha256').update(servedBytes).digest('hex') }), contentType: 'application/json' });
   const capture = async (name: string, y: number) => {
     await expect(page.locator('#status')).toContainText(`Y ${y} V 0`);
@@ -98,17 +101,25 @@ for (const width of [426, 320]) test(`B bay2 masked real input pilot at ${width}
       expect(henry.visiblePixels).toBe(henry.alphaPixels); expect(henry.overlapPixels).toBe(0);
       const gem=await page.evaluate(()=>(window as unknown as {bay2Probe:{gem:{alphaPixels:number;visiblePixels:number;overlapPixels:number}|null}}).bay2Probe.gem);
       expect(gem).not.toBeNull();expect(gem!.alphaPixels).toBeGreaterThan(100);expect(gem!.visiblePixels).toBe(gem!.alphaPixels);expect(gem!.overlapPixels).toBe(0);
-      await info.attach(`${name}-actual-low-gem-clearance`,{body:JSON.stringify(gem),contentType:'application/json'});
+      await info.attach(`${name}-actual-relocated-gem-clearance`,{body:JSON.stringify(gem),contentType:'application/json'});
       await info.attach(`${name}-actual-source-alpha-hat-body-clearance`, { body: JSON.stringify(henry), contentType: 'application/json' });
     }
     await evidence.paint(`${name}-css`);
   };
   await driveCove(page, [{ kind: 'walk', x: 3140 }, { kind: 'walk', x: 3240 }]);
-  await capture('underpass-forward-low-gem-recess', 310);
+  await capture('underpass-forward-whole-rock', 310);
   await driveCove(page, [{ kind: 'walk', x: 3320 }, { kind: 'walk', x: 3240 }]);
-  await capture('underpass-reverse-low-gem-recess', 310);
-  await driveCove(page, [{ kind: 'walk', x: 2940 }, { kind: 'jump', x: 3020, y: 272 }, { kind: 'walk', x: 3080 }, { kind: 'jump', x: 3170, y: 260 }, { kind: 'walk', x: 3210 }]);
+  await capture('underpass-reverse-whole-rock', 310);
+  await driveCove(page, [{ kind: 'walk', x: 2940 }, { kind: 'jump', x: 3020, y: 272 }, { kind: 'walk', x: 3080 }, { kind: 'jump', x: 3170, y: 260 }, { kind: 'walk', x: 3200 }]);
   await capture('on-bay2-landed-rest', 226);
+  const beforeGem=await page.evaluate(()=>(window as unknown as {bay2Probe:{gemCount:number;gem:unknown}}).bay2Probe);
+  expect(beforeGem.gem).not.toBeNull();
+  await driveCove(page,[{kind:'walk',x:3240}]);
+  await capture('relocated-optional-gem-collected',226);
+  await expect.poll(()=>page.evaluate(()=>(window as unknown as {bay2Probe:{gemCount:number}}).bay2Probe.gemCount)).toBe(beforeGem.gemCount+1);
+  const afterGem=await page.evaluate(()=>(window as unknown as {bay2Probe:{gem:unknown;oldLocationGemSeen:boolean}}).bay2Probe);
+  expect(afterGem.gem).toBeNull();expect(afterGem.oldLocationGemSeen).toBe(false);
+  await info.attach('bonus4-source-bound-native-collection',{body:JSON.stringify({id:'cove-bonus-4',position:[3240,242],beforeCounter:beforeGem.gemCount,afterCounter:beforeGem.gemCount+1,afterGem}),contentType:'application/json'});
   await driveCove(page, [{ kind: 'walk', x: 3280 }, { kind: 'walk', x: 3320 }]);
   await capture('lower-landing-neighbor-gap', 310);
   const probe = await page.evaluate(() => (window as unknown as { bay2Probe: { draws: object[]; flight: { status: string; png: string }[] } }).bay2Probe);
@@ -118,8 +129,8 @@ for (const width of [426, 320]) test(`B bay2 masked real input pilot at ${width}
   await evidence.finish(browser.version());
 });
 
-test('B bay2 masked required image failure recovers through accessible ordinary Retry', async ({ page }) => {
-  const path = '**/assets/cove/bay2-mask-v1/platform.png';
+test('B bay2 whole required image failure recovers through accessible ordinary Retry', async ({ page }) => {
+  const path = '**/assets/cove/bay2-whole-v1/platform.png';
   await page.route(path, route => route.abort());
   await page.goto('/?debug=1');
   await expect(page.locator('#status')).toHaveText('Artwork could not load. Reload to retry.');

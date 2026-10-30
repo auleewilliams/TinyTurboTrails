@@ -1,0 +1,10 @@
+{
+  "verbatim": "No, you are better off moving the gem than cutting the rock out like that.",
+  "rejectedPreview": "b371181142804185e66a6545efdfd99c5e5fc666",
+  "decision": "Rejectnotched/maskedbay2visual. Usewholeun-cutrockappearanceandrelocatetheconflictinggeminstead.",
+  "narrowGameplayDataException": "RelocateONLYcove-bonus-4,currentx3240y299; sameID/kind/asset/count/optionalreward, stillreachableandvisible. No othercollectible/physics/platformtop-width/layout/collision/camerachange.",
+  "supersedes": "Previousbay2texturemask/croppermissionisrejectedforcurrentdesign; oldgemposition/percolumngem-recessrestrictionmaychangeonlyasneededtomovethisgem. Playerheadroom/ordinaryrouteunchanged.",
+  "preserve": "acceptedHUD+linkedfeedback,approvedbay1source/output,other5platforms,allunrelatedsharedart",
+  "scope": "ONEcorrectedbay2previewfirst, beforeother5rollout; no moreimagegeneration requiredunlessseparatelydecided",
+  "notAuthority": "merge/deploy/closure, widelevelredesign, testpolicy/securitychange, CIrerunbypass"
+}

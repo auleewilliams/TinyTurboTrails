@@ -3,13 +3,13 @@ import { readFileSync } from 'node:fs';
 import { drawCovePlatform, type CoveTerrainAssets } from '../src/world/cove-terrain';
 import { SANDY_COVE } from '../src/world/sandy-cove';
 import { platformBodyAt } from '../src/game/platforms';
-it('routes EXACT bay2 to new160x30, preserves every other support and fractional camera',()=>{
+it('routes EXACT bay2 to whole160x35, preserves every other support and fractional camera',()=>{
  const manifest=JSON.parse(readFileSync('public/assets/cove/terrain-kit/manifest.json','utf8'));
  const image={},bay1={},bay2={},calls:unknown[][]=[];
  const ctx={save(){},restore(){},drawImage(...args:unknown[]){calls.push(args);}} as unknown as CanvasRenderingContext2D;
  const kit={manifest,image,ground:{},bay1,bay2} as unknown as CoveTerrainAssets;
  for(const p of SANDY_COVE.platforms!){calls.length=0;drawCovePlatform(ctx,kit,SANDY_COVE,platformBodyAt(p,0),{x:.25,y:.5});const c=calls[0];expect(c).toBeDefined();
- if(p.id==='cove-bay-ledge-2')expect(c).toEqual([bay2,0,0,160,30,p.from.x-.25,p.from.y-.5,160,30]);
+ if(p.id==='cove-bay-ledge-2')expect(c).toEqual([bay2,0,0,160,35,p.from.x-.25,p.from.y-.5,160,35]);
  else expect(c[0]).toBe(p.id==='cove-bay-ledge-1'?bay1:image);
  }
 });
