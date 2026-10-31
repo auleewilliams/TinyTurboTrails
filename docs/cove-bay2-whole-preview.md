@@ -1,0 +1,7 @@
+# Cove bay2 whole-rock preview
+
+The corrected preview uses the entire approved bay1 rock at one uniform8/7 scale, prepared on a160x35 native canvas. Every painted edge/body pixel survives; no notch, cap mask, colour filler or new art is used. Physical bay2 top260/width160 stay unchanged. Source/output/scale and zero-loss proof are in assets/source/cove/bay2-whole-v1. The rejected masked family is inactive history, not current guidance.
+
+Only optional cove-bonus-4 moves from(3240,299) to(3240,242),18px above the platform. ID/count42/reward remain; lower-route gameplay is unchanged and the upper-platform walk can collect it. HUD/flight feedback, bay1 and other five supports remain frozen. Static headroom leaves13px below the actual31px body; that is not native gameplay certification.
+
+Acceptance requires input-driven426native and actualCSS320 captures: full natural outline, stand/rest on bay2, both underpasses with complete Henry/hat and relocatedgem visible, ordinary collection on the platform with counterincrease and source-bound ID, no phantom at oldlocation, lower return, required-asset failure/accessible Retry, cached preview and fractional-camera raster. No player/scene/clock writes or weakened deadlines/retries. Software proofs/simulation are not native screenshots. Preserve truthful localnull/suppliedCI provenance and consult PR236 for current exact-head review/CI status.

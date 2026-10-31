@@ -1,0 +1,26 @@
+{
+  "baselineRevision": "1687f5525b757221b47a21287f6b8c48e5403ae0",
+  "scope": "EXACT current Cove material presentation patch; all other original source/art pinned. No historical approval is changed.",
+  "files": {
+    "src/world/surface-materials.ts": {
+      "baselineSha256": "d18b81969d45a9de5b90697a1d2398076117193941a897963a1ffcfa9c9c7088",
+      "currentSha256": "bc3a2196b51d30481e6ee7fbec1a1d98a78183ba4bdaae74c453f087ec72b61f",
+      "baselineCopy": "baseline-1687/src/world/surface-materials.ts"
+    },
+    "src/world/assets.ts": {
+      "baselineSha256": "32c9bf92878e6a22394b4a422efd59958ca9df7d356b688520fb4a5e586cac0c",
+      "currentSha256": "9322228ed80f316a8e5a1fbe5707658f38334a54b2911c147b1de113a279499e",
+      "baselineCopy": "baseline-1687/src/world/assets.ts"
+    },
+    "src/world/renderer.ts": {
+      "baselineSha256": "87f6c22777bdad657e5c3eeaeaf36399639582f8759bda0b993bc948a6cc407d",
+      "currentSha256": "c59b777d2462036f4c500a7e77cd5b76ba0cb4877c69e8b3dd9d79751cc19417",
+      "baselineCopy": "baseline-1687/src/world/renderer.ts"
+    },
+    "public/assets/cove/manifest.json": {
+      "baselineSha256": "5b441c98d0abb256df14f8d03b3227cbe08f392f00b8e1565f374f2bc8e7129c",
+      "currentSha256": "015866ac9abe278fbe587410bb0fcd88ca1b861627756514a75713d3a96f0a22",
+      "baselineCopy": "baseline-1687/public/assets/cove/manifest.json"
+    }
+  }
+}

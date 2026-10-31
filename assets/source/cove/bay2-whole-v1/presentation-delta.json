@@ -1,0 +1,42 @@
+{
+  "baselineRevision": "b371181142804185e66a6545efdfd99c5e5fc666",
+  "files": {
+    "src/world/cove-terrain.ts": {
+      "baselineCopy": "baseline/cove-terrain.ts",
+      "baselineSha256": "ddf13b38c49a5fecad0c05304e8dbb4fd77c40b2f0b78423255df809ffe08853",
+      "currentSha256": "438856c82beaef563a68fdc8e31c29234050a8835f0e79fc462a64ea8d0bcc5c",
+      "changes": [
+        {
+          "before": "'bay2-mask-v1/platform.png'",
+          "after": "'bay2-whole-v1/platform.png'"
+        },
+        {
+          "before": "bay2.naturalHeight !== 30",
+          "after": "bay2.naturalHeight !== 35"
+        },
+        {
+          "before": "ctx.drawImage(kit.bay2, 0, 0, 160, 30, body.x - offset.x, body.y - offset.y, 160, 30);",
+          "after": "ctx.drawImage(kit.bay2, 0, 0, 160, 35, body.x - offset.x, body.y - offset.y, 160, 35);"
+        }
+      ]
+    },
+    "src/world/sandy-cove.ts": {
+      "baselineCopy": "baseline/sandy-cove.ts",
+      "baselineSha256": "27869e837e262bbe564db8dddefed0c193b020294176b2dbbe523570a0b97cb5",
+      "currentSha256": "4954efa2b13eeac2ea485ca8a3a72c02b6da30bd51cc040f0cd75d7451cf8214",
+      "changes": [
+        {
+          "before": "[3240, 299]",
+          "after": "[3240, 242]"
+        }
+      ]
+    }
+  },
+  "levelBaselineSha256": "6fabab82ec6e30c2c5b248c1c74c1973a4f9fb9a1fda8871f1680b61925f4c27",
+  "onlyEntityDelta": {
+    "id": "cove-bonus-4",
+    "x": 3240,
+    "fromY": 299,
+    "toY": 242
+  }
+}

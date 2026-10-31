@@ -1,0 +1,15 @@
+{
+  "prompt": "Use the primary technical guide as the exact eligibility layout:1536x1024 pure magenta RGB255,0,255; ONE white rectangle x368,y488,width800,height24. Paint exactly ONE continuous VERY LONG, VERY SHALLOW Sandy Cove B-style stone wholly inside that rectangle, including both complete rounded ends and underside. Target aspect about33:1, at least30:1: native100x3 at requested8x. This deliberately leaves headroom under the physical100x6 limit. Keep a quiet THIN cream landing rim perfectly flat and opaque across the ENTIRE800px first row; below it use small tan/slate facets in one coherent shallow stone lip matching the secondary isolated B palette/style. The style reference supplies material, NOT its thick proportions. No chain/rows of separate boulders, duplicate rocks, caps/repeats, columns, thick hanging body, stepped top, labels, actors, scenery, shadows or white-guide remnants. Keep EVERY pixel outside the white rectangle pure magenta. Preserve the whole natural shallow silhouette inside the strip; do not paint a thick body requiring later cutting. Output one original painting, not a full scene or sheet.\n",
+  "image_url": "/home/leew/.hermes/cache/scratch/ttt-art-235/phase19-remaining-five-platforms/pool1-refinement-inputs/generation-layout-guide.png",
+  "reference_image_urls": [
+    "/home/leew/.hermes/cache/scratch/tinyturbotrails-art-235/assets/source/cove/bay1-b-v1/references/B-style-isolated-reference.png"
+  ],
+  "aspect_ratio": "landscape",
+  "budget": "/home/leew/.hermes/cache/scratch/ttt-art-235/phase19-remaining-five-platforms/pool1-refinement-1/budget-adjudication.json",
+  "requestedCanvas": [
+    1536,
+    1024
+  ],
+  "requestedPainting100x3NotReturnedFact": true,
+  "physicalLimit100x6": true
+}

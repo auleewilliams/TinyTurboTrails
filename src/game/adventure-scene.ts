@@ -22,7 +22,7 @@ import { LEVELS } from '../world/levels';
 import { Camera } from '../world/camera';
 import { drawWorld, drawWorldForeground } from '../world/renderer';
 import type { WorldAssetMap, WorldAssets } from '../world/assets';
-import { drawCollectionBag, drawGameplayHud, HudPresentation } from './hud';
+import { BAG_PICKUP, drawCollectionBag, drawGameplayHud, HudPresentation } from './hud';
 import { Feedback } from './feedback';
 import { CompletionCelebration, celebrationJump, celebrationSparkles } from './celebration';
 
@@ -184,7 +184,7 @@ export class AdventureScene implements Scene {
     this.events = [];
     stepEntities(this.run, this.level, this.player, seconds, this.events, previousPosition, trajectory);
     if (!this.events.some(event => event.type === 'recover') && isMeaningfulLanding(wasGrounded, previousVelocityY, this.player)) {
-      this.feedback.add('landing', this.player.x, this.player.y + DEFAULT_MOVEMENT.height);
+      this.feedback.addLanding(this.player, this.level);
       this.audio.play('landing');
     }
     if (this.player.y > this.level.height + 80) recoverFromFall(this.run, this.player, this.events, this.level);
@@ -230,7 +230,7 @@ export class AdventureScene implements Scene {
     }
     this.hud.update(step, input, this.level, this.player.x, this.feedback.checkpointSeconds > 0
       || this.run.invulnerableSeconds > 0 || this.letterFlights.length > 0
-      || this.feedback.effects.some(effect => effect.kind !== 'landing'), this.player.y + DEFAULT_MOVEMENT.height);
+      || this.feedback.effects.some(effect => effect.kind !== 'landing' && effect.kind !== 'splash'), this.player.y + DEFAULT_MOVEMENT.height);
     this.camera.update(this.player.x, this.player.y);
   }
 
@@ -297,8 +297,8 @@ export class AdventureScene implements Scene {
     drawCollectionBag(ctx, this.education, this.spelling?.pouch, this.ui);
     for (const flight of this.letterFlights) {
       const t = flight.age / 0.65;
-      const x = this.reducedMotion ? 342 : flight.x + (342 - flight.x) * t;
-      const y = this.reducedMotion ? 74 : flight.y + (44 - flight.y) * t - Math.sin(t * Math.PI) * 25;
+      const x = this.reducedMotion ? BAG_PICKUP.x : flight.x + (BAG_PICKUP.x - flight.x) * t;
+      const y = this.reducedMotion ? BAG_PICKUP.reducedY : flight.y + (BAG_PICKUP.y - flight.y) * t - Math.sin(t * Math.PI) * 25;
       ctx.globalAlpha = 1 - t * 0.5;
       drawLetterTile(ctx, this.spelling?.tile, flight.letter, x - 11, y - 18, 22, 24);
     }

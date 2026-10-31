@@ -1,0 +1,27 @@
+{
+  "role": "cove-bay-ledge-2",
+  "prompt": "Primary guide is a 1536x1024 technical placement request, pure magenta RGB255,0,255 background. Paint exactly ONE complete Cove B-style rock for cove-bay-ledge-2, native160x30 at8x: source window x128,y392,width1280,height240. Replace white guide eligibility with original tan/slate/cream painted artwork; retain magenta outside the window. Match approved bay1 grain/palette and isolated B style. Quiet thin straight cream landing edge across the ENTIRE window width, first8source rows opaque. Broad rounded boulder masses with inward-tapered ends inside the white per-column depth envelope; natural ragged underside. No labels/white-guide remnants, extra rocks, tilechains, repeated cap motifs, columns, standing-looking side overhangs, actors or HUD. Do not copy a reference's dimensions; guide defines this role. ONE connected asymmetric recessed painting: native localx0..77 maximumdepth30 (source0..623 depth240), local78..121 maximum12 (source624..975 depth96), local122..159 maximum18 (source976..1279 depth144). Keep the low-gem corridor empty below that12px bridge; rounded left and right lobes, no duplicate cream ledges.",
+  "aspect_ratio": "landscape",
+  "image_url": "/home/leew/.hermes/cache/scratch/ttt-art-235/phase16-cove-platform-rollout/generation-inputs/cove-bay-ledge-2-placement-guide.png",
+  "reference_image_urls": [
+    "/home/leew/.hermes/cache/scratch/ttt-art-235/phase16-cove-platform-rollout/generation-inputs/TECHNICAL_REFERENCE_ONLY-bay1-alpha-bbox-8x.png",
+    "/home/leew/.hermes/cache/scratch/tinyturbotrails-art-235/assets/source/cove/bay1-b-v1/references/B-style-isolated-reference.png"
+  ],
+  "referenceHashes": {
+    "/home/leew/.hermes/cache/scratch/ttt-art-235/phase16-cove-platform-rollout/generation-inputs/cove-bay-ledge-2-placement-guide.png": "a3f77b341d6d6102c7fa6e4e2883ccdc54747e15c61f3607ffb3ca65afa5197d",
+    "/home/leew/.hermes/cache/scratch/ttt-art-235/phase16-cove-platform-rollout/generation-inputs/TECHNICAL_REFERENCE_ONLY-bay1-alpha-bbox-8x.png": "f33701e13bcfabb07c6c7bef4ad1ed30b41fbfb523a643ac367d390527dd0d68",
+    "/home/leew/.hermes/cache/scratch/tinyturbotrails-art-235/assets/source/cove/bay1-b-v1/references/B-style-isolated-reference.png": "cbf4b3fd2f1feb2617dafe40294f1c5badc047c5824a53211da01abb0b526d1c"
+  },
+  "generationBudget": "initialcall1of6max; STOPforactualfitbeforeanynextcall;0autorefine",
+  "sourceWindowRequest": [
+    128,
+    392,
+    1280,
+    240
+  ],
+  "nativeTarget": [
+    160,
+    30
+  ],
+  "sourceScaleRequest": 8
+}

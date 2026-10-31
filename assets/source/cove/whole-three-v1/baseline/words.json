@@ -1,0 +1,177 @@
+[
+  {
+    "id": "plains",
+    "name": "Plains",
+    "word": "HILL",
+    "pickups": [
+      {
+        "id": "plains-letter-h",
+        "letter": "H",
+        "x": 650
+      },
+      {
+        "id": "plains-letter-i",
+        "letter": "I",
+        "x": 2180
+      },
+      {
+        "id": "plains-letter-l1",
+        "letter": "L",
+        "x": 3150
+      },
+      {
+        "id": "plains-letter-l2",
+        "letter": "L",
+        "x": 3750
+      }
+    ]
+  },
+  {
+    "id": "quarry",
+    "name": "Quarry",
+    "word": "ROCK",
+    "pickups": [
+      {
+        "id": "quarry-letter-r",
+        "letter": "R",
+        "x": 230,
+        "supportY": 140
+      },
+      {
+        "id": "quarry-letter-o",
+        "letter": "O",
+        "x": 370,
+        "supportY": 420
+      },
+      {
+        "id": "quarry-letter-c",
+        "letter": "C",
+        "x": 220,
+        "supportY": 700
+      },
+      {
+        "id": "quarry-letter-k",
+        "letter": "K",
+        "x": 330,
+        "supportY": 980
+      }
+    ]
+  },
+  {
+    "id": "timbers",
+    "name": "Timbers",
+    "word": "TREE",
+    "pickups": [
+      {
+        "id": "timbers-letter-t",
+        "letter": "T",
+        "x": 220,
+        "supportY": 1080
+      },
+      {
+        "id": "timbers-letter-r",
+        "letter": "R",
+        "x": 270,
+        "supportY": 900
+      },
+      {
+        "id": "timbers-letter-e1",
+        "letter": "E",
+        "x": 300,
+        "supportY": 420
+      },
+      {
+        "id": "timbers-letter-e2",
+        "letter": "E",
+        "x": 350,
+        "supportY": 180
+      }
+    ]
+  },
+  {
+    "id": "sunset",
+    "name": "Sunset",
+    "word": "BEAM",
+    "pickups": [
+      {
+        "id": "sunset-letter-b",
+        "letter": "B",
+        "x": 350,
+        "supportY": 440
+      },
+      {
+        "id": "sunset-letter-e",
+        "letter": "E",
+        "x": 1840,
+        "supportY": 500
+      },
+      {
+        "id": "sunset-letter-a",
+        "letter": "A",
+        "x": 740,
+        "supportY": 320
+      },
+      {
+        "id": "sunset-letter-m",
+        "letter": "M",
+        "x": 2720,
+        "supportY": 200
+      }
+    ]
+  },
+  {
+    "id": "frost",
+    "name": "Frost",
+    "word": "SNOW",
+    "pickups": [
+      {
+        "id": "frost-letter-s",
+        "letter": "S",
+        "x": 110
+      },
+      {
+        "id": "frost-letter-n",
+        "letter": "N",
+        "x": 1190
+      },
+      {
+        "id": "frost-letter-o",
+        "letter": "O",
+        "x": 2620
+      },
+      {
+        "id": "frost-letter-w",
+        "letter": "W",
+        "x": 5320
+      }
+    ]
+  },
+  {
+    "id": "cove",
+    "name": "Cove",
+    "word": "SAND",
+    "pickups": [
+      {
+        "id": "cove-letter-s",
+        "letter": "S",
+        "x": 280
+      },
+      {
+        "id": "cove-letter-a",
+        "letter": "A",
+        "x": 1040,
+        "supportY": 320
+      },
+      {
+        "id": "cove-letter-n",
+        "letter": "N",
+        "x": 2000
+      },
+      {
+        "id": "cove-letter-d",
+        "letter": "D",
+        "x": 3850
+      }
+    ]
+  }
+]

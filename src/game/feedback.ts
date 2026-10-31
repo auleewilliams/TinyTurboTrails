@@ -1,9 +1,10 @@
+import { DEFAULT_MOVEMENT, surfaceAt, surfaceY, type Player } from './movement';
 import type { RunEvent } from './interactions';
 import type { LevelData } from '../world/level';
 import { drawAsset } from '../world/renderer';
 import type { WorldAssets } from '../world/assets';
 
-export type EffectKind = 'checkpoint' | 'gem' | 'special' | 'landing' | 'spring';
+export type EffectKind = 'checkpoint' | 'gem' | 'special' | 'landing' | 'splash' | 'spring';
 export interface Effect { kind: EffectKind; x: number; y: number; age: number; duration: number; entityId?: string }
 export const MAX_EFFECTS = 24;
 
@@ -21,6 +22,14 @@ export class Feedback {
   add(kind: EffectKind, x: number, y: number, entityId?: string): void {
     if (this.effects.length >= MAX_EFFECTS) this.effects.shift();
     this.effects.push({ kind, x, y, entityId, age: 0, duration: kind === 'checkpoint' ? 0.8 : kind === 'gem' || kind === 'special' ? 0.65 : 0.3 });
+  }
+  /** Called only for meaningful impacts; resolved support wins over material below a slab. */
+  addLanding(player: Readonly<Player>, level: LevelData): void {
+    const feet = player.y + DEFAULT_MOVEMENT.height;
+    const water = player.onGround && player.platformId === null
+      && Math.abs(feet - surfaceY(level, player.x)) < 0.01
+      && surfaceAt(level, player.x).material === 'water';
+    this.add(water ? 'splash' : 'landing', player.x, feet);
   }
   consume(events: readonly RunEvent[], level: LevelData): void {
     for (const event of events) {
@@ -46,6 +55,17 @@ export class Feedback {
       const y = Math.round(effect.y - offset.y);
       if (x < -32 || x > 458 || y < -32 || y > 272) continue;
       ctx.globalAlpha = 1 - progress * 0.6;
+      if (effect.kind === 'splash') {
+        if (!reducedMotion) for (let index = 0; index < 6; index++) {
+          const side = index < 3 ? -1 : 1;
+          const lane = index % 3;
+          const px = x + side * (3 + lane * 2 + progress * (8 + lane * 3));
+          const py = y + 1 - Math.sin(progress * Math.PI) * (6 + lane * 3);
+          ctx.fillStyle = lane === 1 ? '#fff2cf' : '#63cddd';
+          ctx.fillRect(Math.round(px), Math.round(py), 2, lane === 1 ? 2 : 3);
+        }
+        continue;
+      }
       if (effect.kind === 'landing') {
         if (!reducedMotion) drawAsset(ctx, assets, 'dust', x, y + 2, 0.35 + progress * 0.15);
         continue;

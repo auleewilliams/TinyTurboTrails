@@ -1,0 +1,282 @@
+import { beforeWholeThree } from './whole-three-preservation.mjs';
+import { beforeWholeBay2, beforeWholeBay2Level } from './whole-bay2-preservation.mjs';
+import { beforeOwnerHud } from './hud-owner-preservation.mjs';
+import { assertPngPixelContract } from './png-pixel-contract.mjs';
+import { beforeWaterLanding } from './water-landing-preservation.mjs';
+import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
+import { test } from 'node:test';
+import { transformSync } from 'rolldown/utils';
+import { modeDownsample } from './interface-kit.mjs';
+import { decodePng, isChromaKey, removeEdgeKey } from './spelling-stickers.mjs';
+import { prepareCoveKit } from './cove-terrain.mjs';
+
+const root = new URL('../assets/source/cove/terrain-kit/', import.meta.url);
+const read = name => readFileSync(new URL(name, root));
+const hash = bytes => createHash('sha256').update(bytes).digest('hex');
+
+test('all modules of each material use one exact isotropic source/native scale', () => {
+  const record = JSON.parse(read('preparation.json'));
+  const scales = new Map();
+  for (const [name, part] of Object.entries(record.pieces)) {
+    const sx = part.crop.width / part.output.width, sy = part.crop.height / part.output.height;
+    assert.equal(sx, sy, `${name}: no anisotropic preparation`);
+    const material = part.source;
+    if (scales.has(material)) assert.equal(sx, scales.get(material), `${name}: same material grain scale`);
+    scales.set(material, sx);
+  }
+});
+
+test('actual generated Cove sources reproduce the complete RGBA atlas without losing cream', () => {
+  const record = JSON.parse(read('preparation.json'));
+  const sources = Object.fromEntries(['ground', 'platform'].map(name => [name, read(`${name}-source.png`)]));
+  assert.equal(hash(sources.ground), 'd61a31eae616e347ba0e10182d37355d16b39733db93bdd077cc64a795825bb2');
+  assert.equal(hash(sources.platform), 'ed16a3fbdfe9ece989c83a1c1f1eb2c9eeb47499150ce43335660575650e1f96');
+  const result = prepareCoveKit(sources, record, JSON.parse(read('geometry-pin.json')));
+  const committed = read('prepared/atlas.png'), committedGround = read('prepared/ground.png');
+  assertPngPixelContract(result.png, committed, { ...record.atlasSize, pixelSha256: record.pixelSha256 });
+  assert.deepEqual(committed, readFileSync(new URL('../public/assets/cove/terrain-kit/atlas.png', import.meta.url)));
+  assert.equal(hash(result.image.data), record.pixelSha256);
+  const level = JSON.parse(read('geometry-pin.json'));
+  assertPngPixelContract(result.groundPng, committedGround, { width: level.width, height: level.height, pixelSha256: record.groundPixelSha256 });
+  assert.deepEqual(committedGround, readFileSync(new URL('../public/assets/cove/terrain-kit/ground.png', import.meta.url)));
+  const repeated = prepareCoveKit(sources, record, level);
+  assert.ok(repeated.png.equals(result.png), 'same-environment atlas encoding is deterministic');
+  assert.ok(repeated.groundPng.equals(result.groundPng), 'same-environment ground encoding is deterministic');
+  assert.equal(hash(result.ground.data), record.groundPixelSha256);
+  const atlas = decodePng(result.png);
+  let transparent = 0, cream = 0;
+  for (let i = 0; i < atlas.data.length; i += 4) {
+    const [r, g, b, a] = atlas.data.subarray(i, i + 4);
+    if (!a) { transparent++; assert.equal(r + g + b, 0); }
+    else { assert.equal(isChromaKey(r, g, b), false, 'no opaque magenta fringe'); if (r > 220 && g > 190 && b > 130) cream++; }
+  }
+  assert.ok(transparent > 1000); assert.ok(cream > 100);
+  for (const [name, part] of Object.entries(result.manifest.pieces)) {
+    let visible = 0;
+    for (let y = 0; y < part.height; y++) for (let x = 0; x < part.width; x++) {
+      const alpha = atlas.data[((part.y + y) * atlas.width + part.x + x) * 4 + 3];
+      if (alpha) visible++;
+      if (name.startsWith('stone') && y === 0) assert.equal(alpha, 255, `${name} entire landing top`);
+    }
+    assert.ok(visible > part.width, `${name} nonempty actual-source crop`);
+  }
+  assert.throws(() => prepareCoveKit({ ...sources, ground: Buffer.alloc(0) }, record, JSON.parse(read('geometry-pin.json'))), /source/i);
+});
+
+test('generation metadata retains actual prompts and all requested/reported discrepancies', () => {
+  const generation = JSON.parse(read('generation-record.json'));
+  assert.equal(generation.ground.reported_quality, 'low');
+  assert.equal(generation.platform.requested_size, '1536x1024');
+  assert.equal(generation.platform.pixel_size, '1774x887');
+  assert.match(generation.platform.prompt, /1024x512/);
+  assert.match(generation.draft_prompt_note, /draft/i);
+});
+
+test('real prepared stone pixels cover every support top and respect native depth, repeats and hollow taper', () => {
+  const names = ['game/movement.ts', 'game/platforms.ts', 'world/sandy-cove.ts', 'world/cove-terrain.ts'];
+  const code = names.map(name => transformSync(name, readFileSync(new URL(`../src/${name}`, import.meta.url), 'utf8')
+    .replace(/^import .*;\n/gm, '').replace(/\bexport /g, ''), {}).code).join('\n');
+  const { draw, bodies, validate, repeat } = new Function(`${code}\nreturn { draw: drawCovePlatform, bodies: platformBodiesAt(SANDY_COVE.platforms,0), validate: validateCoveTerrain, repeat: coveRepeatColumn };`)();
+  const manifest = JSON.parse(readFileSync(new URL('../public/assets/cove/terrain-kit/manifest.json', import.meta.url)));
+  const atlas = decodePng(read('prepared/atlas.png'));
+  const kit = { image: atlas, manifest };
+  validate(manifest);
+  for (const mutate of [m => m.width--, m => m.pieces['stone-thin-left'].height++, m => m.pieces['sand-fill'].x = NaN,
+    m => m.pieces['sand-fill'].x = 250, m => m.pieces['stone-thin-left'].x = m.pieces['stone-thin-repeat'].x]) {
+    const bad = structuredClone(manifest); mutate(bad); assert.throws(() => validate(bad), /Cove terrain/);
+  }
+  const level = JSON.parse(read('geometry-pin.json'));
+  for (const body of bodies) for (const offset of [{ x: 0, y: 0 }, { x: 800.25, y: 220.5 }]) {
+    const calls = [], ctx = { save() {}, restore() {}, drawImage(...args) { calls.push(args); } };
+    draw(ctx, kit, level, body, offset);
+    assert.equal(calls.length, 1, body.id);
+    const [image, sx, sy, sw, sh, dx, dy, dw, dh] = calls[0];
+    assert.equal(image, atlas); assert.equal(sw, body.width); assert.equal(sw, dw); assert.equal(sh, dh);
+    assert.equal(dx, body.x - offset.x); assert.equal(dy, body.y - offset.y);
+    const cap = body.id.includes('shelf') || /stone-[12]$/.test(body.id) ? 14 : 12;
+    for (const x of [cap, sw - cap]) for (let y = 0; y < sh; y++) {
+      const a = atlas.data.subarray(((sy + y) * atlas.width + sx + x) * 4, ((sy + y) * atlas.width + sx + x) * 4 + 4);
+      const b = atlas.data.subarray(((sy + y) * atlas.width + sx + x - 1) * 4, ((sy + y) * atlas.width + sx + x - 1) * 4 + 4);
+      if (a[3] && b[3]) assert.ok(a.slice(0, 3).reduce((n, v, i) => n + Math.abs(v - b[i]), 0) <= 360, `${body.id} actual cap seam`);
+    }
+    const limit = body.id.includes('shelf') || /stone-[12]$/.test(body.id) ? 6 : 12;
+    assert.ok(sh <= limit);
+    for (let x = 0; x < sw; x++) {
+      assert.equal(atlas.data[(sy * atlas.width + sx + x) * 4 + 3], 255, 'entire actual collision top');
+      if (body.id === 'cove-hollow-shelf') {
+        const top = level.surfaces.find(s => body.x + x >= s.x1 && body.x + x <= s.x2);
+        const gy = top.y1 + (top.y2 - top.y1) * (body.x + x - top.x1) / (top.x2 - top.x1);
+        const depth = Math.min(6, Math.max(1, Math.floor(gy - body.y - 42)));
+        for (let y = depth; y < sh; y++) assert.equal(atlas.data[((sy + y) * atlas.width + sx + x) * 4 + 3], 0, 'taper masks source pixels without squeezing');
+      }
+    }
+  }
+  for (const width of [32, 64]) for (let boundary = -width * 2; boundary <= width * 3; boundary += width) {
+    assert.equal(repeat(boundary - 1, width), repeat(boundary, width), 'mirrored native repeats share identical actual edge columns');
+  }
+});
+
+// Immutable baseline remains authoritative: reverse only the exact owner-approved
+// placement literal, then hash every source byte (including non-gameplay code).
+const originalDecorationXs = '[400, 890, 1160, 1510, 1990, 2650, 2860, 3570, 3940]';
+const approvedDecorationXs = '[295, 820, 1295, 1510, 1990, 2685, 2830, 3700, 4050]';
+function assertApprovedCoveSource(source, expectedHash) {
+  source=beforeWholeBay2('src/world/sandy-cove.ts',Buffer.from(source)).toString();
+  assert.equal(source.split(approvedDecorationXs).length, 2, 'exact approved decoration literal occurs once');
+  assert.equal(hash(source.replace(approvedDecorationXs, originalDecorationXs)), expectedHash,
+    'all source bytes outside the exact approved decoration-array delta remain pinned');
+}
+function gameplayProjection(level) {
+  return { ...level, entities: level.entities.map(entity => {
+    if (entity.kind !== 'decoration') return entity;
+    const { x, y, ...fixed } = entity;
+    return fixed;
+  }) };
+}
+function assertApprovedCoveLevel(level, baseline) {
+  level=beforeWholeBay2Level(level);
+  assert.deepEqual(gameplayProjection(level), gameplayProjection(baseline), 'complete gameplay projection remains pinned');
+  const xs = JSON.parse(approvedDecorationXs);
+  const expected = baseline.entities.filter(e => e.kind === 'decoration').map((entity, index) => {
+    const x = xs[index], surface = baseline.surfaces.find(s => x >= s.x1 && x <= s.x2);
+    assert.ok(surface, 'approved placement has immutable baseline support');
+    const y = surface.y1 + (surface.y2 - surface.y1) * (x - surface.x1) / (surface.x2 - surface.x1);
+    return { ...entity, x, y };
+  });
+  assert.equal(expected.length, 9);
+  assert.deepEqual(level.entities.filter(e => e.kind === 'decoration'), expected, 'only the exact nine approved placements');
+}
+function assertApprovedCoveManifest(manifest, baseline) {
+  const expected = structuredClone(baseline);
+  for (const [asset, y] of Object.entries({ stone: 42, tree: 43, checkpoint: 42 })) {
+    assert.equal(expected.anchors[asset].y, 44, 'immutable original anchor');
+    expected.anchors[asset].y = y;
+  }
+  expected.terrainKit = 'terrain-kit/manifest.json';
+  expected.surfaceKit = 'materials/manifest.json';
+  assert.deepEqual(manifest, expected, 'only additive kit linkage and three exact approved anchorY changes');
+}
+function currentCoveLevel() {
+  const code = ['game/movement.ts', 'world/sandy-cove.ts'].map(name => transformSync(name,
+    readFileSync(new URL(`../src/${name}`, import.meta.url), 'utf8')
+      .replace(/^import .*;\n/gm, '').replace(/\bexport /g, ''), {}).code).join('\n');
+  return new Function(`${code}\nreturn SANDY_COVE;`)();
+}
+
+test('all approved existing images/provenance and gameplay declarations remain byte-for-byte pinned', () => {
+  const pins = JSON.parse(read('preserved-files.json'));
+  for (const pin of pins.files) {
+    const bytes = readFileSync(new URL(`../${pin.path}`, import.meta.url));
+    if (pin.path === 'src/world/sandy-cove.ts') assertApprovedCoveSource(bytes.toString('utf8'), pin.sha256);
+    else assert.equal(hash(beforeWaterLanding(pin.path, beforeOwnerHud(pin.path, beforeWholeThree(pin.path, bytes)))), pin.sha256, pin.path);
+  }
+  assertApprovedCoveLevel(currentCoveLevel(), JSON.parse(read('geometry-pin.json')));
+  assertApprovedCoveManifest(JSON.parse(readFileSync(new URL('../public/assets/cove/manifest.json', import.meta.url))), pins.coveManifestBefore);
+});
+
+test('preservation guard rejects unrelated source bytes and unauthorized decoration literals', () => {
+  const source = readFileSync(new URL('../src/world/sandy-cove.ts', import.meta.url), 'utf8');
+  const pin = JSON.parse(read('preserved-files.json')).files.find(p => p.path === 'src/world/sandy-cove.ts');
+  assertApprovedCoveSource(source, pin.sha256);
+  for (const bad of [source + '// unrelated source edit\n', source.replace('cameraLead: 45', 'cameraLead: 46'),
+    source.replace(approvedDecorationXs, approvedDecorationXs.replace('295', '296')),
+    source.replace("'stone' : 'tree'", "'stone' : 'bush'")]) {
+    assert.notEqual(bad, source, 'negative control actually changes input');
+    assert.throws(() => assertApprovedCoveSource(bad, pin.sha256), { code: 'ERR_ASSERTION' });
+  }
+});
+
+test('preservation guard rejects gameplay edits and unauthorized decoration position identity asset layer or count', () => {
+  const baseline = JSON.parse(read('geometry-pin.json')), level = currentCoveLevel();
+  assertApprovedCoveLevel(level, baseline);
+  for (const mutate of [l => l.start.x++, l => l.surfaces[0].y1++, l => l.platforms[0].width++,
+    l => l.entities.find(e => e.kind === 'gem').x++, l => l.cameraLead++,
+    l => l.entities.find(e => e.kind === 'decoration').x++,
+    l => l.entities.find(e => e.kind === 'decoration').y++,
+    l => l.entities.find(e => e.kind === 'decoration').id += '-extra',
+    l => l.entities.find(e => e.kind === 'decoration').asset = 'bush',
+    l => l.entities.find(e => e.kind === 'decoration').layer = 'world',
+    l => l.entities.splice(l.entities.findIndex(e => e.kind === 'decoration'), 1)]) {
+    const bad = structuredClone(level); mutate(bad);
+    assert.throws(() => assertApprovedCoveLevel(bad, baseline), { code: 'ERR_ASSERTION' });
+  }
+});
+
+test('preservation guard rejects unrelated extra manifest metadata and unauthorized anchors', () => {
+  const baseline = JSON.parse(read('preserved-files.json')).coveManifestBefore;
+  const manifest = JSON.parse(readFileSync(new URL('../public/assets/cove/manifest.json', import.meta.url)));
+  assertApprovedCoveManifest(manifest, baseline);
+  for (const mutate of [m => m.extra = true, m => m.panorama = 'other.png', m => m.assets.tree++,
+    m => m.anchors.spring.y++, m => m.anchors.tree.y++, m => m.anchors.stone.x++,
+    m => m.anchors.checkpoint.extra = true, m => m.terrainKit = 'other.json', m => m.surfaceKit = 'other.json']) {
+    const bad = structuredClone(manifest); mutate(bad);
+    assert.throws(() => assertApprovedCoveManifest(bad, baseline), { code: 'ERR_ASSERTION' });
+  }
+});
+
+test('all 13 slope starts and ends bake in-range junction columns and exact adjacent source pixels', () => {
+  const record = JSON.parse(read('preparation.json')), level = JSON.parse(read('geometry-pin.json'));
+  const sources = Object.fromEntries(['ground', 'platform'].map(name => [name, read(`${name}-source.png`)]));
+  const result = prepareCoveKit(sources, record, level);
+  // Independent oracle: derive native pieces directly from the original ground sheet,
+  // then assign columns by the latest authored start, never by the producer's lookup.
+  const keyed = removeEdgeKey(decodePng(sources.ground)).image;
+  const parts = Object.fromEntries(Object.entries(record.pieces).filter(([, p]) => p.source === 'ground')
+    .map(([name, p]) => [name, modeDownsample(keyed, p.crop, p.output.width, p.output.height)]));
+  const rgba = (image, x, y) => {
+    assert.ok(x >= 0 && x < image.width && y >= 0 && y < image.height, `source coordinate ${x},${y} in ${image.width}x${image.height}`);
+    return [...image.data.subarray((y * image.width + x) * 4, (y * image.width + x) * 4 + 4)];
+  };
+  const mirror = (value, width) => { const n = value % (width * 2); return n < width ? n : width * 2 - 1 - n; };
+  const slopes = level.surfaces.filter(s => s.y1 !== s.y2), mismatches = [];
+  assert.equal(slopes.length, 13);
+  for (const slope of slopes) for (const edge of ['start', 'end']) {
+    const boundary = edge === 'start' ? slope.x1 : slope.x2, columns = new Set();
+    // Entire 16-column junction window, plus its outside boundary and adjacent columns.
+    const first = edge === 'start' ? boundary - 1 : boundary - 17;
+    const last = edge === 'start' ? boundary + 16 : boundary + 1;
+    for (let x = first; x <= last; x++) {
+      const owner = level.surfaces.findLast(s => s.x1 <= x);
+      const top = Math.floor(owner.y1 + (owner.y2 - owner.y1) * (x - owner.x1) / (owner.x2 - owner.x1));
+      const junctionColumn = edge === 'start' ? x - slope.x1 : x - slope.x2 + 16;
+      if (junctionColumn >= 0 && junctionColumn < 16) {
+        assert.equal(owner, slope, `${edge} ${boundary} column ${junctionColumn} belongs to slope`);
+        columns.add(junctionColumn);
+      }
+      for (let depth = 0; depth <= 16; depth++) {
+        const fill = parts['sand-fill'];
+        let expected = rgba(fill, mirror(x, fill.width), mirror(top + depth, fill.height));
+        const lip = parts[owner.material === 'water' ? 'wet-sand-lip' : 'sand-lip'];
+        let paint = depth < lip.height ? rgba(lip, mirror(x, lip.width), depth) : null;
+        const rising = owner.y2 < owner.y1;
+        if (owner.y1 !== owner.y2 && depth < 16) {
+          const startColumn = x - owner.x1, endColumn = x - (owner.x2 - 16);
+          const atStart = startColumn >= 0 && startColumn < 16, atEnd = endColumn >= 0 && endColumn < 16;
+          if (atStart || atEnd) {
+            const name = rising ? (atEnd ? 'up-to-flat' : 'flat-to-up') : (atEnd ? 'down-to-flat' : 'flat-to-down');
+            paint = rgba(parts[name], atEnd ? endColumn : startColumn, depth);
+          }
+        }
+        if (paint?.[3]) expected = paint;
+        const actual = rgba(result.ground, x, top + depth);
+        if (!actual.every((value, i) => value === expected[i])) mismatches.push({ edge, boundary, x, depth, expected, actual });
+      }
+    }
+    assert.deepEqual([...columns].sort((a, b) => a - b), Array.from({ length: 16 }, (_, i) => i), `${edge} ${boundary} uses source columns 0..15 exactly`);
+  }
+  // J1 must not move the existing water/sand pixels at unrelated flat joins.
+  for (let i = 1; i < level.surfaces.length; i++) {
+    const previous = level.surfaces[i - 1], next = level.surfaces[i];
+    if (previous.y1 !== previous.y2 || next.y1 !== next.y2 || previous.material === next.material) continue;
+    const x = next.x1, top = next.y1;
+    for (let depth = 0; depth <= 16; depth++) {
+      const lip = parts[previous.material === 'water' ? 'wet-sand-lip' : 'sand-lip'], fill = parts['sand-fill'];
+      const paint = depth < lip.height ? rgba(lip, mirror(x, lip.width), depth) : null;
+      const expected = paint?.[3] ? paint : rgba(fill, mirror(x, fill.width), mirror(top + depth, fill.height));
+      assert.deepEqual(rgba(result.ground, x, top + depth), expected, `unchanged flat material boundary ${x} depth ${depth}`);
+    }
+  }
+  assert.equal(mismatches.length, 0, JSON.stringify({ mismatchCount: mismatches.length, first: mismatches.slice(0, 12) }));
+});

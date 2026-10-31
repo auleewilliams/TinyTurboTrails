@@ -29,7 +29,7 @@ export const TRAIL_WORDS: readonly TrailWord[] = [
   trailWord('frost', 'Frost', 'SNOW', [110, 1190, 2620, 5320]),
   { ...trailWord('cove', 'Cove', 'SAND', [280, 1040, 2000, 3850]),
     pickups: trailWord('cove', 'Cove', 'SAND', [280, 1040, 2000, 3850]).pickups
-      .map(pickup => pickup.letter === 'A' ? { ...pickup, supportY: 320 } : pickup) },
+      .map(pickup => pickup.letter === 'A' ? { ...pickup, supportY: 297 } : pickup) },
 ];
 
 /** Retain the accepted Timbers pickup identities, including both separate Es. */

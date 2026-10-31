@@ -1,0 +1,8 @@
+{
+  "verbatim": "yes",
+  "boundQuestion": "May I make one in-game preview using rock artwork as a texture, cropped to the exact safe platform outline? It trims painted edges rather than preserving the whole illustration, while keeping gameplay geometry, clearance, the approved platform and HUD unchanged.",
+  "scope": "ONEcove-bay-ledge-2texture/crop/maskpreview, boundedChromiumintegratednative426/CSS320witness; no otherplatformintegrationbeforeownerpreviewfeedback",
+  "supersedes": "Whole-source/completeillustratededgepreservation restriction ONLYfornewbay2texturemaskasset. FirstsourcefullsilhouetteFAILremains historical; maynowbereusedastextureinputwithnewsource-cut/maskcontractandquantifiedloss.",
+  "preserve": "allphysicaltops/widths/physics/geometry/gem-and-Henryclearance,HDUandlinkedfeedback,approvedbay1/alloldimages and historicalsources",
+  "notAuthorized": "newimagecalls, other5integration, gameplay/redesign, arbitrarypainting/filler, CIrerundenialbypass, merge/deploy/closure"
+}

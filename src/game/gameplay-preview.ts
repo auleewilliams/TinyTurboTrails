@@ -49,7 +49,7 @@ export class GameplayPreviewScene implements Scene {
     this.events = [];
     stepEntities(this.run, this.level, this.player, seconds, this.events, previousPosition, trajectory);
     if (!this.events.some(event => event.type === 'recover') && isMeaningfulLanding(wasGrounded, previousVelocityY, this.player)) {
-      this.feedback.add('landing', this.player.x, this.player.y + DEFAULT_MOVEMENT.height);
+      this.feedback.addLanding(this.player, this.level);
       this.audio.play('landing');
     }
     if (this.player.y > this.level.height + 80) recoverFromFall(this.run, this.player, this.events, this.level);
@@ -65,7 +65,7 @@ export class GameplayPreviewScene implements Scene {
       else if (event.type === 'damage') this.audio.play('damage');
     }
     this.hud.update(step, input, this.level, this.player.x, this.feedback.checkpointSeconds > 0
-      || this.run.invulnerableSeconds > 0 || this.feedback.effects.some(effect => effect.kind !== 'landing'), this.player.y + DEFAULT_MOVEMENT.height);
+      || this.run.invulnerableSeconds > 0 || this.feedback.effects.some(effect => effect.kind !== 'landing' && effect.kind !== 'splash'), this.player.y + DEFAULT_MOVEMENT.height);
     this.camera.update(this.player.x, this.player.y);
   }
 

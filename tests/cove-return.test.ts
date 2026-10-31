@@ -12,7 +12,7 @@ function retrace(route:ReturnType<typeof covePilot>) {
 it.each([
   {missing:'all four',out:COVE_MISS_ALL,back:COVE_RETURN,ids:['s','a','n','d']},
   {missing:'A only',out:COVE_LOWER,back:COVE_A,ids:['a']},
-  {missing:'N only',out:[walk(1040),jump(1040,320),walk(1950),jump(2080,320),walk(4030),{kind:'finish' as const}],back:COVE_N,ids:['n']},
+  {missing:'N only',out:[walk(1040),jump(1040,297),walk(1950),jump(2080,320),walk(4030),{kind:'finish' as const}],back:COVE_N,ids:['n']},
 ])('uses the actual finish for $missing return and manual SAND assembly',({out,back,ids})=>{
   const route=covePilot();route.run(out);
   expect(route.scene.education.pickups.filter(p=>!route.scene.education.hasLetter(p.id)).map(p=>p.id).sort()).toEqual(ids.map(id=>`cove-letter-${id}`).sort());

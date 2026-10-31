@@ -1,0 +1,59 @@
+{
+  "baselineRevision": "ca340905424b544ad83d9041112f6ecc4bda49be",
+  "scope": "Exact owner-requested presentation-only water landing classification, droplets, and both HUD exclusions. No movement/audio/level/art change.",
+  "files": {
+    "src/game/feedback.ts": {
+      "baselineSha256": "7d6927dedfafd72989ba78c88a35d0dd9ff3c8573cc4d256540a1e495753b6ea",
+      "currentSha256": "7bf222bf4c3c4fc00d37cef7ead6015c8a2f40a14bed9131d902fd421e4f6f02",
+      "baselineCopy": "baseline/src/game/feedback.ts",
+      "changes": [
+        {
+          "before": "import type { RunEvent } from './interactions';\n",
+          "after": "import { DEFAULT_MOVEMENT, surfaceAt, surfaceY, type Player } from './movement';\nimport type { RunEvent } from './interactions';\n"
+        },
+        {
+          "before": "export type EffectKind = 'checkpoint' | 'gem' | 'special' | 'landing' | 'spring';\n",
+          "after": "export type EffectKind = 'checkpoint' | 'gem' | 'special' | 'landing' | 'splash' | 'spring';\n"
+        },
+        {
+          "before": "  consume(events: readonly RunEvent[], level: LevelData): void {\n",
+          "after": "  /** Called only for meaningful impacts; resolved support wins over material below a slab. */\n  addLanding(player: Readonly<Player>, level: LevelData): void {\n    const feet = player.y + DEFAULT_MOVEMENT.height;\n    const water = player.onGround && player.platformId === null\n      && Math.abs(feet - surfaceY(level, player.x)) < 0.01\n      && surfaceAt(level, player.x).material === 'water';\n    this.add(water ? 'splash' : 'landing', player.x, feet);\n  }\n  consume(events: readonly RunEvent[], level: LevelData): void {\n"
+        },
+        {
+          "before": "      if (effect.kind === 'landing') {\n",
+          "after": "      if (effect.kind === 'splash') {\n        if (!reducedMotion) for (let index = 0; index < 6; index++) {\n          const side = index < 3 ? -1 : 1;\n          const lane = index % 3;\n          const px = x + side * (3 + lane * 2 + progress * (8 + lane * 3));\n          const py = y + 1 - Math.sin(progress * Math.PI) * (6 + lane * 3);\n          ctx.fillStyle = lane === 1 ? '#fff2cf' : '#63cddd';\n          ctx.fillRect(Math.round(px), Math.round(py), 2, lane === 1 ? 2 : 3);\n        }\n        continue;\n      }\n      if (effect.kind === 'landing') {\n"
+        }
+      ]
+    },
+    "src/game/adventure-scene.ts": {
+      "baselineSha256": "0c065088875e77c6a6035be2723ae115f6a7bf8af727382c060503d9b446a6c7",
+      "currentSha256": "c751fe5a5736918833cbf81971317091f8e3da13c339c32f9fc181b02201c6ee",
+      "baselineCopy": "baseline/src/game/adventure-scene.ts",
+      "changes": [
+        {
+          "before": "      this.feedback.add('landing', this.player.x, this.player.y + DEFAULT_MOVEMENT.height);\n",
+          "after": "      this.feedback.addLanding(this.player, this.level);\n"
+        },
+        {
+          "before": "      || this.feedback.effects.some(effect => effect.kind !== 'landing'), this.player.y + DEFAULT_MOVEMENT.height);\n",
+          "after": "      || this.feedback.effects.some(effect => effect.kind !== 'landing' && effect.kind !== 'splash'), this.player.y + DEFAULT_MOVEMENT.height);\n"
+        }
+      ]
+    },
+    "src/game/gameplay-preview.ts": {
+      "baselineSha256": "cf1a2199587237b7527339a74d4f1e78439c0769d4be668b3cec06cfdda2602a",
+      "currentSha256": "bd55bc5c2851bb04677287b6f5d9a54881b95359b9bb88fab44e1753af05d00e",
+      "baselineCopy": "baseline/src/game/gameplay-preview.ts",
+      "changes": [
+        {
+          "before": "      this.feedback.add('landing', this.player.x, this.player.y + DEFAULT_MOVEMENT.height);\n",
+          "after": "      this.feedback.addLanding(this.player, this.level);\n"
+        },
+        {
+          "before": "      || this.run.invulnerableSeconds > 0 || this.feedback.effects.some(effect => effect.kind !== 'landing'), this.player.y + DEFAULT_MOVEMENT.height);\n",
+          "after": "      || this.run.invulnerableSeconds > 0 || this.feedback.effects.some(effect => effect.kind !== 'landing' && effect.kind !== 'splash'), this.player.y + DEFAULT_MOVEMENT.height);\n"
+        }
+      ]
+    }
+  }
+}
