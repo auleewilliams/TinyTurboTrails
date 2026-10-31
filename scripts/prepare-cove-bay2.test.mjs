@@ -1,3 +1,4 @@
+import { beforeRemainingTwo } from './remaining-two-preservation.mjs';
 import assert from 'node:assert/strict';
 import {test} from 'node:test';
 import {readFileSync} from 'node:fs';
@@ -23,7 +24,7 @@ test('rejects top/body/outlineRGB/dimension/source/CRC corruption without maskin
  const crc=Buffer.from(r.png);crc[29]^=1;assert.throws(()=>assertPngPixelContract(crc,r.png,spec));assert.throws(()=>assertPngPixelContract(r.png.subarray(0,-1),r.png,spec));
 });
 test('exactsource and completelevel normalizers permit ONLY wholeassetlinkage and ONE bonusgem',()=>{
- for(const p of ['src/world/cove-terrain.ts','src/world/sandy-cove.ts']){const b=readFileSync(p);assert.equal(beforeWholeBay2(p,b).equals(readFileSync(root+'baseline/'+p.split('/').at(-1))),true);assert.throws(()=>beforeWholeBay2(p,Buffer.concat([b,Buffer.from('\n// unrelated')])));}
+ for(const p of ['src/world/cove-terrain.ts','src/world/sandy-cove.ts']){const b=beforeRemainingTwo(p,readFileSync(p));assert.equal(beforeWholeBay2(p,b).equals(readFileSync(root+'baseline/'+p.split('/').at(-1))),true);assert.throws(()=>beforeWholeBay2(p,Buffer.concat([b,Buffer.from('\n// unrelated')])));}
  const level=JSON.parse(readFileSync(root+'baseline/level.json'));level.entities.find(e=>e.id==='cove-bonus-4').y=242;assert.equal(beforeWholeBay2Level(level).entities.find(e=>e.id==='cove-bonus-4').y,299);
  for(const change of [v=>v.entities.find(e=>e.id==='cove-bonus-4').x++,v=>v.entities.find(e=>e.id==='cove-bonus-3').y++,v=>v.entities.push({...v.entities[0],id:'extra'}),v=>v.platforms[0].width++,v=>v.entities.find(e=>e.id==='cove-bonus-4').id='changed']){const bad=structuredClone(level);change(bad);assert.throws(()=>beforeWholeBay2Level(bad));}
  const movement=readFileSync('src/game/movement.ts');assert.equal(beforeWholeBay2('src/game/movement.ts',movement),movement);

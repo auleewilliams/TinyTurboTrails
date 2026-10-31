@@ -1,0 +1,32 @@
+{
+  "baselineRevision": "69bfa79d8fb96b395154a0f3dcb52450c32920ce + pinned TWO-role checkpoint af1846ce",
+  "path": "src/world/cove-terrain.ts",
+  "baselineSha256": "1674837a8b5355d6eeec520d717b600dbdd017e0ca948385ac66eafd98d85ee2",
+  "currentSha256": "298809df5eec5a79f655eb12546e16dbc1a47039c5becca66cc28fb67f21e425",
+  "changes": [
+    {
+      "before": "pool3B?: HTMLImageElement; manifest:",
+      "after": "pool3B?: HTMLImageElement; bay3?: HTMLImageElement; manifest:"
+    },
+    {
+      "before": "'remaining-two-v1/pool3.png'].map",
+      "after": "'remaining-two-v1/pool3.png', 'bay3-b-v1/platform.png'].map"
+    },
+    {
+      "before": "bay2, hollowB, pool3B] = images;",
+      "after": "bay2, hollowB, pool3B, bay3] = images;"
+    },
+    {
+      "before": "|| pool3B.naturalWidth !== 90 || pool3B.naturalHeight !== 18)",
+      "after": "|| pool3B.naturalWidth !== 90 || pool3B.naturalHeight !== 18\n    || bay3.naturalWidth !== 180 || bay3.naturalHeight !== 30)"
+    },
+    {
+      "before": "return { image, ground, bay1, bay2, hollowB, pool3B, manifest };",
+      "after": "return { image, ground, bay1, bay2, hollowB, pool3B, bay3, manifest };"
+    },
+    {
+      "before": "  const replacement = body.id === 'cove-hollow-shelf'",
+      "after": "  if (body.id === 'cove-bay-ledge-3' && kit.bay3) {\n    if (body.width !== 180) throw new Error('Invalid Cove bay3 presentation width');\n    ctx.save();\n    try {\n      ctx.imageSmoothingEnabled = false;\n      ctx.drawImage(kit.bay3, 0, 0, 180, 30, body.x - offset.x, body.y - offset.y, 180, 30);\n    } finally { ctx.restore(); }\n    return;\n  }\n  const replacement = body.id === 'cove-hollow-shelf'"
+    }
+  ]
+}

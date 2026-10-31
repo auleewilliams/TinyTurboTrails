@@ -72,6 +72,22 @@ it('function-string fixtures carry and execute the actual Cove helper dependency
   fixture.drawCovePlatform(ctx, { manifest, image: {}, ground: {}, bay2 }, SANDY_COVE, platformBodyAt(SANDY_COVE.platforms!.find(p => p.id === 'cove-bay-ledge-2')!, 0), {x:.25,y:.5});
   expect(calls.at(-1)).toEqual([bay2,0,0,160,35,3139.75,259.5,160,35]);
   expect(calls).toHaveLength(4);
+  const hollowB = {}, pool3B = {}, bay3 = {}, pool2B = {}, pool1B = {}, image = {};
+  const current = { manifest, image, ground: {}, bay1, bay2, hollowB, pool3B, bay3, pool2B, pool1B };
+  for (const platform of SANDY_COVE.platforms!) {
+    const b = platformBodyAt(platform, 0);
+    const before = calls.length;
+    fixture.drawCovePlatform(ctx, current, SANDY_COVE, b, {x:.25,y:.5});
+    const expected = b.id === 'cove-hollow-shelf' ? hollowB : b.id === 'cove-pool-stone-3' ? pool3B : b.id === 'cove-bay-ledge-1' ? bay1 : b.id === 'cove-bay-ledge-2' ? bay2 : b.id === 'cove-bay-ledge-3' ? bay3 : b.id === 'cove-pool-stone-2' ? pool2B : b.id === 'cove-pool-stone-1' ? pool1B : image;
+    expect(calls).toHaveLength(before + 1);
+    expect(calls.at(-1)![0]).toBe(expected);
+    if (expected === hollowB || expected === pool3B) expect(()=>fixture.drawCovePlatform(ctx,current,SANDY_COVE,{...b,width:b.width+1},{x:0,y:0})).toThrow(/width/);
+    expect(expected).not.toBe(image);
+    if(expected===pool1B){expect(calls.at(-1)!.slice(1)).toEqual([0,0,100,5,b.x-.25,b.y-.5,100,5]);expect(()=>fixture.drawCovePlatform(ctx,current,SANDY_COVE,{...b,width:99},{x:0,y:0})).toThrow(/width/);}
+    if(expected===pool2B){expect(calls.at(-1)!.slice(1)).toEqual([0,0,90,6,b.x-.25,b.y-.5,90,6]);expect(()=>fixture.drawCovePlatform(ctx,current,SANDY_COVE,{...b,width:91},{x:0,y:0})).toThrow(/width/);}
+    if(expected===bay3)expect(calls.at(-1)!.slice(1)).toEqual([0,0,180,30,b.x-.25,b.y-.5,180,30]);
+    if (expected === hollowB || expected === pool3B) expect(calls.at(-1)!.slice(1)).toEqual([0,0,b.width,expected===hollowB?6:18,b.x-.25,b.y-.5,b.width,expected===hollowB?6:18]);
+  }
   const materialManifest = JSON.parse(readFileSync(new URL('../public/assets/cove/materials/manifest.json', import.meta.url), 'utf8'));
   fixture.validateCoveMaterials(materialManifest);
   const materialCalls: unknown[][] = [];

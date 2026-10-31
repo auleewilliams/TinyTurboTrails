@@ -1,0 +1,13 @@
+{
+  "classification": "BOUNDED_MANUAL_REFINEMENT_WITHIN_EXISTING_UNUSED_ALLOWANCE_NOT_AUTOMATIC_LOOP",
+  "reason": "Initialpool1sourceFAILat100x6, but boundedzero-callreusePASSas90x6pool2 eliminatesplannedpool2initialgeneration. All5ownerrollout+explicit<=3edgepixelcleanupremainactive.",
+  "priorActualCalls": 2,
+  "totalCallCapIncludingAllAttempts": 5,
+  "retiredUnusedCall": "cove-pool-stone-2 initialcall NO LONGERNEEDED because measuredwholeuniformreusePASS",
+  "reservedManualRefinementCalls": 1,
+  "reservedRole": "cove-pool-stone-1",
+  "spend": "ReassignONEunspentinitialslot tothisONEtargetedpool1source refinement; totalcallsbecome3, not5initial+extra. No newallowancecreated.",
+  "automaticRefinements": 0,
+  "stopAfter": "ONErefinement measuredbeforefurthercall. Ifsource stillcannotwholefit100x6/<=3edgecleanup, stopsourcegeneration andpresentmeasuredremainingdecision. No paidpool2/hollow/pool3calls whilethisgateunresolved.",
+  "noContractRelaxation": "No croppedbody/ends, anisotropicfit, >3pixelrepairs, alpha capmask, newphysics/entity/heightchanges."
+}

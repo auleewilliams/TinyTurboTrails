@@ -1,3 +1,4 @@
+import { beforeRemainingTwo } from './remaining-two-preservation.mjs';
 import { beforeWholeBay2 } from './whole-bay2-preservation.mjs';
 import { beforeBay2 } from './bay2-preservation.mjs';
 import assert from 'node:assert/strict';
@@ -58,7 +59,7 @@ test('rejects damaged tops, internal holes and cap violations without changing t
 
 test('ships exact reproducible bay1 pixels and immutable committed PNG copies, preserving the original oracle through exact deltas', async () => {
   const { beforeBay1 } = await import('./bay1-preservation.mjs');
-  const current = beforeBay2('src/world/cove-terrain.ts', beforeWholeBay2('src/world/cove-terrain.ts', readFileSync(new URL('../src/world/cove-terrain.ts', import.meta.url))));
+  const current = beforeBay2('src/world/cove-terrain.ts', beforeWholeBay2('src/world/cove-terrain.ts', beforeRemainingTwo('src/world/cove-terrain.ts', readFileSync(new URL('../src/world/cove-terrain.ts', import.meta.url)))));
   const baseline = readFileSync(new URL('../assets/source/cove/bay1-b-v1/baseline/cove-terrain.ts', import.meta.url));
   assert.deepEqual(beforeBay1('src/world/cove-terrain.ts', current), baseline);
   assert.throws(() => beforeBay1('src/world/cove-terrain.ts', Buffer.concat([current, Buffer.from('\n// mutation')])));

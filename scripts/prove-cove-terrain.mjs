@@ -17,7 +17,12 @@ const manifest = JSON.parse(await readFile('public/assets/cove/terrain-kit/manif
 const groundImage = decodePng(await readFile('public/assets/cove/terrain-kit/ground.png'));
 const bay1 = decodePng(await readFile('public/assets/cove/bay1-b-v1/platform.png'));
 const bay2 = decodePng(await readFile('public/assets/cove/bay2-whole-v1/platform.png'));
-const kit = { image: atlas, ground: groundImage, bay1, bay2, manifest };
+const hollowB=decodePng(await readFile('public/assets/cove/remaining-two-v1/hollow.png'));
+const pool3B=decodePng(await readFile('public/assets/cove/remaining-two-v1/pool3.png'));
+const bay3=decodePng(await readFile('public/assets/cove/bay3-b-v1/platform.png'));
+const pool2B=decodePng(await readFile('public/assets/cove/pool2-b-v1/platform.png'));
+const pool1B=decodePng(await readFile('public/assets/cove/pool1-b-v1/platform.png'));
+const kit = { image: atlas, ground: groundImage, bay1, bay2, hollowB, pool3B, bay3, pool2B, pool1B, manifest };
 const records = [];
 const hash = bytes => createHash('sha256').update(bytes).digest('hex');
 async function emit(name, image, detail) {
@@ -67,9 +72,12 @@ for(const [name,color]of [['light',[242,234,211]],['dark',[19,37,44]]]) {
   await emit(`bay1-enlarged-${name}-NOT-GAMEPLAY`,resize(single.image,560,120),{id:'cove-bay-ledge-1',scale:4});
   const proof=canvas(atlas.width,atlas.height,color);proof.ctx.drawImage(atlas,0,0,atlas.width,atlas.height,0,0,atlas.width,atlas.height);
   await emit(`atlas-native-${name}`,proof.image,{});await emit(`atlas-small-${name}`,resize(proof.image,384,192),{scale:.75});
+  // Width sweep exercises immutable legacy spans; role-specific assets have exact-ID widths.
+  const legacyKit={...kit,hollowB:undefined,pool3B:undefined,pool1B:undefined};
+  for (const [id,image] of [['cove-hollow-shelf',hollowB],['cove-pool-stone-3',pool3B],['cove-bay-ledge-3',bay3],['cove-pool-stone-2',pool2B],['cove-pool-stone-1',pool1B]]) { const native=canvas(image.width,image.height,color);native.ctx.drawImage(image,0,0,image.width,image.height,0,0,image.width,image.height);await emit(`${id}-native-${name}-NOT-GAMEPLAY`,native.image,{id,scale:1});await emit(`${id}-enlarged-${name}-NOT-GAMEPLAY`,resize(native.image,image.width*4,image.height*4),{id,scale:4}); }
   const widths=canvas(426,190,color);
   for(const [row,width]of [90,100,140,160,180].entries())for(const [column,id]of ['cove-pool-stone-1','cove-pool-stone-3'].entries()) {
-    platform(widths.ctx,kit,level,{id,x:8+column*210,y:12+row*36,width,height:10,vx:0,vy:0},{x:0,y:0});
+    platform(widths.ctx,legacyKit,level,{id,x:8+column*210,y:12+row*36,width,height:10,vx:0,vy:0},{x:0,y:0});
   }
   await emit(`widths-native-${name}`,widths.image,{rowWidths:[90,100,140,160,180],columns:['independently painted thin6','regular12']});
   await emit(`widths-small-${name}`,resize(widths.image,320,143),{scale:320/426});
@@ -106,7 +114,7 @@ for (const body of bodies) {
     return depth;
   });
   const cap = body.id.includes('shelf') || /stone-[12]$/.test(body.id) ? 14 : 12;
-  const capSeams = (['cove-bay-ledge-1','cove-bay-ledge-2'].includes(body.id) ? [] : [cap, sw - cap]).map(x => {
+  const capSeams = (['cove-bay-ledge-1','cove-bay-ledge-2','cove-hollow-shelf','cove-pool-stone-3','cove-bay-ledge-3','cove-pool-stone-2','cove-pool-stone-1'].includes(body.id) ? [] : [cap, sw - cap]).map(x => {
     const deltas = [];
     for (let y = 0; y < sh; y++) {
       const a = drawn.data.subarray(((sy + y) * drawn.width + sx + x) * 4, ((sy + y) * drawn.width + sx + x) * 4 + 4);
@@ -122,5 +130,5 @@ for (const body of bodies) {
 }
 await writeFile(`${destination}/constraint-diagnostics.json`, `${JSON.stringify({ kind: 'actual prepared-pixel/production-helper unit diagnostics, not gameplay', constraints }, null, 2)}\n`);
 const sourceModuleHashes = Object.fromEntries(await Promise.all(names.map(async name => [name, hash(await readFile(`src/${name}`))])));
-await writeFile(`${destination}/proof-ledger.json`, `${JSON.stringify({ kind: 'asset/unit proofs only', sourceModuleHashes, preparedImages: { bay1: hash(await readFile('public/assets/cove/bay1-b-v1/platform.png')), legacy: hash(await readFile('public/assets/cove/terrain-kit/atlas.png')) }, records }, null, 2)}\n`);
+await writeFile(`${destination}/proof-ledger.json`, `${JSON.stringify({ kind: 'asset/unit proofs only', sourceModuleHashes, preparedImages: { pool1B:hash(await readFile('public/assets/cove/pool1-b-v1/platform.png')),pool2B:hash(await readFile('public/assets/cove/pool2-b-v1/platform.png')),bay3:hash(await readFile('public/assets/cove/bay3-b-v1/platform.png')),hollowB:hash(await readFile('public/assets/cove/remaining-two-v1/hollow.png')),pool3B:hash(await readFile('public/assets/cove/remaining-two-v1/pool3.png')),bay2:hash(await readFile('public/assets/cove/bay2-whole-v1/platform.png')), bay1: hash(await readFile('public/assets/cove/bay1-b-v1/platform.png')), legacy: hash(await readFile('public/assets/cove/terrain-kit/atlas.png')) }, records }, null, 2)}\n`);
 console.log(JSON.stringify({destination,proofs:records.length,kind:'software asset/unit proofs only; no browser launched'}));

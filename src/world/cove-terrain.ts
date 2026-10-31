@@ -3,7 +3,7 @@ import type { LevelData } from './level';
 
 export interface CovePiece { x: number; y: number; width: number; height: number }
 export interface CoveTerrainManifest { version: number; image: string; width: number; height: number; pieces: Record<string, CovePiece>; platforms: Record<string, CovePiece>; ground: { image: string; width: number; height: number } }
-export interface CoveTerrainAssets { image: HTMLImageElement; ground: HTMLImageElement; bay1?: HTMLImageElement; bay2?: HTMLImageElement; manifest: CoveTerrainManifest }
+export interface CoveTerrainAssets { image: HTMLImageElement; ground: HTMLImageElement; bay1?: HTMLImageElement; bay2?: HTMLImageElement; hollowB?: HTMLImageElement; pool3B?: HTMLImageElement; bay3?: HTMLImageElement; pool2B?: HTMLImageElement; pool1B?: HTMLImageElement; manifest: CoveTerrainManifest }
 
 /** Exact native dimensions are a presentation contract, independent of collision bodies. */
 export function validateCoveTerrain(value: unknown): asserts value is CoveTerrainManifest {
@@ -44,7 +44,7 @@ export async function loadCoveTerrain(base: string, path?: string): Promise<Cove
   if (!response.ok) throw new Error('Could not load Cove terrain metadata');
   const manifest: unknown = await response.json();
   validateCoveTerrain(manifest);
-  const images = await Promise.all([`terrain-kit/${manifest.image}`, `terrain-kit/${manifest.ground.image}`, 'bay1-b-v1/platform.png', 'bay2-whole-v1/platform.png'].map(async name => {
+  const images = await Promise.all([`terrain-kit/${manifest.image}`, `terrain-kit/${manifest.ground.image}`, 'bay1-b-v1/platform.png', 'bay2-whole-v1/platform.png', 'remaining-two-v1/hollow.png', 'remaining-two-v1/pool3.png', 'bay3-b-v1/platform.png', 'pool2-b-v1/platform.png', 'pool1-b-v1/platform.png'].map(async name => {
     const image = new Image();
     await new Promise<void>((resolve, reject) => {
       image.onload = () => resolve(); image.onerror = () => reject(new Error('Could not load Cove terrain image'));
@@ -52,12 +52,17 @@ export async function loadCoveTerrain(base: string, path?: string): Promise<Cove
     });
     return image;
   }));
-  const [image, ground, bay1, bay2] = images;
+  const [image, ground, bay1, bay2, hollowB, pool3B, bay3, pool2B, pool1B] = images;
   if (image.naturalWidth !== manifest.width || image.naturalHeight !== manifest.height
     || ground.naturalWidth !== manifest.ground.width || ground.naturalHeight !== manifest.ground.height
     || bay1.naturalWidth !== 140 || bay1.naturalHeight !== 30
-    || bay2.naturalWidth !== 160 || bay2.naturalHeight !== 35) throw new Error('Invalid Cove terrain image dimensions');
-  return { image, ground, bay1, bay2, manifest };
+    || bay2.naturalWidth !== 160 || bay2.naturalHeight !== 35
+    || hollowB.naturalWidth !== 140 || hollowB.naturalHeight !== 6
+    || pool3B.naturalWidth !== 90 || pool3B.naturalHeight !== 18
+    || bay3.naturalWidth !== 180 || bay3.naturalHeight !== 30
+    || pool2B.naturalWidth !== 90 || pool2B.naturalHeight !== 6
+    || pool1B.naturalWidth !== 100 || pool1B.naturalHeight !== 5) throw new Error('Invalid Cove terrain image dimensions');
+  return { image, ground, bay1, bay2, hollowB, pool3B, bay3, pool2B, pool1B, manifest };
 }
 
 /** A mirrored repeat preserves original generated boundary pixels, without painting seam fixes. */
@@ -87,6 +92,45 @@ export function drawCoveGround(ctx: CanvasRenderingContext2D, kit: CoveTerrainAs
 /** One native bitmap per support: fractional camera positions cannot expose joins between separate draws. */
 export function drawCovePlatform(ctx: CanvasRenderingContext2D, kit: CoveTerrainAssets, _level: LevelData,
   body: PlatformBody, offset: { x: number; y: number }): void {
+  if (body.id === 'cove-pool-stone-1' && kit.pool1B) {
+    if (body.width !== 100) throw new Error('Invalid Cove pool1 presentation width');
+    ctx.save();
+    try {
+      ctx.imageSmoothingEnabled = false;
+      ctx.drawImage(kit.pool1B, 0, 0, 100, 5, body.x - offset.x, body.y - offset.y, 100, 5);
+    } finally { ctx.restore(); }
+    return;
+  }
+  if (body.id === 'cove-pool-stone-2' && kit.pool2B) {
+    if (body.width !== 90) throw new Error('Invalid Cove pool2 presentation width');
+    ctx.save();
+    try {
+      ctx.imageSmoothingEnabled = false;
+      ctx.drawImage(kit.pool2B, 0, 0, 90, 6, body.x - offset.x, body.y - offset.y, 90, 6);
+    } finally { ctx.restore(); }
+    return;
+  }
+  if (body.id === 'cove-bay-ledge-3' && kit.bay3) {
+    if (body.width !== 180) throw new Error('Invalid Cove bay3 presentation width');
+    ctx.save();
+    try {
+      ctx.imageSmoothingEnabled = false;
+      ctx.drawImage(kit.bay3, 0, 0, 180, 30, body.x - offset.x, body.y - offset.y, 180, 30);
+    } finally { ctx.restore(); }
+    return;
+  }
+  const replacement = body.id === 'cove-hollow-shelf' ? kit.hollowB : body.id === 'cove-pool-stone-3' ? kit.pool3B : undefined;
+  if (replacement) {
+    const width = body.id === 'cove-hollow-shelf' ? 140 : 90;
+    const height = body.id === 'cove-hollow-shelf' ? 6 : 18;
+    if (body.width !== width) throw new Error('Invalid Cove remaining support width');
+    ctx.save();
+    try {
+      ctx.imageSmoothingEnabled = false;
+      ctx.drawImage(replacement, 0, 0, width, height, body.x - offset.x, body.y - offset.y, width, height);
+    } finally { ctx.restore(); }
+    return;
+  }
   if (body.id === 'cove-bay-ledge-2' && kit.bay2) {
     if (body.width !== 160) throw new Error('Invalid Cove bay2 presentation width');
     ctx.save();

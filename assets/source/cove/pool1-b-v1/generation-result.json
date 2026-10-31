@@ -1,0 +1,14 @@
+{
+  "success": true,
+  "image": "/home/leew/.hermes/cache/generated/images/openai_codex_gpt-image-2-medium_20261031_022632_9a4e362d.png",
+  "model": "gpt-image-2-medium",
+  "provider": "openai-codex",
+  "size": "1536x1024",
+  "quality": "medium",
+  "input_image_count": 2,
+  "requested_size": "1536x1024",
+  "pixel_size": "1536x1024",
+  "reported_quality": "low",
+  "reported_size": "1536x1024",
+  "imagegen_request_id": "070ebc87-4d65-4eac-b0fc-15cb93945575"
+}

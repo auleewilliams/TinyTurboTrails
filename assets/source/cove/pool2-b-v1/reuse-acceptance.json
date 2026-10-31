@@ -1,0 +1,78 @@
+{
+  "status": "PASS",
+  "decision": "ACCEPTABLE_POOL2_ONLY",
+  "role": "cove-pool-stone-2",
+  "source": {
+    "path": "/home/leew/.hermes/cache/generated/images/openai_codex_gpt-image-2-medium_20261031_021240_b3b0af80.png",
+    "sha256": "b871de8b554c4ec1cb84842161dab324de4087a8784e459ab5823b4443080331",
+    "actual": [
+      1536,
+      1024
+    ],
+    "requestedQuality": "medium",
+    "reportedQuality": "medium"
+  },
+  "bindings": {
+    "pool1FailureSha256": "44b5d77f9e33d6b39914b112269f360da4ff99cbd364a1e3bb045d80b753a01f",
+    "sourceSha256": "b871de8b554c4ec1cb84842161dab324de4087a8784e459ab5823b4443080331",
+    "keyedRgbaSha256": "12b66a5263346d4cd476aee74c1bc58faa5dc383dfea695d2e85cd2161469d55",
+    "removeEdgeKeySha256": "7f2a39ba40211a6974aa3f0191f17a653a7ae3c92bf36e0a184f111089c8c732",
+    "modeDownsampleSha256": "02321fa26dfb7215a2700479749e7af5c1c245c07bf40e4f0f53cd281c8c04d4",
+    "edgeApprovalSha256": "cf0a1b2a0a3aab35db989e49b51dc8d0efc3ba303a1c8f503aebe0153bb4bfff"
+  },
+  "paintBounds": {
+    "x": 239,
+    "y": 487,
+    "width": 1058,
+    "height": 73
+  },
+  "sourcePaintPixels": 59000,
+  "sourcePaintOutsideWindow": 0,
+  "retainedSourceRgbChanges": 0,
+  "sourceNativeFactor": {
+    "numerator": 1058,
+    "denominator": 90,
+    "value": 11.755555555555556,
+    "uniformXY": true
+  },
+  "wholeContainingSourceWindow": {
+    "x": 239,
+    "y": 487,
+    "width": 1058,
+    "height": 82.28888888888889
+  },
+  "fullNativeCanvas": [
+    90,
+    7
+  ],
+  "rowOpaqueCounts": [
+    90,
+    90,
+    88,
+    83,
+    54,
+    22,
+    0
+  ],
+  "transparentBottomRowsRemoved": 1,
+  "trimmedNativeCanvas": [
+    90,
+    6
+  ],
+  "actualMaximumOccupiedDepth": 6,
+  "flatTopOpaqueColumns": 90,
+  "topDefectCount": 0,
+  "internalHoleCount": 0,
+  "capViolationCount": 0,
+  "proposedRepairs": [],
+  "repairsApplied": 0,
+  "opaquePixelsTrimmed": 0,
+  "outputRgbModificationsAfterDownsample": 0,
+  "rawPngSha256": "ab877bafdc22834a8082cba47f0f648b4254d803e8ec3580f660b18498ba4021",
+  "rawRgbaSha256": "b454af12b5ae445a44b52a1c3b5b837b38109a415154eb17782cd562a18fdcd9",
+  "trimmedPngSha256": "4d601b232c0028f73387c3a740c52d5c653dc90a47a1575ab0afb9440391360c",
+  "trimmedRgbaSha256": "35b726d07d68f3f6ad670638bef585266b589fc3c916fef1f74c3d89180c9593",
+  "sourceAreaPreservation": "Entire whole-painted region contained before uniform resampling; does not claim each original pixel individually represented.",
+  "scope": "ONE reuse probe, no integration/painting/generation; historical pool1 FAIL unchanged. Software source evidence NOT gameplay.",
+  "profileFile": "profiles.json"
+}
