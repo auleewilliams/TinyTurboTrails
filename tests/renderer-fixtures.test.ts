@@ -83,10 +83,10 @@ it('function-string fixtures carry and execute the actual Cove helper dependency
     expect(calls.at(-1)![0]).toBe(expected);
     if (expected === hollowB || expected === pool3B) expect(()=>fixture.drawCovePlatform(ctx,current,SANDY_COVE,{...b,width:b.width+1},{x:0,y:0})).toThrow(/width/);
     expect(expected).not.toBe(image);
-    if(expected===pool1B){expect(calls.at(-1)!.slice(1)).toEqual([0,0,100,5,b.x-.25,b.y-.5,100,5]);expect(()=>fixture.drawCovePlatform(ctx,current,SANDY_COVE,{...b,width:99},{x:0,y:0})).toThrow(/width/);}
-    if(expected===pool2B){expect(calls.at(-1)!.slice(1)).toEqual([0,0,90,6,b.x-.25,b.y-.5,90,6]);expect(()=>fixture.drawCovePlatform(ctx,current,SANDY_COVE,{...b,width:91},{x:0,y:0})).toThrow(/width/);}
+    if(expected===pool1B){expect(calls.at(-1)!.slice(1)).toEqual([0,0,100,22,b.x-.25,b.y-.5,100,22]);expect(()=>fixture.drawCovePlatform(ctx,current,SANDY_COVE,{...b,width:99},{x:0,y:0})).toThrow(/width/);}
+    if(expected===pool2B){expect(calls.at(-1)!.slice(1)).toEqual([0,0,90,18,b.x-.25,b.y-.5,90,18]);expect(()=>fixture.drawCovePlatform(ctx,current,SANDY_COVE,{...b,width:91},{x:0,y:0})).toThrow(/width/);}
     if(expected===bay3)expect(calls.at(-1)!.slice(1)).toEqual([0,0,180,30,b.x-.25,b.y-.5,180,30]);
-    if (expected === hollowB || expected === pool3B) expect(calls.at(-1)!.slice(1)).toEqual([0,0,b.width,expected===hollowB?6:18,b.x-.25,b.y-.5,b.width,expected===hollowB?6:18]);
+    if (expected === hollowB || expected === pool3B) expect(calls.at(-1)!.slice(1)).toEqual([0,0,b.width,expected===hollowB?30:18,b.x-.25,b.y-.5,b.width,expected===hollowB?30:18]);
   }
   const materialManifest = JSON.parse(readFileSync(new URL('../public/assets/cove/materials/manifest.json', import.meta.url), 'utf8'));
   fixture.validateCoveMaterials(materialManifest);

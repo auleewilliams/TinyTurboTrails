@@ -38,8 +38,8 @@ it('projects Cove world support tops into the cached initial preview camera', ()
   expect(camera.position).toEqual({ x: 0, y: Math.min(480 - 240, 360 - 34 - 104) });
   expect(level.platforms!.map(p => ({ x: p.from.x - camera.position.x, y: p.from.y - camera.position.y, width: p.width })))
     .toEqual([
-      { x: 980, y: 98, width: 140 }, { x: 1700, y: 74, width: 100 },
-      { x: 2230, y: 74, width: 90 }, { x: 2380, y: 62, width: 90 },
+      { x: 980, y: 75, width: 140 }, { x: 1700, y: 61, width: 100 },
+      { x: 2230, y: 63, width: 90 }, { x: 2380, y: 62, width: 90 },
       { x: 2960, y: 50, width: 140 }, { x: 3140, y: 38, width: 160 },
       { x: 3340, y: 50, width: 180 },
     ]);

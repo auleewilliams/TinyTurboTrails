@@ -5,9 +5,9 @@ import type { TimberPilotStage } from './timbers-browser-pilot';
 export const COVE_ART_PILOT_STAGES = {
   underpass: [{ kind: 'walk', x: 1040 }],
   hollowSlope: [{ kind: 'walk', x: 1110 }],
-  firstStone: [{ kind: 'walk', x: 1600 }, { kind: 'walk', x: 1690 }, { kind: 'jump', x: 1750, y: 296 }],
+  firstStone: [{ kind: 'walk', x: 1600 }, { kind: 'walk', x: 1690 }, { kind: 'jump', x: 1750, y: 283 }],
   upperLanding: [
-    { kind: 'walk', x: 2070 }, { kind: 'walk', x: 2210 }, { kind: 'jump', x: 2260, y: 296 },
+    { kind: 'walk', x: 2070 }, { kind: 'walk', x: 2210 }, { kind: 'jump', x: 2260, y: 285 },
     { kind: 'walk', x: 2300 }, { kind: 'jump', x: 2395, y: 284 },
     { kind: 'walk', x: 2600 }, { kind: 'walk', x: 2940 }, { kind: 'jump', x: 3020, y: 272 },
     { kind: 'walk', x: 3080 }, { kind: 'jump', x: 3170, y: 260 },

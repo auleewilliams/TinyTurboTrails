@@ -44,7 +44,7 @@ export async function loadCoveTerrain(base: string, path?: string): Promise<Cove
   if (!response.ok) throw new Error('Could not load Cove terrain metadata');
   const manifest: unknown = await response.json();
   validateCoveTerrain(manifest);
-  const images = await Promise.all([`terrain-kit/${manifest.image}`, `terrain-kit/${manifest.ground.image}`, 'bay1-b-v1/platform.png', 'bay2-whole-v1/platform.png', 'remaining-two-v1/hollow.png', 'remaining-two-v1/pool3.png', 'bay3-b-v1/platform.png', 'pool2-b-v1/platform.png', 'pool1-b-v1/platform.png'].map(async name => {
+  const images = await Promise.all([`terrain-kit/${manifest.image}`, `terrain-kit/${manifest.ground.image}`, 'bay1-b-v1/platform.png', 'bay2-whole-v1/platform.png', 'whole-three-v1/hollow.png', 'remaining-two-v1/pool3.png', 'bay3-b-v1/platform.png', 'whole-three-v1/pool2.png', 'whole-three-v1/pool1.png'].map(async name => {
     const image = new Image();
     await new Promise<void>((resolve, reject) => {
       image.onload = () => resolve(); image.onerror = () => reject(new Error('Could not load Cove terrain image'));
@@ -57,11 +57,11 @@ export async function loadCoveTerrain(base: string, path?: string): Promise<Cove
     || ground.naturalWidth !== manifest.ground.width || ground.naturalHeight !== manifest.ground.height
     || bay1.naturalWidth !== 140 || bay1.naturalHeight !== 30
     || bay2.naturalWidth !== 160 || bay2.naturalHeight !== 35
-    || hollowB.naturalWidth !== 140 || hollowB.naturalHeight !== 6
+    || hollowB.naturalWidth !== 140 || hollowB.naturalHeight !== 30
     || pool3B.naturalWidth !== 90 || pool3B.naturalHeight !== 18
     || bay3.naturalWidth !== 180 || bay3.naturalHeight !== 30
-    || pool2B.naturalWidth !== 90 || pool2B.naturalHeight !== 6
-    || pool1B.naturalWidth !== 100 || pool1B.naturalHeight !== 5) throw new Error('Invalid Cove terrain image dimensions');
+    || pool2B.naturalWidth !== 90 || pool2B.naturalHeight !== 18
+    || pool1B.naturalWidth !== 100 || pool1B.naturalHeight !== 22) throw new Error('Invalid Cove terrain image dimensions');
   return { image, ground, bay1, bay2, hollowB, pool3B, bay3, pool2B, pool1B, manifest };
 }
 
@@ -97,7 +97,7 @@ export function drawCovePlatform(ctx: CanvasRenderingContext2D, kit: CoveTerrain
     ctx.save();
     try {
       ctx.imageSmoothingEnabled = false;
-      ctx.drawImage(kit.pool1B, 0, 0, 100, 5, body.x - offset.x, body.y - offset.y, 100, 5);
+      ctx.drawImage(kit.pool1B, 0, 0, 100, 22, body.x - offset.x, body.y - offset.y, 100, 22);
     } finally { ctx.restore(); }
     return;
   }
@@ -106,7 +106,7 @@ export function drawCovePlatform(ctx: CanvasRenderingContext2D, kit: CoveTerrain
     ctx.save();
     try {
       ctx.imageSmoothingEnabled = false;
-      ctx.drawImage(kit.pool2B, 0, 0, 90, 6, body.x - offset.x, body.y - offset.y, 90, 6);
+      ctx.drawImage(kit.pool2B, 0, 0, 90, 18, body.x - offset.x, body.y - offset.y, 90, 18);
     } finally { ctx.restore(); }
     return;
   }
@@ -122,7 +122,7 @@ export function drawCovePlatform(ctx: CanvasRenderingContext2D, kit: CoveTerrain
   const replacement = body.id === 'cove-hollow-shelf' ? kit.hollowB : body.id === 'cove-pool-stone-3' ? kit.pool3B : undefined;
   if (replacement) {
     const width = body.id === 'cove-hollow-shelf' ? 140 : 90;
-    const height = body.id === 'cove-hollow-shelf' ? 6 : 18;
+    const height = body.id === 'cove-hollow-shelf' ? 30 : 18;
     if (body.width !== width) throw new Error('Invalid Cove remaining support width');
     ctx.save();
     try {

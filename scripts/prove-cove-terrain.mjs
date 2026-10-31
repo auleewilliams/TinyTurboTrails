@@ -17,11 +17,11 @@ const manifest = JSON.parse(await readFile('public/assets/cove/terrain-kit/manif
 const groundImage = decodePng(await readFile('public/assets/cove/terrain-kit/ground.png'));
 const bay1 = decodePng(await readFile('public/assets/cove/bay1-b-v1/platform.png'));
 const bay2 = decodePng(await readFile('public/assets/cove/bay2-whole-v1/platform.png'));
-const hollowB=decodePng(await readFile('public/assets/cove/remaining-two-v1/hollow.png'));
+const hollowB=decodePng(await readFile('public/assets/cove/whole-three-v1/hollow.png'));
 const pool3B=decodePng(await readFile('public/assets/cove/remaining-two-v1/pool3.png'));
 const bay3=decodePng(await readFile('public/assets/cove/bay3-b-v1/platform.png'));
-const pool2B=decodePng(await readFile('public/assets/cove/pool2-b-v1/platform.png'));
-const pool1B=decodePng(await readFile('public/assets/cove/pool1-b-v1/platform.png'));
+const pool2B=decodePng(await readFile('public/assets/cove/whole-three-v1/pool2.png'));
+const pool1B=decodePng(await readFile('public/assets/cove/whole-three-v1/pool1.png'));
 const kit = { image: atlas, ground: groundImage, bay1, bay2, hollowB, pool3B, bay3, pool2B, pool1B, manifest };
 const records = [];
 const hash = bytes => createHash('sha256').update(bytes).digest('hex');
@@ -130,5 +130,5 @@ for (const body of bodies) {
 }
 await writeFile(`${destination}/constraint-diagnostics.json`, `${JSON.stringify({ kind: 'actual prepared-pixel/production-helper unit diagnostics, not gameplay', constraints }, null, 2)}\n`);
 const sourceModuleHashes = Object.fromEntries(await Promise.all(names.map(async name => [name, hash(await readFile(`src/${name}`))])));
-await writeFile(`${destination}/proof-ledger.json`, `${JSON.stringify({ kind: 'asset/unit proofs only', sourceModuleHashes, preparedImages: { pool1B:hash(await readFile('public/assets/cove/pool1-b-v1/platform.png')),pool2B:hash(await readFile('public/assets/cove/pool2-b-v1/platform.png')),bay3:hash(await readFile('public/assets/cove/bay3-b-v1/platform.png')),hollowB:hash(await readFile('public/assets/cove/remaining-two-v1/hollow.png')),pool3B:hash(await readFile('public/assets/cove/remaining-two-v1/pool3.png')),bay2:hash(await readFile('public/assets/cove/bay2-whole-v1/platform.png')), bay1: hash(await readFile('public/assets/cove/bay1-b-v1/platform.png')), legacy: hash(await readFile('public/assets/cove/terrain-kit/atlas.png')) }, records }, null, 2)}\n`);
+await writeFile(`${destination}/proof-ledger.json`, `${JSON.stringify({ kind: 'asset/unit proofs only', sourceModuleHashes, preparedImages: { pool1B:hash(await readFile('public/assets/cove/whole-three-v1/pool1.png')),pool2B:hash(await readFile('public/assets/cove/whole-three-v1/pool2.png')),bay3:hash(await readFile('public/assets/cove/bay3-b-v1/platform.png')),hollowB:hash(await readFile('public/assets/cove/whole-three-v1/hollow.png')),pool3B:hash(await readFile('public/assets/cove/remaining-two-v1/pool3.png')),bay2:hash(await readFile('public/assets/cove/bay2-whole-v1/platform.png')), bay1: hash(await readFile('public/assets/cove/bay1-b-v1/platform.png')), legacy: hash(await readFile('public/assets/cove/terrain-kit/atlas.png')) }, records }, null, 2)}\n`);
 console.log(JSON.stringify({destination,proofs:records.length,kind:'software asset/unit proofs only; no browser launched'}));

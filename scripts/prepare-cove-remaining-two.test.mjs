@@ -1,3 +1,4 @@
+import {beforeWholeThree} from './whole-three-preservation.mjs';
 import assert from 'node:assert/strict';
 import {test} from 'node:test';
 import {readFileSync} from 'node:fs';
@@ -23,4 +24,4 @@ test('two actual artifacts preserve whole uniform pool3 and EXACT hollow alpha',
 });
 
 import {beforeRemainingTwo} from './remaining-two-preservation.mjs';
-test('exact current projection rejects unrelated source/ID/geometry changes',()=>{const p='src/world/cove-terrain.ts',b=readFileSync(p);assert.equal(beforeRemainingTwo(p,b).equals(readFileSync('assets/source/cove/remaining-two-v1/baseline/cove-terrain.ts')),true);for(const bad of [Buffer.concat([b,Buffer.from('\n// unrelated')]),Buffer.from(b.toString().replace("body.width !== width","body.width !== width + 1")),Buffer.from(b.toString().replace("'cove-pool-stone-3'","'cove-pool-stone-1'"))])assert.throws(()=>beforeRemainingTwo(p,bad));const level=readFileSync('src/world/sandy-cove.ts');assert.equal(beforeRemainingTwo('src/world/sandy-cove.ts',level),level);});
+test('exact current projection rejects unrelated source/ID/geometry changes',()=>{const p='src/world/cove-terrain.ts',b=readFileSync(p);assert.equal(beforeRemainingTwo(p,b).equals(readFileSync('assets/source/cove/remaining-two-v1/baseline/cove-terrain.ts')),true);for(const bad of [Buffer.concat([b,Buffer.from('\n// unrelated')]),Buffer.from(b.toString().replace("body.width !== width","body.width !== width + 1")),Buffer.from(b.toString().replace("'cove-pool-stone-3'","'cove-pool-stone-1'"))])assert.throws(()=>beforeRemainingTwo(p,bad));const level=readFileSync('src/world/sandy-cove.ts');assert.equal(beforeRemainingTwo('src/world/sandy-cove.ts',level).equals(beforeWholeThree('src/world/sandy-cove.ts',level)),true);});

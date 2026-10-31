@@ -7,6 +7,15 @@ import { type Player } from '../src/game/movement';
 import { LEVELS } from '../src/world/levels';
 import { SANDY_COVE } from '../src/world/sandy-cove';
 
+// Bind contact fixtures to the actual authored support, never an obsolete screen/world plane.
+const pool1 = SANDY_COVE.platforms!.find(platform => platform.id === 'cove-pool-stone-1');
+expect(pool1, 'actual pool1 support must exist exactly once').toBeDefined();
+expect(SANDY_COVE.platforms!.filter(platform => platform.id === 'cove-pool-stone-1')).toHaveLength(1);
+const pool1Top = pool1!.from.y;
+expect(pool1!.to.y).toBe(pool1Top);
+expect(pool1!.from.x).toBeLessThan(1750);
+expect(pool1!.from.x + pool1!.width).toBeGreaterThan(1750);
+
 const neutral = { horizontal: 0, jumpHeld: false, jumpPressed: false, pausePressed: false, mutePressed: false };
 function setup(preview: boolean) {
   const audio = new SilentAudio(), play = vi.spyOn(audio, 'play');
@@ -32,8 +41,8 @@ it('classifies the resolved centre contact and exact shared-edge ownership witho
   const feedback = new Feedback();
   const base = setup(true).live.player;
   for (const [x, feet, platformId, expected] of [
-    [1830,344,null,'splash'], [1750,296,'cove-pool-stone-1','landing'],
-    [1750,296,null,'landing'], [1659.99,343.994,null,'landing'],
+    [1830,344,null,'splash'], [1750,pool1Top,'cove-pool-stone-1','landing'],
+    [1750,pool1Top,null,'landing'], [1659.99,343.994,null,'landing'],
     [1660,344,null,'landing'], [1660.01,344,null,'splash'],
     [1860,344,null,'splash'], [1860.01,343.994,null,'landing'],
     [550,352,null,'landing'], [100,360,null,'landing'],
@@ -120,10 +129,10 @@ it('normalizes only exact approved presentation deltas and rejects unrelated sou
 
 it.each([false,true])('actual movement lands on a dry platform above water with unchanged dust in preview=%s', preview => {
   const {scene,live,play}=setup(preview);
-  Object.assign(live.player,{x:1750,y:296-34-1,vy:400,onGround:false});
+  Object.assign(live.player,{x:1750,y:pool1Top-34-1,vy:400,onGround:false});
   scene.update(1/60,neutral);
   expect(live.player.platformId).toBe('cove-pool-stone-1');
-  expect(live.player.y+34).toBe(296);
+  expect(live.player.y+34).toBe(pool1Top);
   expect(live.feedback.effects.filter(e=>e.kind==='landing')).toHaveLength(1);
   expect(live.feedback.effects.some(e=>e.kind==='splash')).toBe(false);
   expect(play.mock.calls.filter(([kind])=>kind==='landing')).toHaveLength(1);

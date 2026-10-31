@@ -5,13 +5,13 @@ export const covePilot = (cadence: readonly number[] = [0.016], held = 0.24) => 
 export const COVE_LOWER: readonly TimberPilotStage[] = [walk(1320), walk(2070), walk(3660), walk(4030), {kind:'finish'}];
 // Jump over S, N and D; A is above the walkable hollow floor.
 export const COVE_MISS_ALL: readonly TimberPilotStage[] = [walk(235), jump(340,312), walk(1950), jump(2080,320), walk(3800), jump(3900,248), walk(4030), {kind:'finish'}];
-export const COVE_RETURN: readonly TimberPilotStage[] = [walk(3850),walk(2000),walk(1040),jump(1040,320),walk(280)];
-export const COVE_A: readonly TimberPilotStage[] = [walk(1040),jump(1040,320)];
+export const COVE_RETURN: readonly TimberPilotStage[] = [walk(3850),walk(2000),walk(1040),jump(1040,297),walk(280)];
+export const COVE_A: readonly TimberPilotStage[] = [walk(1040),jump(1040,297)];
 export const COVE_N: readonly TimberPilotStage[] = [walk(2000)];
 export const COVE_SUPPORT_APPROACH: readonly (readonly TimberPilotStage[])[] = [
-  [walk(1040),jump(1040,320)],
-  [walk(1690),jump(1750,296)],
-  [walk(2210),jump(2260,296)],
+  [walk(1040),jump(1040,297)],
+  [walk(1690),jump(1750,283)],
+  [walk(2210),jump(2260,285)],
   [walk(2380),jump(2420,284)],
   [walk(2940),jump(3020,272)],
   [walk(2940),jump(3020,272),walk(3080),jump(3170,260),walk(3210)],
@@ -24,11 +24,11 @@ export function coveRewards(cadence: readonly number[] = [0.016], unsafeLanding 
   const route=covePilot(cadence);
   const groundGems=SANDY_COVE.entities.filter(e=>e.kind==='gem'&&!e.id.includes('bonus')&&![1750,2260,2420].includes(e.x));
   for(const gem of groundGems.filter(e=>e.x<=900)) route.run([walk(gem.x)]);
-  route.run([walk(950),jump(950,368),walk(1040),jump(1040,320),walk(1065)]);
+  route.run([walk(950),jump(950,368),walk(1040),jump(1040,297),walk(1065)]);
   for(const gem of groundGems.filter(e=>e.x>900&&e.x<=1660)) route.run([walk(gem.x)]);
-  route.run([walk(1690),jump(1750,296)]);
+  route.run([walk(1690),jump(1750,283)]);
   for(const gem of groundGems.filter(e=>e.x>1750&&e.x<=2150)) route.run([walk(gem.x)]);
-  route.run([walk(2210),jump(2260,296),walk(2300),jump(2395,284),walk(2420)]);
+  route.run([walk(2210),jump(2260,285),walk(2300),jump(2395,284),walk(2420)]);
   for(const gem of groundGems.filter(e=>e.x>2420&&e.x<=3160)) route.run([walk(gem.x)]);
   route.run([walk(2940),jump(3020,272),walk(3080),jump(3170,260),walk(3240),walk(3320),walk(3300),walk(3360),jump(3360,272)]);
   const steer=(x:number)=>{

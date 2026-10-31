@@ -84,10 +84,11 @@ function attempt(milliseconds: readonly number[], segments: readonly (readonly T
 const schedules = [{ milliseconds: [16] }, { milliseconds: [32] }, { milliseconds: [16, 32] }];
 
 it.each(schedules)('reproduces the inherited too-early pool jump specifically at $milliseconds ms', ({ milliseconds }) => {
-  // Frozen failed control from native trace: walk2070 then jump2260/296.
+  // Retain the too-early takeoff mechanism; target the actual current authored pool2 plane.
+  // Historical native walk2070/jump2260/296 failure remains immutable external evidence.
   // Prior segments use the candidate route; no player state is seeded or injected.
   const result = attempt(milliseconds, [...Object.values(COVE_ART_PILOT_STAGES).slice(0, 3),
-    [{ kind: 'walk', x: 2070 }, { kind: 'jump', x: 2260, y: 296 }]]);
+    [{ kind: 'walk', x: 2070 }, { kind: 'jump', x: 2260, y: SANDY_COVE.platforms!.find(p=>p.id==='cove-pool-stone-2')!.from.y }]]);
   expect(result.error).toMatch(/^jump 2 stalled .*Y 310 V 0 /);
   expect(Math.abs(result.x - 2260)).toBeLessThan(5);
   expect(result.done).toBe(false); expect(result.feet).toBe(344);
@@ -101,7 +102,7 @@ it.each(schedules)('lands every art-view support and reverse rest through accept
   const segments = Object.values(COVE_ART_PILOT_STAGES), result = attempt(milliseconds, segments);
   expect(result.error, JSON.stringify({ error: result.error, x: result.x, feet: result.feet, rests: result.rests })).toBe('');
   expect(result.done).toBe(true); expect(result.rests).toHaveLength(6);
-  expect(result.rests[2]).toMatchObject({ onGround: true, platformId: 'cove-pool-stone-1', feet: 296 });
+  expect(result.rests[2]).toMatchObject({ onGround: true, platformId: 'cove-pool-stone-1', feet: SANDY_COVE.platforms!.find(p=>p.id==='cove-pool-stone-1')!.from.y });
   expect(result.rests[3]).toMatchObject({ onGround: true, platformId: 'cove-bay-ledge-2', feet: 260 });
   expect(result.rests[4]).toMatchObject({ onGround: true, platformId: 'cove-bay-ledge-3', feet: 272 });
   expect(result.rests[5]).toMatchObject({ onGround: true, platformId: null });

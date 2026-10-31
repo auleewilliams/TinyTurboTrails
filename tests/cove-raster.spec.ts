@@ -10,12 +10,12 @@ const code = transformSync('cove-terrain.ts', readFileSync(new URL('../src/world
 const manifest = JSON.parse(readFileSync(new URL('../public/assets/cove/terrain-kit/manifest.json', import.meta.url), 'utf8'));
 const atlas = readFileSync(new URL('../public/assets/cove/terrain-kit/atlas.png', import.meta.url)).toString('base64');
 const bay1 = readFileSync(new URL('../public/assets/cove/bay1-b-v1/platform.png', import.meta.url)).toString('base64');
-const hollowB = readFileSync(new URL('../public/assets/cove/remaining-two-v1/hollow.png', import.meta.url)).toString('base64');
+const hollowB = readFileSync(new URL('../public/assets/cove/whole-three-v1/hollow.png', import.meta.url)).toString('base64');
 const pool3B = readFileSync(new URL('../public/assets/cove/remaining-two-v1/pool3.png', import.meta.url)).toString('base64');
 const bay2 = readFileSync(new URL('../public/assets/cove/bay2-whole-v1/platform.png', import.meta.url)).toString('base64');
 const bay3 = readFileSync(new URL('../public/assets/cove/bay3-b-v1/platform.png', import.meta.url)).toString('base64');
-const pool2B = readFileSync(new URL('../public/assets/cove/pool2-b-v1/platform.png', import.meta.url)).toString('base64');
-const pool1B = readFileSync(new URL('../public/assets/cove/pool1-b-v1/platform.png', import.meta.url)).toString('base64');
+const pool2B = readFileSync(new URL('../public/assets/cove/whole-three-v1/pool2.png', import.meta.url)).toString('base64');
+const pool1B = readFileSync(new URL('../public/assets/cove/whole-three-v1/pool1.png', import.meta.url)).toString('base64');
 const ground = readFileSync(new URL('../public/assets/cove/terrain-kit/ground.png', import.meta.url)).toString('base64');
 
 test('Cove production raster has no internal coverage gaps at fractional cameras', async ({ page, browser }, info) => {
@@ -97,7 +97,7 @@ test('Cove production raster has no internal coverage gaps at fractional cameras
       const isBay1 = body.id === 'cove-bay-ledge-1';
       const isBay2 = body.id === 'cove-bay-ledge-2';
       const isNew = body.id === 'cove-hollow-shelf' || body.id === 'cove-pool-stone-3' || body.id === 'cove-bay-ledge-3' || body.id === 'cove-pool-stone-2' || body.id === 'cove-pool-stone-1';
-      const part = isNew ? {x:0,y:0,width:body.width,height:body.id === 'cove-pool-stone-1'?5:body.id === 'cove-hollow-shelf'||body.id === 'cove-pool-stone-2'?6:body.id === 'cove-pool-stone-3'?18:30} : isBay2 ? {x:0,y:0,width:160,height:35} : isBay1 ? { x: 0, y: 0, width: 140, height: 30 } : manifest.platforms[key];
+      const part = isNew ? {x:0,y:0,width:body.width,height:body.id === 'cove-pool-stone-1'?22:body.id === 'cove-pool-stone-2'||body.id === 'cove-pool-stone-3'?18:30} : isBay2 ? {x:0,y:0,width:160,height:35} : isBay1 ? { x: 0, y: 0, width: 140, height: 30 } : manifest.platforms[key];
       const samples = isNew ? newPixels[body.id] : isBay2 ? bay2Pixels : isBay1 ? bayPixels : sourcePixels, sourceWidth = isNew ? body.width : isBay2 ? 160 : isBay1 ? 140 : manifest.width;
       ctx.clearRect(0, 0, 426, 240); helpers.drawCovePlatform(ctx, actual, level, body, { x: fraction, y: fraction });
       const pixels = ctx.getImageData(0, 0, 426, 240).data;

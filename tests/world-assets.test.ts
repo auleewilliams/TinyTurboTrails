@@ -143,11 +143,11 @@ it.each(['site', 'frost', 'cove'])('loads the %s panorama and can retry a failed
       if (url.endsWith('/materials/atlas.png')) this.naturalHeight = 160;
       if (url.endsWith('/bay1-b-v1/platform.png')) { this.naturalWidth = 140; this.naturalHeight = 30; }
       if (url.endsWith('/bay2-whole-v1/platform.png')) { this.naturalWidth = 160; this.naturalHeight = 35; }
-      if (url.endsWith('/remaining-two-v1/hollow.png')) { this.naturalWidth = 140; this.naturalHeight = 6; }
+      if (url.endsWith('/whole-three-v1/hollow.png')) { this.naturalWidth = 140; this.naturalHeight = 30; }
       if (url.endsWith('/remaining-two-v1/pool3.png')) { this.naturalWidth = 90; this.naturalHeight = 18; }
       if (url.endsWith('/bay3-b-v1/platform.png')) { this.naturalWidth = 180; this.naturalHeight = 30; }
-      if (url.endsWith('/pool2-b-v1/platform.png')) { this.naturalWidth = 90; this.naturalHeight = 6; }
-      if (url.endsWith('/pool1-b-v1/platform.png')) { this.naturalWidth = 100; this.naturalHeight = 5; }
+      if (url.endsWith('/whole-three-v1/pool2.png')) { this.naturalWidth = 90; this.naturalHeight = 18; }
+      if (url.endsWith('/whole-three-v1/pool1.png')) { this.naturalWidth = 100; this.naturalHeight = 22; }
       if (url.endsWith('/terrain-kit/ground.png')) { this.naturalWidth = 4200; this.naturalHeight = 480; }
       queueMicrotask(fail && url.endsWith('/background.png') ? this.onerror : this.onload);
     }
@@ -178,24 +178,24 @@ it('requires declared Cove kit metadata and pixels, validates dimensions and ret
       if (url.endsWith('/materials/atlas.png')) this.naturalHeight = 160;
       if (url.endsWith('/bay1-b-v1/platform.png')) { this.naturalWidth = 140; this.naturalHeight = 30; }
       if (url.endsWith('/bay2-whole-v1/platform.png')) { this.naturalWidth = 160; this.naturalHeight = 35; }
-      if (url.endsWith('/remaining-two-v1/hollow.png')) { this.naturalWidth = 140; this.naturalHeight = 6; }
+      if (url.endsWith('/whole-three-v1/hollow.png')) { this.naturalWidth = 140; this.naturalHeight = 30; }
       if (url.endsWith('/remaining-two-v1/pool3.png')) { this.naturalWidth = 90; this.naturalHeight = 18; }
       if (url.endsWith('/bay3-b-v1/platform.png')) { this.naturalWidth = 180; this.naturalHeight = 30; }
-      if (url.endsWith('/pool2-b-v1/platform.png')) { this.naturalWidth = 90; this.naturalHeight = 6; }
-      if (url.endsWith('/pool1-b-v1/platform.png')) { this.naturalWidth = 100; this.naturalHeight = 5; }
+      if (url.endsWith('/whole-three-v1/pool2.png')) { this.naturalWidth = 90; this.naturalHeight = 18; }
+      if (url.endsWith('/whole-three-v1/pool1.png')) { this.naturalWidth = 100; this.naturalHeight = 22; }
       if (url.endsWith('/terrain-kit/ground.png')) { this.naturalWidth = 4200; this.naturalHeight = 480; }
       if (wrongSize && url.endsWith('/terrain-kit/atlas.png')) this.naturalWidth = 255;
       if (wrongBay1 && url.endsWith('/bay1-b-v1/platform.png')) this.naturalWidth = 139;
       if (wrongBay2 && url.endsWith('/bay2-whole-v1/platform.png')) this.naturalWidth = 159;
-      if (remainingMode === 'wrong-pool1' && url.endsWith('/pool1-b-v1/platform.png')) this.naturalHeight--;
-      if (remainingMode === 'fail-pool1' && url.endsWith('/pool1-b-v1/platform.png')) { queueMicrotask(()=>this.onerror()); return; }
-      if (remainingMode === 'wrong-pool2' && url.endsWith('/pool2-b-v1/platform.png')) this.naturalHeight--;
-      if (remainingMode === 'fail-pool2' && url.endsWith('/pool2-b-v1/platform.png')) { queueMicrotask(()=>this.onerror()); return; }
+      if (remainingMode === 'wrong-pool1' && url.endsWith('/whole-three-v1/pool1.png')) this.naturalHeight--;
+      if (remainingMode === 'fail-pool1' && url.endsWith('/whole-three-v1/pool1.png')) { queueMicrotask(()=>this.onerror()); return; }
+      if (remainingMode === 'wrong-pool2' && url.endsWith('/whole-three-v1/pool2.png')) this.naturalHeight--;
+      if (remainingMode === 'fail-pool2' && url.endsWith('/whole-three-v1/pool2.png')) { queueMicrotask(()=>this.onerror()); return; }
       if (remainingMode === 'wrong-bay3' && url.endsWith('/bay3-b-v1/platform.png')) this.naturalWidth--;
       if (remainingMode === 'fail-bay3' && url.endsWith('/bay3-b-v1/platform.png')) { queueMicrotask(()=>this.onerror()); return; }
-      if (remainingMode === 'wrong-hollow' && url.endsWith('/remaining-two-v1/hollow.png')) this.naturalWidth--;
+      if (remainingMode === 'wrong-hollow' && url.endsWith('/whole-three-v1/hollow.png')) this.naturalWidth--;
       if (remainingMode === 'wrong-pool3' && url.endsWith('/remaining-two-v1/pool3.png')) this.naturalHeight--;
-      if ((remainingMode === 'fail-hollow' && url.endsWith('/remaining-two-v1/hollow.png')) || (remainingMode === 'fail-pool3' && url.endsWith('/remaining-two-v1/pool3.png'))) { queueMicrotask(() => this.onerror()); return; }
+      if ((remainingMode === 'fail-hollow' && url.endsWith('/whole-three-v1/hollow.png')) || (remainingMode === 'fail-pool3' && url.endsWith('/remaining-two-v1/pool3.png'))) { queueMicrotask(() => this.onerror()); return; }
       queueMicrotask(() => ((failImage && url.endsWith('/terrain-kit/atlas.png')) || (failGround && url.endsWith('/terrain-kit/ground.png')) || (failBay1 && url.endsWith('/bay1-b-v1/platform.png')) || (failBay2 && url.endsWith('/bay2-whole-v1/platform.png'))) ? this.onerror() : this.onload());
     }
   }
@@ -238,11 +238,11 @@ it('requires declared Cove material metadata and image, rejects bad rectangles/d
     set src(url: string) {
       if (url.endsWith('/bay1-b-v1/platform.png')) { this.naturalWidth = 140; this.naturalHeight = 30; }
       if (url.endsWith('/bay2-whole-v1/platform.png')) { this.naturalWidth = 160; this.naturalHeight = 35; }
-      if (url.endsWith('/remaining-two-v1/hollow.png')) { this.naturalWidth = 140; this.naturalHeight = 6; }
+      if (url.endsWith('/whole-three-v1/hollow.png')) { this.naturalWidth = 140; this.naturalHeight = 30; }
       if (url.endsWith('/remaining-two-v1/pool3.png')) { this.naturalWidth = 90; this.naturalHeight = 18; }
       if (url.endsWith('/bay3-b-v1/platform.png')) { this.naturalWidth = 180; this.naturalHeight = 30; }
-      if (url.endsWith('/pool2-b-v1/platform.png')) { this.naturalWidth = 90; this.naturalHeight = 6; }
-      if (url.endsWith('/pool1-b-v1/platform.png')) { this.naturalWidth = 100; this.naturalHeight = 5; }
+      if (url.endsWith('/whole-three-v1/pool2.png')) { this.naturalWidth = 90; this.naturalHeight = 18; }
+      if (url.endsWith('/whole-three-v1/pool1.png')) { this.naturalWidth = 100; this.naturalHeight = 22; }
       if (url.endsWith('/terrain-kit/ground.png')) { this.naturalWidth = 4200; this.naturalHeight = 480; }
       if (url.endsWith('/materials/atlas.png')) { this.naturalWidth = mode === 'size' ? 511 : 512; this.naturalHeight = 160; }
       queueMicrotask(() => mode === 'image' && url.endsWith('/materials/atlas.png') ? this.onerror() : this.onload());

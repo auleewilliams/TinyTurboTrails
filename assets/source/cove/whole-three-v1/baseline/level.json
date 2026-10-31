@@ -1,0 +1,872 @@
+{
+  "id": "cove",
+  "name": "SANDY COVE",
+  "atlas": "cove",
+  "width": 4200,
+  "height": 480,
+  "minX": 0,
+  "maxX": 4200,
+  "surfaces": [
+    {
+      "x1": 0,
+      "x2": 75,
+      "y1": 360,
+      "y2": 360
+    },
+    {
+      "x1": 75,
+      "x2": 105,
+      "y1": 360,
+      "y2": 360,
+      "material": "sand",
+      "speedMultiplier": 0.8
+    },
+    {
+      "x1": 105,
+      "x2": 120,
+      "y1": 360,
+      "y2": 360
+    },
+    {
+      "x1": 120,
+      "x2": 220,
+      "y1": 360,
+      "y2": 312
+    },
+    {
+      "x1": 220,
+      "x2": 380,
+      "y1": 312,
+      "y2": 312
+    },
+    {
+      "x1": 380,
+      "x2": 500,
+      "y1": 312,
+      "y2": 352
+    },
+    {
+      "x1": 500,
+      "x2": 520,
+      "y1": 352,
+      "y2": 352
+    },
+    {
+      "x1": 520,
+      "x2": 600,
+      "y1": 352,
+      "y2": 352,
+      "material": "sand",
+      "speedMultiplier": 0.8
+    },
+    {
+      "x1": 600,
+      "x2": 620,
+      "y1": 352,
+      "y2": 352
+    },
+    {
+      "x1": 620,
+      "x2": 740,
+      "y1": 352,
+      "y2": 304
+    },
+    {
+      "x1": 740,
+      "x2": 840,
+      "y1": 304,
+      "y2": 304
+    },
+    {
+      "x1": 840,
+      "x2": 940,
+      "y1": 304,
+      "y2": 368
+    },
+    {
+      "x1": 940,
+      "x2": 1100,
+      "y1": 368,
+      "y2": 368
+    },
+    {
+      "x1": 1100,
+      "x2": 1220,
+      "y1": 368,
+      "y2": 320
+    },
+    {
+      "x1": 1220,
+      "x2": 1400,
+      "y1": 320,
+      "y2": 320
+    },
+    {
+      "x1": 1400,
+      "x2": 1620,
+      "y1": 320,
+      "y2": 320
+    },
+    {
+      "x1": 1620,
+      "x2": 1660,
+      "y1": 320,
+      "y2": 344
+    },
+    {
+      "x1": 1660,
+      "x2": 1860,
+      "y1": 344,
+      "y2": 344,
+      "material": "water",
+      "speedMultiplier": 0.65
+    },
+    {
+      "x1": 1860,
+      "x2": 1900,
+      "y1": 344,
+      "y2": 320
+    },
+    {
+      "x1": 1900,
+      "x2": 2160,
+      "y1": 320,
+      "y2": 320
+    },
+    {
+      "x1": 2160,
+      "x2": 2200,
+      "y1": 320,
+      "y2": 344
+    },
+    {
+      "x1": 2200,
+      "x2": 2500,
+      "y1": 344,
+      "y2": 344,
+      "material": "water",
+      "speedMultiplier": 0.65
+    },
+    {
+      "x1": 2500,
+      "x2": 2560,
+      "y1": 344,
+      "y2": 320
+    },
+    {
+      "x1": 2560,
+      "x2": 2800,
+      "y1": 320,
+      "y2": 320
+    },
+    {
+      "x1": 2800,
+      "x2": 2920,
+      "y1": 320,
+      "y2": 320
+    },
+    {
+      "x1": 2920,
+      "x2": 3000,
+      "y1": 320,
+      "y2": 344
+    },
+    {
+      "x1": 3000,
+      "x2": 3040,
+      "y1": 344,
+      "y2": 344
+    },
+    {
+      "x1": 3040,
+      "x2": 3220,
+      "y1": 344,
+      "y2": 344,
+      "material": "water",
+      "speedMultiplier": 0.65
+    },
+    {
+      "x1": 3220,
+      "x2": 3480,
+      "y1": 344,
+      "y2": 344
+    },
+    {
+      "x1": 3480,
+      "x2": 3600,
+      "y1": 344,
+      "y2": 296
+    },
+    {
+      "x1": 3600,
+      "x2": 3740,
+      "y1": 296,
+      "y2": 296
+    },
+    {
+      "x1": 3740,
+      "x2": 3820,
+      "y1": 296,
+      "y2": 248
+    },
+    {
+      "x1": 3820,
+      "x2": 3900,
+      "y1": 248,
+      "y2": 248
+    },
+    {
+      "x1": 3900,
+      "x2": 3980,
+      "y1": 248,
+      "y2": 200
+    },
+    {
+      "x1": 3980,
+      "x2": 4200,
+      "y1": 200,
+      "y2": 200
+    }
+  ],
+  "start": {
+    "x": 60,
+    "y": 360
+  },
+  "finish": {
+    "x": 4140,
+    "y": 200,
+    "asset": "finish-arch",
+    "supportOnly": true,
+    "boundedWidth": 30,
+    "rearmBelowY": 250,
+    "rearmLeftX": 3960
+  },
+  "retrace": {
+    "x": 4030,
+    "y": 200
+  },
+  "verticalCamera": true,
+  "cameraLead": 45,
+  "checkpointActivation": "grounded",
+  "sections": [
+    {
+      "x": 0,
+      "name": "Beach dunes"
+    },
+    {
+      "x": 900,
+      "name": "Palm hollow"
+    },
+    {
+      "x": 1400,
+      "name": "Island pools"
+    },
+    {
+      "x": 2800,
+      "name": "Sheltered bay"
+    },
+    {
+      "x": 3740,
+      "name": "Beach viewpoint"
+    }
+  ],
+  "theme": {
+    "slimeAccessory": "snorkel",
+    "material": "sand",
+    "weather": {
+      "kind": "spray",
+      "count": 18,
+      "color": "#dbf9ff70",
+      "drift": 8,
+      "fall": -5,
+      "sway": 3
+    },
+    "sky": "#a9e8ec",
+    "ground": "#eacb85",
+    "edge": "#87603c",
+    "parallax": [
+      {
+        "asset": "hills",
+        "x": 150,
+        "y": 110,
+        "scale": 3
+      },
+      {
+        "asset": "hills",
+        "x": 700,
+        "y": 110,
+        "scale": 3
+      },
+      {
+        "asset": "hills",
+        "x": 1240,
+        "y": 110,
+        "scale": 3
+      },
+      {
+        "asset": "hills",
+        "x": 1800,
+        "y": 110,
+        "scale": 3
+      },
+      {
+        "asset": "hills",
+        "x": 2320,
+        "y": 110,
+        "scale": 3
+      }
+    ]
+  },
+  "checkpoints": [
+    {
+      "id": "cove-checkpoint-1",
+      "x": 1320,
+      "y": 320
+    },
+    {
+      "id": "cove-checkpoint-2",
+      "x": 2070,
+      "y": 320
+    },
+    {
+      "id": "cove-checkpoint-3",
+      "x": 3660,
+      "y": 296
+    }
+  ],
+  "platforms": [
+    {
+      "id": "cove-hollow-shelf",
+      "from": {
+        "x": 980,
+        "y": 320
+      },
+      "to": {
+        "x": 980,
+        "y": 320
+      },
+      "width": 140,
+      "seconds": 1
+    },
+    {
+      "id": "cove-pool-stone-1",
+      "from": {
+        "x": 1700,
+        "y": 296
+      },
+      "to": {
+        "x": 1700,
+        "y": 296
+      },
+      "width": 100,
+      "seconds": 1
+    },
+    {
+      "id": "cove-pool-stone-2",
+      "from": {
+        "x": 2230,
+        "y": 296
+      },
+      "to": {
+        "x": 2230,
+        "y": 296
+      },
+      "width": 90,
+      "seconds": 1
+    },
+    {
+      "id": "cove-pool-stone-3",
+      "from": {
+        "x": 2380,
+        "y": 284
+      },
+      "to": {
+        "x": 2380,
+        "y": 284
+      },
+      "width": 90,
+      "seconds": 1
+    },
+    {
+      "id": "cove-bay-ledge-1",
+      "from": {
+        "x": 2960,
+        "y": 272
+      },
+      "to": {
+        "x": 2960,
+        "y": 272
+      },
+      "width": 140,
+      "seconds": 1
+    },
+    {
+      "id": "cove-bay-ledge-2",
+      "from": {
+        "x": 3140,
+        "y": 260
+      },
+      "to": {
+        "x": 3140,
+        "y": 260
+      },
+      "width": 160,
+      "seconds": 1
+    },
+    {
+      "id": "cove-bay-ledge-3",
+      "from": {
+        "x": 3340,
+        "y": 272
+      },
+      "to": {
+        "x": 3340,
+        "y": 272
+      },
+      "width": 180,
+      "seconds": 1
+    }
+  ],
+  "entities": [
+    {
+      "id": "cove-spring-1",
+      "kind": "spring",
+      "asset": "spring",
+      "x": 3420,
+      "y": 272,
+      "layer": "world"
+    },
+    {
+      "id": "cove-gem-1",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 100,
+      "y": 342,
+      "layer": "world"
+    },
+    {
+      "id": "cove-gem-2",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 180,
+      "y": 313.2,
+      "layer": "world"
+    },
+    {
+      "id": "cove-gem-3",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 260,
+      "y": 294,
+      "layer": "world"
+    },
+    {
+      "id": "cove-gem-4",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 330,
+      "y": 294,
+      "layer": "world"
+    },
+    {
+      "id": "cove-gem-5",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 450,
+      "y": 317.3333333333333,
+      "layer": "world"
+    },
+    {
+      "id": "cove-gem-6",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 550,
+      "y": 334,
+      "layer": "world"
+    },
+    {
+      "id": "cove-gem-7",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 680,
+      "y": 310,
+      "layer": "world"
+    },
+    {
+      "id": "cove-gem-8",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 780,
+      "y": 286,
+      "layer": "world"
+    },
+    {
+      "id": "cove-gem-9",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 900,
+      "y": 324.4,
+      "layer": "world"
+    },
+    {
+      "id": "cove-gem-10",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 1140,
+      "y": 334,
+      "layer": "world"
+    },
+    {
+      "id": "cove-gem-11",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 1260,
+      "y": 302,
+      "layer": "world"
+    },
+    {
+      "id": "cove-gem-12",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 1360,
+      "y": 302,
+      "layer": "world"
+    },
+    {
+      "id": "cove-gem-13",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 1480,
+      "y": 302,
+      "layer": "world"
+    },
+    {
+      "id": "cove-gem-14",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 1590,
+      "y": 302,
+      "layer": "world"
+    },
+    {
+      "id": "cove-gem-15",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 1660,
+      "y": 326,
+      "layer": "world"
+    },
+    {
+      "id": "cove-gem-16",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 1750,
+      "y": 278,
+      "layer": "world"
+    },
+    {
+      "id": "cove-gem-17",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 1850,
+      "y": 326,
+      "layer": "world"
+    },
+    {
+      "id": "cove-gem-18",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 1950,
+      "y": 302,
+      "layer": "world"
+    },
+    {
+      "id": "cove-gem-19",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 2050,
+      "y": 302,
+      "layer": "world"
+    },
+    {
+      "id": "cove-gem-20",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 2150,
+      "y": 302,
+      "layer": "world"
+    },
+    {
+      "id": "cove-gem-21",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 2260,
+      "y": 278,
+      "layer": "world"
+    },
+    {
+      "id": "cove-gem-22",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 2420,
+      "y": 266,
+      "layer": "world"
+    },
+    {
+      "id": "cove-gem-23",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 2530,
+      "y": 314,
+      "layer": "world"
+    },
+    {
+      "id": "cove-gem-24",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 2640,
+      "y": 302,
+      "layer": "world"
+    },
+    {
+      "id": "cove-gem-25",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 2760,
+      "y": 302,
+      "layer": "world"
+    },
+    {
+      "id": "cove-gem-26",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 2870,
+      "y": 302,
+      "layer": "world"
+    },
+    {
+      "id": "cove-gem-27",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 2940,
+      "y": 308,
+      "layer": "world"
+    },
+    {
+      "id": "cove-gem-28",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 3060,
+      "y": 326,
+      "layer": "world"
+    },
+    {
+      "id": "cove-gem-29",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 3160,
+      "y": 326,
+      "layer": "world"
+    },
+    {
+      "id": "cove-gem-30",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 3300,
+      "y": 326,
+      "layer": "world"
+    },
+    {
+      "id": "cove-gem-31",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 3540,
+      "y": 302,
+      "layer": "world"
+    },
+    {
+      "id": "cove-gem-32",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 3640,
+      "y": 278,
+      "layer": "world"
+    },
+    {
+      "id": "cove-gem-33",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 3750,
+      "y": 272,
+      "layer": "world"
+    },
+    {
+      "id": "cove-gem-34",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 3850,
+      "y": 230,
+      "layer": "world"
+    },
+    {
+      "id": "cove-gem-35",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 3990,
+      "y": 182,
+      "layer": "world"
+    },
+    {
+      "id": "cove-gem-36",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 4090,
+      "y": 182,
+      "layer": "world"
+    },
+    {
+      "id": "cove-bonus-1",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 1065,
+      "y": 302,
+      "layer": "world"
+    },
+    {
+      "id": "cove-bonus-2",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 950,
+      "y": 318,
+      "layer": "world"
+    },
+    {
+      "id": "cove-bonus-3",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 3380,
+      "y": 172,
+      "layer": "world"
+    },
+    {
+      "id": "cove-bonus-4",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 3240,
+      "y": 242,
+      "layer": "world"
+    },
+    {
+      "id": "cove-bonus-5",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 3420,
+      "y": 160,
+      "layer": "world"
+    },
+    {
+      "id": "cove-bonus-6",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 3460,
+      "y": 172,
+      "layer": "world"
+    },
+    {
+      "id": "cove-decoration-1",
+      "kind": "decoration",
+      "asset": "stone",
+      "x": 295,
+      "y": 312,
+      "layer": "back"
+    },
+    {
+      "id": "cove-decoration-2",
+      "kind": "decoration",
+      "asset": "tree",
+      "x": 820,
+      "y": 304,
+      "layer": "back"
+    },
+    {
+      "id": "cove-decoration-3",
+      "kind": "decoration",
+      "asset": "tree",
+      "x": 1295,
+      "y": 320,
+      "layer": "back"
+    },
+    {
+      "id": "cove-decoration-4",
+      "kind": "decoration",
+      "asset": "tree",
+      "x": 1510,
+      "y": 320,
+      "layer": "back"
+    },
+    {
+      "id": "cove-decoration-5",
+      "kind": "decoration",
+      "asset": "stone",
+      "x": 1990,
+      "y": 320,
+      "layer": "back"
+    },
+    {
+      "id": "cove-decoration-6",
+      "kind": "decoration",
+      "asset": "tree",
+      "x": 2685,
+      "y": 320,
+      "layer": "back"
+    },
+    {
+      "id": "cove-decoration-7",
+      "kind": "decoration",
+      "asset": "tree",
+      "x": 2830,
+      "y": 320,
+      "layer": "back"
+    },
+    {
+      "id": "cove-decoration-8",
+      "kind": "decoration",
+      "asset": "tree",
+      "x": 3700,
+      "y": 296,
+      "layer": "back"
+    },
+    {
+      "id": "cove-decoration-9",
+      "kind": "decoration",
+      "asset": "stone",
+      "x": 4050,
+      "y": 200,
+      "layer": "back"
+    },
+    {
+      "id": "cove-checkpoint-1",
+      "x": 1320,
+      "y": 320,
+      "kind": "checkpoint",
+      "asset": "checkpoint",
+      "layer": "world"
+    },
+    {
+      "id": "cove-checkpoint-2",
+      "x": 2070,
+      "y": 320,
+      "kind": "checkpoint",
+      "asset": "checkpoint",
+      "layer": "world"
+    },
+    {
+      "id": "cove-checkpoint-3",
+      "x": 3660,
+      "y": 296,
+      "kind": "checkpoint",
+      "asset": "checkpoint",
+      "layer": "world"
+    }
+  ]
+}

@@ -1,3 +1,4 @@
+import { beforeWholeThree } from './whole-three-preservation.mjs';
 import { beforeWholeBay2, beforeWholeBay2Level } from './whole-bay2-preservation.mjs';
 import { beforeOwnerHud } from './hud-owner-preservation.mjs';
 import { assertPngPixelContract } from './png-pixel-contract.mjs';
@@ -169,7 +170,7 @@ test('all approved existing images/provenance and gameplay declarations remain b
   for (const pin of pins.files) {
     const bytes = readFileSync(new URL(`../${pin.path}`, import.meta.url));
     if (pin.path === 'src/world/sandy-cove.ts') assertApprovedCoveSource(bytes.toString('utf8'), pin.sha256);
-    else assert.equal(hash(beforeWaterLanding(pin.path, beforeOwnerHud(pin.path, bytes))), pin.sha256, pin.path);
+    else assert.equal(hash(beforeWaterLanding(pin.path, beforeOwnerHud(pin.path, beforeWholeThree(pin.path, bytes)))), pin.sha256, pin.path);
   }
   assertApprovedCoveLevel(currentCoveLevel(), JSON.parse(read('geometry-pin.json')));
   assertApprovedCoveManifest(JSON.parse(readFileSync(new URL('../public/assets/cove/manifest.json', import.meta.url))), pins.coveManifestBefore);

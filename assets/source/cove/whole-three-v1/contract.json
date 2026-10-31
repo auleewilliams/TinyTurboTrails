@@ -1,0 +1,932 @@
+{
+  "status": "STATIC_LAYOUT_AND_WHOLE_SOURCE_PROPOSAL_NOT_GAMEPLAY_CERTIFIED",
+  "baseline": "2d44e3672ef3f8cc864d4fe70dbfd947af4bf0e1",
+  "authority": {
+    "path": "/home/leew/.hermes/cache/scratch/ttt-art-235/phase20-three-thin-platform-revision/contract/../layout-authorization.json",
+    "sha256": "7cebe34ae15020136acb8573d5f619bbeda33429cdb8c246b6e1f21fc3199573"
+  },
+  "decision": "Raise ONLY three tops by minimum whole-pixel amount for >=2px conservative walking-hat envelope, retain every x/width; associated3gem anchors+letterA support follow top. No generation/thin exception/cutouts.",
+  "roles": [
+    {
+      "id": "cove-hollow-shelf",
+      "before": {
+        "from": {
+          "x": 980,
+          "y": 320
+        },
+        "to": {
+          "x": 980,
+          "y": 320
+        },
+        "width": 140
+      },
+      "after": {
+        "from": {
+          "x": 980,
+          "y": 297
+        },
+        "to": {
+          "x": 980,
+          "y": 297
+        },
+        "width": 140
+      },
+      "source": {
+        "path": "public/assets/cove/bay1-b-v1/platform.png",
+        "sha256": "e1809f4f247e693c96968ce7661e2e2126d46d28567b032e534634ee6a2b94cc",
+        "sourceSize": [
+          140,
+          30
+        ],
+        "uniformNativeSourceRatio": 1,
+        "ratio": [
+          1,
+          1
+        ],
+        "method": "centre-inverse NN BOTHaxes, full source140x30 area with transparent ceil padding only",
+        "nativeCanvas": [
+          140,
+          30
+        ],
+        "actualMaximumOccupiedDepth": 27,
+        "depthProfile": [
+          6,
+          7,
+          7,
+          8,
+          8,
+          8,
+          8,
+          8,
+          9,
+          10,
+          10,
+          11,
+          11,
+          12,
+          12,
+          12,
+          12,
+          13,
+          13,
+          13,
+          13,
+          13,
+          14,
+          15,
+          15,
+          16,
+          16,
+          16,
+          16,
+          16,
+          17,
+          17,
+          17,
+          17,
+          17,
+          17,
+          17,
+          17,
+          18,
+          19,
+          21,
+          22,
+          22,
+          22,
+          22,
+          23,
+          23,
+          23,
+          23,
+          23,
+          24,
+          24,
+          25,
+          25,
+          25,
+          25,
+          25,
+          26,
+          26,
+          27,
+          27,
+          27,
+          27,
+          27,
+          26,
+          26,
+          26,
+          26,
+          25,
+          25,
+          25,
+          24,
+          23,
+          23,
+          23,
+          24,
+          24,
+          24,
+          24,
+          24,
+          24,
+          23,
+          23,
+          22,
+          21,
+          22,
+          22,
+          22,
+          22,
+          22,
+          22,
+          23,
+          23,
+          23,
+          24,
+          24,
+          24,
+          24,
+          23,
+          23,
+          22,
+          22,
+          21,
+          20,
+          19,
+          18,
+          19,
+          19,
+          20,
+          20,
+          20,
+          20,
+          20,
+          20,
+          20,
+          20,
+          19,
+          19,
+          18,
+          17,
+          15,
+          15,
+          15,
+          15,
+          15,
+          14,
+          15,
+          15,
+          15,
+          15,
+          14,
+          14,
+          14,
+          13,
+          13,
+          13,
+          12,
+          12,
+          11,
+          10
+        ],
+        "rgbaSha256": "52ee522781185b896c09302377b99cf9d16c0aaf0db73dc5d1239821b38fb1a6",
+        "fullOpaqueTop": true,
+        "opaqueSourceCrop": 0,
+        "repairs": 0
+      },
+      "groundUnderActorEnvelope": {
+        "min": 350.4,
+        "max": 368
+      },
+      "walkingHatModel": "visible hat top=feet-40; conservative entire48px width across ground actor centres +/−24",
+      "minimumConservativeGroundWalkingGap": 2.1999999999999886,
+      "minimumRiseFromLocalFlatGround": 71,
+      "status": "STATIC_FEASIBLE_PENDING_BOUNDED_PRODUCTION_MECHANISM_AND_NATIVE"
+    },
+    {
+      "id": "cove-pool-stone-1",
+      "before": {
+        "from": {
+          "x": 1700,
+          "y": 296
+        },
+        "to": {
+          "x": 1700,
+          "y": 296
+        },
+        "width": 100
+      },
+      "after": {
+        "from": {
+          "x": 1700,
+          "y": 283
+        },
+        "to": {
+          "x": 1700,
+          "y": 283
+        },
+        "width": 100
+      },
+      "source": {
+        "path": "public/assets/cove/bay1-b-v1/platform.png",
+        "sha256": "e1809f4f247e693c96968ce7661e2e2126d46d28567b032e534634ee6a2b94cc",
+        "sourceSize": [
+          140,
+          30
+        ],
+        "uniformNativeSourceRatio": 0.7142857142857143,
+        "ratio": [
+          5,
+          7
+        ],
+        "method": "centre-inverse NN BOTHaxes, full source140x30 area with transparent ceil padding only",
+        "nativeCanvas": [
+          100,
+          22
+        ],
+        "actualMaximumOccupiedDepth": 19,
+        "depthProfile": [
+          4,
+          5,
+          6,
+          6,
+          6,
+          6,
+          7,
+          7,
+          8,
+          9,
+          9,
+          9,
+          9,
+          9,
+          9,
+          9,
+          11,
+          11,
+          11,
+          11,
+          11,
+          12,
+          12,
+          12,
+          12,
+          12,
+          12,
+          13,
+          14,
+          16,
+          16,
+          16,
+          16,
+          16,
+          16,
+          16,
+          17,
+          18,
+          18,
+          18,
+          18,
+          19,
+          19,
+          19,
+          19,
+          19,
+          19,
+          19,
+          19,
+          18,
+          18,
+          16,
+          16,
+          16,
+          17,
+          17,
+          17,
+          17,
+          16,
+          16,
+          15,
+          16,
+          16,
+          16,
+          16,
+          16,
+          16,
+          17,
+          17,
+          17,
+          16,
+          16,
+          16,
+          15,
+          14,
+          13,
+          14,
+          14,
+          14,
+          14,
+          14,
+          14,
+          14,
+          14,
+          13,
+          12,
+          11,
+          11,
+          11,
+          10,
+          11,
+          11,
+          11,
+          10,
+          10,
+          9,
+          9,
+          9,
+          9,
+          7
+        ],
+        "rgbaSha256": "af196bc0f343b236c0efa087c99082c63fbb9bcf1c655ed67fc574dbff345249",
+        "fullOpaqueTop": true,
+        "opaqueSourceCrop": 0,
+        "repairs": 0
+      },
+      "groundUnderActorEnvelope": {
+        "min": 344,
+        "max": 344
+      },
+      "walkingHatModel": "visible hat top=feet-40; conservative entire48px width across ground actor centres +/−24",
+      "minimumConservativeGroundWalkingGap": 2,
+      "minimumRiseFromLocalFlatGround": 61,
+      "status": "STATIC_FEASIBLE_PENDING_BOUNDED_PRODUCTION_MECHANISM_AND_NATIVE"
+    },
+    {
+      "id": "cove-pool-stone-2",
+      "before": {
+        "from": {
+          "x": 2230,
+          "y": 296
+        },
+        "to": {
+          "x": 2230,
+          "y": 296
+        },
+        "width": 90
+      },
+      "after": {
+        "from": {
+          "x": 2230,
+          "y": 285
+        },
+        "to": {
+          "x": 2230,
+          "y": 285
+        },
+        "width": 90
+      },
+      "source": {
+        "path": "public/assets/cove/remaining-two-v1/pool3.png",
+        "sha256": "63616a68aa664e0ea3017ef13b6f0f4f66dd3383db844fd1ddd85ca2b8c10b7d",
+        "sourceSize": [
+          90,
+          18
+        ],
+        "uniformNativeSourceRatio": 1,
+        "ratio": [
+          1,
+          1
+        ],
+        "method": "IDENTITY reuse complete accepted pool3 native90x18; same natural17px opaque body; no current recrop/resample/repair",
+        "nativeCanvas": [
+          90,
+          18
+        ],
+        "actualMaximumOccupiedDepth": 17,
+        "depthProfile": [
+          4,
+          4,
+          5,
+          5,
+          5,
+          6,
+          6,
+          7,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          9,
+          10,
+          10,
+          10,
+          10,
+          11,
+          11,
+          11,
+          11,
+          11,
+          12,
+          12,
+          14,
+          14,
+          14,
+          15,
+          15,
+          15,
+          15,
+          16,
+          16,
+          16,
+          16,
+          17,
+          17,
+          17,
+          17,
+          17,
+          17,
+          17,
+          16,
+          16,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          14,
+          13,
+          14,
+          14,
+          14,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          14,
+          14,
+          13,
+          12,
+          12,
+          13,
+          13,
+          13,
+          13,
+          13,
+          13,
+          12,
+          11,
+          10,
+          10,
+          10,
+          9,
+          10,
+          10,
+          10,
+          9,
+          8,
+          8,
+          8,
+          8,
+          6
+        ],
+        "fullOpaqueTop": true,
+        "opaqueSourceCrop": 0,
+        "repairs": 0,
+        "historicalDerivation": {
+          "originalSource": "approved bay1 whole140x30",
+          "uniformRatio": [
+            9,
+            14
+          ],
+          "onlyTransparentBottomRowsRemovedBeforeAcceptance": 2
+        },
+        "rgbaSha256": "e2928ca63e1029f422c0a56364306bddf7c301d05c2ad97a986a69c932cffe1f"
+      },
+      "groundUnderActorEnvelope": {
+        "min": 344,
+        "max": 344
+      },
+      "walkingHatModel": "visible hat top=feet-40; conservative entire48px width across ground actor centres +/−24",
+      "minimumConservativeGroundWalkingGap": 2,
+      "minimumRiseFromLocalFlatGround": 59,
+      "status": "STATIC_FEASIBLE_PENDING_BOUNDED_PRODUCTION_MECHANISM_AND_NATIVE"
+    }
+  ],
+  "pickupMoves": [
+    {
+      "id": "cove-bonus-1",
+      "kind": "gem",
+      "asset": "gem",
+      "before": [
+        1065,
+        302
+      ],
+      "after": [
+        1065,
+        279
+      ],
+      "support": "cove-hollow-shelf",
+      "reason": "retain original18px-above-landingtop reward relation; no gemstone embedded in whole body"
+    },
+    {
+      "id": "cove-gem-16",
+      "kind": "gem",
+      "asset": "gem",
+      "before": [
+        1750,
+        278
+      ],
+      "after": [
+        1750,
+        265
+      ],
+      "support": "cove-pool-stone-1",
+      "reason": "retain original18px-above-landingtop reward relation; no gemstone embedded in whole body"
+    },
+    {
+      "id": "cove-gem-21",
+      "kind": "gem",
+      "asset": "gem",
+      "before": [
+        2260,
+        278
+      ],
+      "after": [
+        2260,
+        267
+      ],
+      "support": "cove-pool-stone-2",
+      "reason": "retain original18px-above-landingtop reward relation; no gemstone embedded in whole body"
+    }
+  ],
+  "letterMoves": [
+    {
+      "id": "cove-letter-a",
+      "before": {
+        "id": "cove-letter-a",
+        "letter": "A",
+        "x": 1040,
+        "supportY": 320
+      },
+      "after": {
+        "id": "cove-letter-a",
+        "letter": "A",
+        "x": 1040,
+        "supportY": 297
+      },
+      "drawTopBefore": 288,
+      "drawTopAfter": 265,
+      "reason": "same A ID/x, original shelf support anchor follows new top; word/retrace mechanics unchanged"
+    }
+  ],
+  "freeze": {
+    "acceptedFour": {
+      "cove-pool-stone-3": {
+        "publicPath": "public/assets/cove/remaining-two-v1/pool3.png",
+        "sha256": "63616a68aa664e0ea3017ef13b6f0f4f66dd3383db844fd1ddd85ca2b8c10b7d",
+        "x_topY_width": [
+          2380,
+          284,
+          90
+        ]
+      },
+      "cove-bay-ledge-1": {
+        "publicPath": "public/assets/cove/bay1-b-v1/platform.png",
+        "sha256": "e1809f4f247e693c96968ce7661e2e2126d46d28567b032e534634ee6a2b94cc",
+        "x_topY_width": [
+          2960,
+          272,
+          140
+        ]
+      },
+      "cove-bay-ledge-2": {
+        "publicPath": "public/assets/cove/bay2-whole-v1/platform.png",
+        "sha256": "595d98c49269f0231dddcd95e5323a508eae5c28d9185257d15ec3daf19e6b5f",
+        "x_topY_width": [
+          3140,
+          260,
+          160
+        ]
+      },
+      "cove-bay-ledge-3": {
+        "publicPath": "public/assets/cove/bay3-b-v1/platform.png",
+        "sha256": "47f6b81246585ffbcecb2b285d79fdabe3759b1a8d6dd611bb75b8d540b33ec5",
+        "x_topY_width": [
+          3340,
+          272,
+          180
+        ]
+      }
+    },
+    "ground": [
+      {
+        "x1": 0,
+        "x2": 75,
+        "y1": 360,
+        "y2": 360
+      },
+      {
+        "x1": 75,
+        "x2": 105,
+        "y1": 360,
+        "y2": 360,
+        "material": "sand",
+        "speedMultiplier": 0.8
+      },
+      {
+        "x1": 105,
+        "x2": 120,
+        "y1": 360,
+        "y2": 360
+      },
+      {
+        "x1": 120,
+        "x2": 220,
+        "y1": 360,
+        "y2": 312
+      },
+      {
+        "x1": 220,
+        "x2": 380,
+        "y1": 312,
+        "y2": 312
+      },
+      {
+        "x1": 380,
+        "x2": 500,
+        "y1": 312,
+        "y2": 352
+      },
+      {
+        "x1": 500,
+        "x2": 520,
+        "y1": 352,
+        "y2": 352
+      },
+      {
+        "x1": 520,
+        "x2": 600,
+        "y1": 352,
+        "y2": 352,
+        "material": "sand",
+        "speedMultiplier": 0.8
+      },
+      {
+        "x1": 600,
+        "x2": 620,
+        "y1": 352,
+        "y2": 352
+      },
+      {
+        "x1": 620,
+        "x2": 740,
+        "y1": 352,
+        "y2": 304
+      },
+      {
+        "x1": 740,
+        "x2": 840,
+        "y1": 304,
+        "y2": 304
+      },
+      {
+        "x1": 840,
+        "x2": 940,
+        "y1": 304,
+        "y2": 368
+      },
+      {
+        "x1": 940,
+        "x2": 1100,
+        "y1": 368,
+        "y2": 368
+      },
+      {
+        "x1": 1100,
+        "x2": 1220,
+        "y1": 368,
+        "y2": 320
+      },
+      {
+        "x1": 1220,
+        "x2": 1400,
+        "y1": 320,
+        "y2": 320
+      },
+      {
+        "x1": 1400,
+        "x2": 1620,
+        "y1": 320,
+        "y2": 320
+      },
+      {
+        "x1": 1620,
+        "x2": 1660,
+        "y1": 320,
+        "y2": 344
+      },
+      {
+        "x1": 1660,
+        "x2": 1860,
+        "y1": 344,
+        "y2": 344,
+        "material": "water",
+        "speedMultiplier": 0.65
+      },
+      {
+        "x1": 1860,
+        "x2": 1900,
+        "y1": 344,
+        "y2": 320
+      },
+      {
+        "x1": 1900,
+        "x2": 2160,
+        "y1": 320,
+        "y2": 320
+      },
+      {
+        "x1": 2160,
+        "x2": 2200,
+        "y1": 320,
+        "y2": 344
+      },
+      {
+        "x1": 2200,
+        "x2": 2500,
+        "y1": 344,
+        "y2": 344,
+        "material": "water",
+        "speedMultiplier": 0.65
+      },
+      {
+        "x1": 2500,
+        "x2": 2560,
+        "y1": 344,
+        "y2": 320
+      },
+      {
+        "x1": 2560,
+        "x2": 2800,
+        "y1": 320,
+        "y2": 320
+      },
+      {
+        "x1": 2800,
+        "x2": 2920,
+        "y1": 320,
+        "y2": 320
+      },
+      {
+        "x1": 2920,
+        "x2": 3000,
+        "y1": 320,
+        "y2": 344
+      },
+      {
+        "x1": 3000,
+        "x2": 3040,
+        "y1": 344,
+        "y2": 344
+      },
+      {
+        "x1": 3040,
+        "x2": 3220,
+        "y1": 344,
+        "y2": 344,
+        "material": "water",
+        "speedMultiplier": 0.65
+      },
+      {
+        "x1": 3220,
+        "x2": 3480,
+        "y1": 344,
+        "y2": 344
+      },
+      {
+        "x1": 3480,
+        "x2": 3600,
+        "y1": 344,
+        "y2": 296
+      },
+      {
+        "x1": 3600,
+        "x2": 3740,
+        "y1": 296,
+        "y2": 296
+      },
+      {
+        "x1": 3740,
+        "x2": 3820,
+        "y1": 296,
+        "y2": 248
+      },
+      {
+        "x1": 3820,
+        "x2": 3900,
+        "y1": 248,
+        "y2": 248
+      },
+      {
+        "x1": 3900,
+        "x2": 3980,
+        "y1": 248,
+        "y2": 200
+      },
+      {
+        "x1": 3980,
+        "x2": 4200,
+        "y1": 200,
+        "y2": 200
+      }
+    ],
+    "otherEntities": "entire entity records except specifically listed THREE y values identical",
+    "otherLetters": "all except cove-letter-a supportY identical",
+    "constants": {
+      "width": 18,
+      "height": 34,
+      "acceleration": 920,
+      "airAcceleration": 620,
+      "braking": 1200,
+      "downhillAcceleration": 340,
+      "maxSpeed": 220,
+      "gravity": 1500,
+      "jumpVelocity": 510,
+      "jumpCutMultiplier": 0.48,
+      "coyoteSeconds": 0.1,
+      "jumpBufferSeconds": 0.12,
+      "springVelocity": 620
+    },
+    "bonus4": {
+      "id": "cove-bonus-4",
+      "kind": "gem",
+      "asset": "gem",
+      "x": 3240,
+      "y": 242,
+      "layer": "world"
+    },
+    "gemCount": 42
+  },
+  "sourceBindings": {
+    "src/game/movement.ts": "3f918871245baad33cccdbf60ba0520eee750d4c8fc785a53d8d08fc3fe7a58d",
+    "src/game/platforms.ts": "921e433e606cb951554e0d8c512b50c5c29e0360ae57a329a7b28b9bb056d280",
+    "src/world/sandy-cove.ts": "4954efa2b13eeac2ea485ca8a3a72c02b6da30bd51cc040f0cd75d7451cf8214",
+    "src/game/education.ts": "bd2858c93e279ea960867d4ad90d6c483ecfc07697892c451550ea85459c5c09",
+    "src/core/clock.ts": "2d4ac31a13bedab33d3dd2aa28266cdd30906c6611189877a28de9223fdf6c74",
+    "src/game/adventure-scene.ts": "311c222b38c65c46f775b5a887a61b77d50d5680e2382ef0544653eb27a5067e",
+    "src/game/hud.ts": "8eb429ec2fd997095485bfab8a1a9254781d11748b566ff3aba390e6fb42d402",
+    "src/world/cove-terrain.ts": "dd77cbc2a124bb0320c1a4b3692b849c4457552ccadc08e387184f8560bc84d4",
+    "tests/cove-pilot.ts": "0e31deb6477f67b3b2a0265720c2b7b60fd86fc23857ca37d2df03ac52cac436",
+    "tests/cove-rollout-route.ts": "cf365c467337fdb938a4763d4a066df7016fbe5474e63ac637bf02718a8eaff1",
+    "scripts/pool1-preservation.mjs": "304485941555751c97015c64af9c00d00017b19169183a1a398bca07059e3dcc"
+  },
+  "unknowns": [
+    "Mechanism results appended separately; no full48px everyjump pose certification. Walking model conservatively uses +/-24 and feet-40; no drawing-order occlusion workaround.",
+    "Native ordinary input forward/reverse underpass, jump ascent/descent/landing/retrace, letterA collection/wordflow and all42 gems must be reexecuted after implementation.",
+    "2px walking gap is a measured conservative cap, not a native gameplay proof; parent inspects whole-rock visual thickness."
+  ],
+  "implementationAllowedLater": [
+    "src/world/sandy-cove.ts ONLY3platformy and3namedgem-y anchors",
+    "src/game/education.ts ONLY cove-letter-a supportY",
+    "src/world/cove-terrain.ts native source/load/dispatch linkage ONLY3IDs",
+    "new versioned source/preparation/provenance; preserve old rejected3 records/PNGs historical",
+    "exact layout+education+renderer reverse-delta layers before existing phase19->phase18->bay1/HUD/water oracles; all unaffected records strictly pinned"
+  ],
+  "stop": "CONTRACT ONLY; no implementation/generation/network/browser/commits. Owner scope already granted; parent contract review then implementation handoff, not new owner-style approval.",
+  "mechanismSummary": {
+    "allSixLocalJumpsLand": true,
+    "simulationOnly": true,
+    "takeoffNotEntrance": "local authored takeoff positions, not native/word/retrace/fullroute proof",
+    "file": "mechanism.json"
+  },
+  "earlyProbeError": "First read-only source probe used nonexistent movePlayer name: ReferenceError; retained measurement.stderr. Corrected probe uses actual simulatePlayer signature and real internal substeps, exit0.",
+  "projectionProof": {
+    "changedPlatformIDs": [
+      "cove-hollow-shelf",
+      "cove-pool-stone-1",
+      "cove-pool-stone-2"
+    ],
+    "changedEntityIDs": [
+      "cove-bonus-1",
+      "cove-gem-16",
+      "cove-gem-21"
+    ],
+    "changedLetterIDs": [
+      "cove-letter-a supportY ONLY"
+    ],
+    "unchangedSurfaceHash": "027a269724723eeddd0ecbf72119719ec92a4ed3014e3109bc34491cfccdbaf0",
+    "frozenFourPosesAndPNGHashesVerified": true,
+    "allOtherProposedFieldsFrozen": true,
+    "gemCount": 42,
+    "bonus4Unchanged": true,
+    "sourceProjectionRemaining": "implementation must add exact literal/level/education reversal before OLD oracles; no baseline catalog rewrite"
+  }
+}

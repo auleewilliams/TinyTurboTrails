@@ -36,9 +36,9 @@ const gems = [100, 180, 260, 330, 450, 550, 680, 780, 900, 1140, 1260, 1360,
   2760, 2870, 2940, 3060, 3160, 3300, 3540, 3640, 3750, 3850, 3990, 4090];
 
 const platforms: readonly MovingPlatform[] = [
-  ['cove-hollow-shelf', 980, 320, 140],
-  ['cove-pool-stone-1', 1700, 296, 100],
-  ['cove-pool-stone-2', 2230, 296, 90],
+  ['cove-hollow-shelf', 980, 297, 140],
+  ['cove-pool-stone-1', 1700, 283, 100],
+  ['cove-pool-stone-2', 2230, 285, 90],
   ['cove-pool-stone-3', 2380, 284, 90],
   ['cove-bay-ledge-1', 2960, 272, 140],
   ['cove-bay-ledge-2', 3140, 260, 160],
@@ -68,8 +68,8 @@ export const SANDY_COVE: LevelData = {
   checkpoints, platforms,
   entities: [
     { id: 'cove-spring-1', kind: 'spring', asset: 'spring', x: 3420, y: 272, layer: 'world' },
-    ...gems.map((x, index) => ({ ...grounded('gem', 'gem', x, index), y: ({ 1750: 296, 2260: 296, 2420: 284 }[x] ?? surfaceY(terrain, x)) - 18 })),
-    ...[[1065, 302], [950, 318], [3380, 172], [3240, 242], [3420, 160], [3460, 172]]
+    ...gems.map((x, index) => ({ ...grounded('gem', 'gem', x, index), y: ({ 1750: 283, 2260: 285, 2420: 284 }[x] ?? surfaceY(terrain, x)) - 18 })),
+    ...[[1065, 279], [950, 318], [3380, 172], [3240, 242], [3420, 160], [3460, 172]]
       .map(([x, y], index): WorldEntity => ({ id: `cove-bonus-${index + 1}`, kind: 'gem', asset: 'gem', x, y, layer: 'world' })),
     ...[295, 820, 1295, 1510, 1990, 2685, 2830, 3700, 4050]
       .map((x, index) => grounded('decoration', index % 4 === 0 ? 'stone' : 'tree', x, index)),

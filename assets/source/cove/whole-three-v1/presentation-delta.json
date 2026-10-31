@@ -1,0 +1,88 @@
+{
+  "baselineRevision": "2d44e3672ef3f8cc864d4fe70dbfd947af4bf0e1",
+  "files": {
+    "src/world/sandy-cove.ts": {
+      "baselineCopy": "baseline/sandy-cove.ts",
+      "baselineSha256": "4954efa2b13eeac2ea485ca8a3a72c02b6da30bd51cc040f0cd75d7451cf8214",
+      "currentSha256": "8f6660a9b9f247ae7a0214260ce3c9744f5476994c25df9c7bf8b4f62d7ef0a2",
+      "changes": [
+        {
+          "before": "['cove-hollow-shelf', 980, 320, 140]",
+          "after": "['cove-hollow-shelf', 980, 297, 140]"
+        },
+        {
+          "before": "['cove-pool-stone-1', 1700, 296, 100]",
+          "after": "['cove-pool-stone-1', 1700, 283, 100]"
+        },
+        {
+          "before": "['cove-pool-stone-2', 2230, 296, 90]",
+          "after": "['cove-pool-stone-2', 2230, 285, 90]"
+        },
+        {
+          "before": "1750: 296, 2260: 296, 2420: 284",
+          "after": "1750: 283, 2260: 285, 2420: 284"
+        },
+        {
+          "before": "[[1065, 302], [950, 318]",
+          "after": "[[1065, 279], [950, 318]"
+        }
+      ]
+    },
+    "src/game/education.ts": {
+      "baselineCopy": "baseline/education.ts",
+      "baselineSha256": "bd2858c93e279ea960867d4ad90d6c483ecfc07697892c451550ea85459c5c09",
+      "currentSha256": "d96f4e20a4d928ec5766488cf0b1057806f362d155c7e1625603c1d831210a74",
+      "changes": [
+        {
+          "before": "pickup.letter === 'A' ? { ...pickup, supportY: 320 }",
+          "after": "pickup.letter === 'A' ? { ...pickup, supportY: 297 }"
+        }
+      ]
+    },
+    "src/world/cove-terrain.ts": {
+      "baselineCopy": "baseline/cove-terrain.ts",
+      "baselineSha256": "dd77cbc2a124bb0320c1a4b3692b849c4457552ccadc08e387184f8560bc84d4",
+      "currentSha256": "8e6a0b0e9fd182594222a4cfab8455409be91626a8551b5d8a9c4439a06c188e",
+      "changes": [
+        {
+          "before": "remaining-two-v1/hollow.png",
+          "after": "whole-three-v1/hollow.png"
+        },
+        {
+          "before": "pool1-b-v1/platform.png",
+          "after": "whole-three-v1/pool1.png"
+        },
+        {
+          "before": "pool2-b-v1/platform.png",
+          "after": "whole-three-v1/pool2.png"
+        },
+        {
+          "before": "hollowB.naturalHeight !== 6",
+          "after": "hollowB.naturalHeight !== 30"
+        },
+        {
+          "before": "pool1B.naturalHeight !== 5",
+          "after": "pool1B.naturalHeight !== 22"
+        },
+        {
+          "before": "pool2B.naturalHeight !== 6",
+          "after": "pool2B.naturalHeight !== 18"
+        },
+        {
+          "before": "kit.pool1B, 0, 0, 100, 5, body.x - offset.x, body.y - offset.y, 100, 5",
+          "after": "kit.pool1B, 0, 0, 100, 22, body.x - offset.x, body.y - offset.y, 100, 22"
+        },
+        {
+          "before": "kit.pool2B, 0, 0, 90, 6, body.x - offset.x, body.y - offset.y, 90, 6",
+          "after": "kit.pool2B, 0, 0, 90, 18, body.x - offset.x, body.y - offset.y, 90, 18"
+        },
+        {
+          "before": "body.id === 'cove-hollow-shelf' ? 6 : 18",
+          "after": "body.id === 'cove-hollow-shelf' ? 30 : 18"
+        }
+      ]
+    }
+  },
+  "levelBaselineSha256": "a45c51957663a8962cfb1eae251df2c9231c873de3e61a46ae880744a3b9a861",
+  "wordsBaselineSha256": "7ee8bee577faa0b5f235de05053fd09462833a380aaaac5e60b78fff8b942329"
+}
