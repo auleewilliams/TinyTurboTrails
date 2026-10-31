@@ -1,3 +1,5 @@
+import { SANDY_COVE } from '../src/world/sandy-cove';
+import { coveDryLandingTarget, isCoveLandingContact, type DryLandingTarget } from './cove-water-landing-witness';
 import { expect, test } from '@playwright/test';
 import { readFileSync } from 'node:fs';
 import { startCove, driveCove, observeCove } from './cove-browser-pilot';
@@ -10,7 +12,9 @@ test('Cove ordinary water landing splashes while the dry pool stone landing reta
   await page.setViewportSize({ width: 426, height: 300 });
   const evidence = observeCove(page, info);
   // Observe actual production drawing and pixels; no scene/player/clock access.
-  await page.addInitScript(({manifest}) => {
+  const dryTarget=coveDryLandingTarget(SANDY_COVE.platforms!);
+  await page.addInitScript(({manifest,dryTarget,contactSource}) => {
+    const contact = new Function(`return (${contactSource});`)() as (kind:string,x:number,feet:number,target:DryLandingTarget)=>boolean;
     type Mark = {kind:string;rect:number[];color?:string};
     const p={armed:'',frame:[] as Mark[],captures:[] as {kind:string;status:string;marks:Mark[];png:string;pixels:number[];backing:number[]}[]};
     Object.assign(window,{waterLandingWitness:p});
@@ -35,14 +39,14 @@ test('Cove ordinary water landing splashes while the dry pool stone landing reta
       if(!p.armed||p.captures.some(c=>c.kind===p.armed))return;
       const status=document.querySelector('#status')?.textContent??'',x=Number(status.match(/X (-?\d+)/)?.[1]),feet=Number(status.match(/Y (-?\d+)/)?.[1])+34;
       if(!status.includes('Playing'))return;
-      const valid=p.armed==='splash'?feet===344&&x>1809&&x<1851:feet===296&&x>=1700&&x<=1800;
+      const valid=contact(p.armed,x,feet,dryTarget);
       const marks=p.frame.filter(m=>m.kind===p.armed);
       if(!valid||!(p.armed==='splash'?marks.length===6:marks.length>0))return;
       const canvas=document.querySelector<HTMLCanvasElement>('#game')!,ctx=canvas.getContext('2d')!;
       const pixels=marks.flatMap(m=>{const[x,y,w,h]=m.rect;return [...ctx.getImageData(Math.floor(x),Math.floor(y),Math.max(1,Math.ceil(w)),Math.max(1,Math.ceil(h))).data];});
       p.captures.push({kind:p.armed,status,marks:structuredClone(p.frame),png:canvas.toDataURL(),pixels,backing:[canvas.width,canvas.height]});
     });
-  },{manifest});
+  },{manifest,dryTarget,contactSource:isCoveLandingContact.toString()});
   try {
     await startCove(page);
     await driveCove(page,COVE_LOWER.slice(0,1));
