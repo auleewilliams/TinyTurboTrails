@@ -51,7 +51,7 @@ it('builder-kit fixture includes the real terrain dependency and keeps its runti
 
 it('function-string fixtures carry and execute the actual Cove helper dependency graph', () => {
   const list = source.match(/const RENDERER_SOURCE = \[([^\]]+)\]\.map/)![1].split(',').map(name => name.trim());
-  const names = ['world/cove-terrain.ts', 'world/trail-presentation.ts', 'world/ambient-weather.ts', 'world/surface-materials.ts', 'world/renderer.ts'];
+  const names = ['world/cove-terrain.ts', 'world/plains-contour.ts', 'world/trail-presentation.ts', 'world/ambient-weather.ts', 'world/surface-materials.ts', 'world/renderer.ts'];
   const code = names.map(name => transformSync(name, readFileSync(new URL('../src/' + name, import.meta.url), 'utf8')
     .replace(/^import .*;\n/gm, '').replace(/\bexport /g, ''), {}).code).join('\n');
   const helpers = new Function(`${code}\nreturn { ${list.join(',')} };`)() as Record<string, (...args: unknown[]) => unknown>;
