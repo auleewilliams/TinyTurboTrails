@@ -47,6 +47,7 @@ export async function loadWorldAssets(directory = 'plains'): Promise<WorldAssets
   }
   if (manifest.surfaceKit !== undefined && directory !== 'cove') throw new Error('Cove materials declared by another world');
   if (manifest.siteTerrain !== undefined && directory !== 'site') throw new Error('Sunset steel declared by another world');
+  if (directory === 'site' && manifest.siteTerrain !== 'steel-v1/manifest.json') throw new Error('Missing required Sunset steel declaration');
   if (manifest.plainsContour !== undefined && (directory !== 'plains' || manifest.plainsContour !== 'contour-prototype-v1/grass.png')) throw new Error('Invalid Plains contour declaration');
   if (manifest.plainsContourSoil !== undefined && (directory !== 'plains' || !manifest.plainsContour || manifest.plainsContourSoil !== 'contour-prototype-v1/soil.png')) throw new Error('Invalid Plains contour soil declaration');
   const plainsContourImage = manifest.plainsContour ? await loadImage(`${base}${manifest.plainsContour}`, 'Plains contour grass') : undefined;

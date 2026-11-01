@@ -18,7 +18,7 @@
     {
       "number": 1,
       "allocation": "fixed-steel",
-      "status": "prepared-and-integrated-for-owner-preview",
+      "status": "owner-accepted-and-rolled-out",
       "tool": "image_gen.imagegen",
       "transparent_background": true,
       "references": [],
@@ -28,7 +28,7 @@
     {
       "number": 2,
       "allocation": "steel-ferry",
-      "status": "prepared-and-integrated-for-owner-preview",
+      "status": "owner-accepted-and-rolled-out",
       "tool": "image_gen.imagegen",
       "transparent_background": true,
       "references": [],
@@ -38,7 +38,7 @@
     {
       "number": 3,
       "allocation": "ground-edge",
-      "status": "prepared-and-integrated-for-owner-preview",
+      "status": "owner-accepted-and-rolled-out",
       "tool": "image_gen.imagegen",
       "transparent_background": true,
       "references": [],
@@ -48,7 +48,7 @@
     {
       "number": 4,
       "allocation": "ground-fill",
-      "status": "prepared-and-integrated-for-owner-preview",
+      "status": "owner-accepted-and-rolled-out",
       "tool": "image_gen.imagegen",
       "transparent_background": false,
       "references": [],
@@ -61,5 +61,7 @@
     "steel-refinement": 1,
     "ground-refinement": 1
   },
-  "preparation": "public/assets/site/steel-v1/preparation.json"
+  "preparation": "public/assets/site/steel-v1/preparation.json",
+  "previewAcceptance": "accepted-preview/acceptance.json",
+  "currentPhase": "Owner-approved rollout implemented; verification and final acceptance pending"
 }

@@ -115,6 +115,34 @@
   "sourcePreservation": "Every source pixel participates in whole-image resampling. Only zero-alpha exterior output padding is trimmed. Whole ferry is padded below to18; its entire15px silhouette remains. All defining fixed-beam end plates remain in20px caps.",
   "artifacts": [
     {
+      "name": "site-roof.png",
+      "width": 320,
+      "height": 18,
+      "sha256": "79bda66443d471e8ed4462f1e5c4bf22eb4d941801cd629c3d0cfada492b91b9",
+      "pixelSha256": "18c0fd650a56678b01971d9c761378c5b044332033db5d57d0d850b6b1afceba"
+    },
+    {
+      "name": "site-final-m.png",
+      "width": 220,
+      "height": 18,
+      "sha256": "89ec7bdaf858161072659ed45fb771fe133bc8bf335a9640b8bd4a64b5ce0424",
+      "pixelSha256": "7a5d3baa4c6596fe216772795c7468148b96bef8f254ee0078880cd41b82aca1"
+    },
+    {
+      "name": "site-final-left-260.png",
+      "width": 180,
+      "height": 18,
+      "sha256": "1d7836176ddc13434612d40298110d05631c5be2426a7be4e83e381a74a0e776",
+      "pixelSha256": "4ba9e59170d6957a34973a1f246179c8edbb4720defb035fbebaef063ed5ddfa"
+    },
+    {
+      "name": "site-final-6.png",
+      "width": 240,
+      "height": 18,
+      "sha256": "0164f4cc0d082c3e9420aedd24c0b591dd39868ec794b1d93d3eb1083596925d",
+      "pixelSha256": "c11f2fef33c2ddac4f3735a72d2656f5cb8653a833279952c12c5edece72ac9f"
+    },
+    {
       "name": "site-high-deck.png",
       "width": 210,
       "height": 18,
@@ -129,11 +157,53 @@
       "pixelSha256": "f6eaf02f69fae370ab0c8d53977cf834fbeb0999bbd1cc941970ca4c342de804"
     },
     {
+      "name": "site-final-left-320.png",
+      "width": 200,
+      "height": 18,
+      "sha256": "d703094323e4129f34753deb405c49717cff991c7204e218453a5aabf7a6dcc8",
+      "pixelSha256": "2684de06aea87078bc448724a98f4e9f9bf11283eafbcd8154f995f1c7e310e4"
+    },
+    {
+      "name": "site-final-5.png",
+      "width": 180,
+      "height": 18,
+      "sha256": "1d7836176ddc13434612d40298110d05631c5be2426a7be4e83e381a74a0e776",
+      "pixelSha256": "4ba9e59170d6957a34973a1f246179c8edbb4720defb035fbebaef063ed5ddfa"
+    },
+    {
+      "name": "site-final-right-320.png",
+      "width": 240,
+      "height": 18,
+      "sha256": "0164f4cc0d082c3e9420aedd24c0b591dd39868ec794b1d93d3eb1083596925d",
+      "pixelSha256": "c11f2fef33c2ddac4f3735a72d2656f5cb8653a833279952c12c5edece72ac9f"
+    },
+    {
       "name": "site-first-3.png",
       "width": 1740,
       "height": 18,
       "sha256": "d9fd457e57b333495096456c5555b70a081d189e28027eda1a33105cf4349766",
       "pixelSha256": "fb13d2b05818a3ed7e22d99ac0dff2e7c446e9a46448daf83f5c87a02cb6e332"
+    },
+    {
+      "name": "site-final-outside-380.png",
+      "width": 240,
+      "height": 18,
+      "sha256": "0164f4cc0d082c3e9420aedd24c0b591dd39868ec794b1d93d3eb1083596925d",
+      "pixelSha256": "c11f2fef33c2ddac4f3735a72d2656f5cb8653a833279952c12c5edece72ac9f"
+    },
+    {
+      "name": "site-final-4.png",
+      "width": 180,
+      "height": 18,
+      "sha256": "1d7836176ddc13434612d40298110d05631c5be2426a7be4e83e381a74a0e776",
+      "pixelSha256": "4ba9e59170d6957a34973a1f246179c8edbb4720defb035fbebaef063ed5ddfa"
+    },
+    {
+      "name": "site-final-right-380.png",
+      "width": 340,
+      "height": 18,
+      "sha256": "3035778703e09fe329ff36ca300f2212b19c84ac4407df00d374b4f2c78f8d4e",
+      "pixelSha256": "327fe9013bf921cceeabab15d76c044fea672027079f7040c7482f5bba535e6c"
     },
     {
       "name": "site-first-b.png",
@@ -143,6 +213,34 @@
       "pixelSha256": "dc2891b1fb950bbbd1f92ffb9d3fe41b34abee8f93c14af30f00c7e33cc1f9af"
     },
     {
+      "name": "site-descent-1.png",
+      "width": 200,
+      "height": 18,
+      "sha256": "d703094323e4129f34753deb405c49717cff991c7204e218453a5aabf7a6dcc8",
+      "pixelSha256": "2684de06aea87078bc448724a98f4e9f9bf11283eafbcd8154f995f1c7e310e4"
+    },
+    {
+      "name": "site-final-outside-440.png",
+      "width": 260,
+      "height": 18,
+      "sha256": "4465b386f27438f2f9a702096c49bb00850a60f61499d91250977d25a15a9d40",
+      "pixelSha256": "d2ea08a00cb6aa17cf98953627afdf9dffcb064d3d53acec6bc19c2cd9895b18"
+    },
+    {
+      "name": "site-final-left-440.png",
+      "width": 140,
+      "height": 18,
+      "sha256": "0a698b7ef6038be4705f2c0563e91aa98fbb27753ae60d21618306f32b19ccaf",
+      "pixelSha256": "036e1eec0f5fbfc688426353c7d1d72c26b67c3a26c79fc5ae5cafc3095f5b92"
+    },
+    {
+      "name": "site-rest.png",
+      "width": 260,
+      "height": 18,
+      "sha256": "4465b386f27438f2f9a702096c49bb00850a60f61499d91250977d25a15a9d40",
+      "pixelSha256": "d2ea08a00cb6aa17cf98953627afdf9dffcb064d3d53acec6bc19c2cd9895b18"
+    },
+    {
       "name": "site-first-left-1.png",
       "width": 340,
       "height": 18,
@@ -150,11 +248,88 @@
       "pixelSha256": "327fe9013bf921cceeabab15d76c044fea672027079f7040c7482f5bba535e6c"
     },
     {
+      "name": "site-first-right.png",
+      "width": 160,
+      "height": 18,
+      "sha256": "42233a9f6411f351d58a81db7602d830243efd702edd42055ada9b813106f42a",
+      "pixelSha256": "9bb20f3c7d7bad1b796513dce2863b14a9d47b56b29ad687340f1ea06e9dc246"
+    },
+    {
+      "name": "site-descent-left-1.png",
+      "width": 420,
+      "height": 18,
+      "sha256": "b210a2c40661cdbb18a66a4221297f47ed6acbe9ae07f5b705c357a9c6dcd854",
+      "pixelSha256": "af88d6a7cdc88ff7a04e4b356b99964e1d3b6a89f689cf1e41c01cd73cb5a045"
+    },
+    {
+      "name": "site-final-outside-500.png",
+      "width": 280,
+      "height": 18,
+      "sha256": "cade6ab5d81d77e102cf48831fd18631b8286a4f9ef411e3f9ecc8ed0917f091",
+      "pixelSha256": "7e7d2567898cec72e8cead5be317868d01aa955ffb658821a3d29b40d940eb8c"
+    },
+    {
+      "name": "site-final-2.png",
+      "width": 180,
+      "height": 18,
+      "sha256": "1d7836176ddc13434612d40298110d05631c5be2426a7be4e83e381a74a0e776",
+      "pixelSha256": "4ba9e59170d6957a34973a1f246179c8edbb4720defb035fbebaef063ed5ddfa"
+    },
+    {
+      "name": "site-final-right-500.png",
+      "width": 240,
+      "height": 18,
+      "sha256": "0164f4cc0d082c3e9420aedd24c0b591dd39868ec794b1d93d3eb1083596925d",
+      "pixelSha256": "c11f2fef33c2ddac4f3735a72d2656f5cb8653a833279952c12c5edece72ac9f"
+    },
+    {
+      "name": "site-entrance.png",
+      "width": 720,
+      "height": 18,
+      "sha256": "eece73d29c1889b1605791076bad21f3343b058d63bdfe536a503525e9d4fbb7",
+      "pixelSha256": "602d4c1b7b9946bcf892af47cb3acec992b83154a3cccea987f5174f71c92be6"
+    },
+    {
+      "name": "site-descent-outside.png",
+      "width": 320,
+      "height": 18,
+      "sha256": "79bda66443d471e8ed4462f1e5c4bf22eb4d941801cd629c3d0cfada492b91b9",
+      "pixelSha256": "18c0fd650a56678b01971d9c761378c5b044332033db5d57d0d850b6b1afceba"
+    },
+    {
+      "name": "site-descent-3.png",
+      "width": 200,
+      "height": 18,
+      "sha256": "d703094323e4129f34753deb405c49717cff991c7204e218453a5aabf7a6dcc8",
+      "pixelSha256": "2684de06aea87078bc448724a98f4e9f9bf11283eafbcd8154f995f1c7e310e4"
+    },
+    {
+      "name": "site-final-outside-560.png",
+      "width": 240,
+      "height": 18,
+      "sha256": "0164f4cc0d082c3e9420aedd24c0b591dd39868ec794b1d93d3eb1083596925d",
+      "pixelSha256": "c11f2fef33c2ddac4f3735a72d2656f5cb8653a833279952c12c5edece72ac9f"
+    },
+    {
+      "name": "site-final-right-560.png",
+      "width": 420,
+      "height": 18,
+      "sha256": "b210a2c40661cdbb18a66a4221297f47ed6acbe9ae07f5b705c357a9c6dcd854",
+      "pixelSha256": "af88d6a7cdc88ff7a04e4b356b99964e1d3b6a89f689cf1e41c01cd73cb5a045"
+    },
+    {
       "name": "site-lower-catch.png",
       "width": 840,
       "height": 18,
       "sha256": "fd0d2a5d28be2982c8b5e97f8daea4fa7c15b77bdd221e4afcc13aaa286bd62f",
       "pixelSha256": "a4208a76682ee892c4a00dfd49ef790d0ec7ed6b9f3719684e2ee1667920950e"
+    },
+    {
+      "name": "site-descent-base-catch.png",
+      "width": 1660,
+      "height": 18,
+      "sha256": "dce066cecca16cc3bf726b59f0efd7113aacd1bb66ce08b0c5d7d6b22b603a6a",
+      "pixelSha256": "46e7830aa8a87cebdbca98c6b9c02f49e3f06cb27b8e8f3c196339b9760ad2e8"
     },
     {
       "name": "ferry.png",
@@ -169,6 +344,13 @@
       "height": 1064,
       "sha256": "db23a5bbbf9a426e5ffbaed04e6d625626d0593f06a64a125bf5d26514ef959b",
       "pixelSha256": "2679d25c3fccf52dcd41fe8316be0ae43d48be7d22961ac3f3d2d11301ccfb66"
+    },
+    {
+      "name": "ground-full.png",
+      "width": 3120,
+      "height": 1064,
+      "sha256": "95756ec0830cf035f5b3113785b25e61134f2c8db691457f94a4ebb29a862be5",
+      "pixelSha256": "2b538f8ba33e3dde5ec028fa0943dfadcc778ee7ec9810f83445d075e3d1c9ce"
     }
   ]
 }

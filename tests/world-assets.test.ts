@@ -6,6 +6,16 @@ afterEach(() => {
   vi.unstubAllGlobals();
 });
 
+it('rejects missing or invalid production Sunset kit declarations before loading any images', async () => {
+  const manifest = JSON.parse(readFileSync(new URL('../public/assets/site/manifest.json', import.meta.url), 'utf8'));
+  const Image = vi.fn(); vi.stubGlobal('Image', Image);
+  for (const siteTerrain of [undefined, null, '', 'other/manifest.json']) {
+    vi.stubGlobal('fetch', vi.fn(async () => ({ ok: true, json: async () => ({ ...manifest, siteTerrain }) })));
+    await expect(loadWorldAssets('site')).rejects.toThrow('required Sunset steel declaration');
+  }
+  expect(Image).not.toHaveBeenCalled();
+});
+
 it('ships a complete grounded construction atlas for Sunset Site', () => {
   const site = JSON.parse(readFileSync(new URL('../public/assets/site/manifest.json', import.meta.url), 'utf8'));
   expect(site.image).toBe('environment.png');

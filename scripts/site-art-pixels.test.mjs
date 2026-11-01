@@ -9,6 +9,34 @@ import { join } from 'node:path';
 import { resampleWhole, trimTransparentPadding } from './site-art-pixels.mjs';
 import { assertPngPixelContract } from './png-pixel-contract.mjs';
 import { beforeSiteArt } from './site-art-preservation.mjs';
+import { decodePng } from './spelling-stickers.mjs';
+
+test('rollout freezes every accepted preview image and every pixel of its left ground region', () => {
+  const accepted = JSON.parse(readFileSync('assets/source/site/steel-v1/accepted-preview/preparation.json'));
+  const hash = bytes => createHash('sha256').update(bytes).digest('hex');
+  const current = JSON.parse(readFileSync('public/assets/site/steel-v1/preparation.json'));
+  assert.deepEqual(current.preparations, accepted.preparations, 'accepted whole-source scales and alpha preparation');
+  assert.deepEqual(current.plannedCells, accepted.plannedCells, 'accepted cap and centre cells');
+  for (const source of accepted.preparations) assert.equal(hash(readFileSync(`assets/source/site/steel-v1/${source.file}`)), source.sha256, 'frozen generated original');
+  for (const pin of accepted.artifacts) {
+    const bytes = readFileSync(`public/assets/site/steel-v1/${pin.name}`);
+    assert.equal(hash(bytes), pin.sha256, 'frozen preview file: ' + pin.name);
+    assertPngPixelContract(bytes, bytes, pin);
+  }
+  const original = decodePng(readFileSync('public/assets/site/steel-v1/ground.png'));
+  const complete = decodePng(readFileSync('public/assets/site/steel-v1/ground-full.png'));
+  for (let y = 0; y < original.height; y++) {
+    const prior = original.data.subarray(y * original.width * 4, (y + 1) * original.width * 4);
+    const current = complete.data.subarray(y * complete.width * 4, (y * complete.width + original.width) * 4);
+    assert.equal(Buffer.compare(Buffer.from(prior), Buffer.from(current)), 0, 'accepted ground row: ' + y);
+  }
+  const inventory = JSON.parse(readFileSync('docs/evidence/issue-242/inventory.json'));
+  for (let x = 0; x < complete.width; x++) {
+    const surface = inventory.terrain.find(s => x + 0.5 >= s.x1 && x + 0.5 < s.x2);
+    const top = surface.y1 + (surface.y2 - surface.y1) * (x + 0.5 - surface.x1) / (surface.x2 - surface.x1);
+    for (let y = 0; y < complete.height; y++) assert.equal(complete.data[(y * complete.width + x) * 4 + 3], y + 0.5 < top ? 0 : 255, `authored contour ${x},${y}`);
+  }
+});
 
 test('whole-source area weights preserve pale opaque pixels and use premultiplied colour', () => {
   const image = { width: 2, height: 2, data: new Uint8Array([255, 255, 255, 255, 255, 0, 255, 0,
@@ -47,8 +75,8 @@ test('legacy preservation projects only the exact site declaration and rejects u
   assert.equal(beforeSiteArt('public/assets/cove/manifest.json', bytes), bytes);
 });
 
-test('shared source projection accepts only the recorded preview bytes and rejects position or appended changes', () => {
-  const record = JSON.parse(readFileSync('assets/source/site/steel-v1/preservation.json'));
+test('shared source projection accepts only the recorded rollout bytes and rejects position or appended changes', () => {
+  const record = JSON.parse(readFileSync('assets/source/site/steel-v1/rollout-preservation.json'));
   assert.deepEqual(Object.keys(record.files).sort(), ['public/assets/site/manifest.json', 'src/world/assets.ts', 'src/world/renderer.ts', 'src/world/sunset-site.ts']);
   for (const [path, pin] of Object.entries(record.files)) {
     const bytes = readFileSync(path), original = readFileSync(pin.baselineCopy);
@@ -59,7 +87,7 @@ test('shared source projection accepts only the recorded preview bytes and rejec
   assert.throws(() => beforeSiteArt(path, Buffer.from(bytes.replace("girder('entrance', 0, 300, 560)", "girder('entrance', 0, 301, 560)"))));
 });
 
-test('all prepared preview PNGs reproduce with exact RGBA, dimensions, CRC and committed-copy guards', () => {
+test('all prepared rollout PNGs reproduce with exact RGBA, dimensions, CRC and committed-copy guards', () => {
   const temporary = mkdtempSync(join(tmpdir(), 'sunset-steel-'));
   try {
     execFileSync(process.execPath, ['scripts/prepare-site-art.mjs', temporary]);
