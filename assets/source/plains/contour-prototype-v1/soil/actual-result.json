@@ -1,0 +1,26 @@
+{
+  "success": true,
+  "image": "/home/leew/.hermes/cache/generated/images/openai_codex_gpt-image-2-medium_20261101_094543_fd6d75a2.png",
+  "retainedImage": "/home/leew/.hermes/cache/scratch/ttt-art-239/preview-1/generation/C-refinement-R2/original.png",
+  "sourceSHA256": "0a30534d856f27481646d024593114b5d76c41415205d149e6f8330805cf75f2",
+  "model": "gpt-image-2-medium",
+  "provider": "openai-codex",
+  "requested_size": "1024x1024",
+  "reported_size": "1254x1254",
+  "requested_quality": "medium",
+  "reported_quality": "low",
+  "input_image_count": 2,
+  "imagegen_request_id": "fb5b8f3e-bb37-439d-8e4d-25ae055a441d",
+  "decodedSize": [
+    1254,
+    1254
+  ],
+  "decodedMode": "RGB",
+  "decodedAlphaExtrema": [
+    255,
+    255
+  ],
+  "actualNativeCallNumber": 5,
+  "status": "FINAL_C_SOURCE_RETURNED_FIT_UNTESTED_NO_MORE_CALLS",
+  "timestampUTC": "2026-11-01T09:46:04.013289+00:00"
+}

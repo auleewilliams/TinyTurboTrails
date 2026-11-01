@@ -1,3 +1,4 @@
+import { beforePlainsContour } from './plains-contour-preservation.mjs';
 import { beforeRemainingTwo } from './remaining-two-preservation.mjs';
 import { beforeWholeBay2 } from './whole-bay2-preservation.mjs';
 import { beforeBay2 } from './bay2-preservation.mjs';
@@ -113,10 +114,15 @@ test('current feature record pins exact presentation deltas and every unrelated1
   const pins=JSON.parse(read('prechange-byte-pins.json')), feature=JSON.parse(read('current-presentation.json'));
   assert.equal(feature.baselineRevision,'1687f5525b757221b47a21287f6b8c48e5403ae0');
   assert.deepEqual(Object.keys(feature.files).sort(),['public/assets/cove/manifest.json','src/world/assets.ts','src/world/renderer.ts','src/world/surface-materials.ts']);
-  const check=(path,bytes)=>assert.equal(hash(beforeWaterLanding(path, beforeBay1(path, beforeBay2(path, beforeWholeBay2(path, beforeRemainingTwo(path, beforeOwnerHud(path, bytes))))))),feature.files[path]?.currentSha256??pins.files[path],path);
+  const check=(path,bytes)=>assert.equal(hash(beforeWaterLanding(path, beforeBay1(path, beforeBay2(path, beforeWholeBay2(path, beforeRemainingTwo(path, beforeOwnerHud(path, beforePlainsContour(path, bytes)))))))),feature.files[path]?.currentSha256??pins.files[path],path);
   for(const[path,baseline]of Object.entries(pins.files)){
     if(feature.files[path]){assert.equal(feature.files[path].baselineSha256,baseline);assert.equal(hash(read(feature.files[path].baselineCopy)),baseline);}
     check(path,readFileSync(new URL(`../${path}`,import.meta.url)));
+    if (path === 'src/world/level.ts') for (const [from, to] of [["[150, 'flowers']", "[151, 'flowers']"], ["[2342, 'flowers']", "[2343, 'flowers']"], ["[2342, 'flowers']", "[2342, 'stone']"]]) {
+      const bytes = readFileSync(new URL('../' + path, import.meta.url)), bad = Buffer.from(bytes.toString().replace(from, to));
+      assert.notDeepEqual(bad, bytes);
+      assert.throws(() => check(path, bad), { code: 'ERR_ASSERTION' });
+    }
   }
   for(const path of ['src/world/surface-materials.ts','src/world/sandy-cove.ts','src/game/movement.ts']){
     const bytes=readFileSync(new URL(`../${path}`,import.meta.url));

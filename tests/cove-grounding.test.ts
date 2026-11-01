@@ -1,3 +1,5 @@
+import { createRequire as plainsRequire } from 'node:module';
+const { beforePlainsContour } = plainsRequire(import.meta.url)('../scripts/plains-contour-preservation.mjs') as { beforePlainsContour(path: string, bytes: Buffer): Buffer };
 import { createRequire as wholeRequire } from 'node:module';
 const {beforeWholeBay2Level}=wholeRequire(import.meta.url)('../scripts/whole-bay2-preservation.mjs') as {beforeWholeBay2Level<T>(value:T):T};
 const {beforeWholeThree}=wholeRequire(import.meta.url)('../scripts/whole-three-preservation.mjs') as {beforeWholeThree(path:string,bytes:Buffer):Buffer};
@@ -82,7 +84,12 @@ it('pins every gameplay field and all non-placement decoration data to the origi
   expect(projection(beforeWholeBay2Level(SANDY_COVE))).toEqual(projection(baseline));
   const pins = JSON.parse(read('assets/source/cove/terrain-kit/preserved-files.json').toString());
   for (const pin of pins.files) if (!['src/world/sandy-cove.ts', 'public/assets/cove/manifest.json'].includes(pin.path)) {
-    expect(createHash('sha256').update(beforeWaterLanding(pin.path, beforeOwnerHud(pin.path, beforeWholeThree(pin.path, read(pin.path))))).digest('hex'), pin.path).toBe(pin.sha256);
+    expect(createHash('sha256').update(beforeWaterLanding(pin.path, beforeOwnerHud(pin.path, beforeWholeThree(pin.path, beforePlainsContour(pin.path, read(pin.path)))))).digest('hex'), pin.path).toBe(pin.sha256);
+    if (pin.path === 'src/world/level.ts') for (const [from, to] of [["[150, 'flowers']", "[151, 'flowers']"], ["[2342, 'flowers']", "[2343, 'flowers']"], ["[2342, 'flowers']", "[2342, 'stone']"]]) {
+      const bad = Buffer.from(read(pin.path).toString().replace(from, to));
+      expect(bad.equals(read(pin.path))).toBe(false);
+      expect(() => beforeWaterLanding(pin.path, beforeOwnerHud(pin.path, beforeWholeThree(pin.path, beforePlainsContour(pin.path, bad))))).toThrow();
+    }
   }
   const original = structuredClone(pins.coveManifestBefore); original.terrainKit = 'terrain-kit/manifest.json'; original.surfaceKit = 'materials/manifest.json';
   const visual = structuredClone(manifest);

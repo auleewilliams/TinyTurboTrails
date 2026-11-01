@@ -1,0 +1,37 @@
+{
+  "ownerReply": "yes",
+  "recordedAtUTC": "2026-11-01T05:09:16.253573+00:00",
+  "immediatelyPrecedingQuestion": "Do you approve switching the Plains preview to that contour-mapped approach?",
+  "status": "APPROVED_BY_REAL_OWNER",
+  "scope": {
+    "status": "APPROVED_FOR_BOUNDED_IMPLEMENTED_PROTOTYPE",
+    "origin": "mattermost:f4mbjkz4ybn7ics7spummj4j9y",
+    "reason": "Both existing-source B preparation checks failed; no further B image call or automatic C advance authorized. Stop this source-fitting approach instead of more speculative searches/calls.",
+    "recommendation": "For Plains continuous ground only, replace exact-angle B source modules with the prepared A material drawn along the existing authored ground contour. This explicitly permits the drawn band to bend/follow the contour, superseding no-whole-strip-shear/bending for this terrain-rendering method only. No new asset painting or native A bitmap edit.",
+    "prototypeFirst": "Small actual in-game terrain prototype using already available art; no new image calls until native input/raster fit demonstrated. Mark existing soil as placeholder, not completed new kit.",
+    "preserved": [
+      "authored terrain/collision/physics",
+      "platforms and pickups",
+      "Henry/HUD/shared sprites",
+      "prepared A native bytes and exact approved one-pixel fix",
+      "no flower moves; only already-approved bush relocation when integrated",
+      "five-call cap and unused C/R2 conditional allocations",
+      "no wider rollout/merge/deployment"
+    ],
+    "supersededOnlyIfOwnerApproves": [
+      "B-role requirement for a separately painted exact-slope sheet",
+      "no-bending restriction for contour-applied continuous Plains ground material"
+    ],
+    "notAClaim": "B generated source has NOT passed. It remains rejected/historical. This is a proposed different rendering method, not a demonstrated recovery.",
+    "budget": "3/5 remain spent; no extra image calls requested; C stays held until new method is approved and prototype validates",
+    "approvalQuestion": "Do you approve switching the Plains preview to contour-mapped grass material, with a small playable prototype before any more image generation?"
+  },
+  "supersedes": "Pending render-method decision and exact-shape B/no-bending restriction for Plains continuous ground only. Rejected B source and failures stay historical, not relabelled passed.",
+  "notAuthorized": [
+    "extra image calls before prototype works",
+    "changes to source A bitmap",
+    "terrain/collision/physics or pickup edits",
+    "other trails or whole-Plains rollout",
+    "merge/deployment"
+  ]
+}

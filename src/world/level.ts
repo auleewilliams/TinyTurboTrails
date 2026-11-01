@@ -159,9 +159,9 @@ export const PLAINS_LEVEL: LevelData = withSlimePatrols({
       patrol: { minX: 1720, maxX: 1780, speed: SLIME_SPEED } }),
     groundedEntity({ id: 'spring-001', kind: 'spring', x: 2760, asset: 'spring', layer: 'world' }),
     ...[
-      [240, 'flowers'], [470, 'bush'], [800, 'stone'],
+      [150, 'flowers'], [772, 'bush'], [800, 'stone'],
       [1550, 'tree'], [1670, 'tree'], [2100, 'tree'], [2310, 'bush'],
-      [2530, 'flowers'], [3350, 'stone'], [3550, 'bush'], [3980, 'flowers'],
+      [2342, 'flowers'], [3350, 'stone'], [3550, 'bush'], [3980, 'flowers'],
     ].map(([x, asset], index) => groundedEntity({ id: `deco-${String(index + 1).padStart(3, '0')}`,
       kind: 'decoration', x: x as number, asset: asset as string, layer: 'back' })),
     ...plainsCheckpoints.map(({ id, x }) => groundedEntity({ id, kind: 'checkpoint', x, asset: 'checkpoint', layer: 'world' })),

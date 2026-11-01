@@ -1,3 +1,4 @@
+import { drawPlainsContourGround, plainsContourRange } from './plains-contour';
 import { drawTerrainMaterial, drawTerrainEdge, drawTrailBackdrop } from './trail-presentation';
 import { drawAmbientWeather } from './ambient-weather';
 import type { Camera } from './camera';
@@ -61,7 +62,8 @@ export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, le
     ctx.restore();
   }
   if (level.theme.material === 'wood') drawTerrainTiles(ctx, assets, level, offset);
-  if (!(level.id === 'cove' && assets.coveTerrain)) drawTerrainEdge(ctx, level, offset);
+  if (!(level.id === 'cove' && assets.coveTerrain)) drawTerrainEdge(ctx, level, offset, assets.plainsContour ? plainsContourRange(level) : undefined);
+  drawPlainsContourGround(ctx, assets, level, offset);
   drawSurfaceMaterials(ctx, level, offset, assets.coveMaterials, runSeconds, reducedMotion);
   for (const surface of level.surfaces) drawSurfaceGrip(ctx, surface, offset);
   drawPlatforms(ctx, level, offset, platforms, assets);
