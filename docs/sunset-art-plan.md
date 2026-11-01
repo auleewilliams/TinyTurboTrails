@@ -197,9 +197,9 @@ letter, checkpoint and scenery IDs are in the JSON inventory.
 | `site-final-outside-500` | 2220–2500 | 500 | 280 | 2 | Fixed modular deck |
 | `site-final-outside-560` | 2380–2520 | 560 | 140 | 2 | Fixed modular deck; join `site-final-1` |
 
-The eight fixed preview supports and ferry are implemented; their exact coverage
-is in `public/assets/site/steel-v1/manifest.json`. The remaining rows await
-representative-preview approval. No artwork has owner visual approval yet.
+All forty supports are implemented using the owner-accepted family; exact coverage
+is in `public/assets/site/steel-v1/manifest.json`. Whole-trail verification and
+final owner acceptance remain separate. See the [rollout packet](evidence/issue-242/rollout/README.md).
 
 ## Terrain and scenery decisions
 

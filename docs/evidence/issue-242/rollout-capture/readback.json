@@ -1,0 +1,28 @@
+{
+  "auditedAt": "2026-11-01T21:10:15.820Z",
+  "attachmentFiles": 55,
+  "observations": 18,
+  "sources": [
+    {
+      "title": "Sunset whole steel rollout reaches the roof and finish at 426px with Pause",
+      "files": 96,
+      "responses": 86,
+      "browser": "chromium",
+      "version": "156.0.8078.4"
+    },
+    {
+      "title": "Sunset whole steel rollout reaches the roof and finish at 320px with Pause",
+      "files": 96,
+      "responses": 86,
+      "browser": "chromium",
+      "version": "156.0.8078.4"
+    }
+  ],
+  "checks": [
+    "All retained attachment hashes and lengths",
+    "Every native/CSS PNG dimension",
+    "Every recorded runtime source equals current candidate",
+    "Every observed response equals recorded and current build body"
+  ],
+  "note": "Working-tree same-byte binding. Original null sourceRevision remains unchanged."
+}

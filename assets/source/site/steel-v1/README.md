@@ -7,8 +7,9 @@ approved text is [approved-plan.md](approved-plan.md); its hash and the inventor
 hash are recorded in [authorization.json](authorization.json).
 
 Four initial calls have been spent. The steel and ground refinement reservations
-remain unused. These sources are integrated for representative preview, not yet
-owner-approved artwork or a completed trail rollout.
+remain unused. The owner approved the integrated preview and rollout using these
+same components after the review findings were presented. The full rollout now
+uses them; final completed-trail acceptance remains separate.
 
 | Call | Allocation | Original output | Preparation |
 | --- | --- | --- | --- |
@@ -50,15 +51,18 @@ Both therefore have a faint1px fringe at the collision line and a stronger top
 one pixel below it, which can look like a1px foot-to-deck gap. This was missed in
 the first visual audit. See the exact [row measurements](../../../../docs/evidence/issue-242/review-01/alpha-audit.json).
 No threshold, repositioning, opacity repair or additional generation has been
-applied. Acceptance of this edge treatment remains an explicit owner decision.
+applied. The owner subsequently approved rollout using these same components.
 
 Mirrored repeat neighbours share boundary samples without painting seam fixes.
 Mirroring was disclosed here but not explicitly listed in the approved plan's
-preparation operations; it also awaits explicit owner acceptance in the preview.
+preparation operations. This was disclosed in the review before the owner approved
+rollout using the same components.
 Each joined support run is prepared as ONE native PNG, preventing fractional
 camera offsets from exposing strip boundaries. The ground is likewise a native
-world bitmap, preserving the authored steep contour. Its preview range is
-x[0,980); the rest of the ground and supports remain pending rollout approval.
+world bitmap, preserving the authored steep contour. The original preview covers
+x[0,980) and remains frozen as `ground.png`. `ground-full.png` extends the same
+material across all five terrain segments while preserving every accepted left
+bank pixel. All39fixed supports and the ferry now use this accepted family.
 
 The complete executed resampling/cell/source/output hashes are in
 [preparation.json](../../../../public/assets/site/steel-v1/preparation.json).
@@ -69,8 +73,9 @@ negative controls cover premultiplication, pale pixels, alpha and edge retention
 
 ## Scoped preservation
 
-[preservation.json](preservation.json) and `baseline/` bind the four changed
-existing production files to the inspected main revision. They are a new
+[preservation.json](preservation.json) retains the preview binding;
+[rollout-preservation.json](rollout-preservation.json) and `baseline/` bind the four
+changed existing production files for the rollout to the inspected main revision. They are a new
 projection before the immutable Cove preservation oracles; the old evidence is
 unchanged. Unknown bytes, duplicate declarations and unauthorized position edits
 fail. Separate layout/source tests pin all supports, paths, checkpoints, rewards,

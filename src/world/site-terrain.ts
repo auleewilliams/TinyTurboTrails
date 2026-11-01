@@ -1,12 +1,25 @@
 import type { PlatformBody } from '../game/movement';
 import type { LevelData } from './level';
 
-export const SITE_PREVIEW_SUPPORT_IDS = ['site-first-1', 'site-first-left-1', 'site-first-b', 'site-first-3',
-  'site-crane-catch', 'site-high-deck', 'site-far-dock', 'site-lower-catch'] as const;
+export const SITE_FIXED_SUPPORT_IDS = [
+  'site-entrance', 'site-first-low-right', 'site-first-1',
+  'site-first-b', 'site-first-3', 'site-high-deck',
+  'site-far-dock', 'site-crane-catch', 'site-first-left-1',
+  'site-first-right', 'site-lower-catch', 'site-descent-outside',
+  'site-descent-base-catch', 'site-descent-1', 'site-descent-e',
+  'site-descent-3', 'site-yard', 'site-descent-left-1',
+  'site-descent-left-2', 'site-final-1', 'site-final-2',
+  'site-rest', 'site-final-4', 'site-final-5',
+  'site-final-6', 'site-final-m', 'site-roof',
+  'site-final-base-catch', 'site-final-right-560', 'site-final-right-500',
+  'site-final-left-440', 'site-final-right-380', 'site-final-right-320',
+  'site-final-left-320', 'site-final-left-260', 'site-final-outside-380',
+  'site-final-outside-440', 'site-final-outside-500', 'site-final-outside-560',
+] as const;
 export interface SiteSteelRun { id: string; supportIds: string[]; x: number; y: number; width: number; image: string }
 export interface SiteTerrainManifest {
   version: 1;
-  phase: 'preview';
+  phase: 'rollout';
   depth: 18;
   runs: SiteSteelRun[];
   ferry: { id: string; image: string; width: number; height: number; visibleDepth: number };
@@ -21,23 +34,23 @@ export interface SiteTerrainAssets {
 
 export function validateSiteTerrain(value: unknown): asserts value is SiteTerrainManifest {
   const data = value as SiteTerrainManifest;
-  if (!data || data.version !== 1 || data.phase !== 'preview' || data.depth !== 18 || !Array.isArray(data.runs) || data.runs.length !== 6
+  if (!data || data.version !== 1 || data.phase !== 'rollout' || data.depth !== 18 || !Array.isArray(data.runs) || data.runs.length !== 31
     || data.ferry?.id !== 'site-crane-ferry' || data.ferry.image !== 'ferry.png' || data.ferry.width !== 96 || data.ferry.height !== 18 || data.ferry.visibleDepth !== 15
-    || data.ground?.image !== 'ground.png' || data.ground.width !== 980 || data.ground.height !== 1064 || data.ground.from !== 0 || data.ground.to !== 980) {
+    || data.ground?.image !== 'ground-full.png' || data.ground.width !== 3120 || data.ground.height !== 1064 || data.ground.from !== 0 || data.ground.to !== 3120) {
     throw new Error('Invalid Sunset steel metadata');
   }
   const ids = new Set<string>();
   for (const run of data.runs) {
-    if (!run || !SITE_PREVIEW_SUPPORT_IDS.some(id => id === run.id) || run.image !== `${run.id}.png`
+    if (!run || !SITE_FIXED_SUPPORT_IDS.some(id => id === run.id) || run.image !== `${run.id}.png`
       || !Array.isArray(run.supportIds) || !run.supportIds.includes(run.id)
       || ![run.x, run.y, run.width].every(Number.isInteger) || run.x < 0 || run.y < 0 || run.width < 140
       || run.width % 10 !== 0 || run.x + run.width > 3120 || run.y > 620) throw new Error('Invalid Sunset steel run');
     for (const id of run.supportIds) {
-      if (!SITE_PREVIEW_SUPPORT_IDS.some(expected => expected === id) || ids.has(id)) throw new Error('Invalid Sunset support coverage');
+      if (!SITE_FIXED_SUPPORT_IDS.some(expected => expected === id) || ids.has(id)) throw new Error('Invalid Sunset support coverage');
       ids.add(id);
     }
   }
-  if (ids.size !== SITE_PREVIEW_SUPPORT_IDS.length) throw new Error('Incomplete Sunset support coverage');
+  if (ids.size !== SITE_FIXED_SUPPORT_IDS.length) throw new Error('Incomplete Sunset support coverage');
 }
 
 /** Every declared image is required. A failed attempt is not cached, so Retry reloads it. */
@@ -95,7 +108,7 @@ export function drawSitePlatform(ctx: CanvasRenderingContext2D, kit: SiteTerrain
   body: PlatformBody, offset: { x: number; y: number }): boolean {
   validateSiteLayout(kit, level);
   const fixed = kit.runs.get(body.id);
-  if (!fixed && body.id !== kit.manifest.ferry.id) return false;
+  if (!fixed && body.id !== kit.manifest.ferry.id) throw new Error('Missing Sunset steel support artwork');
   if (fixed && fixed.run.id !== body.id) return true;
   const image = fixed?.image ?? kit.ferry;
   const x = fixed?.run.x ?? body.x, y = fixed?.run.y ?? body.y;
@@ -108,7 +121,7 @@ export function drawSitePlatform(ctx: CanvasRenderingContext2D, kit: SiteTerrain
   return true;
 }
 
-/** A single prepared bitmap replaces the approved left-ground preview region. */
+/** A single native bitmap covers every authored terrain segment, including both gap walls. */
 export function drawSiteGround(ctx: CanvasRenderingContext2D, kit: SiteTerrainAssets, offset: { x: number; y: number }): void {
   ctx.save();
   try {

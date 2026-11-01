@@ -44,6 +44,7 @@ export async function loadWorldAssets(directory = 'plains'): Promise<WorldAssets
   }
   if (manifest.surfaceKit !== undefined && directory !== 'cove') throw new Error('Cove materials declared by another world');
   if (manifest.siteTerrain !== undefined && directory !== 'site') throw new Error('Sunset steel declared by another world');
+  if (directory === 'site' && manifest.siteTerrain !== 'steel-v1/manifest.json') throw new Error('Missing required Sunset steel declaration');
   const atlas = await loadImage(`${base}${manifest.image}`, 'world atlas');
   const [{ materials, backdrops, slimes, gems }, panorama, coveTerrain, coveMaterials, siteTerrain] = await Promise.all([
     loadPresentation(),

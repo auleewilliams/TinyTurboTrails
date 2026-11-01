@@ -58,16 +58,12 @@ export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, le
     ctx.fill();
     ctx.save(); ctx.clip();
     if (level.id === 'cove' && assets.coveTerrain) drawCoveGround(ctx, assets.coveTerrain, level, offset, first.x1, last.x2);
+    else if (level.id === 'sunset' && assets.siteTerrain) drawSiteGround(ctx, assets.siteTerrain, offset);
     else drawTerrainMaterial(ctx, level, offset, assets, first.x1, last.x2);
-    if (level.id === 'sunset' && assets.siteTerrain) drawSiteGround(ctx, assets.siteTerrain, offset);
     ctx.restore();
   }
   if (level.theme.material === 'wood') drawTerrainTiles(ctx, assets, level, offset);
-  if (level.id === 'sunset' && assets.siteTerrain) {
-    ctx.save();
-    ctx.beginPath(); ctx.rect(assets.siteTerrain.manifest.ground.to - offset.x, -10000, 10000, 20000); ctx.clip();
-    drawTerrainEdge(ctx, level, offset); ctx.restore();
-  } else if (!(level.id === 'cove' && assets.coveTerrain)) drawTerrainEdge(ctx, level, offset);
+  if (!(level.id === 'sunset' && assets.siteTerrain) && !(level.id === 'cove' && assets.coveTerrain)) drawTerrainEdge(ctx, level, offset);
   drawSurfaceMaterials(ctx, level, offset, assets.coveMaterials, runSeconds, reducedMotion);
   for (const surface of level.surfaces) drawSurfaceGrip(ctx, surface, offset);
   drawPlatforms(ctx, level, offset, platforms, assets);

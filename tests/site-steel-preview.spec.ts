@@ -126,10 +126,14 @@ for (const width of [426, 320]) test(`Sunset steel preview uses ordinary ground,
 });
 
 const kit = JSON.parse(readFileSync(new URL('../public/assets/site/steel-v1/manifest.json', import.meta.url), 'utf8')) as { runs: { image: string }[] };
-for (const name of ['manifest.json', ...kit.runs.map(run => run.image), 'ferry.png', 'ground.png']) {
+for (const name of ['site-declaration', 'manifest.json', ...kit.runs.map(run => run.image), 'ferry.png', 'ground-full.png']) {
   test(`Sunset required steel resource ${name} recovers through ordinary Retry`, async ({ page }, info) => {
-    const path = `**/assets/site/steel-v1/${name}`;
-    await page.route(path, route => route.fulfill({ status: 404, body: 'intentional missing steel resource' }));
+    const path = name === 'site-declaration' ? '**/assets/site/manifest.json' : `**/assets/site/steel-v1/${name}`;
+    const missingDeclaration = JSON.parse(readFileSync('public/assets/site/manifest.json', 'utf8'));
+    delete missingDeclaration.siteTerrain;
+    await page.route(path, route => route.fulfill(name === 'site-declaration'
+      ? { status: 200, contentType: 'application/json', body: JSON.stringify(missingDeclaration) }
+      : { status: 404, body: 'intentional missing steel resource' }));
     await page.goto('/?scene=adventure&debug=1');
     await expect(page.getByRole('button', { name: 'Retry loading', exact: true })).toBeVisible();
     await page.unroute(path);

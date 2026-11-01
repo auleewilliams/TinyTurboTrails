@@ -9,8 +9,6 @@ const sourceRoot = 'assets/source/site/steel-v1';
 const output = resolve(process.argv[2] ?? 'public/assets/site/steel-v1');
 const hash = bytes => createHash('sha256').update(bytes).digest('hex');
 const inventory = JSON.parse(await readFile('docs/evidence/issue-242/inventory.json', 'utf8'));
-const previewIds = ['site-first-1', 'site-first-left-1', 'site-first-b', 'site-first-3',
-  'site-crane-catch', 'site-high-deck', 'site-far-dock', 'site-lower-catch'];
 const preparations = [];
 const source = async (number, numerator, denominator = 1) => {
   const file = `call-${String(number).padStart(2, '0')}-original.png`;
@@ -43,14 +41,14 @@ const paste = (target, piece, x, y, flip = false) => {
   }
 };
 const runs = [];
-for (const support of inventory.platforms.filter(p => previewIds.includes(p.id)).sort((a, b) => a.from.y - b.from.y || a.from.x - b.from.x)) {
+for (const support of inventory.platforms.filter(p => p.from.x === p.to.x && p.from.y === p.to.y).sort((a, b) => a.from.y - b.from.y || a.from.x - b.from.x)) {
   const previous = runs.at(-1);
   if (previous && previous.y === support.from.y && support.from.x <= previous.x + previous.width) {
     previous.width = Math.max(previous.width, support.from.x + support.width - previous.x);
     previous.supportIds.push(support.id);
   } else runs.push({ id: support.id, supportIds: [support.id], x: support.from.x, y: support.from.y, width: support.width });
 }
-assert.equal(runs.length, 6);
+assert.equal(runs.length, 31);
 await mkdir(output, { recursive: true });
 const artifacts = [];
 const save = async (name, image) => {
@@ -71,8 +69,8 @@ const ferryCanvas = blank(96, 18); paste(ferryCanvas, ferry, 0, 0);
 await save('ferry.png', ferryCanvas);
 
 // Author a single native bitmap. Draw-time camera fractions cannot open seams
-// between separate source strips. This preview owns the left ground and its wall.
-const ground = blank(980, 1064);
+// between separate source strips. Preserve the accepted left980px exactly.
+const ground = blank(3120, 1064);
 const repeat = (n, size) => { const phase = n % (size * 2); return phase < size ? phase : size * 2 - phase - 1; };
 const edgeCenter = extractCell(edge, { x: 20, y: 0, width: 113, height: 16 });
 const overlay = (targetIndex, sourceImage, sx, sy) => {
@@ -87,16 +85,19 @@ for (let y = 680; y < ground.height; y++) for (let x = 0; x < ground.width; x++)
   const index = (y * ground.width + x) * 4;
   const fillIndex = (repeat(y - 680, 64) * 64 + repeat(x, 64)) * 4;
   ground.data.set(fill.data.subarray(fillIndex, fillIndex + 4), index);
-  if (x < 960 && y - 680 < 16) overlay(index, edgeCenter, repeat(x, edgeCenter.width), y - 680);
+  if (surface.y1 === surface.y2 && y - surface.y1 < 16) overlay(index, edgeCenter, repeat(x, edgeCenter.width), y - surface.y1);
   // Retain the authored slope. Neutral stone edge is rotated as a whole cell,
   // not sheared or stretched down the 320px wall.
   const distance = Math.floor(960 + (y + 0.5 - 680) / 16 - (x + 0.5));
   if (y < 1000 && distance >= 0 && distance < 16) overlay(index, edgeCenter, repeat(y - 680, edgeCenter.width), distance);
+  const rightDistance = Math.floor((x + 0.5) - (1340 - (y + 0.5 - 680) / 16));
+  if (y < 1000 && rightDistance >= 0 && rightDistance < 16) overlay(index, edgeCenter, repeat(y - 680, edgeCenter.width), rightDistance);
 }
-await save('ground.png', ground);
-await writeFile(resolve(output, 'manifest.json'), JSON.stringify({ version: 1, phase: 'preview', depth: 18, runs,
+await save('ground.png', extractCell(ground, { x: 0, y: 0, width: 980, height: 1064 }));
+await save('ground-full.png', ground);
+await writeFile(resolve(output, 'manifest.json'), JSON.stringify({ version: 1, phase: 'rollout', depth: 18, runs,
   ferry: { id: 'site-crane-ferry', image: 'ferry.png', width: 96, height: 18, visibleDepth: 15 },
-  ground: { image: 'ground.png', width: 980, height: 1064, from: 0, to: 980 } }, null, 2) + '\n');
+  ground: { image: 'ground-full.png', width: 3120, height: 1064, from: 0, to: 3120 } }, null, 2) + '\n');
 await writeFile(resolve(output, 'preparation.json'), JSON.stringify({ sourceRevision: inventory.sourceRevision, preparations,
   plannedCells: { left: [0, 0, 20, 18], center: [20, 0, 20, 18], half: [40, 0, 10, 18], right: [113, 0, 20, 18] },
   sourcePreservation: 'Every source pixel participates in whole-image resampling. Only zero-alpha exterior output padding is trimmed. Whole ferry is padded below to18; its entire15px silhouette remains. All defining fixed-beam end plates remain in20px caps.',
