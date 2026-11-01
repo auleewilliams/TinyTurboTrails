@@ -1,6 +1,7 @@
 {
   "image": "environment.png",
   "panorama": "background.png",
+  "siteTerrain": "steel-v1/manifest.json",
   "cellSize": 48,
   "assets": {
     "terrain-flat": 0,

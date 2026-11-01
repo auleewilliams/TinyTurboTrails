@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "approvedAt": "2026-11-01T20:02:56.220146+00:00",
+  "authority": "Owner explicitly approved this plan and six-call budget in the conversation.",
+  "approvedPlanSha256": "f95729346462d1930c5e4986c5f5c8819fe0799f0e213c4381627d41c090a9e2",
+  "approvedInventorySha256": "77c56c95d269f7643a158da61a1500a2fd1ee5ad86522510691bc62dd4029de1",
+  "hardCap": 6,
+  "allocations": {
+    "fixed-steel": 1,
+    "steel-ferry": 1,
+    "ground-edge": 1,
+    "ground-fill": 1,
+    "steel-refinement": 1,
+    "ground-refinement": 1
+  },
+  "rules": "Failures/rejected attempts count. Steel refinement only corrects fixed kit OR ferry; ground refinement only corrects edge OR fill. No reallocation or extra retries. Preview approval required before rollout.",
+  "calls": [
+    {
+      "number": 1,
+      "allocation": "fixed-steel",
+      "status": "owner-accepted-and-rolled-out",
+      "tool": "image_gen.imagegen",
+      "transparent_background": true,
+      "references": [],
+      "startedAt": "2026-11-01T20:03:34.823163+00:00",
+      "result": "call-01-result.json"
+    },
+    {
+      "number": 2,
+      "allocation": "steel-ferry",
+      "status": "owner-accepted-and-rolled-out",
+      "tool": "image_gen.imagegen",
+      "transparent_background": true,
+      "references": [],
+      "startedAt": "2026-11-01T20:06:36.524089+00:00",
+      "result": "call-02-result.json"
+    },
+    {
+      "number": 3,
+      "allocation": "ground-edge",
+      "status": "owner-accepted-and-rolled-out",
+      "tool": "image_gen.imagegen",
+      "transparent_background": true,
+      "references": [],
+      "startedAt": "2026-11-01T20:08:07.312260+00:00",
+      "result": "call-03-result.json"
+    },
+    {
+      "number": 4,
+      "allocation": "ground-fill",
+      "status": "owner-accepted-and-rolled-out",
+      "tool": "image_gen.imagegen",
+      "transparent_background": false,
+      "references": [],
+      "startedAt": "2026-11-01T20:08:49.168169+00:00",
+      "result": "call-04-result.json"
+    }
+  ],
+  "callsSpent": 4,
+  "remainingReservations": {
+    "steel-refinement": 1,
+    "ground-refinement": 1
+  },
+  "preparation": "public/assets/site/steel-v1/preparation.json",
+  "previewAcceptance": "accepted-preview/acceptance.json",
+  "currentPhase": "Owner-approved rollout implemented; verification and final acceptance pending"
+}

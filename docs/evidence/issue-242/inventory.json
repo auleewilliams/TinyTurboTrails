@@ -1,0 +1,5589 @@
+{
+  "schema": 1,
+  "status": "proposal-awaiting-owner-approval",
+  "sourceRevision": "885b6c16d5397e061f1ccb40ca326856bc77db88",
+  "sourceHashes": {
+    "package-lock.json": "b00fe47c724bc76aff0e72c952b483d184fb37a51d1bd93a36c4866a4530bd4f",
+    "package.json": "eb6d80e82e79d3db27658dbafdb0ab9cbf293c4b4ee938d4eb95f6cff2270cc7",
+    "playwright.config.ts": "861209bdc3dd682bc65d885ec27633b06db90d0bfebe8b63a0b8ca8e99b03f14",
+    "public/assets/cove/background.png": "fad99d46c31f83c00407f0c622b227fb78ee34d68e454da3c51a97ae5dc197eb",
+    "public/assets/cove/bay1-b-v1/platform.png": "e1809f4f247e693c96968ce7661e2e2126d46d28567b032e534634ee6a2b94cc",
+    "public/assets/cove/bay2-whole-v1/platform.png": "595d98c49269f0231dddcd95e5323a508eae5c28d9185257d15ec3daf19e6b5f",
+    "public/assets/cove/bay3-b-v1/platform.png": "47f6b81246585ffbcecb2b285d79fdabe3759b1a8d6dd611bb75b8d540b33ec5",
+    "public/assets/cove/environment.png": "4f637cb6a8c2012169fb5d404f16cd1f632cae18e386c40845c4c3ef21f9639e",
+    "public/assets/cove/manifest.json": "015866ac9abe278fbe587410bb0fcd88ca1b861627756514a75713d3a96f0a22",
+    "public/assets/cove/materials/atlas.png": "f38332de1bfbe40f87e2781ac7fe78322a818b8e6d9c420e60a1ca58ea214ca0",
+    "public/assets/cove/materials/manifest.json": "4d0028d780d8e84865da670220c4feea38158b92e5c69108a543974caf9d5777",
+    "public/assets/cove/materials/pixel-hashes.json": "c256b94a04dff6ddb20aa530b6bac578c7272af41e8905df25a614c3ee80f032",
+    "public/assets/cove/pool1-b-v1/platform.png": "5cd28fcdacf6bd591051acdc740ca04ea7234de96aa7dd23969cbf2578c88960",
+    "public/assets/cove/pool2-b-v1/platform.png": "4d601b232c0028f73387c3a740c52d5c653dc90a47a1575ab0afb9440391360c",
+    "public/assets/cove/remaining-two-v1/hollow.png": "0e0131b59911b57ac4f3a72a234002b2fbe8222578cbf3224a336937f9bec2b6",
+    "public/assets/cove/remaining-two-v1/pool3.png": "63616a68aa664e0ea3017ef13b6f0f4f66dd3383db844fd1ddd85ca2b8c10b7d",
+    "public/assets/cove/terrain-kit/atlas.png": "2aa8847a4538069e4207661b424ff71ddd74af3dbc7d391c19f550e73d40fe4a",
+    "public/assets/cove/terrain-kit/ground.png": "91787d32d6e69fd689ea91c92fd340ba5025b861079144ad599ae73e87809120",
+    "public/assets/cove/terrain-kit/manifest.json": "01ee9d730f68f2014c6d8890f57c01bb9bc203334ee2e2c00d87182b88e84185",
+    "public/assets/cove/whole-three-v1/hollow.png": "e1809f4f247e693c96968ce7661e2e2126d46d28567b032e534634ee6a2b94cc",
+    "public/assets/cove/whole-three-v1/pool1.png": "9c0756a70ee1cd0166abcffdd464d5a716c2bed9678a92ccea1fec637b9662ee",
+    "public/assets/cove/whole-three-v1/pool2.png": "63616a68aa664e0ea3017ef13b6f0f4f66dd3383db844fd1ddd85ca2b8c10b7d",
+    "public/assets/frost/background.png": "294f76ac7f916f052e2c871ee375f0b322a478c96c85b2e12b3b5b9147315ecd",
+    "public/assets/frost/environment.png": "a15af628ecc734f76470b23f4e77109cefe4d2ae123aa5ccdbdd6f297576cf01",
+    "public/assets/frost/manifest.json": "17254c516c1999f9eb14d4f4a201d2a09c5199513a96c9dbca28123f3fbabcdc",
+    "public/assets/gems/gems.png": "1a8c3cedfeb31d9070b08c7d09fc1b40f96cbdb3377f178e8a47610872bd439e",
+    "public/assets/henry/henry-celebration.png": "490231dd210a1778bcbd1f7924961d635f77bea3e55052ec5c9de14de2fd8641",
+    "public/assets/henry/manifest.json": "e932fee8dc4581422ed6a6c4cc5df91aa8de98b2e0b578b51fdec1d61c317879",
+    "public/assets/henry/reference.png": "5614294920ca29f461ca0864d5fd89258928bb239cb7d7c26d81063c128f4e9a",
+    "public/assets/henry/starter.png": "b79ee31dd9b4096bf5899509a808cd5a8bf3459a00d3c736a0bd7b41f8791d1b",
+    "public/assets/interface/button-selected.png": "03a25bddbd69479462812d21b689465c6aa7fff84e5d0b86c49189f912640533",
+    "public/assets/interface/button.png": "04b29e064c318ca4a9f13368e9a4e0a632ccd8acc55fb22f1fd853131657d9c6",
+    "public/assets/interface/panel.png": "5e6e2d33ae6b0f86941643e70b6cb28dbffd5d63c424332eeba84cbb058dc584",
+    "public/assets/interface/plaque.png": "fb99e6fffbd20c4c5e93ba714f506890757cc0c926c4b893e4d1bc6d691ff59d",
+    "public/assets/overworld/background.png": "78c1687572c2e1d75aa267ff927ebaebcc4aa1c29cc1aada0ab453dc4de3d833",
+    "public/assets/overworld/landmarks.png": "576a54c210aee7981a0ae5688db4d323e979b34888bbe5b8482d5f88523fea75",
+    "public/assets/plains/environment.png": "626ded198036b4fe010774f4daade0bf35565e55c445e939e4867368638924f1",
+    "public/assets/plains/manifest.json": "5201702a38da318dbd0394bedf568a71bae43b0f1cbd92e193498ff4cf6d21fd",
+    "public/assets/plains/scenery/background.webp": "96a178c0fd20fb92680db02b63847b786ee3dc1f2a12bd3b0430cf9701aab72c",
+    "public/assets/plains/scenery/foreground.png": "14b1151f9e4a2518e960c42422fdd2b0d4ca92e671e87408e53ab2c6ec8bb868",
+    "public/assets/plains/scenery/manifest.json": "8bbf32ff1cbb3f1b42dc68ef948536b9a2f09afbcebab5559d35e7c7a27957f1",
+    "public/assets/site/background.png": "93ff5736166c7d28c6756f5396a1e2ba24dfae9c3418fa94b003c13923656bc9",
+    "public/assets/site/environment.png": "e492e65613ce577e742865db6fdfb70a1a16c0bfa84c2c9ad888b7a65e4e3666",
+    "public/assets/site/manifest.json": "176ce7b94cf713fa3c099f1e62511227b67c384e1159a4b8ecce3547c40333da",
+    "public/assets/slimes/slimes.png": "c75588d9baa06909b21fc5f591b25827cc0171806e321ea5e0966951f5f8f2bf",
+    "public/assets/spelling/cove-sticker.png": "25b50ddc5966755022dfe5cd3a55038cbf7147ed307fdae9b5be934dd144c87b",
+    "public/assets/spelling/frost-sticker.png": "efbed8411de577a746e54a4bc96ffed341b3f0d4116e7fc15fbdc40b15fbda62",
+    "public/assets/spelling/plains-sticker.png": "e3a3e9cecae7d252a017093f2d04cd2de6ddc7699f1e297ed3ccf59bbcf77f9c",
+    "public/assets/spelling/pouch.png": "a044fb5b5a9c36d0a16405409d4d3fb3c04160098052d7fec3b58c388487dc40",
+    "public/assets/spelling/quarry-sticker.png": "5b7a9ec01d88b73783ee31d772b0111549a6ac9b2b107aa19c7630ebae018592",
+    "public/assets/spelling/sunset-sticker.png": "854702e0cdd510926209e434775a70abf90310ce7625f782523f71d37ec7cb01",
+    "public/assets/spelling/tile.png": "c37ca9b6cf2baefc351bcdd88f08650baf700ba6d3e5fd2f5756eb2f2af22fd1",
+    "public/assets/spelling/timbers-sticker.png": "e8e49bd81d71d089a1b6d11132ff97a52a280160d6754ebb0a88e10cf0931dff",
+    "public/assets/timbers/environment.png": "db320df5c114e7e36ca27989d8530ac2aa0d1cc036b8e0b159a4ef38eb3b86fd",
+    "public/assets/timbers/manifest.json": "f9cc59f5a5e884d2bd42e45c36c1f56af9db82b53c42d163fc0941e67ac060af",
+    "public/assets/title/tiny-turbo-trails-v2.png": "1116404054d8772a3b212987221e8721df5d951b396e1c2a9c77a2223b622955",
+    "public/assets/trails/backdrops.webp": "bea7cd616d1abbb8fc7f5c2c514dd56e22aa25874767b9e5b57b5213b4c415a7",
+    "public/assets/trails/materials.png": "1dd3d71aed5bbd269257eee28b9be06407b74c1914b1d1fe795723b21095a46e",
+    "scripts/audit-trail-rendering.mjs": "caaff75e44cbfe9da427dc1c92a06e159596b07c994dd590833e58e87feadb2d",
+    "scripts/bay1-preservation.mjs": "70ab662c7bad43bee92a0b1232172d131f057b9993f17f033d87acb63254af0c",
+    "scripts/bay2-preservation.mjs": "07db758363be541c7cde5565bd3789e8879387c56621100bc89dc9e21a25f609",
+    "scripts/bay3-preservation.mjs": "419eacfb539fb6d52aa2c9136f0b94ef017d0731b45deff97854fa313621f6e6",
+    "scripts/browser-report.mjs": "16ed1be7cebcfa8c4844ce83b2d7836e090f3f7397c9372cb1c39f44e5a1f7ad",
+    "scripts/browser-report.test.mjs": "716ae125870af3fcbf8229557841fb46e6ba198f5d635f38cdaba0bdcd129745",
+    "scripts/capture-ambient-weather.mjs": "b345303e730f73cec639c434815f07f00c14fcc2cd2b8b6e6d0eaa660f8b3c26",
+    "scripts/capture-backgrounds.mjs": "05f803ef26576b390104185c1af23af587d5d2f4aa7416a3aa9b12afe0e6e440",
+    "scripts/capture-gems.mjs": "b9de1040b50879e4d69c9c4379030d9d73eb3e4c49f616b1589accf65aabbcee",
+    "scripts/capture-milestone.mjs": "568e89363c987deaece5f0d9c6bc66bb09b5dfb07031ae82b6950f6463133b61",
+    "scripts/capture-springs.mjs": "09e04693f4e75a09a641e4c096f4ace38ba1e25642708b6d4b42d597eb51be77",
+    "scripts/check-doc-links.mjs": "49ccab357bc3a0a273cbb229af7fd4c1e868d8f87306c67deb456eef3da8d978",
+    "scripts/cove-bay1.mjs": "239dee330916a08be1821c783b8feee27bed6809eb095a22b1ba349bc7e04cb2",
+    "scripts/cove-bay2.mjs": "43f2b3eeae7d1ab68123c3224a04a768026cf57278edf4be0a59cb69cce1d7e4",
+    "scripts/cove-bay3.mjs": "cdc56a26942ebbb44f480c94608f7ec72eb1d0045c48b3486241c21c780de551",
+    "scripts/cove-materials.mjs": "587f9c5f3a7a5029d3df343cd204ec22f38fb953dbf3338101b7f1cac755876a",
+    "scripts/cove-pool1.mjs": "7d8b33276764a1c52244d1724350e8b4a8d9733e710711b438ae64827bf07122",
+    "scripts/cove-pool2.mjs": "da983f84dbbb3461b2edb62a8fb2a5fb82d4c257d746cc35ae29172bd0673053",
+    "scripts/cove-remaining-two.mjs": "e1e14320751a3bb312db5ff96b4e9c7f9641a5478d17613e12b698d18937937c",
+    "scripts/cove-terrain.mjs": "5530bd12abe2548e8b0fa9f58b51880f2753595f37f648ee53d8522d37891842",
+    "scripts/cove-whole-three.mjs": "066b57dc1661335224e974b2a09ec4e2b22770a55f0322937ae375af48eed12e",
+    "scripts/hud-owner-preservation.mjs": "aee1ba2b905b48b69dd60641a07ebe085b91a67c16bb2fa2959de6ecc40b07bd",
+    "scripts/hud-owner-preservation.test.mjs": "710810a3ad9851320e7b41f43d85498e1b490dfdf20f2fa0066002f774e04f0c",
+    "scripts/interface-kit.mjs": "02321fa26dfb7215a2700479749e7af5c1c245c07bf40e4f0f53cd281c8c04d4",
+    "scripts/investigate-picker.mjs": "1364953b139914511ffaf162afc77e97c04f06fe92cb0965daa3f646b70882e5",
+    "scripts/measure-adventure-payload.mjs": "ddc6fb2403dce29853b2a3a4f4af45a881229ef0f2a3e80d78326778ab0f2910",
+    "scripts/png-pixel-contract.mjs": "f2139477c0ff8883b36734580a40ec2e47be5957af68a9f49ec0f1fcf33c15b7",
+    "scripts/png-pixel-contract.test.mjs": "3974fff382175a08e36473f88f0a5625bcf0f1e0729dc4d2e8a9af1f6cb12f14",
+    "scripts/pool1-preservation.mjs": "98beb5f6af2aa4686a69760356f310e52268754e07745d08a94e8ed1a827bdb8",
+    "scripts/pool2-preservation.mjs": "01a35fda5c935bf0cf736bc7d055c72aa79b10e1fd5b75815f6fb5f8d7d205c6",
+    "scripts/prepare-backgrounds.mjs": "1c8d0ee10674f984f2c14a6a182a7f98ef2b5db36029d6073ebacced536e08ae",
+    "scripts/prepare-cove-bay1.mjs": "fe212b06df440059528aa61fcf1a23b693d702201eae6792fa942067e4670068",
+    "scripts/prepare-cove-bay1.test.mjs": "9246de969824bb4fc9a00e3cd1ac03784453322cca3d065cd1d567b42a1675c9",
+    "scripts/prepare-cove-bay2.mjs": "efb2c96997387eb483771d21aa30ba28719a397b16cc75369bbe0847457fa91a",
+    "scripts/prepare-cove-bay2.test.mjs": "b365cbd1b90b93c0bf0e7ba30213766a212e7c160a0b6754c78acbb435048f7b",
+    "scripts/prepare-cove-bay3.mjs": "2629e1231aaf4678efa2ff8c962242f4a9625a100dc647ca37d16ccc1327e3dd",
+    "scripts/prepare-cove-bay3.test.mjs": "7af6c6896d67b1d2545ea814eae8f302628dbd176a478b975c00b05e7e61b8a7",
+    "scripts/prepare-cove-materials.mjs": "5bf55c9bc547807c3710a7e2c39f3ded8a4f1a8472363a95ed5f8acffcf9bd0f",
+    "scripts/prepare-cove-materials.test.mjs": "5877bc6e593c632af5c8ce9bc00d0c87d92352c934e3298cf96096075aaa76c4",
+    "scripts/prepare-cove-pool1.mjs": "8e3fb5ad202f6c308608807f0b323489e5d41a44554047dd7460bc0ce7b1061c",
+    "scripts/prepare-cove-pool1.test.mjs": "9059b6db191f54e08a551c5947054cd7c07a25e4c9d9a8ba1d0e78311d63459d",
+    "scripts/prepare-cove-pool2.mjs": "6ceb6f819c2181bfd323d4a5cf3cdeee6aff44ab99723255bae383474cd05527",
+    "scripts/prepare-cove-pool2.test.mjs": "f9e04087f95ecc46b242501df22bf9412738ba56f614ebc3b26b7787f4a1df8a",
+    "scripts/prepare-cove-remaining-two.mjs": "4e1f7723a498ff3b2741e83294a7d7b0ede7d9a85804ed4b576e5a2bfd37461a",
+    "scripts/prepare-cove-remaining-two.test.mjs": "86674fc3eab3de85bb1e9b964889f65fe9d0a8cba564a6ee3b6def4fd5e31903",
+    "scripts/prepare-cove-terrain.mjs": "e0d260249930c3589fe07950127cf73596ef900fd8a0e7a4985bb6a5b7214f90",
+    "scripts/prepare-cove-terrain.test.mjs": "3fd8b930f8bce7ae79095f685f258a6f6e07816c562e3d0adba9643c4892522d",
+    "scripts/prepare-cove-whole-three.mjs": "f89139bf20b6da793759ffb6420b6b04820127e0682b82b75b5e7f035eeacdf1",
+    "scripts/prepare-cove-whole-three.test.mjs": "7d061d231822adb6aa12107d901fdd57896a77f2aa09d9e44d94e72e497a0708",
+    "scripts/prepare-gems.mjs": "2fd6c13e25394ef9bb16009f91e50b36fa4903630167341f4b0b979debae5a24",
+    "scripts/prepare-interface-kit.mjs": "abee97e10c1912604bf721b4e4a888a5581d7daabe462c641b1b984ccc52de1d",
+    "scripts/prepare-interface-kit.test.mjs": "49b19a97efce06cc72c522fb6acd67e292beefb242898e3bbdd93bc4a8a2e117",
+    "scripts/prepare-slimes.py": "54401046467018ffb51cee371e0596e0d040a08ae7cc443f6cf210699e3bd28a",
+    "scripts/prepare-spelling-art.mjs": "f6d8cf2de08a9b929234b29f95fd500cc6f160b3ac4bbd8db60243dae1f6513e",
+    "scripts/prepare-spelling-art.test.mjs": "e90394b04a6aa0502c01999fbf821503d558c8d8e9f06993f4eb5dfffcd9a815",
+    "scripts/prepare-story-celebration.py": "1548e275fe53f402ee1b96c47d0b26257e9698b5a2255857f78e241af73ccfbc",
+    "scripts/prepare-trail-art.mjs": "70e40da0836e594107c402a47deb4baf3aa0d33375436736a1b25eef1592a749",
+    "scripts/process_sprite_atlas.py": "d45c337c17f0e3068c06363d1c0fd2352ce091c320c5dbb5ae24bc0a009576b2",
+    "scripts/prove-cove-terrain.mjs": "09b0eefb04a1dae753f15234b995bb761bf9640b6bba0d3716ae8d66af7d617f",
+    "scripts/publish-image.mjs": "5d80bace7d61811b0e44c4fbfd7d734a5707b8952d02ee959df4788914f1f73a",
+    "scripts/publish-image.test.mjs": "fb9abdf80f23350599c3c95a3eb28373843029779e4419092f673da7cd23e67b",
+    "scripts/record-trail-scroll.mjs": "bb4c9be150859a8aa654ee105dbc915b3a7dfe26617474328a42675f10893bbd",
+    "scripts/remaining-two-preservation.mjs": "ff470fe4a0dcfd94a83f5fd504f36a4a2fc182598884dd36bc6a6dab5f1e28f5",
+    "scripts/render-movement-audio-samples.mts": "f2bc74b0c404c7aff1b16634af036841084cdccd8482fa1f079a7a91b35bf167",
+    "scripts/render-music-samples.mts": "231c14c7349996f68c91e4dfcba5831447ee82ae01b10c042e235d1d2f08f1d3",
+    "scripts/spelling-stickers.mjs": "7f2a39ba40211a6974aa3f0191f17a653a7ae3c92bf36e0a184f111089c8c732",
+    "scripts/test-deployment.mjs": "3be5d6f7101109e18a4f389679e0e74075159ad867794999cb1cda7aac07afe5",
+    "scripts/water-landing-preservation.mjs": "4230e6d0a0f5f65d74570c9818ff5dd062ffa0914e5976ff8bf2893768837173",
+    "scripts/whole-bay2-preservation.mjs": "597bb3cf4ec76789041ca975cefe0f9546f7ee874ff179d3855dbedf5e15aa24",
+    "scripts/whole-three-preservation.mjs": "bce653f103808dfee9df96958d653f8a68d63a95084724294891c883ab00b48b",
+    "src/art/animation.ts": "3e825e333b8d59a7f92d15c8f5ddbc7838493476c8b7e4769d1ea243c2cb562c",
+    "src/art/henry.ts": "3eba98400a7075ae2b8834261c1e2536c55876a28f0eeb80f380f1b7a072eddf",
+    "src/art/hit-flash.ts": "46ffa55cd996fc0036d4a1b3adf28a8b6ac2766da1a80454af217955f1681764",
+    "src/art/interface-kit.ts": "68ee434bb32a427168b1d6f8731c4ecca9e9fb0074b02f993fed7009f85b7c40",
+    "src/art/preview-scene.ts": "937abc1fe17d11c7b517ceb74c85d54ec46c5942d25cca8a63edf010538fe001",
+    "src/art/spelling.ts": "8b5253ecdb7319c726c0226542f9ac7aa3a10ffbe9e232ced3eef2e848ee8943",
+    "src/art/sprite.ts": "2870bfc0f3f83f17fa082ee91d9451123f8ba12ab870f5abab924606c1c72b53",
+    "src/art/title.ts": "6fabc3a9143d688938b66dd97402de38f3f092057747f24248f73e65ffd8d1b8",
+    "src/audio-preview.ts": "1614b99228937cb6a97f888b3560eb3a4a6b1137b802ec463910cc8e5fc509d1",
+    "src/core/audio-effects.ts": "b24056b829504c4ca2e5f375dee9f4a283ef7e19c118f9fa09db13439ff3b017",
+    "src/core/audio.ts": "ed4576edbb66956210b122728c7d8ac0e2015e4a7f8b799e7004a7151950197d",
+    "src/core/clock.ts": "2d4ac31a13bedab33d3dd2aa28266cdd30906c6611189877a28de9223fdf6c74",
+    "src/core/input.ts": "00c5c3ff08c119cd1c22f17cebd53100f6c5ee7bfbc61da7ee5036e9e1fa228e",
+    "src/core/music.ts": "d869e01a5e06e82dbb97efe02f85d6f774c55e00f458a2a9407fce54eac03aa7",
+    "src/core/retro-audio.ts": "a0ee2f40d2190683d42dc6287b1e102738f072c4f2cf7fb04576bcf43adb6a54",
+    "src/core/rumble.ts": "9d2725379ae8502c4d82598df1950b83af0de64755711237d6b90cd6cd26921d",
+    "src/core/scene.ts": "1aa3e43aac22051b3f30b0a157c6fbd746b70a0d9dbe23e1ef3f6b0535316fc8",
+    "src/core/viewport.ts": "41b9bd4b0c4daeef711621f398509f5a45da865445cfbb0a0362e6d5d225f515",
+    "src/foundation-scene.ts": "36dc8a7c82055439c173f0a437852d348bf994d7e81c6ac6fa8bdaad27a34437",
+    "src/game/adventure-scene.ts": "311c222b38c65c46f775b5a887a61b77d50d5680e2382ef0544653eb27a5067e",
+    "src/game/celebration.ts": "cb98ec442c878ad599c67bffdcb902d9d772c775252744bd82b09d7183741c27",
+    "src/game/education-overlay.ts": "e7c939f0c23040b2496d984b78163e009767db0b03c2bbc5927393e38bafd86e",
+    "src/game/education.ts": "d96f4e20a4d928ec5766488cf0b1057806f362d155c7e1625603c1d831210a74",
+    "src/game/feedback.ts": "7bf222bf4c3c4fc00d37cef7ead6015c8a2f40a14bed9131d902fd421e4f6f02",
+    "src/game/gameplay-preview.ts": "bd55bc5c2851bb04677287b6f5d9a54881b95359b9bb88fab44e1753af05d00e",
+    "src/game/hud.ts": "8eb429ec2fd997095485bfab8a1a9254781d11748b566ff3aba390e6fb42d402",
+    "src/game/interactions.ts": "bcbed8e33efdd2be39c1182521b73b395bb0576ba15e2fbfdc1164298fdf7999",
+    "src/game/menu-overlay.ts": "f5b38ecec932a1bce936328d2d491f47d67cf93d826ebbb0f3456936a5615835",
+    "src/game/movement-audio.ts": "dff0ca1cb2f7a363cf12a07a3d0cf4fe9a6f01e7eafc34aa95545bc7f1736310",
+    "src/game/movement-preview.ts": "92604716cd1e38ebec1195a369be95cda8b25589087871ea9d896d5e44eea3a6",
+    "src/game/movement.ts": "3f918871245baad33cccdbf60ba0520eee750d4c8fc785a53d8d08fc3fe7a58d",
+    "src/game/overworld.ts": "e6fc0f4700090c73f6a8220393a9a59d02ebae8fe86a5d2b93654a27fa0a729f",
+    "src/game/pause-menu.ts": "409839f100711b69e577e41d0f97a60fd6b6369f5e73dfa907c5b6b3c7a4aa1f",
+    "src/game/platforms.ts": "921e433e606cb951554e0d8c512b50c5c29e0360ae57a329a7b28b9bb056d280",
+    "src/game/reward-result.ts": "a19a68657461b95cf57255f01fcf2af9735cbbea07726ce3fdeed83cbc6a37f4",
+    "src/game/screens.ts": "565b463537417008497b4e06c73b5e7bf613451330c78f36efa758b812370221",
+    "src/main.ts": "f701334f1b4d407953a6ae499880ae1c73612938377b4df4fae45bf3b52bbf87",
+    "src/style.css": "d8b1feb8f62889171555a48dfe61caffe8711df8269221ae227385f84b60fa8b",
+    "src/world/ambient-weather.ts": "c4dfcbbdf06780c6548ed096289c209afb703c190763c757eef6cbd85804d4f2",
+    "src/world/assets.ts": "9322228ed80f316a8e5a1fbe5707658f38334a54b2911c147b1de113a279499e",
+    "src/world/camera.ts": "17de5a30ee219aa9beb7ba0ab10851c5812290ec3bb0aea28c035d0d91533524",
+    "src/world/cove-terrain.ts": "8e6a0b0e9fd182594222a4cfab8455409be91626a8551b5d8a9c4439a06c188e",
+    "src/world/frost-ridge.ts": "2b96ffe6e85a32aaf49c77e9f7f568978ac3ed1a3a74594cf30d7202154f191a",
+    "src/world/level-kit.ts": "81647f7d1fd495a9f462172cc849ea624bffaac6ed4f81e3c20da19ed812b12c",
+    "src/world/level.ts": "626f85c1303f8934624eb2a02eda010db761b847265b07f1e0ba1f6c6b02cf23",
+    "src/world/levels.ts": "9bd1eb852c6bd6ecb7ada0552afde8a14f5e4be47a8655ed7b83a4d656dbd47b",
+    "src/world/preview-scene.ts": "8a29f3c769eef80835b40c6f1d69cfd1ca34464f1b4a76edb1a6b2ec15b2103c",
+    "src/world/quarry-run.ts": "b8195d037769d2957626b88fc91b01fc02c1e1d88bf2d732aff52006d5370d49",
+    "src/world/renderer.ts": "c59b777d2462036f4c500a7e77cd5b76ba0cb4877c69e8b3dd9d79751cc19417",
+    "src/world/sandy-cove.ts": "8f6660a9b9f247ae7a0214260ce3c9744f5476994c25df9c7bf8b4f62d7ef0a2",
+    "src/world/scenery.ts": "c27e6c51e64aa83395eca5582f95fdce66116cdcf0ee484dfb0a36d4207d4ac0",
+    "src/world/slimes.ts": "cf53761fa33188a866b1f9932d610c42dd923063dee26aed7e018cfc1b8bd0c9",
+    "src/world/sunset-site.ts": "5ef2db7021744d2b04dfff636b22842ce3d53d15c91bd9d91c4eca25f53be0d5",
+    "src/world/surface-materials.ts": "bc3a2196b51d30481e6ee7fbec1a1d98a78183ba4bdaae74c453f087ec72b61f",
+    "src/world/trail-presentation.ts": "5d98d1b7a4caf27e12830e57a86de771e326c2649468d8569927de32191ca342",
+    "src/world/treetop-timbers.ts": "cb5b2a9c34641292c35347df69354b4eb3d474113f1f48505ae4b77eb2b2cbba",
+    "tests/all-trails-education.test.ts": "80c28eb05b5cb33daf37934c17fec33c9378d440fdeaf1dc90f1a6511f53498a",
+    "tests/ambient-weather.test.ts": "1d29622d3b0cb371658fe941a2d5c1ca7609d6a8ae4c170fb65e590bdeb69599",
+    "tests/animation.test.ts": "e3d45869c90f7c670ea84d40b20d12e216799ef0850c06cc6474f1d60277745c",
+    "tests/audio.spec.ts": "a13b691018a1b135c19f12847f775f5f840c9c9cc8427217e34612831c247c50",
+    "tests/audio.test.ts": "a6593ecf2fb7447fb4fc66c7171e7096bac6b05523923006f3ea4b8a20f4c1c5",
+    "tests/biome-gameplay.test.ts": "8a21eb66dcfc87676b9550d3439186ecb04e00db42c7ccafd019376f6fb9bba4",
+    "tests/biomes.test.ts": "7e4768da6a20f88498398bb4f0dd5f8f51fdb47d22d75dcb50fdb548f8989716",
+    "tests/bounce.test.ts": "37635639f83c702033f56194fd60370fe24328e002e87173a9f76518af8bd4e3",
+    "tests/browser.spec.ts": "e8dc7f7916a4f25ae87050bb052f99d908522cbcbee1b32310854a0657ae8eeb",
+    "tests/celebration.test.ts": "ebb750efcd7f8d5ffaf4fdb0f9f2899153806f2e40f5127d4854d97434a79893",
+    "tests/clock.test.ts": "a71ff6a3abb9c9046495d2eee58058eb00c199dd560e21f6e233810754ede7be",
+    "tests/compact-hud.test.ts": "95d15b483b3ee839512228cebcb6dd6d987e33a3c0b06f24386eb765db44c038",
+    "tests/controller-gameplay.test.ts": "ddc09ac5bdca4160480562cd4d63d5b99c62eb37dc462dae5256005b7bc049eb",
+    "tests/cove-art-pilot-stages.ts": "99e786c31d9ea95152a8c89d9da049eff2a079d1142672f34648f2cb0b020a60",
+    "tests/cove-art-pilot.test.ts": "1d53317a9331cd48a8007ca2e05f0c2faef4f3d23c5b1b2e79876e13500b54e5",
+    "tests/cove-art.test.ts": "145347883d3df6812af26d1745c6ecf1a80fd3da11e30c1208fb99ac2868e56e",
+    "tests/cove-bay1-contract.test.ts": "840480f6d91b69d66409350fa39e38c8e27c9a850a630107392cf8cf28b26532",
+    "tests/cove-bay1-input.test.ts": "891bf5d8c2b6e396742983b5fafd0023edd096ec283fbb66155e2d6990b00db2",
+    "tests/cove-bay1-input.ts": "06a696f220f6f085c9d285878abe8821af89aa761cdb6e27aa91342434a39570",
+    "tests/cove-bay1-provenance.ts": "781958d812b302d2774821534f2a429033b9c9253c381ed33beee46020d0dee4",
+    "tests/cove-bay1.spec.ts": "fbdc796e1c8e645c56cb739b7ccbd0835c33eb3cd013447b9c800546c8cc3526",
+    "tests/cove-bay2-observation.test.ts": "91dfd75c2f70695c66022f727cd87392c4517e9921a9fc358b23d1832a1c0d7f",
+    "tests/cove-bay2-observation.ts": "0281e1973bdce3bc6626401e98c1b4450391de5822e4ab04087f4d6f99a06d7c",
+    "tests/cove-bay2.spec.ts": "46bf04e80c2bb065edb3aa3e0267da78cc68977ea9a0f2e30fcb5ae7668efbd8",
+    "tests/cove-bay2.test.ts": "1301f53b391d6689c88a9a5c2ba72a26cd93ef08d6129fb6f248466ab18b2012",
+    "tests/cove-browser-pilot.ts": "188d2349e1ee040bb6063e171a65396f864b118de7b23a1340cdcb74316a56d7",
+    "tests/cove-exploration.test.ts": "255916c27254d7337edfa90a04e456e6c632682f71e093aafb9d26f10167af0e",
+    "tests/cove-grounding.spec.ts": "5c981f9d20cc2ba18fd603d4b797134602e00a915f7960527e7013bc083f5537",
+    "tests/cove-grounding.test.ts": "3e06841a0466f93869d92d06008215967f75e67e871de07e9cec9e85670966bd",
+    "tests/cove-material-probe.test.ts": "462d0564fb8b0323e76a792535cd904ea582877c4b2ae28d72483beec1f073ed",
+    "tests/cove-material-probe.ts": "72f2cccfa7fec7c3a1eef56d72b8b92c8939ee742b6ba3317ac16f24e8c5b68f",
+    "tests/cove-materials.spec.ts": "2c12f781a5bf033b6a4cc5c90b6c0a0c0c4d80634ed53db3088fab318cc2c789",
+    "tests/cove-materials.test.ts": "515911ba61daae51229185c84a9c06a399574ae5a9f21eb0f03325ad3edb433f",
+    "tests/cove-pilot.ts": "97c2d7ea42de8dcf5e43fe50a4d0b1d3315d0815bcf2862606bd657ba1709ee3",
+    "tests/cove-raster.spec.ts": "5ecb51fda1a8263f25102a7127f47041e432561e2ca612d3226455458e063852",
+    "tests/cove-return.test.ts": "73c3336c9aa2203937b9050f8bb07259d0d32cdf48e2ed28e1471a4e8a6a9785",
+    "tests/cove-rollout-assets.ts": "bd597f5769c14c76f4c15edf36e7d8bf1db9bbb1d40db68801f63774e204f386",
+    "tests/cove-rollout-evidence.test.ts": "a782dbd695cb5ef891d51d74b44c5945e1f80e3dd675adb05eb9db5719c1852c",
+    "tests/cove-rollout-evidence.ts": "e6bd82f411cc01178f773363be6365e1800d70427f03c84174f60daccc3c8a5f",
+    "tests/cove-rollout-observer.test.ts": "f3a0f54c19970cc9c2829744d468add5796b199cbd16b531b64e0742745457fd",
+    "tests/cove-rollout-observer.ts": "000a6b70b20d313a193c6c977ee78b6fd9fc522afcd1f4c872eac0c47eb9b7ab",
+    "tests/cove-rollout-route.test.ts": "550055c701ed4c11305fb027d2ba1b73a7e15becaa6c71cac4bf4ddda174b213",
+    "tests/cove-rollout-route.ts": "f87acb493e87923042c3acd6b931f7b8304742a985e0e97b413577ea5d8a9f86",
+    "tests/cove-rollout.spec.ts": "c4a7e287f7981eacfc2b4c480c2b4f6818137ed70d1acbbd096b1d7680947be1",
+    "tests/cove-route.test.ts": "b3934d79760299c7b9095cd4199e6bb0915515743f4dc877db252ccc56a48bf6",
+    "tests/cove-water-landing-witness.test.ts": "191a7bc10709a50f0db6172bf0a2b135ce055a5b4e84cb951acf4798eb5d500c",
+    "tests/cove-water-landing-witness.ts": "ac16ef8ba9f330fc9dedc94d89a11f6b32a5a95a23a57ca9e06259dd32ecc271",
+    "tests/cove-whole-bay2.test.ts": "1e1d0207c47ea5a66ec6b71fe7efe00c65c6b3ee963255dd969f7a6958d57907",
+    "tests/cove-whole-three.test.ts": "ebcc3e01bd328a797d133bc7083f173da4dfea6a7051546532cffc3b38b6a9a5",
+    "tests/education-art.test.ts": "2c682081c9a221c425993cf3dce387636aeea247de43cbc26a9a23ad3f353bff",
+    "tests/education-frame.test.ts": "c7e3b8d30f2e230ea1cb99f6d572dd434e9698a9d3a6f30e7d9bbe6be49aec17",
+    "tests/education.test.ts": "a604298d2bb447046b399b0eff7e0f65e5cc6ea9ca14b96711d1a61b7ced416a",
+    "tests/feedback.test.ts": "ec3d42a201a12ce9e82e6aa72b091bdc3893d113c718d5f46261823a75ecf090",
+    "tests/finish-first.test.ts": "60340b2aa10d59085c82b002515235fa92d4e43f45a5738c9c12c92ccd73805c",
+    "tests/finish-grounding.test.ts": "775a7b10d959339cfb4cd595d65b364c6ff5cb2a0385baec860707d4e87b2955",
+    "tests/finish-layout.test.ts": "ff5ed49a5d2c95571b3d82e02944584e8311398ff363551268854d50e3c86ae9",
+    "tests/fixtures/cove-bay1-ci-40959778644/actual.png": "3bcac0f1a7607797de3e0d431ed829066f76a52f4546a73829280224e757bf9d",
+    "tests/fixtures/cove-bay1-ci-40959778644/provenance.json": "1d116a813c421ed2b4c2bd43e2d43ea39f4967434ffd05ca94ee5c418afd5ef2",
+    "tests/frost-browser-pilot.ts": "c2c194ad68369a95f3dea1bf7df08b30b8ecae8920e8888ca475d225923853d1",
+    "tests/frost-exploration.test.ts": "f739bd81cd9cfc12b890407328f84f87c5db28660a1eca0fc2a9d155e609b3b0",
+    "tests/frost-pilot.ts": "638618c7c5a1a7156b4fc473f93e2d0b2ddba3a70c1dc20edf26ffbb47327dd0",
+    "tests/frost-ridge.spec.ts": "90168d14be2551897ab32d26326d58e4707fe57446ee3dc829d44e0eef02403c",
+    "tests/frost-route.test.ts": "91f7c5e98ca4670bbd6860db445a036e762b9f1ac3f6c9754f0d46cb3013c82c",
+    "tests/henry-assets.test.ts": "ee75f83c2f093003fc4004c614427838625249d08a99c12383a67cb29dbf2ad3",
+    "tests/hud-owner-layout.spec.ts": "e9b89be69231195530b8b3a16344b62932aedace74eef7279f3f379085a1ca6f",
+    "tests/hud-owner-layout.test.ts": "578cfc9e3be56d007b8f8ec81c6f71fe1c2aafc0d61768913b8be39894a37a0c",
+    "tests/hud-response-observation.test.ts": "da4465c476ed5a74c00c317693b3607184a573eb060eb43599a2616d549c7faf",
+    "tests/hud-response-observation.ts": "0e6c0a5679cb8d15731ac3a1c5fdc3be7217fd7b5ee6c6d7dc2813f2177dee6b",
+    "tests/input.test.ts": "d49052a047e4007ddd12e8ae5fb55d2237eb3941f8875aac218170cc76aed473",
+    "tests/interactions.test.ts": "8a269a073bae5f3707af46969f270bed8fe6d56184fa449ef29eba89dadf74e0",
+    "tests/interface-kit.test.ts": "cc855130403a5db29ba002a065311c68ed58a80716cd8bab389dcce2800d5416",
+    "tests/interface-surfaces.test.ts": "884463257784d5df64bc5956a8137bc202f28a7e0d0482cdfc0b4293c8440fb5",
+    "tests/landmark-label-observation.test.ts": "492ec5d89fb2b18cc84a09ef8d4e82c08aa1e88cdb5405bcff357ace01a0ff6b",
+    "tests/landmark-label-observation.ts": "28c3a66af5427b376055d181f2bd04f1c30cc87e7cb4ab0e3af22fe68d557434",
+    "tests/manifest.test.ts": "bba0a68bb94504d3aceff2ee120de6c8d703e48cf07c281c54be9018d1a2d510",
+    "tests/material-renderer.test.ts": "e09f225989c9d8fb42c4dcdb245c369b0dc95435b9a3a73fa55d9f972c4d8015",
+    "tests/movement-audio.test.ts": "a0f2b1edbd7d70110973e1df038b610fcba3e4252ef62b596c6059969323e15d",
+    "tests/movement.test.ts": "26b7577399cf7496e2d1855a2ba74dd2a59e61703f5cdd4ca391b42214f81a91",
+    "tests/music-browser.spec.ts": "0ee8046688a5b6bba0521df533c284726a2453be85dc203d02a6877d3a3eb910",
+    "tests/obstacle-pass-through.test.ts": "a00532664d4b9e745324a187bc23ee81599a9085da80933058ab3a6daae737d7",
+    "tests/overworld.test.ts": "20849d6df2b93ed2458ebd7d3dbc2ab4fa53d35b9f0d3dfc5a4fe80142afdd3c",
+    "tests/pause-menu.test.ts": "0e8d7c82e331e11be458055607b42c1db686cf66b514a50f14b61083138dbd30",
+    "tests/plains-exploration.test.ts": "b71c297243318d69a8c0dfab60dba797d1da4356eb311d6331501e48824930a2",
+    "tests/plains-pilot.ts": "7b07665e640665e2dc846813c9397ee11b2ed1031610b67fdbef93aabed3070c",
+    "tests/platforms.test.ts": "36e79e5a6eeba954be0e441b3a568329e0cbf0a355a6e85a563d5b9fdd8a74b3",
+    "tests/quarry-descent.test.ts": "e6bbc71e9d9ef5a2a1907e0024e09bee4f274a49165f7f4cf5fe138dc0aa909f",
+    "tests/quarry-framing.test.ts": "fdb14cd5b2966cc85e29f09e6d4a3425dfb5d1de606a8da58435354ecd7557a2",
+    "tests/quarry-pilot.ts": "a817455d900f6bc47908c9bf8f1df82b2af201b27e149854abc088e46d652aa5",
+    "tests/quarry-route.ts": "b3ccfe3c17bbc3bc4584ade22a62c4956c3617ce4cd30e300b01c5b03da1165f",
+    "tests/quarry-run.test.ts": "983ecd53ab8b5f988a0923f55c093dcafa35ec91c2b0bf48cc8def383a0af8fe",
+    "tests/renderer-fixtures.test.ts": "33a8459ba4dcace81f7541660b120cabc9148b8291083c2821aedf0478da7eda",
+    "tests/renderer.test.ts": "1ab392eb74490057f55bd011d63815b7b07a3ff7828d1fb8adbd0f1fd8b20f30",
+    "tests/retrace-pilot.test.ts": "c81d0152887fe45bbdf0ceab7520d555ab708c4563133bedad53cff5e6fa4fd4",
+    "tests/retrace-pilot.ts": "7fac75e5129ebd8227b9f593572b5f1fc80a372f3eab74174da80ac189b2c70f",
+    "tests/rumble-observation.test.ts": "6ad21530a06a30c86d2e533705cf1e3a341e4d8125deb8f5477751dc8670cad1",
+    "tests/rumble-observation.ts": "8941e1c8f74a3a7d3189bb87a40a4af0342638c4415aa834cfd53abedcd350e9",
+    "tests/rumble.test.ts": "d8a1f5f6a2cb8b17db4bfa221d8df12dd92ae4adf06479980802ca4027030f0f",
+    "tests/sandy-cove.spec.ts": "10561523edeb165a0b9b54ea4b0dfd9b0a8476a54f0f45a98a7c22f3886aa7fa",
+    "tests/scenery.test.ts": "150a48c9c1b45547dd473280b3360fd8e7c08d1b9b69971182ec30678821bd49",
+    "tests/screens.test.ts": "cceea22b6bf57d8c5ff34e1a2bc662fa36a968e76d858e62b20cf237436a1cba",
+    "tests/slime-squash-regression.test.ts": "a3de1f5a433457fe8ad1b05e2fee180605bf53e1731f73d8af2bbd622534c53c",
+    "tests/slime-squash-scenes.test.ts": "bd60c7e3d41023043c9a744c5538860a2596a5b741b7558bf3b6f2c228b41b04",
+    "tests/slime-squash.spec.ts": "e96d52bea97c33160a47f2242c1f7315c2f5ce6a0a648acdf20df09d54b5c282",
+    "tests/slime-squash.test.ts": "ec56fc1ce26a9d1766d8bdad7cae684ea988381e3c62ad076fa35b105dceb54b",
+    "tests/slimes.test.ts": "cd9e1babc35f80fbb8bfda166d9c622c28b0a60d4805128e717d357b60373b18",
+    "tests/specials.test.ts": "3402ed774bf24c6fef036f47e01d625580d519ea50b27d7d649429fc8885a6d2",
+    "tests/sprite-processing.test.ts": "a295b9d06e7255e9f7604dd75e560968fa1846993470728b1c57f63ef214dc4d",
+    "tests/sprite.test.ts": "279b7feb8225062fd7fd9e3044b81bc95c5c187d48be58ca83c8f7fae233058b",
+    "tests/sunset-browser-pilot.ts": "7b6b01eb6c424d6f4297b281bed1ae57ec226e75c48823d1ccdcfdcbee0c0191",
+    "tests/sunset-bypass.test.ts": "3381547d19e76fffd16cc44c5d55225f2a7e7c526aa4dedf094c81da4545568f",
+    "tests/sunset-catches.test.ts": "8fd9a7408ea1b1bd197b7254c405872b8d532f9feae200596be582236b649c1a",
+    "tests/sunset-crane.test.ts": "8182e286290ee83109339af98eebe1980b3cf3589f970a6ead4692f780555623",
+    "tests/sunset-exploration.test.ts": "eb516886ddc669767cf60e9f44130caedf438bc33b1a6df74218435235449df9",
+    "tests/sunset-pilot.ts": "d7ae6f1c9dc271531713bd554dacd161db081bf24edd82823016220c92d15384",
+    "tests/sunset-review-contract.test.ts": "a6a756f7155becb39506c62d58f6d761385fdfdd6379145686051166b7ce792f",
+    "tests/sunset-scaffolds.spec.ts": "fa326c679ae4e69eee665301aef5d672961e2d9aa41c54f394ee5eec84558f1a",
+    "tests/sunset-scaffolds.test.ts": "b67db9330e3bc0548900bec006cffeba007695dba6c823bbd336648ee5fe95d0",
+    "tests/sunset-sections.test.ts": "7ebf2129daa6b057041999bc0cc4f67065e2c5fe2b260c3a03932c664d5b2fcb",
+    "tests/sunset-site.test.ts": "410a50acdc534b23430dbad45d87202897a8518460abbc0d741b13c7cc0a098e",
+    "tests/sunset-wall-browser-controller.test.ts": "03351f325d5a62998e36d222a5cac76ca98cbc22d5c19a590d3395aab8739196",
+    "tests/sunset-wall-browser-controller.ts": "2ef787c3896d839aac963f443907fd02587324890768347c6564acc0444f6871",
+    "tests/sunset-wall-pilot.ts": "be64c5bb6219f5d0bd3548f1eeb32962bc7036d91aa4f1427a8e39e2900307fa",
+    "tests/sunset-wall.test.ts": "ab42fa138a7eb8f9c904b99f498e6d8ae0e3500673d7eb253f0a4b47b2683385",
+    "tests/surface-materials.test.ts": "2f24a90bf6d4982fef800b3ad587368a99395fc4d41bda5644d99663190cee24",
+    "tests/timbers-ascent.spec.ts": "1340e6ecf2e5fa8e8fd1d439536d1f6cb82d5c8dc7dabf9667e4f9e63e5dfd1e",
+    "tests/timbers-ascent.test.ts": "514ee2e00ff8d42364f146b67d105ebf91e58e1a28d1a10715b60a8057ffd359",
+    "tests/timbers-browser-pilot.ts": "76a2130a842c1976211005ca7a9734b30eb430dad0f5157fc108284644abbb43",
+    "tests/timbers-camera.test.ts": "1fa16c533b10245a65a70a37ffec2375ff5f565a8cab18edc3a4910c1062b90d",
+    "tests/timbers-left-catches.test.ts": "1a902197c3a4f6aaab06e4900686ab23ddb129efc6bc24be6d286b1b05d7549e",
+    "tests/timbers-pilot.test.ts": "38017aec4f5087f1574147dae408378781726d64cfdc3cfd137a102b0226e57a",
+    "tests/timbers-route.test.ts": "8dc286004528134d9e5b77c7f55ee2b57d339b7a054c7e42f805974845880fbb",
+    "tests/timbers-runup.test.ts": "c6fad742fdcbd9f6d76bec1408cf8dd1429f030ce8ba684b8ea96739d21a8150",
+    "tests/title-artwork.test.ts": "29520b927466ae07b45677266da5b2b26aff2ed1640614daf4c3b869cca75ea3",
+    "tests/treetop-timbers.test.ts": "0ed5ebe0cf99df5a1ca6cd22080a7338fa0e957b4bd91c632b6772ce42d60d59",
+    "tests/vertical-support.test.ts": "484962cd6b493bb465b2fda73741a2e6c41cd3e27b9a35a79284d49be51ae060",
+    "tests/viewport.test.ts": "7a3aece69aa25750d52e1744b26df0fded99c6b9572381cc2685698c2c71f542",
+    "tests/water-landing.spec.ts": "44aa5fa0201764927508262f58b19bccf2d789bf15063f4a4cba3029ca11a917",
+    "tests/water-landing.test.ts": "66a0b127d6ac6a2d5fc94f1f2dfad395f4ea583253672d3c501bcd56f1209db8",
+    "tests/word-success.test.ts": "b71e978c7402d022f4a106d3901a839a5d3eb5199d08fea096789921daa7c6db",
+    "tests/world-assets.test.ts": "b8d1fc9ce2b50cfeda6e21268ff5e54df53880f8fbe484e2a061abdde554d3e3",
+    "tests/world.test.ts": "f45828b05d9f96abe2e4924b76ea41045eed75bdd680d1861f3be440066d589b",
+    "vite.config.ts": "1cf5bb14fc7ca0dbebb6f298c36a3cce7e704c183d80d317eb252b85a60fbecf"
+  },
+  "geometry": {
+    "width": 3120,
+    "height": 760,
+    "start": {
+      "x": 60,
+      "y": 560
+    },
+    "finish": {
+      "x": 3050,
+      "y": 140,
+      "asset": "finish-arch",
+      "supportOnly": true,
+      "boundedWidth": 46,
+      "rearmBelowY": 200,
+      "rearmLeftX": 2870
+    },
+    "retrace": {
+      "x": 2930,
+      "y": 140
+    },
+    "checkpoints": [
+      {
+        "id": "site-checkpoint-girders",
+        "x": 350,
+        "y": 320
+      },
+      {
+        "id": "site-checkpoint-descent",
+        "x": 2030,
+        "y": 500
+      },
+      {
+        "id": "site-checkpoint-yard",
+        "x": 2250,
+        "y": 620
+      },
+      {
+        "id": "site-checkpoint-scaffold",
+        "x": 2800,
+        "y": 440
+      }
+    ],
+    "verticalCamera": true,
+    "cameraLead": 110
+  },
+  "measurement": {
+    "unit": "logical game pixels; y increases downward",
+    "walkingHeight": 40,
+    "proposedDepth": 18,
+    "limits": "Conservative static alpha bounding envelopes, not animated gameplay clearance certification; lower-support search expands by 16px at edges.",
+    "gemRectangle": {
+      "width": 32,
+      "height": 24,
+      "bottomAnchorAboveSupport": 18
+    },
+    "henryFrames": [
+      {
+        "id": 0,
+        "left": 14,
+        "top": 4,
+        "right": 33,
+        "bottom": 43,
+        "occupiedPerRow": [
+          0,
+          0,
+          0,
+          0,
+          5,
+          9,
+          11,
+          13,
+          14,
+          16,
+          18,
+          19,
+          18,
+          18,
+          18,
+          18,
+          17,
+          15,
+          16,
+          16,
+          14,
+          11,
+          9,
+          9,
+          10,
+          12,
+          12,
+          12,
+          12,
+          13,
+          13,
+          15,
+          15,
+          15,
+          13,
+          10,
+          11,
+          11,
+          11,
+          12,
+          14,
+          15,
+          15,
+          15,
+          0,
+          0,
+          0,
+          0
+        ],
+        "aboveFeet": 40
+      },
+      {
+        "id": 1,
+        "left": 14,
+        "top": 4,
+        "right": 33,
+        "bottom": 43,
+        "occupiedPerRow": [
+          0,
+          0,
+          0,
+          0,
+          4,
+          8,
+          11,
+          13,
+          14,
+          16,
+          18,
+          19,
+          18,
+          18,
+          18,
+          18,
+          16,
+          14,
+          16,
+          16,
+          14,
+          11,
+          9,
+          9,
+          10,
+          12,
+          12,
+          12,
+          13,
+          13,
+          13,
+          14,
+          14,
+          14,
+          11,
+          10,
+          11,
+          11,
+          11,
+          11,
+          13,
+          15,
+          15,
+          15,
+          0,
+          0,
+          0,
+          0
+        ],
+        "aboveFeet": 40
+      },
+      {
+        "id": 2,
+        "left": 14,
+        "top": 4,
+        "right": 33,
+        "bottom": 43,
+        "occupiedPerRow": [
+          0,
+          0,
+          0,
+          0,
+          3,
+          9,
+          11,
+          13,
+          14,
+          16,
+          18,
+          19,
+          18,
+          18,
+          18,
+          18,
+          16,
+          15,
+          16,
+          16,
+          14,
+          11,
+          9,
+          9,
+          10,
+          12,
+          12,
+          12,
+          13,
+          13,
+          14,
+          15,
+          14,
+          14,
+          11,
+          10,
+          11,
+          11,
+          11,
+          11,
+          14,
+          15,
+          15,
+          15,
+          0,
+          0,
+          0,
+          0
+        ],
+        "aboveFeet": 40
+      },
+      {
+        "id": 3,
+        "left": 14,
+        "top": 5,
+        "right": 33,
+        "bottom": 43,
+        "occupiedPerRow": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          8,
+          11,
+          13,
+          14,
+          16,
+          18,
+          19,
+          19,
+          18,
+          18,
+          19,
+          17,
+          16,
+          15,
+          16,
+          14,
+          11,
+          9,
+          9,
+          10,
+          11,
+          12,
+          12,
+          13,
+          13,
+          13,
+          15,
+          15,
+          14,
+          12,
+          11,
+          10,
+          10,
+          11,
+          12,
+          13,
+          15,
+          14,
+          16,
+          0,
+          0,
+          0,
+          0
+        ],
+        "aboveFeet": 39
+      },
+      {
+        "id": 4,
+        "left": 9,
+        "top": 5,
+        "right": 37,
+        "bottom": 43,
+        "occupiedPerRow": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          8,
+          10,
+          14,
+          15,
+          16,
+          17,
+          20,
+          20,
+          18,
+          20,
+          19,
+          18,
+          16,
+          16,
+          16,
+          15,
+          15,
+          18,
+          14,
+          20,
+          24,
+          25,
+          24,
+          23,
+          20,
+          10,
+          11,
+          13,
+          16,
+          17,
+          17,
+          18,
+          17,
+          18,
+          17,
+          16,
+          16,
+          14,
+          11,
+          0,
+          0,
+          0,
+          0
+        ],
+        "aboveFeet": 39
+      },
+      {
+        "id": 5,
+        "left": 12,
+        "top": 4,
+        "right": 35,
+        "bottom": 43,
+        "occupiedPerRow": [
+          0,
+          0,
+          0,
+          0,
+          4,
+          8,
+          12,
+          14,
+          16,
+          17,
+          19,
+          20,
+          20,
+          19,
+          20,
+          19,
+          19,
+          15,
+          16,
+          16,
+          15,
+          13,
+          11,
+          11,
+          15,
+          17,
+          21,
+          22,
+          21,
+          19,
+          14,
+          10,
+          9,
+          9,
+          12,
+          12,
+          11,
+          10,
+          9,
+          8,
+          9,
+          10,
+          11,
+          11,
+          0,
+          0,
+          0,
+          0
+        ],
+        "aboveFeet": 40
+      },
+      {
+        "id": 6,
+        "left": 11,
+        "top": 4,
+        "right": 36,
+        "bottom": 43,
+        "occupiedPerRow": [
+          0,
+          0,
+          0,
+          0,
+          3,
+          8,
+          12,
+          14,
+          15,
+          16,
+          18,
+          19,
+          19,
+          18,
+          19,
+          18,
+          16,
+          16,
+          15,
+          15,
+          14,
+          14,
+          15,
+          14,
+          19,
+          22,
+          22,
+          23,
+          23,
+          21,
+          13,
+          10,
+          13,
+          15,
+          18,
+          18,
+          16,
+          16,
+          15,
+          16,
+          15,
+          14,
+          11,
+          5,
+          0,
+          0,
+          0,
+          0
+        ],
+        "aboveFeet": 40
+      },
+      {
+        "id": 7,
+        "left": 10,
+        "top": 4,
+        "right": 37,
+        "bottom": 43,
+        "occupiedPerRow": [
+          0,
+          0,
+          0,
+          0,
+          4,
+          9,
+          12,
+          14,
+          15,
+          17,
+          18,
+          19,
+          19,
+          18,
+          19,
+          18,
+          17,
+          15,
+          16,
+          16,
+          13,
+          13,
+          14,
+          13,
+          17,
+          21,
+          21,
+          22,
+          19,
+          15,
+          14,
+          16,
+          16,
+          17,
+          18,
+          19,
+          18,
+          13,
+          10,
+          10,
+          9,
+          9,
+          7,
+          4,
+          0,
+          0,
+          0,
+          0
+        ],
+        "aboveFeet": 40
+      },
+      {
+        "id": 8,
+        "left": 11,
+        "top": 5,
+        "right": 36,
+        "bottom": 38,
+        "occupiedPerRow": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          8,
+          10,
+          13,
+          14,
+          16,
+          19,
+          19,
+          19,
+          18,
+          19,
+          18,
+          17,
+          15,
+          16,
+          16,
+          14,
+          15,
+          16,
+          14,
+          16,
+          17,
+          17,
+          18,
+          17,
+          16,
+          13,
+          12,
+          12,
+          10,
+          12,
+          12,
+          14,
+          14,
+          14,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "aboveFeet": 39
+      },
+      {
+        "id": 9,
+        "left": 10,
+        "top": 5,
+        "right": 36,
+        "bottom": 43,
+        "occupiedPerRow": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          9,
+          12,
+          14,
+          16,
+          18,
+          20,
+          20,
+          21,
+          19,
+          20,
+          21,
+          20,
+          19,
+          16,
+          18,
+          18,
+          19,
+          20,
+          19,
+          21,
+          22,
+          23,
+          20,
+          19,
+          12,
+          11,
+          12,
+          12,
+          11,
+          10,
+          12,
+          12,
+          14,
+          14,
+          15,
+          15,
+          15,
+          15,
+          13,
+          0,
+          0,
+          0,
+          0
+        ],
+        "aboveFeet": 39
+      },
+      {
+        "id": 10,
+        "left": 11,
+        "top": 4,
+        "right": 36,
+        "bottom": 43,
+        "occupiedPerRow": [
+          0,
+          0,
+          0,
+          0,
+          6,
+          10,
+          12,
+          14,
+          16,
+          19,
+          21,
+          21,
+          20,
+          20,
+          20,
+          19,
+          19,
+          18,
+          20,
+          23,
+          24,
+          22,
+          21,
+          18,
+          17,
+          17,
+          15,
+          12,
+          11,
+          12,
+          14,
+          13,
+          13,
+          12,
+          13,
+          14,
+          13,
+          14,
+          13,
+          12,
+          11,
+          10,
+          9,
+          5,
+          0,
+          0,
+          0,
+          0
+        ],
+        "aboveFeet": 40
+      },
+      {
+        "id": 11,
+        "left": 11,
+        "top": 4,
+        "right": 36,
+        "bottom": 43,
+        "occupiedPerRow": [
+          0,
+          0,
+          0,
+          0,
+          1,
+          9,
+          11,
+          14,
+          15,
+          18,
+          21,
+          21,
+          20,
+          21,
+          22,
+          25,
+          26,
+          25,
+          24,
+          22,
+          21,
+          20,
+          18,
+          17,
+          16,
+          15,
+          13,
+          11,
+          11,
+          11,
+          12,
+          12,
+          15,
+          17,
+          17,
+          18,
+          19,
+          18,
+          17,
+          14,
+          13,
+          11,
+          6,
+          5,
+          0,
+          0,
+          0,
+          0
+        ],
+        "aboveFeet": 40
+      },
+      {
+        "id": 12,
+        "left": 9,
+        "top": 4,
+        "right": 37,
+        "bottom": 43,
+        "occupiedPerRow": [
+          0,
+          0,
+          0,
+          0,
+          6,
+          8,
+          12,
+          14,
+          15,
+          19,
+          20,
+          20,
+          19,
+          20,
+          19,
+          19,
+          18,
+          16,
+          16,
+          16,
+          17,
+          24,
+          26,
+          28,
+          28,
+          24,
+          15,
+          14,
+          11,
+          12,
+          11,
+          10,
+          11,
+          12,
+          14,
+          16,
+          17,
+          15,
+          14,
+          12,
+          12,
+          11,
+          10,
+          5,
+          0,
+          0,
+          0,
+          0
+        ],
+        "aboveFeet": 40
+      },
+      {
+        "id": 13,
+        "left": 10,
+        "top": 4,
+        "right": 37,
+        "bottom": 43,
+        "occupiedPerRow": [
+          0,
+          0,
+          0,
+          0,
+          3,
+          9,
+          11,
+          14,
+          16,
+          16,
+          19,
+          20,
+          20,
+          19,
+          19,
+          19,
+          18,
+          16,
+          16,
+          17,
+          15,
+          14,
+          19,
+          24,
+          26,
+          27,
+          26,
+          18,
+          16,
+          15,
+          14,
+          14,
+          14,
+          13,
+          12,
+          12,
+          13,
+          13,
+          14,
+          15,
+          15,
+          14,
+          11,
+          10,
+          0,
+          0,
+          0,
+          0
+        ],
+        "aboveFeet": 40
+      },
+      {
+        "id": 14,
+        "left": 10,
+        "top": 5,
+        "right": 38,
+        "bottom": 43,
+        "occupiedPerRow": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          7,
+          11,
+          14,
+          16,
+          17,
+          18,
+          21,
+          21,
+          21,
+          19,
+          21,
+          21,
+          19,
+          18,
+          17,
+          16,
+          15,
+          17,
+          19,
+          18,
+          16,
+          19,
+          19,
+          19,
+          19,
+          19,
+          19,
+          15,
+          14,
+          14,
+          13,
+          13,
+          13,
+          12,
+          15,
+          15,
+          17,
+          17,
+          17,
+          0,
+          0,
+          0,
+          0
+        ],
+        "aboveFeet": 39
+      },
+      {
+        "id": 15,
+        "left": 8,
+        "top": 4,
+        "right": 39,
+        "bottom": 43,
+        "occupiedPerRow": [
+          0,
+          0,
+          0,
+          0,
+          2,
+          10,
+          13,
+          15,
+          16,
+          18,
+          20,
+          22,
+          22,
+          22,
+          20,
+          22,
+          22,
+          21,
+          19,
+          18,
+          18,
+          16,
+          17,
+          21,
+          21,
+          21,
+          19,
+          21,
+          21,
+          20,
+          22,
+          21,
+          17,
+          16,
+          16,
+          15,
+          14,
+          13,
+          14,
+          15,
+          17,
+          18,
+          18,
+          18,
+          0,
+          0,
+          0,
+          0
+        ],
+        "aboveFeet": 40
+      },
+      {
+        "id": 16,
+        "left": 14,
+        "top": 8,
+        "right": 32,
+        "bottom": 43,
+        "occupiedPerRow": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          9,
+          10,
+          14,
+          15,
+          16,
+          17,
+          18,
+          18,
+          18,
+          18,
+          17,
+          17,
+          16,
+          16,
+          15,
+          14,
+          14,
+          14,
+          13,
+          14,
+          14,
+          14,
+          13,
+          15,
+          17,
+          17,
+          17,
+          16,
+          14,
+          13,
+          13,
+          14,
+          14,
+          15,
+          15,
+          15,
+          0,
+          0,
+          0,
+          0
+        ],
+        "aboveFeet": 36
+      },
+      {
+        "id": 17,
+        "left": 13,
+        "top": 11,
+        "right": 34,
+        "bottom": 43,
+        "occupiedPerRow": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          7,
+          12,
+          13,
+          14,
+          16,
+          19,
+          19,
+          19,
+          19,
+          19,
+          19,
+          19,
+          18,
+          17,
+          17,
+          17,
+          15,
+          16,
+          16,
+          15,
+          16,
+          17,
+          18,
+          18,
+          18,
+          18,
+          18,
+          17,
+          16,
+          16,
+          16,
+          16,
+          16,
+          0,
+          0,
+          0,
+          0
+        ],
+        "aboveFeet": 33
+      },
+      {
+        "id": 18,
+        "left": 11,
+        "top": 6,
+        "right": 35,
+        "bottom": 43,
+        "occupiedPerRow": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          10,
+          13,
+          14,
+          16,
+          18,
+          18,
+          19,
+          20,
+          21,
+          21,
+          22,
+          24,
+          24,
+          24,
+          24,
+          24,
+          25,
+          22,
+          21,
+          20,
+          18,
+          18,
+          17,
+          17,
+          16,
+          16,
+          16,
+          16,
+          16,
+          15,
+          14,
+          13,
+          14,
+          14,
+          13,
+          8,
+          6,
+          6,
+          0,
+          0,
+          0,
+          0
+        ],
+        "aboveFeet": 38
+      },
+      {
+        "id": 19,
+        "left": 11,
+        "top": 8,
+        "right": 35,
+        "bottom": 43,
+        "occupiedPerRow": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          13,
+          16,
+          17,
+          19,
+          20,
+          21,
+          25,
+          25,
+          25,
+          25,
+          25,
+          25,
+          24,
+          23,
+          23,
+          22,
+          19,
+          17,
+          17,
+          15,
+          16,
+          16,
+          15,
+          15,
+          14,
+          16,
+          16,
+          17,
+          17,
+          18,
+          18,
+          16,
+          15,
+          14,
+          13,
+          12,
+          0,
+          0,
+          0,
+          0
+        ],
+        "aboveFeet": 36
+      },
+      {
+        "id": 20,
+        "left": 11,
+        "top": 8,
+        "right": 35,
+        "bottom": 43,
+        "occupiedPerRow": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          8,
+          11,
+          15,
+          19,
+          19,
+          23,
+          25,
+          25,
+          25,
+          25,
+          25,
+          25,
+          23,
+          22,
+          22,
+          21,
+          21,
+          18,
+          16,
+          16,
+          16,
+          14,
+          13,
+          14,
+          14,
+          15,
+          17,
+          17,
+          17,
+          16,
+          16,
+          15,
+          16,
+          15,
+          15,
+          13,
+          0,
+          0,
+          0,
+          0
+        ],
+        "aboveFeet": 36
+      },
+      {
+        "id": 21,
+        "left": 12,
+        "top": 14,
+        "right": 34,
+        "bottom": 43,
+        "occupiedPerRow": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          9,
+          12,
+          14,
+          15,
+          18,
+          19,
+          19,
+          19,
+          20,
+          19,
+          19,
+          18,
+          17,
+          17,
+          17,
+          18,
+          19,
+          21,
+          22,
+          22,
+          22,
+          23,
+          21,
+          20,
+          18,
+          18,
+          17,
+          18,
+          18,
+          17,
+          0,
+          0,
+          0,
+          0
+        ],
+        "aboveFeet": 30
+      },
+      {
+        "id": 22,
+        "left": 11,
+        "top": 6,
+        "right": 36,
+        "bottom": 43,
+        "occupiedPerRow": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          7,
+          13,
+          13,
+          16,
+          20,
+          24,
+          23,
+          26,
+          26,
+          26,
+          26,
+          26,
+          26,
+          24,
+          23,
+          23,
+          22,
+          21,
+          20,
+          16,
+          12,
+          14,
+          14,
+          16,
+          16,
+          16,
+          14,
+          16,
+          15,
+          14,
+          18,
+          18,
+          19,
+          19,
+          19,
+          19,
+          18,
+          18,
+          0,
+          0,
+          0,
+          0
+        ],
+        "aboveFeet": 38
+      },
+      {
+        "id": 23,
+        "left": 12,
+        "top": 4,
+        "right": 35,
+        "bottom": 43,
+        "occupiedPerRow": [
+          0,
+          0,
+          0,
+          0,
+          11,
+          11,
+          18,
+          21,
+          19,
+          23,
+          24,
+          24,
+          24,
+          23,
+          24,
+          23,
+          22,
+          22,
+          23,
+          21,
+          21,
+          18,
+          17,
+          16,
+          15,
+          14,
+          13,
+          13,
+          15,
+          16,
+          16,
+          16,
+          16,
+          16,
+          15,
+          15,
+          15,
+          16,
+          16,
+          15,
+          16,
+          14,
+          14,
+          14,
+          0,
+          0,
+          0,
+          0
+        ],
+        "aboveFeet": 40
+      }
+    ]
+  },
+  "platforms": [
+    {
+      "id": "site-entrance",
+      "role": "modular-steel-deck",
+      "from": {
+        "x": 0,
+        "y": 560
+      },
+      "to": {
+        "x": 0,
+        "y": 560
+      },
+      "width": 300,
+      "seconds": 1,
+      "pause": 0,
+      "sweptBounds": {
+        "left": 0,
+        "right": 300,
+        "top": 560
+      },
+      "current": {
+        "asset": "public/assets/site/environment.png#terrain-flat",
+        "renderer": "src/world/renderer.ts#drawPlatforms",
+        "visualDepth": 12
+      },
+      "proposal": {
+        "coordinates": "unchanged",
+        "maxVisualDepth": 18,
+        "sideOverhang": 0,
+        "nearestLowerTopSeparation": 60,
+        "conservativeStandingClearance": 2
+      },
+      "lowerSupports": [
+        "site-lower-catch"
+      ],
+      "gems": [
+        "site-gem-001",
+        "site-gem-002",
+        "site-gem-003"
+      ],
+      "letters": [],
+      "checkpoints": [],
+      "decorations": [
+        "site-deco-1"
+      ],
+      "joins": [
+        {
+          "ids": [
+            "site-entrance",
+            "site-first-low-right"
+          ],
+          "top": 560,
+          "overlap": [
+            280,
+            300
+          ]
+        }
+      ]
+    },
+    {
+      "id": "site-first-low-right",
+      "role": "modular-steel-deck",
+      "from": {
+        "x": 280,
+        "y": 560
+      },
+      "to": {
+        "x": 280,
+        "y": 560
+      },
+      "width": 440,
+      "seconds": 1,
+      "pause": 0,
+      "sweptBounds": {
+        "left": 280,
+        "right": 720,
+        "top": 560
+      },
+      "current": {
+        "asset": "public/assets/site/environment.png#terrain-flat",
+        "renderer": "src/world/renderer.ts#drawPlatforms",
+        "visualDepth": 12
+      },
+      "proposal": {
+        "coordinates": "unchanged",
+        "maxVisualDepth": 18,
+        "sideOverhang": 0,
+        "nearestLowerTopSeparation": 60,
+        "conservativeStandingClearance": 2
+      },
+      "lowerSupports": [
+        "site-lower-catch"
+      ],
+      "gems": [],
+      "letters": [],
+      "checkpoints": [],
+      "decorations": [],
+      "joins": [
+        {
+          "ids": [
+            "site-entrance",
+            "site-first-low-right"
+          ],
+          "top": 560,
+          "overlap": [
+            280,
+            300
+          ]
+        }
+      ]
+    },
+    {
+      "id": "site-first-1",
+      "role": "modular-steel-deck",
+      "from": {
+        "x": 160,
+        "y": 500
+      },
+      "to": {
+        "x": 160,
+        "y": 500
+      },
+      "width": 180,
+      "seconds": 1,
+      "pause": 0,
+      "sweptBounds": {
+        "left": 160,
+        "right": 340,
+        "top": 500
+      },
+      "current": {
+        "asset": "public/assets/site/environment.png#terrain-flat",
+        "renderer": "src/world/renderer.ts#drawPlatforms",
+        "visualDepth": 12
+      },
+      "proposal": {
+        "coordinates": "unchanged",
+        "maxVisualDepth": 18,
+        "sideOverhang": 0,
+        "nearestLowerTopSeparation": 60,
+        "conservativeStandingClearance": 2
+      },
+      "lowerSupports": [
+        "site-entrance",
+        "site-first-low-right"
+      ],
+      "gems": [
+        "site-gem-004",
+        "site-gem-005"
+      ],
+      "letters": [],
+      "checkpoints": [],
+      "decorations": [],
+      "joins": [
+        {
+          "ids": [
+            "site-first-1",
+            "site-first-left-1"
+          ],
+          "top": 500,
+          "overlap": [
+            160,
+            180
+          ]
+        }
+      ]
+    },
+    {
+      "id": "site-first-b",
+      "role": "modular-steel-deck",
+      "from": {
+        "x": 0,
+        "y": 440
+      },
+      "to": {
+        "x": 0,
+        "y": 440
+      },
+      "width": 430,
+      "seconds": 1,
+      "pause": 0,
+      "sweptBounds": {
+        "left": 0,
+        "right": 430,
+        "top": 440
+      },
+      "current": {
+        "asset": "public/assets/site/environment.png#terrain-flat",
+        "renderer": "src/world/renderer.ts#drawPlatforms",
+        "visualDepth": 12
+      },
+      "proposal": {
+        "coordinates": "unchanged",
+        "maxVisualDepth": 18,
+        "sideOverhang": 0,
+        "nearestLowerTopSeparation": 60,
+        "conservativeStandingClearance": 2
+      },
+      "lowerSupports": [
+        "site-first-1",
+        "site-first-left-1",
+        "site-first-right"
+      ],
+      "gems": [
+        "site-gem-006",
+        "site-gem-007",
+        "site-gem-008",
+        "site-bonus-001"
+      ],
+      "letters": [
+        "sunset-letter-b"
+      ],
+      "checkpoints": [],
+      "decorations": [],
+      "joins": []
+    },
+    {
+      "id": "site-first-3",
+      "role": "modular-steel-deck",
+      "from": {
+        "x": 160,
+        "y": 380
+      },
+      "to": {
+        "x": 160,
+        "y": 380
+      },
+      "width": 180,
+      "seconds": 1,
+      "pause": 0,
+      "sweptBounds": {
+        "left": 160,
+        "right": 340,
+        "top": 380
+      },
+      "current": {
+        "asset": "public/assets/site/environment.png#terrain-flat",
+        "renderer": "src/world/renderer.ts#drawPlatforms",
+        "visualDepth": 12
+      },
+      "proposal": {
+        "coordinates": "unchanged",
+        "maxVisualDepth": 18,
+        "sideOverhang": 0,
+        "nearestLowerTopSeparation": 60,
+        "conservativeStandingClearance": 2
+      },
+      "lowerSupports": [
+        "site-first-b"
+      ],
+      "gems": [
+        "site-gem-009",
+        "site-gem-010"
+      ],
+      "letters": [],
+      "checkpoints": [],
+      "decorations": [],
+      "joins": [
+        {
+          "ids": [
+            "site-first-3",
+            "site-crane-catch"
+          ],
+          "top": 380,
+          "overlap": [
+            340,
+            340
+          ]
+        }
+      ]
+    },
+    {
+      "id": "site-high-deck",
+      "role": "modular-steel-deck",
+      "from": {
+        "x": 260,
+        "y": 320
+      },
+      "to": {
+        "x": 260,
+        "y": 320
+      },
+      "width": 210,
+      "seconds": 1,
+      "pause": 0,
+      "sweptBounds": {
+        "left": 260,
+        "right": 470,
+        "top": 320
+      },
+      "current": {
+        "asset": "public/assets/site/environment.png#terrain-flat",
+        "renderer": "src/world/renderer.ts#drawPlatforms",
+        "visualDepth": 12
+      },
+      "proposal": {
+        "coordinates": "unchanged",
+        "maxVisualDepth": 18,
+        "sideOverhang": 0,
+        "nearestLowerTopSeparation": 60,
+        "conservativeStandingClearance": 2
+      },
+      "lowerSupports": [
+        "site-first-3",
+        "site-crane-catch"
+      ],
+      "gems": [
+        "site-gem-011",
+        "site-gem-012",
+        "site-gem-013"
+      ],
+      "letters": [],
+      "checkpoints": [
+        "site-checkpoint-girders"
+      ],
+      "decorations": [],
+      "joins": []
+    },
+    {
+      "id": "site-far-dock",
+      "role": "modular-steel-deck",
+      "from": {
+        "x": 650,
+        "y": 320
+      },
+      "to": {
+        "x": 650,
+        "y": 320
+      },
+      "width": 150,
+      "seconds": 1,
+      "pause": 0,
+      "sweptBounds": {
+        "left": 650,
+        "right": 800,
+        "top": 320
+      },
+      "current": {
+        "asset": "public/assets/site/environment.png#terrain-flat",
+        "renderer": "src/world/renderer.ts#drawPlatforms",
+        "visualDepth": 12
+      },
+      "proposal": {
+        "coordinates": "unchanged",
+        "maxVisualDepth": 18,
+        "sideOverhang": 0,
+        "nearestLowerTopSeparation": 60,
+        "conservativeStandingClearance": 2
+      },
+      "lowerSupports": [
+        "site-crane-catch"
+      ],
+      "gems": [
+        "site-gem-016",
+        "site-gem-017",
+        "site-gem-018"
+      ],
+      "letters": [
+        "sunset-letter-a"
+      ],
+      "checkpoints": [],
+      "decorations": [],
+      "joins": []
+    },
+    {
+      "id": "site-crane-catch",
+      "role": "modular-steel-deck",
+      "from": {
+        "x": 340,
+        "y": 380
+      },
+      "to": {
+        "x": 340,
+        "y": 380
+      },
+      "width": 1560,
+      "seconds": 1,
+      "pause": 0,
+      "sweptBounds": {
+        "left": 340,
+        "right": 1900,
+        "top": 380
+      },
+      "current": {
+        "asset": "public/assets/site/environment.png#terrain-flat",
+        "renderer": "src/world/renderer.ts#drawPlatforms",
+        "visualDepth": 12
+      },
+      "proposal": {
+        "coordinates": "unchanged",
+        "maxVisualDepth": 18,
+        "sideOverhang": 0,
+        "nearestLowerTopSeparation": 60,
+        "conservativeStandingClearance": 2
+      },
+      "lowerSupports": [
+        "site-first-b",
+        "site-descent-1"
+      ],
+      "gems": [
+        "site-gem-014",
+        "site-gem-015",
+        "site-gem-019",
+        "site-gem-020",
+        "site-gem-021"
+      ],
+      "letters": [],
+      "checkpoints": [],
+      "decorations": [
+        "site-deco-2"
+      ],
+      "joins": [
+        {
+          "ids": [
+            "site-first-3",
+            "site-crane-catch"
+          ],
+          "top": 380,
+          "overlap": [
+            340,
+            340
+          ]
+        }
+      ]
+    },
+    {
+      "id": "site-first-left-1",
+      "role": "modular-steel-deck",
+      "from": {
+        "x": 0,
+        "y": 500
+      },
+      "to": {
+        "x": 0,
+        "y": 500
+      },
+      "width": 180,
+      "seconds": 1,
+      "pause": 0,
+      "sweptBounds": {
+        "left": 0,
+        "right": 180,
+        "top": 500
+      },
+      "current": {
+        "asset": "public/assets/site/environment.png#terrain-flat",
+        "renderer": "src/world/renderer.ts#drawPlatforms",
+        "visualDepth": 12
+      },
+      "proposal": {
+        "coordinates": "unchanged",
+        "maxVisualDepth": 18,
+        "sideOverhang": 0,
+        "nearestLowerTopSeparation": 60,
+        "conservativeStandingClearance": 2
+      },
+      "lowerSupports": [
+        "site-entrance"
+      ],
+      "gems": [],
+      "letters": [],
+      "checkpoints": [],
+      "decorations": [],
+      "joins": [
+        {
+          "ids": [
+            "site-first-1",
+            "site-first-left-1"
+          ],
+          "top": 500,
+          "overlap": [
+            160,
+            180
+          ]
+        }
+      ]
+    },
+    {
+      "id": "site-first-right",
+      "role": "modular-steel-deck",
+      "from": {
+        "x": 400,
+        "y": 500
+      },
+      "to": {
+        "x": 400,
+        "y": 500
+      },
+      "width": 160,
+      "seconds": 1,
+      "pause": 0,
+      "sweptBounds": {
+        "left": 400,
+        "right": 560,
+        "top": 500
+      },
+      "current": {
+        "asset": "public/assets/site/environment.png#terrain-flat",
+        "renderer": "src/world/renderer.ts#drawPlatforms",
+        "visualDepth": 12
+      },
+      "proposal": {
+        "coordinates": "unchanged",
+        "maxVisualDepth": 18,
+        "sideOverhang": 0,
+        "nearestLowerTopSeparation": 60,
+        "conservativeStandingClearance": 2
+      },
+      "lowerSupports": [
+        "site-first-low-right"
+      ],
+      "gems": [
+        "site-bonus-002"
+      ],
+      "letters": [],
+      "checkpoints": [],
+      "decorations": [],
+      "joins": []
+    },
+    {
+      "id": "site-lower-catch",
+      "role": "modular-steel-deck",
+      "from": {
+        "x": 0,
+        "y": 620
+      },
+      "to": {
+        "x": 0,
+        "y": 620
+      },
+      "width": 840,
+      "seconds": 1,
+      "pause": 0,
+      "sweptBounds": {
+        "left": 0,
+        "right": 840,
+        "top": 620
+      },
+      "current": {
+        "asset": "public/assets/site/environment.png#terrain-flat",
+        "renderer": "src/world/renderer.ts#drawPlatforms",
+        "visualDepth": 12
+      },
+      "proposal": {
+        "coordinates": "unchanged",
+        "maxVisualDepth": 18,
+        "sideOverhang": 0,
+        "nearestLowerTopSeparation": 60,
+        "conservativeStandingClearance": 2
+      },
+      "lowerSupports": [],
+      "gems": [],
+      "letters": [],
+      "checkpoints": [],
+      "decorations": [],
+      "joins": []
+    },
+    {
+      "id": "site-descent-outside",
+      "role": "modular-steel-deck",
+      "from": {
+        "x": 1580,
+        "y": 560
+      },
+      "to": {
+        "x": 1580,
+        "y": 560
+      },
+      "width": 260,
+      "seconds": 1,
+      "pause": 0,
+      "sweptBounds": {
+        "left": 1580,
+        "right": 1840,
+        "top": 560
+      },
+      "current": {
+        "asset": "public/assets/site/environment.png#terrain-flat",
+        "renderer": "src/world/renderer.ts#drawPlatforms",
+        "visualDepth": 12
+      },
+      "proposal": {
+        "coordinates": "unchanged",
+        "maxVisualDepth": 18,
+        "sideOverhang": 0,
+        "nearestLowerTopSeparation": 60,
+        "conservativeStandingClearance": 2
+      },
+      "lowerSupports": [
+        "site-descent-base-catch"
+      ],
+      "gems": [
+        "site-bonus-004"
+      ],
+      "letters": [],
+      "checkpoints": [],
+      "decorations": [],
+      "joins": [
+        {
+          "ids": [
+            "site-descent-outside",
+            "site-descent-left-2"
+          ],
+          "top": 560,
+          "overlap": [
+            1700,
+            1840
+          ]
+        }
+      ]
+    },
+    {
+      "id": "site-descent-base-catch",
+      "role": "modular-steel-deck",
+      "from": {
+        "x": 1460,
+        "y": 620
+      },
+      "to": {
+        "x": 1460,
+        "y": 620
+      },
+      "width": 440,
+      "seconds": 1,
+      "pause": 0,
+      "sweptBounds": {
+        "left": 1460,
+        "right": 1900,
+        "top": 620
+      },
+      "current": {
+        "asset": "public/assets/site/environment.png#terrain-flat",
+        "renderer": "src/world/renderer.ts#drawPlatforms",
+        "visualDepth": 12
+      },
+      "proposal": {
+        "coordinates": "unchanged",
+        "maxVisualDepth": 18,
+        "sideOverhang": 0,
+        "nearestLowerTopSeparation": 60,
+        "conservativeStandingClearance": 2
+      },
+      "lowerSupports": [],
+      "gems": [],
+      "letters": [],
+      "checkpoints": [],
+      "decorations": [],
+      "joins": [
+        {
+          "ids": [
+            "site-descent-base-catch",
+            "site-yard"
+          ],
+          "top": 620,
+          "overlap": [
+            1880,
+            1900
+          ]
+        }
+      ]
+    },
+    {
+      "id": "site-crane-ferry",
+      "role": "whole-steel-ferry",
+      "from": {
+        "x": 470,
+        "y": 320
+      },
+      "to": {
+        "x": 554,
+        "y": 320
+      },
+      "width": 96,
+      "seconds": 1.4,
+      "pause": 1.2,
+      "sweptBounds": {
+        "left": 470,
+        "right": 650,
+        "top": 320
+      },
+      "current": {
+        "asset": "public/assets/site/environment.png#terrain-flat",
+        "renderer": "src/world/renderer.ts#drawPlatforms",
+        "visualDepth": 12
+      },
+      "proposal": {
+        "coordinates": "unchanged",
+        "maxVisualDepth": 18,
+        "sideOverhang": 0,
+        "nearestLowerTopSeparation": 60,
+        "conservativeStandingClearance": 2
+      },
+      "lowerSupports": [
+        "site-crane-catch"
+      ],
+      "gems": [],
+      "letters": [],
+      "checkpoints": [],
+      "decorations": [],
+      "joins": []
+    },
+    {
+      "id": "site-descent-1",
+      "role": "modular-steel-deck",
+      "from": {
+        "x": 1820,
+        "y": 440
+      },
+      "to": {
+        "x": 1820,
+        "y": 440
+      },
+      "width": 200,
+      "seconds": 1,
+      "pause": 0,
+      "sweptBounds": {
+        "left": 1820,
+        "right": 2020,
+        "top": 440
+      },
+      "current": {
+        "asset": "public/assets/site/environment.png#terrain-flat",
+        "renderer": "src/world/renderer.ts#drawPlatforms",
+        "visualDepth": 12
+      },
+      "proposal": {
+        "coordinates": "unchanged",
+        "maxVisualDepth": 18,
+        "sideOverhang": 0,
+        "nearestLowerTopSeparation": 60,
+        "conservativeStandingClearance": 2
+      },
+      "lowerSupports": [
+        "site-descent-e",
+        "site-descent-left-1"
+      ],
+      "gems": [
+        "site-gem-022",
+        "site-gem-023"
+      ],
+      "letters": [],
+      "checkpoints": [],
+      "decorations": [],
+      "joins": []
+    },
+    {
+      "id": "site-descent-e",
+      "role": "modular-steel-deck",
+      "from": {
+        "x": 1800,
+        "y": 500
+      },
+      "to": {
+        "x": 1800,
+        "y": 500
+      },
+      "width": 320,
+      "seconds": 1,
+      "pause": 0,
+      "sweptBounds": {
+        "left": 1800,
+        "right": 2120,
+        "top": 500
+      },
+      "current": {
+        "asset": "public/assets/site/environment.png#terrain-flat",
+        "renderer": "src/world/renderer.ts#drawPlatforms",
+        "visualDepth": 12
+      },
+      "proposal": {
+        "coordinates": "unchanged",
+        "maxVisualDepth": 18,
+        "sideOverhang": 0,
+        "nearestLowerTopSeparation": 60,
+        "conservativeStandingClearance": 2
+      },
+      "lowerSupports": [
+        "site-descent-outside",
+        "site-descent-3",
+        "site-descent-left-2"
+      ],
+      "gems": [
+        "site-gem-024",
+        "site-gem-025",
+        "site-gem-026",
+        "site-gem-027"
+      ],
+      "letters": [
+        "sunset-letter-e"
+      ],
+      "checkpoints": [
+        "site-checkpoint-descent"
+      ],
+      "decorations": [],
+      "joins": [
+        {
+          "ids": [
+            "site-descent-e",
+            "site-descent-left-1"
+          ],
+          "top": 500,
+          "overlap": [
+            1800,
+            1940
+          ]
+        }
+      ]
+    },
+    {
+      "id": "site-descent-3",
+      "role": "modular-steel-deck",
+      "from": {
+        "x": 2020,
+        "y": 560
+      },
+      "to": {
+        "x": 2020,
+        "y": 560
+      },
+      "width": 200,
+      "seconds": 1,
+      "pause": 0,
+      "sweptBounds": {
+        "left": 2020,
+        "right": 2220,
+        "top": 560
+      },
+      "current": {
+        "asset": "public/assets/site/environment.png#terrain-flat",
+        "renderer": "src/world/renderer.ts#drawPlatforms",
+        "visualDepth": 12
+      },
+      "proposal": {
+        "coordinates": "unchanged",
+        "maxVisualDepth": 18,
+        "sideOverhang": 0,
+        "nearestLowerTopSeparation": 60,
+        "conservativeStandingClearance": 2
+      },
+      "lowerSupports": [
+        "site-yard"
+      ],
+      "gems": [
+        "site-gem-028",
+        "site-gem-029"
+      ],
+      "letters": [],
+      "checkpoints": [],
+      "decorations": [],
+      "joins": []
+    },
+    {
+      "id": "site-yard",
+      "role": "modular-steel-deck",
+      "from": {
+        "x": 1880,
+        "y": 620
+      },
+      "to": {
+        "x": 1880,
+        "y": 620
+      },
+      "width": 640,
+      "seconds": 1,
+      "pause": 0,
+      "sweptBounds": {
+        "left": 1880,
+        "right": 2520,
+        "top": 620
+      },
+      "current": {
+        "asset": "public/assets/site/environment.png#terrain-flat",
+        "renderer": "src/world/renderer.ts#drawPlatforms",
+        "visualDepth": 12
+      },
+      "proposal": {
+        "coordinates": "unchanged",
+        "maxVisualDepth": 18,
+        "sideOverhang": 0,
+        "nearestLowerTopSeparation": 60,
+        "conservativeStandingClearance": 2
+      },
+      "lowerSupports": [],
+      "gems": [
+        "site-gem-030",
+        "site-gem-031",
+        "site-gem-032",
+        "site-gem-033"
+      ],
+      "letters": [],
+      "checkpoints": [
+        "site-checkpoint-yard"
+      ],
+      "decorations": [
+        "site-deco-3"
+      ],
+      "joins": [
+        {
+          "ids": [
+            "site-descent-base-catch",
+            "site-yard"
+          ],
+          "top": 620,
+          "overlap": [
+            1880,
+            1900
+          ]
+        },
+        {
+          "ids": [
+            "site-yard",
+            "site-final-base-catch"
+          ],
+          "top": 620,
+          "overlap": [
+            2520,
+            2520
+          ]
+        }
+      ]
+    },
+    {
+      "id": "site-descent-left-1",
+      "role": "modular-steel-deck",
+      "from": {
+        "x": 1700,
+        "y": 500
+      },
+      "to": {
+        "x": 1700,
+        "y": 500
+      },
+      "width": 240,
+      "seconds": 1,
+      "pause": 0,
+      "sweptBounds": {
+        "left": 1700,
+        "right": 1940,
+        "top": 500
+      },
+      "current": {
+        "asset": "public/assets/site/environment.png#terrain-flat",
+        "renderer": "src/world/renderer.ts#drawPlatforms",
+        "visualDepth": 12
+      },
+      "proposal": {
+        "coordinates": "unchanged",
+        "maxVisualDepth": 18,
+        "sideOverhang": 0,
+        "nearestLowerTopSeparation": 60,
+        "conservativeStandingClearance": 2
+      },
+      "lowerSupports": [
+        "site-descent-outside",
+        "site-descent-left-2"
+      ],
+      "gems": [
+        "site-gem-024",
+        "site-gem-025",
+        "site-bonus-003"
+      ],
+      "letters": [
+        "sunset-letter-e"
+      ],
+      "checkpoints": [],
+      "decorations": [],
+      "joins": [
+        {
+          "ids": [
+            "site-descent-e",
+            "site-descent-left-1"
+          ],
+          "top": 500,
+          "overlap": [
+            1800,
+            1940
+          ]
+        }
+      ]
+    },
+    {
+      "id": "site-descent-left-2",
+      "role": "modular-steel-deck",
+      "from": {
+        "x": 1700,
+        "y": 560
+      },
+      "to": {
+        "x": 1700,
+        "y": 560
+      },
+      "width": 200,
+      "seconds": 1,
+      "pause": 0,
+      "sweptBounds": {
+        "left": 1700,
+        "right": 1900,
+        "top": 560
+      },
+      "current": {
+        "asset": "public/assets/site/environment.png#terrain-flat",
+        "renderer": "src/world/renderer.ts#drawPlatforms",
+        "visualDepth": 12
+      },
+      "proposal": {
+        "coordinates": "unchanged",
+        "maxVisualDepth": 18,
+        "sideOverhang": 0,
+        "nearestLowerTopSeparation": 60,
+        "conservativeStandingClearance": 2
+      },
+      "lowerSupports": [
+        "site-descent-base-catch",
+        "site-yard"
+      ],
+      "gems": [
+        "site-bonus-004"
+      ],
+      "letters": [],
+      "checkpoints": [],
+      "decorations": [],
+      "joins": [
+        {
+          "ids": [
+            "site-descent-outside",
+            "site-descent-left-2"
+          ],
+          "top": 560,
+          "overlap": [
+            1700,
+            1840
+          ]
+        }
+      ]
+    },
+    {
+      "id": "site-final-1",
+      "role": "modular-steel-deck",
+      "from": {
+        "x": 2440,
+        "y": 560
+      },
+      "to": {
+        "x": 2440,
+        "y": 560
+      },
+      "width": 180,
+      "seconds": 1,
+      "pause": 0,
+      "sweptBounds": {
+        "left": 2440,
+        "right": 2620,
+        "top": 560
+      },
+      "current": {
+        "asset": "public/assets/site/environment.png#terrain-flat",
+        "renderer": "src/world/renderer.ts#drawPlatforms",
+        "visualDepth": 12
+      },
+      "proposal": {
+        "coordinates": "unchanged",
+        "maxVisualDepth": 18,
+        "sideOverhang": 0,
+        "nearestLowerTopSeparation": 60,
+        "conservativeStandingClearance": 2
+      },
+      "lowerSupports": [
+        "site-yard",
+        "site-final-base-catch"
+      ],
+      "gems": [
+        "site-gem-034",
+        "site-gem-035"
+      ],
+      "letters": [],
+      "checkpoints": [],
+      "decorations": [],
+      "joins": [
+        {
+          "ids": [
+            "site-final-1",
+            "site-final-outside-560"
+          ],
+          "top": 560,
+          "overlap": [
+            2440,
+            2520
+          ]
+        }
+      ]
+    },
+    {
+      "id": "site-final-2",
+      "role": "modular-steel-deck",
+      "from": {
+        "x": 2560,
+        "y": 500
+      },
+      "to": {
+        "x": 2560,
+        "y": 500
+      },
+      "width": 180,
+      "seconds": 1,
+      "pause": 0,
+      "sweptBounds": {
+        "left": 2560,
+        "right": 2740,
+        "top": 500
+      },
+      "current": {
+        "asset": "public/assets/site/environment.png#terrain-flat",
+        "renderer": "src/world/renderer.ts#drawPlatforms",
+        "visualDepth": 12
+      },
+      "proposal": {
+        "coordinates": "unchanged",
+        "maxVisualDepth": 18,
+        "sideOverhang": 0,
+        "nearestLowerTopSeparation": 60,
+        "conservativeStandingClearance": 2
+      },
+      "lowerSupports": [
+        "site-final-1",
+        "site-final-right-560"
+      ],
+      "gems": [
+        "site-gem-036",
+        "site-gem-037",
+        "site-gem-055"
+      ],
+      "letters": [],
+      "checkpoints": [],
+      "decorations": [],
+      "joins": []
+    },
+    {
+      "id": "site-rest",
+      "role": "modular-steel-deck",
+      "from": {
+        "x": 2660,
+        "y": 440
+      },
+      "to": {
+        "x": 2660,
+        "y": 440
+      },
+      "width": 260,
+      "seconds": 1,
+      "pause": 0,
+      "sweptBounds": {
+        "left": 2660,
+        "right": 2920,
+        "top": 440
+      },
+      "current": {
+        "asset": "public/assets/site/environment.png#terrain-flat",
+        "renderer": "src/world/renderer.ts#drawPlatforms",
+        "visualDepth": 12
+      },
+      "proposal": {
+        "coordinates": "unchanged",
+        "maxVisualDepth": 18,
+        "sideOverhang": 0,
+        "nearestLowerTopSeparation": 60,
+        "conservativeStandingClearance": 2
+      },
+      "lowerSupports": [
+        "site-final-2",
+        "site-final-right-500"
+      ],
+      "gems": [
+        "site-gem-038",
+        "site-gem-039",
+        "site-gem-040"
+      ],
+      "letters": [],
+      "checkpoints": [
+        "site-checkpoint-scaffold"
+      ],
+      "decorations": [],
+      "joins": []
+    },
+    {
+      "id": "site-final-4",
+      "role": "modular-steel-deck",
+      "from": {
+        "x": 2560,
+        "y": 380
+      },
+      "to": {
+        "x": 2560,
+        "y": 380
+      },
+      "width": 180,
+      "seconds": 1,
+      "pause": 0,
+      "sweptBounds": {
+        "left": 2560,
+        "right": 2740,
+        "top": 380
+      },
+      "current": {
+        "asset": "public/assets/site/environment.png#terrain-flat",
+        "renderer": "src/world/renderer.ts#drawPlatforms",
+        "visualDepth": 12
+      },
+      "proposal": {
+        "coordinates": "unchanged",
+        "maxVisualDepth": 18,
+        "sideOverhang": 0,
+        "nearestLowerTopSeparation": 60,
+        "conservativeStandingClearance": 2
+      },
+      "lowerSupports": [
+        "site-rest",
+        "site-final-left-440"
+      ],
+      "gems": [
+        "site-gem-041",
+        "site-gem-042"
+      ],
+      "letters": [],
+      "checkpoints": [],
+      "decorations": [],
+      "joins": []
+    },
+    {
+      "id": "site-final-5",
+      "role": "modular-steel-deck",
+      "from": {
+        "x": 2660,
+        "y": 320
+      },
+      "to": {
+        "x": 2660,
+        "y": 320
+      },
+      "width": 180,
+      "seconds": 1,
+      "pause": 0,
+      "sweptBounds": {
+        "left": 2660,
+        "right": 2840,
+        "top": 320
+      },
+      "current": {
+        "asset": "public/assets/site/environment.png#terrain-flat",
+        "renderer": "src/world/renderer.ts#drawPlatforms",
+        "visualDepth": 12
+      },
+      "proposal": {
+        "coordinates": "unchanged",
+        "maxVisualDepth": 18,
+        "sideOverhang": 0,
+        "nearestLowerTopSeparation": 60,
+        "conservativeStandingClearance": 2
+      },
+      "lowerSupports": [
+        "site-final-4",
+        "site-final-right-380"
+      ],
+      "gems": [
+        "site-gem-043",
+        "site-gem-044",
+        "site-gem-056"
+      ],
+      "letters": [],
+      "checkpoints": [],
+      "decorations": [],
+      "joins": []
+    },
+    {
+      "id": "site-final-6",
+      "role": "modular-steel-deck",
+      "from": {
+        "x": 2760,
+        "y": 260
+      },
+      "to": {
+        "x": 2760,
+        "y": 260
+      },
+      "width": 240,
+      "seconds": 1,
+      "pause": 0,
+      "sweptBounds": {
+        "left": 2760,
+        "right": 3000,
+        "top": 260
+      },
+      "current": {
+        "asset": "public/assets/site/environment.png#terrain-flat",
+        "renderer": "src/world/renderer.ts#drawPlatforms",
+        "visualDepth": 12
+      },
+      "proposal": {
+        "coordinates": "unchanged",
+        "maxVisualDepth": 18,
+        "sideOverhang": 0,
+        "nearestLowerTopSeparation": 60,
+        "conservativeStandingClearance": 2
+      },
+      "lowerSupports": [
+        "site-final-5",
+        "site-final-right-320"
+      ],
+      "gems": [
+        "site-gem-045",
+        "site-gem-046"
+      ],
+      "letters": [],
+      "checkpoints": [],
+      "decorations": [],
+      "joins": []
+    },
+    {
+      "id": "site-final-m",
+      "role": "modular-steel-deck",
+      "from": {
+        "x": 2660,
+        "y": 200
+      },
+      "to": {
+        "x": 2660,
+        "y": 200
+      },
+      "width": 220,
+      "seconds": 1,
+      "pause": 0,
+      "sweptBounds": {
+        "left": 2660,
+        "right": 2880,
+        "top": 200
+      },
+      "current": {
+        "asset": "public/assets/site/environment.png#terrain-flat",
+        "renderer": "src/world/renderer.ts#drawPlatforms",
+        "visualDepth": 12
+      },
+      "proposal": {
+        "coordinates": "unchanged",
+        "maxVisualDepth": 18,
+        "sideOverhang": 0,
+        "nearestLowerTopSeparation": 60,
+        "conservativeStandingClearance": 2
+      },
+      "lowerSupports": [
+        "site-final-6",
+        "site-final-left-260"
+      ],
+      "gems": [
+        "site-gem-047",
+        "site-gem-048",
+        "site-gem-049"
+      ],
+      "letters": [
+        "sunset-letter-m"
+      ],
+      "checkpoints": [],
+      "decorations": [],
+      "joins": []
+    },
+    {
+      "id": "site-roof",
+      "role": "modular-steel-deck",
+      "from": {
+        "x": 2800,
+        "y": 140
+      },
+      "to": {
+        "x": 2800,
+        "y": 140
+      },
+      "width": 320,
+      "seconds": 1,
+      "pause": 0,
+      "sweptBounds": {
+        "left": 2800,
+        "right": 3120,
+        "top": 140
+      },
+      "current": {
+        "asset": "public/assets/site/environment.png#terrain-flat",
+        "renderer": "src/world/renderer.ts#drawPlatforms",
+        "visualDepth": 12
+      },
+      "proposal": {
+        "coordinates": "unchanged",
+        "maxVisualDepth": 18,
+        "sideOverhang": 0,
+        "nearestLowerTopSeparation": 60,
+        "conservativeStandingClearance": 2
+      },
+      "lowerSupports": [
+        "site-final-m"
+      ],
+      "gems": [
+        "site-gem-050",
+        "site-gem-051",
+        "site-gem-052",
+        "site-gem-053",
+        "site-gem-054"
+      ],
+      "letters": [],
+      "checkpoints": [],
+      "decorations": [],
+      "joins": []
+    },
+    {
+      "id": "site-final-base-catch",
+      "role": "modular-steel-deck",
+      "from": {
+        "x": 2520,
+        "y": 620
+      },
+      "to": {
+        "x": 2520,
+        "y": 620
+      },
+      "width": 600,
+      "seconds": 1,
+      "pause": 0,
+      "sweptBounds": {
+        "left": 2520,
+        "right": 3120,
+        "top": 620
+      },
+      "current": {
+        "asset": "public/assets/site/environment.png#terrain-flat",
+        "renderer": "src/world/renderer.ts#drawPlatforms",
+        "visualDepth": 12
+      },
+      "proposal": {
+        "coordinates": "unchanged",
+        "maxVisualDepth": 18,
+        "sideOverhang": 0,
+        "nearestLowerTopSeparation": 60,
+        "conservativeStandingClearance": 2
+      },
+      "lowerSupports": [],
+      "gems": [],
+      "letters": [],
+      "checkpoints": [],
+      "decorations": [],
+      "joins": [
+        {
+          "ids": [
+            "site-yard",
+            "site-final-base-catch"
+          ],
+          "top": 620,
+          "overlap": [
+            2520,
+            2520
+          ]
+        }
+      ]
+    },
+    {
+      "id": "site-final-right-560",
+      "role": "modular-steel-deck",
+      "from": {
+        "x": 2700,
+        "y": 560
+      },
+      "to": {
+        "x": 2700,
+        "y": 560
+      },
+      "width": 420,
+      "seconds": 1,
+      "pause": 0,
+      "sweptBounds": {
+        "left": 2700,
+        "right": 3120,
+        "top": 560
+      },
+      "current": {
+        "asset": "public/assets/site/environment.png#terrain-flat",
+        "renderer": "src/world/renderer.ts#drawPlatforms",
+        "visualDepth": 12
+      },
+      "proposal": {
+        "coordinates": "unchanged",
+        "maxVisualDepth": 18,
+        "sideOverhang": 0,
+        "nearestLowerTopSeparation": 60,
+        "conservativeStandingClearance": 2
+      },
+      "lowerSupports": [
+        "site-final-base-catch"
+      ],
+      "gems": [],
+      "letters": [],
+      "checkpoints": [],
+      "decorations": [],
+      "joins": []
+    },
+    {
+      "id": "site-final-right-500",
+      "role": "modular-steel-deck",
+      "from": {
+        "x": 2880,
+        "y": 500
+      },
+      "to": {
+        "x": 2880,
+        "y": 500
+      },
+      "width": 240,
+      "seconds": 1,
+      "pause": 0,
+      "sweptBounds": {
+        "left": 2880,
+        "right": 3120,
+        "top": 500
+      },
+      "current": {
+        "asset": "public/assets/site/environment.png#terrain-flat",
+        "renderer": "src/world/renderer.ts#drawPlatforms",
+        "visualDepth": 12
+      },
+      "proposal": {
+        "coordinates": "unchanged",
+        "maxVisualDepth": 18,
+        "sideOverhang": 0,
+        "nearestLowerTopSeparation": 60,
+        "conservativeStandingClearance": 2
+      },
+      "lowerSupports": [
+        "site-final-right-560"
+      ],
+      "gems": [],
+      "letters": [],
+      "checkpoints": [],
+      "decorations": [],
+      "joins": []
+    },
+    {
+      "id": "site-final-left-440",
+      "role": "modular-steel-deck",
+      "from": {
+        "x": 2460,
+        "y": 440
+      },
+      "to": {
+        "x": 2460,
+        "y": 440
+      },
+      "width": 140,
+      "seconds": 1,
+      "pause": 0,
+      "sweptBounds": {
+        "left": 2460,
+        "right": 2600,
+        "top": 440
+      },
+      "current": {
+        "asset": "public/assets/site/environment.png#terrain-flat",
+        "renderer": "src/world/renderer.ts#drawPlatforms",
+        "visualDepth": 12
+      },
+      "proposal": {
+        "coordinates": "unchanged",
+        "maxVisualDepth": 18,
+        "sideOverhang": 0,
+        "nearestLowerTopSeparation": 60,
+        "conservativeStandingClearance": 2
+      },
+      "lowerSupports": [
+        "site-final-2",
+        "site-final-outside-500"
+      ],
+      "gems": [
+        "site-bonus-005"
+      ],
+      "letters": [],
+      "checkpoints": [],
+      "decorations": [],
+      "joins": []
+    },
+    {
+      "id": "site-final-right-380",
+      "role": "modular-steel-deck",
+      "from": {
+        "x": 2780,
+        "y": 380
+      },
+      "to": {
+        "x": 2780,
+        "y": 380
+      },
+      "width": 340,
+      "seconds": 1,
+      "pause": 0,
+      "sweptBounds": {
+        "left": 2780,
+        "right": 3120,
+        "top": 380
+      },
+      "current": {
+        "asset": "public/assets/site/environment.png#terrain-flat",
+        "renderer": "src/world/renderer.ts#drawPlatforms",
+        "visualDepth": 12
+      },
+      "proposal": {
+        "coordinates": "unchanged",
+        "maxVisualDepth": 18,
+        "sideOverhang": 0,
+        "nearestLowerTopSeparation": 60,
+        "conservativeStandingClearance": 2
+      },
+      "lowerSupports": [
+        "site-rest"
+      ],
+      "gems": [],
+      "letters": [],
+      "checkpoints": [],
+      "decorations": [],
+      "joins": []
+    },
+    {
+      "id": "site-final-right-320",
+      "role": "modular-steel-deck",
+      "from": {
+        "x": 2880,
+        "y": 320
+      },
+      "to": {
+        "x": 2880,
+        "y": 320
+      },
+      "width": 240,
+      "seconds": 1,
+      "pause": 0,
+      "sweptBounds": {
+        "left": 2880,
+        "right": 3120,
+        "top": 320
+      },
+      "current": {
+        "asset": "public/assets/site/environment.png#terrain-flat",
+        "renderer": "src/world/renderer.ts#drawPlatforms",
+        "visualDepth": 12
+      },
+      "proposal": {
+        "coordinates": "unchanged",
+        "maxVisualDepth": 18,
+        "sideOverhang": 0,
+        "nearestLowerTopSeparation": 60,
+        "conservativeStandingClearance": 2
+      },
+      "lowerSupports": [
+        "site-final-right-380"
+      ],
+      "gems": [],
+      "letters": [],
+      "checkpoints": [],
+      "decorations": [],
+      "joins": []
+    },
+    {
+      "id": "site-final-left-320",
+      "role": "modular-steel-deck",
+      "from": {
+        "x": 2400,
+        "y": 320
+      },
+      "to": {
+        "x": 2400,
+        "y": 320
+      },
+      "width": 200,
+      "seconds": 1,
+      "pause": 0,
+      "sweptBounds": {
+        "left": 2400,
+        "right": 2600,
+        "top": 320
+      },
+      "current": {
+        "asset": "public/assets/site/environment.png#terrain-flat",
+        "renderer": "src/world/renderer.ts#drawPlatforms",
+        "visualDepth": 12
+      },
+      "proposal": {
+        "coordinates": "unchanged",
+        "maxVisualDepth": 18,
+        "sideOverhang": 0,
+        "nearestLowerTopSeparation": 60,
+        "conservativeStandingClearance": 2
+      },
+      "lowerSupports": [
+        "site-final-4",
+        "site-final-outside-380"
+      ],
+      "gems": [],
+      "letters": [],
+      "checkpoints": [],
+      "decorations": [],
+      "joins": []
+    },
+    {
+      "id": "site-final-left-260",
+      "role": "modular-steel-deck",
+      "from": {
+        "x": 2540,
+        "y": 260
+      },
+      "to": {
+        "x": 2540,
+        "y": 260
+      },
+      "width": 180,
+      "seconds": 1,
+      "pause": 0,
+      "sweptBounds": {
+        "left": 2540,
+        "right": 2720,
+        "top": 260
+      },
+      "current": {
+        "asset": "public/assets/site/environment.png#terrain-flat",
+        "renderer": "src/world/renderer.ts#drawPlatforms",
+        "visualDepth": 12
+      },
+      "proposal": {
+        "coordinates": "unchanged",
+        "maxVisualDepth": 18,
+        "sideOverhang": 0,
+        "nearestLowerTopSeparation": 60,
+        "conservativeStandingClearance": 2
+      },
+      "lowerSupports": [
+        "site-final-5",
+        "site-final-left-320"
+      ],
+      "gems": [
+        "site-bonus-006"
+      ],
+      "letters": [],
+      "checkpoints": [],
+      "decorations": [],
+      "joins": []
+    },
+    {
+      "id": "site-final-outside-380",
+      "role": "modular-steel-deck",
+      "from": {
+        "x": 2260,
+        "y": 380
+      },
+      "to": {
+        "x": 2260,
+        "y": 380
+      },
+      "width": 240,
+      "seconds": 1,
+      "pause": 0,
+      "sweptBounds": {
+        "left": 2260,
+        "right": 2500,
+        "top": 380
+      },
+      "current": {
+        "asset": "public/assets/site/environment.png#terrain-flat",
+        "renderer": "src/world/renderer.ts#drawPlatforms",
+        "visualDepth": 12
+      },
+      "proposal": {
+        "coordinates": "unchanged",
+        "maxVisualDepth": 18,
+        "sideOverhang": 0,
+        "nearestLowerTopSeparation": 60,
+        "conservativeStandingClearance": 2
+      },
+      "lowerSupports": [
+        "site-final-left-440",
+        "site-final-outside-440"
+      ],
+      "gems": [],
+      "letters": [],
+      "checkpoints": [],
+      "decorations": [],
+      "joins": []
+    },
+    {
+      "id": "site-final-outside-440",
+      "role": "modular-steel-deck",
+      "from": {
+        "x": 2140,
+        "y": 440
+      },
+      "to": {
+        "x": 2140,
+        "y": 440
+      },
+      "width": 260,
+      "seconds": 1,
+      "pause": 0,
+      "sweptBounds": {
+        "left": 2140,
+        "right": 2400,
+        "top": 440
+      },
+      "current": {
+        "asset": "public/assets/site/environment.png#terrain-flat",
+        "renderer": "src/world/renderer.ts#drawPlatforms",
+        "visualDepth": 12
+      },
+      "proposal": {
+        "coordinates": "unchanged",
+        "maxVisualDepth": 18,
+        "sideOverhang": 0,
+        "nearestLowerTopSeparation": 60,
+        "conservativeStandingClearance": 2
+      },
+      "lowerSupports": [
+        "site-final-outside-500"
+      ],
+      "gems": [],
+      "letters": [],
+      "checkpoints": [],
+      "decorations": [],
+      "joins": []
+    },
+    {
+      "id": "site-final-outside-500",
+      "role": "modular-steel-deck",
+      "from": {
+        "x": 2220,
+        "y": 500
+      },
+      "to": {
+        "x": 2220,
+        "y": 500
+      },
+      "width": 280,
+      "seconds": 1,
+      "pause": 0,
+      "sweptBounds": {
+        "left": 2220,
+        "right": 2500,
+        "top": 500
+      },
+      "current": {
+        "asset": "public/assets/site/environment.png#terrain-flat",
+        "renderer": "src/world/renderer.ts#drawPlatforms",
+        "visualDepth": 12
+      },
+      "proposal": {
+        "coordinates": "unchanged",
+        "maxVisualDepth": 18,
+        "sideOverhang": 0,
+        "nearestLowerTopSeparation": 60,
+        "conservativeStandingClearance": 2
+      },
+      "lowerSupports": [
+        "site-descent-3",
+        "site-final-1",
+        "site-final-outside-560"
+      ],
+      "gems": [],
+      "letters": [],
+      "checkpoints": [],
+      "decorations": [],
+      "joins": []
+    },
+    {
+      "id": "site-final-outside-560",
+      "role": "modular-steel-deck",
+      "from": {
+        "x": 2380,
+        "y": 560
+      },
+      "to": {
+        "x": 2380,
+        "y": 560
+      },
+      "width": 140,
+      "seconds": 1,
+      "pause": 0,
+      "sweptBounds": {
+        "left": 2380,
+        "right": 2520,
+        "top": 560
+      },
+      "current": {
+        "asset": "public/assets/site/environment.png#terrain-flat",
+        "renderer": "src/world/renderer.ts#drawPlatforms",
+        "visualDepth": 12
+      },
+      "proposal": {
+        "coordinates": "unchanged",
+        "maxVisualDepth": 18,
+        "sideOverhang": 0,
+        "nearestLowerTopSeparation": 60,
+        "conservativeStandingClearance": 2
+      },
+      "lowerSupports": [
+        "site-yard",
+        "site-final-base-catch"
+      ],
+      "gems": [
+        "site-gem-034"
+      ],
+      "letters": [],
+      "checkpoints": [],
+      "decorations": [],
+      "joins": [
+        {
+          "ids": [
+            "site-final-1",
+            "site-final-outside-560"
+          ],
+          "top": 560,
+          "overlap": [
+            2440,
+            2520
+          ]
+        }
+      ]
+    }
+  ],
+  "sameLevelJoins": [
+    {
+      "ids": [
+        "site-entrance",
+        "site-first-low-right"
+      ],
+      "top": 560,
+      "overlap": [
+        280,
+        300
+      ]
+    },
+    {
+      "ids": [
+        "site-first-1",
+        "site-first-left-1"
+      ],
+      "top": 500,
+      "overlap": [
+        160,
+        180
+      ]
+    },
+    {
+      "ids": [
+        "site-first-3",
+        "site-crane-catch"
+      ],
+      "top": 380,
+      "overlap": [
+        340,
+        340
+      ]
+    },
+    {
+      "ids": [
+        "site-descent-outside",
+        "site-descent-left-2"
+      ],
+      "top": 560,
+      "overlap": [
+        1700,
+        1840
+      ]
+    },
+    {
+      "ids": [
+        "site-descent-base-catch",
+        "site-yard"
+      ],
+      "top": 620,
+      "overlap": [
+        1880,
+        1900
+      ]
+    },
+    {
+      "ids": [
+        "site-descent-e",
+        "site-descent-left-1"
+      ],
+      "top": 500,
+      "overlap": [
+        1800,
+        1940
+      ]
+    },
+    {
+      "ids": [
+        "site-yard",
+        "site-final-base-catch"
+      ],
+      "top": 620,
+      "overlap": [
+        2520,
+        2520
+      ]
+    },
+    {
+      "ids": [
+        "site-final-1",
+        "site-final-outside-560"
+      ],
+      "top": 560,
+      "overlap": [
+        2440,
+        2520
+      ]
+    }
+  ],
+  "terrain": [
+    {
+      "id": "surface-0",
+      "x1": 0,
+      "x2": 960,
+      "y1": 680,
+      "y2": 680,
+      "role": "gravel ground",
+      "currentAssets": [
+        "public/assets/trails/materials.png#gravel",
+        "src/world/trail-presentation.ts#drawTerrainEdge"
+      ],
+      "proposal": "Preserve complete contour; illustrated gravel lip and substrate, with whole edge pieces for the steep walls."
+    },
+    {
+      "id": "surface-1",
+      "x1": 960,
+      "x2": 980,
+      "y1": 680,
+      "y2": 1000,
+      "role": "steep recovery-gap wall",
+      "currentAssets": [
+        "public/assets/trails/materials.png#gravel",
+        "src/world/trail-presentation.ts#drawTerrainEdge"
+      ],
+      "proposal": "Preserve complete contour; illustrated gravel lip and substrate, with whole edge pieces for the steep walls."
+    },
+    {
+      "id": "surface-2",
+      "x1": 980,
+      "x2": 1320,
+      "y1": 1000,
+      "y2": 1000,
+      "role": "below-world pit floor",
+      "currentAssets": [
+        "public/assets/trails/materials.png#gravel",
+        "src/world/trail-presentation.ts#drawTerrainEdge"
+      ],
+      "proposal": "Preserve complete contour; illustrated gravel lip and substrate, with whole edge pieces for the steep walls."
+    },
+    {
+      "id": "surface-3",
+      "x1": 1320,
+      "x2": 1340,
+      "y1": 1000,
+      "y2": 680,
+      "role": "steep recovery-gap wall",
+      "currentAssets": [
+        "public/assets/trails/materials.png#gravel",
+        "src/world/trail-presentation.ts#drawTerrainEdge"
+      ],
+      "proposal": "Preserve complete contour; illustrated gravel lip and substrate, with whole edge pieces for the steep walls."
+    },
+    {
+      "id": "surface-4",
+      "x1": 1340,
+      "x2": 3120,
+      "y1": 680,
+      "y2": 680,
+      "role": "gravel ground",
+      "currentAssets": [
+        "public/assets/trails/materials.png#gravel",
+        "src/world/trail-presentation.ts#drawTerrainEdge"
+      ],
+      "proposal": "Preserve complete contour; illustrated gravel lip and substrate, with whole edge pieces for the steep walls."
+    }
+  ],
+  "gems": [
+    {
+      "id": "site-gem-001",
+      "kind": "gem",
+      "x": 100,
+      "y": 542,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-entrance"
+      ]
+    },
+    {
+      "id": "site-gem-002",
+      "kind": "gem",
+      "x": 160,
+      "y": 542,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-entrance"
+      ]
+    },
+    {
+      "id": "site-gem-003",
+      "kind": "gem",
+      "x": 220,
+      "y": 542,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-entrance"
+      ]
+    },
+    {
+      "id": "site-gem-004",
+      "kind": "gem",
+      "x": 210,
+      "y": 482,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-first-1"
+      ]
+    },
+    {
+      "id": "site-gem-005",
+      "kind": "gem",
+      "x": 290,
+      "y": 482,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-first-1"
+      ]
+    },
+    {
+      "id": "site-gem-006",
+      "kind": "gem",
+      "x": 280,
+      "y": 422,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-first-b"
+      ]
+    },
+    {
+      "id": "site-gem-007",
+      "kind": "gem",
+      "x": 350,
+      "y": 422,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-first-b"
+      ]
+    },
+    {
+      "id": "site-gem-008",
+      "kind": "gem",
+      "x": 400,
+      "y": 422,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-first-b"
+      ]
+    },
+    {
+      "id": "site-gem-009",
+      "kind": "gem",
+      "x": 200,
+      "y": 362,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-first-3"
+      ]
+    },
+    {
+      "id": "site-gem-010",
+      "kind": "gem",
+      "x": 280,
+      "y": 362,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-first-3"
+      ]
+    },
+    {
+      "id": "site-gem-011",
+      "kind": "gem",
+      "x": 300,
+      "y": 302,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-high-deck"
+      ]
+    },
+    {
+      "id": "site-gem-012",
+      "kind": "gem",
+      "x": 390,
+      "y": 302,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-high-deck"
+      ]
+    },
+    {
+      "id": "site-gem-013",
+      "kind": "gem",
+      "x": 430,
+      "y": 302,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-high-deck"
+      ]
+    },
+    {
+      "id": "site-gem-014",
+      "kind": "gem",
+      "x": 500,
+      "y": 362,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-crane-catch"
+      ]
+    },
+    {
+      "id": "site-gem-015",
+      "kind": "gem",
+      "x": 570,
+      "y": 362,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-crane-catch"
+      ]
+    },
+    {
+      "id": "site-gem-016",
+      "kind": "gem",
+      "x": 680,
+      "y": 302,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-far-dock"
+      ]
+    },
+    {
+      "id": "site-gem-017",
+      "kind": "gem",
+      "x": 740,
+      "y": 302,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-far-dock"
+      ]
+    },
+    {
+      "id": "site-gem-018",
+      "kind": "gem",
+      "x": 780,
+      "y": 302,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-far-dock"
+      ]
+    },
+    {
+      "id": "site-gem-019",
+      "kind": "gem",
+      "x": 700,
+      "y": 362,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-crane-catch"
+      ]
+    },
+    {
+      "id": "site-gem-020",
+      "kind": "gem",
+      "x": 1520,
+      "y": 362,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-crane-catch"
+      ]
+    },
+    {
+      "id": "site-gem-021",
+      "kind": "gem",
+      "x": 1620,
+      "y": 362,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-crane-catch"
+      ]
+    },
+    {
+      "id": "site-gem-022",
+      "kind": "gem",
+      "x": 1840,
+      "y": 422,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-descent-1"
+      ]
+    },
+    {
+      "id": "site-gem-023",
+      "kind": "gem",
+      "x": 1830,
+      "y": 422,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-descent-1"
+      ]
+    },
+    {
+      "id": "site-gem-024",
+      "kind": "gem",
+      "x": 1840,
+      "y": 482,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-descent-e",
+        "site-descent-left-1"
+      ]
+    },
+    {
+      "id": "site-gem-025",
+      "kind": "gem",
+      "x": 1920,
+      "y": 482,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-descent-e",
+        "site-descent-left-1"
+      ]
+    },
+    {
+      "id": "site-gem-026",
+      "kind": "gem",
+      "x": 2000,
+      "y": 482,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-descent-e"
+      ]
+    },
+    {
+      "id": "site-gem-027",
+      "kind": "gem",
+      "x": 2080,
+      "y": 482,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-descent-e"
+      ]
+    },
+    {
+      "id": "site-gem-028",
+      "kind": "gem",
+      "x": 2060,
+      "y": 542,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-descent-3"
+      ]
+    },
+    {
+      "id": "site-gem-029",
+      "kind": "gem",
+      "x": 2150,
+      "y": 542,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-descent-3"
+      ]
+    },
+    {
+      "id": "site-gem-030",
+      "kind": "gem",
+      "x": 2290,
+      "y": 602,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-yard"
+      ]
+    },
+    {
+      "id": "site-gem-031",
+      "kind": "gem",
+      "x": 2320,
+      "y": 602,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-yard"
+      ]
+    },
+    {
+      "id": "site-gem-032",
+      "kind": "gem",
+      "x": 2380,
+      "y": 602,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-yard"
+      ]
+    },
+    {
+      "id": "site-gem-033",
+      "kind": "gem",
+      "x": 2440,
+      "y": 602,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-yard"
+      ]
+    },
+    {
+      "id": "site-gem-034",
+      "kind": "gem",
+      "x": 2480,
+      "y": 542,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-final-1",
+        "site-final-outside-560"
+      ]
+    },
+    {
+      "id": "site-gem-035",
+      "kind": "gem",
+      "x": 2570,
+      "y": 542,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-final-1"
+      ]
+    },
+    {
+      "id": "site-gem-036",
+      "kind": "gem",
+      "x": 2600,
+      "y": 482,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-final-2"
+      ]
+    },
+    {
+      "id": "site-gem-037",
+      "kind": "gem",
+      "x": 2690,
+      "y": 482,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-final-2"
+      ]
+    },
+    {
+      "id": "site-gem-038",
+      "kind": "gem",
+      "x": 2700,
+      "y": 422,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-rest"
+      ]
+    },
+    {
+      "id": "site-gem-039",
+      "kind": "gem",
+      "x": 2755,
+      "y": 422,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-rest"
+      ]
+    },
+    {
+      "id": "site-gem-040",
+      "kind": "gem",
+      "x": 2870,
+      "y": 422,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-rest"
+      ]
+    },
+    {
+      "id": "site-gem-041",
+      "kind": "gem",
+      "x": 2600,
+      "y": 362,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-final-4"
+      ]
+    },
+    {
+      "id": "site-gem-042",
+      "kind": "gem",
+      "x": 2690,
+      "y": 362,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-final-4"
+      ]
+    },
+    {
+      "id": "site-gem-043",
+      "kind": "gem",
+      "x": 2700,
+      "y": 302,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-final-5"
+      ]
+    },
+    {
+      "id": "site-gem-044",
+      "kind": "gem",
+      "x": 2790,
+      "y": 302,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-final-5"
+      ]
+    },
+    {
+      "id": "site-gem-045",
+      "kind": "gem",
+      "x": 2800,
+      "y": 242,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-final-6"
+      ]
+    },
+    {
+      "id": "site-gem-046",
+      "kind": "gem",
+      "x": 2890,
+      "y": 242,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-final-6"
+      ]
+    },
+    {
+      "id": "site-gem-047",
+      "kind": "gem",
+      "x": 2700,
+      "y": 182,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-final-m"
+      ]
+    },
+    {
+      "id": "site-gem-048",
+      "kind": "gem",
+      "x": 2780,
+      "y": 182,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-final-m"
+      ]
+    },
+    {
+      "id": "site-gem-049",
+      "kind": "gem",
+      "x": 2840,
+      "y": 182,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-final-m"
+      ]
+    },
+    {
+      "id": "site-gem-050",
+      "kind": "gem",
+      "x": 2830,
+      "y": 122,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-roof"
+      ]
+    },
+    {
+      "id": "site-gem-051",
+      "kind": "gem",
+      "x": 2880,
+      "y": 122,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-roof"
+      ]
+    },
+    {
+      "id": "site-gem-052",
+      "kind": "gem",
+      "x": 2910,
+      "y": 122,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-roof"
+      ]
+    },
+    {
+      "id": "site-gem-053",
+      "kind": "gem",
+      "x": 2970,
+      "y": 122,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-roof"
+      ]
+    },
+    {
+      "id": "site-gem-054",
+      "kind": "gem",
+      "x": 3010,
+      "y": 122,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-roof"
+      ]
+    },
+    {
+      "id": "site-gem-055",
+      "kind": "gem",
+      "x": 2645,
+      "y": 482,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-final-2"
+      ]
+    },
+    {
+      "id": "site-gem-056",
+      "kind": "gem",
+      "x": 2745,
+      "y": 302,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-final-5"
+      ]
+    },
+    {
+      "id": "site-bonus-001",
+      "kind": "gem",
+      "x": 120,
+      "y": 422,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-first-b"
+      ]
+    },
+    {
+      "id": "site-bonus-002",
+      "kind": "gem",
+      "x": 470,
+      "y": 482,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-first-right"
+      ]
+    },
+    {
+      "id": "site-bonus-003",
+      "kind": "gem",
+      "x": 1740,
+      "y": 482,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-descent-left-1"
+      ]
+    },
+    {
+      "id": "site-bonus-004",
+      "kind": "gem",
+      "x": 1780,
+      "y": 542,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-descent-outside",
+        "site-descent-left-2"
+      ]
+    },
+    {
+      "id": "site-bonus-005",
+      "kind": "gem",
+      "x": 2540,
+      "y": 422,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-final-left-440"
+      ]
+    },
+    {
+      "id": "site-bonus-006",
+      "kind": "gem",
+      "x": 2650,
+      "y": 242,
+      "asset": "gem",
+      "layer": "world",
+      "supportIds": [
+        "site-final-left-260"
+      ]
+    }
+  ],
+  "letters": [
+    {
+      "id": "sunset-letter-b",
+      "letter": "B",
+      "x": 350,
+      "supportY": 440
+    },
+    {
+      "id": "sunset-letter-e",
+      "letter": "E",
+      "x": 1840,
+      "supportY": 500
+    },
+    {
+      "id": "sunset-letter-a",
+      "letter": "A",
+      "x": 740,
+      "supportY": 320
+    },
+    {
+      "id": "sunset-letter-m",
+      "letter": "M",
+      "x": 2720,
+      "supportY": 200
+    }
+  ],
+  "proposedGemChanges": [
+    {
+      "id": "site-gem-001",
+      "old": {
+        "x": 100,
+        "y": 542
+      },
+      "proposed": {
+        "x": 100,
+        "y": 544
+      },
+      "supportIds": [
+        "site-entrance"
+      ],
+      "overheadIds": [
+        "site-first-left-1"
+      ],
+      "reason": "Conservative full 32x24 gem envelope needs 2px clearance below an 18px girder; includes the ferry swept envelope."
+    },
+    {
+      "id": "site-gem-002",
+      "old": {
+        "x": 160,
+        "y": 542
+      },
+      "proposed": {
+        "x": 160,
+        "y": 544
+      },
+      "supportIds": [
+        "site-entrance"
+      ],
+      "overheadIds": [
+        "site-first-1",
+        "site-first-left-1"
+      ],
+      "reason": "Conservative full 32x24 gem envelope needs 2px clearance below an 18px girder; includes the ferry swept envelope."
+    },
+    {
+      "id": "site-gem-003",
+      "old": {
+        "x": 220,
+        "y": 542
+      },
+      "proposed": {
+        "x": 220,
+        "y": 544
+      },
+      "supportIds": [
+        "site-entrance"
+      ],
+      "overheadIds": [
+        "site-first-1"
+      ],
+      "reason": "Conservative full 32x24 gem envelope needs 2px clearance below an 18px girder; includes the ferry swept envelope."
+    },
+    {
+      "id": "site-gem-004",
+      "old": {
+        "x": 210,
+        "y": 482
+      },
+      "proposed": {
+        "x": 210,
+        "y": 484
+      },
+      "supportIds": [
+        "site-first-1"
+      ],
+      "overheadIds": [
+        "site-first-b"
+      ],
+      "reason": "Conservative full 32x24 gem envelope needs 2px clearance below an 18px girder; includes the ferry swept envelope."
+    },
+    {
+      "id": "site-gem-005",
+      "old": {
+        "x": 290,
+        "y": 482
+      },
+      "proposed": {
+        "x": 290,
+        "y": 484
+      },
+      "supportIds": [
+        "site-first-1"
+      ],
+      "overheadIds": [
+        "site-first-b"
+      ],
+      "reason": "Conservative full 32x24 gem envelope needs 2px clearance below an 18px girder; includes the ferry swept envelope."
+    },
+    {
+      "id": "site-gem-006",
+      "old": {
+        "x": 280,
+        "y": 422
+      },
+      "proposed": {
+        "x": 280,
+        "y": 424
+      },
+      "supportIds": [
+        "site-first-b"
+      ],
+      "overheadIds": [
+        "site-first-3"
+      ],
+      "reason": "Conservative full 32x24 gem envelope needs 2px clearance below an 18px girder; includes the ferry swept envelope."
+    },
+    {
+      "id": "site-gem-007",
+      "old": {
+        "x": 350,
+        "y": 422
+      },
+      "proposed": {
+        "x": 350,
+        "y": 424
+      },
+      "supportIds": [
+        "site-first-b"
+      ],
+      "overheadIds": [
+        "site-first-3",
+        "site-crane-catch"
+      ],
+      "reason": "Conservative full 32x24 gem envelope needs 2px clearance below an 18px girder; includes the ferry swept envelope."
+    },
+    {
+      "id": "site-gem-008",
+      "old": {
+        "x": 400,
+        "y": 422
+      },
+      "proposed": {
+        "x": 400,
+        "y": 424
+      },
+      "supportIds": [
+        "site-first-b"
+      ],
+      "overheadIds": [
+        "site-crane-catch"
+      ],
+      "reason": "Conservative full 32x24 gem envelope needs 2px clearance below an 18px girder; includes the ferry swept envelope."
+    },
+    {
+      "id": "site-gem-010",
+      "old": {
+        "x": 280,
+        "y": 362
+      },
+      "proposed": {
+        "x": 280,
+        "y": 364
+      },
+      "supportIds": [
+        "site-first-3"
+      ],
+      "overheadIds": [
+        "site-high-deck"
+      ],
+      "reason": "Conservative full 32x24 gem envelope needs 2px clearance below an 18px girder; includes the ferry swept envelope."
+    },
+    {
+      "id": "site-gem-014",
+      "old": {
+        "x": 500,
+        "y": 362
+      },
+      "proposed": {
+        "x": 500,
+        "y": 364
+      },
+      "supportIds": [
+        "site-crane-catch"
+      ],
+      "overheadIds": [
+        "site-crane-ferry"
+      ],
+      "reason": "Conservative full 32x24 gem envelope needs 2px clearance below an 18px girder; includes the ferry swept envelope."
+    },
+    {
+      "id": "site-gem-015",
+      "old": {
+        "x": 570,
+        "y": 362
+      },
+      "proposed": {
+        "x": 570,
+        "y": 364
+      },
+      "supportIds": [
+        "site-crane-catch"
+      ],
+      "overheadIds": [
+        "site-crane-ferry"
+      ],
+      "reason": "Conservative full 32x24 gem envelope needs 2px clearance below an 18px girder; includes the ferry swept envelope."
+    },
+    {
+      "id": "site-gem-019",
+      "old": {
+        "x": 700,
+        "y": 362
+      },
+      "proposed": {
+        "x": 700,
+        "y": 364
+      },
+      "supportIds": [
+        "site-crane-catch"
+      ],
+      "overheadIds": [
+        "site-far-dock"
+      ],
+      "reason": "Conservative full 32x24 gem envelope needs 2px clearance below an 18px girder; includes the ferry swept envelope."
+    },
+    {
+      "id": "site-gem-022",
+      "old": {
+        "x": 1840,
+        "y": 422
+      },
+      "proposed": {
+        "x": 1840,
+        "y": 424
+      },
+      "supportIds": [
+        "site-descent-1"
+      ],
+      "overheadIds": [
+        "site-crane-catch"
+      ],
+      "reason": "Conservative full 32x24 gem envelope needs 2px clearance below an 18px girder; includes the ferry swept envelope."
+    },
+    {
+      "id": "site-gem-023",
+      "old": {
+        "x": 1830,
+        "y": 422
+      },
+      "proposed": {
+        "x": 1830,
+        "y": 424
+      },
+      "supportIds": [
+        "site-descent-1"
+      ],
+      "overheadIds": [
+        "site-crane-catch"
+      ],
+      "reason": "Conservative full 32x24 gem envelope needs 2px clearance below an 18px girder; includes the ferry swept envelope."
+    },
+    {
+      "id": "site-gem-024",
+      "old": {
+        "x": 1840,
+        "y": 482
+      },
+      "proposed": {
+        "x": 1840,
+        "y": 484
+      },
+      "supportIds": [
+        "site-descent-e",
+        "site-descent-left-1"
+      ],
+      "overheadIds": [
+        "site-descent-1"
+      ],
+      "reason": "Conservative full 32x24 gem envelope needs 2px clearance below an 18px girder; includes the ferry swept envelope."
+    },
+    {
+      "id": "site-gem-025",
+      "old": {
+        "x": 1920,
+        "y": 482
+      },
+      "proposed": {
+        "x": 1920,
+        "y": 484
+      },
+      "supportIds": [
+        "site-descent-e",
+        "site-descent-left-1"
+      ],
+      "overheadIds": [
+        "site-descent-1"
+      ],
+      "reason": "Conservative full 32x24 gem envelope needs 2px clearance below an 18px girder; includes the ferry swept envelope."
+    },
+    {
+      "id": "site-gem-026",
+      "old": {
+        "x": 2000,
+        "y": 482
+      },
+      "proposed": {
+        "x": 2000,
+        "y": 484
+      },
+      "supportIds": [
+        "site-descent-e"
+      ],
+      "overheadIds": [
+        "site-descent-1"
+      ],
+      "reason": "Conservative full 32x24 gem envelope needs 2px clearance below an 18px girder; includes the ferry swept envelope."
+    },
+    {
+      "id": "site-gem-028",
+      "old": {
+        "x": 2060,
+        "y": 542
+      },
+      "proposed": {
+        "x": 2060,
+        "y": 544
+      },
+      "supportIds": [
+        "site-descent-3"
+      ],
+      "overheadIds": [
+        "site-descent-e"
+      ],
+      "reason": "Conservative full 32x24 gem envelope needs 2px clearance below an 18px girder; includes the ferry swept envelope."
+    },
+    {
+      "id": "site-gem-032",
+      "old": {
+        "x": 2380,
+        "y": 602
+      },
+      "proposed": {
+        "x": 2380,
+        "y": 604
+      },
+      "supportIds": [
+        "site-yard"
+      ],
+      "overheadIds": [
+        "site-final-outside-560"
+      ],
+      "reason": "Conservative full 32x24 gem envelope needs 2px clearance below an 18px girder; includes the ferry swept envelope."
+    },
+    {
+      "id": "site-gem-033",
+      "old": {
+        "x": 2440,
+        "y": 602
+      },
+      "proposed": {
+        "x": 2440,
+        "y": 604
+      },
+      "supportIds": [
+        "site-yard"
+      ],
+      "overheadIds": [
+        "site-final-1",
+        "site-final-outside-560"
+      ],
+      "reason": "Conservative full 32x24 gem envelope needs 2px clearance below an 18px girder; includes the ferry swept envelope."
+    },
+    {
+      "id": "site-gem-034",
+      "old": {
+        "x": 2480,
+        "y": 542
+      },
+      "proposed": {
+        "x": 2480,
+        "y": 544
+      },
+      "supportIds": [
+        "site-final-1",
+        "site-final-outside-560"
+      ],
+      "overheadIds": [
+        "site-final-outside-500"
+      ],
+      "reason": "Conservative full 32x24 gem envelope needs 2px clearance below an 18px girder; includes the ferry swept envelope."
+    },
+    {
+      "id": "site-gem-035",
+      "old": {
+        "x": 2570,
+        "y": 542
+      },
+      "proposed": {
+        "x": 2570,
+        "y": 544
+      },
+      "supportIds": [
+        "site-final-1"
+      ],
+      "overheadIds": [
+        "site-final-2"
+      ],
+      "reason": "Conservative full 32x24 gem envelope needs 2px clearance below an 18px girder; includes the ferry swept envelope."
+    },
+    {
+      "id": "site-gem-036",
+      "old": {
+        "x": 2600,
+        "y": 482
+      },
+      "proposed": {
+        "x": 2600,
+        "y": 484
+      },
+      "supportIds": [
+        "site-final-2"
+      ],
+      "overheadIds": [
+        "site-final-left-440"
+      ],
+      "reason": "Conservative full 32x24 gem envelope needs 2px clearance below an 18px girder; includes the ferry swept envelope."
+    },
+    {
+      "id": "site-gem-037",
+      "old": {
+        "x": 2690,
+        "y": 482
+      },
+      "proposed": {
+        "x": 2690,
+        "y": 484
+      },
+      "supportIds": [
+        "site-final-2"
+      ],
+      "overheadIds": [
+        "site-rest"
+      ],
+      "reason": "Conservative full 32x24 gem envelope needs 2px clearance below an 18px girder; includes the ferry swept envelope."
+    },
+    {
+      "id": "site-gem-038",
+      "old": {
+        "x": 2700,
+        "y": 422
+      },
+      "proposed": {
+        "x": 2700,
+        "y": 424
+      },
+      "supportIds": [
+        "site-rest"
+      ],
+      "overheadIds": [
+        "site-final-4"
+      ],
+      "reason": "Conservative full 32x24 gem envelope needs 2px clearance below an 18px girder; includes the ferry swept envelope."
+    },
+    {
+      "id": "site-gem-039",
+      "old": {
+        "x": 2755,
+        "y": 422
+      },
+      "proposed": {
+        "x": 2755,
+        "y": 424
+      },
+      "supportIds": [
+        "site-rest"
+      ],
+      "overheadIds": [
+        "site-final-4"
+      ],
+      "reason": "Conservative full 32x24 gem envelope needs 2px clearance below an 18px girder; includes the ferry swept envelope."
+    },
+    {
+      "id": "site-gem-040",
+      "old": {
+        "x": 2870,
+        "y": 422
+      },
+      "proposed": {
+        "x": 2870,
+        "y": 424
+      },
+      "supportIds": [
+        "site-rest"
+      ],
+      "overheadIds": [
+        "site-final-right-380"
+      ],
+      "reason": "Conservative full 32x24 gem envelope needs 2px clearance below an 18px girder; includes the ferry swept envelope."
+    },
+    {
+      "id": "site-gem-041",
+      "old": {
+        "x": 2600,
+        "y": 362
+      },
+      "proposed": {
+        "x": 2600,
+        "y": 364
+      },
+      "supportIds": [
+        "site-final-4"
+      ],
+      "overheadIds": [
+        "site-final-left-320"
+      ],
+      "reason": "Conservative full 32x24 gem envelope needs 2px clearance below an 18px girder; includes the ferry swept envelope."
+    },
+    {
+      "id": "site-gem-042",
+      "old": {
+        "x": 2690,
+        "y": 362
+      },
+      "proposed": {
+        "x": 2690,
+        "y": 364
+      },
+      "supportIds": [
+        "site-final-4"
+      ],
+      "overheadIds": [
+        "site-final-5"
+      ],
+      "reason": "Conservative full 32x24 gem envelope needs 2px clearance below an 18px girder; includes the ferry swept envelope."
+    },
+    {
+      "id": "site-gem-043",
+      "old": {
+        "x": 2700,
+        "y": 302
+      },
+      "proposed": {
+        "x": 2700,
+        "y": 304
+      },
+      "supportIds": [
+        "site-final-5"
+      ],
+      "overheadIds": [
+        "site-final-left-260"
+      ],
+      "reason": "Conservative full 32x24 gem envelope needs 2px clearance below an 18px girder; includes the ferry swept envelope."
+    },
+    {
+      "id": "site-gem-044",
+      "old": {
+        "x": 2790,
+        "y": 302
+      },
+      "proposed": {
+        "x": 2790,
+        "y": 304
+      },
+      "supportIds": [
+        "site-final-5"
+      ],
+      "overheadIds": [
+        "site-final-6"
+      ],
+      "reason": "Conservative full 32x24 gem envelope needs 2px clearance below an 18px girder; includes the ferry swept envelope."
+    },
+    {
+      "id": "site-gem-045",
+      "old": {
+        "x": 2800,
+        "y": 242
+      },
+      "proposed": {
+        "x": 2800,
+        "y": 244
+      },
+      "supportIds": [
+        "site-final-6"
+      ],
+      "overheadIds": [
+        "site-final-m"
+      ],
+      "reason": "Conservative full 32x24 gem envelope needs 2px clearance below an 18px girder; includes the ferry swept envelope."
+    },
+    {
+      "id": "site-gem-046",
+      "old": {
+        "x": 2890,
+        "y": 242
+      },
+      "proposed": {
+        "x": 2890,
+        "y": 244
+      },
+      "supportIds": [
+        "site-final-6"
+      ],
+      "overheadIds": [
+        "site-final-m"
+      ],
+      "reason": "Conservative full 32x24 gem envelope needs 2px clearance below an 18px girder; includes the ferry swept envelope."
+    },
+    {
+      "id": "site-gem-049",
+      "old": {
+        "x": 2840,
+        "y": 182
+      },
+      "proposed": {
+        "x": 2840,
+        "y": 184
+      },
+      "supportIds": [
+        "site-final-m"
+      ],
+      "overheadIds": [
+        "site-roof"
+      ],
+      "reason": "Conservative full 32x24 gem envelope needs 2px clearance below an 18px girder; includes the ferry swept envelope."
+    },
+    {
+      "id": "site-gem-055",
+      "old": {
+        "x": 2645,
+        "y": 482
+      },
+      "proposed": {
+        "x": 2645,
+        "y": 484
+      },
+      "supportIds": [
+        "site-final-2"
+      ],
+      "overheadIds": [
+        "site-rest"
+      ],
+      "reason": "Conservative full 32x24 gem envelope needs 2px clearance below an 18px girder; includes the ferry swept envelope."
+    },
+    {
+      "id": "site-gem-056",
+      "old": {
+        "x": 2745,
+        "y": 302
+      },
+      "proposed": {
+        "x": 2745,
+        "y": 304
+      },
+      "supportIds": [
+        "site-final-5"
+      ],
+      "overheadIds": [
+        "site-final-6"
+      ],
+      "reason": "Conservative full 32x24 gem envelope needs 2px clearance below an 18px girder; includes the ferry swept envelope."
+    },
+    {
+      "id": "site-bonus-004",
+      "old": {
+        "x": 1780,
+        "y": 542
+      },
+      "proposed": {
+        "x": 1780,
+        "y": 544
+      },
+      "supportIds": [
+        "site-descent-outside",
+        "site-descent-left-2"
+      ],
+      "overheadIds": [
+        "site-descent-left-1"
+      ],
+      "reason": "Conservative full 32x24 gem envelope needs 2px clearance below an 18px girder; includes the ferry swept envelope."
+    },
+    {
+      "id": "site-bonus-006",
+      "old": {
+        "x": 2650,
+        "y": 242
+      },
+      "proposed": {
+        "x": 2650,
+        "y": 244
+      },
+      "supportIds": [
+        "site-final-left-260"
+      ],
+      "overheadIds": [
+        "site-final-m"
+      ],
+      "reason": "Conservative full 32x24 gem envelope needs 2px clearance below an 18px girder; includes the ferry swept envelope."
+    }
+  ],
+  "scenery": [
+    {
+      "id": "site-deco-1",
+      "kind": "decoration",
+      "x": 100,
+      "y": 560,
+      "asset": "cave",
+      "layer": "back",
+      "scale": 1,
+      "source": "public/assets/site/environment.png#cave",
+      "anchor": {
+        "x": 24,
+        "y": 44
+      },
+      "pixels": {
+        "left": 6,
+        "top": 4,
+        "right": 42,
+        "bottom": 43,
+        "occupiedPerRow": [
+          0,
+          0,
+          0,
+          0,
+          6,
+          6,
+          6,
+          12,
+          12,
+          32,
+          33,
+          33,
+          33,
+          14,
+          16,
+          19,
+          19,
+          18,
+          17,
+          18,
+          18,
+          17,
+          31,
+          32,
+          33,
+          33,
+          31,
+          20,
+          20,
+          20,
+          18,
+          17,
+          16,
+          17,
+          19,
+          22,
+          33,
+          33,
+          33,
+          13,
+          20,
+          28,
+          36,
+          29,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "visibleBottomExclusive": 560,
+      "visibleBaseWidth": 29,
+      "supportIds": [
+        "site-entrance"
+      ],
+      "terrainSegments": [],
+      "proposal": "Preserve position and source; confirm full visible base contact in gameplay."
+    },
+    {
+      "id": "site-deco-2",
+      "kind": "decoration",
+      "x": 1600,
+      "y": 380,
+      "asset": "bush",
+      "layer": "back",
+      "scale": 1,
+      "source": "public/assets/site/environment.png#bush",
+      "anchor": {
+        "x": 24,
+        "y": 44
+      },
+      "pixels": {
+        "left": 2,
+        "top": 17,
+        "right": 45,
+        "bottom": 43,
+        "occupiedPerRow": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2,
+          5,
+          7,
+          8,
+          10,
+          18,
+          20,
+          23,
+          27,
+          28,
+          30,
+          30,
+          31,
+          33,
+          35,
+          36,
+          35,
+          37,
+          35,
+          38,
+          40,
+          41,
+          41,
+          44,
+          44,
+          44,
+          43,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "visibleBottomExclusive": 380,
+      "visibleBaseWidth": 43,
+      "supportIds": [
+        "site-crane-catch"
+      ],
+      "terrainSegments": [],
+      "proposal": "Preserve position and source; confirm full visible base contact in gameplay."
+    },
+    {
+      "id": "site-deco-3",
+      "kind": "decoration",
+      "x": 2320,
+      "y": 620,
+      "asset": "cave",
+      "layer": "back",
+      "scale": 1,
+      "source": "public/assets/site/environment.png#cave",
+      "anchor": {
+        "x": 24,
+        "y": 44
+      },
+      "pixels": {
+        "left": 6,
+        "top": 4,
+        "right": 42,
+        "bottom": 43,
+        "occupiedPerRow": [
+          0,
+          0,
+          0,
+          0,
+          6,
+          6,
+          6,
+          12,
+          12,
+          32,
+          33,
+          33,
+          33,
+          14,
+          16,
+          19,
+          19,
+          18,
+          17,
+          18,
+          18,
+          17,
+          31,
+          32,
+          33,
+          33,
+          31,
+          20,
+          20,
+          20,
+          18,
+          17,
+          16,
+          17,
+          19,
+          22,
+          33,
+          33,
+          33,
+          13,
+          20,
+          28,
+          36,
+          29,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "visibleBottomExclusive": 620,
+      "visibleBaseWidth": 29,
+      "supportIds": [
+        "site-yard"
+      ],
+      "terrainSegments": [],
+      "proposal": "Preserve position and source; confirm full visible base contact in gameplay."
+    },
+    {
+      "id": "renderer-site-frame-tree",
+      "asset": "tree",
+      "x": 1620,
+      "y": 680,
+      "scale": 1.5,
+      "source": "public/assets/site/environment.png#tree",
+      "anchor": {
+        "x": 24,
+        "y": 44
+      },
+      "pixels": {
+        "left": 2,
+        "top": 8,
+        "right": 45,
+        "bottom": 43,
+        "occupiedPerRow": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          9,
+          14,
+          16,
+          17,
+          20,
+          20,
+          22,
+          22,
+          24,
+          24,
+          24,
+          24,
+          24,
+          25,
+          29,
+          32,
+          35,
+          36,
+          38,
+          39,
+          40,
+          40,
+          40,
+          40,
+          40,
+          40,
+          39,
+          39,
+          38,
+          39,
+          40,
+          40,
+          44,
+          44,
+          41,
+          35,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "visibleBottomExclusive": 680,
+      "visibleBaseWidth": 52.5,
+      "supportIds": [],
+      "terrainSegments": [
+        4
+      ],
+      "proposal": "Preserve position and source; confirm full visible base contact in gameplay."
+    }
+  ],
+  "absent": [
+    "stars",
+    "springs",
+    "crumbling platforms",
+    "slime entities",
+    "ice/water bands",
+    "new scenery requested"
+  ],
+  "invariants": "All platform coordinates/widths/paths/timing, terrain, letters, checkpoints, finish/retrace, physics, input, camera, all other trails and shared artwork remain unchanged. Only listed gem Y changes are proposed."
+}

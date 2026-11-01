@@ -1,0 +1,7 @@
+{
+  "decodedSha256": "b05f0474ce2bee0a13a1eece530c79d854e7080f29f9334616664e100f5cbe4a",
+  "tests": 102,
+  "passed": 102,
+  "failed": 0,
+  "command": "npm run test:ci"
+}

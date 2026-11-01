@@ -86,18 +86,16 @@ export function sunsetWallControllerInit(options: SunsetWallOptions, adapter?: S
 }
 
 /** Observe shipped sprite/fixed-girder draws; never read or position scene state. */
-export function sunsetWallPaintInit(): void {
+export function sunsetWallPaintInit(near: { id: string; x: number; y: number; width: number }): void {
   const sample = { cameraX: 0, cameraY: 0, x: 60, feet: 560, frame: 0, time: 0 };
   Object.assign(window, { sunsetWallPaint: sample });
-  const fill = CanvasRenderingContext2D.prototype.fillRect;
-  CanvasRenderingContext2D.prototype.fillRect = function (x, y, width, height) {
-    if (this.canvas.id === 'game' && width === 210 && height === 3) {
-      sample.cameraX = 260 - x; sample.cameraY = 320 - y;
-    }
-    fill.call(this, x, y, width, height);
-  };
   const draw = CanvasRenderingContext2D.prototype.drawImage;
   CanvasRenderingContext2D.prototype.drawImage = function (this: CanvasRenderingContext2D, ...args: unknown[]) {
+    if (this.canvas.id === 'game' && args[0] instanceof HTMLImageElement && args.length === 9
+      && args[0].src.endsWith(`/assets/site/steel-v1/${near.id}.png`) && Number(args[7]) === near.width) {
+      const point = this.getTransform().transformPoint(new DOMPoint(Number(args[5]), Number(args[6])));
+      sample.cameraX = near.x - point.x; sample.cameraY = near.y - point.y;
+    }
     const henry = this.canvas.id === 'game' && args[0] instanceof HTMLImageElement
       && args[0].src.endsWith('/assets/henry/henry-celebration.png') && args.length === 9;
     if (henry) {

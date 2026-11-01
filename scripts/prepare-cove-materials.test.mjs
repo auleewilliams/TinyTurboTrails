@@ -113,7 +113,7 @@ test('current feature record pins exact presentation deltas and every unrelated1
   const pins=JSON.parse(read('prechange-byte-pins.json')), feature=JSON.parse(read('current-presentation.json'));
   assert.equal(feature.baselineRevision,'1687f5525b757221b47a21287f6b8c48e5403ae0');
   assert.deepEqual(Object.keys(feature.files).sort(),['public/assets/cove/manifest.json','src/world/assets.ts','src/world/renderer.ts','src/world/surface-materials.ts']);
-  const check=(path,bytes)=>assert.equal(hash(beforeWaterLanding(path, beforeBay1(path, beforeBay2(path, beforeWholeBay2(path, beforeRemainingTwo(path, beforeOwnerHud(path, bytes))))))),feature.files[path]?.currentSha256??pins.files[path],path);
+  const check=(path,bytes)=>assert.equal(hash(beforeWaterLanding(path, beforeBay1(path, beforeBay2(path, beforeWholeBay2(path, beforeRemainingTwo(path, beforeOwnerHud(path, beforeSiteArt(path, bytes)))))))),feature.files[path]?.currentSha256??pins.files[path],path);
   for(const[path,baseline]of Object.entries(pins.files)){
     if(feature.files[path]){assert.equal(feature.files[path].baselineSha256,baseline);assert.equal(hash(read(feature.files[path].baselineCopy)),baseline);}
     check(path,readFileSync(new URL(`../${path}`,import.meta.url)));
@@ -127,3 +127,4 @@ test('current feature record pins exact presentation deltas and every unrelated1
     const bad=structuredClone(manifest);mutate(bad);assert.throws(()=>check('public/assets/cove/manifest.json',Buffer.from(JSON.stringify(bad))),{code:'ERR_ASSERTION'});
   }
 });
+import { beforeSiteArt } from './site-art-preservation.mjs';

@@ -1,0 +1,42 @@
+[
+  {
+    "path": "rollout-units.log.gz",
+    "decodedSha256": "5a9e73d6941e6874f4a0662ea687f7c610f980d2a5402f8c99d39d9afcdc99f3",
+    "bytes": 466
+  },
+  {
+    "path": "rollout-focused.log.gz",
+    "decodedSha256": "01ec66a9bc1dd2624c387a64753f10f1d66b635889605481cf365eded91d7497",
+    "bytes": 215
+  },
+  {
+    "path": "rollout-scripts.log.gz",
+    "decodedSha256": "2c94dee432d457085e674b32113e98667b5832b348c27a33f92b667a48abb3d1",
+    "bytes": 24466
+  },
+  {
+    "path": "rollout-build.log.gz",
+    "decodedSha256": "5a5d474999e594a20b3ba04db36bd54bfb20ffad6f57348c0e3a247c0d8f633b",
+    "bytes": 429
+  },
+  {
+    "path": "rollout-final-units.log.gz",
+    "decodedSha256": "551c221d4aac9a3e7da9f932b707a7b1d6b95e6501e9bdba9bf4da6036f0eab2",
+    "bytes": 466
+  },
+  {
+    "path": "rollout-final-scripts.log.gz",
+    "decodedSha256": "4e7b38a54931bfe6742d9a25743047f2b8128734e096f618baee51952dc8a860",
+    "bytes": 24471
+  },
+  {
+    "path": "rollout-final-build.log.gz",
+    "decodedSha256": "0a6ddc4002653089ecc204ef2397062091ea38bda08031374b71cbd28b985db7",
+    "bytes": 429
+  },
+  {
+    "path": "rollout-freeze-final.log.gz",
+    "decodedSha256": "c393f9d0cf1e0132387bbc6c5320976647887c3137cf4ba61e01487e3262f898",
+    "bytes": 1876
+  }
+]

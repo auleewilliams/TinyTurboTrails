@@ -87,6 +87,19 @@ const entities: WorldEntity[] = [
   })),
 ];
 
+// Exact owner-approved +2px offsets beneath the18px steel family.
+const steelGemOffsets = new Set([
+  'site-gem-001', 'site-gem-002', 'site-gem-003', 'site-gem-004', 'site-gem-005',
+  'site-gem-006', 'site-gem-007', 'site-gem-008', 'site-gem-010', 'site-gem-014',
+  'site-gem-015', 'site-gem-019', 'site-gem-022', 'site-gem-023', 'site-gem-024',
+  'site-gem-025', 'site-gem-026', 'site-gem-028', 'site-gem-032', 'site-gem-033',
+  'site-gem-034', 'site-gem-035', 'site-gem-036', 'site-gem-037', 'site-gem-038',
+  'site-gem-039', 'site-gem-040', 'site-gem-041', 'site-gem-042', 'site-gem-043',
+  'site-gem-044', 'site-gem-045', 'site-gem-046', 'site-gem-049', 'site-gem-055',
+  'site-gem-056', 'site-bonus-004', 'site-bonus-006',
+]);
+for (const entity of entities) if (steelGemOffsets.has(entity.id)) entity.y += 2;
+
 export const SUNSET_SITE: LevelData = {
   id: 'sunset', name: 'SUNSET SITE', atlas: 'site',
   theme: {

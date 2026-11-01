@@ -8,6 +8,7 @@ import type { WorldAsset, WorldAssets } from './assets';
 import { drawSceneryBackground, drawScenerySprite, foregroundPlacements, sceneryForDecoration } from './scenery';
 import { drawSurfaceMaterials } from './surface-materials';
 import { drawCoveGround, drawCovePlatform } from './cove-terrain';
+import { drawSiteGround, drawSitePlatform } from './site-terrain';
 import type { SlimeAccessory } from './slimes';
 
 /** Scenes without run state draw the whole entity list; a run hides what it has consumed. */
@@ -57,11 +58,12 @@ export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, le
     ctx.fill();
     ctx.save(); ctx.clip();
     if (level.id === 'cove' && assets.coveTerrain) drawCoveGround(ctx, assets.coveTerrain, level, offset, first.x1, last.x2);
+    else if (level.id === 'sunset' && assets.siteTerrain) drawSiteGround(ctx, assets.siteTerrain, offset);
     else drawTerrainMaterial(ctx, level, offset, assets, first.x1, last.x2);
     ctx.restore();
   }
   if (level.theme.material === 'wood') drawTerrainTiles(ctx, assets, level, offset);
-  if (!(level.id === 'cove' && assets.coveTerrain)) drawTerrainEdge(ctx, level, offset);
+  if (!(level.id === 'sunset' && assets.siteTerrain) && !(level.id === 'cove' && assets.coveTerrain)) drawTerrainEdge(ctx, level, offset);
   drawSurfaceMaterials(ctx, level, offset, assets.coveMaterials, runSeconds, reducedMotion);
   for (const surface of level.surfaces) drawSurfaceGrip(ctx, surface, offset);
   drawPlatforms(ctx, level, offset, platforms, assets);
@@ -260,6 +262,7 @@ export function drawPlatforms(ctx: CanvasRenderingContext2D, level: LevelData, o
     drawPlatformPath(ctx, platform, offset);
     const body = platforms.find((candidate) => candidate.id === platform.id);
     if (!body) continue;
+    if (level.id === 'sunset' && assets?.siteTerrain && drawSitePlatform(ctx, assets.siteTerrain, level, body, offset)) continue;
     if (level.id === 'cove' && platform.from.x === platform.to.x && platform.from.y === platform.to.y) {
       if (assets?.coveTerrain) {
         drawCovePlatform(ctx, assets.coveTerrain, level, body, offset);

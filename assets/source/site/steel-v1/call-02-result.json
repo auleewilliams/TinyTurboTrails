@@ -1,0 +1,41 @@
+{
+  "path": "assets/source/site/steel-v1/call-02-original.png",
+  "width": 2167,
+  "height": 726,
+  "channels": 4,
+  "bounds": [
+    {
+      "minimum": 1,
+      "left": 0,
+      "top": 0,
+      "right": 2152,
+      "bottom": 725
+    },
+    {
+      "minimum": 2,
+      "left": 28,
+      "top": 241,
+      "right": 2138,
+      "bottom": 691
+    },
+    {
+      "minimum": 16,
+      "left": 30,
+      "top": 244,
+      "right": 2136,
+      "bottom": 534
+    },
+    {
+      "minimum": 128,
+      "left": 31,
+      "top": 245,
+      "right": 2135,
+      "bottom": 533
+    }
+  ],
+  "sha256": "c3288cf9164627b847acfb812a4938312cc774470ffcd4e66031300ad7affd0e",
+  "tool": "image_gen.imagegen",
+  "actualProvider": null,
+  "actualModel": null,
+  "metadataNote": "Tool returned image_url and local output_hint only."
+}

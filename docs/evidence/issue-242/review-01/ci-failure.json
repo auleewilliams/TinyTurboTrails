@@ -1,0 +1,11 @@
+{
+  "run": 41347911170,
+  "head": "6dfb9dfb1a41bd67405c2ac1ca6cd4511bbfb6c2",
+  "decodedLogSha256": "eb8120db8f02493d9dcd18f95e5689072b139c200d8a5e952f5f49fa6bccc28a",
+  "failedStep": "npm run test:ci",
+  "counts": {
+    "passed": 101,
+    "failed": 1
+  },
+  "cause": "Exact PNG pixel contracts passed, but subsequent preparation JSON equality rejected compressed-file SHA256 differences in all8artifacts. Browser suite did not run."
+}
