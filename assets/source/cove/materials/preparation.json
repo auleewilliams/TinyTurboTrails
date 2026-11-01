@@ -1,0 +1,87 @@
+{
+  "source": {
+    "image": "source.png",
+    "sha256": "f2f3e0497d2e4808b397d2dc707b1448aafaa53f5218474b97e321b49ff7fe11",
+    "width": 1448,
+    "height": 1086
+  },
+  "materialScales": {
+    "water": 16,
+    "sand": 16
+  },
+  "pieces": {
+    "water-left": {
+      "crop": {
+        "x": 187,
+        "y": 234,
+        "width": 128,
+        "height": 128
+      },
+      "width": 8,
+      "height": 8
+    },
+    "water-repeat": {
+      "crop": {
+        "x": 338,
+        "y": 234,
+        "width": 768,
+        "height": 128
+      },
+      "width": 48,
+      "height": 8
+    },
+    "water-right": {
+      "crop": {
+        "x": 1138,
+        "y": 234,
+        "width": 128,
+        "height": 128
+      },
+      "width": 8,
+      "height": 8
+    },
+    "water-ripples": {
+      "crop": {
+        "x": 338,
+        "y": 517,
+        "width": 768,
+        "height": 64
+      },
+      "width": 48,
+      "height": 4
+    },
+    "sand-left": {
+      "crop": {
+        "x": 219,
+        "y": 724,
+        "width": 96,
+        "height": 128
+      },
+      "width": 6,
+      "height": 8
+    },
+    "sand-repeat": {
+      "crop": {
+        "x": 338,
+        "y": 724,
+        "width": 384,
+        "height": 128
+      },
+      "width": 24,
+      "height": 8
+    },
+    "sand-right": {
+      "crop": {
+        "x": 1134,
+        "y": 724,
+        "width": 96,
+        "height": 128
+      },
+      "width": 6,
+      "height": 8
+    }
+  },
+  "alpha": "source chroma removal; native bottom rows6/7 alpha170/85, cap outer first/last2 columns alpha85/170; RGB never painted",
+  "measuredNotRequested": true,
+  "joinNote": "Measured right-cap inward crop1138 reduces visible join contrast; an isolated cream glint termination at the left join is original generated1px artwork, not a sustained vertical seam."
+}

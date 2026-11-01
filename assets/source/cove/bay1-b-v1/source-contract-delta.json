@@ -1,0 +1,70 @@
+{
+  "status": "CANDIDATE_IMPLEMENTED_ACTUAL_GAME_PILOT_BLOCKED_BY_LISTENER_EPERM",
+  "id": "cove-bay-ledge-1",
+  "width": 140,
+  "top": 272,
+  "scale": 8,
+  "oldContract": "phase10-platform-B-contract/asset-contract.json",
+  "oldSha256": "26c28ef07305be666eab82b9e2830cda674b02170064c410e4e5357d92f4e651",
+  "repairs": [
+    {
+      "x": 0,
+      "y": 0,
+      "donorX": 1,
+      "donorY": 0,
+      "before": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "after": [
+        254,
+        221,
+        140,
+        255
+      ]
+    },
+    {
+      "x": 139,
+      "y": 0,
+      "donorX": 138,
+      "donorY": 0,
+      "before": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "after": [
+        253,
+        217,
+        135,
+        255
+      ]
+    }
+  ],
+  "scope": "Only two raw-alpha-zero endpoints; all opaque pixels unchanged; no other source/runtime kit changes",
+  "nativeSize": [
+    140,
+    30
+  ],
+  "crop": {
+    "x": 208,
+    "y": 437,
+    "width": 1120,
+    "height": 240
+  },
+  "sourceSha256": "2602a27083566049e701104c27534d7426b7a601e8f37e0e4921aba460346d93",
+  "capFile": "caps.json",
+  "capSha256": "1d04bdf8b2562bc0faa75fb220eb582b3993a4a37a9b76135c53a4f84ea4132e",
+  "runtimePngSha256": "e1809f4f247e693c96968ce7661e2e2126d46d28567b032e534634ee6a2b94cc",
+  "actualPaintedDepthRange": [
+    6,
+    27
+  ],
+  "ownerDecision": "Approved yes; no further source decision pending",
+  "gameplayCertified": false,
+  "geometryChanges": false,
+  "otherSupportChanges": false
+}

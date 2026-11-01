@@ -1,4 +1,7 @@
 import { expect, test } from '@playwright/test';
+import { Camera } from '../src/world/camera';
+import { SANDY_COVE } from '../src/world/sandy-cove';
+import { COVE_ART_PILOT_STAGES } from './cove-art-pilot-stages';
 import { startCove, driveCove, observeCove } from './cove-browser-pilot';
 import { COVE_LOWER, COVE_MISS_ALL, COVE_RETURN, COVE_A, COVE_N, walk, jump } from './cove-pilot';
 
@@ -25,7 +28,7 @@ for(const width of [426,320]) test(`Cove lower dune, island pools and beach view
 for(const scenario of [
   {name:'all four missed',out:COVE_MISS_ALL,back:COVE_RETURN,count:0},
   {name:'A only',out:COVE_LOWER,back:COVE_A,count:3},
-  {name:'N only',out:[walk(1040),jump(1040,320),walk(1950),jump(2080,320),walk(4030),{kind:'finish' as const}],back:COVE_N,count:3},
+  {name:'N only',out:[walk(1040),jump(1040,297),walk(1950),jump(2080,320),walk(4030),{kind:'finish' as const}],back:COVE_N,count:3},
 ])test(`Cove actual finish retraces ${scenario.name} and manually assembles SAND`,async({page,browser},info)=>{
   test.setTimeout(120_000);await page.setViewportSize({width:426,height:300});
   const evidence=observeCove(page,info);await startCove(page);const records:object[]=[];
@@ -77,27 +80,49 @@ test('Cove lower route accepts standard controller movement through the final tr
 test('Cove cached map preview renders fixed stones and its initial dune framing',async({page,browser},info)=>{
   await page.setViewportSize({width:426,height:300});const evidence=observeCove(page,info);
   await page.addInitScript(()=>{
-    const fills=new Map<HTMLCanvasElement,object[]>();
-    const probe={tops:[] as object[],png:'',sources:0};Object.assign(window,{covePreviewProbe:probe});
-    const fill=CanvasRenderingContext2D.prototype.fillRect;
-    CanvasRenderingContext2D.prototype.fillRect=function(x,y,width,height){
-      if(this.canvas.id!=='game'&&this.fillStyle==='#87979b'&&height===10) {
-        const rows=fills.get(this.canvas)??[];rows.push({x,y,width,height});fills.set(this.canvas,rows);
-      }
-      fill.call(this,x,y,width,height);
-    };
+    const fills=new Map<HTMLCanvasElement,{x:number;y:number;width:number;height:number}[]>();
+    const urls=new Set<string>();
+    const materialDraws=new Map<HTMLCanvasElement,object[]>();
+    const probe={tops:[] as object[],png:'',sources:0,kitUrls:[] as string[],materialDraws:[] as object[]};Object.assign(window,{covePreviewProbe:probe});
     const draw=CanvasRenderingContext2D.prototype.drawImage;
     CanvasRenderingContext2D.prototype.drawImage=function(this:CanvasRenderingContext2D,...args:Parameters<typeof draw>){
+      const [image,sx,,sw,sh,dx,dy,dw,dh]=args;
+      if(this.canvas.id!=='game'&&image instanceof HTMLImageElement&&image.src.endsWith('/assets/cove/materials/atlas.png')&&sh===8) {
+        const rows=materialDraws.get(this.canvas)??[];rows.push({source:image.src,sourceY:args[2],width:dw,height:dh,dx,dy});materialDraws.set(this.canvas,rows);
+      }
+      if(this.canvas.id!=='game'&&image instanceof HTMLImageElement&&(image.src.endsWith('/assets/cove/terrain-kit/atlas.png') && sx===256 || (image.src.endsWith('/assets/cove/bay1-b-v1/platform.png') || image.src.endsWith('/assets/cove/bay2-whole-v1/platform.png') || image.src.endsWith('/assets/cove/whole-three-v1/hollow.png') || image.src.endsWith('/assets/cove/remaining-two-v1/pool3.png') || image.src.endsWith('/assets/cove/bay3-b-v1/platform.png') || image.src.endsWith('/assets/cove/whole-three-v1/pool2.png') || image.src.endsWith('/assets/cove/whole-three-v1/pool1.png')) && sx===0)
+        &&sw===dw&&sh===dh&&sw>=90&&sw<=180) {
+        urls.add(image.src);
+        const rows=fills.get(this.canvas)??[];
+        const row=rows.find(row=>row.y===dy&&row.x+row.width===dx);
+        if(row){row.width+=dw;row.height=Math.max(row.height,dh);}else rows.push({x:dx,y:dy,width:dw,height:dh});
+        fills.set(this.canvas,rows);
+      }
       Reflect.apply(draw,this,args);
-      if(args[0] instanceof HTMLCanvasElement&&args[0].width===426&&args[0].height===240&&fills.has(args[0])) {
-        probe.tops=fills.get(args[0])!;probe.png=args[0].toDataURL();probe.sources=fills.size;
+      if(image instanceof HTMLCanvasElement&&image.width===426&&image.height===240&&fills.has(image)) {
+        probe.tops=fills.get(image)!;probe.png=image.toDataURL();probe.sources=fills.size;probe.kitUrls=[...urls];probe.materialDraws=materialDraws.get(image)??[];
       }
     } as typeof draw;
   });
   await page.goto('/?debug=1');await page.getByRole('button',{name:'SANDY COVE',exact:true}).click();
   await expect.poll(()=>page.evaluate(()=>(window as unknown as {covePreviewProbe:{tops:object[]}}).covePreviewProbe.tops.length)).toBe(7);
-  const first=await page.evaluate(()=>(window as unknown as {covePreviewProbe:{tops:object[];png:string;sources:number}}).covePreviewProbe);
-  expect(first.tops).toContainEqual({x:1700,y:74,width:100,height:10});
+  const first=await page.evaluate(()=>(window as unknown as {covePreviewProbe:{tops:{x:number}[];png:string;sources:number;kitUrls:string[];materialDraws:object[]}}).covePreviewProbe);
+  expect(first.tops).toContainEqual({x:1700,y:61,width:100,height:22});
+  expect(first.tops.map(top=>top.x)).toEqual([980,1700,2230,2380,2960,3140,3340]);
+  expect(first.kitUrls).toEqual([expect.stringContaining('/assets/cove/whole-three-v1/hollow.png'), expect.stringContaining('/assets/cove/whole-three-v1/pool1.png'), expect.stringContaining('/assets/cove/whole-three-v1/pool2.png'), expect.stringContaining('/assets/cove/remaining-two-v1/pool3.png'), expect.stringContaining('/assets/cove/bay1-b-v1/platform.png'), expect.stringContaining('/assets/cove/bay2-whole-v1/platform.png'), expect.stringContaining('/assets/cove/bay3-b-v1/platform.png')]);
+  // preview() initializes this camera from the standing body's top; draw calls
+  // contain world-minus-camera coordinates before the thumbnail is scaled.
+  const level=SANDY_COVE;
+  const previewCamera=new Camera({width:426,height:240,worldWidth:level.width,worldHeight:level.height,
+    vertical:level.verticalCamera||level.progressAxis==='y',lead:level.cameraLead});
+  previewCamera.update(level.start.x,level.start.y-34);
+  for (const [id,height] of [['cove-hollow-shelf',30],['cove-pool-stone-3',18],['cove-bay-ledge-3',30],['cove-pool-stone-2',18],['cove-pool-stone-1',22]] as const) { const p=level.platforms!.find(p=>p.id===id)!; expect(first.tops).toContainEqual({x:p.from.x-previewCamera.position.x,y:p.from.y-previewCamera.position.y,width:p.width,height}); }
+  const bay1=level.platforms!.find(platform=>platform.id==='cove-bay-ledge-1')!;
+  expect(first.tops).toContainEqual({x:bay1.from.x-previewCamera.position.x,
+    y:bay1.from.y-previewCamera.position.y,width:bay1.width,height:30});
+  const bay2=level.platforms!.find(platform=>platform.id==='cove-bay-ledge-2')!;
+  expect(first.tops).toContainEqual({x:bay2.from.x-previewCamera.position.x,y:bay2.from.y-previewCamera.position.y,width:bay2.width,height:35});
+  expect(first.materialDraws).toContainEqual({source:expect.stringContaining('/assets/cove/materials/atlas.png'),sourceY:64,width:30,height:8,dx:75,dy:138});
   await info.attach('actual-cached-preview-source',{body:Buffer.from(first.png.split(',')[1],'base64'),contentType:'image/png'});
   for(const width of [426,320]) {await page.setViewportSize({width,height:width===426?300:240});await evidence.paint(`cached-preview-${width}`);}
   await page.getByRole('button',{name:'PLAINS',exact:true}).click();await page.getByRole('button',{name:'SANDY COVE',exact:true}).click();
@@ -109,11 +134,11 @@ test('Cove all 42 gems use native input, fixed stones, low finds and three optio
   test.setTimeout(150_000);await page.setViewportSize({width:426,height:300});
   const evidence=observeCove(page,info);await startCove(page);const records:object[]=[];
   const drive=async(stages:Parameters<typeof driveCove>[1])=>{records.push(await driveCove(page,stages));};
-  await drive([walk(100),walk(180),walk(260),walk(330),walk(450),walk(550),walk(680),walk(780),walk(900),walk(950),jump(950,368),walk(1040),jump(1040,320),walk(1065)]);
+  await drive([walk(100),walk(180),walk(260),walk(330),walk(450),walk(550),walk(680),walk(780),walk(900),walk(950),jump(950,368),walk(1040),jump(1040,297),walk(1065)]);
   await evidence.paint('A-low-find');
-  await drive([walk(1140),walk(1260),walk(1360),walk(1480),walk(1590),walk(1660),walk(1690),jump(1750,296)]);
+  await drive([walk(1140),walk(1260),walk(1360),walk(1480),walk(1590),walk(1660),walk(1690),jump(1750,283)]);
   await evidence.paint('first-stone-rest');
-  await drive([walk(1850),walk(1950),walk(2050),walk(2150),walk(2210),jump(2260,296),walk(2300),jump(2395,284),walk(2420)]);
+  await drive([walk(1850),walk(1950),walk(2050),walk(2150),walk(2210),jump(2260,285),walk(2300),jump(2395,284),walk(2420)]);
   await evidence.paint('second-stones-rest');
   await drive([walk(2530),walk(2640),walk(2760),walk(2870),walk(2940),jump(3020,272),walk(3080),jump(3170,260),walk(3280),jump(3360,272)]);
   await evidence.paint('upper-bay-rest');
@@ -148,7 +173,7 @@ test('Cove all 42 gems use native input, fixed stones, low finds and three optio
   await drive([jump(3280,260),walk(3160),jump(3080,272),walk(3020),walk(2940)]);
   await evidence.paint('reverse-upper-bank');
   await drive([walk(3060),walk(3160),walk(3240)]);
-  // A short ordinary tap collects the low shoreline find without mounting the ledge above it.
+  // The optionalbonus is now collected on the earlierupperbaycrossing. Preserve the ordinarylower-route tap/rest at its formerlocation, without a phantomgem.
   await page.evaluate(async()=>{
     window.dispatchEvent(new KeyboardEvent('keydown',{code:'Space'}));
     for(let frame=0;frame<4;frame++)await new Promise<void>(r=>requestAnimationFrame(()=>r()));
@@ -158,4 +183,74 @@ test('Cove all 42 gems use native input, fixed stones, low finds and three optio
   await drive([walk(3300),walk(3540),walk(3640),walk(3750),walk(3850),walk(3990),walk(4090),{kind:'finish'}]);
   await expect(page.locator('#status')).toContainText('Gems 42/42');await evidence.paint('all-42-finish');
   await info.attach('all-42-input-journey',{body:JSON.stringify(records),contentType:'application/json'});await evidence.finish(browser.version());
+});
+
+for (const resource of ['manifest.json', 'atlas.png', 'ground.png']) test(`Cove terrain kit ${resource} failure recovers through ordinary Retry`, async ({ page }) => {
+  const path = `**/assets/cove/terrain-kit/${resource}`;
+  await page.route(path, route => route.abort());
+  await page.goto('/?debug=1');
+  await expect(page.locator('#status')).toHaveText('Artwork could not load. Reload to retry.');
+  await expect(page.locator('#retry')).toBeVisible();
+  await page.unroute(path);
+  await page.locator('#retry').click();
+  await expect(page.getByRole('button', { name: 'SANDY COVE', exact: true })).toBeVisible();
+  await page.getByRole('button', { name: 'SANDY COVE', exact: true }).click();
+  await page.getByRole('button', { name: 'Play SANDY COVE', exact: true }).click();
+  await expect(page.locator('#status')).toContainText('X 60 Y 326 V 0');
+});
+
+for (const width of [426, 320]) test(`Cove illustrated kit keeps underpass and upper-return rests at ${width}px`, async ({ page, browser }, info) => {
+  test.setTimeout(120_000);
+  await page.setViewportSize({ width, height: width === 426 ? 300 : 240 });
+  const evidence = observeCove(page, info);
+  await page.addInitScript(() => {
+    const probe = { afterHenryKit: 0, paintedHenry: false, kitColumns: 0 };
+    Object.assign(window, { coveArtOrder: probe });
+    const fill = CanvasRenderingContext2D.prototype.fillRect;
+    CanvasRenderingContext2D.prototype.fillRect = function (x, y, w, h) {
+      if (this.canvas.id === 'game' && x === 0 && y === 0 && w === 426 && h === 240) {
+        probe.afterHenryKit = 0; probe.paintedHenry = false; probe.kitColumns = 0;
+      }
+      fill.call(this, x, y, w, h);
+    };
+    const draw = CanvasRenderingContext2D.prototype.drawImage;
+    CanvasRenderingContext2D.prototype.drawImage = function (this: CanvasRenderingContext2D, ...args: Parameters<typeof draw>) {
+      if (this.canvas.id === 'game' && args[0] instanceof HTMLImageElement) {
+        if (args[0].src.endsWith('/assets/cove/terrain-kit/atlas.png') || args[0].src.endsWith('/assets/cove/bay1-b-v1/platform.png') || args[0].src.endsWith('/assets/cove/bay2-whole-v1/platform.png') || args[0].src.endsWith('/assets/cove/whole-three-v1/hollow.png') || args[0].src.endsWith('/assets/cove/remaining-two-v1/pool3.png') || args[0].src.endsWith('/assets/cove/bay3-b-v1/platform.png') || args[0].src.endsWith('/assets/cove/whole-three-v1/pool2.png') || args[0].src.endsWith('/assets/cove/whole-three-v1/pool1.png')) {
+          probe.kitColumns++; if (probe.paintedHenry) probe.afterHenryKit++;
+        }
+        if (args[0].src.endsWith('/assets/henry/henry-celebration.png')) probe.paintedHenry = true;
+      }
+      Reflect.apply(draw, this, args);
+    } as typeof draw;
+  });
+  await startCove(page);
+  const captures = async (name: string, stages: readonly { kind: string; x?: number; y?: number }[]) => {
+    const geometry = await page.evaluate(() => {
+      const canvas = document.querySelector<HTMLCanvasElement>('#game')!, rect = canvas.getBoundingClientRect();
+      return { backing: [canvas.width, canvas.height], css: { x: rect.x, y: rect.y, width: rect.width, height: rect.height },
+        status: document.querySelector('#status')!.textContent!, dpr: devicePixelRatio, order: (window as unknown as { coveArtOrder: { afterHenryKit: number; paintedHenry: boolean; kitColumns: number } }).coveArtOrder,
+        native: canvas.toDataURL() };
+    });
+    const target = stages.at(-1)!, position = geometry.status.match(/X (-?\d+) Y (-?\d+) V (-?\d+)/)!;
+    expect(position).not.toBeNull();
+    expect(Math.abs(Number(position[1]) - target.x!)).toBeLessThan(8);
+    expect(Math.abs(Number(position[3]))).toBeLessThan(20);
+    if (target.kind === 'jump') expect(Number(position[2])).toBe(target.y! - 34);
+    expect(geometry.backing).toEqual([426, 240]); expect(geometry.css.width).toBeCloseTo(width, 1);
+    expect(geometry.order.paintedHenry).toBe(true); expect(geometry.order.kitColumns).toBeGreaterThan(0);
+    expect(geometry.order.afterHenryKit).toBe(0);
+    await info.attach(`${name}-native-backing`, { body: Buffer.from(geometry.native.split(',')[1], 'base64'), contentType: 'image/png' });
+    await info.attach(`${name}-spaces`, { body: JSON.stringify({ ...geometry, native: undefined }), contentType: 'application/json' });
+    await evidence.paint(name);
+  };
+  await driveCove(page, COVE_ART_PILOT_STAGES.underpass); await captures('actual-A-underpass-rest', COVE_ART_PILOT_STAGES.underpass);
+  await driveCove(page, COVE_ART_PILOT_STAGES.hollowSlope); await captures('actual-hollow-right-slope', COVE_ART_PILOT_STAGES.hollowSlope);
+  await driveCove(page, COVE_ART_PILOT_STAGES.firstStone); await captures('actual-first-stone-rest', COVE_ART_PILOT_STAGES.firstStone);
+  await driveCove(page, COVE_ART_PILOT_STAGES.upperLanding);
+  await captures('actual-upper-bay-lower-landing-before-step', COVE_ART_PILOT_STAGES.upperLanding);
+  await driveCove(page, COVE_ART_PILOT_STAGES.upperRest); await captures('actual-upper-bay-rest', COVE_ART_PILOT_STAGES.upperRest);
+  await driveCove(page, COVE_ART_PILOT_STAGES.reverseBank);
+  await captures('actual-reverse-bank-rest', COVE_ART_PILOT_STAGES.reverseBank);
+  await evidence.finish(browser.version());
 });

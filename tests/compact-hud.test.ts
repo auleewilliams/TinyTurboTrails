@@ -1,5 +1,5 @@
 import { expect, it } from 'vitest';
-import { drawCollectionBag, drawGameplayHud, HudPresentation, RIBBON_INTRO, HUD_COLORS, areaName } from '../src/game/hud';
+import { drawCollectionBag, drawGameplayHud, HudPresentation, HUD_COLORS, areaName } from '../src/game/hud';
 import { EducationSession, TRAIL_WORDS } from '../src/game/education';
 import { createRun } from '../src/game/interactions';
 import { LEVELS } from '../src/world/levels';
@@ -38,14 +38,14 @@ it.each(TRAIL_WORDS)('$id bag has four identity marks independent of placement, 
   session.selectTrail(config.id === 'plains' ? 'timbers' : 'plains'); session.selectTrail(config.id); assertMarks(4);
 });
 
-it('freezes ribbon time through the real pause clock, word activity and results; replay resets it', () => {
+it('freezes learned HUD state through pause, word activity and results; replay resets it', () => {
   const level = LEVELS[0];
   const scene = new AdventureScene({} as never, {} as never, Object.fromEntries(LEVELS.map(level => [level.atlas, {} as never])), new SilentAudio(), level);
   scene.startSelected();
   const live = scene as unknown as { hud: HudPresentation; player: Player };
   scene.update(1 / 60, { ...neutral, horizontal: 1, jumpPressed: true });
   for (let i = 0; i < 130; i++) scene.update(1 / 60, neutral);
-  expect(live.hud.hint).toBe(RIBBON_INTRO);
+  expect(live.hud.hint).toBe('');
   const before = JSON.stringify(live.hud);
   const clock = new SimulationClock(); clock.setPaused(true);
   clock.advance(50_000, dt => scene.update(dt, neutral));
@@ -63,7 +63,7 @@ it('freezes ribbon time through the real pause clock, word activity and results;
   expect(live.hud).toEqual(new HudPresentation());
 });
 
-it('queues a four-active-second ribbon introduction behind teaching, locations and important feedback, once per run', () => {
+it('keeps the ribbon legend absent after teaching, locations and important feedback, including a fresh run', () => {
   const hud = new HudPresentation(), level = LEVELS[0];
   hud.update(1 / 60, neutral, level, level.start.x);
   expect(hud.hint).toBe('Arrows / A-D: move');
@@ -74,14 +74,14 @@ it('queues a four-active-second ribbon introduction behind teaching, locations a
   hud.update(3, neutral, level, level.start.x, true);
   expect(hud.hint).toBe('');
   hud.update(1 / 60, neutral, level, level.start.x);
-  expect(hud.hint).toBe(RIBBON_INTRO);
+  expect(hud.hint).toBe('');
   hud.update(2, neutral, level, level.start.x);
   hud.update(20, neutral, level, level.start.x, true);
   expect(hud.hint).toBe('');
   hud.update(0, neutral, level, level.start.x); // frozen presentation step
-  expect(hud.hint).toBe(RIBBON_INTRO);
+  expect(hud.hint).toBe('');
   hud.update(1.9, neutral, level, level.start.x);
-  expect(hud.hint).toBe(RIBBON_INTRO);
+  expect(hud.hint).toBe('');
   hud.update(0.2, neutral, level, level.start.x);
   expect(hud.hint).toBe('');
   hud.update(3, neutral, level, level.checkpoints[0].x);
@@ -90,7 +90,7 @@ it('queues a four-active-second ribbon introduction behind teaching, locations a
   const fresh = new HudPresentation();
   fresh.update(3, { ...neutral, horizontal: 1, jumpPressed: true }, level, level.start.x);
   fresh.update(3, neutral, level, level.start.x);
-  expect(fresh.hint).toBe(RIBBON_INTRO);
+  expect(fresh.hint).toBe('');
 });
 
 it.each(LEVELS)('$id counters retain zero, single/double digits, optional absence and every health state', level => {

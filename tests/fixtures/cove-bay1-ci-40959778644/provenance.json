@@ -1,0 +1,25 @@
+{
+  "purpose": "Exact recovered alternate CI encoding for the actual bay1 family comparison path; copied unchanged, not synthesized artwork",
+  "runId": 40959778644,
+  "head": "56404ba6031d0f7c8dba63f93d96c26a78da57c1",
+  "fixture": "actual.png",
+  "bytes": 8136,
+  "sha256": "3bcac0f1a7607797de3e0d431ed829066f76a52f4546a73829280224e757bf9d",
+  "nativeSize": [
+    140,
+    30
+  ],
+  "rgbaSha256": "52ee522781185b896c09302377b99cf9d16c0aaf0db73dc5d1239821b38fb1a6",
+  "committedExpected": {
+    "path": "assets/source/cove/bay1-b-v1/prepared/platform.png",
+    "bytes": 7978,
+    "sha256": "e1809f4f247e693c96968ce7661e2e2126d46d28567b032e534634ee6a2b94cc"
+  },
+  "recovery": "Complete contiguous indexed TAP; coordinator recovered both actual/expected buffers without synthesis",
+  "primaryEvidence": {
+    "path": "/home/leew/.hermes/cache/scratch/ttt-art-235/phase15-hud-caption-bag-location/ci-56404ba/actual-CI-PNG-pixel-comparison.json",
+    "sha256": "575763a85c32fa5c2d13b52340713a775df9727aa8f218e25cecac9f3d1afbfe",
+    "rawFailedLogSha256": "cfe34a291032cb774fdde2427f78d863ebbe1571a53ba0ca331d40ceb3252475"
+  },
+  "interpretation": "Different encoded PNG bytes, identical exact RGBA including alpha. Precise encoder/library cause not established; this is old-head CI evidence, not a new run."
+}

@@ -1,0 +1,55 @@
+{
+  "status": "WHOLE_APPROVED_ART_UNIFORM_SCALE_CONTRACT_BEFORE_EDITS",
+  "source": "/home/leew/.hermes/cache/scratch/tinyturbotrails-art-235/assets/source/cove/bay1-b-v1/prepared/platform.png",
+  "sourceSha256": "e1809f4f247e693c96968ce7661e2e2126d46d28567b032e534634ee6a2b94cc",
+  "sourceSize": [
+    140,
+    30
+  ],
+  "scale": {
+    "numerator": 8,
+    "denominator": 7,
+    "rule": "samecentre-inverse nearestneighbour onBOTHaxes; transparentceilcanvas padding only"
+  },
+  "nativeSize": [
+    160,
+    35
+  ],
+  "opaqueDepth": 31,
+  "sourceOpaquePixels": 2621,
+  "sourceOpaquePixelsRepresented": 2621,
+  "opaquePixelsDropped": 0,
+  "outlineMaskedPixels": 0,
+  "rgbRepaintPixels": 0,
+  "outputOpaquePixels": 3421,
+  "pixelSha256": "2586197f928142b5027c1d6213820336c565f5ea935c646b6f22a0b693b51653",
+  "pngSha256": "595d98c49269f0231dddcd95e5323a508eae5c28d9185257d15ec3daf19e6b5f",
+  "gem": {
+    "id": "cove-bonus-4",
+    "before": [
+      3240,
+      299
+    ],
+    "after": [
+      3240,
+      242
+    ],
+    "rationale": "Samex;18pxaboveunchangedbay2top260 likeotheroptionalplatformgems; lowerroute staysoptional. Standardstandingonupperplatform collectsordinarywalk. Moves57pxup; closerdownwardposition would lie inrock orremoveoptionalupperroute reward."
+  },
+  "headroom": {
+    "ground": 344,
+    "platformTop": 260,
+    "henryWalkingAlphaHeight": 40,
+    "inheritedWalkingMaxDepthWith2pxGap": 42,
+    "actualMaxDepth": 31,
+    "minimumConservativeGroundedHatGap": 13,
+    "limit": "staticgroundedcalculation;nativejump/visibilityproofpending"
+  },
+  "frozen": [
+    "bay1PNG/source",
+    "HUD/flight",
+    "other5Covesupports",
+    "allotherentities/gameplayfields"
+  ],
+  "authority": "owner-authorization.json"
+}

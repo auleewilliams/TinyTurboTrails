@@ -1,0 +1,37 @@
+{
+  "decision": "ACCEPT_FINAL_POOL1_SOURCE_FOR_IMPLEMENTATION",
+  "source": "/home/leew/.hermes/cache/generated/images/openai_codex_gpt-image-2-medium_20261031_022632_9a4e362d.png",
+  "sourceSha256": "6f5b53354c9d846b0a7821bd473e44b0d5f7d3cd7e548fe54d6d6ecd1a13337b",
+  "measuredWholeBounds": [
+    289,
+    487,
+    1247,
+    537
+  ],
+  "sameSourceNativeFactorBothAxes": 9.58,
+  "fullCanvas": [
+    100,
+    6
+  ],
+  "transparentBottomRowsOnlyRemoved": 1,
+  "runtimeCanvas": [
+    100,
+    5
+  ],
+  "maxOpaqueDepth": 5,
+  "rowOpaqueCounts": [
+    100,
+    100,
+    98,
+    95,
+    74,
+    0
+  ],
+  "repairs": [],
+  "sourceBodyEndsCrop": 0,
+  "actualReportedQuality": "LOW; requestedMEDIUM retained",
+  "parentIndependentCheck": "PILbounds/entireraw-to-finalRGBA/rowopacity/top/contiguity verified",
+  "sourceMeasurement": "/home/leew/.hermes/cache/scratch/ttt-art-235/phase19-remaining-five-platforms/implementation-3/pool1-validation/measurements.json",
+  "callBudget": "3actualcalls total incl1reservedmanualrefinementwithin5cap. No moregenerationneeded/authorizedfornow.",
+  "scope": "Allfive source choices ready. Not native/gameplay certification or merge/closure."
+}

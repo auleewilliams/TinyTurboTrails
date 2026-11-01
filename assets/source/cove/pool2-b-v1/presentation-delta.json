@@ -1,0 +1,32 @@
+{
+  "baselineRevision": "69bfa79 + pinned THREE-role checkpoint00ed284a",
+  "path": "src/world/cove-terrain.ts",
+  "baselineSha256": "298809df5eec5a79f655eb12546e16dbc1a47039c5becca66cc28fb67f21e425",
+  "currentSha256": "2f1f321383c4f6891bfc3d874773ae7aa522a3330b3a9e91fe0d2c1b68674d6c",
+  "changes": [
+    {
+      "before": "bay3?: HTMLImageElement; manifest:",
+      "after": "bay3?: HTMLImageElement; pool2B?: HTMLImageElement; manifest:"
+    },
+    {
+      "before": "'bay3-b-v1/platform.png'].map",
+      "after": "'bay3-b-v1/platform.png', 'pool2-b-v1/platform.png'].map"
+    },
+    {
+      "before": "pool3B, bay3] = images;",
+      "after": "pool3B, bay3, pool2B] = images;"
+    },
+    {
+      "before": "|| bay3.naturalWidth !== 180 || bay3.naturalHeight !== 30)",
+      "after": "|| bay3.naturalWidth !== 180 || bay3.naturalHeight !== 30\n    || pool2B.naturalWidth !== 90 || pool2B.naturalHeight !== 6)"
+    },
+    {
+      "before": "return { image, ground, bay1, bay2, hollowB, pool3B, bay3, manifest };",
+      "after": "return { image, ground, bay1, bay2, hollowB, pool3B, bay3, pool2B, manifest };"
+    },
+    {
+      "before": "  if (body.id === 'cove-bay-ledge-3' && kit.bay3) {",
+      "after": "  if (body.id === 'cove-pool-stone-2' && kit.pool2B) {\n    if (body.width !== 90) throw new Error('Invalid Cove pool2 presentation width');\n    ctx.save();\n    try {\n      ctx.imageSmoothingEnabled = false;\n      ctx.drawImage(kit.pool2B, 0, 0, 90, 6, body.x - offset.x, body.y - offset.y, 90, 6);\n    } finally { ctx.restore(); }\n    return;\n  }\n  if (body.id === 'cove-bay-ledge-3' && kit.bay3) {"
+    }
+  ]
+}

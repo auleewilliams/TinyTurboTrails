@@ -1,0 +1,16 @@
+{
+  "role": "cove-bay-ledge-3",
+  "prompt": "Primary guide is a 1536x1024 technical placement request, pure magenta RGB255,0,255 background. Paint exactly ONE complete Cove B-style rock for cove-bay-ledge-3, native180x30 at8x: source window x48,y392,width1440,height240. Replace white guide eligibility with original tan/slate/cream painted artwork; retain magenta outside the window. Match approved bay1 grain/palette and isolated B style. Quiet thin straight cream landing edge across the ENTIRE window width, first8source rows opaque. Broad rounded boulder masses with inward-tapered ends inside the white per-column depth envelope; natural ragged underside. No labels/white-guide remnants, extra rocks, tilechains, repeated cap motifs, columns, standing-looking side overhangs, actors or HUD. Do not copy a reference's dimensions; guide defines this role. Maximum30px, narrowing upward at the right slope-facing end per the stepped whitecap guide to11px at nativecolumns178..179. Keep full180px flat top; no squashing a140px reference or chopping its ends. This is a single long LOW-PROFILE coherent rock island, not a row of separate stones. Its top rim stays perfectly horizontal across the full1440px width; the underside smoothly tapers UP toward the right, NOT a stepped top. Do not fill unused magenta below the guide. Keep the ENTIRE natural painted silhouette INSIDE the white envelope including rounded ends; it must not need chopping or squared notches. Use the second reference only for matching warm tan/slate/cream faceted material, not its thick proportions. No background scenery or cast shadow.",
+  "image_url": "/home/leew/.hermes/cache/scratch/ttt-art-235/phase16-cove-platform-rollout/generation-inputs/cove-bay-ledge-3-placement-guide.png",
+  "reference_image_urls": [
+    "/home/leew/.hermes/cache/scratch/tinyturbotrails-art-235/assets/source/cove/bay1-b-v1/references/B-style-isolated-reference.png"
+  ],
+  "aspect_ratio": "landscape",
+  "requestedCanvas": [
+    1536,
+    1024
+  ],
+  "sourceScaleRequest": 8,
+  "actualImageMetadata": "PENDING",
+  "allowance": "ONEinitialrolecall;0automaticrefinements;measurebeforeotherroles"
+}

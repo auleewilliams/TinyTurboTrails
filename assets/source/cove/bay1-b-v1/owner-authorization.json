@@ -1,0 +1,14 @@
+{
+  "question": "May Codex perform that bounded cleanup and prepare a one-platform in-game preview? The isolated image still did not fit cleanly without cleanup; crop retains chunky B body, fits clearance limits, trims about0.87% of painted source, leaves small transparency gaps. Tidy this one asset\u2019s ends and gaps using existing source colours\u2014no stretching or changes to landing widths, heights, collision or physics. 2x source preview not gameplay; game branch unchanged.",
+  "answer": "yes",
+  "exactImmediatelyPrecedingQuestion": "May Codex perform that bounded cleanup and prepare a one-platform in-game preview?",
+  "scope": "Authorize bounded deterministic cleanup of generated cove-bay-ledge-1 source: exact documented end crop, existing-colour endpoint/pinhole repairs, explicitly measured isotropic8x instead of requested4x. Integrate ONE platform into game and prepare actual native/input-driven and actual small-view preview. Other six supports and all gameplay/terrain/art remain unchanged.",
+  "supersedes": "Prior source-only stop and complete-end/no-repair/requested4x blockers ONLY for this one measured candidate; historical failures remain rejected/not retroactively passed. No weakening of fullwidth-flat-opaque-top, zero-hole, depth-cap, gameplay preservation tests.",
+  "excludes": [
+    "Further image calls or other-platform source generation/integration",
+    "Stretching or broad body repaint/fabricated replacement rock",
+    "Other trail/shared art/source changes",
+    "Merge, deployment, issue closure, wider rollout"
+  ],
+  "sourceSha256": "2602a27083566049e701104c27534d7426b7a601e8f37e0e4921aba460346d93"
+}

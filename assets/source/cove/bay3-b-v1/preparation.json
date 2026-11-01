@@ -1,0 +1,94 @@
+{
+  "width": 180,
+  "height": 30,
+  "pngSha256": "47f6b81246585ffbcecb2b285d79fdabe3759b1a8d6dd611bb75b8d540b33ec5",
+  "pixelSha256": "75e7b39c89e3296739a7c6ba9f36bcb2347de4a668f36ada9fd59a2e537238bc",
+  "sourceSha256": "2d7e2101f1363fc4a219ed4e9e51617677ee4ba15703bf12c931b3f3119d5e69",
+  "requestedSourceNativeScale": 8,
+  "approvedSourceNativeScale": {
+    "numerator": 721,
+    "denominator": 90
+  },
+  "window": {
+    "x": 47,
+    "y": 393,
+    "width": 1442,
+    "height": 240.33333333333334
+  },
+  "sourcePaintOutsideWindow": 0,
+  "beforeRgbaSha256": "39afda9efc289270fdd4f6ccab606549c997293d2097c4c7ea2c8156376ab987",
+  "afterRgbaSha256": "75e7b39c89e3296739a7c6ba9f36bcb2347de4a668f36ada9fd59a2e537238bc",
+  "repairs": [
+    {
+      "x": 0,
+      "y": 0,
+      "donor": [
+        2,
+        0
+      ],
+      "before": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "after": [
+        253,
+        234,
+        171,
+        255
+      ]
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "donor": [
+        2,
+        0
+      ],
+      "before": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "after": [
+        253,
+        234,
+        171,
+        255
+      ]
+    },
+    {
+      "x": 0,
+      "y": 1,
+      "donor": [
+        1,
+        1
+      ],
+      "before": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "after": [
+        254,
+        231,
+        168,
+        255
+      ]
+    }
+  ],
+  "method": "unchanged edge-connected key + shared floor-block modeDownsample; whole region preserved, not every source pixel individually represented",
+  "sourceCallCount": 1,
+  "requestedQuality": "medium",
+  "reportedQuality": "medium",
+  "bindings": {
+    "request.json": "dbae2581a9854c7d31062865a9205f5a01c748353dc8d990f681ec7c2674b7f6",
+    "generation-result.json": "7daba3865c0082372f593a48fd49ad4155e9c587390301c8db713b3ca6bf0dd8",
+    "owner-authorization.json": "cf0a1b2a0a3aab35db989e49b51dc8d0efc3ba303a1c8f503aebe0153bb4bfff",
+    "caps.json": "66f447ff54778a923e6d6e7e76082b8469a4bdb5e01cade0424f9b391fd09807",
+    "reference-bindings.json": "e39b9d9fa38fb4e90e6f1e3932da7fd5ac703cbf45baf18ddc380b103da6de5c"
+  }
+}

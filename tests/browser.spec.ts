@@ -1,3 +1,4 @@
+import { landmarkLabelProbeInit, landmarkGameplayAnchor } from './landmark-label-observation';
 import { installCovePilot, driveCove } from './cove-browser-pilot';
 import { COVE_RETURN, COVE_LOWER, walk as coveWalk, jump as coveJump } from './cove-pilot';
 import { FROST_MAIN, FROST_RETURN, FROST_REASCENT, FROST_MISS_S } from './frost-pilot';
@@ -6,6 +7,7 @@ import { MAIN_ROUTE as SUNSET_MAIN, FIRST_CLIMB as SUNSET_FIRST, CROSS_DESCENT a
 import { installQuarryPilotScript } from './quarry-pilot';
 import { QUARRY_DESCENT, QUARRY_RETURN, QUARRY_STARS, type QuarryWaypoint } from './quarry-route';
 import { installPlainsRewardPilot } from './plains-pilot';
+import { bay1KeyboardPilotInit } from './cove-bay1-input';
 import { installTimberKeyboardPilot, runTimberStages, TIMBER_ONLY_E2_ASCENT } from './timbers-browser-pilot';
 import { drawTerrainMaterial, drawTerrainEdge, drawTrailBackdrop } from '../src/world/trail-presentation';
 import { installRetracePilotScript } from './retrace-pilot';
@@ -20,11 +22,12 @@ import { PLAINS_LEVEL, hasFixedSupport } from '../src/world/level';
 import { LEVELS, QUARRY_RUN } from '../src/world/levels';
 import { DEFAULT_MOVEMENT, surfaceY } from '../src/game/movement';
 import { platformBodyAt } from '../src/game/platforms';
-import { drawSurfaceMaterials } from '../src/world/surface-materials';
+import { coveGroundY, coveRepeatColumn, validateCoveTerrain, loadCoveTerrain, drawCoveGround, drawCovePlatform } from '../src/world/cove-terrain';
+import { validateCoveMaterials, loadCoveMaterials, coveRipplePhase, drawCoveMaterials, drawSurfaceMaterials } from '../src/world/surface-materials';
 import { drawSlime, drawGem, drawSpecial, drawLandingBands, drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawTerrainTiles, drawTimberTrunk, drawSiteFrame, drawWorld } from '../src/world/renderer';
 import { TRAIL_WORDS } from '../src/game/education';
 import { MAX_HEALTH, createRun } from '../src/game/interactions';
-import { HUD_COLORS, TRAIL_RIBBON, trailPosition, RIBBON_INTRO, areaName } from '../src/game/hud';
+import { HUD_COLORS, TRAIL_RIBBON, trailPosition, areaName } from '../src/game/hud';
 import { INTERFACE_PIECES } from '../src/art/interface-kit';
 import { PAUSE_PANEL } from '../src/game/pause-menu';
 
@@ -172,7 +175,7 @@ test('app fullscreen retains feedback controls and native map and pause targets'
 });
 
 /** The renderer is injected as plain functions, so every helper it calls has to travel with it. */
-const RENDERER_SOURCE = [drawAmbientWeather, drawSlime, drawGem, drawSpecial, drawLandingBands, drawTerrainMaterial, drawTerrainEdge, drawTrailBackdrop, drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawTerrainTiles, drawTimberTrunk, drawSiteFrame, drawSurfaceMaterials].map((helper) => helper.toString()).join('\n');
+const RENDERER_SOURCE = [validateCoveMaterials, loadCoveMaterials, coveRipplePhase, drawCoveMaterials, coveGroundY, coveRepeatColumn, validateCoveTerrain, loadCoveTerrain, drawCoveGround, drawCovePlatform, drawAmbientWeather, drawSlime, drawGem, drawSpecial, drawLandingBands, drawTerrainMaterial, drawTerrainEdge, drawTrailBackdrop, drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawTerrainTiles, drawTimberTrunk, drawSiteFrame, drawSurfaceMaterials].map((helper) => helper.toString()).join('\n');
 
 test('ambient weather repeats the same pixels, respects reduced motion and stays behind terrain', async ({ page }, info) => {
   // Six full-image comparisons need extra readback time on constrained WebKit hosts.
@@ -191,7 +194,9 @@ test('ambient weather repeats the same pixels, respects reduced motion and stays
       // Scenery has its own established tests; this isolates the weather field.
       // Isolate weather from trail-specific scenery, including Timbers' trunk.
       const base = { ...level, id: 'weather-fixture', theme: { ...level.theme, scenery: false, parallax: [] } };
-      const assets = { atlas, manifest, gems, materials, backdrops, slimes, panorama };
+      const coveTerrain = await (window as unknown as { loadCoveTerrain: typeof loadCoveTerrain }).loadCoveTerrain(`/assets/${level.atlas}/`, manifest.terrainKit);
+      const coveMaterials = await (window as unknown as { loadCoveMaterials: typeof loadCoveMaterials }).loadCoveMaterials(`/assets/${level.atlas}/`, manifest.surfaceKit);
+      const assets = { atlas, manifest, gems, materials, backdrops, slimes, panorama, coveTerrain, coveMaterials };
       const canvas = document.createElement('canvas'); canvas.width = 426; canvas.height = 240;
       const ctx = canvas.getContext('2d')!; ctx.imageSmoothingEnabled = false;
       const camera = { position: { x: Math.min(1400.25, level.maxX - 426), y: level.progressAxis === 'y' ? level.height - 240 : 0 } } as Parameters<typeof drawWorld>[3];
@@ -2197,7 +2202,9 @@ test('finish artwork pixels meet terrain in all six trails, including the sloped
       const canvas = document.createElement('canvas'); canvas.width = 426; canvas.height = 240;
       const ctx = canvas.getContext('2d')!; ctx.imageSmoothingEnabled = false;
       const offset = { x: level.finish.x - 213, y: level.progressAxis === 'y' ? level.finish.y - 180 : 0 };
-      const assets = { atlas, manifest, gems, backdrops, materials, panorama };
+      const coveTerrain = await (window as unknown as { loadCoveTerrain: typeof loadCoveTerrain }).loadCoveTerrain(base, manifest.terrainKit);
+      const coveMaterials = await (window as unknown as { loadCoveMaterials: typeof loadCoveMaterials }).loadCoveMaterials(base, manifest.surfaceKit);
+      const assets = { atlas, manifest, gems, backdrops, materials, panorama, coveTerrain, coveMaterials };
       const route = { ...level, entities: [] };
       const fixed = (level.platforms ?? []).filter(platform => platform.from.x === platform.to.x && platform.from.y === platform.to.y)
         .map(platform => ({ id: platform.id, x: platform.from.x, y: platform.from.y,
@@ -4312,19 +4319,40 @@ async function observeSpellingArtwork(page: Page): Promise<void> {
 
 test('builder-kit reduced-motion pickup stays beside its pouch at native and small viewports', async ({ page }, info) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
-  await page.setViewportSize({ width: 426, height: 300 });
-  await observeSpellingArtwork(page); await startInputTimbers(page);
-  expect(await runTimberStages(page, [{ kind: 'walk', x: 205 }])).toMatchObject({ done: true, error: '' });
-  await expect(page.locator('#status')).toContainText('T → bag');
-  await page.evaluate(() => { (window as unknown as { timberKeyboardPilot: { frozen: boolean } }).timberKeyboardPilot.frozen = true; });
+  await observeSpellingArtwork(page);
+  await page.addInitScript(bay1KeyboardPilotInit, []);
+  await page.addInitScript(() => {
+    let queued=false;
+    const draw=CanvasRenderingContext2D.prototype.drawImage;
+    CanvasRenderingContext2D.prototype.drawImage=function(this:CanvasRenderingContext2D,...args:Parameters<typeof draw>) {
+      Reflect.apply(draw,this,args);
+      if(!queued&&this.canvas.id==='game'&&args[0] instanceof HTMLImageElement&&args[0].src.endsWith('/assets/spelling/tile.png')
+        &&(args as unknown[]).length===5&&args[1]===331&&args[2]===7) {
+        queued=true;const canvas=this.canvas;
+        queueMicrotask(()=>Object.assign(window,{reducedPickupWitness:{kind:'ordinary keyboard input, native RAF; observed full render frame',
+          png:canvas.toDataURL(),native:[canvas.width,canvas.height],css:{width:canvas.getBoundingClientRect().width,height:canvas.getBoundingClientRect().height},
+          status:document.querySelector('#status')?.textContent,art:JSON.parse(canvas.dataset.spellingDraws??'{}')}}));
+      }
+    } as typeof draw;
+  });
   for (const width of [426, 320]) {
     await page.setViewportSize({ width, height: width === 426 ? 300 : 240 });
-    await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
-    const art = JSON.parse((await page.locator('#game').getAttribute('data-spelling-draws'))!);
-    expect(art['pouch.png'].rect).toEqual([330, 33, 24, 24]);
-    expect(art['tile.png'].rect).toEqual([331, 56, 22, 24]);
+    await openAdventure(page,'/?debug=1');
+    await page.getByRole('button',{name:'TREETOP TIMBERS',exact:true}).click();
+    await page.getByRole('button',{name:'Play TREETOP TIMBERS',exact:true}).click();
+    expect(await runTimberStages(page,[{kind:'walk',x:205}])).toMatchObject({done:true,error:''});
+    await page.waitForFunction(() => Boolean((window as unknown as {reducedPickupWitness?:unknown}).reducedPickupWitness));
+    const witness=await page.evaluate(()=>(window as unknown as {reducedPickupWitness:{png:string;native:number[];css:{width:number;height:number};status:string;art:Record<string,{rect:number[]}>}}).reducedPickupWitness);
+    await info.attach(`reduced-motion-native-${width}`,{body:Buffer.from(witness.png.split(',')[1],'base64'),contentType:'image/png'});
+    await info.attach(`reduced-motion-observed-${width}`,{body:JSON.stringify({...witness,png:undefined}),contentType:'application/json'});
+    expect(witness.status).toContain('T → bag');expect(witness.native).toEqual([426,240]);expect(witness.css.width).toBe(width);
+    expect(witness.art['pouch.png'].rect).toEqual([330,7,24,24]);
+    expect(witness.art['tile.png'].rect).toEqual([331,7,22,24]);
+    expect(7+24).toBeLessThan(37); // complete stationary tile stays above the notice lane
     await expectClearViewport(page);
-    await info.attach(`reduced-motion-${width}`, { body: await page.screenshot({ path: info.outputPath(`reduced-motion-${width}.png`) }), contentType: 'image/png' });
+    const css=await page.locator('#game').screenshot();
+    await info.attach(`reduced-motion-css-${width}`,{body:css,contentType:'image/png'});
+    await info.attach(`reduced-motion-css-size-${width}`,{body:JSON.stringify([css.readUInt32BE(16),css.readUInt32BE(20)]),contentType:'application/json'});
   }
 });
 
@@ -4454,7 +4482,7 @@ test('builder-kit visual fixture renders all six words and generated stickers at
 for (const level of LEVELS) test(`compact HUD renderer fixture: ${level.id} identity marks and real glyph clearance`, async ({ page }, info) => {
   // Explicit layout states, not scene mutation or a claim of input-driven gameplay.
   const names = ['world/camera.ts', 'game/platforms.ts', 'game/movement.ts', 'game/education.ts', 'art/interface-kit.ts', 'game/hud.ts', 'world/scenery.ts',
-    'world/assets.ts', 'world/trail-presentation.ts', 'world/ambient-weather.ts', 'world/surface-materials.ts', 'world/renderer.ts'];
+    'world/cove-terrain.ts', 'world/surface-materials.ts', 'world/assets.ts', 'world/trail-presentation.ts', 'world/ambient-weather.ts', 'world/renderer.ts'];
   const errors: string[] = []; page.on('pageerror', error => errors.push(error.message));
   const modules = names.map(name => readFileSync(new URL(`../src/${name}`, import.meta.url), 'utf8'));
   const runtimeImports = [...new Set(modules.flatMap(source => [...source.matchAll(/^import (?!type )\{([^}]*)\} from .*;$/gm)]
@@ -4520,7 +4548,7 @@ for (const level of LEVELS) test(`compact HUD renderer fixture: ${level.id} iden
           marks: marks.length === 4 && marks.filter(mark => mark.color === HUD_COLORS.hit).length === state,
           icons: iconPixels.length > 0 && iconPixels.every(pixel => !texts.some(text => overlaps(pixel, text))),
           bag: texts.every(text => text.right <= BAG_PLAQUE.x || text.bottom <= BAG_PLAQUE.y || text.top >= BAG_PLAQUE.y + BAG_PLAQUE.height),
-          hintAndNotice: !hint || !notice || texts.filter(text => text.text === hint)[0].top > texts.filter(text => text.text === notice)[0].bottom,
+          hintAndNotice: !hint || !notice || !overlaps({ x: texts.find(text => text.text === hint).left, y: texts.find(text => text.text === hint).top, width: texts.find(text => text.text === hint).right - texts.find(text => text.text === hint).left, height: texts.find(text => text.text === hint).bottom - texts.find(text => text.text === hint).top }, texts.find(text => text.text === notice)),
         };
         window.hudFixtureSample = { state, count: session.letterCount, health: run.health, gems: run.collectedGems.size,
           stars: run.specialTotal ? run.collectedSpecials.size + '/' + run.specialTotal : null, henryRect, clearance, pouchQuiet: quiet, pouchBounds: {
@@ -4540,7 +4568,7 @@ for (const level of LEVELS) test(`compact HUD renderer fixture: ${level.id} iden
   for (const viewport of [{ width: 426, height: 240 }, { width: 320, height: 240 }, { width: 1366, height: 768 }]) {
     await page.setViewportSize(viewport);
     for (let state = 0; state <= 4; state++) {
-      const hint = ['Arrows / A-D: move', 'Buttons 1–4: jump', RIBBON_INTRO, 'Space: jump', ''][state];
+      const hint = ['Arrows / A-D: move', 'Buttons 1–4: jump', 'Stick / D-pad: move', 'Space: jump', ''][state];
       const notice = [level.name, 'Checkpoint reached!', '', areaName(level, level.checkpoints.length - 1), ''][state];
       await page.evaluate(({ state, hint, notice }) => (window as unknown as { hudFixture: { set(s: number, h: string, n: string): void } }).hudFixture.set(state, hint, notice), { state, hint, notice });
       await twoFrames(page);
@@ -4574,16 +4602,25 @@ for (const level of LEVELS) test(`compact HUD renderer fixture: ${level.id} iden
   await info.attach('actual-renderer-ribbon-band-pose', { body: await page.locator('#game').screenshot(), contentType: 'image/png' });
   await info.attach('ribbon-band-fixture-bounds', { body: JSON.stringify({ kind: 'actual renderer layout fixture, not input gameplay', bandHenry, ribbon: TRAIL_RIBBON }), contentType: 'application/json' });
   const glyphs = await kitTextProbe(page);
-  expect(glyphs.checked).toContain(`${RIBBON_INTRO}|plaque`);
+  expect(glyphs.checked.some(key => key.startsWith('Trail: Henry = you;'))).toBe(false);
   for (const count of ['0', '1', '10', '99', '44', '1/3', '10/12', '3/3']) expect(glyphs.checked).toContain(`${count}|plaque`);
   expect(glyphs.violations).toEqual([]); expect(errors).toEqual([]);
   await writeFile(info.outputPath('fixture-provenance.json'), JSON.stringify({ kind: 'renderer layout fixture; no scene/run gameplay claims', level: level.id, samples, glyphs, runtimeImports }, null, 2));
 });
 
 
-test('compact HUD ribbon introduction follows real input and freezes during pause', async ({ page }, info) => {
+test('compact HUD learned hints stay cleared through real input and pause while the ribbon remains', async ({ page }, info) => {
   await observeKitTextClearance(page);
   await page.addInitScript(() => {
+    const fill=CanvasRenderingContext2D.prototype.fillRect;
+    CanvasRenderingContext2D.prototype.fillRect=function(x,y,width,height) {
+      if(this.canvas.id==='game') {
+        if(x===0&&y===0&&width===426&&height===240){this.canvas.dataset.hudRibbon='false';this.canvas.dataset.hudPosts='0';}
+        if(x===413&&y===223&&width===3&&height===2)this.canvas.dataset.hudRibbon='true';
+        if(y===228&&width===3&&height===4)this.canvas.dataset.hudPosts=String(Number(this.canvas.dataset.hudPosts??0)+1);
+      }
+      fill.call(this,x,y,width,height);
+    };
     const draw = CanvasRenderingContext2D.prototype.fillText;
     CanvasRenderingContext2D.prototype.fillText = function (text, x, y, maxWidth) {
       if (this.canvas.id === 'game') {
@@ -4600,51 +4637,39 @@ test('compact HUD ribbon introduction follows real input and freezes during paus
   await page.keyboard.down('ArrowRight'); await twoFrames(page); await page.keyboard.up('ArrowRight');
   await expect(canvas).toHaveAttribute('data-hud-hint', 'Space: jump');
   await page.keyboard.press('Space');
-  await expect(canvas).toHaveAttribute('data-hud-hint', RIBBON_INTRO);
+  await expect(canvas).toHaveAttribute('data-hud-hint', '');
+  await expect(canvas).toHaveAttribute('data-hud-ribbon','true');
+  await expect(canvas).toHaveAttribute('data-hud-posts',String(PLAINS_LEVEL.checkpoints.length));
   await page.keyboard.press('Escape');
   await expect(page.getByRole('button', { name: 'Resume', exact: true })).toBeVisible();
-  await page.waitForTimeout(4300); // Longer than the cue's entire active-play lifetime.
+  await page.waitForTimeout(4300); // Preserve the same pause duration while learned hints remain cleared.
   await page.keyboard.press('Escape');
-  await expect(canvas).toHaveAttribute('data-hud-hint', RIBBON_INTRO);
+  await expect(canvas).toHaveAttribute('data-hud-hint', '');
+  await expect(canvas).toHaveAttribute('data-hud-ribbon','true');
+  await expect(canvas).toHaveAttribute('data-hud-posts',String(PLAINS_LEVEL.checkpoints.length));
   const captures = [];
   for (const viewport of [{ width: 426, height: 240 }, { width: 320, height: 240 }, { width: 1366, height: 768 }]) {
     await page.setViewportSize(viewport); await twoFrames(page); await expectClearViewport(page);
-    await expect(canvas).toHaveAttribute('data-hud-hint', RIBBON_INTRO);
-    await page.screenshot({ path: info.outputPath(`gameplay-ribbon-intro-${viewport.width}.png`) });
-    captures.push({ viewport, status: await page.locator('#status').innerText() });
+    await expect(canvas).toHaveAttribute('data-hud-hint', '');
+    await expect(canvas).toHaveAttribute('data-hud-ribbon','true');
+    await expect(canvas).toHaveAttribute('data-hud-posts',String(PLAINS_LEVEL.checkpoints.length));
+    await page.screenshot({ path: info.outputPath(`gameplay-ribbon-retained-${viewport.width}.png`) });
+    const geometry=await canvas.evaluate(c=>({native:[(c as HTMLCanvasElement).width,(c as HTMLCanvasElement).height],css:{width:c.getBoundingClientRect().width,height:c.getBoundingClientRect().height},png:(c as HTMLCanvasElement).toDataURL()}));
+    const css=await canvas.screenshot();
+    await info.attach(`real-hud-native-${viewport.width}`,{body:Buffer.from(geometry.png.split(',')[1],'base64'),contentType:'image/png'});
+    await info.attach(`real-hud-css-${viewport.width}`,{body:css,contentType:'image/png'});
+    captures.push({ viewport, geometry:{...geometry,png:undefined},cssPngSize:[css.readUInt32BE(16),css.readUInt32BE(20)],status: await page.locator('#status').innerText() });
   }
   await expect(canvas).toHaveAttribute('data-hud-hint', '');
+  await expect(canvas).toHaveAttribute('data-hud-ribbon','true');
+  await expect(canvas).toHaveAttribute('data-hud-posts',String(PLAINS_LEVEL.checkpoints.length));
   const glyphs = await kitTextProbe(page); expect(glyphs.violations).toEqual([]);
-  await writeFile(info.outputPath('gameplay-provenance.json'), JSON.stringify({ kind: 'keyboard-driven gameplay; no scene/run mutation or clock acceleration', captures, glyphs }, null, 2));
+  await writeFile(info.outputPath('gameplay-provenance.json'), JSON.stringify({ kind: 'keyboard-driven gameplay; no scene/run mutation or clock acceleration', sourceRevision:info.config.metadata.sourceRevision, captures, glyphs }, null, 2));
 });
 
 /** Observe actual map glyph extents and loaded art without changing scene state. */
 async function observeLandmarkLabels(page: Page): Promise<void> {
-  await page.addInitScript(() => {
-    const probe = { labels: [] as { text: string; left: number; top: number; right: number; bottom: number }[],
-      panel: [] as string[], assets: [] as string[] };
-    Object.assign(window, { landmarkLabelProbe: probe });
-    const fillText = CanvasRenderingContext2D.prototype.fillText;
-    CanvasRenderingContext2D.prototype.fillText = function (text, x, y, maxWidth) {
-      if (this.canvas.id === 'game') {
-        if (text === 'PATCHWORK VALE') { probe.labels = []; probe.panel = []; }
-        if (['Plains', 'Quarry', 'Timbers', 'Sunset', 'Frost', 'Cove'].includes(text)) {
-          const m = this.measureText(text);
-          probe.labels.push({ text, left: x - m.actualBoundingBoxLeft, top: y - m.actualBoundingBoxAscent,
-            right: x + m.actualBoundingBoxRight, bottom: y + m.actualBoundingBoxDescent });
-          this.canvas.dataset.landmarkLabels = JSON.stringify(probe.labels.map(label => label.text));
-        }
-        if (x === 350 && (y === 63 || y === 76)) probe.panel.push(text);
-        if (x === 415 && y === 20) this.canvas.dataset.gameplayTrail = text;
-      }
-      if (maxWidth === undefined) fillText.call(this, text, x, y); else fillText.call(this, text, x, y, maxWidth);
-    };
-    const drawImage = CanvasRenderingContext2D.prototype.drawImage;
-    CanvasRenderingContext2D.prototype.drawImage = function (image: CanvasImageSource, ...args: number[]) {
-      if (image instanceof HTMLImageElement && image.complete && !probe.assets.includes(image.src)) probe.assets.push(image.src);
-      return Reflect.apply(drawImage, this, [image, ...args]);
-    };
-  });
+  await page.addInitScript(landmarkLabelProbeInit, landmarkGameplayAnchor);
 }
 
 for (const viewport of [{ width: 426, height: 240 }, { width: 320, height: 240 }, { width: 1366, height: 768 }]) {
@@ -4698,6 +4723,12 @@ for (const viewport of [{ width: 426, height: 240 }, { width: 320, height: 240 }
       const openingLabel = next.sections ? openingSection?.name ?? next.name : (openingArea < 0 ? next.name : areaName(next, openingArea));
       if (next.id === 'frost') expect(openingLabel).toBe('FIRST SLIDE');
       await expect(canvas).toHaveAttribute('data-gameplay-trail', openingLabel);
+      const gameplayGlyph = JSON.parse((await canvas.getAttribute('data-gameplay-glyph'))!) as { text: string; x: number; y: number; left: number; right: number; top: number; bottom: number };
+      expect(gameplayGlyph.text).toBe(openingLabel);
+      expect({ x: gameplayGlyph.x, y: gameplayGlyph.y }).toEqual(landmarkGameplayAnchor);
+      expect(gameplayGlyph.right).toBeGreaterThan(gameplayGlyph.left);
+      expect(gameplayGlyph.bottom).toBeGreaterThan(gameplayGlyph.top);
+      await info.attach(`${next.id}-gameplay-label`, { body: JSON.stringify(gameplayGlyph), contentType: 'application/json' });
       await page.keyboard.press('Escape');
       await page.getByRole('button', { name: 'Return to Trails', exact: true }).click();
       await page.getByRole('button', { name: 'Return to Trails', exact: true }).click();
@@ -4725,8 +4756,8 @@ for (const [selection, trail] of LEVELS.entries()) test(`landmark labels: render
   // Use the actual map method and its complete renderer dependency graph. These
   // explicit presentation states are not completed gameplay or scene mutations.
   const names = ['world/camera.ts', 'game/platforms.ts', 'game/movement.ts', 'art/henry.ts', 'art/animation.ts', 'art/interface-kit.ts', 'game/education.ts',
-    'world/scenery.ts', 'world/assets.ts', 'world/trail-presentation.ts', 'world/ambient-weather.ts',
-    'world/surface-materials.ts', 'world/renderer.ts', 'game/reward-result.ts', 'game/overworld.ts'];
+    'world/scenery.ts', 'world/cove-terrain.ts', 'world/surface-materials.ts', 'world/assets.ts', 'world/trail-presentation.ts', 'world/ambient-weather.ts',
+    'world/renderer.ts', 'game/reward-result.ts', 'game/overworld.ts'];
   const modules = names.map(name => readFileSync(new URL(`../src/${name}`, import.meta.url), 'utf8'));
   const runtimeImports = [...new Set(modules.flatMap(source => [...source.matchAll(/^import (?!type )\{([^}]*)\} from .*;$/gm)]
     .flatMap(([, names]) => names.split(',').map(name => name.trim()).filter(name => name && !name.startsWith('type ')))))];

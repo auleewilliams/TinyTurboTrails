@@ -4,7 +4,7 @@ import { FINISH_LAYOUT, drawFinishChrome, finishActionRects } from '../src/game/
 import { PAUSE_PANEL, PauseMenu, drawFocusPause } from '../src/game/pause-menu';
 import { EducationOverlay, STICKER_CARD } from '../src/game/education-overlay';
 import { EducationSession, TRAIL_WORDS } from '../src/game/education';
-import { BAG_PLAQUE, HUD_PLAQUES, TRAIL_RIBBON, drawBagBacking, drawGameplayHud, drawTrailRibbon, HudPresentation } from '../src/game/hud';
+import { BAG_PLAQUE, HUD_NOTICE_Y, HUD_PLAQUES, TRAIL_RIBBON, drawBagBacking, drawGameplayHud, drawTrailRibbon, HudPresentation } from '../src/game/hud';
 import { OVERWORLD_LAYOUT, drawOverworld, TrailSession } from '../src/game/overworld';
 import { createRun } from '../src/game/interactions';
 import { LEVELS } from '../src/world/levels';
@@ -144,7 +144,7 @@ it('HUD backings use compact plaques within compact rectangles and never grow th
   for (const area of [HUD_PLAQUES.gems, HUD_PLAQUES.hearts, HUD_PLAQUES.stars]) expect(bounds(plaques, 'plaque', area)).toEqual(area);
   expect(bounds(plaques, 'plaque', { x: 5, y: 31, width: 200, height: 18 })).toEqual({ x: 5, y: 31, width: 'Space: jump'.length * 6 + 10, height: 18 });
   const noticeWidth = 'PLAINS'.length * 6 + 12;
-  expect(bounds(plaques, 'plaque', { x: 300, y: 5, width: 121, height: 22 })).toEqual({ x: 421 - noticeWidth, y: 5, width: noticeWidth, height: 22 });
+  expect(bounds(plaques, 'plaque', { x: 300, y: HUD_NOTICE_Y, width: 121, height: 22 })).toEqual({ x: 421 - noticeWidth, y: HUD_NOTICE_Y, width: noticeWidth, height: 22 });
   expect(bounds(plaques, 'plaque', TRAIL_RIBBON)).toEqual(rect(TRAIL_RIBBON));
   expect(draws.some(draw => draw.piece !== 'plaque')).toBe(false);
 });

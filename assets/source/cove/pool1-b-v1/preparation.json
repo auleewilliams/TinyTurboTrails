@@ -1,0 +1,49 @@
+{
+  "width": 100,
+  "height": 5,
+  "pngSha256": "5cd28fcdacf6bd591051acdc740ca04ea7234de96aa7dd23969cbf2578c88960",
+  "pixelSha256": "76876843e9a5557c951a55eb53d46d9ea08728cc73b580ada9385e03b99ff084",
+  "sourceSha256": "6f5b53354c9d846b0a7821bd473e44b0d5f7d3cd7e548fe54d6d6ecd1a13337b",
+  "originalGenerationRole": "reserved manual pool1 refinement requested100x3; actual whole reuse100x5",
+  "currentReuseRole": "cove-pool-stone-1 native100x5",
+  "requestedSourceNativeScale": 8,
+  "actualUniformSourceNativeScale": {
+    "numerator": 958,
+    "denominator": 100
+  },
+  "window": {
+    "x": 289,
+    "y": 487,
+    "width": 958,
+    "height": 57.480000000000004
+  },
+  "fullNativeCanvas": [
+    100,
+    6
+  ],
+  "rowOpaque": [
+    100,
+    100,
+    98,
+    95,
+    74,
+    0
+  ],
+  "transparentBottomRowsRemoved": 1,
+  "sourcePaintOutsideWindow": 0,
+  "repairs": 0,
+  "postDownsampleRgbEdits": 0,
+  "rawRgbaSha256": "ab595a929964b87a762d985907d8dab0b88f8bc20771d701dda881e4ceb9a661",
+  "method": "unchanged edge-connected key and floor-block modeDownsample; whole painted region retained before resampling, not every individual source pixel represented",
+  "sourceCallCount": 1,
+  "newImageCallsForReuse": 0,
+  "requestedQuality": "medium",
+  "reportedQuality": "low",
+  "bindings": {
+    "request.json": "00b97d6f3c32191317046b71cea8e0dcc840948077d9ccbd9d30161289dc5b6b",
+    "generation-result.json": "8142a12c6ccaed12a8aee4d1864656f0711ac4360708739a27a963c6d5064658",
+    "acceptance.json": "72d353ad1195fc9bbf2b42e3d846e7e5b46eb137cf2d16c4c63ee3613b7fd58b",
+    "budget-adjudication.json": "29e4d7b1fa0efcdad795f33636f10dbec4677c328853a3f4f5edb8109779a594",
+    "reference-bindings.json": "5cf09cc50517288a4f88e04aa0f0ed26673afb701a023653f56dc21228bb014a"
+  }
+}

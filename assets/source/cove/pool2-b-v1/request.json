@@ -1,0 +1,16 @@
+{
+  "role": "cove-pool-stone-1",
+  "prompt": "Primary guide is a 1536x1024 technical placement request, pure magenta RGB255,0,255 background. Paint exactly ONE complete Cove B-style rock for cove-pool-stone-1, native100x6 at8x: source window x368,y488,width800,height48. Replace white guide eligibility with original tan/slate/cream painted artwork; retain magenta outside the window. Match approved bay1 grain/palette and isolated B style. Quiet thin straight cream landing edge across the ENTIRE window width, first8source rows opaque. Broad rounded boulder masses with inward-tapered ends inside the white per-column depth envelope; natural ragged underside. No labels/white-guide remnants, extra rocks, tilechains, repeated cap motifs, columns, standing-looking side overhangs, actors or HUD. Do not copy a reference's dimensions; guide defines this role. This low ledge is intentionally only6native pixels deep INCLUDING rim. Paint a coherent shallow B-facet stone lip with complete rounded ends; do not produce a thick30px hanging island to be chopped later. Make it a single VERY WIDE, VERY SHALLOW stone lip with width-to-height at least17:1, including the cream rim. Follow the thin white eligibility strip, NOT the reference rock thickness. Both painted ends and the entire underside must remain inside the strip; the result must not need its body chopped down. No scenery or shadow, no duplicate blocks.",
+  "image_url": "/home/leew/.hermes/cache/scratch/ttt-art-235/phase16-cove-platform-rollout/generation-inputs/cove-pool-stone-1-placement-guide.png",
+  "reference_image_urls": [
+    "/home/leew/.hermes/cache/scratch/tinyturbotrails-art-235/assets/source/cove/bay1-b-v1/references/B-style-isolated-reference.png"
+  ],
+  "aspect_ratio": "landscape",
+  "requestedCanvas": [
+    1536,
+    1024
+  ],
+  "sourceScaleRequest": 8,
+  "allowance": "ONEinitialrolecall,0automaticrefinements, approved<=3endpointpixelcleanupifotherwisewholefit",
+  "actualImageMetadata": "PENDING"
+}

@@ -1,0 +1,447 @@
+import { drawTerrainMaterial, drawTerrainEdge, drawTrailBackdrop } from './trail-presentation';
+import { drawAmbientWeather } from './ambient-weather';
+import type { Camera } from './camera';
+import type { LevelData, LevelSun, WorldEntity } from './level';
+import type { PlatformBody, Surface } from '../game/movement';
+import type { MovingPlatform } from '../game/platforms';
+import type { WorldAsset, WorldAssets } from './assets';
+import { drawSceneryBackground, drawScenerySprite, foregroundPlacements, sceneryForDecoration } from './scenery';
+import { drawSurfaceMaterials } from './surface-materials';
+import { drawCoveGround, drawCovePlatform } from './cove-terrain';
+import type { SlimeAccessory } from './slimes';
+
+/** Scenes without run state draw the whole entity list; a run hides what it has consumed. */
+export type EntityFilter = (entity: WorldEntity) => boolean;
+/** Run state supplies live positions plus optional deterministic presentation progress. */
+export type EntityPosition = (entity: WorldEntity) => { x: number; y: number; warningProgress?: number; checkpointActive?: boolean; springScale?: number; squashProgress?: number };
+
+export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, level: LevelData, camera: Camera,
+  isVisible: EntityFilter = () => true, positionOf: EntityPosition = (entity) => entity,
+  platforms: readonly PlatformBody[] = [], runSeconds = 0, reducedMotion = false): void {
+  const offset = camera.position;
+  const { atlas, manifest } = assets;
+  const cell = manifest.cellSize;
+  ctx.fillStyle = level.theme.sky;
+  ctx.fillRect(0, 0, 426, 240);
+  const scenery = level.theme.scenery ? assets.scenery : undefined;
+  if (scenery) drawSceneryBackground(ctx, scenery, level, offset.x);
+  else if (!drawTrailBackdrop(ctx, assets, level, offset)) {
+    if (level.theme.sun) drawSun(ctx, level.theme.sun, offset.x);
+    for (const parallax of level.theme.parallax) {
+      drawAsset(ctx, assets, parallax.asset,
+        parallax.x - offset.x * 0.18, parallax.y - offset.y * 0.1, parallax.scale);
+    }
+  }
+  if (level.id === 'timbers') drawTimberTrunk(ctx, assets, offset);
+  if (level.id === 'sunset' && level.verticalCamera) drawSiteFrame(ctx, assets, offset);
+  drawAmbientWeather(ctx, level.theme.weather, offset, runSeconds, reducedMotion);
+  ctx.fillStyle = level.theme.ground;
+  // Fill each connected ground contour once: separately antialiased polygon
+  // edges leave the background showing through at fractional camera offsets.
+  for (let i = 0; i < level.surfaces.length; i++) {
+    const first = level.surfaces[i];
+    let last = first;
+    ctx.beginPath();
+    ctx.moveTo(first.x1 - offset.x, first.y1 - offset.y);
+    ctx.lineTo(last.x2 - offset.x, last.y2 - offset.y);
+    while (i + 1 < level.surfaces.length) {
+      const next = level.surfaces[i + 1];
+      if (next.x1 !== last.x2 || next.y1 !== last.y2) break;
+      last = next;
+      i++;
+      ctx.lineTo(last.x2 - offset.x, last.y2 - offset.y);
+    }
+    ctx.lineTo(last.x2 - offset.x, 240);
+    ctx.lineTo(first.x1 - offset.x, 240);
+    ctx.closePath();
+    ctx.fill();
+    ctx.save(); ctx.clip();
+    if (level.id === 'cove' && assets.coveTerrain) drawCoveGround(ctx, assets.coveTerrain, level, offset, first.x1, last.x2);
+    else drawTerrainMaterial(ctx, level, offset, assets, first.x1, last.x2);
+    ctx.restore();
+  }
+  if (level.theme.material === 'wood') drawTerrainTiles(ctx, assets, level, offset);
+  if (!(level.id === 'cove' && assets.coveTerrain)) drawTerrainEdge(ctx, level, offset);
+  drawSurfaceMaterials(ctx, level, offset);
+  for (const surface of level.surfaces) drawSurfaceGrip(ctx, surface, offset);
+  drawPlatforms(ctx, level, offset, platforms, assets);
+  drawLandingBands(ctx, level, offset);
+  // Decorative silhouettes sit behind every collectible, hazard and checkpoint.
+  const layerOrder: Record<WorldEntity['layer'], number> = { back: 0, world: 1, front: 2 };
+  const entities = [...level.entities].sort((left, right) => layerOrder[left.layer] - layerOrder[right.layer]);
+  for (const entity of entities) {
+    if (!isVisible(entity)) continue;
+    const position = positionOf(entity);
+    if (entity.kind === 'slime' && assets.slimes) {
+      drawSlime(ctx, assets.slimes, level.theme.slimeAccessory ?? 'straw', position.x - offset.x, position.y - offset.y,
+        position.squashProgress, reducedMotion);
+    } else if (entity.kind === 'gem') {
+      drawGem(ctx, assets.gems, position.x - offset.x, position.y - offset.y, level.atlas);
+    } else if (entity.kind === 'special') {
+      drawSpecial(ctx, position.x - offset.x, position.y - offset.y);
+    } else if (entity.kind === 'crumbling-ledge') {
+      drawCrumblingLedge(ctx, assets, entity, position.x - offset.x, position.y - offset.y, position.warningProgress ?? 0);
+    } else if (scenery && sceneryForDecoration(entity)) {
+      drawScenerySprite(ctx, scenery, sceneryForDecoration(entity)!, position.x - offset.x, position.y - offset.y);
+    } else {
+      const x = position.x - offset.x;
+      const y = position.y - offset.y;
+      if (position.springScale !== undefined && position.springScale !== 1) {
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.scale(1, position.springScale);
+        drawAsset(ctx, assets, entity.asset as WorldAsset, 0, 0, 1);
+        ctx.restore();
+      } else drawAsset(ctx, assets, entity.asset as WorldAsset, x, y, 1);
+      if (position.checkpointActive) {
+        // A bright pennant and check remain visible after the celebration ends.
+        ctx.fillStyle = '#ffda75';
+        ctx.fillRect(x - 5, y - 38, 22, 13);
+        ctx.strokeStyle = '#10252c';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(x - 5, y - 38, 22, 13);
+        ctx.beginPath();
+        ctx.moveTo(x, y - 32); ctx.lineTo(x + 4, y - 28); ctx.lineTo(x + 12, y - 35); ctx.stroke();
+      }
+    }
+  }
+  // The finish artwork is ground-anchored, including on Cove's exit slope.
+  // A vertical shear follows the terrain without leaning the upright pillars.
+  const finishSurface = level.surfaces.find(surface => level.finish.x >= surface.x1 && level.finish.x <= surface.x2);
+  const finishSlope = finishSurface ? (finishSurface.y2 - finishSurface.y1) / (finishSurface.x2 - finishSurface.x1) : 0;
+  drawAsset(ctx, assets, level.finish.asset as WorldAsset, level.finish.x - offset.x, level.finish.y - offset.y, 2, finishSlope);
+  // Keep the draw source referenced so a bad cell size cannot silently pass.
+  void atlas;
+  void cell;
+}
+
+/** Every costume shares one 32px body and the same bottom-center ground anchor. */
+export function drawSlime(ctx: CanvasRenderingContext2D, atlas: HTMLImageElement, accessory: SlimeAccessory, x: number, y: number,
+  squashProgress?: number, reducedMotion = false): void {
+  const index = { straw: 0, miner: 1, leaf: 2, 'hard-hat': 3, bobble: 4, snorkel: 5 }[accessory];
+  const progress = squashProgress === undefined ? 0 : reducedMotion ? 1 : Math.max(0, Math.min(1, squashProgress));
+  const width = 1 + progress * 0.2, height = 1 - progress * 0.6;
+  ctx.drawImage(atlas, index * 48, 0, 48, 48, x - 24 * width, y - 44 * height, 48 * width, 48 * height);
+}
+
+/** Draw the actual cut-diamond sprite, with its visible bottom at the pickup
+ * anchor. All three palette cells share the source artwork and alpha mask. */
+export function drawGem(ctx: CanvasRenderingContext2D, gems: HTMLImageElement, x: number, y: number, atlas: string): void {
+  const cell = atlas === 'cove' ? 2 : atlas === 'frost' ? 1 : 0;
+  ctx.drawImage(gems, cell * 32, 0, 32, 24, Math.round(x) - 16, Math.round(y) - 24, 32, 24);
+}
+
+/** Original code-authored pixel star: a gold five-point silhouette, dark rim and
+ * pale center. Its center is the pickup position, unlike bottom-anchored gems. */
+export function drawSpecial(ctx: CanvasRenderingContext2D, x: number, y: number): void {
+  const rows = ['00000100000', '00001110000', '00001110000', '11111111111',
+    '01111111110', '00111111100', '00111111100', '01110011110', '01100001110'];
+  x = Math.round(x) - 11; y = Math.round(y) - 9;
+  ctx.fillStyle = '#10252c';
+  for (let row = 0; row < rows.length; row++) for (let col = 0; col < 11; col++) {
+    if (rows[row][col] === '1') ctx.fillRect(x + col * 2 - 1, y + row * 2 - 1, 4, 4);
+  }
+  ctx.fillStyle = '#ffda75';
+  for (let row = 0; row < rows.length; row++) for (let col = 0; col < 11; col++) {
+    if (rows[row][col] === '1') ctx.fillRect(x + col * 2, y + row * 2, 2, 2);
+  }
+  ctx.fillStyle = '#fff7d6'; ctx.fillRect(x + 9, y + 6, 4, 4);
+}
+
+/** Gold landing bands follow the existing terrain contour. */
+export function drawLandingBands(ctx: CanvasRenderingContext2D, level: LevelData, offset: { x: number; y: number }): void {
+  for (const band of level.landingBands ?? []) {
+    const x = Math.round(band.x - offset.x);
+    if (x < -180 || x > 606) continue;
+    ctx.save();
+    ctx.fillStyle = '#ffda75';
+    for (let px = band.x - band.width / 2; px <= band.x + band.width / 2; px += 12) {
+      const surface = level.surfaces.find((part) => px >= part.x1 && px <= part.x2);
+      if (!surface) continue;
+      const py = surface.y1 + (surface.y2 - surface.y1) * (px - surface.x1) / (surface.x2 - surface.x1);
+      ctx.fillRect(Math.round(px - offset.x), Math.round(py - offset.y) + 2, 7, 3);
+    }
+    ctx.restore();
+  }
+}
+
+export function drawTerrainTiles(ctx: CanvasRenderingContext2D, assets: WorldAssets, level: LevelData,
+  offset: { x: number; y: number }): void {
+  const cell = assets.manifest.cellSize;
+  for (const surface of level.surfaces) {
+    const span = surface.x2 - surface.x1;
+    for (let x = surface.x1; x < surface.x2; x += cell) {
+      if (x + cell < offset.x || x > offset.x + 426) continue;
+      const end = Math.min(x + cell, surface.x2);
+      const tileWidth = end - x;
+      const y = surface.y1 + (surface.y2 - surface.y1) * ((x - surface.x1) / span);
+      const asset: WorldAsset = x === level.minX ? 'terrain-left'
+        : end === level.maxX ? 'terrain-right'
+        : surface.y1 !== surface.y2 ? 'terrain-ramp'
+        : 'terrain-flat';
+      const index = assets.manifest.assets[asset];
+      const sourceX = (index % 4) * cell;
+      const sourceY = Math.floor(index / 4) * cell;
+      const tops = assets.manifest.terrainTops?.[asset] ?? { left: 0, right: 0 };
+      const sourceRise = Math.abs(tops.right - tops.left);
+      const desiredRise = Math.abs((surface.y2 - surface.y1) / span * tileWidth);
+      const scaleY = asset === 'terrain-ramp' && sourceRise > 0 ? Math.min(1, desiredRise / sourceRise) : 1;
+      const descending = asset === 'terrain-ramp' && surface.y2 > surface.y1;
+      const startTop = descending ? tops.right : tops.left;
+      const destinationY = y - startTop * scaleY - offset.y;
+      const destinationHeight = cell * scaleY;
+      if (descending) {
+        ctx.save();
+        ctx.translate(end - offset.x, 0);
+        ctx.scale(-1, 1);
+        ctx.drawImage(assets.atlas, sourceX, sourceY, cell, cell, 0, destinationY, tileWidth, destinationHeight);
+        ctx.restore();
+      } else {
+        ctx.drawImage(assets.atlas, sourceX, sourceY, cell, cell,
+          x - offset.x, destinationY, tileWidth, destinationHeight);
+      }
+    }
+  }
+}
+
+export function drawCrumblingLedge(ctx: CanvasRenderingContext2D, assets: WorldAssets, entity: WorldEntity,
+  x: number, y: number, warningProgress = 0): void {
+  const progress = Math.max(0, Math.min(1, warningProgress));
+  const shake = progress === 0 ? 0 : Math.round(Math.sin(progress * 24) * progress * 2);
+  const tileCount = Math.max(1, Math.round((entity.width ?? 72) / 24));
+  const firstCenter = x - (tileCount - 1) * 12;
+  for (let index = 0; index < tileCount; index++) {
+    drawAsset(ctx, assets, 'stone', firstCenter + index * 24 + shake, y, 0.5);
+  }
+  if (progress === 0) return;
+  const cracks = progress >= 0.5 ? 2 : 1;
+  ctx.save();
+  ctx.strokeStyle = '#49362d';
+  ctx.lineWidth = 1;
+  for (let index = 0; index < cracks; index++) {
+    const crackX = x + shake + (index === 0 ? -12 : 13);
+    ctx.beginPath();
+    ctx.moveTo(crackX - 4, y - 12);
+    ctx.lineTo(crackX + 1, y - 8);
+    ctx.lineTo(crackX - 2, y - 3);
+    ctx.stroke();
+  }
+  ctx.restore();
+}
+
+/** Draw after the player, before the HUD; only low, non-interactive edge plants. */
+export function drawWorldForeground(ctx: CanvasRenderingContext2D, assets: WorldAssets, level: LevelData, camera: Camera): void {
+  if (!assets.scenery || !level.theme.scenery) return;
+  for (const prop of foregroundPlacements(level)) {
+    const x = prop.x - camera.position.x;
+    if (x < -48 || x > 474) continue;
+    drawScenerySprite(ctx, assets.scenery, prop.sprite, x, prop.y - camera.position.y);
+  }
+}
+
+/** A stepped pixel disc: scanline rows keep the edge crisp at the game's low resolution. */
+function drawSun(ctx: CanvasRenderingContext2D, sun: LevelSun, cameraX: number): void {
+  const x = Math.round(sun.x - cameraX * 0.02);
+  const disc = (radius: number, color: string): void => {
+    ctx.fillStyle = color;
+    for (let dy = -radius; dy <= radius; dy++) {
+      const half = Math.floor(Math.sqrt(radius * radius - dy * dy));
+      ctx.fillRect(x - half, sun.y + dy, half * 2 + 1, 1);
+    }
+  };
+  disc(Math.round(sun.radius * 1.7), sun.glow);
+  disc(sun.radius, sun.color);
+}
+
+/** Paths are drawn before the slabs so a rider always sees where the ride goes next. */
+export function drawPlatforms(ctx: CanvasRenderingContext2D, level: LevelData, offset: { x: number; y: number },
+  platforms: readonly PlatformBody[], assets?: WorldAssets): void {
+  for (const platform of level.platforms ?? []) {
+    drawPlatformPath(ctx, platform, offset);
+    const body = platforms.find((candidate) => candidate.id === platform.id);
+    if (!body) continue;
+    if (level.id === 'cove' && platform.from.x === platform.to.x && platform.from.y === platform.to.y) {
+      if (assets?.coveTerrain) {
+        drawCovePlatform(ctx, assets.coveTerrain, level, body, offset);
+        continue;
+      }
+      const x = body.x - offset.x, y = body.y - offset.y;
+      ctx.fillStyle = '#87979b'; ctx.fillRect(x, y, body.width, body.height);
+      ctx.fillStyle = '#e3e6ce'; ctx.fillRect(x, y, body.width, 3);
+      ctx.fillStyle = '#54686b'; ctx.fillRect(x, y + body.height - 2, body.width, 2);
+      ctx.fillStyle = '#b7c5bd';
+      for (let rock = 8; rock < body.width - 6; rock += 23) ctx.fillRect(x + rock, y + 5, 9, 2);
+      continue;
+    }
+    if (level.id === 'frost' && platform.from.x === platform.to.x && platform.from.y === platform.to.y) {
+      const x = body.x - offset.x, y = body.y - offset.y;
+      ctx.fillStyle = '#7997b0'; ctx.fillRect(x, y, body.width, body.height);
+      ctx.fillStyle = '#eff8ff'; ctx.fillRect(x, y, body.width, 4);
+      ctx.fillStyle = '#dcebf3';
+      for (let snow = 8; snow < body.width - 6; snow += 19) ctx.fillRect(x + snow, y + 4, 9, 2);
+      continue;
+    }
+    if (assets && level.id === 'sunset' && level.verticalCamera) {
+      const x = body.x - offset.x, y = body.y - offset.y;
+      // Existing site girder tiles supply texture; the gold top is exactly the
+      // collision plane. Dark braces are drawn separately behind the action.
+      ctx.save(); ctx.beginPath(); ctx.rect(x, y, body.width, 12); ctx.clip();
+      for (let tile = 0; tile < body.width; tile += 32) drawAsset(ctx, assets!, 'terrain-flat', x + tile + 16, y + 28, 1);
+      ctx.fillStyle = '#3c3343'; ctx.fillRect(x, y + 3, body.width, 8);
+      ctx.fillStyle = level.theme.edge; ctx.fillRect(x, y, body.width, 3);
+      for (let bolt = 8; bolt < body.width; bolt += 24) { ctx.fillStyle = '#e9bd78'; ctx.fillRect(x + bolt, y + 6, 2, 2); }
+      ctx.restore();
+      continue;
+    }
+    if (assets && level.progressAxis === 'y' && platform.from.x === platform.to.x && platform.from.y === platform.to.y) {
+      const x = body.x - offset.x, y = body.y - offset.y;
+      if (x + body.width >= 0 && x <= 426 && y >= -28 && y <= 240) {
+        const timber = level.theme.material === 'wood';
+        const depth = timber ? (body.width >= 300 ? 18 : 12) : body.width >= 140 ? 24 : 14;
+        ctx.save(); ctx.beginPath();
+        if (timber) {
+          const center = Math.max(x + 20, Math.min(410 - offset.x, x + body.width - 20));
+          ctx.moveTo(x, y + 3); ctx.lineTo(x + body.width, y + 3);
+          ctx.lineTo(x + body.width, y + 8);
+          ctx.lineTo(center + (x + body.width - center) / 2, y + depth);
+          ctx.lineTo(center, y + depth + 4);
+          ctx.lineTo(x + (center - x) / 2, y + depth);
+          ctx.lineTo(x, y + 8); ctx.closePath();
+        } else ctx.rect(x, y + 3, body.width, depth);
+        ctx.fillStyle = level.theme.ground; ctx.fill(); ctx.clip();
+        drawTerrainMaterial(ctx, level, offset, assets, body.x, body.x + body.width);
+        if (timber) {
+          ctx.fillStyle = '#402b20';
+          for (let grain = body.x + 14; grain < body.x + body.width; grain += 31) {
+            ctx.fillRect(grain - offset.x, y + 7, 16, 2);
+            ctx.fillRect(grain - offset.x + 8, y + depth, 2, 3);
+          }
+        } else for (let rock = body.x + 12; rock < body.x + body.width; rock += 30) {
+          drawAsset(ctx, assets, 'stone', rock - offset.x, y + depth + 7, 0.5);
+        }
+        ctx.restore();
+      }
+    }
+    ctx.fillStyle = level.theme.ground;
+    ctx.fillRect(body.x - offset.x, body.y - offset.y, body.width, body.height);
+    ctx.fillStyle = level.theme.edge;
+    ctx.fillRect(body.x - offset.x, body.y - offset.y, body.width, 3);
+    ctx.fillStyle = '#ffffff22';
+    for (let x = 6; x < body.width - 4; x += 11) ctx.fillRect(body.x - offset.x + x, body.y - offset.y + 5, 4, 1);
+  }
+}
+
+/** Pass-through frame behind the actual support tops, composed with site art. */
+export function drawSiteFrame(ctx: CanvasRenderingContext2D, assets: WorldAssets, offset: { x: number; y: number }): void {
+  ctx.save();
+  for (const [left, right, top, bottom] of [[100, 410, 320, 620], [1700, 2150, 380, 680], [2520, 3080, 140, 680]]) {
+    ctx.fillStyle = '#51404b88';
+    for (let x = left; x <= right; x += 140) {
+      ctx.fillRect(x - offset.x, top - offset.y, 5, bottom - top);
+      for (let y = top + 12; y < bottom; y += 60) {
+        ctx.strokeStyle = '#75546180'; ctx.lineWidth = 3; ctx.beginPath();
+        ctx.moveTo(x - offset.x, y - offset.y);
+        ctx.lineTo(Math.min(x + 140, right) - offset.x, y + 54 - offset.y);
+        ctx.stroke();
+      }
+    }
+  }
+  drawAsset(ctx, assets, 'tree', 1620 - offset.x, 680 - offset.y, 1.5);
+  ctx.restore();
+}
+
+/** The nonblocking trunk stays behind all actual top faces and collectibles. */
+export function drawTimberTrunk(ctx: CanvasRenderingContext2D, assets: WorldAssets, offset: { x: number; y: number }): void {
+  const left = 345 - offset.x, right = 475 - offset.x;
+  if (right < 0 || left > 426) return;
+  ctx.save();
+  const sections = [
+    [180, 390, 430], [300, 382, 440], [420, 376, 447], [540, 374, 449],
+    [660, 364, 456], [780, 361, 460], [900, 351, 468], [1080, 343, 478],
+  ];
+  ctx.beginPath();
+  sections.forEach(([y, x], index) => index ? ctx.lineTo(x - offset.x, y - offset.y) : ctx.moveTo(x - offset.x, y - offset.y));
+  [...sections].reverse().forEach(([y, , x]) => ctx.lineTo(x - offset.x, y - offset.y));
+  ctx.closePath(); ctx.fillStyle = '#3e2c27'; ctx.fill();
+  ctx.save(); ctx.clip();
+  ctx.fillStyle = '#755036'; ctx.fillRect(372 - offset.x, 180 - offset.y, 67, 900);
+  ctx.fillStyle = '#a07146'; ctx.fillRect(386 - offset.x, 180 - offset.y, 9, 900);
+  ctx.fillStyle = '#5b3e2d'; ctx.fillRect(428 - offset.x, 180 - offset.y, 8, 900);
+  for (let y = Math.floor(offset.y / 42) * 42; y < offset.y + 282; y += 42) {
+    ctx.fillStyle = '#3c2924aa';
+    ctx.fillRect(403 + (y % 3) * 5 - offset.x, y - offset.y, 21, 3);
+    ctx.fillRect(357 - offset.x, y + 18 - offset.y, 11, 2);
+    ctx.fillStyle = '#b0805138'; ctx.fillRect(395 + (y % 5) * 3 - offset.x, y + 7 - offset.y, 2, 26);
+  }
+  ctx.restore();
+  // Tapered, diagonal limbs are scenic connections. Only the brighter level
+  // platform tops drawn later are standing surfaces.
+  for (const [y, outer] of [[300, 210], [420, 170], [540, 585], [660, 65], [780, 600], [900, 185]]) {
+    ctx.fillStyle = '#57392b';
+    ctx.beginPath(); ctx.moveTo(410 - offset.x, y + 28 - offset.y);
+    ctx.lineTo(outer - offset.x, y - 4 - offset.y);
+    ctx.lineTo(outer - offset.x, y + 6 - offset.y);
+    ctx.lineTo(410 - offset.x, y + 43 - offset.y); ctx.closePath(); ctx.fill();
+  }
+  for (const [x, y, scale] of [[115, 265, 2.4], [650, 320, 2.6], [130, 390, 2.2], [670, 460, 2.3], [95, 565, 1.8]]) {
+    drawAsset(ctx, assets, 'tree', x - offset.x, y - offset.y, scale);
+  }
+  for (const [x, y] of [[40, 580], [770, 620], [60, 740], [785, 795], [70, 930], [780, 1030]]) {
+    drawAsset(ctx, assets, 'bush', x - offset.x, y - offset.y, 2.2);
+  }
+  ctx.restore();
+}
+
+export function drawPlatformPath(ctx: CanvasRenderingContext2D, platform: MovingPlatform, offset: { x: number; y: number }): void {
+  const fromX = platform.from.x + platform.width / 2 - offset.x;
+  const fromY = platform.from.y - offset.y;
+  const toX = platform.to.x + platform.width / 2 - offset.x;
+  const toY = platform.to.y - offset.y;
+  const pips = Math.max(2, Math.round(Math.hypot(toX - fromX, toY - fromY) / 12));
+  ctx.fillStyle = '#ffffff66';
+  for (let pip = 0; pip <= pips; pip++) {
+    const progress = pip / pips;
+    ctx.fillRect(Math.round(fromX + (toX - fromX) * progress) - 1, Math.round(fromY + (toY - fromY) * progress) - 1, 2, 2);
+  }
+  for (const [x, y] of [[fromX, fromY], [toX, toY]]) ctx.fillRect(x - 4, y - 2, 8, 2);
+}
+
+export function drawAsset(ctx: CanvasRenderingContext2D, assets: WorldAssets, asset: WorldAsset, x: number, y: number, scale = 1, groundSlope = 0): void {
+  const index = assets.manifest.assets[asset];
+  const cell = assets.manifest.cellSize;
+  const sourceX = (index % 4) * cell;
+  const sourceY = Math.floor(index / 4) * cell;
+  const anchor = assets.manifest.anchors?.[asset] ?? { x: cell / 2, y: cell };
+  if (groundSlope !== 0) {
+    ctx.save();
+    ctx.transform(1, groundSlope, 0, 1, x, y);
+    ctx.drawImage(assets.atlas, sourceX, sourceY, cell, cell, -anchor.x * scale, -anchor.y * scale, cell * scale, cell * scale);
+    ctx.restore();
+  } else ctx.drawImage(assets.atlas, sourceX, sourceY, cell, cell, x - anchor.x * scale, y - anchor.y * scale, cell * scale, cell * scale);
+}
+
+
+/** Automatic grip cues: smooth cyan streaks below 1, ochre grains above 1. */
+export function drawSurfaceGrip(ctx: CanvasRenderingContext2D, surface: Surface, offset: { x: number; y: number }): void {
+  const friction = surface.friction ?? 1;
+  if (friction === 1 || surface.x2 <= surface.x1) return;
+  const slippery = friction < 1;
+  const slope = (surface.y2 - surface.y1) / (surface.x2 - surface.x1);
+  ctx.save();
+  ctx.strokeStyle = slippery ? '#80dbea' : '#d6ac63';
+  ctx.lineWidth = 6;
+  ctx.beginPath();
+  ctx.moveTo(surface.x1 - offset.x, surface.y1 - offset.y + 2);
+  ctx.lineTo(surface.x2 - offset.x, surface.y2 - offset.y + 2);
+  ctx.stroke();
+  ctx.fillStyle = slippery ? '#e6ffff' : '#72502d';
+  // World-anchored markings stay still as the camera scrolls; skip offscreen work.
+  const first = Math.max(0, Math.ceil((offset.x - surface.x1 - 8) / 12));
+  for (let index = first; ; index++) {
+    const x = surface.x1 + 4 + index * 12;
+    if (x + 6 >= surface.x2 || x - offset.x > 426) break;
+    const y = surface.y1 + slope * (x - surface.x1);
+    ctx.fillRect(x - offset.x, y - offset.y + 2, slippery ? 6 : 2, 2);
+  }
+  ctx.restore();
+}

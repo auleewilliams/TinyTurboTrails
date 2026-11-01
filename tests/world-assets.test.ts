@@ -130,12 +130,25 @@ it.each(['site', 'frost', 'cove'])('loads the %s panorama and can retry a failed
   expect([bytes.readUInt32BE(16), bytes.readUInt32BE(20)]).toEqual([720, 240]);
   const requests: string[] = [];
   let fail = true;
-  vi.stubGlobal('fetch', vi.fn(async () => ({ ok: true, json: async () => world })));
+  vi.stubGlobal('fetch', vi.fn(async (url: string) => ({ ok: true, json: async () => url.endsWith('/materials/manifest.json')
+    ? JSON.parse(readFileSync(new URL('../public/assets/cove/materials/manifest.json', import.meta.url), 'utf8')) : url.endsWith('/terrain-kit/manifest.json')
+    ? JSON.parse(readFileSync(new URL('../public/assets/cove/terrain-kit/manifest.json', import.meta.url), 'utf8')) : world })));
   class FakeImage {
+    naturalWidth = 512;
+    naturalHeight = 256;
     onload = (): void => {};
     onerror = (): void => {};
     set src(url: string) {
       requests.push(url);
+      if (url.endsWith('/materials/atlas.png')) this.naturalHeight = 160;
+      if (url.endsWith('/bay1-b-v1/platform.png')) { this.naturalWidth = 140; this.naturalHeight = 30; }
+      if (url.endsWith('/bay2-whole-v1/platform.png')) { this.naturalWidth = 160; this.naturalHeight = 35; }
+      if (url.endsWith('/whole-three-v1/hollow.png')) { this.naturalWidth = 140; this.naturalHeight = 30; }
+      if (url.endsWith('/remaining-two-v1/pool3.png')) { this.naturalWidth = 90; this.naturalHeight = 18; }
+      if (url.endsWith('/bay3-b-v1/platform.png')) { this.naturalWidth = 180; this.naturalHeight = 30; }
+      if (url.endsWith('/whole-three-v1/pool2.png')) { this.naturalWidth = 90; this.naturalHeight = 18; }
+      if (url.endsWith('/whole-three-v1/pool1.png')) { this.naturalWidth = 100; this.naturalHeight = 22; }
+      if (url.endsWith('/terrain-kit/ground.png')) { this.naturalWidth = 4200; this.naturalHeight = 480; }
       queueMicrotask(fail && url.endsWith('/background.png') ? this.onerror : this.onload);
     }
   }
@@ -145,4 +158,106 @@ it.each(['site', 'frost', 'cove'])('loads the %s panorama and can retry a failed
   const loaded = await loadWorldAssets(directory);
   expect(loaded.panorama).toBeInstanceOf(FakeImage);
   expect(requests.filter(url => url === `/assets/${directory}/background.png`)).toHaveLength(2);
+});
+
+it('requires declared Cove kit metadata and pixels, validates dimensions and retries failures', async () => {
+  const world = JSON.parse(readFileSync(new URL('../public/assets/cove/manifest.json', import.meta.url), 'utf8'));
+  world.terrainKit = 'terrain-kit/manifest.json';
+  const kit = JSON.parse(readFileSync(new URL('../public/assets/cove/terrain-kit/manifest.json', import.meta.url), 'utf8'));
+  let failImage = true, failGround = false, failMetadata = false, wrongSize = false, failBay1 = false, wrongBay1 = false, failBay2 = false, wrongBay2 = false, remainingMode = "";
+  vi.stubGlobal('fetch', vi.fn(async (url: string) => ({
+    ok: !(failMetadata && url.endsWith('/terrain-kit/manifest.json')),
+    json: async () => url.endsWith('/materials/manifest.json') ? JSON.parse(readFileSync(new URL('../public/assets/cove/materials/manifest.json', import.meta.url), 'utf8')) : url.endsWith('/terrain-kit/manifest.json') ? kit : world,
+  })));
+  class FakeImage {
+    naturalWidth = 512;
+    naturalHeight = 256;
+    onload = (): void => {};
+    onerror = (): void => {};
+    set src(url: string) {
+      if (url.endsWith('/materials/atlas.png')) this.naturalHeight = 160;
+      if (url.endsWith('/bay1-b-v1/platform.png')) { this.naturalWidth = 140; this.naturalHeight = 30; }
+      if (url.endsWith('/bay2-whole-v1/platform.png')) { this.naturalWidth = 160; this.naturalHeight = 35; }
+      if (url.endsWith('/whole-three-v1/hollow.png')) { this.naturalWidth = 140; this.naturalHeight = 30; }
+      if (url.endsWith('/remaining-two-v1/pool3.png')) { this.naturalWidth = 90; this.naturalHeight = 18; }
+      if (url.endsWith('/bay3-b-v1/platform.png')) { this.naturalWidth = 180; this.naturalHeight = 30; }
+      if (url.endsWith('/whole-three-v1/pool2.png')) { this.naturalWidth = 90; this.naturalHeight = 18; }
+      if (url.endsWith('/whole-three-v1/pool1.png')) { this.naturalWidth = 100; this.naturalHeight = 22; }
+      if (url.endsWith('/terrain-kit/ground.png')) { this.naturalWidth = 4200; this.naturalHeight = 480; }
+      if (wrongSize && url.endsWith('/terrain-kit/atlas.png')) this.naturalWidth = 255;
+      if (wrongBay1 && url.endsWith('/bay1-b-v1/platform.png')) this.naturalWidth = 139;
+      if (wrongBay2 && url.endsWith('/bay2-whole-v1/platform.png')) this.naturalWidth = 159;
+      if (remainingMode === 'wrong-pool1' && url.endsWith('/whole-three-v1/pool1.png')) this.naturalHeight--;
+      if (remainingMode === 'fail-pool1' && url.endsWith('/whole-three-v1/pool1.png')) { queueMicrotask(()=>this.onerror()); return; }
+      if (remainingMode === 'wrong-pool2' && url.endsWith('/whole-three-v1/pool2.png')) this.naturalHeight--;
+      if (remainingMode === 'fail-pool2' && url.endsWith('/whole-three-v1/pool2.png')) { queueMicrotask(()=>this.onerror()); return; }
+      if (remainingMode === 'wrong-bay3' && url.endsWith('/bay3-b-v1/platform.png')) this.naturalWidth--;
+      if (remainingMode === 'fail-bay3' && url.endsWith('/bay3-b-v1/platform.png')) { queueMicrotask(()=>this.onerror()); return; }
+      if (remainingMode === 'wrong-hollow' && url.endsWith('/whole-three-v1/hollow.png')) this.naturalWidth--;
+      if (remainingMode === 'wrong-pool3' && url.endsWith('/remaining-two-v1/pool3.png')) this.naturalHeight--;
+      if ((remainingMode === 'fail-hollow' && url.endsWith('/whole-three-v1/hollow.png')) || (remainingMode === 'fail-pool3' && url.endsWith('/remaining-two-v1/pool3.png'))) { queueMicrotask(() => this.onerror()); return; }
+      queueMicrotask(() => ((failImage && url.endsWith('/terrain-kit/atlas.png')) || (failGround && url.endsWith('/terrain-kit/ground.png')) || (failBay1 && url.endsWith('/bay1-b-v1/platform.png')) || (failBay2 && url.endsWith('/bay2-whole-v1/platform.png'))) ? this.onerror() : this.onload());
+    }
+  }
+  vi.stubGlobal('Image', FakeImage);
+  await expect(loadWorldAssets('cove')).rejects.toThrow(/Cove terrain/i);
+  failImage = false; failGround = true;
+  await expect(loadWorldAssets('cove')).rejects.toThrow(/Cove terrain/i);
+  failGround = false; failMetadata = true;
+  await expect(loadWorldAssets('cove')).rejects.toThrow(/Cove terrain/i);
+  failMetadata = false; wrongSize = true;
+  await expect(loadWorldAssets('cove')).rejects.toThrow(/Cove terrain/i);
+  wrongSize = false; failBay1 = true;
+  await expect(loadWorldAssets('cove')).rejects.toThrow(/Cove terrain/i);
+  failBay1 = false; wrongBay1 = true;
+  await expect(loadWorldAssets('cove')).rejects.toThrow(/Cove terrain/i);
+  wrongBay1 = false; failBay2 = true;
+  await expect(loadWorldAssets('cove')).rejects.toThrow(/Cove terrain/i);
+  failBay2 = false; wrongBay2 = true;
+  await expect(loadWorldAssets('cove')).rejects.toThrow(/Cove terrain/i);
+  wrongBay2 = false;
+  for (const mode of ['fail-hollow','wrong-hollow','fail-pool3','wrong-pool3','fail-bay3','wrong-bay3','fail-pool2','wrong-pool2','fail-pool1','wrong-pool1']) { remainingMode = mode; await expect(loadWorldAssets('cove')).rejects.toThrow(/Cove terrain/i); remainingMode = ""; const recovered = await loadWorldAssets('cove'); expect(recovered).toHaveProperty('coveTerrain.pool3B'); expect(recovered).toHaveProperty('coveTerrain.pool2B'); for(const field of ['bay1','bay2','bay3','hollowB','pool1B','pool2B','pool3B']) expect(recovered).toHaveProperty('coveTerrain.'+field); }
+  expect(await loadWorldAssets('cove')).toHaveProperty('coveTerrain.manifest.pieces.stone-thin-left');
+  kit.pieces['stone-thin-left'].height = 12;
+  await expect(loadWorldAssets('cove')).rejects.toThrow(/Cove terrain/i);
+});
+
+it('requires declared Cove material metadata and image, rejects bad rectangles/dimensions and retries without stale failures', async () => {
+  const world = JSON.parse(readFileSync(new URL('../public/assets/cove/manifest.json', import.meta.url), 'utf8'));
+  const terrain = JSON.parse(readFileSync(new URL('../public/assets/cove/terrain-kit/manifest.json', import.meta.url), 'utf8'));
+  const original = JSON.parse(readFileSync(new URL('../public/assets/cove/materials/manifest.json', import.meta.url), 'utf8'));
+  let mode = 'metadata', attempts = 0, kit = structuredClone(original);
+  vi.stubGlobal('fetch', vi.fn(async (url: string) => {
+    if (url.endsWith('/materials/manifest.json')) attempts++;
+    return { ok: !(mode === 'metadata' && url.endsWith('/materials/manifest.json')), json: async () =>
+      url.endsWith('/materials/manifest.json') ? kit : url.endsWith('/terrain-kit/manifest.json') ? terrain : world };
+  }));
+  class FakeImage {
+    naturalWidth = 512; naturalHeight = 256;
+    onload = (): void => {}; onerror = (): void => {};
+    set src(url: string) {
+      if (url.endsWith('/bay1-b-v1/platform.png')) { this.naturalWidth = 140; this.naturalHeight = 30; }
+      if (url.endsWith('/bay2-whole-v1/platform.png')) { this.naturalWidth = 160; this.naturalHeight = 35; }
+      if (url.endsWith('/whole-three-v1/hollow.png')) { this.naturalWidth = 140; this.naturalHeight = 30; }
+      if (url.endsWith('/remaining-two-v1/pool3.png')) { this.naturalWidth = 90; this.naturalHeight = 18; }
+      if (url.endsWith('/bay3-b-v1/platform.png')) { this.naturalWidth = 180; this.naturalHeight = 30; }
+      if (url.endsWith('/whole-three-v1/pool2.png')) { this.naturalWidth = 90; this.naturalHeight = 18; }
+      if (url.endsWith('/whole-three-v1/pool1.png')) { this.naturalWidth = 100; this.naturalHeight = 22; }
+      if (url.endsWith('/terrain-kit/ground.png')) { this.naturalWidth = 4200; this.naturalHeight = 480; }
+      if (url.endsWith('/materials/atlas.png')) { this.naturalWidth = mode === 'size' ? 511 : 512; this.naturalHeight = 160; }
+      queueMicrotask(() => mode === 'image' && url.endsWith('/materials/atlas.png') ? this.onerror() : this.onload());
+    }
+  }
+  vi.stubGlobal('Image', FakeImage);
+  for (const fail of ['metadata', 'image', 'size', 'rect', 'extra']) {
+    mode = fail; kit = structuredClone(original);
+    if (fail === 'rect') kit.bands[0].base.width++;
+    if (fail === 'extra') kit.extra = true;
+    await expect(loadWorldAssets('cove')).rejects.toThrow(/Cove material/i);
+    mode = 'ok'; kit = structuredClone(original);
+    const loaded = await loadWorldAssets('cove');
+    expect(loaded.coveMaterials?.manifest).toEqual(original);
+    expect(loaded.coveMaterials?.image).toBeInstanceOf(FakeImage);
+  }
+  expect(attempts).toBe(10);
 });

@@ -1,0 +1,1480 @@
+{
+  "base": "bd43c7b43a58864e4a277c4298ae168567a6611e",
+  "files": [
+    {
+      "path": "assets/source/cove/PROVENANCE.md",
+      "bytes": 1293,
+      "sha256": "ebbe8f8029447a00fd1122c6f4139ba6ced5846490d22fa4a51a7ca69d65250e",
+      "gitBlob": "1a4458a963ef8a8dd0355b6ca1c98c3b70719bac",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/cove/background/PROVENANCE.md",
+      "bytes": 1131,
+      "sha256": "6d5dedd2d7a905b90f755d02dd0fc5bd06f01b49269c9cf5ab51a72b830d6116",
+      "gitBlob": "c0bf69fdf728e74c1d20a4b71bcc5f550e2a7b59",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/cove/background/panorama.png",
+      "bytes": 1370523,
+      "sha256": "e03e58dafb4a3c796dcc262ee2cabffe8b96c8ed624bd16e34de8a8f9bf8cbc7",
+      "gitBlob": "fdcd11a609719210499f8802deb2b393532cb1e2",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/cove/background/prompt.txt",
+      "bytes": 1701,
+      "sha256": "2ad381b2077ce54212c4363ff4ea3c236eceb90c4e3a4784d40bc66990f81086",
+      "gitBlob": "71af69c23ff37e55f2abd49db479e0961a996994",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/cove/environment-prompt.txt",
+      "bytes": 1386,
+      "sha256": "6d89a48f0f2815b4179d65349049a20d98ec53026099fdad453810894639b850",
+      "gitBlob": "9d79575cb0f7ac8534820832a2af05f56d51338c",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/cove/environment-sheet.png",
+      "bytes": 1287357,
+      "sha256": "776019462fa93ac85fb5f7b87565e67f3c44931f084fa7866392f40280b2ea36",
+      "gitBlob": "05ebc87a47340dfaf6eceec081b38c5867d4a4eb",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/frost/PROVENANCE.md",
+      "bytes": 931,
+      "sha256": "c524b605042c2c94d5a141fc6856d2240f5155191439eae39d42036a66cdb850",
+      "gitBlob": "1ab7e988762bec8de600b074a1373e411bb9b6e2",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/frost/background/PROVENANCE.md",
+      "bytes": 1133,
+      "sha256": "9465c091a3408bc1e396a62be4db0c9bda4b41c8b9767753be72dc59a03bdf40",
+      "gitBlob": "bca0b0086b840b4dbfd1914c894daccc8ec7f308",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/frost/background/panorama.png",
+      "bytes": 1482901,
+      "sha256": "87100e7cec705e6c6a07b9edcb400c71412c01e61b45ded8d4a3c3734f6cb24c",
+      "gitBlob": "4c46c762162835d6f8e53be71e5eaff12dee6944",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/frost/background/prompt.txt",
+      "bytes": 1626,
+      "sha256": "a6f4332537f46b76b701ebec4b59007d20e6c951eeba0c5c724c00c21f01706d",
+      "gitBlob": "be88683d277c5e8b27d73dd8b34885ff3d72793e",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/frost/environment-prompt.txt",
+      "bytes": 1315,
+      "sha256": "5b8a8bb425e02c9ed74463e2a93c7cb33b918c4e02967fe459ebf0c3c13c36be",
+      "gitBlob": "f6409c763657391f29df41339a5c77c70dccc622",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/frost/environment-sheet.png",
+      "bytes": 1110525,
+      "sha256": "c53f6bb4ac86a482144cf73dad4b688f6acecb2f2fee0e568513d466dd2c4188",
+      "gitBlob": "8cdc0d686ef55da0a3f81e9f96d4decd31e88eee",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/gems/PROVENANCE.md",
+      "bytes": 1894,
+      "sha256": "5df7f548e0ede14af81aa4d778bcbd7d9a9014cad5b34f5942ba1561e01d8731",
+      "gitBlob": "674d9a35ed57e3c9e5eadcfbda5a6e3dc09d67b3",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/gems/cut-diamond-concepts.png",
+      "bytes": 1767223,
+      "sha256": "3e1442ff0ef927448a749ec3b4cafbe66811253b28ea01a3155d0611d6cb5cbb",
+      "gitBlob": "dcb45ee2a6353bc86a8de6cea0e4900a94142ebe",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/gems/cut-diamond-prompt.txt",
+      "bytes": 1638,
+      "sha256": "0e5647cdeb346caed430ff7899324875b22a9f6f807513e7dd758ff4a59aa82b",
+      "gitBlob": "8afde03b741bd745bdc312ee757b4993c2114a37",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/gems/cut-diamond-source.png",
+      "bytes": 765161,
+      "sha256": "4c30ee934e97d32c15a0c49853f1f11dc4c3dd0e79d543eb4c183f60f820d18f",
+      "gitBlob": "096473a6bb3b4b2e331e6d0d7bd636deb51d5546",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/henry/PROVENANCE.md",
+      "bytes": 1231,
+      "sha256": "68a38b10257758c8da508cd4091a8eeb6edbb56beb3c8eea27df35e972a6910d",
+      "gitBlob": "e99ca54512153dd148ba019e34c8b1e0c755de03",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/henry/celebration/PROVENANCE.md",
+      "bytes": 3396,
+      "sha256": "ab59bb27f95eaf8db17490d611022dfb44e6513a3fb3fdc607d6af1ed27a3c4b",
+      "gitBlob": "573442f1ceab87cb733bd329cee2a1c239085d69",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/henry/celebration/celebrate-48.png",
+      "bytes": 17371,
+      "sha256": "0cbb530509501e1248c64cd454aa7476d016d9711ef82c95141ede02ea9cae95",
+      "gitBlob": "66e970e109c56cdfd6b6d636f39622a04ffcb631",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/henry/celebration/edit-canvas.png",
+      "bytes": 7146,
+      "sha256": "3ad311cf3315bcd8d9dcbbfc1f9074caa527bdf0794a4c920824ed9f2c500696",
+      "gitBlob": "d631950a10b218481683770fb9579ccbea4e90c2",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/henry/celebration/frames/01.png",
+      "bytes": 2014,
+      "sha256": "7e3e59aedfcef40376e4071e575c3bf83c43a0854d882267927ab6b002a77e02",
+      "gitBlob": "35f5681af583803eace59045483c6f47f2649183",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/henry/celebration/frames/02.png",
+      "bytes": 2071,
+      "sha256": "b7fa8e3d4dc18b9a00a10b629368dfa83eb1dac796ad947b6a424e7df8533b15",
+      "gitBlob": "fb365d9e59b7bf030bb0c4d09cc4ddc8f59974b3",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/henry/celebration/frames/03.png",
+      "bytes": 2427,
+      "sha256": "554c144aa2a4100b6a70c1b073a8206c09b2d36eee487b583dfcee05384bd1e5",
+      "gitBlob": "cc221ee4e1b216bbab184f57ef3d0408d5ebbf02",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/henry/celebration/frames/04.png",
+      "bytes": 2433,
+      "sha256": "2cbbe3fbc0ba893ae48466344fa9214b7851325543dd7213f0ace0e8f404fa51",
+      "gitBlob": "cc55311719e30084f5d5c2b9d17049cdfb146984",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/henry/celebration/frames/05.png",
+      "bytes": 2404,
+      "sha256": "afc954fb1ab02fe92fbe0cdd4ea06d87ea6da4bf2766c93160a9abfd3e528293",
+      "gitBlob": "62c08b5a2bb7c67a497b7c61a774fb8428ee2922",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/henry/celebration/frames/06.png",
+      "bytes": 2077,
+      "sha256": "a31a50bea78b9dfad1d543aceccdd430a2797ad0e11c95c8b1091fc8ace23f6c",
+      "gitBlob": "efee82ec0e899125230d1f14e2b3dd90e39085e8",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/henry/celebration/frames/07.png",
+      "bytes": 2591,
+      "sha256": "3235d1c4bf8e21e90432a8ce13585bd0db4d39ed281dca2dd461ef03e0062854",
+      "gitBlob": "b8a71524b9113817f43d73758f60715a8a880f4d",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/henry/celebration/frames/08.png",
+      "bytes": 2546,
+      "sha256": "9d3b327a2d05008d2ba7666d8275c70598b85ea956b30b94abec0055cf569f3d",
+      "gitBlob": "602e40ba1daa911a60954278a2caa3f4cd9ab677",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/henry/celebration/generated-strip.png",
+      "bytes": 323746,
+      "sha256": "80926023840eb5f1fd9fe717a4f13b4e540c58db4917e5c0e991d4c8445d32d3",
+      "gitBlob": "b54ad5ffe4183721720b08cae33ef84a42ecd5f5",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/henry/celebration/prepare.py",
+      "bytes": 2245,
+      "sha256": "fd4cf56ac1a2631f61d78dfd3acd60e94c8855f6c927d0833f3b271f7101ce62",
+      "gitBlob": "3ac5c3d45280c4226435e30cbd93c1391940b00b",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/henry/celebration/preview.png",
+      "bytes": 26302,
+      "sha256": "0dff44b2ebb0688fb8754e3c1d6c32346d0be41be936b413afab708ce6f6c61d",
+      "gitBlob": "dbeaf41a871daf8bca745696ae5d4a0a141df7cc",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/henry/celebration/prompt.txt",
+      "bytes": 1583,
+      "sha256": "5e3a0332aa835ef7d9e7cf1f3b6e24ca5ad68b4b41dc3780126fcc5f78b7210d",
+      "gitBlob": "0b61d766c4757b2aa4d0390b23787c23506b8648",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/henry/celebration/seed.png",
+      "bytes": 2817,
+      "sha256": "57d1ebf9e5569cd17230b4e3bcd890e3484549a03c27368d0e3217fd2802073f",
+      "gitBlob": "0083018b0273bf8533fc04388efe8af4c086daa2",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/henry/reference-prompt.txt",
+      "bytes": 1433,
+      "sha256": "a2b8785e8188aca009204d6c96667fc10561ed8cbdbe44d00fdbe35ae58b4c22",
+      "gitBlob": "ae4dad6926a7b34d8006b9259f3bf66493460b40",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/henry/reference.png",
+      "bytes": 1338689,
+      "sha256": "5614294920ca29f461ca0864d5fd89258928bb239cb7d7c26d81063c128f4e9a",
+      "gitBlob": "c6385bcb0e58619fb835f703c3190f19f1a32577",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/henry/starter-atlas-prompt.txt",
+      "bytes": 1867,
+      "sha256": "6e0b5d8268c4e65810bed592434ede087ef6bdc9fa6e9776c77a850fe0116c97",
+      "gitBlob": "5e6561d9c5ae67c10230cc11d99f08e7198328dd",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/henry/starter-atlas.png",
+      "bytes": 2199945,
+      "sha256": "164bce97b729d14f90d64bf3ce40b3a3f28f99952dc7ccb6bfb78cb21ef50b79",
+      "gitBlob": "dcb2e1d59bddf2c3d05238efb59c87b01a14e0b8",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/henry/transparency-attempt-prompt.txt",
+      "bytes": 525,
+      "sha256": "9cc3e54d565d5900c99785c28499f3a5f3e29c3d9adef3e360b41035a21719ba",
+      "gitBlob": "7f7fff1a9a2c088f0993c1f39bcbd36f4f9956d7",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/henry/transparency-attempt.png",
+      "bytes": 2939152,
+      "sha256": "efc80805a9fd7b65b5b73cd49ece4d92a94bcaa0ce735c44cea379a48cda5968",
+      "gitBlob": "bf812ebcaec4fa7cd5d98300226dedf03d997400",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/interface/PROVENANCE.md",
+      "bytes": 5489,
+      "sha256": "26ef1e077505fbd43ffb22aba3811f47fc4dc39266d4fc4b03f8881c6ec50833",
+      "gitBlob": "f3f422568d0978bb906968cd91f720d0c9908b90",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/interface/button-selected-source-v1.png",
+      "bytes": 1243172,
+      "sha256": "10beff5cbad3f7a3209056ad97dd19c1af6b4e5aab728527c1c6ecc010a1681d",
+      "gitBlob": "2b1e0adadfb4108beb59d1229a4ba8f6861e27c7",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/interface/button-selected-v1-hermes-query.txt",
+      "bytes": 3657,
+      "sha256": "c29278e3a91fe1034074614bbee2b5b4aee616a57de04d0515e4d5a9ddf8a6a4",
+      "gitBlob": "ce70730c943fa99a69b17f30ee012b53105f615a",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/interface/button-selected-v1-prompt.txt",
+      "bytes": 2720,
+      "sha256": "d13cfaf84690ab363ddb15c57fc2df9da07a4d051bdc9ba50e9d58b7d52fab1d",
+      "gitBlob": "80b87b41ca656cfe6d46e4946b7893aafda47a55",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/interface/button-source-v1.png",
+      "bytes": 1198153,
+      "sha256": "79f75f4a59c4962a1040b7f412db71da81a3f54eb62f4f8b082f62a77f540079",
+      "gitBlob": "512e74a9b144d1a0f6ca546a4572daf219d632c8",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/interface/button-v1-hermes-query.txt",
+      "bytes": 3266,
+      "sha256": "1f719546ecdab4be45d01aeafe34d25b23761a59fbe9c0338ea5fb5c27923a49",
+      "gitBlob": "61dd2f816611bdd78dda83fc78d9e63da82dd2dd",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/interface/button-v1-prompt.txt",
+      "bytes": 2441,
+      "sha256": "e5b3d163dfed2a34a18acde3b2d4e086bcc71612e05efaffa2ab40e5f220473a",
+      "gitBlob": "227e080c6c8f997a5fcf392da2f8c0c962329ba9",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/interface/panel-source-v1.png",
+      "bytes": 1212681,
+      "sha256": "6b52ad74b5c4d593f8fa5e735fcc6ccde44cd846ed4d3c021e013ae7bc749ce9",
+      "gitBlob": "2be4e9565284288dc65990c3a1c2750801d004ce",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/interface/panel-v1-hermes-query.txt",
+      "bytes": 3250,
+      "sha256": "fa048d527b5028a3f0fa68b822ca9d272adbf18dc4c822b36fc069497aba0cb7",
+      "gitBlob": "9929544547e0c33a8e3a2f9a962a0a9a80e505d5",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/interface/panel-v1-prompt.txt",
+      "bytes": 2428,
+      "sha256": "509d688b110c701311a6d6bb1f2ed61f8626af28acc40dbe130b48fedbb4bca6",
+      "gitBlob": "566b0f0d16c2b99387cc37578838e67569cba992",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/interface/plaque-source-v1.png",
+      "bytes": 1192683,
+      "sha256": "e408f77f6fe5584b2f0d0f35d357e6d6dbd1fbec65bca3f956c61954eece22d2",
+      "gitBlob": "a583e5ac054ef542b77cb33bf8b36231309bb266",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/interface/plaque-v1-hermes-query.txt",
+      "bytes": 3590,
+      "sha256": "afcd44c3bf13e45447feec7678c9cda8af7b22db6ae8899348c959fba966e3ca",
+      "gitBlob": "90f4a4a63f7df849db19d13653df56f661d2a4ab",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/interface/plaque-v1-prompt.txt",
+      "bytes": 2654,
+      "sha256": "9cc4025e785168244530cdecdc0cd4134c199d5fd74dbaa39c8b53990f6cb1c6",
+      "gitBlob": "b7b39bb0e3e053e10d84e1ce456dbad93f09ea28",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/interface/preparation.json",
+      "bytes": 8292,
+      "sha256": "939a34273c6a30c79725370e68ca69bb96dcb692306f48cdd93cefda0aa30b56",
+      "gitBlob": "8d930ed96148a012df01cdedb380e7a549e5da26",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/interface/prepared/button-selected.png",
+      "bytes": 2148,
+      "sha256": "03a25bddbd69479462812d21b689465c6aa7fff84e5d0b86c49189f912640533",
+      "gitBlob": "5a9d8168bf97160d5ea5a4ecfe9108999b5334c3",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/interface/prepared/button.png",
+      "bytes": 2130,
+      "sha256": "04b29e064c318ca4a9f13368e9a4e0a632ccd8acc55fb22f1fd853131657d9c6",
+      "gitBlob": "815f993338138d35ec7c37e2f8a4fe27fa72b9fa",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/interface/prepared/panel.png",
+      "bytes": 8972,
+      "sha256": "5e6e2d33ae6b0f86941643e70b6cb28dbffd5d63c424332eeba84cbb058dc584",
+      "gitBlob": "dcc9fc5ee7d2989f71ab1c7f8048d38806d80426",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/interface/prepared/plaque.png",
+      "bytes": 3152,
+      "sha256": "fb99e6fffbd20c4c5e93ba714f506890757cc0c926c4b893e4d1bc6d691ff59d",
+      "gitBlob": "f603f8a68911270fc973a9c294c44e9c2c88ea0a",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/overworld/PROVENANCE.md",
+      "bytes": 1074,
+      "sha256": "f6df5d2532cc6a2adf5f050c41da87e7e142fde3e34038ff554e0f52ad66a2cf",
+      "gitBlob": "1f404f1b44000c86a83358cbea78b71f03178d3c",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/overworld/background-prompt.txt",
+      "bytes": 880,
+      "sha256": "2fc85a0f83eb69b57b65f767412f554e74b392c055b3cc67da99b342fcfdb8cb",
+      "gitBlob": "7918585a77c8fcf358b3e3098edf8887f1ae9d08",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/overworld/background.png",
+      "bytes": 939956,
+      "sha256": "da1915aeae5acf6e04e58bc614a6c0d3b9428a74becc9ec699eb90b7c745249a",
+      "gitBlob": "0d3486c78b9463b9c18983985c6298e74061bb20",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/overworld/landmarks.png",
+      "bytes": 2213280,
+      "sha256": "06de29ce8f3f1ddbf8f1e892f33202b719c6d59ec2de7a821d62356b2d950699",
+      "gitBlob": "2c7a1ede3083d9db02b7746b7957348f18144e4c",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/overworld/prompt.txt",
+      "bytes": 1099,
+      "sha256": "e2ae804304e8fa0945939f66adb7765fe81395399fa02bd518c9f353156f7d7d",
+      "gitBlob": "61fdf3d2d9e279768df03afd43e433dff066eb0c",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/plains/PROVENANCE.md",
+      "bytes": 1707,
+      "sha256": "4ee1939d86b0df20615cbf680005f255a9d809fc7d116195b3f463c6d6408aef",
+      "gitBlob": "a83e9678c7ab75b0cd81455dce094afa2595a5b6",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/plains/environment-prompt.txt",
+      "bytes": 1111,
+      "sha256": "ca870cce8a94f680c8b314814b7fde5f4554524fee1d7b145d4b14b35009e175",
+      "gitBlob": "9b23842a863993756d8b1b0947231c907c13985f",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/plains/environment-sheet.png",
+      "bytes": 1291832,
+      "sha256": "7589af2c2aa33ae4f435dddd68dbbe09dacc9585573a1d4117c4a4ef4722686b",
+      "gitBlob": "50c24f380a68a77b9b2bfdb71850fb0cb6bff993",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/plains/scenery/PROVENANCE.md",
+      "bytes": 3008,
+      "sha256": "d22971cca984a9d975e1f8561a4aaeb1ec380d12119e7fe646e8a5a2d5ce195a",
+      "gitBlob": "f3d56c32250e1e178035b6031b9162342c4b55ab",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/plains/scenery/background-prompt.txt",
+      "bytes": 1546,
+      "sha256": "971788bbeb71f57304785a0048a7611ddfa4e3b7811874c7d6a74385710f5cc5",
+      "gitBlob": "73c048bad9a49c6a9b9f6915cc0cbc5fbbc4372b",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/plains/scenery/background.png",
+      "bytes": 1275820,
+      "sha256": "65d82890a0955e40c92b652f26e2ea1e5448be6ae46f3f78385a97334e71104f",
+      "gitBlob": "8d55cfdfbfaae629c9844feba43b5388416db97d",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/plains/scenery/foreground-prompt.txt",
+      "bytes": 1940,
+      "sha256": "efb5787fff9ec4fc2463810f59e65c05a802c44d02e51404e4fbd903dff61fea",
+      "gitBlob": "4ae427d25224f78bd79ff6eb640b659385c838a7",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/plains/scenery/foreground.png",
+      "bytes": 1565908,
+      "sha256": "47d34a2922a6679ef330554d84c2b4f60c85f090fd4b81b9976abf4523a3255d",
+      "gitBlob": "610cd932612b8957344e888263b52e7e2260f26a",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/site/PROVENANCE.md",
+      "bytes": 1486,
+      "sha256": "01842b5e63c33f83aa8cf4a2fea999f7df66c0722baedcc3113db5523ab956ef",
+      "gitBlob": "51275630ebc37462426e2997fdd86a806561d6a5",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/site/background/PROVENANCE.md",
+      "bytes": 1132,
+      "sha256": "ef16c2cec507f32f2ad20f1ac137df68da7eb00fb3f3df4669bc29948f8942eb",
+      "gitBlob": "64b5c353e2d40d9708d6a3bc0dc5b4282504aaa2",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/site/background/panorama.png",
+      "bytes": 1442407,
+      "sha256": "716d89d1af0b07b6b676894d544d7a07c1c6b9df213ea071270a1c55a471cad1",
+      "gitBlob": "bcafe2dd03b86b94761a1167a36ddc076e873508",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/site/background/prompt.txt",
+      "bytes": 1739,
+      "sha256": "295b1b51e2bc38f974103572a2d564d3d61ad3d8fad22bab44e66ab2eb7fcc75",
+      "gitBlob": "355176d83e42d450239ebb82eed67b7cbd4bad43",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/site/environment-prompt.txt",
+      "bytes": 2337,
+      "sha256": "ef8c53beca5c67377ee7fe9a095439ab43675cabd1d91095dfd215f49627a75c",
+      "gitBlob": "80e27133c7ec79ac832bb664dd4d3c4233de6afe",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/site/environment-sheet.png",
+      "bytes": 1161398,
+      "sha256": "c1596dc698822643068d2ea186bc84606873f97f1ae04b6f121a72de667f7779",
+      "gitBlob": "383a75f3172dbb05f11f8f194d832becdf530215",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/site/skyline-edit-prompt.txt",
+      "bytes": 1230,
+      "sha256": "5905659c12016fb22e4a26f61b97a4f2e8bb41a52634615406ef53b6330380cc",
+      "gitBlob": "4e3b4645ec60483b3c6dc131c05586feb232d39b",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/slimes/PROVENANCE.md",
+      "bytes": 1587,
+      "sha256": "145b953f6ecc11d752fd7a0752bb16d59016bc326406075cf2db6ab1a5d4b3ed",
+      "gitBlob": "30285b2d5d662480eb07f4e829b80e5dbdc630b3",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/slimes/parts-source.png",
+      "bytes": 1371603,
+      "sha256": "67d0b6eabb3e2754db76861714c3b11a2f4bc126cf52830a1b5767ab896d8149",
+      "gitBlob": "2b865d1f3152712342b59082f4b3fcbbd1f4ab17",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/slimes/prompt.txt",
+      "bytes": 2522,
+      "sha256": "849a4e1a44d692e2ff6886c3d70cf9007a8639f550ed6c1db4355e960ffb1fbe",
+      "gitBlob": "e6b03cfcc6877b248bbfed5171c507441984d26a",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/specials/PROVENANCE.md",
+      "bytes": 946,
+      "sha256": "56b15a1b292db986e83a8bc28b52260c40bf1b0f8ff82a893d41696d7e5876ae",
+      "gitBlob": "cf2a391fe9da020c5c2baa704c9e16f2c8faeb41",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/spelling/concepts/PROVENANCE.md",
+      "bytes": 3154,
+      "sha256": "065968f2e7068797b77fc7fdb3cfa8fa4f2a8a8cc30fb3b8d1e58583dbc15c49",
+      "gitBlob": "9edae093a2e34259846f3ed7c4a8e04448484388",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/spelling/concepts/builder-kit-v1-prompt.txt",
+      "bytes": 3162,
+      "sha256": "7270906a3682d738bb9994bc1d33d04041ff5333d863edf5a37a0304d5eac61b",
+      "gitBlob": "caf7c4e10fdb6d5c885ba75c042ef51e0d6fea61",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/spelling/concepts/builder-kit-v1-size-check.png",
+      "bytes": 33420,
+      "sha256": "3c1a5fcb0033a7b1612326854276ced930cc74482c7ce1e27d4fe7895d8aeedb",
+      "gitBlob": "dbeaf3b9cf1dede3d563d9dbb21efd5df6a9c9a0",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/spelling/concepts/builder-kit-v1.png",
+      "bytes": 1370816,
+      "sha256": "05af883eca446ed91305d2bda70ecb5db7d9d3202789c390f7f8f725490c96a0",
+      "gitBlob": "1bfd22ba020e15a4f5083c6efaa8f04fa5b8876d",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/spelling/sprites/PROVENANCE.md",
+      "bytes": 12669,
+      "sha256": "cfa942fe3177c770ab7b6c91569d33ab8758022d8f06ddc3f79c6581c1e0e260",
+      "gitBlob": "58b61256c07e37f7b22f339e711e44735d393224",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/spelling/sprites/cove-sticker-source-v1.png",
+      "bytes": 1321458,
+      "sha256": "3f9adc1fefecb141a6f1e0911e6a9b9becb2e09bc20f708d47d2adfb8981da5d",
+      "gitBlob": "6eb1672c789ee57515f4db6700ede07b46668e37",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/spelling/sprites/cove-sticker-v1-hermes-query.txt",
+      "bytes": 2948,
+      "sha256": "0f604493e65816e24024bdd96fcc20bf8b3a3ee2ea1bd76c0fffd0b15e630714",
+      "gitBlob": "829f62b90beba321c24ab872a025e83a02cfa3cd",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/spelling/sprites/cove-sticker-v1-prompt.txt",
+      "bytes": 2077,
+      "sha256": "8183c29a7ab683f3acaefffa3254f9f5e1892f1a95eed951640fc417d2ffb9fe",
+      "gitBlob": "03393e523f3c0258d064c2f89b98929d70ed96bf",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/spelling/sprites/frost-sticker-source-v1.png",
+      "bytes": 1337311,
+      "sha256": "af2a5333cfb9cb8d44e5124fd5f9a213e8f482ee2965cfd5018a9ec622d01ad2",
+      "gitBlob": "c617318c199d85879b91c80aab57c98783639619",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/spelling/sprites/frost-sticker-v1-hermes-query.txt",
+      "bytes": 2981,
+      "sha256": "0fd3ad2a3ea452d2ab8bbc14ccac14a540ffc2332cdbab0ed571f8908f5919b9",
+      "gitBlob": "4965f401e29924eb54902e6751905c67fad83800",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/spelling/sprites/frost-sticker-v1-prompt.txt",
+      "bytes": 2110,
+      "sha256": "41786d41292172b4e15a7e1342935e4a6e44f92b32e10fdcdd59953166a5ef4f",
+      "gitBlob": "f98c4ec8ee65252a1e3d94dfcf997782632ffefe",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/spelling/sprites/native-size-review.png",
+      "bytes": 100684,
+      "sha256": "d8f0466988433344d6bd0b41ac59be1115dedfcee7972aa7edafbfba53d51ed9",
+      "gitBlob": "ceb48d63eebbcdc8fbf1cc175d4c8f78a20f3ae6",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/spelling/sprites/plains-sticker-source-v1.png",
+      "bytes": 1312670,
+      "sha256": "622991198c172e2cb0af53608d18f85b8f44a1c6ae5d02c4567cd77afa561f25",
+      "gitBlob": "e43c7f29ba2c1d9ea89b4de9965bd32c3ff46cc3",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/spelling/sprites/plains-sticker-v1-hermes-query.txt",
+      "bytes": 3005,
+      "sha256": "b88c1a16b6adc2e08fcf6779151dd30312c63896a6eff670813bc19d93416e22",
+      "gitBlob": "437aa4602434ca4b886b04c98274a65dcacfeb58",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/spelling/sprites/plains-sticker-v1-prompt.txt",
+      "bytes": 2134,
+      "sha256": "90896fe28c9cab9971b48a073ba09971953f7a795cbf05079c9f8c2b827f8ed1",
+      "gitBlob": "43e95ed1f1d41644e79402887a07b3e2c3451d87",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/spelling/sprites/pouch-source-v1.png",
+      "bytes": 746144,
+      "sha256": "d982569f4e6bdd47ef332468f52a236e320e9df5e2d2376cef5ff98f96e26c61",
+      "gitBlob": "179f6205d074a794f3e3be60c1061da1e0dcdd83",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/spelling/sprites/pouch-v1-prompt.txt",
+      "bytes": 1791,
+      "sha256": "fa4b095a609dd9a3067fa37cb8f36a9dd881e84e62b3858b018018c533049762",
+      "gitBlob": "574517c4a5793f873b799f14784505e784604aac",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/spelling/sprites/preparation.json",
+      "bytes": 13623,
+      "sha256": "237a52a55520b68e1dae90a98a07d0edfec08e0fd8032b531ef79693f9f17cec",
+      "gitBlob": "7ef493776dece2024c85e520793fa65af7f665c1",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/spelling/sprites/prepared/cove-sticker.png",
+      "bytes": 4658,
+      "sha256": "25b50ddc5966755022dfe5cd3a55038cbf7147ed307fdae9b5be934dd144c87b",
+      "gitBlob": "5e6f36da353ff18c493099e2591bd9e6b39d0a57",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/spelling/sprites/prepared/frost-sticker.png",
+      "bytes": 4693,
+      "sha256": "efbed8411de577a746e54a4bc96ffed341b3f0d4116e7fc15fbdc40b15fbda62",
+      "gitBlob": "196e74aec20ed5991d9852c76cf75641b039272c",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/spelling/sprites/prepared/plains-sticker.png",
+      "bytes": 3834,
+      "sha256": "e3a3e9cecae7d252a017093f2d04cd2de6ddc7699f1e297ed3ccf59bbcf77f9c",
+      "gitBlob": "8004244cf079dd32cd7d6e31802bbd521f5d64b7",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/spelling/sprites/prepared/pouch.png",
+      "bytes": 1888,
+      "sha256": "a044fb5b5a9c36d0a16405409d4d3fb3c04160098052d7fec3b58c388487dc40",
+      "gitBlob": "c4662ebdb7d0c5a2448d39c80979142136568185",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/spelling/sprites/prepared/quarry-sticker.png",
+      "bytes": 5237,
+      "sha256": "5b7a9ec01d88b73783ee31d772b0111549a6ac9b2b107aa19c7630ebae018592",
+      "gitBlob": "38b55c21e0ca142a968e48b981393d202e5d41db",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/spelling/sprites/prepared/sunset-sticker.png",
+      "bytes": 6575,
+      "sha256": "854702e0cdd510926209e434775a70abf90310ce7625f782523f71d37ec7cb01",
+      "gitBlob": "56b39aa3e60d6ec291a4829c62c0b11a304e3fae",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/spelling/sprites/prepared/tile.png",
+      "bytes": 3061,
+      "sha256": "c37ca9b6cf2baefc351bcdd88f08650baf700ba6d3e5fd2f5756eb2f2af22fd1",
+      "gitBlob": "eb50e713c1b58e04dc04610e4f6f138d2c7869cb",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/spelling/sprites/prepared/timbers-sticker.png",
+      "bytes": 5169,
+      "sha256": "e8e49bd81d71d089a1b6d11132ff97a52a280160d6754ebb0a88e10cf0931dff",
+      "gitBlob": "9dd55dba02af156c983920f5459e91417f5cf8a4",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/spelling/sprites/quarry-sticker-source-v1.png",
+      "bytes": 1354328,
+      "sha256": "1c21bf3fb335c90d7b5adf4768ce07392c1ac3ea5e977a3bf4447b896350682d",
+      "gitBlob": "ba2a623031c3a4970e983b85aac66f2cea314f82",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/spelling/sprites/quarry-sticker-v1-hermes-query.txt",
+      "bytes": 2967,
+      "sha256": "a16e7d2fd5546b1e57eb1778ef4ff962032c5a9d88dc1512652b13973dcd7345",
+      "gitBlob": "c83240c17b63f6e4fb6c6088eafeae0273de2ae4",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/spelling/sprites/quarry-sticker-v1-prompt.txt",
+      "bytes": 2096,
+      "sha256": "a2e70bc0b63aa8062874c44227fef476179d8bda32ebc8f297a9ebf3ef224c0b",
+      "gitBlob": "585fccc519d0991643be7b552be6529bc54ff368",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/spelling/sprites/sunset-sticker-source-v1.png",
+      "bytes": 945016,
+      "sha256": "b53fac46b4b2402d252c02c471f6bd293a60b20acbbe4f2d7a137275153563ca",
+      "gitBlob": "b8648d8283167b05966b876ae4a980a492e25bbc",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/spelling/sprites/sunset-sticker-v1-prompt.txt",
+      "bytes": 1541,
+      "sha256": "149e08bca64bd5db9786ce40f491357b0032cac2011b0b73795ea2a83c7d8a5e",
+      "gitBlob": "ff8906b17b7ec75745d2ed3615315fcf0e101208",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/spelling/sprites/tile-source-v1.png",
+      "bytes": 745137,
+      "sha256": "3a1b5e0e7380a40690937e9e4fa98f73e67f5e81aaf7e485b0e70a4b0c6fa4d7",
+      "gitBlob": "ede10b9e44e247da3282cfb92db12ea19adaee2d",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/spelling/sprites/tile-v1-correction-prompt.txt",
+      "bytes": 1052,
+      "sha256": "e05370c814504e4c82f049527aa243a4315a505556bff98e00c6ac8de7bf32f6",
+      "gitBlob": "48bfdda9db95275c8e716e9ee1e7ffc87ac7e99e",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/spelling/sprites/tile-v1-initial-prompt.txt",
+      "bytes": 1947,
+      "sha256": "25cf4f9e7c849d9e513140880b39def8df0c6c1ff111f117d92960812b2cff60",
+      "gitBlob": "96c54c06b5a2da85755ceb1812864c62942028bf",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/spelling/sprites/tile-wide-intermediate.png",
+      "bytes": 765568,
+      "sha256": "4260661fd484e39119c677ac854ea806215406ae9a29e5ef906311d4f1782840",
+      "gitBlob": "5821fbf9c5730eb0e0be541f3ea4c44bb19f5878",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/spelling/sprites/timbers-sticker-source-v1.png",
+      "bytes": 1354294,
+      "sha256": "598d7b9e644eb2dab045522760d36aa0dbffa83534e7e5f2fbd36e20b154e5ec",
+      "gitBlob": "0c042d88e186a55f70d7797a1b6a6c548d49ab92",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/spelling/sprites/timbers-sticker-v1-hermes-query.txt",
+      "bytes": 2901,
+      "sha256": "7b4395e9bcb335f2b3ea7a88e4088c852290f977d565a02d07e939e7643a2953",
+      "gitBlob": "3b1924d7301d4132b1722f73dbe2ac7ad455eee4",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/spelling/sprites/timbers-sticker-v1-prompt.txt",
+      "bytes": 2030,
+      "sha256": "fd71d25c6c92ff15af8900e481753be215808dafae52180e1c282d3d6b8024c6",
+      "gitBlob": "0aec35ba22218775f46427fc85ad7f2977f7d9a5",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/story/PROVENANCE.md",
+      "bytes": 1836,
+      "sha256": "d7d978eaad9117f3b8923abe68b6428374d3b0074f6202aaabb6eeeb8c688584",
+      "gitBlob": "e83c0a3f1591391a57b640fc262ca698790176f3",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/story/generated-panels.png",
+      "bytes": 2546779,
+      "sha256": "2cd992fe685c9ab8fe52c9eb89d81cabc0b86191c4ede3c0e05a3546cb321c82",
+      "gitBlob": "340359910caf11adcdcb4c02d5c3bed308beabde",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/story/prompt.txt",
+      "bytes": 2227,
+      "sha256": "a30bedb1b7728411220b45410f6a8232ba265f17ff153632668b36d78ab278e4",
+      "gitBlob": "9031ef51d2892bb16b9d56c549e356d856aa933d",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/timbers/PROVENANCE.md",
+      "bytes": 929,
+      "sha256": "b43002d755fa7b381a734947a904bbb2ff1bedbcf67d2872b681e9b60094ddb7",
+      "gitBlob": "abc452032cc130f227936d38eed49768aa042dc3",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/timbers/environment-prompt.txt",
+      "bytes": 1490,
+      "sha256": "055d21072e3edc088f5cbdef91c91befca400d68164dc0d746da4efb796be710",
+      "gitBlob": "9eb11820d058179899377014c8bbd2ddc5ef87bc",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/timbers/environment-sheet.png",
+      "bytes": 1431494,
+      "sha256": "490cc0fb1658d4538511f819389bc82f69fd6aa3befda5f3208dfbe8a8f0d1bc",
+      "gitBlob": "2c5cbe720ac3dfc60a13a8110d14de49cbd995b5",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/title/INTEGRATION.md",
+      "bytes": 655,
+      "sha256": "3df343be9cbe8401d23125c187d73a04944c898ad5ccd579c8d2280bd48bc52d",
+      "gitBlob": "3c737579bc3d0b852496121205d78440b9d76d78",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/title/PROVENANCE.md",
+      "bytes": 791,
+      "sha256": "4b1ad88ccd50cdf31398c2b0447064708f8ec066b3029b34e339d574616fe2b2",
+      "gitBlob": "71c4d7a47a03125a065b308f68bb3d0bff1db3e7",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/title/prompt-v2.txt",
+      "bytes": 1763,
+      "sha256": "35091da83f8d3d624ba1d3b074027b24603a1e069ff24c9be26194ff115901aa",
+      "gitBlob": "16720fa645ad3764005520c81a2606983148ad13",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/title/tiny-turbo-trails-v2.png",
+      "bytes": 1126211,
+      "sha256": "6d5f4feba06ad2a765c92181a12b7267731a6b7677f826d3ba59e0e144893b75",
+      "gitBlob": "de959712faf16de801dcd100a6c15e5113b4a5f1",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/trails/PROVENANCE.md",
+      "bytes": 1377,
+      "sha256": "52fdd1f8a4d20e04ad7653bcefb99263c02b40748d0d66d9ecf2ef3b3753dba4",
+      "gitBlob": "bef77cd146be5e3eb44c83fb19172aba0e8034a3",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/trails/backdrops-prompt.txt",
+      "bytes": 1169,
+      "sha256": "e2304bba64ca46ea4b1ab910d09faea79ebf03b1a54ce555f9f3cade2995ea7d",
+      "gitBlob": "a64fca117402ac533433f0c64590d83c81ef93c3",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/trails/backdrops.png",
+      "bytes": 2551298,
+      "sha256": "e541935e0417c25786804c7a7c8f302519225c4cf64f32aba8d04ec5d8007a5a",
+      "gitBlob": "e45b00f0082056314b5c2630d245c35451100801",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/trails/materials-prompt.txt",
+      "bytes": 1122,
+      "sha256": "a8fea694326c720e722dd01980e2b2885e5ac947135c00ca1a1aae6fd50fe822",
+      "gitBlob": "c509034acc562906af99cede9ef46fb27d35ce01",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "assets/source/trails/materials.png",
+      "bytes": 2736114,
+      "sha256": "51e47574af28aa77abb0d9446ce5f75ec15b09535d7c16a3a49eb8a92e3655fd",
+      "gitBlob": "d78c015105fb5dc2638cbd456c9eecb0142eaa5f",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "public/assets/cove/background.png",
+      "bytes": 339215,
+      "sha256": "fad99d46c31f83c00407f0c622b227fb78ee34d68e454da3c51a97ae5dc197eb",
+      "gitBlob": "9d3c379941d2e9bbd8386d9962c255d569cdd4aa",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "public/assets/cove/environment.png",
+      "bytes": 46306,
+      "sha256": "4f637cb6a8c2012169fb5d404f16cd1f632cae18e386c40845c4c3ef21f9639e",
+      "gitBlob": "04c3b2bd5b08ef6d42c7ebf5a7eb66918fe0135a",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "public/assets/frost/background.png",
+      "bytes": 339149,
+      "sha256": "294f76ac7f916f052e2c871ee375f0b322a478c96c85b2e12b3b5b9147315ecd",
+      "gitBlob": "cf828c11d53b4f03ed654872c58447fd2bafbeee",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "public/assets/frost/environment.png",
+      "bytes": 39913,
+      "sha256": "a15af628ecc734f76470b23f4e77109cefe4d2ae123aa5ccdbdd6f297576cf01",
+      "gitBlob": "ff4c132bf1a4b20544b4b219ac9190dd3b18f9cf",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "public/assets/frost/manifest.json",
+      "bytes": 889,
+      "sha256": "17254c516c1999f9eb14d4f4a201d2a09c5199513a96c9dbca28123f3fbabcdc",
+      "gitBlob": "3a5190bd236173ff79c8035ca5dfcc02940d708c",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "public/assets/gems/gems.png",
+      "bytes": 5253,
+      "sha256": "1a8c3cedfeb31d9070b08c7d09fc1b40f96cbdb3377f178e8a47610872bd439e",
+      "gitBlob": "705036e75c965546680befb31c91f5bade7fc03e",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "public/assets/henry/henry-celebration.png",
+      "bytes": 71218,
+      "sha256": "490231dd210a1778bcbd1f7924961d635f77bea3e55052ec5c9de14de2fd8641",
+      "gitBlob": "b4063789d99972ce819795ed8c7b7e5bb736784c",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "public/assets/henry/manifest.json",
+      "bytes": 2887,
+      "sha256": "e932fee8dc4581422ed6a6c4cc5df91aa8de98b2e0b578b51fdec1d61c317879",
+      "gitBlob": "82474ba591ef93915774d9557cc4b12f456adfc1",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "public/assets/henry/reference.png",
+      "bytes": 1338689,
+      "sha256": "5614294920ca29f461ca0864d5fd89258928bb239cb7d7c26d81063c128f4e9a",
+      "gitBlob": "c6385bcb0e58619fb835f703c3190f19f1a32577",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "public/assets/henry/starter.png",
+      "bytes": 52526,
+      "sha256": "b79ee31dd9b4096bf5899509a808cd5a8bf3459a00d3c736a0bd7b41f8791d1b",
+      "gitBlob": "6d46f799fa34b5daad41ad0bb524618154f69a5e",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "public/assets/interface/button-selected.png",
+      "bytes": 2148,
+      "sha256": "03a25bddbd69479462812d21b689465c6aa7fff84e5d0b86c49189f912640533",
+      "gitBlob": "5a9d8168bf97160d5ea5a4ecfe9108999b5334c3",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "public/assets/interface/button.png",
+      "bytes": 2130,
+      "sha256": "04b29e064c318ca4a9f13368e9a4e0a632ccd8acc55fb22f1fd853131657d9c6",
+      "gitBlob": "815f993338138d35ec7c37e2f8a4fe27fa72b9fa",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "public/assets/interface/panel.png",
+      "bytes": 8972,
+      "sha256": "5e6e2d33ae6b0f86941643e70b6cb28dbffd5d63c424332eeba84cbb058dc584",
+      "gitBlob": "dcc9fc5ee7d2989f71ab1c7f8048d38806d80426",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "public/assets/interface/plaque.png",
+      "bytes": 3152,
+      "sha256": "fb99e6fffbd20c4c5e93ba714f506890757cc0c926c4b893e4d1bc6d691ff59d",
+      "gitBlob": "f603f8a68911270fc973a9c294c44e9c2c88ea0a",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "public/assets/overworld/background.png",
+      "bytes": 128898,
+      "sha256": "78c1687572c2e1d75aa267ff927ebaebcc4aa1c29cc1aada0ab453dc4de3d833",
+      "gitBlob": "2837f159b464b41c877884b6e3bc3e56d0c28f83",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "public/assets/overworld/landmarks.png",
+      "bytes": 126602,
+      "sha256": "576a54c210aee7981a0ae5688db4d323e979b34888bbe5b8482d5f88523fea75",
+      "gitBlob": "42e1639858f4ed8c4b0868f2b69ad2660d5222d3",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "public/assets/plains/environment.png",
+      "bytes": 63911,
+      "sha256": "626ded198036b4fe010774f4daade0bf35565e55c445e939e4867368638924f1",
+      "gitBlob": "03d15de86e72f289342693017666d5fdae07ff44",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "public/assets/plains/manifest.json",
+      "bytes": 879,
+      "sha256": "5201702a38da318dbd0394bedf568a71bae43b0f1cbd92e193498ff4cf6d21fd",
+      "gitBlob": "57c93097bbfe4433f548167c625f1a2673259cdd",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "public/assets/plains/scenery/background.webp",
+      "bytes": 17806,
+      "sha256": "96a178c0fd20fb92680db02b63847b786ee3dc1f2a12bd3b0430cf9701aab72c",
+      "gitBlob": "f39addb72b8bfaf9f67ffd3d8eb2513fde69cb9d",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "public/assets/plains/scenery/foreground.png",
+      "bytes": 88365,
+      "sha256": "14b1151f9e4a2518e960c42422fdd2b0d4ca92e671e87408e53ab2c6ec8bb868",
+      "gitBlob": "999255feba3725e022e856179fde8cd229991e18",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "public/assets/plains/scenery/manifest.json",
+      "bytes": 2720,
+      "sha256": "8bbf32ff1cbb3f1b42dc68ef948536b9a2f09afbcebab5559d35e7c7a27957f1",
+      "gitBlob": "e10b0acd7aebf779e48b35b7e2eda8e363c453c9",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "public/assets/site/background.png",
+      "bytes": 322825,
+      "sha256": "93ff5736166c7d28c6756f5396a1e2ba24dfae9c3418fa94b003c13923656bc9",
+      "gitBlob": "7bab86d3e29d9fc0d7cc0bd8c70b1fa5cb9fb2b0",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "public/assets/site/environment.png",
+      "bytes": 52029,
+      "sha256": "e492e65613ce577e742865db6fdfb70a1a16c0bfa84c2c9ad888b7a65e4e3666",
+      "gitBlob": "5df93fa5c85c1dedb739ef072cab208dcf675c12",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "public/assets/site/manifest.json",
+      "bytes": 745,
+      "sha256": "176ce7b94cf713fa3c099f1e62511227b67c384e1159a4b8ecce3547c40333da",
+      "gitBlob": "c3019f165164969d2aa82539371a49d1e41677c0",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "public/assets/slimes/slimes.png",
+      "bytes": 9341,
+      "sha256": "c75588d9baa06909b21fc5f591b25827cc0171806e321ea5e0966951f5f8f2bf",
+      "gitBlob": "b266e7491775402a1ebca01550062f9e405d721f",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "public/assets/spelling/cove-sticker.png",
+      "bytes": 4658,
+      "sha256": "25b50ddc5966755022dfe5cd3a55038cbf7147ed307fdae9b5be934dd144c87b",
+      "gitBlob": "5e6f36da353ff18c493099e2591bd9e6b39d0a57",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "public/assets/spelling/frost-sticker.png",
+      "bytes": 4693,
+      "sha256": "efbed8411de577a746e54a4bc96ffed341b3f0d4116e7fc15fbdc40b15fbda62",
+      "gitBlob": "196e74aec20ed5991d9852c76cf75641b039272c",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "public/assets/spelling/plains-sticker.png",
+      "bytes": 3834,
+      "sha256": "e3a3e9cecae7d252a017093f2d04cd2de6ddc7699f1e297ed3ccf59bbcf77f9c",
+      "gitBlob": "8004244cf079dd32cd7d6e31802bbd521f5d64b7",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "public/assets/spelling/pouch.png",
+      "bytes": 1888,
+      "sha256": "a044fb5b5a9c36d0a16405409d4d3fb3c04160098052d7fec3b58c388487dc40",
+      "gitBlob": "c4662ebdb7d0c5a2448d39c80979142136568185",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "public/assets/spelling/quarry-sticker.png",
+      "bytes": 5237,
+      "sha256": "5b7a9ec01d88b73783ee31d772b0111549a6ac9b2b107aa19c7630ebae018592",
+      "gitBlob": "38b55c21e0ca142a968e48b981393d202e5d41db",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "public/assets/spelling/sunset-sticker.png",
+      "bytes": 6575,
+      "sha256": "854702e0cdd510926209e434775a70abf90310ce7625f782523f71d37ec7cb01",
+      "gitBlob": "56b39aa3e60d6ec291a4829c62c0b11a304e3fae",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "public/assets/spelling/tile.png",
+      "bytes": 3061,
+      "sha256": "c37ca9b6cf2baefc351bcdd88f08650baf700ba6d3e5fd2f5756eb2f2af22fd1",
+      "gitBlob": "eb50e713c1b58e04dc04610e4f6f138d2c7869cb",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "public/assets/spelling/timbers-sticker.png",
+      "bytes": 5169,
+      "sha256": "e8e49bd81d71d089a1b6d11132ff97a52a280160d6754ebb0a88e10cf0931dff",
+      "gitBlob": "9dd55dba02af156c983920f5459e91417f5cf8a4",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "public/assets/timbers/environment.png",
+      "bytes": 57031,
+      "sha256": "db320df5c114e7e36ca27989d8530ac2aa0d1cc036b8e0b159a4ef38eb3b86fd",
+      "gitBlob": "91968b10d7d742b1b1d6e7f5add94d81291f3c3c",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "public/assets/timbers/manifest.json",
+      "bytes": 929,
+      "sha256": "f9cc59f5a5e884d2bd42e45c36c1f56af9db82b53c42d163fc0941e67ac060af",
+      "gitBlob": "4586217285214e00a22b7daf9df62b3dd7c74ca5",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "public/assets/title/tiny-turbo-trails-v2.png",
+      "bytes": 65847,
+      "sha256": "1116404054d8772a3b212987221e8721df5d951b396e1c2a9c77a2223b622955",
+      "gitBlob": "4fb960b5bcbfe4f7b8dade892452444e8026f5e8",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "public/assets/trails/backdrops.webp",
+      "bytes": 69404,
+      "sha256": "bea7cd616d1abbb8fc7f5c2c514dd56e22aa25874767b9e5b57b5213b4c415a7",
+      "gitBlob": "028e05971f68f0c303c4ae94eb60524ef81192ff",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "public/assets/trails/materials.png",
+      "bytes": 503409,
+      "sha256": "1dd3d71aed5bbd269257eee28b9be06407b74c1914b1d1fe795723b21095a46e",
+      "gitBlob": "c9f9cc52ff604cc99931d3947be6e731c277ef73",
+      "category": "protected-existing-asset"
+    },
+    {
+      "path": "src/core/audio-effects.ts",
+      "bytes": 1173,
+      "sha256": "b24056b829504c4ca2e5f375dee9f4a283ef7e19c118f9fa09db13439ff3b017",
+      "gitBlob": "6e0defe3888609f06aff76f0178011ed58c458bc",
+      "category": "pinned-gameplay-level-collectibles"
+    },
+    {
+      "path": "src/core/audio.ts",
+      "bytes": 752,
+      "sha256": "ed4576edbb66956210b122728c7d8ac0e2015e4a7f8b799e7004a7151950197d",
+      "gitBlob": "30c1ad5e5072c9991c4694d391bf17fa34ba861b",
+      "category": "pinned-gameplay-level-collectibles"
+    },
+    {
+      "path": "src/core/clock.ts",
+      "bytes": 917,
+      "sha256": "2d4ac31a13bedab33d3dd2aa28266cdd30906c6611189877a28de9223fdf6c74",
+      "gitBlob": "4c14b67e87c45606df6b8a2a319892badb905c84",
+      "category": "pinned-gameplay-level-collectibles"
+    },
+    {
+      "path": "src/core/input.ts",
+      "bytes": 5718,
+      "sha256": "00c5c3ff08c119cd1c22f17cebd53100f6c5ee7bfbc61da7ee5036e9e1fa228e",
+      "gitBlob": "ef562f7f75d3016ed537155527eec78e1f3314d6",
+      "category": "pinned-gameplay-level-collectibles"
+    },
+    {
+      "path": "src/core/music.ts",
+      "bytes": 4725,
+      "sha256": "d869e01a5e06e82dbb97efe02f85d6f774c55e00f458a2a9407fce54eac03aa7",
+      "gitBlob": "709b85826beb94d40cae2f82ba331184f9524232",
+      "category": "pinned-gameplay-level-collectibles"
+    },
+    {
+      "path": "src/core/retro-audio.ts",
+      "bytes": 6910,
+      "sha256": "a0ee2f40d2190683d42dc6287b1e102738f072c4f2cf7fb04576bcf43adb6a54",
+      "gitBlob": "3a96622fd3b17889f353b5f06522112b8e6042ac",
+      "category": "pinned-gameplay-level-collectibles"
+    },
+    {
+      "path": "src/core/rumble.ts",
+      "bytes": 4141,
+      "sha256": "9d2725379ae8502c4d82598df1950b83af0de64755711237d6b90cd6cd26921d",
+      "gitBlob": "eb1d8901609a91bd2253ed97363b9c6c5a108889",
+      "category": "pinned-gameplay-level-collectibles"
+    },
+    {
+      "path": "src/core/scene.ts",
+      "bytes": 817,
+      "sha256": "1aa3e43aac22051b3f30b0a157c6fbd746b70a0d9dbe23e1ef3f6b0535316fc8",
+      "gitBlob": "1b4f82a872d1a56019a16616f75a3e0fe5f574b0",
+      "category": "pinned-gameplay-level-collectibles"
+    },
+    {
+      "path": "src/core/viewport.ts",
+      "bytes": 1799,
+      "sha256": "41b9bd4b0c4daeef711621f398509f5a45da865445cfbb0a0362e6d5d225f515",
+      "gitBlob": "f2927058c3f3cfa046ff3299abcbf54e3da5f121",
+      "category": "pinned-gameplay-level-collectibles"
+    },
+    {
+      "path": "src/game/adventure-scene.ts",
+      "bytes": 29862,
+      "sha256": "0c065088875e77c6a6035be2723ae115f6a7bf8af727382c060503d9b446a6c7",
+      "gitBlob": "d3847f18cd03c3577eae7d1e98ba8a8f8114ba71",
+      "category": "pinned-gameplay-level-collectibles"
+    },
+    {
+      "path": "src/game/celebration.ts",
+      "bytes": 1311,
+      "sha256": "cb98ec442c878ad599c67bffdcb902d9d772c775252744bd82b09d7183741c27",
+      "gitBlob": "c5f7ce1c78b8819c82e1b35b9887502593c1e9eb",
+      "category": "pinned-gameplay-level-collectibles"
+    },
+    {
+      "path": "src/game/education-overlay.ts",
+      "bytes": 11773,
+      "sha256": "e7c939f0c23040b2496d984b78163e009767db0b03c2bbc5927393e38bafd86e",
+      "gitBlob": "083d93dbfa1482b06b0542cf3481c7e8ac0e330b",
+      "category": "pinned-gameplay-level-collectibles"
+    },
+    {
+      "path": "src/game/education.ts",
+      "bytes": 4763,
+      "sha256": "bd2858c93e279ea960867d4ad90d6c483ecfc07697892c451550ea85459c5c09",
+      "gitBlob": "e6b688ea98747fc1369ab631aa20ee4d2851ccc2",
+      "category": "pinned-gameplay-level-collectibles"
+    },
+    {
+      "path": "src/game/feedback.ts",
+      "bytes": 3714,
+      "sha256": "7d6927dedfafd72989ba78c88a35d0dd9ff3c8573cc4d256540a1e495753b6ea",
+      "gitBlob": "9ce7ff94cb3f8ce4221ee555876057e4c3e71457",
+      "category": "pinned-gameplay-level-collectibles"
+    },
+    {
+      "path": "src/game/gameplay-preview.ts",
+      "bytes": 6381,
+      "sha256": "cf1a2199587237b7527339a74d4f1e78439c0769d4be668b3cec06cfdda2602a",
+      "gitBlob": "962789f467c22ce82552bed2086fbc333e71da47",
+      "category": "pinned-gameplay-level-collectibles"
+    },
+    {
+      "path": "src/game/hud.ts",
+      "bytes": 13289,
+      "sha256": "028b17604b52a02658537f70eb6855cc992f370795fe24a1ea2d77779eb9c0c1",
+      "gitBlob": "1e1ec3970841e6880c76b61d21a8cbb01f38aa86",
+      "category": "pinned-gameplay-level-collectibles"
+    },
+    {
+      "path": "src/game/interactions.ts",
+      "bytes": 15874,
+      "sha256": "bcbed8e33efdd2be39c1182521b73b395bb0576ba15e2fbfdc1164298fdf7999",
+      "gitBlob": "1aab59531bb65d17e0d50f46ca76c9803924ac8a",
+      "category": "pinned-gameplay-level-collectibles"
+    },
+    {
+      "path": "src/game/menu-overlay.ts",
+      "bytes": 7056,
+      "sha256": "f5b38ecec932a1bce936328d2d491f47d67cf93d826ebbb0f3456936a5615835",
+      "gitBlob": "8cbe64a6ea4150c2ac9a0c49aaf746ea043d261b",
+      "category": "pinned-gameplay-level-collectibles"
+    },
+    {
+      "path": "src/game/movement-audio.ts",
+      "bytes": 1260,
+      "sha256": "dff0ca1cb2f7a363cf12a07a3d0cf4fe9a6f01e7eafc34aa95545bc7f1736310",
+      "gitBlob": "7dbe4b8d58c846673b1c51d4b0e10de43221a455",
+      "category": "pinned-gameplay-level-collectibles"
+    },
+    {
+      "path": "src/game/movement-preview.ts",
+      "bytes": 3224,
+      "sha256": "92604716cd1e38ebec1195a369be95cda8b25589087871ea9d896d5e44eea3a6",
+      "gitBlob": "742c677bc96d5398568f951f398e8a79f7340589",
+      "category": "pinned-gameplay-level-collectibles"
+    },
+    {
+      "path": "src/game/movement.ts",
+      "bytes": 10936,
+      "sha256": "3f918871245baad33cccdbf60ba0520eee750d4c8fc785a53d8d08fc3fe7a58d",
+      "gitBlob": "ba90ceef35a12d54902ca0030605d88c4ea3c92b",
+      "category": "pinned-gameplay-level-collectibles"
+    },
+    {
+      "path": "src/game/overworld.ts",
+      "bytes": 7427,
+      "sha256": "e6fc0f4700090c73f6a8220393a9a59d02ebae8fe86a5d2b93654a27fa0a729f",
+      "gitBlob": "285487e90d06665f8acf8aa9d9efc56875ddd9d3",
+      "category": "pinned-gameplay-level-collectibles"
+    },
+    {
+      "path": "src/game/pause-menu.ts",
+      "bytes": 5273,
+      "sha256": "409839f100711b69e577e41d0f97a60fd6b6369f5e73dfa907c5b6b3c7a4aa1f",
+      "gitBlob": "6f2ff2f7a5b2d67114d0b98c90bf1e0204191679",
+      "category": "pinned-gameplay-level-collectibles"
+    },
+    {
+      "path": "src/game/platforms.ts",
+      "bytes": 3556,
+      "sha256": "921e433e606cb951554e0d8c512b50c5c29e0360ae57a329a7b28b9bb056d280",
+      "gitBlob": "e877de1f73950cb07ecf320761b303ee5c266232",
+      "category": "pinned-gameplay-level-collectibles"
+    },
+    {
+      "path": "src/game/reward-result.ts",
+      "bytes": 1111,
+      "sha256": "a19a68657461b95cf57255f01fcf2af9735cbbea07726ce3fdeed83cbc6a37f4",
+      "gitBlob": "0994a69f7cd42b4a333ba897c0ba570f0cb99475",
+      "category": "pinned-gameplay-level-collectibles"
+    },
+    {
+      "path": "src/game/screens.ts",
+      "bytes": 1118,
+      "sha256": "565b463537417008497b4e06c73b5e7bf613451330c78f36efa758b812370221",
+      "gitBlob": "87de0fdb2d71932972f358793e0a4eb38bf2ed28",
+      "category": "pinned-gameplay-level-collectibles"
+    },
+    {
+      "path": "src/world/level-kit.ts",
+      "bytes": 2180,
+      "sha256": "81647f7d1fd495a9f462172cc849ea624bffaac6ed4f81e3c20da19ed812b12c",
+      "gitBlob": "9eada2aa3129028429fd3d0823c89fdfa9cac182",
+      "category": "pinned-gameplay-level-collectibles"
+    },
+    {
+      "path": "src/world/level.ts",
+      "bytes": 17986,
+      "sha256": "626f85c1303f8934624eb2a02eda010db761b847265b07f1e0ba1f6c6b02cf23",
+      "gitBlob": "280ad16f12c9b32423a500861cf2e9fc9dd67238",
+      "category": "pinned-gameplay-level-collectibles"
+    },
+    {
+      "path": "src/world/levels.ts",
+      "bytes": 741,
+      "sha256": "9bd1eb852c6bd6ecb7ada0552afde8a14f5e4be47a8655ed7b83a4d656dbd47b",
+      "gitBlob": "c7c728ee5b481179d55a43ba9c5bf82abeea66b0",
+      "category": "pinned-gameplay-level-collectibles"
+    },
+    {
+      "path": "src/world/sandy-cove.ts",
+      "bytes": 4079,
+      "sha256": "b59a4ca3d738188e3580ac526fccceb86fb0c1faaf92fc7844f1e50ff65a6f02",
+      "gitBlob": "3668859d6e2188c4a7cba049e2ab7f7953b066b7",
+      "category": "pinned-gameplay-level-collectibles"
+    }
+  ],
+  "coveManifestBefore": {
+    "image": "environment.png",
+    "panorama": "background.png",
+    "cellSize": 48,
+    "assets": {
+      "terrain-flat": 0,
+      "terrain-left": 1,
+      "terrain-right": 2,
+      "terrain-ramp": 3,
+      "stone": 4,
+      "cave": 5,
+      "tree": 6,
+      "flowers": 7,
+      "gem": 8,
+      "spring": 9,
+      "slime": 10,
+      "checkpoint": 11,
+      "finish-arch": 12,
+      "dust": 13,
+      "hills": 14,
+      "bush": 15
+    },
+    "anchors": {
+      "stone": {
+        "x": 24,
+        "y": 44
+      },
+      "cave": {
+        "x": 24,
+        "y": 44
+      },
+      "tree": {
+        "x": 24,
+        "y": 44
+      },
+      "flowers": {
+        "x": 24,
+        "y": 44
+      },
+      "spring": {
+        "x": 24,
+        "y": 39
+      },
+      "slime": {
+        "x": 24,
+        "y": 44
+      },
+      "checkpoint": {
+        "x": 16,
+        "y": 44
+      },
+      "finish-arch": {
+        "x": 24,
+        "y": 37
+      },
+      "bush": {
+        "x": 24,
+        "y": 44
+      }
+    }
+  }
+}

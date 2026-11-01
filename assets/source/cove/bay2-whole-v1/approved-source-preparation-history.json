@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "sourceSha256": "2602a27083566049e701104c27534d7426b7a601e8f37e0e4921aba460346d93",
+  "crop": {
+    "x": 208,
+    "y": 437,
+    "width": 1120,
+    "height": 240
+  },
+  "isotropicSourceNativeScale": 8,
+  "nativeSize": [
+    140,
+    30
+  ],
+  "rawPixelSha256": "f30e2890a6cdd3f8197107301966e581cfe40f01231fd1a8522c201c9d36301e",
+  "pixelSha256": "52ee522781185b896c09302377b99cf9d16c0aaf0db73dc5d1239821b38fb1a6",
+  "outputSha256": "e1809f4f247e693c96968ce7661e2e2126d46d28567b032e534634ee6a2b94cc",
+  "repairs": [
+    {
+      "x": 0,
+      "y": 0,
+      "donorX": 1,
+      "donorY": 0,
+      "before": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "after": [
+        254,
+        221,
+        140,
+        255
+      ]
+    },
+    {
+      "x": 139,
+      "y": 0,
+      "donorX": 138,
+      "donorY": 0,
+      "before": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "after": [
+        253,
+        217,
+        135,
+        255
+      ]
+    }
+  ],
+  "sourceEndTrim": {
+    "leftColumns": 22,
+    "rightColumns": 22,
+    "opaquePixelsRemoved": 1469,
+    "percentage": 0.8718204370378283,
+    "topOrDepthTrim": 0
+  },
+  "capSha256": "1d04bdf8b2562bc0faa75fb220eb582b3993a4a37a9b76135c53a4f84ea4132e",
+  "authorization": "owner-authorization.json",
+  "sourcePixelLossless": false,
+  "allPreviouslyOpaqueNativePixelsUnchanged": true
+}

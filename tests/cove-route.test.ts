@@ -22,10 +22,10 @@ it('keeps optional A above the hollow underpass and reaches every permanent pool
   const route=routePilot(SANDY_COVE);
   route.run([walk(1040)]);
   expect(route.scene.education.hasLetter('cove-letter-a')).toBe(false);
-  route.run([jump(1040,320)]);
+  route.run([jump(1040,297)]);
   expect(route.player.platformId).toBe('cove-hollow-shelf');
   expect(route.scene.education.hasLetter('cove-letter-a')).toBe(true);
-  route.run([walk(1320),walk(1690),jump(1750,296),walk(2070),walk(2210),jump(2260,296),walk(2300),jump(2395,284),walk(2800),walk(2940),jump(3020,272),walk(3080),jump(3170,260),walk(3280),jump(3360,272)]);
+  route.run([walk(1320),walk(1690),jump(1750,283),walk(2070),walk(2210),jump(2260,285),walk(2300),jump(2395,284),walk(2800),walk(2940),jump(3020,272),walk(3080),jump(3170,260),walk(3280),jump(3360,272)]);
   expect([...route.supports]).toEqual(expect.arrayContaining(['cove-hollow-shelf','cove-pool-stone-1','cove-pool-stone-2','cove-pool-stone-3','cove-bay-ledge-1','cove-bay-ledge-2','cove-bay-ledge-3']));
   expect(route.events.filter(e=>['damage','recover','spring'].includes(e.type))).toEqual([]);
 });

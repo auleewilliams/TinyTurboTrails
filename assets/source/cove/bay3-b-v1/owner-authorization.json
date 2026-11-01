@@ -1,0 +1,8 @@
+{
+  "userVerbatim": "You have my approval",
+  "approvedImmediatelyPrecedingProposal": "Up to THREE edge-pixel repairs per new asset, copied from adjacent artwork colours, with uniform resizing only; no rock body cutouts or gameplay changes. Applies bay3 and two shallow stones if needed.",
+  "bay3ExactApprovedVariant": "whole paint bbox[47,393,1489,622] at SAME721/90 source/native scale BOTHaxes, virtualsourceheight240+1/3, zero meaningful paint crop. Fill ONLY(0,0)<-(2,0),(1,0)<-(2,0),(0,1)<-(1,1). Preserve every already opaque prepared RGBA.",
+  "futureLowRoles": "Same <=3 alpha-zero edge/landing-contiguity pixels each, adjacent-source donors recorded; only if wholepainting+uniformscale+all6pxcaps independently pass. No bodycrop/masking/no fillmanypixels/no newcolours.",
+  "supersedes": "phase19 pending-preparation-decision.json and bay3 validation approval-pending fields; historical records untouched, do notasksamepermissionagain.",
+  "notAuthority": "additionalimagecalls/refinements beyondexistingbudget,bodycuts,axisstretch,physics/layout/entitychanges,merge/deploy/closure"
+}

@@ -1,0 +1,48 @@
+{
+  "ownerVerbatim": "Yes",
+  "immediatelyPrecedingQuestion": "Are you happy for me to make that limited layout adjustment?",
+  "proposalAccepted": "Reposition ONLY hollow shelf/pool stone1/pool stone2 and associated pickups WHERE NECESSARY to fit thickerwholeBrocks with usableunderpasses;other4platforms unchanged.",
+  "revises": "/home/leew/.hermes/cache/scratch/ttt-art-235/phase20-three-thin-platform-revision/owner-decision.json",
+  "frozenFour": {
+    "cove-pool-stone-3": {
+      "publicPath": "public/assets/cove/remaining-two-v1/pool3.png",
+      "sha256": "63616a68aa664e0ea3017ef13b6f0f4f66dd3383db844fd1ddd85ca2b8c10b7d",
+      "x_topY_width": [
+        2380,
+        284,
+        90
+      ]
+    },
+    "cove-bay-ledge-1": {
+      "publicPath": "public/assets/cove/bay1-b-v1/platform.png",
+      "sha256": "e1809f4f247e693c96968ce7661e2e2126d46d28567b032e534634ee6a2b94cc",
+      "x_topY_width": [
+        2960,
+        272,
+        140
+      ]
+    },
+    "cove-bay-ledge-2": {
+      "publicPath": "public/assets/cove/bay2-whole-v1/platform.png",
+      "sha256": "595d98c49269f0231dddcd95e5323a508eae5c28d9185257d15ec3daf19e6b5f",
+      "x_topY_width": [
+        3140,
+        260,
+        160
+      ]
+    },
+    "cove-bay-ledge-3": {
+      "publicPath": "public/assets/cove/bay3-b-v1/platform.png",
+      "sha256": "47f6b81246585ffbcecb2b285d79fdabe3759b1a8d6dd611bb75b8d540b33ec5",
+      "x_topY_width": [
+        3340,
+        272,
+        180
+      ]
+    }
+  },
+  "baseline": "2d44e3672ef3f8cc864d4fe70dbfd947af4bf0e1",
+  "scope": "3platformpositions+specificallynecessaryassociatedpickup/letteranchors/art/prep/tests;unchangedground/physics/controls/camera/other4platformart+positions/acceptedHUD/bonus4(3240,242)/othertrails",
+  "noPermission": "No unrelatedgeometry/pickups/newmechanics/merge/deploy/issueclosure. Newgenerationnotneededifapprovedwholeartfits; do notspendnewcallswithoutboundedfitdecision.",
+  "approvalCheckedAt": "2026-10-31T04:59:05.163281+00:00"
+}

@@ -1,0 +1,52 @@
+{
+  "source": "approved bay1 native; original generation/provider/prompt and two-pixel repair remain in ../bay1-b-v1/",
+  "sourceSha256": "e1809f4f247e693c96968ce7661e2e2126d46d28567b032e534634ee6a2b94cc",
+  "maskAtlasSha256": "2aa8847a4538069e4207661b424ff71ddd74af3dbc7d391c19f550e73d40fe4a",
+  "pool3": {
+    "scaleNumerator": 9,
+    "scaleDenominator": 14,
+    "method": "centre-inverse nearest neighbour BOTH axes",
+    "fullSourceArea": [
+      0,
+      0,
+      140,
+      30
+    ],
+    "intermediate": [
+      90,
+      20
+    ],
+    "transparentBottomRowsRemoved": 2,
+    "opaqueEndOrBodyCrop": 0,
+    "representedOpaqueSourcePixels": 1081,
+    "originalOpaquePixels": 2621,
+    "claim": "whole area retained; downsampling does not individually represent every source pixel"
+  },
+  "hollow": {
+    "method": "source RGB [0,0,140,6] through EXACT legacy alpha; surface adaptation, not whole painting",
+    "newAlphaPixels": 0
+  },
+  "roles": {
+    "cove-hollow-shelf": "hollow",
+    "cove-pool-stone-3": "pool3"
+  },
+  "pending": [
+    "cove-pool-stone-1",
+    "cove-pool-stone-2",
+    "cove-bay-ledge-3"
+  ],
+  "outputs": {
+    "hollow": {
+      "width": 140,
+      "height": 6,
+      "pngSha256": "0e0131b59911b57ac4f3a72a234002b2fbe8222578cbf3224a336937f9bec2b6",
+      "pixelSha256": "4c0475acf32c4f30b6c3326b5ec597004591023bfefea47a048266ada2eef449"
+    },
+    "pool3": {
+      "width": 90,
+      "height": 18,
+      "pngSha256": "63616a68aa664e0ea3017ef13b6f0f4f66dd3383db844fd1ddd85ca2b8c10b7d",
+      "pixelSha256": "e2928ca63e1029f422c0a56364306bddf7c301d05c2ad97a986a69c932cffe1f"
+    }
+  }
+}
