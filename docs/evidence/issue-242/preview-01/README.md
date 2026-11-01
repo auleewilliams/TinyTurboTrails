@@ -2,7 +2,9 @@
 
 The owner approved the bounded plan and six-call allowance before production.
 Four initial calls are spent; the steel and ground refinements remain unused.
-Representative visual approval is pending. This is a partial implementation,
+Representative visual approval is pending. The later
+[review disposition](../review-01/README.md) corrects the initial alpha/contact
+description and supplements the missing ferry journey views. This is a partial implementation,
 not completed-trail acceptance or a merge-ready candidate.
 
 ## Implemented scope
@@ -11,7 +13,8 @@ not completed-trail acceptance or a merge-ready candidate.
   first-left-1, first-b, first-3, crane-catch, high-deck, far-dock, lower-catch
   (all IDs have the `site-` prefix). The entire 1,740px first-3/crane-catch run is
   rendered, including its distant end and associated approved gem adjustments.
-- The whole moving ferry has a 96×15 painted silhouette inside its 96×18 canvas.
+- The whole moving ferry has 96×15 nonzero-alpha bounds inside its 96×18 canvas;
+  its substantial body is13rows tall, with very faint outer rows.
   Fixed steel has an 18px maximum depth. Every standing plane, collision record,
   movement endpoint and timing remains unchanged.
 - Gravel covers x[0,980), including the left recovery-gap wall. Remaining terrain
@@ -45,7 +48,9 @@ build. No commit or owner acceptance is inferred from those bindings.
 
 Both initial Chromium capture journeys passed, without retries. Native and small
 captures were inspected for Henry/headroom, exposed steel ends, connected runs,
-ferry visibility, gravel contact and the recovery lip. These are automated DOM
+ferry visibility, gravel contact and the recovery lip. The later review found a
+faint1px steel top row missed in this initial inspection; this initial statement
+does not establish exact visible foot contact. These are automated DOM
 keyboard and actual rendering observations, not physical hardware or owner
 playtesting. The expanded matrix passed all 39 gameplay cases across Chromium,
 Firefox and WebKit: six new native/small capture journeys and 33 existing main,

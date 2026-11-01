@@ -13,7 +13,7 @@ owner-approved artwork or a completed trail rollout.
 | Call | Allocation | Original output | Preparation |
 | --- | --- | --- | --- |
 | 01 | Fixed steel | 2172×724 RGBA | Whole-image uniform1/16 area reduction; native133×18 whole beam, then planned20px end/centre and10px centre cells |
-| 02 | Moving steel ferry | 2167×726 RGBA | Whole-image uniform4/89 area reduction; entire96×15 silhouette, padded with three transparent rows below to96×18 |
+| 02 | Moving steel ferry | 2167×726 RGBA | Whole-image uniform4/89 area reduction;96×15 nonzero-alpha bounds, padded below to96×18; substantial body occupies13rows |
 | 03 | Gravel edge | 2172×724 RGBA | Whole-image uniform1/14 area reduction; entire153×16 edge, designed113px repeat centre |
 | 04 | Gravel substrate | 1254×1254 RGB | Entire square uniformly reduced to64×64 |
 
@@ -28,7 +28,9 @@ inspected for weight and outline language; steel is newly generated material.
 ## Deterministic preparation and alpha
 
 Original returned files remain unchanged. The tool's transparent outputs contain
-near-invisible one-byte alpha noise in the outer padding. All pixels participate
+near-invisible alpha noise in the outer padding, and the steel bodies themselves
+are slightly translucent (shipped maximum alpha253/255), inherited from the
+returned sources. All pixels participate
 in exact area-weighted, premultiplied, isotropic resampling. Alpha is quantized
 downward for EVERY output pixel (less than one byte error); RGB is rounded after
 unpremultiplication. This removes low-coverage noise through ordinary downsampling,
@@ -41,9 +43,18 @@ floor-quantized full output and native candidates are retained separately.
 The production preparation is [scripts/prepare-site-art.mjs](../../../../scripts/prepare-site-art.mjs),
 using [site-art-pixels.mjs](../../../../scripts/site-art-pixels.mjs). It preserves
 all defining beam end plates and the whole ferry; it never squashes either axis.
-The ferry's visible depth is15px within the18px envelope, not an18px painted body.
+The metadata field `visibleDepth: 15` means the ferry's nonzero-alpha bounds,
+not fifteen strongly visible rows. Its first row peaks at1/255 and row14 at2/255;
+the substantial body occupies rows1–13. Fixed steel's first row peaks at7/255.
+Both therefore have a faint1px fringe at the collision line and a stronger top
+one pixel below it, which can look like a1px foot-to-deck gap. This was missed in
+the first visual audit. See the exact [row measurements](../../../../docs/evidence/issue-242/review-01/alpha-audit.json).
+No threshold, repositioning, opacity repair or additional generation has been
+applied. Acceptance of this edge treatment remains an explicit owner decision.
 
 Mirrored repeat neighbours share boundary samples without painting seam fixes.
+Mirroring was disclosed here but not explicitly listed in the approved plan's
+preparation operations; it also awaits explicit owner acceptance in the preview.
 Each joined support run is prepared as ONE native PNG, preventing fractional
 camera offsets from exposing strip boundaries. The ground is likewise a native
 world bitmap, preserving the authored steep contour. Its preview range is

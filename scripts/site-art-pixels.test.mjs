@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
+import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { mkdtempSync, rmSync } from 'node:fs';
@@ -63,11 +64,23 @@ test('all prepared preview PNGs reproduce with exact RGBA, dimensions, CRC and c
   try {
     execFileSync(process.execPath, ['scripts/prepare-site-art.mjs', temporary]);
     const metadata = JSON.parse(readFileSync('public/assets/site/steel-v1/preparation.json'));
-    for (const expected of metadata.artifacts) {
+    const regenerated = JSON.parse(readFileSync(join(temporary, 'preparation.json')));
+    const hash = bytes => createHash('sha256').update(bytes).digest('hex');
+    assert.equal(regenerated.artifacts.length, metadata.artifacts.length);
+    for (const [index, expected] of metadata.artifacts.entries()) {
       const actual = readFileSync(join(temporary, expected.name)), committed = readFileSync(`public/assets/site/steel-v1/${expected.name}`);
       assertPngPixelContract(actual, committed, expected);
+      assert.equal(hash(committed), expected.sha256, 'immutable committed PNG bytes');
+      assert.equal(hash(actual), regenerated.artifacts[index].sha256, 'regenerated metadata binds actual PNG bytes');
+      // Only the independently verified compressed-file digest is encoder-specific.
+      // Every source, cell, dimension, alpha/pixel digest and other metadata field stays exact.
+      regenerated.artifacts[index].sha256 = expected.sha256;
     }
     assert.equal(readFileSync(join(temporary, 'manifest.json'), 'utf8'), readFileSync('public/assets/site/steel-v1/manifest.json', 'utf8'));
-    assert.equal(readFileSync(join(temporary, 'preparation.json'), 'utf8'), readFileSync('public/assets/site/steel-v1/preparation.json', 'utf8'));
+    assert.deepEqual(regenerated, metadata);
+    const first = ['manifest.json', 'preparation.json', ...metadata.artifacts.map(a => a.name)]
+      .map(name => ({ name, bytes: readFileSync(join(temporary, name)) }));
+    execFileSync(process.execPath, ['scripts/prepare-site-art.mjs', temporary]);
+    for (const file of first) assert.ok(file.bytes.equals(readFileSync(join(temporary, file.name))), 'same-encoder deterministic bytes: ' + file.name);
   } finally { rmSync(temporary, { recursive: true, force: true }); }
 });
