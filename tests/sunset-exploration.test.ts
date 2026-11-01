@@ -1,4 +1,5 @@
 import { expect, it } from 'vitest';
+import { readFileSync } from 'node:fs';
 import { SUNSET_SITE } from '../src/world/levels';
 import { hasFixedSupport } from '../src/world/level';
 import { ALL_RETURN, MAIN_ROUTE, REASCENT, sunsetPilot, walk, jump, drop, DOWN_FINAL, UP_DESCENT, BACK_FIRST, CROSS_DESCENT, FINAL_CLIMB } from './sunset-pilot';
@@ -10,7 +11,16 @@ it('keeps all 62 gem identities, zero stars and shelf-supported rewards', () => 
     ...Array.from({ length: 6 }, (_, index) => `site-bonus-${String(index + 1).padStart(3, '0')}`),
   ]);
   expect(SUNSET_SITE.entities.filter(entity => entity.kind === 'special')).toEqual([]);
-  for (const gem of gems) expect(hasFixedSupport(SUNSET_SITE, { x: gem.x, y: gem.y + 18 }), gem.id).toBe(true);
+  const inventory = JSON.parse(readFileSync(new URL('../docs/evidence/issue-242/inventory.json', import.meta.url), 'utf8')) as { gems: { id: string; supportIds: string[] }[] };
+  for (const gem of gems) {
+    const record = inventory.gems.filter(row => row.id === gem.id);
+    expect(record, gem.id).toHaveLength(1);
+    const support = SUNSET_SITE.platforms!.filter(p => p.id === record[0].supportIds[0]);
+    expect(support, gem.id).toHaveLength(1);
+    expect(hasFixedSupport(SUNSET_SITE, { x: gem.x, y: support[0].from.y }), gem.id).toBe(true);
+    expect(support[0].from.y - gem.y, gem.id).toBeGreaterThanOrEqual(16);
+    expect(support[0].from.y - gem.y, gem.id).toBeLessThanOrEqual(18);
+  }
 });
 
 it('earns the quiet yard gems on foot and preserves them through the real return', () => {

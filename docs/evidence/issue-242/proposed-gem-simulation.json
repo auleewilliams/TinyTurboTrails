@@ -1,0 +1,3727 @@
+{
+  "sourceRevision": "885b6c16d5397e061f1ccb40ca326856bc77db88",
+  "scope": "Static proposal plus deterministic simulation only. The proposed level is an in-memory clone; no production source or artwork was changed. Not native/owner visual acceptance.",
+  "routeSource": "tests/sunset-exploration.test.ts",
+  "routeSourceSha256": "eb516886ddc669767cf60e9f44130caedf438bc33b1a6df74218435235449df9",
+  "routeExpression": "[walk(3110), walk(2930), ...DOWN_FINAL.slice(0, 1), walk(2840), ...DOWN_FINAL.slice(1),\n    ...UP_DESCENT.slice(0, 2), walk(2060), ...UP_DESCENT.slice(2), walk(680),\n    ...BACK_FIRST, walk(400), drop(430, 1, 470, 500), jump(400, 440), walk(350),\n    walk(275), jump(275, 380), jump(300, 320), walk(350), CROSS_DESCENT[0], walk(1880),\n    drop(1900, 1, 1940, 440), walk(1840), drop(1820, -1, 1770, 500), walk(1740), drop(1700, -1, 1640, 560), walk(1780), jump(1840, 500), walk(2030), ...CROSS_DESCENT.slice(5),\n    ...FINAL_CLIMB.slice(0, 7), walk(2870), walk(2690), jump(2690, 380), walk(2600),\n    drop(2560, -1, 2520, 440), walk(2540), jump(2590, 380), walk(2690), jump(2720, 320),\n    walk(2810), jump(2810, 260), walk(2890), jump(2820, 200), walk(2840), jump(2850, 140), { kind: 'finish' }]",
+  "changedIds": [
+    "site-gem-001",
+    "site-gem-002",
+    "site-gem-003",
+    "site-gem-004",
+    "site-gem-005",
+    "site-gem-006",
+    "site-gem-007",
+    "site-gem-008",
+    "site-gem-010",
+    "site-gem-014",
+    "site-gem-015",
+    "site-gem-019",
+    "site-gem-022",
+    "site-gem-023",
+    "site-gem-024",
+    "site-gem-025",
+    "site-gem-026",
+    "site-gem-028",
+    "site-gem-032",
+    "site-gem-033",
+    "site-gem-034",
+    "site-gem-035",
+    "site-gem-036",
+    "site-gem-037",
+    "site-gem-038",
+    "site-gem-039",
+    "site-gem-040",
+    "site-gem-041",
+    "site-gem-042",
+    "site-gem-043",
+    "site-gem-044",
+    "site-gem-045",
+    "site-gem-046",
+    "site-gem-049",
+    "site-gem-055",
+    "site-gem-056",
+    "site-bonus-004",
+    "site-bonus-006"
+  ],
+  "results": [
+    {
+      "name": "unchanged",
+      "collected": 62,
+      "missing": [],
+      "screen": "finish",
+      "history": [
+        {
+          "index": 0,
+          "stage": {
+            "kind": "walk",
+            "x": 210
+          },
+          "x": 208.77440000000016,
+          "feet": 560,
+          "vx": 8.800000000000033,
+          "grounded": true,
+          "support": "site-entrance"
+        },
+        {
+          "index": 1,
+          "stage": {
+            "kind": "jump",
+            "x": 210,
+            "y": 500
+          },
+          "x": 208.77440000000016,
+          "feet": 500,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-first-1"
+        },
+        {
+          "index": 2,
+          "stage": {
+            "kind": "walk",
+            "x": 275
+          },
+          "x": 273.06880000000024,
+          "feet": 500,
+          "vx": 8.800000000000033,
+          "grounded": true,
+          "support": "site-first-1"
+        },
+        {
+          "index": 3,
+          "stage": {
+            "kind": "jump",
+            "x": 275,
+            "y": 440
+          },
+          "x": 273.06880000000024,
+          "feet": 440,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-first-b"
+        },
+        {
+          "index": 4,
+          "stage": {
+            "kind": "jump",
+            "x": 275,
+            "y": 380
+          },
+          "x": 273.06880000000024,
+          "feet": 380,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-first-3"
+        },
+        {
+          "index": 5,
+          "stage": {
+            "kind": "jump",
+            "x": 300,
+            "y": 320
+          },
+          "x": 298.3001600000002,
+          "feet": 320,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-high-deck"
+        },
+        {
+          "index": 6,
+          "stage": {
+            "kind": "walk",
+            "x": 350
+          },
+          "x": 348.5145600000002,
+          "feet": 320,
+          "vx": 8.800000000000033,
+          "grounded": true,
+          "support": "site-high-deck"
+        },
+        {
+          "index": 7,
+          "stage": {
+            "kind": "drop",
+            "edge": 260,
+            "direction": -1,
+            "x": 220,
+            "y": 380
+          },
+          "x": 220.31744000000023,
+          "feet": 380,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-first-3"
+        },
+        {
+          "index": 8,
+          "stage": {
+            "kind": "walk",
+            "x": 520
+          },
+          "x": 516.9318399999989,
+          "feet": 380,
+          "vx": 8.800000000000033,
+          "grounded": true,
+          "support": "site-crane-catch"
+        },
+        {
+          "index": 9,
+          "stage": {
+            "kind": "walk",
+            "x": 820
+          },
+          "x": 817.0662399999976,
+          "feet": 380,
+          "vx": 8.800000000000033,
+          "grounded": true,
+          "support": "site-crane-catch"
+        },
+        {
+          "index": 10,
+          "stage": {
+            "kind": "walk",
+            "x": 1120
+          },
+          "x": 1117.2006399999964,
+          "feet": 380,
+          "vx": 8.800000000000033,
+          "grounded": true,
+          "support": "site-crane-catch"
+        },
+        {
+          "index": 11,
+          "stage": {
+            "kind": "walk",
+            "x": 1420
+          },
+          "x": 1417.335039999995,
+          "feet": 380,
+          "vx": 8.800000000000033,
+          "grounded": true,
+          "support": "site-crane-catch"
+        },
+        {
+          "index": 12,
+          "stage": {
+            "kind": "walk",
+            "x": 1720
+          },
+          "x": 1717.4694399999935,
+          "feet": 380,
+          "vx": 8.800000000000033,
+          "grounded": true,
+          "support": "site-crane-catch"
+        },
+        {
+          "index": 13,
+          "stage": {
+            "kind": "walk",
+            "x": 1880
+          },
+          "x": 1877.791999999993,
+          "feet": 380,
+          "vx": 4.320000000000036,
+          "grounded": true,
+          "support": "site-crane-catch"
+        },
+        {
+          "index": 14,
+          "stage": {
+            "kind": "drop",
+            "edge": 1900,
+            "direction": 1,
+            "x": 1940,
+            "y": 440
+          },
+          "x": 1938.1107199999926,
+          "feet": 440,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-descent-1"
+        },
+        {
+          "index": 15,
+          "stage": {
+            "kind": "drop",
+            "edge": 2020,
+            "direction": 1,
+            "x": 2070,
+            "y": 500
+          },
+          "x": 2067.9359999999924,
+          "feet": 500,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-descent-e"
+        },
+        {
+          "index": 16,
+          "stage": {
+            "kind": "walk",
+            "x": 2030
+          },
+          "x": 2032.7718399999926,
+          "feet": 500,
+          "vx": -18.560000000000034,
+          "grounded": true,
+          "support": "site-descent-e"
+        },
+        {
+          "index": 17,
+          "stage": {
+            "kind": "drop",
+            "edge": 2120,
+            "direction": 1,
+            "x": 2150,
+            "y": 560
+          },
+          "x": 2149.2518399999917,
+          "feet": 560,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-descent-3"
+        },
+        {
+          "index": 18,
+          "stage": {
+            "kind": "drop",
+            "edge": 2220,
+            "direction": 1,
+            "x": 2250,
+            "y": 620
+          },
+          "x": 2248.131839999991,
+          "feet": 620,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-yard"
+        },
+        {
+          "index": 19,
+          "stage": {
+            "kind": "walk",
+            "x": 2480
+          },
+          "x": 2477.8662399999894,
+          "feet": 620,
+          "vx": 8.800000000000033,
+          "grounded": true,
+          "support": "site-yard"
+        },
+        {
+          "index": 20,
+          "stage": {
+            "kind": "jump",
+            "x": 2520,
+            "y": 560
+          },
+          "x": 2518.9695999999894,
+          "feet": 560,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-final-1"
+        },
+        {
+          "index": 21,
+          "stage": {
+            "kind": "walk",
+            "x": 2590
+          },
+          "x": 2587.7721599999886,
+          "feet": 560,
+          "vx": 4.320000000000036,
+          "grounded": true,
+          "support": "site-final-1"
+        },
+        {
+          "index": 22,
+          "stage": {
+            "kind": "jump",
+            "x": 2590,
+            "y": 500
+          },
+          "x": 2587.7721599999886,
+          "feet": 500,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-final-2"
+        },
+        {
+          "index": 23,
+          "stage": {
+            "kind": "walk",
+            "x": 2690
+          },
+          "x": 2687.2665599999877,
+          "feet": 500,
+          "vx": 8.800000000000033,
+          "grounded": true,
+          "support": "site-final-2"
+        },
+        {
+          "index": 24,
+          "stage": {
+            "kind": "jump",
+            "x": 2720,
+            "y": 440
+          },
+          "x": 2719.0207999999875,
+          "feet": 440,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-rest"
+        },
+        {
+          "index": 25,
+          "stage": {
+            "kind": "walk",
+            "x": 2800
+          },
+          "x": 2797.3951999999867,
+          "feet": 440,
+          "vx": 8.800000000000033,
+          "grounded": true,
+          "support": "site-rest"
+        },
+        {
+          "index": 26,
+          "stage": {
+            "kind": "walk",
+            "x": 2690
+          },
+          "x": 2689.593599999988,
+          "feet": 440,
+          "vx": -4.320000000000043,
+          "grounded": true,
+          "support": "site-rest"
+        },
+        {
+          "index": 27,
+          "stage": {
+            "kind": "jump",
+            "x": 2690,
+            "y": 380
+          },
+          "x": 2689.593599999988,
+          "feet": 380,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-final-4"
+        },
+        {
+          "index": 28,
+          "stage": {
+            "kind": "jump",
+            "x": 2720,
+            "y": 320
+          },
+          "x": 2718.3935999999876,
+          "feet": 320,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-final-5"
+        },
+        {
+          "index": 29,
+          "stage": {
+            "kind": "walk",
+            "x": 2810
+          },
+          "x": 2807.327999999987,
+          "feet": 320,
+          "vx": 8.800000000000033,
+          "grounded": true,
+          "support": "site-final-5"
+        },
+        {
+          "index": 30,
+          "stage": {
+            "kind": "jump",
+            "x": 2810,
+            "y": 260
+          },
+          "x": 2807.327999999987,
+          "feet": 260,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-final-6"
+        },
+        {
+          "index": 31,
+          "stage": {
+            "kind": "jump",
+            "x": 2820,
+            "y": 200
+          },
+          "x": 2818.110719999987,
+          "feet": 200,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-final-m"
+        },
+        {
+          "index": 32,
+          "stage": {
+            "kind": "jump",
+            "x": 2850,
+            "y": 140
+          },
+          "x": 2847.0694399999866,
+          "feet": 140,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-roof"
+        },
+        {
+          "index": 33,
+          "stage": {
+            "kind": "finish"
+          },
+          "x": 3051.3190399999853,
+          "feet": 140,
+          "vx": 220,
+          "grounded": true,
+          "support": "site-roof"
+        },
+        {
+          "index": 0,
+          "stage": {
+            "kind": "walk",
+            "x": 3110
+          },
+          "x": 3106.9343999999987,
+          "feet": 140,
+          "vx": 8.800000000000033,
+          "grounded": true,
+          "support": "site-roof"
+        },
+        {
+          "index": 1,
+          "stage": {
+            "kind": "walk",
+            "x": 2930
+          },
+          "x": 2931.4464000000003,
+          "feet": 140,
+          "vx": -4.320000000000029,
+          "grounded": true,
+          "support": "site-roof"
+        },
+        {
+          "index": 2,
+          "stage": {
+            "kind": "drop",
+            "edge": 2800,
+            "direction": -1,
+            "x": 2750,
+            "y": 200
+          },
+          "x": 2751.2556800000016,
+          "feet": 200,
+          "vx": -8.800000000000033,
+          "grounded": true,
+          "support": "site-final-m"
+        },
+        {
+          "index": 3,
+          "stage": {
+            "kind": "walk",
+            "x": 2840
+          },
+          "x": 2837.6582400000007,
+          "feet": 200,
+          "vx": 4.320000000000036,
+          "grounded": true,
+          "support": "site-final-m"
+        },
+        {
+          "index": 4,
+          "stage": {
+            "kind": "walk",
+            "x": 2720
+          },
+          "x": 2720.3820800000017,
+          "feet": 200,
+          "vx": -4.320000000000043,
+          "grounded": true,
+          "support": "site-final-m"
+        },
+        {
+          "index": 5,
+          "stage": {
+            "kind": "drop",
+            "edge": 2660,
+            "direction": -1,
+            "x": 2630,
+            "y": 260
+          },
+          "x": 2630.920320000002,
+          "feet": 260,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-final-left-260"
+        },
+        {
+          "index": 6,
+          "stage": {
+            "kind": "drop",
+            "edge": 2540,
+            "direction": -1,
+            "x": 2500,
+            "y": 320
+          },
+          "x": 2500.816000000003,
+          "feet": 320,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-final-left-320"
+        },
+        {
+          "index": 7,
+          "stage": {
+            "kind": "drop",
+            "edge": 2600,
+            "direction": 1,
+            "x": 2650,
+            "y": 380
+          },
+          "x": 2647.1558400000017,
+          "feet": 380,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-final-4"
+        },
+        {
+          "index": 8,
+          "stage": {
+            "kind": "drop",
+            "edge": 2740,
+            "direction": 1,
+            "x": 2800,
+            "y": 440
+          },
+          "x": 2799.6934400000005,
+          "feet": 440,
+          "vx": 18.72000000000003,
+          "grounded": true,
+          "support": "site-rest"
+        },
+        {
+          "index": 9,
+          "stage": {
+            "kind": "drop",
+            "edge": 2660,
+            "direction": -1,
+            "x": 2620,
+            "y": 500
+          },
+          "x": 2620.3091200000017,
+          "feet": 500,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-final-2"
+        },
+        {
+          "index": 10,
+          "stage": {
+            "kind": "drop",
+            "edge": 2560,
+            "direction": -1,
+            "x": 2510,
+            "y": 560
+          },
+          "x": 2511.539840000002,
+          "feet": 560,
+          "vx": -18.72000000000003,
+          "grounded": true,
+          "support": "site-final-1"
+        },
+        {
+          "index": 11,
+          "stage": {
+            "kind": "drop",
+            "edge": 2380,
+            "direction": -1,
+            "x": 2330,
+            "y": 620
+          },
+          "x": 2331.3491200000035,
+          "feet": 620,
+          "vx": -8.800000000000033,
+          "grounded": true,
+          "support": "site-yard"
+        },
+        {
+          "index": 12,
+          "stage": {
+            "kind": "walk",
+            "x": 2250
+          },
+          "x": 2252.9747200000043,
+          "feet": 620,
+          "vx": -8.800000000000033,
+          "grounded": true,
+          "support": "site-yard"
+        },
+        {
+          "index": 13,
+          "stage": {
+            "kind": "walk",
+            "x": 2170
+          },
+          "x": 2168.7276800000054,
+          "feet": 620,
+          "vx": -4.320000000000043,
+          "grounded": true,
+          "support": "site-yard"
+        },
+        {
+          "index": 14,
+          "stage": {
+            "kind": "jump",
+            "x": 2150,
+            "y": 560
+          },
+          "x": 2152.9017600000057,
+          "feet": 560,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-descent-3"
+        },
+        {
+          "index": 15,
+          "stage": {
+            "kind": "walk",
+            "x": 2060
+          },
+          "x": 2060.2656000000065,
+          "feet": 560,
+          "vx": -4.320000000000043,
+          "grounded": true,
+          "support": "site-descent-3"
+        },
+        {
+          "index": 16,
+          "stage": {
+            "kind": "walk",
+            "x": 2090
+          },
+          "x": 2090.2483200000065,
+          "feet": 560,
+          "vx": 3.8400000000000247,
+          "grounded": true,
+          "support": "site-descent-3"
+        },
+        {
+          "index": 17,
+          "stage": {
+            "kind": "jump",
+            "x": 2070,
+            "y": 500
+          },
+          "x": 2071.5091200000065,
+          "feet": 500,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-descent-e"
+        },
+        {
+          "index": 18,
+          "stage": {
+            "kind": "walk",
+            "x": 1840
+          },
+          "x": 1841.7747200000076,
+          "feet": 500,
+          "vx": -8.800000000000033,
+          "grounded": true,
+          "support": "site-descent-e"
+        },
+        {
+          "index": 19,
+          "stage": {
+            "kind": "walk",
+            "x": 1850
+          },
+          "x": 1846.9971200000077,
+          "feet": 500,
+          "vx": 16.000000000000004,
+          "grounded": true,
+          "support": "site-descent-e"
+        },
+        {
+          "index": 20,
+          "stage": {
+            "kind": "jump",
+            "x": 1860,
+            "y": 440
+          },
+          "x": 1857.7798400000077,
+          "feet": 440,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-descent-1"
+        },
+        {
+          "index": 21,
+          "stage": {
+            "kind": "walk",
+            "x": 1860
+          },
+          "x": 1857.7798400000077,
+          "feet": 440,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-descent-1"
+        },
+        {
+          "index": 22,
+          "stage": {
+            "kind": "jump",
+            "x": 1860,
+            "y": 380
+          },
+          "x": 1857.7798400000077,
+          "feet": 380,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-crane-catch"
+        },
+        {
+          "index": 23,
+          "stage": {
+            "kind": "walk",
+            "x": 1560
+          },
+          "x": 1558.8128000000088,
+          "feet": 380,
+          "vx": -4.320000000000043,
+          "grounded": true,
+          "support": "site-crane-catch"
+        },
+        {
+          "index": 24,
+          "stage": {
+            "kind": "walk",
+            "x": 1260
+          },
+          "x": 1262.1984000000102,
+          "feet": 380,
+          "vx": -8.800000000000033,
+          "grounded": true,
+          "support": "site-crane-catch"
+        },
+        {
+          "index": 25,
+          "stage": {
+            "kind": "walk",
+            "x": 960
+          },
+          "x": 962.0640000000117,
+          "feet": 380,
+          "vx": -8.800000000000033,
+          "grounded": true,
+          "support": "site-crane-catch"
+        },
+        {
+          "index": 26,
+          "stage": {
+            "kind": "walk",
+            "x": 740
+          },
+          "x": 742.8896000000126,
+          "feet": 380,
+          "vx": -8.800000000000033,
+          "grounded": true,
+          "support": "site-crane-catch"
+        },
+        {
+          "index": 27,
+          "stage": {
+            "kind": "jump",
+            "x": 740,
+            "y": 320
+          },
+          "x": 742.8896000000126,
+          "feet": 320,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-far-dock"
+        },
+        {
+          "index": 28,
+          "stage": {
+            "kind": "walk",
+            "x": 740
+          },
+          "x": 742.8896000000126,
+          "feet": 320,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-far-dock"
+        },
+        {
+          "index": 29,
+          "stage": {
+            "kind": "walk",
+            "x": 680
+          },
+          "x": 682.1152000000127,
+          "feet": 320,
+          "vx": -8.800000000000033,
+          "grounded": true,
+          "support": "site-far-dock"
+        },
+        {
+          "index": 30,
+          "stage": {
+            "kind": "drop",
+            "edge": 800,
+            "direction": 1,
+            "x": 850,
+            "y": 380
+          },
+          "x": 847.4195200000124,
+          "feet": 380,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-crane-catch"
+        },
+        {
+          "index": 31,
+          "stage": {
+            "kind": "walk",
+            "x": 550
+          },
+          "x": 549.5379200000136,
+          "feet": 380,
+          "vx": -4.320000000000043,
+          "grounded": true,
+          "support": "site-crane-catch"
+        },
+        {
+          "index": 32,
+          "stage": {
+            "kind": "walk",
+            "x": 440
+          },
+          "x": 443.0035200000139,
+          "feet": 380,
+          "vx": -8.800000000000033,
+          "grounded": true,
+          "support": "site-crane-catch"
+        },
+        {
+          "index": 33,
+          "stage": {
+            "kind": "jump",
+            "x": 440,
+            "y": 320
+          },
+          "x": 442.7680000000139,
+          "feet": 320,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-high-deck"
+        },
+        {
+          "index": 34,
+          "stage": {
+            "kind": "walk",
+            "x": 350
+          },
+          "x": 350.6745600000141,
+          "feet": 320,
+          "vx": -4.320000000000029,
+          "grounded": true,
+          "support": "site-high-deck"
+        },
+        {
+          "index": 35,
+          "stage": {
+            "kind": "drop",
+            "edge": 260,
+            "direction": -1,
+            "x": 220,
+            "y": 380
+          },
+          "x": 220.57024000001417,
+          "feet": 380,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-first-3"
+        },
+        {
+          "index": 36,
+          "stage": {
+            "kind": "drop",
+            "edge": 160,
+            "direction": -1,
+            "x": 120,
+            "y": 440
+          },
+          "x": 121.0041600000141,
+          "feet": 440,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-first-b"
+        },
+        {
+          "index": 37,
+          "stage": {
+            "kind": "walk",
+            "x": 350
+          },
+          "x": 347.21856000001407,
+          "feet": 440,
+          "vx": 8.800000000000033,
+          "grounded": true,
+          "support": "site-first-b"
+        },
+        {
+          "index": 38,
+          "stage": {
+            "kind": "walk",
+            "x": 400
+          },
+          "x": 397.4329600000141,
+          "feet": 440,
+          "vx": 8.800000000000033,
+          "grounded": true,
+          "support": "site-first-b"
+        },
+        {
+          "index": 39,
+          "stage": {
+            "kind": "drop",
+            "edge": 430,
+            "direction": 1,
+            "x": 470,
+            "y": 500
+          },
+          "x": 470.29312000001397,
+          "feet": 500,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-first-right"
+        },
+        {
+          "index": 40,
+          "stage": {
+            "kind": "jump",
+            "x": 400,
+            "y": 440
+          },
+          "x": 408.46400000001404,
+          "feet": 440,
+          "vx": -124.00000000000004,
+          "grounded": true,
+          "support": "site-first-b"
+        },
+        {
+          "index": 41,
+          "stage": {
+            "kind": "walk",
+            "x": 350
+          },
+          "x": 351.77280000001406,
+          "feet": 440,
+          "vx": -8.800000000000033,
+          "grounded": true,
+          "support": "site-first-b"
+        },
+        {
+          "index": 42,
+          "stage": {
+            "kind": "walk",
+            "x": 275
+          },
+          "x": 276.9184000000142,
+          "feet": 440,
+          "vx": -8.800000000000033,
+          "grounded": true,
+          "support": "site-first-b"
+        },
+        {
+          "index": 43,
+          "stage": {
+            "kind": "jump",
+            "x": 275,
+            "y": 380
+          },
+          "x": 276.9184000000142,
+          "feet": 380,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-first-3"
+        },
+        {
+          "index": 44,
+          "stage": {
+            "kind": "jump",
+            "x": 300,
+            "y": 320
+          },
+          "x": 298.7500800000142,
+          "feet": 320,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-high-deck"
+        },
+        {
+          "index": 45,
+          "stage": {
+            "kind": "walk",
+            "x": 350
+          },
+          "x": 350.77440000001417,
+          "feet": 320,
+          "vx": 4.320000000000043,
+          "grounded": true,
+          "support": "site-high-deck"
+        },
+        {
+          "index": 46,
+          "stage": {
+            "kind": "drop",
+            "edge": 260,
+            "direction": -1,
+            "x": 220,
+            "y": 380
+          },
+          "x": 220.67008000001425,
+          "feet": 380,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-first-3"
+        },
+        {
+          "index": 47,
+          "stage": {
+            "kind": "walk",
+            "x": 520
+          },
+          "x": 517.284480000013,
+          "feet": 380,
+          "vx": 8.800000000000033,
+          "grounded": true,
+          "support": "site-crane-catch"
+        },
+        {
+          "index": 48,
+          "stage": {
+            "kind": "walk",
+            "x": 820
+          },
+          "x": 817.4188800000117,
+          "feet": 380,
+          "vx": 8.800000000000033,
+          "grounded": true,
+          "support": "site-crane-catch"
+        },
+        {
+          "index": 49,
+          "stage": {
+            "kind": "walk",
+            "x": 1120
+          },
+          "x": 1117.5532800000103,
+          "feet": 380,
+          "vx": 8.800000000000033,
+          "grounded": true,
+          "support": "site-crane-catch"
+        },
+        {
+          "index": 50,
+          "stage": {
+            "kind": "walk",
+            "x": 1420
+          },
+          "x": 1417.6876800000089,
+          "feet": 380,
+          "vx": 8.800000000000033,
+          "grounded": true,
+          "support": "site-crane-catch"
+        },
+        {
+          "index": 51,
+          "stage": {
+            "kind": "walk",
+            "x": 1720
+          },
+          "x": 1717.8220800000074,
+          "feet": 380,
+          "vx": 8.800000000000033,
+          "grounded": true,
+          "support": "site-crane-catch"
+        },
+        {
+          "index": 52,
+          "stage": {
+            "kind": "walk",
+            "x": 1880
+          },
+          "x": 1877.1564800000067,
+          "feet": 380,
+          "vx": 8.800000000000033,
+          "grounded": true,
+          "support": "site-crane-catch"
+        },
+        {
+          "index": 53,
+          "stage": {
+            "kind": "drop",
+            "edge": 1900,
+            "direction": 1,
+            "x": 1940,
+            "y": 440
+          },
+          "x": 1939.2544000000066,
+          "feet": 440,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-descent-1"
+        },
+        {
+          "index": 54,
+          "stage": {
+            "kind": "walk",
+            "x": 1840
+          },
+          "x": 1842.2918400000067,
+          "feet": 440,
+          "vx": -4.320000000000036,
+          "grounded": true,
+          "support": "site-descent-1"
+        },
+        {
+          "index": 55,
+          "stage": {
+            "kind": "drop",
+            "edge": 1820,
+            "direction": -1,
+            "x": 1770,
+            "y": 500
+          },
+          "x": 1771.413120000007,
+          "feet": 500,
+          "vx": -8.800000000000033,
+          "grounded": true,
+          "support": "site-descent-left-1"
+        },
+        {
+          "index": 56,
+          "stage": {
+            "kind": "walk",
+            "x": 1740
+          },
+          "x": 1741.4304000000072,
+          "feet": 500,
+          "vx": -3.8400000000000247,
+          "grounded": true,
+          "support": "site-descent-left-1"
+        },
+        {
+          "index": 57,
+          "stage": {
+            "kind": "drop",
+            "edge": 1700,
+            "direction": -1,
+            "x": 1640,
+            "y": 560
+          },
+          "x": 1642.9702400000076,
+          "feet": 560,
+          "vx": -28.000000000000032,
+          "grounded": true,
+          "support": "site-descent-outside"
+        },
+        {
+          "index": 58,
+          "stage": {
+            "kind": "walk",
+            "x": 1780
+          },
+          "x": 1777.523840000007,
+          "feet": 560,
+          "vx": 8.800000000000033,
+          "grounded": true,
+          "support": "site-descent-outside"
+        },
+        {
+          "index": 59,
+          "stage": {
+            "kind": "jump",
+            "x": 1840,
+            "y": 500
+          },
+          "x": 1835.3593600000072,
+          "feet": 500,
+          "vx": 85.60000000000004,
+          "grounded": true,
+          "support": "site-descent-e"
+        },
+        {
+          "index": 60,
+          "stage": {
+            "kind": "walk",
+            "x": 2030
+          },
+          "x": 2027.6460800000066,
+          "feet": 500,
+          "vx": 8.800000000000033,
+          "grounded": true,
+          "support": "site-descent-e"
+        },
+        {
+          "index": 61,
+          "stage": {
+            "kind": "drop",
+            "edge": 2120,
+            "direction": 1,
+            "x": 2150,
+            "y": 560
+          },
+          "x": 2150.344320000005,
+          "feet": 560,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-descent-3"
+        },
+        {
+          "index": 62,
+          "stage": {
+            "kind": "drop",
+            "edge": 2220,
+            "direction": 1,
+            "x": 2250,
+            "y": 620
+          },
+          "x": 2249.2243200000044,
+          "feet": 620,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-yard"
+        },
+        {
+          "index": 63,
+          "stage": {
+            "kind": "walk",
+            "x": 2480
+          },
+          "x": 2480.7686400000025,
+          "feet": 620,
+          "vx": 4.320000000000043,
+          "grounded": true,
+          "support": "site-yard"
+        },
+        {
+          "index": 64,
+          "stage": {
+            "kind": "jump",
+            "x": 2520,
+            "y": 560
+          },
+          "x": 2517.509760000002,
+          "feet": 560,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-final-1"
+        },
+        {
+          "index": 65,
+          "stage": {
+            "kind": "walk",
+            "x": 2590
+          },
+          "x": 2591.196800000001,
+          "feet": 560,
+          "vx": 4.320000000000043,
+          "grounded": true,
+          "support": "site-final-1"
+        },
+        {
+          "index": 66,
+          "stage": {
+            "kind": "jump",
+            "x": 2590,
+            "y": 500
+          },
+          "x": 2591.196800000001,
+          "feet": 500,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-final-2"
+        },
+        {
+          "index": 67,
+          "stage": {
+            "kind": "walk",
+            "x": 2690
+          },
+          "x": 2687.1712,
+          "feet": 500,
+          "vx": 8.800000000000033,
+          "grounded": true,
+          "support": "site-final-2"
+        },
+        {
+          "index": 68,
+          "stage": {
+            "kind": "jump",
+            "x": 2720,
+            "y": 440
+          },
+          "x": 2718.92544,
+          "feet": 440,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-rest"
+        },
+        {
+          "index": 69,
+          "stage": {
+            "kind": "walk",
+            "x": 2800
+          },
+          "x": 2797.299839999999,
+          "feet": 440,
+          "vx": 8.800000000000033,
+          "grounded": true,
+          "support": "site-rest"
+        },
+        {
+          "index": 70,
+          "stage": {
+            "kind": "walk",
+            "x": 2870
+          },
+          "x": 2868.6342399999985,
+          "feet": 440,
+          "vx": 8.800000000000033,
+          "grounded": true,
+          "support": "site-rest"
+        },
+        {
+          "index": 71,
+          "stage": {
+            "kind": "walk",
+            "x": 2690
+          },
+          "x": 2691.6998399999998,
+          "feet": 440,
+          "vx": -8.800000000000033,
+          "grounded": true,
+          "support": "site-rest"
+        },
+        {
+          "index": 72,
+          "stage": {
+            "kind": "jump",
+            "x": 2690,
+            "y": 380
+          },
+          "x": 2691.6998399999998,
+          "feet": 380,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-final-4"
+        },
+        {
+          "index": 73,
+          "stage": {
+            "kind": "walk",
+            "x": 2600
+          },
+          "x": 2602.7654400000006,
+          "feet": 380,
+          "vx": -8.800000000000033,
+          "grounded": true,
+          "support": "site-final-4"
+        },
+        {
+          "index": 74,
+          "stage": {
+            "kind": "drop",
+            "edge": 2560,
+            "direction": -1,
+            "x": 2520,
+            "y": 440
+          },
+          "x": 2521.764480000001,
+          "feet": 440,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-final-left-440"
+        },
+        {
+          "index": 75,
+          "stage": {
+            "kind": "walk",
+            "x": 2540
+          },
+          "x": 2538.629760000001,
+          "feet": 440,
+          "vx": 17.280000000000005,
+          "grounded": true,
+          "support": "site-final-left-440"
+        },
+        {
+          "index": 76,
+          "stage": {
+            "kind": "jump",
+            "x": 2590,
+            "y": 380
+          },
+          "x": 2588.933760000001,
+          "feet": 380,
+          "vx": 30.399999999999952,
+          "grounded": true,
+          "support": "site-final-4"
+        },
+        {
+          "index": 77,
+          "stage": {
+            "kind": "walk",
+            "x": 2690
+          },
+          "x": 2688.60736,
+          "feet": 380,
+          "vx": 8.800000000000033,
+          "grounded": true,
+          "support": "site-final-4"
+        },
+        {
+          "index": 78,
+          "stage": {
+            "kind": "jump",
+            "x": 2720,
+            "y": 320
+          },
+          "x": 2717.4073599999997,
+          "feet": 320,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-final-5"
+        },
+        {
+          "index": 79,
+          "stage": {
+            "kind": "walk",
+            "x": 2810
+          },
+          "x": 2808.958079999999,
+          "feet": 320,
+          "vx": 4.320000000000029,
+          "grounded": true,
+          "support": "site-final-5"
+        },
+        {
+          "index": 80,
+          "stage": {
+            "kind": "jump",
+            "x": 2810,
+            "y": 260
+          },
+          "x": 2808.958079999999,
+          "feet": 260,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-final-6"
+        },
+        {
+          "index": 81,
+          "stage": {
+            "kind": "walk",
+            "x": 2890
+          },
+          "x": 2887.332479999998,
+          "feet": 260,
+          "vx": 8.800000000000033,
+          "grounded": true,
+          "support": "site-final-6"
+        },
+        {
+          "index": 82,
+          "stage": {
+            "kind": "jump",
+            "x": 2820,
+            "y": 200
+          },
+          "x": 2827.3465599999986,
+          "feet": 200,
+          "vx": -104.80000000000004,
+          "grounded": true,
+          "support": "site-final-m"
+        },
+        {
+          "index": 83,
+          "stage": {
+            "kind": "walk",
+            "x": 2840
+          },
+          "x": 2839.442559999999,
+          "feet": 200,
+          "vx": 14.239999999999956,
+          "grounded": true,
+          "support": "site-final-m"
+        },
+        {
+          "index": 84,
+          "stage": {
+            "kind": "jump",
+            "x": 2850,
+            "y": 140
+          },
+          "x": 2848.0851199999984,
+          "feet": 140,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-roof"
+        },
+        {
+          "index": 85,
+          "stage": {
+            "kind": "finish"
+          },
+          "x": 3052.334719999997,
+          "feet": 140,
+          "vx": 220,
+          "grounded": true,
+          "support": "site-roof"
+        }
+      ],
+      "events": [
+        {
+          "type": "gem",
+          "entityId": "site-gem-001"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-002"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-003"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-004"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-005"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-006"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-010"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-011"
+        },
+        {
+          "type": "checkpoint",
+          "entityId": "site-checkpoint-girders"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-014"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-015"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-019"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-020"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-021"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-027"
+        },
+        {
+          "type": "checkpoint",
+          "entityId": "site-checkpoint-descent"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-029"
+        },
+        {
+          "type": "checkpoint",
+          "entityId": "site-checkpoint-yard"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-030"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-031"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-032"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-033"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-034"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-035"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-036"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-055"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-037"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-038"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-039"
+        },
+        {
+          "type": "checkpoint",
+          "entityId": "site-checkpoint-scaffold"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-042"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-043"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-056"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-044"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-045"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-050"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-051"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-052"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-053"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-054"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-048"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-049"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-047"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-bonus-006"
+        },
+        {
+          "type": "checkpoint",
+          "entityId": "site-checkpoint-yard"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-028"
+        },
+        {
+          "type": "checkpoint",
+          "entityId": "site-checkpoint-descent"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-026"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-025"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-024"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-022"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-017"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-016"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-018"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-013"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-012"
+        },
+        {
+          "type": "checkpoint",
+          "entityId": "site-checkpoint-girders"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-009"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-bonus-001"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-007"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-008"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-bonus-002"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-023"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-bonus-003"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-bonus-004"
+        },
+        {
+          "type": "checkpoint",
+          "entityId": "site-checkpoint-descent"
+        },
+        {
+          "type": "checkpoint",
+          "entityId": "site-checkpoint-yard"
+        },
+        {
+          "type": "checkpoint",
+          "entityId": "site-checkpoint-scaffold"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-040"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-041"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-bonus-005"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-046"
+        }
+      ]
+    },
+    {
+      "name": "proposed-clone",
+      "collected": 62,
+      "missing": [],
+      "screen": "finish",
+      "history": [
+        {
+          "index": 0,
+          "stage": {
+            "kind": "walk",
+            "x": 210
+          },
+          "x": 208.77440000000016,
+          "feet": 560,
+          "vx": 8.800000000000033,
+          "grounded": true,
+          "support": "site-entrance"
+        },
+        {
+          "index": 1,
+          "stage": {
+            "kind": "jump",
+            "x": 210,
+            "y": 500
+          },
+          "x": 208.77440000000016,
+          "feet": 500,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-first-1"
+        },
+        {
+          "index": 2,
+          "stage": {
+            "kind": "walk",
+            "x": 275
+          },
+          "x": 273.06880000000024,
+          "feet": 500,
+          "vx": 8.800000000000033,
+          "grounded": true,
+          "support": "site-first-1"
+        },
+        {
+          "index": 3,
+          "stage": {
+            "kind": "jump",
+            "x": 275,
+            "y": 440
+          },
+          "x": 273.06880000000024,
+          "feet": 440,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-first-b"
+        },
+        {
+          "index": 4,
+          "stage": {
+            "kind": "jump",
+            "x": 275,
+            "y": 380
+          },
+          "x": 273.06880000000024,
+          "feet": 380,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-first-3"
+        },
+        {
+          "index": 5,
+          "stage": {
+            "kind": "jump",
+            "x": 300,
+            "y": 320
+          },
+          "x": 298.3001600000002,
+          "feet": 320,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-high-deck"
+        },
+        {
+          "index": 6,
+          "stage": {
+            "kind": "walk",
+            "x": 350
+          },
+          "x": 348.5145600000002,
+          "feet": 320,
+          "vx": 8.800000000000033,
+          "grounded": true,
+          "support": "site-high-deck"
+        },
+        {
+          "index": 7,
+          "stage": {
+            "kind": "drop",
+            "edge": 260,
+            "direction": -1,
+            "x": 220,
+            "y": 380
+          },
+          "x": 220.31744000000023,
+          "feet": 380,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-first-3"
+        },
+        {
+          "index": 8,
+          "stage": {
+            "kind": "walk",
+            "x": 520
+          },
+          "x": 516.9318399999989,
+          "feet": 380,
+          "vx": 8.800000000000033,
+          "grounded": true,
+          "support": "site-crane-catch"
+        },
+        {
+          "index": 9,
+          "stage": {
+            "kind": "walk",
+            "x": 820
+          },
+          "x": 817.0662399999976,
+          "feet": 380,
+          "vx": 8.800000000000033,
+          "grounded": true,
+          "support": "site-crane-catch"
+        },
+        {
+          "index": 10,
+          "stage": {
+            "kind": "walk",
+            "x": 1120
+          },
+          "x": 1117.2006399999964,
+          "feet": 380,
+          "vx": 8.800000000000033,
+          "grounded": true,
+          "support": "site-crane-catch"
+        },
+        {
+          "index": 11,
+          "stage": {
+            "kind": "walk",
+            "x": 1420
+          },
+          "x": 1417.335039999995,
+          "feet": 380,
+          "vx": 8.800000000000033,
+          "grounded": true,
+          "support": "site-crane-catch"
+        },
+        {
+          "index": 12,
+          "stage": {
+            "kind": "walk",
+            "x": 1720
+          },
+          "x": 1717.4694399999935,
+          "feet": 380,
+          "vx": 8.800000000000033,
+          "grounded": true,
+          "support": "site-crane-catch"
+        },
+        {
+          "index": 13,
+          "stage": {
+            "kind": "walk",
+            "x": 1880
+          },
+          "x": 1877.791999999993,
+          "feet": 380,
+          "vx": 4.320000000000036,
+          "grounded": true,
+          "support": "site-crane-catch"
+        },
+        {
+          "index": 14,
+          "stage": {
+            "kind": "drop",
+            "edge": 1900,
+            "direction": 1,
+            "x": 1940,
+            "y": 440
+          },
+          "x": 1938.1107199999926,
+          "feet": 440,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-descent-1"
+        },
+        {
+          "index": 15,
+          "stage": {
+            "kind": "drop",
+            "edge": 2020,
+            "direction": 1,
+            "x": 2070,
+            "y": 500
+          },
+          "x": 2067.9359999999924,
+          "feet": 500,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-descent-e"
+        },
+        {
+          "index": 16,
+          "stage": {
+            "kind": "walk",
+            "x": 2030
+          },
+          "x": 2032.7718399999926,
+          "feet": 500,
+          "vx": -18.560000000000034,
+          "grounded": true,
+          "support": "site-descent-e"
+        },
+        {
+          "index": 17,
+          "stage": {
+            "kind": "drop",
+            "edge": 2120,
+            "direction": 1,
+            "x": 2150,
+            "y": 560
+          },
+          "x": 2149.2518399999917,
+          "feet": 560,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-descent-3"
+        },
+        {
+          "index": 18,
+          "stage": {
+            "kind": "drop",
+            "edge": 2220,
+            "direction": 1,
+            "x": 2250,
+            "y": 620
+          },
+          "x": 2248.131839999991,
+          "feet": 620,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-yard"
+        },
+        {
+          "index": 19,
+          "stage": {
+            "kind": "walk",
+            "x": 2480
+          },
+          "x": 2477.8662399999894,
+          "feet": 620,
+          "vx": 8.800000000000033,
+          "grounded": true,
+          "support": "site-yard"
+        },
+        {
+          "index": 20,
+          "stage": {
+            "kind": "jump",
+            "x": 2520,
+            "y": 560
+          },
+          "x": 2518.9695999999894,
+          "feet": 560,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-final-1"
+        },
+        {
+          "index": 21,
+          "stage": {
+            "kind": "walk",
+            "x": 2590
+          },
+          "x": 2587.7721599999886,
+          "feet": 560,
+          "vx": 4.320000000000036,
+          "grounded": true,
+          "support": "site-final-1"
+        },
+        {
+          "index": 22,
+          "stage": {
+            "kind": "jump",
+            "x": 2590,
+            "y": 500
+          },
+          "x": 2587.7721599999886,
+          "feet": 500,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-final-2"
+        },
+        {
+          "index": 23,
+          "stage": {
+            "kind": "walk",
+            "x": 2690
+          },
+          "x": 2687.2665599999877,
+          "feet": 500,
+          "vx": 8.800000000000033,
+          "grounded": true,
+          "support": "site-final-2"
+        },
+        {
+          "index": 24,
+          "stage": {
+            "kind": "jump",
+            "x": 2720,
+            "y": 440
+          },
+          "x": 2719.0207999999875,
+          "feet": 440,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-rest"
+        },
+        {
+          "index": 25,
+          "stage": {
+            "kind": "walk",
+            "x": 2800
+          },
+          "x": 2797.3951999999867,
+          "feet": 440,
+          "vx": 8.800000000000033,
+          "grounded": true,
+          "support": "site-rest"
+        },
+        {
+          "index": 26,
+          "stage": {
+            "kind": "walk",
+            "x": 2690
+          },
+          "x": 2689.593599999988,
+          "feet": 440,
+          "vx": -4.320000000000043,
+          "grounded": true,
+          "support": "site-rest"
+        },
+        {
+          "index": 27,
+          "stage": {
+            "kind": "jump",
+            "x": 2690,
+            "y": 380
+          },
+          "x": 2689.593599999988,
+          "feet": 380,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-final-4"
+        },
+        {
+          "index": 28,
+          "stage": {
+            "kind": "jump",
+            "x": 2720,
+            "y": 320
+          },
+          "x": 2718.3935999999876,
+          "feet": 320,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-final-5"
+        },
+        {
+          "index": 29,
+          "stage": {
+            "kind": "walk",
+            "x": 2810
+          },
+          "x": 2807.327999999987,
+          "feet": 320,
+          "vx": 8.800000000000033,
+          "grounded": true,
+          "support": "site-final-5"
+        },
+        {
+          "index": 30,
+          "stage": {
+            "kind": "jump",
+            "x": 2810,
+            "y": 260
+          },
+          "x": 2807.327999999987,
+          "feet": 260,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-final-6"
+        },
+        {
+          "index": 31,
+          "stage": {
+            "kind": "jump",
+            "x": 2820,
+            "y": 200
+          },
+          "x": 2818.110719999987,
+          "feet": 200,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-final-m"
+        },
+        {
+          "index": 32,
+          "stage": {
+            "kind": "jump",
+            "x": 2850,
+            "y": 140
+          },
+          "x": 2847.0694399999866,
+          "feet": 140,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-roof"
+        },
+        {
+          "index": 33,
+          "stage": {
+            "kind": "finish"
+          },
+          "x": 3051.3190399999853,
+          "feet": 140,
+          "vx": 220,
+          "grounded": true,
+          "support": "site-roof"
+        },
+        {
+          "index": 0,
+          "stage": {
+            "kind": "walk",
+            "x": 3110
+          },
+          "x": 3106.9343999999987,
+          "feet": 140,
+          "vx": 8.800000000000033,
+          "grounded": true,
+          "support": "site-roof"
+        },
+        {
+          "index": 1,
+          "stage": {
+            "kind": "walk",
+            "x": 2930
+          },
+          "x": 2931.4464000000003,
+          "feet": 140,
+          "vx": -4.320000000000029,
+          "grounded": true,
+          "support": "site-roof"
+        },
+        {
+          "index": 2,
+          "stage": {
+            "kind": "drop",
+            "edge": 2800,
+            "direction": -1,
+            "x": 2750,
+            "y": 200
+          },
+          "x": 2751.2556800000016,
+          "feet": 200,
+          "vx": -8.800000000000033,
+          "grounded": true,
+          "support": "site-final-m"
+        },
+        {
+          "index": 3,
+          "stage": {
+            "kind": "walk",
+            "x": 2840
+          },
+          "x": 2837.6582400000007,
+          "feet": 200,
+          "vx": 4.320000000000036,
+          "grounded": true,
+          "support": "site-final-m"
+        },
+        {
+          "index": 4,
+          "stage": {
+            "kind": "walk",
+            "x": 2720
+          },
+          "x": 2720.3820800000017,
+          "feet": 200,
+          "vx": -4.320000000000043,
+          "grounded": true,
+          "support": "site-final-m"
+        },
+        {
+          "index": 5,
+          "stage": {
+            "kind": "drop",
+            "edge": 2660,
+            "direction": -1,
+            "x": 2630,
+            "y": 260
+          },
+          "x": 2630.920320000002,
+          "feet": 260,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-final-left-260"
+        },
+        {
+          "index": 6,
+          "stage": {
+            "kind": "drop",
+            "edge": 2540,
+            "direction": -1,
+            "x": 2500,
+            "y": 320
+          },
+          "x": 2500.816000000003,
+          "feet": 320,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-final-left-320"
+        },
+        {
+          "index": 7,
+          "stage": {
+            "kind": "drop",
+            "edge": 2600,
+            "direction": 1,
+            "x": 2650,
+            "y": 380
+          },
+          "x": 2647.1558400000017,
+          "feet": 380,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-final-4"
+        },
+        {
+          "index": 8,
+          "stage": {
+            "kind": "drop",
+            "edge": 2740,
+            "direction": 1,
+            "x": 2800,
+            "y": 440
+          },
+          "x": 2799.6934400000005,
+          "feet": 440,
+          "vx": 18.72000000000003,
+          "grounded": true,
+          "support": "site-rest"
+        },
+        {
+          "index": 9,
+          "stage": {
+            "kind": "drop",
+            "edge": 2660,
+            "direction": -1,
+            "x": 2620,
+            "y": 500
+          },
+          "x": 2620.3091200000017,
+          "feet": 500,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-final-2"
+        },
+        {
+          "index": 10,
+          "stage": {
+            "kind": "drop",
+            "edge": 2560,
+            "direction": -1,
+            "x": 2510,
+            "y": 560
+          },
+          "x": 2511.539840000002,
+          "feet": 560,
+          "vx": -18.72000000000003,
+          "grounded": true,
+          "support": "site-final-1"
+        },
+        {
+          "index": 11,
+          "stage": {
+            "kind": "drop",
+            "edge": 2380,
+            "direction": -1,
+            "x": 2330,
+            "y": 620
+          },
+          "x": 2331.3491200000035,
+          "feet": 620,
+          "vx": -8.800000000000033,
+          "grounded": true,
+          "support": "site-yard"
+        },
+        {
+          "index": 12,
+          "stage": {
+            "kind": "walk",
+            "x": 2250
+          },
+          "x": 2252.9747200000043,
+          "feet": 620,
+          "vx": -8.800000000000033,
+          "grounded": true,
+          "support": "site-yard"
+        },
+        {
+          "index": 13,
+          "stage": {
+            "kind": "walk",
+            "x": 2170
+          },
+          "x": 2168.7276800000054,
+          "feet": 620,
+          "vx": -4.320000000000043,
+          "grounded": true,
+          "support": "site-yard"
+        },
+        {
+          "index": 14,
+          "stage": {
+            "kind": "jump",
+            "x": 2150,
+            "y": 560
+          },
+          "x": 2152.9017600000057,
+          "feet": 560,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-descent-3"
+        },
+        {
+          "index": 15,
+          "stage": {
+            "kind": "walk",
+            "x": 2060
+          },
+          "x": 2060.2656000000065,
+          "feet": 560,
+          "vx": -4.320000000000043,
+          "grounded": true,
+          "support": "site-descent-3"
+        },
+        {
+          "index": 16,
+          "stage": {
+            "kind": "walk",
+            "x": 2090
+          },
+          "x": 2090.2483200000065,
+          "feet": 560,
+          "vx": 3.8400000000000247,
+          "grounded": true,
+          "support": "site-descent-3"
+        },
+        {
+          "index": 17,
+          "stage": {
+            "kind": "jump",
+            "x": 2070,
+            "y": 500
+          },
+          "x": 2071.5091200000065,
+          "feet": 500,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-descent-e"
+        },
+        {
+          "index": 18,
+          "stage": {
+            "kind": "walk",
+            "x": 1840
+          },
+          "x": 1841.7747200000076,
+          "feet": 500,
+          "vx": -8.800000000000033,
+          "grounded": true,
+          "support": "site-descent-e"
+        },
+        {
+          "index": 19,
+          "stage": {
+            "kind": "walk",
+            "x": 1850
+          },
+          "x": 1846.9971200000077,
+          "feet": 500,
+          "vx": 16.000000000000004,
+          "grounded": true,
+          "support": "site-descent-e"
+        },
+        {
+          "index": 20,
+          "stage": {
+            "kind": "jump",
+            "x": 1860,
+            "y": 440
+          },
+          "x": 1857.7798400000077,
+          "feet": 440,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-descent-1"
+        },
+        {
+          "index": 21,
+          "stage": {
+            "kind": "walk",
+            "x": 1860
+          },
+          "x": 1857.7798400000077,
+          "feet": 440,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-descent-1"
+        },
+        {
+          "index": 22,
+          "stage": {
+            "kind": "jump",
+            "x": 1860,
+            "y": 380
+          },
+          "x": 1857.7798400000077,
+          "feet": 380,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-crane-catch"
+        },
+        {
+          "index": 23,
+          "stage": {
+            "kind": "walk",
+            "x": 1560
+          },
+          "x": 1558.8128000000088,
+          "feet": 380,
+          "vx": -4.320000000000043,
+          "grounded": true,
+          "support": "site-crane-catch"
+        },
+        {
+          "index": 24,
+          "stage": {
+            "kind": "walk",
+            "x": 1260
+          },
+          "x": 1262.1984000000102,
+          "feet": 380,
+          "vx": -8.800000000000033,
+          "grounded": true,
+          "support": "site-crane-catch"
+        },
+        {
+          "index": 25,
+          "stage": {
+            "kind": "walk",
+            "x": 960
+          },
+          "x": 962.0640000000117,
+          "feet": 380,
+          "vx": -8.800000000000033,
+          "grounded": true,
+          "support": "site-crane-catch"
+        },
+        {
+          "index": 26,
+          "stage": {
+            "kind": "walk",
+            "x": 740
+          },
+          "x": 742.8896000000126,
+          "feet": 380,
+          "vx": -8.800000000000033,
+          "grounded": true,
+          "support": "site-crane-catch"
+        },
+        {
+          "index": 27,
+          "stage": {
+            "kind": "jump",
+            "x": 740,
+            "y": 320
+          },
+          "x": 742.8896000000126,
+          "feet": 320,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-far-dock"
+        },
+        {
+          "index": 28,
+          "stage": {
+            "kind": "walk",
+            "x": 740
+          },
+          "x": 742.8896000000126,
+          "feet": 320,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-far-dock"
+        },
+        {
+          "index": 29,
+          "stage": {
+            "kind": "walk",
+            "x": 680
+          },
+          "x": 682.1152000000127,
+          "feet": 320,
+          "vx": -8.800000000000033,
+          "grounded": true,
+          "support": "site-far-dock"
+        },
+        {
+          "index": 30,
+          "stage": {
+            "kind": "drop",
+            "edge": 800,
+            "direction": 1,
+            "x": 850,
+            "y": 380
+          },
+          "x": 847.4195200000124,
+          "feet": 380,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-crane-catch"
+        },
+        {
+          "index": 31,
+          "stage": {
+            "kind": "walk",
+            "x": 550
+          },
+          "x": 549.5379200000136,
+          "feet": 380,
+          "vx": -4.320000000000043,
+          "grounded": true,
+          "support": "site-crane-catch"
+        },
+        {
+          "index": 32,
+          "stage": {
+            "kind": "walk",
+            "x": 440
+          },
+          "x": 443.0035200000139,
+          "feet": 380,
+          "vx": -8.800000000000033,
+          "grounded": true,
+          "support": "site-crane-catch"
+        },
+        {
+          "index": 33,
+          "stage": {
+            "kind": "jump",
+            "x": 440,
+            "y": 320
+          },
+          "x": 442.7680000000139,
+          "feet": 320,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-high-deck"
+        },
+        {
+          "index": 34,
+          "stage": {
+            "kind": "walk",
+            "x": 350
+          },
+          "x": 350.6745600000141,
+          "feet": 320,
+          "vx": -4.320000000000029,
+          "grounded": true,
+          "support": "site-high-deck"
+        },
+        {
+          "index": 35,
+          "stage": {
+            "kind": "drop",
+            "edge": 260,
+            "direction": -1,
+            "x": 220,
+            "y": 380
+          },
+          "x": 220.57024000001417,
+          "feet": 380,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-first-3"
+        },
+        {
+          "index": 36,
+          "stage": {
+            "kind": "drop",
+            "edge": 160,
+            "direction": -1,
+            "x": 120,
+            "y": 440
+          },
+          "x": 121.0041600000141,
+          "feet": 440,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-first-b"
+        },
+        {
+          "index": 37,
+          "stage": {
+            "kind": "walk",
+            "x": 350
+          },
+          "x": 347.21856000001407,
+          "feet": 440,
+          "vx": 8.800000000000033,
+          "grounded": true,
+          "support": "site-first-b"
+        },
+        {
+          "index": 38,
+          "stage": {
+            "kind": "walk",
+            "x": 400
+          },
+          "x": 397.4329600000141,
+          "feet": 440,
+          "vx": 8.800000000000033,
+          "grounded": true,
+          "support": "site-first-b"
+        },
+        {
+          "index": 39,
+          "stage": {
+            "kind": "drop",
+            "edge": 430,
+            "direction": 1,
+            "x": 470,
+            "y": 500
+          },
+          "x": 470.29312000001397,
+          "feet": 500,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-first-right"
+        },
+        {
+          "index": 40,
+          "stage": {
+            "kind": "jump",
+            "x": 400,
+            "y": 440
+          },
+          "x": 408.46400000001404,
+          "feet": 440,
+          "vx": -124.00000000000004,
+          "grounded": true,
+          "support": "site-first-b"
+        },
+        {
+          "index": 41,
+          "stage": {
+            "kind": "walk",
+            "x": 350
+          },
+          "x": 351.77280000001406,
+          "feet": 440,
+          "vx": -8.800000000000033,
+          "grounded": true,
+          "support": "site-first-b"
+        },
+        {
+          "index": 42,
+          "stage": {
+            "kind": "walk",
+            "x": 275
+          },
+          "x": 276.9184000000142,
+          "feet": 440,
+          "vx": -8.800000000000033,
+          "grounded": true,
+          "support": "site-first-b"
+        },
+        {
+          "index": 43,
+          "stage": {
+            "kind": "jump",
+            "x": 275,
+            "y": 380
+          },
+          "x": 276.9184000000142,
+          "feet": 380,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-first-3"
+        },
+        {
+          "index": 44,
+          "stage": {
+            "kind": "jump",
+            "x": 300,
+            "y": 320
+          },
+          "x": 298.7500800000142,
+          "feet": 320,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-high-deck"
+        },
+        {
+          "index": 45,
+          "stage": {
+            "kind": "walk",
+            "x": 350
+          },
+          "x": 350.77440000001417,
+          "feet": 320,
+          "vx": 4.320000000000043,
+          "grounded": true,
+          "support": "site-high-deck"
+        },
+        {
+          "index": 46,
+          "stage": {
+            "kind": "drop",
+            "edge": 260,
+            "direction": -1,
+            "x": 220,
+            "y": 380
+          },
+          "x": 220.67008000001425,
+          "feet": 380,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-first-3"
+        },
+        {
+          "index": 47,
+          "stage": {
+            "kind": "walk",
+            "x": 520
+          },
+          "x": 517.284480000013,
+          "feet": 380,
+          "vx": 8.800000000000033,
+          "grounded": true,
+          "support": "site-crane-catch"
+        },
+        {
+          "index": 48,
+          "stage": {
+            "kind": "walk",
+            "x": 820
+          },
+          "x": 817.4188800000117,
+          "feet": 380,
+          "vx": 8.800000000000033,
+          "grounded": true,
+          "support": "site-crane-catch"
+        },
+        {
+          "index": 49,
+          "stage": {
+            "kind": "walk",
+            "x": 1120
+          },
+          "x": 1117.5532800000103,
+          "feet": 380,
+          "vx": 8.800000000000033,
+          "grounded": true,
+          "support": "site-crane-catch"
+        },
+        {
+          "index": 50,
+          "stage": {
+            "kind": "walk",
+            "x": 1420
+          },
+          "x": 1417.6876800000089,
+          "feet": 380,
+          "vx": 8.800000000000033,
+          "grounded": true,
+          "support": "site-crane-catch"
+        },
+        {
+          "index": 51,
+          "stage": {
+            "kind": "walk",
+            "x": 1720
+          },
+          "x": 1717.8220800000074,
+          "feet": 380,
+          "vx": 8.800000000000033,
+          "grounded": true,
+          "support": "site-crane-catch"
+        },
+        {
+          "index": 52,
+          "stage": {
+            "kind": "walk",
+            "x": 1880
+          },
+          "x": 1877.1564800000067,
+          "feet": 380,
+          "vx": 8.800000000000033,
+          "grounded": true,
+          "support": "site-crane-catch"
+        },
+        {
+          "index": 53,
+          "stage": {
+            "kind": "drop",
+            "edge": 1900,
+            "direction": 1,
+            "x": 1940,
+            "y": 440
+          },
+          "x": 1939.2544000000066,
+          "feet": 440,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-descent-1"
+        },
+        {
+          "index": 54,
+          "stage": {
+            "kind": "walk",
+            "x": 1840
+          },
+          "x": 1842.2918400000067,
+          "feet": 440,
+          "vx": -4.320000000000036,
+          "grounded": true,
+          "support": "site-descent-1"
+        },
+        {
+          "index": 55,
+          "stage": {
+            "kind": "drop",
+            "edge": 1820,
+            "direction": -1,
+            "x": 1770,
+            "y": 500
+          },
+          "x": 1771.413120000007,
+          "feet": 500,
+          "vx": -8.800000000000033,
+          "grounded": true,
+          "support": "site-descent-left-1"
+        },
+        {
+          "index": 56,
+          "stage": {
+            "kind": "walk",
+            "x": 1740
+          },
+          "x": 1741.4304000000072,
+          "feet": 500,
+          "vx": -3.8400000000000247,
+          "grounded": true,
+          "support": "site-descent-left-1"
+        },
+        {
+          "index": 57,
+          "stage": {
+            "kind": "drop",
+            "edge": 1700,
+            "direction": -1,
+            "x": 1640,
+            "y": 560
+          },
+          "x": 1642.9702400000076,
+          "feet": 560,
+          "vx": -28.000000000000032,
+          "grounded": true,
+          "support": "site-descent-outside"
+        },
+        {
+          "index": 58,
+          "stage": {
+            "kind": "walk",
+            "x": 1780
+          },
+          "x": 1777.523840000007,
+          "feet": 560,
+          "vx": 8.800000000000033,
+          "grounded": true,
+          "support": "site-descent-outside"
+        },
+        {
+          "index": 59,
+          "stage": {
+            "kind": "jump",
+            "x": 1840,
+            "y": 500
+          },
+          "x": 1835.3593600000072,
+          "feet": 500,
+          "vx": 85.60000000000004,
+          "grounded": true,
+          "support": "site-descent-e"
+        },
+        {
+          "index": 60,
+          "stage": {
+            "kind": "walk",
+            "x": 2030
+          },
+          "x": 2027.6460800000066,
+          "feet": 500,
+          "vx": 8.800000000000033,
+          "grounded": true,
+          "support": "site-descent-e"
+        },
+        {
+          "index": 61,
+          "stage": {
+            "kind": "drop",
+            "edge": 2120,
+            "direction": 1,
+            "x": 2150,
+            "y": 560
+          },
+          "x": 2150.344320000005,
+          "feet": 560,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-descent-3"
+        },
+        {
+          "index": 62,
+          "stage": {
+            "kind": "drop",
+            "edge": 2220,
+            "direction": 1,
+            "x": 2250,
+            "y": 620
+          },
+          "x": 2249.2243200000044,
+          "feet": 620,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-yard"
+        },
+        {
+          "index": 63,
+          "stage": {
+            "kind": "walk",
+            "x": 2480
+          },
+          "x": 2480.7686400000025,
+          "feet": 620,
+          "vx": 4.320000000000043,
+          "grounded": true,
+          "support": "site-yard"
+        },
+        {
+          "index": 64,
+          "stage": {
+            "kind": "jump",
+            "x": 2520,
+            "y": 560
+          },
+          "x": 2517.509760000002,
+          "feet": 560,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-final-1"
+        },
+        {
+          "index": 65,
+          "stage": {
+            "kind": "walk",
+            "x": 2590
+          },
+          "x": 2591.196800000001,
+          "feet": 560,
+          "vx": 4.320000000000043,
+          "grounded": true,
+          "support": "site-final-1"
+        },
+        {
+          "index": 66,
+          "stage": {
+            "kind": "jump",
+            "x": 2590,
+            "y": 500
+          },
+          "x": 2591.196800000001,
+          "feet": 500,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-final-2"
+        },
+        {
+          "index": 67,
+          "stage": {
+            "kind": "walk",
+            "x": 2690
+          },
+          "x": 2687.1712,
+          "feet": 500,
+          "vx": 8.800000000000033,
+          "grounded": true,
+          "support": "site-final-2"
+        },
+        {
+          "index": 68,
+          "stage": {
+            "kind": "jump",
+            "x": 2720,
+            "y": 440
+          },
+          "x": 2718.92544,
+          "feet": 440,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-rest"
+        },
+        {
+          "index": 69,
+          "stage": {
+            "kind": "walk",
+            "x": 2800
+          },
+          "x": 2797.299839999999,
+          "feet": 440,
+          "vx": 8.800000000000033,
+          "grounded": true,
+          "support": "site-rest"
+        },
+        {
+          "index": 70,
+          "stage": {
+            "kind": "walk",
+            "x": 2870
+          },
+          "x": 2868.6342399999985,
+          "feet": 440,
+          "vx": 8.800000000000033,
+          "grounded": true,
+          "support": "site-rest"
+        },
+        {
+          "index": 71,
+          "stage": {
+            "kind": "walk",
+            "x": 2690
+          },
+          "x": 2691.6998399999998,
+          "feet": 440,
+          "vx": -8.800000000000033,
+          "grounded": true,
+          "support": "site-rest"
+        },
+        {
+          "index": 72,
+          "stage": {
+            "kind": "jump",
+            "x": 2690,
+            "y": 380
+          },
+          "x": 2691.6998399999998,
+          "feet": 380,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-final-4"
+        },
+        {
+          "index": 73,
+          "stage": {
+            "kind": "walk",
+            "x": 2600
+          },
+          "x": 2602.7654400000006,
+          "feet": 380,
+          "vx": -8.800000000000033,
+          "grounded": true,
+          "support": "site-final-4"
+        },
+        {
+          "index": 74,
+          "stage": {
+            "kind": "drop",
+            "edge": 2560,
+            "direction": -1,
+            "x": 2520,
+            "y": 440
+          },
+          "x": 2521.764480000001,
+          "feet": 440,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-final-left-440"
+        },
+        {
+          "index": 75,
+          "stage": {
+            "kind": "walk",
+            "x": 2540
+          },
+          "x": 2538.629760000001,
+          "feet": 440,
+          "vx": 17.280000000000005,
+          "grounded": true,
+          "support": "site-final-left-440"
+        },
+        {
+          "index": 76,
+          "stage": {
+            "kind": "jump",
+            "x": 2590,
+            "y": 380
+          },
+          "x": 2588.933760000001,
+          "feet": 380,
+          "vx": 30.399999999999952,
+          "grounded": true,
+          "support": "site-final-4"
+        },
+        {
+          "index": 77,
+          "stage": {
+            "kind": "walk",
+            "x": 2690
+          },
+          "x": 2688.60736,
+          "feet": 380,
+          "vx": 8.800000000000033,
+          "grounded": true,
+          "support": "site-final-4"
+        },
+        {
+          "index": 78,
+          "stage": {
+            "kind": "jump",
+            "x": 2720,
+            "y": 320
+          },
+          "x": 2717.4073599999997,
+          "feet": 320,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-final-5"
+        },
+        {
+          "index": 79,
+          "stage": {
+            "kind": "walk",
+            "x": 2810
+          },
+          "x": 2808.958079999999,
+          "feet": 320,
+          "vx": 4.320000000000029,
+          "grounded": true,
+          "support": "site-final-5"
+        },
+        {
+          "index": 80,
+          "stage": {
+            "kind": "jump",
+            "x": 2810,
+            "y": 260
+          },
+          "x": 2808.958079999999,
+          "feet": 260,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-final-6"
+        },
+        {
+          "index": 81,
+          "stage": {
+            "kind": "walk",
+            "x": 2890
+          },
+          "x": 2887.332479999998,
+          "feet": 260,
+          "vx": 8.800000000000033,
+          "grounded": true,
+          "support": "site-final-6"
+        },
+        {
+          "index": 82,
+          "stage": {
+            "kind": "jump",
+            "x": 2820,
+            "y": 200
+          },
+          "x": 2827.3465599999986,
+          "feet": 200,
+          "vx": -104.80000000000004,
+          "grounded": true,
+          "support": "site-final-m"
+        },
+        {
+          "index": 83,
+          "stage": {
+            "kind": "walk",
+            "x": 2840
+          },
+          "x": 2839.442559999999,
+          "feet": 200,
+          "vx": 14.239999999999956,
+          "grounded": true,
+          "support": "site-final-m"
+        },
+        {
+          "index": 84,
+          "stage": {
+            "kind": "jump",
+            "x": 2850,
+            "y": 140
+          },
+          "x": 2848.0851199999984,
+          "feet": 140,
+          "vx": 0,
+          "grounded": true,
+          "support": "site-roof"
+        },
+        {
+          "index": 85,
+          "stage": {
+            "kind": "finish"
+          },
+          "x": 3052.334719999997,
+          "feet": 140,
+          "vx": 220,
+          "grounded": true,
+          "support": "site-roof"
+        }
+      ],
+      "events": [
+        {
+          "type": "gem",
+          "entityId": "site-gem-001"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-002"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-003"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-004"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-005"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-006"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-010"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-011"
+        },
+        {
+          "type": "checkpoint",
+          "entityId": "site-checkpoint-girders"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-014"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-015"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-019"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-020"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-021"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-027"
+        },
+        {
+          "type": "checkpoint",
+          "entityId": "site-checkpoint-descent"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-029"
+        },
+        {
+          "type": "checkpoint",
+          "entityId": "site-checkpoint-yard"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-030"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-031"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-032"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-033"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-034"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-035"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-036"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-055"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-037"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-038"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-039"
+        },
+        {
+          "type": "checkpoint",
+          "entityId": "site-checkpoint-scaffold"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-042"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-043"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-056"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-044"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-045"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-050"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-051"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-052"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-053"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-054"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-048"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-049"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-047"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-bonus-006"
+        },
+        {
+          "type": "checkpoint",
+          "entityId": "site-checkpoint-yard"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-028"
+        },
+        {
+          "type": "checkpoint",
+          "entityId": "site-checkpoint-descent"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-026"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-025"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-024"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-022"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-017"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-016"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-018"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-013"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-012"
+        },
+        {
+          "type": "checkpoint",
+          "entityId": "site-checkpoint-girders"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-009"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-bonus-001"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-007"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-008"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-bonus-002"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-023"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-bonus-003"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-bonus-004"
+        },
+        {
+          "type": "checkpoint",
+          "entityId": "site-checkpoint-descent"
+        },
+        {
+          "type": "checkpoint",
+          "entityId": "site-checkpoint-yard"
+        },
+        {
+          "type": "checkpoint",
+          "entityId": "site-checkpoint-scaffold"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-040"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-041"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-bonus-005"
+        },
+        {
+          "type": "gem",
+          "entityId": "site-gem-046"
+        }
+      ]
+    }
+  ]
+}

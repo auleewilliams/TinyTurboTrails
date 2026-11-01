@@ -1,0 +1,43 @@
+{
+  "result": {
+    "captures": 18,
+    "PNGs": 36,
+    "sizes": [
+      {
+        "viewport": {
+          "width": 426,
+          "height": 300
+        },
+        "native": {
+          "width": 426,
+          "height": 240
+        },
+        "css": {
+          "width": 426,
+          "height": 240
+        },
+        "screenshotHeight": 240
+      },
+      {
+        "viewport": {
+          "width": 320,
+          "height": 240
+        },
+        "native": {
+          "width": 426,
+          "height": 240
+        },
+        "css": {
+          "width": 320,
+          "height": 180.28125
+        },
+        "screenshotHeight": 181
+      }
+    ],
+    "responses": 52,
+    "uniqueBodies": 52,
+    "routes": 9
+  },
+  "initialAudit": "The first ad-hoc audit incorrectly rounded fractional CSS height to nearest integer (180), rejecting the actual181px screenshot. Corrected audit uses the enclosing pixel height ceil(180.28125)=181. No capture/test/assertion-policy changes.",
+  "completed": true
+}

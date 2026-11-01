@@ -80,7 +80,7 @@ const twoFrames = (page: Page) => page.evaluate(() => new Promise<void>(resolve 
 for (const level of LEVELS) test(`owner HUD order real-font fixture: ${level.id} identity marks and real glyph clearance`, async ({ page }, info) => {
   // Explicit layout states, not scene mutation or a claim of input-driven gameplay.
   const names = ['world/camera.ts', 'game/platforms.ts', 'game/movement.ts', 'game/education.ts', 'art/interface-kit.ts', 'game/hud.ts', 'world/scenery.ts',
-    'world/cove-terrain.ts', 'world/surface-materials.ts', 'world/assets.ts', 'world/trail-presentation.ts', 'world/ambient-weather.ts', 'world/renderer.ts'];
+    'world/cove-terrain.ts', 'world/site-terrain.ts', 'world/surface-materials.ts', 'world/assets.ts', 'world/trail-presentation.ts', 'world/ambient-weather.ts', 'world/renderer.ts'];
   const transport = createHudResponseObserver();
   page.on('response', transport.observe);
   const errors: string[] = []; page.on('pageerror', error => errors.push(error.message));

@@ -5,6 +5,7 @@ import { SimulationClock } from '../src/core/clock';
 import { SUNSET_SITE } from '../src/world/levels';
 import { sunsetPilot } from './sunset-pilot';
 import { sunsetWallControllerInit, SUNSET_WALL_MAX_PAINT_ADVANCE, sunsetWallPaintInit, type SunsetWallPaint } from './sunset-wall-browser-controller';
+import { siteSteelSupports } from './site-steel-observer';
 
 const witnesses = [{ pre: 2, takeoff: 970 }, { pre: 0, takeoff: 974 }, { pre: 1, takeoff: 978 }];
 const patterns = [[1000 / 60], [32], [16, 32, 24], [8, 8, 32], [32, 16, 16, 32]];
@@ -72,11 +73,15 @@ it.each([1, -1])('calibrates same-paint camera and facing%s and dispatches witho
   vi.stubGlobal('HTMLImageElement', ImageFixture); vi.stubGlobal('DOMPoint', PointFixture);
   vi.stubGlobal('requestAnimationFrame', () => { throw new Error('paint must dispatch synchronously'); });
   try {
-    sunsetWallPaintInit();
+    const near = siteSteelSupports().near;
+    sunsetWallPaintInit(near);
     const ctx = new ContextFixture(); ctx.scaleX = facing;
     const image = new ImageFixture();
     for (const [cameraX, cameraY, x, feet] of [[123, 78, 977.3388888888868, 686.25], [200, 100, 981, 678]]) {
-      ctx.fillRect(260 - cameraX, 320 - cameraY, 210, 3);
+      const deck = new ImageFixture(); deck.src = `/assets/site/steel-v1/${near.id}.png`;
+      ctx.scaleX = 1;
+      ctx.drawImage(deck, 0, 0, near.width, 18, near.x - cameraX, near.y - cameraY, near.width, 18);
+      ctx.scaleX = facing;
       const screenX = x - cameraX;
       const dx = facing === 1 ? screenX - 24 : -(screenX + 24);
       ctx.drawImage(image, 0, 0, 48, 48, dx, feet - cameraY - 44, 48, 48);

@@ -9,6 +9,7 @@ afterEach(() => {
 it('ships a complete grounded construction atlas for Sunset Site', () => {
   const site = JSON.parse(readFileSync(new URL('../public/assets/site/manifest.json', import.meta.url), 'utf8'));
   expect(site.image).toBe('environment.png');
+  expect(site.siteTerrain).toBe('steel-v1/manifest.json');
   expect(site.cellSize).toBe(48);
   expect(Object.keys(site.assets).sort()).toEqual([...WORLD_ASSETS].sort());
   expect(Object.values(site.assets).sort((a, b) => Number(a) - Number(b))).toEqual(
@@ -130,7 +131,8 @@ it.each(['site', 'frost', 'cove'])('loads the %s panorama and can retry a failed
   expect([bytes.readUInt32BE(16), bytes.readUInt32BE(20)]).toEqual([720, 240]);
   const requests: string[] = [];
   let fail = true;
-  vi.stubGlobal('fetch', vi.fn(async (url: string) => ({ ok: true, json: async () => url.endsWith('/materials/manifest.json')
+  vi.stubGlobal('fetch', vi.fn(async (url: string) => ({ ok: true, json: async () => url.endsWith('/steel-v1/manifest.json')
+    ? JSON.parse(readFileSync(new URL('../public/assets/site/steel-v1/manifest.json', import.meta.url), 'utf8')) : url.endsWith('/materials/manifest.json')
     ? JSON.parse(readFileSync(new URL('../public/assets/cove/materials/manifest.json', import.meta.url), 'utf8')) : url.endsWith('/terrain-kit/manifest.json')
     ? JSON.parse(readFileSync(new URL('../public/assets/cove/terrain-kit/manifest.json', import.meta.url), 'utf8')) : world })));
   class FakeImage {
@@ -140,6 +142,10 @@ it.each(['site', 'frost', 'cove'])('loads the %s panorama and can retry a failed
     onerror = (): void => {};
     set src(url: string) {
       requests.push(url);
+      if (url.includes('/site/steel-v1/') && url.endsWith('.png')) {
+        const bytes = readFileSync(new URL('../public' + url, import.meta.url));
+        this.naturalWidth = bytes.readUInt32BE(16); this.naturalHeight = bytes.readUInt32BE(20);
+      }
       if (url.endsWith('/materials/atlas.png')) this.naturalHeight = 160;
       if (url.endsWith('/bay1-b-v1/platform.png')) { this.naturalWidth = 140; this.naturalHeight = 30; }
       if (url.endsWith('/bay2-whole-v1/platform.png')) { this.naturalWidth = 160; this.naturalHeight = 35; }

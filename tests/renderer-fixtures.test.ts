@@ -7,12 +7,13 @@ import { PLAINS_LEVEL } from '../src/world/level';
 import { SANDY_COVE } from '../src/world/sandy-cove';
 import { platformBodyAt } from '../src/game/platforms';
 
-// Exercise the same module lists and import stripping as the two browser fixtures.
+// Exercise the same module lists and import stripping as the three browser fixtures.
 // Missing real production dependencies must remain visible to their guards.
 const source = readFileSync(new URL('./browser.spec.ts', import.meta.url), 'utf8');
-for (const title of ['compact HUD renderer fixture:', 'landmark labels: renderer fixture']) {
+for (const title of ['compact HUD renderer fixture:', 'landmark labels: renderer fixture', 'owner HUD order real-font fixture:']) {
   it(`${title} includes the real terrain helper dependency graph`, () => {
-    const section = source.slice(source.indexOf('test(`' + title));
+    const fixtureSource = title.startsWith('owner HUD') ? readFileSync(new URL('./hud-owner-layout.spec.ts', import.meta.url), 'utf8') : source;
+    const section = fixtureSource.slice(fixtureSource.indexOf('test(`' + title));
     const list = section.match(/const names = \[([\s\S]*?)\];/)![1];
     const names = [...list.matchAll(/'([^']+)'/g)].map(match => match[1]);
     const modules = names.map(name => readFileSync(new URL('../src/' + name, import.meta.url), 'utf8'));
@@ -26,6 +27,7 @@ for (const title of ['compact HUD renderer fixture:', 'landmark labels: renderer
     expect(names).toContain('game/platforms.ts');
     expect(names).toContain('world/camera.ts');
     expect(names).toContain('world/cove-terrain.ts');
+    expect(names).toContain('world/site-terrain.ts');
     expect(names.indexOf('world/surface-materials.ts')).toBeLessThan(names.indexOf('world/assets.ts'));
     expect(imports).toContain('loadCoveMaterials');
     expect(typeof fixture.camera).toBe('function');
