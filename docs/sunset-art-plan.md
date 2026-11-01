@@ -1,8 +1,8 @@
 # Sunset Site steel artwork plan — issue #242
 
-Status: owner approved the bounded plan and six-call budget. Production is
-authorized through the representative integrated preview; wider rollout awaits
-owner visual approval. Owner selected predominantly steel
+Status: owner approved the bounded plan, six-call budget, and integrated preview
+for rollout using the same components. Whole-trail acceptance remains separate.
+Owner selected predominantly steel
 construction to distinguish Sunset from the timber theme of Treetop Timbers.
 
 ## Baseline and scope
@@ -326,7 +326,8 @@ preview approval separately from completed-trail acceptance.
 - Predominantly steel material direction: approved by owner in this thread.
 - This 18px kit / exact38 gem Y adjustments / no support or scenery moves: approved in this thread.
 - Six-call allocation and bounded reserve rules: approved. See the source authorization/call ledger for current spend.
-- Representative integrated preview: implemented with four initial generation
-  calls; both refinement reserves remain unused. Owner visual approval pending.
+- Representative integrated preview: owner approved rollout using the same
+  components after review findings were presented. Four initial generation
+  calls spent; both refinement reserves remain unused.
   See [the preview packet](evidence/issue-242/preview-01/README.md).
 - Whole-trail acceptance, final review/CI and PR: outstanding.

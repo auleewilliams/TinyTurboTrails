@@ -1,0 +1,20 @@
+{
+  "recordedAt": "2026-11-01T20:53:48.442997+00:00",
+  "authority": "Owner replied: Approve preview and continue rollout. The prompt explicitly requested rollout using the same components. Review findings about faint alpha edges and mirrored repeats had been presented before this approval.",
+  "runtimeHead": "6dfb9dfb1a41bd67405c2ac1ca6cd4511bbfb6c2",
+  "base": "885b6c16d5397e061f1ccb40ca326856bc77db88",
+  "scope": "Accepted same illustrated steel/gravel components, including their existing edge treatment and mirrored repeats. Rollout to remaining inventoried targets and exact38 gem offsets is authorized. Not completed-trail acceptance.",
+  "callsSpent": 4,
+  "remainingReservations": {
+    "steel": 1,
+    "ground": 1
+  },
+  "sourceOriginals": {
+    "call-01-original.png": "c1705d95e990b1b0833303e433c9ccc4f9f94d26f41fa1b1ad62541eb4294f3f",
+    "call-02-original.png": "c3288cf9164627b847acfb812a4938312cc774470ffcd4e66031300ad7affd0e",
+    "call-03-original.png": "a3e25e12ac3e3f8ca176da00fce6b4800b86a73c1e929a2a7db18b74499acaa1",
+    "call-04-original.png": "12ea0acbb1346fd3416990fe3f60e5a10e59048261d90cb45af8e56b8d6012c5"
+  },
+  "manifestSha256": "31b57e4f2e51dc7fb296481b40a0b38158f55687a812e573ae95d4cca548cc2e",
+  "preparationSha256": "1a3b76385d5a00f6ab63c2ca5a98774c5e7af4cf45aec50d526a8b573346cb3d"
+}

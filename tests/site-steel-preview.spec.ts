@@ -1,17 +1,19 @@
 import { test, expect } from '@playwright/test';
 import { createHash } from 'node:crypto';
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
-import { resolve } from 'node:path';
+import { join, resolve } from 'node:path';
 import { createRolloutEvidence } from './cove-rollout-evidence';
 import { startSunsetPilot, driveSunset } from './sunset-browser-pilot';
 import { FIRST_CLIMB, walk, jump, drop } from './sunset-pilot';
+import { siteSteelDockInit, siteSteelSupports } from './site-steel-observer';
 
 for (const width of [426, 320]) test(`Sunset steel preview uses ordinary ground, underpass and dock input at ${width}px`, async ({ page, browser }, info) => {
   test.setTimeout(90_000);
   const evidence = createRolloutEvidence(info);
   const hash = (bytes: Buffer): string => createHash('sha256').update(bytes).digest('hex');
-  const sourceFiles = execFileSync('rg', ['--files', 'src', 'public/assets/site']).toString().trim().split('\n');
+  const sourceFiles = ['src', 'public/assets/site'].flatMap(root => readdirSync(root, { recursive: true, withFileTypes: true })
+    .filter(entry => entry.isFile()).map(entry => join(entry.parentPath, entry.name))).sort();
   const source = Object.fromEntries(sourceFiles.map(path => [path, hash(readFileSync(path))]));
   const responses: object[] = [], responseErrors: string[] = [], pending: Promise<void>[] = [], errors: string[] = [];
   page.on('pageerror', error => errors.push(error.message));
@@ -56,6 +58,7 @@ for (const width of [426, 320]) test(`Sunset steel preview uses ordinary ground,
     });
   });
   try {
+    await page.addInitScript(siteSteelDockInit, siteSteelSupports());
     await startSunsetPilot(page);
     await page.setViewportSize({ width, height: width === 426 ? 300 : 240 });
     await drive('ground-lip', [walk(880)]);
@@ -74,6 +77,32 @@ for (const width of [426, 320]) test(`Sunset steel preview uses ordinary ground,
     await capture('stacked-underpass');
     await drive('high-deck', FIRST_CLIMB.slice(2));
     await capture('high-deck');
+    const dockDelta = (dock: 'near' | 'far') => page.locator('#game').evaluate((canvas, side) => {
+      const sample = (canvas as HTMLCanvasElement).dataset;
+      return Number(sample.craneScreenX) - Number(side === 'near' ? sample.nearDockScreenX : sample.farDockScreenX);
+    }, dock);
+    const playerX = async () => Number((await page.locator('#status').innerText()).match(/X (\d+)/)?.[1]);
+    await drive('approach-near-dock', [walk(440)]);
+    await expect.poll(() => dockDelta('near'), { timeout: 8000, intervals: [16] }).toBeGreaterThan(4);
+    await expect.poll(() => dockDelta('near'), { timeout: 8000, intervals: [16] }).toBeCloseTo(0, 0);
+    await drive('board-outward', [walk(520)]);
+    await capture('board-outward');
+    await expect.poll(playerX, { timeout: 5000 }).toBeGreaterThanOrEqual(600);
+    await capture('ride-outward');
+    await drive('leave-at-far-dock', [walk(700), walk(760), walk(740)]);
+    await capture('leave-at-far-dock');
+    await expect.poll(() => dockDelta('far'), { timeout: 8000, intervals: [16] }).toBeLessThan(-4);
+    await expect.poll(() => dockDelta('far'), { timeout: 8000, intervals: [16] }).toBeCloseTo(0, 0);
+    await drive('board-return', [walk(620)]);
+    await capture('board-return');
+    await expect.poll(playerX, { timeout: 5000 }).toBeLessThanOrEqual(540);
+    await capture('ride-return');
+    await drive('leave-at-near-dock', [walk(440)]);
+    await capture('leave-at-near-dock');
+    await expect.poll(() => dockDelta('far'), { timeout: 8000, intervals: [16] }).toBeCloseTo(0, 0);
+    await drive('absent-ferry-fall', [drop(470, 1, 520, 380)]);
+    await capture('absent-ferry-catch');
+    await drive('recover-near-dock', [walk(440), jump(440, 320)]);
     await drive('below-ferry', [drop(260, -1, 220, 380), walk(570)]);
     await capture('below-ferry');
     await drive('far-dock', [walk(740), jump(740, 320), walk(740)]);
