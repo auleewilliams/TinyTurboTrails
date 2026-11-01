@@ -4,7 +4,7 @@ import { drawWorld } from '../src/world/renderer';
 import { PLAINS_LEVEL } from '../src/world/level';
 import type { WorldAssets } from '../src/world/assets';
 
-it('uses the prepared Plains image through the actual world renderer, with a bounded cached ribbon', () => {
+it('uses the prepared Plains image through the actual world renderer, with a full-trail cached ribbon', () => {
   const image = { naturalWidth: 80, naturalHeight: 16 };
   const kit: { image: typeof image; ribbon?: { canvas: unknown } } = { image };
   const calls: unknown[][] = [];
@@ -20,8 +20,8 @@ it('uses the prepared Plains image through the actual world renderer, with a bou
     drawWorld(ctx as unknown as CanvasRenderingContext2D, assets, PLAINS_LEVEL, { position: { x: 600.25, y: 0 } } as never, () => false);
     expect(kit.ribbon).toBeDefined();
     expect(calls.some(call => call[0] === offscreen)).toBe(true);
-    expect(offscreen.width).toBe(480);
-    expect(calls.filter(call => call[0] === image)).toHaveLength(480);
+    expect(offscreen.width).toBe(4300);
+    expect(calls.filter(call => call[0] === image)).toHaveLength(4300);
   } finally { vi.unstubAllGlobals(); }
 });
 
@@ -72,18 +72,18 @@ class SoftwareCanvas {
 
 it('maps every authored join column once, with the right segment owning the join and whole native grain', () => {
   const columns = plainsContourColumns(PLAINS_LEVEL);
-  expect(plainsContourRange(PLAINS_LEVEL)).toEqual({ from: 580, to: 1060 });
-  expect(columns).toHaveLength(480);
-  expect(new Set(columns.map(c => c.x)).size).toBe(480);
+  expect(plainsContourRange(PLAINS_LEVEL)).toEqual({ from: 0, to: 4300 });
+  expect(columns).toHaveLength(4300);
+  expect(new Set(columns.map(c => c.x)).size).toBe(4300);
   for (const column of columns) {
     const surface = PLAINS_LEVEL.surfaces[column.surfaceIndex];
     expect(column.x).toBeGreaterThanOrEqual(surface.x1);
     expect(column.x).toBeLessThan(surface.x2);
     expect(column.contactY).toBeCloseTo(surfaceY(PLAINS_LEVEL, column.x + 0.5), 10);
     expect(Math.abs(column.pixelContactY - column.contactY)).toBeLessThanOrEqual(0.5);
-    expect(column.sourceX).toBe(20 + (column.x - 580) % 40);
+    expect(column.sourceX).toBe(20 + ((column.x - 580) % 40 + 40) % 40);
   }
-  for (const join of [620, 660, 700, 760, 820, 880, 940, 980, 1020]) {
+  for (const join of PLAINS_LEVEL.surfaces.slice(1).map(s => s.x1)) {
     const left = columns.find(c => c.x === join - 1)!;
     const right = columns.find(c => c.x === join)!;
     expect(PLAINS_LEVEL.surfaces[left.surfaceIndex].x2).toBe(join);
@@ -95,11 +95,12 @@ it('retains exact source pixels/depth, one bitmap across fractional offsets, cac
   expect(createHash('sha256').update(bytes).digest('hex')).toBe('618ea1e53cb017b5dfdb649fb48fd47eea7cea02b4abef165681e50da1e4a654');
   const image = { naturalWidth: 80, naturalHeight: 16 };
   const kit = { image };
+  const columns = plainsContourColumns(PLAINS_LEVEL);
   const created: SoftwareCanvas[] = [];
   vi.stubGlobal('document', { createElement: () => { const canvas = new SoftwareCanvas(); created.push(canvas); return canvas; } });
   try {
     const assets = { plainsContour: kit } as unknown as WorldAssets;
-    for (const cameraX of [580, 600.25, 659.5, 760.75, 880.25, 600.25]) {
+    for (const cameraX of [0, 0.25, 580, 600.25, 659.5, 760.75, 880.25, 1180.25, 2300.75, 3874, 600.25]) {
       const target = new SoftwareCanvas(); target.width = 426; target.height = 240;
       expect(drawPlainsContourGround(target as unknown as CanvasRenderingContext2D, assets, PLAINS_LEVEL, { x: cameraX, y: 0 })).toBe(true);
       expect(target.imageSmoothingEnabled).toBe(true);
@@ -108,8 +109,8 @@ it('retains exact source pixels/depth, one bitmap across fractional offsets, cac
       expect(target.draws).toHaveLength(1);
       for (let screenX = 0; screenX < 426; screenX++) {
         const worldX = 580 + Math.floor(screenX + 0.5 - (580 - cameraX));
-        if (worldX < 580 || worldX >= 1060) continue;
-        const column = plainsContourColumns(PLAINS_LEVEL)[worldX - 580];
+        if (worldX < 0 || worldX >= 4300) continue;
+        const column = columns[worldX];
         for (let depth = 0; depth < 8; depth++) {
           const y = column.pixelContactY + depth;
           const expectedAt = ((depth + 2) * 80 + column.sourceX) * 4;
@@ -119,7 +120,7 @@ it('retains exact source pixels/depth, one bitmap across fractional offsets, cac
       }
     }
     expect(created).toHaveLength(1);
-    expect(created[0].draws).toHaveLength(480);
+    expect(created[0].draws).toHaveLength(4300);
   } finally { vi.unstubAllGlobals(); }
 });
 
@@ -134,7 +135,7 @@ it('isolates Plains and legacy kits and clips the old edge out of the whole repl
     beginPath() {}, rect: (...args: number[]) => rects.push(args), clip: () => events.push('clip') }, {
     get: (o, k) => k in o ? Reflect.get(o, k) : () => {}, set: (o, k, v) => Reflect.set(o, k, v),
   });
-  drawTerrainEdge(ctx as unknown as CanvasRenderingContext2D, PLAINS_LEVEL, { x: 600.25, y: 0 }, { from: 580, to: 1060 });
-  expect(rects).toEqual([[-10000, -10000, 9979.75, 20000], [459.75, -10000, 10000, 20000]]);
+  drawTerrainEdge(ctx as unknown as CanvasRenderingContext2D, PLAINS_LEVEL, { x: 600.25, y: 0 }, { from: 0, to: 4300 });
+  expect(rects).toEqual([[-10000, -10000, 9399.75, 20000], [3699.75, -10000, 10000, 20000]]);
   expect(events).toEqual(['save', 'clip', 'restore']);
 });

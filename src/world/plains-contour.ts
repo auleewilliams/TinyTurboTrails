@@ -14,9 +14,9 @@ export interface PlainsContourAssets {
   ribbon?: { level: LevelData; canvas: HTMLCanvasElement; top: number; bottom: number; soil?: HTMLImageElement };
 }
 
-/** Bounded owner-approved prototype, aligned to complete authored segments. */
+/** Owner-approved continuous Plains ground; source phase stays anchored to the accepted pilot. */
 export function plainsContourRange(level: LevelData): { from: number; to: number } | undefined {
-  return level.id === 'plains' ? { from: 580, to: 1060 } : undefined;
+  return level.id === 'plains' ? { from: level.minX, to: level.maxX } : undefined;
 }
 
 /** Half-open column ownership: a join column belongs to the segment on its right. */
@@ -26,17 +26,17 @@ export function plainsContourColumns(level: LevelData): PlainsContourColumn[] {
   const columns: PlainsContourColumn[] = [];
   for (let x = range.from; x < range.to; x++) {
     const surfaceIndex = level.surfaces.findIndex(part => x >= part.x1 && x < part.x2);
-    if (surfaceIndex < 0) throw new Error('Plains contour preview has a gap');
+    if (surfaceIndex < 0) throw new Error('Plains contour ground has a gap');
     const surface = level.surfaces[surfaceIndex];
     const contactY = surface.y1 + (surface.y2 - surface.y1) * (x + 0.5 - surface.x1) / (surface.x2 - surface.x1);
-    columns.push({ x, surfaceIndex, contactY, pixelContactY: Math.round(contactY), sourceX: 20 + (x - range.from) % 40 });
+    columns.push({ x, surfaceIndex, contactY, pixelContactY: Math.round(contactY), sourceX: 20 + ((x - 580) % 40 + 40) % 40 });
   }
   return columns;
 }
 
 /** Bend the unchanged designed repeat at native grain, then scroll ONE bitmap.
  * Building integer columns once avoids separately antialiased fractional strips.
- * Optional opaque C replaces the bounded lower body behind exact unchanged A.
+ * Optional opaque C replaces the lower body behind exact unchanged A.
  */
 export function drawPlainsContourGround(ctx: CanvasRenderingContext2D, assets: WorldAssets,
   level: LevelData, offset: { x: number; y: number }): boolean {
@@ -58,7 +58,7 @@ export function drawPlainsContourGround(ctx: CanvasRenderingContext2D, assets: W
     paint.imageSmoothingEnabled = false;
     for (const column of columns) {
       if (kit.soil) {
-        const sourceX = (column.x - range.from) % 64;
+        const sourceX = ((column.x - 580) % 64 + 64) % 64;
         for (let y = column.pixelContactY + 8; y < bottom; y += 64) {
           const height = Math.min(64, bottom - y);
           paint.drawImage(kit.soil, sourceX, 0, 1, height,

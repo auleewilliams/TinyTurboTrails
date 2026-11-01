@@ -118,6 +118,11 @@ test('current feature record pins exact presentation deltas and every unrelated1
   for(const[path,baseline]of Object.entries(pins.files)){
     if(feature.files[path]){assert.equal(feature.files[path].baselineSha256,baseline);assert.equal(hash(read(feature.files[path].baselineCopy)),baseline);}
     check(path,readFileSync(new URL(`../${path}`,import.meta.url)));
+    if (path === 'src/world/level.ts') for (const [from, to] of [["[150, 'flowers']", "[151, 'flowers']"], ["[2342, 'flowers']", "[2343, 'flowers']"], ["[2342, 'flowers']", "[2342, 'stone']"]]) {
+      const bytes = readFileSync(new URL('../' + path, import.meta.url)), bad = Buffer.from(bytes.toString().replace(from, to));
+      assert.notDeepEqual(bad, bytes);
+      assert.throws(() => check(path, bad), { code: 'ERR_ASSERTION' });
+    }
   }
   for(const path of ['src/world/surface-materials.ts','src/world/sandy-cove.ts','src/game/movement.ts']){
     const bytes=readFileSync(new URL(`../${path}`,import.meta.url));

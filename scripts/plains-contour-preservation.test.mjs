@@ -36,10 +36,13 @@ test('metadata/path/anchor corruptions cannot hide behind the authorized grass d
   reject(path, text => { const data = JSON.parse(text); data.cellSize++; return JSON.stringify(data, null, 2) + '\n'; });
   reject(path, text => { const data = JSON.parse(text); data.anchors.tree.y++; return JSON.stringify(data, null, 2) + '\n'; });
 });
-test('checkpoint, deferred flowers, other entity, terrain and bush changes are rejected', () => {
+test('checkpoint, authorized flower mutations, other entity, terrain and bush changes are rejected', () => {
   const path = 'src/world/level.ts';
   reject(path, text => text.replace("id: 'checkpoint-meadow', x: 740", "id: 'checkpoint-meadow', x: 741"));
-  reject(path, text => text.replace("[240, 'flowers']", "[241, 'flowers']"));
+  reject(path, text => text.replace("[150, 'flowers']", "[151, 'flowers']"));
+  reject(path, text => text.replace("[2342, 'flowers']", "[2343, 'flowers']"));
+  reject(path, text => text.replace("[150, 'flowers']", "[240, 'flowers']"));
+  reject(path, text => text.replace("[2342, 'flowers']", "[2530, 'flowers']"));
   reject(path, text => text.replace("id: 'spring-001'", "id: 'spring-corrupted'"));
   reject(path, text => text.replace("[772, 'bush']", "[773, 'bush']"));
   reject(path, text => text.replace('[620, 188]', '[620, 189]'));

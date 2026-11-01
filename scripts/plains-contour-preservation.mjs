@@ -16,11 +16,11 @@ const approved = {
   },
   "src/world/level.ts": {
     "beforeSHA256": "626f85c1303f8934624eb2a02eda010db761b847265b07f1e0ba1f6c6b02cf23",
-    "currentSHA256": "f614daae59d9a4902d27afe1c760849b00c7731a785f74710fd3830d104c7c02",
+    "currentSHA256": "293415ad81e2451483f02d086fb82182d9566d6016889981eb1ee9f1ebf2b041",
     "changes": [
       {
         "before": "      patrol: { minX: 1720, maxX: 1780, speed: SLIME_SPEED } }),\n    groundedEntity({ id: 'spring-001', kind: 'spring', x: 2760, asset: 'spring', layer: 'world' }),\n    ...[\n      [240, 'flowers'], [470, 'bush'], [800, 'stone'],\n      [1550, 'tree'], [1670, 'tree'], [2100, 'tree'], [2310, 'bush'],\n      [2530, 'flowers'], [3350, 'stone'], [3550, 'bush'], [3980, 'flowers'],\n    ].map(([x, asset], index) => groundedEntity({ id: `deco-${String(index + 1).padStart(3, '0')}`,\n",
-        "after": "      patrol: { minX: 1720, maxX: 1780, speed: SLIME_SPEED } }),\n    groundedEntity({ id: 'spring-001', kind: 'spring', x: 2760, asset: 'spring', layer: 'world' }),\n    ...[\n      [240, 'flowers'], [772, 'bush'], [800, 'stone'],\n      [1550, 'tree'], [1670, 'tree'], [2100, 'tree'], [2310, 'bush'],\n      [2530, 'flowers'], [3350, 'stone'], [3550, 'bush'], [3980, 'flowers'],\n    ].map(([x, asset], index) => groundedEntity({ id: `deco-${String(index + 1).padStart(3, '0')}`,\n"
+        "after": "      patrol: { minX: 1720, maxX: 1780, speed: SLIME_SPEED } }),\n    groundedEntity({ id: 'spring-001', kind: 'spring', x: 2760, asset: 'spring', layer: 'world' }),\n    ...[\n      [150, 'flowers'], [772, 'bush'], [800, 'stone'],\n      [1550, 'tree'], [1670, 'tree'], [2100, 'tree'], [2310, 'bush'],\n      [2342, 'flowers'], [3350, 'stone'], [3550, 'bush'], [3980, 'flowers'],\n    ].map(([x, asset], index) => groundedEntity({ id: `deco-${String(index + 1).padStart(3, '0')}`,\n"
       }
     ]
   },
@@ -79,7 +79,7 @@ const approved = {
 export function beforePlainsContour(path, bytes) {
   const entry = approved[path];
   if (!entry) return bytes; // The caller's historical oracle still checks every other byte.
-  assert.equal(hash(bytes), entry.currentSHA256, `${path}: ONLY exact approved Plains contour linkage/bush delta`);
+  assert.equal(hash(bytes), entry.currentSHA256, `${path}: ONLY exact approved Plains contour linkage/bush/two-flower delta`);
   let text = bytes.toString('utf8');
   for (const change of [...entry.changes].reverse()) {
     assert.equal(text.split(change.after).length, 2, `${path}: unique approved current literal`);

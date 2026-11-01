@@ -1,3 +1,8 @@
+import { contourCameraObservation } from './plains-contour-observer';
+import { createHash } from 'node:crypto';
+import { installContourArtworkObserver, readContourCache, contourRibbonTop, type Probe } from './plains-contour-artwork';
+import { createContourEvidence, retainContourCache } from './plains-contour-evidence';
+import { contourProvenance } from './plains-contour-provenance';
 import { plainsContourRange, plainsContourColumns, drawPlainsContourGround } from '../src/world/plains-contour';
 import { landmarkLabelProbeInit, landmarkGameplayAnchor } from './landmark-label-observation';
 import { installCovePilot, driveCove } from './cove-browser-pilot';
@@ -5231,6 +5236,7 @@ test('Plains compact route: all rewards through keyboard input with five-section
   page.on('pageerror', error => errors.push(error.message));
   await page.setViewportSize({ width: 426, height: 300 });
   const targets = PLAINS_LEVEL.entities.filter(e => e.kind === 'gem' || e.kind === 'special').sort((a, b) => a.x - b.x);
+  await installContourArtworkObserver(page);
   await page.addInitScript(installPlainsRewardPilot, targets);
   await observeKitTextClearance(page);
   await openAdventure(page, '/?debug=1');
@@ -5238,9 +5244,50 @@ test('Plains compact route: all rewards through keyboard input with five-section
   expect((await canvas.boundingBox())!.width).toBe(426);
   expect((await canvas.boundingBox())!.height).toBe(240);
   await page.getByRole('button', { name: 'Play PLAINS', exact: true }).click();
-  await page.evaluate(() => { (window as unknown as { plainsPilot: { active: boolean } }).plainsPilot.active = true; });
   const captures = [];
+  const evidence = createContourEvidence(info);
+  const artworkWitnesses: object[] = [];
+  const artworkPose = async (name: string, requirePlaying = true) => {
+    const witness = await page.evaluate(({ top, bands, surfaces }) => {
+      const p = (window as unknown as { contourProbe: Probe }).contourProbe;
+      const status = document.querySelector('#status')?.textContent ?? '';
+      const w = p.snapshot(status);
+      const canvas = document.querySelector<HTMLCanvasElement>('#game')!;
+      const pixels = canvas.getContext('2d')!.getImageData(0, 0, canvas.width, canvas.height).data;
+      const landingBandSamples: { worldX: number; screenX: number; screenY: number; rgba: number[] }[] = [];
+      if (w.ribbon) for (const band of bands) for (let wx = band.x - band.width / 2; wx <= band.x + band.width / 2; wx += 12) {
+        const part = surfaces.find(s => wx >= s.x1 && wx <= s.x2);
+        if (!part) continue;
+        const ground = part.y1 + (part.y2 - part.y1) * (wx - part.x1) / (part.x2 - part.x1);
+        const x = Math.round(wx + w.ribbon.origin.x) + 3, y = Math.round(ground + w.ribbon.origin.y - top) + 3;
+        if (x < 0 || x >= canvas.width || y < 0 || y >= canvas.height) continue;
+        const i = (y * canvas.width + x) * 4;
+        landingBandSamples.push({ worldX: wx, screenX: x, screenY: y, rgba: Array.from(pixels.slice(i, i + 4)) });
+      }
+      const landingBandPixels = landingBandSamples.filter(s => s.rgba.join(',') === '255,218,117,255').length;
+      return { ...w, status, landingBandPixels, landingBandSamples, ribbonSize: p.ribbon ? [p.ribbon.width, p.ribbon.height] : null,
+        grassURL: p.source?.src, soilURL: p.soil?.src };
+    }, { top: contourRibbonTop, bands: PLAINS_LEVEL.landingBands ?? [], surfaces: PLAINS_LEVEL.surfaces });
+    if (requirePlaying) expect(witness.coherent, name).toBe(true);
+    expect(witness.ribbon, name).not.toBeNull();
+    const { cameraX, isStartBoundary } = contourCameraObservation(witness.ribbon!.origin.x);
+    const x = witness.henry ? witness.henry.x + cameraX : null;
+    const feet = witness.henry ? witness.henry.feet + contourRibbonTop - witness.ribbon!.origin.y : null;
+    const gap = x === null || feet === null ? null : feet - surfaceY(PLAINS_LEVEL, x);
+    expect(witness.ribbonSize).toEqual([4300, 114]);
+    expect(witness.grassURL).toMatch(/\/contour-prototype-v1\/grass.png$/);
+    expect(witness.soilURL).toMatch(/\/contour-prototype-v1\/soil.png$/);
+    if (name === 'start-boundary') expect(isStartBoundary).toBe(true);
+    if (name === 'finish-boundary') expect(cameraX + 426).toBe(4300);
+    if (name === 'downhill-runout') expect(witness.landingBandPixels).toBeGreaterThan(0);
+    artworkWitnesses.push({ name, ...witness, worldX: x, feet, feetGap: gap, cameraX,
+      note: requirePlaying ? 'same world frame artwork and Henry anchor; airborne gaps retained' : 'actual finish rendering; separate from coherent Playing witnesses' });
+  };
   try {
+    await twoFrames(page);
+    await artworkPose('start-boundary');
+    await info.attach('plains-rollout-start-boundary', { body: await canvas.screenshot(), contentType: 'image/png' });
+    await page.evaluate(() => { (window as unknown as { plainsPilot: { active: boolean } }).plainsPilot.active = true; });
     for (const name of ['meadow-hop', 'H', 'downhill-takeoff', 'downhill-runout', 'orchard-star', 'I', 'spring-arc', 'spring-landing', 'L1', 'L2', 'final-crest']) {
       await page.waitForFunction(name => {
         const pilot = (window as unknown as { plainsPilot: { frozen: boolean; capture: string } }).plainsPilot;
@@ -5255,12 +5302,22 @@ test('Plains compact route: all rewards through keyboard input with five-section
         captures.push({ scenario: name, viewport, file: path, status: await page.locator('#status').innerText(), canvas: await canvas.boundingBox() });
       }
       await page.setViewportSize({ width: 426, height: 300 }); await twoFrames(page);
+      await artworkPose(name);
       expect((await canvas.boundingBox())!.width).toBe(426);
       await page.evaluate(() => { (window as unknown as { plainsPilot: { frozen: boolean } }).plainsPilot.frozen = false; });
     }
     await expectResultsFirst(page, 'Next trail', 20_000);
     await expect(canvas).toHaveAttribute('data-stars', '3/3');
     await expect(page.locator('#status')).toContainText('Gems 33/33');
+    await artworkPose('finish-boundary', false);
+    await info.attach('plains-rollout-finish-boundary', { body: await canvas.screenshot(), contentType: 'image/png' });
+    const raster = await readContourCache(page);
+    expect(raster.pixelFailures).toEqual([]); expect(raster.failures).toEqual([]);
+    expect(raster.columns).toBe(4300); expect(raster.bodyPixelsCompared).toBeGreaterThan(0);
+    expect(raster.sourceSize).toEqual([80, 16]); expect(raster.soilSize).toEqual([64, 64]);
+    expect(raster.sourceDraws.length).toBeGreaterThanOrEqual(4300); expect(raster.soilDraws.length).toBeGreaterThanOrEqual(4300);
+    await evidence.observe('plains-full-ground-artwork', await retainContourCache(evidence, raster));
+    await evidence.assertIntegrity();
     await page.getByRole('button', { name: 'Build your word', exact: true }).click();
     for (const label of ['Letter H', 'Letter I', 'Letter L 1', 'Letter L 2']) await expect(page.getByRole('button', { name: label, exact: true })).toBeVisible();
     expect(errors).toEqual([]);
@@ -5269,7 +5326,11 @@ test('Plains compact route: all rewards through keyboard input with five-section
     const glyphs = await kitTextProbe(page);
     expect(glyphs.checked.length).toBeGreaterThan(0);
     expect(glyphs.violations).toEqual([]);
-    await writeFile(info.outputPath('plains-input-provenance.json'), JSON.stringify({ kind: 'keyboard input through real app; rendered observations; no scene mutation', sourceRevision: process.env.BROWSER_REPORT_SOURCE_SHA, project: info.project.name, browserVersion: browser.version(), captures, observed, glyphs, errors }, null, 2));
+    const sourceHashes = Object.fromEntries(['src/world/plains-contour.ts', 'src/world/level.ts', 'src/world/renderer.ts', 'tests/browser.spec.ts',
+      'tests/plains-pilot.ts', 'tests/plains-contour-artwork.ts', 'tests/plains-contour-observer.ts', 'tests/plains-contour-evidence.ts',
+      'tests/cove-rollout-evidence.ts', 'public/assets/plains/contour-prototype-v1/grass.png', 'public/assets/plains/contour-prototype-v1/soil.png',
+      'public/assets/plains/manifest.json'].map(path => [path, createHash('sha256').update(readFileSync(new URL('../' + path, import.meta.url))).digest('hex')]));
+    await writeFile(info.outputPath('plains-input-provenance.json'), JSON.stringify({ ...contourProvenance(info.config.metadata), sourceHashes, artworkWitnesses, kind: 'keyboard input through real app; rendered observations; no scene mutation', environmentSourceRevision: process.env.BROWSER_REPORT_SOURCE_SHA, project: info.project.name, browserVersion: browser.version(), captures, observed, glyphs, errors }, null, 2));
   }
 });
 

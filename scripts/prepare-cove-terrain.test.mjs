@@ -172,6 +172,11 @@ test('all approved existing images/provenance and gameplay declarations remain b
     const bytes = readFileSync(new URL(`../${pin.path}`, import.meta.url));
     if (pin.path === 'src/world/sandy-cove.ts') assertApprovedCoveSource(bytes.toString('utf8'), pin.sha256);
     else assert.equal(hash(beforeWaterLanding(pin.path, beforeOwnerHud(pin.path, beforeWholeThree(pin.path, beforePlainsContour(pin.path, bytes))))), pin.sha256, pin.path);
+    if (pin.path === 'src/world/level.ts') for (const [from, to] of [["[150, 'flowers']", "[151, 'flowers']"], ["[2342, 'flowers']", "[2343, 'flowers']"], ["[2342, 'flowers']", "[2342, 'stone']"]]) {
+      const bad = Buffer.from(bytes.toString().replace(from, to));
+      assert.notDeepEqual(bad, bytes);
+      assert.throws(() => beforeWaterLanding(pin.path, beforeOwnerHud(pin.path, beforeWholeThree(pin.path, beforePlainsContour(pin.path, bad)))), { code: 'ERR_ASSERTION' });
+    }
   }
   assertApprovedCoveLevel(currentCoveLevel(), JSON.parse(read('geometry-pin.json')));
   assertApprovedCoveManifest(JSON.parse(readFileSync(new URL('../public/assets/cove/manifest.json', import.meta.url))), pins.coveManifestBefore);
