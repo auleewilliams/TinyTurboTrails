@@ -1,0 +1,83 @@
+{
+  "version": 1,
+  "phase": "preview",
+  "depth": 18,
+  "runs": [
+    {
+      "id": "site-high-deck",
+      "supportIds": [
+        "site-high-deck"
+      ],
+      "x": 260,
+      "y": 320,
+      "width": 210,
+      "image": "site-high-deck.png"
+    },
+    {
+      "id": "site-far-dock",
+      "supportIds": [
+        "site-far-dock"
+      ],
+      "x": 650,
+      "y": 320,
+      "width": 150,
+      "image": "site-far-dock.png"
+    },
+    {
+      "id": "site-first-3",
+      "supportIds": [
+        "site-first-3",
+        "site-crane-catch"
+      ],
+      "x": 160,
+      "y": 380,
+      "width": 1740,
+      "image": "site-first-3.png"
+    },
+    {
+      "id": "site-first-b",
+      "supportIds": [
+        "site-first-b"
+      ],
+      "x": 0,
+      "y": 440,
+      "width": 430,
+      "image": "site-first-b.png"
+    },
+    {
+      "id": "site-first-left-1",
+      "supportIds": [
+        "site-first-left-1",
+        "site-first-1"
+      ],
+      "x": 0,
+      "y": 500,
+      "width": 340,
+      "image": "site-first-left-1.png"
+    },
+    {
+      "id": "site-lower-catch",
+      "supportIds": [
+        "site-lower-catch"
+      ],
+      "x": 0,
+      "y": 620,
+      "width": 840,
+      "image": "site-lower-catch.png"
+    }
+  ],
+  "ferry": {
+    "id": "site-crane-ferry",
+    "image": "ferry.png",
+    "width": 96,
+    "height": 18,
+    "visibleDepth": 15
+  },
+  "ground": {
+    "image": "ground.png",
+    "width": 980,
+    "height": 1064,
+    "from": 0,
+    "to": 980
+  }
+}

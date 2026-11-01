@@ -1,5 +1,6 @@
-import { beforeTimbersPreview } from './timbers-preservation.mjs';
+import { beforePlainsContour } from './plains-contour-preservation.mjs';
 import { beforeWholeThree } from './whole-three-preservation.mjs';
+import { beforeSiteArt } from './site-art-preservation.mjs';
 import { beforeWholeBay2, beforeWholeBay2Level } from './whole-bay2-preservation.mjs';
 import { beforeOwnerHud } from './hud-owner-preservation.mjs';
 import { assertPngPixelContract } from './png-pixel-contract.mjs';
@@ -171,11 +172,11 @@ test('all approved existing images/provenance and gameplay declarations remain b
   for (const pin of pins.files) {
     const bytes = readFileSync(new URL(`../${pin.path}`, import.meta.url));
     if (pin.path === 'src/world/sandy-cove.ts') assertApprovedCoveSource(bytes.toString('utf8'), pin.sha256);
-    else assert.equal(hash(beforeWaterLanding(pin.path, beforeOwnerHud(pin.path, beforeWholeThree(pin.path, beforeTimbersPreview(pin.path, bytes))))), pin.sha256, pin.path);
+    else assert.equal(hash(beforeWaterLanding(pin.path, beforeOwnerHud(pin.path, beforeWholeThree(pin.path, beforePlainsContour(pin.path, beforeSiteArt(pin.path, bytes)))))), pin.sha256, pin.path);
     if (pin.path === 'src/world/level.ts') for (const [from, to] of [["[150, 'flowers']", "[151, 'flowers']"], ["[2342, 'flowers']", "[2343, 'flowers']"], ["[2342, 'flowers']", "[2342, 'stone']"]]) {
       const bad = Buffer.from(bytes.toString().replace(from, to));
       assert.notDeepEqual(bad, bytes);
-      assert.throws(() => beforeWaterLanding(pin.path, beforeOwnerHud(pin.path, beforeWholeThree(pin.path, beforeTimbersPreview(pin.path, bad)))), { code: 'ERR_ASSERTION' });
+      assert.throws(() => beforeWaterLanding(pin.path, beforeOwnerHud(pin.path, beforeWholeThree(pin.path, beforePlainsContour(pin.path, beforeSiteArt(pin.path, bad))))), { code: 'ERR_ASSERTION' });
     }
   }
   assertApprovedCoveLevel(currentCoveLevel(), JSON.parse(read('geometry-pin.json')));

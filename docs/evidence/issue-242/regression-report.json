@@ -1,0 +1,492 @@
+{
+  "config": {
+    "argv": [
+      "/usr/bin/node",
+      "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/node_modules/.bin/playwright",
+      "test",
+      "tests/sunset-scaffolds.spec.ts",
+      "--project=chromium",
+      "--workers=1",
+      "--grep",
+      "Sunset fixed main route has zero BEAM letters at (426|320)px|Sunset optional crane boards|Sunset actual finish retrace",
+      "--output=test-results/issue-242/baseline-existing/artifacts",
+      "--reporter=json"
+    ],
+    "configFile": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/playwright.config.ts",
+    "rootDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/tests",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": true,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "sourceRevision": "885b6c16d5397e061f1ccb40ca326856bc77db88",
+      "nodeVersion": "v22.22.1",
+      "platform": "linux",
+      "arch": "x64",
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/baseline-existing/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "sourceRevision": "885b6c16d5397e061f1ccb40ca326856bc77db88",
+          "nodeVersion": "v22.22.1",
+          "platform": "linux",
+          "arch": "x64",
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.spec.ts"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/baseline-existing/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "sourceRevision": "885b6c16d5397e061f1ccb40ca326856bc77db88",
+          "nodeVersion": "v22.22.1",
+          "platform": "linux",
+          "arch": "x64",
+          "actualWorkers": 1
+        },
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.spec.ts"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/baseline-existing/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "sourceRevision": "885b6c16d5397e061f1ccb40ca326856bc77db88",
+          "nodeVersion": "v22.22.1",
+          "platform": "linux",
+          "arch": "x64",
+          "actualWorkers": 1
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.spec.ts"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/baseline-existing/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "sourceRevision": "885b6c16d5397e061f1ccb40ca326856bc77db88",
+          "nodeVersion": "v22.22.1",
+          "platform": "linux",
+          "arch": "x64",
+          "actualWorkers": 1
+        },
+        "name": "chromium",
+        "testDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/tests",
+        "snapshotDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/tests",
+        "testIgnore": [],
+        "testMatch": "**/*.spec.ts",
+        "timeout": 30000,
+        "use": {
+          "trace": "retain-on-failure",
+          "screenshot": "only-on-failure",
+          "baseURL": "http://127.0.0.1:4242",
+          "viewport": {
+            "width": 1366,
+            "height": 768
+          },
+          "browserName": "chromium"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "chromium"
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "json"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.1",
+    "workers": 1,
+    "webServer": {
+      "command": "npm run preview -- --port 4242 --strictPort",
+      "url": "http://127.0.0.1:4242",
+      "reuseExistingServer": false
+    }
+  },
+  "suites": [
+    {
+      "title": "sunset-scaffolds.spec.ts",
+      "file": "sunset-scaffolds.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "Sunset fixed main route has zero BEAM letters at 426px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 29517,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:32:23.013Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "entrance",
+                      "contentType": "image/png",
+                      "path": "docs/evidence/issue-242/regression-evidence/60ea79a6d9c626173aa4be9aea4fc4e55dbb22f3c13e3228b389a2440eafb31a.png",
+                      "sha256": "60ea79a6d9c626173aa4be9aea4fc4e55dbb22f3c13e3228b389a2440eafb31a",
+                      "byteLength": 116266
+                    },
+                    {
+                      "name": "first-high-deck-docks",
+                      "contentType": "image/png",
+                      "path": "docs/evidence/issue-242/regression-evidence/fc002d38f89ddf0de28d6595a659ca091303cf7b0b1b2740c2b03d0247ae8ed7.png",
+                      "sha256": "fc002d38f89ddf0de28d6595a659ca091303cf7b0b1b2740c2b03d0247ae8ed7",
+                      "byteLength": 127029
+                    },
+                    {
+                      "name": "frame-descent-CP2",
+                      "contentType": "image/png",
+                      "path": "docs/evidence/issue-242/regression-evidence/b8a0692b38238e2ec0bccac1e994303d0ff982eb9527fb664a07d0f12ef20b82.png",
+                      "sha256": "b8a0692b38238e2ec0bccac1e994303d0ff982eb9527fb664a07d0f12ef20b82",
+                      "byteLength": 128090
+                    },
+                    {
+                      "name": "lower-yard",
+                      "contentType": "image/png",
+                      "path": "docs/evidence/issue-242/regression-evidence/a47061edac71d7cea347cba1a9deff1a0965975f7dcccc7c0311de03ef7a983b.png",
+                      "sha256": "a47061edac71d7cea347cba1a9deff1a0965975f7dcccc7c0311de03ef7a983b",
+                      "byteLength": 123078
+                    },
+                    {
+                      "name": "broad-rest-CP4",
+                      "contentType": "image/png",
+                      "path": "docs/evidence/issue-242/regression-evidence/61abb0236e2fad23c131f1ba31df8d7e3055cb91540e45e317a3e207fae1d9c8.png",
+                      "sha256": "61abb0236e2fad23c131f1ba31df8d7e3055cb91540e45e317a3e207fae1d9c8",
+                      "byteLength": 124776
+                    },
+                    {
+                      "name": "highest-roof",
+                      "contentType": "image/png",
+                      "path": "docs/evidence/issue-242/regression-evidence/49639f7d0e7f7188581d5480832f1fbe39495b429b35ca15017c6583a137dcc8.png",
+                      "sha256": "49639f7d0e7f7188581d5480832f1fbe39495b429b35ca15017c6583a137dcc8",
+                      "byteLength": 127304
+                    },
+                    {
+                      "name": "input-provenance",
+                      "contentType": "application/json",
+                      "path": "docs/evidence/issue-242/regression-evidence/76704f8f4e8ebfe7c44d1e3febafb56ae7935c2aab7451972d2d0f8e1f4a1b98.json",
+                      "sha256": "76704f8f4e8ebfe7c44d1e3febafb56ae7935c2aab7451972d2d0f8e1f4a1b98",
+                      "byteLength": 6887
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "707918baf227603e52bc-b2d9e7c9e3b53b2796a8",
+          "file": "sunset-scaffolds.spec.ts",
+          "line": 7,
+          "column": 3
+        },
+        {
+          "title": "Sunset fixed main route has zero BEAM letters at 320px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 90000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 28943,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:32:52.739Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "entrance",
+                      "contentType": "image/png",
+                      "path": "docs/evidence/issue-242/regression-evidence/43ec727bec696f346cb9ba5cef1e04319bb35337109aa4018058e77906f574c3.png",
+                      "sha256": "43ec727bec696f346cb9ba5cef1e04319bb35337109aa4018058e77906f574c3",
+                      "byteLength": 71132
+                    },
+                    {
+                      "name": "first-high-deck-docks",
+                      "contentType": "image/png",
+                      "path": "docs/evidence/issue-242/regression-evidence/186208a38c7dc0db138119f7b1605ef697559cbd54c9af05df43f7ef54356eba.png",
+                      "sha256": "186208a38c7dc0db138119f7b1605ef697559cbd54c9af05df43f7ef54356eba",
+                      "byteLength": 76823
+                    },
+                    {
+                      "name": "frame-descent-CP2",
+                      "contentType": "image/png",
+                      "path": "docs/evidence/issue-242/regression-evidence/daa40040bf9ee50e3bfc045c328bdd936b7ec429542565dbb2516ce12e370f99.png",
+                      "sha256": "daa40040bf9ee50e3bfc045c328bdd936b7ec429542565dbb2516ce12e370f99",
+                      "byteLength": 77042
+                    },
+                    {
+                      "name": "lower-yard",
+                      "contentType": "image/png",
+                      "path": "docs/evidence/issue-242/regression-evidence/5ae72afee1a12423670cf431f3c8b6b33c75fdf5b464f3bec2e17444dfc6b3f7.png",
+                      "sha256": "5ae72afee1a12423670cf431f3c8b6b33c75fdf5b464f3bec2e17444dfc6b3f7",
+                      "byteLength": 75420
+                    },
+                    {
+                      "name": "broad-rest-CP4",
+                      "contentType": "image/png",
+                      "path": "docs/evidence/issue-242/regression-evidence/b1f958df9566cc46842375270311efd0b5eb6f45e87e522fc23e79b97fe0903d.png",
+                      "sha256": "b1f958df9566cc46842375270311efd0b5eb6f45e87e522fc23e79b97fe0903d",
+                      "byteLength": 75275
+                    },
+                    {
+                      "name": "highest-roof",
+                      "contentType": "image/png",
+                      "path": "docs/evidence/issue-242/regression-evidence/11df943b89600337774488ac59892b45fb5b58ca2e2f320787aaa264300d9c82.png",
+                      "sha256": "11df943b89600337774488ac59892b45fb5b58ca2e2f320787aaa264300d9c82",
+                      "byteLength": 77574
+                    },
+                    {
+                      "name": "input-provenance",
+                      "contentType": "application/json",
+                      "path": "docs/evidence/issue-242/regression-evidence/1d6b2fceacfd11017450780f0289252267e9675bb894cbb219ee986310325f67.json",
+                      "sha256": "1d6b2fceacfd11017450780f0289252267e9675bb894cbb219ee986310325f67",
+                      "byteLength": 6887
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "707918baf227603e52bc-d74dbaf6cc9e44a30e90",
+          "file": "sunset-scaffolds.spec.ts",
+          "line": 7,
+          "column": 3
+        },
+        {
+          "title": "Sunset actual finish retrace recovers all missed BEAM, reactivates checkpoints and returns",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 84261,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:33:21.712Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "return-yard",
+                      "contentType": "image/png",
+                      "path": "docs/evidence/issue-242/regression-evidence/a7ba4192de6f7b7d5aa3dee07b4a2cfd706bee3e42601fae3a7cb9ce4ce3a7a5.png",
+                      "sha256": "a7ba4192de6f7b7d5aa3dee07b4a2cfd706bee3e42601fae3a7cb9ce4ce3a7a5",
+                      "byteLength": 122427
+                    },
+                    {
+                      "name": "fixed-A-dock",
+                      "contentType": "image/png",
+                      "path": "docs/evidence/issue-242/regression-evidence/f28e419c38fad01876b0617e2f755bb74547e705041efe516084dffc9879a626.png",
+                      "sha256": "f28e419c38fad01876b0617e2f755bb74547e705041efe516084dffc9879a626",
+                      "byteLength": 124791
+                    },
+                    {
+                      "name": "B-return-landing",
+                      "contentType": "image/png",
+                      "path": "docs/evidence/issue-242/regression-evidence/5720f8f1f0b50a79d0dabc55c26d5c98d2020341c1f70f2ee7e7026d3801eaad.png",
+                      "sha256": "5720f8f1f0b50a79d0dabc55c26d5c98d2020341c1f70f2ee7e7026d3801eaad",
+                      "byteLength": 123932
+                    },
+                    {
+                      "name": "all-missing-input-provenance",
+                      "contentType": "application/json",
+                      "path": "docs/evidence/issue-242/regression-evidence/298ea3ecf92aa42723d99a63c818ca14f0c0bfb7fddf1ffa6d18b93df01bf9f1.json",
+                      "sha256": "298ea3ecf92aa42723d99a63c818ca14f0c0bfb7fddf1ffa6d18b93df01bf9f1",
+                      "byteLength": 17438
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "707918baf227603e52bc-cdb5ff01ea19c7807d32",
+          "file": "sunset-scaffolds.spec.ts",
+          "line": 32,
+          "column": 1
+        },
+        {
+          "title": "Sunset optional crane boards, carries and disembarks by walking in both directions",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 20909,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T19:34:46.003Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "near-dock-and-lower-catch",
+                      "contentType": "image/png",
+                      "path": "docs/evidence/issue-242/regression-evidence/991cdb7e3495db2ef04db2531df93309b66295fde7824c679f987683a6177b58.png",
+                      "sha256": "991cdb7e3495db2ef04db2531df93309b66295fde7824c679f987683a6177b58",
+                      "byteLength": 127065
+                    },
+                    {
+                      "name": "far-fixed-dock-A",
+                      "contentType": "image/png",
+                      "path": "docs/evidence/issue-242/regression-evidence/8f95bd3d07db9677c23d6d7929f71c6a53cbc8038fc75d7eee8a0f5ee81e85a5.png",
+                      "sha256": "8f95bd3d07db9677c23d6d7929f71c6a53cbc8038fc75d7eee8a0f5ee81e85a5",
+                      "byteLength": 123663
+                    },
+                    {
+                      "name": "far-dock-coordinate-diagnostic",
+                      "contentType": "application/json",
+                      "path": "docs/evidence/issue-242/regression-evidence/24f302ff4686590058510f932f72de86b6cc852365346565622245f612ce56c4.json",
+                      "sha256": "24f302ff4686590058510f932f72de86b6cc852365346565622245f612ce56c4",
+                      "byteLength": 204
+                    },
+                    {
+                      "name": "returned-near-dock",
+                      "contentType": "image/png",
+                      "path": "docs/evidence/issue-242/regression-evidence/90d9521a1ac43c235336e1a5b001f697be5a7ff24f53a29374f5e85b16006a10.png",
+                      "sha256": "90d9521a1ac43c235336e1a5b001f697be5a7ff24f53a29374f5e85b16006a10",
+                      "byteLength": 123616
+                    },
+                    {
+                      "name": "absent-carriage-catch",
+                      "contentType": "image/png",
+                      "path": "docs/evidence/issue-242/regression-evidence/d670a3a3552098cd99e66f1de7ba8983ec21c8341b8d00d9c90564f4ef0cf3da.png",
+                      "sha256": "d670a3a3552098cd99e66f1de7ba8983ec21c8341b8d00d9c90564f4ef0cf3da",
+                      "byteLength": 123621
+                    },
+                    {
+                      "name": "fixed-return-from-catch",
+                      "contentType": "image/png",
+                      "path": "docs/evidence/issue-242/regression-evidence/ecb2c6ca4550a6e62def8597384e0ff691b36adbfae4935d4c5a16cfea92dad4.png",
+                      "sha256": "ecb2c6ca4550a6e62def8597384e0ff691b36adbfae4935d4c5a16cfea92dad4",
+                      "byteLength": 123013
+                    },
+                    {
+                      "name": "crane-input-provenance",
+                      "contentType": "application/json",
+                      "path": "docs/evidence/issue-242/regression-evidence/6d20bb9a75b92cf73f9f28c5cae941fd8e53abbb2ba4000eb858a6361506c97c.json",
+                      "sha256": "6d20bb9a75b92cf73f9f28c5cae941fd8e53abbb2ba4000eb858a6361506c97c",
+                      "byteLength": 228
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "707918baf227603e52bc-38ffa680f890f1e07667",
+          "file": "sunset-scaffolds.spec.ts",
+          "line": 99,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-01T19:32:17.293Z",
+    "duration": 169807.68899999998,
+    "expected": 4,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "retention": {
+    "originalReport": "test-results/issue-242/baseline-existing/report.json",
+    "originalSha256": "5175b6ced48eaeccb527d32cba63350ab75deb82fb2293a001b5ed18e1a2d229",
+    "note": "Original report preserved unchanged in test-results. This separate copy extracts inline attachments to content-addressed files; test identities and outcomes are unchanged."
+  }
+}

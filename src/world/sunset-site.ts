@@ -87,6 +87,13 @@ const entities: WorldEntity[] = [
   })),
 ];
 
+// Owner-approved +2px gem offsets only where the representative steel preview
+// introduces an18px overhead body. The other approved offsets await rollout.
+const previewGemOffsets = new Set(['site-gem-001', 'site-gem-002', 'site-gem-003', 'site-gem-004', 'site-gem-005',
+  'site-gem-006', 'site-gem-007', 'site-gem-008', 'site-gem-010', 'site-gem-014', 'site-gem-015', 'site-gem-019',
+  'site-gem-022', 'site-gem-023']);
+for (const entity of entities) if (previewGemOffsets.has(entity.id)) entity.y += 2;
+
 export const SUNSET_SITE: LevelData = {
   id: 'sunset', name: 'SUNSET SITE', atlas: 'site',
   theme: {

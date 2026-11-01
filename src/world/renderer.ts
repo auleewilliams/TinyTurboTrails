@@ -9,8 +9,7 @@ import type { WorldAsset, WorldAssets } from './assets';
 import { drawSceneryBackground, drawScenerySprite, foregroundPlacements, sceneryForDecoration } from './scenery';
 import { drawSurfaceMaterials } from './surface-materials';
 import { drawCoveGround, drawCovePlatform } from './cove-terrain';
-import { drawTimbersGround, drawTimbersPlatform } from './timbers-terrain';
-import { drawTimbersTree } from './timbers-tree';
+import { drawSiteGround, drawSitePlatform } from './site-terrain';
 import type { SlimeAccessory } from './slimes';
 
 /** Scenes without run state draw the whole entity list; a run hides what it has consumed. */
@@ -60,12 +59,16 @@ export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, le
     ctx.fill();
     ctx.save(); ctx.clip();
     if (level.id === 'cove' && assets.coveTerrain) drawCoveGround(ctx, assets.coveTerrain, level, offset, first.x1, last.x2);
-    else if (level.id === 'timbers' && assets.timbersTerrain) drawTimbersGround(ctx, assets.timbersTerrain, level, offset);
     else drawTerrainMaterial(ctx, level, offset, assets, first.x1, last.x2);
+    if (level.id === 'sunset' && assets.siteTerrain) drawSiteGround(ctx, assets.siteTerrain, offset);
     ctx.restore();
   }
-  if (level.theme.material === 'wood' && !(level.id === 'timbers' && assets.timbersTerrain)) drawTerrainTiles(ctx, assets, level, offset);
-  if (!(level.id === 'cove' && assets.coveTerrain) && !(level.id === 'timbers' && assets.timbersTerrain)) drawTerrainEdge(ctx, level, offset, assets.plainsContour ? plainsContourRange(level) : undefined);
+  if (level.theme.material === 'wood') drawTerrainTiles(ctx, assets, level, offset);
+  if (level.id === 'sunset' && assets.siteTerrain) {
+    ctx.save();
+    ctx.beginPath(); ctx.rect(assets.siteTerrain.manifest.ground.to - offset.x, -10000, 10000, 20000); ctx.clip();
+    drawTerrainEdge(ctx, level, offset); ctx.restore();
+  } else if (!(level.id === 'cove' && assets.coveTerrain)) drawTerrainEdge(ctx, level, offset, assets.plainsContour ? plainsContourRange(level) : undefined);
   drawPlainsContourGround(ctx, assets, level, offset);
   drawSurfaceMaterials(ctx, level, offset, assets.coveMaterials, runSeconds, reducedMotion);
   for (const surface of level.surfaces) drawSurfaceGrip(ctx, surface, offset);
@@ -86,8 +89,6 @@ export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, le
       drawSpecial(ctx, position.x - offset.x, position.y - offset.y);
     } else if (entity.kind === 'crumbling-ledge') {
       drawCrumblingLedge(ctx, assets, entity, position.x - offset.x, position.y - offset.y, position.warningProgress ?? 0);
-    } else if (level.id === 'timbers' && entity.kind === 'decoration' && entity.asset === 'bush' && assets.scenery) {
-      drawScenerySprite(ctx, assets.scenery, 'bush-round', position.x - offset.x, position.y - offset.y);
     } else if (scenery && sceneryForDecoration(entity)) {
       drawScenerySprite(ctx, scenery, sceneryForDecoration(entity)!, position.x - offset.x, position.y - offset.y);
     } else {
@@ -264,13 +265,10 @@ function drawSun(ctx: CanvasRenderingContext2D, sun: LevelSun, cameraX: number):
 export function drawPlatforms(ctx: CanvasRenderingContext2D, level: LevelData, offset: { x: number; y: number },
   platforms: readonly PlatformBody[], assets?: WorldAssets): void {
   for (const platform of level.platforms ?? []) {
-    // A fixed Timbers bough has no travel path; overlapping endpoints made a white T.
-    if (level.id !== 'timbers' || platform.from.x !== platform.to.x || platform.from.y !== platform.to.y) {
-      drawPlatformPath(ctx, platform, offset);
-    }
+    drawPlatformPath(ctx, platform, offset);
     const body = platforms.find((candidate) => candidate.id === platform.id);
     if (!body) continue;
-    if (level.id === 'timbers' && assets?.timbersTerrain && drawTimbersPlatform(ctx, assets.timbersTerrain, body, offset)) continue;
+    if (level.id === 'sunset' && assets?.siteTerrain && drawSitePlatform(ctx, assets.siteTerrain, level, body, offset)) continue;
     if (level.id === 'cove' && platform.from.x === platform.to.x && platform.from.y === platform.to.y) {
       if (assets?.coveTerrain) {
         drawCovePlatform(ctx, assets.coveTerrain, level, body, offset);
@@ -363,7 +361,6 @@ export function drawSiteFrame(ctx: CanvasRenderingContext2D, assets: WorldAssets
 
 /** The nonblocking trunk stays behind all actual top faces and collectibles. */
 export function drawTimberTrunk(ctx: CanvasRenderingContext2D, assets: WorldAssets, offset: { x: number; y: number }): void {
-  if (assets.timbersTree) { drawTimbersTree(ctx, assets.timbersTree, offset); return; }
   const left = 345 - offset.x, right = 475 - offset.x;
   if (right < 0 || left > 426) return;
   ctx.save();
@@ -394,6 +391,12 @@ export function drawTimberTrunk(ctx: CanvasRenderingContext2D, assets: WorldAsse
     ctx.lineTo(outer - offset.x, y - 4 - offset.y);
     ctx.lineTo(outer - offset.x, y + 6 - offset.y);
     ctx.lineTo(410 - offset.x, y + 43 - offset.y); ctx.closePath(); ctx.fill();
+  }
+  for (const [x, y, scale] of [[115, 265, 2.4], [650, 320, 2.6], [130, 390, 2.2], [670, 460, 2.3], [95, 565, 1.8]]) {
+    drawAsset(ctx, assets, 'tree', x - offset.x, y - offset.y, scale);
+  }
+  for (const [x, y] of [[40, 580], [770, 620], [60, 740], [785, 795], [70, 930], [780, 1030]]) {
+    drawAsset(ctx, assets, 'bush', x - offset.x, y - offset.y, 2.2);
   }
   ctx.restore();
 }

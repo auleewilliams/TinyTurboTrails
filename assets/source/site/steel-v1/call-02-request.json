@@ -1,0 +1,10 @@
+{
+  "tool": "image_gen.imagegen",
+  "arguments": {
+    "prompt": "Use case: stylized-concept.\nAsset type: ONE complete steel moving-platform carriage sprite for a 2D side-view construction game, genuine transparent RGBA.\nPrimary request: a substantial short, wide rectangular steel I-girder carriage. Use a broad ochre-gold top steel plate, cool dark blue-grey inset web, muted russet wear, a solid lower steel flange, intact vertical end plates, and very sparse round bolt heads. Chunky hand-painted illustrated game artwork, broad readable planes with restrained texture. No timber.\nComposition and fit: strict side elevation with parallel horizontal top and bottom edges, no perspective convergence. The full carriage silhouette should be approximately SIX AND A HALF TIMES as wide as it is deep, so it can be uniformly reduced to a 96-pixel-wide platform with no more than 18 pixels of depth. Show a continuous straight standing top all the way to both end plates. End plates are contained within that silhouette, not protruding above it. Both ends and the entire underside must be visible, with ample transparent outer padding. Centre the single object and use most of the image width. Its design must read as manufactured steel and remain substantial at small game size.\nStyle: warm sunset glints along the top flange, dark restrained illustrated outline, a few broad steel panels and large readable end fasteners. Keep the centre quiet and weighty.\nAvoid: wood, stone, scenery, ground, rails, ropes, crane hooks, cables, wheels, hanging braces, shadows outside the object, floating chips, text, labels, grids, painted checkerboard, additional sprites or mockups. Background must have actual transparency, with truly empty padding; no faint residual alpha speckles. Do not squeeze or crop the silhouette.",
+    "transparent_background": true
+  },
+  "returnedSource": "call-02-original.png",
+  "provider": null,
+  "model": null
+}
