@@ -1,0 +1,699 @@
+{
+  "status": "Adventure preview · Playing · Letter bag: 0/4 · X 338 Y 746 V 0 F 1 · Escape to pause · M to mute",
+  "native": [
+    426,
+    240
+  ],
+  "css": {
+    "width": 426,
+    "height": 240
+  },
+  "viewport": [
+    426,
+    300
+  ],
+  "probe": {
+    "mapTreeRenders": 1,
+    "draws": [
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/tree-v1/tree.png",
+        "x": -101.0444444444446,
+        "y": -502,
+        "width": 576,
+        "height": 960
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/ground.png",
+        "x": -93.0444444444446,
+        "y": 438,
+        "width": 780,
+        "height": 100
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-200.png",
+        "x": 106.9555555555554,
+        "y": 378,
+        "width": 200,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-200.png",
+        "x": 226.9555555555554,
+        "y": 318,
+        "width": 200,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-170.png",
+        "x": -73.0444444444446,
+        "y": 318,
+        "width": 170,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-450.png",
+        "x": 36.95555555555541,
+        "y": 258,
+        "width": 450,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-220.png",
+        "x": 46.95555555555541,
+        "y": 198,
+        "width": 220,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-170.png",
+        "x": 336.9555555555554,
+        "y": 198,
+        "width": 170,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-210.png",
+        "x": 126.9555555555554,
+        "y": 138,
+        "width": 210,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-200.png",
+        "x": 286.9555555555554,
+        "y": 138,
+        "width": 200,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-180.png",
+        "x": 226.9555555555554,
+        "y": 78,
+        "width": 180,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-580.png",
+        "x": -93.0444444444446,
+        "y": 18,
+        "width": 580,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-150.png",
+        "x": -93.0444444444446,
+        "y": -42,
+        "width": 150,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-220.png",
+        "x": 96.9555555555554,
+        "y": -42,
+        "width": 220,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-240.png",
+        "x": 186.9555555555554,
+        "y": -102,
+        "width": 240,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-160.png",
+        "x": -93.0444444444446,
+        "y": -132,
+        "width": 160,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-150.png",
+        "x": -3.0444444444445935,
+        "y": -102,
+        "width": 150,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-220.png",
+        "x": 106.9555555555554,
+        "y": -162,
+        "width": 220,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-440.png",
+        "x": 46.95555555555541,
+        "y": -222,
+        "width": 440,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-220.png",
+        "x": 196.9555555555554,
+        "y": -282,
+        "width": 220,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-210.png",
+        "x": -93.0444444444446,
+        "y": -282,
+        "width": 210,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-220.png",
+        "x": 96.9555555555554,
+        "y": -342,
+        "width": 220,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-140.png",
+        "x": -73.0444444444446,
+        "y": -342,
+        "width": 140,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-180.png",
+        "x": 216.9555555555554,
+        "y": -402,
+        "width": 180,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-340.png",
+        "x": 116.9555555555554,
+        "y": -462,
+        "width": 340,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-170.png",
+        "x": 436.9555555555554,
+        "y": -402,
+        "width": 170,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-140.png",
+        "x": 386.9555555555554,
+        "y": -342,
+        "width": 140,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-160.png",
+        "x": 446.9555555555554,
+        "y": -282,
+        "width": 160,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-160.png",
+        "x": 446.9555555555554,
+        "y": -162,
+        "width": 160,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-140.png",
+        "x": 386.9555555555554,
+        "y": -102,
+        "width": 140,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-160.png",
+        "x": 446.9555555555554,
+        "y": -42,
+        "width": 160,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-160.png",
+        "x": 446.9555555555554,
+        "y": 78,
+        "width": 160,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-140.png",
+        "x": 386.9555555555554,
+        "y": 138,
+        "width": 140,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-160.png",
+        "x": 446.9555555555554,
+        "y": 198,
+        "width": 160,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-120.png",
+        "x": 486.9555555555554,
+        "y": 318,
+        "width": 120,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-140.png",
+        "x": 386.9555555555554,
+        "y": 378,
+        "width": 140,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-120.png",
+        "x": 566.9555555555554,
+        "y": -342,
+        "width": 120,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-120.png",
+        "x": 566.9555555555554,
+        "y": -222,
+        "width": 120,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-120.png",
+        "x": 566.9555555555554,
+        "y": -102,
+        "width": 120,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-120.png",
+        "x": 566.9555555555554,
+        "y": 18,
+        "width": 120,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-120.png",
+        "x": 566.9555555555554,
+        "y": 138,
+        "width": 120,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-120.png",
+        "x": 566.9555555555554,
+        "y": 258,
+        "width": 120,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-120.png",
+        "x": 566.9555555555554,
+        "y": 378,
+        "width": 120,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-250.png",
+        "x": -93.0444444444446,
+        "y": 78,
+        "width": 250,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-210.png",
+        "x": -93.0444444444446,
+        "y": 138,
+        "width": 210,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-210.png",
+        "x": -93.0444444444446,
+        "y": 198,
+        "width": 210,
+        "height": 17
+      }
+    ],
+    "actor": {
+      "feet": {
+        "x": 204.98888888888882,
+        "y": 138
+      },
+      "bounds": {
+        "left": 194.98888888888882,
+        "right": 214.98888888888882,
+        "top": 98,
+        "bottom": 138
+      }
+    },
+    "frameDraws": [
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/tree-v1/tree.png",
+        "x": -101.0444444444446,
+        "y": -502,
+        "width": 576,
+        "height": 960
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/ground.png",
+        "x": -93.0444444444446,
+        "y": 438,
+        "width": 780,
+        "height": 100
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-200.png",
+        "x": 106.9555555555554,
+        "y": 378,
+        "width": 200,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-200.png",
+        "x": 226.9555555555554,
+        "y": 318,
+        "width": 200,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-170.png",
+        "x": -73.0444444444446,
+        "y": 318,
+        "width": 170,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-450.png",
+        "x": 36.95555555555541,
+        "y": 258,
+        "width": 450,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-220.png",
+        "x": 46.95555555555541,
+        "y": 198,
+        "width": 220,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-170.png",
+        "x": 336.9555555555554,
+        "y": 198,
+        "width": 170,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-210.png",
+        "x": 126.9555555555554,
+        "y": 138,
+        "width": 210,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-200.png",
+        "x": 286.9555555555554,
+        "y": 138,
+        "width": 200,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-180.png",
+        "x": 226.9555555555554,
+        "y": 78,
+        "width": 180,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-580.png",
+        "x": -93.0444444444446,
+        "y": 18,
+        "width": 580,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-150.png",
+        "x": -93.0444444444446,
+        "y": -42,
+        "width": 150,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-220.png",
+        "x": 96.9555555555554,
+        "y": -42,
+        "width": 220,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-240.png",
+        "x": 186.9555555555554,
+        "y": -102,
+        "width": 240,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-160.png",
+        "x": -93.0444444444446,
+        "y": -132,
+        "width": 160,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-150.png",
+        "x": -3.0444444444445935,
+        "y": -102,
+        "width": 150,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-220.png",
+        "x": 106.9555555555554,
+        "y": -162,
+        "width": 220,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-440.png",
+        "x": 46.95555555555541,
+        "y": -222,
+        "width": 440,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-220.png",
+        "x": 196.9555555555554,
+        "y": -282,
+        "width": 220,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-210.png",
+        "x": -93.0444444444446,
+        "y": -282,
+        "width": 210,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-220.png",
+        "x": 96.9555555555554,
+        "y": -342,
+        "width": 220,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-140.png",
+        "x": -73.0444444444446,
+        "y": -342,
+        "width": 140,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-180.png",
+        "x": 216.9555555555554,
+        "y": -402,
+        "width": 180,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-340.png",
+        "x": 116.9555555555554,
+        "y": -462,
+        "width": 340,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-170.png",
+        "x": 436.9555555555554,
+        "y": -402,
+        "width": 170,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-140.png",
+        "x": 386.9555555555554,
+        "y": -342,
+        "width": 140,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-160.png",
+        "x": 446.9555555555554,
+        "y": -282,
+        "width": 160,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-160.png",
+        "x": 446.9555555555554,
+        "y": -162,
+        "width": 160,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-140.png",
+        "x": 386.9555555555554,
+        "y": -102,
+        "width": 140,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-160.png",
+        "x": 446.9555555555554,
+        "y": -42,
+        "width": 160,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-160.png",
+        "x": 446.9555555555554,
+        "y": 78,
+        "width": 160,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-140.png",
+        "x": 386.9555555555554,
+        "y": 138,
+        "width": 140,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-160.png",
+        "x": 446.9555555555554,
+        "y": 198,
+        "width": 160,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-120.png",
+        "x": 486.9555555555554,
+        "y": 318,
+        "width": 120,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-140.png",
+        "x": 386.9555555555554,
+        "y": 378,
+        "width": 140,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-120.png",
+        "x": 566.9555555555554,
+        "y": -342,
+        "width": 120,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-120.png",
+        "x": 566.9555555555554,
+        "y": -222,
+        "width": 120,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-120.png",
+        "x": 566.9555555555554,
+        "y": -102,
+        "width": 120,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-120.png",
+        "x": 566.9555555555554,
+        "y": 18,
+        "width": 120,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-120.png",
+        "x": 566.9555555555554,
+        "y": 138,
+        "width": 120,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-120.png",
+        "x": 566.9555555555554,
+        "y": 258,
+        "width": 120,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-120.png",
+        "x": 566.9555555555554,
+        "y": 378,
+        "width": 120,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-250.png",
+        "x": -93.0444444444446,
+        "y": 78,
+        "width": 250,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-210.png",
+        "x": -93.0444444444446,
+        "y": 138,
+        "width": 210,
+        "height": 17
+      },
+      {
+        "source": "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-210.png",
+        "x": -93.0444444444446,
+        "y": 198,
+        "width": 210,
+        "height": 17
+      }
+    ],
+    "seen": [
+      "http://127.0.0.1:4173/assets/timbers/tree-v1/tree.png",
+      "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/ground.png",
+      "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-200.png",
+      "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-170.png",
+      "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-450.png",
+      "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-220.png",
+      "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-210.png",
+      "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-180.png",
+      "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-580.png",
+      "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-150.png",
+      "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-240.png",
+      "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-160.png",
+      "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-440.png",
+      "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-140.png",
+      "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-340.png",
+      "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-120.png",
+      "http://127.0.0.1:4173/assets/timbers/terrain-kit-v1/branch-250.png"
+    ]
+  },
+  "nativeSha256": "7ef0c8e89cf88857f766220bdc16d667822659bb0d695ca0c60577520b82530c",
+  "cssSha256": "e5f789c6bc91ed704b458a1bef0566de7a31fea044ac8bd7f20202ba4723fa12"
+}

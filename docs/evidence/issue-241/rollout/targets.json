@@ -1,0 +1,3510 @@
+{
+  "acceptedRevision": "abe92dd900c45c883f2e984812058991a46507b9",
+  "acceptance": "It's looking good, keep going!",
+  "ground": {
+    "state": "accepted, unchanged",
+    "geometry": {
+      "id": "ground-0",
+      "x": 40,
+      "right": 820,
+      "y": 1080,
+      "width": 780,
+      "visibleDepth": 100,
+      "proposal": "Replace wood atlas tiles and shared fill with a Timbers root-and-bark ground kit; unchanged contour."
+    }
+  },
+  "supports": [
+    {
+      "id": "timber-low-1",
+      "from": {
+        "x": 240,
+        "y": 1020
+      },
+      "to": {
+        "x": 240,
+        "y": 1020
+      },
+      "seconds": 1,
+      "width": 200,
+      "family": "ordinary modular branch",
+      "previouslyAccepted": false,
+      "art": {
+        "image": "branch-200.png",
+        "width": 200,
+        "height": 17
+      },
+      "state": "verified",
+      "sourceAndEnvelopeCheck": "passed",
+      "nativeEvidence": {
+        "meaning": "Correct native image, coordinates and dimensions asserted for all 44 draws in every capture. This support also intersects the captured viewport in each engine/width cohort. Exact whole-image pixels are verified separately by preparation tests.",
+        "witnesses": [
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-firefox",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-webkit",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-firefox",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-webkit",
+            "kind": "left-journey.json"
+          }
+        ]
+      }
+    },
+    {
+      "id": "timber-low-2",
+      "from": {
+        "x": 360,
+        "y": 960
+      },
+      "to": {
+        "x": 360,
+        "y": 960
+      },
+      "seconds": 1,
+      "width": 200,
+      "family": "ordinary modular branch",
+      "previouslyAccepted": false,
+      "art": {
+        "image": "branch-200.png",
+        "width": 200,
+        "height": 17
+      },
+      "state": "verified",
+      "sourceAndEnvelopeCheck": "passed",
+      "nativeEvidence": {
+        "meaning": "Correct native image, coordinates and dimensions asserted for all 44 draws in every capture. This support also intersects the captured viewport in each engine/width cohort. Exact whole-image pixels are verified separately by preparation tests.",
+        "witnesses": [
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-firefox",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-webkit",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-firefox",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-webkit",
+            "kind": "left-journey.json"
+          }
+        ]
+      }
+    },
+    {
+      "id": "timber-star-1",
+      "from": {
+        "x": 60,
+        "y": 960
+      },
+      "to": {
+        "x": 60,
+        "y": 960
+      },
+      "seconds": 1,
+      "width": 170,
+      "family": "ordinary modular branch",
+      "previouslyAccepted": false,
+      "art": {
+        "image": "branch-170.png",
+        "width": 170,
+        "height": 17
+      },
+      "state": "verified",
+      "sourceAndEnvelopeCheck": "passed",
+      "nativeEvidence": {
+        "meaning": "Correct native image, coordinates and dimensions asserted for all 44 draws in every capture. This support also intersects the captured viewport in each engine/width cohort. Exact whole-image pixels are verified separately by preparation tests.",
+        "witnesses": [
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-firefox",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-webkit",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-firefox",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-webkit",
+            "kind": "left-journey.json"
+          }
+        ]
+      }
+    },
+    {
+      "id": "timber-fork",
+      "from": {
+        "x": 170,
+        "y": 900
+      },
+      "to": {
+        "x": 170,
+        "y": 900
+      },
+      "seconds": 1,
+      "width": 450,
+      "family": "broad modular bough",
+      "previouslyAccepted": false,
+      "art": {
+        "image": "branch-450.png",
+        "width": 450,
+        "height": 17
+      },
+      "state": "verified",
+      "sourceAndEnvelopeCheck": "passed",
+      "nativeEvidence": {
+        "meaning": "Correct native image, coordinates and dimensions asserted for all 44 draws in every capture. This support also intersects the captured viewport in each engine/width cohort. Exact whole-image pixels are verified separately by preparation tests.",
+        "witnesses": [
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-firefox",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-webkit",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-firefox",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-webkit",
+            "kind": "left-journey.json"
+          }
+        ]
+      }
+    },
+    {
+      "id": "timber-fork-left-1",
+      "from": {
+        "x": 180,
+        "y": 840
+      },
+      "to": {
+        "x": 180,
+        "y": 840
+      },
+      "seconds": 1,
+      "width": 220,
+      "family": "ordinary modular branch",
+      "previouslyAccepted": false,
+      "art": {
+        "image": "branch-220.png",
+        "width": 220,
+        "height": 17
+      },
+      "state": "verified",
+      "sourceAndEnvelopeCheck": "passed",
+      "nativeEvidence": {
+        "meaning": "Correct native image, coordinates and dimensions asserted for all 44 draws in every capture. This support also intersects the captured viewport in each engine/width cohort. Exact whole-image pixels are verified separately by preparation tests.",
+        "witnesses": [
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-firefox",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-webkit",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-firefox",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-webkit",
+            "kind": "left-journey.json"
+          }
+        ]
+      }
+    },
+    {
+      "id": "timber-fork-right-1",
+      "from": {
+        "x": 470,
+        "y": 840
+      },
+      "to": {
+        "x": 470,
+        "y": 840
+      },
+      "seconds": 1,
+      "width": 170,
+      "family": "ordinary modular branch",
+      "previouslyAccepted": false,
+      "art": {
+        "image": "branch-170.png",
+        "width": 170,
+        "height": 17
+      },
+      "state": "verified",
+      "sourceAndEnvelopeCheck": "passed",
+      "nativeEvidence": {
+        "meaning": "Correct native image, coordinates and dimensions asserted for all 44 draws in every capture. This support also intersects the captured viewport in each engine/width cohort. Exact whole-image pixels are verified separately by preparation tests.",
+        "witnesses": [
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-firefox",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-webkit",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-firefox",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-webkit",
+            "kind": "left-journey.json"
+          }
+        ]
+      }
+    },
+    {
+      "id": "timber-fork-left-2",
+      "from": {
+        "x": 260,
+        "y": 780
+      },
+      "to": {
+        "x": 260,
+        "y": 780
+      },
+      "seconds": 1,
+      "width": 210,
+      "family": "ordinary modular branch",
+      "previouslyAccepted": false,
+      "art": {
+        "image": "branch-210.png",
+        "width": 210,
+        "height": 17
+      },
+      "state": "verified",
+      "sourceAndEnvelopeCheck": "passed",
+      "nativeEvidence": {
+        "meaning": "Correct native image, coordinates and dimensions asserted for all 44 draws in every capture. This support also intersects the captured viewport in each engine/width cohort. Exact whole-image pixels are verified separately by preparation tests.",
+        "witnesses": [
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-firefox",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-webkit",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-firefox",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-webkit",
+            "kind": "left-journey.json"
+          }
+        ]
+      }
+    },
+    {
+      "id": "timber-fork-right-2",
+      "from": {
+        "x": 420,
+        "y": 780
+      },
+      "to": {
+        "x": 420,
+        "y": 780
+      },
+      "seconds": 1,
+      "width": 200,
+      "family": "ordinary modular branch",
+      "previouslyAccepted": false,
+      "art": {
+        "image": "branch-200.png",
+        "width": 200,
+        "height": 17
+      },
+      "state": "verified",
+      "sourceAndEnvelopeCheck": "passed",
+      "nativeEvidence": {
+        "meaning": "Correct native image, coordinates and dimensions asserted for all 44 draws in every capture. This support also intersects the captured viewport in each engine/width cohort. Exact whole-image pixels are verified separately by preparation tests.",
+        "witnesses": [
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-firefox",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-webkit",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-firefox",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-webkit",
+            "kind": "left-journey.json"
+          }
+        ]
+      }
+    },
+    {
+      "id": "timber-shared",
+      "from": {
+        "x": 360,
+        "y": 720
+      },
+      "to": {
+        "x": 360,
+        "y": 720
+      },
+      "seconds": 1,
+      "width": 180,
+      "family": "ordinary modular branch",
+      "previouslyAccepted": true,
+      "art": {
+        "image": "branch-180.png",
+        "width": 180,
+        "height": 17
+      },
+      "state": "verified",
+      "sourceAndEnvelopeCheck": "passed",
+      "nativeEvidence": {
+        "meaning": "Correct native image, coordinates and dimensions asserted for all 44 draws in every capture. This support also intersects the captured viewport in each engine/width cohort. Exact whole-image pixels are verified separately by preparation tests.",
+        "witnesses": [
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-firefox",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-webkit",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-firefox",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-webkit",
+            "kind": "left-journey.json"
+          }
+        ]
+      }
+    },
+    {
+      "id": "timber-middle",
+      "from": {
+        "x": 40,
+        "y": 660
+      },
+      "to": {
+        "x": 40,
+        "y": 660
+      },
+      "seconds": 1,
+      "width": 580,
+      "family": "broad modular bough",
+      "previouslyAccepted": true,
+      "art": {
+        "image": "branch-580.png",
+        "width": 580,
+        "height": 17
+      },
+      "state": "verified",
+      "sourceAndEnvelopeCheck": "passed",
+      "nativeEvidence": {
+        "meaning": "Correct native image, coordinates and dimensions asserted for all 44 draws in every capture. This support also intersects the captured viewport in each engine/width cohort. Exact whole-image pixels are verified separately by preparation tests.",
+        "witnesses": [
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-firefox",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-webkit",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-firefox",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-webkit",
+            "kind": "left-journey.json"
+          }
+        ]
+      }
+    },
+    {
+      "id": "timber-spring",
+      "from": {
+        "x": 40,
+        "y": 600
+      },
+      "to": {
+        "x": 40,
+        "y": 600
+      },
+      "seconds": 1,
+      "width": 150,
+      "family": "ordinary modular branch",
+      "previouslyAccepted": true,
+      "art": {
+        "image": "branch-150.png",
+        "width": 150,
+        "height": 17
+      },
+      "state": "verified",
+      "sourceAndEnvelopeCheck": "passed",
+      "nativeEvidence": {
+        "meaning": "Correct native image, coordinates and dimensions asserted for all 44 draws in every capture. This support also intersects the captured viewport in each engine/width cohort. Exact whole-image pixels are verified separately by preparation tests.",
+        "witnesses": [
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit",
+            "kind": "journey.json"
+          }
+        ]
+      }
+    },
+    {
+      "id": "timber-approach-1",
+      "from": {
+        "x": 230,
+        "y": 600
+      },
+      "to": {
+        "x": 230,
+        "y": 600
+      },
+      "seconds": 1,
+      "width": 220,
+      "family": "ordinary modular branch",
+      "previouslyAccepted": true,
+      "art": {
+        "image": "branch-220.png",
+        "width": 220,
+        "height": 17
+      },
+      "state": "verified",
+      "sourceAndEnvelopeCheck": "passed",
+      "nativeEvidence": {
+        "meaning": "Correct native image, coordinates and dimensions asserted for all 44 draws in every capture. This support also intersects the captured viewport in each engine/width cohort. Exact whole-image pixels are verified separately by preparation tests.",
+        "witnesses": [
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit",
+            "kind": "journey.json"
+          }
+        ]
+      }
+    },
+    {
+      "id": "timber-approach-2",
+      "from": {
+        "x": 320,
+        "y": 540
+      },
+      "to": {
+        "x": 320,
+        "y": 540
+      },
+      "seconds": 1,
+      "width": 240,
+      "family": "ordinary modular branch",
+      "previouslyAccepted": true,
+      "art": {
+        "image": "branch-240.png",
+        "width": 240,
+        "height": 17
+      },
+      "state": "verified",
+      "sourceAndEnvelopeCheck": "passed",
+      "nativeEvidence": {
+        "meaning": "Correct native image, coordinates and dimensions asserted for all 44 draws in every capture. This support also intersects the captured viewport in each engine/width cohort. Exact whole-image pixels are verified separately by preparation tests.",
+        "witnesses": [
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit",
+            "kind": "journey.json"
+          }
+        ]
+      }
+    },
+    {
+      "id": "timber-spring-reward",
+      "from": {
+        "x": 40,
+        "y": 510
+      },
+      "to": {
+        "x": 40,
+        "y": 510
+      },
+      "seconds": 1,
+      "width": 160,
+      "family": "ordinary modular branch",
+      "previouslyAccepted": true,
+      "art": {
+        "image": "branch-160.png",
+        "width": 160,
+        "height": 17
+      },
+      "state": "verified",
+      "sourceAndEnvelopeCheck": "passed",
+      "nativeEvidence": {
+        "meaning": "Correct native image, coordinates and dimensions asserted for all 44 draws in every capture. This support also intersects the captured viewport in each engine/width cohort. Exact whole-image pixels are verified separately by preparation tests.",
+        "witnesses": [
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit",
+            "kind": "journey.json"
+          }
+        ]
+      }
+    },
+    {
+      "id": "timber-spring-catch",
+      "from": {
+        "x": 130,
+        "y": 540
+      },
+      "to": {
+        "x": 130,
+        "y": 540
+      },
+      "seconds": 1,
+      "width": 150,
+      "family": "ordinary modular branch",
+      "previouslyAccepted": true,
+      "art": {
+        "image": "branch-150.png",
+        "width": 150,
+        "height": 17
+      },
+      "state": "verified",
+      "sourceAndEnvelopeCheck": "passed",
+      "nativeEvidence": {
+        "meaning": "Correct native image, coordinates and dimensions asserted for all 44 draws in every capture. This support also intersects the captured viewport in each engine/width cohort. Exact whole-image pixels are verified separately by preparation tests.",
+        "witnesses": [
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit",
+            "kind": "journey.json"
+          }
+        ]
+      }
+    },
+    {
+      "id": "timber-approach-3",
+      "from": {
+        "x": 240,
+        "y": 480
+      },
+      "to": {
+        "x": 240,
+        "y": 480
+      },
+      "seconds": 1,
+      "width": 220,
+      "family": "ordinary modular branch",
+      "previouslyAccepted": false,
+      "art": {
+        "image": "branch-220.png",
+        "width": 220,
+        "height": 17
+      },
+      "state": "verified",
+      "sourceAndEnvelopeCheck": "passed",
+      "nativeEvidence": {
+        "meaning": "Correct native image, coordinates and dimensions asserted for all 44 draws in every capture. This support also intersects the captured viewport in each engine/width cohort. Exact whole-image pixels are verified separately by preparation tests.",
+        "witnesses": [
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit",
+            "kind": "journey.json"
+          }
+        ]
+      }
+    },
+    {
+      "id": "timber-canopy",
+      "from": {
+        "x": 180,
+        "y": 420
+      },
+      "to": {
+        "x": 180,
+        "y": 420
+      },
+      "seconds": 1,
+      "width": 440,
+      "family": "broad modular bough",
+      "previouslyAccepted": false,
+      "art": {
+        "image": "branch-440.png",
+        "width": 440,
+        "height": 17
+      },
+      "state": "verified",
+      "sourceAndEnvelopeCheck": "passed",
+      "nativeEvidence": {
+        "meaning": "Correct native image, coordinates and dimensions asserted for all 44 draws in every capture. This support also intersects the captured viewport in each engine/width cohort. Exact whole-image pixels are verified separately by preparation tests.",
+        "witnesses": [
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-firefox",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-webkit",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-firefox",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-webkit",
+            "kind": "left-journey.json"
+          }
+        ]
+      }
+    },
+    {
+      "id": "timber-upper-1",
+      "from": {
+        "x": 330,
+        "y": 360
+      },
+      "to": {
+        "x": 330,
+        "y": 360
+      },
+      "seconds": 1,
+      "width": 220,
+      "family": "ordinary modular branch",
+      "previouslyAccepted": false,
+      "art": {
+        "image": "branch-220.png",
+        "width": 220,
+        "height": 17
+      },
+      "state": "verified",
+      "sourceAndEnvelopeCheck": "passed",
+      "nativeEvidence": {
+        "meaning": "Correct native image, coordinates and dimensions asserted for all 44 draws in every capture. This support also intersects the captured viewport in each engine/width cohort. Exact whole-image pixels are verified separately by preparation tests.",
+        "witnesses": [
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-firefox",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-webkit",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-firefox",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-webkit",
+            "kind": "left-journey.json"
+          }
+        ]
+      }
+    },
+    {
+      "id": "timber-star-3-catch",
+      "from": {
+        "x": 40,
+        "y": 360
+      },
+      "to": {
+        "x": 40,
+        "y": 360
+      },
+      "seconds": 1,
+      "width": 210,
+      "family": "ordinary modular branch",
+      "previouslyAccepted": false,
+      "art": {
+        "image": "branch-210.png",
+        "width": 210,
+        "height": 17
+      },
+      "state": "verified",
+      "sourceAndEnvelopeCheck": "passed",
+      "nativeEvidence": {
+        "meaning": "Correct native image, coordinates and dimensions asserted for all 44 draws in every capture. This support also intersects the captured viewport in each engine/width cohort. Exact whole-image pixels are verified separately by preparation tests.",
+        "witnesses": [
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-firefox",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-webkit",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-firefox",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-webkit",
+            "kind": "left-journey.json"
+          }
+        ]
+      }
+    },
+    {
+      "id": "timber-upper-2",
+      "from": {
+        "x": 230,
+        "y": 300
+      },
+      "to": {
+        "x": 230,
+        "y": 300
+      },
+      "seconds": 1,
+      "width": 220,
+      "family": "ordinary modular branch",
+      "previouslyAccepted": false,
+      "art": {
+        "image": "branch-220.png",
+        "width": 220,
+        "height": 17
+      },
+      "state": "verified",
+      "sourceAndEnvelopeCheck": "passed",
+      "nativeEvidence": {
+        "meaning": "Correct native image, coordinates and dimensions asserted for all 44 draws in every capture. This support also intersects the captured viewport in each engine/width cohort. Exact whole-image pixels are verified separately by preparation tests.",
+        "witnesses": [
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-firefox",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-webkit",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-firefox",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-webkit",
+            "kind": "left-journey.json"
+          }
+        ]
+      }
+    },
+    {
+      "id": "timber-star-3",
+      "from": {
+        "x": 60,
+        "y": 300
+      },
+      "to": {
+        "x": 60,
+        "y": 300
+      },
+      "seconds": 1,
+      "width": 140,
+      "family": "ordinary modular branch",
+      "previouslyAccepted": false,
+      "art": {
+        "image": "branch-140.png",
+        "width": 140,
+        "height": 17
+      },
+      "state": "verified",
+      "sourceAndEnvelopeCheck": "passed",
+      "nativeEvidence": {
+        "meaning": "Correct native image, coordinates and dimensions asserted for all 44 draws in every capture. This support also intersects the captured viewport in each engine/width cohort. Exact whole-image pixels are verified separately by preparation tests.",
+        "witnesses": [
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-firefox",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-webkit",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-firefox",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-webkit",
+            "kind": "left-journey.json"
+          }
+        ]
+      }
+    },
+    {
+      "id": "timber-upper-3",
+      "from": {
+        "x": 350,
+        "y": 240
+      },
+      "to": {
+        "x": 350,
+        "y": 240
+      },
+      "seconds": 1,
+      "width": 180,
+      "family": "ordinary modular branch",
+      "previouslyAccepted": false,
+      "art": {
+        "image": "branch-180.png",
+        "width": 180,
+        "height": 17
+      },
+      "state": "verified",
+      "sourceAndEnvelopeCheck": "passed",
+      "nativeEvidence": {
+        "meaning": "Correct native image, coordinates and dimensions asserted for all 44 draws in every capture. This support also intersects the captured viewport in each engine/width cohort. Exact whole-image pixels are verified separately by preparation tests.",
+        "witnesses": [
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-firefox",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-webkit",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-firefox",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-webkit",
+            "kind": "left-journey.json"
+          }
+        ]
+      }
+    },
+    {
+      "id": "timber-lookout",
+      "from": {
+        "x": 250,
+        "y": 180
+      },
+      "to": {
+        "x": 250,
+        "y": 180
+      },
+      "seconds": 1,
+      "width": 340,
+      "family": "broad modular bough",
+      "previouslyAccepted": false,
+      "art": {
+        "image": "branch-340.png",
+        "width": 340,
+        "height": 17
+      },
+      "state": "verified",
+      "sourceAndEnvelopeCheck": "passed",
+      "nativeEvidence": {
+        "meaning": "Correct native image, coordinates and dimensions asserted for all 44 draws in every capture. This support also intersects the captured viewport in each engine/width cohort. Exact whole-image pixels are verified separately by preparation tests.",
+        "witnesses": [
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-firefox",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-webkit",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-firefox",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-webkit",
+            "kind": "left-journey.json"
+          }
+        ]
+      }
+    },
+    {
+      "id": "timber-return-240",
+      "from": {
+        "x": 570,
+        "y": 240
+      },
+      "to": {
+        "x": 570,
+        "y": 240
+      },
+      "seconds": 1,
+      "width": 170,
+      "family": "ordinary modular branch",
+      "previouslyAccepted": false,
+      "art": {
+        "image": "branch-170.png",
+        "width": 170,
+        "height": 17
+      },
+      "state": "verified",
+      "sourceAndEnvelopeCheck": "passed",
+      "nativeEvidence": {
+        "meaning": "Correct native image, coordinates and dimensions asserted for all 44 draws in every capture. This support also intersects the captured viewport in each engine/width cohort. Exact whole-image pixels are verified separately by preparation tests.",
+        "witnesses": [
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit",
+            "kind": "journey.json"
+          }
+        ]
+      }
+    },
+    {
+      "id": "timber-return-300",
+      "from": {
+        "x": 520,
+        "y": 300
+      },
+      "to": {
+        "x": 520,
+        "y": 300
+      },
+      "seconds": 1,
+      "width": 140,
+      "family": "ordinary modular branch",
+      "previouslyAccepted": false,
+      "art": {
+        "image": "branch-140.png",
+        "width": 140,
+        "height": 17
+      },
+      "state": "verified",
+      "sourceAndEnvelopeCheck": "passed",
+      "nativeEvidence": {
+        "meaning": "Correct native image, coordinates and dimensions asserted for all 44 draws in every capture. This support also intersects the captured viewport in each engine/width cohort. Exact whole-image pixels are verified separately by preparation tests.",
+        "witnesses": [
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit",
+            "kind": "journey.json"
+          }
+        ]
+      }
+    },
+    {
+      "id": "timber-return-360",
+      "from": {
+        "x": 580,
+        "y": 360
+      },
+      "to": {
+        "x": 580,
+        "y": 360
+      },
+      "seconds": 1,
+      "width": 160,
+      "family": "ordinary modular branch",
+      "previouslyAccepted": false,
+      "art": {
+        "image": "branch-160.png",
+        "width": 160,
+        "height": 17
+      },
+      "state": "verified",
+      "sourceAndEnvelopeCheck": "passed",
+      "nativeEvidence": {
+        "meaning": "Correct native image, coordinates and dimensions asserted for all 44 draws in every capture. This support also intersects the captured viewport in each engine/width cohort. Exact whole-image pixels are verified separately by preparation tests.",
+        "witnesses": [
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit",
+            "kind": "journey.json"
+          }
+        ]
+      }
+    },
+    {
+      "id": "timber-return-480",
+      "from": {
+        "x": 580,
+        "y": 480
+      },
+      "to": {
+        "x": 580,
+        "y": 480
+      },
+      "seconds": 1,
+      "width": 160,
+      "family": "ordinary modular branch",
+      "previouslyAccepted": false,
+      "art": {
+        "image": "branch-160.png",
+        "width": 160,
+        "height": 17
+      },
+      "state": "verified",
+      "sourceAndEnvelopeCheck": "passed",
+      "nativeEvidence": {
+        "meaning": "Correct native image, coordinates and dimensions asserted for all 44 draws in every capture. This support also intersects the captured viewport in each engine/width cohort. Exact whole-image pixels are verified separately by preparation tests.",
+        "witnesses": [
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit",
+            "kind": "journey.json"
+          }
+        ]
+      }
+    },
+    {
+      "id": "timber-return-540",
+      "from": {
+        "x": 520,
+        "y": 540
+      },
+      "to": {
+        "x": 520,
+        "y": 540
+      },
+      "seconds": 1,
+      "width": 140,
+      "family": "ordinary modular branch",
+      "previouslyAccepted": false,
+      "art": {
+        "image": "branch-140.png",
+        "width": 140,
+        "height": 17
+      },
+      "state": "verified",
+      "sourceAndEnvelopeCheck": "passed",
+      "nativeEvidence": {
+        "meaning": "Correct native image, coordinates and dimensions asserted for all 44 draws in every capture. This support also intersects the captured viewport in each engine/width cohort. Exact whole-image pixels are verified separately by preparation tests.",
+        "witnesses": [
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit",
+            "kind": "journey.json"
+          }
+        ]
+      }
+    },
+    {
+      "id": "timber-return-600",
+      "from": {
+        "x": 580,
+        "y": 600
+      },
+      "to": {
+        "x": 580,
+        "y": 600
+      },
+      "seconds": 1,
+      "width": 160,
+      "family": "ordinary modular branch",
+      "previouslyAccepted": true,
+      "art": {
+        "image": "branch-160.png",
+        "width": 160,
+        "height": 17
+      },
+      "state": "verified",
+      "sourceAndEnvelopeCheck": "passed",
+      "nativeEvidence": {
+        "meaning": "Correct native image, coordinates and dimensions asserted for all 44 draws in every capture. This support also intersects the captured viewport in each engine/width cohort. Exact whole-image pixels are verified separately by preparation tests.",
+        "witnesses": [
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit",
+            "kind": "journey.json"
+          }
+        ]
+      }
+    },
+    {
+      "id": "timber-return-720",
+      "from": {
+        "x": 580,
+        "y": 720
+      },
+      "to": {
+        "x": 580,
+        "y": 720
+      },
+      "seconds": 1,
+      "width": 160,
+      "family": "ordinary modular branch",
+      "previouslyAccepted": true,
+      "art": {
+        "image": "branch-160.png",
+        "width": 160,
+        "height": 17
+      },
+      "state": "verified",
+      "sourceAndEnvelopeCheck": "passed",
+      "nativeEvidence": {
+        "meaning": "Correct native image, coordinates and dimensions asserted for all 44 draws in every capture. This support also intersects the captured viewport in each engine/width cohort. Exact whole-image pixels are verified separately by preparation tests.",
+        "witnesses": [
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit",
+            "kind": "journey.json"
+          }
+        ]
+      }
+    },
+    {
+      "id": "timber-return-780",
+      "from": {
+        "x": 520,
+        "y": 780
+      },
+      "to": {
+        "x": 520,
+        "y": 780
+      },
+      "seconds": 1,
+      "width": 140,
+      "family": "ordinary modular branch",
+      "previouslyAccepted": true,
+      "art": {
+        "image": "branch-140.png",
+        "width": 140,
+        "height": 17
+      },
+      "state": "verified",
+      "sourceAndEnvelopeCheck": "passed",
+      "nativeEvidence": {
+        "meaning": "Correct native image, coordinates and dimensions asserted for all 44 draws in every capture. This support also intersects the captured viewport in each engine/width cohort. Exact whole-image pixels are verified separately by preparation tests.",
+        "witnesses": [
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-firefox",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-webkit",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-firefox",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-webkit",
+            "kind": "left-journey.json"
+          }
+        ]
+      }
+    },
+    {
+      "id": "timber-return-840",
+      "from": {
+        "x": 580,
+        "y": 840
+      },
+      "to": {
+        "x": 580,
+        "y": 840
+      },
+      "seconds": 1,
+      "width": 160,
+      "family": "ordinary modular branch",
+      "previouslyAccepted": false,
+      "art": {
+        "image": "branch-160.png",
+        "width": 160,
+        "height": 17
+      },
+      "state": "verified",
+      "sourceAndEnvelopeCheck": "passed",
+      "nativeEvidence": {
+        "meaning": "Correct native image, coordinates and dimensions asserted for all 44 draws in every capture. This support also intersects the captured viewport in each engine/width cohort. Exact whole-image pixels are verified separately by preparation tests.",
+        "witnesses": [
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit",
+            "kind": "journey.json"
+          }
+        ]
+      }
+    },
+    {
+      "id": "timber-return-960",
+      "from": {
+        "x": 620,
+        "y": 960
+      },
+      "to": {
+        "x": 620,
+        "y": 960
+      },
+      "seconds": 1,
+      "width": 120,
+      "family": "ordinary modular branch",
+      "previouslyAccepted": false,
+      "art": {
+        "image": "branch-120.png",
+        "width": 120,
+        "height": 17
+      },
+      "state": "verified",
+      "sourceAndEnvelopeCheck": "passed",
+      "nativeEvidence": {
+        "meaning": "Correct native image, coordinates and dimensions asserted for all 44 draws in every capture. This support also intersects the captured viewport in each engine/width cohort. Exact whole-image pixels are verified separately by preparation tests.",
+        "witnesses": [
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit",
+            "kind": "journey.json"
+          }
+        ]
+      }
+    },
+    {
+      "id": "timber-return-1020",
+      "from": {
+        "x": 520,
+        "y": 1020
+      },
+      "to": {
+        "x": 520,
+        "y": 1020
+      },
+      "seconds": 1,
+      "width": 140,
+      "family": "ordinary modular branch",
+      "previouslyAccepted": false,
+      "art": {
+        "image": "branch-140.png",
+        "width": 140,
+        "height": 17
+      },
+      "state": "verified",
+      "sourceAndEnvelopeCheck": "passed",
+      "nativeEvidence": {
+        "meaning": "Correct native image, coordinates and dimensions asserted for all 44 draws in every capture. This support also intersects the captured viewport in each engine/width cohort. Exact whole-image pixels are verified separately by preparation tests.",
+        "witnesses": [
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit",
+            "kind": "journey.json"
+          }
+        ]
+      }
+    },
+    {
+      "id": "timber-outer-catch-300",
+      "from": {
+        "x": 700,
+        "y": 300
+      },
+      "to": {
+        "x": 700,
+        "y": 300
+      },
+      "seconds": 1,
+      "width": 120,
+      "family": "ordinary modular branch",
+      "previouslyAccepted": false,
+      "art": {
+        "image": "branch-120.png",
+        "width": 120,
+        "height": 17
+      },
+      "state": "verified",
+      "sourceAndEnvelopeCheck": "passed",
+      "nativeEvidence": {
+        "meaning": "Correct native image, coordinates and dimensions asserted for all 44 draws in every capture. This support also intersects the captured viewport in each engine/width cohort. Exact whole-image pixels are verified separately by preparation tests.",
+        "witnesses": [
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit",
+            "kind": "journey.json"
+          }
+        ]
+      }
+    },
+    {
+      "id": "timber-outer-catch-420",
+      "from": {
+        "x": 700,
+        "y": 420
+      },
+      "to": {
+        "x": 700,
+        "y": 420
+      },
+      "seconds": 1,
+      "width": 120,
+      "family": "ordinary modular branch",
+      "previouslyAccepted": false,
+      "art": {
+        "image": "branch-120.png",
+        "width": 120,
+        "height": 17
+      },
+      "state": "verified",
+      "sourceAndEnvelopeCheck": "passed",
+      "nativeEvidence": {
+        "meaning": "Correct native image, coordinates and dimensions asserted for all 44 draws in every capture. This support also intersects the captured viewport in each engine/width cohort. Exact whole-image pixels are verified separately by preparation tests.",
+        "witnesses": [
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit",
+            "kind": "journey.json"
+          }
+        ]
+      }
+    },
+    {
+      "id": "timber-outer-catch-540",
+      "from": {
+        "x": 700,
+        "y": 540
+      },
+      "to": {
+        "x": 700,
+        "y": 540
+      },
+      "seconds": 1,
+      "width": 120,
+      "family": "ordinary modular branch",
+      "previouslyAccepted": false,
+      "art": {
+        "image": "branch-120.png",
+        "width": 120,
+        "height": 17
+      },
+      "state": "verified",
+      "sourceAndEnvelopeCheck": "passed",
+      "nativeEvidence": {
+        "meaning": "Correct native image, coordinates and dimensions asserted for all 44 draws in every capture. This support also intersects the captured viewport in each engine/width cohort. Exact whole-image pixels are verified separately by preparation tests.",
+        "witnesses": [
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit",
+            "kind": "journey.json"
+          }
+        ]
+      }
+    },
+    {
+      "id": "timber-outer-catch-660",
+      "from": {
+        "x": 700,
+        "y": 660
+      },
+      "to": {
+        "x": 700,
+        "y": 660
+      },
+      "seconds": 1,
+      "width": 120,
+      "family": "ordinary modular branch",
+      "previouslyAccepted": true,
+      "art": {
+        "image": "branch-120.png",
+        "width": 120,
+        "height": 17
+      },
+      "state": "verified",
+      "sourceAndEnvelopeCheck": "passed",
+      "nativeEvidence": {
+        "meaning": "Correct native image, coordinates and dimensions asserted for all 44 draws in every capture. This support also intersects the captured viewport in each engine/width cohort. Exact whole-image pixels are verified separately by preparation tests.",
+        "witnesses": [
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit",
+            "kind": "journey.json"
+          }
+        ]
+      }
+    },
+    {
+      "id": "timber-outer-catch-780",
+      "from": {
+        "x": 700,
+        "y": 780
+      },
+      "to": {
+        "x": 700,
+        "y": 780
+      },
+      "seconds": 1,
+      "width": 120,
+      "family": "ordinary modular branch",
+      "previouslyAccepted": true,
+      "art": {
+        "image": "branch-120.png",
+        "width": 120,
+        "height": 17
+      },
+      "state": "verified",
+      "sourceAndEnvelopeCheck": "passed",
+      "nativeEvidence": {
+        "meaning": "Correct native image, coordinates and dimensions asserted for all 44 draws in every capture. This support also intersects the captured viewport in each engine/width cohort. Exact whole-image pixels are verified separately by preparation tests.",
+        "witnesses": [
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit",
+            "kind": "journey.json"
+          }
+        ]
+      }
+    },
+    {
+      "id": "timber-outer-catch-900",
+      "from": {
+        "x": 700,
+        "y": 900
+      },
+      "to": {
+        "x": 700,
+        "y": 900
+      },
+      "seconds": 1,
+      "width": 120,
+      "family": "ordinary modular branch",
+      "previouslyAccepted": false,
+      "art": {
+        "image": "branch-120.png",
+        "width": 120,
+        "height": 17
+      },
+      "state": "verified",
+      "sourceAndEnvelopeCheck": "passed",
+      "nativeEvidence": {
+        "meaning": "Correct native image, coordinates and dimensions asserted for all 44 draws in every capture. This support also intersects the captured viewport in each engine/width cohort. Exact whole-image pixels are verified separately by preparation tests.",
+        "witnesses": [
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit",
+            "kind": "journey.json"
+          }
+        ]
+      }
+    },
+    {
+      "id": "timber-outer-catch-1020",
+      "from": {
+        "x": 700,
+        "y": 1020
+      },
+      "to": {
+        "x": 700,
+        "y": 1020
+      },
+      "seconds": 1,
+      "width": 120,
+      "family": "ordinary modular branch",
+      "previouslyAccepted": false,
+      "art": {
+        "image": "branch-120.png",
+        "width": 120,
+        "height": 17
+      },
+      "state": "verified",
+      "sourceAndEnvelopeCheck": "passed",
+      "nativeEvidence": {
+        "meaning": "Correct native image, coordinates and dimensions asserted for all 44 draws in every capture. This support also intersects the captured viewport in each engine/width cohort. Exact whole-image pixels are verified separately by preparation tests.",
+        "witnesses": [
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit",
+            "kind": "journey.json"
+          }
+        ]
+      }
+    },
+    {
+      "id": "timber-middle-left-catch",
+      "from": {
+        "x": 40,
+        "y": 720
+      },
+      "to": {
+        "x": 40,
+        "y": 720
+      },
+      "seconds": 1,
+      "width": 250,
+      "family": "ordinary modular branch",
+      "previouslyAccepted": false,
+      "art": {
+        "image": "branch-250.png",
+        "width": 250,
+        "height": 17
+      },
+      "state": "verified",
+      "sourceAndEnvelopeCheck": "passed",
+      "nativeEvidence": {
+        "meaning": "Correct native image, coordinates and dimensions asserted for all 44 draws in every capture. This support also intersects the captured viewport in each engine/width cohort. Exact whole-image pixels are verified separately by preparation tests.",
+        "witnesses": [
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-firefox",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-webkit",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-firefox",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-webkit",
+            "kind": "left-journey.json"
+          }
+        ]
+      }
+    },
+    {
+      "id": "timber-middle-left-catch-2",
+      "from": {
+        "x": 40,
+        "y": 780
+      },
+      "to": {
+        "x": 40,
+        "y": 780
+      },
+      "seconds": 1,
+      "width": 210,
+      "family": "ordinary modular branch",
+      "previouslyAccepted": false,
+      "art": {
+        "image": "branch-210.png",
+        "width": 210,
+        "height": 17
+      },
+      "state": "verified",
+      "sourceAndEnvelopeCheck": "passed",
+      "nativeEvidence": {
+        "meaning": "Correct native image, coordinates and dimensions asserted for all 44 draws in every capture. This support also intersects the captured viewport in each engine/width cohort. Exact whole-image pixels are verified separately by preparation tests.",
+        "witnesses": [
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-firefox",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-webkit",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-firefox",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-webkit",
+            "kind": "left-journey.json"
+          }
+        ]
+      }
+    },
+    {
+      "id": "timber-middle-left-catch-3",
+      "from": {
+        "x": 40,
+        "y": 840
+      },
+      "to": {
+        "x": 40,
+        "y": 840
+      },
+      "seconds": 1,
+      "width": 210,
+      "family": "ordinary modular branch",
+      "previouslyAccepted": false,
+      "art": {
+        "image": "branch-210.png",
+        "width": 210,
+        "height": 17
+      },
+      "state": "verified",
+      "sourceAndEnvelopeCheck": "passed",
+      "nativeEvidence": {
+        "meaning": "Correct native image, coordinates and dimensions asserted for all 44 draws in every capture. This support also intersects the captured viewport in each engine/width cohort. Exact whole-image pixels are verified separately by preparation tests.",
+        "witnesses": [
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit",
+            "kind": "journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-firefox",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 320,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-webkit",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "chromium",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "firefox",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-firefox",
+            "kind": "left-journey.json"
+          },
+          {
+            "browser": "webkit",
+            "width": 426,
+            "journey": "playwright-report/issue-241/rollout-native/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-webkit",
+            "kind": "left-journey.json"
+          }
+        ]
+      }
+    }
+  ]
+}

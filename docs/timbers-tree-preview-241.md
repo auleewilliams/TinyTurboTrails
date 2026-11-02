@@ -1,5 +1,7 @@
 # Timbers preview with the connected tree
 
+Historical preview, accepted by the owner at `abe92dd900c45c883f2e984812058991a46507b9`. [The complete rollout](timbers-rollout-241.md) continues from this exact artwork. The results below describe the preview candidate.
+
 The owner-authorized tree addition is integrated into the same issue #241 work. A new whole transparent bitmap replaces the central code-drawn trunk and all six scenic limbs in production. Its darker illustrated bark complements the existing branch/ground family, while the real platforms keep their bright walking tops. The earlier 12-platform/ground PNGs and their entire kit remain byte-identical. The other 32 platforms still await the representative-preview acceptance and rollout gate.
 
 [Scope and separately approved budget](timbers-tree-addendum-241.md) · [Original sources, executed prompts and preparation](../assets/source/timbers/tree-v1/PROVENANCE.md) · [Required native tree asset](../public/assets/timbers/tree-v1/tree.png).

@@ -1,0 +1,490 @@
+{
+  "rawReport": "playwright-report/issue-241/rollout-landing-fix/browser-report.json",
+  "reportSha256": "266c1ba3fc68fe7aba70f7bffc5c7143ea8086875a66a937d5a80a0981bbb216",
+  "stats": {
+    "startTime": "2026-11-02T03:04:10.668Z",
+    "duration": 47720.647999999994,
+    "expected": 2,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "cases": [
+    {
+      "project": "chromium",
+      "file": "timbers-art.spec.ts",
+      "title": "Timbers rollout left-fork artwork and wrong-end catch at 426px",
+      "id": "72d2548e97958c413fdc-bf975789f2d63a702093",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "duration": 21783,
+          "errors": [],
+          "annotations": []
+        }
+      ]
+    },
+    {
+      "project": "chromium",
+      "file": "timbers-art.spec.ts",
+      "title": "Timbers rollout left-fork artwork and wrong-end catch at 320px",
+      "id": "72d2548e97958c413fdc-2e573633672e7ae8345d",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "duration": 21611,
+          "errors": [],
+          "annotations": []
+        }
+      ]
+    }
+  ],
+  "journeys": [
+    {
+      "directory": "playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium",
+      "browser": "chromium",
+      "width": 320,
+      "kind": "left-journey.json",
+      "status": "expected",
+      "routeGroups": 6,
+      "pngs": [
+        {
+          "path": "playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/left-fork-lower-native.png",
+          "sha256": "c3f85d06336bc978d95ee097681bd87f8c531d99ac2b7652722c9cba62d24d73",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/left-fork-lower-css.png",
+          "sha256": "b2d76aad05469961b6bbae8c51cd02b38d269280b3f4d46312c75032027367b6",
+          "dimensions": [
+            320,
+            181
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/left-fork-upper-native.png",
+          "sha256": "8dde75437032866e06116d65d9a2b0c710e4835c11ee08b009668a1236f38e4c",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/left-fork-upper-css.png",
+          "sha256": "6bc85796fdad8d16703fcdd86dec8c4b8aa7c030b9d11b43e8003fdc38f5426c",
+          "dimensions": [
+            320,
+            181
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/low-star-native.png",
+          "sha256": "0bcff16a5c874e8f0db28936ae5761a73b9c0558848adbbe0da5f5392ccd4be4",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/low-star-css.png",
+          "sha256": "1d4a0cb4d6bca2a20652f0c668f413cb4cb47db639b520a1ce318e419c5d0359",
+          "dimensions": [
+            320,
+            181
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/upper-star-native.png",
+          "sha256": "a1aecabc32f437f451d0a078f47e1594a9be07392c85deccead7d5ed25bd8cf5",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/upper-star-css.png",
+          "sha256": "6f93ee9dd14320e475dabcebf57e33168e4492a9fbc555f54f42b74e55b7f8e2",
+          "dimensions": [
+            320,
+            181
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/wrong-end-catch-native.png",
+          "sha256": "6d88a44eaca0e421c7af1745af29df9aa2d1c36283aca85aa91c205259948ccb",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/wrong-end-catch-css.png",
+          "sha256": "9f17de4a7906fb4cdb40263aa7c2df17876f4fc70b90846d623f46cc23966e6a",
+          "dimensions": [
+            320,
+            181
+          ]
+        }
+      ],
+      "visibleSupports": [
+        "timber-canopy",
+        "timber-fork",
+        "timber-fork-left-1",
+        "timber-fork-left-2",
+        "timber-fork-right-1",
+        "timber-fork-right-2",
+        "timber-lookout",
+        "timber-low-1",
+        "timber-low-2",
+        "timber-middle",
+        "timber-middle-left-catch",
+        "timber-middle-left-catch-2",
+        "timber-middle-left-catch-3",
+        "timber-return-780",
+        "timber-shared",
+        "timber-star-1",
+        "timber-star-3",
+        "timber-star-3-catch",
+        "timber-upper-1",
+        "timber-upper-2",
+        "timber-upper-3"
+      ],
+      "springGap": [],
+      "bodyReadErrors": []
+    },
+    {
+      "directory": "playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium",
+      "browser": "chromium",
+      "width": 426,
+      "kind": "left-journey.json",
+      "status": "expected",
+      "routeGroups": 6,
+      "pngs": [
+        {
+          "path": "playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/left-fork-lower-native.png",
+          "sha256": "66c80a7da9b6f020094d5003fa5345fc8b45d4954708194d4e0f7eb0ca0cb010",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/left-fork-lower-css.png",
+          "sha256": "d6da515fe7b69eea94c06e7fe07b81f2d06cac35e33b61cae41fcdffb1ea5666",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/left-fork-upper-native.png",
+          "sha256": "4549cb874704d57c07f4faed50b7074790abea777abc68a7b68e5e0fa544d7a5",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/left-fork-upper-css.png",
+          "sha256": "2ffcae911d4fff711c79b33bdf4c50ce14dde8d8a503d4b91d36c0fbe5c49146",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/low-star-native.png",
+          "sha256": "fd96292b4f034e136c28799d4dbb6a41236908767a8a7cab6c0df2aa4e22a5ee",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/low-star-css.png",
+          "sha256": "5f294d7b1c4a52c8aac3ea2032184dbc936c4374a44eea54b38d057b786df0b9",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/upper-star-native.png",
+          "sha256": "3a7388311a94de4fe4c43a54a39306dbb1b4bf966ce7960a7f91a0d49c3fea35",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/upper-star-css.png",
+          "sha256": "b4e89b7c1ec215129bb861d3e65c52f17121b80f2838ac40d6526d8a3193cc7f",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/wrong-end-catch-native.png",
+          "sha256": "ee41589c6d8cba64222abf0b29463d2a87566b10141cb22e34602cb5beda19de",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/wrong-end-catch-css.png",
+          "sha256": "32db90dfb8256ac5cf2026eec59c66dc4f8505c78e00c9d2eed7282d84c3a027",
+          "dimensions": [
+            426,
+            240
+          ]
+        }
+      ],
+      "visibleSupports": [
+        "timber-canopy",
+        "timber-fork",
+        "timber-fork-left-1",
+        "timber-fork-left-2",
+        "timber-fork-right-1",
+        "timber-fork-right-2",
+        "timber-lookout",
+        "timber-low-1",
+        "timber-low-2",
+        "timber-middle",
+        "timber-middle-left-catch",
+        "timber-middle-left-catch-2",
+        "timber-middle-left-catch-3",
+        "timber-return-780",
+        "timber-shared",
+        "timber-star-1",
+        "timber-star-3",
+        "timber-star-3-catch",
+        "timber-upper-1",
+        "timber-upper-2",
+        "timber-upper-3"
+      ],
+      "springGap": [],
+      "bodyReadErrors": []
+    }
+  ],
+  "fileAttachments": {
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/attachments/low-star-native-5f732a07b50c518abe2c848421d738cc88d6c3a6.png": "fd96292b4f034e136c28799d4dbb6a41236908767a8a7cab6c0df2aa4e22a5ee",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/attachments/low-star-css-38c94881c8eab48e4b08bed92ae20800bb5de2ae.png": "5f294d7b1c4a52c8aac3ea2032184dbc936c4374a44eea54b38d057b786df0b9",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/attachments/low-star-metadata-2352c7895dea02c9d377621a1f06ea65ad5165a6.json": "9480a187c301155a8cccc465df51ad3556e2adf5259352407e5c7e99376ab50d",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/attachments/left-fork-lower-native-777ffa88ea4ee94f4cfca45a9066fa95482804aa.png": "66c80a7da9b6f020094d5003fa5345fc8b45d4954708194d4e0f7eb0ca0cb010",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/attachments/left-fork-lower-css-fb0c839fb0b92ef107c3045579cfa4437ea64be6.png": "d6da515fe7b69eea94c06e7fe07b81f2d06cac35e33b61cae41fcdffb1ea5666",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/attachments/left-fork-lower-metadata-91bbd4edcd6c877865257298b685354062e52072.json": "d60cf2be752a22b410948b44ca515e1fd96621974ad14bfaea53b87ba451a3ce",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/attachments/left-fork-upper-native-b7a0d50a2e929daa640cf18eb403c5e5f5bbf7ff.png": "4549cb874704d57c07f4faed50b7074790abea777abc68a7b68e5e0fa544d7a5",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/attachments/left-fork-upper-css-38f3af2f155baeda178ca50822efb32bf5dc59f2.png": "2ffcae911d4fff711c79b33bdf4c50ce14dde8d8a503d4b91d36c0fbe5c49146",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/attachments/left-fork-upper-metadata-79d21a63132b46ac78c33e03fa88e4a04ed5c676.json": "fb0b32872a81057252e34271e14cc70bc2553d3558581a61f4c30fe2fef71259",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/attachments/upper-star-native-6c808ae23530ed05561daa9cfaeadddb44f177c5.png": "3a7388311a94de4fe4c43a54a39306dbb1b4bf966ce7960a7f91a0d49c3fea35",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/attachments/upper-star-css-ffa06686191886ebc04fb40765e4ebf7209f3ec2.png": "b4e89b7c1ec215129bb861d3e65c52f17121b80f2838ac40d6526d8a3193cc7f",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/attachments/upper-star-metadata-7f8615027bc6df36e872cfd506aab89bad17712b.json": "37a4d191b818af3277edae23196107556ac8f236a33415d007e8e73b4db7b814",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/attachments/wrong-end-catch-native-73600a20c357e65ad5248881046b88888b355a7c.png": "ee41589c6d8cba64222abf0b29463d2a87566b10141cb22e34602cb5beda19de",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/attachments/wrong-end-catch-css-4736db3d0e2e1a4e28ae35d378087744dbb5bf7c.png": "32db90dfb8256ac5cf2026eec59c66dc4f8505c78e00c9d2eed7282d84c3a027",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/attachments/wrong-end-catch-metadata-817fe1920bc68413921056519cc7a69219ca6359.json": "5ed642757d8d7bbb0385ebe19c722aa944a9b3379989256a5500816224faef26",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/attachments/finish-79752eb9417ea87bdcd2a95047469c9b038e1941.png": "1479b054a7eac91744e0944fb94805011225c042b53ac212b3875ea2a53e5eef",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/attachments/left-journey-cb5273718e2563c40f11d3347ee78e603b52c318.json": "c3f2f20295ac8e1d371f360cd4136756938cc87a00bec356eb07f97848bf68cb",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/attachments/low-star-native-f0def022e047d11f05f4cbc6e2d40f04ee82eff1.png": "0bcff16a5c874e8f0db28936ae5761a73b9c0558848adbbe0da5f5392ccd4be4",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/attachments/low-star-css-dd5ae17948458e18c7c671dad25857d24be0a3b3.png": "1d4a0cb4d6bca2a20652f0c668f413cb4cb47db639b520a1ce318e419c5d0359",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/attachments/low-star-metadata-79a1c82f0a6b611a12c53c1399519ba204757a8b.json": "139ebb50dc438bf269adda636a922db706fe007b5de37391bc7a0f9001a61faa",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/attachments/left-fork-lower-native-7ee50029fccedf287525b0dffba79230e918b3d1.png": "c3f85d06336bc978d95ee097681bd87f8c531d99ac2b7652722c9cba62d24d73",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/attachments/left-fork-lower-css-0b7a2f08194e4dde1f560bb967275b7bb7c4ec64.png": "b2d76aad05469961b6bbae8c51cd02b38d269280b3f4d46312c75032027367b6",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/attachments/left-fork-lower-metadata-cb8f2d2997209c4416b995df865bfba78ed5141c.json": "b353087076b1309926b17b457c6aebda5be5252147617302e4360a0f02e1028b",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/attachments/left-fork-upper-native-019ddfeed923909ba8425d37f2e0989cf3183a2e.png": "8dde75437032866e06116d65d9a2b0c710e4835c11ee08b009668a1236f38e4c",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/attachments/left-fork-upper-css-c7833d501bf2be82b5ac62135f521f30596cd0d8.png": "6bc85796fdad8d16703fcdd86dec8c4b8aa7c030b9d11b43e8003fdc38f5426c",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/attachments/left-fork-upper-metadata-ac6569acf35f79bb761a6af3bdab114ca4b5b37b.json": "85a8338a54185b132a626a1088e83407801e00b1ad58fa6ac435b389d9af3bbe",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/attachments/upper-star-native-d161257ee814cbc0ba607b507ba34ffdb7a87dff.png": "a1aecabc32f437f451d0a078f47e1594a9be07392c85deccead7d5ed25bd8cf5",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/attachments/upper-star-css-da894179ef5fc08448cba65fce1201dcb3298437.png": "6f93ee9dd14320e475dabcebf57e33168e4492a9fbc555f54f42b74e55b7f8e2",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/attachments/upper-star-metadata-796fbf01bff05211229a74b0376a1226022b3c20.json": "2c02632f63ee7f476f62f45a517a5e9b3505dc4b42e3091d4e19ee1f8136958c",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/attachments/wrong-end-catch-native-bdf272d3b2b36af1d3fb62f2cd5334e13b2024f1.png": "6d88a44eaca0e421c7af1745af29df9aa2d1c36283aca85aa91c205259948ccb",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/attachments/wrong-end-catch-css-0b1d4b2b43d6f43edc208a84455d0df1b38c2e00.png": "9f17de4a7906fb4cdb40263aa7c2df17876f4fc70b90846d623f46cc23966e6a",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/attachments/wrong-end-catch-metadata-c7ff095976483b0553600a5101f64270d4e83587.json": "8f14e78b6be4db18f8abb73155dfab63c79217a82e25825605e3c17e6d814630",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/attachments/finish-94b2fa8dc31c4e2a4f18e214d6d09b134a9f1b77.png": "3ed00939bec0801920792f2c1ffa4ddd9f7d22ff619201bbf2c18be6d13ec105",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/attachments/left-journey-2f6b4d79a595522e7d63087a1905811d46d6401b.json": "e7401a0a120d676b9a995a4cf48b89a1d5a1ce39b3289593bf9c272e5bb967bf"
+  },
+  "inlineAttachments": [],
+  "curatedFiles": [
+    {
+      "original": "playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/finish.png",
+      "path": "docs/evidence/issue-241/rollout/landing-fix/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/finish.png",
+      "sha256": "3ed00939bec0801920792f2c1ffa4ddd9f7d22ff619201bbf2c18be6d13ec105"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/wrong-end-catch-css.png",
+      "path": "docs/evidence/issue-241/rollout/landing-fix/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/wrong-end-catch-css.png",
+      "sha256": "9f17de4a7906fb4cdb40263aa7c2df17876f4fc70b90846d623f46cc23966e6a"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/left-fork-upper-native.png",
+      "path": "docs/evidence/issue-241/rollout/landing-fix/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/left-fork-upper-native.png",
+      "sha256": "8dde75437032866e06116d65d9a2b0c710e4835c11ee08b009668a1236f38e4c"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/left-fork-lower.json",
+      "path": "docs/evidence/issue-241/rollout/landing-fix/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/left-fork-lower.json",
+      "sha256": "b353087076b1309926b17b457c6aebda5be5252147617302e4360a0f02e1028b"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/left-fork-lower-native.png",
+      "path": "docs/evidence/issue-241/rollout/landing-fix/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/left-fork-lower-native.png",
+      "sha256": "c3f85d06336bc978d95ee097681bd87f8c531d99ac2b7652722c9cba62d24d73"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/left-fork-upper-css.png",
+      "path": "docs/evidence/issue-241/rollout/landing-fix/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/left-fork-upper-css.png",
+      "sha256": "6bc85796fdad8d16703fcdd86dec8c4b8aa7c030b9d11b43e8003fdc38f5426c"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/left-journey.json",
+      "path": "docs/evidence/issue-241/rollout/landing-fix/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/left-journey.json",
+      "sha256": "e7401a0a120d676b9a995a4cf48b89a1d5a1ce39b3289593bf9c272e5bb967bf"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/upper-star-css.png",
+      "path": "docs/evidence/issue-241/rollout/landing-fix/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/upper-star-css.png",
+      "sha256": "6f93ee9dd14320e475dabcebf57e33168e4492a9fbc555f54f42b74e55b7f8e2"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/left-fork-upper.json",
+      "path": "docs/evidence/issue-241/rollout/landing-fix/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/left-fork-upper.json",
+      "sha256": "85a8338a54185b132a626a1088e83407801e00b1ad58fa6ac435b389d9af3bbe"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/wrong-end-catch-native.png",
+      "path": "docs/evidence/issue-241/rollout/landing-fix/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/wrong-end-catch-native.png",
+      "sha256": "6d88a44eaca0e421c7af1745af29df9aa2d1c36283aca85aa91c205259948ccb"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/wrong-end-catch.json",
+      "path": "docs/evidence/issue-241/rollout/landing-fix/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/wrong-end-catch.json",
+      "sha256": "8f14e78b6be4db18f8abb73155dfab63c79217a82e25825605e3c17e6d814630"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/low-star-css.png",
+      "path": "docs/evidence/issue-241/rollout/landing-fix/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/low-star-css.png",
+      "sha256": "1d4a0cb4d6bca2a20652f0c668f413cb4cb47db639b520a1ce318e419c5d0359"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/low-star.json",
+      "path": "docs/evidence/issue-241/rollout/landing-fix/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/low-star.json",
+      "sha256": "139ebb50dc438bf269adda636a922db706fe007b5de37391bc7a0f9001a61faa"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/upper-star-native.png",
+      "path": "docs/evidence/issue-241/rollout/landing-fix/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/upper-star-native.png",
+      "sha256": "a1aecabc32f437f451d0a078f47e1594a9be07392c85deccead7d5ed25bd8cf5"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/upper-star.json",
+      "path": "docs/evidence/issue-241/rollout/landing-fix/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/upper-star.json",
+      "sha256": "2c02632f63ee7f476f62f45a517a5e9b3505dc4b42e3091d4e19ee1f8136958c"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/low-star-native.png",
+      "path": "docs/evidence/issue-241/rollout/landing-fix/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/low-star-native.png",
+      "sha256": "0bcff16a5c874e8f0db28936ae5761a73b9c0558848adbbe0da5f5392ccd4be4"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/left-fork-lower-css.png",
+      "path": "docs/evidence/issue-241/rollout/landing-fix/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/left-fork-lower-css.png",
+      "sha256": "b2d76aad05469961b6bbae8c51cd02b38d269280b3f4d46312c75032027367b6"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/finish.png",
+      "path": "docs/evidence/issue-241/rollout/landing-fix/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/finish.png",
+      "sha256": "1479b054a7eac91744e0944fb94805011225c042b53ac212b3875ea2a53e5eef"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/wrong-end-catch-css.png",
+      "path": "docs/evidence/issue-241/rollout/landing-fix/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/wrong-end-catch-css.png",
+      "sha256": "32db90dfb8256ac5cf2026eec59c66dc4f8505c78e00c9d2eed7282d84c3a027"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/left-fork-upper-native.png",
+      "path": "docs/evidence/issue-241/rollout/landing-fix/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/left-fork-upper-native.png",
+      "sha256": "4549cb874704d57c07f4faed50b7074790abea777abc68a7b68e5e0fa544d7a5"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/left-fork-lower.json",
+      "path": "docs/evidence/issue-241/rollout/landing-fix/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/left-fork-lower.json",
+      "sha256": "d60cf2be752a22b410948b44ca515e1fd96621974ad14bfaea53b87ba451a3ce"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/left-fork-lower-native.png",
+      "path": "docs/evidence/issue-241/rollout/landing-fix/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/left-fork-lower-native.png",
+      "sha256": "66c80a7da9b6f020094d5003fa5345fc8b45d4954708194d4e0f7eb0ca0cb010"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/left-fork-upper-css.png",
+      "path": "docs/evidence/issue-241/rollout/landing-fix/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/left-fork-upper-css.png",
+      "sha256": "2ffcae911d4fff711c79b33bdf4c50ce14dde8d8a503d4b91d36c0fbe5c49146"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/left-journey.json",
+      "path": "docs/evidence/issue-241/rollout/landing-fix/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/left-journey.json",
+      "sha256": "c3f2f20295ac8e1d371f360cd4136756938cc87a00bec356eb07f97848bf68cb"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/upper-star-css.png",
+      "path": "docs/evidence/issue-241/rollout/landing-fix/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/upper-star-css.png",
+      "sha256": "b4e89b7c1ec215129bb861d3e65c52f17121b80f2838ac40d6526d8a3193cc7f"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/left-fork-upper.json",
+      "path": "docs/evidence/issue-241/rollout/landing-fix/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/left-fork-upper.json",
+      "sha256": "fb0b32872a81057252e34271e14cc70bc2553d3558581a61f4c30fe2fef71259"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/wrong-end-catch-native.png",
+      "path": "docs/evidence/issue-241/rollout/landing-fix/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/wrong-end-catch-native.png",
+      "sha256": "ee41589c6d8cba64222abf0b29463d2a87566b10141cb22e34602cb5beda19de"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/wrong-end-catch.json",
+      "path": "docs/evidence/issue-241/rollout/landing-fix/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/wrong-end-catch.json",
+      "sha256": "5ed642757d8d7bbb0385ebe19c722aa944a9b3379989256a5500816224faef26"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/low-star-css.png",
+      "path": "docs/evidence/issue-241/rollout/landing-fix/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/low-star-css.png",
+      "sha256": "5f294d7b1c4a52c8aac3ea2032184dbc936c4374a44eea54b38d057b786df0b9"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/low-star.json",
+      "path": "docs/evidence/issue-241/rollout/landing-fix/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/low-star.json",
+      "sha256": "9480a187c301155a8cccc465df51ad3556e2adf5259352407e5c7e99376ab50d"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/upper-star-native.png",
+      "path": "docs/evidence/issue-241/rollout/landing-fix/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/upper-star-native.png",
+      "sha256": "3a7388311a94de4fe4c43a54a39306dbb1b4bf966ce7960a7f91a0d49c3fea35"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/upper-star.json",
+      "path": "docs/evidence/issue-241/rollout/landing-fix/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/upper-star.json",
+      "sha256": "37a4d191b818af3277edae23196107556ac8f236a33415d007e8e73b4db7b814"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/low-star-native.png",
+      "path": "docs/evidence/issue-241/rollout/landing-fix/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/low-star-native.png",
+      "sha256": "fd96292b4f034e136c28799d4dbb6a41236908767a8a7cab6c0df2aa4e22a5ee"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-landing-fix/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/left-fork-lower-css.png",
+      "path": "docs/evidence/issue-241/rollout/landing-fix/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/left-fork-lower-css.png",
+      "sha256": "d6da515fe7b69eea94c06e7fe07b81f2d06cac35e33b61cae41fcdffb1ea5666"
+    }
+  ],
+  "note": "Complete original report/traces/file outputs remain in the ignored local archive. This repository packet contains curated captures and exact hashes; historical failures are retained, not relabelled."
+}

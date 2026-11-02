@@ -1,6 +1,8 @@
+import { fileURLToPath } from 'node:url';
+import { beforeTimbersRollout } from './timbers-rollout-preservation.mjs';
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { readFileSync, mkdtempSync, rmSync } from 'node:fs';
+import { readFileSync, mkdtempSync, rmSync, mkdirSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { execFileSync } from 'node:child_process';
@@ -17,14 +19,22 @@ test('whole-tree uniform preparation reproduces exact PNG/RGBA and keeps all pri
   assert.equal(hash(readFileSync(source + record.source.image)), record.source.sha256);
   const temporary = mkdtempSync(join(tmpdir(), 'timbers-tree-'));
   try {
-    execFileSync(process.execPath, ['scripts/prepare-timbers-tree.mjs', temporary]);
+    // Reproduce the historical tree preparation against its exact accepted terrain inputs.
+    // The rollout extends metadata; it does not regenerate or reinterpret accepted tree pixels.
+    const fixture = join(temporary, 'accepted');
+    for (const path of [...Object.keys(record.preservedTerrainFiles), source + record.source.image]) {
+      const target = join(fixture, path);
+      mkdirSync(join(target, '..'), { recursive: true });
+      writeFileSync(target, beforeTimbersRollout(path, readFileSync(path)));
+    }
+    execFileSync(process.execPath, [fileURLToPath(new URL('./prepare-timbers-tree.mjs', import.meta.url)), temporary], { cwd: fixture });
     const shipped = readFileSync('public/assets/timbers/tree-v1/tree.png');
     assert.equal(hash(shipped), record.native.pngSha256);
     assertPngPixelContract(readFileSync(join(temporary, 'tree.png')), shipped, record.native);
     assert.deepEqual(JSON.parse(readFileSync(join(temporary, 'preparation.json'))), record);
     assert.deepEqual(readFileSync(join(temporary, 'manifest.json')), readFileSync('public/assets/timbers/tree-v1/manifest.json'));
   } finally { rmSync(temporary, { recursive: true, force: true }); }
-  for (const [path, expected] of Object.entries(record.preservedTerrainFiles)) assert.equal(hash(readFileSync(path)), expected, path);
+  for (const [path, expected] of Object.entries(record.preservedTerrainFiles)) assert.equal(hash(beforeTimbersRollout(path, readFileSync(path))), expected, path);
 });
 
 test('the tree has six separate outer limbs and a contiguous broad foot, without editing alpha', () => {

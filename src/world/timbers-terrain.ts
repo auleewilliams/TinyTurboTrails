@@ -13,10 +13,59 @@ export interface TimbersTerrainAssets {
   platforms: Record<string, HTMLImageElement>;
 }
 
-/** This bounded preview is deliberately smaller than the full trail inventory. */
+/** Frozen IDs of the accepted representative preview. */
 export function timbersPreviewIds(): string[] {
   return ['middle', 'spring', 'spring-reward', 'spring-catch', 'approach-1', 'approach-2', 'shared',
     'return-600', 'return-720', 'return-780', 'outer-catch-660', 'outer-catch-780'].map(name => `timber-${name}`);
+}
+
+export function timbersPlatformWidths(): Record<string, number> {
+  return {
+    'timber-low-1': 200,
+    'timber-low-2': 200,
+    'timber-star-1': 170,
+    'timber-fork': 450,
+    'timber-fork-left-1': 220,
+    'timber-fork-right-1': 170,
+    'timber-fork-left-2': 210,
+    'timber-fork-right-2': 200,
+    'timber-shared': 180,
+    'timber-middle': 580,
+    'timber-spring': 150,
+    'timber-approach-1': 220,
+    'timber-approach-2': 240,
+    'timber-spring-reward': 160,
+    'timber-spring-catch': 150,
+    'timber-approach-3': 220,
+    'timber-canopy': 440,
+    'timber-upper-1': 220,
+    'timber-star-3-catch': 210,
+    'timber-upper-2': 220,
+    'timber-star-3': 140,
+    'timber-upper-3': 180,
+    'timber-lookout': 340,
+    'timber-return-240': 170,
+    'timber-return-300': 140,
+    'timber-return-360': 160,
+    'timber-return-480': 160,
+    'timber-return-540': 140,
+    'timber-return-600': 160,
+    'timber-return-720': 160,
+    'timber-return-780': 140,
+    'timber-return-840': 160,
+    'timber-return-960': 120,
+    'timber-return-1020': 140,
+    'timber-outer-catch-300': 120,
+    'timber-outer-catch-420': 120,
+    'timber-outer-catch-540': 120,
+    'timber-outer-catch-660': 120,
+    'timber-outer-catch-780': 120,
+    'timber-outer-catch-900': 120,
+    'timber-outer-catch-1020': 120,
+    'timber-middle-left-catch': 250,
+    'timber-middle-left-catch-2': 210,
+    'timber-middle-left-catch-3': 210,
+  };
 }
 
 export function validateTimbersTerrain(value: unknown): asserts value is TimbersTerrainManifest {
@@ -24,12 +73,8 @@ export function validateTimbersTerrain(value: unknown): asserts value is Timbers
   if (!data || data.version !== 1 || !data.platforms || !data.ground
     || data.ground.image !== 'ground.png' || data.ground.x !== 40 || data.ground.y !== 1080
     || data.ground.width !== 780 || data.ground.height !== 100) throw new Error('Invalid Timbers terrain metadata');
-  const ids = timbersPreviewIds();
-  const widths: Record<string, number> = { 'timber-middle': 580, 'timber-spring': 150, 'timber-spring-reward': 160,
-    'timber-spring-catch': 150, 'timber-approach-1': 220, 'timber-approach-2': 240, 'timber-shared': 180,
-    'timber-return-600': 160, 'timber-return-720': 160, 'timber-return-780': 140,
-    'timber-outer-catch-660': 120, 'timber-outer-catch-780': 120 };
-  if (Object.keys(data.platforms).length !== ids.length) throw new Error('Incomplete Timbers preview mapping');
+  const widths = timbersPlatformWidths(), ids = Object.keys(widths);
+  if (Object.keys(data.platforms).length !== ids.length) throw new Error('Incomplete Timbers support mapping');
   for (const id of ids) {
     const piece = data.platforms[id];
     if (!piece || piece.width !== widths[id]
@@ -73,7 +118,7 @@ export function drawTimbersGround(ctx: CanvasRenderingContext2D, kit: TimbersTer
 export function drawTimbersPlatform(ctx: CanvasRenderingContext2D, kit: TimbersTerrainAssets,
   body: PlatformBody, offset: { x: number; y: number }): boolean {
   const piece = kit.manifest.platforms[body.id];
-  if (!piece) return false;
+  if (!piece) throw new Error(`Missing Timbers platform artwork: ${body.id}`);
   const image = kit.platforms[body.id];
   if (!image || piece.width !== body.width) throw new Error('Missing or misaligned Timbers platform artwork');
   ctx.drawImage(image, body.x - offset.x, body.y - offset.y);

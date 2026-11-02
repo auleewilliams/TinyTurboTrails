@@ -1,3 +1,4 @@
+import { beforeTimbersRollout } from './timbers-rollout-preservation.mjs';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
@@ -6,6 +7,7 @@ const hash = bytes => createHash('sha256').update(bytes).digest('hex');
 
 /** Reverse only the exact separately authorized tree addition, retaining the older preview oracle. */
 export function beforeTimbersTree(path, bytes) {
+  bytes = beforeTimbersRollout(path, bytes);
   if (!['src/world/assets.ts', 'src/world/renderer.ts', 'public/assets/timbers/manifest.json'].includes(path)) return bytes;
   const recordBytes = readFileSync(new URL('presentation-delta.json', root));
   assert.equal(hash(recordBytes), 'fcbc0dc4709721ac5159a0fb5b7b69a1b3e4ed17bc386c2912ae20931a2ed1ec', 'pinned Timbers tree changes');

@@ -1,0 +1,567 @@
+{
+  "sourceRevision": null,
+  "browser": "chromium",
+  "version": "156.0.8078.4",
+  "width": 426,
+  "errors": [],
+  "histories": [
+    {
+      "name": "low-star",
+      "result": {
+        "active": false,
+        "paused": false,
+        "frozen": false,
+        "pauseAt": -1,
+        "stage": 5,
+        "frames": 0,
+        "stable": 0,
+        "previousY": null,
+        "startY": null,
+        "phase": 0,
+        "error": "",
+        "done": true,
+        "seenPlaying": true,
+        "advanceMs": 0,
+        "stages": [
+          {
+            "kind": "run",
+            "x": 150,
+            "y": 1080,
+            "frames": 60
+          },
+          {
+            "kind": "jump",
+            "x": 260,
+            "y": 1020
+          },
+          {
+            "kind": "walk",
+            "x": 255
+          },
+          {
+            "kind": "jump",
+            "x": 175,
+            "y": 960
+          },
+          {
+            "kind": "walk",
+            "x": 115
+          }
+        ],
+        "history": [
+          {
+            "stage": 0,
+            "status": "Adventure preview · Playing · Letter bag: 0/4 · X 152 Y 1046 V 220 F 1 · Escape to pause · M to mute"
+          },
+          {
+            "stage": 1,
+            "status": "Adventure preview · Playing · Letter bag: 0/4 · X 257 Y 986 V 0 F 1 · Escape to pause · M to mute"
+          },
+          {
+            "stage": 2,
+            "status": "Adventure preview · Playing · Letter bag: 0/4 · X 257 Y 986 V 0 F 1 · Escape to pause · M to mute"
+          },
+          {
+            "stage": 3,
+            "status": "Adventure preview · Playing · Letter bag: 0/4 · X 181 Y 926 V -80 F -1 · Escape to pause · M to mute"
+          },
+          {
+            "stage": 4,
+            "status": "Adventure preview · Playing · Letter bag: 0/4 · X 114 Y 926 V -15 F -1 · Escape to pause · M to mute"
+          }
+        ],
+        "recoveries": [],
+        "observedX": 114,
+        "observedY": 926
+      }
+    },
+    {
+      "name": "left-fork-lower",
+      "result": {
+        "active": false,
+        "paused": false,
+        "frozen": false,
+        "pauseAt": -1,
+        "stage": 6,
+        "frames": 0,
+        "stable": 0,
+        "previousY": null,
+        "startY": 926,
+        "phase": 0,
+        "error": "",
+        "done": true,
+        "seenPlaying": true,
+        "advanceMs": 0,
+        "stages": [
+          {
+            "kind": "drop",
+            "edge": 230,
+            "direction": 1,
+            "y": 1020,
+            "x": 270
+          },
+          {
+            "kind": "walk",
+            "x": 385
+          },
+          {
+            "kind": "jump",
+            "x": 385,
+            "y": 960
+          },
+          {
+            "kind": "jump",
+            "x": 385,
+            "y": 900
+          },
+          {
+            "kind": "walk",
+            "x": 340
+          },
+          {
+            "kind": "jump",
+            "x": 340,
+            "y": 840
+          }
+        ],
+        "history": [
+          {
+            "stage": 0,
+            "status": "Adventure preview · Playing · Letter bag: 0/4 · X 268 Y 986 V 0 F 1 · Escape to pause · M to mute"
+          },
+          {
+            "stage": 1,
+            "status": "Adventure preview · Playing · Letter bag: 0/4 · X 383 Y 986 V 0 F 1 · Escape to pause · M to mute"
+          },
+          {
+            "stage": 2,
+            "status": "Adventure preview · Playing · Letter bag: 0/4 · X 383 Y 926 V 0 F 1 · Escape to pause · M to mute"
+          },
+          {
+            "stage": 3,
+            "status": "Adventure preview · Playing · Letter bag: 0/4 · X 383 Y 866 V 0 F 1 · Escape to pause · M to mute"
+          },
+          {
+            "stage": 4,
+            "status": "Adventure preview · Playing · Letter bag: 0/4 · X 338 Y 866 V 17 F 1 · Escape to pause · M to mute"
+          },
+          {
+            "stage": 5,
+            "status": "Adventure preview · Playing · Letter bag: 0/4 · X 338 Y 806 V 0 F 1 · Escape to pause · M to mute"
+          }
+        ],
+        "recoveries": [],
+        "observedX": 338,
+        "observedY": 806
+      }
+    },
+    {
+      "name": "left-fork-upper",
+      "result": {
+        "active": false,
+        "paused": false,
+        "frozen": false,
+        "pauseAt": -1,
+        "stage": 1,
+        "frames": 0,
+        "stable": 0,
+        "previousY": null,
+        "startY": 926,
+        "phase": 0,
+        "error": "",
+        "done": true,
+        "seenPlaying": true,
+        "advanceMs": 0,
+        "stages": [
+          {
+            "kind": "jump",
+            "x": 340,
+            "y": 780
+          }
+        ],
+        "history": [
+          {
+            "stage": 0,
+            "status": "Adventure preview · Playing · Letter bag: 0/4 · X 338 Y 746 V 0 F 1 · Escape to pause · M to mute"
+          }
+        ],
+        "recoveries": [],
+        "observedX": 338,
+        "observedY": 746
+      }
+    },
+    {
+      "name": "upper-star",
+      "result": {
+        "active": false,
+        "paused": false,
+        "frozen": false,
+        "pauseAt": -1,
+        "stage": 13,
+        "frames": 0,
+        "stable": 0,
+        "previousY": null,
+        "startY": 926,
+        "phase": 0,
+        "error": "",
+        "done": true,
+        "seenPlaying": true,
+        "advanceMs": 0,
+        "stages": [
+          {
+            "kind": "walk",
+            "x": 430
+          },
+          {
+            "kind": "jump",
+            "x": 440,
+            "y": 720
+          },
+          {
+            "kind": "jump",
+            "x": 440,
+            "y": 660
+          },
+          {
+            "kind": "walk",
+            "x": 400
+          },
+          {
+            "kind": "jump",
+            "x": 400,
+            "y": 600
+          },
+          {
+            "kind": "jump",
+            "x": 400,
+            "y": 540
+          },
+          {
+            "kind": "jump",
+            "x": 400,
+            "y": 480
+          },
+          {
+            "kind": "jump",
+            "x": 400,
+            "y": 420
+          },
+          {
+            "kind": "jump",
+            "x": 400,
+            "y": 360
+          },
+          {
+            "kind": "jump",
+            "x": 400,
+            "y": 300
+          },
+          {
+            "kind": "walk",
+            "x": 245
+          },
+          {
+            "kind": "jump",
+            "x": 150,
+            "y": 300
+          },
+          {
+            "kind": "walk",
+            "x": 110
+          }
+        ],
+        "history": [
+          {
+            "stage": 0,
+            "status": "Adventure preview · Playing · Letter bag: 0/4 · X 427 Y 746 V 0 F 1 · Escape to pause · M to mute"
+          },
+          {
+            "stage": 1,
+            "status": "Adventure preview · Playing · Letter bag: 0/4 · X 437 Y 686 V 0 F 1 · Escape to pause · M to mute"
+          },
+          {
+            "stage": 2,
+            "status": "Adventure preview · Playing · Letter bag: 0/4 · X 437 Y 626 V 0 F 1 · Escape to pause · M to mute"
+          },
+          {
+            "stage": 3,
+            "status": "Adventure preview · Playing · Letter bag: 0/4 · X 400 Y 626 V -19 F -1 · Escape to pause · M to mute"
+          },
+          {
+            "stage": 4,
+            "status": "Adventure preview · Playing · Letter bag: 0/4 · X 400 Y 566 V 0 F -1 · Escape to pause · M to mute"
+          },
+          {
+            "stage": 5,
+            "status": "Adventure preview · Playing · Letter bag: 0/4 · X 400 Y 506 V 0 F -1 · Escape to pause · M to mute"
+          },
+          {
+            "stage": 6,
+            "status": "Adventure preview · Playing · Letter bag: 0/4 · X 400 Y 446 V 0 F -1 · Escape to pause · M to mute"
+          },
+          {
+            "stage": 7,
+            "status": "Adventure preview · Playing · Letter bag: 0/4 · X 400 Y 386 V 0 F -1 · Escape to pause · M to mute"
+          },
+          {
+            "stage": 8,
+            "status": "Adventure preview · Playing · Letter bag: 0/4 · X 400 Y 326 V 0 F -1 · Escape to pause · M to mute"
+          },
+          {
+            "stage": 9,
+            "status": "Adventure preview · Playing · Letter bag: 0/4 · X 400 Y 266 V 0 F -1 · Escape to pause · M to mute"
+          },
+          {
+            "stage": 10,
+            "status": "Adventure preview · Playing · Letter bag: 0/4 · X 248 Y 266 V 0 F -1 · Escape to pause · M to mute"
+          },
+          {
+            "stage": 11,
+            "status": "Adventure preview · Playing · Letter bag: 0/4 · X 151 Y 266 V -10 F -1 · Escape to pause · M to mute"
+          },
+          {
+            "stage": 12,
+            "status": "Adventure preview · Playing · Letter bag: 0/4 · X 113 Y 266 V -19 F -1 · Escape to pause · M to mute"
+          }
+        ],
+        "recoveries": [],
+        "observedX": 113,
+        "observedY": 266
+      }
+    },
+    {
+      "name": "wrong-end",
+      "result": {
+        "active": false,
+        "paused": false,
+        "frozen": false,
+        "pauseAt": -1,
+        "stage": 1,
+        "frames": 0,
+        "stable": 0,
+        "previousY": null,
+        "startY": 926,
+        "phase": 0,
+        "error": "",
+        "done": true,
+        "seenPlaying": true,
+        "advanceMs": 0,
+        "stages": [
+          {
+            "kind": "walk",
+            "x": 40
+          }
+        ],
+        "history": [
+          {
+            "stage": 0,
+            "status": "Adventure preview · Playing · Letter bag: 0/4 · X 42 Y 281 V 0 F -1 · Escape to pause · M to mute"
+          }
+        ],
+        "recoveries": [],
+        "observedX": 42,
+        "observedY": 281
+      }
+    },
+    {
+      "name": "rejoin",
+      "result": {
+        "active": false,
+        "paused": false,
+        "frozen": false,
+        "pauseAt": -1,
+        "stage": 5,
+        "frames": 43,
+        "stable": 0,
+        "previousY": null,
+        "startY": 926,
+        "phase": 0,
+        "error": "",
+        "done": true,
+        "seenPlaying": true,
+        "advanceMs": 0,
+        "stages": [
+          {
+            "kind": "walk",
+            "x": 180
+          },
+          {
+            "kind": "jump",
+            "x": 280,
+            "y": 300
+          },
+          {
+            "kind": "walk",
+            "x": 400
+          },
+          {
+            "kind": "jump",
+            "x": 400,
+            "y": 240
+          },
+          {
+            "kind": "jump",
+            "x": 400,
+            "y": 180
+          },
+          {
+            "kind": "finish"
+          }
+        ],
+        "history": [
+          {
+            "stage": 0,
+            "status": "Adventure preview · Playing · Letter bag: 0/4 · X 182 Y 326 V -16 F -1 · Escape to pause · M to mute"
+          },
+          {
+            "stage": 1,
+            "status": "Adventure preview · Playing · Letter bag: 0/4 · X 266 Y 266 V 195 F 1 · Escape to pause · M to mute"
+          },
+          {
+            "stage": 2,
+            "status": "Adventure preview · Playing · Letter bag: 0/4 · X 397 Y 266 V 0 F 1 · Escape to pause · M to mute"
+          },
+          {
+            "stage": 3,
+            "status": "Adventure preview · Playing · Letter bag: 0/4 · X 397 Y 206 V 0 F 1 · Escape to pause · M to mute"
+          },
+          {
+            "stage": 4,
+            "status": "Adventure preview · Playing · Letter bag: 0/4 · X 397 Y 146 V 0 F 1 · Escape to pause · M to mute"
+          }
+        ],
+        "recoveries": [],
+        "observedX": 526,
+        "observedY": 146
+      }
+    }
+  ],
+  "responses": [
+    {
+      "path": "/assets/timbers/tree-v1/manifest.json",
+      "status": 200,
+      "sha256": "c96bea5d7700cf1df28c51d4b990b7c19687847415d1239138b052526c58a6a6",
+      "buildSha256": "c96bea5d7700cf1df28c51d4b990b7c19687847415d1239138b052526c58a6a6"
+    },
+    {
+      "path": "/assets/timbers/terrain-kit-v1/manifest.json",
+      "status": 200,
+      "sha256": "3e4df0e651645a02fbeb60fda46c09782f5ad96fa5a66eca93e913a5a7615ac5",
+      "buildSha256": "3e4df0e651645a02fbeb60fda46c09782f5ad96fa5a66eca93e913a5a7615ac5"
+    },
+    {
+      "path": "/assets/timbers/tree-v1/tree.png",
+      "status": 200,
+      "sha256": "f7467d476a57ff770c80e5b23293875f98f80a4444e48be3881ffa247ce27be9",
+      "buildSha256": "f7467d476a57ff770c80e5b23293875f98f80a4444e48be3881ffa247ce27be9"
+    },
+    {
+      "path": "/assets/timbers/terrain-kit-v1/branch-200.png",
+      "status": 200,
+      "sha256": "b344c330b4465518659a66111a2f9ed2751b9bd935ab47311fcf331eba781c9e",
+      "buildSha256": "b344c330b4465518659a66111a2f9ed2751b9bd935ab47311fcf331eba781c9e"
+    },
+    {
+      "path": "/assets/timbers/terrain-kit-v1/ground.png",
+      "status": 200,
+      "sha256": "d60f58bf39fc70e8321aa52e8c96b27672d6b69bef8ec2336b1c944ad061ad1a",
+      "buildSha256": "d60f58bf39fc70e8321aa52e8c96b27672d6b69bef8ec2336b1c944ad061ad1a"
+    },
+    {
+      "path": "/assets/timbers/terrain-kit-v1/branch-170.png",
+      "status": 200,
+      "sha256": "78d7a6d02203911b5d8bdb1cadfd8ed75fc45a067bfc18797decc5cb8124d2e9",
+      "buildSha256": "78d7a6d02203911b5d8bdb1cadfd8ed75fc45a067bfc18797decc5cb8124d2e9"
+    },
+    {
+      "path": "/assets/timbers/terrain-kit-v1/branch-450.png",
+      "status": 200,
+      "sha256": "faba6396d133bb8c4aeb490d37849a6b3cd3f1706caddd6f9b74372173e14eab",
+      "buildSha256": "faba6396d133bb8c4aeb490d37849a6b3cd3f1706caddd6f9b74372173e14eab"
+    },
+    {
+      "path": "/assets/timbers/terrain-kit-v1/branch-220.png",
+      "status": 200,
+      "sha256": "58338a862139c4b41d8ceaf2501a8a03e41238c65ead2abdd8260b1492968dc3",
+      "buildSha256": "58338a862139c4b41d8ceaf2501a8a03e41238c65ead2abdd8260b1492968dc3"
+    },
+    {
+      "path": "/assets/timbers/terrain-kit-v1/branch-210.png",
+      "status": 200,
+      "sha256": "537b6f5d7f4428e34f69c145d72e43db9bf33967ef2aecb262c0aa217bbe8815",
+      "buildSha256": "537b6f5d7f4428e34f69c145d72e43db9bf33967ef2aecb262c0aa217bbe8815"
+    },
+    {
+      "path": "/assets/timbers/terrain-kit-v1/branch-180.png",
+      "status": 200,
+      "sha256": "a6f415d25d5dd013fb7892605cc79141d9644ec54b5c087c91c4804ada69e3f6",
+      "buildSha256": "a6f415d25d5dd013fb7892605cc79141d9644ec54b5c087c91c4804ada69e3f6"
+    },
+    {
+      "path": "/assets/timbers/terrain-kit-v1/branch-580.png",
+      "status": 200,
+      "sha256": "606d5bd06001584b715882901ef94c81c9dae812f754e0974bbbfbede4874050",
+      "buildSha256": "606d5bd06001584b715882901ef94c81c9dae812f754e0974bbbfbede4874050"
+    },
+    {
+      "path": "/assets/timbers/terrain-kit-v1/branch-150.png",
+      "status": 200,
+      "sha256": "fbe55c85ac678c6c5bdc65deea88a4e7c35da47e7df6e839e90e457c0b5ad57c",
+      "buildSha256": "fbe55c85ac678c6c5bdc65deea88a4e7c35da47e7df6e839e90e457c0b5ad57c"
+    },
+    {
+      "path": "/assets/timbers/terrain-kit-v1/branch-240.png",
+      "status": 200,
+      "sha256": "bf64b596735e6048270ade5bb453a77c3394167f889a62011a387afe59220da9",
+      "buildSha256": "bf64b596735e6048270ade5bb453a77c3394167f889a62011a387afe59220da9"
+    },
+    {
+      "path": "/assets/timbers/terrain-kit-v1/branch-160.png",
+      "status": 200,
+      "sha256": "d3b6a43d86bc2a1e0f523e21299f76c095178a9aabf5faa54154433f1f58c192",
+      "buildSha256": "d3b6a43d86bc2a1e0f523e21299f76c095178a9aabf5faa54154433f1f58c192"
+    },
+    {
+      "path": "/assets/timbers/terrain-kit-v1/branch-440.png",
+      "status": 200,
+      "sha256": "487c8d8f58e8c88fe2616a53afc5b7217e3126b8091d7876920c772529c03a62",
+      "buildSha256": "487c8d8f58e8c88fe2616a53afc5b7217e3126b8091d7876920c772529c03a62"
+    },
+    {
+      "path": "/assets/timbers/terrain-kit-v1/branch-140.png",
+      "status": 200,
+      "sha256": "3c5532e4ae4f19ec64cb703aee60f963186fa9f912875467031ac04a91a1c7bf",
+      "buildSha256": "3c5532e4ae4f19ec64cb703aee60f963186fa9f912875467031ac04a91a1c7bf"
+    },
+    {
+      "path": "/assets/timbers/terrain-kit-v1/branch-340.png",
+      "status": 200,
+      "sha256": "ae9052cb8ab86b6a53a7e050d33afe014f352ded59e572c754d929b4285e39cc",
+      "buildSha256": "ae9052cb8ab86b6a53a7e050d33afe014f352ded59e572c754d929b4285e39cc"
+    },
+    {
+      "path": "/assets/timbers/terrain-kit-v1/branch-120.png",
+      "status": 200,
+      "sha256": "d8583cbfdc84db80205fe9778ff3fedab15aa098c8e76b0ef5a9b1d51e74e119",
+      "buildSha256": "d8583cbfdc84db80205fe9778ff3fedab15aa098c8e76b0ef5a9b1d51e74e119"
+    },
+    {
+      "path": "/assets/timbers/terrain-kit-v1/branch-250.png",
+      "status": 200,
+      "sha256": "d49f20e05e5734fa3e7b3c21711bff11f8196d6fa809aebf79ad9e75ee487f82",
+      "buildSha256": "d49f20e05e5734fa3e7b3c21711bff11f8196d6fa809aebf79ad9e75ee487f82"
+    }
+  ],
+  "files": {
+    "src/world/renderer.ts": "9e5fea509e61824551b2f4afc5de67a2e42ed4da472e81545185b4ffec16daac",
+    "src/world/assets.ts": "fbbb2ef71dec958011d0c3dd14a993672ce101806a468a10282b1a21a491a41f",
+    "src/world/timbers-terrain.ts": "ac85c3ac87feec6c1a8e00dd9de82a1d58e5e3036598bff9f48f59f075a95810",
+    "src/world/timbers-tree.ts": "bb3815a4f86d488e188c2e68a0e0c40474af677d2f2edb05ee6390780df9c8fd",
+    "src/world/treetop-timbers.ts": "cb5b2a9c34641292c35347df69354b4eb3d474113f1f48505ae4b77eb2b2cbba",
+    "tests/timbers-art.spec.ts": "4d1bbdc3cebb5c79d3cd8200189d8286879e635fdedfb2073d5f475e1cc07d11",
+    "tests/timbers-browser-pilot.ts": "76a2130a842c1976211005ca7a9734b30eb430dad0f5157fc108284644abbb43",
+    "dist/index.html": "ad428297e9e0c298ca1412add0c7906fd5da4ae389837c4f7699b6a69bb69f3f",
+    "public/assets/timbers/terrain-kit-v1/manifest.json": "3e4df0e651645a02fbeb60fda46c09782f5ad96fa5a66eca93e913a5a7615ac5",
+    "assets/source/timbers/rollout-v1/preparation.json": "70215edf87df40804275e05a8076dceff3dbef6ef786616bd00953efef746b57"
+  }
+}

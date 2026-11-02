@@ -1,0 +1,2356 @@
+{
+  "config": {
+    "argv": [
+      "/usr/bin/node",
+      "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/node_modules/.bin/playwright",
+      "test",
+      "tests/timbers-art.spec.ts",
+      "tests/timbers-ascent.spec.ts",
+      "tests/browser.spec.ts",
+      "tests/hud-owner-layout.spec.ts",
+      "--grep",
+      "Timbers|ambient weather repeats|all six trail previews|finish artwork pixels meet|compact HUD renderer fixture: timbers|owner HUD order real-font fixture: timbers|landmark labels: renderer fixture timbers",
+      "--list",
+      "--reporter=json"
+    ],
+    "configFile": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright.config.ts",
+    "rootDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/tests",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": true,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "sourceRevision": null,
+      "nodeVersion": "v22.22.1",
+      "platform": "linux",
+      "arch": "x64"
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "sourceRevision": null,
+          "nodeVersion": "v22.22.1",
+          "platform": "linux",
+          "arch": "x64"
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.spec.ts"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "sourceRevision": null,
+          "nodeVersion": "v22.22.1",
+          "platform": "linux",
+          "arch": "x64"
+        },
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.spec.ts"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "sourceRevision": null,
+          "nodeVersion": "v22.22.1",
+          "platform": "linux",
+          "arch": "x64"
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.spec.ts"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "sourceRevision": null,
+          "nodeVersion": "v22.22.1",
+          "platform": "linux",
+          "arch": "x64"
+        },
+        "name": "chromium",
+        "testDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/tests",
+        "snapshotDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/tests",
+        "testIgnore": [],
+        "testMatch": "**/*.spec.ts",
+        "timeout": 30000,
+        "use": {
+          "trace": "retain-on-failure",
+          "screenshot": "only-on-failure",
+          "baseURL": "http://127.0.0.1:4173",
+          "viewport": {
+            "width": 1366,
+            "height": 768
+          },
+          "browserName": "chromium"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "chromium"
+      },
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "sourceRevision": null,
+          "nodeVersion": "v22.22.1",
+          "platform": "linux",
+          "arch": "x64"
+        },
+        "name": "firefox",
+        "testDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/tests",
+        "snapshotDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/tests",
+        "testIgnore": [],
+        "testMatch": "**/*.spec.ts",
+        "timeout": 30000,
+        "use": {
+          "trace": "retain-on-failure",
+          "screenshot": "only-on-failure",
+          "baseURL": "http://127.0.0.1:4173",
+          "viewport": {
+            "width": 1366,
+            "height": 768
+          },
+          "browserName": "firefox"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "firefox"
+      },
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "sourceRevision": null,
+          "nodeVersion": "v22.22.1",
+          "platform": "linux",
+          "arch": "x64"
+        },
+        "name": "webkit",
+        "testDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/tests",
+        "snapshotDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/tests",
+        "testIgnore": [],
+        "testMatch": "**/*.spec.ts",
+        "timeout": 30000,
+        "use": {
+          "trace": "retain-on-failure",
+          "screenshot": "only-on-failure",
+          "baseURL": "http://127.0.0.1:4173",
+          "viewport": {
+            "width": 1366,
+            "height": 768
+          },
+          "browserName": "webkit"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "webkit"
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "json"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.1",
+    "workers": 4,
+    "webServer": {
+      "command": "npm run preview -- --port 4173 --strictPort",
+      "url": "http://127.0.0.1:4173",
+      "reuseExistingServer": false
+    }
+  },
+  "suites": [
+    {
+      "title": "browser.spec.ts",
+      "file": "browser.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "ambient weather repeats the same pixels, respects reduced motion and stays behind terrain",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "fbeac1b2decfba2c3acd-b34d450fecfe56aaeec0",
+          "file": "browser.spec.ts",
+          "line": 182,
+          "column": 1
+        },
+        {
+          "title": "title picker renders Treetop Timbers with its own atlas",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "fbeac1b2decfba2c3acd-48d2ebf37af30b2ca497",
+          "file": "browser.spec.ts",
+          "line": 1093,
+          "column": 1
+        },
+        {
+          "title": "all six trail previews show cached gameplay and the map requests no story artwork",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "fbeac1b2decfba2c3acd-05452ff6749338c316a8",
+          "file": "browser.spec.ts",
+          "line": 2069,
+          "column": 1
+        },
+        {
+          "title": "finish artwork pixels meet terrain in all six trails, including the sloped beach exit",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "fbeac1b2decfba2c3acd-68514a932f5ff7f10672",
+          "file": "browser.spec.ts",
+          "line": 2189,
+          "column": 1
+        },
+        {
+          "title": "Timbers roots keep a safe, open first-jump run-up",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "fbeac1b2decfba2c3acd-203269ab3670015b47eb",
+          "file": "browser.spec.ts",
+          "line": 2357,
+          "column": 1
+        },
+        {
+          "title": "shared spelling/timbers-sticker atlas failure is recoverable through retry",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "fbeac1b2decfba2c3acd-d29f17cf1a94b838ad81",
+          "file": "browser.spec.ts",
+          "line": 3266,
+          "column": 71
+        },
+        {
+          "title": "compact HUD renderer fixture: timbers identity marks and real glyph clearance",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "fbeac1b2decfba2c3acd-2b161adc464ce950c4cf",
+          "file": "browser.spec.ts",
+          "line": 4488,
+          "column": 29
+        },
+        {
+          "title": "landmark labels: renderer fixture timbers clears real art, paths, frames, badges and Henry in every completion state",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "fbeac1b2decfba2c3acd-8537d9b2a755ed3dca83",
+          "file": "browser.spec.ts",
+          "line": 4761,
+          "column": 52
+        },
+        {
+          "title": "ambient weather repeats the same pixels, respects reduced motion and stays behind terrain",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "fbeac1b2decfba2c3acd-b8b5ced8dbf72b8486e5",
+          "file": "browser.spec.ts",
+          "line": 182,
+          "column": 1
+        },
+        {
+          "title": "title picker renders Treetop Timbers with its own atlas",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "fbeac1b2decfba2c3acd-e2d33b97b8da22b6e81e",
+          "file": "browser.spec.ts",
+          "line": 1093,
+          "column": 1
+        },
+        {
+          "title": "all six trail previews show cached gameplay and the map requests no story artwork",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "fbeac1b2decfba2c3acd-0385918fc16437e0176b",
+          "file": "browser.spec.ts",
+          "line": 2069,
+          "column": 1
+        },
+        {
+          "title": "finish artwork pixels meet terrain in all six trails, including the sloped beach exit",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "fbeac1b2decfba2c3acd-eb1cde40d2e2ae9cc56f",
+          "file": "browser.spec.ts",
+          "line": 2189,
+          "column": 1
+        },
+        {
+          "title": "Timbers roots keep a safe, open first-jump run-up",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "fbeac1b2decfba2c3acd-f2f52aa184d231250b30",
+          "file": "browser.spec.ts",
+          "line": 2357,
+          "column": 1
+        },
+        {
+          "title": "shared spelling/timbers-sticker atlas failure is recoverable through retry",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "fbeac1b2decfba2c3acd-4ade3e89ed669f278411",
+          "file": "browser.spec.ts",
+          "line": 3266,
+          "column": 71
+        },
+        {
+          "title": "compact HUD renderer fixture: timbers identity marks and real glyph clearance",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "fbeac1b2decfba2c3acd-fde47d52833f85b97154",
+          "file": "browser.spec.ts",
+          "line": 4488,
+          "column": 29
+        },
+        {
+          "title": "landmark labels: renderer fixture timbers clears real art, paths, frames, badges and Henry in every completion state",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "fbeac1b2decfba2c3acd-6bde6a896253437c7432",
+          "file": "browser.spec.ts",
+          "line": 4761,
+          "column": 52
+        },
+        {
+          "title": "ambient weather repeats the same pixels, respects reduced motion and stays behind terrain",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "fbeac1b2decfba2c3acd-f90227f1c995e10b0665",
+          "file": "browser.spec.ts",
+          "line": 182,
+          "column": 1
+        },
+        {
+          "title": "title picker renders Treetop Timbers with its own atlas",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "fbeac1b2decfba2c3acd-90a254457605d984050d",
+          "file": "browser.spec.ts",
+          "line": 1093,
+          "column": 1
+        },
+        {
+          "title": "all six trail previews show cached gameplay and the map requests no story artwork",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "fbeac1b2decfba2c3acd-5ffbf248991a8a20f58e",
+          "file": "browser.spec.ts",
+          "line": 2069,
+          "column": 1
+        },
+        {
+          "title": "finish artwork pixels meet terrain in all six trails, including the sloped beach exit",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "fbeac1b2decfba2c3acd-85b56d35a8e4fb08b9d2",
+          "file": "browser.spec.ts",
+          "line": 2189,
+          "column": 1
+        },
+        {
+          "title": "Timbers roots keep a safe, open first-jump run-up",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "fbeac1b2decfba2c3acd-b011c6597fd1e1298d00",
+          "file": "browser.spec.ts",
+          "line": 2357,
+          "column": 1
+        },
+        {
+          "title": "shared spelling/timbers-sticker atlas failure is recoverable through retry",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "fbeac1b2decfba2c3acd-e62ea536c90d2bf6b436",
+          "file": "browser.spec.ts",
+          "line": 3266,
+          "column": 71
+        },
+        {
+          "title": "compact HUD renderer fixture: timbers identity marks and real glyph clearance",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "fbeac1b2decfba2c3acd-e275b22ea67cccd9736a",
+          "file": "browser.spec.ts",
+          "line": 4488,
+          "column": 29
+        },
+        {
+          "title": "landmark labels: renderer fixture timbers clears real art, paths, frames, badges and Henry in every completion state",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "fbeac1b2decfba2c3acd-cfc8c7d160c14b525aa8",
+          "file": "browser.spec.ts",
+          "line": 4761,
+          "column": 52
+        }
+      ]
+    },
+    {
+      "title": "hud-owner-layout.spec.ts",
+      "file": "hud-owner-layout.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "owner HUD order real-font fixture: timbers identity marks and real glyph clearance",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "133fd3a0cef4fc812b99-80062ab0e223f6d2ded2",
+          "file": "hud-owner-layout.spec.ts",
+          "line": 80,
+          "column": 29
+        },
+        {
+          "title": "owner HUD order real-font fixture: timbers identity marks and real glyph clearance",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "133fd3a0cef4fc812b99-e256d0ef0edaa9d054a9",
+          "file": "hud-owner-layout.spec.ts",
+          "line": 80,
+          "column": 29
+        },
+        {
+          "title": "owner HUD order real-font fixture: timbers identity marks and real glyph clearance",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "133fd3a0cef4fc812b99-f491929a7a5cfe494d50",
+          "file": "hud-owner-layout.spec.ts",
+          "line": 80,
+          "column": 29
+        }
+      ]
+    },
+    {
+      "title": "timbers-art.spec.ts",
+      "file": "timbers-art.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "Timbers illustrated preview input journey and actual silhouette clearance at 426px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-cc58907b2486b17a6f70",
+          "file": "timbers-art.spec.ts",
+          "line": 100,
+          "column": 33
+        },
+        {
+          "title": "Timbers illustrated preview input journey and actual silhouette clearance at 320px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-35efdbaf30f0513b2427",
+          "file": "timbers-art.spec.ts",
+          "line": 100,
+          "column": 33
+        },
+        {
+          "title": "Timbers required manifest.json fails visibly and recovers with ordinary Retry",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-e427bc1ee083f40474f8",
+          "file": "timbers-art.spec.ts",
+          "line": 216,
+          "column": 197
+        },
+        {
+          "title": "Timbers required ground.png fails visibly and recovers with ordinary Retry",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-a40f88a3dd551d87921f",
+          "file": "timbers-art.spec.ts",
+          "line": 216,
+          "column": 197
+        },
+        {
+          "title": "Timbers required branch-580.png fails visibly and recovers with ordinary Retry",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-e196445d973723a8ceb4",
+          "file": "timbers-art.spec.ts",
+          "line": 216,
+          "column": 197
+        },
+        {
+          "title": "Timbers required branch-170.png fails visibly and recovers with ordinary Retry",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-8015f05c76b1c8ca6075",
+          "file": "timbers-art.spec.ts",
+          "line": 216,
+          "column": 197
+        },
+        {
+          "title": "Timbers required branch-200.png fails visibly and recovers with ordinary Retry",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-baae78af35cc48c6cf0c",
+          "file": "timbers-art.spec.ts",
+          "line": 216,
+          "column": 197
+        },
+        {
+          "title": "Timbers required branch-210.png fails visibly and recovers with ordinary Retry",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-a3a5688fddd0acfef2eb",
+          "file": "timbers-art.spec.ts",
+          "line": 216,
+          "column": 197
+        },
+        {
+          "title": "Timbers required branch-250.png fails visibly and recovers with ordinary Retry",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-6b8c46db87c9cd024534",
+          "file": "timbers-art.spec.ts",
+          "line": 216,
+          "column": 197
+        },
+        {
+          "title": "Timbers required branch-340.png fails visibly and recovers with ordinary Retry",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-ae13c442d8c026e013fd",
+          "file": "timbers-art.spec.ts",
+          "line": 216,
+          "column": 197
+        },
+        {
+          "title": "Timbers required branch-440.png fails visibly and recovers with ordinary Retry",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-009c19da69a76325f619",
+          "file": "timbers-art.spec.ts",
+          "line": 216,
+          "column": 197
+        },
+        {
+          "title": "Timbers required branch-450.png fails visibly and recovers with ordinary Retry",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-51153fbfa9d7397f4889",
+          "file": "timbers-art.spec.ts",
+          "line": 216,
+          "column": 197
+        },
+        {
+          "title": "Timbers tree required manifest.json fails visibly and recovers with ordinary Retry",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-7ba3b42e6b57325efbe0",
+          "file": "timbers-art.spec.ts",
+          "line": 231,
+          "column": 70
+        },
+        {
+          "title": "Timbers tree required tree.png fails visibly and recovers with ordinary Retry",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-9aecc7d1c85d2512b2cb",
+          "file": "timbers-art.spec.ts",
+          "line": 231,
+          "column": 70
+        },
+        {
+          "title": "Timbers tree required declaration fails visibly and recovers with ordinary Retry",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-cf04f6ee03e7262be658",
+          "file": "timbers-art.spec.ts",
+          "line": 231,
+          "column": 70
+        },
+        {
+          "title": "Timbers rollout left-fork artwork and wrong-end catch at 426px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-bf975789f2d63a702093",
+          "file": "timbers-art.spec.ts",
+          "line": 254,
+          "column": 33
+        },
+        {
+          "title": "Timbers rollout left-fork artwork and wrong-end catch at 320px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-2e573633672e7ae8345d",
+          "file": "timbers-art.spec.ts",
+          "line": 254,
+          "column": 33
+        },
+        {
+          "title": "Timbers complete terrain declaration is required and ordinary Retry recovers it",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-ce2952bc84ccd87d0823",
+          "file": "timbers-art.spec.ts",
+          "line": 316,
+          "column": 1
+        },
+        {
+          "title": "Timbers illustrated preview input journey and actual silhouette clearance at 426px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-f2b635f2d626a42b408f",
+          "file": "timbers-art.spec.ts",
+          "line": 100,
+          "column": 33
+        },
+        {
+          "title": "Timbers illustrated preview input journey and actual silhouette clearance at 320px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-822f58de735ea1b62c8c",
+          "file": "timbers-art.spec.ts",
+          "line": 100,
+          "column": 33
+        },
+        {
+          "title": "Timbers required manifest.json fails visibly and recovers with ordinary Retry",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-99c5d9f529d24ec204c2",
+          "file": "timbers-art.spec.ts",
+          "line": 216,
+          "column": 197
+        },
+        {
+          "title": "Timbers required ground.png fails visibly and recovers with ordinary Retry",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-f3b01f5640c99d533108",
+          "file": "timbers-art.spec.ts",
+          "line": 216,
+          "column": 197
+        },
+        {
+          "title": "Timbers required branch-580.png fails visibly and recovers with ordinary Retry",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-34ca4ee0f441039d247e",
+          "file": "timbers-art.spec.ts",
+          "line": 216,
+          "column": 197
+        },
+        {
+          "title": "Timbers required branch-170.png fails visibly and recovers with ordinary Retry",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-13f31738f31612a30326",
+          "file": "timbers-art.spec.ts",
+          "line": 216,
+          "column": 197
+        },
+        {
+          "title": "Timbers required branch-200.png fails visibly and recovers with ordinary Retry",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-011c66ddf27c724f101c",
+          "file": "timbers-art.spec.ts",
+          "line": 216,
+          "column": 197
+        },
+        {
+          "title": "Timbers required branch-210.png fails visibly and recovers with ordinary Retry",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-0c7b506b460982e1971e",
+          "file": "timbers-art.spec.ts",
+          "line": 216,
+          "column": 197
+        },
+        {
+          "title": "Timbers required branch-250.png fails visibly and recovers with ordinary Retry",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-00f9cb9e0a550754cf3e",
+          "file": "timbers-art.spec.ts",
+          "line": 216,
+          "column": 197
+        },
+        {
+          "title": "Timbers required branch-340.png fails visibly and recovers with ordinary Retry",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-d296e18ce5cdb86b40af",
+          "file": "timbers-art.spec.ts",
+          "line": 216,
+          "column": 197
+        },
+        {
+          "title": "Timbers required branch-440.png fails visibly and recovers with ordinary Retry",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-3a1f533b3082304f443b",
+          "file": "timbers-art.spec.ts",
+          "line": 216,
+          "column": 197
+        },
+        {
+          "title": "Timbers required branch-450.png fails visibly and recovers with ordinary Retry",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-0c813baa7d6d7647e978",
+          "file": "timbers-art.spec.ts",
+          "line": 216,
+          "column": 197
+        },
+        {
+          "title": "Timbers tree required manifest.json fails visibly and recovers with ordinary Retry",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-9771b1024460660d66a4",
+          "file": "timbers-art.spec.ts",
+          "line": 231,
+          "column": 70
+        },
+        {
+          "title": "Timbers tree required tree.png fails visibly and recovers with ordinary Retry",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-744d350be51d9381360d",
+          "file": "timbers-art.spec.ts",
+          "line": 231,
+          "column": 70
+        },
+        {
+          "title": "Timbers tree required declaration fails visibly and recovers with ordinary Retry",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-ddfb575d0fcfdbe4f266",
+          "file": "timbers-art.spec.ts",
+          "line": 231,
+          "column": 70
+        },
+        {
+          "title": "Timbers rollout left-fork artwork and wrong-end catch at 426px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-d87d5362d950e7a7b05e",
+          "file": "timbers-art.spec.ts",
+          "line": 254,
+          "column": 33
+        },
+        {
+          "title": "Timbers rollout left-fork artwork and wrong-end catch at 320px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-28ecdd4a3e23d0e24dd0",
+          "file": "timbers-art.spec.ts",
+          "line": 254,
+          "column": 33
+        },
+        {
+          "title": "Timbers complete terrain declaration is required and ordinary Retry recovers it",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-090b3529c16deb89e812",
+          "file": "timbers-art.spec.ts",
+          "line": 316,
+          "column": 1
+        },
+        {
+          "title": "Timbers illustrated preview input journey and actual silhouette clearance at 426px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-df69131963ba3881092f",
+          "file": "timbers-art.spec.ts",
+          "line": 100,
+          "column": 33
+        },
+        {
+          "title": "Timbers illustrated preview input journey and actual silhouette clearance at 320px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-f76214c12367e6e8c722",
+          "file": "timbers-art.spec.ts",
+          "line": 100,
+          "column": 33
+        },
+        {
+          "title": "Timbers required manifest.json fails visibly and recovers with ordinary Retry",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-663c86a7a16ec113a262",
+          "file": "timbers-art.spec.ts",
+          "line": 216,
+          "column": 197
+        },
+        {
+          "title": "Timbers required ground.png fails visibly and recovers with ordinary Retry",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-5c409d616540de7a61bc",
+          "file": "timbers-art.spec.ts",
+          "line": 216,
+          "column": 197
+        },
+        {
+          "title": "Timbers required branch-580.png fails visibly and recovers with ordinary Retry",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-a991ead1855d6be01b8f",
+          "file": "timbers-art.spec.ts",
+          "line": 216,
+          "column": 197
+        },
+        {
+          "title": "Timbers required branch-170.png fails visibly and recovers with ordinary Retry",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-a6954f0794093d4f1d2c",
+          "file": "timbers-art.spec.ts",
+          "line": 216,
+          "column": 197
+        },
+        {
+          "title": "Timbers required branch-200.png fails visibly and recovers with ordinary Retry",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-e2ac45e8f5a8017a54c7",
+          "file": "timbers-art.spec.ts",
+          "line": 216,
+          "column": 197
+        },
+        {
+          "title": "Timbers required branch-210.png fails visibly and recovers with ordinary Retry",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-2b46059ea4ba6b162afd",
+          "file": "timbers-art.spec.ts",
+          "line": 216,
+          "column": 197
+        },
+        {
+          "title": "Timbers required branch-250.png fails visibly and recovers with ordinary Retry",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-44cc3329d62f52ebb954",
+          "file": "timbers-art.spec.ts",
+          "line": 216,
+          "column": 197
+        },
+        {
+          "title": "Timbers required branch-340.png fails visibly and recovers with ordinary Retry",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-41bab14b4c3a4625307a",
+          "file": "timbers-art.spec.ts",
+          "line": 216,
+          "column": 197
+        },
+        {
+          "title": "Timbers required branch-440.png fails visibly and recovers with ordinary Retry",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-a84b6b133bc9c60d429f",
+          "file": "timbers-art.spec.ts",
+          "line": 216,
+          "column": 197
+        },
+        {
+          "title": "Timbers required branch-450.png fails visibly and recovers with ordinary Retry",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-3d2105c7264812fa3ec9",
+          "file": "timbers-art.spec.ts",
+          "line": 216,
+          "column": 197
+        },
+        {
+          "title": "Timbers tree required manifest.json fails visibly and recovers with ordinary Retry",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-6f0e446e3d8a01678b43",
+          "file": "timbers-art.spec.ts",
+          "line": 231,
+          "column": 70
+        },
+        {
+          "title": "Timbers tree required tree.png fails visibly and recovers with ordinary Retry",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-de8c9ec09d55d94b3e17",
+          "file": "timbers-art.spec.ts",
+          "line": 231,
+          "column": 70
+        },
+        {
+          "title": "Timbers tree required declaration fails visibly and recovers with ordinary Retry",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-5bedaa9db98fd89a41d6",
+          "file": "timbers-art.spec.ts",
+          "line": 231,
+          "column": 70
+        },
+        {
+          "title": "Timbers rollout left-fork artwork and wrong-end catch at 426px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-dd56bb5646f2a23d3786",
+          "file": "timbers-art.spec.ts",
+          "line": 254,
+          "column": 33
+        },
+        {
+          "title": "Timbers rollout left-fork artwork and wrong-end catch at 320px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-fda61cf849b02d4c9a1d",
+          "file": "timbers-art.spec.ts",
+          "line": 254,
+          "column": 33
+        },
+        {
+          "title": "Timbers complete terrain declaration is required and ordinary Retry recovers it",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-33f1600603f6d7a159e0",
+          "file": "timbers-art.spec.ts",
+          "line": 316,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "timbers-ascent.spec.ts",
+      "file": "timbers-ascent.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "Timbers right fork input ascent frames roots, middle and summit at 426px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "5d4fe9d69e09ed7c4759-32c5539715373593cd58",
+          "file": "timbers-ascent.spec.ts",
+          "line": 9,
+          "column": 3
+        },
+        {
+          "title": "Timbers right fork input ascent frames roots, middle and summit at 320px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "5d4fe9d69e09ed7c4759-a651be24e0bc26a45578",
+          "file": "timbers-ascent.spec.ts",
+          "line": 9,
+          "column": 3
+        },
+        {
+          "title": "Timbers right fork input ascent frames roots, middle and summit at 1366px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "5d4fe9d69e09ed7c4759-cc72b195474e4187cd99",
+          "file": "timbers-ascent.spec.ts",
+          "line": 9,
+          "column": 3
+        },
+        {
+          "title": "Timbers input return recovers all missed TREE tiles and revisits the finish",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "5d4fe9d69e09ed7c4759-86ad08406962245b5e4a",
+          "file": "timbers-ascent.spec.ts",
+          "line": 56,
+          "column": 1
+        },
+        {
+          "title": "Timbers only missed summit E returns to word flow without reopening immediately",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "5d4fe9d69e09ed7c4759-04cb59ede95e0b955426",
+          "file": "timbers-ascent.spec.ts",
+          "line": 100,
+          "column": 1
+        },
+        {
+          "title": "Timbers left fork visits both outer stars and returns to the lookout by input",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "5d4fe9d69e09ed7c4759-42fab9c1ee4bf070da70",
+          "file": "timbers-ascent.spec.ts",
+          "line": 122,
+          "column": 1
+        },
+        {
+          "title": "Timbers Star 3 wrong-end walk-off catches locally and rejoins by input",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "5d4fe9d69e09ed7c4759-ba702d383b10b0c87334",
+          "file": "timbers-ascent.spec.ts",
+          "line": 148,
+          "column": 1
+        },
+        {
+          "title": "Timbers optional spring reaches Star 2 and permits a safe repeat approach",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "5d4fe9d69e09ed7c4759-2d2efb62d235f9e7b027",
+          "file": "timbers-ascent.spec.ts",
+          "line": 168,
+          "column": 1
+        },
+        {
+          "title": "Timbers right fork input ascent frames roots, middle and summit at 426px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "5d4fe9d69e09ed7c4759-08e6a19608e1c4d49fca",
+          "file": "timbers-ascent.spec.ts",
+          "line": 9,
+          "column": 3
+        },
+        {
+          "title": "Timbers right fork input ascent frames roots, middle and summit at 320px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "5d4fe9d69e09ed7c4759-c328f1f1da1ac6f2d384",
+          "file": "timbers-ascent.spec.ts",
+          "line": 9,
+          "column": 3
+        },
+        {
+          "title": "Timbers right fork input ascent frames roots, middle and summit at 1366px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "5d4fe9d69e09ed7c4759-b0c5290868f4d8c3d422",
+          "file": "timbers-ascent.spec.ts",
+          "line": 9,
+          "column": 3
+        },
+        {
+          "title": "Timbers input return recovers all missed TREE tiles and revisits the finish",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "5d4fe9d69e09ed7c4759-68a1d82e3519c59a1d2b",
+          "file": "timbers-ascent.spec.ts",
+          "line": 56,
+          "column": 1
+        },
+        {
+          "title": "Timbers only missed summit E returns to word flow without reopening immediately",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "5d4fe9d69e09ed7c4759-b23c05915f6aeb4ecb86",
+          "file": "timbers-ascent.spec.ts",
+          "line": 100,
+          "column": 1
+        },
+        {
+          "title": "Timbers left fork visits both outer stars and returns to the lookout by input",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "5d4fe9d69e09ed7c4759-34151dfc6d56fb318a1c",
+          "file": "timbers-ascent.spec.ts",
+          "line": 122,
+          "column": 1
+        },
+        {
+          "title": "Timbers Star 3 wrong-end walk-off catches locally and rejoins by input",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "5d4fe9d69e09ed7c4759-aea9ae588d010f9c74b3",
+          "file": "timbers-ascent.spec.ts",
+          "line": 148,
+          "column": 1
+        },
+        {
+          "title": "Timbers optional spring reaches Star 2 and permits a safe repeat approach",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "5d4fe9d69e09ed7c4759-53a1584fd1a64a04c6b4",
+          "file": "timbers-ascent.spec.ts",
+          "line": 168,
+          "column": 1
+        },
+        {
+          "title": "Timbers right fork input ascent frames roots, middle and summit at 426px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "5d4fe9d69e09ed7c4759-df1ca7885b773d44f37f",
+          "file": "timbers-ascent.spec.ts",
+          "line": 9,
+          "column": 3
+        },
+        {
+          "title": "Timbers right fork input ascent frames roots, middle and summit at 320px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "5d4fe9d69e09ed7c4759-a12adba91b2081598fe2",
+          "file": "timbers-ascent.spec.ts",
+          "line": 9,
+          "column": 3
+        },
+        {
+          "title": "Timbers right fork input ascent frames roots, middle and summit at 1366px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "5d4fe9d69e09ed7c4759-b0185512bc11659a6212",
+          "file": "timbers-ascent.spec.ts",
+          "line": 9,
+          "column": 3
+        },
+        {
+          "title": "Timbers input return recovers all missed TREE tiles and revisits the finish",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "5d4fe9d69e09ed7c4759-f7332cd73d49f525da14",
+          "file": "timbers-ascent.spec.ts",
+          "line": 56,
+          "column": 1
+        },
+        {
+          "title": "Timbers only missed summit E returns to word flow without reopening immediately",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "5d4fe9d69e09ed7c4759-71c7e6b5f21798c5489a",
+          "file": "timbers-ascent.spec.ts",
+          "line": 100,
+          "column": 1
+        },
+        {
+          "title": "Timbers left fork visits both outer stars and returns to the lookout by input",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "5d4fe9d69e09ed7c4759-442dc031030d0a12e5ba",
+          "file": "timbers-ascent.spec.ts",
+          "line": 122,
+          "column": 1
+        },
+        {
+          "title": "Timbers Star 3 wrong-end walk-off catches locally and rejoins by input",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "5d4fe9d69e09ed7c4759-b72f6882799799d2a06c",
+          "file": "timbers-ascent.spec.ts",
+          "line": 148,
+          "column": 1
+        },
+        {
+          "title": "Timbers optional spring reaches Star 2 and permits a safe repeat approach",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "5d4fe9d69e09ed7c4759-0552479da484aa9f9397",
+          "file": "timbers-ascent.spec.ts",
+          "line": 168,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-02T03:11:07.985Z",
+    "duration": 501.8699999999999,
+    "expected": 0,
+    "skipped": 105,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

@@ -51,6 +51,7 @@ export async function loadWorldAssets(directory = 'plains'): Promise<WorldAssets
   if (manifest.timbersKit !== undefined && directory !== 'timbers') throw new Error('Timbers terrain declared by another world');
   if (manifest.timbersTree !== undefined && directory !== 'timbers') throw new Error('Timbers tree declared by another world');
   if (directory === 'timbers' && manifest.timbersTree !== 'tree-v1/manifest.json') throw new Error('Missing required Timbers tree declaration');
+  if (directory === 'timbers' && manifest.timbersKit !== 'terrain-kit-v1/manifest.json') throw new Error('Missing required Timbers terrain declaration');
   if (manifest.plainsContour !== undefined && (directory !== 'plains' || manifest.plainsContour !== 'contour-prototype-v1/grass.png')) throw new Error('Invalid Plains contour declaration');
   if (manifest.plainsContourSoil !== undefined && (directory !== 'plains' || !manifest.plainsContour || manifest.plainsContourSoil !== 'contour-prototype-v1/soil.png')) throw new Error('Invalid Plains contour soil declaration');
   const plainsContourImage = manifest.plainsContour ? await loadImage(`${base}${manifest.plainsContour}`, 'Plains contour grass') : undefined;

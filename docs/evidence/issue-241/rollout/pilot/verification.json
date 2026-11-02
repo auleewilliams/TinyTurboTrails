@@ -1,0 +1,2620 @@
+{
+  "rawReport": "playwright-report/issue-241/rollout-pilot/browser-report.json",
+  "reportSha256": "d4570cd9675d8cd94ce06a785965a44fa2914e7cfd31cfecedc5218deb9791e3",
+  "stats": {
+    "startTime": "2026-11-02T02:59:42.808Z",
+    "duration": 189512.29799999998,
+    "expected": 16,
+    "skipped": 0,
+    "unexpected": 2,
+    "flaky": 0
+  },
+  "cases": [
+    {
+      "project": "chromium",
+      "file": "timbers-art.spec.ts",
+      "title": "Timbers illustrated preview input journey and actual silhouette clearance at 426px",
+      "id": "72d2548e97958c413fdc-cc58907b2486b17a6f70",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "duration": 62231,
+          "errors": [],
+          "annotations": []
+        }
+      ]
+    },
+    {
+      "project": "chromium",
+      "file": "timbers-art.spec.ts",
+      "title": "Timbers illustrated preview input journey and actual silhouette clearance at 320px",
+      "id": "72d2548e97958c413fdc-35efdbaf30f0513b2427",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "duration": 62432,
+          "errors": [],
+          "annotations": []
+        }
+      ]
+    },
+    {
+      "project": "chromium",
+      "file": "timbers-art.spec.ts",
+      "title": "Timbers required manifest.json fails visibly and recovers with ordinary Retry",
+      "id": "72d2548e97958c413fdc-e427bc1ee083f40474f8",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "duration": 1282,
+          "errors": [],
+          "annotations": []
+        }
+      ]
+    },
+    {
+      "project": "chromium",
+      "file": "timbers-art.spec.ts",
+      "title": "Timbers required ground.png fails visibly and recovers with ordinary Retry",
+      "id": "72d2548e97958c413fdc-a40f88a3dd551d87921f",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "duration": 1289,
+          "errors": [],
+          "annotations": []
+        }
+      ]
+    },
+    {
+      "project": "chromium",
+      "file": "timbers-art.spec.ts",
+      "title": "Timbers required branch-580.png fails visibly and recovers with ordinary Retry",
+      "id": "72d2548e97958c413fdc-e196445d973723a8ceb4",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "duration": 1304,
+          "errors": [],
+          "annotations": []
+        }
+      ]
+    },
+    {
+      "project": "chromium",
+      "file": "timbers-art.spec.ts",
+      "title": "Timbers required branch-170.png fails visibly and recovers with ordinary Retry",
+      "id": "72d2548e97958c413fdc-8015f05c76b1c8ca6075",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "duration": 1222,
+          "errors": [],
+          "annotations": []
+        }
+      ]
+    },
+    {
+      "project": "chromium",
+      "file": "timbers-art.spec.ts",
+      "title": "Timbers required branch-200.png fails visibly and recovers with ordinary Retry",
+      "id": "72d2548e97958c413fdc-baae78af35cc48c6cf0c",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "duration": 1236,
+          "errors": [],
+          "annotations": []
+        }
+      ]
+    },
+    {
+      "project": "chromium",
+      "file": "timbers-art.spec.ts",
+      "title": "Timbers required branch-210.png fails visibly and recovers with ordinary Retry",
+      "id": "72d2548e97958c413fdc-a3a5688fddd0acfef2eb",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "duration": 1222,
+          "errors": [],
+          "annotations": []
+        }
+      ]
+    },
+    {
+      "project": "chromium",
+      "file": "timbers-art.spec.ts",
+      "title": "Timbers required branch-250.png fails visibly and recovers with ordinary Retry",
+      "id": "72d2548e97958c413fdc-6b8c46db87c9cd024534",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "duration": 1230,
+          "errors": [],
+          "annotations": []
+        }
+      ]
+    },
+    {
+      "project": "chromium",
+      "file": "timbers-art.spec.ts",
+      "title": "Timbers required branch-340.png fails visibly and recovers with ordinary Retry",
+      "id": "72d2548e97958c413fdc-ae13c442d8c026e013fd",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "duration": 1173,
+          "errors": [],
+          "annotations": []
+        }
+      ]
+    },
+    {
+      "project": "chromium",
+      "file": "timbers-art.spec.ts",
+      "title": "Timbers required branch-440.png fails visibly and recovers with ordinary Retry",
+      "id": "72d2548e97958c413fdc-009c19da69a76325f619",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "duration": 1258,
+          "errors": [],
+          "annotations": []
+        }
+      ]
+    },
+    {
+      "project": "chromium",
+      "file": "timbers-art.spec.ts",
+      "title": "Timbers required branch-450.png fails visibly and recovers with ordinary Retry",
+      "id": "72d2548e97958c413fdc-51153fbfa9d7397f4889",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "duration": 1255,
+          "errors": [],
+          "annotations": []
+        }
+      ]
+    },
+    {
+      "project": "chromium",
+      "file": "timbers-art.spec.ts",
+      "title": "Timbers tree required manifest.json fails visibly and recovers with ordinary Retry",
+      "id": "72d2548e97958c413fdc-7ba3b42e6b57325efbe0",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "duration": 1424,
+          "errors": [],
+          "annotations": []
+        }
+      ]
+    },
+    {
+      "project": "chromium",
+      "file": "timbers-art.spec.ts",
+      "title": "Timbers tree required tree.png fails visibly and recovers with ordinary Retry",
+      "id": "72d2548e97958c413fdc-9aecc7d1c85d2512b2cb",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "duration": 1197,
+          "errors": [],
+          "annotations": []
+        }
+      ]
+    },
+    {
+      "project": "chromium",
+      "file": "timbers-art.spec.ts",
+      "title": "Timbers tree required declaration fails visibly and recovers with ordinary Retry",
+      "id": "72d2548e97958c413fdc-cf04f6ee03e7262be658",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "duration": 1222,
+          "errors": [],
+          "annotations": []
+        }
+      ]
+    },
+    {
+      "project": "chromium",
+      "file": "timbers-art.spec.ts",
+      "title": "Timbers rollout left-fork artwork and wrong-end catch at 426px",
+      "id": "72d2548e97958c413fdc-bf975789f2d63a702093",
+      "status": "unexpected",
+      "expectedStatus": "passed",
+      "attempts": [
+        {
+          "status": "failed",
+          "retry": 0,
+          "duration": 18092,
+          "errors": [
+            {
+              "location": {
+                "file": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/tests/timbers-art.spec.ts",
+                "column": 97,
+                "line": 95
+              },
+              "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m360\u001b[39m\nReceived: \u001b[31m319\u001b[39m\n\n  93 |     expect([matching[0].width, matching[0].height]).toEqual([platform.width, 17]);\n  94 |   }\n> 95 |   if (supportId) expect(Number(sample.status.match(/Y (-?\\d+)/)![1]) + DEFAULT_MOVEMENT.height).toBe(support(supportId).from.y);\n     |                                                                                                 ^\n  96 |   await page.evaluate(() => { (window as unknown as { timberKeyboardPilot: { frozen: boolean } }).timberKeyboardPilot.frozen = false; });\n  97 |   return metadata;\n  98 | }\n    at capture (/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/tests/timbers-art.spec.ts:95:97)\n    at /home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/tests/timbers-art.spec.ts:273:58"
+            }
+          ],
+          "annotations": []
+        }
+      ]
+    },
+    {
+      "project": "chromium",
+      "file": "timbers-art.spec.ts",
+      "title": "Timbers rollout left-fork artwork and wrong-end catch at 320px",
+      "id": "72d2548e97958c413fdc-2e573633672e7ae8345d",
+      "status": "unexpected",
+      "expectedStatus": "passed",
+      "attempts": [
+        {
+          "status": "failed",
+          "retry": 0,
+          "duration": 18056,
+          "errors": [
+            {
+              "location": {
+                "file": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/tests/timbers-art.spec.ts",
+                "column": 97,
+                "line": 95
+              },
+              "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m360\u001b[39m\nReceived: \u001b[31m319\u001b[39m\n\n  93 |     expect([matching[0].width, matching[0].height]).toEqual([platform.width, 17]);\n  94 |   }\n> 95 |   if (supportId) expect(Number(sample.status.match(/Y (-?\\d+)/)![1]) + DEFAULT_MOVEMENT.height).toBe(support(supportId).from.y);\n     |                                                                                                 ^\n  96 |   await page.evaluate(() => { (window as unknown as { timberKeyboardPilot: { frozen: boolean } }).timberKeyboardPilot.frozen = false; });\n  97 |   return metadata;\n  98 | }\n    at capture (/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/tests/timbers-art.spec.ts:95:97)\n    at /home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/tests/timbers-art.spec.ts:273:58"
+            }
+          ],
+          "annotations": []
+        }
+      ]
+    },
+    {
+      "project": "chromium",
+      "file": "timbers-art.spec.ts",
+      "title": "Timbers complete terrain declaration is required and ordinary Retry recovers it",
+      "id": "72d2548e97958c413fdc-ce2952bc84ccd87d0823",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "duration": 1380,
+          "errors": [],
+          "annotations": []
+        }
+      ]
+    }
+  ],
+  "journeys": [
+    {
+      "directory": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium",
+      "browser": "chromium",
+      "width": 426,
+      "kind": "journey.json",
+      "status": "expected",
+      "routeGroups": 19,
+      "pngs": [
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/canopy-return-native.png",
+          "sha256": "2b8f21a5137f7c02f58279d514feb267a8245e59a97618023b81869142a19a06",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/canopy-return-css.png",
+          "sha256": "6b18c6ff8decc6e04a609b4f4eee6cf3c4a7218561ce114507398bab75969ee2",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/canopy-native.png",
+          "sha256": "9bf918b8a599be2105d21a1570f839c305abe0e2191a69bdfc519b2610440e12",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/canopy-css.png",
+          "sha256": "9acb8a71e27279a2d2d83e5a599a05d827fe3b80168c4691190b8b0fc6abe20a",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/fork-native.png",
+          "sha256": "78fca1377fce0570276fdef10a0c88c3366cbaec2265e605f58f31e23fc5ad20",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/fork-css.png",
+          "sha256": "c2f783cb96b7c068b8498689c596f954cc9dc36ee2ca020297da5bf81b23f9e6",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/lookout-native.png",
+          "sha256": "7b205ef77c8e3b8d4727621e2211def28c9c43929be322ae48b53760517cd39d",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/lookout-css.png",
+          "sha256": "a8d2c62feeb47f2a69b7313aeb5c08e852d66c6b51363cf63de6ce69dc076e9b",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/lower-bough-native.png",
+          "sha256": "66848743ddfef86bee71cf090b596ec662ef485237d870d3763834a5a138055d",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/lower-bough-css.png",
+          "sha256": "1af1ec1aae0ad7948600a7f9bfeddf292929fda39792efb9aceff8cb6cbc15e5",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/lower-return-native.png",
+          "sha256": "e7d5c15652a7a90bfef572fed4e32323c1deacb780ca79185026a1743397d9cd",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/lower-return-css.png",
+          "sha256": "446ea1ef832e627d443fe925c0822f1f9b9175ea0557a0b7f53a0e4cb89f0406",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/map-css.png",
+          "sha256": "5125c85800f9b5c7b6f18eb543db01feac23f05a061f10afc1d948e59b2d76e6",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/middle-native.png",
+          "sha256": "f04209d5820411fafd6495637d73cab53d3f235f66e813403bfe06a903714f27",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/middle-css.png",
+          "sha256": "ae8cfdc3e28b61cff2ccf7ec25867023ff993a8512ee7e55d90f6b31ec26b2f6",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/return-middle-edge-native.png",
+          "sha256": "2ba8e9442a7196d1cd62960b5ea97a7cc0ab5fa0cab21025bc2494892376a540",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/return-middle-edge-css.png",
+          "sha256": "64a82044019bd7980cbc2431d5037006ec852e36f6235cb7e4efd04b252594bf",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/return720-native.png",
+          "sha256": "241694c407176aead6e74337c5a70b1f7b383be3a547323439ae9b6b94ad025c",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/return720-css.png",
+          "sha256": "cfe2b6b5b5beff65fee3c3ab72be5c4562fc68cf0b7b61020b24840cf1f33cbb",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/return780-native.png",
+          "sha256": "5c2d3e2e2b903676f193664bd1c56482210f88d66fe14b5d5cc8ac79a94cba5b",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/return780-css.png",
+          "sha256": "daf703b07536e28521ed42f18fc808c8382de6e433edce3cd1cded4722426c16",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/returned-roots-native.png",
+          "sha256": "037a5d942a8e83a1bc7dad92805bbf8ec09e2074e0d762c59044006079b7dd26",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/returned-roots-css.png",
+          "sha256": "8b3c25173b0227c53470048e21751a2cfc3637289d67e14a53d6951f67c51d20",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/right-fork-native.png",
+          "sha256": "ed29059e9c458f421a71e84145d29ea782579664172bb1076f906cbc735dea85",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/right-fork-css.png",
+          "sha256": "69beb5514c8693a359a55c46c126a52cda08e6b5901b6f31c12bf5c6ed646e0a",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/roots-native.png",
+          "sha256": "7ceaf585856100f709f23c94a4eeb2b19c9b77e4ee611582195352ae9c8f0d66",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/roots-css.png",
+          "sha256": "c0e8e1b91c90a8c824c4f6280df282fc9645438edb159aaf9acfde74f4c35543",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/spring-catch-native.png",
+          "sha256": "9de1a1fe69b9b4b2168c843445df3a3655a33f0a3de6b01d570c484c6b93602c",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/spring-catch-css.png",
+          "sha256": "1d8926ffdc38a1101f528194442f9f7264f61c7176c0f7070aaa0239cedea924",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/spring-repeat-native.png",
+          "sha256": "9fa3c177b2d1c987f34161f6650070313e9e2d74ee4ff67c23b38c6782ba8b96",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/spring-repeat-css.png",
+          "sha256": "9db43fe0c90c8139cb935e1e02b982906774a729865bf53f1e2ae22ed69b8236",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/spring-reward-native.png",
+          "sha256": "14a36d89b23cf4c96c50f85466a6ef95f879101f610d8906d728d5f906b5a5bc",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/spring-reward-css.png",
+          "sha256": "3b740a422cee652eb8d453660da25a1c1269f72303e3ca2fce87f06330d97cf2",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/tree-base-native.png",
+          "sha256": "159e1e0e034223474f10e2b7e10c7fc9e0ada7f2b6b21ba6964aeebc45578f3b",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/tree-base-css.png",
+          "sha256": "935af831861c63a1f34222550c0e9bfa925a11d456d4bdafe1cbbe9184c79711",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/under-spring-native.png",
+          "sha256": "4aa67ea64a88063223343ec98c09373fd4190e202ca9c052e6e5afee607ae20f",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/under-spring-css.png",
+          "sha256": "39b3d201f60edb33c8db80efc60668ba3f552381d3469529019e593427bce685",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/upper-return-native.png",
+          "sha256": "7cdc4553066b3adce7f86309ce870e87b9960938d4aabae2c8d135f82b0f7ad2",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/upper-return-css.png",
+          "sha256": "c267055e66e9a5d9289b67b42f669920f3ea0415bb5c6081a619b92139d3762d",
+          "dimensions": [
+            426,
+            240
+          ]
+        }
+      ],
+      "visibleSupports": [
+        "timber-approach-1",
+        "timber-approach-2",
+        "timber-approach-3",
+        "timber-canopy",
+        "timber-fork",
+        "timber-fork-left-1",
+        "timber-fork-left-2",
+        "timber-fork-right-1",
+        "timber-fork-right-2",
+        "timber-lookout",
+        "timber-low-1",
+        "timber-low-2",
+        "timber-middle",
+        "timber-middle-left-catch",
+        "timber-middle-left-catch-2",
+        "timber-middle-left-catch-3",
+        "timber-outer-catch-1020",
+        "timber-outer-catch-300",
+        "timber-outer-catch-420",
+        "timber-outer-catch-540",
+        "timber-outer-catch-660",
+        "timber-outer-catch-780",
+        "timber-outer-catch-900",
+        "timber-return-1020",
+        "timber-return-240",
+        "timber-return-300",
+        "timber-return-360",
+        "timber-return-480",
+        "timber-return-540",
+        "timber-return-600",
+        "timber-return-720",
+        "timber-return-780",
+        "timber-return-840",
+        "timber-return-960",
+        "timber-shared",
+        "timber-spring",
+        "timber-spring-catch",
+        "timber-spring-reward",
+        "timber-star-1",
+        "timber-star-3-catch",
+        "timber-upper-1",
+        "timber-upper-2",
+        "timber-upper-3"
+      ],
+      "springGap": [
+        4
+      ],
+      "bodyReadErrors": [
+        {
+          "path": "/assets/timbers/terrain-kit-v1/ground.png",
+          "status": 304,
+          "error": "Error: response.body: Response body is unavailable for redirect responses"
+        },
+        {
+          "path": "/assets/timbers/terrain-kit-v1/branch-200.png",
+          "status": 304,
+          "error": "Error: response.body: Response body is unavailable for redirect responses"
+        },
+        {
+          "path": "/assets/timbers/terrain-kit-v1/branch-170.png",
+          "status": 304,
+          "error": "Error: response.body: Response body is unavailable for redirect responses"
+        },
+        {
+          "path": "/assets/timbers/terrain-kit-v1/branch-450.png",
+          "status": 304,
+          "error": "Error: response.body: Response body is unavailable for redirect responses"
+        },
+        {
+          "path": "/assets/timbers/terrain-kit-v1/branch-220.png",
+          "status": 304,
+          "error": "Error: response.body: Response body is unavailable for redirect responses"
+        },
+        {
+          "path": "/assets/timbers/terrain-kit-v1/branch-210.png",
+          "status": 304,
+          "error": "Error: response.body: Response body is unavailable for redirect responses"
+        },
+        {
+          "path": "/assets/timbers/terrain-kit-v1/branch-180.png",
+          "status": 304,
+          "error": "Error: response.body: Response body is unavailable for redirect responses"
+        },
+        {
+          "path": "/assets/timbers/terrain-kit-v1/branch-580.png",
+          "status": 304,
+          "error": "Error: response.body: Response body is unavailable for redirect responses"
+        },
+        {
+          "path": "/assets/timbers/terrain-kit-v1/branch-150.png",
+          "status": 304,
+          "error": "Error: response.body: Response body is unavailable for redirect responses"
+        },
+        {
+          "path": "/assets/timbers/terrain-kit-v1/branch-240.png",
+          "status": 304,
+          "error": "Error: response.body: Response body is unavailable for redirect responses"
+        },
+        {
+          "path": "/assets/timbers/terrain-kit-v1/branch-160.png",
+          "status": 304,
+          "error": "Error: response.body: Response body is unavailable for redirect responses"
+        },
+        {
+          "path": "/assets/timbers/terrain-kit-v1/branch-440.png",
+          "status": 304,
+          "error": "Error: response.body: Response body is unavailable for redirect responses"
+        },
+        {
+          "path": "/assets/timbers/terrain-kit-v1/branch-140.png",
+          "status": 304,
+          "error": "Error: response.body: Response body is unavailable for redirect responses"
+        },
+        {
+          "path": "/assets/timbers/terrain-kit-v1/branch-340.png",
+          "status": 304,
+          "error": "Error: response.body: Response body is unavailable for redirect responses"
+        },
+        {
+          "path": "/assets/timbers/terrain-kit-v1/branch-120.png",
+          "status": 304,
+          "error": "Error: response.body: Response body is unavailable for redirect responses"
+        },
+        {
+          "path": "/assets/timbers/terrain-kit-v1/branch-250.png",
+          "status": 304,
+          "error": "Error: response.body: Response body is unavailable for redirect responses"
+        },
+        {
+          "path": "/assets/timbers/tree-v1/tree.png",
+          "status": 304,
+          "error": "Error: response.body: Response body is unavailable for redirect responses"
+        }
+      ]
+    },
+    {
+      "directory": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium",
+      "browser": "chromium",
+      "width": 320,
+      "kind": "journey.json",
+      "status": "expected",
+      "routeGroups": 19,
+      "pngs": [
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/canopy-return-native.png",
+          "sha256": "d08d85087aa310c002ff5fe5072d6848b4fd444fc2b11d022ab0b4acbcc82b5d",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/canopy-return-css.png",
+          "sha256": "29df396096d88ba2443eeb2e13ddd5496ccee3e1e9662a5cad9cd24b62fdc36b",
+          "dimensions": [
+            320,
+            181
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/canopy-native.png",
+          "sha256": "852445cbd2374b965a5492f89d7428f4d64f729c4ce678bc14e73e9899043c6c",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/canopy-css.png",
+          "sha256": "aa0b5d38f50f5d3286c8e2998937e223defb3c03035650f00a0f89035cb243eb",
+          "dimensions": [
+            320,
+            181
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/fork-native.png",
+          "sha256": "00756a17d2de2667e2d964ceabdafe73b7823adcac3992c49bbd2324ad67a5ae",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/fork-css.png",
+          "sha256": "537fd469eb749d6ca7d297ef600deb00780715663ff80e36de51063115c1f3e8",
+          "dimensions": [
+            320,
+            181
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/lookout-native.png",
+          "sha256": "3fe02e5ecb0c4e86e02d08c6428d583155f3bc9927c1a3b65934f9298c21a574",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/lookout-css.png",
+          "sha256": "13313e4fc2e20a789a1de2e7ec52db605deb4ff566ea2d8346b41ca493f00a88",
+          "dimensions": [
+            320,
+            181
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/lower-bough-native.png",
+          "sha256": "41a294e9c73259c67c0765479611d2d105297b4f5b8a152e942d3c6a853613f4",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/lower-bough-css.png",
+          "sha256": "82214b529e7c880ff83bf878cba3dafa47ec9d24f111c0f214e75a1f26874b4e",
+          "dimensions": [
+            320,
+            181
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/lower-return-native.png",
+          "sha256": "4671f58f58e64dcabc875e8ccf5e3156536d402829c7c0ab0976c151b6efc5c1",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/lower-return-css.png",
+          "sha256": "5056d2b13f59d867d245e66499c05601eb1fe6ff33094de5e368764fb6583d89",
+          "dimensions": [
+            320,
+            181
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/map-css.png",
+          "sha256": "d0cd3375b1de58bd5151c6f0782eb29e0a9465d23629c3683672a1af9b186e29",
+          "dimensions": [
+            320,
+            181
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/middle-native.png",
+          "sha256": "3d51990fa0555e297952f4b054d97b2f7515fdbe03aba76b267115f9bc9a64a0",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/middle-css.png",
+          "sha256": "c4a73d8b1a9d6743ffcb657c533ba5ec4543c54ed2f17dc6a1b4430b5e5c8154",
+          "dimensions": [
+            320,
+            181
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/return-middle-edge-native.png",
+          "sha256": "14cb79e3632ef39f2eff291349ea8324765deeb2f1cbbe35d11d756979f818b9",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/return-middle-edge-css.png",
+          "sha256": "9e3c6ff12a9445b8137f7696a66657285a3804aa2bea9192f92874c5fc6ee283",
+          "dimensions": [
+            320,
+            181
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/return720-native.png",
+          "sha256": "03fa9a5e5a2e39e1ad9d3e5a49f5ee7041bd389c9e34cf44ec35205cea40b490",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/return720-css.png",
+          "sha256": "634f32719b84a003babe42b0fcb0d76e79bd4bc445a8a349b730b814cbbf96a7",
+          "dimensions": [
+            320,
+            181
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/return780-native.png",
+          "sha256": "5af007b8d6df2e195f3e6b925685b49696958768995ab871efeea4ad55b1746e",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/return780-css.png",
+          "sha256": "cbcf867546ac163927e8c5935047ee451e8b55bf3f0ffeddd2ea03c5b280006f",
+          "dimensions": [
+            320,
+            181
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/returned-roots-native.png",
+          "sha256": "da7349ec9a114fdeacb1c723229acbefe4041ac77ad88560df06167973776e0b",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/returned-roots-css.png",
+          "sha256": "efdbceddffa0b5d99a199fe8494b408ecd845aee22524ff2f3061cf9cce03a84",
+          "dimensions": [
+            320,
+            181
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/right-fork-native.png",
+          "sha256": "754af6c895153202203b086dc7f412da17dfd753eb44ea9b77ec4fa892746843",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/right-fork-css.png",
+          "sha256": "e41aab21fa6f039fe531c548856a35e6c1ef5e4862b627a143afc398dc6aaa87",
+          "dimensions": [
+            320,
+            181
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/roots-native.png",
+          "sha256": "6726e2f126cbd8d8345093f0e041977bb574b50bc01a76a22300d00c01d83333",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/roots-css.png",
+          "sha256": "6f7dcea862e9a572f0a7c79495ae83e9c0a0ce637b167a68d6ac4b9806805c5a",
+          "dimensions": [
+            320,
+            181
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/spring-catch-native.png",
+          "sha256": "acdcb03b6908c2ae90bd0731c2c140a9298c56975bbcbc5695e88463d80f4320",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/spring-catch-css.png",
+          "sha256": "f147179ce79ac26cad4d7b0e89ebfce6598dd02f1e5a9a39b6f34b58fa069a25",
+          "dimensions": [
+            320,
+            181
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/spring-repeat-native.png",
+          "sha256": "179af656e0d518b887f36fa1217c44908414c7d0df7bf50066cbf41008dd8bf3",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/spring-repeat-css.png",
+          "sha256": "42cdc5c8b859d8862e1bcf5e614fd7aad4f621fb9677a9614b2df7fdbc06c525",
+          "dimensions": [
+            320,
+            181
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/spring-reward-native.png",
+          "sha256": "ad426bef8fd1e212c8f578fcbd9c97ca92672cf6e69eeb6475b1a7a5623771e5",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/spring-reward-css.png",
+          "sha256": "a64b49ea37552c90f40307d72d4dab3e60053d4cb869a326ae4eee24bdbb81c8",
+          "dimensions": [
+            320,
+            181
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/tree-base-native.png",
+          "sha256": "2a1b552a30e08ade555c524a021b9838f9436306ecfe537232107a1015661474",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/tree-base-css.png",
+          "sha256": "516e26d7fcdaef08a778e322eeba367a3d6c278b2320bb5b4c5ff8261d74d043",
+          "dimensions": [
+            320,
+            181
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/under-spring-native.png",
+          "sha256": "9ed4b35de41f578a5594a08f267e97ab069e64a07dff43b28a99c3975819dab2",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/under-spring-css.png",
+          "sha256": "3990080c826da18f048e2b7999fd4c2b8c2298dec87827e26c27b9d8bb38fdbe",
+          "dimensions": [
+            320,
+            181
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/upper-return-native.png",
+          "sha256": "937ba25b7fddbe3114ffcdeaedeab2d5646dd7b1282dd74c2384b04d7a2de595",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/upper-return-css.png",
+          "sha256": "23a176321b8ef195e9d16da92e7492202a79af94b8a97bdb43463249d8162187",
+          "dimensions": [
+            320,
+            181
+          ]
+        }
+      ],
+      "visibleSupports": [
+        "timber-approach-1",
+        "timber-approach-2",
+        "timber-approach-3",
+        "timber-canopy",
+        "timber-fork",
+        "timber-fork-left-1",
+        "timber-fork-left-2",
+        "timber-fork-right-1",
+        "timber-fork-right-2",
+        "timber-lookout",
+        "timber-low-1",
+        "timber-low-2",
+        "timber-middle",
+        "timber-middle-left-catch",
+        "timber-middle-left-catch-2",
+        "timber-middle-left-catch-3",
+        "timber-outer-catch-1020",
+        "timber-outer-catch-300",
+        "timber-outer-catch-420",
+        "timber-outer-catch-540",
+        "timber-outer-catch-660",
+        "timber-outer-catch-780",
+        "timber-outer-catch-900",
+        "timber-return-1020",
+        "timber-return-240",
+        "timber-return-300",
+        "timber-return-360",
+        "timber-return-480",
+        "timber-return-540",
+        "timber-return-600",
+        "timber-return-720",
+        "timber-return-780",
+        "timber-return-840",
+        "timber-return-960",
+        "timber-shared",
+        "timber-spring",
+        "timber-spring-catch",
+        "timber-spring-reward",
+        "timber-star-1",
+        "timber-star-3-catch",
+        "timber-upper-1",
+        "timber-upper-2",
+        "timber-upper-3"
+      ],
+      "springGap": [
+        4
+      ],
+      "bodyReadErrors": [
+        {
+          "path": "/assets/timbers/terrain-kit-v1/ground.png",
+          "status": 304,
+          "error": "Error: response.body: Response body is unavailable for redirect responses"
+        },
+        {
+          "path": "/assets/timbers/terrain-kit-v1/branch-200.png",
+          "status": 304,
+          "error": "Error: response.body: Response body is unavailable for redirect responses"
+        },
+        {
+          "path": "/assets/timbers/terrain-kit-v1/branch-170.png",
+          "status": 304,
+          "error": "Error: response.body: Response body is unavailable for redirect responses"
+        },
+        {
+          "path": "/assets/timbers/terrain-kit-v1/branch-450.png",
+          "status": 304,
+          "error": "Error: response.body: Response body is unavailable for redirect responses"
+        },
+        {
+          "path": "/assets/timbers/terrain-kit-v1/branch-220.png",
+          "status": 304,
+          "error": "Error: response.body: Response body is unavailable for redirect responses"
+        },
+        {
+          "path": "/assets/timbers/terrain-kit-v1/branch-210.png",
+          "status": 304,
+          "error": "Error: response.body: Response body is unavailable for redirect responses"
+        },
+        {
+          "path": "/assets/timbers/terrain-kit-v1/branch-180.png",
+          "status": 304,
+          "error": "Error: response.body: Response body is unavailable for redirect responses"
+        },
+        {
+          "path": "/assets/timbers/terrain-kit-v1/branch-580.png",
+          "status": 304,
+          "error": "Error: response.body: Response body is unavailable for redirect responses"
+        },
+        {
+          "path": "/assets/timbers/terrain-kit-v1/branch-150.png",
+          "status": 304,
+          "error": "Error: response.body: Response body is unavailable for redirect responses"
+        },
+        {
+          "path": "/assets/timbers/terrain-kit-v1/branch-240.png",
+          "status": 304,
+          "error": "Error: response.body: Response body is unavailable for redirect responses"
+        },
+        {
+          "path": "/assets/timbers/terrain-kit-v1/branch-160.png",
+          "status": 304,
+          "error": "Error: response.body: Response body is unavailable for redirect responses"
+        },
+        {
+          "path": "/assets/timbers/terrain-kit-v1/branch-440.png",
+          "status": 304,
+          "error": "Error: response.body: Response body is unavailable for redirect responses"
+        },
+        {
+          "path": "/assets/timbers/terrain-kit-v1/branch-140.png",
+          "status": 304,
+          "error": "Error: response.body: Response body is unavailable for redirect responses"
+        },
+        {
+          "path": "/assets/timbers/terrain-kit-v1/branch-340.png",
+          "status": 304,
+          "error": "Error: response.body: Response body is unavailable for redirect responses"
+        },
+        {
+          "path": "/assets/timbers/terrain-kit-v1/branch-120.png",
+          "status": 304,
+          "error": "Error: response.body: Response body is unavailable for redirect responses"
+        },
+        {
+          "path": "/assets/timbers/terrain-kit-v1/branch-250.png",
+          "status": 304,
+          "error": "Error: response.body: Response body is unavailable for redirect responses"
+        },
+        {
+          "path": "/assets/timbers/tree-v1/tree.png",
+          "status": 304,
+          "error": "Error: response.body: Response body is unavailable for redirect responses"
+        }
+      ]
+    },
+    {
+      "directory": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium",
+      "browser": "chromium",
+      "width": 320,
+      "kind": "left-journey.json",
+      "status": "unexpected",
+      "routeGroups": 5,
+      "pngs": [
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/left-fork-lower-native.png",
+          "sha256": "efca70ed484122bd7297558090dbe19f510ec1ca72ef81497cb00a5bfff71124",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/left-fork-lower-css.png",
+          "sha256": "1e785ac747ae60e607068fe919c3dacb83639dc55c915c9c32b47aadbc6daf9f",
+          "dimensions": [
+            320,
+            181
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/left-fork-upper-native.png",
+          "sha256": "c56efb83f530a766254e6a7311b36eedc3aba3851ed3b02b579f85d46051ee91",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/left-fork-upper-css.png",
+          "sha256": "0ec21341dfc8502f4ebf951990e6d35aa736c66574857139c933da7d859cd716",
+          "dimensions": [
+            320,
+            181
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/low-star-native.png",
+          "sha256": "2cb4722ea1566e4b31cbf2108134603d0b6c6e2b2d16aa911f746ab85f42c71a",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/low-star-css.png",
+          "sha256": "5539cc0738fb5ba42bc56d5975db95e649bc33d93ab3adbfd930ebfecf77ddae",
+          "dimensions": [
+            320,
+            181
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/upper-star-native.png",
+          "sha256": "7163ebf94e4d5848dd0623a1afd46779409f2c52a6afa86419ef809ba9c1cac9",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/upper-star-css.png",
+          "sha256": "cbe6db4d470c0cc38b3c37de32e21bab3e6b91f73b3b6122ff1b3908d2114082",
+          "dimensions": [
+            320,
+            181
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/wrong-end-catch-native.png",
+          "sha256": "8b8b719a027f8f56e67f4de186f349971cddde3a0177c382590396f0964bdca1",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/wrong-end-catch-css.png",
+          "sha256": "f7b6840581049116e1a925732cf94f20e26bc7d402b63f36f2ca74a2403341f4",
+          "dimensions": [
+            320,
+            181
+          ]
+        }
+      ],
+      "visibleSupports": [
+        "timber-canopy",
+        "timber-fork",
+        "timber-fork-left-1",
+        "timber-fork-left-2",
+        "timber-fork-right-1",
+        "timber-fork-right-2",
+        "timber-lookout",
+        "timber-low-1",
+        "timber-low-2",
+        "timber-middle",
+        "timber-middle-left-catch",
+        "timber-middle-left-catch-2",
+        "timber-middle-left-catch-3",
+        "timber-return-780",
+        "timber-shared",
+        "timber-star-1",
+        "timber-star-3",
+        "timber-star-3-catch",
+        "timber-upper-1",
+        "timber-upper-2",
+        "timber-upper-3"
+      ],
+      "springGap": [],
+      "bodyReadErrors": []
+    },
+    {
+      "directory": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium",
+      "browser": "chromium",
+      "width": 426,
+      "kind": "left-journey.json",
+      "status": "unexpected",
+      "routeGroups": 5,
+      "pngs": [
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/left-fork-lower-native.png",
+          "sha256": "df483b13d81f2ba3263aac9c259d27b9d0067c59e06241d0b0f358b7ae8fb757",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/left-fork-lower-css.png",
+          "sha256": "2bb8e091954164fbe9c00e655e22a9ede3aac153a7e6b3b75f9f818d55096059",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/left-fork-upper-native.png",
+          "sha256": "5bfd6c73cc7c8ea53a8aa4e97cd14e5eda8eb706d28c0962a59e70e8594d3d1f",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/left-fork-upper-css.png",
+          "sha256": "46aad5593b55096c760c807c03ddbc6ffed405308fae14689985e3e210c81310",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/low-star-native.png",
+          "sha256": "3fc3b6f1384477dc92494f226dfca85e9c326bbf48221a0d6137d4de11ef2b8b",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/low-star-css.png",
+          "sha256": "d148b136bdfffba94cefe6d9e653e13f8c18217f96fc492a23d3ae4bcadd3984",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/upper-star-native.png",
+          "sha256": "6b0f5ee745ee9531cc34d5e3ba07333f1f7739a97927f9e1cdc263f89b3893a9",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/upper-star-css.png",
+          "sha256": "ab6fd8502e01a99d3e0e8b21d64a3799692515a0ce8cd429fb55fd6f931e9313",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/wrong-end-catch-native.png",
+          "sha256": "552acd3cf50d5798e37b85b150e06a041920759c74d228df02c93d107d8a076f",
+          "dimensions": [
+            426,
+            240
+          ]
+        },
+        {
+          "path": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/wrong-end-catch-css.png",
+          "sha256": "4dc5ce2ded318ed269ac92e4939af42239f1d2614f9504d3a817a208fbf560c7",
+          "dimensions": [
+            426,
+            240
+          ]
+        }
+      ],
+      "visibleSupports": [
+        "timber-canopy",
+        "timber-fork",
+        "timber-fork-left-1",
+        "timber-fork-left-2",
+        "timber-fork-right-1",
+        "timber-fork-right-2",
+        "timber-lookout",
+        "timber-low-1",
+        "timber-low-2",
+        "timber-middle",
+        "timber-middle-left-catch",
+        "timber-middle-left-catch-2",
+        "timber-middle-left-catch-3",
+        "timber-return-780",
+        "timber-shared",
+        "timber-star-1",
+        "timber-star-3",
+        "timber-star-3-catch",
+        "timber-upper-1",
+        "timber-upper-2",
+        "timber-upper-3"
+      ],
+      "springGap": [],
+      "bodyReadErrors": []
+    }
+  ],
+  "fileAttachments": {
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/map-e4fbd6a2059046e78f184bc55b135aec71db06e6.png": "5125c85800f9b5c7b6f18eb543db01feac23f05a061f10afc1d948e59b2d76e6",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/map-metadata-0e61984e8102e3507429f0bbe051177361b9635d.json": "e8a5a526a440d7acb1cfe92ebd8911fe5eda41c8703eefca9c86725611556ac8",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/roots-native-43ef84a4145d37a631cfe0f17e4d6d7fe2e41f2c.png": "7ceaf585856100f709f23c94a4eeb2b19c9b77e4ee611582195352ae9c8f0d66",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/roots-css-67bdf2c59ca81c287267037caff3f6e562d1b17c.png": "c0e8e1b91c90a8c824c4f6280df282fc9645438edb159aaf9acfde74f4c35543",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/roots-metadata-196c2e3c48d9960754a3e27dbd2d83c0faeb6dd0.json": "ab9b996a7e5bd467b12bea99ef4547f2d7b1fd216b9909ac5980ece60a1c5145",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/tree-base-native-a4cd45318885b892e7eadecba9bad51a2d34259a.png": "159e1e0e034223474f10e2b7e10c7fc9e0ada7f2b6b21ba6964aeebc45578f3b",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/tree-base-css-3b84b0d1ae4c78f8d35cd76f9aa5ee42a936ff94.png": "935af831861c63a1f34222550c0e9bfa925a11d456d4bdafe1cbbe9184c79711",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/tree-base-metadata-4bd4d6eace5ce92009236fd800ffb14b8101487a.json": "388339f6bf8df59f266964bd6651c07b80dea01d5da231088a39805845760b5f",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/middle-native-fdd7650081dcad190025aab86237ec0768b3dfa2.png": "f04209d5820411fafd6495637d73cab53d3f235f66e813403bfe06a903714f27",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/middle-css-536aaaa67c8a8c97fb7e15591dfcd56ed02ac22d.png": "ae8cfdc3e28b61cff2ccf7ec25867023ff993a8512ee7e55d90f6b31ec26b2f6",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/middle-metadata-32d5b35575f0a2af740baa3b24bf51482bac9e94.json": "fd434efeeedc5faa724de9f2694591100afd63a96faee9afa133b89c20574d57",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/under-spring-native-7b0911403487c99414aab796eba0584f9830040d.png": "4aa67ea64a88063223343ec98c09373fd4190e202ca9c052e6e5afee607ae20f",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/under-spring-css-02bf80cdf7be11eb879482cb856bd7f2d961e4f2.png": "39b3d201f60edb33c8db80efc60668ba3f552381d3469529019e593427bce685",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/under-spring-metadata-1ea399e97d88746720f9f4451f26352bdbbdf134.json": "acd9b8248a9dfeb82a0baad601113b3151908dc174d12a66584c76ff3b7949a3",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/spring-reward-native-2d7e5714377f3caf55b7cc0f44968cff1c6d2b72.png": "14a36d89b23cf4c96c50f85466a6ef95f879101f610d8906d728d5f906b5a5bc",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/spring-reward-css-85e46bcdbbf9ae0819c35ae97edb7748d1ba8d97.png": "3b740a422cee652eb8d453660da25a1c1269f72303e3ca2fce87f06330d97cf2",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/spring-reward-metadata-d1ebd4646a09448f6be740dfaf7e4cfb71c0a217.json": "8be6efe598d1ea5a801d91b4a23803cf06eb1a738fce3eb1b0086b74e7289709",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/spring-catch-native-3a717c3e8859acaa6b25b97715a72f00aa08420f.png": "9de1a1fe69b9b4b2168c843445df3a3655a33f0a3de6b01d570c484c6b93602c",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/spring-catch-css-b2115c7d21d421b9dc5f7d1eddf61693e223676b.png": "1d8926ffdc38a1101f528194442f9f7264f61c7176c0f7070aaa0239cedea924",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/spring-catch-metadata-82be549fdc00cfabf77f7aa1991c431e727bb9fd.json": "099c452d214ec54e98a091da2614608eea4be1e2224484d48a5d4232ed33baf3",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/spring-repeat-native-4e2230dbb15a48e76cca6f70b17bd4a4fd96075a.png": "9fa3c177b2d1c987f34161f6650070313e9e2d74ee4ff67c23b38c6782ba8b96",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/spring-repeat-css-97d669af38443ca1a7d06d2cf23d38d16063e8f9.png": "9db43fe0c90c8139cb935e1e02b982906774a729865bf53f1e2ae22ed69b8236",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/spring-repeat-metadata-7922f99d244dc8011e5faafbe6173bde233b1a96.json": "a574635b4ca2767cc982536b97bf2dbdafcc2f15792f27db5c38e81235bc4bfc",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/lower-bough-native-567f5c1e07ac051ca5bdf24d79b731b95937b036.png": "66848743ddfef86bee71cf090b596ec662ef485237d870d3763834a5a138055d",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/lower-bough-css-325aee5107a1c30e9f0e506e612b49ebd556b21b.png": "1af1ec1aae0ad7948600a7f9bfeddf292929fda39792efb9aceff8cb6cbc15e5",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/lower-bough-metadata-ef6552ffe0751646f6f82965784a001cda766726.json": "5f670679a9bde8f1705d001daabc52710b2df976b4036bf66b9c522fe7a6f365",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/fork-native-35efdca77b0c57e5714165eb1f46ae4208cb2167.png": "78fca1377fce0570276fdef10a0c88c3366cbaec2265e605f58f31e23fc5ad20",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/fork-css-26a2764649b33fb4138259fbd6c5db735a2637db.png": "c2f783cb96b7c068b8498689c596f954cc9dc36ee2ca020297da5bf81b23f9e6",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/fork-metadata-e2dedced7b1062c92d0a2abdd1a11d8cbb5bd5ff.json": "32fe391a0795025f11eee778f4e33452ad46e1b144d674f274abac1dec534762",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/right-fork-native-63cde5b690813140c75726462790aa39abffe9d4.png": "ed29059e9c458f421a71e84145d29ea782579664172bb1076f906cbc735dea85",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/right-fork-css-e8e293ecabc17382846cd0e4aebd111fb0e150e1.png": "69beb5514c8693a359a55c46c126a52cda08e6b5901b6f31c12bf5c6ed646e0a",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/right-fork-metadata-2997a8f76176911ac490958616be89b74ef9d337.json": "8b32f83ec75732822049c83d1696c503896565ca0138532045dd4f061b49d93d",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/canopy-native-235d8f14f4867a0600cef646859cdd270088364e.png": "9bf918b8a599be2105d21a1570f839c305abe0e2191a69bdfc519b2610440e12",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/canopy-css-1ebac70031c29c713ac7fee4e8e37d0916a699b9.png": "9acb8a71e27279a2d2d83e5a599a05d827fe3b80168c4691190b8b0fc6abe20a",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/canopy-metadata-c8db0127f089690949b5fada9f0a3133dd9a470f.json": "8b9b41c937bc7b40de870e3310f9ba1ab1b3d87103f48ad3146c4a146ff649d3",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/pause-44d12f005455b3e003856af87a7b34b5ac43da48.png": "601f3f409cca060dbfd10d0f3937833d07b6fb02f5f20f497b06eff4ed349eb9",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/pause-metadata-37d34588a0322f7eb140fe85f0e9da9ee8f75f7b.json": "984c1f2a91f70799ead850a9e97b7e1caf459049bf13a97e47ef56724f6d3a93",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/lookout-native-6d34522ab4b1d9b083580992570c6a3a37e14e50.png": "7b205ef77c8e3b8d4727621e2211def28c9c43929be322ae48b53760517cd39d",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/lookout-css-2d97241deefc338aa78251376f840fbbc4f9fbfb.png": "a8d2c62feeb47f2a69b7313aeb5c08e852d66c6b51363cf63de6ce69dc076e9b",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/lookout-metadata-e9ff74cec5c271012780aa60ea20809bb0cb231f.json": "2d042b9686c6d3afddd8faf6b0f328f56887c6144f85ff90617a20ce96758858",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/upper-return-native-91ab33e286d4a6380f90e359979716aefe311658.png": "7cdc4553066b3adce7f86309ce870e87b9960938d4aabae2c8d135f82b0f7ad2",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/upper-return-css-847873cca5a603a09ca56506a3054236ec351e0a.png": "c267055e66e9a5d9289b67b42f669920f3ea0415bb5c6081a619b92139d3762d",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/upper-return-metadata-e5cb0e8deb2c74e640ef29446aba2adfd2cfd94d.json": "434ef354012fb00585e5f2dd75286986f0a7a952aba184516fb453c98325d547",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/canopy-return-native-24cda1cbc65275d6b60658e3d138bb432d28c541.png": "2b8f21a5137f7c02f58279d514feb267a8245e59a97618023b81869142a19a06",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/canopy-return-css-41cf53edf6153510e99ccbdd15c55b89de9ae4fd.png": "6b18c6ff8decc6e04a609b4f4eee6cf3c4a7218561ce114507398bab75969ee2",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/canopy-return-metadata-0458aa1469c340cebd59ed5252fb5fed3b4c55ab.json": "ac3b5b819e8eab78086e928f9c90b8f0520cb838ce019d839cdbde7f433cbd65",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/return-middle-edge-native-7ecc242a07bd00ae7222ebf11828b94f7254b626.png": "2ba8e9442a7196d1cd62960b5ea97a7cc0ab5fa0cab21025bc2494892376a540",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/return-middle-edge-css-e7ef0a72658706d701015139cbe3c5496607dcbe.png": "64a82044019bd7980cbc2431d5037006ec852e36f6235cb7e4efd04b252594bf",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/return-middle-edge-metadata-82bfd477c7cd57669119fe2333026224b2cf01a3.json": "6e664d7b71282ee182334792c0b02d7bfa31d2f121252936a18db4552be0fad0",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/return720-native-b11428c2936f069a5ec7b5fa4d9c45c8907a5dfa.png": "241694c407176aead6e74337c5a70b1f7b383be3a547323439ae9b6b94ad025c",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/return720-css-09881aaaf76037486ed188f8e836311e222ecdff.png": "cfe2b6b5b5beff65fee3c3ab72be5c4562fc68cf0b7b61020b24840cf1f33cbb",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/return720-metadata-d7abc0d62d24da615c53dab4ee3995e046c1b66a.json": "f05bad841250ad1557216099e913549065b1e4338a15a8684b6e94f513e64cd1",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/return780-native-99224a8754665985b7d28dfb04e6269b80c9bd1d.png": "5c2d3e2e2b903676f193664bd1c56482210f88d66fe14b5d5cc8ac79a94cba5b",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/return780-css-fca6368ca272b07c539167ed61d2988d4c0727af.png": "daf703b07536e28521ed42f18fc808c8382de6e433edce3cd1cded4722426c16",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/return780-metadata-d6bcbf2079979c232c1c6e9d6f5a9753e71c6ee9.json": "db6ff147b51a6d2cd5c89f9b246c6d7b13b5f00d8aaa75dc810c38d7bcfc2790",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/lower-return-native-d590dfc356413592a2d588a453481b2260399b23.png": "e7d5c15652a7a90bfef572fed4e32323c1deacb780ca79185026a1743397d9cd",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/lower-return-css-306ab738621b96c8469040aabe9536d31419d3c1.png": "446ea1ef832e627d443fe925c0822f1f9b9175ea0557a0b7f53a0e4cb89f0406",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/lower-return-metadata-f71a18bc97549bd04345401addf137137938cf3b.json": "ac3a5df39dec0e778803cc679b7a26d91f70d6aac97ac3b57e27ad068bc37a92",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/returned-roots-native-12fee9f1ad8d914417453495fbc648e9462a19d0.png": "037a5d942a8e83a1bc7dad92805bbf8ec09e2074e0d762c59044006079b7dd26",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/returned-roots-css-d406dd690f56d5a7400b6c9e29e4c0c65fac51c5.png": "8b3c25173b0227c53470048e21751a2cfc3637289d67e14a53d6951f67c51d20",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/returned-roots-metadata-65b2a63dbd1218cf3a5771ab09f83a6f4064ecc1.json": "cc46272dd78a766d514ddbed456d3589ade1dbd05e720696f5f68038c21b0b98",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/journey-e74da28a1e27b5d67e3ba1d01a542153a8d91984.json": "3e791ecf32aa7b80118ce329ec3de6df7c1c45471a3b4fdd2e31d6d25bd040bd",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/map-57ef1b920ab4cbd596d6a7f16286d33c1a4a02e7.png": "d0cd3375b1de58bd5151c6f0782eb29e0a9465d23629c3683672a1af9b186e29",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/map-metadata-07387e9a48150135e1abc538746793b2a4a0a2c0.json": "7b25ba3218763d5559fa5e062a33a8759e339b624c2b90f7cd16bf3e2817c243",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/roots-native-7b838f46e371e791fab39a4cbc0ae9a0e47e403d.png": "6726e2f126cbd8d8345093f0e041977bb574b50bc01a76a22300d00c01d83333",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/roots-css-94e8b9c8203ec2d322d0df63c568522380d32c35.png": "6f7dcea862e9a572f0a7c79495ae83e9c0a0ce637b167a68d6ac4b9806805c5a",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/roots-metadata-16cf5220a0462f665b57901327f5d59e5e02b56e.json": "6e26703df0eee2088b3ed0a491ed2a70f19e9c21ef20f25374cb160fa15094e7",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/tree-base-native-1e477aaaf082787e2dc448c04945e59545e2f696.png": "2a1b552a30e08ade555c524a021b9838f9436306ecfe537232107a1015661474",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/tree-base-css-114b0068617958782cc848ccbc0dc83e65801c74.png": "516e26d7fcdaef08a778e322eeba367a3d6c278b2320bb5b4c5ff8261d74d043",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/tree-base-metadata-06315840ff6dc4a896e8a4dbc9b080e0851a083c.json": "a2af226afb8ea4a77621d52cc6f5fa9a20a033841a561d1df25ef71d524b9706",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/middle-native-4d1aad2252597f3f9fe6d69c3a5455db54c57707.png": "3d51990fa0555e297952f4b054d97b2f7515fdbe03aba76b267115f9bc9a64a0",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/middle-css-2434ea0e6b98b548e955f144d366bcc5e03ea753.png": "c4a73d8b1a9d6743ffcb657c533ba5ec4543c54ed2f17dc6a1b4430b5e5c8154",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/middle-metadata-5ae12151439305a3edb603f79b48f8bb3573c39b.json": "3560221f10bc510facde872a7495fae0ee34fcb5d7156548df5a0d19332daf58",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/under-spring-native-f85887c248204edfecf25f1f224f8a0615c2e14c.png": "9ed4b35de41f578a5594a08f267e97ab069e64a07dff43b28a99c3975819dab2",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/under-spring-css-3c9b5e055e3a5ac3d2986371eefd932e477a6d8f.png": "3990080c826da18f048e2b7999fd4c2b8c2298dec87827e26c27b9d8bb38fdbe",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/under-spring-metadata-2fd40b0c0338abdea089b9d181b9f96a8287a209.json": "8e66f24b922d3dfd3e6d590c787ba8d85576c70f66828aac9b6f0462e7a0509f",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/spring-reward-native-aa2327e1b86b7bdce49bebde71a39703f8e127d8.png": "ad426bef8fd1e212c8f578fcbd9c97ca92672cf6e69eeb6475b1a7a5623771e5",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/spring-reward-css-aef03765c0e66ed17ad75c4a8ebbe02842d2d2ab.png": "a64b49ea37552c90f40307d72d4dab3e60053d4cb869a326ae4eee24bdbb81c8",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/spring-reward-metadata-becd702ddfb6cab3ecd8fbcb650961fe1cc311dd.json": "903ca0742668cbce9751f06ed6e3105a02a3f551fe44af4499ca3cb71ba3d574",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/spring-catch-native-fd39235db280e6cb366195e2f7974f70c144861b.png": "acdcb03b6908c2ae90bd0731c2c140a9298c56975bbcbc5695e88463d80f4320",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/spring-catch-css-98032e896166e6b1fdf93419dbd6f6d5e5b9fcc4.png": "f147179ce79ac26cad4d7b0e89ebfce6598dd02f1e5a9a39b6f34b58fa069a25",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/spring-catch-metadata-739e883d25c05b810fb1f887258addc491622d4e.json": "d924934471bf9ee4e8367a54a7fa2812bb2ed27b4bcc6d424072bbab4cc84dcf",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/spring-repeat-native-3fb1e9cc84c9f51346141f9f43d671f1f759343c.png": "179af656e0d518b887f36fa1217c44908414c7d0df7bf50066cbf41008dd8bf3",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/spring-repeat-css-b919ab5933b6156f4d6b2faaa65fafc0c39ce143.png": "42cdc5c8b859d8862e1bcf5e614fd7aad4f621fb9677a9614b2df7fdbc06c525",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/spring-repeat-metadata-0f023b24c56f1365befe3cc7e0dd79c9191ac188.json": "c92cd790e98e439a04d3e36f7bab7a7b5377a2534093be67f44153a4c60e453d",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/lower-bough-native-8b369563515788cc7a81b080e748c370cabdef1f.png": "41a294e9c73259c67c0765479611d2d105297b4f5b8a152e942d3c6a853613f4",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/lower-bough-css-1a3ae0f5bbd41ce4c0da38af843966d892c2feea.png": "82214b529e7c880ff83bf878cba3dafa47ec9d24f111c0f214e75a1f26874b4e",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/lower-bough-metadata-a140d0d7526ada066ec483430c98cdc80ef3fbc3.json": "a384966fa41657408a5c24379c73d4c91b7a84a331cb63c00020132c15c75b4e",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/fork-native-7a5262c03840185374f07606de17f97b95196618.png": "00756a17d2de2667e2d964ceabdafe73b7823adcac3992c49bbd2324ad67a5ae",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/fork-css-3917dd3163663ec4a376fb6fc8e45b63029e18d7.png": "537fd469eb749d6ca7d297ef600deb00780715663ff80e36de51063115c1f3e8",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/fork-metadata-ed40758362d1ef6725107e2aac1d4db863550c45.json": "4b0f09854b65ee4d2f51cb4d801387ae39fcadef99591cbbcc2d1b619caae5b1",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/right-fork-native-f2e2b0d5eb356592663870b40a12a46becb4e4e0.png": "754af6c895153202203b086dc7f412da17dfd753eb44ea9b77ec4fa892746843",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/right-fork-css-ac22be6cd8d5e75df6f596a8881e15d3ec02521c.png": "e41aab21fa6f039fe531c548856a35e6c1ef5e4862b627a143afc398dc6aaa87",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/right-fork-metadata-21e1e18d3ef0ed3ae163e8f6d4f6f2dd8793b21f.json": "951a4ad48bd4d6837d04201a5037454dbfe42b58ce227bf8f40ca92e42648afb",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/canopy-native-48fe0895edfb58c4d49e7c93c06ab1a0f84c175e.png": "852445cbd2374b965a5492f89d7428f4d64f729c4ce678bc14e73e9899043c6c",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/canopy-css-2bbb51301ec0ef4657188abc688b04af1b378751.png": "aa0b5d38f50f5d3286c8e2998937e223defb3c03035650f00a0f89035cb243eb",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/canopy-metadata-fe1706a44ff6f0d3fb57b0e04868dbbd37cdcc32.json": "eaae29ec1e9ea53c4dc8b30798ba6e686c744a986023ac82889e6c1762feec3d",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/pause-38c0d3a9dc8a02cb7522ff4e8554e17f733e45e2.png": "e7292c05fd2848c5f5f5197e6d667a5ed6d3da951d9b9ef18448e356f294490b",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/pause-metadata-ae4f7be5d2a924816d3b31ff4f01ca853142fa0f.json": "3561d058cc05fb56ac72a581188496aee74ba279db7de7b99166164524bb6fbd",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/lookout-native-20d53ace2d8e5e99f49dba6ef5e9aeca0cc1f2f0.png": "3fe02e5ecb0c4e86e02d08c6428d583155f3bc9927c1a3b65934f9298c21a574",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/lookout-css-1f470d785dd72c610f3263ddb9c2f3f6f89173db.png": "13313e4fc2e20a789a1de2e7ec52db605deb4ff566ea2d8346b41ca493f00a88",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/lookout-metadata-bb9672a13ac112946a7d55e755e3fd5c5da9c974.json": "f2f171de9cb7a3d618710368f79114a29c54d26dde6075ec7c496def76041f34",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/upper-return-native-2d52e4770727ecdf2fe20ff7d05d5fe1a32c0457.png": "937ba25b7fddbe3114ffcdeaedeab2d5646dd7b1282dd74c2384b04d7a2de595",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/upper-return-css-96af398ad52d69fd298e2cb8fe46a99baec66f1d.png": "23a176321b8ef195e9d16da92e7492202a79af94b8a97bdb43463249d8162187",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/upper-return-metadata-701c8f9add05f5d6a692365fd34c4acf794b3826.json": "a4f89a4826888afb490040c506d17f8df7d516d10adbd4b7d4ab9acba0c3b008",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/canopy-return-native-37f10bdb8ffb82406fb11eec00c7d89fc25e2345.png": "d08d85087aa310c002ff5fe5072d6848b4fd444fc2b11d022ab0b4acbcc82b5d",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/canopy-return-css-0f2a29acf9bf1f35b65019ea1e1c21374744632f.png": "29df396096d88ba2443eeb2e13ddd5496ccee3e1e9662a5cad9cd24b62fdc36b",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/canopy-return-metadata-e4064f0ab1752a031779c5c0937ea36809b8419b.json": "ef770f2a1c2a46d382ef76fbb28337b00382281e65ba3d7973c55b1845e32bdb",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/return-middle-edge-native-c1095f10ae41f970291ba3c39687bd2500ea4a53.png": "14cb79e3632ef39f2eff291349ea8324765deeb2f1cbbe35d11d756979f818b9",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/return-middle-edge-css-c5c1ac8320a5d9773a21ff09f0a80df0a5bbc9c9.png": "9e3c6ff12a9445b8137f7696a66657285a3804aa2bea9192f92874c5fc6ee283",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/return-middle-edge-metadata-0d3027a3da0cb0cb1ee2b802f36832c9be86c561.json": "8e5ef89ed4c741346656c5fd7db372ad5765269f217ad82339202c5c767aae0d",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/return720-native-ad3ddd42e1cb3e53133d4550f8a92d77153195d5.png": "03fa9a5e5a2e39e1ad9d3e5a49f5ee7041bd389c9e34cf44ec35205cea40b490",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/return720-css-e4afadb9d72e9e899353a3db15253551b564a853.png": "634f32719b84a003babe42b0fcb0d76e79bd4bc445a8a349b730b814cbbf96a7",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/return720-metadata-e9e1a7d402cdd7cb431c7322ac06c038f91ad6a9.json": "19e6e9d7aaf3619c3b343c4bcd86baf3d8581d1453a8d446c258c734bfdb98a1",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/return780-native-88c4ab7bf0b77a219a7d04e903efcacc308f6896.png": "5af007b8d6df2e195f3e6b925685b49696958768995ab871efeea4ad55b1746e",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/return780-css-65b8ffda37b4eaf827e6a50dce3ec8e5f8a4b630.png": "cbcf867546ac163927e8c5935047ee451e8b55bf3f0ffeddd2ea03c5b280006f",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/return780-metadata-3b8433f4df22c73876980fc0e40d7ee2c66077cc.json": "3e4a6ddd299b9595b2fa46623d6e7ec7c253921284c2680ae6167349a58ed133",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/lower-return-native-2e693c30b3aa1e1ec17e7b099a7f423824d1167a.png": "4671f58f58e64dcabc875e8ccf5e3156536d402829c7c0ab0976c151b6efc5c1",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/lower-return-css-04133a2ebc7581a389217286a6242e4653e689a7.png": "5056d2b13f59d867d245e66499c05601eb1fe6ff33094de5e368764fb6583d89",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/lower-return-metadata-4656765f72eb4f588dab6a53e857ea20b0f8666b.json": "fc5108136dfa866fb92d1d7cc94e9b90a92ffb6b4300800c65e47e4a73f86f07",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/returned-roots-native-b3de316cf835bacd142e15b936b7fabf9d9b6af9.png": "da7349ec9a114fdeacb1c723229acbefe4041ac77ad88560df06167973776e0b",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/returned-roots-css-7c8ad73ff60be7c5a66e399bf2fa0271f22ab0cf.png": "efdbceddffa0b5d99a199fe8494b408ecd845aee22524ff2f3061cf9cce03a84",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/returned-roots-metadata-851ed0b80520d2b17b33aeb8ff223d77a88a8bd8.json": "6444a98f2a5c52d6ea8e213253783554c6ddefb5bdcb9b7d60cece6a78915bb2",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/journey-ca9a77775d9b5278bba9bc31617ceb643628cb79.json": "3c8d464b90011d7b5f060eaeb27cc166e4cc3bb159a3c519f1f09f7cdd5f3448",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-requir-7baa0-ecovers-with-ordinary-Retry-chromium/attachments/required-resource-failed-4767e5d9a08f72d3eff26529bf05596edba7c731.png": "605dcd398b265dad1bf9b4668ce0b329db9f33d79bc120812d2bc775e884da3b",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-requir-7baa0-ecovers-with-ordinary-Retry-chromium/attachments/required-resource-recovered-c29c734dae276043c084de4f5d77276977fc277b.png": "54adf37a3d0b5ae902f689b1e80b9e0bdda8b9568bf25e7e66716d941c79210c",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-requir-711d4-ecovers-with-ordinary-Retry-chromium/attachments/required-resource-failed-64f4a097d85e8a9b1ae8a003cb62f9bd187bac08.png": "cc70acb32ae1e861a95b6ed45c09368d1f75397138681a84602d2173a6b59b69",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-requir-711d4-ecovers-with-ordinary-Retry-chromium/attachments/required-resource-recovered-8610e52d57d4edd4b116d06b265705bf59f416a2.png": "54adf37a3d0b5ae902f689b1e80b9e0bdda8b9568bf25e7e66716d941c79210c",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-requir-e6e94-ecovers-with-ordinary-Retry-chromium/attachments/required-resource-failed-d86e0d6eea6440608c60b0b6549b611a3612c849.png": "cedc5d9e446eea2c3167081942e629b8825062e9ce2a01ef44577c315e908b38",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-requir-e6e94-ecovers-with-ordinary-Retry-chromium/attachments/required-resource-recovered-6c2ad7f564dbcf985a76b4cee59c2766f1769bff.png": "54adf37a3d0b5ae902f689b1e80b9e0bdda8b9568bf25e7e66716d941c79210c",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-requir-3c252-ecovers-with-ordinary-Retry-chromium/attachments/required-resource-failed-507b1507679af54e549f33f0b35f3c177f2ecdc8.png": "b9ce713eec9d48aba5116f249d8a508108243a987455f1c055144dfeea5899b8",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-requir-3c252-ecovers-with-ordinary-Retry-chromium/attachments/required-resource-recovered-4f751021584b4deb16bea504199355d7709b8c9b.png": "54adf37a3d0b5ae902f689b1e80b9e0bdda8b9568bf25e7e66716d941c79210c",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-requir-2ff67-ecovers-with-ordinary-Retry-chromium/attachments/required-resource-failed-154fb1e54a6096733e740eae06f41b743db512b8.png": "b9ce713eec9d48aba5116f249d8a508108243a987455f1c055144dfeea5899b8",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-requir-2ff67-ecovers-with-ordinary-Retry-chromium/attachments/required-resource-recovered-fec49add7255ce14d70b4c9ff863839c6eb43e75.png": "54adf37a3d0b5ae902f689b1e80b9e0bdda8b9568bf25e7e66716d941c79210c",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-requir-194ea-ecovers-with-ordinary-Retry-chromium/attachments/required-resource-failed-a0974166fe9e4b0bbe142a8958389a0c36a75fd7.png": "cc70acb32ae1e861a95b6ed45c09368d1f75397138681a84602d2173a6b59b69",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-requir-194ea-ecovers-with-ordinary-Retry-chromium/attachments/required-resource-recovered-6cc22cdcfae8b20f18efb57d55881154029ef25f.png": "54adf37a3d0b5ae902f689b1e80b9e0bdda8b9568bf25e7e66716d941c79210c",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-requir-0dd0b-ecovers-with-ordinary-Retry-chromium/attachments/required-resource-failed-370d26f48facdeb88d16a5b7233d0f9b1bd8d460.png": "cc70acb32ae1e861a95b6ed45c09368d1f75397138681a84602d2173a6b59b69",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-requir-0dd0b-ecovers-with-ordinary-Retry-chromium/attachments/required-resource-recovered-626ac614f9b455431d8520a26f0a902c37b3b7f4.png": "54adf37a3d0b5ae902f689b1e80b9e0bdda8b9568bf25e7e66716d941c79210c",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-requir-44682-ecovers-with-ordinary-Retry-chromium/attachments/required-resource-failed-1540cfca9ce26fe461ce1509794bf2bd1a6e28a0.png": "605dcd398b265dad1bf9b4668ce0b329db9f33d79bc120812d2bc775e884da3b",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-requir-44682-ecovers-with-ordinary-Retry-chromium/attachments/required-resource-recovered-8b2e11d4e492f22818f9d89922053166285efd7b.png": "54adf37a3d0b5ae902f689b1e80b9e0bdda8b9568bf25e7e66716d941c79210c",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-requir-18728-ecovers-with-ordinary-Retry-chromium/attachments/required-resource-failed-8a6f6904eade15dd7b9f300b0a266b3d8b7e5e29.png": "cc70acb32ae1e861a95b6ed45c09368d1f75397138681a84602d2173a6b59b69",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-requir-18728-ecovers-with-ordinary-Retry-chromium/attachments/required-resource-recovered-833821a6d1d58d3577e7d8d1b648945ed9f2d30e.png": "54adf37a3d0b5ae902f689b1e80b9e0bdda8b9568bf25e7e66716d941c79210c",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-requir-4439a-ecovers-with-ordinary-Retry-chromium/attachments/required-resource-failed-e189d2cacef687580ddbfbe6f38bf4efcdd4b535.png": "b9ce713eec9d48aba5116f249d8a508108243a987455f1c055144dfeea5899b8",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-requir-4439a-ecovers-with-ordinary-Retry-chromium/attachments/required-resource-recovered-8a045d13cf4b394c48f1a8b80b01a8834df7a57d.png": "54adf37a3d0b5ae902f689b1e80b9e0bdda8b9568bf25e7e66716d941c79210c",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-tree-r-d073f-ecovers-with-ordinary-Retry-chromium/attachments/tree-required-failed-ce1c6c01beca811ddea90a3ab3065f837188bf9e.png": "c055b9d1db55d0a4bc9731f8e99b7bb4cd2cf99bfd14691bfda670e4cbc014d9",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-tree-r-d073f-ecovers-with-ordinary-Retry-chromium/attachments/tree-required-recovered-620c28ed291ec571f38fb46a16745fb7a27bfa73.png": "54adf37a3d0b5ae902f689b1e80b9e0bdda8b9568bf25e7e66716d941c79210c",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-tree-r-fd30a-ecovers-with-ordinary-Retry-chromium/attachments/tree-required-failed-363600da55efba5609f296c58484b86451083042.png": "cc70acb32ae1e861a95b6ed45c09368d1f75397138681a84602d2173a6b59b69",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-tree-r-fd30a-ecovers-with-ordinary-Retry-chromium/attachments/tree-required-recovered-d48005b34c76f2ab06ee002735884c111a6c6d34.png": "54adf37a3d0b5ae902f689b1e80b9e0bdda8b9568bf25e7e66716d941c79210c",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-tree-r-f71c4-ecovers-with-ordinary-Retry-chromium/attachments/tree-required-failed-6e3344b977fb4a006177ac90ce750ab5edc08e68.png": "605dcd398b265dad1bf9b4668ce0b329db9f33d79bc120812d2bc775e884da3b",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-tree-r-f71c4-ecovers-with-ordinary-Retry-chromium/attachments/tree-required-recovered-2ea5cf0864ec252494455feeca4a2018dd7e64bc.png": "54adf37a3d0b5ae902f689b1e80b9e0bdda8b9568bf25e7e66716d941c79210c",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/attachments/low-star-native-091182e7665060a7f3a039b85fdb46c4fdfe77a2.png": "3fc3b6f1384477dc92494f226dfca85e9c326bbf48221a0d6137d4de11ef2b8b",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/attachments/low-star-css-d19525975567e757b64eb47dda74ddfd894c0276.png": "d148b136bdfffba94cefe6d9e653e13f8c18217f96fc492a23d3ae4bcadd3984",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/attachments/low-star-metadata-66b74397f2abfd71517e6f1f72977f97272f0a4c.json": "973215eb1c8d335882113ce5f269bca79c5035fc7fcddb1c62b4f17c6ed66b51",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/attachments/left-fork-lower-native-ca0056d26fbfba1b98c03fc627e7957c0dc7a838.png": "df483b13d81f2ba3263aac9c259d27b9d0067c59e06241d0b0f358b7ae8fb757",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/attachments/left-fork-lower-css-ff4a3339996db5e7d30624a92901ab4532daff9c.png": "2bb8e091954164fbe9c00e655e22a9ede3aac153a7e6b3b75f9f818d55096059",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/attachments/left-fork-lower-metadata-4997f2506490c46033ef73a1133f0ff5e454cd53.json": "88194ef4f6800bd04e105a79bd0f8ef952b86156c268f1de71f4c247d633e840",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/attachments/left-fork-upper-native-f8076691f0279e6d48ab47fe71194126bf87ee70.png": "5bfd6c73cc7c8ea53a8aa4e97cd14e5eda8eb706d28c0962a59e70e8594d3d1f",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/attachments/left-fork-upper-css-1399285560d424c84bb77aa53ff556225ae79f3d.png": "46aad5593b55096c760c807c03ddbc6ffed405308fae14689985e3e210c81310",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/attachments/left-fork-upper-metadata-c2e4742ad54c81ff73d79eeb419ae7afc5f6abae.json": "da3c90c0e18455b8501b78d3da5dc8e48a8ecf0cbfbda70ce4ba555b23b3ee69",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/attachments/upper-star-native-52137e540faa434a586976368e806081480ff7c4.png": "6b0f5ee745ee9531cc34d5e3ba07333f1f7739a97927f9e1cdc263f89b3893a9",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/attachments/upper-star-css-ea07bb8561ed3d31a23a619ccc232a15d8a8f59d.png": "ab6fd8502e01a99d3e0e8b21d64a3799692515a0ce8cd429fb55fd6f931e9313",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/attachments/upper-star-metadata-3297206bec8de187049768357c3cb9c3732812c7.json": "3ffc97a180bed4bab20421963b34ced20c1f7e22de76f19faf807011c1faebc8",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/attachments/wrong-end-catch-native-18207d6b8f2a84e05b0ffbb3cc7ff81d0f796faf.png": "552acd3cf50d5798e37b85b150e06a041920759c74d228df02c93d107d8a076f",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/attachments/wrong-end-catch-css-064c7362533da41163648e01b8f8456ac0c8f262.png": "4dc5ce2ded318ed269ac92e4939af42239f1d2614f9504d3a817a208fbf560c7",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/attachments/wrong-end-catch-metadata-c08325791a1a78b740921c146df3d54bcf2b2083.json": "5911f1cd7934a5623fa502ca5c829742377607ad495879f01ea24df0e7cffa51",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/attachments/left-journey-7e664f9beb6392323bf9472913e6c82df4c7f104.json": "dc277de6186748d3a0dac7be215a0a96daa72c801c597ea90ebb082656a745ac",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/test-failed-1.png": "27afd278652fe75368d3307db399d3155d052e96a22a62b46cdac234f53704b0",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/error-context.md": "fd5164ca7dc8a71d21d536f8d325d81488583fe4abac9805bd52edc5c3e3815d",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/trace.zip": "594090480c12434d45dd531cfa7c01aac48f1c9e9f27dc42bc520fb050dd0bc8",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/attachments/low-star-native-affc014db51735e8b972ae05ffd4a73df7180966.png": "2cb4722ea1566e4b31cbf2108134603d0b6c6e2b2d16aa911f746ab85f42c71a",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/attachments/low-star-css-47e5c5f117673347be7da14a0a353468221ab841.png": "5539cc0738fb5ba42bc56d5975db95e649bc33d93ab3adbfd930ebfecf77ddae",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/attachments/low-star-metadata-d95e8cfbd64b936e1965ff48e8b0ff462d7c7e84.json": "8650322a10386663433df1c1b2de4b0cae29dfef26f0fa1517ca60071ead2dcd",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/attachments/left-fork-lower-native-c94a96558469e142daa599ea56ca173b5e753658.png": "efca70ed484122bd7297558090dbe19f510ec1ca72ef81497cb00a5bfff71124",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/attachments/left-fork-lower-css-fe853a161f3be490d69667fa155b32af0d2f305e.png": "1e785ac747ae60e607068fe919c3dacb83639dc55c915c9c32b47aadbc6daf9f",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/attachments/left-fork-lower-metadata-fd6eaf78c72c366e71e7cc3c1d9b16946fef9038.json": "c4a2751e6163d9a1609ab5220241cd411f0ec369e7bd6d2962c7ff7dabf99315",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/attachments/left-fork-upper-native-303d0d2af68627b48d08f1c8dc068af65bb0f0ff.png": "c56efb83f530a766254e6a7311b36eedc3aba3851ed3b02b579f85d46051ee91",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/attachments/left-fork-upper-css-140aa663815f71e805be220da58ff013db840f26.png": "0ec21341dfc8502f4ebf951990e6d35aa736c66574857139c933da7d859cd716",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/attachments/left-fork-upper-metadata-cb1e81f642e5079d38a75840ccc267e63fb33680.json": "93df3f6f97966876208c52a4603658f21dcaebc9e6900a40c84d8324d19061ce",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/attachments/upper-star-native-9e96d110ac503eae4dd256c7a793f48d0ece2d51.png": "7163ebf94e4d5848dd0623a1afd46779409f2c52a6afa86419ef809ba9c1cac9",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/attachments/upper-star-css-e1ee9136172ef6a2b3e63c53e9be02de862c8df1.png": "cbe6db4d470c0cc38b3c37de32e21bab3e6b91f73b3b6122ff1b3908d2114082",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/attachments/upper-star-metadata-f52ac83ece96f643cefc0bd36c9c7cc4dabce4b7.json": "5c6f7262f84978807f578fb653d63683a221658320b95824aebede77c9c97b5d",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/attachments/wrong-end-catch-native-00e572e5e2875f864dba1b1bfb227243291d7f69.png": "8b8b719a027f8f56e67f4de186f349971cddde3a0177c382590396f0964bdca1",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/attachments/wrong-end-catch-css-cbda5bd2d7a218ab084a1c718add5280c428547f.png": "f7b6840581049116e1a925732cf94f20e26bc7d402b63f36f2ca74a2403341f4",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/attachments/wrong-end-catch-metadata-dbade5944fa7dfee577183815a4dfd79b8fe5c17.json": "c70838e7496e4a94b3b7a854eb6c1836e5f8df657c858dc33711ec27113fc181",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/attachments/left-journey-5d70f80e9ee9c2c2e0104489288b35a81a6dff8e.json": "eb3d049f63e4104e8c981467aedb4bd94d7b2b2183efb799ad7af9848e6fadfb",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/test-failed-1.png": "f46df43c64be8e1afddfff5bcf864958b517d38c54fe7fdbe3d97339cd1a21bc",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/error-context.md": "5354d498a42bdebbeb70c87df87121ef28784d038d5a1df204a3f1b95f4df6ac",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/trace.zip": "249e97c9fb3d011a1096ba4470a1efbb8ca82f876bbb2c9bc496421bad4b0ce1",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-comple-84a85--ordinary-Retry-recovers-it-chromium/attachments/terrain-declaration-failed-8d878a3c002ab48912df8ede108dfe565f7373a5.png": "0870b5ce4569e31ac476dce5ea64ce11080e22b4260fa51128f84ff84ba6eeef",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-comple-84a85--ordinary-Retry-recovers-it-chromium/attachments/terrain-declaration-recovered-bd6afbd16add770e143a1ece3bfb7d450b0a39a7.png": "b8909b5836e59786f4ee8094db9b57898d8cd3ed4789c2e38e1607b3820d3f7b"
+  },
+  "inlineAttachments": [],
+  "curatedFiles": [
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-requir-7baa0-ecovers-with-ordinary-Retry-chromium/required-resource-recovered.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-requir-7baa0-ecovers-with-ordinary-Retry-chromium/required-resource-recovered.png",
+      "sha256": "54adf37a3d0b5ae902f689b1e80b9e0bdda8b9568bf25e7e66716d941c79210c"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-requir-7baa0-ecovers-with-ordinary-Retry-chromium/required-resource-failed.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-requir-7baa0-ecovers-with-ordinary-Retry-chromium/required-resource-failed.png",
+      "sha256": "605dcd398b265dad1bf9b4668ce0b329db9f33d79bc120812d2bc775e884da3b"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-requir-194ea-ecovers-with-ordinary-Retry-chromium/required-resource-recovered.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-requir-194ea-ecovers-with-ordinary-Retry-chromium/required-resource-recovered.png",
+      "sha256": "54adf37a3d0b5ae902f689b1e80b9e0bdda8b9568bf25e7e66716d941c79210c"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-requir-194ea-ecovers-with-ordinary-Retry-chromium/required-resource-failed.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-requir-194ea-ecovers-with-ordinary-Retry-chromium/required-resource-failed.png",
+      "sha256": "cc70acb32ae1e861a95b6ed45c09368d1f75397138681a84602d2173a6b59b69"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/middle.json",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/middle.json",
+      "sha256": "3560221f10bc510facde872a7495fae0ee34fcb5d7156548df5a0d19332daf58"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/roots-css.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/roots-css.png",
+      "sha256": "6f7dcea862e9a572f0a7c79495ae83e9c0a0ce637b167a68d6ac4b9806805c5a"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/spring-repeat-native.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/spring-repeat-native.png",
+      "sha256": "179af656e0d518b887f36fa1217c44908414c7d0df7bf50066cbf41008dd8bf3"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/canopy-css.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/canopy-css.png",
+      "sha256": "aa0b5d38f50f5d3286c8e2998937e223defb3c03035650f00a0f89035cb243eb"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/return720.json",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/return720.json",
+      "sha256": "19e6e9d7aaf3619c3b343c4bcd86baf3d8581d1453a8d446c258c734bfdb98a1"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/map.json",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/map.json",
+      "sha256": "7b25ba3218763d5559fa5e062a33a8759e339b624c2b90f7cd16bf3e2817c243"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/upper-return-native.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/upper-return-native.png",
+      "sha256": "937ba25b7fddbe3114ffcdeaedeab2d5646dd7b1282dd74c2384b04d7a2de595"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/spring-reward.json",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/spring-reward.json",
+      "sha256": "903ca0742668cbce9751f06ed6e3105a02a3f551fe44af4499ca3cb71ba3d574"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/canopy-return.json",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/canopy-return.json",
+      "sha256": "ef770f2a1c2a46d382ef76fbb28337b00382281e65ba3d7973c55b1845e32bdb"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/under-spring.json",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/under-spring.json",
+      "sha256": "8e66f24b922d3dfd3e6d590c787ba8d85576c70f66828aac9b6f0462e7a0509f"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/journey.json",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/journey.json",
+      "sha256": "3c8d464b90011d7b5f060eaeb27cc166e4cc3bb159a3c519f1f09f7cdd5f3448"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/lookout-css.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/lookout-css.png",
+      "sha256": "13313e4fc2e20a789a1de2e7ec52db605deb4ff566ea2d8346b41ca493f00a88"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/spring-reward-native.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/spring-reward-native.png",
+      "sha256": "ad426bef8fd1e212c8f578fcbd9c97ca92672cf6e69eeb6475b1a7a5623771e5"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/returned-roots-native.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/returned-roots-native.png",
+      "sha256": "da7349ec9a114fdeacb1c723229acbefe4041ac77ad88560df06167973776e0b"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/lower-bough-css.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/lower-bough-css.png",
+      "sha256": "82214b529e7c880ff83bf878cba3dafa47ec9d24f111c0f214e75a1f26874b4e"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/lower-return-css.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/lower-return-css.png",
+      "sha256": "5056d2b13f59d867d245e66499c05601eb1fe6ff33094de5e368764fb6583d89"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/fork-css.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/fork-css.png",
+      "sha256": "537fd469eb749d6ca7d297ef600deb00780715663ff80e36de51063115c1f3e8"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/returned-roots.json",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/returned-roots.json",
+      "sha256": "6444a98f2a5c52d6ea8e213253783554c6ddefb5bdcb9b7d60cece6a78915bb2"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/under-spring-css.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/under-spring-css.png",
+      "sha256": "3990080c826da18f048e2b7999fd4c2b8c2298dec87827e26c27b9d8bb38fdbe"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/return720-native.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/return720-native.png",
+      "sha256": "03fa9a5e5a2e39e1ad9d3e5a49f5ee7041bd389c9e34cf44ec35205cea40b490"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/lower-return.json",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/lower-return.json",
+      "sha256": "fc5108136dfa866fb92d1d7cc94e9b90a92ffb6b4300800c65e47e4a73f86f07"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/return-middle-edge-native.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/return-middle-edge-native.png",
+      "sha256": "14cb79e3632ef39f2eff291349ea8324765deeb2f1cbbe35d11d756979f818b9"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/spring-repeat-css.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/spring-repeat-css.png",
+      "sha256": "42cdc5c8b859d8862e1bcf5e614fd7aad4f621fb9677a9614b2df7fdbc06c525"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/tree-base-native.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/tree-base-native.png",
+      "sha256": "2a1b552a30e08ade555c524a021b9838f9436306ecfe537232107a1015661474"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/canopy-native.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/canopy-native.png",
+      "sha256": "852445cbd2374b965a5492f89d7428f4d64f729c4ce678bc14e73e9899043c6c"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/map-css.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/map-css.png",
+      "sha256": "d0cd3375b1de58bd5151c6f0782eb29e0a9465d23629c3683672a1af9b186e29"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/return780-css.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/return780-css.png",
+      "sha256": "cbcf867546ac163927e8c5935047ee451e8b55bf3f0ffeddd2ea03c5b280006f"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/pause.json",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/pause.json",
+      "sha256": "3561d058cc05fb56ac72a581188496aee74ba279db7de7b99166164524bb6fbd"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/lower-bough-native.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/lower-bough-native.png",
+      "sha256": "41a294e9c73259c67c0765479611d2d105297b4f5b8a152e942d3c6a853613f4"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/spring-catch.json",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/spring-catch.json",
+      "sha256": "d924934471bf9ee4e8367a54a7fa2812bb2ed27b4bcc6d424072bbab4cc84dcf"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/middle-native.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/middle-native.png",
+      "sha256": "3d51990fa0555e297952f4b054d97b2f7515fdbe03aba76b267115f9bc9a64a0"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/right-fork-css.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/right-fork-css.png",
+      "sha256": "e41aab21fa6f039fe531c548856a35e6c1ef5e4862b627a143afc398dc6aaa87"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/return780-native.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/return780-native.png",
+      "sha256": "5af007b8d6df2e195f3e6b925685b49696958768995ab871efeea4ad55b1746e"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/lower-bough.json",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/lower-bough.json",
+      "sha256": "a384966fa41657408a5c24379c73d4c91b7a84a331cb63c00020132c15c75b4e"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/spring-repeat.json",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/spring-repeat.json",
+      "sha256": "c92cd790e98e439a04d3e36f7bab7a7b5377a2534093be67f44153a4c60e453d"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/return780.json",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/return780.json",
+      "sha256": "3e4a6ddd299b9595b2fa46623d6e7ec7c253921284c2680ae6167349a58ed133"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/middle-css.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/middle-css.png",
+      "sha256": "c4a73d8b1a9d6743ffcb657c533ba5ec4543c54ed2f17dc6a1b4430b5e5c8154"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/canopy.json",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/canopy.json",
+      "sha256": "eaae29ec1e9ea53c4dc8b30798ba6e686c744a986023ac82889e6c1762feec3d"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/tree-base.json",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/tree-base.json",
+      "sha256": "a2af226afb8ea4a77621d52cc6f5fa9a20a033841a561d1df25ef71d524b9706"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/canopy-return-native.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/canopy-return-native.png",
+      "sha256": "d08d85087aa310c002ff5fe5072d6848b4fd444fc2b11d022ab0b4acbcc82b5d"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/return-middle-edge.json",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/return-middle-edge.json",
+      "sha256": "8e5ef89ed4c741346656c5fd7db372ad5765269f217ad82339202c5c767aae0d"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/return720-css.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/return720-css.png",
+      "sha256": "634f32719b84a003babe42b0fcb0d76e79bd4bc445a8a349b730b814cbbf96a7"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/canopy-return-css.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/canopy-return-css.png",
+      "sha256": "29df396096d88ba2443eeb2e13ddd5496ccee3e1e9662a5cad9cd24b62fdc36b"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/lower-return-native.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/lower-return-native.png",
+      "sha256": "4671f58f58e64dcabc875e8ccf5e3156536d402829c7c0ab0976c151b6efc5c1"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/pause.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/pause.png",
+      "sha256": "e7292c05fd2848c5f5f5197e6d667a5ed6d3da951d9b9ef18448e356f294490b"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/spring-catch-native.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/spring-catch-native.png",
+      "sha256": "acdcb03b6908c2ae90bd0731c2c140a9298c56975bbcbc5695e88463d80f4320"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/fork.json",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/fork.json",
+      "sha256": "4b0f09854b65ee4d2f51cb4d801387ae39fcadef99591cbbcc2d1b619caae5b1"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/roots-native.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/roots-native.png",
+      "sha256": "6726e2f126cbd8d8345093f0e041977bb574b50bc01a76a22300d00c01d83333"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/spring-reward-css.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/spring-reward-css.png",
+      "sha256": "a64b49ea37552c90f40307d72d4dab3e60053d4cb869a326ae4eee24bdbb81c8"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/upper-return-css.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/upper-return-css.png",
+      "sha256": "23a176321b8ef195e9d16da92e7492202a79af94b8a97bdb43463249d8162187"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/return-middle-edge-css.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/return-middle-edge-css.png",
+      "sha256": "9e3c6ff12a9445b8137f7696a66657285a3804aa2bea9192f92874c5fc6ee283"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/spring-catch-css.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/spring-catch-css.png",
+      "sha256": "f147179ce79ac26cad4d7b0e89ebfce6598dd02f1e5a9a39b6f34b58fa069a25"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/lookout.json",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/lookout.json",
+      "sha256": "f2f171de9cb7a3d618710368f79114a29c54d26dde6075ec7c496def76041f34"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/right-fork-native.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/right-fork-native.png",
+      "sha256": "754af6c895153202203b086dc7f412da17dfd753eb44ea9b77ec4fa892746843"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/upper-return.json",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/upper-return.json",
+      "sha256": "a4f89a4826888afb490040c506d17f8df7d516d10adbd4b7d4ab9acba0c3b008"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/returned-roots-css.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/returned-roots-css.png",
+      "sha256": "efdbceddffa0b5d99a199fe8494b408ecd845aee22524ff2f3061cf9cce03a84"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/roots.json",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/roots.json",
+      "sha256": "6e26703df0eee2088b3ed0a491ed2a70f19e9c21ef20f25374cb160fa15094e7"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/tree-base-css.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/tree-base-css.png",
+      "sha256": "516e26d7fcdaef08a778e322eeba367a3d6c278b2320bb5b4c5ff8261d74d043"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/right-fork.json",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/right-fork.json",
+      "sha256": "951a4ad48bd4d6837d04201a5037454dbfe42b58ce227bf8f40ca92e42648afb"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/lookout-native.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/lookout-native.png",
+      "sha256": "3fe02e5ecb0c4e86e02d08c6428d583155f3bc9927c1a3b65934f9298c21a574"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/fork-native.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/fork-native.png",
+      "sha256": "00756a17d2de2667e2d964ceabdafe73b7823adcac3992c49bbd2324ad67a5ae"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/under-spring-native.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/under-spring-native.png",
+      "sha256": "9ed4b35de41f578a5594a08f267e97ab069e64a07dff43b28a99c3975819dab2"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-requir-44682-ecovers-with-ordinary-Retry-chromium/required-resource-recovered.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-requir-44682-ecovers-with-ordinary-Retry-chromium/required-resource-recovered.png",
+      "sha256": "54adf37a3d0b5ae902f689b1e80b9e0bdda8b9568bf25e7e66716d941c79210c"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-requir-44682-ecovers-with-ordinary-Retry-chromium/required-resource-failed.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-requir-44682-ecovers-with-ordinary-Retry-chromium/required-resource-failed.png",
+      "sha256": "605dcd398b265dad1bf9b4668ce0b329db9f33d79bc120812d2bc775e884da3b"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-requir-4439a-ecovers-with-ordinary-Retry-chromium/required-resource-recovered.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-requir-4439a-ecovers-with-ordinary-Retry-chromium/required-resource-recovered.png",
+      "sha256": "54adf37a3d0b5ae902f689b1e80b9e0bdda8b9568bf25e7e66716d941c79210c"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-requir-4439a-ecovers-with-ordinary-Retry-chromium/required-resource-failed.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-requir-4439a-ecovers-with-ordinary-Retry-chromium/required-resource-failed.png",
+      "sha256": "b9ce713eec9d48aba5116f249d8a508108243a987455f1c055144dfeea5899b8"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-requir-e6e94-ecovers-with-ordinary-Retry-chromium/required-resource-recovered.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-requir-e6e94-ecovers-with-ordinary-Retry-chromium/required-resource-recovered.png",
+      "sha256": "54adf37a3d0b5ae902f689b1e80b9e0bdda8b9568bf25e7e66716d941c79210c"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-requir-e6e94-ecovers-with-ordinary-Retry-chromium/required-resource-failed.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-requir-e6e94-ecovers-with-ordinary-Retry-chromium/required-resource-failed.png",
+      "sha256": "cedc5d9e446eea2c3167081942e629b8825062e9ce2a01ef44577c315e908b38"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/error-context.md",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/error-context.md",
+      "sha256": "5354d498a42bdebbeb70c87df87121ef28784d038d5a1df204a3f1b95f4df6ac"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/wrong-end-catch-css.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/wrong-end-catch-css.png",
+      "sha256": "f7b6840581049116e1a925732cf94f20e26bc7d402b63f36f2ca74a2403341f4"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/left-fork-upper-native.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/left-fork-upper-native.png",
+      "sha256": "c56efb83f530a766254e6a7311b36eedc3aba3851ed3b02b579f85d46051ee91"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/left-fork-lower.json",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/left-fork-lower.json",
+      "sha256": "c4a2751e6163d9a1609ab5220241cd411f0ec369e7bd6d2962c7ff7dabf99315"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/left-fork-lower-native.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/left-fork-lower-native.png",
+      "sha256": "efca70ed484122bd7297558090dbe19f510ec1ca72ef81497cb00a5bfff71124"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/left-fork-upper-css.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/left-fork-upper-css.png",
+      "sha256": "0ec21341dfc8502f4ebf951990e6d35aa736c66574857139c933da7d859cd716"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/left-journey.json",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/left-journey.json",
+      "sha256": "eb3d049f63e4104e8c981467aedb4bd94d7b2b2183efb799ad7af9848e6fadfb"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/test-failed-1.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/test-failed-1.png",
+      "sha256": "f46df43c64be8e1afddfff5bcf864958b517d38c54fe7fdbe3d97339cd1a21bc"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/upper-star-css.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/upper-star-css.png",
+      "sha256": "cbe6db4d470c0cc38b3c37de32e21bab3e6b91f73b3b6122ff1b3908d2114082"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/left-fork-upper.json",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/left-fork-upper.json",
+      "sha256": "93df3f6f97966876208c52a4603658f21dcaebc9e6900a40c84d8324d19061ce"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/wrong-end-catch-native.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/wrong-end-catch-native.png",
+      "sha256": "8b8b719a027f8f56e67f4de186f349971cddde3a0177c382590396f0964bdca1"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/wrong-end-catch.json",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/wrong-end-catch.json",
+      "sha256": "c70838e7496e4a94b3b7a854eb6c1836e5f8df657c858dc33711ec27113fc181"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/low-star-css.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/low-star-css.png",
+      "sha256": "5539cc0738fb5ba42bc56d5975db95e649bc33d93ab3adbfd930ebfecf77ddae"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/low-star.json",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/low-star.json",
+      "sha256": "8650322a10386663433df1c1b2de4b0cae29dfef26f0fa1517ca60071ead2dcd"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/upper-star-native.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/upper-star-native.png",
+      "sha256": "7163ebf94e4d5848dd0623a1afd46779409f2c52a6afa86419ef809ba9c1cac9"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/upper-star.json",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/upper-star.json",
+      "sha256": "5c6f7262f84978807f578fb653d63683a221658320b95824aebede77c9c97b5d"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/low-star-native.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/low-star-native.png",
+      "sha256": "2cb4722ea1566e4b31cbf2108134603d0b6c6e2b2d16aa911f746ab85f42c71a"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/left-fork-lower-css.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-rollou-74caf-nd-wrong-end-catch-at-320px-chromium/left-fork-lower-css.png",
+      "sha256": "1e785ac747ae60e607068fe919c3dacb83639dc55c915c9c32b47aadbc6daf9f"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-tree-r-f71c4-ecovers-with-ordinary-Retry-chromium/tree-required-failed.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-tree-r-f71c4-ecovers-with-ordinary-Retry-chromium/tree-required-failed.png",
+      "sha256": "605dcd398b265dad1bf9b4668ce0b329db9f33d79bc120812d2bc775e884da3b"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-tree-r-f71c4-ecovers-with-ordinary-Retry-chromium/tree-required-recovered.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-tree-r-f71c4-ecovers-with-ordinary-Retry-chromium/tree-required-recovered.png",
+      "sha256": "54adf37a3d0b5ae902f689b1e80b9e0bdda8b9568bf25e7e66716d941c79210c"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/middle.json",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/middle.json",
+      "sha256": "fd434efeeedc5faa724de9f2694591100afd63a96faee9afa133b89c20574d57"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/roots-css.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/roots-css.png",
+      "sha256": "c0e8e1b91c90a8c824c4f6280df282fc9645438edb159aaf9acfde74f4c35543"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/spring-repeat-native.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/spring-repeat-native.png",
+      "sha256": "9fa3c177b2d1c987f34161f6650070313e9e2d74ee4ff67c23b38c6782ba8b96"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/canopy-css.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/canopy-css.png",
+      "sha256": "9acb8a71e27279a2d2d83e5a599a05d827fe3b80168c4691190b8b0fc6abe20a"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/return720.json",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/return720.json",
+      "sha256": "f05bad841250ad1557216099e913549065b1e4338a15a8684b6e94f513e64cd1"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/map.json",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/map.json",
+      "sha256": "e8a5a526a440d7acb1cfe92ebd8911fe5eda41c8703eefca9c86725611556ac8"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/upper-return-native.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/upper-return-native.png",
+      "sha256": "7cdc4553066b3adce7f86309ce870e87b9960938d4aabae2c8d135f82b0f7ad2"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/spring-reward.json",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/spring-reward.json",
+      "sha256": "8be6efe598d1ea5a801d91b4a23803cf06eb1a738fce3eb1b0086b74e7289709"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/canopy-return.json",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/canopy-return.json",
+      "sha256": "ac3b5b819e8eab78086e928f9c90b8f0520cb838ce019d839cdbde7f433cbd65"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/under-spring.json",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/under-spring.json",
+      "sha256": "acd9b8248a9dfeb82a0baad601113b3151908dc174d12a66584c76ff3b7949a3"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/journey.json",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/journey.json",
+      "sha256": "3e791ecf32aa7b80118ce329ec3de6df7c1c45471a3b4fdd2e31d6d25bd040bd"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/lookout-css.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/lookout-css.png",
+      "sha256": "a8d2c62feeb47f2a69b7313aeb5c08e852d66c6b51363cf63de6ce69dc076e9b"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/spring-reward-native.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/spring-reward-native.png",
+      "sha256": "14a36d89b23cf4c96c50f85466a6ef95f879101f610d8906d728d5f906b5a5bc"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/returned-roots-native.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/returned-roots-native.png",
+      "sha256": "037a5d942a8e83a1bc7dad92805bbf8ec09e2074e0d762c59044006079b7dd26"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/lower-bough-css.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/lower-bough-css.png",
+      "sha256": "1af1ec1aae0ad7948600a7f9bfeddf292929fda39792efb9aceff8cb6cbc15e5"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/lower-return-css.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/lower-return-css.png",
+      "sha256": "446ea1ef832e627d443fe925c0822f1f9b9175ea0557a0b7f53a0e4cb89f0406"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/fork-css.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/fork-css.png",
+      "sha256": "c2f783cb96b7c068b8498689c596f954cc9dc36ee2ca020297da5bf81b23f9e6"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/returned-roots.json",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/returned-roots.json",
+      "sha256": "cc46272dd78a766d514ddbed456d3589ade1dbd05e720696f5f68038c21b0b98"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/under-spring-css.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/under-spring-css.png",
+      "sha256": "39b3d201f60edb33c8db80efc60668ba3f552381d3469529019e593427bce685"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/return720-native.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/return720-native.png",
+      "sha256": "241694c407176aead6e74337c5a70b1f7b383be3a547323439ae9b6b94ad025c"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/lower-return.json",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/lower-return.json",
+      "sha256": "ac3a5df39dec0e778803cc679b7a26d91f70d6aac97ac3b57e27ad068bc37a92"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/return-middle-edge-native.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/return-middle-edge-native.png",
+      "sha256": "2ba8e9442a7196d1cd62960b5ea97a7cc0ab5fa0cab21025bc2494892376a540"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/spring-repeat-css.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/spring-repeat-css.png",
+      "sha256": "9db43fe0c90c8139cb935e1e02b982906774a729865bf53f1e2ae22ed69b8236"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/tree-base-native.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/tree-base-native.png",
+      "sha256": "159e1e0e034223474f10e2b7e10c7fc9e0ada7f2b6b21ba6964aeebc45578f3b"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/canopy-native.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/canopy-native.png",
+      "sha256": "9bf918b8a599be2105d21a1570f839c305abe0e2191a69bdfc519b2610440e12"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/map-css.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/map-css.png",
+      "sha256": "5125c85800f9b5c7b6f18eb543db01feac23f05a061f10afc1d948e59b2d76e6"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/return780-css.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/return780-css.png",
+      "sha256": "daf703b07536e28521ed42f18fc808c8382de6e433edce3cd1cded4722426c16"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/pause.json",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/pause.json",
+      "sha256": "984c1f2a91f70799ead850a9e97b7e1caf459049bf13a97e47ef56724f6d3a93"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/lower-bough-native.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/lower-bough-native.png",
+      "sha256": "66848743ddfef86bee71cf090b596ec662ef485237d870d3763834a5a138055d"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/spring-catch.json",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/spring-catch.json",
+      "sha256": "099c452d214ec54e98a091da2614608eea4be1e2224484d48a5d4232ed33baf3"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/middle-native.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/middle-native.png",
+      "sha256": "f04209d5820411fafd6495637d73cab53d3f235f66e813403bfe06a903714f27"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/right-fork-css.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/right-fork-css.png",
+      "sha256": "69beb5514c8693a359a55c46c126a52cda08e6b5901b6f31c12bf5c6ed646e0a"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/return780-native.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/return780-native.png",
+      "sha256": "5c2d3e2e2b903676f193664bd1c56482210f88d66fe14b5d5cc8ac79a94cba5b"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/lower-bough.json",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/lower-bough.json",
+      "sha256": "5f670679a9bde8f1705d001daabc52710b2df976b4036bf66b9c522fe7a6f365"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/spring-repeat.json",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/spring-repeat.json",
+      "sha256": "a574635b4ca2767cc982536b97bf2dbdafcc2f15792f27db5c38e81235bc4bfc"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/return780.json",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/return780.json",
+      "sha256": "db6ff147b51a6d2cd5c89f9b246c6d7b13b5f00d8aaa75dc810c38d7bcfc2790"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/middle-css.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/middle-css.png",
+      "sha256": "ae8cfdc3e28b61cff2ccf7ec25867023ff993a8512ee7e55d90f6b31ec26b2f6"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/canopy.json",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/canopy.json",
+      "sha256": "8b9b41c937bc7b40de870e3310f9ba1ab1b3d87103f48ad3146c4a146ff649d3"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/tree-base.json",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/tree-base.json",
+      "sha256": "388339f6bf8df59f266964bd6651c07b80dea01d5da231088a39805845760b5f"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/canopy-return-native.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/canopy-return-native.png",
+      "sha256": "2b8f21a5137f7c02f58279d514feb267a8245e59a97618023b81869142a19a06"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/return-middle-edge.json",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/return-middle-edge.json",
+      "sha256": "6e664d7b71282ee182334792c0b02d7bfa31d2f121252936a18db4552be0fad0"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/return720-css.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/return720-css.png",
+      "sha256": "cfe2b6b5b5beff65fee3c3ab72be5c4562fc68cf0b7b61020b24840cf1f33cbb"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/canopy-return-css.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/canopy-return-css.png",
+      "sha256": "6b18c6ff8decc6e04a609b4f4eee6cf3c4a7218561ce114507398bab75969ee2"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/lower-return-native.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/lower-return-native.png",
+      "sha256": "e7d5c15652a7a90bfef572fed4e32323c1deacb780ca79185026a1743397d9cd"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/pause.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/pause.png",
+      "sha256": "601f3f409cca060dbfd10d0f3937833d07b6fb02f5f20f497b06eff4ed349eb9"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/spring-catch-native.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/spring-catch-native.png",
+      "sha256": "9de1a1fe69b9b4b2168c843445df3a3655a33f0a3de6b01d570c484c6b93602c"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/fork.json",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/fork.json",
+      "sha256": "32fe391a0795025f11eee778f4e33452ad46e1b144d674f274abac1dec534762"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/roots-native.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/roots-native.png",
+      "sha256": "7ceaf585856100f709f23c94a4eeb2b19c9b77e4ee611582195352ae9c8f0d66"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/spring-reward-css.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/spring-reward-css.png",
+      "sha256": "3b740a422cee652eb8d453660da25a1c1269f72303e3ca2fce87f06330d97cf2"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/upper-return-css.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/upper-return-css.png",
+      "sha256": "c267055e66e9a5d9289b67b42f669920f3ea0415bb5c6081a619b92139d3762d"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/return-middle-edge-css.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/return-middle-edge-css.png",
+      "sha256": "64a82044019bd7980cbc2431d5037006ec852e36f6235cb7e4efd04b252594bf"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/spring-catch-css.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/spring-catch-css.png",
+      "sha256": "1d8926ffdc38a1101f528194442f9f7264f61c7176c0f7070aaa0239cedea924"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/lookout.json",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/lookout.json",
+      "sha256": "2d042b9686c6d3afddd8faf6b0f328f56887c6144f85ff90617a20ce96758858"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/right-fork-native.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/right-fork-native.png",
+      "sha256": "ed29059e9c458f421a71e84145d29ea782579664172bb1076f906cbc735dea85"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/upper-return.json",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/upper-return.json",
+      "sha256": "434ef354012fb00585e5f2dd75286986f0a7a952aba184516fb453c98325d547"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/returned-roots-css.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/returned-roots-css.png",
+      "sha256": "8b3c25173b0227c53470048e21751a2cfc3637289d67e14a53d6951f67c51d20"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/roots.json",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/roots.json",
+      "sha256": "ab9b996a7e5bd467b12bea99ef4547f2d7b1fd216b9909ac5980ece60a1c5145"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/tree-base-css.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/tree-base-css.png",
+      "sha256": "935af831861c63a1f34222550c0e9bfa925a11d456d4bdafe1cbbe9184c79711"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/right-fork.json",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/right-fork.json",
+      "sha256": "8b32f83ec75732822049c83d1696c503896565ca0138532045dd4f061b49d93d"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/lookout-native.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/lookout-native.png",
+      "sha256": "7b205ef77c8e3b8d4727621e2211def28c9c43929be322ae48b53760517cd39d"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/fork-native.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/fork-native.png",
+      "sha256": "78fca1377fce0570276fdef10a0c88c3366cbaec2265e605f58f31e23fc5ad20"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/under-spring-native.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/under-spring-native.png",
+      "sha256": "4aa67ea64a88063223343ec98c09373fd4190e202ca9c052e6e5afee607ae20f"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-tree-r-fd30a-ecovers-with-ordinary-Retry-chromium/tree-required-failed.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-tree-r-fd30a-ecovers-with-ordinary-Retry-chromium/tree-required-failed.png",
+      "sha256": "cc70acb32ae1e861a95b6ed45c09368d1f75397138681a84602d2173a6b59b69"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-tree-r-fd30a-ecovers-with-ordinary-Retry-chromium/tree-required-recovered.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-tree-r-fd30a-ecovers-with-ordinary-Retry-chromium/tree-required-recovered.png",
+      "sha256": "54adf37a3d0b5ae902f689b1e80b9e0bdda8b9568bf25e7e66716d941c79210c"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-requir-2ff67-ecovers-with-ordinary-Retry-chromium/required-resource-recovered.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-requir-2ff67-ecovers-with-ordinary-Retry-chromium/required-resource-recovered.png",
+      "sha256": "54adf37a3d0b5ae902f689b1e80b9e0bdda8b9568bf25e7e66716d941c79210c"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-requir-2ff67-ecovers-with-ordinary-Retry-chromium/required-resource-failed.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-requir-2ff67-ecovers-with-ordinary-Retry-chromium/required-resource-failed.png",
+      "sha256": "b9ce713eec9d48aba5116f249d8a508108243a987455f1c055144dfeea5899b8"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-requir-3c252-ecovers-with-ordinary-Retry-chromium/required-resource-recovered.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-requir-3c252-ecovers-with-ordinary-Retry-chromium/required-resource-recovered.png",
+      "sha256": "54adf37a3d0b5ae902f689b1e80b9e0bdda8b9568bf25e7e66716d941c79210c"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-requir-3c252-ecovers-with-ordinary-Retry-chromium/required-resource-failed.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-requir-3c252-ecovers-with-ordinary-Retry-chromium/required-resource-failed.png",
+      "sha256": "b9ce713eec9d48aba5116f249d8a508108243a987455f1c055144dfeea5899b8"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-comple-84a85--ordinary-Retry-recovers-it-chromium/terrain-declaration-recovered.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-comple-84a85--ordinary-Retry-recovers-it-chromium/terrain-declaration-recovered.png",
+      "sha256": "b8909b5836e59786f4ee8094db9b57898d8cd3ed4789c2e38e1607b3820d3f7b"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-comple-84a85--ordinary-Retry-recovers-it-chromium/terrain-declaration-failed.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-comple-84a85--ordinary-Retry-recovers-it-chromium/terrain-declaration-failed.png",
+      "sha256": "0870b5ce4569e31ac476dce5ea64ce11080e22b4260fa51128f84ff84ba6eeef"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-tree-r-d073f-ecovers-with-ordinary-Retry-chromium/tree-required-failed.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-tree-r-d073f-ecovers-with-ordinary-Retry-chromium/tree-required-failed.png",
+      "sha256": "c055b9d1db55d0a4bc9731f8e99b7bb4cd2cf99bfd14691bfda670e4cbc014d9"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-tree-r-d073f-ecovers-with-ordinary-Retry-chromium/tree-required-recovered.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-tree-r-d073f-ecovers-with-ordinary-Retry-chromium/tree-required-recovered.png",
+      "sha256": "54adf37a3d0b5ae902f689b1e80b9e0bdda8b9568bf25e7e66716d941c79210c"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-requir-0dd0b-ecovers-with-ordinary-Retry-chromium/required-resource-recovered.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-requir-0dd0b-ecovers-with-ordinary-Retry-chromium/required-resource-recovered.png",
+      "sha256": "54adf37a3d0b5ae902f689b1e80b9e0bdda8b9568bf25e7e66716d941c79210c"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-requir-0dd0b-ecovers-with-ordinary-Retry-chromium/required-resource-failed.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-requir-0dd0b-ecovers-with-ordinary-Retry-chromium/required-resource-failed.png",
+      "sha256": "cc70acb32ae1e861a95b6ed45c09368d1f75397138681a84602d2173a6b59b69"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/error-context.md",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/error-context.md",
+      "sha256": "fd5164ca7dc8a71d21d536f8d325d81488583fe4abac9805bd52edc5c3e3815d"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/wrong-end-catch-css.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/wrong-end-catch-css.png",
+      "sha256": "4dc5ce2ded318ed269ac92e4939af42239f1d2614f9504d3a817a208fbf560c7"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/left-fork-upper-native.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/left-fork-upper-native.png",
+      "sha256": "5bfd6c73cc7c8ea53a8aa4e97cd14e5eda8eb706d28c0962a59e70e8594d3d1f"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/left-fork-lower.json",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/left-fork-lower.json",
+      "sha256": "88194ef4f6800bd04e105a79bd0f8ef952b86156c268f1de71f4c247d633e840"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/left-fork-lower-native.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/left-fork-lower-native.png",
+      "sha256": "df483b13d81f2ba3263aac9c259d27b9d0067c59e06241d0b0f358b7ae8fb757"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/left-fork-upper-css.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/left-fork-upper-css.png",
+      "sha256": "46aad5593b55096c760c807c03ddbc6ffed405308fae14689985e3e210c81310"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/left-journey.json",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/left-journey.json",
+      "sha256": "dc277de6186748d3a0dac7be215a0a96daa72c801c597ea90ebb082656a745ac"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/test-failed-1.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/test-failed-1.png",
+      "sha256": "27afd278652fe75368d3307db399d3155d052e96a22a62b46cdac234f53704b0"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/upper-star-css.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/upper-star-css.png",
+      "sha256": "ab6fd8502e01a99d3e0e8b21d64a3799692515a0ce8cd429fb55fd6f931e9313"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/left-fork-upper.json",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/left-fork-upper.json",
+      "sha256": "da3c90c0e18455b8501b78d3da5dc8e48a8ecf0cbfbda70ce4ba555b23b3ee69"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/wrong-end-catch-native.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/wrong-end-catch-native.png",
+      "sha256": "552acd3cf50d5798e37b85b150e06a041920759c74d228df02c93d107d8a076f"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/wrong-end-catch.json",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/wrong-end-catch.json",
+      "sha256": "5911f1cd7934a5623fa502ca5c829742377607ad495879f01ea24df0e7cffa51"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/low-star-css.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/low-star-css.png",
+      "sha256": "d148b136bdfffba94cefe6d9e653e13f8c18217f96fc492a23d3ae4bcadd3984"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/low-star.json",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/low-star.json",
+      "sha256": "973215eb1c8d335882113ce5f269bca79c5035fc7fcddb1c62b4f17c6ed66b51"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/upper-star-native.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/upper-star-native.png",
+      "sha256": "6b0f5ee745ee9531cc34d5e3ba07333f1f7739a97927f9e1cdc263f89b3893a9"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/upper-star.json",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/upper-star.json",
+      "sha256": "3ffc97a180bed4bab20421963b34ced20c1f7e22de76f19faf807011c1faebc8"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/low-star-native.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/low-star-native.png",
+      "sha256": "3fc3b6f1384477dc92494f226dfca85e9c326bbf48221a0d6137d4de11ef2b8b"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/left-fork-lower-css.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-rollou-ab136-nd-wrong-end-catch-at-426px-chromium/left-fork-lower-css.png",
+      "sha256": "2bb8e091954164fbe9c00e655e22a9ede3aac153a7e6b3b75f9f818d55096059"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-requir-711d4-ecovers-with-ordinary-Retry-chromium/required-resource-recovered.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-requir-711d4-ecovers-with-ordinary-Retry-chromium/required-resource-recovered.png",
+      "sha256": "54adf37a3d0b5ae902f689b1e80b9e0bdda8b9568bf25e7e66716d941c79210c"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-requir-711d4-ecovers-with-ordinary-Retry-chromium/required-resource-failed.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-requir-711d4-ecovers-with-ordinary-Retry-chromium/required-resource-failed.png",
+      "sha256": "cc70acb32ae1e861a95b6ed45c09368d1f75397138681a84602d2173a6b59b69"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-requir-18728-ecovers-with-ordinary-Retry-chromium/required-resource-recovered.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-requir-18728-ecovers-with-ordinary-Retry-chromium/required-resource-recovered.png",
+      "sha256": "54adf37a3d0b5ae902f689b1e80b9e0bdda8b9568bf25e7e66716d941c79210c"
+    },
+    {
+      "original": "playwright-report/issue-241/rollout-pilot/artifacts/timbers-art-Timbers-requir-18728-ecovers-with-ordinary-Retry-chromium/required-resource-failed.png",
+      "path": "docs/evidence/issue-241/rollout/pilot/timbers-art-Timbers-requir-18728-ecovers-with-ordinary-Retry-chromium/required-resource-failed.png",
+      "sha256": "cc70acb32ae1e861a95b6ed45c09368d1f75397138681a84602d2173a6b59b69"
+    }
+  ],
+  "note": "Complete original report/traces/file outputs remain in the ignored local archive. This repository packet contains curated captures and exact hashes; historical failures are retained, not relabelled."
+}

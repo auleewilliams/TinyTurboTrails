@@ -3,7 +3,7 @@ import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { TREETOP_TIMBERS } from '../src/world/treetop-timbers';
 import { platformBodiesAt } from '../src/game/platforms';
-import { timbersPreviewIds, validateTimbersTerrain, loadTimbersTerrain, drawTimbersGround, drawTimbersPlatform,
+import { timbersPreviewIds, timbersPlatformWidths, validateTimbersTerrain, loadTimbersTerrain, drawTimbersGround, drawTimbersPlatform,
   type TimbersTerrainAssets } from '../src/world/timbers-terrain';
 import { loadWorldAssets, WORLD_ASSETS } from '../src/world/assets';
 
@@ -11,10 +11,11 @@ const read = (path: string) => readFileSync(new URL(`../${path}`, import.meta.ur
 const manifest = JSON.parse(read('public/assets/timbers/terrain-kit-v1/manifest.json').toString());
 afterEach(() => vi.unstubAllGlobals());
 
-it('binds the complete preview mapping and ground to unique unchanged authored supports', () => {
+it('binds all 44 platform mappings and ground to unique unchanged authored supports', () => {
   validateTimbersTerrain(manifest);
   expect(timbersPreviewIds()).toHaveLength(12);
-  for (const id of timbersPreviewIds()) {
+  expect(Object.keys(timbersPlatformWidths())).toHaveLength(44);
+  for (const id of Object.keys(timbersPlatformWidths())) {
     const supports = TREETOP_TIMBERS.platforms!.filter(support => support.id === id);
     expect(supports).toHaveLength(1);
     expect(manifest.platforms[id].width).toBe(supports[0].width);
@@ -28,26 +29,24 @@ it('binds the complete preview mapping and ground to unique unchanged authored s
   }
 });
 
-it('rejects missing, extra, resized and redirected preview pieces', () => {
+it('rejects missing, extra, resized and redirected platform pieces', () => {
   for (const mutate of [
     (m: typeof manifest) => { delete m.platforms['timber-middle']; },
-    (m: typeof manifest) => { m.platforms['timber-lookout'] = m.platforms['timber-middle']; },
+    (m: typeof manifest) => { m.platforms['timber-extra'] = m.platforms['timber-middle']; },
     (m: typeof manifest) => { m.platforms['timber-middle'].width = 570; m.platforms['timber-middle'].image = 'branch-570.png'; },
     (m: typeof manifest) => { m.platforms['timber-middle'].image = '../environment.png'; },
     (m: typeof manifest) => { m.ground.y++; },
   ]) { const changed = structuredClone(manifest); mutate(changed); expect(() => validateTimbersTerrain(changed)).toThrow(); }
 });
 
-it('draws one native bitmap on each preview support at fractional camera offsets and leaves other supports to the legacy path', () => {
+it('draws one native bitmap on every authored support at fractional camera offsets without fallback', () => {
   const image = {} as HTMLImageElement, drawImage = vi.fn();
-  const kit: TimbersTerrainAssets = { manifest, ground: image, platforms: Object.fromEntries(timbersPreviewIds().map(id => [id, image])) };
+  const kit: TimbersTerrainAssets = { manifest, ground: image, platforms: Object.fromEntries(Object.keys(timbersPlatformWidths()).map(id => [id, image])) };
   const ctx = { drawImage } as unknown as CanvasRenderingContext2D;
   for (const body of platformBodiesAt(TREETOP_TIMBERS.platforms, 0)) {
     drawImage.mockClear();
-    const updated = timbersPreviewIds().includes(body.id);
-    expect(drawTimbersPlatform(ctx, kit, body, { x: 20.25, y: 15.75 })).toBe(updated);
-    if (updated) expect(drawImage.mock.calls).toEqual([[image, body.x - 20.25, body.y - 15.75]]);
-    else expect(drawImage).not.toHaveBeenCalled();
+    expect(drawTimbersPlatform(ctx, kit, body, { x: 20.25, y: 15.75 })).toBe(true);
+    expect(drawImage.mock.calls).toEqual([[image, body.x - 20.25, body.y - 15.75]]);
   }
   drawImage.mockClear(); drawTimbersGround(ctx, kit, TREETOP_TIMBERS, { x: 20.25, y: 940.5 });
   expect(drawImage).toHaveBeenCalledExactlyOnceWith(image, manifest.ground.x - 20.25, manifest.ground.y - 940.5);
@@ -84,4 +83,15 @@ it('does not let another world declare the Timbers kit', async () => {
   vi.stubGlobal('fetch', vi.fn(async () => ({ ok: true, json: async () => ({ timbersKit: 'terrain-kit-v1/manifest.json',
     assets: Object.fromEntries(WORLD_ASSETS.map((asset, index) => [asset, index])) }) })));
   await expect(loadWorldAssets('plains')).rejects.toThrow('Timbers terrain declared by another world');
+});
+
+it('rejects every omitted support and a missing required terrain declaration', async () => {
+  for (const id of Object.keys(timbersPlatformWidths())) {
+    const changed = structuredClone(manifest); delete changed.platforms[id];
+    expect(() => validateTimbersTerrain(changed), id).toThrow();
+  }
+  vi.stubGlobal('fetch', vi.fn(async () => ({ ok: true, json: async () => ({
+    timbersTree: 'tree-v1/manifest.json', assets: Object.fromEntries(WORLD_ASSETS.map((asset, index) => [asset, index])),
+  }) })));
+  await expect(loadWorldAssets('timbers')).rejects.toThrow('Missing required Timbers terrain declaration');
 });

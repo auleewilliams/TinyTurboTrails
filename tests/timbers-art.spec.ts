@@ -3,9 +3,9 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { TREETOP_TIMBERS } from '../src/world/treetop-timbers';
 import { DEFAULT_MOVEMENT } from '../src/game/movement';
-import { timbersPreviewIds } from '../src/world/timbers-terrain';
+import { timbersPlatformWidths } from '../src/world/timbers-terrain';
 import { installTimberKeyboardPilot, runTimberStages, TIMBER_ASCENT_RIGHT, TIMBER_TO_MIDDLE,
-  TIMBER_SPRING_RETRY, TIMBER_DESCENT_ALL } from './timbers-browser-pilot';
+  TIMBER_SPRING_RETRY, TIMBER_DESCENT_ALL, TIMBER_LEFT_STARS_ASCENT } from './timbers-browser-pilot';
 
 const hash = (bytes: Uint8Array) => createHash('sha256').update(bytes).digest('hex');
 const manifest = JSON.parse(readFileSync(new URL('../public/assets/timbers/terrain-kit-v1/manifest.json', import.meta.url), 'utf8'));
@@ -82,6 +82,16 @@ async function capture(page: Page, info: TestInfo, name: string, width: number, 
   expect([treeDraws[0].width, treeDraws[0].height]).toEqual([treeManifest.width, treeManifest.height]);
   expect(sample.probe.frameDraws.indexOf(treeDraws[0])).toBeLessThan(sample.probe.frameDraws.findIndex(draw => draw.source.includes('/timbers/terrain-kit-v1/')));
   if (name === 'roots' || name === 'returned-roots' || name === 'tree-base') expect(treeDraws[0].y + treeManifest.basePlane).toBeCloseTo(sample.probe.actor.feet.y, 5);
+  const platformDraws = sample.probe.frameDraws.filter(draw => /\/branch-\d+\.png$/.test(draw.source));
+  expect(platformDraws).toHaveLength(44);
+  const groundDraw = sample.probe.frameDraws.find(draw => draw.source.endsWith('/terrain-kit-v1/ground.png'))!;
+  const camera = { x: manifest.ground.x - groundDraw.x, y: manifest.ground.y - groundDraw.y };
+  for (const platform of TREETOP_TIMBERS.platforms!) {
+    const matching = platformDraws.filter(draw => draw.source.endsWith('/' + manifest.platforms[platform.id].image)
+      && Math.abs(draw.x - (platform.from.x - camera.x)) < 1e-6 && Math.abs(draw.y - (platform.from.y - camera.y)) < 1e-6);
+    expect(matching, platform.id).toHaveLength(1);
+    expect([matching[0].width, matching[0].height]).toEqual([platform.width, 17]);
+  }
   if (supportId) expect(Number(sample.status.match(/Y (-?\d+)/)![1]) + DEFAULT_MOVEMENT.height).toBe(support(supportId).from.y);
   await page.evaluate(() => { (window as unknown as { timberKeyboardPilot: { frozen: boolean } }).timberKeyboardPilot.frozen = false; });
   return metadata;
@@ -101,6 +111,7 @@ for (const width of [426, 320]) test(`Timbers illustrated preview input journey 
     })());
   });
   await page.setViewportSize({ width, height: width === 426 ? 300 : 240 });
+  await page.emulateMedia({ reducedMotion: width === 320 ? 'reduce' : 'no-preference' });
   await installTimberKeyboardPilot(page); await installArtObserver(page);
   let capturedMap = false;
   const start = async () => {
@@ -149,20 +160,37 @@ for (const width of [426, 320]) test(`Timbers illustrated preview input journey 
     const reward = support('timber-spring-reward');
     expect(caught.probe.actor.bounds.left + catchCameraX).toBeGreaterThan(reward.from.x + reward.width);
     await route('spring-repeat', TIMBER_SPRING_RETRY.slice(4)); await capture(page, info, 'spring-repeat', width, 'timber-spring-reward');
-    await start(); await route('full-ascent', TIMBER_ASCENT_RIGHT);
+    await start();
+    await route('lower-bough', TIMBER_ASCENT_RIGHT.slice(0, 2)); await capture(page, info, 'lower-bough', width, 'timber-low-1');
+    await route('fork', TIMBER_ASCENT_RIGHT.slice(2, 5)); await capture(page, info, 'fork', width, 'timber-fork');
+    await route('right-fork', TIMBER_ASCENT_RIGHT.slice(5, 8)); await capture(page, info, 'right-fork', width, 'timber-fork-right-2');
+    await route('canopy', TIMBER_ASCENT_RIGHT.slice(8, 15)); await capture(page, info, 'canopy', width, 'timber-canopy');
+    await page.getByRole('button', { name: 'Pause', exact: true }).click();
+    await expect(page.getByRole('button', { name: 'Resume', exact: true })).toBeVisible();
+    const paused = info.outputPath('pause.png'); await page.screenshot({ path: paused });
+    await info.attach('pause', { path: paused, contentType: 'image/png' });
+    const pauseMetadata = info.outputPath('pause.json');
+    writeFileSync(pauseMetadata, JSON.stringify({ status: await page.locator('#status').textContent(), sha256: hash(readFileSync(paused)), reducedMotion: width === 320 }, null, 2));
+    await info.attach('pause-metadata', { path: pauseMetadata, contentType: 'application/json' });
+    await page.getByRole('button', { name: 'Resume', exact: true }).click();
+    await expect(page.locator('#status')).toContainText('Playing');
+    await route('full-ascent', TIMBER_ASCENT_RIGHT.slice(15));
     await page.getByRole('button', { name: 'Build your word', exact: true }).click();
     await page.getByRole('button', { name: 'Find more letters', exact: true }).click();
     await expect(page.locator('#status')).toContainText('Playing');
     await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
     await capture(page, info, 'lookout', width, 'timber-lookout');
-    await route('middle-edge', TIMBER_DESCENT_ALL.slice(0, 14)); await capture(page, info, 'return-middle-edge', width, 'timber-middle');
+    await route('upper-return', TIMBER_DESCENT_ALL.slice(0, 3)); await capture(page, info, 'upper-return', width, 'timber-return-240');
+    await route('canopy-return', TIMBER_DESCENT_ALL.slice(3, 9)); await capture(page, info, 'canopy-return', width, 'timber-return-480');
+    await route('middle-edge', TIMBER_DESCENT_ALL.slice(9, 14)); await capture(page, info, 'return-middle-edge', width, 'timber-middle');
     await route('return720', TIMBER_DESCENT_ALL.slice(14, 15)); await capture(page, info, 'return720', width, 'timber-return-720');
     await route('return780', TIMBER_DESCENT_ALL.slice(15, 16)); await capture(page, info, 'return780', width, 'timber-return-780');
-    await route('returned-roots', TIMBER_DESCENT_ALL.slice(16)); await capture(page, info, 'returned-roots', width);
+    await route('lower-return', TIMBER_DESCENT_ALL.slice(16, 21)); await capture(page, info, 'lower-return', width, 'timber-return-960');
+    await route('returned-roots', TIMBER_DESCENT_ALL.slice(21)); await capture(page, info, 'returned-roots', width);
     await expect(page.locator('#status')).toContainText('Letter bag: 4/4');
     await Promise.all(pending);
-    for (const file of new Set(['manifest.json', 'ground.png', ...timbersPreviewIds().map(id => manifest.platforms[id].image)])) {
-      const delivered = responses.filter(response => response.path.endsWith('/' + file) && response.status === 200 && response.sha256);
+    for (const file of new Set(['manifest.json', 'ground.png', ...Object.keys(timbersPlatformWidths()).map(id => manifest.platforms[id].image)])) {
+      const delivered = responses.filter(response => response.path === `/assets/timbers/terrain-kit-v1/${file}` && response.status === 200 && response.sha256);
       expect(delivered.length, String(file)).toBeGreaterThan(0);
       for (const response of delivered) expect(response.sha256).toBe(response.buildSha256);
     }
@@ -176,7 +204,8 @@ for (const width of [426, 320]) test(`Timbers illustrated preview input journey 
     await Promise.all(pending);
     const path = info.outputPath('journey.json');
     const files = ['src/world/renderer.ts', 'src/world/assets.ts', 'src/world/timbers-terrain.ts', 'src/world/timbers-tree.ts', 'src/world/treetop-timbers.ts',
-      'src/game/education.ts', 'dist/index.html', 'assets/source/timbers/illustrated-v1/preparation.json', 'assets/source/timbers/tree-v1/preparation.json', 'tests/timbers-art.spec.ts', 'tests/timbers-browser-pilot.ts'];
+      'src/game/education.ts', 'dist/index.html', 'assets/source/timbers/illustrated-v1/preparation.json', 'assets/source/timbers/tree-v1/preparation.json', 'tests/timbers-art.spec.ts', 'tests/timbers-browser-pilot.ts', 'public/assets/timbers/terrain-kit-v1/manifest.json',
+      'assets/source/timbers/rollout-v1/preparation.json', 'scripts/prepare-timbers-rollout.mjs'];
     writeFileSync(path, JSON.stringify({ sourceRevision: process.env.BROWSER_REPORT_SOURCE_SHA ?? null,
       browser: browser.browserType().name(), version: browser.version(), width, errors, responses, histories,
       files: Object.fromEntries(files.map(file => [file, hash(readFileSync(new URL(`../${file}`, import.meta.url)))])) }, null, 2));
@@ -184,7 +213,7 @@ for (const width of [426, 320]) test(`Timbers illustrated preview input journey 
   }
 });
 
-for (const file of ['manifest.json', 'ground.png', 'branch-580.png']) test(`Timbers required ${file} fails visibly and recovers with ordinary Retry`, async ({ page }, info) => {
+for (const file of ['manifest.json', 'ground.png', 'branch-580.png', 'branch-170.png', 'branch-200.png', 'branch-210.png', 'branch-250.png', 'branch-340.png', 'branch-440.png', 'branch-450.png']) test(`Timbers required ${file} fails visibly and recovers with ordinary Retry`, async ({ page }, info) => {
   let fail = true;
   await page.route(`**/assets/timbers/terrain-kit-v1/${file}`, route => fail ? route.fulfill({ status: 503, body: 'intentional required-resource test' }) : route.continue());
   await page.goto('/?scene=adventure');
@@ -220,4 +249,86 @@ for (const resource of ['manifest.json', 'tree.png', 'declaration']) test(`Timbe
   await expect(page.locator('#status')).toContainText('Playing');
   const recovered = info.outputPath('tree-required-recovered.png'); await page.locator('#game').screenshot({ path: recovered });
   await info.attach('tree-required-recovered', { path: recovered, contentType: 'image/png' });
+});
+
+for (const width of [426, 320]) test(`Timbers rollout left-fork artwork and wrong-end catch at ${width}px`, async ({ page, browser }, info) => {
+  test.setTimeout(120_000);
+  const errors: string[] = [], histories: { name: string; result: object }[] = [];
+  page.on('pageerror', error => errors.push(error.message));
+  const responses: { path: string; status: number; sha256?: string; buildSha256?: string; error?: string }[] = [], pending: Promise<void>[] = [];
+  page.on('response', response => {
+    const path = new URL(response.url()).pathname;
+    if (!path.startsWith('/assets/timbers/terrain-kit-v1/') && !path.startsWith('/assets/timbers/tree-v1/')) return;
+    pending.push((async () => {
+      const entry: typeof responses[number] = { path, status: response.status() }; responses.push(entry);
+      try { entry.sha256 = hash(await response.body()); entry.buildSha256 = hash(readFileSync(new URL(`../dist${path}`, import.meta.url))); }
+      catch (error) { entry.error = String(error); }
+    })());
+  });
+
+  await page.setViewportSize({ width, height: width === 426 ? 300 : 240 });
+  await page.emulateMedia({ reducedMotion: width === 320 ? 'reduce' : 'no-preference' });
+  await installTimberKeyboardPilot(page); await installArtObserver(page);
+  const route = async (name: string, stages: Parameters<typeof runTimberStages>[1]) => {
+    const result = await runTimberStages(page, stages); histories.push({ name, result });
+    expect(result, name).toMatchObject({ done: true, error: '' });
+  };
+  try {
+    await page.goto('/?scene=adventure&debug=1');
+    await page.getByRole('button', { name: 'TREETOP TIMBERS', exact: true }).click();
+    await page.getByRole('button', { name: 'Play TREETOP TIMBERS', exact: true }).click();
+    await route('low-star', TIMBER_LEFT_STARS_ASCENT.slice(0, 5)); await capture(page, info, 'low-star', width, 'timber-star-1');
+    await route('left-fork-lower', TIMBER_LEFT_STARS_ASCENT.slice(5, 11)); await capture(page, info, 'left-fork-lower', width, 'timber-fork-left-1');
+    await route('left-fork-upper', TIMBER_LEFT_STARS_ASCENT.slice(11, 12)); await capture(page, info, 'left-fork-upper', width, 'timber-fork-left-2');
+    await route('upper-star', TIMBER_LEFT_STARS_ASCENT.slice(12, 25)); await capture(page, info, 'upper-star', width, 'timber-star-3');
+    await route('wrong-end', [{ kind: 'walk', x: 40 }]);
+    // A completed horizontal walk can still be airborne. Observe the actual landing before freezing the capture.
+    await expect.poll(async () => Number((await page.locator('#status').textContent())!.match(/Y (-?\d+)/)![1]))
+      .toBe(support('timber-star-3-catch').from.y - DEFAULT_MOVEMENT.height);
+    await capture(page, info, 'wrong-end-catch', width, 'timber-star-3-catch');
+    await route('rejoin', [{ kind: 'walk', x: 180 }, ...TIMBER_LEFT_STARS_ASCENT.slice(26)]);
+    await expect(page.locator('#status')).toContainText('Finish');
+    const finished = info.outputPath('finish.png'); await page.screenshot({ path: finished });
+    await info.attach('finish', { path: finished, contentType: 'image/png' });
+    await Promise.all(pending);
+    const paths = [...new Set(['manifest.json', 'ground.png', ...Object.values(manifest.platforms).map(piece => (piece as { image: string }).image)])]
+      .map(file => `/assets/timbers/terrain-kit-v1/${file}`);
+    paths.push('/assets/timbers/tree-v1/manifest.json', '/assets/timbers/tree-v1/tree.png');
+    for (const path of paths) {
+      const delivered = responses.filter(response => response.path === path && response.status === 200 && response.sha256);
+      expect(delivered.length, path).toBeGreaterThan(0);
+      for (const response of delivered) expect(response.sha256).toBe(response.buildSha256);
+    }
+    expect(errors).toEqual([]);
+  } finally {
+    await Promise.all(pending);
+    const files = ['src/world/renderer.ts', 'src/world/assets.ts', 'src/world/timbers-terrain.ts', 'src/world/timbers-tree.ts',
+      'src/world/treetop-timbers.ts', 'tests/timbers-art.spec.ts', 'tests/timbers-browser-pilot.ts', 'dist/index.html',
+      'public/assets/timbers/terrain-kit-v1/manifest.json', 'assets/source/timbers/rollout-v1/preparation.json'];
+    const record = info.outputPath('left-journey.json');
+    writeFileSync(record, JSON.stringify({ sourceRevision: process.env.BROWSER_REPORT_SOURCE_SHA ?? null,
+      browser: browser.browserType().name(), version: browser.version(), width, errors, histories, responses,
+      files: Object.fromEntries(files.map(file => [file, hash(readFileSync(new URL(`../${file}`, import.meta.url)))])) }, null, 2));
+    await info.attach('left-journey', { path: record, contentType: 'application/json' });
+  }
+});
+
+test('Timbers complete terrain declaration is required and ordinary Retry recovers it', async ({ page }, info) => {
+  let fail = true;
+  await page.route('**/assets/timbers/manifest.json', async route => {
+    if (!fail) { await route.continue(); return; }
+    const response = await route.fetch(), metadata = await response.json();
+    delete metadata.timbersKit; await route.fulfill({ response, json: metadata });
+  });
+  await page.goto('/?scene=adventure');
+  await expect(page.getByRole('button', { name: 'Retry loading', exact: true })).toBeVisible();
+  await expect(page.locator('#status')).toHaveText('Artwork could not load. Reload to retry.');
+  const failed = info.outputPath('terrain-declaration-failed.png'); await page.screenshot({ path: failed });
+  await info.attach('terrain-declaration-failed', { path: failed, contentType: 'image/png' });
+  fail = false; await page.getByRole('button', { name: 'Retry loading', exact: true }).click();
+  await page.getByRole('button', { name: 'TREETOP TIMBERS', exact: true }).click();
+  await page.getByRole('button', { name: 'Play TREETOP TIMBERS', exact: true }).click();
+  await expect(page.locator('#status')).toContainText('Playing');
+  const recovered = info.outputPath('terrain-declaration-recovered.png'); await page.screenshot({ path: recovered });
+  await info.attach('terrain-declaration-recovered', { path: recovered, contentType: 'image/png' });
 });
