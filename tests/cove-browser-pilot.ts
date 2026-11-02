@@ -1,5 +1,6 @@
 import { expect, type Page, type TestInfo } from '@playwright/test';
 import { createHash } from 'node:crypto';
+import { createCoveResponseObserver } from './cove-response-observation';
 import { installTimberKeyboardPilot, runTimberStages, type TimberPilotStage } from './timbers-browser-pilot';
 
 /** Cove explicitly selects the bounded fixed-support input protocol; never dispatch by camera mode. */
@@ -47,11 +48,9 @@ export async function startCove(page:Page,controller=false):Promise<void> {
 
 /** Bind actual served response bytes and exported screenshots, including cached preview source canvases. */
 export function observeCove(page:Page,info:TestInfo) {
-  const bodies:{url:string;status:number;bytes:number;sha256:string}[]=[],pending:Promise<void>[]=[];
+  const responses=createCoveResponseObserver();
   const errors:string[]=[];page.on('pageerror',error=>errors.push(error.message));
-  page.on('response',response=>pending.push((async()=>{
-    const bytes=await response.body();bodies.push({url:response.url(),status:response.status(),bytes:bytes.length,sha256:createHash('sha256').update(bytes).digest('hex')});
-  })()));
+  page.on('response',responses.observe);
   const captures:object[]=[];
   return {
     async paint(name:string) {
@@ -60,9 +59,10 @@ export function observeCove(page:Page,info:TestInfo) {
       await info.attach(name,{body:png,contentType:'image/png'});
     },
     async finish(browser:string) {
-      await Promise.all(pending);
-      expect(errors).toEqual([]);expect(bodies.every(body=>body.status<400)).toBe(true);
-      await info.attach('source-bundle-png-bindings',{body:JSON.stringify({source:process.env.BROWSER_REPORT_SOURCE_SHA,browser,viewport:page.viewportSize(),bodies,captures}),contentType:'application/json'});
+      await responses.settle();
+      const cacheBindings=responses.assertComplete();
+      expect(errors).toEqual([]);
+      await info.attach('source-bundle-png-bindings',{body:JSON.stringify({source:process.env.BROWSER_REPORT_SOURCE_SHA,browser,viewport:page.viewportSize(),bodies:responses.records,cacheBindings,captures}),contentType:'application/json'});
     },
   };
 }

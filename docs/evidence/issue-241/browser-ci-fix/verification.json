@@ -1,0 +1,129 @@
+{
+  "recordedAt": "2026-11-02T21:35:58.694561+00:00",
+  "baselineHead": "91c91de983b3f534b95f42acc64a7d307ab5038e",
+  "failedCi": {
+    "run": 41515010180,
+    "artifact": 13179494154,
+    "testedMerge": "7afbbca276a9b2134227a8abb646d466beafd993",
+    "tree": "d80ee3806f54185614dc93a27d44af9ddadee082",
+    "configured": 744,
+    "passed": 718,
+    "failed": 25,
+    "skipped": 1,
+    "flaky": 0
+  },
+  "binding": "Pre-commit working-tree hashes; not a claim of new canonical CI success.",
+  "changedTestFiles": {
+    "tests/browser.spec.ts": "ba50e74c22a42de3314ba01ca87db9c05931c10b82a7232b7c83658c35500c1a",
+    "tests/cove-browser-pilot.ts": "8095103b65ca832fe34d5d8166ad26741b6b23e86937c610b322b1ac649a17e1",
+    "tests/cove-response-observation.ts": "d75e4e4cc3591681d942a93c12c4e87b4efc2331e9427978cf55ec1fa946c33c",
+    "tests/cove-response-observation.test.ts": "1a49fc69099ea67e37feab196ccdf6d05ba1d0f4a5d18dcff771247fe661560a"
+  },
+  "productionSourceAssetBuildFilesUnchanged": 224,
+  "unitTests": {
+    "passed": 2062,
+    "files": 111
+  },
+  "scriptTests": {
+    "passed": 116
+  },
+  "typecheck": "passed",
+  "build": "passed",
+  "logs": {
+    "units.log": {
+      "path": "playwright-report/issue-241/ci-observer-fix/units.log",
+      "sha256": "5c71baa25ef62c730bcb0aa26ad354e51bc3fa7ce0f74b09c4f42afe34495d23"
+    },
+    "scripts.log": {
+      "path": "playwright-report/issue-241/ci-observer-fix/scripts.log",
+      "sha256": "7c466055bf39a64ad87867a453dd9996c2dbb85b021f0e781f31a41bc980c637"
+    },
+    "typecheck.log": {
+      "path": "playwright-report/issue-241/ci-observer-fix/typecheck.log",
+      "sha256": "7ec4f16ac6ef6f684235a4bac0597e5adf1a7d3a8ff33528bba2dd5918c35799"
+    },
+    "build.log": {
+      "path": "playwright-report/issue-241/ci-observer-fix/build.log",
+      "sha256": "a79db8e970fa59dfa70f095b3917fcac001128e86fc95f63abac3678610a78e6"
+    },
+    "production-preservation.json": {
+      "path": "playwright-report/issue-241/ci-observer-fix/production-preservation.json",
+      "sha256": "562f576850cb8089d1fb6cbf15acf32b45fd0ac685b4dfb99f29085134c2e9ae"
+    },
+    "catalog-comparison.json": {
+      "path": "playwright-report/issue-241/ci-observer-fix/catalog-comparison.json",
+      "sha256": "bded67ca58eb93d7170b56519535911d9dc42e4cb4f7a1c51f5001a9f4e28fea"
+    },
+    "configured-cases.json": {
+      "path": "playwright-report/issue-241/ci-observer-fix/configured-cases.json",
+      "sha256": "e78b1ba2e31c86b499c8330114d2b6ebaf91dd8e6df7dd3ae957d8085b1a6907"
+    }
+  },
+  "browserReports": {
+    "timbers": {
+      "report": "playwright-report/issue-241/ci-observer-fix/timbers-report.json",
+      "sha256": "545431d2503401966f948bfe0855f5b3b320dced17ddb8b2cd2e59f76ebc60de",
+      "stats": {
+        "startTime": "2026-11-02T21:27:22.634Z",
+        "duration": 51191.417,
+        "expected": 9,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "readback": "playwright-report/issue-241/ci-observer-fix/timbers-readback.json",
+      "readbackSha256": "dcb0e6dcb2724c321967b5cb3e25b159849fe9a164b73e31fcb5d3a3d6ebb084",
+      "pngAttachments": 12,
+      "responsePackets": 0,
+      "cacheBindings": 0
+    },
+    "cove-firefox": {
+      "report": "playwright-report/issue-241/ci-observer-fix/cove-firefox-report.json",
+      "sha256": "5f2dccfbef358f28b66506a9ceefefd23c0486cd646dc5e43ccf5df61428a16a",
+      "stats": {
+        "startTime": "2026-11-02T21:28:06.512Z",
+        "duration": 365305.382,
+        "expected": 19,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "readback": "playwright-report/issue-241/ci-observer-fix/cove-firefox-readback.json",
+      "readbackSha256": "870adc776cd932e52040e660e1fc0e29fe6330bcc579284fa6d82cca8f7a6916",
+      "pngAttachments": 361,
+      "responsePackets": 19,
+      "cacheBindings": 19
+    },
+    "cove-other": {
+      "report": "playwright-report/issue-241/ci-observer-fix/cove-other-report.json",
+      "sha256": "b31af9406e62e62eca89246b91ac7db90239f1eb95f057dcaa7ceff771ecf3b1",
+      "stats": {
+        "startTime": "2026-11-02T21:31:52.133Z",
+        "duration": 8306.101999999999,
+        "expected": 2,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "readback": "playwright-report/issue-241/ci-observer-fix/cove-other-readback.json",
+      "readbackSha256": "96e319ab8bb95451aa72ad9d68273be40d6971b7ed433d5bdfc9adf227a1be80",
+      "pngAttachments": 6,
+      "responsePackets": 2,
+      "cacheBindings": 0
+    }
+  },
+  "failedCiCasesCoveredByPassingLocalRuns": 25,
+  "localBrowserTests": {
+    "passed": 30,
+    "failed": 0,
+    "skipped": 0,
+    "retried": 0
+  },
+  "currentConfiguredCases": 744,
+  "catalogChange": "Only the three engine identities for Timbers slime motion are renamed from patrols to hops; no case removed.",
+  "pending": [
+    "Fresh full CI on the new commit",
+    "Fresh whole-PR Claude review",
+    "Owner playtest acceptance"
+  ]
+}

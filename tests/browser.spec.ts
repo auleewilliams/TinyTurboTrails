@@ -15,7 +15,7 @@ import { installQuarryPilotScript } from './quarry-pilot';
 import { QUARRY_DESCENT, QUARRY_RETURN, QUARRY_STARS, type QuarryWaypoint } from './quarry-route';
 import { installPlainsRewardPilot } from './plains-pilot';
 import { bay1KeyboardPilotInit } from './cove-bay1-input';
-import { installTimberKeyboardPilot, runTimberStages, TIMBER_ONLY_E2_ASCENT } from './timbers-browser-pilot';
+import { installTimberKeyboardPilot, runTimberStages, TIMBER_ONLY_E2_ASCENT, TIMBER_ASCENT_RIGHT } from './timbers-browser-pilot';
 import { drawTerrainMaterial, drawTerrainEdge, drawTrailBackdrop } from '../src/world/trail-presentation';
 import { installRetracePilotScript } from './retrace-pilot';
 import { observedDamage, sustainedControllerMovement, type ActuatorCall, type HealthObservation } from './rumble-observation';
@@ -2348,8 +2348,12 @@ async function acknowledgeTrailNeutral(page: Page): Promise<void> {
 
 test('Timbers roots keep a safe, open first-jump run-up', async ({ page }, info) => {
   const level = LEVELS.find(candidate => candidate.id === 'timbers')!;
-  expect(level.entities.filter(entity => entity.kind === 'hazard' || entity.kind === 'slime')).toEqual([]);
-  await info.attach('old-prop-inventory-replaced', { body: JSON.stringify({ source: 'level data',
+  const firstLanding = level.platforms!.find(platform => platform.id === 'timber-low-1')!.from.y;
+  // Keep the root run-up and first landing clear; enemies on higher boughs
+  // were explicitly restored after the artwork playtest.
+  expect(level.entities.filter(entity => (entity.kind === 'hazard' || entity.kind === 'slime')
+    && entity.y >= firstLanding - DEFAULT_MOVEMENT.height - 28)).toEqual([]);
+  await info.attach('root-clearance-inventory', { body: JSON.stringify({ source: 'level data', firstLanding,
     hazards: level.entities.filter(entity => entity.kind === 'hazard'),
     slimes: level.entities.filter(entity => entity.kind === 'slime') }), contentType: 'application/json' });
   await page.addInitScript(() => {
@@ -3178,8 +3182,10 @@ test('celebration preview preserves gameplay pixels and final pose under reduced
 });
 
 for (const [costume, level] of [...LEVELS.entries()].filter(([, level]) => level.entities.some(entity => entity.kind === 'slime'))) {
-  test(`${level.id} uses the common slime atlas, patrols and pauses in play`, async ({ page }, info) => {
+  const hopping = level.id === 'timbers';
+  test(`${level.id} uses the common slime atlas, ${hopping ? 'hops' : 'patrols'} and pauses in play`, async ({ page }, info) => {
     test.setTimeout(45_000);
+    if (hopping) await installTimberKeyboardPilot(page);
     await page.addInitScript((sky) => {
       const fillRect = CanvasRenderingContext2D.prototype.fillRect;
       const drawImage = CanvasRenderingContext2D.prototype.drawImage;
@@ -3204,13 +3210,22 @@ for (const [costume, level] of [...LEVELS.entries()].filter(([, level]) => level
     await expect.poll(async () => (await read()).length).toBe(level.entities.filter(e => e.kind === 'slime').length);
     const initial = await read();
     for (const call of initial) expect([call[0], call[1], call[2], call[3], call[6], call[7]]).toEqual([costume * 48, 0, 48, 48, 48, 48]);
-    await expect.poll(async () => (await read())[0][4]).not.toBe(initial[0][4]);
+    const animatedAxis = hopping ? 5 : 4;
+    await expect.poll(async () => (await read())[0][animatedAxis]).not.toBe(initial[0][animatedAxis]);
+    if (hopping) expect((await read()).map(call => call[4])).toEqual(initial.map(call => call[4]));
     const first = level.entities.find(e => e.kind === 'slime')!;
-    // Walk to a clear viewing distance through the actual controls.
-    const position = async (): Promise<number> => Number((await page.locator('#status').innerText()).match(/X (\d+)/)?.[1] ?? 0);
-    await page.keyboard.down('ArrowRight');
-    await expect.poll(position, { timeout: 15_000, intervals: [30] }).toBeGreaterThan(first.x - 120);
-    await page.keyboard.up('ArrowRight');
+    // Reach a real viewing position through controls: climb to an elevated
+    // Timbers slime, or walk along the ground toward a patrolling one.
+    if (hopping) {
+      const route = await runTimberStages(page, [...TIMBER_ASCENT_RIGHT.slice(0, 5), { kind: 'walk', x: 270 }]);
+      expect(route).toMatchObject({ done: true, error: '' });
+      await expect(page.locator('#status')).toContainText('Y 866');
+    } else {
+      const position = async (): Promise<number> => Number((await page.locator('#status').innerText()).match(/X (\d+)/)?.[1] ?? 0);
+      await page.keyboard.down('ArrowRight');
+      await expect.poll(position, { timeout: 15_000, intervals: [30] }).toBeGreaterThan(first.x - 120);
+      await page.keyboard.up('ArrowRight');
+    }
     await page.waitForTimeout(350);
     const evidence = info.outputPath(`${level.id}-slime.png`);
     await canvas.screenshot({ path: evidence });
@@ -3222,7 +3237,7 @@ for (const [costume, level] of [...LEVELS.entries()].filter(([, level]) => level
     expect(await read()).toEqual(frozen);
     await page.keyboard.press('Escape');
     await expect(page.locator('#status')).toContainText('Playing');
-    await expect.poll(async () => (await read())[0][4]).not.toBe(frozen[0][4]);
+    await expect.poll(async () => (await read())[0][animatedAxis]).not.toBe(frozen[0][animatedAxis]);
   });
 }
 
