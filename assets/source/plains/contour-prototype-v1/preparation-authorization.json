@@ -1,0 +1,53 @@
+{
+  "ownerReply": "yes",
+  "approvedAtRecordedUTC": "2026-11-01T03:48:28.608794+00:00",
+  "immediatelyPrecedingQuestion": "Do you approve that bounded preparation exception?",
+  "exactScope": {
+    "family": "Plains generated terrain kit A/B/C only",
+    "backgroundClassifier": "Allow existing r-g>=24 && b-g>=24,4-connected image-edge flood, rather than exact-single-RGB background. No white/luminance key, threshold broadening, unmatting or global matte painting; each source independentlyvalidated.",
+    "oneSourceOnlyRGBException": {
+      "sourceSHA256": "39235164f53d441cac0d25a95a87e0409a8547d1df82b8a1d66b8ac0ceb7e212",
+      "nativeMaster": [
+        80,
+        16
+      ],
+      "target": [
+        43,
+        1
+      ],
+      "oldRGBA": [
+        135,
+        113,
+        144,
+        255
+      ],
+      "donor": [
+        43,
+        2
+      ],
+      "donorRGBA": [
+        108,
+        207,
+        4,
+        255
+      ],
+      "maximumChangedMasterRGBPixels": 1,
+      "alpha": "Entire diagnostic mask unchanged; all other native master RGBA unchanged. Derived module repeats duplicate this source-bound pixel, not extra edits.",
+      "remaining13HeuristicHits": "Unchanged; not all proved contaminated."
+    },
+    "limitation": "Owner would explicitly accept diagnostic-keyed silhouette and possible tiny blended-edge removal; no genuine source alpha proves all removed edge pixels were non-art. No game geometry/physics changes.",
+    "status": "APPROVED_BY_REAL_OWNER_NOT_YET_APPLIED",
+    "calls": "2/5 unchanged; no further A call; prepared A must be verified before initial B."
+  },
+  "status": "APPROVED_BY_REAL_OWNER",
+  "supersedesCurrentBlocker": "Exact-single-RGB-key requirement superseded for Plains A/B/C by fixed edge-connected classifier; one source-bound RGB correction for A only. Prior failed gates/evidence retained as historical.",
+  "notAuthorized": [
+    "extra image calls",
+    "additional RGB repair pixels",
+    "geometry or physics changes",
+    "wider trail rollout",
+    "merge",
+    "deployment"
+  ],
+  "budgetUnchanged": "2/5 spent; A exhausted; B1/C1/R2-C-only remain under existing conditions"
+}

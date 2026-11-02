@@ -1,0 +1,12 @@
+{
+  "src/world/level.ts": "626f85c1303f8934624eb2a02eda010db761b847265b07f1e0ba1f6c6b02cf23",
+  "src/game/movement.ts": "3f918871245baad33cccdbf60ba0520eee750d4c8fc785a53d8d08fc3fe7a58d",
+  "src/game/education.ts": "d96f4e20a4d928ec5766488cf0b1057806f362d155c7e1625603c1d831210a74",
+  "src/world/camera.ts": "17de5a30ee219aa9beb7ba0ab10851c5812290ec3bb0aea28c035d0d91533524",
+  "public/assets/plains/environment.png": "626ded198036b4fe010774f4daade0bf35565e55c445e939e4867368638924f1",
+  "public/assets/plains/scenery/foreground.png": "14b1151f9e4a2518e960c42422fdd2b0d4ca92e671e87408e53ab2c6ec8bb868",
+  "public/assets/henry/henry-celebration.png": "490231dd210a1778bcbd1f7924961d635f77bea3e55052ec5c9de14de2fd8641",
+  "public/assets/henry/manifest.json": "e932fee8dc4581422ed6a6c4cc5df91aa8de98b2e0b578b51fdec1d61c317879",
+  "public/assets/cove/bay1-b-v1/platform.png": "e1809f4f247e693c96968ce7661e2e2126d46d28567b032e534634ee6a2b94cc",
+  "public/assets/cove/whole-three-v1/hollow.png": "e1809f4f247e693c96968ce7661e2e2126d46d28567b032e534634ee6a2b94cc"
+}

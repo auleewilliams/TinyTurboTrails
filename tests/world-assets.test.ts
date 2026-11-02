@@ -115,7 +115,9 @@ it('loads the optional scenery pack declared by the atlas and propagates image f
   class FakeImage {
     onload = (): void => {};
     onerror = (): void => {};
-    set src(url: string) { queueMicrotask(fail && url.endsWith('/foreground.png') ? this.onerror : this.onload); }
+    naturalWidth = 80;
+    naturalHeight = 16;
+    set src(url: string) { if (url.endsWith('/soil.png')) { this.naturalWidth = 64; this.naturalHeight = 64; } queueMicrotask(fail && url.endsWith('/foreground.png') ? this.onerror : this.onload); }
   }
   vi.stubGlobal('Image', FakeImage);
   const loaded = await loadWorldAssets();
@@ -260,4 +262,32 @@ it('requires declared Cove material metadata and image, rejects bad rectangles/d
     expect(loaded.coveMaterials?.image).toBeInstanceOf(FakeImage);
   }
   expect(attempts).toBe(10);
+});
+
+it('requires declared Plains grass dimensions and propagates failure for ordinary loading Retry', async () => {
+  const manifest = JSON.parse(readFileSync(new URL('../public/assets/plains/manifest.json', import.meta.url), 'utf8'));
+  delete manifest.scenery;
+  let wrongSize = true, missing = false;
+  vi.stubGlobal('fetch', vi.fn(async () => ({ ok: true, json: async () => manifest })));
+  class ImageProbe {
+    naturalWidth = 80;
+    naturalHeight = 16;
+    onload = (): void => {};
+    onerror = (): void => {};
+    set src(url: string) {
+      if (url.endsWith('/soil.png')) { this.naturalWidth = 64; this.naturalHeight = 64; }
+      if (url.endsWith('/grass.png')) {
+        if (wrongSize) this.naturalWidth = 79;
+        if (missing) { queueMicrotask(this.onerror); return; }
+      }
+      queueMicrotask(this.onload);
+    }
+  }
+  vi.stubGlobal('Image', ImageProbe);
+  await expect(loadWorldAssets('plains')).rejects.toThrow(/contour image dimensions/);
+  wrongSize = false; missing = true;
+  await expect(loadWorldAssets('plains')).rejects.toThrow(/Plains contour grass/);
+  missing = false;
+  expect((await loadWorldAssets('plains')).plainsContour?.image.naturalWidth).toBe(80);
+  await expect(loadWorldAssets('cove')).rejects.toThrow(/Plains contour declaration/);
 });

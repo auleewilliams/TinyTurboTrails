@@ -52,32 +52,41 @@ export function drawTerrainMaterial(ctx: CanvasRenderingContext2D, level: LevelD
   }
 }
 
-export function drawTerrainEdge(ctx: CanvasRenderingContext2D, level: LevelData, offset: { x: number; y: number }): void {
-  for (const surface of level.surfaces) {
-    if (surface.x2 < offset.x || surface.x1 > offset.x + 426) continue;
-    const material = level.theme.materialSections?.find(s => surface.x1 >= s.from && surface.x1 < s.to)?.material ?? level.theme.material;
-    const rock = material === 'stone';
-    const edge = rock ? '#9aab96' : material === 'frost' ? '#eff8ff' : level.theme.edge;
-    const steep = Math.abs((surface.y2 - surface.y1) / (surface.x2 - surface.x1)) > 1;
-    ctx.strokeStyle = rock ? '#736653' : level.theme.material === 'wood' ? '#523822' : '#3d352e';
-    ctx.lineWidth = 7;
-    ctx.beginPath(); ctx.moveTo(surface.x1 - offset.x, surface.y1 - offset.y + 4);
-    ctx.lineTo(surface.x2 - offset.x, surface.y2 - offset.y + 4); ctx.stroke();
-    ctx.strokeStyle = edge; ctx.lineWidth = material === 'frost' ? 5 : 3;
-    ctx.beginPath(); ctx.moveTo(surface.x1 - offset.x, surface.y1 - offset.y);
-    ctx.lineTo(surface.x2 - offset.x, surface.y2 - offset.y); ctx.stroke();
-    if (steep) continue;
-    const from = Math.ceil(Math.max(surface.x1, offset.x) / 7) * 7;
-    for (let x = from; x < Math.min(surface.x2, offset.x + 426); x += 7) {
-      const y = surface.y1 + (surface.y2 - surface.y1) * (x - surface.x1) / (surface.x2 - surface.x1);
-      ctx.fillStyle = edge;
-      const irregular = Math.abs((x * 17) ^ (x >> 3));
-      ctx.fillRect(x - offset.x, y - offset.y + 1, 2 + irregular % 4, 1 + irregular % 3);
-      if (level.theme.material === 'soil' && !rock && x % 5 === 0) {
-        ctx.fillStyle = '#64422c'; ctx.fillRect(x - offset.x + 1, y - offset.y + 7, 1, 5);
+export function drawTerrainEdge(ctx: CanvasRenderingContext2D, level: LevelData, offset: { x: number; y: number },
+  replaced?: { from: number; to: number }): void {
+  if (replaced) {
+    ctx.save(); ctx.beginPath();
+    ctx.rect(-10000, -10000, replaced.from - offset.x + 10000, 20000);
+    ctx.rect(replaced.to - offset.x, -10000, 10000, 20000);
+    ctx.clip();
+  }
+  try {
+    for (const surface of level.surfaces) {
+      if (surface.x2 < offset.x || surface.x1 > offset.x + 426) continue;
+      const material = level.theme.materialSections?.find(s => surface.x1 >= s.from && surface.x1 < s.to)?.material ?? level.theme.material;
+      const rock = material === 'stone';
+      const edge = rock ? '#9aab96' : material === 'frost' ? '#eff8ff' : level.theme.edge;
+      const steep = Math.abs((surface.y2 - surface.y1) / (surface.x2 - surface.x1)) > 1;
+      ctx.strokeStyle = rock ? '#736653' : level.theme.material === 'wood' ? '#523822' : '#3d352e';
+      ctx.lineWidth = 7;
+      ctx.beginPath(); ctx.moveTo(surface.x1 - offset.x, surface.y1 - offset.y + 4);
+      ctx.lineTo(surface.x2 - offset.x, surface.y2 - offset.y + 4); ctx.stroke();
+      ctx.strokeStyle = edge; ctx.lineWidth = material === 'frost' ? 5 : 3;
+      ctx.beginPath(); ctx.moveTo(surface.x1 - offset.x, surface.y1 - offset.y);
+      ctx.lineTo(surface.x2 - offset.x, surface.y2 - offset.y); ctx.stroke();
+      if (steep) continue;
+      const from = Math.ceil(Math.max(surface.x1, offset.x) / 7) * 7;
+      for (let x = from; x < Math.min(surface.x2, offset.x + 426); x += 7) {
+        const y = surface.y1 + (surface.y2 - surface.y1) * (x - surface.x1) / (surface.x2 - surface.x1);
+        ctx.fillStyle = edge;
+        const irregular = Math.abs((x * 17) ^ (x >> 3));
+        ctx.fillRect(x - offset.x, y - offset.y + 1, 2 + irregular % 4, 1 + irregular % 3);
+        if (level.theme.material === 'soil' && !rock && x % 5 === 0) {
+          ctx.fillStyle = '#64422c'; ctx.fillRect(x - offset.x + 1, y - offset.y + 7, 1, 5);
+        }
       }
     }
-  }
+  } finally { if (replaced) ctx.restore(); }
 }
 
 export function drawTrailBackdrop(ctx: CanvasRenderingContext2D, assets: WorldAssets, level: LevelData,

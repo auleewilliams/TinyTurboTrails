@@ -1,0 +1,32 @@
+{
+  "source": "original-C-R2.png",
+  "sourceSHA256": "0a30534d856f27481646d024593114b5d76c41415205d149e6f8330805cf75f2",
+  "sourceSize": [
+    1254,
+    1254
+  ],
+  "sourceFrame": [
+    0,
+    0,
+    1254,
+    1254
+  ],
+  "nativeSize": [
+    64,
+    64
+  ],
+  "sourcePerNative": 19.59375,
+  "sampling": "sx=floor((nx+0.5)*1254/64); sy=floor((ny+0.5)*1254/64)",
+  "PNGsha256": "57aa4e04a67ec0a79c26a14b4c6a8baf63dbf06fed84e35a09204c3a4e064c85",
+  "RGBAsha256": "9107d72ea692c52ab641d4b51c32807a58cc0049eb0614c17197ba0f18f61ada",
+  "repairs": 0,
+  "alpha": "opaque255 deliberately retained",
+  "requestedQuality": "medium",
+  "reportedQuality": "low",
+  "requestedSize": "1024x1024",
+  "reportedSize": "1254x1254",
+  "scope": "Plains continuous ground x[580,1060), C behind frozen A at contact+8; u=(x-580)%64,v=(y-(contact+8))%64",
+  "C1": "rejected native grain historical source; not used as runtime source",
+  "calls": "5/5 total,C2/2,future0",
+  "acceptance": "source fit independently verified; in-game/owner acceptance pending"
+}

@@ -1,5 +1,7 @@
 {
   "image": "environment.png",
+  "plainsContour": "contour-prototype-v1/grass.png",
+  "plainsContourSoil": "contour-prototype-v1/soil.png",
   "scenery": "scenery/manifest.json",
   "cellSize": 48,
   "assets": {
