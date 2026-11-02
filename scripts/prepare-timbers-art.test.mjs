@@ -17,13 +17,18 @@ test('Timbers prepared images reproduce exact complete RGBA, PNG structure and s
   for (const role of Object.values(record.sources)) assert.equal(hash(readFileSync(source + role.image)), role.sha256);
   const temp = mkdtempSync(join(tmpdir(), 'timbers-preparation-'));
   try {
-    execFileSync(process.execPath, ['scripts/prepare-timbers-art.mjs', temp]);
+    for (const directory of ['first', 'second']) execFileSync(process.execPath, ['scripts/prepare-timbers-art.mjs', join(temp, directory)]);
+    const regeneratedRecord = JSON.parse(readFileSync(join(temp, 'first/preparation.json')));
     for (const [name, expected] of Object.entries(record.records)) {
-      const committed = readFileSync('public/assets/timbers/terrain-kit-v1/' + name), regenerated = readFileSync(join(temp, name));
+      const committed = readFileSync('public/assets/timbers/terrain-kit-v1/' + name), regenerated = readFileSync(join(temp, 'first', name));
       assert.equal(hash(committed), expected.pngSha256);
       assertPngPixelContract(regenerated, committed, expected);
+      assert.deepEqual(regenerated, readFileSync(join(temp, 'second', name)), 'same-encoder bytes');
+      assert.equal(regeneratedRecord.records[name].pngSha256, hash(regenerated), 'generated metadata binds its actual PNG');
+      // Only compressed PNG bytes may differ across encoders; all other metadata stays exact.
+      regeneratedRecord.records[name].pngSha256 = expected.pngSha256;
     }
-    assert.deepEqual(JSON.parse(readFileSync(join(temp, 'preparation.json'))), record);
+    assert.deepEqual(regeneratedRecord, record);
   } finally { rmSync(temp, { recursive: true, force: true }); }
 });
 

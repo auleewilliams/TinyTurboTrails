@@ -15,7 +15,7 @@ const source = 'assets/source/timbers/tree-v1/';
 const record = JSON.parse(readFileSync(source + 'preparation.json'));
 const hash = bytes => createHash('sha256').update(bytes).digest('hex');
 
-test('whole-tree uniform preparation reproduces exact PNG/RGBA and keeps all prior terrain files unchanged', () => {
+test('whole-tree uniform preparation reproduces exact RGBA and same-encoder PNG bytes, preserving prior terrain', () => {
   assert.equal(hash(readFileSync(source + record.source.image)), record.source.sha256);
   const temporary = mkdtempSync(join(tmpdir(), 'timbers-tree-'));
   try {
@@ -27,12 +27,19 @@ test('whole-tree uniform preparation reproduces exact PNG/RGBA and keeps all pri
       mkdirSync(join(target, '..'), { recursive: true });
       writeFileSync(target, beforeTimbersRollout(path, readFileSync(path)));
     }
-    execFileSync(process.execPath, [fileURLToPath(new URL('./prepare-timbers-tree.mjs', import.meta.url)), temporary], { cwd: fixture });
+    for (const directory of ['first', 'second']) execFileSync(process.execPath,
+      [fileURLToPath(new URL('./prepare-timbers-tree.mjs', import.meta.url)), join(temporary, directory)], { cwd: fixture });
     const shipped = readFileSync('public/assets/timbers/tree-v1/tree.png');
     assert.equal(hash(shipped), record.native.pngSha256);
-    assertPngPixelContract(readFileSync(join(temporary, 'tree.png')), shipped, record.native);
-    assert.deepEqual(JSON.parse(readFileSync(join(temporary, 'preparation.json'))), record);
-    assert.deepEqual(readFileSync(join(temporary, 'manifest.json')), readFileSync('public/assets/timbers/tree-v1/manifest.json'));
+    const regenerated = readFileSync(join(temporary, 'first/tree.png'));
+    assertPngPixelContract(regenerated, shipped, record.native);
+    assert.deepEqual(regenerated, readFileSync(join(temporary, 'second/tree.png')), 'same-encoder bytes');
+    const regeneratedRecord = JSON.parse(readFileSync(join(temporary, 'first/preparation.json')));
+    assert.equal(regeneratedRecord.native.pngSha256, hash(regenerated), 'generated metadata binds its actual PNG');
+    // Keep the historical record immutable while comparing all non-compression metadata exactly.
+    regeneratedRecord.native.pngSha256 = record.native.pngSha256;
+    assert.deepEqual(regeneratedRecord, record);
+    assert.deepEqual(readFileSync(join(temporary, 'first/manifest.json')), readFileSync('public/assets/timbers/tree-v1/manifest.json'));
   } finally { rmSync(temporary, { recursive: true, force: true }); }
   for (const [path, expected] of Object.entries(record.preservedTerrainFiles)) assert.equal(hash(beforeTimbersRollout(path, readFileSync(path))), expected, path);
 });

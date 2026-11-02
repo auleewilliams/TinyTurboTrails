@@ -1,5 +1,7 @@
 # Main integration for Timbers PR #247
 
+Follow-up: [preparation metadata portability](timbers-ci-portability-241.md) records the actual CI failure on this head and the test-only correction. The results below remain bound to the integrated candidate.
+
 This update resolves the conflict with main `fbf98b93d0c28e7cd393b1b7213a3dc2b3a2bacb` (Plains PR #245) from Timbers parent `0351b48d2bb7a19b928d7a68fa569ea1ce389a37`.
 
 The shared loader now retains both worlds’ declarations, validation and returned assets. The renderer retains Plains’ continuous contour draw and edge clipping alongside Timbers’ illustrated ground, all 44 fixed supports and scenic tree. Function-string and source-module fixtures carry both dependency graphs. No Timbers artwork, mapping, geometry or input code changed; Plains runtime modules and PNGs are identical to main.
