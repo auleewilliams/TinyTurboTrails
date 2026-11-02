@@ -76,7 +76,7 @@ test('legacy preservation projects only the exact site declaration and rejects u
 });
 
 test('shared source projection accepts only the owner-requested marker removal bytes and rejects position or appended changes', () => {
-  const record = JSON.parse(readFileSync('assets/source/site/steel-v1/marker-removal-preservation.json'));
+  const record = JSON.parse(readFileSync('assets/source/site/steel-v1/plains-main-preservation.json'));
   assert.deepEqual(Object.keys(record.files).sort(), ['public/assets/site/manifest.json', 'src/world/assets.ts', 'src/world/renderer.ts', 'src/world/sunset-site.ts']);
   for (const [path, pin] of Object.entries(record.files)) {
     const bytes = readFileSync(path), original = readFileSync(pin.baselineCopy);

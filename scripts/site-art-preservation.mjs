@@ -4,10 +4,11 @@ import { readFileSync } from 'node:fs';
 
 const originalManifest = '176ce7b94cf713fa3c099f1e62511227b67c384e1159a4b8ecce3547c40333da';
 const declaration = '  "siteTerrain": "steel-v1/manifest.json",\n';
-const sourceRecord = JSON.parse(readFileSync(new URL('../assets/source/site/steel-v1/marker-removal-preservation.json', import.meta.url)));
+const sourceRecord = JSON.parse(readFileSync(new URL('../assets/source/site/steel-v1/plains-main-preservation.json', import.meta.url)));
 
-/** Project only the one approved site-kit declaration before immutable Cove pins.
- * Any other source byte change still fails the original complete-file hash.
+/** Remove only the exact recorded Sunset integration before historical pins.
+ * Shared loader/renderer bytes return to merged Plains main; callers then apply
+ * the unchanged Plains projection. Any unrelated source byte change still fails.
  */
 export function beforeSiteArt(path, bytes) {
   if (path !== 'public/assets/site/manifest.json') {
