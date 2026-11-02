@@ -18,17 +18,20 @@ const support = (id: string) => {
 async function installArtObserver(page: Page): Promise<void> {
   await page.addInitScript(() => {
     type Draw = { source: string; x: number; y: number; width: number; height: number };
-    const state = { mapTreeRenders: 0, draws: [] as Draw[], actor: null as null | { feet: { x: number; y: number }; bounds: { left: number; right: number; top: number; bottom: number } }, frameDraws: [] as Draw[], seen: [] as string[] };
+    const state = { mapTreeRenders: 0, draws: [] as Draw[], props: [] as Draw[], frameProps: [] as Draw[], actor: null as null | { feet: { x: number; y: number }; bounds: { left: number; right: number; top: number; bottom: number } }, frameDraws: [] as Draw[], seen: [] as string[] };
     Object.assign(window, { timbersArtProbe: state });
     const fill = CanvasRenderingContext2D.prototype.fillRect, draw = CanvasRenderingContext2D.prototype.drawImage;
     const decoded = new WeakMap<HTMLImageElement, ImageData>();
     CanvasRenderingContext2D.prototype.fillRect = function (x, y, width, height) {
-      if (this.canvas.id === 'game' && x === 0 && y === 0 && width === 426 && height === 240) state.draws = [];
+      if (this.canvas.id === 'game' && x === 0 && y === 0 && width === 426 && height === 240) { state.draws = []; state.props = []; }
       return fill.call(this, x, y, width, height);
     };
     CanvasRenderingContext2D.prototype.drawImage = function (image: CanvasImageSource, ...values: number[]) {
       if (image instanceof HTMLImageElement && image.src.endsWith('/timbers/tree-v1/tree.png') && this.canvas.id !== 'game') state.mapTreeRenders++;
       if (this.canvas.id === 'game' && image instanceof HTMLImageElement) {
+        if (values.length === 8 && (image.src.endsWith('/plains/scenery/foreground.png') || image.src.endsWith('/slimes/slimes.png'))) {
+          state.props.push({ source: image.src, x: values[4], y: values[5], width: values[6], height: values[7] });
+        }
         if ((image.src.includes('/timbers/terrain-kit-v1/') || image.src.includes('/timbers/tree-v1/')) && values.length === 2) {
           state.draws.push({ source: image.src, x: values[0], y: values[1], width: image.naturalWidth, height: image.naturalHeight });
           if (!state.seen.includes(image.src)) state.seen.push(image.src);
@@ -51,6 +54,7 @@ async function installArtObserver(page: Page): Promise<void> {
           const feet = transform.transformPoint({ x: dx + 24, y: dy + 44 });
           state.actor = { feet: { x: feet.x, y: feet.y }, bounds: { left, right, top, bottom } };
           state.frameDraws = [...state.draws];
+          state.frameProps = [...state.props];
         }
       }
       return draw.apply(this, [image, ...values] as Parameters<typeof draw>);
@@ -62,7 +66,7 @@ async function capture(page: Page, info: TestInfo, name: string, width: number, 
   await page.evaluate(() => { (window as unknown as { timberKeyboardPilot: { frozen: boolean } }).timberKeyboardPilot.frozen = true; });
   const sample = await page.evaluate(() => {
     const canvas = document.querySelector<HTMLCanvasElement>('#game')!, box = canvas.getBoundingClientRect();
-    const probe = (window as unknown as { timbersArtProbe: { actor: { feet: { x: number; y: number }; bounds: { left: number; right: number; top: number; bottom: number } }; frameDraws: { source: string; x: number; y: number; width: number; height: number }[]; seen: string[] } }).timbersArtProbe;
+    const probe = (window as unknown as { timbersArtProbe: { actor: { feet: { x: number; y: number }; bounds: { left: number; right: number; top: number; bottom: number } }; frameDraws: { source: string; x: number; y: number; width: number; height: number }[]; frameProps: { source: string; x: number; y: number; width: number; height: number }[]; seen: string[] } }).timbersArtProbe;
     return { status: document.querySelector('#status')!.textContent!, native: [canvas.width, canvas.height],
       css: { width: box.width, height: box.height }, viewport: [innerWidth, innerHeight], probe,
       png: canvas.toDataURL('image/png') };
@@ -86,6 +90,21 @@ async function capture(page: Page, info: TestInfo, name: string, width: number, 
   expect(platformDraws).toHaveLength(44);
   const groundDraw = sample.probe.frameDraws.find(draw => draw.source.endsWith('/terrain-kit-v1/ground.png'))!;
   const camera = { x: manifest.ground.x - groundDraw.x, y: manifest.ground.y - groundDraw.y };
+  const bushes = sample.probe.frameProps.filter(draw => draw.source.endsWith('/plains/scenery/foreground.png'));
+  expect(bushes).toHaveLength(8);
+  for (const bush of TREETOP_TIMBERS.entities.filter(entity => entity.asset === 'bush')) {
+    expect(bushes.filter(draw => Math.abs(draw.x + 22 + camera.x - bush.x) < 1e-6
+      && Math.abs(draw.y + 32 + camera.y - bush.y) < 1e-6 && draw.width === 44 && draw.height === 32)).toHaveLength(1);
+  }
+  const slimes = sample.probe.frameProps.filter(draw => draw.source.endsWith('/slimes/slimes.png'));
+  expect(slimes).toHaveLength(3);
+  for (const slime of TREETOP_TIMBERS.entities.filter(entity => entity.kind === 'slime')) {
+    const draws = slimes.filter(draw => Math.abs(draw.x + draw.width / 2 + camera.x - slime.x) < 1e-6);
+    expect(draws, slime.id).toHaveLength(1);
+    const feet = draws[0].y + draws[0].height * 44 / 48 + camera.y;
+    expect(feet, slime.id).toBeGreaterThanOrEqual(slime.y - 6 - 1e-6);
+    expect(feet, slime.id).toBeLessThanOrEqual(slime.y + 1e-6);
+  }
   for (const platform of TREETOP_TIMBERS.platforms!) {
     const matching = platformDraws.filter(draw => draw.source.endsWith('/' + manifest.platforms[platform.id].image)
       && Math.abs(draw.x - (platform.from.x - camera.x)) < 1e-6 && Math.abs(draw.y - (platform.from.y - camera.y)) < 1e-6);

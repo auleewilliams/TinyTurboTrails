@@ -65,6 +65,19 @@ const gemPlaces: readonly (readonly [number, number])[] = [
 ];
 
 const entities: WorldEntity[] = [
+  // Reused round bushes sit on branch tops, behind Henry and collectibles.
+  ...[[300, 1020], [590, 900], [205, 840], [590, 780],
+    [300, 660], [520, 540], [590, 420], [275, 180]].map(([x, y], index) => ({
+    id: `timber-bush-${index + 1}`, kind: 'decoration' as const,
+    x, y, asset: 'bush', layer: 'back' as const,
+  })),
+  // Gentle in-place hops use the existing creature behavior. Ground-following
+  // patrols would move these slimes off their elevated branch and onto the roots.
+  ...[[200, 900], [80, 720], [210, 420]].map(([x, y], index) => ({
+    id: `timber-slime-${index + 1}`, kind: 'slime' as const,
+    x, y, asset: 'slime', layer: 'world' as const,
+    bounce: { amplitude: 6, seconds: 2 },
+  })),
   ...gemPlaces.map(([x, supportY], index) => ({
     id: `timber-gem-${String(index + 1).padStart(3, '0')}`, kind: 'gem' as const,
     x, y: supportY - 18, asset: 'gem', layer: 'world' as const,

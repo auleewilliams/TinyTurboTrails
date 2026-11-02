@@ -25,7 +25,10 @@ it.each(LEVELS.slice(0, 3))('$name keeps marked landing bands clear of pits and 
     for (const hazard of level.entities.filter(entity => entity.kind === 'slime' || entity.kind === 'hazard')) {
       const min = (hazard.patrol?.minX ?? hazard.x) - 18;
       const max = (hazard.patrol?.maxX ?? hazard.x) + 18;
-      expect(max < left || min > right, `landing at ${band.x}: ${hazard.id}`).toBe(true);
+      // These bands mark ground. A fixed creature on a higher bough does not
+      // occupy the same landing; leave a full standing body plus contact margin.
+      const aboveLanding = !hazard.patrol && surfaceY(level, hazard.x) - hazard.y > 68;
+      expect(max < left || min > right || aboveLanding, `landing at ${band.x}: ${hazard.id}`).toBe(true);
     }
   }
 });

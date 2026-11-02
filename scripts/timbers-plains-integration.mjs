@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { beforeTimbersOwnerFeedback } from './timbers-owner-feedback.mjs';
 import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 const hash = bytes => createHash('sha256').update(bytes).digest('hex');
@@ -9,6 +10,7 @@ const record = JSON.parse(raw);
 // Each historical oracle receives its original parent bytes only after the full
 // merged file and every reversed hunk have matched these separate integration pins.
 function project(name, path, bytes) {
+  bytes = beforeTimbersOwnerFeedback(path, bytes);
   const entry = record.projections[name][path];
   if (!entry) return bytes;
   assert.equal(hash(bytes), entry.mergedSha256, `${path}: exact integrated presentation`);

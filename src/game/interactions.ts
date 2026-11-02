@@ -189,7 +189,7 @@ export function stepEntities(run: RunState, level: LevelData, player: Player, se
   const feet = player.y + CONTACT.feet;
   const lastSegment = trajectory[trajectory.length - 1];
   const descending = lastSegment?.falling && lastSegment.to.y > lastSegment.from.y;
-  const tops: { state: EntityState; top: number; fraction: number }[] = [];
+  const tops: { state: EntityState; top: number; restY: number; fraction: number }[] = [];
   for (const entity of level.entities) {
     const state = entityState(run, entity.id);
     if (entity.kind !== 'slime' || !state?.active || state.squashed) continue;
@@ -200,7 +200,8 @@ export function stepEntities(run: RunState, level: LevelData, player: Player, se
       const fraction = (top - fromFeet) / (toFeet - fromFeet);
       const impactX = segment.from.x + (segment.to.x - segment.from.x) * fraction;
       if (Math.abs(impactX - state.x) <= 16 + DEFAULT_MOVEMENT.width / 2 + SLIME_EDGE_FORGIVENESS) {
-        tops.push({ state, top, fraction: (index + fraction) / trajectory.length });
+        tops.push({ state, top, restY: entity.patrol ? surfaceY(level, state.x) : entity.y,
+          fraction: (index + fraction) / trajectory.length });
         break;
       }
     }
@@ -211,9 +212,9 @@ export function stepEntities(run: RunState, level: LevelData, player: Player, se
   if (first) {
     const tied = tops.filter(candidate => Math.abs(candidate.fraction - first.fraction) <= 1e-8)
       .sort((a, b) => a.state.id < b.state.id ? -1 : a.state.id > b.state.id ? 1 : 0);
-    for (const { state } of tied) {
+    for (const { state, restY } of tied) {
       state.squashed = true;
-      state.y = surfaceY(level, state.x);
+      state.y = restY;
       state.squashSeconds = SQUASH_SECONDS;
       events.push({ type: 'squash', entityId: state.id });
     }

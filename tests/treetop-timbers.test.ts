@@ -2,6 +2,8 @@ import { readFileSync } from 'node:fs';
 import { expect, it } from 'vitest';
 import { hasFixedSupport, validateLevel, type WorldEntity } from '../src/world/level';
 import { LEVELS, TREETOP_TIMBERS, levelById } from '../src/world/levels';
+import { advanceBounces, advancePatrols, createRun, entityState, startNewRun, stepEntities } from '../src/game/interactions';
+import { createPlayer } from '../src/game/movement';
 
 const ofKind = (kind: WorldEntity['kind']) => TREETOP_TIMBERS.entities.filter(entity => entity.kind === kind);
 
@@ -21,7 +23,7 @@ it('replaces the former long contour with three resting checkpoints and permanen
   expect(ofKind('checkpoint')).toHaveLength(3);
   expect(ofKind('spring')).toHaveLength(1);
   expect(ofKind('hazard')).toHaveLength(0);
-  expect(ofKind('slime')).toHaveLength(0);
+  expect(ofKind('slime')).toHaveLength(3);
   expect(ofKind('gem')).toHaveLength(33);
   expect(ofKind('special')).toHaveLength(3);
   expect(level.theme.material).toBe('wood');
@@ -51,4 +53,62 @@ it('ships a complete 4 by 4 timber atlas contract', () => {
     'terrain-right': { left: 4, right: 4 },
     'terrain-ramp': { left: 30, right: 11 },
   });
+});
+
+it('grounds eight background bushes and three slimes with clear checkpoints, spring and pickups', () => {
+  const level = TREETOP_TIMBERS;
+  const bushes = ofKind('decoration');
+  expect(bushes).toHaveLength(8);
+  for (const entity of [...bushes, ...ofKind('slime')]) {
+    expect(level.platforms!.some(platform => platform.from.y === entity.y
+      && platform.from.x <= entity.x - 24 && platform.from.x + platform.width >= entity.x + 24), entity.id).toBe(true);
+    for (const point of [...level.checkpoints, level.start, level.finish, ...ofKind('spring')]) {
+      if (point.y === entity.y) expect(Math.abs(point.x - entity.x), entity.id).toBeGreaterThanOrEqual(entity.kind === 'slime' ? 80 : 40);
+    }
+    for (const pickup of [...ofKind('gem'), ...ofKind('special')]) {
+      if (Math.abs(pickup.y - entity.y) < 30) expect(Math.abs(pickup.x - entity.x), entity.id).toBeGreaterThanOrEqual(30);
+    }
+  }
+  for (const bush of bushes) expect(bush).toMatchObject({ asset: 'bush', layer: 'back' });
+});
+
+it('keeps live Timbers slimes above their branches, damages on side contact, and resets their hops', () => {
+  const level = TREETOP_TIMBERS, run = createRun(level);
+  for (let frame = 0; frame <= 240; frame++) {
+    run.seconds = frame / 60;
+    advancePatrols(run, level, 1 / 60); advanceBounces(run, level);
+    for (const slime of ofKind('slime')) {
+      const state = entityState(run, slime.id)!;
+      expect(slime.patrol).toBeUndefined();
+      expect(state.x).toBe(slime.x);
+      expect(state.y).toBeGreaterThanOrEqual(slime.y - 6);
+      expect(state.y).toBeLessThanOrEqual(slime.y);
+    }
+  }
+  for (const slime of ofKind('slime')) {
+    const contact = createRun(level), player = createPlayer(slime.x, level);
+    Object.assign(player, { y: slime.y - 34, onGround: true, vy: 0 });
+    stepEntities(contact, level, player, 0, []);
+    expect(contact.health).toBe(2);
+    expect(entityState(contact, slime.id)!.squashed).toBeFalsy();
+  }
+  startNewRun(run, level);
+  expect(run).toEqual(createRun(level));
+});
+
+it('squashes each bouncing slime onto its branch instead of teleporting the flattened sprite to the roots', () => {
+  const level = TREETOP_TIMBERS;
+  for (const slime of ofKind('slime')) {
+    const run = createRun(level), player = createPlayer(slime.x, level);
+    run.seconds = 1; advanceBounces(run, level);
+    const state = entityState(run, slime.id)!;
+    const previous = { x: slime.x, y: state.y - 70 };
+    Object.assign(player, { y: state.y - 34, onGround: false, vy: 200 });
+    stepEntities(run, level, player, 0, [], previous);
+    expect(state.squashed).toBe(true);
+    expect(state.y).toBe(slime.y);
+    expect(run.health).toBe(3);
+    advancePatrols(run, level, 1 / 60); advanceBounces(run, level);
+    expect(state.y).toBe(slime.y);
+  }
 });

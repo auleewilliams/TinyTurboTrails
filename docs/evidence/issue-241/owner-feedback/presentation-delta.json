@@ -1,0 +1,70 @@
+{
+  "baseCommit": "039866f7da5dda126f38a028843bb8b5110fad6e",
+  "authorization": "Owner requested removing white platform Ts, adding bushes on platforms, and restoring a few slimes. Includes keeping squashed elevated slimes on their authored support.",
+  "files": {
+    "public/assets/timbers/manifest.json": {
+      "baselineSha256": "f92c04295b3345a54df5611aa0561198dc65de0486f24bbc2008acb62c110cc9",
+      "currentSha256": "c8f00c052999fe526a82548e6e5de8d6ad59bc6de93d8c83dfcd19dc2d2d4c3a",
+      "changes": [
+        {
+          "afterLine": 2,
+          "before": "",
+          "after": "  \"scenery\": \"../plains/scenery/manifest.json\",\n"
+        }
+      ]
+    },
+    "src/game/interactions.ts": {
+      "baselineSha256": "bcbed8e33efdd2be39c1182521b73b395bb0576ba15e2fbfdc1164298fdf7999",
+      "currentSha256": "d80d64cac02b995bba01031e4231c4b19f74c384d75891c8c780715de2d64b5d",
+      "changes": [
+        {
+          "afterLine": 191,
+          "before": "  const tops: { state: EntityState; top: number; fraction: number }[] = [];\n",
+          "after": "  const tops: { state: EntityState; top: number; restY: number; fraction: number }[] = [];\n"
+        },
+        {
+          "afterLine": 202,
+          "before": "        tops.push({ state, top, fraction: (index + fraction) / trajectory.length });\n",
+          "after": "        tops.push({ state, top, restY: entity.patrol ? surfaceY(level, state.x) : entity.y,\n          fraction: (index + fraction) / trajectory.length });\n"
+        },
+        {
+          "afterLine": 214,
+          "before": "    for (const { state } of tied) {\n",
+          "after": "    for (const { state, restY } of tied) {\n"
+        },
+        {
+          "afterLine": 216,
+          "before": "      state.y = surfaceY(level, state.x);\n",
+          "after": "      state.y = restY;\n"
+        }
+      ]
+    },
+    "src/world/renderer.ts": {
+      "baselineSha256": "7c6ff0a1e53661c44ae74be5b767fe3fe5671cef890d9fbc49ce2b647e98b37a",
+      "currentSha256": "8c47f5ff878c9928f063cc150e711b582f027e135684f01e2fbaab308eed9a28",
+      "changes": [
+        {
+          "afterLine": 88,
+          "before": "",
+          "after": "    } else if (level.id === 'timbers' && entity.kind === 'decoration' && entity.asset === 'bush' && assets.scenery) {\n      drawScenerySprite(ctx, assets.scenery, 'bush-round', position.x - offset.x, position.y - offset.y);\n"
+        },
+        {
+          "afterLine": 266,
+          "before": "    drawPlatformPath(ctx, platform, offset);\n",
+          "after": "    // A fixed Timbers bough has no travel path; overlapping endpoints made a white T.\n    if (level.id !== 'timbers' || platform.from.x !== platform.to.x || platform.from.y !== platform.to.y) {\n      drawPlatformPath(ctx, platform, offset);\n    }\n"
+        }
+      ]
+    },
+    "src/world/treetop-timbers.ts": {
+      "baselineSha256": "cb5b2a9c34641292c35347df69354b4eb3d474113f1f48505ae4b77eb2b2cbba",
+      "currentSha256": "702bcf11ae49b76a3e52a9bad2f7529bf4734fc63d405a99a65c98e7ae58ee7b",
+      "changes": [
+        {
+          "afterLine": 67,
+          "before": "",
+          "after": "  // Reused round bushes sit on branch tops, behind Henry and collectibles.\n  ...[[300, 1020], [590, 900], [205, 840], [590, 780],\n    [300, 660], [520, 540], [590, 420], [275, 180]].map(([x, y], index) => ({\n    id: `timber-bush-${index + 1}`, kind: 'decoration' as const,\n    x, y, asset: 'bush', layer: 'back' as const,\n  })),\n  // Gentle in-place hops use the existing creature behavior. Ground-following\n  // patrols would move these slimes off their elevated branch and onto the roots.\n  ...[[200, 900], [80, 720], [210, 420]].map(([x, y], index) => ({\n    id: `timber-slime-${index + 1}`, kind: 'slime' as const,\n    x, y, asset: 'slime', layer: 'world' as const,\n    bounce: { amplitude: 6, seconds: 2 },\n  })),\n"
+        }
+      ]
+    }
+  }
+}

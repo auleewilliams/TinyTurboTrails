@@ -86,6 +86,8 @@ export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, le
       drawSpecial(ctx, position.x - offset.x, position.y - offset.y);
     } else if (entity.kind === 'crumbling-ledge') {
       drawCrumblingLedge(ctx, assets, entity, position.x - offset.x, position.y - offset.y, position.warningProgress ?? 0);
+    } else if (level.id === 'timbers' && entity.kind === 'decoration' && entity.asset === 'bush' && assets.scenery) {
+      drawScenerySprite(ctx, assets.scenery, 'bush-round', position.x - offset.x, position.y - offset.y);
     } else if (scenery && sceneryForDecoration(entity)) {
       drawScenerySprite(ctx, scenery, sceneryForDecoration(entity)!, position.x - offset.x, position.y - offset.y);
     } else {
@@ -262,7 +264,10 @@ function drawSun(ctx: CanvasRenderingContext2D, sun: LevelSun, cameraX: number):
 export function drawPlatforms(ctx: CanvasRenderingContext2D, level: LevelData, offset: { x: number; y: number },
   platforms: readonly PlatformBody[], assets?: WorldAssets): void {
   for (const platform of level.platforms ?? []) {
-    drawPlatformPath(ctx, platform, offset);
+    // A fixed Timbers bough has no travel path; overlapping endpoints made a white T.
+    if (level.id !== 'timbers' || platform.from.x !== platform.to.x || platform.from.y !== platform.to.y) {
+      drawPlatformPath(ctx, platform, offset);
+    }
     const body = platforms.find((candidate) => candidate.id === platform.id);
     if (!body) continue;
     if (level.id === 'timbers' && assets?.timbersTerrain && drawTimbersPlatform(ctx, assets.timbersTerrain, body, offset)) continue;

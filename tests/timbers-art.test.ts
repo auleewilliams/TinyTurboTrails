@@ -1,6 +1,7 @@
 import { afterEach, expect, it, vi } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
+import { createRequire } from 'node:module';
 import { TREETOP_TIMBERS } from '../src/world/treetop-timbers';
 import { platformBodiesAt } from '../src/game/platforms';
 import { timbersPreviewIds, timbersPlatformWidths, validateTimbersTerrain, loadTimbersTerrain, drawTimbersGround, drawTimbersPlatform,
@@ -8,6 +9,9 @@ import { timbersPreviewIds, timbersPlatformWidths, validateTimbersTerrain, loadT
 import { loadWorldAssets, WORLD_ASSETS } from '../src/world/assets';
 
 const read = (path: string) => readFileSync(new URL(`../${path}`, import.meta.url));
+const { beforeTimbersOwnerFeedback } = createRequire(import.meta.url)('../scripts/timbers-owner-feedback.mjs') as {
+  beforeTimbersOwnerFeedback(path: string, bytes: Buffer): Buffer;
+};
 const manifest = JSON.parse(read('public/assets/timbers/terrain-kit-v1/manifest.json').toString());
 afterEach(() => vi.unstubAllGlobals());
 
@@ -25,7 +29,7 @@ it('binds all 44 platform mappings and ground to unique unchanged authored suppo
     y1: manifest.ground.y, y2: manifest.ground.y }]);
   const pins = JSON.parse(read('docs/evidence/issue-241/baseline/report.json').toString()).files;
   for (const path of ['src/world/treetop-timbers.ts', 'src/game/education.ts', 'src/world/camera.ts', 'src/game/movement.ts', 'src/game/platforms.ts']) {
-    expect(createHash('sha256').update(read(path)).digest('hex'), path).toBe(pins[path]);
+    expect(createHash('sha256').update(beforeTimbersOwnerFeedback(path, read(path))).digest('hex'), path).toBe(pins[path]);
   }
 });
 
