@@ -1,0 +1,178 @@
+{
+  "sourceRevision": null,
+  "precommit": true,
+  "sourceHashes": {
+    "tests/plains-contour-pilot.spec.ts": "4d98d4601c8e97a386da81fb478a283619409788bd97633b1803ddbbb1fbbf1e",
+    "tests/plains-contour-response.ts": "3f2cbf092cd3b8ac661d361a9c81037dab865b641229320d01b222a6259488a0",
+    "tests/hud-response-observation.ts": "0e6c0a5679cb8d15731ac3a1c5fdc3be7217fd7b5ee6c6d7dc2813f2177dee6b"
+  },
+  "required": "soil",
+  "requests": [
+    {
+      "id": 1,
+      "url": "http://127.0.0.1:4287/assets/plains/manifest.json",
+      "path": "/assets/plains/manifest.json",
+      "recoveryAtEmission": false,
+      "blocked": false
+    },
+    {
+      "id": 2,
+      "url": "http://127.0.0.1:4287/assets/plains/contour-prototype-v1/grass.png",
+      "path": "/assets/plains/contour-prototype-v1/grass.png",
+      "recoveryAtEmission": false,
+      "blocked": false
+    },
+    {
+      "id": 3,
+      "url": "http://127.0.0.1:4287/assets/plains/contour-prototype-v1/soil.png",
+      "path": "/assets/plains/contour-prototype-v1/soil.png",
+      "recoveryAtEmission": false,
+      "blocked": true,
+      "failure": "Blocked by Web Inspector"
+    },
+    {
+      "id": 4,
+      "url": "http://127.0.0.1:4287/assets/plains/manifest.json",
+      "path": "/assets/plains/manifest.json",
+      "recoveryAtEmission": true,
+      "blocked": false
+    },
+    {
+      "id": 5,
+      "url": "http://127.0.0.1:4287/assets/plains/contour-prototype-v1/grass.png",
+      "path": "/assets/plains/contour-prototype-v1/grass.png",
+      "recoveryAtEmission": true,
+      "blocked": false
+    },
+    {
+      "id": 6,
+      "url": "http://127.0.0.1:4287/assets/plains/contour-prototype-v1/soil.png",
+      "path": "/assets/plains/contour-prototype-v1/soil.png",
+      "recoveryAtEmission": true,
+      "blocked": false
+    },
+    {
+      "id": 7,
+      "url": "http://127.0.0.1:4287/assets/plains/environment.png",
+      "path": "/assets/plains/environment.png",
+      "recoveryAtEmission": true,
+      "blocked": false
+    },
+    {
+      "id": 8,
+      "url": "http://127.0.0.1:4287/assets/plains/scenery/manifest.json",
+      "path": "/assets/plains/scenery/manifest.json",
+      "recoveryAtEmission": true,
+      "blocked": false
+    },
+    {
+      "id": 9,
+      "url": "http://127.0.0.1:4287/assets/plains/scenery/background.webp",
+      "path": "/assets/plains/scenery/background.webp",
+      "recoveryAtEmission": true,
+      "blocked": false
+    },
+    {
+      "id": 10,
+      "url": "http://127.0.0.1:4287/assets/plains/scenery/foreground.png",
+      "path": "/assets/plains/scenery/foreground.png",
+      "recoveryAtEmission": true,
+      "blocked": false
+    }
+  ],
+  "responses": [
+    {
+      "url": "http://127.0.0.1:4287/assets/plains/manifest.json",
+      "status": 200,
+      "sha256": "66876da82e6302eaf36f4ecab5c1826446cac77e7909d56ef0a1e5ec0d18bfed",
+      "requestId": 1,
+      "recoveryAtEmission": false,
+      "path": "/assets/plains/manifest.json",
+      "sequence": 0,
+      "bytes": 988
+    },
+    {
+      "url": "http://127.0.0.1:4287/assets/plains/contour-prototype-v1/grass.png",
+      "status": 200,
+      "sha256": "618ea1e53cb017b5dfdb649fb48fd47eea7cea02b4abef165681e50da1e4a654",
+      "requestId": 2,
+      "recoveryAtEmission": false,
+      "path": "/assets/plains/contour-prototype-v1/grass.png",
+      "sequence": 1,
+      "bytes": 2804
+    },
+    {
+      "url": "http://127.0.0.1:4287/assets/plains/manifest.json",
+      "status": 200,
+      "sha256": "66876da82e6302eaf36f4ecab5c1826446cac77e7909d56ef0a1e5ec0d18bfed",
+      "requestId": 4,
+      "recoveryAtEmission": true,
+      "path": "/assets/plains/manifest.json",
+      "sequence": 2,
+      "bytes": 988
+    },
+    {
+      "url": "http://127.0.0.1:4287/assets/plains/contour-prototype-v1/grass.png",
+      "status": 304,
+      "sha256": null,
+      "bodyless": true,
+      "requestId": 5,
+      "recoveryAtEmission": true,
+      "path": "/assets/plains/contour-prototype-v1/grass.png",
+      "sequence": 3
+    },
+    {
+      "url": "http://127.0.0.1:4287/assets/plains/contour-prototype-v1/soil.png",
+      "status": 200,
+      "sha256": "57aa4e04a67ec0a79c26a14b4c6a8baf63dbf06fed84e35a09204c3a4e064c85",
+      "requestId": 6,
+      "recoveryAtEmission": true,
+      "path": "/assets/plains/contour-prototype-v1/soil.png",
+      "sequence": 4,
+      "bytes": 6627
+    },
+    {
+      "url": "http://127.0.0.1:4287/assets/plains/environment.png",
+      "status": 200,
+      "sha256": "626ded198036b4fe010774f4daade0bf35565e55c445e939e4867368638924f1",
+      "requestId": 7,
+      "recoveryAtEmission": true,
+      "path": "/assets/plains/environment.png",
+      "sequence": 5,
+      "bytes": 63911
+    },
+    {
+      "url": "http://127.0.0.1:4287/assets/plains/scenery/manifest.json",
+      "status": 200,
+      "sha256": "8bbf32ff1cbb3f1b42dc68ef948536b9a2f09afbcebab5559d35e7c7a27957f1",
+      "requestId": 8,
+      "recoveryAtEmission": true,
+      "path": "/assets/plains/scenery/manifest.json",
+      "sequence": 6,
+      "bytes": 2720
+    },
+    {
+      "url": "http://127.0.0.1:4287/assets/plains/scenery/background.webp",
+      "status": 200,
+      "sha256": "96a178c0fd20fb92680db02b63847b786ee3dc1f2a12bd3b0430cf9701aab72c",
+      "requestId": 9,
+      "recoveryAtEmission": true,
+      "path": "/assets/plains/scenery/background.webp",
+      "sequence": 7,
+      "bytes": 17806
+    },
+    {
+      "url": "http://127.0.0.1:4287/assets/plains/scenery/foreground.png",
+      "status": 200,
+      "sha256": "14b1151f9e4a2518e960c42422fdd2b0d4ca92e671e87408e53ab2c6ec8bb868",
+      "requestId": 10,
+      "recoveryAtEmission": true,
+      "path": "/assets/plains/scenery/foreground.png",
+      "sequence": 8,
+      "bytes": 88365
+    }
+  ],
+  "recoveryWitnesses": null,
+  "historyError": null,
+  "cleanupErrors": []
+}

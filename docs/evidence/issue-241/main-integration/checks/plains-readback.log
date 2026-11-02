@@ -1,0 +1,2 @@
+Plains source/body/capture/cache readback: 6 journeys; 192 PNGs
+Failed Retry: {'historySha256': '4000e5ad06f84f34c05059e1d62c3179f46f499ae0d2c6bc4d18bc56114b1f80', 'recoveryEvidenceSha256': '41af70731dced225475e779426708bcee69bc3ea90921cb3de96038b2953eb3c', 'traverseSamples': 508, 'lateSamples': 390, 'lastSample': {'frame': 510, 'time': 20542, 'coherent': True, 'x': 567.5591666666647, 'feetGap': 2.842170943040401e-14, 'facing': 1, 'velocity': None}, 'completedGoals': 0, 'controllerError': None}

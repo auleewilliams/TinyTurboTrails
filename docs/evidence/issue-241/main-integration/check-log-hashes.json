@@ -1,0 +1,13 @@
+{
+  "checks/audit.log": "db05f696a5c1aefa3d46344e3045f44600f29023a6be935cdaf0904428654006",
+  "checks/build.log": "aa0267894830660d5afed209830c479455ffd9f32ea81ea682a8b86e940f02bc",
+  "checks/focused.log": "e58aca52fbc3ee64a1d955a5e87b6befce6d345a139d6c11958d18232c360886",
+  "checks/native-console.log": "ad5c66935cf33edcaa4e442a3c9fe1f20f18b804248b16dc7dc525947b9ad253",
+  "checks/plains-readback.log": "2e2673244c151562e8d453813f5390ac0529a28de7ce15d2388eccfe13243b14",
+  "checks/retry-audit.log": "80fbc499f18695483c70057f3029b976b92741e53d57d3aba326a57e98f6cc0f",
+  "checks/retry.log": "459f5df7ecf5a5dad46f412f35b6a5fd36ab71e31578d2df3f3a3c2591b9b8ab",
+  "checks/scripts.log": "72664e8839c0a7ab29aa2bacb733d2a73141602f95dc4de98da38f22470f84bb",
+  "checks/typecheck.log": "7ec4f16ac6ef6f684235a4bac0597e5adf1a7d3a8ff33528bba2dd5918c35799",
+  "checks/unit-initial.log": "a6a648f70094ba04a401e72b9ecb16313a33d3519a391673232b1cdec051417b",
+  "checks/unit-two-workers.log": "740d7397d65e9c475a3236f0510b5dd251cc8a81f4842dddb5657cd47708e59e"
+}

@@ -1,0 +1,66 @@
+
+> tiny-turbo-trails@0.1.0 test
+> vitest run
+
+
+ RUN  v5.0.5 /home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132
+
+ ❯ tests/plains-contour-soil.test.ts (5 tests | 1 failed) 11467ms
+   × checks every full-cache source pixel, detects outside-pilot sabotage, and measures actual cache attachment transport 5601ms
+ ❯ tests/finish-layout.test.ts (15 tests | 3 failed) 33807ms
+   ❯ finish screen composition (15)
+     × keeps Henry and the stars clear of the text with 0 gems 5649ms
+     × keeps Henry and the stars clear of the text with 999 gems 8054ms
+     × fits separate gem and star results on the result row for every star count 7193ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/finish-layout.test.ts > finish screen composition > keeps Henry and the stars clear of the text with 0 gems
+ FAIL  tests/finish-layout.test.ts > finish screen composition > keeps Henry and the stars clear of the text with 999 gems
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ tests/finish-layout.test.ts:40:30
+     38|   });
+     39|
+     40|   it.each([0, 1, 7, 42, 999])('keeps Henry and the stars clear of the …
+       |                              ^
+     41|     const text = [
+     42|       textRect('TRAIL COMPLETE!', title.baseline, title.size),
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+ FAIL  tests/finish-layout.test.ts > finish screen composition > fits separate gem and star results on the result row for every star count
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ tests/finish-layout.test.ts:76:3
+     74|   });
+     75|
+     76|   it('fits separate gem and star results on the result row for every s…
+       |   ^
+     77|     for (const count of [0, 1, 2, 3]) {
+     78|       const gemBox = { ...textRect(finishGemsText(999, 999), gems.base…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+ FAIL  tests/plains-contour-soil.test.ts > checks every full-cache source pixel, detects outside-pilot sabotage, and measures actual cache attachment transport
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ tests/plains-contour-soil.test.ts:122:1
+    120| });
+    121|
+    122| it('checks every full-cache source pixel, detects outside-pilot sabota…
+       | ^
+    123|   const { readContourCache } = await import('./plains-contour-artwork'…
+    124|   const { createContourEvidence, retainContourCache } = await import('…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯
+
+
+ Test Files  2 failed | 108 passed (110)
+      Tests  4 failed | 2041 passed (2045)
+   Start at  03:36:50
+   Duration  78.05s (tests 92%, import 5%, transform 2%, worker 1%)
+
+    Isolate  110 workers spawned · ~660ms startup each (spawn + environment, per file)
+             at least ~9.71s faster with isolate: false — reuses workers across files instead of one per file
+

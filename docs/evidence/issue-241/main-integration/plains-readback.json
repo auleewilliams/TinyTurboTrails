@@ -1,0 +1,974 @@
+{
+  "journeys": [
+    {
+      "project": "chromium",
+      "width": 320,
+      "evidenceSha256": "c4cbf3b0179527bfd5c9c4d5c560b10d42b83c0851f6a19ed182e253f4d705dc",
+      "cache": {
+        "PNGsha256": "a379c35a9e863bea15e9d625c303a2c3f570973f58835c508c16c38c3f994c18",
+        "RGBAsha256": "507226c0a37ef639375e89dc9bd506d5223604ff3a88c734f387187e072f56fb",
+        "dimensions": [
+          4300,
+          114
+        ]
+      },
+      "comparedBodyPixels": 187244,
+      "captures": [
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-chromium/outward-contact-620-logical426-canvas.png",
+          "sha256": "57c0b9e1d2d8d36e19e6374a8751d8e61a387675141c32bc9262d6f859fc1afa"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-chromium/outward-contact-620-viewport.png",
+          "sha256": "869d6a0a1ee585839174b21695fec45135d657525b1de7f67f0c35eccb973423"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-chromium/outward-contact-660-logical426-canvas.png",
+          "sha256": "aae2cc30238684b67e00825875cd7a8d663e9c1462a02009d3564bdc2c59996e"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-chromium/outward-contact-660-viewport.png",
+          "sha256": "222da4ae6763bb147109bc4f9a2740b43dbfd7d34a0a1fa62b87b8401d5c5396"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-chromium/outward-contact-700-logical426-canvas.png",
+          "sha256": "e84a06a334c501637c90410a90f53dac03b6e2aaadb0aca06524ad22fdc13d64"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-chromium/outward-contact-700-viewport.png",
+          "sha256": "78c269e1f8dd75008fc93ba2a1adb308e0656f835fe53e3c74ec44749a57a63d"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-chromium/flat-rest-760-logical426-canvas.png",
+          "sha256": "be66a749e088deb890777d4fa91c9388912f44d6ff7c13802d48236437b65738"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-chromium/flat-rest-760-viewport.png",
+          "sha256": "2887d783628a532f5cce55003d365a48d016b46e95d1d84385fcb0fbe4f21ec7"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-chromium/outward-contact-950-logical426-canvas.png",
+          "sha256": "f9aa4e3e091f3ed65911159f398b58f2720b7caba13e0e24ae64b0d14a05bad5"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-chromium/outward-contact-950-viewport.png",
+          "sha256": "eb765ca57b89af33430253bdb4c6b71269b4186f814da93ffb186b2b63690d4c"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-chromium/outward-contact-1035-logical426-canvas.png",
+          "sha256": "206b0e3095c3a92ec6fec73d088611afbd88d96dcf1d349c982fcfe497045715"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-chromium/outward-contact-1035-viewport.png",
+          "sha256": "93ed7ffb9c60d0c56fcd982216ca315cef88e5599105d53a6026cb27f08f4536"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-chromium/return-contact-900-logical426-canvas.png",
+          "sha256": "d7302a38f09a58957e60397dcd76d34d435faf1a330a248ba617932010e1d2e7"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-chromium/return-contact-900-viewport.png",
+          "sha256": "ae157cab0d2796975aa794ab3d1b8f5af078c72e094ff0346f441fafbda0c54e"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-chromium/return-contact-820-logical426-canvas.png",
+          "sha256": "f7004889524ec76e389cae0738f888a4456dc28285c827e8c839d21a0699f484"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-chromium/return-contact-820-viewport.png",
+          "sha256": "707ecad1dde9a181de86f9228f3f5643e5f164bc9cb7acd5cfddf9084c81211e"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-chromium/return-contact-660-logical426-canvas.png",
+          "sha256": "5c9714a2f14c6ca5da5933ae9b51a23dafd8cff2c977174bb9b2ce090394ba28"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-chromium/return-contact-660-viewport.png",
+          "sha256": "2d10c15f655300f3600de831ab81cdb573676af9dd12884645fcecc4c14e9d5c"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-chromium/return-contact-600-logical426-canvas.png",
+          "sha256": "d513a9ba2254f2e28a28a4a8bdf80c85a33254c9e10f490a712d2e0a5324bfa2"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-chromium/return-contact-600-viewport.png",
+          "sha256": "e7139cc528c958cfde6fc33b788a2aa5254720cfc875e82ab50383126c233bbd"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-chromium/flat-rest-before-jump-logical426-canvas.png",
+          "sha256": "df181bdc4997e668e6eabd605fca4eb235220e36f5b93be47b2e1c18e4502a40"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-chromium/flat-rest-before-jump-viewport.png",
+          "sha256": "798323e09b8472f84a5c2d89684aae864157ee78667d813597eafbdf3a0901e6"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-chromium/actual-jump-logical426-canvas.png",
+          "sha256": "71bbe299e7306cf32a270d4945982201693406ceee661a0519d007c2b7548610"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-chromium/actual-jump-viewport.png",
+          "sha256": "6cab5326cd7779d29f4d2b3ae883e826e1d74635a28af136277c5d8c22812286"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-chromium/post-jump-grounded-950-logical426-canvas.png",
+          "sha256": "02db51745d4d096383686d0a51cf08e845d43feb273c53fe5f82c7400f821881"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-chromium/post-jump-grounded-950-viewport.png",
+          "sha256": "110a55dad5a1ff9b04b3ac7819659c9b13a93224944a97b202f3684ad36cf70f"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-chromium/return-after-jump-820-logical426-canvas.png",
+          "sha256": "4cbc540d0e7a5decf8de01388766499200e9407920629a6200a993dfad7330f0"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-chromium/return-after-jump-820-viewport.png",
+          "sha256": "b2892508f7dfa414af84a3f9c0ad030355d8861c6be0fd6600a3c9cae5eaa494"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-chromium/return-after-jump-660-logical426-canvas.png",
+          "sha256": "41cb79fe050b159da7209ab05f49404bc07078da79328d2553c6793b5aa5d194"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-chromium/return-after-jump-660-viewport.png",
+          "sha256": "77729abdd4270e0ec7cbf1b3f16fbf2382477992ba9efb0a20c8041865f08026"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-chromium/final-flat-rest-logical426-canvas.png",
+          "sha256": "0a1cf5734a78bae354318c6610fa76e97db4bdd6cac62f79092f4058a50a1e2f"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-chromium/final-flat-rest-viewport.png",
+          "sha256": "a6bd0b52a3863ab7b0d55ea077881b51d7350b25eba861cbefb11ad74d88de1c"
+        }
+      ],
+      "bodyReadErrors": []
+    },
+    {
+      "project": "firefox",
+      "width": 320,
+      "evidenceSha256": "0f558ae417eedb876556fb9f531036a36aa8c612b6edd20c30595be275cec5b7",
+      "cache": {
+        "PNGsha256": "38b935cd8f4889665ea0c4a312a1a02714bfac5a1784e673a06f2963608a09a3",
+        "RGBAsha256": "507226c0a37ef639375e89dc9bd506d5223604ff3a88c734f387187e072f56fb",
+        "dimensions": [
+          4300,
+          114
+        ]
+      },
+      "comparedBodyPixels": 187244,
+      "captures": [
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-firefox/outward-contact-620-logical426-canvas.png",
+          "sha256": "bf869ef7d6a9d78b6e93a5fb1d02dd79efcb97f89320411c0e3ddfa487f4b337"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-firefox/outward-contact-620-viewport.png",
+          "sha256": "3c8b00e68ea73e68e1e823af6a90556f244f910b5b8e9f29622dfbcb22e5aaba"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-firefox/outward-contact-660-logical426-canvas.png",
+          "sha256": "781f738e3d3fdfc08e9bc58b39555ad4aa0bb8f04828b550af1d6581b98f4287"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-firefox/outward-contact-660-viewport.png",
+          "sha256": "acbff677b461e70aa4d37cd4abcadac3b46cdbd19bb3d4f9f40fe6d138bf20e9"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-firefox/outward-contact-700-logical426-canvas.png",
+          "sha256": "6e30daa5d99cd827dd2f394549c757ca89a71b5ab183a08efc53b6ceab0d8963"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-firefox/outward-contact-700-viewport.png",
+          "sha256": "7e841166d9d7b0d1ff527f5e0c498b7d2e1bc10dd45201fdb1be976944077fdb"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-firefox/flat-rest-760-logical426-canvas.png",
+          "sha256": "f0829fbfaa58d02550584bfad2cc4a86d48b8f7493f374eecee96caf271aaf67"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-firefox/flat-rest-760-viewport.png",
+          "sha256": "ebc73e79a3a038736edaff37c24a0f5de889aafcc70efefca63c9adacb841682"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-firefox/outward-contact-950-logical426-canvas.png",
+          "sha256": "90b1d968fb48d4ea162a514e586db404d8e07f73bbc401ce61a4b54feecf978c"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-firefox/outward-contact-950-viewport.png",
+          "sha256": "e3067e87337d4b4259feed0cb9962637d56626b2d655cb722a913683b5f3fd5f"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-firefox/outward-contact-1035-logical426-canvas.png",
+          "sha256": "94850884d55e81ae5bcb9cf0642bd1725001504c2ed2ca706daf98bc6aa742f9"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-firefox/outward-contact-1035-viewport.png",
+          "sha256": "f6bad1511452c3be26ac7e40b6d931768b3bc077b7c00f91cb1855518ded617e"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-firefox/return-contact-900-logical426-canvas.png",
+          "sha256": "dc05b2004834d6710900e418cceb28b8f60c103da5dc6021267b2a32b5111c3e"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-firefox/return-contact-900-viewport.png",
+          "sha256": "bcca0876b5356e3b8c9ddd1cce697a5f1665b4e267df9b182a5d0a272d4f1022"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-firefox/return-contact-820-logical426-canvas.png",
+          "sha256": "dda21f8bb5fba4d19e1a9850fa31e3c08241e0a8cc20336527ff2c8a202225df"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-firefox/return-contact-820-viewport.png",
+          "sha256": "c4f297ebc28cfd8c9760ea9e1275bbfddc79cbd3eab1ce4e82d3a1089d76a07c"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-firefox/return-contact-660-logical426-canvas.png",
+          "sha256": "90f4308c5a8a1dd57ae51a937ffea9f2316340d480acece06917238ca4cfeaf2"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-firefox/return-contact-660-viewport.png",
+          "sha256": "c41e06eeebbf4ff4fbb869ff9e00278bcb172dafdfcd9f57fc6873bc8f45dd01"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-firefox/return-contact-600-logical426-canvas.png",
+          "sha256": "b754f56513a210214b5b951d9ef1f66b6d884ad387d880bdf1448b209d1bafb2"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-firefox/return-contact-600-viewport.png",
+          "sha256": "498d6f7a8cb6cfc46ae35ab8fb6a30edc559002163aadc393a19a1e7af89be58"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-firefox/flat-rest-before-jump-logical426-canvas.png",
+          "sha256": "49e4c4287410c7756d973ccdb076cf6840590d037e1e7bf20e6e8822df23a561"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-firefox/flat-rest-before-jump-viewport.png",
+          "sha256": "a87f80fc2fa14cdf1b0c1c2d67dee9c114477c22e0db58cc836dd24fed42cb33"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-firefox/actual-jump-logical426-canvas.png",
+          "sha256": "07e3f18b032875de562f6e6fbcfd78e18c1c110ff3450b0b4a9ab78a14a2428a"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-firefox/actual-jump-viewport.png",
+          "sha256": "2ac17981ae328d490aef0625f3609ada8dd5fbc65b9c1d510b5f96d781449637"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-firefox/post-jump-grounded-950-logical426-canvas.png",
+          "sha256": "0925e8211d5172247c8bec03242d5c1ddc3241747f63320c723b125d1fcfc052"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-firefox/post-jump-grounded-950-viewport.png",
+          "sha256": "b490c2bb9994c6fc5fcc39560ccf87283305ed7cd9d5eccfbe45fa36030854a1"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-firefox/return-after-jump-820-logical426-canvas.png",
+          "sha256": "3120113893d424beac3dc611f72d478d631f81f4f04a9634d2051ca1c82226df"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-firefox/return-after-jump-820-viewport.png",
+          "sha256": "8eb0c42d8ff7677d24f3c05964ea78608db8dd6acf45f9d429347d930327855a"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-firefox/return-after-jump-660-logical426-canvas.png",
+          "sha256": "3663d0619271ead44d891ee63388bd223516403a7928b0f0b82d79c79bfc75a9"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-firefox/return-after-jump-660-viewport.png",
+          "sha256": "47c1852a3cbe86afe1468d1ca565de09b9cbf58b7124c623c0b6731547bf4010"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-firefox/final-flat-rest-logical426-canvas.png",
+          "sha256": "1e59e671c7434108012b1891cdf41253d610780925c9fe53ddad1c50ff36100e"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-firefox/final-flat-rest-viewport.png",
+          "sha256": "d8e4fcc654d74af321ea1da0eae9fcc1c73b72bbeaad061c794626530cff9810"
+        }
+      ],
+      "bodyReadErrors": []
+    },
+    {
+      "project": "webkit",
+      "width": 320,
+      "evidenceSha256": "1fea0c8ecd5ecc2a2bb8a990f26a4ef4274f9a3600dbc3dc8871da8132212c4e",
+      "cache": {
+        "PNGsha256": "a6fe08a85f7a0920758f0edcb6cbab36c7b85d92ee58f9277bd2f0a3ec338cf5",
+        "RGBAsha256": "507226c0a37ef639375e89dc9bd506d5223604ff3a88c734f387187e072f56fb",
+        "dimensions": [
+          4300,
+          114
+        ]
+      },
+      "comparedBodyPixels": 187244,
+      "captures": [
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-webkit/outward-contact-620-logical426-canvas.png",
+          "sha256": "60ca259828d2a9a9199ce28bdd2b78e4c30707a4c761563b23a218e204e476be"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-webkit/outward-contact-620-viewport.png",
+          "sha256": "4ba3c61227d96a6d0352b049539c7c3b55e924034411560f300d20a10c4d0da3"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-webkit/outward-contact-660-logical426-canvas.png",
+          "sha256": "69f4967d5fb28db391649bc3bb78563174221d1d9ad18e8bab473f88a2507115"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-webkit/outward-contact-660-viewport.png",
+          "sha256": "0e8e744f19daae6e041d2b807073af0b8ef27fd63cef6ef7113470a4574c1deb"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-webkit/outward-contact-700-logical426-canvas.png",
+          "sha256": "01a70506b184df0f62d0234ceda89da6e51dd2e6ab32da2b0476ea61d3157485"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-webkit/outward-contact-700-viewport.png",
+          "sha256": "7a994a3a66f0c3fba4b7c318dd5dec931b879fa70adab259c0f77bbb90c1027e"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-webkit/flat-rest-760-logical426-canvas.png",
+          "sha256": "1141e7f210adcd89b5453220a9e57fadffafce2132920bc833bbffeedd37025c"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-webkit/flat-rest-760-viewport.png",
+          "sha256": "0dc6ac008b07d4879a2c757146e9aa0e992ce2f5e74764d27f52b17a40432eed"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-webkit/outward-contact-950-logical426-canvas.png",
+          "sha256": "f99f21b7bb29808917857e89c4b8e86fd4ad6859605de3372eaeb7ced20fe11f"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-webkit/outward-contact-950-viewport.png",
+          "sha256": "6490a76f0fa3714fa1d8514040e44834854845e78bf2a887f6fdaf3423992577"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-webkit/outward-contact-1035-logical426-canvas.png",
+          "sha256": "f76cdb895e86e444fb26791856f9714f16766ba53e291aaa5cca3703083180b3"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-webkit/outward-contact-1035-viewport.png",
+          "sha256": "6518b0e89b9f8668e55bb03dbbf86f4c89b94ed77c0b0265c18c480b9074d3d6"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-webkit/return-contact-900-logical426-canvas.png",
+          "sha256": "b2d869394c269267957c02cdd048af54eeba8f602913811779b3e034cf8b96bd"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-webkit/return-contact-900-viewport.png",
+          "sha256": "9d631bf40263fe1f167fabacf575747d9317e2071b83d4bb88c382ef9f5b543b"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-webkit/return-contact-820-logical426-canvas.png",
+          "sha256": "5c8af77ca732fe7865f5c4fcdd478002e4b8cc3d8c69a95ea50e613193037918"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-webkit/return-contact-820-viewport.png",
+          "sha256": "9236b3de69423d8eb2bab623fe534cfc9b5610513085fe757ac1a589a9daf7c3"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-webkit/return-contact-660-logical426-canvas.png",
+          "sha256": "a6ba781081002c81058b469686df4d9fc509fd8c7a7379500e88a3cc3d5bdfa7"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-webkit/return-contact-660-viewport.png",
+          "sha256": "9a866e1040cfc8791f3d49a9c6d24213b6684f953c62facf628032897aeffb25"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-webkit/return-contact-600-logical426-canvas.png",
+          "sha256": "222c3b000a547fd749252b7d0d19feb9d86532ba75085bf31d7dc0a18c161d50"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-webkit/return-contact-600-viewport.png",
+          "sha256": "3a699b7c23c441413ccf5444fac4d2b511f16083d00d8db8dec8d661f30a7513"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-webkit/flat-rest-before-jump-logical426-canvas.png",
+          "sha256": "6410e66f8344ba05760d6e7310b48e1ec0aaebcee7a415a94ec1c849ff5c4fd4"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-webkit/flat-rest-before-jump-viewport.png",
+          "sha256": "66a4b0e7299226c647a29b228b8c6cc492d4711f8dd7591b8254599cafebcff4"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-webkit/actual-jump-logical426-canvas.png",
+          "sha256": "736bcd975b942e312ed7062040b8ed5560546faafa67063b4abae1519d36fc5d"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-webkit/actual-jump-viewport.png",
+          "sha256": "f5c2ab10e1a45d94aee9f1f48010703f5221cbe6bd149658f7ac082ac3267a11"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-webkit/post-jump-grounded-950-logical426-canvas.png",
+          "sha256": "d874695f61afd32ccc367cd04064e516493fc1a919c342f287ed5e802e686700"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-webkit/post-jump-grounded-950-viewport.png",
+          "sha256": "9a2fc3bffecb03bec2a5f99ddcd9779b1075e4fe3bb3a87a694fd730129d8d25"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-webkit/return-after-jump-820-logical426-canvas.png",
+          "sha256": "2aa9df5bab840fc2dbd9ea2b382c34ec5a100e33cf0f84d2c15d086dd4dd0010"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-webkit/return-after-jump-820-viewport.png",
+          "sha256": "53b8a1dd3a0801ec74e16b1463abc6fdc743145c732e0b3cec3c17ac60177fe6"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-webkit/return-after-jump-660-logical426-canvas.png",
+          "sha256": "50a88cc01f94cb237316c8f7f7cfcb7626cfe954d338acda3023d6f2ca272eee"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-webkit/return-after-jump-660-viewport.png",
+          "sha256": "025eac59bbca8a19266f5f1172bede70c889795690277e1156c71d885a4ab242"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-webkit/final-flat-rest-logical426-canvas.png",
+          "sha256": "9dec290d3855e4e4dc7347170c22185fd589d6565df2bcd3b5067511c68962f6"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-webkit/final-flat-rest-viewport.png",
+          "sha256": "d17eaa050550f12566341e2a42b7a5c580112ab802d94c70e02dc03c80a8ede2"
+        }
+      ],
+      "bodyReadErrors": []
+    },
+    {
+      "project": "chromium",
+      "width": 426,
+      "evidenceSha256": "0a41b58c532a367608960176095873dd1517961f3de416541befc978c649a5de",
+      "cache": {
+        "PNGsha256": "a379c35a9e863bea15e9d625c303a2c3f570973f58835c508c16c38c3f994c18",
+        "RGBAsha256": "507226c0a37ef639375e89dc9bd506d5223604ff3a88c734f387187e072f56fb",
+        "dimensions": [
+          4300,
+          114
+        ]
+      },
+      "comparedBodyPixels": 187244,
+      "captures": [
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-chromium/outward-contact-620-logical426-canvas.png",
+          "sha256": "420614eeef00e4e8a947a95c7331cce6b981f88bbdae10c65c0f30c36fa0d37f"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-chromium/outward-contact-620-viewport.png",
+          "sha256": "dcdcd84f866fab48816594058fb91bbdd4ff8dd1ee0cbee31d50f4a3366e1cd8"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-chromium/outward-contact-660-logical426-canvas.png",
+          "sha256": "a2ba6ddff3d37951b3907c2c23aeecdb62a15c30d21844bda4a156de2c079421"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-chromium/outward-contact-660-viewport.png",
+          "sha256": "37a217672f83825207354366095aab5360e0c72cdbe42c6b40a59d2ce199634e"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-chromium/outward-contact-700-logical426-canvas.png",
+          "sha256": "8462f6d6a0276eeda121f29c577753a6822ef67aae5c0a0a420892a24a9e01c8"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-chromium/outward-contact-700-viewport.png",
+          "sha256": "9dac27286429bf058d086bc6b0f16ebd4ee98c15cce7512c7936ed139de72e15"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-chromium/flat-rest-760-logical426-canvas.png",
+          "sha256": "bf542813fe077499af0f58fecd7b88c9064e03f893c8ca87ba03b654be3d0036"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-chromium/flat-rest-760-viewport.png",
+          "sha256": "5351ee626e879cef55643584574241713ded2b8d0a1488cd63cf974b810fde96"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-chromium/outward-contact-950-logical426-canvas.png",
+          "sha256": "430c214102331a36f8b2169f2180c1e2f0a8844f8a9b87048b59e4576ca46b52"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-chromium/outward-contact-950-viewport.png",
+          "sha256": "471a1fca27f9d8e2225c826104a80568dc149243db249f0f831af86077574fb1"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-chromium/outward-contact-1035-logical426-canvas.png",
+          "sha256": "9a87cc9a86947b2a7c958317d1387d61b7d0763175211447a9b80d485cdc227c"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-chromium/outward-contact-1035-viewport.png",
+          "sha256": "835f46a4a121976953dec515c1a9de95c7c75b19c57c6e383e7bddadb45bd9cc"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-chromium/return-contact-900-logical426-canvas.png",
+          "sha256": "ac1d2962cbba1eb05047bcf6a93090380709126180c2af603d0784cbc15ec41d"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-chromium/return-contact-900-viewport.png",
+          "sha256": "41ae3a3c68eb402f1957e437d842ac703344fd8ec4b36ba71dcf7749839567bb"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-chromium/return-contact-820-logical426-canvas.png",
+          "sha256": "91f72c4c25893e81660db569ebd60ee04c3673ad01528047752b9778a15d859a"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-chromium/return-contact-820-viewport.png",
+          "sha256": "54633189c4067a0ebc0e6548831d711281d153ab724608bb9c5e7d3c858627a8"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-chromium/return-contact-660-logical426-canvas.png",
+          "sha256": "47f253fc2aacb51363cab87f6b4e9a5e61f345333a53f458399b5f3e9a365944"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-chromium/return-contact-660-viewport.png",
+          "sha256": "e6c3d046830ecb0431ff148260f196ebb60b6162bf51abfe6cd3a7c9b5f2ebf6"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-chromium/return-contact-600-logical426-canvas.png",
+          "sha256": "befa597cadeecce6f0a303cccf70788f8b83e630306b964f484cacd4699ced7e"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-chromium/return-contact-600-viewport.png",
+          "sha256": "4a1e01f1db24afe2fd06ea53c32728fc5877b9966ac878bafe7affb9a8fb8bfb"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-chromium/flat-rest-before-jump-logical426-canvas.png",
+          "sha256": "ef75799f650a14da750a5c6284c66c12facf08a95a8204554623ec1e33e36309"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-chromium/flat-rest-before-jump-viewport.png",
+          "sha256": "4df9d5685178472c46afa14361d3c72afba5965bffbb42f37a374ac7bad3a4e0"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-chromium/actual-jump-logical426-canvas.png",
+          "sha256": "d42d881bd7cabb0a7b5cd286387abcd93eac9e7bd6023e3f7435fff83833487a"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-chromium/actual-jump-viewport.png",
+          "sha256": "4054de2eb3ccba93416621a3550080e2644d3d2bf991673c206f2dcb3d17b52d"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-chromium/post-jump-grounded-950-logical426-canvas.png",
+          "sha256": "195c25f1a009426ca432c6ef41aa8dc8c7c0bc45e7d5c504b82fec2ee5f0ba5e"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-chromium/post-jump-grounded-950-viewport.png",
+          "sha256": "0cc0c3c11efce2e3f69234c72081558d7156fd749075ac0b68ba99b71d501631"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-chromium/return-after-jump-820-logical426-canvas.png",
+          "sha256": "32699c1f5258647f5efac0e7796356f86b8bf2f5192129dba0c7f90a7440f5d1"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-chromium/return-after-jump-820-viewport.png",
+          "sha256": "457cf8a9e1124bd05523bee549448b868f7652b69c8b56089cfea008348dd56a"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-chromium/return-after-jump-660-logical426-canvas.png",
+          "sha256": "a748fbf6363dde5d88ca5b11f01124e3328ffcdbd396b470c698e53e95465f4e"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-chromium/return-after-jump-660-viewport.png",
+          "sha256": "d4ccc15323027f544264dd1759f45c9bfdcd12ab32c144aa17d062021e983c25"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-chromium/final-flat-rest-logical426-canvas.png",
+          "sha256": "42e48b3d71607b5520eb57cb38e55ca0da600ff8ed73da10624bed63cbe7a152"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-chromium/final-flat-rest-viewport.png",
+          "sha256": "0da64dc7445fe586b98e5ea37f80a3f630643129d7001b75f5114903a5b65dbd"
+        }
+      ],
+      "bodyReadErrors": []
+    },
+    {
+      "project": "firefox",
+      "width": 426,
+      "evidenceSha256": "b0d0cfb027b4b82e889ae6c754600b2dd5e4215fdf8f4c81040f2370c46fea1b",
+      "cache": {
+        "PNGsha256": "d9f51ca0b2f883c102802c21526e3cd278321b7e99c950eebe24ade02b7d9bba",
+        "RGBAsha256": "507226c0a37ef639375e89dc9bd506d5223604ff3a88c734f387187e072f56fb",
+        "dimensions": [
+          4300,
+          114
+        ]
+      },
+      "comparedBodyPixels": 187244,
+      "captures": [
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-firefox/outward-contact-620-logical426-canvas.png",
+          "sha256": "f692dba7ce7122d809e4320f30288adb3e00e26464feedb7420c3c3c4c730749"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-firefox/outward-contact-620-viewport.png",
+          "sha256": "7149cb01e3a4b4826aa2ba3e4dc32d13983be66b26409786070d7a524166ddb6"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-firefox/outward-contact-660-logical426-canvas.png",
+          "sha256": "1d199981bc096ee52d11476893ddde506fd1565c6e355c7b3c7ba9b14bf5c8a8"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-firefox/outward-contact-660-viewport.png",
+          "sha256": "292fb229a36a0787b96ea0a440b3ccf0d9a5d4a190a2d7c247f70c574a164ae9"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-firefox/outward-contact-700-logical426-canvas.png",
+          "sha256": "e2df76641b8cf0e23cd456f687c64cacb0e5b6082d9eb6ea18b254c026488548"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-firefox/outward-contact-700-viewport.png",
+          "sha256": "f1720ec462ea6aab7f60fb2aaf02a81857c0568f55c1e4fcab8542217986b824"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-firefox/flat-rest-760-logical426-canvas.png",
+          "sha256": "f7a55d8320fc9bf60a828e7be4c5c0f53fedba9f110c9380f1fceb562ab04a73"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-firefox/flat-rest-760-viewport.png",
+          "sha256": "70883e20f2cb7980f3ff3e7d3d0b90de6b982c720b9ec9f08493dc78058efd01"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-firefox/outward-contact-950-logical426-canvas.png",
+          "sha256": "eb5b75843b1806ce9a76fae3161f897c47f19ea611d67c84521262e98b06261e"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-firefox/outward-contact-950-viewport.png",
+          "sha256": "91eb6836929272e993e64ef6ba48327b32b0262d6307cf306c041d13fa8fa0de"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-firefox/outward-contact-1035-logical426-canvas.png",
+          "sha256": "1bc83cf6a72c48cf6aa7023ef1efbdbe528c9b2a63f567e9310cf0a39852f33b"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-firefox/outward-contact-1035-viewport.png",
+          "sha256": "7f535bc538f197abc686079d529d70ca220e99378c741661b3b4cee7588fe067"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-firefox/return-contact-900-logical426-canvas.png",
+          "sha256": "b87abca33530c295fcf0888cd7af3b93ed71aea3dc68a59ba3ccb576c1b0ef68"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-firefox/return-contact-900-viewport.png",
+          "sha256": "b8dc3792cc225c7e93c1a49838ceb33807f503f4328e1d8d8c9b37d4469888ca"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-firefox/return-contact-820-logical426-canvas.png",
+          "sha256": "d2fe666400e986c565ca2c0358b50adb823fba91c52aefa2413b23b39045f6a1"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-firefox/return-contact-820-viewport.png",
+          "sha256": "b953da75640c328ac395d6ad3e09cb03f50bc89f5589bc69d300cf88df38dbdb"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-firefox/return-contact-660-logical426-canvas.png",
+          "sha256": "5296fe36abbee5827a3a3ed18f9c7b2afeeab972b51cb00506e6d5b49594456d"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-firefox/return-contact-660-viewport.png",
+          "sha256": "da33d407ac349474c67ead5980e392e854505633a967f6ae3d97e041063f7c56"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-firefox/return-contact-600-logical426-canvas.png",
+          "sha256": "28ce4484842a8a515a872eefbb3f01e2e338b097adfb16ea1ee92672f0651d6e"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-firefox/return-contact-600-viewport.png",
+          "sha256": "242e0f754c3aabc83e76a649d87b21621e99b8c75063fe2701655ace943e9f7f"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-firefox/flat-rest-before-jump-logical426-canvas.png",
+          "sha256": "28408ade7fe2005b9209529336936a7041ab8dd00b83ca467c3540512073e50b"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-firefox/flat-rest-before-jump-viewport.png",
+          "sha256": "acd0bcac3d8baec51cdec19341a6c34b20b3028055e2f8cb11d5df5c48533762"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-firefox/actual-jump-logical426-canvas.png",
+          "sha256": "f1126bb1cf9f391a9ce2100418de89a199635149a4eb125d590499d916719dff"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-firefox/actual-jump-viewport.png",
+          "sha256": "aeab4c4745c593cde465ebe73f56a9a837ed6311f426164e32e09b0aaee5bb8e"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-firefox/post-jump-grounded-950-logical426-canvas.png",
+          "sha256": "786d84c7e4b7db7279015c2c036eaef902452fbf6a1296afcac3583173977fff"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-firefox/post-jump-grounded-950-viewport.png",
+          "sha256": "69d92f17fd6c0f49e65144f462cebaefbe5f5f40ca861d3ed44a85f143c35914"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-firefox/return-after-jump-820-logical426-canvas.png",
+          "sha256": "7a3af914132a50e73ee3ebd8f598feaeaaacdfb7223691ddf489cc5ace71f80a"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-firefox/return-after-jump-820-viewport.png",
+          "sha256": "d200a0b16c57369567fd0ded7afd2d551c0a011fa9e344f7978c08032ea0fc7e"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-firefox/return-after-jump-660-logical426-canvas.png",
+          "sha256": "d74cf3595fa8d57ac3d64d9c7311169f0b720b4933e04bae1e89b9896685265e"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-firefox/return-after-jump-660-viewport.png",
+          "sha256": "b28d3d285eb56c710894172c940342352ca375990f4326281e5f850863db9306"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-firefox/final-flat-rest-logical426-canvas.png",
+          "sha256": "01939a258c68c3f496f571df1ec417cf984218902ad0474da9b12ecb9b11a051"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-firefox/final-flat-rest-viewport.png",
+          "sha256": "5272cf7cc37619f43f04f9b595e54427337221dd9f1314b1c3fd09a3f9eae41a"
+        }
+      ],
+      "bodyReadErrors": []
+    },
+    {
+      "project": "webkit",
+      "width": 426,
+      "evidenceSha256": "c54351f61bd92c094b762acd40af44890f02edca2d188fec5c2f7091a671fb8b",
+      "cache": {
+        "PNGsha256": "a6fe08a85f7a0920758f0edcb6cbab36c7b85d92ee58f9277bd2f0a3ec338cf5",
+        "RGBAsha256": "507226c0a37ef639375e89dc9bd506d5223604ff3a88c734f387187e072f56fb",
+        "dimensions": [
+          4300,
+          114
+        ]
+      },
+      "comparedBodyPixels": 187244,
+      "captures": [
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-webkit/outward-contact-620-logical426-canvas.png",
+          "sha256": "c2fcc2ed4712476baf52351f3d961d95c79029ef12ad19c5e0e36e4bf6cbf127"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-webkit/outward-contact-620-viewport.png",
+          "sha256": "4a41d0e718dc3a8917c27d7c7f8e36c448b4bfb13551c2e5926dbaca16a7a547"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-webkit/outward-contact-660-logical426-canvas.png",
+          "sha256": "b174ff7c46ac230201da23f078d9f95e31329a365c2e03cf7ffe9e4e93406d4a"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-webkit/outward-contact-660-viewport.png",
+          "sha256": "7c24a25bf68e0b64945d05aa91e4b42c806c3f9e0c8d6569f2eff2e329070e09"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-webkit/outward-contact-700-logical426-canvas.png",
+          "sha256": "d3015851cfbb97834156705168764195fb91bb422997d3c27694ef38ba54ee8a"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-webkit/outward-contact-700-viewport.png",
+          "sha256": "f492b30d2a32c82846163ecb6ec9f56c239d2bd44b5ae42644c164b26a708a6c"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-webkit/flat-rest-760-logical426-canvas.png",
+          "sha256": "96f1e3944e3cf557e0116e37951b7739cfc66bc9ddd006c9aa60ad42aa973b8f"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-webkit/flat-rest-760-viewport.png",
+          "sha256": "d27f01e079a793c665ee0a35f898003705e0f23e9cbe6baf58a14daddda5d791"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-webkit/outward-contact-950-logical426-canvas.png",
+          "sha256": "f05190409ae69960dd9aae2955dbf71031a677f661b9b7d91e014531415bd18e"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-webkit/outward-contact-950-viewport.png",
+          "sha256": "d51164eb97a1e56f56d7f3104167c99da88cfc3c1dbbb624e8c106fe63eeb16c"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-webkit/outward-contact-1035-logical426-canvas.png",
+          "sha256": "89721ec17e5941e57ec16cc8f69e172d53f8c3d9b41a6eda760c1fa404f35c0b"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-webkit/outward-contact-1035-viewport.png",
+          "sha256": "2f7047706bf553da058c71d4a3b1104c42adee6bdd26cf85f0f8dbe3c0c71a22"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-webkit/return-contact-900-logical426-canvas.png",
+          "sha256": "dec3a9707310f0703b9acd654c1702c4265ea278c8ecdc32bcecd1e1a461c417"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-webkit/return-contact-900-viewport.png",
+          "sha256": "dce3687bc146db3b98507e48607827fedbecd0c5b61ff380f82ce0070525ee3e"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-webkit/return-contact-820-logical426-canvas.png",
+          "sha256": "3cfcb0e3c0fddad422c56a5e212c8c449d48cc33e9b3e4f0b8f82d212ada2c45"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-webkit/return-contact-820-viewport.png",
+          "sha256": "d376d65886ee91c1790c310f3f75b8da6e545282c4bdb13a8d1b42126055f19d"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-webkit/return-contact-660-logical426-canvas.png",
+          "sha256": "15aa4f35f01662b9c5ea5a31843bf9a0d6ccffcf6930bee7448d0f495b9f82b2"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-webkit/return-contact-660-viewport.png",
+          "sha256": "70814c8bd13123c5a776cb6306dfc387e05e6de37cd40d8963068f408738effe"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-webkit/return-contact-600-logical426-canvas.png",
+          "sha256": "a0a1adb14c4897be24430365a4aec3a7cdeb23bc25c21bf57abd2ff3b1e6c6fd"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-webkit/return-contact-600-viewport.png",
+          "sha256": "e0c945e7e20eed9877b1bc6cde35e8695e797f610f9b90bdfef2eb9f1fd06008"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-webkit/flat-rest-before-jump-logical426-canvas.png",
+          "sha256": "52e5a55ac3db335f8ba721f9bb1fc55de9cebd511eb383a4e2b75a32e2a5d4e9"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-webkit/flat-rest-before-jump-viewport.png",
+          "sha256": "f140bdef9b3214c14a913729dcc254fb953c16535b8413ac5ab168a445b28993"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-webkit/actual-jump-logical426-canvas.png",
+          "sha256": "c7838454693cbaf64779eb544b356e3566c50e7da45de43f9d3a0858995e1d90"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-webkit/actual-jump-viewport.png",
+          "sha256": "0ccf44460fd7deda0bd354ec5d9eb894579c417a9f18e050e70fe9ea677f5049"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-webkit/post-jump-grounded-950-logical426-canvas.png",
+          "sha256": "926be8500444a80bb87a887cf4c0e08255ecd41d231825a7c53bd3620f48b3d8"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-webkit/post-jump-grounded-950-viewport.png",
+          "sha256": "363c8aa41097aec2dab4fd763fae638a33d2d1d857a7c91db6068edb443b1e4a"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-webkit/return-after-jump-820-logical426-canvas.png",
+          "sha256": "d9118db672e77597a77000df197dd3b3eecda0e99c3a17fa8a1840b07d3a0126"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-webkit/return-after-jump-820-viewport.png",
+          "sha256": "6142ea938baf981aa0d4e4e6871c4adb1585516c48db061d14013e897f3d2c5b"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-webkit/return-after-jump-660-logical426-canvas.png",
+          "sha256": "de20bf0e1650edaef49c28b6160ce0968baf6a0ca219df496411e25e8a05174f"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-webkit/return-after-jump-660-viewport.png",
+          "sha256": "1aad37a6c488493b735e9072f2c08f5b1ca24a4188ed0335978ab8429f976391"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-webkit/final-flat-rest-logical426-canvas.png",
+          "sha256": "4825af48f9fcfd8e058ace9a54e212056ce0076f85f9e8c8ef0a0ab428b01378"
+        },
+        {
+          "path": "playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-webkit/final-flat-rest-viewport.png",
+          "sha256": "e8ec7d0d0ad831103010eaa9c710c35f3a63ea350412b12e70dad2d9f3de911e"
+        }
+      ],
+      "bodyReadErrors": []
+    }
+  ],
+  "failedRetry": {
+    "historySha256": "4000e5ad06f84f34c05059e1d62c3179f46f499ae0d2c6bc4d18bc56114b1f80",
+    "recoveryEvidenceSha256": "41af70731dced225475e779426708bcee69bc3ea90921cb3de96038b2953eb3c",
+    "traverseSamples": 508,
+    "lateSamples": 390,
+    "lastSample": {
+      "frame": 510,
+      "time": 20542,
+      "coherent": true,
+      "x": 567.5591666666647,
+      "feetGap": 2.842170943040401e-14,
+      "facing": 1,
+      "velocity": null
+    },
+    "completedGoals": 0,
+    "controllerError": null
+  },
+  "unchangedIsolatedRetry": {
+    "path": "playwright-report/issue-241/main-integration-retry/artifacts/plains-contour-pilot-Plain-d2556-fers-ordinary-Retry-loading-webkit/retry-recovery-evidence.json",
+    "sha256": "80e84c02cad2c2e2de7a529c9b313f6c15f801c17f1a1e30bbc8be8776e4d898",
+    "recoveryWitnesses": [
+      {
+        "path": "/assets/plains/manifest.json",
+        "recoveryTransport": {
+          "url": "http://127.0.0.1:4287/assets/plains/manifest.json",
+          "status": 200,
+          "sha256": "66876da82e6302eaf36f4ecab5c1826446cac77e7909d56ef0a1e5ec0d18bfed",
+          "requestId": 4,
+          "recoveryAtEmission": true,
+          "path": "/assets/plains/manifest.json",
+          "sequence": 2,
+          "bytes": 988,
+          "fileSha256": "66876da82e6302eaf36f4ecab5c1826446cac77e7909d56ef0a1e5ec0d18bfed"
+        },
+        "body200": {
+          "url": "http://127.0.0.1:4287/assets/plains/manifest.json",
+          "status": 200,
+          "sha256": "66876da82e6302eaf36f4ecab5c1826446cac77e7909d56ef0a1e5ec0d18bfed",
+          "requestId": 4,
+          "recoveryAtEmission": true,
+          "path": "/assets/plains/manifest.json",
+          "sequence": 2,
+          "bytes": 988,
+          "fileSha256": "66876da82e6302eaf36f4ecab5c1826446cac77e7909d56ef0a1e5ec0d18bfed"
+        },
+        "reusedEarlierBody": false
+      },
+      {
+        "path": "/assets/plains/contour-prototype-v1/grass.png",
+        "recoveryTransport": {
+          "url": "http://127.0.0.1:4287/assets/plains/contour-prototype-v1/grass.png",
+          "status": 304,
+          "sha256": null,
+          "bodyless": true,
+          "requestId": 5,
+          "recoveryAtEmission": true,
+          "path": "/assets/plains/contour-prototype-v1/grass.png",
+          "sequence": 3
+        },
+        "body200": {
+          "url": "http://127.0.0.1:4287/assets/plains/contour-prototype-v1/grass.png",
+          "status": 200,
+          "sha256": "618ea1e53cb017b5dfdb649fb48fd47eea7cea02b4abef165681e50da1e4a654",
+          "requestId": 2,
+          "recoveryAtEmission": false,
+          "path": "/assets/plains/contour-prototype-v1/grass.png",
+          "sequence": 1,
+          "bytes": 2804,
+          "fileSha256": "618ea1e53cb017b5dfdb649fb48fd47eea7cea02b4abef165681e50da1e4a654"
+        },
+        "reusedEarlierBody": true
+      },
+      {
+        "path": "/assets/plains/contour-prototype-v1/soil.png",
+        "recoveryTransport": {
+          "url": "http://127.0.0.1:4287/assets/plains/contour-prototype-v1/soil.png",
+          "status": 200,
+          "sha256": "57aa4e04a67ec0a79c26a14b4c6a8baf63dbf06fed84e35a09204c3a4e064c85",
+          "requestId": 6,
+          "recoveryAtEmission": true,
+          "path": "/assets/plains/contour-prototype-v1/soil.png",
+          "sequence": 4,
+          "bytes": 6627,
+          "fileSha256": "57aa4e04a67ec0a79c26a14b4c6a8baf63dbf06fed84e35a09204c3a4e064c85"
+        },
+        "body200": {
+          "url": "http://127.0.0.1:4287/assets/plains/contour-prototype-v1/soil.png",
+          "status": 200,
+          "sha256": "57aa4e04a67ec0a79c26a14b4c6a8baf63dbf06fed84e35a09204c3a4e064c85",
+          "requestId": 6,
+          "recoveryAtEmission": true,
+          "path": "/assets/plains/contour-prototype-v1/soil.png",
+          "sequence": 4,
+          "bytes": 6627,
+          "fileSha256": "57aa4e04a67ec0a79c26a14b4c6a8baf63dbf06fed84e35a09204c3a4e064c85"
+        },
+        "reusedEarlierBody": false
+      }
+    ]
+  }
+}

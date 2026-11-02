@@ -1,0 +1,214 @@
+{
+  "timbersParent": "0351b48d2bb7a19b928d7a68fa569ea1ce389a37",
+  "mainParent": "fbf98b93d0c28e7cd393b1b7213a3dc2b3a2bacb",
+  "projections": {
+    "beforePlainsMerge": {
+      "public/assets/plains/manifest.json": {
+        "baselineSha256": "5201702a38da318dbd0394bedf568a71bae43b0f1cbd92e193498ff4cf6d21fd",
+        "mergedSha256": "66876da82e6302eaf36f4ecab5c1826446cac77e7909d56ef0a1e5ec0d18bfed",
+        "changes": [
+          {
+            "before": "",
+            "after": "  \"plainsContour\": \"contour-prototype-v1/grass.png\",\n  \"plainsContourSoil\": \"contour-prototype-v1/soil.png\",\n",
+            "beforeLine": 2,
+            "afterLine": 2
+          }
+        ]
+      },
+      "src/world/level.ts": {
+        "baselineSha256": "626f85c1303f8934624eb2a02eda010db761b847265b07f1e0ba1f6c6b02cf23",
+        "mergedSha256": "293415ad81e2451483f02d086fb82182d9566d6016889981eb1ee9f1ebf2b041",
+        "changes": [
+          {
+            "before": "      [240, 'flowers'], [470, 'bush'], [800, 'stone'],\n",
+            "after": "      [150, 'flowers'], [772, 'bush'], [800, 'stone'],\n",
+            "beforeLine": 161,
+            "afterLine": 161
+          },
+          {
+            "before": "      [2530, 'flowers'], [3350, 'stone'], [3550, 'bush'], [3980, 'flowers'],\n",
+            "after": "      [2342, 'flowers'], [3350, 'stone'], [3550, 'bush'], [3980, 'flowers'],\n",
+            "beforeLine": 163,
+            "afterLine": 163
+          }
+        ]
+      },
+      "src/world/assets.ts": {
+        "baselineSha256": "fbbb2ef71dec958011d0c3dd14a993672ce101806a468a10282b1a21a491a41f",
+        "mergedSha256": "168788660f680f8ceab6837fc465c80bc84d241527d35107a0dff770288f5e9a",
+        "changes": [
+          {
+            "before": "",
+            "after": "import type { PlainsContourAssets } from './plains-contour';\n",
+            "beforeLine": 0,
+            "afterLine": 0
+          },
+          {
+            "before": "",
+            "after": "  plainsContour?: string;\n  plainsContourSoil?: string;\n",
+            "beforeLine": 20,
+            "afterLine": 21
+          },
+          {
+            "before": "export interface WorldAssets { atlas: HTMLImageElement; manifest: WorldManifest; gems: HTMLImageElement; scenery?: SceneryAssets; materials?: HTMLImageElement; backdrops?: HTMLImageElement; panorama?: HTMLImageElement; slimes?: HTMLImageElement; coveTerrain?: CoveTerrainAssets; coveMaterials?: CoveMaterialAssets; timbersTerrain?: TimbersTerrainAssets; timbersTree?: TimbersTreeAssets }\n",
+            "after": "export interface WorldAssets { atlas: HTMLImageElement; manifest: WorldManifest; gems: HTMLImageElement; scenery?: SceneryAssets; materials?: HTMLImageElement; backdrops?: HTMLImageElement; panorama?: HTMLImageElement; slimes?: HTMLImageElement; coveTerrain?: CoveTerrainAssets; coveMaterials?: CoveMaterialAssets; timbersTerrain?: TimbersTerrainAssets; timbersTree?: TimbersTreeAssets; plainsContour?: PlainsContourAssets }\n",
+            "beforeLine": 25,
+            "afterLine": 28
+          },
+          {
+            "before": "",
+            "after": "  if (manifest.plainsContour !== undefined && (directory !== 'plains' || manifest.plainsContour !== 'contour-prototype-v1/grass.png')) throw new Error('Invalid Plains contour declaration');\n  if (manifest.plainsContourSoil !== undefined && (directory !== 'plains' || !manifest.plainsContour || manifest.plainsContourSoil !== 'contour-prototype-v1/soil.png')) throw new Error('Invalid Plains contour soil declaration');\n  const plainsContourImage = manifest.plainsContour ? await loadImage(`${base}${manifest.plainsContour}`, 'Plains contour grass') : undefined;\n  if (plainsContourImage && (plainsContourImage.naturalWidth !== 80 || plainsContourImage.naturalHeight !== 16)) throw new Error('Invalid Plains contour image dimensions');\n  const soil = manifest.plainsContourSoil ? await loadImage(`${base}${manifest.plainsContourSoil}`, 'Plains contour soil') : undefined;\n  if (soil && (soil.naturalWidth !== 64 || soil.naturalHeight !== 64)) throw new Error('Invalid Plains contour soil image dimensions');\n  const plainsContour = plainsContourImage ? { image: plainsContourImage, soil } : undefined;\n",
+            "beforeLine": 51,
+            "afterLine": 54
+          },
+          {
+            "before": "  if (!manifest.scenery) return { atlas, manifest, materials, backdrops, panorama, slimes, gems, coveTerrain, coveMaterials, timbersTerrain, timbersTree };\n",
+            "after": "  if (!manifest.scenery) return { atlas, manifest, materials, backdrops, panorama, slimes, gems, coveTerrain, coveMaterials, timbersTerrain, timbersTree, plainsContour };\n",
+            "beforeLine": 60,
+            "afterLine": 70
+          },
+          {
+            "before": "  return { atlas, manifest, materials, backdrops, panorama, slimes, gems, coveTerrain, coveMaterials, timbersTerrain, timbersTree, scenery: { background, foreground, manifest: sceneryManifest } };\n",
+            "after": "  return { atlas, manifest, materials, backdrops, panorama, slimes, gems, coveTerrain, coveMaterials, timbersTerrain, timbersTree, plainsContour, scenery: { background, foreground, manifest: sceneryManifest } };\n",
+            "beforeLine": 71,
+            "afterLine": 81
+          }
+        ]
+      },
+      "src/world/renderer.ts": {
+        "baselineSha256": "9e5fea509e61824551b2f4afc5de67a2e42ed4da472e81545185b4ffec16daac",
+        "mergedSha256": "7c6ff0a1e53661c44ae74be5b767fe3fe5671cef890d9fbc49ce2b647e98b37a",
+        "changes": [
+          {
+            "before": "",
+            "after": "import { drawPlainsContourGround, plainsContourRange } from './plains-contour';\n",
+            "beforeLine": 0,
+            "afterLine": 0
+          },
+          {
+            "before": "  if (!(level.id === 'cove' && assets.coveTerrain) && !(level.id === 'timbers' && assets.timbersTerrain)) drawTerrainEdge(ctx, level, offset);\n",
+            "after": "  if (!(level.id === 'cove' && assets.coveTerrain) && !(level.id === 'timbers' && assets.timbersTerrain)) drawTerrainEdge(ctx, level, offset, assets.plainsContour ? plainsContourRange(level) : undefined);\n  drawPlainsContourGround(ctx, assets, level, offset);\n",
+            "beforeLine": 66,
+            "afterLine": 67
+          }
+        ]
+      },
+      "src/world/trail-presentation.ts": {
+        "baselineSha256": "5d98d1b7a4caf27e12830e57a86de771e326c2649468d8569927de32191ca342",
+        "mergedSha256": "72ed99b594127c061fb0fc6e50f7416143df40332f79a29330256f46785734fc",
+        "changes": [
+          {
+            "before": "export function drawTerrainEdge(ctx: CanvasRenderingContext2D, level: LevelData, offset: { x: number; y: number }): void {\n  for (const surface of level.surfaces) {\n    if (surface.x2 < offset.x || surface.x1 > offset.x + 426) continue;\n    const material = level.theme.materialSections?.find(s => surface.x1 >= s.from && surface.x1 < s.to)?.material ?? level.theme.material;\n    const rock = material === 'stone';\n    const edge = rock ? '#9aab96' : material === 'frost' ? '#eff8ff' : level.theme.edge;\n    const steep = Math.abs((surface.y2 - surface.y1) / (surface.x2 - surface.x1)) > 1;\n    ctx.strokeStyle = rock ? '#736653' : level.theme.material === 'wood' ? '#523822' : '#3d352e';\n    ctx.lineWidth = 7;\n    ctx.beginPath(); ctx.moveTo(surface.x1 - offset.x, surface.y1 - offset.y + 4);\n    ctx.lineTo(surface.x2 - offset.x, surface.y2 - offset.y + 4); ctx.stroke();\n    ctx.strokeStyle = edge; ctx.lineWidth = material === 'frost' ? 5 : 3;\n    ctx.beginPath(); ctx.moveTo(surface.x1 - offset.x, surface.y1 - offset.y);\n    ctx.lineTo(surface.x2 - offset.x, surface.y2 - offset.y); ctx.stroke();\n    if (steep) continue;\n    const from = Math.ceil(Math.max(surface.x1, offset.x) / 7) * 7;\n    for (let x = from; x < Math.min(surface.x2, offset.x + 426); x += 7) {\n      const y = surface.y1 + (surface.y2 - surface.y1) * (x - surface.x1) / (surface.x2 - surface.x1);\n      ctx.fillStyle = edge;\n      const irregular = Math.abs((x * 17) ^ (x >> 3));\n      ctx.fillRect(x - offset.x, y - offset.y + 1, 2 + irregular % 4, 1 + irregular % 3);\n      if (level.theme.material === 'soil' && !rock && x % 5 === 0) {\n        ctx.fillStyle = '#64422c'; ctx.fillRect(x - offset.x + 1, y - offset.y + 7, 1, 5);\n",
+            "after": "export function drawTerrainEdge(ctx: CanvasRenderingContext2D, level: LevelData, offset: { x: number; y: number },\n  replaced?: { from: number; to: number }): void {\n  if (replaced) {\n    ctx.save(); ctx.beginPath();\n    ctx.rect(-10000, -10000, replaced.from - offset.x + 10000, 20000);\n    ctx.rect(replaced.to - offset.x, -10000, 10000, 20000);\n    ctx.clip();\n  }\n  try {\n    for (const surface of level.surfaces) {\n      if (surface.x2 < offset.x || surface.x1 > offset.x + 426) continue;\n      const material = level.theme.materialSections?.find(s => surface.x1 >= s.from && surface.x1 < s.to)?.material ?? level.theme.material;\n      const rock = material === 'stone';\n      const edge = rock ? '#9aab96' : material === 'frost' ? '#eff8ff' : level.theme.edge;\n      const steep = Math.abs((surface.y2 - surface.y1) / (surface.x2 - surface.x1)) > 1;\n      ctx.strokeStyle = rock ? '#736653' : level.theme.material === 'wood' ? '#523822' : '#3d352e';\n      ctx.lineWidth = 7;\n      ctx.beginPath(); ctx.moveTo(surface.x1 - offset.x, surface.y1 - offset.y + 4);\n      ctx.lineTo(surface.x2 - offset.x, surface.y2 - offset.y + 4); ctx.stroke();\n      ctx.strokeStyle = edge; ctx.lineWidth = material === 'frost' ? 5 : 3;\n      ctx.beginPath(); ctx.moveTo(surface.x1 - offset.x, surface.y1 - offset.y);\n      ctx.lineTo(surface.x2 - offset.x, surface.y2 - offset.y); ctx.stroke();\n      if (steep) continue;\n      const from = Math.ceil(Math.max(surface.x1, offset.x) / 7) * 7;\n      for (let x = from; x < Math.min(surface.x2, offset.x + 426); x += 7) {\n        const y = surface.y1 + (surface.y2 - surface.y1) * (x - surface.x1) / (surface.x2 - surface.x1);\n        ctx.fillStyle = edge;\n        const irregular = Math.abs((x * 17) ^ (x >> 3));\n        ctx.fillRect(x - offset.x, y - offset.y + 1, 2 + irregular % 4, 1 + irregular % 3);\n        if (level.theme.material === 'soil' && !rock && x % 5 === 0) {\n          ctx.fillStyle = '#64422c'; ctx.fillRect(x - offset.x + 1, y - offset.y + 7, 1, 5);\n        }\n",
+            "beforeLine": 54,
+            "afterLine": 54
+          },
+          {
+            "before": "  }\n",
+            "after": "  } finally { if (replaced) ctx.restore(); }\n",
+            "beforeLine": 79,
+            "afterLine": 88
+          }
+        ]
+      }
+    },
+    "beforeTimbersMerge": {
+      "src/world/assets.ts": {
+        "baselineSha256": "9cc49f87a657acf74953fc7a537358bfd9a18d339ee87b13f247b366c06eb538",
+        "mergedSha256": "168788660f680f8ceab6837fc465c80bc84d241527d35107a0dff770288f5e9a",
+        "changes": [
+          {
+            "before": "",
+            "after": "import { loadTimbersTerrain, type TimbersTerrainAssets } from './timbers-terrain';\nimport { loadTimbersTree, type TimbersTreeAssets } from './timbers-tree';\n",
+            "beforeLine": 4,
+            "afterLine": 4
+          },
+          {
+            "before": "",
+            "after": "  timbersKit?: string;\n  timbersTree?: string;\n",
+            "beforeLine": 16,
+            "afterLine": 18
+          },
+          {
+            "before": "export interface WorldAssets { atlas: HTMLImageElement; manifest: WorldManifest; gems: HTMLImageElement; scenery?: SceneryAssets; materials?: HTMLImageElement; backdrops?: HTMLImageElement; panorama?: HTMLImageElement; slimes?: HTMLImageElement; coveTerrain?: CoveTerrainAssets; coveMaterials?: CoveMaterialAssets; plainsContour?: PlainsContourAssets }\n",
+            "after": "export interface WorldAssets { atlas: HTMLImageElement; manifest: WorldManifest; gems: HTMLImageElement; scenery?: SceneryAssets; materials?: HTMLImageElement; backdrops?: HTMLImageElement; panorama?: HTMLImageElement; slimes?: HTMLImageElement; coveTerrain?: CoveTerrainAssets; coveMaterials?: CoveMaterialAssets; timbersTerrain?: TimbersTerrainAssets; timbersTree?: TimbersTreeAssets; plainsContour?: PlainsContourAssets }\n",
+            "beforeLine": 24,
+            "afterLine": 28
+          },
+          {
+            "before": "",
+            "after": "  if (manifest.timbersKit !== undefined && directory !== 'timbers') throw new Error('Timbers terrain declared by another world');\n  if (manifest.timbersTree !== undefined && directory !== 'timbers') throw new Error('Timbers tree declared by another world');\n  if (directory === 'timbers' && manifest.timbersTree !== 'tree-v1/manifest.json') throw new Error('Missing required Timbers tree declaration');\n  if (directory === 'timbers' && manifest.timbersKit !== 'terrain-kit-v1/manifest.json') throw new Error('Missing required Timbers terrain declaration');\n",
+            "beforeLine": 46,
+            "afterLine": 50
+          },
+          {
+            "before": "  const [{ materials, backdrops, slimes, gems }, panorama, coveTerrain, coveMaterials] = await Promise.all([\n",
+            "after": "  const [{ materials, backdrops, slimes, gems }, panorama, coveTerrain, coveMaterials, timbersTerrain, timbersTree] = await Promise.all([\n",
+            "beforeLine": 54,
+            "afterLine": 62
+          },
+          {
+            "before": "",
+            "after": "    loadTimbersTerrain(base, manifest.timbersKit),\n    loadTimbersTree(base, manifest.timbersTree),\n",
+            "beforeLine": 59,
+            "afterLine": 67
+          },
+          {
+            "before": "  if (!manifest.scenery) return { atlas, manifest, materials, backdrops, panorama, slimes, gems, coveTerrain, coveMaterials, plainsContour };\n",
+            "after": "  if (!manifest.scenery) return { atlas, manifest, materials, backdrops, panorama, slimes, gems, coveTerrain, coveMaterials, timbersTerrain, timbersTree, plainsContour };\n",
+            "beforeLine": 60,
+            "afterLine": 70
+          },
+          {
+            "before": "  return { atlas, manifest, materials, backdrops, panorama, slimes, gems, coveTerrain, coveMaterials, plainsContour, scenery: { background, foreground, manifest: sceneryManifest } };\n",
+            "after": "  return { atlas, manifest, materials, backdrops, panorama, slimes, gems, coveTerrain, coveMaterials, timbersTerrain, timbersTree, plainsContour, scenery: { background, foreground, manifest: sceneryManifest } };\n",
+            "beforeLine": 71,
+            "afterLine": 81
+          }
+        ]
+      },
+      "src/world/renderer.ts": {
+        "baselineSha256": "27980da2c82ccec163b8c47b03b424f6f514d7b882470d9f0cc909362735df13",
+        "mergedSha256": "7c6ff0a1e53661c44ae74be5b767fe3fe5671cef890d9fbc49ce2b647e98b37a",
+        "changes": [
+          {
+            "before": "",
+            "after": "import { drawTimbersGround, drawTimbersPlatform } from './timbers-terrain';\nimport { drawTimbersTree } from './timbers-tree';\n",
+            "beforeLine": 11,
+            "afterLine": 11
+          },
+          {
+            "before": "",
+            "after": "    else if (level.id === 'timbers' && assets.timbersTerrain) drawTimbersGround(ctx, assets.timbersTerrain, level, offset);\n",
+            "beforeLine": 60,
+            "afterLine": 62
+          },
+          {
+            "before": "  if (level.theme.material === 'wood') drawTerrainTiles(ctx, assets, level, offset);\n  if (!(level.id === 'cove' && assets.coveTerrain)) drawTerrainEdge(ctx, level, offset, assets.plainsContour ? plainsContourRange(level) : undefined);\n",
+            "after": "  if (level.theme.material === 'wood' && !(level.id === 'timbers' && assets.timbersTerrain)) drawTerrainTiles(ctx, assets, level, offset);\n  if (!(level.id === 'cove' && assets.coveTerrain) && !(level.id === 'timbers' && assets.timbersTerrain)) drawTerrainEdge(ctx, level, offset, assets.plainsContour ? plainsContourRange(level) : undefined);\n",
+            "beforeLine": 63,
+            "afterLine": 66
+          },
+          {
+            "before": "",
+            "after": "    if (level.id === 'timbers' && assets?.timbersTerrain && drawTimbersPlatform(ctx, assets.timbersTerrain, body, offset)) continue;\n",
+            "beforeLine": 264,
+            "afterLine": 267
+          },
+          {
+            "before": "",
+            "after": "  if (assets.timbersTree) { drawTimbersTree(ctx, assets.timbersTree, offset); return; }\n",
+            "beforeLine": 356,
+            "afterLine": 360
+          },
+          {
+            "before": "  }\n  for (const [x, y, scale] of [[115, 265, 2.4], [650, 320, 2.6], [130, 390, 2.2], [670, 460, 2.3], [95, 565, 1.8]]) {\n    drawAsset(ctx, assets, 'tree', x - offset.x, y - offset.y, scale);\n  }\n  for (const [x, y] of [[40, 580], [770, 620], [60, 740], [785, 795], [70, 930], [780, 1030]]) {\n    drawAsset(ctx, assets, 'bush', x - offset.x, y - offset.y, 2.2);\n",
+            "after": "",
+            "beforeLine": 386,
+            "afterLine": 391
+          }
+        ]
+      }
+    }
+  }
+}

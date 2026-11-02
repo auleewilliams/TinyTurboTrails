@@ -1,3 +1,4 @@
+import { beforeTimbersMerge } from './timbers-plains-integration.mjs';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 // Current reversible projection only. Immutable historical catalogs/PNG/source oracles remain unchanged.
@@ -77,6 +78,7 @@ const approved = {
 };
 
 export function beforePlainsContour(path, bytes) {
+  bytes = beforeTimbersMerge(path, bytes);
   const entry = approved[path];
   if (!entry) return bytes; // The caller's historical oracle still checks every other byte.
   assert.equal(hash(bytes), entry.currentSHA256, `${path}: ONLY exact approved Plains contour linkage/bush/two-flower delta`);

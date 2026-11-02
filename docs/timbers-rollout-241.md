@@ -1,5 +1,7 @@
 # Complete Treetop Timbers artwork rollout
 
+The results below describe the pre-merge rollout at `0351b48`. See [main integration](timbers-main-integration-241.md) for the conflict resolution with Plains PR #245 and its separate validation.
+
 The owner accepted the connected-tree preview at `abe92dd900c45c883f2e984812058991a46507b9`: “It's looking good, keep going!”. This continues the approved #241 plan across the remaining 32 platforms. The completed trail still needs its separate owner playthrough.
 
 All 44 existing fixed platforms now use the accepted illustrated branch family. Seven additional native widths complete the mapping; they use whole end caps and the same copied/repeated centre at 17px depth. The accepted tree and six scenic limbs, ground and twelve preview platform PNGs remain byte-identical. No generation calls were needed. All support/pickup/checkpoint/finish geometry, routes, camera, physics, controls, shared artwork and other trails remain unchanged. No moving-platform, slope or crumble category exists in this trail.
