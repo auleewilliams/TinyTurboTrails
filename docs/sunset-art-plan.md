@@ -342,3 +342,13 @@ This changes no path geometry, motion, platform artwork, or other trail renderin
 and consumes no generation calls. The prior rollout preservation record and
 screenshots remain historical; `marker-removal-preservation.json` pins this
 bounded renderer correction separately. Whole-trail owner acceptance remains open.
+
+### Owner-requested ferry marker removal (2026-11-02)
+
+The owner's subsequent ferry screenshot requests removal of the remaining white
+path dots and endpoint markers on Sunset's moving platform too. This supersedes
+the earlier instruction to retain those visual cues. All Sunset platform path
+markers are now omitted; the ferry's actual endpoints, motion, carrying and
+timing remain unchanged, as do other trails' markers and all artwork. No image
+generation is needed. `ferry-marker-removal-preservation.json` pins this narrow
+renderer change separately; earlier records remain historical evidence.

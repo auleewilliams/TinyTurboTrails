@@ -74,7 +74,7 @@ it('draws joined steel once per run and preserves moving-body position at fracti
   expect(calls.find(args => args[0] === kit.ferry)?.slice(5)).toEqual([ferry.x - offset.x, ferry.y - offset.y, 96, 18]);
 });
 
-it('omits fixed Sunset path markers while preserving the ferry route and other trails', () => {
+it('omits all Sunset path markers while preserving fixed and moving markers on other trails', () => {
   const marks: number[][] = [], images: unknown[][] = [];
   const ctx = {
     save() {}, restore() {}, imageSmoothingEnabled: true,
@@ -82,22 +82,16 @@ it('omits fixed Sunset path markers while preserving the ferry route and other t
     drawImage(...args: unknown[]) { images.push(args); },
   } as unknown as CanvasRenderingContext2D;
   const offset = { x: 105.25, y: 74.5 };
-  const ferry = SUNSET_SITE.platforms!.find(p => p.id === 'site-crane-ferry')!;
-  drawPlatformPath(ctx, ferry, offset);
-  const expectedFerry = marks.splice(0);
-  expect(expectedFerry.length).toBeGreaterThan(4);
   drawPlatforms(ctx, SUNSET_SITE, offset, platformBodiesAt(SUNSET_SITE.platforms, 1.9), { siteTerrain: fixture() } as WorldAssets);
-  expect(marks).toEqual(expectedFerry);
+  expect(marks).toEqual([]);
   expect(images).toHaveLength(32);
 
-  // The same fixed-support data still draws its existing marker outside Sunset.
-  const fixed = SUNSET_SITE.platforms!.filter(p => p.id !== ferry.id);
-  marks.length = 0;
-  for (const platform of fixed) drawPlatformPath(ctx, platform, offset);
-  const expectedFixed = marks.splice(0);
-  expect(expectedFixed.length).toBeGreaterThan(0);
-  drawPlatforms(ctx, { ...SUNSET_SITE, id: 'cove', platforms: fixed }, offset, []);
-  expect(marks).toEqual(expectedFixed);
+  // The same fixed and moving supports still draw their full paths outside Sunset.
+  for (const platform of SUNSET_SITE.platforms!) drawPlatformPath(ctx, platform, offset);
+  const expected = marks.splice(0);
+  expect(expected.length).toBeGreaterThan(0);
+  drawPlatforms(ctx, { ...SUNSET_SITE, id: 'cove' }, offset, []);
+  expect(marks).toEqual(expected);
 });
 
 it('preserves the full layout and all rewards except the exact approved gem Y offsets', () => {
