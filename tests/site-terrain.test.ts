@@ -4,6 +4,8 @@ import { createHash } from 'node:crypto';
 import { transformSync } from 'rolldown/utils';
 import { SUNSET_SITE } from '../src/world/sunset-site';
 import { platformBodiesAt } from '../src/game/platforms';
+import { drawPlatforms, drawPlatformPath } from '../src/world/renderer';
+import type { WorldAssets } from '../src/world/assets';
 import { drawSitePlatform, loadSiteTerrain, validateSiteLayout, validateSiteTerrain, type SiteTerrainManifest, type SiteTerrainAssets } from '../src/world/site-terrain';
 
 const manifest = JSON.parse(readFileSync(new URL('../public/assets/site/steel-v1/manifest.json', import.meta.url), 'utf8')) as SiteTerrainManifest;
@@ -68,6 +70,32 @@ it('draws joined steel once per run and preserves moving-body position at fracti
   expect(long.slice(5)).toEqual([160 - offset.x, 380 - offset.y, 1740, 18]);
   const ferry = bodies.find(p => p.id === 'site-crane-ferry')!;
   expect(calls.find(args => args[0] === kit.ferry)?.slice(5)).toEqual([ferry.x - offset.x, ferry.y - offset.y, 96, 18]);
+});
+
+it('omits fixed Sunset path markers while preserving the ferry route and other trails', () => {
+  const marks: number[][] = [], images: unknown[][] = [];
+  const ctx = {
+    save() {}, restore() {}, imageSmoothingEnabled: true,
+    fillRect(...args: number[]) { marks.push(args); },
+    drawImage(...args: unknown[]) { images.push(args); },
+  } as unknown as CanvasRenderingContext2D;
+  const offset = { x: 105.25, y: 74.5 };
+  const ferry = SUNSET_SITE.platforms!.find(p => p.id === 'site-crane-ferry')!;
+  drawPlatformPath(ctx, ferry, offset);
+  const expectedFerry = marks.splice(0);
+  expect(expectedFerry.length).toBeGreaterThan(4);
+  drawPlatforms(ctx, SUNSET_SITE, offset, platformBodiesAt(SUNSET_SITE.platforms, 1.9), { siteTerrain: fixture() } as WorldAssets);
+  expect(marks).toEqual(expectedFerry);
+  expect(images).toHaveLength(32);
+
+  // The same fixed-support data still draws its existing marker outside Sunset.
+  const fixed = SUNSET_SITE.platforms!.filter(p => p.id !== ferry.id);
+  marks.length = 0;
+  for (const platform of fixed) drawPlatformPath(ctx, platform, offset);
+  const expectedFixed = marks.splice(0);
+  expect(expectedFixed.length).toBeGreaterThan(0);
+  drawPlatforms(ctx, { ...SUNSET_SITE, id: 'cove', platforms: fixed }, offset, []);
+  expect(marks).toEqual(expectedFixed);
 });
 
 it('preserves the full layout and all rewards except the exact approved gem Y offsets', () => {

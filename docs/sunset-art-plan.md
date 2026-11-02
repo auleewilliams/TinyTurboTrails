@@ -331,3 +331,14 @@ preview approval separately from completed-trail acceptance.
   calls spent; both refinement reserves remain unused.
   See [the preview packet](evidence/issue-242/preview-01/README.md).
 - Whole-trail acceptance, final review/CI and PR: outstanding.
+
+### Owner-requested marker removal (2026-11-02)
+
+After the full rollout at `d24cdf3`, the owner requested removal of the little
+white T marks centered above the girders. These are overlapping path endpoints
+drawn for fixed supports, not pixels in the approved artwork. Omit these markers
+only for stationary Sunset platforms; retain the moving ferry's path indicators.
+This changes no path geometry, motion, platform artwork, or other trail rendering
+and consumes no generation calls. The prior rollout preservation record and
+screenshots remain historical; `marker-removal-preservation.json` pins this
+bounded renderer correction separately. Whole-trail owner acceptance remains open.

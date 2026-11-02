@@ -261,7 +261,11 @@ function drawSun(ctx: CanvasRenderingContext2D, sun: LevelSun, cameraX: number):
 export function drawPlatforms(ctx: CanvasRenderingContext2D, level: LevelData, offset: { x: number; y: number },
   platforms: readonly PlatformBody[], assets?: WorldAssets): void {
   for (const platform of level.platforms ?? []) {
-    drawPlatformPath(ctx, platform, offset);    const body = platforms.find((candidate) => candidate.id === platform.id);
+    // Fixed Sunset girders have no travel path; overlapping endpoint marks look like white Ts.
+    if (level.id !== 'sunset' || platform.from.x !== platform.to.x || platform.from.y !== platform.to.y) {
+      drawPlatformPath(ctx, platform, offset);
+    }
+    const body = platforms.find((candidate) => candidate.id === platform.id);
     if (!body) continue;
     if (level.id === 'sunset' && assets?.siteTerrain && drawSitePlatform(ctx, assets.siteTerrain, level, body, offset)) continue;
     if (level.id === 'cove' && platform.from.x === platform.to.x && platform.from.y === platform.to.y) {

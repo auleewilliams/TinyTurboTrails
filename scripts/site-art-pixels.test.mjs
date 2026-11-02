@@ -75,8 +75,8 @@ test('legacy preservation projects only the exact site declaration and rejects u
   assert.equal(beforeSiteArt('public/assets/cove/manifest.json', bytes), bytes);
 });
 
-test('shared source projection accepts only the recorded rollout bytes and rejects position or appended changes', () => {
-  const record = JSON.parse(readFileSync('assets/source/site/steel-v1/rollout-preservation.json'));
+test('shared source projection accepts only the owner-requested marker removal bytes and rejects position or appended changes', () => {
+  const record = JSON.parse(readFileSync('assets/source/site/steel-v1/marker-removal-preservation.json'));
   assert.deepEqual(Object.keys(record.files).sort(), ['public/assets/site/manifest.json', 'src/world/assets.ts', 'src/world/renderer.ts', 'src/world/sunset-site.ts']);
   for (const [path, pin] of Object.entries(record.files)) {
     const bytes = readFileSync(path), original = readFileSync(pin.baselineCopy);
