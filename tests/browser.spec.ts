@@ -1,3 +1,4 @@
+import { installPlainsSceneryObserver } from './plains-scenery-observer';
 import { contourCameraObservation } from './plains-contour-observer';
 import { createHash } from 'node:crypto';
 import { installContourArtworkObserver, readContourCache, contourRibbonTop, type Probe } from './plains-contour-artwork';
@@ -1837,22 +1838,7 @@ test('ground scenery and slimes draw their opaque bases at terrain height', asyn
 });
 
 test('Plains renders its panorama and transparent scenery, and Quarry keeps its own backdrop', async ({ page }, info) => {
-  await page.addInitScript(() => {
-    const original = CanvasRenderingContext2D.prototype.drawImage;
-    CanvasRenderingContext2D.prototype.drawImage = function (this: CanvasRenderingContext2D, ...args: unknown[]) {
-      const image = args[0];
-      if (image instanceof HTMLImageElement) {
-        const source = image.src;
-        if (source.endsWith('/scenery/background.webp') || source.endsWith('/trails/backdrops.webp') || (source.endsWith('/environment.png') && args[1] === 48 && args[2] === 48 && Number(args[7]) > 48)) {
-          this.canvas.dataset.sceneryDraws = '[]';
-        }
-        const calls = JSON.parse(this.canvas.dataset.sceneryDraws ?? '[]');
-        calls.push({ source, args: args.slice(1) });
-        this.canvas.dataset.sceneryDraws = JSON.stringify(calls);
-      }
-      Reflect.apply(original, this, args);
-    } as typeof original;
-  });
+  await page.addInitScript(installPlainsSceneryObserver);
   await page.setViewportSize({ width: 426, height: 300 });
   await openAdventure(page, '/?scene=adventure&debug=1');
   await expect(page.locator('#status')).toContainText('Adventure preview · Title');
