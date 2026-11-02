@@ -1,0 +1,14 @@
+
+> tiny-turbo-trails@0.1.0 build
+> tsc --noEmit && vite build
+
+vite v8.3.5 building client environment for production...
+transforming...
+✓ 58 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                         0.92 kB │ gzip:  0.50 kB
+dist/build-assets/index-C4BHkq3Q.css    2.08 kB │ gzip:  0.86 kB
+dist/build-assets/index-BmvqX1bU.js   133.20 kB │ gzip: 43.16 kB
+
+✓ built in 324ms

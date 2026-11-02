@@ -1,0 +1,693 @@
+{
+  "sourceRevision": null,
+  "method": "Existing DOM keyboard pilot, unmodified player/camera. Frame observer freezes only the pilot clock at the capture point.",
+  "browser": "156.0.8078.4",
+  "files": {
+    "src/world/renderer.ts": "02747ab2af5c61d8b4c15c8bb45290cd2797c1b15caf6dd80fcdef323bb122b2",
+    "src/world/timbers-terrain.ts": "e1ab2df216cadcef38803eceb923232e97aafd6d590db5370b269ff537f49f78",
+    "src/world/treetop-timbers.ts": "cb5b2a9c34641292c35347df69354b4eb3d474113f1f48505ae4b77eb2b2cbba",
+    "dist/index.html": "dfa66d57cb1173d07ed3d40405e11e1a78da22a40737aec07848b14f30c010a3"
+  },
+  "cases": [
+    {
+      "width": 426,
+      "errors": [],
+      "routes": [
+        {
+          "name": "ground-right",
+          "result": {
+            "active": false,
+            "paused": false,
+            "frozen": false,
+            "pauseAt": -1,
+            "stage": 2,
+            "frames": 0,
+            "stable": 0,
+            "previousY": null,
+            "startY": null,
+            "phase": 0,
+            "error": "",
+            "done": true,
+            "seenPlaying": true,
+            "advanceMs": 0,
+            "stages": [
+              {
+                "kind": "walk",
+                "x": 400
+              },
+              {
+                "kind": "walk",
+                "x": 780
+              }
+            ],
+            "history": [
+              {
+                "stage": 0,
+                "status": "Adventure preview · Playing · Letter bag: 1/4 · X 398 Y 1046 V 0 F 1 · Escape to pause · M to mute"
+              },
+              {
+                "stage": 1,
+                "status": "Adventure preview · Playing · Letter bag: 1/4 · X 777 Y 1046 V 0 F 1 · Escape to pause · M to mute"
+              }
+            ],
+            "recoveries": [],
+            "observedX": 777,
+            "observedY": 1046
+          }
+        },
+        {
+          "name": "ground-left",
+          "result": {
+            "active": false,
+            "paused": false,
+            "frozen": false,
+            "pauseAt": -1,
+            "stage": 2,
+            "frames": 0,
+            "stable": 0,
+            "previousY": null,
+            "startY": null,
+            "phase": 0,
+            "error": "",
+            "done": true,
+            "seenPlaying": true,
+            "advanceMs": 0,
+            "stages": [
+              {
+                "kind": "walk",
+                "x": 400
+              },
+              {
+                "kind": "walk",
+                "x": 60
+              }
+            ],
+            "history": [
+              {
+                "stage": 0,
+                "status": "Adventure preview · Playing · Letter bag: 1/4 · X 402 Y 1046 V 0 F -1 · Escape to pause · M to mute"
+              },
+              {
+                "stage": 1,
+                "status": "Adventure preview · Playing · Letter bag: 1/4 · X 62 Y 1046 V -15 F -1 · Escape to pause · M to mute"
+              }
+            ],
+            "recoveries": [],
+            "observedX": 62,
+            "observedY": 1046
+          }
+        },
+        {
+          "name": "middle",
+          "result": {
+            "active": false,
+            "paused": false,
+            "frozen": false,
+            "pauseAt": -1,
+            "stage": 10,
+            "frames": 0,
+            "stable": 0,
+            "previousY": null,
+            "startY": null,
+            "phase": 0,
+            "error": "",
+            "done": true,
+            "seenPlaying": true,
+            "advanceMs": 0,
+            "stages": [
+              {
+                "kind": "run",
+                "x": 150,
+                "y": 1080,
+                "frames": 60
+              },
+              {
+                "kind": "jump",
+                "x": 260,
+                "y": 1020
+              },
+              {
+                "kind": "walk",
+                "x": 385
+              },
+              {
+                "kind": "jump",
+                "x": 385,
+                "y": 960
+              },
+              {
+                "kind": "jump",
+                "x": 385,
+                "y": 900
+              },
+              {
+                "kind": "walk",
+                "x": 500
+              },
+              {
+                "kind": "jump",
+                "x": 500,
+                "y": 840
+              },
+              {
+                "kind": "jump",
+                "x": 500,
+                "y": 780
+              },
+              {
+                "kind": "jump",
+                "x": 500,
+                "y": 720
+              },
+              {
+                "kind": "jump",
+                "x": 500,
+                "y": 660
+              }
+            ],
+            "history": [
+              {
+                "stage": 0,
+                "status": "Adventure preview · Playing · Letter bag: 0/4 · X 152 Y 1046 V 220 F 1 · Escape to pause · M to mute"
+              },
+              {
+                "stage": 1,
+                "status": "Adventure preview · Playing · Letter bag: 0/4 · X 257 Y 986 V 0 F 1 · Escape to pause · M to mute"
+              },
+              {
+                "stage": 2,
+                "status": "Adventure preview · Playing · Letter bag: 0/4 · X 383 Y 986 V 0 F 1 · Escape to pause · M to mute"
+              },
+              {
+                "stage": 3,
+                "status": "Adventure preview · Playing · Letter bag: 0/4 · X 383 Y 926 V 0 F 1 · Escape to pause · M to mute"
+              },
+              {
+                "stage": 4,
+                "status": "Adventure preview · Playing · Letter bag: 0/4 · X 383 Y 866 V 0 F 1 · Escape to pause · M to mute"
+              },
+              {
+                "stage": 5,
+                "status": "Adventure preview · Playing · Letter bag: 0/4 · X 498 Y 866 V 0 F 1 · Escape to pause · M to mute"
+              },
+              {
+                "stage": 6,
+                "status": "Adventure preview · Playing · Letter bag: 0/4 · X 498 Y 806 V 0 F 1 · Escape to pause · M to mute"
+              },
+              {
+                "stage": 7,
+                "status": "Adventure preview · Playing · Letter bag: 0/4 · X 498 Y 746 V 0 F 1 · Escape to pause · M to mute"
+              },
+              {
+                "stage": 8,
+                "status": "Adventure preview · Playing · Letter bag: 0/4 · X 498 Y 686 V 0 F 1 · Escape to pause · M to mute"
+              },
+              {
+                "stage": 9,
+                "status": "Adventure preview · Playing · Letter bag: 0/4 · X 498 Y 626 V 0 F 1 · Escape to pause · M to mute"
+              }
+            ],
+            "recoveries": [],
+            "observedX": 498,
+            "observedY": 626
+          }
+        },
+        {
+          "name": "under-spring",
+          "result": {
+            "active": false,
+            "paused": false,
+            "frozen": false,
+            "pauseAt": -1,
+            "stage": 1,
+            "frames": 0,
+            "stable": 0,
+            "previousY": null,
+            "startY": null,
+            "phase": 0,
+            "error": "",
+            "done": true,
+            "seenPlaying": true,
+            "advanceMs": 0,
+            "stages": [
+              {
+                "kind": "walk",
+                "x": 100
+              }
+            ],
+            "history": [
+              {
+                "stage": 0,
+                "status": "Adventure preview · Playing · Letter bag: 0/4 · X 99 Y 626 V -15 F -1 · Escape to pause · M to mute"
+              }
+            ],
+            "recoveries": [],
+            "observedX": 99,
+            "observedY": 626
+          }
+        },
+        {
+          "name": "spring-flight",
+          "result": {
+            "active": false,
+            "paused": false,
+            "frozen": false,
+            "pauseAt": -1,
+            "stage": 1,
+            "frames": 0,
+            "stable": 0,
+            "previousY": null,
+            "startY": null,
+            "phase": 0,
+            "error": "",
+            "done": true,
+            "seenPlaying": true,
+            "advanceMs": 0,
+            "stages": [
+              {
+                "kind": "jump",
+                "x": 100,
+                "y": 510
+              }
+            ],
+            "history": [
+              {
+                "stage": 0,
+                "status": "Adventure preview · Playing · Letter bag: 0/4 · X 99 Y 476 V 0 F -1 · Escape to pause · M to mute"
+              }
+            ],
+            "recoveries": [],
+            "observedX": 99,
+            "observedY": 476
+          }
+        }
+      ],
+      "captures": [
+        {
+          "name": "ground-right",
+          "status": "Adventure preview · Playing · Letter bag: 1/4 · X 777 Y 1046 V 0 F 1 · Escape to pause · M to mute",
+          "native": [
+            426,
+            240
+          ],
+          "css": {
+            "width": 426,
+            "height": 240
+          },
+          "nativePath": "426-ground-right-native.png",
+          "cssPath": "426-ground-right-css.png",
+          "nativeSha256": "afcc9a7159fd09a0b88e9c12c602f6b88fd73d9e993bfc2b70788bb330ffc68f",
+          "cssSha256": "b53ec4ecee7929e3596cfc0983fe0b8502abe75c4d9693f09bfc8dc8362b808e"
+        },
+        {
+          "name": "ground-left",
+          "status": "Adventure preview · Playing · Letter bag: 1/4 · X 62 Y 1046 V 0 F -1 · Escape to pause · M to mute",
+          "native": [
+            426,
+            240
+          ],
+          "css": {
+            "width": 426,
+            "height": 240
+          },
+          "nativePath": "426-ground-left-native.png",
+          "cssPath": "426-ground-left-css.png",
+          "nativeSha256": "83cce38e3aa467c0383b89fc3e997033bd71822a98a9de82185f11ad5f212234",
+          "cssSha256": "7c482697f4df10fa5ce73c4b0922c69a51ff4d3bfb2aacdeeed5de5b4fe79302"
+        },
+        {
+          "name": "spring-ascent",
+          "status": "Adventure preview · Playing · Letter bag: 0/4 · X 99 Y 596 V 0 F -1 · Escape to pause · M to mute",
+          "native": [
+            426,
+            240
+          ],
+          "css": {
+            "width": 426,
+            "height": 240
+          },
+          "nativePath": "426-spring-ascent-native.png",
+          "cssPath": "426-spring-ascent-css.png",
+          "nativeSha256": "1df7f65d3d6e9216a8f6f0af94db1b8fe0ee4f66bef5c5fa5e36661ef3ff6d29",
+          "cssSha256": "7383dddfeb0eea5e8fc94576653511fd323ee102215cd6551895dbf6f9e7ca93"
+        },
+        {
+          "name": "spring-crossing",
+          "status": "Adventure preview · Playing · Letter bag: 0/4 · X 99 Y 569 V 0 F -1 · Escape to pause · M to mute",
+          "native": [
+            426,
+            240
+          ],
+          "css": {
+            "width": 426,
+            "height": 240
+          },
+          "nativePath": "426-spring-crossing-native.png",
+          "cssPath": "426-spring-crossing-css.png",
+          "nativeSha256": "91c02519b2510fd2f0925835cd58977b696c1ae396bcf2f1089e89e4b6bccb6a",
+          "cssSha256": "524c3de64b2141eaff022b9617825d661522268a9df5532c28d2db4161a49bcb"
+        }
+      ]
+    },
+    {
+      "width": 320,
+      "errors": [],
+      "routes": [
+        {
+          "name": "ground-right",
+          "result": {
+            "active": false,
+            "paused": false,
+            "frozen": false,
+            "pauseAt": -1,
+            "stage": 2,
+            "frames": 0,
+            "stable": 0,
+            "previousY": null,
+            "startY": null,
+            "phase": 0,
+            "error": "",
+            "done": true,
+            "seenPlaying": true,
+            "advanceMs": 0,
+            "stages": [
+              {
+                "kind": "walk",
+                "x": 400
+              },
+              {
+                "kind": "walk",
+                "x": 780
+              }
+            ],
+            "history": [
+              {
+                "stage": 0,
+                "status": "Adventure preview · Playing · Letter bag: 1/4 · X 398 Y 1046 V 0 F 1 · Escape to pause · M to mute"
+              },
+              {
+                "stage": 1,
+                "status": "Adventure preview · Playing · Letter bag: 1/4 · X 777 Y 1046 V 0 F 1 · Escape to pause · M to mute"
+              }
+            ],
+            "recoveries": [],
+            "observedX": 777,
+            "observedY": 1046
+          }
+        },
+        {
+          "name": "ground-left",
+          "result": {
+            "active": false,
+            "paused": false,
+            "frozen": false,
+            "pauseAt": -1,
+            "stage": 2,
+            "frames": 0,
+            "stable": 0,
+            "previousY": null,
+            "startY": null,
+            "phase": 0,
+            "error": "",
+            "done": true,
+            "seenPlaying": true,
+            "advanceMs": 0,
+            "stages": [
+              {
+                "kind": "walk",
+                "x": 400
+              },
+              {
+                "kind": "walk",
+                "x": 60
+              }
+            ],
+            "history": [
+              {
+                "stage": 0,
+                "status": "Adventure preview · Playing · Letter bag: 1/4 · X 402 Y 1046 V 0 F -1 · Escape to pause · M to mute"
+              },
+              {
+                "stage": 1,
+                "status": "Adventure preview · Playing · Letter bag: 1/4 · X 62 Y 1046 V -15 F -1 · Escape to pause · M to mute"
+              }
+            ],
+            "recoveries": [],
+            "observedX": 62,
+            "observedY": 1046
+          }
+        },
+        {
+          "name": "middle",
+          "result": {
+            "active": false,
+            "paused": false,
+            "frozen": false,
+            "pauseAt": -1,
+            "stage": 10,
+            "frames": 0,
+            "stable": 0,
+            "previousY": null,
+            "startY": null,
+            "phase": 0,
+            "error": "",
+            "done": true,
+            "seenPlaying": true,
+            "advanceMs": 0,
+            "stages": [
+              {
+                "kind": "run",
+                "x": 150,
+                "y": 1080,
+                "frames": 60
+              },
+              {
+                "kind": "jump",
+                "x": 260,
+                "y": 1020
+              },
+              {
+                "kind": "walk",
+                "x": 385
+              },
+              {
+                "kind": "jump",
+                "x": 385,
+                "y": 960
+              },
+              {
+                "kind": "jump",
+                "x": 385,
+                "y": 900
+              },
+              {
+                "kind": "walk",
+                "x": 500
+              },
+              {
+                "kind": "jump",
+                "x": 500,
+                "y": 840
+              },
+              {
+                "kind": "jump",
+                "x": 500,
+                "y": 780
+              },
+              {
+                "kind": "jump",
+                "x": 500,
+                "y": 720
+              },
+              {
+                "kind": "jump",
+                "x": 500,
+                "y": 660
+              }
+            ],
+            "history": [
+              {
+                "stage": 0,
+                "status": "Adventure preview · Playing · Letter bag: 0/4 · X 152 Y 1046 V 220 F 1 · Escape to pause · M to mute"
+              },
+              {
+                "stage": 1,
+                "status": "Adventure preview · Playing · Letter bag: 0/4 · X 257 Y 986 V 0 F 1 · Escape to pause · M to mute"
+              },
+              {
+                "stage": 2,
+                "status": "Adventure preview · Playing · Letter bag: 0/4 · X 383 Y 986 V 0 F 1 · Escape to pause · M to mute"
+              },
+              {
+                "stage": 3,
+                "status": "Adventure preview · Playing · Letter bag: 0/4 · X 383 Y 926 V 0 F 1 · Escape to pause · M to mute"
+              },
+              {
+                "stage": 4,
+                "status": "Adventure preview · Playing · Letter bag: 0/4 · X 383 Y 866 V 0 F 1 · Escape to pause · M to mute"
+              },
+              {
+                "stage": 5,
+                "status": "Adventure preview · Playing · Letter bag: 0/4 · X 498 Y 866 V 0 F 1 · Escape to pause · M to mute"
+              },
+              {
+                "stage": 6,
+                "status": "Adventure preview · Playing · Letter bag: 0/4 · X 498 Y 806 V 0 F 1 · Escape to pause · M to mute"
+              },
+              {
+                "stage": 7,
+                "status": "Adventure preview · Playing · Letter bag: 0/4 · X 498 Y 746 V 0 F 1 · Escape to pause · M to mute"
+              },
+              {
+                "stage": 8,
+                "status": "Adventure preview · Playing · Letter bag: 0/4 · X 498 Y 686 V 0 F 1 · Escape to pause · M to mute"
+              },
+              {
+                "stage": 9,
+                "status": "Adventure preview · Playing · Letter bag: 0/4 · X 498 Y 626 V 0 F 1 · Escape to pause · M to mute"
+              }
+            ],
+            "recoveries": [],
+            "observedX": 498,
+            "observedY": 626
+          }
+        },
+        {
+          "name": "under-spring",
+          "result": {
+            "active": false,
+            "paused": false,
+            "frozen": false,
+            "pauseAt": -1,
+            "stage": 1,
+            "frames": 0,
+            "stable": 0,
+            "previousY": null,
+            "startY": null,
+            "phase": 0,
+            "error": "",
+            "done": true,
+            "seenPlaying": true,
+            "advanceMs": 0,
+            "stages": [
+              {
+                "kind": "walk",
+                "x": 100
+              }
+            ],
+            "history": [
+              {
+                "stage": 0,
+                "status": "Adventure preview · Playing · Letter bag: 0/4 · X 99 Y 626 V -15 F -1 · Escape to pause · M to mute"
+              }
+            ],
+            "recoveries": [],
+            "observedX": 99,
+            "observedY": 626
+          }
+        },
+        {
+          "name": "spring-flight",
+          "result": {
+            "active": false,
+            "paused": false,
+            "frozen": false,
+            "pauseAt": -1,
+            "stage": 1,
+            "frames": 0,
+            "stable": 0,
+            "previousY": null,
+            "startY": null,
+            "phase": 0,
+            "error": "",
+            "done": true,
+            "seenPlaying": true,
+            "advanceMs": 0,
+            "stages": [
+              {
+                "kind": "jump",
+                "x": 100,
+                "y": 510
+              }
+            ],
+            "history": [
+              {
+                "stage": 0,
+                "status": "Adventure preview · Playing · Letter bag: 0/4 · X 99 Y 476 V 0 F -1 · Escape to pause · M to mute"
+              }
+            ],
+            "recoveries": [],
+            "observedX": 99,
+            "observedY": 476
+          }
+        }
+      ],
+      "captures": [
+        {
+          "name": "ground-right",
+          "status": "Adventure preview · Playing · Letter bag: 1/4 · X 777 Y 1046 V 0 F 1 · Escape to pause · M to mute",
+          "native": [
+            426,
+            240
+          ],
+          "css": {
+            "width": 320,
+            "height": 180.28125
+          },
+          "nativePath": "320-ground-right-native.png",
+          "cssPath": "320-ground-right-css.png",
+          "nativeSha256": "e20b1d108b169c1caeb8c6fc9596978690a70f4e804d349884c0c057e3d43d38",
+          "cssSha256": "69b07308862c781273d84a888568f1de04a9e0283359654202587d1eb95c85e7"
+        },
+        {
+          "name": "ground-left",
+          "status": "Adventure preview · Playing · Letter bag: 1/4 · X 62 Y 1046 V 0 F -1 · Escape to pause · M to mute",
+          "native": [
+            426,
+            240
+          ],
+          "css": {
+            "width": 320,
+            "height": 180.28125
+          },
+          "nativePath": "320-ground-left-native.png",
+          "cssPath": "320-ground-left-css.png",
+          "nativeSha256": "455cf66ce041e175e2aeec5e088957b9efec67c8d03ca5af4e61f8e3b7aa6fe2",
+          "cssSha256": "56706e685302b87507c9e82b7c163f8a95d1163e65c157be1bd5952c5f0ff860"
+        },
+        {
+          "name": "spring-ascent",
+          "status": "Adventure preview · Playing · Letter bag: 0/4 · X 99 Y 596 V 0 F -1 · Escape to pause · M to mute",
+          "native": [
+            426,
+            240
+          ],
+          "css": {
+            "width": 320,
+            "height": 180.28125
+          },
+          "nativePath": "320-spring-ascent-native.png",
+          "cssPath": "320-spring-ascent-css.png",
+          "nativeSha256": "4b862046e952a443741106691ce87015c9dd29305f096f837a252effa9e8e664",
+          "cssSha256": "27ae112ae3dec3670649911a898eda00cd1738a2c4165bf35685e1e55afcf0aa"
+        },
+        {
+          "name": "spring-crossing",
+          "status": "Adventure preview · Playing · Letter bag: 0/4 · X 99 Y 569 V 0 F -1 · Escape to pause · M to mute",
+          "native": [
+            426,
+            240
+          ],
+          "css": {
+            "width": 320,
+            "height": 180.28125
+          },
+          "nativePath": "320-spring-crossing-native.png",
+          "cssPath": "320-spring-crossing-css.png",
+          "nativeSha256": "b95f480e9525545d7e2872bd96ee6101e4e454df8c33504c9ff02870f64d74cb",
+          "cssSha256": "4e40c1e330067fd5d716a35f07c6bf3477d626eb761563672c86789e57fe523a"
+        }
+      ]
+    }
+  ]
+}

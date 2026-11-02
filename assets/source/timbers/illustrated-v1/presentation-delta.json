@@ -1,0 +1,71 @@
+{
+  "baselineRevision": "885b6c16d5397e061f1ccb40ca326856bc77db88",
+  "scope": "Only required Timbers kit integration and exact11 decorative removals; no Cove/shared bitmap changes",
+  "files": {
+    "src/world/assets.ts": {
+      "baselineCopy": "baseline/src/world/assets.ts",
+      "baselineSha256": "9322228ed80f316a8e5a1fbe5707658f38334a54b2911c147b1de113a279499e",
+      "currentSha256": "c783bb56ad170de2418a7503d7947abd0cabb3b14825d1d3ecdc2fd587ddaaa4",
+      "changes": [
+        {
+          "before": "import { validateScenery, type SceneryAssets, type SceneryManifest } from './scenery';\nimport { loadCoveTerrain, type CoveTerrainAssets } from './cove-terrain';\n\nexport const WORLD_ASSETS = [\n",
+          "after": "import { validateScenery, type SceneryAssets, type SceneryManifest } from './scenery';\nimport { loadCoveTerrain, type CoveTerrainAssets } from './cove-terrain';\nimport { loadTimbersTerrain, type TimbersTerrainAssets } from './timbers-terrain';\n\nexport const WORLD_ASSETS = [\n"
+        },
+        {
+          "before": "  panorama?: string;\n  terrainKit?: string;\n  surfaceKit?: string;\n  cellSize: number;\n",
+          "after": "  panorama?: string;\n  terrainKit?: string;\n  timbersKit?: string;\n  surfaceKit?: string;\n  cellSize: number;\n"
+        },
+        {
+          "before": "  terrainTops?: Partial<Record<WorldAsset, { left: number; right: number }>>;\n}\nexport interface WorldAssets { atlas: HTMLImageElement; manifest: WorldManifest; gems: HTMLImageElement; scenery?: SceneryAssets; materials?: HTMLImageElement; backdrops?: HTMLImageElement; panorama?: HTMLImageElement; slimes?: HTMLImageElement; coveTerrain?: CoveTerrainAssets; coveMaterials?: CoveMaterialAssets }\nexport type WorldAssetMap = Readonly<Record<string, WorldAssets>>;\n\n",
+          "after": "  terrainTops?: Partial<Record<WorldAsset, { left: number; right: number }>>;\n}\nexport interface WorldAssets { atlas: HTMLImageElement; manifest: WorldManifest; gems: HTMLImageElement; scenery?: SceneryAssets; materials?: HTMLImageElement; backdrops?: HTMLImageElement; panorama?: HTMLImageElement; slimes?: HTMLImageElement; coveTerrain?: CoveTerrainAssets; coveMaterials?: CoveMaterialAssets; timbersTerrain?: TimbersTerrainAssets }\nexport type WorldAssetMap = Readonly<Record<string, WorldAssets>>;\n\n"
+        },
+        {
+          "before": "  }\n  if (manifest.surfaceKit !== undefined && directory !== 'cove') throw new Error('Cove materials declared by another world');\n  const atlas = await loadImage(`${base}${manifest.image}`, 'world atlas');\n  const [{ materials, backdrops, slimes, gems }, panorama, coveTerrain, coveMaterials] = await Promise.all([\n    loadPresentation(),\n    manifest.panorama ? loadImage(`${base}${manifest.panorama}`, 'trail panorama') : undefined,\n    loadCoveTerrain(base, manifest.terrainKit),\n    loadCoveMaterials(base, manifest.surfaceKit),\n  ]);\n  if (!manifest.scenery) return { atlas, manifest, materials, backdrops, panorama, slimes, gems, coveTerrain, coveMaterials };\n  const sceneryUrl = `${base}${manifest.scenery}`;\n  const sceneryResponse = await fetch(sceneryUrl);\n",
+          "after": "  }\n  if (manifest.surfaceKit !== undefined && directory !== 'cove') throw new Error('Cove materials declared by another world');\n  if (manifest.timbersKit !== undefined && directory !== 'timbers') throw new Error('Timbers terrain declared by another world');\n  const atlas = await loadImage(`${base}${manifest.image}`, 'world atlas');\n  const [{ materials, backdrops, slimes, gems }, panorama, coveTerrain, coveMaterials, timbersTerrain] = await Promise.all([\n    loadPresentation(),\n    manifest.panorama ? loadImage(`${base}${manifest.panorama}`, 'trail panorama') : undefined,\n    loadCoveTerrain(base, manifest.terrainKit),\n    loadCoveMaterials(base, manifest.surfaceKit),\n    loadTimbersTerrain(base, manifest.timbersKit),\n  ]);\n  if (!manifest.scenery) return { atlas, manifest, materials, backdrops, panorama, slimes, gems, coveTerrain, coveMaterials, timbersTerrain };\n  const sceneryUrl = `${base}${manifest.scenery}`;\n  const sceneryResponse = await fetch(sceneryUrl);\n"
+        },
+        {
+          "before": "    loadImage(`${sceneryBase}${sceneryManifest.foreground.image}`, 'scenery foreground'),\n  ]);\n  return { atlas, manifest, materials, backdrops, panorama, slimes, gems, coveTerrain, coveMaterials, scenery: { background, foreground, manifest: sceneryManifest } };\n}\n\n",
+          "after": "    loadImage(`${sceneryBase}${sceneryManifest.foreground.image}`, 'scenery foreground'),\n  ]);\n  return { atlas, manifest, materials, backdrops, panorama, slimes, gems, coveTerrain, coveMaterials, timbersTerrain, scenery: { background, foreground, manifest: sceneryManifest } };\n}\n\n"
+        }
+      ]
+    },
+    "src/world/renderer.ts": {
+      "baselineCopy": "baseline/src/world/renderer.ts",
+      "baselineSha256": "c59b777d2462036f4c500a7e77cd5b76ba0cb4877c69e8b3dd9d79751cc19417",
+      "currentSha256": "02747ab2af5c61d8b4c15c8bb45290cd2797c1b15caf6dd80fcdef323bb122b2",
+      "changes": [
+        {
+          "before": "import { drawSurfaceMaterials } from './surface-materials';\nimport { drawCoveGround, drawCovePlatform } from './cove-terrain';\nimport type { SlimeAccessory } from './slimes';\n\n",
+          "after": "import { drawSurfaceMaterials } from './surface-materials';\nimport { drawCoveGround, drawCovePlatform } from './cove-terrain';\nimport { drawTimbersGround, drawTimbersPlatform } from './timbers-terrain';\nimport type { SlimeAccessory } from './slimes';\n\n"
+        },
+        {
+          "before": "    ctx.save(); ctx.clip();\n    if (level.id === 'cove' && assets.coveTerrain) drawCoveGround(ctx, assets.coveTerrain, level, offset, first.x1, last.x2);\n    else drawTerrainMaterial(ctx, level, offset, assets, first.x1, last.x2);\n    ctx.restore();\n  }\n  if (level.theme.material === 'wood') drawTerrainTiles(ctx, assets, level, offset);\n  if (!(level.id === 'cove' && assets.coveTerrain)) drawTerrainEdge(ctx, level, offset);\n  drawSurfaceMaterials(ctx, level, offset, assets.coveMaterials, runSeconds, reducedMotion);\n  for (const surface of level.surfaces) drawSurfaceGrip(ctx, surface, offset);\n",
+          "after": "    ctx.save(); ctx.clip();\n    if (level.id === 'cove' && assets.coveTerrain) drawCoveGround(ctx, assets.coveTerrain, level, offset, first.x1, last.x2);\n    else if (level.id === 'timbers' && assets.timbersTerrain) drawTimbersGround(ctx, assets.timbersTerrain, level, offset);\n    else drawTerrainMaterial(ctx, level, offset, assets, first.x1, last.x2);\n    ctx.restore();\n  }\n  if (level.theme.material === 'wood' && !(level.id === 'timbers' && assets.timbersTerrain)) drawTerrainTiles(ctx, assets, level, offset);\n  if (!(level.id === 'cove' && assets.coveTerrain) && !(level.id === 'timbers' && assets.timbersTerrain)) drawTerrainEdge(ctx, level, offset);\n  drawSurfaceMaterials(ctx, level, offset, assets.coveMaterials, runSeconds, reducedMotion);\n  for (const surface of level.surfaces) drawSurfaceGrip(ctx, surface, offset);\n"
+        },
+        {
+          "before": "    const body = platforms.find((candidate) => candidate.id === platform.id);\n    if (!body) continue;\n    if (level.id === 'cove' && platform.from.x === platform.to.x && platform.from.y === platform.to.y) {\n      if (assets?.coveTerrain) {\n",
+          "after": "    const body = platforms.find((candidate) => candidate.id === platform.id);\n    if (!body) continue;\n    if (level.id === 'timbers' && assets?.timbersTerrain && drawTimbersPlatform(ctx, assets.timbersTerrain, body, offset)) continue;\n    if (level.id === 'cove' && platform.from.x === platform.to.x && platform.from.y === platform.to.y) {\n      if (assets?.coveTerrain) {\n"
+        },
+        {
+          "before": "\n/** The nonblocking trunk stays behind all actual top faces and collectibles. */\nexport function drawTimberTrunk(ctx: CanvasRenderingContext2D, assets: WorldAssets, offset: { x: number; y: number }): void {\n  const left = 345 - offset.x, right = 475 - offset.x;\n  if (right < 0 || left > 426) return;\n",
+          "after": "\n/** The nonblocking trunk stays behind all actual top faces and collectibles. */\nexport function drawTimberTrunk(ctx: CanvasRenderingContext2D, _assets: WorldAssets, offset: { x: number; y: number }): void {\n  const left = 345 - offset.x, right = 475 - offset.x;\n  if (right < 0 || left > 426) return;\n"
+        },
+        {
+          "before": "    ctx.lineTo(outer - offset.x, y + 6 - offset.y);\n    ctx.lineTo(410 - offset.x, y + 43 - offset.y); ctx.closePath(); ctx.fill();\n  }\n  for (const [x, y, scale] of [[115, 265, 2.4], [650, 320, 2.6], [130, 390, 2.2], [670, 460, 2.3], [95, 565, 1.8]]) {\n    drawAsset(ctx, assets, 'tree', x - offset.x, y - offset.y, scale);\n  }\n  for (const [x, y] of [[40, 580], [770, 620], [60, 740], [785, 795], [70, 930], [780, 1030]]) {\n    drawAsset(ctx, assets, 'bush', x - offset.x, y - offset.y, 2.2);\n  }\n  ctx.restore();\n",
+          "after": "    ctx.lineTo(outer - offset.x, y + 6 - offset.y);\n    ctx.lineTo(410 - offset.x, y + 43 - offset.y); ctx.closePath(); ctx.fill();\n  }\n  ctx.restore();\n"
+        }
+      ]
+    },
+    "public/assets/timbers/manifest.json": {
+      "baselineCopy": "baseline/public/assets/timbers/manifest.json",
+      "baselineSha256": "f9cc59f5a5e884d2bd42e45c36c1f56af9db82b53c42d163fc0941e67ac060af",
+      "currentSha256": "f3b265bdbc3f85693a7fb5c348fd991d3743a773b4fcabf6da6e0b911cef00f2",
+      "changes": [
+        {
+          "before": "{\n  \"image\": \"environment.png\",\n  \"cellSize\": 48,\n  \"assets\": {\n",
+          "after": "{\n  \"image\": \"environment.png\",\n  \"timbersKit\": \"terrain-kit-v1/manifest.json\",\n  \"cellSize\": 48,\n  \"assets\": {\n"
+        }
+      ]
+    }
+  }
+}

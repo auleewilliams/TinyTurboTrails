@@ -1,0 +1,33 @@
+{
+  "scopeApproval": "Can we do that, I want it to be apart of this work.",
+  "budgetApproval": "Add a separate two-call budget; keep the original reserves",
+  "treeCallCap": 2,
+  "initialTreeSourceCalls": 1,
+  "reservedTreeRefinements": 1,
+  "originalCallCap": 5,
+  "originalCallsSpent": 3,
+  "originalUnusedAllocationsPreserved": {
+    "B": 1,
+    "restricted reserve for A": 1
+  },
+  "combinedHardCap": 7,
+  "treeCallsSpent": 2,
+  "calls": [
+    {
+      "id": "T-01",
+      "role": "tree initial source",
+      "request": "t-01-request.json",
+      "state": "not selected: overbright background limb highlights",
+      "result": "t-01-result.json"
+    },
+    {
+      "id": "T-02",
+      "role": "one tree refinement",
+      "request": "t-02-request.json",
+      "state": "selected for integrated preview, owner acceptance pending",
+      "result": "t-02-result.json"
+    }
+  ],
+  "rules": "One connected trunk/limb source and at most one targeted refinement for this tree role. Count failed/rejected calls. No automatic retries or reallocation; preserve original ground/platform artwork and source budgets. No further forest/canopy/scenery campaign, gameplay edits, remaining-platform rollout, commit/push or publication is authorized by this addition.",
+  "combinedCallsSpent": 5
+}

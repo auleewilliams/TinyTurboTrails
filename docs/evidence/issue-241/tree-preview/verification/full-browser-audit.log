@@ -1,0 +1,23 @@
+{
+  "stats": {
+    "startTime": "2026-11-01T22:30:19.155Z",
+    "duration": 5184787.994,
+    "expected": 696,
+    "skipped": 1,
+    "unexpected": 2,
+    "flaky": 0
+  },
+  "statusCounts": {
+    "expected": 696,
+    "skipped": 1,
+    "unexpected": 2
+  },
+  "attemptStatuses": {
+    "passed": 696,
+    "skipped": 1,
+    "timedOut": 2
+  },
+  "candidateFilesUnchanged": 255
+}
+Verified 6 journeys; 150 PNGs; 1399 file attachments; 274 curated files
+Nonpassing [('firefox', 'audio stays locked until interaction and supports all effects, mute, pause and stop', 'skipped'), ('webkit', 'Cove B Hollow/Pools ordinary input rests at 426px', 'unexpected'), ('webkit', 'Cove B Hollow/Pools ordinary input rests at 320px', 'unexpected')]

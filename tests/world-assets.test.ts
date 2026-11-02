@@ -52,8 +52,10 @@ it('loads each requested world atlas once', async () => {
   const requests: string[] = [];
   vi.stubGlobal('fetch', vi.fn(async (url: string) => {
     requests.push(url);
+    if (url.endsWith('/tree-v1/manifest.json')) return { ok: true, json: async () => JSON.parse(readFileSync(new URL('../public/assets/timbers/tree-v1/manifest.json', import.meta.url), 'utf8')) };
     return { ok: true, json: async () => ({
       image: 'environment.png', cellSize: 48,
+      ...(url === '/assets/timbers/manifest.json' ? { timbersTree: 'tree-v1/manifest.json' } : {}),
       assets: Object.fromEntries([
         'terrain-flat', 'terrain-left', 'terrain-right', 'terrain-ramp', 'stone', 'cave', 'tree', 'flowers',
         'gem', 'spring', 'slime', 'checkpoint', 'finish-arch', 'dust', 'hills', 'bush',
@@ -61,6 +63,7 @@ it('loads each requested world atlas once', async () => {
     }) };
   }));
   class FakeImage {
+    naturalWidth = 576; naturalHeight = 960;
     onload = (): void => {};
     onerror = (): void => {};
     set src(url: string) { requests.push(url); queueMicrotask(this.onload); }
@@ -70,10 +73,12 @@ it('loads each requested world atlas once', async () => {
   const worlds = await loadWorldAssetMap(['plains', 'timbers', 'plains']);
 
   expect(Object.keys(worlds)).toEqual(['plains', 'timbers']);
+  expect(worlds.timbers.timbersTree).toBeDefined();
   expect(worlds.plains.gems).toBe(worlds.timbers.gems);
   expect(requests).toEqual([
     '/assets/plains/manifest.json', '/assets/timbers/manifest.json',
     '/assets/plains/environment.png', '/assets/timbers/environment.png',
+    '/assets/timbers/tree-v1/manifest.json', '/assets/timbers/tree-v1/tree.png',
   ]);
 });
 

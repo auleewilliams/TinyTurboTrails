@@ -1,0 +1,8 @@
+{
+  "change": "Correct the exact accessible name of the existing Retry loading button in two locators; no assertion, timeout, retry, route or runtime change.",
+  "beforeSha256": "95e60160a606202b401cfe7c25b207f2a8531f63d4672e1953f85310ce582950",
+  "afterSha256": "3bc45ad5274e7a67bcf414c4706d0a486dcfda62b720e48d0a1040e3eb1c66c5",
+  "replacements": 2,
+  "old": "name: 'Retry', exact: true",
+  "new": "name: 'Retry loading', exact: true"
+}

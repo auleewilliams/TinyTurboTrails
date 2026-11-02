@@ -1,0 +1,12 @@
+{
+  "tool": "image_gen.imagegen",
+  "role": "A ordinary branch",
+  "request": {
+    "prompt": "Use case: stylized-concept.\nAsset type: original transparent source artwork for a small side-view platform game, ordinary wooden branch family A.\nCreate ONE complete horizontal organic tree bough, isolated against genuine transparent RGBA. This is a production sprite source, not a scene or mockup.\nStyle: chunky hand-illustrated storybook game art, warm ochre highlights, russet and chocolate bark, broad coherent bark facets, restrained readable grain, dark natural underside, crisp attractive whole silhouette. No pixel-art construction scaffolding.\nGeometry is critical: the bough's complete visible width is roughly 8.5 times its maximum visible depth. It will be displayed around 150 pixels wide and 18 pixels deep, with consistent isotropic scaling. Its walkable top is one precisely straight horizontal continuous edge from the very left endpoint to the very right endpoint; no tips or moss project above this plane. End faces are shaped within that top-to-bottom envelope, with full organically rounded/tapered outer ends below the flat top. Do not draw a curved or tilted top, isolated twigs, leaves, roots hanging below, saw-cut log rings, nails, planks, legs, or additional objects.\nModular design: the leftmost and rightmost sixths are complete distinctive end caps. The middle two thirds is continuous horizontal bark with consistent top and underside height and restrained grain, explicitly designed as a repeatable centre. It must be possible to extract those designed caps and centre without cutting a defining end. No vertical panels, separators, lines, labels, guides or gaps. This is ONE coherent substantial woody branch, not disconnected pieces.\nComposition: landscape canvas, the complete bough large and centred with transparent margin on all sides. No cast shadow outside the branch, no background paint, no checkerboard, no text, no watermark. Preserve light golden top details as opaque paint. The PNG must actually contain alpha transparency.",
+    "transparent_background": true
+  },
+  "inputImages": [],
+  "provider": "not exposed by tool schema",
+  "model": "not exposed by tool schema",
+  "status": "dispatch pending"
+}

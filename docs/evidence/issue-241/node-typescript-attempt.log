@@ -1,0 +1,19 @@
+node:internal/util:226
+    throw new ERR_NO_TYPESCRIPT();
+          ^
+
+Error [ERR_NO_TYPESCRIPT]: Node.js is not compiled with TypeScript support
+    at assertTypeScript (node:internal/util:226:11)
+    at node:internal/modules/typescript:41:3
+    at node:internal/util:785:15
+    at parseTypeScript (node:internal/modules/typescript:53:17)
+    at processTypeScriptCode (node:internal/modules/typescript:133:42)
+    at stripTypeScriptModuleTypes (node:internal/modules/typescript:163:10)
+    at ModuleLoader.<anonymous> (node:internal/modules/esm/translators:605:16)
+    at #translate (node:internal/modules/esm/loader:546:20)
+    at afterLoad (node:internal/modules/esm/loader:596:29)
+    at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:601:12) {
+  code: 'ERR_NO_TYPESCRIPT'
+}
+
+Node.js v22.22.1

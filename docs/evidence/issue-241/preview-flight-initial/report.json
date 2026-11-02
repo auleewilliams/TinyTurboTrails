@@ -1,0 +1,101 @@
+{
+  "sourceRevision": null,
+  "method": "Existing DOM keyboard pilot, unmodified player/camera. Frame observer freezes only the pilot clock at the capture point.",
+  "browser": "156.0.8078.4",
+  "files": {
+    "src/world/renderer.ts": "02747ab2af5c61d8b4c15c8bb45290cd2797c1b15caf6dd80fcdef323bb122b2",
+    "src/world/timbers-terrain.ts": "e1ab2df216cadcef38803eceb923232e97aafd6d590db5370b269ff537f49f78",
+    "src/world/treetop-timbers.ts": "cb5b2a9c34641292c35347df69354b4eb3d474113f1f48505ae4b77eb2b2cbba",
+    "dist/index.html": "dfa66d57cb1173d07ed3d40405e11e1a78da22a40737aec07848b14f30c010a3"
+  },
+  "cases": [
+    {
+      "width": 426,
+      "errors": [],
+      "routes": [
+        {
+          "name": "ground-right",
+          "result": {
+            "active": false,
+            "paused": false,
+            "frozen": false,
+            "pauseAt": -1,
+            "stage": 1,
+            "frames": 0,
+            "stable": 0,
+            "previousY": null,
+            "startY": null,
+            "phase": 0,
+            "error": "",
+            "done": true,
+            "seenPlaying": true,
+            "advanceMs": 0,
+            "stages": [
+              {
+                "kind": "walk",
+                "x": 780
+              }
+            ],
+            "history": [
+              {
+                "stage": 0,
+                "status": "Adventure preview · Playing · Letter bag: 1/4 · X 781 Y 1046 V 15 F 1 · Escape to pause · M to mute"
+              }
+            ],
+            "recoveries": [],
+            "observedX": 781,
+            "observedY": 1046
+          }
+        },
+        {
+          "name": "ground-left",
+          "result": {
+            "active": false,
+            "paused": false,
+            "frozen": false,
+            "pauseAt": -1,
+            "stage": 0,
+            "frames": 201,
+            "stable": 0,
+            "previousY": null,
+            "startY": null,
+            "phase": 0,
+            "error": "walk 0 stalled Adventure preview · Playing · Letter bag: 1/4 · X 73 Y 1046 V -200 F -1 · Escape to pause · M to mute",
+            "done": false,
+            "seenPlaying": true,
+            "advanceMs": 0,
+            "stages": [
+              {
+                "kind": "walk",
+                "x": 60
+              }
+            ],
+            "history": [],
+            "recoveries": [],
+            "observedX": 73,
+            "observedY": 1046
+          }
+        }
+      ],
+      "captures": [
+        {
+          "name": "ground-right",
+          "status": "Adventure preview · Playing · Letter bag: 1/4 · X 781 Y 1046 V 0 F 1 · Escape to pause · M to mute",
+          "native": [
+            426,
+            240
+          ],
+          "css": {
+            "width": 426,
+            "height": 240
+          },
+          "nativePath": "426-ground-right-native.png",
+          "cssPath": "426-ground-right-css.png",
+          "nativeSha256": "95dbb09161f551d27ef61e563673668b65947c90d583dcd841e266adddce364b",
+          "cssSha256": "7156d38f411f3d5a8e9a4881be10d601d88e615e4923631a42e9999d9ec5d5c3"
+        }
+      ]
+    }
+  ],
+  "failure": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ 'walk 0 stalled Adventure preview · Playing · Letter bag: 1/4 · X 73 Y 1046 V -200 F -1 · Escape to pause · M to mute'\n- ''\n\n    at route (file:///home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/capture-preview-flight.mjs:44:14)\n    at async file:///home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/capture-preview-flight.mjs:64:5"
+}

@@ -1,0 +1,35 @@
+
+> tiny-turbo-trails@0.1.0 test
+> vitest run
+
+
+ RUN  v5.0.5 /home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132
+
+ ❯ tests/finish-layout.test.ts (15 tests | 1 failed) 28582ms
+   ❯ finish screen composition (15)
+     × keeps Henry and the stars clear of the text with 0 gems 8387ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/finish-layout.test.ts > finish screen composition > keeps Henry and the stars clear of the text with 0 gems
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ tests/finish-layout.test.ts:40:30
+     38|   });
+     39|
+     40|   it.each([0, 1, 7, 42, 999])('keeps Henry and the stars clear of the …
+       |                              ^
+     41|     const text = [
+     42|       textRect('TRAIL COMPLETE!', title.baseline, title.size),
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 98 passed (99)
+      Tests  1 failed | 1951 passed (1952)
+   Start at  22:22:46
+   Duration  66.88s (tests 94%, import 4%, transform 1%, worker 1%)
+
+    Isolate  99 workers spawned · ~458ms startup each (spawn + environment, per file)
+             at least ~6.02s faster with isolate: false — reuses workers across files instead of one per file
+

@@ -1,0 +1,626 @@
+
+> tiny-turbo-trails@0.1.0 test:ci
+> node --test scripts/*.test.mjs
+
+TAP version 13
+# Subtest: enumerates nested per-engine cases with identity, outcome and timing
+ok 1 - enumerates nested per-engine cases with identity, outcome and timing
+  ---
+  duration_ms: 9.362166
+  type: 'test'
+  ...
+# Subtest: keeps failed attempts and named skips beside durations
+ok 2 - keeps failed attempts and named skips beside durations
+  ---
+  duration_ms: 1.916338
+  type: 'test'
+  ...
+# Subtest: rejects missing, duplicated or substituted configured identities
+ok 3 - rejects missing, duplicated or substituted configured identities
+  ---
+  duration_ms: 3.267483
+  type: 'test'
+  ...
+# Subtest: rejects mismatched aggregate totals, invalid outcomes and absent attempts
+ok 4 - rejects mismatched aggregate totals, invalid outcomes and absent attempts
+  ---
+  duration_ms: 1.585023
+  type: 'test'
+  ...
+# Subtest: CLI writes a reconciled summary and fails closed on unreadable input
+ok 5 - CLI writes a reconciled summary and fails closed on unreadable input
+  ---
+  duration_ms: 2558.334227
+  type: 'test'
+  ...
+# Subtest: opt-in API checks artifact-relative files and counts inline fixture attachments
+ok 6 - opt-in API checks artifact-relative files and counts inline fixture attachments
+  ---
+  duration_ms: 11.557215
+  type: 'test'
+  ...
+# Subtest: opt-in API reports missing fixture paths with case, project and attempt context
+ok 7 - opt-in API reports missing fixture paths with case, project and attempt context
+  ---
+  duration_ms: 6.375274
+  type: 'test'
+  ...
+# Subtest: CLI opt-in writes verified fixture summaries and fails without writing on missing files
+ok 8 - CLI opt-in writes verified fixture summaries and fails without writing on missing files
+  ---
+  duration_ms: 2489.171102
+  type: 'test'
+  ...
+# Subtest: relocates exact test-results suffixes and normalizes fixture path separators
+ok 9 - relocates exact test-results suffixes and normalizes fixture path separators
+  ---
+  duration_ms: 19.165299
+  type: 'test'
+  ...
+# Subtest: rejects lexical escapes, unrecognized absolute paths and ambiguous CI roots
+ok 10 - rejects lexical escapes, unrecognized absolute paths and ambiguous CI roots
+  ---
+  duration_ms: 7.17991
+  type: 'test'
+  ...
+# Subtest: contains real fixture symlinks, including directory and dangling escapes
+ok 11 - contains real fixture symlinks, including directory and dangling escapes
+  ---
+  duration_ms: 17.921414
+  type: 'test'
+  ...
+# Subtest: rejects indirect parent traversal through an outside fixture symlink (existing)
+ok 12 - rejects indirect parent traversal through an outside fixture symlink (existing)
+  ---
+  duration_ms: 7.497598
+  type: 'test'
+  ...
+# Subtest: rejects indirect parent traversal through an outside fixture symlink (dangling-file)
+ok 13 - rejects indirect parent traversal through an outside fixture symlink (dangling-file)
+  ---
+  duration_ms: 9.872099
+  type: 'test'
+  ...
+# Subtest: rejects indirect parent traversal through an outside fixture symlink (dangling-directory)
+ok 14 - rejects indirect parent traversal through an outside fixture symlink (dangling-directory)
+  ---
+  duration_ms: 6.10636
+  type: 'test'
+  ...
+# Subtest: follows internal sibling fixture symlinks before parent traversal (dangling=false)
+ok 15 - follows internal sibling fixture symlinks before parent traversal (dangling=false)
+  ---
+  duration_ms: 6.541332
+  type: 'test'
+  ...
+# Subtest: follows internal sibling fixture symlinks before parent traversal (dangling=true)
+ok 16 - follows internal sibling fixture symlinks before parent traversal (dangling=true)
+  ---
+  duration_ms: 6.533448
+  type: 'test'
+  ...
+# Subtest: rejects parent traversal through a regular fixture file
+ok 17 - rejects parent traversal through a regular fixture file
+  ---
+  duration_ms: 5.717599
+  type: 'test'
+  ...
+# Subtest: checks every nested fixture project and failed/retry attempt while preserving native outcomes
+ok 18 - checks every nested fixture project and failed/retry attempt while preserving native outcomes
+  ---
+  duration_ms: 7.072152
+  type: 'test'
+  ...
+# Subtest: rejects malformed fixture attachment entries and paths instead of counting them as inline
+ok 19 - rejects malformed fixture attachment entries and paths instead of counting them as inline
+  ---
+  duration_ms: 6.931857
+  type: 'test'
+  ...
+# Subtest: rejects malformed fixture containers clearly at every traversal level
+ok 20 - rejects malformed fixture containers clearly at every traversal level
+  ---
+  duration_ms: 13.582148
+  type: 'test'
+  ...
+# Subtest: rejects unreadable fixture files and symlinks to a sibling sharing the root prefix
+ok 21 - rejects unreadable fixture files and symlinks to a sibling sharing the root prefix
+  ---
+  duration_ms: 4.422226
+  type: 'test'
+  ...
+# Subtest: exact HUD changes reverse before unchanged historical guards; unrelated mutations reject
+ok 22 - exact HUD changes reverse before unchanged historical guards; unrelated mutations reject
+  ---
+  duration_ms: 66.900334
+  type: 'test'
+  ...
+# Subtest: real regenerated PNG accepts a different valid compression stream with identical exact pixels
+ok 23 - real regenerated PNG accepts a different valid compression stream with identical exact pixels
+  ---
+  duration_ms: 669.5166
+  type: 'test'
+  ...
+# Subtest: rejects one RGB byte, alpha only, wrong dimensions/IHDR and wrong immutable pixel hash
+ok 24 - rejects one RGB byte, alpha only, wrong dimensions/IHDR and wrong immutable pixel hash
+  ---
+  duration_ms: 975.426167
+  type: 'test'
+  ...
+# Subtest: rejects malformed/truncated PNG, bad CRC even when pixels decode, and corrupt or mis-sized scanlines
+ok 25 - rejects malformed/truncated PNG, bad CRC even when pixels decode, and corrupt or mis-sized scanlines
+  ---
+  duration_ms: 1196.300167
+  type: 'test'
+  ...
+# Subtest: cleans only the two measured endpoints; preserves all opaque pixels and every cap
+ok 26 - cleans only the two measured endpoints; preserves all opaque pixels and every cap
+  ---
+  duration_ms: 5087.345904
+  type: 'test'
+  ...
+# Subtest: rejects damaged tops, internal holes and cap violations without changing the real asset
+ok 27 - rejects damaged tops, internal holes and cap violations without changing the real asset
+  ---
+  duration_ms: 1500.186686
+  type: 'test'
+  ...
+# Subtest: ships exact reproducible bay1 pixels and immutable committed PNG copies, preserving the original oracle through exact deltas
+ok 28 - ships exact reproducible bay1 pixels and immutable committed PNG copies, preserving the original oracle through exact deltas
+  ---
+  duration_ms: 1339.228907
+  type: 'test'
+  ...
+# Subtest: actual CI40959778644 alternate encoding passes the same bay1 family comparison
+ok 29 - actual CI40959778644 alternate encoding passes the same bay1 family comparison
+  ---
+  duration_ms: 31.037391
+  type: 'test'
+  ...
+# Subtest: bay1 family rejects pixel/alpha/dimension/PNG corruption and changed committed encodings
+ok 30 - bay1 family rejects pixel/alpha/dimension/PNG corruption and changed committed encodings
+  ---
+  duration_ms: 19.492888
+  type: 'test'
+  ...
+# Subtest: wholeapprovedsource is uniform8/7 with zeroopaqueedge/bodyloss and noRGBpainting
+ok 31 - wholeapprovedsource is uniform8/7 with zeroopaqueedge/bodyloss and noRGBpainting
+  ---
+  duration_ms: 204.130577
+  type: 'test'
+  ...
+# Subtest: rejects top/body/outlineRGB/dimension/source/CRC corruption without masking or fillers
+ok 32 - rejects top/body/outlineRGB/dimension/source/CRC corruption without masking or fillers
+  ---
+  duration_ms: 55.552833
+  type: 'test'
+  ...
+# Subtest: exactsource and completelevel normalizers permit ONLY wholeassetlinkage and ONE bonusgem
+ok 33 - exactsource and completelevel normalizers permit ONLY wholeassetlinkage and ONE bonusgem
+  ---
+  duration_ms: 138.526695
+  type: 'test'
+  ...
+# Subtest: whole natural bay3 retains all paint and ONLY three authorized endpoint repairs
+ok 34 - whole natural bay3 retains all paint and ONLY three authorized endpoint repairs
+  ---
+  duration_ms: 4110.413283
+  type: 'test'
+  ...
+# Subtest: exact bay3 projection/record pins reject unrelated width/source/ID edits
+ok 35 - exact bay3 projection/record pins reject unrelated width/source/ID edits
+  ---
+  duration_ms: 38.611318
+  type: 'test'
+  ...
+# Subtest: measured source has seven native roles at one exact isotropic 16:1 scale, never fit whole centre objects
+ok 36 - measured source has seven native roles at one exact isotropic 16:1 scale, never fit whole centre objects
+  ---
+  duration_ms: 2964.684716
+  type: 'test'
+  ...
+# Subtest: real source RGBA preparation reproduces exact shipped pixels, retains cream and eliminates key/fringes
+ok 37 - real source RGBA preparation reproduces exact shipped pixels, retains cream and eliminates key/fringes
+  ---
+  duration_ms: 2653.159634
+  type: 'test'
+  ...
+# Subtest: every native RGB value is independently derived from its actual source window; feathering changes alpha only
+ok 38 - every native RGB value is independently derived from its actual source window; feathering changes alpha only
+  ---
+  duration_ms: 1112.266347
+  type: 'test'
+  ...
+# Subtest: full strips preserve native caps, world-X mirrored repeats and partial remainder pixels on all five spans
+ok 39 - full strips preserve native caps, world-X mirrored repeats and partial remainder pixels on all five spans
+  ---
+  duration_ms: 43.012766
+  type: 'test'
+  ...
+# Subtest: generation record preserves requested versus returned size and literal prompt
+ok 40 - generation record preserves requested versus returned size and literal prompt
+  ---
+  duration_ms: 0.908892
+  type: 'test'
+  ...
+# Subtest: current feature record pins exact presentation deltas and every unrelated1687 source/art byte
+ok 41 - current feature record pins exact presentation deltas and every unrelated1687 source/art byte
+  ---
+  duration_ms: 488.531611
+  type: 'test'
+  ...
+# Subtest: whole natural pool1 uniform scale trims ONLY a transparent last row with NO repairs
+ok 42 - whole natural pool1 uniform scale trims ONLY a transparent last row with NO repairs
+  ---
+  duration_ms: 4231.264437
+  type: 'test'
+  ...
+# Subtest: exact source projection rejects unrelated width/ID/source and retains actual quality/request pins
+ok 43 - exact source projection rejects unrelated width/ID/source and retains actual quality/request pins
+  ---
+  duration_ms: 46.238158
+  type: 'test'
+  ...
+# Subtest: pool1 provenance truthfully identifies its current role and actual native dimensions
+ok 44 - pool1 provenance truthfully identifies its current role and actual native dimensions
+  ---
+  duration_ms: 1380.814259
+  type: 'test'
+  ...
+# Subtest: whole natural pool2 uniform scale trims ONLY a transparent last row with NO repairs
+ok 45 - whole natural pool2 uniform scale trims ONLY a transparent last row with NO repairs
+  ---
+  duration_ms: 4861.257992
+  type: 'test'
+  ...
+# Subtest: exact source projection rejects unrelated width/ID/source and preserves immutable prepared records
+ok 46 - exact source projection rejects unrelated width/ID/source and preserves immutable prepared records
+  ---
+  duration_ms: 30.547278
+  type: 'test'
+  ...
+# Subtest: two actual artifacts preserve whole uniform pool3 and EXACT hollow alpha
+ok 47 - two actual artifacts preserve whole uniform pool3 and EXACT hollow alpha
+  ---
+  duration_ms: 393.256761
+  type: 'test'
+  ...
+# Subtest: exact current projection rejects unrelated source/ID/geometry changes
+ok 48 - exact current projection rejects unrelated source/ID/geometry changes
+  ---
+  duration_ms: 18.539117
+  type: 'test'
+  ...
+# Subtest: all modules of each material use one exact isotropic source/native scale
+ok 49 - all modules of each material use one exact isotropic source/native scale
+  ---
+  duration_ms: 5.066227
+  type: 'test'
+  ...
+# Subtest: actual generated Cove sources reproduce the complete RGBA atlas without losing cream
+ok 50 - actual generated Cove sources reproduce the complete RGBA atlas without losing cream
+  ---
+  duration_ms: 6508.169974
+  type: 'test'
+  ...
+# Subtest: generation metadata retains actual prompts and all requested/reported discrepancies
+ok 51 - generation metadata retains actual prompts and all requested/reported discrepancies
+  ---
+  duration_ms: 4.81154
+  type: 'test'
+  ...
+# Subtest: real prepared stone pixels cover every support top and respect native depth, repeats and hollow taper
+ok 52 - real prepared stone pixels cover every support top and respect native depth, repeats and hollow taper
+  ---
+  duration_ms: 102.169776
+  type: 'test'
+  ...
+# Subtest: all approved existing images/provenance and gameplay declarations remain byte-for-byte pinned
+ok 53 - all approved existing images/provenance and gameplay declarations remain byte-for-byte pinned
+  ---
+  duration_ms: 334.037904
+  type: 'test'
+  ...
+# Subtest: preservation guard rejects unrelated source bytes and unauthorized decoration literals
+ok 54 - preservation guard rejects unrelated source bytes and unauthorized decoration literals
+  ---
+  duration_ms: 17.696132
+  type: 'test'
+  ...
+# Subtest: preservation guard rejects gameplay edits and unauthorized decoration position identity asset layer or count
+ok 55 - preservation guard rejects gameplay edits and unauthorized decoration position identity asset layer or count
+  ---
+  duration_ms: 171.103523
+  type: 'test'
+  ...
+# Subtest: preservation guard rejects unrelated extra manifest metadata and unauthorized anchors
+ok 56 - preservation guard rejects unrelated extra manifest metadata and unauthorized anchors
+  ---
+  duration_ms: 11.573474
+  type: 'test'
+  ...
+# Subtest: all 13 slope starts and ends bake in-range junction columns and exact adjacent source pixels
+ok 57 - all 13 slope starts and ends bake in-range junction columns and exact adjacent source pixels
+  ---
+  duration_ms: 2555.963661
+  type: 'test'
+  ...
+# Subtest: whole three use exact full approved sources, correct identity profile, no masks/body crop or new repairs
+ok 58 - whole three use exact full approved sources, correct identity profile, no masks/body crop or new repairs
+  ---
+  duration_ms: 412.219424
+  type: 'test'
+  ...
+# Subtest: exact3path source projection rejects any additional source/palette/ID/height edits
+ok 59 - exact3path source projection rejects any additional source/palette/ID/height edits
+  ---
+  duration_ms: 31.394089
+  type: 'test'
+  ...
+# Subtest: immutable current role/native records and direct source contracts remain factual
+ok 60 - immutable current role/native records and direct source contracts remain factual
+  ---
+  duration_ms: 1.492743
+  type: 'test'
+  ...
+# Subtest: mode downsampling keeps each block's majority colour and never invents a blend
+ok 61 - mode downsampling keeps each block's majority colour and never invents a blend
+  ---
+  duration_ms: 7.36986
+  type: 'test'
+  ...
+# Subtest: rejects a kit source with no visible artwork after keying
+ok 62 - rejects a kit source with no visible artwork after keying
+  ---
+  duration_ms: 1.625718
+  type: 'test'
+  ...
+# Subtest: kit record lists four generated pieces with distinct sources, honest metadata and nine-slice insets
+ok 63 - kit record lists four generated pieces with distinct sources, honest metadata and nine-slice insets
+  ---
+  duration_ms: 0.756551
+  type: 'test'
+  ...
+# Subtest: panel is reproduced from its generated source as true RGBA nine-slice art
+ok 64 - panel is reproduced from its generated source as true RGBA nine-slice art
+  ---
+  duration_ms: 944.741777
+  type: 'test'
+  ...
+# Subtest: button is reproduced from its generated source as true RGBA nine-slice art
+ok 65 - button is reproduced from its generated source as true RGBA nine-slice art
+  ---
+  duration_ms: 726.457028
+  type: 'test'
+  ...
+# Subtest: button-selected is reproduced from its generated source as true RGBA nine-slice art
+ok 66 - button-selected is reproduced from its generated source as true RGBA nine-slice art
+  ---
+  duration_ms: 1621.940566
+  type: 'test'
+  ...
+# Subtest: plaque is reproduced from its generated source as true RGBA nine-slice art
+ok 67 - plaque is reproduced from its generated source as true RGBA nine-slice art
+  ---
+  duration_ms: 1032.806518
+  type: 'test'
+  ...
+# Subtest: text interiors stay quiet: centre tiles have low contrast against their mean
+ok 68 - text interiors stay quiet: centre tiles have low contrast against their mean
+  ---
+  duration_ms: 23.54987
+  type: 'test'
+  ...
+# Subtest: normal and selected buttons share one silhouette and differ in face colour
+ok 69 - normal and selected buttons share one silhouette and differ in face colour
+  ---
+  duration_ms: 3.789017
+  type: 'test'
+  ...
+# Subtest: plaque text slice frames only face pixels, with rim pixels immediately outside it
+ok 70 - plaque text slice frames only face pixels, with rim pixels immediately outside it
+  ---
+  duration_ms: 11.257888
+  type: 'test'
+  ...
+# Subtest: decodes RGB and RGBA PNG rows through every filter and re-encodes RGBA losslessly
+ok 71 - decodes RGB and RGBA PNG rows through every filter and re-encodes RGBA losslessly
+  ---
+  duration_ms: 13.406899
+  type: 'test'
+  ...
+# Subtest: keys out only edge-connected chroma background and its blended fringe
+ok 72 - keys out only edge-connected chroma background and its blended fringe
+  ---
+  duration_ms: 1.207
+  type: 'test'
+  ...
+# Subtest: rejects a source with no visible sticker after keying
+ok 73 - rejects a source with no visible sticker after keying
+  ---
+  duration_ms: 1.424329
+  type: 'test'
+  ...
+# Subtest: fits and centers content exactly like the reviewed Sunset preparation
+ok 74 - fits and centers content exactly like the reviewed Sunset preparation
+  ---
+  duration_ms: 0.8471
+  type: 'test'
+  ...
+# Subtest: six trail stickers are recorded with distinct source, prepared and runtime files
+ok 75 - six trail stickers are recorded with distinct source, prepared and runtime files
+  ---
+  duration_ms: 1.991712
+  type: 'test'
+  ...
+# Subtest: plains sticker is reproduced from its generated source as clean RGBA
+ok 76 - plains sticker is reproduced from its generated source as clean RGBA
+  ---
+  duration_ms: 877.43806
+  type: 'test'
+  ...
+# Subtest: quarry sticker is reproduced from its generated source as clean RGBA
+ok 77 - quarry sticker is reproduced from its generated source as clean RGBA
+  ---
+  duration_ms: 1422.541948
+  type: 'test'
+  ...
+# Subtest: timbers sticker is reproduced from its generated source as clean RGBA
+ok 78 - timbers sticker is reproduced from its generated source as clean RGBA
+  ---
+  duration_ms: 1134.079581
+  type: 'test'
+  ...
+# Subtest: frost sticker is reproduced from its generated source as clean RGBA
+ok 79 - frost sticker is reproduced from its generated source as clean RGBA
+  ---
+  duration_ms: 1069.177737
+  type: 'test'
+  ...
+# Subtest: cove sticker is reproduced from its generated source as clean RGBA
+ok 80 - cove sticker is reproduced from its generated source as clean RGBA
+  ---
+  duration_ms: 917.550404
+  type: 'test'
+  ...
+# Subtest: plains runtime sticker has true alpha, clear padding and a legible centered silhouette
+ok 81 - plains runtime sticker has true alpha, clear padding and a legible centered silhouette
+  ---
+  duration_ms: 6.923282
+  type: 'test'
+  ...
+# Subtest: quarry runtime sticker has true alpha, clear padding and a legible centered silhouette
+ok 82 - quarry runtime sticker has true alpha, clear padding and a legible centered silhouette
+  ---
+  duration_ms: 4.395444
+  type: 'test'
+  ...
+# Subtest: timbers runtime sticker has true alpha, clear padding and a legible centered silhouette
+ok 83 - timbers runtime sticker has true alpha, clear padding and a legible centered silhouette
+  ---
+  duration_ms: 11.129411
+  type: 'test'
+  ...
+# Subtest: sunset runtime sticker has true alpha, clear padding and a legible centered silhouette
+ok 84 - sunset runtime sticker has true alpha, clear padding and a legible centered silhouette
+  ---
+  duration_ms: 7.332312
+  type: 'test'
+  ...
+# Subtest: frost runtime sticker has true alpha, clear padding and a legible centered silhouette
+ok 85 - frost runtime sticker has true alpha, clear padding and a legible centered silhouette
+  ---
+  duration_ms: 10.483236
+  type: 'test'
+  ...
+# Subtest: cove runtime sticker has true alpha, clear padding and a legible centered silhouette
+ok 86 - cove runtime sticker has true alpha, clear padding and a legible centered silhouette
+  ---
+  duration_ms: 6.676913
+  type: 'test'
+  ...
+# Subtest: trail silhouettes remain distinct at the ~31 px collection scale
+ok 87 - trail silhouettes remain distinct at the ~31 px collection scale
+  ---
+  duration_ms: 20.171934
+  type: 'test'
+  ...
+# Subtest: six sticker images differ and Frost snow survives background removal
+ok 88 - six sticker images differ and Frost snow survives background removal
+  ---
+  duration_ms: 17.064695
+  type: 'test'
+  ...
+# Subtest: Timbers prepared images reproduce exact complete RGBA, PNG structure and source bindings
+ok 89 - Timbers prepared images reproduce exact complete RGBA, PNG structure and source bindings
+  ---
+  duration_ms: 3121.107447
+  type: 'test'
+  ...
+# Subtest: Timbers whole end caps and centre provenance hold for every assembled pixel, without alpha thresholding
+ok 90 - Timbers whole end caps and centre provenance hold for every assembled pixel, without alpha thresholding
+  ---
+  duration_ms: 438.755734
+  type: 'test'
+  ...
+# Subtest: Timbers preservation allows only exact declared deltas and rejects unrelated edits in shared files
+ok 91 - Timbers preservation allows only exact declared deltas and rejects unrelated edits in shared files
+  ---
+  duration_ms: 22.122227
+  type: 'test'
+  ...
+# Subtest: whole-tree uniform preparation reproduces exact PNG/RGBA and keeps all prior terrain files unchanged
+ok 92 - whole-tree uniform preparation reproduces exact PNG/RGBA and keeps all prior terrain files unchanged
+  ---
+  duration_ms: 3058.854025
+  type: 'test'
+  ...
+# Subtest: the tree has six separate outer limbs and a contiguous broad foot, without editing alpha
+ok 93 - the tree has six separate outer limbs and a contiguous broad foot, without editing alpha
+  ---
+  duration_ms: 288.37429
+  type: 'test'
+  ...
+# Subtest: tree preservation reverses only pinned changes and rejects unrelated shared edits
+ok 94 - tree preservation reverses only pinned changes and rejects unrelated shared edits
+  ---
+  duration_ms: 36.61725
+  type: 'test'
+  ...
+# Subtest: overlapping successful runs complete a then b: latest never rolls back
+ok 95 - overlapping successful runs complete a then b: latest never rolls back
+  ---
+  duration_ms: 18.050326
+  type: 'test'
+  ...
+# Subtest: overlapping successful runs complete b then a: latest never rolls back
+ok 96 - overlapping successful runs complete b then a: latest never rolls back
+  ---
+  duration_ms: 0.540469
+  type: 'test'
+  ...
+# Subtest: main advances during the build: old run preserves previous latest even if new checks fail
+ok 97 - main advances during the build: old run preserves previous latest even if new checks fail
+  ---
+  duration_ms: 0.619489
+  type: 'test'
+  ...
+# Subtest: main advances after freshness read: shared lock prevents a newer publisher being overtaken
+ok 98 - main advances after freshness read: shared lock prevents a newer publisher being overtaken
+  ---
+  duration_ms: 0.888329
+  type: 'test'
+  ...
+# Subtest: freshness API errors and malformed identities fail without writing
+ok 99 - freshness API errors and malformed identities fail without writing
+  ---
+  duration_ms: 5.01122
+  type: 'test'
+  ...
+# Subtest: rerun reuses existing SHA digest, preserving immutable rollback image
+ok 100 - rerun reuses existing SHA digest, preserving immutable rollback image
+  ---
+  duration_ms: 248.798987
+  type: 'test'
+  ...
+# Subtest: only an explicit missing manifest permits a new SHA build
+ok 101 - only an explicit missing manifest permits a new SHA build
+  ---
+  duration_ms: 2.133825
+  type: 'test'
+  ...
+# Subtest: registry denial, outages, ambiguous 404s, and invalid digest fail closed
+ok 102 - registry denial, outages, ambiguous 404s, and invalid digest fail closed
+  ---
+  duration_ms: 13.154523
+  type: 'test'
+  ...
+1..102
+# tests 102
+# suites 0
+# pass 102
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 15023.230937

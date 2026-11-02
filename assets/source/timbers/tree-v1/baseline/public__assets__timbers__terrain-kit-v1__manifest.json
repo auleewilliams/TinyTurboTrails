@@ -1,0 +1,72 @@
+{
+  "version": 1,
+  "ground": {
+    "image": "ground.png",
+    "x": 40,
+    "y": 1080,
+    "width": 780,
+    "height": 100
+  },
+  "platforms": {
+    "timber-middle": {
+      "image": "branch-580.png",
+      "width": 580,
+      "height": 17
+    },
+    "timber-spring": {
+      "image": "branch-150.png",
+      "width": 150,
+      "height": 17
+    },
+    "timber-spring-reward": {
+      "image": "branch-160.png",
+      "width": 160,
+      "height": 17
+    },
+    "timber-spring-catch": {
+      "image": "branch-150.png",
+      "width": 150,
+      "height": 17
+    },
+    "timber-approach-1": {
+      "image": "branch-220.png",
+      "width": 220,
+      "height": 17
+    },
+    "timber-approach-2": {
+      "image": "branch-240.png",
+      "width": 240,
+      "height": 17
+    },
+    "timber-shared": {
+      "image": "branch-180.png",
+      "width": 180,
+      "height": 17
+    },
+    "timber-return-600": {
+      "image": "branch-160.png",
+      "width": 160,
+      "height": 17
+    },
+    "timber-return-720": {
+      "image": "branch-160.png",
+      "width": 160,
+      "height": 17
+    },
+    "timber-return-780": {
+      "image": "branch-140.png",
+      "width": 140,
+      "height": 17
+    },
+    "timber-outer-catch-660": {
+      "image": "branch-120.png",
+      "width": 120,
+      "height": 17
+    },
+    "timber-outer-catch-780": {
+      "image": "branch-120.png",
+      "width": 120,
+      "height": 17
+    }
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "source": {
+    "image": "t-02-original.png",
+    "sha256": "1e850540e5291c7aaf4fca57dc846cc304d4736a4f650f2155b9cb61c06086f6",
+    "width": 971,
+    "height": 1620
+  },
+  "uniformScale": [
+    960,
+    1620
+  ],
+  "method": "Whole-image integer-weight premultiplied box filtering on both axes. Ceil padding only; no crop, alpha key/threshold, tint, repair, mask, or axis-only scale.",
+  "native": {
+    "image": "tree.png",
+    "width": 576,
+    "height": 960,
+    "pngSha256": "f7467d476a57ff770c80e5b23293875f98f80a4444e48be3881ffa247ce27be9",
+    "pixelSha256": "37ddcb233e4dcf0ed3c44cdd6209c07c0fab5bce7ae5f39d86a31ceff29fc7d8",
+    "alphaBounds": {
+      "x": 16,
+      "y": 23,
+      "width": 559,
+      "height": 920
+    }
+  },
+  "grounding": {
+    "alphaAtLeast": 128,
+    "baseRow": 939,
+    "baseLeft": 277,
+    "baseRight": 487,
+    "contiguousPixels": 210,
+    "worldPlane": 1080,
+    "note": "Align the entire 210px substantial base to the real ground. The faint native fringe beneath it remains in the bitmap and is occluded by the existing foreground ground layer."
+  },
+  "preservedTerrainFiles": {
+    "public/assets/timbers/terrain-kit-v1/branch-120.png": "d8583cbfdc84db80205fe9778ff3fedab15aa098c8e76b0ef5a9b1d51e74e119",
+    "public/assets/timbers/terrain-kit-v1/branch-140.png": "3c5532e4ae4f19ec64cb703aee60f963186fa9f912875467031ac04a91a1c7bf",
+    "public/assets/timbers/terrain-kit-v1/branch-150.png": "fbe55c85ac678c6c5bdc65deea88a4e7c35da47e7df6e839e90e457c0b5ad57c",
+    "public/assets/timbers/terrain-kit-v1/branch-160.png": "d3b6a43d86bc2a1e0f523e21299f76c095178a9aabf5faa54154433f1f58c192",
+    "public/assets/timbers/terrain-kit-v1/branch-180.png": "a6f415d25d5dd013fb7892605cc79141d9644ec54b5c087c91c4804ada69e3f6",
+    "public/assets/timbers/terrain-kit-v1/branch-220.png": "58338a862139c4b41d8ceaf2501a8a03e41238c65ead2abdd8260b1492968dc3",
+    "public/assets/timbers/terrain-kit-v1/branch-240.png": "bf64b596735e6048270ade5bb453a77c3394167f889a62011a387afe59220da9",
+    "public/assets/timbers/terrain-kit-v1/branch-580.png": "606d5bd06001584b715882901ef94c81c9dae812f754e0974bbbfbede4874050",
+    "public/assets/timbers/terrain-kit-v1/branch-master.png": "5cd5716a63ae9e920818773870a99679172e2ea21e36cc7a21ad205bbd89c3d4",
+    "public/assets/timbers/terrain-kit-v1/ground-master.png": "1de8160e1232af0c964c6a6ed15a9ff593c1d64c35be7e41ccaa357685eb086f",
+    "public/assets/timbers/terrain-kit-v1/ground.png": "d60f58bf39fc70e8321aa52e8c96b27672d6b69bef8ec2336b1c944ad061ad1a",
+    "public/assets/timbers/terrain-kit-v1/manifest.json": "d70b521f85c80e0d3533d8480c8e3ade0df34da4bba419f624cbc265d9158bec",
+    "public/assets/timbers/terrain-kit-v1/preparation.json": "35b8d9b613029ede31ca10392c6d9134a974146cd184a8a6ea851e4492f623a9"
+  }
+}

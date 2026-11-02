@@ -1,0 +1,560 @@
+{
+  "verifiedAt": "2026-11-01T21:51:14.123819+00:00",
+  "candidateBoundFilesUnchanged": 211,
+  "journeys": 6,
+  "pngs": 120,
+  "cases": [
+    {
+      "browser": "chromium",
+      "version": "156.0.8078.4",
+      "width": 426,
+      "routes": 10,
+      "standingGapNativePixels": 3,
+      "successfulResponseBodies": 11,
+      "cached304BodiesUnavailable": 9,
+      "images": [
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/middle-native.png",
+          "sha256": "831074ea6a2f52e38eac90f2a46e160e57e5009e2789942e8cad1df73c613719"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/middle-css.png",
+          "sha256": "c884ede493482f0ae7d1cd713934a42d6e65f343636fdd87a99637d6b4c23cca"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/return-middle-edge-native.png",
+          "sha256": "3a23be5e15a3f672dd4ace3da287f608100d4177ae41fea6fde315c4b8d1e66a"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/return-middle-edge-css.png",
+          "sha256": "43a62ff1260d2fc34b0b52a2bc5ec22895c6ef838d9d65076dd573058f5fe2bf"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/return720-native.png",
+          "sha256": "40692c435617997da38e40694ee7f87b7d7ccb9b679183a3301f69e6367a8feb"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/return720-css.png",
+          "sha256": "db7110412f8f03f8e45be50b72646f78ac1b65b01174c7fdb387aab66a93f8c5"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/return780-native.png",
+          "sha256": "0786ab447d01dfd71a4f94c49a4c47f0e24d70db78b9e8ba46b2c30e07fddd89"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/return780-css.png",
+          "sha256": "028b6ccbc3777152a6a3c39af22339a005a39a8e7316a25f0602e5332c6757cd"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/returned-roots-native.png",
+          "sha256": "c04e2c15bc98952ef4505ba99712f05affc89bf084e818c29db6639eaf0ffc2f"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/returned-roots-css.png",
+          "sha256": "9db2e4104a07e348f7afc8fc1faefd85f6d2e1ec63009d23f54432dcab5a8690"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/roots-native.png",
+          "sha256": "814a66bd4ee0d646f98856e6cab0658c2ba4d110ef9411bba91b5621811804c8"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/roots-css.png",
+          "sha256": "d1ee2b11479d29763cd09ea1fee7f0b2df3cd51d2088905bdad3aa1270ef4dad"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/spring-catch-native.png",
+          "sha256": "ecdfaff8997e93a82d36d21be21e23d80bd8c94d1443c1da6b487fe77d3bd5e2"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/spring-catch-css.png",
+          "sha256": "7e4df7a48824c81ba9ecc624488e9c7c4d2726ea191ced0859b80b68c94dd956"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/spring-repeat-native.png",
+          "sha256": "675bed4fb548c87ebbecd4105ff525af3e0d89bce7f8dbaa7dab4d3d9a269275"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/spring-repeat-css.png",
+          "sha256": "039d00ad28ef95bf26c2fbaaa04003666c873cbb39deab17d2a713db5c7b9cfe"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/spring-reward-native.png",
+          "sha256": "0cd4d739523a0ae9ed13c5ad3143680e372362e8cee9b7c7ac3552d4d1e6d240"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/spring-reward-css.png",
+          "sha256": "ce7ed3a603dd7d1747cb9cb3cbbc708b80b740a7645d4fdbe186630019932eb1"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/under-spring-native.png",
+          "sha256": "c5fde0b6067818f268fc910a595deb34cfcbbb5d48f3894afb6b93a72496a877"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/under-spring-css.png",
+          "sha256": "6d8a02d23f29e787ad50d16708e1fa4200593dd7d42299184b406bef383cd972"
+        }
+      ],
+      "sourceRevision": null
+    },
+    {
+      "browser": "firefox",
+      "version": "157.0",
+      "width": 426,
+      "routes": 10,
+      "standingGapNativePixels": 3,
+      "successfulResponseBodies": 10,
+      "cached304BodiesUnavailable": 10,
+      "images": [
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox/middle-native.png",
+          "sha256": "d8565c197a1a0b90ed7f14eb2f6a933b0194841b06ca2313e5fe6e9a965e2aec"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox/middle-css.png",
+          "sha256": "3a4b528b00cada01abd3f18b62c3fbe7fd1a011b97dc8a403211a651cda99217"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox/return-middle-edge-native.png",
+          "sha256": "98ed7a48ed61c4af42e10233a61665514b93fb812b5254f1e25d2baf3027aaad"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox/return-middle-edge-css.png",
+          "sha256": "67e294ea478eab6f20cae9b17292d2c0bd1b325802cbff59135c34fb43cdd5f0"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox/return720-native.png",
+          "sha256": "812ac95b4a575be1ed36ab8a1b683a874ed1848ff664b4a747e8276b82ecd30d"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox/return720-css.png",
+          "sha256": "365ebd757c2c4063a10b483d8d6b06f8312d21ee5cbe6e5dbbdc31e1c03cf093"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox/return780-native.png",
+          "sha256": "1572fdf75c09bc222ae7ff124b4ac2e441bf4b3e20ec438c35519f6f978abd5c"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox/return780-css.png",
+          "sha256": "5ef5e9b10f06a692c07ef63d43d70118467d128ecd0ec96845b95095066dcd89"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox/returned-roots-native.png",
+          "sha256": "f946a5d242f42c2ea602138174fcef2e0997d98a576f515bfc505f480d32dd7f"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox/returned-roots-css.png",
+          "sha256": "76271d40efb54a89e7e096aaebbba34416ad6afba6c26bf2febea73937d31592"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox/roots-native.png",
+          "sha256": "1d1bbbc2ea88d099f05f8bc8fda824977e3fac60b767e741f9c4c2aeecdd558b"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox/roots-css.png",
+          "sha256": "be906aac0c457a3260fa179d8695b3e050c7991f37c18580575b0ee58628500f"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox/spring-catch-native.png",
+          "sha256": "2f1f5293aa4c545f20752a43208ac198686060203c21e1e5eb5216732ab57e43"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox/spring-catch-css.png",
+          "sha256": "2ef8ea4a3dcb5310f8c5de3798361ba54772b3401a35af6343a079dc24c937ce"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox/spring-repeat-native.png",
+          "sha256": "d6dc0e4192968c9b13238735309e7051f7c8985ac5c7bdf59d2a8bf70200dfc2"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox/spring-repeat-css.png",
+          "sha256": "dafae3532972f72d8d575a877c01a585aadbc79ed852ea2c587a166d4d43cb17"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox/spring-reward-native.png",
+          "sha256": "d1325e61d7a47fc2b53dbe9e96c636431ae66669dbcabdb5ecf8e49daad2de47"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox/spring-reward-css.png",
+          "sha256": "9bf1d2e985faab43204487c4a544c9ea724d569ca23acdcbe68a81ea1cd10c8a"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox/under-spring-native.png",
+          "sha256": "e9595fa860ec3291551ac54ab40e91420fd3f4938bbf2e3306e15bbc1e3cbe5a"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-firefox/under-spring-css.png",
+          "sha256": "b8cc51b0a1b8abc2cd1c4cb27172320ff0ec3bef896cba6924dfd5ca99e0202d"
+        }
+      ],
+      "sourceRevision": null
+    },
+    {
+      "browser": "webkit",
+      "version": "27.2",
+      "width": 426,
+      "routes": 10,
+      "standingGapNativePixels": 3,
+      "successfulResponseBodies": 11,
+      "cached304BodiesUnavailable": 9,
+      "images": [
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit/middle-native.png",
+          "sha256": "7ccff7667975ba6f01794b1e0bb415e21f7cbb105bf2d7d9b44abce67e0f4812"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit/middle-css.png",
+          "sha256": "7ccff7667975ba6f01794b1e0bb415e21f7cbb105bf2d7d9b44abce67e0f4812"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit/return-middle-edge-native.png",
+          "sha256": "44d039216b77cc572ebe6ae909a8ff9b7c0806b5b5bc76c9ef632832c4ec4a16"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit/return-middle-edge-css.png",
+          "sha256": "44d039216b77cc572ebe6ae909a8ff9b7c0806b5b5bc76c9ef632832c4ec4a16"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit/return720-native.png",
+          "sha256": "147a58f1f368119252210fdac08ee22465ba3b22dfc05f9cd7831486c91e6871"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit/return720-css.png",
+          "sha256": "147a58f1f368119252210fdac08ee22465ba3b22dfc05f9cd7831486c91e6871"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit/return780-native.png",
+          "sha256": "45d18e7e4cb3c176408f710e2ef2362054b696c8cf85ff3dfc45b849d38f2d75"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit/return780-css.png",
+          "sha256": "45d18e7e4cb3c176408f710e2ef2362054b696c8cf85ff3dfc45b849d38f2d75"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit/returned-roots-native.png",
+          "sha256": "164e8dcdebd464c410a187a2c15cd828adf1cae02f766481bdafcf7064bd584f"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit/returned-roots-css.png",
+          "sha256": "164e8dcdebd464c410a187a2c15cd828adf1cae02f766481bdafcf7064bd584f"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit/roots-native.png",
+          "sha256": "9762eb93bc23d0a7c13358d9e9be5e7e064a82988c7f38db2191610f2c8dc553"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit/roots-css.png",
+          "sha256": "9762eb93bc23d0a7c13358d9e9be5e7e064a82988c7f38db2191610f2c8dc553"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit/spring-catch-native.png",
+          "sha256": "7310ca6775a56e2d1ab707283a22219eb744eea81ab2c33fbd147660abace3c2"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit/spring-catch-css.png",
+          "sha256": "7310ca6775a56e2d1ab707283a22219eb744eea81ab2c33fbd147660abace3c2"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit/spring-repeat-native.png",
+          "sha256": "3e5cf00ef6ceb4256ea2f2a0f74bb59e8b372c0fc733c6a2dbeef2c6eda4ab91"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit/spring-repeat-css.png",
+          "sha256": "3e5cf00ef6ceb4256ea2f2a0f74bb59e8b372c0fc733c6a2dbeef2c6eda4ab91"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit/spring-reward-native.png",
+          "sha256": "29f6f2986350d5f01b5a3c7b4d03dc0eafb7f3decd442258dc3ca9812970c7d1"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit/spring-reward-css.png",
+          "sha256": "29f6f2986350d5f01b5a3c7b4d03dc0eafb7f3decd442258dc3ca9812970c7d1"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit/under-spring-native.png",
+          "sha256": "3db9027e9438db81cf22a103f297393e380ccb5c758e04dae891f609f3c7d628"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-webkit/under-spring-css.png",
+          "sha256": "3db9027e9438db81cf22a103f297393e380ccb5c758e04dae891f609f3c7d628"
+        }
+      ],
+      "sourceRevision": null
+    },
+    {
+      "browser": "chromium",
+      "version": "156.0.8078.4",
+      "width": 320,
+      "routes": 10,
+      "standingGapNativePixels": 3,
+      "successfulResponseBodies": 11,
+      "cached304BodiesUnavailable": 9,
+      "images": [
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/middle-native.png",
+          "sha256": "831074ea6a2f52e38eac90f2a46e160e57e5009e2789942e8cad1df73c613719"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/middle-css.png",
+          "sha256": "f6f3d9b06d544a4a5effe4db43a51b0a7eef638cb6dd3c31f52a3837d43943c1"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/return-middle-edge-native.png",
+          "sha256": "13e6b9218ca95f7cbeb0fc4d53864633e69240142785ed5c17fcdbab3f8aa05f"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/return-middle-edge-css.png",
+          "sha256": "ec43d0830faa98c17c40308988cfd6b69eb9515c8e7377f24749fad70541b831"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/return720-native.png",
+          "sha256": "b0f787e283bd86a37f3cb2ebf1574d859e4506239a7ec505ce8129e6969c5165"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/return720-css.png",
+          "sha256": "5601ab0ad7dcece287b39c3c1d56f00b15192445481a62fb82ff74cda2796010"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/return780-native.png",
+          "sha256": "a09aab1de821b69cabed73494535141f492973378e808d34dd5bd356d13234c7"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/return780-css.png",
+          "sha256": "0bc073cdf1cf9fe97a9a611b25af8e02bbaccf43981477df2b1143d5209fd391"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/returned-roots-native.png",
+          "sha256": "e18c905be5a831924c6fc1b0635bc45db3c328d686c95417c97198991ec05079"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/returned-roots-css.png",
+          "sha256": "9c2823fe28369576ec4affd39e0e833f32c82714aec251a738d329ec5ffc8565"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/roots-native.png",
+          "sha256": "814a66bd4ee0d646f98856e6cab0658c2ba4d110ef9411bba91b5621811804c8"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/roots-css.png",
+          "sha256": "9861aaedcb51eaa70b17b125a2ce61ccc845cb78446e0b2a5b4e6f0c86b8e984"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/spring-catch-native.png",
+          "sha256": "dea98edaaf2b299e28daa5b1a255f3409645b3dea49c45cf575a3283b28d4604"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/spring-catch-css.png",
+          "sha256": "6a776b8db2fcef885fc70cd09cb321b838cd4218aced0218d985f2736326e343"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/spring-repeat-native.png",
+          "sha256": "6640d66d025998309ee72fbc36f8fd702637486628e68e2055da384270139aa1"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/spring-repeat-css.png",
+          "sha256": "725a0b161976af946fa08770f59955e3e75685d39da2e263e54ceb1d2bc90bb8"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/spring-reward-native.png",
+          "sha256": "0061da1d388b19dfd7170cab4475403dcd625384c3bd96b468fa7a0e6e18847c"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/spring-reward-css.png",
+          "sha256": "3be008e19abb7272bc97594a61e3fe801a376a4a9285e545e84372f65c0cfbfb"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/under-spring-native.png",
+          "sha256": "1506d1ce911648a2d99b1cb43468bdbdc51c31c863dbfe2df998bad27135a3f8"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/under-spring-css.png",
+          "sha256": "618424daf842f9ccb80690ba80ebb9febfe013fdac6d680076f120bb91b6dedf"
+        }
+      ],
+      "sourceRevision": null
+    },
+    {
+      "browser": "firefox",
+      "version": "157.0",
+      "width": 320,
+      "routes": 10,
+      "standingGapNativePixels": 3,
+      "successfulResponseBodies": 10,
+      "cached304BodiesUnavailable": 10,
+      "images": [
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox/middle-native.png",
+          "sha256": "3e04b279a6c8007810ab83ef69329790e53d13892d76102678b341275a15c8e7"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox/middle-css.png",
+          "sha256": "5ded760ad6fcf10b6682dea1b372ef8e60077fcd73867565aa6b84873a05551a"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox/return-middle-edge-native.png",
+          "sha256": "e20d94d3f0c35c616e4bb253f5e3d9464662db161ddaa3cfb63db540d818e8ef"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox/return-middle-edge-css.png",
+          "sha256": "116134e04e733d47442921e504ce4c05cf6c8374812ba9b5ae6058d347758d10"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox/return720-native.png",
+          "sha256": "d927bb36cc4e4284e6befa15490e36601da8da0ca3a458a639a5495ef01a9c9c"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox/return720-css.png",
+          "sha256": "82b5113b025ad597638f0f85f8355323f468f5420697991d95a28b25c10f3c64"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox/return780-native.png",
+          "sha256": "2659ac76b2d43a9edf0caa1c7dad2886749a33de634c597b1c08abd033b67109"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox/return780-css.png",
+          "sha256": "a02a8fe7fa6dbf3ce476fb56cfe0e419b18e4f1f7f55105287bfba9988754e95"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox/returned-roots-native.png",
+          "sha256": "09d26524682c75b3022de4df969ec687d91951cd4742e0fd132a69f7fa5c726a"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox/returned-roots-css.png",
+          "sha256": "0bb187bd5d75f7399137612b76bd39c99638743ca494aab971ff1089ee1fc40c"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox/roots-native.png",
+          "sha256": "02d836028c264061194dc3ee12fbc72923cf297c3886a9bffa6373daf6afe02e"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox/roots-css.png",
+          "sha256": "447fbc1eac4611c83aac9b0fd1ad8a9ae20dc5378f745730f44a723d90c87c66"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox/spring-catch-native.png",
+          "sha256": "427eb6be2e0ff3b7f76a8b78ba2d808214d4e42e41282b9cf710face5641d073"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox/spring-catch-css.png",
+          "sha256": "c04a8b68a85cfb7320f6b2b672bb6b3028d24eccc273cfb1cb472e19dc233394"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox/spring-repeat-native.png",
+          "sha256": "157eef026dc66cbdf1c07df355e7e2b5a3c30a8537a4f564d346565af3d3fc15"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox/spring-repeat-css.png",
+          "sha256": "272962d204018778a72cfa1a0d106b7505ec70921be03a8e16a8269e1b7f8fff"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox/spring-reward-native.png",
+          "sha256": "804c687c05ac33124ea09e9716c0667b46d0723b6804ec902c7cf722de21d191"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox/spring-reward-css.png",
+          "sha256": "66582fc819698ea8e3cd084b6b7ca117db3877682e47abac365156120d7d2c81"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox/under-spring-native.png",
+          "sha256": "899e1b695d7ecad2225170446cc184791fa4dd11e04e023cd9ee69cae8f5df7d"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-firefox/under-spring-css.png",
+          "sha256": "eda4fedfde5147175db674d33777099dac4088d9e144c661280af4508691eb85"
+        }
+      ],
+      "sourceRevision": null
+    },
+    {
+      "browser": "webkit",
+      "version": "27.2",
+      "width": 320,
+      "routes": 10,
+      "standingGapNativePixels": 3,
+      "successfulResponseBodies": 11,
+      "cached304BodiesUnavailable": 9,
+      "images": [
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit/middle-native.png",
+          "sha256": "073afea930bcf7f3deb17fbf528c3c6ea4981fd118187c4b75f148faa9b8abca"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit/middle-css.png",
+          "sha256": "c07a1155c0e2955fce2bc937f81c6435e659e3239763a98ec9f0fcddf9c81ac6"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit/return-middle-edge-native.png",
+          "sha256": "8bdd1fcd4324ce0c7879465c91e148ebec27d7054b4f0f4347674e248e530d79"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit/return-middle-edge-css.png",
+          "sha256": "7f01721ba4b36c6dd571e3100000546fedb584baf839551055659b3ec681dd74"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit/return720-native.png",
+          "sha256": "8abeb1a3fdf5e8d4d840a13da46102c3cab53ffffccf3bee49c0405e003ab961"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit/return720-css.png",
+          "sha256": "0a8a9458521a1f852f63f9102801adf98f46bf85d43af32659b3fc2048033a58"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit/return780-native.png",
+          "sha256": "b31d25759a25f92dfb4038d7cee1a0b6111095cd156e8de43fa8fc36a1f0a18e"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit/return780-css.png",
+          "sha256": "85dd22916af3a2688f4ab316a02c49fcd0bfb60c6982aa6c178b5ba82aa9f3a2"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit/returned-roots-native.png",
+          "sha256": "5b492939b3b3684475c0b4379a4b631fd88b94c57d2591e217e36d2bea9ad227"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit/returned-roots-css.png",
+          "sha256": "0f4ae24df5c928e8b548e5e2ac84588db67c7478890c3a61adea58841ab44883"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit/roots-native.png",
+          "sha256": "fb66b92f265b8c64bccfb55b5273b3ae79297213e85202c19f45d1d550502a8f"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit/roots-css.png",
+          "sha256": "8fde4f7384d926c486edd12aecd8c38bfd2b68ba2115a8f7d2a2322bf888c5f6"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit/spring-catch-native.png",
+          "sha256": "8af90af1a74a756eb6d67daaafd2699cf45b35c1f37a82839606772f392bb175"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit/spring-catch-css.png",
+          "sha256": "ac8273477b0543daf309efbd4d0f31eb2ae553af7108b401203f49b87f41bd31"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit/spring-repeat-native.png",
+          "sha256": "ae52ab38a1fc7b0437ef18192649841c262eadeee41adde283b33e2b3d4f05ba"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit/spring-repeat-css.png",
+          "sha256": "f2382856b45168a0f90abab9b7ca0bb2240b2db0a83e7438cef8dce2bd2a888a"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit/spring-reward-native.png",
+          "sha256": "bbbb1757faa3864368251319b05d74db0879968c92d16c1298f513017db25778"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit/spring-reward-css.png",
+          "sha256": "b65d9a43543caf430c71a0f7a6f689c2a8ff874646cc6f70462a86f4032a060a"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit/under-spring-native.png",
+          "sha256": "207c47456399ff5f0d4db50e2cc12d4bde6102053b9b968de1add59522ec5f6b"
+        },
+        {
+          "path": "full-browser/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-webkit/under-spring-css.png",
+          "sha256": "0059989f4c028a65b4bba15b4ad485a55ce0428091b6a2f5e777b44900088627"
+        }
+      ],
+      "sourceRevision": null
+    }
+  ]
+}

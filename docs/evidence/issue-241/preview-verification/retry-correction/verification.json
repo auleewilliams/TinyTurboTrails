@@ -1,0 +1,387 @@
+{
+  "stats": {
+    "startTime": "2026-11-01T21:46:34.328Z",
+    "duration": 22471.721,
+    "expected": 9,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "configuredCaseIdentityMatch": true,
+  "retryCount": 0,
+  "timeoutMs": 30000,
+  "results": [
+    {
+      "id": "72d2548e97958c413fdc-e427bc1ee083f40474f8",
+      "project": "chromium",
+      "title": "Timbers required manifest.json fails visibly and recovers with ordinary Retry",
+      "status": "expected",
+      "timeout": 30000,
+      "results": [
+        {
+          "workerIndex": 0,
+          "parallelIndex": 0,
+          "status": "passed",
+          "duration": 1933,
+          "errors": [],
+          "stdout": [],
+          "stderr": [],
+          "retry": 0,
+          "startTime": "2026-11-01T21:46:38.211Z",
+          "annotations": [],
+          "attachments": [
+            {
+              "name": "required-resource-failed",
+              "contentType": "image/png",
+              "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/preview-verification/retry-correction/artifacts/timbers-art-Timbers-requir-7baa0-ecovers-with-ordinary-Retry-chromium/attachments/required-resource-failed-dc3b2786b123f33921279e4b67bb469cf75fce11.png"
+            },
+            {
+              "name": "required-resource-recovered",
+              "contentType": "image/png",
+              "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/preview-verification/retry-correction/artifacts/timbers-art-Timbers-requir-7baa0-ecovers-with-ordinary-Retry-chromium/attachments/required-resource-recovered-a9821dcf35645938b2299730b455733000dc9017.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "72d2548e97958c413fdc-a40f88a3dd551d87921f",
+      "project": "chromium",
+      "title": "Timbers required ground.png fails visibly and recovers with ordinary Retry",
+      "status": "expected",
+      "timeout": 30000,
+      "results": [
+        {
+          "workerIndex": 1,
+          "parallelIndex": 1,
+          "status": "passed",
+          "duration": 1943,
+          "errors": [],
+          "stdout": [],
+          "stderr": [],
+          "retry": 0,
+          "startTime": "2026-11-01T21:46:38.274Z",
+          "annotations": [],
+          "attachments": [
+            {
+              "name": "required-resource-failed",
+              "contentType": "image/png",
+              "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/preview-verification/retry-correction/artifacts/timbers-art-Timbers-requir-711d4-ecovers-with-ordinary-Retry-chromium/attachments/required-resource-failed-6aad2b2676239066febf3d0b8da00559b173beb2.png"
+            },
+            {
+              "name": "required-resource-recovered",
+              "contentType": "image/png",
+              "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/preview-verification/retry-correction/artifacts/timbers-art-Timbers-requir-711d4-ecovers-with-ordinary-Retry-chromium/attachments/required-resource-recovered-88508e28bb7f226104d794c86a73e19ad0743dd2.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "72d2548e97958c413fdc-e196445d973723a8ceb4",
+      "project": "chromium",
+      "title": "Timbers required branch-580.png fails visibly and recovers with ordinary Retry",
+      "status": "expected",
+      "timeout": 30000,
+      "results": [
+        {
+          "workerIndex": 0,
+          "parallelIndex": 0,
+          "status": "passed",
+          "duration": 1355,
+          "errors": [],
+          "stdout": [],
+          "stderr": [],
+          "retry": 0,
+          "startTime": "2026-11-01T21:46:40.328Z",
+          "annotations": [],
+          "attachments": [
+            {
+              "name": "required-resource-failed",
+              "contentType": "image/png",
+              "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/preview-verification/retry-correction/artifacts/timbers-art-Timbers-requir-e6e94-ecovers-with-ordinary-Retry-chromium/attachments/required-resource-failed-d9f28c393b3fa4926dc740d2d88e388c34b0bef3.png"
+            },
+            {
+              "name": "required-resource-recovered",
+              "contentType": "image/png",
+              "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/preview-verification/retry-correction/artifacts/timbers-art-Timbers-requir-e6e94-ecovers-with-ordinary-Retry-chromium/attachments/required-resource-recovered-c6546e6938940b14905ed3a557dc818d4a779e18.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "72d2548e97958c413fdc-99c5d9f529d24ec204c2",
+      "project": "firefox",
+      "title": "Timbers required manifest.json fails visibly and recovers with ordinary Retry",
+      "status": "expected",
+      "timeout": 30000,
+      "results": [
+        {
+          "workerIndex": 2,
+          "parallelIndex": 1,
+          "status": "passed",
+          "duration": 3742,
+          "errors": [],
+          "stdout": [],
+          "stderr": [],
+          "retry": 0,
+          "startTime": "2026-11-01T21:46:42.034Z",
+          "annotations": [],
+          "attachments": [
+            {
+              "name": "required-resource-failed",
+              "contentType": "image/png",
+              "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/preview-verification/retry-correction/artifacts/timbers-art-Timbers-requir-7baa0-ecovers-with-ordinary-Retry-firefox/attachments/required-resource-failed-b1d90368f31d21019399f55b83fbe5725cd70c13.png"
+            },
+            {
+              "name": "required-resource-recovered",
+              "contentType": "image/png",
+              "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/preview-verification/retry-correction/artifacts/timbers-art-Timbers-requir-7baa0-ecovers-with-ordinary-Retry-firefox/attachments/required-resource-recovered-7786a72cb127920c6315081fd4ba09044c4dc38e.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "72d2548e97958c413fdc-f3b01f5640c99d533108",
+      "project": "firefox",
+      "title": "Timbers required ground.png fails visibly and recovers with ordinary Retry",
+      "status": "expected",
+      "timeout": 30000,
+      "results": [
+        {
+          "workerIndex": 3,
+          "parallelIndex": 0,
+          "status": "passed",
+          "duration": 3895,
+          "errors": [],
+          "stdout": [],
+          "stderr": [],
+          "retry": 0,
+          "startTime": "2026-11-01T21:46:43.289Z",
+          "annotations": [],
+          "attachments": [
+            {
+              "name": "required-resource-failed",
+              "contentType": "image/png",
+              "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/preview-verification/retry-correction/artifacts/timbers-art-Timbers-requir-711d4-ecovers-with-ordinary-Retry-firefox/attachments/required-resource-failed-d9655e3090be14b6d0dd496eec0f618e35922a5f.png"
+            },
+            {
+              "name": "required-resource-recovered",
+              "contentType": "image/png",
+              "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/preview-verification/retry-correction/artifacts/timbers-art-Timbers-requir-711d4-ecovers-with-ordinary-Retry-firefox/attachments/required-resource-recovered-a47e1128e00ef7f958cbb24a0749c617bc35a796.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "72d2548e97958c413fdc-34ca4ee0f441039d247e",
+      "project": "firefox",
+      "title": "Timbers required branch-580.png fails visibly and recovers with ordinary Retry",
+      "status": "expected",
+      "timeout": 30000,
+      "results": [
+        {
+          "workerIndex": 2,
+          "parallelIndex": 1,
+          "status": "passed",
+          "duration": 2030,
+          "errors": [],
+          "stdout": [],
+          "stderr": [],
+          "retry": 0,
+          "startTime": "2026-11-01T21:46:46.485Z",
+          "annotations": [],
+          "attachments": [
+            {
+              "name": "required-resource-failed",
+              "contentType": "image/png",
+              "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/preview-verification/retry-correction/artifacts/timbers-art-Timbers-requir-e6e94-ecovers-with-ordinary-Retry-firefox/attachments/required-resource-failed-50e2d94b712c4a3e21829ab9b2c05277bdc189b2.png"
+            },
+            {
+              "name": "required-resource-recovered",
+              "contentType": "image/png",
+              "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/preview-verification/retry-correction/artifacts/timbers-art-Timbers-requir-e6e94-ecovers-with-ordinary-Retry-firefox/attachments/required-resource-recovered-3846cdede04f16265f38cabb413fb48d796d65f4.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "72d2548e97958c413fdc-663c86a7a16ec113a262",
+      "project": "webkit",
+      "title": "Timbers required manifest.json fails visibly and recovers with ordinary Retry",
+      "status": "expected",
+      "timeout": 30000,
+      "results": [
+        {
+          "workerIndex": 4,
+          "parallelIndex": 0,
+          "status": "passed",
+          "duration": 3172,
+          "errors": [],
+          "stdout": [],
+          "stderr": [],
+          "retry": 0,
+          "startTime": "2026-11-01T21:46:49.986Z",
+          "annotations": [],
+          "attachments": [
+            {
+              "name": "required-resource-failed",
+              "contentType": "image/png",
+              "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/preview-verification/retry-correction/artifacts/timbers-art-Timbers-requir-7baa0-ecovers-with-ordinary-Retry-webkit/attachments/required-resource-failed-cd167681c8088001254997cfa1e0ac82496b7df5.png"
+            },
+            {
+              "name": "required-resource-recovered",
+              "contentType": "image/png",
+              "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/preview-verification/retry-correction/artifacts/timbers-art-Timbers-requir-7baa0-ecovers-with-ordinary-Retry-webkit/attachments/required-resource-recovered-33874e034bbb976e4c653ea51a2567f777d90ddf.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "72d2548e97958c413fdc-5c409d616540de7a61bc",
+      "project": "webkit",
+      "title": "Timbers required ground.png fails visibly and recovers with ordinary Retry",
+      "status": "expected",
+      "timeout": 30000,
+      "results": [
+        {
+          "workerIndex": 5,
+          "parallelIndex": 1,
+          "status": "passed",
+          "duration": 3260,
+          "errors": [],
+          "stdout": [],
+          "stderr": [],
+          "retry": 0,
+          "startTime": "2026-11-01T21:46:50.573Z",
+          "annotations": [],
+          "attachments": [
+            {
+              "name": "required-resource-failed",
+              "contentType": "image/png",
+              "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/preview-verification/retry-correction/artifacts/timbers-art-Timbers-requir-711d4-ecovers-with-ordinary-Retry-webkit/attachments/required-resource-failed-1039f4dceeb6157650ebe3fe7a77150c4956427b.png"
+            },
+            {
+              "name": "required-resource-recovered",
+              "contentType": "image/png",
+              "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/preview-verification/retry-correction/artifacts/timbers-art-Timbers-requir-711d4-ecovers-with-ordinary-Retry-webkit/attachments/required-resource-recovered-1972b6529f9767c9bfbb011d467a5c80cdae92ae.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "72d2548e97958c413fdc-a991ead1855d6be01b8f",
+      "project": "webkit",
+      "title": "Timbers required branch-580.png fails visibly and recovers with ordinary Retry",
+      "status": "expected",
+      "timeout": 30000,
+      "results": [
+        {
+          "workerIndex": 4,
+          "parallelIndex": 0,
+          "status": "passed",
+          "duration": 3233,
+          "errors": [],
+          "stdout": [],
+          "stderr": [],
+          "retry": 0,
+          "startTime": "2026-11-01T21:46:53.414Z",
+          "annotations": [],
+          "attachments": [
+            {
+              "name": "required-resource-failed",
+              "contentType": "image/png",
+              "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/preview-verification/retry-correction/artifacts/timbers-art-Timbers-requir-e6e94-ecovers-with-ordinary-Retry-webkit/attachments/required-resource-failed-d4842bdbda37898b717b388746055ff35b8a54bf.png"
+            },
+            {
+              "name": "required-resource-recovered",
+              "contentType": "image/png",
+              "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/preview-verification/retry-correction/artifacts/timbers-art-Timbers-requir-e6e94-ecovers-with-ordinary-Retry-webkit/attachments/required-resource-recovered-f0aa32bacd2fb896dbb2d696a87caedca94a4023.png"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "attachments": [
+    {
+      "path": "docs/evidence/issue-241/preview-verification/retry-correction/artifacts/timbers-art-Timbers-requir-7baa0-ecovers-with-ordinary-Retry-chromium/attachments/required-resource-failed-dc3b2786b123f33921279e4b67bb469cf75fce11.png",
+      "sha256": "f659ce37c9da5607d8cc415d90af6d0deee80a07f800c11a057faccf962d90ae"
+    },
+    {
+      "path": "docs/evidence/issue-241/preview-verification/retry-correction/artifacts/timbers-art-Timbers-requir-7baa0-ecovers-with-ordinary-Retry-chromium/attachments/required-resource-recovered-a9821dcf35645938b2299730b455733000dc9017.png",
+      "sha256": "6c68bbd52c44e2ceec9043a2c90cd4865bf306cf77445abac7776966bac4d451"
+    },
+    {
+      "path": "docs/evidence/issue-241/preview-verification/retry-correction/artifacts/timbers-art-Timbers-requir-711d4-ecovers-with-ordinary-Retry-chromium/attachments/required-resource-failed-6aad2b2676239066febf3d0b8da00559b173beb2.png",
+      "sha256": "49b176949fb7a677fcbc3355360983c1968522e56ab41e68294a562c1956a7f3"
+    },
+    {
+      "path": "docs/evidence/issue-241/preview-verification/retry-correction/artifacts/timbers-art-Timbers-requir-711d4-ecovers-with-ordinary-Retry-chromium/attachments/required-resource-recovered-88508e28bb7f226104d794c86a73e19ad0743dd2.png",
+      "sha256": "3aa9cb5e847ac7c26ddeefe5b45ec745501e0807fb65242f00ec30f281dad9fb"
+    },
+    {
+      "path": "docs/evidence/issue-241/preview-verification/retry-correction/artifacts/timbers-art-Timbers-requir-e6e94-ecovers-with-ordinary-Retry-chromium/attachments/required-resource-failed-d9f28c393b3fa4926dc740d2d88e388c34b0bef3.png",
+      "sha256": "70c78f1ee29e432560a3d2eff589175077664078d037e815c376699c04926a60"
+    },
+    {
+      "path": "docs/evidence/issue-241/preview-verification/retry-correction/artifacts/timbers-art-Timbers-requir-e6e94-ecovers-with-ordinary-Retry-chromium/attachments/required-resource-recovered-c6546e6938940b14905ed3a557dc818d4a779e18.png",
+      "sha256": "3c9501a453d10a544a20af754a5db6ed142ac3191d1740ef8a6a53100593c93d"
+    },
+    {
+      "path": "docs/evidence/issue-241/preview-verification/retry-correction/artifacts/timbers-art-Timbers-requir-7baa0-ecovers-with-ordinary-Retry-firefox/attachments/required-resource-failed-b1d90368f31d21019399f55b83fbe5725cd70c13.png",
+      "sha256": "6553513912f211abc95c70224e606ae31c45753f6f43f1ee2382280e33f34ebb"
+    },
+    {
+      "path": "docs/evidence/issue-241/preview-verification/retry-correction/artifacts/timbers-art-Timbers-requir-7baa0-ecovers-with-ordinary-Retry-firefox/attachments/required-resource-recovered-7786a72cb127920c6315081fd4ba09044c4dc38e.png",
+      "sha256": "05f3d0059ece7a4147f8503f83e778e11147f5799e34b3da6cfa542bf2ddb7ee"
+    },
+    {
+      "path": "docs/evidence/issue-241/preview-verification/retry-correction/artifacts/timbers-art-Timbers-requir-711d4-ecovers-with-ordinary-Retry-firefox/attachments/required-resource-failed-d9655e3090be14b6d0dd496eec0f618e35922a5f.png",
+      "sha256": "1d52607e005e0776e7f2d3d9d9007e6b426995c73dc029dcd7bd75f3c672a299"
+    },
+    {
+      "path": "docs/evidence/issue-241/preview-verification/retry-correction/artifacts/timbers-art-Timbers-requir-711d4-ecovers-with-ordinary-Retry-firefox/attachments/required-resource-recovered-a47e1128e00ef7f958cbb24a0749c617bc35a796.png",
+      "sha256": "ec6ff559dee44ba5af42de22ff7c18c3c43068e69dce68ad36b3c151d8ed6e08"
+    },
+    {
+      "path": "docs/evidence/issue-241/preview-verification/retry-correction/artifacts/timbers-art-Timbers-requir-e6e94-ecovers-with-ordinary-Retry-firefox/attachments/required-resource-failed-50e2d94b712c4a3e21829ab9b2c05277bdc189b2.png",
+      "sha256": "79bffe9feb514dcc15141ed8330e404541b720eaa2020b1718f1dcf8585efbcf"
+    },
+    {
+      "path": "docs/evidence/issue-241/preview-verification/retry-correction/artifacts/timbers-art-Timbers-requir-e6e94-ecovers-with-ordinary-Retry-firefox/attachments/required-resource-recovered-3846cdede04f16265f38cabb413fb48d796d65f4.png",
+      "sha256": "05f3d0059ece7a4147f8503f83e778e11147f5799e34b3da6cfa542bf2ddb7ee"
+    },
+    {
+      "path": "docs/evidence/issue-241/preview-verification/retry-correction/artifacts/timbers-art-Timbers-requir-7baa0-ecovers-with-ordinary-Retry-webkit/attachments/required-resource-failed-cd167681c8088001254997cfa1e0ac82496b7df5.png",
+      "sha256": "e025087b1ff7f61e8080314ebfba49f73317fee5d30874efc1668f772de0cd61"
+    },
+    {
+      "path": "docs/evidence/issue-241/preview-verification/retry-correction/artifacts/timbers-art-Timbers-requir-7baa0-ecovers-with-ordinary-Retry-webkit/attachments/required-resource-recovered-33874e034bbb976e4c653ea51a2567f777d90ddf.png",
+      "sha256": "a339570d9f4b773c650dbe6e4ebbe78914f50ba219f4acbdc7b548fd8936956e"
+    },
+    {
+      "path": "docs/evidence/issue-241/preview-verification/retry-correction/artifacts/timbers-art-Timbers-requir-711d4-ecovers-with-ordinary-Retry-webkit/attachments/required-resource-failed-1039f4dceeb6157650ebe3fe7a77150c4956427b.png",
+      "sha256": "ca8759c92fde49b1a475bf501d41354df3350ec9e49adb3706b1d39693084e33"
+    },
+    {
+      "path": "docs/evidence/issue-241/preview-verification/retry-correction/artifacts/timbers-art-Timbers-requir-711d4-ecovers-with-ordinary-Retry-webkit/attachments/required-resource-recovered-1972b6529f9767c9bfbb011d467a5c80cdae92ae.png",
+      "sha256": "9e40eb52ddb9537f446b708fdf19d0257eec341e0c9ea0803505c92d66efb21b"
+    },
+    {
+      "path": "docs/evidence/issue-241/preview-verification/retry-correction/artifacts/timbers-art-Timbers-requir-e6e94-ecovers-with-ordinary-Retry-webkit/attachments/required-resource-failed-d4842bdbda37898b717b388746055ff35b8a54bf.png",
+      "sha256": "2901675bdb65cd7c80a342b3a739f203516932996b1e76e5577a10bf609d9d1e"
+    },
+    {
+      "path": "docs/evidence/issue-241/preview-verification/retry-correction/artifacts/timbers-art-Timbers-requir-e6e94-ecovers-with-ordinary-Retry-webkit/attachments/required-resource-recovered-f0aa32bacd2fb896dbb2d696a87caedca94a4023.png",
+      "sha256": "f61d586796bcb847f779e1b3f871d6244f7fc48facc9182bd300d696403688f9"
+    }
+  ],
+  "reportSha256": "9a16520bacdbfa94b0f103f1f87e0cf66a43a498c9bce553487f9efe09050428"
+}

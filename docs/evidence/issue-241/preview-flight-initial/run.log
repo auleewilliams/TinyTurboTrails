@@ -1,0 +1,22 @@
+426 ground-right Adventure preview · Playing · Letter bag: 1/4 · X 781 Y 1046 V 0 F 1 · Escape to pause · M to mute
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
++ actual - expected
+
++ 'walk 0 stalled Adventure preview · Playing · Letter bag: 1/4 · X 73 Y 1046 V -200 F -1 · Escape to pause · M to mute'
+- ''
+
+    at route (file:///home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/capture-preview-flight.mjs:44:14)
+    at async file:///home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/capture-preview-flight.mjs:64:5 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: 'walk 0 stalled Adventure preview · Playing · Letter bag: 1/4 · X 73 Y 1046 V -200 F -1 · Escape to pause · M to mute',
+  expected: '',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v22.22.1

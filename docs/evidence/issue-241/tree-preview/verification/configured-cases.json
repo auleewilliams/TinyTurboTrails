@@ -1,0 +1,4196 @@
+[
+  {
+    "project": "chromium",
+    "file": "audio.spec.ts",
+    "title": "audio stays locked until interaction and supports all effects, mute, pause and stop",
+    "id": "87be2dcdb54c25970a35-2264ae5f5f817e9aabde"
+  },
+  {
+    "project": "chromium",
+    "file": "audio.spec.ts",
+    "title": "game remains interactive when Web Audio is unavailable",
+    "id": "87be2dcdb54c25970a35-c8ce88dc84bcb3e51e4b"
+  },
+  {
+    "project": "firefox",
+    "file": "audio.spec.ts",
+    "title": "audio stays locked until interaction and supports all effects, mute, pause and stop",
+    "id": "87be2dcdb54c25970a35-a58104302c5d4d963d58"
+  },
+  {
+    "project": "firefox",
+    "file": "audio.spec.ts",
+    "title": "game remains interactive when Web Audio is unavailable",
+    "id": "87be2dcdb54c25970a35-558985ba8ba2470690bf"
+  },
+  {
+    "project": "webkit",
+    "file": "audio.spec.ts",
+    "title": "audio stays locked until interaction and supports all effects, mute, pause and stop",
+    "id": "87be2dcdb54c25970a35-a3406a7b96cecba17bba"
+  },
+  {
+    "project": "webkit",
+    "file": "audio.spec.ts",
+    "title": "game remains interactive when Web Audio is unavailable",
+    "id": "87be2dcdb54c25970a35-797d30c7c20be2e7adbb"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "uniform viewport fit keeps map, gameplay, pause and finish clear after resizing",
+    "id": "fbeac1b2decfba2c3acd-73cc0fa6625ee701dcbc"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "app fullscreen retains feedback controls and native map and pause targets",
+    "id": "fbeac1b2decfba2c3acd-3530e8c58b54331ecc8e"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "ambient weather repeats the same pixels, respects reduced motion and stays behind terrain",
+    "id": "fbeac1b2decfba2c3acd-b34d450fecfe56aaeec0"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "controller damage rumble is independent of audio and stops on pause, focus loss and disconnect",
+    "id": "fbeac1b2decfba2c3acd-bc892f5bbddcc90b13b7"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "rumble setting toggles independently with pointer and keyboard at desktop and small sizes",
+    "id": "fbeac1b2decfba2c3acd-9322a1648487256c63d1"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "movement sounds follow run and landing, and stop on idle, jump, mute, pause and focus loss",
+    "id": "fbeac1b2decfba2c3acd-10ff654ffa1f63d538f8"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "all springs keep their visible bases on terrain at rest, compressed and released",
+    "id": "fbeac1b2decfba2c3acd-2e6c4a707dfe2b29f56d"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "route driver starts avoidance at each slime patrol entry rather than its authored centre",
+    "id": "fbeac1b2decfba2c3acd-3c0d9cf436155310ed54"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "terrain joins stay solid while scrolling in both directions at integer and fractional scales",
+    "id": "fbeac1b2decfba2c3acd-aa66865925859903510b"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "moving platform slabs and their telegraphed paths draw on the real canvas",
+    "id": "fbeac1b2decfba2c3acd-da3c9cca80fd6bd10ac4"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "production canvas loads, scales and recovers from focus loss",
+    "id": "fbeac1b2decfba2c3acd-962dc7d27a98aa618e53"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "art preview loads local assets and reports a missing atlas",
+    "id": "fbeac1b2decfba2c3acd-d3396f4f0e06de7d058e"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "starter atlas contains real transparency and every frame stays within its cell",
+    "id": "fbeac1b2decfba2c3acd-432f61f525cc4b223f32"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "movement preview accepts keyboard movement and jump input",
+    "id": "fbeac1b2decfba2c3acd-edc3f3c2e9d1a5b0701e"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "world preview loads generated Plains assets and level data",
+    "id": "fbeac1b2decfba2c3acd-b148d7866dbe62e229a1"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "gameplay preview collects a gem and reaches a checkpoint",
+    "id": "fbeac1b2decfba2c3acd-557ebc05f2d14c2a13d9"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "adventure flashes the sprite after damage without a rectangular overlay",
+    "id": "fbeac1b2decfba2c3acd-db62956c50bf7ddf4428"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "adventure HUD shows three hearts and empties one after damage",
+    "id": "fbeac1b2decfba2c3acd-ee9a65893422aa5d752c"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "a patrolling slime keeps moving while Henry stands still",
+    "id": "fbeac1b2decfba2c3acd-78ce7fbbd8a308312b5e"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "Henry faces the direction of travel, including after reversing while moving",
+    "id": "fbeac1b2decfba2c3acd-c0f891affd42f5181d51"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "default main menu starts the Plains level with Space",
+    "id": "fbeac1b2decfba2c3acd-334a0a2d4a0e87450c7c"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "/ starts and reloads on the trail map with Plains selected and no picture story",
+    "id": "fbeac1b2decfba2c3acd-0ff42a835af2c5257a5f"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "/?scene=adventure starts and reloads on the trail map with Plains selected and no picture story",
+    "id": "fbeac1b2decfba2c3acd-4f76e4199f1ae78fa40b"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "title picker selects Quarry Run and starts the selected route",
+    "id": "fbeac1b2decfba2c3acd-ca36722cb6a429c9d3ab"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "Quarry absent carriage has a permanent local catch and a return jump",
+    "id": "fbeac1b2decfba2c3acd-d71e6ef0a88616d55a9e"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "title picker renders Treetop Timbers with its own atlas",
+    "id": "fbeac1b2decfba2c3acd-48d2ebf37af30b2ca497"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "title picker consumes each selection and release with delayed animation frames",
+    "id": "fbeac1b2decfba2c3acd-3a95196c100309bcaa06"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "title picker wraps back to Sunset Site and renders its terrain atlas",
+    "id": "fbeac1b2decfba2c3acd-efcad81f60abcbde57a9"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "adventure mute control updates the audio state",
+    "id": "fbeac1b2decfba2c3acd-a15461b09f61d9e26f13"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "adventure remains playable when Web Audio is unavailable",
+    "id": "fbeac1b2decfba2c3acd-ecedef29863582f0cb49"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "adventure keeps its letterbox and pauses on focus loss",
+    "id": "fbeac1b2decfba2c3acd-c6d79c1ec38b76e925b9"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "adventure exposes retry when a required asset fails to load",
+    "id": "fbeac1b2decfba2c3acd-7895501ece8425071cb6"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "adventure clears held controller input after disconnect",
+    "id": "fbeac1b2decfba2c3acd-1e65ab62db71f36371ea"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "adventure can complete the forgiving route and replay directly with a fresh camera",
+    "id": "fbeac1b2decfba2c3acd-f3a2dfbcc6f574446c9a"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "adventure pause freezes progress and reload starts a fresh in-memory run",
+    "id": "fbeac1b2decfba2c3acd-8a2cbb6ea352c76aa2ce"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "paused T shortcut confirms before returning to Trails and resets the run",
+    "id": "fbeac1b2decfba2c3acd-b7a077de052c1c1cdf04"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "pause return works through pointer, Tab, Enter and focused Space, and cancels on focus loss",
+    "id": "fbeac1b2decfba2c3acd-a8cb6fac0c1108ff7b47"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "controller pause return requires confirmation and clears held actions before map and replay",
+    "id": "fbeac1b2decfba2c3acd-a9298a2e39f4e362cf5d"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "default main menu accepts controller primary-button start, Start pause and D-pad movement",
+    "id": "fbeac1b2decfba2c3acd-6d40a2f090619535ae55"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "controller jump works mid-gameplay via any face button, not just at the title screen (#62)",
+    "id": "fbeac1b2decfba2c3acd-87dccea1d27ef2f383a4"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "all checkpoints activate along the ground route and render planted markers",
+    "id": "fbeac1b2decfba2c3acd-6e8e4cf67a413572da70"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "adventure HUD stays left-aligned through keyboard pause and focus loss",
+    "id": "fbeac1b2decfba2c3acd-26056628971d86497c75"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "a collected gem stops being drawn where it stood",
+    "id": "fbeac1b2decfba2c3acd-7354668869e57cd5159c"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "ground scenery and slimes draw their opaque bases at terrain height",
+    "id": "fbeac1b2decfba2c3acd-39dbe656d9589d293e62"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "Plains renders its panorama and transparent scenery, and Quarry keeps its own backdrop",
+    "id": "fbeac1b2decfba2c3acd-44b9a606ef77d83edc00"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "a failed scenery image exposes Retry loading and recovers",
+    "id": "fbeac1b2decfba2c3acd-329077a518246316991b"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "frost trail renders its material, completes and replays",
+    "id": "fbeac1b2decfba2c3acd-3936d658631100e21add"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "frost atlas failure is recoverable through retry",
+    "id": "fbeac1b2decfba2c3acd-7a87a9f7c1c54527fd61"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "cove trail renders its material, completes and replays",
+    "id": "fbeac1b2decfba2c3acd-c53d68501676c2781e89"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "cove atlas failure is recoverable through retry",
+    "id": "fbeac1b2decfba2c3acd-6fa43f68e0a83f648096"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "movement preview shows distinct friction cues and remains controllable",
+    "id": "fbeac1b2decfba2c3acd-1618558d41e4339e38a3"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "native HUD hints follow active input and pause controls fit small windows",
+    "id": "fbeac1b2decfba2c3acd-1b0aa7cbcc1cee371b35"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "all six trail previews show cached gameplay and the map requests no story artwork",
+    "id": "fbeac1b2decfba2c3acd-05452ff6749338c316a8"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "approved title artwork and menu fit 1366x768",
+    "id": "fbeac1b2decfba2c3acd-0c52733520f81e8bae83"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "approved title artwork and menu fit 426x240",
+    "id": "fbeac1b2decfba2c3acd-044c8ba10a2804a1d39b"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "approved title artwork and menu fit 320x240",
+    "id": "fbeac1b2decfba2c3acd-9cd97f0ecf454dd8705e"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "title artwork failure recovers through the existing retry flow",
+    "id": "fbeac1b2decfba2c3acd-915d1595ce2ea2083999"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "adventure never requests Henry reference art while the art preview requires it",
+    "id": "fbeac1b2decfba2c3acd-24860db73f04403b9d28"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "finish artwork pixels meet terrain in all six trails, including the sloped beach exit",
+    "id": "fbeac1b2decfba2c3acd-68514a932f5ff7f10672"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "Timbers roots keep a safe, open first-jump run-up",
+    "id": "fbeac1b2decfba2c3acd-203269ab3670015b47eb"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "milestone PLAINS: pointer selection, full route, return, replay and next",
+    "id": "fbeac1b2decfba2c3acd-4f6cecec4e14ca337f90"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "milestone QUARRY RUN: pointer selection, full route, return, replay and next",
+    "id": "fbeac1b2decfba2c3acd-56187d86a0e290852d14"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "milestone SUNSET SITE: pointer selection, full route, return, replay and next",
+    "id": "fbeac1b2decfba2c3acd-4e16f7740fb79bd629d0"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "milestone FROST RIDGE: pointer selection, full route, return, replay and next",
+    "id": "fbeac1b2decfba2c3acd-b3ba291003739b3960f2"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "milestone SANDY COVE: pointer selection, full route, return, replay and next",
+    "id": "fbeac1b2decfba2c3acd-1568fb51714ea8ac2934"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "overworld input stays usable and missing decorative sheets do not block a full route",
+    "id": "fbeac1b2decfba2c3acd-22019f61b29304867925"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "textured flats and slopes keep authored grip above cosmetic materials",
+    "id": "fbeac1b2decfba2c3acd-5274b58eb320dd6c5f58"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "every destination accepts keyboard and standard-controller selection and start",
+    "id": "fbeac1b2decfba2c3acd-43b9959d56edbfe9a65e"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "signature PLAINS: nine-star route, native/small evidence and fresh navigation",
+    "id": "fbeac1b2decfba2c3acd-133087c857ee0d5a8ccb"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "signature QUARRY RUN: nine-star route, native/small evidence and fresh navigation",
+    "id": "fbeac1b2decfba2c3acd-a4dc9409ee2d0cabbb75"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "sunset panorama appears in the map and pans during keyboard play",
+    "id": "fbeac1b2decfba2c3acd-0f5624cf81b4701a84c8"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "sunset panorama failure recovers through Retry loading",
+    "id": "fbeac1b2decfba2c3acd-44f57fde71c68e9c99d3"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "frost panorama appears in the map and pans during keyboard play",
+    "id": "fbeac1b2decfba2c3acd-d4bb23879313bc8a8023"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "frost panorama failure recovers through Retry loading",
+    "id": "fbeac1b2decfba2c3acd-d77ca9a0b9b5d9afdbd4"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "cove panorama appears in the map and pans during keyboard play",
+    "id": "fbeac1b2decfba2c3acd-d7e9266f6d95f1af45b9"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "cove panorama failure recovers through Retry loading",
+    "id": "fbeac1b2decfba2c3acd-7149e162fe93e92ec32c"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "trail map supports keyboard, pointer and controller without timed screens or repeated starts",
+    "id": "fbeac1b2decfba2c3acd-492a0da7a6979c5e0a96"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "celebration freezes for pause and focus, then accepts finish actions during playback",
+    "id": "fbeac1b2decfba2c3acd-63adc0fdc22a012e018c"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "celebration preview preserves gameplay pixels and final pose under reduced motion",
+    "id": "fbeac1b2decfba2c3acd-992abb641f0c49b315ec"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "plains uses the common slime atlas, patrols and pauses in play",
+    "id": "fbeac1b2decfba2c3acd-98c31ca023e96b7b4e7d"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "slime atlas keeps identical bodies, transparent borders and ground anchors",
+    "id": "fbeac1b2decfba2c3acd-2f087e7f38e53da2738e"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "shared slimes/slimes atlas failure is recoverable through retry",
+    "id": "fbeac1b2decfba2c3acd-b99d57f52c9992fa04af"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "shared gems/gems atlas failure is recoverable through retry",
+    "id": "fbeac1b2decfba2c3acd-d239a57af4d1ec2fa492"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "shared spelling/pouch atlas failure is recoverable through retry",
+    "id": "fbeac1b2decfba2c3acd-2c9853ab5d387c7ae987"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "shared spelling/tile atlas failure is recoverable through retry",
+    "id": "fbeac1b2decfba2c3acd-17962de0a77203c8be13"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "shared spelling/plains-sticker atlas failure is recoverable through retry",
+    "id": "fbeac1b2decfba2c3acd-1507132fd81c33664aac"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "shared spelling/quarry-sticker atlas failure is recoverable through retry",
+    "id": "fbeac1b2decfba2c3acd-2ecdf439ab445cde6f0f"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "shared spelling/timbers-sticker atlas failure is recoverable through retry",
+    "id": "fbeac1b2decfba2c3acd-d29f17cf1a94b838ad81"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "shared spelling/sunset-sticker atlas failure is recoverable through retry",
+    "id": "fbeac1b2decfba2c3acd-7781897f20a95ad100d4"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "shared spelling/frost-sticker atlas failure is recoverable through retry",
+    "id": "fbeac1b2decfba2c3acd-19677509320f51e4026c"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "shared spelling/cove-sticker atlas failure is recoverable through retry",
+    "id": "fbeac1b2decfba2c3acd-b928c952d5f96180ed95"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "shared interface/panel atlas failure is recoverable through retry",
+    "id": "fbeac1b2decfba2c3acd-0aed7bef2e98786c9828"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "shared interface/button atlas failure is recoverable through retry",
+    "id": "fbeac1b2decfba2c3acd-8196642fbd15ed4797de"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "shared interface/button-selected atlas failure is recoverable through retry",
+    "id": "fbeac1b2decfba2c3acd-5d5aea4bc0443369cf8b"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "shared interface/plaque atlas failure is recoverable through retry",
+    "id": "fbeac1b2decfba2c3acd-5f017cbff849fc1aab85"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "spelling tile artwork rejects wrong dimensions and recovers through retry",
+    "id": "fbeac1b2decfba2c3acd-28f80ef78549867cbfab"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "spelling frost-sticker artwork rejects wrong dimensions and recovers through retry",
+    "id": "fbeac1b2decfba2c3acd-e2a128f2c0071fd4a91d"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "kit text clears generated rims for keyboard and controller prompts at native and small sizes",
+    "id": "fbeac1b2decfba2c3acd-2fda6d4fafb209218c26"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "kit text clears generated rims on the real assembly and finish results",
+    "id": "fbeac1b2decfba2c3acd-ffcf3900eadca8d193b5"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "interface panel artwork rejects wrong dimensions and recovers through retry",
+    "id": "fbeac1b2decfba2c3acd-727647577ae60b087e1a"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "illustrated pause panel draws generated art behind live text with aligned targets and kit feedback controls",
+    "id": "fbeac1b2decfba2c3acd-ed36e5d22e0d7d1fc634"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "approved spelling sprites have native sizes, real transparency and clear cell borders",
+    "id": "fbeac1b2decfba2c3acd-94cfc8570a4a2d0e8e6d"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "ordinary gems share visible bounds and silhouette across all six trails",
+    "id": "fbeac1b2decfba2c3acd-a99941547059dc317006"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "diagnostic fullscreen frame geometry across repeated native transitions",
+    "id": "fbeac1b2decfba2c3acd-4f0cd3254d2e5dfa705e"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "educational bag collects independent letters without early assembly or sticker through real trail movement",
+    "id": "fbeac1b2decfba2c3acd-c00dcc0db605bfb8f614"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "educational trail has no removed activity route at the former sign and keeps letter progress",
+    "id": "fbeac1b2decfba2c3acd-0af37ce0a3291fa84763"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "educational sticker collection pointer access is optional and reload clears rewards",
+    "id": "fbeac1b2decfba2c3acd-69d9d7c9b1cc9bbaeea1"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "educational sticker collection keyboard access is optional and reload clears rewards",
+    "id": "fbeac1b2decfba2c3acd-889043f288bf04ec7a63"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "educational sticker collection controller access is optional and reload clears rewards",
+    "id": "fbeac1b2decfba2c3acd-930cf493355993ac6710"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "educational manual assembly pointer Space places actual letters and earns only after TREE",
+    "id": "fbeac1b2decfba2c3acd-eb62f19d1c886b50ff13"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "educational manual assembly keyboard Space places actual letters and earns only after TREE",
+    "id": "fbeac1b2decfba2c3acd-a3720b466e496f7d28f9"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "educational manual assembly keyboard Enter places actual letters and earns only after TREE",
+    "id": "fbeac1b2decfba2c3acd-bfae5fe98536f0f211d8"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "educational manual assembly controller Space places actual letters and earns only after TREE",
+    "id": "fbeac1b2decfba2c3acd-4b5814c3f3369c58b3e8"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "educational missing-letter return preserves partial work and clears held actions and clock debt",
+    "id": "fbeac1b2decfba2c3acd-49801fb9570467af851c"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "leaving PLAINS word building restores native focus to Next trail without held activation",
+    "id": "fbeac1b2decfba2c3acd-07d859e0475856192723"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "leaving SANDY COVE word building restores native focus to Map without held activation",
+    "id": "fbeac1b2decfba2c3acd-0e8b62e404fa4089a138"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "all-trail spelling plains: input-only missing-letter retrace, manual assembly and session sticker",
+    "id": "fbeac1b2decfba2c3acd-6a5f7b878a96ad70b28a"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "all-trail spelling quarry: input-only missing-letter retrace, manual assembly and session sticker",
+    "id": "fbeac1b2decfba2c3acd-609cf41d9f464bbc09c7"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "all-trail spelling sunset: input-only missing-letter retrace, manual assembly and session sticker",
+    "id": "fbeac1b2decfba2c3acd-0efb43869004c3e814fc"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "all-trail spelling frost: input-only missing-letter retrace, manual assembly and session sticker",
+    "id": "fbeac1b2decfba2c3acd-68996f3b6a36aba65188"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "all-trail spelling cove: input-only missing-letter retrace, manual assembly and session sticker",
+    "id": "fbeac1b2decfba2c3acd-406e5ab34d2e6bdb8608"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "builder-kit reduced-motion pickup stays beside its pouch at native and small viewports",
+    "id": "fbeac1b2decfba2c3acd-5dcdb10399e6f5cfc050"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "builder-kit visual fixture renders all six words and generated stickers at native and small sizes",
+    "id": "fbeac1b2decfba2c3acd-9309dbf5b59ea0721eb4"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "compact HUD renderer fixture: plains identity marks and real glyph clearance",
+    "id": "fbeac1b2decfba2c3acd-595b6097189a7a03aa44"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "compact HUD renderer fixture: quarry identity marks and real glyph clearance",
+    "id": "fbeac1b2decfba2c3acd-db43a569e6259817f655"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "compact HUD renderer fixture: timbers identity marks and real glyph clearance",
+    "id": "fbeac1b2decfba2c3acd-2b161adc464ce950c4cf"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "compact HUD renderer fixture: sunset identity marks and real glyph clearance",
+    "id": "fbeac1b2decfba2c3acd-8da851458c05c1948306"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "compact HUD renderer fixture: frost identity marks and real glyph clearance",
+    "id": "fbeac1b2decfba2c3acd-90ffab1deb3a8898f821"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "compact HUD renderer fixture: cove identity marks and real glyph clearance",
+    "id": "fbeac1b2decfba2c3acd-5b3f3e750d44c69bee73"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "compact HUD learned hints stay cleared through real input and pause while the ribbon remains",
+    "id": "fbeac1b2decfba2c3acd-c73ad8ce512cbecb4480"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "landmark labels: real pointer, keyboard and native targets at 426x240",
+    "id": "fbeac1b2decfba2c3acd-e0493d4ced94ae766fea"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "landmark labels: real pointer, keyboard and native targets at 320x240",
+    "id": "fbeac1b2decfba2c3acd-b5c5eccd8f49251882eb"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "landmark labels: real pointer, keyboard and native targets at 1366x768",
+    "id": "fbeac1b2decfba2c3acd-46bb44d4c75ebb851494"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "landmark labels: renderer fixture plains clears real art, paths, frames, badges and Henry in every completion state",
+    "id": "fbeac1b2decfba2c3acd-1515621e962b884c8d9b"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "landmark labels: renderer fixture quarry clears real art, paths, frames, badges and Henry in every completion state",
+    "id": "fbeac1b2decfba2c3acd-2306170efb841a7456c1"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "landmark labels: renderer fixture timbers clears real art, paths, frames, badges and Henry in every completion state",
+    "id": "fbeac1b2decfba2c3acd-8537d9b2a755ed3dca83"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "landmark labels: renderer fixture sunset clears real art, paths, frames, badges and Henry in every completion state",
+    "id": "fbeac1b2decfba2c3acd-5362ebdeb59d97a6d3ce"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "landmark labels: renderer fixture frost clears real art, paths, frames, badges and Henry in every completion state",
+    "id": "fbeac1b2decfba2c3acd-6f1d052388115c174212"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "landmark labels: renderer fixture cove clears real art, paths, frames, badges and Henry in every completion state",
+    "id": "fbeac1b2decfba2c3acd-47b7db55b85c3f9b4674"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "landmark labels: native label hits and controller selection survive resize and browser fullscreen",
+    "id": "fbeac1b2decfba2c3acd-cab009877c9cd0970865"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "visible Pause exposes independent settings with native focus and no held activation leak",
+    "id": "fbeac1b2decfba2c3acd-994df67ed11b3c54015c"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "pause settings controller states survive navigation, disconnect, visibility and word return",
+    "id": "fbeac1b2decfba2c3acd-c92e7ceff3e1f5c06d5a"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "pause characterization: real Tab and held Space enter Pause without activating Resume or settings",
+    "id": "fbeac1b2decfba2c3acd-bf92296582528acc97d9"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "pause characterization: real Tab and held Enter enter Pause without activating Resume or settings",
+    "id": "fbeac1b2decfba2c3acd-df74026d7e124cbd2d8a"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "pause characterization: old held ArrowRight stays released after Escape until a fresh press",
+    "id": "fbeac1b2decfba2c3acd-8c5fe1b3c5c58642f0e8"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "pause characterization: old held ArrowRight stays released after Enter on Resume until a fresh press",
+    "id": "fbeac1b2decfba2c3acd-5baa0a17eda22d2141df"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "trail pilot: sampled neutral rearms fresh controls after native Resume",
+    "id": "fbeac1b2decfba2c3acd-4d2586e568bb9afd3039"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "Plains compact route: all rewards through keyboard input with five-section gameplay captures",
+    "id": "fbeac1b2decfba2c3acd-a26886eda8e9944ab406"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "Quarry vertical journey: native floor finish, actual ROCK return, all side stars and replay",
+    "id": "fbeac1b2decfba2c3acd-35469bdd46e06be1d2ad"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "Quarry three lifts: actual downward boarding and exit at every dock",
+    "id": "fbeac1b2decfba2c3acd-d18da603bd0021610a2e"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "selected Quarry map thumbnail shows its real starting rim support",
+    "id": "fbeac1b2decfba2c3acd-30734c15a9fcb9c97840"
+  },
+  {
+    "project": "chromium",
+    "file": "browser.spec.ts",
+    "title": "Quarry native landing visibility: actual rest and approach frames reveal each next landing before stepping off",
+    "id": "fbeac1b2decfba2c3acd-b25e3bd82eece88b5ba0"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "uniform viewport fit keeps map, gameplay, pause and finish clear after resizing",
+    "id": "fbeac1b2decfba2c3acd-53ec9e71b207c539be87"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "app fullscreen retains feedback controls and native map and pause targets",
+    "id": "fbeac1b2decfba2c3acd-2422ee3ee489766225d8"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "ambient weather repeats the same pixels, respects reduced motion and stays behind terrain",
+    "id": "fbeac1b2decfba2c3acd-b8b5ced8dbf72b8486e5"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "controller damage rumble is independent of audio and stops on pause, focus loss and disconnect",
+    "id": "fbeac1b2decfba2c3acd-a798505f5214f8fef8db"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "rumble setting toggles independently with pointer and keyboard at desktop and small sizes",
+    "id": "fbeac1b2decfba2c3acd-1183af4ce6a9dbaf9d1f"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "movement sounds follow run and landing, and stop on idle, jump, mute, pause and focus loss",
+    "id": "fbeac1b2decfba2c3acd-671e5dd93cd9bf346377"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "all springs keep their visible bases on terrain at rest, compressed and released",
+    "id": "fbeac1b2decfba2c3acd-34076a3eef04abeebbb9"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "route driver starts avoidance at each slime patrol entry rather than its authored centre",
+    "id": "fbeac1b2decfba2c3acd-1e200e925991e2506244"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "terrain joins stay solid while scrolling in both directions at integer and fractional scales",
+    "id": "fbeac1b2decfba2c3acd-17f35d882cd8467fcf32"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "moving platform slabs and their telegraphed paths draw on the real canvas",
+    "id": "fbeac1b2decfba2c3acd-cdacab7d9f1826b96460"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "production canvas loads, scales and recovers from focus loss",
+    "id": "fbeac1b2decfba2c3acd-26f0d8d446a5521fae62"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "art preview loads local assets and reports a missing atlas",
+    "id": "fbeac1b2decfba2c3acd-416e71699928b9c26573"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "starter atlas contains real transparency and every frame stays within its cell",
+    "id": "fbeac1b2decfba2c3acd-8d02224607a0976441eb"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "movement preview accepts keyboard movement and jump input",
+    "id": "fbeac1b2decfba2c3acd-704c2bde25a2211c6b16"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "world preview loads generated Plains assets and level data",
+    "id": "fbeac1b2decfba2c3acd-e4b4f337c89209b71427"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "gameplay preview collects a gem and reaches a checkpoint",
+    "id": "fbeac1b2decfba2c3acd-346f6fbbb47b14943bab"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "adventure flashes the sprite after damage without a rectangular overlay",
+    "id": "fbeac1b2decfba2c3acd-7a5ee2dbc2c2c289a32d"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "adventure HUD shows three hearts and empties one after damage",
+    "id": "fbeac1b2decfba2c3acd-006fb69601fddd58adbe"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "a patrolling slime keeps moving while Henry stands still",
+    "id": "fbeac1b2decfba2c3acd-76fd1d4199b48e489580"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "Henry faces the direction of travel, including after reversing while moving",
+    "id": "fbeac1b2decfba2c3acd-be627ba0e687fd8fa7a1"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "default main menu starts the Plains level with Space",
+    "id": "fbeac1b2decfba2c3acd-6e076678eb3246907ee6"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "/ starts and reloads on the trail map with Plains selected and no picture story",
+    "id": "fbeac1b2decfba2c3acd-425aa8a585f108319f04"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "/?scene=adventure starts and reloads on the trail map with Plains selected and no picture story",
+    "id": "fbeac1b2decfba2c3acd-01bdff8f5f67ea3b7d7a"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "title picker selects Quarry Run and starts the selected route",
+    "id": "fbeac1b2decfba2c3acd-cd21956e1c0d353fd476"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "Quarry absent carriage has a permanent local catch and a return jump",
+    "id": "fbeac1b2decfba2c3acd-af6f12f0cf27c36885ee"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "title picker renders Treetop Timbers with its own atlas",
+    "id": "fbeac1b2decfba2c3acd-e2d33b97b8da22b6e81e"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "title picker consumes each selection and release with delayed animation frames",
+    "id": "fbeac1b2decfba2c3acd-2d2597e63d7637653e5e"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "title picker wraps back to Sunset Site and renders its terrain atlas",
+    "id": "fbeac1b2decfba2c3acd-fb6ff93f0459d7200980"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "adventure mute control updates the audio state",
+    "id": "fbeac1b2decfba2c3acd-03414e03aeaa13bfdfeb"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "adventure remains playable when Web Audio is unavailable",
+    "id": "fbeac1b2decfba2c3acd-767336d81b7d72e867cc"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "adventure keeps its letterbox and pauses on focus loss",
+    "id": "fbeac1b2decfba2c3acd-6282964df8b0289fc4fd"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "adventure exposes retry when a required asset fails to load",
+    "id": "fbeac1b2decfba2c3acd-3ab4c11ac3037f96b202"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "adventure clears held controller input after disconnect",
+    "id": "fbeac1b2decfba2c3acd-d80fbd6084d4e99a95a2"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "adventure can complete the forgiving route and replay directly with a fresh camera",
+    "id": "fbeac1b2decfba2c3acd-f11be9201d32931aa057"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "adventure pause freezes progress and reload starts a fresh in-memory run",
+    "id": "fbeac1b2decfba2c3acd-3298b4b98d39028ff081"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "paused T shortcut confirms before returning to Trails and resets the run",
+    "id": "fbeac1b2decfba2c3acd-ced8b895db6d641a49d2"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "pause return works through pointer, Tab, Enter and focused Space, and cancels on focus loss",
+    "id": "fbeac1b2decfba2c3acd-72731531bb9d5b8b9e94"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "controller pause return requires confirmation and clears held actions before map and replay",
+    "id": "fbeac1b2decfba2c3acd-4d9e138847cff1f0af04"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "default main menu accepts controller primary-button start, Start pause and D-pad movement",
+    "id": "fbeac1b2decfba2c3acd-357d3b297ff4c7b776f1"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "controller jump works mid-gameplay via any face button, not just at the title screen (#62)",
+    "id": "fbeac1b2decfba2c3acd-99c16faa2368e582b45d"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "all checkpoints activate along the ground route and render planted markers",
+    "id": "fbeac1b2decfba2c3acd-90bb226bc35764a242f4"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "adventure HUD stays left-aligned through keyboard pause and focus loss",
+    "id": "fbeac1b2decfba2c3acd-534ff56a0782f2a11c5c"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "a collected gem stops being drawn where it stood",
+    "id": "fbeac1b2decfba2c3acd-2247cbe4c61698250f95"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "ground scenery and slimes draw their opaque bases at terrain height",
+    "id": "fbeac1b2decfba2c3acd-9ba180a87847291f1134"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "Plains renders its panorama and transparent scenery, and Quarry keeps its own backdrop",
+    "id": "fbeac1b2decfba2c3acd-e961403701803aef5128"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "a failed scenery image exposes Retry loading and recovers",
+    "id": "fbeac1b2decfba2c3acd-11c1353577b513ac0511"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "frost trail renders its material, completes and replays",
+    "id": "fbeac1b2decfba2c3acd-bd20a39338bc745a1e4f"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "frost atlas failure is recoverable through retry",
+    "id": "fbeac1b2decfba2c3acd-307a706302df5e67e413"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "cove trail renders its material, completes and replays",
+    "id": "fbeac1b2decfba2c3acd-66dbfb6995869fa01953"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "cove atlas failure is recoverable through retry",
+    "id": "fbeac1b2decfba2c3acd-05085ac51a0a82027d2d"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "movement preview shows distinct friction cues and remains controllable",
+    "id": "fbeac1b2decfba2c3acd-62933555be7e564007de"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "native HUD hints follow active input and pause controls fit small windows",
+    "id": "fbeac1b2decfba2c3acd-7a19082c4425dfa0d26b"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "all six trail previews show cached gameplay and the map requests no story artwork",
+    "id": "fbeac1b2decfba2c3acd-0385918fc16437e0176b"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "approved title artwork and menu fit 1366x768",
+    "id": "fbeac1b2decfba2c3acd-4bbef04a1c795f4c6ce9"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "approved title artwork and menu fit 426x240",
+    "id": "fbeac1b2decfba2c3acd-a793364ba469f41e485d"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "approved title artwork and menu fit 320x240",
+    "id": "fbeac1b2decfba2c3acd-cf239762bc3c00fabeaa"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "title artwork failure recovers through the existing retry flow",
+    "id": "fbeac1b2decfba2c3acd-1c6d2938c18b36dee4be"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "adventure never requests Henry reference art while the art preview requires it",
+    "id": "fbeac1b2decfba2c3acd-331e9c65c14387605c5e"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "finish artwork pixels meet terrain in all six trails, including the sloped beach exit",
+    "id": "fbeac1b2decfba2c3acd-eb1cde40d2e2ae9cc56f"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "Timbers roots keep a safe, open first-jump run-up",
+    "id": "fbeac1b2decfba2c3acd-f2f52aa184d231250b30"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "milestone PLAINS: pointer selection, full route, return, replay and next",
+    "id": "fbeac1b2decfba2c3acd-56f476a2817b98f4f8d4"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "milestone QUARRY RUN: pointer selection, full route, return, replay and next",
+    "id": "fbeac1b2decfba2c3acd-ea4da73df64c41e785f4"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "milestone SUNSET SITE: pointer selection, full route, return, replay and next",
+    "id": "fbeac1b2decfba2c3acd-ccf12eb597a3dadf8522"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "milestone FROST RIDGE: pointer selection, full route, return, replay and next",
+    "id": "fbeac1b2decfba2c3acd-9a16cdae79fa8d346ac3"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "milestone SANDY COVE: pointer selection, full route, return, replay and next",
+    "id": "fbeac1b2decfba2c3acd-e18b71f1bb6a7e05b729"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "overworld input stays usable and missing decorative sheets do not block a full route",
+    "id": "fbeac1b2decfba2c3acd-082e267ff009e3232f53"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "textured flats and slopes keep authored grip above cosmetic materials",
+    "id": "fbeac1b2decfba2c3acd-e417e8490f91cb46c1b0"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "every destination accepts keyboard and standard-controller selection and start",
+    "id": "fbeac1b2decfba2c3acd-eaa88de580c4e2fc4bcf"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "signature PLAINS: nine-star route, native/small evidence and fresh navigation",
+    "id": "fbeac1b2decfba2c3acd-cf7123b280f170d12840"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "signature QUARRY RUN: nine-star route, native/small evidence and fresh navigation",
+    "id": "fbeac1b2decfba2c3acd-c1a0588c9f6821768d08"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "sunset panorama appears in the map and pans during keyboard play",
+    "id": "fbeac1b2decfba2c3acd-62d8d2367a9aef538560"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "sunset panorama failure recovers through Retry loading",
+    "id": "fbeac1b2decfba2c3acd-d33ae33379260cb06ed1"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "frost panorama appears in the map and pans during keyboard play",
+    "id": "fbeac1b2decfba2c3acd-a61b7b7b467840aa3a71"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "frost panorama failure recovers through Retry loading",
+    "id": "fbeac1b2decfba2c3acd-c2099a6308b128711828"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "cove panorama appears in the map and pans during keyboard play",
+    "id": "fbeac1b2decfba2c3acd-92bdb3fa27ddb29da071"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "cove panorama failure recovers through Retry loading",
+    "id": "fbeac1b2decfba2c3acd-db2bbb9ff6460348bb6b"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "trail map supports keyboard, pointer and controller without timed screens or repeated starts",
+    "id": "fbeac1b2decfba2c3acd-282f286a917599b2a7af"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "celebration freezes for pause and focus, then accepts finish actions during playback",
+    "id": "fbeac1b2decfba2c3acd-5ac2c74185a23ea3ea95"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "celebration preview preserves gameplay pixels and final pose under reduced motion",
+    "id": "fbeac1b2decfba2c3acd-155c9a82a26218334eaf"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "plains uses the common slime atlas, patrols and pauses in play",
+    "id": "fbeac1b2decfba2c3acd-c72549295e748ab49616"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "slime atlas keeps identical bodies, transparent borders and ground anchors",
+    "id": "fbeac1b2decfba2c3acd-ced762a636a0013ca30c"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "shared slimes/slimes atlas failure is recoverable through retry",
+    "id": "fbeac1b2decfba2c3acd-edcc6f21a882c8b497de"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "shared gems/gems atlas failure is recoverable through retry",
+    "id": "fbeac1b2decfba2c3acd-f65a46992fc2bde1cbb3"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "shared spelling/pouch atlas failure is recoverable through retry",
+    "id": "fbeac1b2decfba2c3acd-0a6ec2d467171208cd6e"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "shared spelling/tile atlas failure is recoverable through retry",
+    "id": "fbeac1b2decfba2c3acd-64d750a418a4a3fee7cb"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "shared spelling/plains-sticker atlas failure is recoverable through retry",
+    "id": "fbeac1b2decfba2c3acd-e1b6b890028ec520bacd"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "shared spelling/quarry-sticker atlas failure is recoverable through retry",
+    "id": "fbeac1b2decfba2c3acd-b54116115c5259416bae"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "shared spelling/timbers-sticker atlas failure is recoverable through retry",
+    "id": "fbeac1b2decfba2c3acd-4ade3e89ed669f278411"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "shared spelling/sunset-sticker atlas failure is recoverable through retry",
+    "id": "fbeac1b2decfba2c3acd-5232a62574f1b8ab35ad"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "shared spelling/frost-sticker atlas failure is recoverable through retry",
+    "id": "fbeac1b2decfba2c3acd-624829de5178f44089c1"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "shared spelling/cove-sticker atlas failure is recoverable through retry",
+    "id": "fbeac1b2decfba2c3acd-6bbf3f44ae57f71b5558"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "shared interface/panel atlas failure is recoverable through retry",
+    "id": "fbeac1b2decfba2c3acd-4acd6b2b4f145e11e7b2"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "shared interface/button atlas failure is recoverable through retry",
+    "id": "fbeac1b2decfba2c3acd-a9e8330a1e8fe6dd2242"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "shared interface/button-selected atlas failure is recoverable through retry",
+    "id": "fbeac1b2decfba2c3acd-26936345c3cb86896366"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "shared interface/plaque atlas failure is recoverable through retry",
+    "id": "fbeac1b2decfba2c3acd-f4ab05c34ce50e881a95"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "spelling tile artwork rejects wrong dimensions and recovers through retry",
+    "id": "fbeac1b2decfba2c3acd-2e656b87eb7ea93ac26a"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "spelling frost-sticker artwork rejects wrong dimensions and recovers through retry",
+    "id": "fbeac1b2decfba2c3acd-f83f191eb286f0a7be2f"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "kit text clears generated rims for keyboard and controller prompts at native and small sizes",
+    "id": "fbeac1b2decfba2c3acd-b4c5ef4b36cc3fd52438"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "kit text clears generated rims on the real assembly and finish results",
+    "id": "fbeac1b2decfba2c3acd-ea7081a6a64e30213f2a"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "interface panel artwork rejects wrong dimensions and recovers through retry",
+    "id": "fbeac1b2decfba2c3acd-834acd8e90dddae17665"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "illustrated pause panel draws generated art behind live text with aligned targets and kit feedback controls",
+    "id": "fbeac1b2decfba2c3acd-720aa0dfe3f031a110b3"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "approved spelling sprites have native sizes, real transparency and clear cell borders",
+    "id": "fbeac1b2decfba2c3acd-7a8c2cb6d5b385853610"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "ordinary gems share visible bounds and silhouette across all six trails",
+    "id": "fbeac1b2decfba2c3acd-03be2e2bceeca54db144"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "diagnostic fullscreen frame geometry across repeated native transitions",
+    "id": "fbeac1b2decfba2c3acd-2bef7e1faace00e2462a"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "educational bag collects independent letters without early assembly or sticker through real trail movement",
+    "id": "fbeac1b2decfba2c3acd-56e4e390d312676520a5"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "educational trail has no removed activity route at the former sign and keeps letter progress",
+    "id": "fbeac1b2decfba2c3acd-fcd2c1d3195f8cc8b6de"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "educational sticker collection pointer access is optional and reload clears rewards",
+    "id": "fbeac1b2decfba2c3acd-273c0a2f3002f94f8c35"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "educational sticker collection keyboard access is optional and reload clears rewards",
+    "id": "fbeac1b2decfba2c3acd-41d1eb2ece0421d1771b"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "educational sticker collection controller access is optional and reload clears rewards",
+    "id": "fbeac1b2decfba2c3acd-fea07a35e250d235a0cd"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "educational manual assembly pointer Space places actual letters and earns only after TREE",
+    "id": "fbeac1b2decfba2c3acd-0275a04e8e4d37645ed2"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "educational manual assembly keyboard Space places actual letters and earns only after TREE",
+    "id": "fbeac1b2decfba2c3acd-17cd7ca6c971fe9f80a2"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "educational manual assembly keyboard Enter places actual letters and earns only after TREE",
+    "id": "fbeac1b2decfba2c3acd-1ff12c0cabbffd0ecb32"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "educational manual assembly controller Space places actual letters and earns only after TREE",
+    "id": "fbeac1b2decfba2c3acd-54d446e3fc4a0620bad9"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "educational missing-letter return preserves partial work and clears held actions and clock debt",
+    "id": "fbeac1b2decfba2c3acd-095ed0e773d4d31fad38"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "leaving PLAINS word building restores native focus to Next trail without held activation",
+    "id": "fbeac1b2decfba2c3acd-bc2f88191a9440302f22"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "leaving SANDY COVE word building restores native focus to Map without held activation",
+    "id": "fbeac1b2decfba2c3acd-c844a3c396741d1c7b93"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "all-trail spelling plains: input-only missing-letter retrace, manual assembly and session sticker",
+    "id": "fbeac1b2decfba2c3acd-d8133f417005746ef6a0"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "all-trail spelling quarry: input-only missing-letter retrace, manual assembly and session sticker",
+    "id": "fbeac1b2decfba2c3acd-4a932a01819d1d64eed6"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "all-trail spelling sunset: input-only missing-letter retrace, manual assembly and session sticker",
+    "id": "fbeac1b2decfba2c3acd-1dca9e8efb8f707d1727"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "all-trail spelling frost: input-only missing-letter retrace, manual assembly and session sticker",
+    "id": "fbeac1b2decfba2c3acd-168b2b6e0509dda27476"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "all-trail spelling cove: input-only missing-letter retrace, manual assembly and session sticker",
+    "id": "fbeac1b2decfba2c3acd-b66843985353791574ae"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "builder-kit reduced-motion pickup stays beside its pouch at native and small viewports",
+    "id": "fbeac1b2decfba2c3acd-928624239871705b0c57"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "builder-kit visual fixture renders all six words and generated stickers at native and small sizes",
+    "id": "fbeac1b2decfba2c3acd-7f837bac09bdb607fa93"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "compact HUD renderer fixture: plains identity marks and real glyph clearance",
+    "id": "fbeac1b2decfba2c3acd-dab2939804c7e57f6d0e"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "compact HUD renderer fixture: quarry identity marks and real glyph clearance",
+    "id": "fbeac1b2decfba2c3acd-052575ae066c7bce1dc3"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "compact HUD renderer fixture: timbers identity marks and real glyph clearance",
+    "id": "fbeac1b2decfba2c3acd-fde47d52833f85b97154"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "compact HUD renderer fixture: sunset identity marks and real glyph clearance",
+    "id": "fbeac1b2decfba2c3acd-4f6282cb49ff9efadd81"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "compact HUD renderer fixture: frost identity marks and real glyph clearance",
+    "id": "fbeac1b2decfba2c3acd-eb74d95561cbd126e67c"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "compact HUD renderer fixture: cove identity marks and real glyph clearance",
+    "id": "fbeac1b2decfba2c3acd-ce39e15413eca37b1b12"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "compact HUD learned hints stay cleared through real input and pause while the ribbon remains",
+    "id": "fbeac1b2decfba2c3acd-dfc73dc77bfbff9356cd"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "landmark labels: real pointer, keyboard and native targets at 426x240",
+    "id": "fbeac1b2decfba2c3acd-c070ec398abc685119fe"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "landmark labels: real pointer, keyboard and native targets at 320x240",
+    "id": "fbeac1b2decfba2c3acd-64efbee5881b8a11fb82"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "landmark labels: real pointer, keyboard and native targets at 1366x768",
+    "id": "fbeac1b2decfba2c3acd-4e9ed33e09b3be5b676b"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "landmark labels: renderer fixture plains clears real art, paths, frames, badges and Henry in every completion state",
+    "id": "fbeac1b2decfba2c3acd-0e301c0dd33cf9c3f215"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "landmark labels: renderer fixture quarry clears real art, paths, frames, badges and Henry in every completion state",
+    "id": "fbeac1b2decfba2c3acd-5d2bb89104b6c9dc2b42"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "landmark labels: renderer fixture timbers clears real art, paths, frames, badges and Henry in every completion state",
+    "id": "fbeac1b2decfba2c3acd-6bde6a896253437c7432"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "landmark labels: renderer fixture sunset clears real art, paths, frames, badges and Henry in every completion state",
+    "id": "fbeac1b2decfba2c3acd-7c75ea5c0c44f1db55af"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "landmark labels: renderer fixture frost clears real art, paths, frames, badges and Henry in every completion state",
+    "id": "fbeac1b2decfba2c3acd-fee11edbbfe1bd2bd4b8"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "landmark labels: renderer fixture cove clears real art, paths, frames, badges and Henry in every completion state",
+    "id": "fbeac1b2decfba2c3acd-95749ae63b3e2ab07f5c"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "landmark labels: native label hits and controller selection survive resize and browser fullscreen",
+    "id": "fbeac1b2decfba2c3acd-c910a4bdb129a8331e0e"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "visible Pause exposes independent settings with native focus and no held activation leak",
+    "id": "fbeac1b2decfba2c3acd-da899bd0fd2f453060cb"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "pause settings controller states survive navigation, disconnect, visibility and word return",
+    "id": "fbeac1b2decfba2c3acd-8283db4d898501dc9927"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "pause characterization: real Tab and held Space enter Pause without activating Resume or settings",
+    "id": "fbeac1b2decfba2c3acd-b07aedcf599cf39c0b70"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "pause characterization: real Tab and held Enter enter Pause without activating Resume or settings",
+    "id": "fbeac1b2decfba2c3acd-598557e2ba49c019c06b"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "pause characterization: old held ArrowRight stays released after Escape until a fresh press",
+    "id": "fbeac1b2decfba2c3acd-5e1355e1eac07ba94c0b"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "pause characterization: old held ArrowRight stays released after Enter on Resume until a fresh press",
+    "id": "fbeac1b2decfba2c3acd-0df4fcc5d1d79de56301"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "trail pilot: sampled neutral rearms fresh controls after native Resume",
+    "id": "fbeac1b2decfba2c3acd-deb9ed2529bbcfd646c4"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "Plains compact route: all rewards through keyboard input with five-section gameplay captures",
+    "id": "fbeac1b2decfba2c3acd-eb5090811a402d90b371"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "Quarry vertical journey: native floor finish, actual ROCK return, all side stars and replay",
+    "id": "fbeac1b2decfba2c3acd-f6da970016a48191dcdd"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "Quarry three lifts: actual downward boarding and exit at every dock",
+    "id": "fbeac1b2decfba2c3acd-6cbf28ba27e3bd2f9e33"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "selected Quarry map thumbnail shows its real starting rim support",
+    "id": "fbeac1b2decfba2c3acd-aba3142d38c8f3779b7b"
+  },
+  {
+    "project": "firefox",
+    "file": "browser.spec.ts",
+    "title": "Quarry native landing visibility: actual rest and approach frames reveal each next landing before stepping off",
+    "id": "fbeac1b2decfba2c3acd-7f95979e4d99e8b1feae"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "uniform viewport fit keeps map, gameplay, pause and finish clear after resizing",
+    "id": "fbeac1b2decfba2c3acd-469b7e456589e02b84a8"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "app fullscreen retains feedback controls and native map and pause targets",
+    "id": "fbeac1b2decfba2c3acd-f477db96148fda469ba8"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "ambient weather repeats the same pixels, respects reduced motion and stays behind terrain",
+    "id": "fbeac1b2decfba2c3acd-f90227f1c995e10b0665"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "controller damage rumble is independent of audio and stops on pause, focus loss and disconnect",
+    "id": "fbeac1b2decfba2c3acd-298021a887302dc927c1"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "rumble setting toggles independently with pointer and keyboard at desktop and small sizes",
+    "id": "fbeac1b2decfba2c3acd-9182e225b303e015193f"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "movement sounds follow run and landing, and stop on idle, jump, mute, pause and focus loss",
+    "id": "fbeac1b2decfba2c3acd-87e28c0fd646d475d082"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "all springs keep their visible bases on terrain at rest, compressed and released",
+    "id": "fbeac1b2decfba2c3acd-0cc10bbec2d07ff4924c"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "route driver starts avoidance at each slime patrol entry rather than its authored centre",
+    "id": "fbeac1b2decfba2c3acd-95e416878a0305b24ab8"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "terrain joins stay solid while scrolling in both directions at integer and fractional scales",
+    "id": "fbeac1b2decfba2c3acd-5b3a79a4318f72a7c014"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "moving platform slabs and their telegraphed paths draw on the real canvas",
+    "id": "fbeac1b2decfba2c3acd-7995585044a273b66349"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "production canvas loads, scales and recovers from focus loss",
+    "id": "fbeac1b2decfba2c3acd-ec75be3835be6fcbc951"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "art preview loads local assets and reports a missing atlas",
+    "id": "fbeac1b2decfba2c3acd-3341c6a494061a0e4052"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "starter atlas contains real transparency and every frame stays within its cell",
+    "id": "fbeac1b2decfba2c3acd-2db6fa82ebf769cd8842"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "movement preview accepts keyboard movement and jump input",
+    "id": "fbeac1b2decfba2c3acd-28179c02ece6a695ef73"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "world preview loads generated Plains assets and level data",
+    "id": "fbeac1b2decfba2c3acd-cbb01caf45597f370a59"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "gameplay preview collects a gem and reaches a checkpoint",
+    "id": "fbeac1b2decfba2c3acd-c3ec75c1fcba25135808"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "adventure flashes the sprite after damage without a rectangular overlay",
+    "id": "fbeac1b2decfba2c3acd-faea109c72f10dff5b3c"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "adventure HUD shows three hearts and empties one after damage",
+    "id": "fbeac1b2decfba2c3acd-0e6c16eecdbb534c1496"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "a patrolling slime keeps moving while Henry stands still",
+    "id": "fbeac1b2decfba2c3acd-e3cf86385e3fd9587531"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "Henry faces the direction of travel, including after reversing while moving",
+    "id": "fbeac1b2decfba2c3acd-5bf923a635a9631fcdee"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "default main menu starts the Plains level with Space",
+    "id": "fbeac1b2decfba2c3acd-21e29f9dacdd2688976a"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "/ starts and reloads on the trail map with Plains selected and no picture story",
+    "id": "fbeac1b2decfba2c3acd-420dc7ecb37fdde1ae7c"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "/?scene=adventure starts and reloads on the trail map with Plains selected and no picture story",
+    "id": "fbeac1b2decfba2c3acd-852adcd13eeb3719639d"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "title picker selects Quarry Run and starts the selected route",
+    "id": "fbeac1b2decfba2c3acd-d7b533872e7d18074e55"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "Quarry absent carriage has a permanent local catch and a return jump",
+    "id": "fbeac1b2decfba2c3acd-6eafb6f9da214690c872"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "title picker renders Treetop Timbers with its own atlas",
+    "id": "fbeac1b2decfba2c3acd-90a254457605d984050d"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "title picker consumes each selection and release with delayed animation frames",
+    "id": "fbeac1b2decfba2c3acd-8ed23221b4c4145e0a8a"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "title picker wraps back to Sunset Site and renders its terrain atlas",
+    "id": "fbeac1b2decfba2c3acd-1e4c367e37252f39197e"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "adventure mute control updates the audio state",
+    "id": "fbeac1b2decfba2c3acd-b9bbf3bd88b011a032e0"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "adventure remains playable when Web Audio is unavailable",
+    "id": "fbeac1b2decfba2c3acd-f9531696d1f0405f4e26"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "adventure keeps its letterbox and pauses on focus loss",
+    "id": "fbeac1b2decfba2c3acd-56ff29f9785ce22d12ec"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "adventure exposes retry when a required asset fails to load",
+    "id": "fbeac1b2decfba2c3acd-fc9dbdd40c6d6a201849"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "adventure clears held controller input after disconnect",
+    "id": "fbeac1b2decfba2c3acd-ea1fcc62576d39077d3b"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "adventure can complete the forgiving route and replay directly with a fresh camera",
+    "id": "fbeac1b2decfba2c3acd-76748c9e541063d6e98a"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "adventure pause freezes progress and reload starts a fresh in-memory run",
+    "id": "fbeac1b2decfba2c3acd-cca31a5cc3c80a15999b"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "paused T shortcut confirms before returning to Trails and resets the run",
+    "id": "fbeac1b2decfba2c3acd-c4d6a8e08c1bcad4a022"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "pause return works through pointer, Tab, Enter and focused Space, and cancels on focus loss",
+    "id": "fbeac1b2decfba2c3acd-f46ac9b5b19e65919151"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "controller pause return requires confirmation and clears held actions before map and replay",
+    "id": "fbeac1b2decfba2c3acd-6322ffab4f03d4043536"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "default main menu accepts controller primary-button start, Start pause and D-pad movement",
+    "id": "fbeac1b2decfba2c3acd-9448705dcdf2be4dbf82"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "controller jump works mid-gameplay via any face button, not just at the title screen (#62)",
+    "id": "fbeac1b2decfba2c3acd-9322cb783d56b7ad827b"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "all checkpoints activate along the ground route and render planted markers",
+    "id": "fbeac1b2decfba2c3acd-bfb357516d7241c2ab68"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "adventure HUD stays left-aligned through keyboard pause and focus loss",
+    "id": "fbeac1b2decfba2c3acd-b6730e047f6bef446f6a"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "a collected gem stops being drawn where it stood",
+    "id": "fbeac1b2decfba2c3acd-a371397c588a6081fe17"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "ground scenery and slimes draw their opaque bases at terrain height",
+    "id": "fbeac1b2decfba2c3acd-ca79f27ec3850f5a06af"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "Plains renders its panorama and transparent scenery, and Quarry keeps its own backdrop",
+    "id": "fbeac1b2decfba2c3acd-b1e4be88cee8912cd2d2"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "a failed scenery image exposes Retry loading and recovers",
+    "id": "fbeac1b2decfba2c3acd-a33565b9c50736897100"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "frost trail renders its material, completes and replays",
+    "id": "fbeac1b2decfba2c3acd-78a502c1b09d9ef4edd9"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "frost atlas failure is recoverable through retry",
+    "id": "fbeac1b2decfba2c3acd-2cada330ef8ff040b559"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "cove trail renders its material, completes and replays",
+    "id": "fbeac1b2decfba2c3acd-d2ac5f043a991714a55d"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "cove atlas failure is recoverable through retry",
+    "id": "fbeac1b2decfba2c3acd-03cac32151d78cf3b3fc"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "movement preview shows distinct friction cues and remains controllable",
+    "id": "fbeac1b2decfba2c3acd-3a0263462d8f20440b0b"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "native HUD hints follow active input and pause controls fit small windows",
+    "id": "fbeac1b2decfba2c3acd-ca62e13f40380ef9c010"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "all six trail previews show cached gameplay and the map requests no story artwork",
+    "id": "fbeac1b2decfba2c3acd-5ffbf248991a8a20f58e"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "approved title artwork and menu fit 1366x768",
+    "id": "fbeac1b2decfba2c3acd-523ed8492787c90da907"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "approved title artwork and menu fit 426x240",
+    "id": "fbeac1b2decfba2c3acd-24f609d653fb858184ec"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "approved title artwork and menu fit 320x240",
+    "id": "fbeac1b2decfba2c3acd-b4047959f972d5fbbce2"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "title artwork failure recovers through the existing retry flow",
+    "id": "fbeac1b2decfba2c3acd-cc246b464d6df32466e4"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "adventure never requests Henry reference art while the art preview requires it",
+    "id": "fbeac1b2decfba2c3acd-4fd55d1d0ce1dd77823d"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "finish artwork pixels meet terrain in all six trails, including the sloped beach exit",
+    "id": "fbeac1b2decfba2c3acd-85b56d35a8e4fb08b9d2"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "Timbers roots keep a safe, open first-jump run-up",
+    "id": "fbeac1b2decfba2c3acd-b011c6597fd1e1298d00"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "milestone PLAINS: pointer selection, full route, return, replay and next",
+    "id": "fbeac1b2decfba2c3acd-2b0892b51c521250deea"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "milestone QUARRY RUN: pointer selection, full route, return, replay and next",
+    "id": "fbeac1b2decfba2c3acd-7c666ba7afa1a6785a2b"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "milestone SUNSET SITE: pointer selection, full route, return, replay and next",
+    "id": "fbeac1b2decfba2c3acd-e1e4b5edde24d37876c4"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "milestone FROST RIDGE: pointer selection, full route, return, replay and next",
+    "id": "fbeac1b2decfba2c3acd-e5a8784b8a0f76c0a7ca"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "milestone SANDY COVE: pointer selection, full route, return, replay and next",
+    "id": "fbeac1b2decfba2c3acd-bcefc20402b9794b461c"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "overworld input stays usable and missing decorative sheets do not block a full route",
+    "id": "fbeac1b2decfba2c3acd-bbdb3448e3895c3fa5bd"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "textured flats and slopes keep authored grip above cosmetic materials",
+    "id": "fbeac1b2decfba2c3acd-3eff06a001c182d72c86"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "every destination accepts keyboard and standard-controller selection and start",
+    "id": "fbeac1b2decfba2c3acd-438c0421463aadf61c0c"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "signature PLAINS: nine-star route, native/small evidence and fresh navigation",
+    "id": "fbeac1b2decfba2c3acd-d86b6b6bd69984e7e5a0"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "signature QUARRY RUN: nine-star route, native/small evidence and fresh navigation",
+    "id": "fbeac1b2decfba2c3acd-68efd90b03fc5d1ebd13"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "sunset panorama appears in the map and pans during keyboard play",
+    "id": "fbeac1b2decfba2c3acd-068e4928ba3e8a89eefa"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "sunset panorama failure recovers through Retry loading",
+    "id": "fbeac1b2decfba2c3acd-d6b0bbc0ea13691d7cc8"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "frost panorama appears in the map and pans during keyboard play",
+    "id": "fbeac1b2decfba2c3acd-dc936c5f58f413063f0c"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "frost panorama failure recovers through Retry loading",
+    "id": "fbeac1b2decfba2c3acd-bff17d91c22a21f2b625"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "cove panorama appears in the map and pans during keyboard play",
+    "id": "fbeac1b2decfba2c3acd-b287907e04158c104f3e"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "cove panorama failure recovers through Retry loading",
+    "id": "fbeac1b2decfba2c3acd-5854cc154cc89ace37b9"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "trail map supports keyboard, pointer and controller without timed screens or repeated starts",
+    "id": "fbeac1b2decfba2c3acd-08760dfd26f03b70f998"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "celebration freezes for pause and focus, then accepts finish actions during playback",
+    "id": "fbeac1b2decfba2c3acd-267380aadb9926937ce4"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "celebration preview preserves gameplay pixels and final pose under reduced motion",
+    "id": "fbeac1b2decfba2c3acd-b9f491614b0ab7f32d31"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "plains uses the common slime atlas, patrols and pauses in play",
+    "id": "fbeac1b2decfba2c3acd-009b25bfd47a150fbcb7"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "slime atlas keeps identical bodies, transparent borders and ground anchors",
+    "id": "fbeac1b2decfba2c3acd-caa6b994cc0aa4c506e1"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "shared slimes/slimes atlas failure is recoverable through retry",
+    "id": "fbeac1b2decfba2c3acd-c1fbd7b55ff1e329c0ea"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "shared gems/gems atlas failure is recoverable through retry",
+    "id": "fbeac1b2decfba2c3acd-07d171b094e802a85b3b"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "shared spelling/pouch atlas failure is recoverable through retry",
+    "id": "fbeac1b2decfba2c3acd-5a55485b7d59b34fc99d"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "shared spelling/tile atlas failure is recoverable through retry",
+    "id": "fbeac1b2decfba2c3acd-da3de4fed7ecea2133ac"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "shared spelling/plains-sticker atlas failure is recoverable through retry",
+    "id": "fbeac1b2decfba2c3acd-0b3a45809ba435f16302"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "shared spelling/quarry-sticker atlas failure is recoverable through retry",
+    "id": "fbeac1b2decfba2c3acd-ccf369f9cbde5842a331"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "shared spelling/timbers-sticker atlas failure is recoverable through retry",
+    "id": "fbeac1b2decfba2c3acd-e62ea536c90d2bf6b436"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "shared spelling/sunset-sticker atlas failure is recoverable through retry",
+    "id": "fbeac1b2decfba2c3acd-e93803540f284a723899"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "shared spelling/frost-sticker atlas failure is recoverable through retry",
+    "id": "fbeac1b2decfba2c3acd-fb43465a9bff674719c5"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "shared spelling/cove-sticker atlas failure is recoverable through retry",
+    "id": "fbeac1b2decfba2c3acd-71c1ad14c70ae9b92cc8"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "shared interface/panel atlas failure is recoverable through retry",
+    "id": "fbeac1b2decfba2c3acd-8b90dce682c3e4c0eabb"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "shared interface/button atlas failure is recoverable through retry",
+    "id": "fbeac1b2decfba2c3acd-21a3e4a46d180e7cc7b3"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "shared interface/button-selected atlas failure is recoverable through retry",
+    "id": "fbeac1b2decfba2c3acd-eb1710ab82084fef04f3"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "shared interface/plaque atlas failure is recoverable through retry",
+    "id": "fbeac1b2decfba2c3acd-93be90898aefef354851"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "spelling tile artwork rejects wrong dimensions and recovers through retry",
+    "id": "fbeac1b2decfba2c3acd-d160e503e96f519f94de"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "spelling frost-sticker artwork rejects wrong dimensions and recovers through retry",
+    "id": "fbeac1b2decfba2c3acd-ec62f56e8f7f51406b7e"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "kit text clears generated rims for keyboard and controller prompts at native and small sizes",
+    "id": "fbeac1b2decfba2c3acd-f3b6b934b4054e4c7b6a"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "kit text clears generated rims on the real assembly and finish results",
+    "id": "fbeac1b2decfba2c3acd-f5331fbdc5dc5dd11c62"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "interface panel artwork rejects wrong dimensions and recovers through retry",
+    "id": "fbeac1b2decfba2c3acd-ddaf70062a0f5745d99a"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "illustrated pause panel draws generated art behind live text with aligned targets and kit feedback controls",
+    "id": "fbeac1b2decfba2c3acd-694348fbd08c5931ae51"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "approved spelling sprites have native sizes, real transparency and clear cell borders",
+    "id": "fbeac1b2decfba2c3acd-66b9573e0551707fac07"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "ordinary gems share visible bounds and silhouette across all six trails",
+    "id": "fbeac1b2decfba2c3acd-c7a8d02199f211580577"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "diagnostic fullscreen frame geometry across repeated native transitions",
+    "id": "fbeac1b2decfba2c3acd-ffdc22de512be3000ce8"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "educational bag collects independent letters without early assembly or sticker through real trail movement",
+    "id": "fbeac1b2decfba2c3acd-26935500820a802f07a5"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "educational trail has no removed activity route at the former sign and keeps letter progress",
+    "id": "fbeac1b2decfba2c3acd-e0e2967c05035db770d9"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "educational sticker collection pointer access is optional and reload clears rewards",
+    "id": "fbeac1b2decfba2c3acd-2e9be14cc834be00885e"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "educational sticker collection keyboard access is optional and reload clears rewards",
+    "id": "fbeac1b2decfba2c3acd-f90c22f03aecfecc75bd"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "educational sticker collection controller access is optional and reload clears rewards",
+    "id": "fbeac1b2decfba2c3acd-a8864d04956a7139d703"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "educational manual assembly pointer Space places actual letters and earns only after TREE",
+    "id": "fbeac1b2decfba2c3acd-b15645c34e7a08cc1089"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "educational manual assembly keyboard Space places actual letters and earns only after TREE",
+    "id": "fbeac1b2decfba2c3acd-a9dee27531cf96299781"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "educational manual assembly keyboard Enter places actual letters and earns only after TREE",
+    "id": "fbeac1b2decfba2c3acd-917e655033ea106029ef"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "educational manual assembly controller Space places actual letters and earns only after TREE",
+    "id": "fbeac1b2decfba2c3acd-3e2cac76df39703c1a14"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "educational missing-letter return preserves partial work and clears held actions and clock debt",
+    "id": "fbeac1b2decfba2c3acd-465dcec22b91c169dc08"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "leaving PLAINS word building restores native focus to Next trail without held activation",
+    "id": "fbeac1b2decfba2c3acd-246057170109c85d893f"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "leaving SANDY COVE word building restores native focus to Map without held activation",
+    "id": "fbeac1b2decfba2c3acd-1ace670c863958b53e08"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "all-trail spelling plains: input-only missing-letter retrace, manual assembly and session sticker",
+    "id": "fbeac1b2decfba2c3acd-5e045603fbb3b3e49cd0"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "all-trail spelling quarry: input-only missing-letter retrace, manual assembly and session sticker",
+    "id": "fbeac1b2decfba2c3acd-073b579ed731acf82a57"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "all-trail spelling sunset: input-only missing-letter retrace, manual assembly and session sticker",
+    "id": "fbeac1b2decfba2c3acd-e57e286c267b61b961c9"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "all-trail spelling frost: input-only missing-letter retrace, manual assembly and session sticker",
+    "id": "fbeac1b2decfba2c3acd-3883d38df7d6ae9ef83b"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "all-trail spelling cove: input-only missing-letter retrace, manual assembly and session sticker",
+    "id": "fbeac1b2decfba2c3acd-3024e24c8a6d45884750"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "builder-kit reduced-motion pickup stays beside its pouch at native and small viewports",
+    "id": "fbeac1b2decfba2c3acd-597b7e4c2c651c1889fc"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "builder-kit visual fixture renders all six words and generated stickers at native and small sizes",
+    "id": "fbeac1b2decfba2c3acd-be208c1ba03e7fa59e94"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "compact HUD renderer fixture: plains identity marks and real glyph clearance",
+    "id": "fbeac1b2decfba2c3acd-c1a887fc5a108df81dd1"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "compact HUD renderer fixture: quarry identity marks and real glyph clearance",
+    "id": "fbeac1b2decfba2c3acd-4435f201a4424c530bb7"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "compact HUD renderer fixture: timbers identity marks and real glyph clearance",
+    "id": "fbeac1b2decfba2c3acd-e275b22ea67cccd9736a"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "compact HUD renderer fixture: sunset identity marks and real glyph clearance",
+    "id": "fbeac1b2decfba2c3acd-0ceeb4485655265da09d"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "compact HUD renderer fixture: frost identity marks and real glyph clearance",
+    "id": "fbeac1b2decfba2c3acd-40a2f00e1166102c56da"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "compact HUD renderer fixture: cove identity marks and real glyph clearance",
+    "id": "fbeac1b2decfba2c3acd-e0b0eb65641708a0889c"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "compact HUD learned hints stay cleared through real input and pause while the ribbon remains",
+    "id": "fbeac1b2decfba2c3acd-22da3be0d01affdda9c9"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "landmark labels: real pointer, keyboard and native targets at 426x240",
+    "id": "fbeac1b2decfba2c3acd-cdb6e3950e18b343eb50"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "landmark labels: real pointer, keyboard and native targets at 320x240",
+    "id": "fbeac1b2decfba2c3acd-1a21d82eeed80f45ef09"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "landmark labels: real pointer, keyboard and native targets at 1366x768",
+    "id": "fbeac1b2decfba2c3acd-67d9c66d4a15d42f5b84"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "landmark labels: renderer fixture plains clears real art, paths, frames, badges and Henry in every completion state",
+    "id": "fbeac1b2decfba2c3acd-8cf4f7c3a47465c895f0"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "landmark labels: renderer fixture quarry clears real art, paths, frames, badges and Henry in every completion state",
+    "id": "fbeac1b2decfba2c3acd-8bb7394dc81fdc44ab93"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "landmark labels: renderer fixture timbers clears real art, paths, frames, badges and Henry in every completion state",
+    "id": "fbeac1b2decfba2c3acd-cfc8c7d160c14b525aa8"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "landmark labels: renderer fixture sunset clears real art, paths, frames, badges and Henry in every completion state",
+    "id": "fbeac1b2decfba2c3acd-107cc8b3a95f48532977"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "landmark labels: renderer fixture frost clears real art, paths, frames, badges and Henry in every completion state",
+    "id": "fbeac1b2decfba2c3acd-e652c01a642d750a833d"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "landmark labels: renderer fixture cove clears real art, paths, frames, badges and Henry in every completion state",
+    "id": "fbeac1b2decfba2c3acd-d971099a5ab9d80019d5"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "landmark labels: native label hits and controller selection survive resize and browser fullscreen",
+    "id": "fbeac1b2decfba2c3acd-0254d2ac236a88a5832e"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "visible Pause exposes independent settings with native focus and no held activation leak",
+    "id": "fbeac1b2decfba2c3acd-55a696516e3351435479"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "pause settings controller states survive navigation, disconnect, visibility and word return",
+    "id": "fbeac1b2decfba2c3acd-2e2b3de58dfa2dd86b05"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "pause characterization: real Tab and held Space enter Pause without activating Resume or settings",
+    "id": "fbeac1b2decfba2c3acd-18baee052f58918d97b8"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "pause characterization: real Tab and held Enter enter Pause without activating Resume or settings",
+    "id": "fbeac1b2decfba2c3acd-63af62eb89c6f37c7fc4"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "pause characterization: old held ArrowRight stays released after Escape until a fresh press",
+    "id": "fbeac1b2decfba2c3acd-09dad25ca86b2ee379b2"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "pause characterization: old held ArrowRight stays released after Enter on Resume until a fresh press",
+    "id": "fbeac1b2decfba2c3acd-522b0202377ea8091621"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "trail pilot: sampled neutral rearms fresh controls after native Resume",
+    "id": "fbeac1b2decfba2c3acd-74f7e01c30165285983f"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "Plains compact route: all rewards through keyboard input with five-section gameplay captures",
+    "id": "fbeac1b2decfba2c3acd-2c150ff3783d692b287f"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "Quarry vertical journey: native floor finish, actual ROCK return, all side stars and replay",
+    "id": "fbeac1b2decfba2c3acd-f48a567018d92b3e1d19"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "Quarry three lifts: actual downward boarding and exit at every dock",
+    "id": "fbeac1b2decfba2c3acd-2b240cb55ac5ecc8b5e6"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "selected Quarry map thumbnail shows its real starting rim support",
+    "id": "fbeac1b2decfba2c3acd-733c1c13b62eff36355e"
+  },
+  {
+    "project": "webkit",
+    "file": "browser.spec.ts",
+    "title": "Quarry native landing visibility: actual rest and approach frames reveal each next landing before stepping off",
+    "id": "fbeac1b2decfba2c3acd-0727295b7c58ef2ef9e8"
+  },
+  {
+    "project": "chromium",
+    "file": "cove-bay1.spec.ts",
+    "title": "B bay1 real input pilot at 426px",
+    "id": "1e0407e7e89628faf3f9-44aec9f785aa303812bb"
+  },
+  {
+    "project": "chromium",
+    "file": "cove-bay1.spec.ts",
+    "title": "B bay1 real input pilot at 320px",
+    "id": "1e0407e7e89628faf3f9-97329fe86a297e231e04"
+  },
+  {
+    "project": "chromium",
+    "file": "cove-bay1.spec.ts",
+    "title": "B bay1 required image failure recovers through accessible ordinary Retry",
+    "id": "1e0407e7e89628faf3f9-c69b43452445e7180454"
+  },
+  {
+    "project": "firefox",
+    "file": "cove-bay1.spec.ts",
+    "title": "B bay1 real input pilot at 426px",
+    "id": "1e0407e7e89628faf3f9-908215c3eae38143c165"
+  },
+  {
+    "project": "firefox",
+    "file": "cove-bay1.spec.ts",
+    "title": "B bay1 real input pilot at 320px",
+    "id": "1e0407e7e89628faf3f9-98d32fad8b0adaaff114"
+  },
+  {
+    "project": "firefox",
+    "file": "cove-bay1.spec.ts",
+    "title": "B bay1 required image failure recovers through accessible ordinary Retry",
+    "id": "1e0407e7e89628faf3f9-0f91042f014d57880ea2"
+  },
+  {
+    "project": "webkit",
+    "file": "cove-bay1.spec.ts",
+    "title": "B bay1 real input pilot at 426px",
+    "id": "1e0407e7e89628faf3f9-a9b00b94b980fa28197a"
+  },
+  {
+    "project": "webkit",
+    "file": "cove-bay1.spec.ts",
+    "title": "B bay1 real input pilot at 320px",
+    "id": "1e0407e7e89628faf3f9-86fa543509068d50f676"
+  },
+  {
+    "project": "webkit",
+    "file": "cove-bay1.spec.ts",
+    "title": "B bay1 required image failure recovers through accessible ordinary Retry",
+    "id": "1e0407e7e89628faf3f9-3763339d2bcfc42a7be6"
+  },
+  {
+    "project": "chromium",
+    "file": "cove-bay2.spec.ts",
+    "title": "B bay2 whole real input pilot at 426px",
+    "id": "dfed5f33bd0a6af7e570-9a33fa720a517a2653d4"
+  },
+  {
+    "project": "chromium",
+    "file": "cove-bay2.spec.ts",
+    "title": "B bay2 whole real input pilot at 320px",
+    "id": "dfed5f33bd0a6af7e570-16351c311a18b2be3008"
+  },
+  {
+    "project": "chromium",
+    "file": "cove-bay2.spec.ts",
+    "title": "B bay2 whole required image failure recovers through accessible ordinary Retry",
+    "id": "dfed5f33bd0a6af7e570-7f3b7bbad99af94bd7a9"
+  },
+  {
+    "project": "firefox",
+    "file": "cove-bay2.spec.ts",
+    "title": "B bay2 whole real input pilot at 426px",
+    "id": "dfed5f33bd0a6af7e570-9628772fbdd413c1bb5f"
+  },
+  {
+    "project": "firefox",
+    "file": "cove-bay2.spec.ts",
+    "title": "B bay2 whole real input pilot at 320px",
+    "id": "dfed5f33bd0a6af7e570-d2d9ebb49c7b22b8bdc7"
+  },
+  {
+    "project": "firefox",
+    "file": "cove-bay2.spec.ts",
+    "title": "B bay2 whole required image failure recovers through accessible ordinary Retry",
+    "id": "dfed5f33bd0a6af7e570-b3bd153693e420a78dc5"
+  },
+  {
+    "project": "webkit",
+    "file": "cove-bay2.spec.ts",
+    "title": "B bay2 whole real input pilot at 426px",
+    "id": "dfed5f33bd0a6af7e570-a2a293f8d710e2820d3a"
+  },
+  {
+    "project": "webkit",
+    "file": "cove-bay2.spec.ts",
+    "title": "B bay2 whole real input pilot at 320px",
+    "id": "dfed5f33bd0a6af7e570-4cec0183f5f04608b006"
+  },
+  {
+    "project": "webkit",
+    "file": "cove-bay2.spec.ts",
+    "title": "B bay2 whole required image failure recovers through accessible ordinary Retry",
+    "id": "dfed5f33bd0a6af7e570-cc128f89ae4018f31c41"
+  },
+  {
+    "project": "chromium",
+    "file": "cove-grounding.spec.ts",
+    "title": "Cove grounded scenery uses actual forward and reverse input at 426px",
+    "id": "ca04e0923ba52ae0e32b-e36577bd4044c6065ee1"
+  },
+  {
+    "project": "chromium",
+    "file": "cove-grounding.spec.ts",
+    "title": "Cove grounded scenery uses actual forward and reverse input at 320px",
+    "id": "ca04e0923ba52ae0e32b-5ee1191c74538002c777"
+  },
+  {
+    "project": "firefox",
+    "file": "cove-grounding.spec.ts",
+    "title": "Cove grounded scenery uses actual forward and reverse input at 426px",
+    "id": "ca04e0923ba52ae0e32b-6228b54ebf2f47cc6477"
+  },
+  {
+    "project": "firefox",
+    "file": "cove-grounding.spec.ts",
+    "title": "Cove grounded scenery uses actual forward and reverse input at 320px",
+    "id": "ca04e0923ba52ae0e32b-f89062d22f4055ab4553"
+  },
+  {
+    "project": "webkit",
+    "file": "cove-grounding.spec.ts",
+    "title": "Cove grounded scenery uses actual forward and reverse input at 426px",
+    "id": "ca04e0923ba52ae0e32b-c263f9df97bc309e11e4"
+  },
+  {
+    "project": "webkit",
+    "file": "cove-grounding.spec.ts",
+    "title": "Cove grounded scenery uses actual forward and reverse input at 320px",
+    "id": "ca04e0923ba52ae0e32b-4607ce0496242d54bbc2"
+  },
+  {
+    "project": "chromium",
+    "file": "cove-materials.spec.ts",
+    "title": "Cove generated materials use forward reverse input and paused reduced motion at 426px",
+    "id": "d5c8fd30d47bebc4b088-7eaeeab9995833bc3e00"
+  },
+  {
+    "project": "chromium",
+    "file": "cove-materials.spec.ts",
+    "title": "Cove generated materials use forward reverse input and paused reduced motion at 320px",
+    "id": "d5c8fd30d47bebc4b088-20615a9f557184ac7b61"
+  },
+  {
+    "project": "chromium",
+    "file": "cove-materials.spec.ts",
+    "title": "Cove actual material rasters retain contiguous coverage and fixed bases at fractional cameras",
+    "id": "d5c8fd30d47bebc4b088-27f0c90bfa8a8b60da11"
+  },
+  {
+    "project": "chromium",
+    "file": "cove-materials.spec.ts",
+    "title": "Cove material manifest.json failure recovers through ordinary Retry",
+    "id": "d5c8fd30d47bebc4b088-07b1b0c9805b5cf69381"
+  },
+  {
+    "project": "chromium",
+    "file": "cove-materials.spec.ts",
+    "title": "Cove material atlas.png failure recovers through ordinary Retry",
+    "id": "d5c8fd30d47bebc4b088-a58d00cdf22653e55f75"
+  },
+  {
+    "project": "firefox",
+    "file": "cove-materials.spec.ts",
+    "title": "Cove generated materials use forward reverse input and paused reduced motion at 426px",
+    "id": "d5c8fd30d47bebc4b088-8322ae0ebc19b2d6b48c"
+  },
+  {
+    "project": "firefox",
+    "file": "cove-materials.spec.ts",
+    "title": "Cove generated materials use forward reverse input and paused reduced motion at 320px",
+    "id": "d5c8fd30d47bebc4b088-bb68435fee94e06ba0c3"
+  },
+  {
+    "project": "firefox",
+    "file": "cove-materials.spec.ts",
+    "title": "Cove actual material rasters retain contiguous coverage and fixed bases at fractional cameras",
+    "id": "d5c8fd30d47bebc4b088-a1c3f241c8ff9bbc7d42"
+  },
+  {
+    "project": "firefox",
+    "file": "cove-materials.spec.ts",
+    "title": "Cove material manifest.json failure recovers through ordinary Retry",
+    "id": "d5c8fd30d47bebc4b088-11873ceee996bb9bbd13"
+  },
+  {
+    "project": "firefox",
+    "file": "cove-materials.spec.ts",
+    "title": "Cove material atlas.png failure recovers through ordinary Retry",
+    "id": "d5c8fd30d47bebc4b088-ed3e967d73b710895e42"
+  },
+  {
+    "project": "webkit",
+    "file": "cove-materials.spec.ts",
+    "title": "Cove generated materials use forward reverse input and paused reduced motion at 426px",
+    "id": "d5c8fd30d47bebc4b088-22d37e27b51dd73a5088"
+  },
+  {
+    "project": "webkit",
+    "file": "cove-materials.spec.ts",
+    "title": "Cove generated materials use forward reverse input and paused reduced motion at 320px",
+    "id": "d5c8fd30d47bebc4b088-5925f17534ba7e667434"
+  },
+  {
+    "project": "webkit",
+    "file": "cove-materials.spec.ts",
+    "title": "Cove actual material rasters retain contiguous coverage and fixed bases at fractional cameras",
+    "id": "d5c8fd30d47bebc4b088-297422ec6130cb653af3"
+  },
+  {
+    "project": "webkit",
+    "file": "cove-materials.spec.ts",
+    "title": "Cove material manifest.json failure recovers through ordinary Retry",
+    "id": "d5c8fd30d47bebc4b088-28f514c85559bfe932f8"
+  },
+  {
+    "project": "webkit",
+    "file": "cove-materials.spec.ts",
+    "title": "Cove material atlas.png failure recovers through ordinary Retry",
+    "id": "d5c8fd30d47bebc4b088-459f8b7db25bc13a19bf"
+  },
+  {
+    "project": "chromium",
+    "file": "cove-raster.spec.ts",
+    "title": "Cove production raster has no internal coverage gaps at fractional cameras",
+    "id": "ec1529ce195bb15f5ea9-58f4d942139023d0b62e"
+  },
+  {
+    "project": "firefox",
+    "file": "cove-raster.spec.ts",
+    "title": "Cove production raster has no internal coverage gaps at fractional cameras",
+    "id": "ec1529ce195bb15f5ea9-7c5b095de746b45201ce"
+  },
+  {
+    "project": "webkit",
+    "file": "cove-raster.spec.ts",
+    "title": "Cove production raster has no internal coverage gaps at fractional cameras",
+    "id": "ec1529ce195bb15f5ea9-738823955db66e8c7517"
+  },
+  {
+    "project": "chromium",
+    "file": "cove-rollout.spec.ts",
+    "title": "Cove B Hollow/Pools ordinary input rests at 426px",
+    "id": "2a31448e3c5cf0de6c0b-5c9f063d9707a97e2dff"
+  },
+  {
+    "project": "chromium",
+    "file": "cove-rollout.spec.ts",
+    "title": "Cove B Bays ordinary input rests at 426px",
+    "id": "2a31448e3c5cf0de6c0b-5e461e4e49e91a0e8974"
+  },
+  {
+    "project": "chromium",
+    "file": "cove-rollout.spec.ts",
+    "title": "Cove B Hollow/Pools ordinary input rests at 320px",
+    "id": "2a31448e3c5cf0de6c0b-824a5bf0a6116fc7c669"
+  },
+  {
+    "project": "chromium",
+    "file": "cove-rollout.spec.ts",
+    "title": "Cove B Bays ordinary input rests at 320px",
+    "id": "2a31448e3c5cf0de6c0b-61654d27409e0c7ae313"
+  },
+  {
+    "project": "chromium",
+    "file": "cove-rollout.spec.ts",
+    "title": "Cove B required cove-hollow-shelf ordinary Retry",
+    "id": "2a31448e3c5cf0de6c0b-3a4fd68e30842d5cc98e"
+  },
+  {
+    "project": "chromium",
+    "file": "cove-rollout.spec.ts",
+    "title": "Cove B required cove-pool-stone-1 ordinary Retry",
+    "id": "2a31448e3c5cf0de6c0b-398c45581961258ac1de"
+  },
+  {
+    "project": "chromium",
+    "file": "cove-rollout.spec.ts",
+    "title": "Cove B required cove-pool-stone-2 ordinary Retry",
+    "id": "2a31448e3c5cf0de6c0b-d6f5d7ce3e03e86a83e2"
+  },
+  {
+    "project": "chromium",
+    "file": "cove-rollout.spec.ts",
+    "title": "Cove B required cove-pool-stone-3 ordinary Retry",
+    "id": "2a31448e3c5cf0de6c0b-8c5a441eb76a322b8fd6"
+  },
+  {
+    "project": "chromium",
+    "file": "cove-rollout.spec.ts",
+    "title": "Cove B required cove-bay-ledge-3 ordinary Retry",
+    "id": "2a31448e3c5cf0de6c0b-d601d6e40166d7eecb8f"
+  },
+  {
+    "project": "firefox",
+    "file": "cove-rollout.spec.ts",
+    "title": "Cove B Hollow/Pools ordinary input rests at 426px",
+    "id": "2a31448e3c5cf0de6c0b-92a2b2992d7386545a5c"
+  },
+  {
+    "project": "firefox",
+    "file": "cove-rollout.spec.ts",
+    "title": "Cove B Bays ordinary input rests at 426px",
+    "id": "2a31448e3c5cf0de6c0b-e2c31f4dfd10e4271137"
+  },
+  {
+    "project": "firefox",
+    "file": "cove-rollout.spec.ts",
+    "title": "Cove B Hollow/Pools ordinary input rests at 320px",
+    "id": "2a31448e3c5cf0de6c0b-6febaef519aaf91ca89d"
+  },
+  {
+    "project": "firefox",
+    "file": "cove-rollout.spec.ts",
+    "title": "Cove B Bays ordinary input rests at 320px",
+    "id": "2a31448e3c5cf0de6c0b-73c7d936171f4d8efcf0"
+  },
+  {
+    "project": "firefox",
+    "file": "cove-rollout.spec.ts",
+    "title": "Cove B required cove-hollow-shelf ordinary Retry",
+    "id": "2a31448e3c5cf0de6c0b-d28bf15c24f95b665485"
+  },
+  {
+    "project": "firefox",
+    "file": "cove-rollout.spec.ts",
+    "title": "Cove B required cove-pool-stone-1 ordinary Retry",
+    "id": "2a31448e3c5cf0de6c0b-fbf20427c6df80950144"
+  },
+  {
+    "project": "firefox",
+    "file": "cove-rollout.spec.ts",
+    "title": "Cove B required cove-pool-stone-2 ordinary Retry",
+    "id": "2a31448e3c5cf0de6c0b-6f88ac76eccaeb1ac7bb"
+  },
+  {
+    "project": "firefox",
+    "file": "cove-rollout.spec.ts",
+    "title": "Cove B required cove-pool-stone-3 ordinary Retry",
+    "id": "2a31448e3c5cf0de6c0b-a65ca6dd5fb3b7d10d84"
+  },
+  {
+    "project": "firefox",
+    "file": "cove-rollout.spec.ts",
+    "title": "Cove B required cove-bay-ledge-3 ordinary Retry",
+    "id": "2a31448e3c5cf0de6c0b-a3b71cb2a6478f0dbfb3"
+  },
+  {
+    "project": "webkit",
+    "file": "cove-rollout.spec.ts",
+    "title": "Cove B Hollow/Pools ordinary input rests at 426px",
+    "id": "2a31448e3c5cf0de6c0b-0e9a89bef431ca773a02"
+  },
+  {
+    "project": "webkit",
+    "file": "cove-rollout.spec.ts",
+    "title": "Cove B Bays ordinary input rests at 426px",
+    "id": "2a31448e3c5cf0de6c0b-b1b89ef0b3604bd71bdd"
+  },
+  {
+    "project": "webkit",
+    "file": "cove-rollout.spec.ts",
+    "title": "Cove B Hollow/Pools ordinary input rests at 320px",
+    "id": "2a31448e3c5cf0de6c0b-564a5e5e354fba8991c8"
+  },
+  {
+    "project": "webkit",
+    "file": "cove-rollout.spec.ts",
+    "title": "Cove B Bays ordinary input rests at 320px",
+    "id": "2a31448e3c5cf0de6c0b-b4e8cb0b51d4283d32ea"
+  },
+  {
+    "project": "webkit",
+    "file": "cove-rollout.spec.ts",
+    "title": "Cove B required cove-hollow-shelf ordinary Retry",
+    "id": "2a31448e3c5cf0de6c0b-2a2845c2668fc48dfcac"
+  },
+  {
+    "project": "webkit",
+    "file": "cove-rollout.spec.ts",
+    "title": "Cove B required cove-pool-stone-1 ordinary Retry",
+    "id": "2a31448e3c5cf0de6c0b-bc1f3ac2314d76432ba8"
+  },
+  {
+    "project": "webkit",
+    "file": "cove-rollout.spec.ts",
+    "title": "Cove B required cove-pool-stone-2 ordinary Retry",
+    "id": "2a31448e3c5cf0de6c0b-225542db719527d786c5"
+  },
+  {
+    "project": "webkit",
+    "file": "cove-rollout.spec.ts",
+    "title": "Cove B required cove-pool-stone-3 ordinary Retry",
+    "id": "2a31448e3c5cf0de6c0b-fb9d740f7210c9f4a6ef"
+  },
+  {
+    "project": "webkit",
+    "file": "cove-rollout.spec.ts",
+    "title": "Cove B required cove-bay-ledge-3 ordinary Retry",
+    "id": "2a31448e3c5cf0de6c0b-45b7fe17260cbb71af70"
+  },
+  {
+    "project": "chromium",
+    "file": "frost-ridge.spec.ts",
+    "title": "Frost three ice runs and snow summit use real keyboard input at 426px",
+    "id": "1923848d45a7a39923fa-ae9b55bb013cbc91b16f"
+  },
+  {
+    "project": "chromium",
+    "file": "frost-ridge.spec.ts",
+    "title": "Frost three ice runs and snow summit use real keyboard input at 320px",
+    "id": "1923848d45a7a39923fa-f77418c7d2cf4d7d8604"
+  },
+  {
+    "project": "chromium",
+    "file": "frost-ridge.spec.ts",
+    "title": "Frost actual finish returns over every snow ledge and manually assembles SNOW",
+    "id": "1923848d45a7a39923fa-fc8a0b829ecf3e21b78d"
+  },
+  {
+    "project": "chromium",
+    "file": "frost-ridge.spec.ts",
+    "title": "Frost controller accepts movement and jumps through the actual summit finish",
+    "id": "1923848d45a7a39923fa-f09d2932c94e8eda1308"
+  },
+  {
+    "project": "firefox",
+    "file": "frost-ridge.spec.ts",
+    "title": "Frost three ice runs and snow summit use real keyboard input at 426px",
+    "id": "1923848d45a7a39923fa-8b2dfdda5de66e882e85"
+  },
+  {
+    "project": "firefox",
+    "file": "frost-ridge.spec.ts",
+    "title": "Frost three ice runs and snow summit use real keyboard input at 320px",
+    "id": "1923848d45a7a39923fa-e1632179f0ab83477412"
+  },
+  {
+    "project": "firefox",
+    "file": "frost-ridge.spec.ts",
+    "title": "Frost actual finish returns over every snow ledge and manually assembles SNOW",
+    "id": "1923848d45a7a39923fa-db2f5b0b075a0482ef15"
+  },
+  {
+    "project": "firefox",
+    "file": "frost-ridge.spec.ts",
+    "title": "Frost controller accepts movement and jumps through the actual summit finish",
+    "id": "1923848d45a7a39923fa-e1e900474cb9dac59e78"
+  },
+  {
+    "project": "webkit",
+    "file": "frost-ridge.spec.ts",
+    "title": "Frost three ice runs and snow summit use real keyboard input at 426px",
+    "id": "1923848d45a7a39923fa-7d063b97d221507ab73f"
+  },
+  {
+    "project": "webkit",
+    "file": "frost-ridge.spec.ts",
+    "title": "Frost three ice runs and snow summit use real keyboard input at 320px",
+    "id": "1923848d45a7a39923fa-011648fa4bcf48d54e12"
+  },
+  {
+    "project": "webkit",
+    "file": "frost-ridge.spec.ts",
+    "title": "Frost actual finish returns over every snow ledge and manually assembles SNOW",
+    "id": "1923848d45a7a39923fa-39250f8358ccef0ee48f"
+  },
+  {
+    "project": "webkit",
+    "file": "frost-ridge.spec.ts",
+    "title": "Frost controller accepts movement and jumps through the actual summit finish",
+    "id": "1923848d45a7a39923fa-31f9c1673851b4a8220a"
+  },
+  {
+    "project": "chromium",
+    "file": "hud-owner-layout.spec.ts",
+    "title": "owner HUD order real-font fixture: plains identity marks and real glyph clearance",
+    "id": "133fd3a0cef4fc812b99-573eced0391fa738534b"
+  },
+  {
+    "project": "chromium",
+    "file": "hud-owner-layout.spec.ts",
+    "title": "owner HUD order real-font fixture: quarry identity marks and real glyph clearance",
+    "id": "133fd3a0cef4fc812b99-d8d7bc929c5fa3b87f7a"
+  },
+  {
+    "project": "chromium",
+    "file": "hud-owner-layout.spec.ts",
+    "title": "owner HUD order real-font fixture: timbers identity marks and real glyph clearance",
+    "id": "133fd3a0cef4fc812b99-80062ab0e223f6d2ded2"
+  },
+  {
+    "project": "chromium",
+    "file": "hud-owner-layout.spec.ts",
+    "title": "owner HUD order real-font fixture: sunset identity marks and real glyph clearance",
+    "id": "133fd3a0cef4fc812b99-f2430181dd3fbfdf0fa6"
+  },
+  {
+    "project": "chromium",
+    "file": "hud-owner-layout.spec.ts",
+    "title": "owner HUD order real-font fixture: frost identity marks and real glyph clearance",
+    "id": "133fd3a0cef4fc812b99-cce888fda90ae1d1301f"
+  },
+  {
+    "project": "chromium",
+    "file": "hud-owner-layout.spec.ts",
+    "title": "owner HUD order real-font fixture: cove identity marks and real glyph clearance",
+    "id": "133fd3a0cef4fc812b99-ca03c955997ac6e8a6a3"
+  },
+  {
+    "project": "firefox",
+    "file": "hud-owner-layout.spec.ts",
+    "title": "owner HUD order real-font fixture: plains identity marks and real glyph clearance",
+    "id": "133fd3a0cef4fc812b99-66e88e129b7498db09b4"
+  },
+  {
+    "project": "firefox",
+    "file": "hud-owner-layout.spec.ts",
+    "title": "owner HUD order real-font fixture: quarry identity marks and real glyph clearance",
+    "id": "133fd3a0cef4fc812b99-95c6984f83c1ea161e5a"
+  },
+  {
+    "project": "firefox",
+    "file": "hud-owner-layout.spec.ts",
+    "title": "owner HUD order real-font fixture: timbers identity marks and real glyph clearance",
+    "id": "133fd3a0cef4fc812b99-e256d0ef0edaa9d054a9"
+  },
+  {
+    "project": "firefox",
+    "file": "hud-owner-layout.spec.ts",
+    "title": "owner HUD order real-font fixture: sunset identity marks and real glyph clearance",
+    "id": "133fd3a0cef4fc812b99-a5aa0a2e4ace071f338e"
+  },
+  {
+    "project": "firefox",
+    "file": "hud-owner-layout.spec.ts",
+    "title": "owner HUD order real-font fixture: frost identity marks and real glyph clearance",
+    "id": "133fd3a0cef4fc812b99-c3129b0b04f35eb0c6bb"
+  },
+  {
+    "project": "firefox",
+    "file": "hud-owner-layout.spec.ts",
+    "title": "owner HUD order real-font fixture: cove identity marks and real glyph clearance",
+    "id": "133fd3a0cef4fc812b99-083320c8652c5e8d0a46"
+  },
+  {
+    "project": "webkit",
+    "file": "hud-owner-layout.spec.ts",
+    "title": "owner HUD order real-font fixture: plains identity marks and real glyph clearance",
+    "id": "133fd3a0cef4fc812b99-62c6bc7e014255a8e067"
+  },
+  {
+    "project": "webkit",
+    "file": "hud-owner-layout.spec.ts",
+    "title": "owner HUD order real-font fixture: quarry identity marks and real glyph clearance",
+    "id": "133fd3a0cef4fc812b99-86b2cb3f6dbf44f22b73"
+  },
+  {
+    "project": "webkit",
+    "file": "hud-owner-layout.spec.ts",
+    "title": "owner HUD order real-font fixture: timbers identity marks and real glyph clearance",
+    "id": "133fd3a0cef4fc812b99-f491929a7a5cfe494d50"
+  },
+  {
+    "project": "webkit",
+    "file": "hud-owner-layout.spec.ts",
+    "title": "owner HUD order real-font fixture: sunset identity marks and real glyph clearance",
+    "id": "133fd3a0cef4fc812b99-696d02626bae63aa014d"
+  },
+  {
+    "project": "webkit",
+    "file": "hud-owner-layout.spec.ts",
+    "title": "owner HUD order real-font fixture: frost identity marks and real glyph clearance",
+    "id": "133fd3a0cef4fc812b99-d13955d3aaef258ed00c"
+  },
+  {
+    "project": "webkit",
+    "file": "hud-owner-layout.spec.ts",
+    "title": "owner HUD order real-font fixture: cove identity marks and real glyph clearance",
+    "id": "133fd3a0cef4fc812b99-d093e8f92fdd9328a084"
+  },
+  {
+    "project": "chromium",
+    "file": "music-browser.spec.ts",
+    "title": "preview switches all tracks and adventure selects music only after starting a level",
+    "id": "1a4158de96ae4b365144-f915145470bf8b58e056"
+  },
+  {
+    "project": "firefox",
+    "file": "music-browser.spec.ts",
+    "title": "preview switches all tracks and adventure selects music only after starting a level",
+    "id": "1a4158de96ae4b365144-dc82760589fdb4b34563"
+  },
+  {
+    "project": "webkit",
+    "file": "music-browser.spec.ts",
+    "title": "preview switches all tracks and adventure selects music only after starting a level",
+    "id": "1a4158de96ae4b365144-2a2ac714a4f3adccd0e6"
+  },
+  {
+    "project": "chromium",
+    "file": "sandy-cove.spec.ts",
+    "title": "Cove lower dune, island pools and beach viewpoint at 426px",
+    "id": "9a2692d81e66cc5dbca7-145906234f46c380e2df"
+  },
+  {
+    "project": "chromium",
+    "file": "sandy-cove.spec.ts",
+    "title": "Cove lower dune, island pools and beach viewpoint at 320px",
+    "id": "9a2692d81e66cc5dbca7-426546b48ed8e9179648"
+  },
+  {
+    "project": "chromium",
+    "file": "sandy-cove.spec.ts",
+    "title": "Cove actual finish retraces all four missed and manually assembles SAND",
+    "id": "9a2692d81e66cc5dbca7-776fc621011f29d38f2f"
+  },
+  {
+    "project": "chromium",
+    "file": "sandy-cove.spec.ts",
+    "title": "Cove actual finish retraces A only and manually assembles SAND",
+    "id": "9a2692d81e66cc5dbca7-7d74df84f98b9da64f41"
+  },
+  {
+    "project": "chromium",
+    "file": "sandy-cove.spec.ts",
+    "title": "Cove actual finish retraces N only and manually assembles SAND",
+    "id": "9a2692d81e66cc5dbca7-7c3bd7698a45bc27b864"
+  },
+  {
+    "project": "chromium",
+    "file": "sandy-cove.spec.ts",
+    "title": "Cove lower route accepts standard controller movement through the final trail finish",
+    "id": "9a2692d81e66cc5dbca7-28c5b3c9e0f27ec4aee3"
+  },
+  {
+    "project": "chromium",
+    "file": "sandy-cove.spec.ts",
+    "title": "Cove cached map preview renders fixed stones and its initial dune framing",
+    "id": "9a2692d81e66cc5dbca7-04abb699e4f2060d6050"
+  },
+  {
+    "project": "chromium",
+    "file": "sandy-cove.spec.ts",
+    "title": "Cove all 42 gems use native input, fixed stones, low finds and three optional spring attempts",
+    "id": "9a2692d81e66cc5dbca7-6261097293a864e199c2"
+  },
+  {
+    "project": "chromium",
+    "file": "sandy-cove.spec.ts",
+    "title": "Cove terrain kit manifest.json failure recovers through ordinary Retry",
+    "id": "9a2692d81e66cc5dbca7-025684c9bd1589b114a3"
+  },
+  {
+    "project": "chromium",
+    "file": "sandy-cove.spec.ts",
+    "title": "Cove terrain kit atlas.png failure recovers through ordinary Retry",
+    "id": "9a2692d81e66cc5dbca7-7537d2b6cfd74b4d230b"
+  },
+  {
+    "project": "chromium",
+    "file": "sandy-cove.spec.ts",
+    "title": "Cove terrain kit ground.png failure recovers through ordinary Retry",
+    "id": "9a2692d81e66cc5dbca7-2e13bdf679b586873f0b"
+  },
+  {
+    "project": "chromium",
+    "file": "sandy-cove.spec.ts",
+    "title": "Cove illustrated kit keeps underpass and upper-return rests at 426px",
+    "id": "9a2692d81e66cc5dbca7-1cc475eacb7b17c7115c"
+  },
+  {
+    "project": "chromium",
+    "file": "sandy-cove.spec.ts",
+    "title": "Cove illustrated kit keeps underpass and upper-return rests at 320px",
+    "id": "9a2692d81e66cc5dbca7-07bda961a13588b277f6"
+  },
+  {
+    "project": "firefox",
+    "file": "sandy-cove.spec.ts",
+    "title": "Cove lower dune, island pools and beach viewpoint at 426px",
+    "id": "9a2692d81e66cc5dbca7-628c8dc52500d2c700a7"
+  },
+  {
+    "project": "firefox",
+    "file": "sandy-cove.spec.ts",
+    "title": "Cove lower dune, island pools and beach viewpoint at 320px",
+    "id": "9a2692d81e66cc5dbca7-505fda4ccb852c1567e4"
+  },
+  {
+    "project": "firefox",
+    "file": "sandy-cove.spec.ts",
+    "title": "Cove actual finish retraces all four missed and manually assembles SAND",
+    "id": "9a2692d81e66cc5dbca7-f246cc400bba9c23aff7"
+  },
+  {
+    "project": "firefox",
+    "file": "sandy-cove.spec.ts",
+    "title": "Cove actual finish retraces A only and manually assembles SAND",
+    "id": "9a2692d81e66cc5dbca7-a7d296b6f211b681db0d"
+  },
+  {
+    "project": "firefox",
+    "file": "sandy-cove.spec.ts",
+    "title": "Cove actual finish retraces N only and manually assembles SAND",
+    "id": "9a2692d81e66cc5dbca7-b55f5633acb194630cac"
+  },
+  {
+    "project": "firefox",
+    "file": "sandy-cove.spec.ts",
+    "title": "Cove lower route accepts standard controller movement through the final trail finish",
+    "id": "9a2692d81e66cc5dbca7-341eba575a0897bfa3ec"
+  },
+  {
+    "project": "firefox",
+    "file": "sandy-cove.spec.ts",
+    "title": "Cove cached map preview renders fixed stones and its initial dune framing",
+    "id": "9a2692d81e66cc5dbca7-bad778c623cd7e45eab8"
+  },
+  {
+    "project": "firefox",
+    "file": "sandy-cove.spec.ts",
+    "title": "Cove all 42 gems use native input, fixed stones, low finds and three optional spring attempts",
+    "id": "9a2692d81e66cc5dbca7-3e20bf23d7f4aebebd58"
+  },
+  {
+    "project": "firefox",
+    "file": "sandy-cove.spec.ts",
+    "title": "Cove terrain kit manifest.json failure recovers through ordinary Retry",
+    "id": "9a2692d81e66cc5dbca7-9c307261d2e70b726c39"
+  },
+  {
+    "project": "firefox",
+    "file": "sandy-cove.spec.ts",
+    "title": "Cove terrain kit atlas.png failure recovers through ordinary Retry",
+    "id": "9a2692d81e66cc5dbca7-a81081b75876acf6f413"
+  },
+  {
+    "project": "firefox",
+    "file": "sandy-cove.spec.ts",
+    "title": "Cove terrain kit ground.png failure recovers through ordinary Retry",
+    "id": "9a2692d81e66cc5dbca7-6e9da642d878a5bf430c"
+  },
+  {
+    "project": "firefox",
+    "file": "sandy-cove.spec.ts",
+    "title": "Cove illustrated kit keeps underpass and upper-return rests at 426px",
+    "id": "9a2692d81e66cc5dbca7-965f3f4a266a8467ca47"
+  },
+  {
+    "project": "firefox",
+    "file": "sandy-cove.spec.ts",
+    "title": "Cove illustrated kit keeps underpass and upper-return rests at 320px",
+    "id": "9a2692d81e66cc5dbca7-12657dd1e8aa30b8e407"
+  },
+  {
+    "project": "webkit",
+    "file": "sandy-cove.spec.ts",
+    "title": "Cove lower dune, island pools and beach viewpoint at 426px",
+    "id": "9a2692d81e66cc5dbca7-2fe37caabd913f0deb3e"
+  },
+  {
+    "project": "webkit",
+    "file": "sandy-cove.spec.ts",
+    "title": "Cove lower dune, island pools and beach viewpoint at 320px",
+    "id": "9a2692d81e66cc5dbca7-9e11d53ce302f42df375"
+  },
+  {
+    "project": "webkit",
+    "file": "sandy-cove.spec.ts",
+    "title": "Cove actual finish retraces all four missed and manually assembles SAND",
+    "id": "9a2692d81e66cc5dbca7-6a04165e120e47d9a6f5"
+  },
+  {
+    "project": "webkit",
+    "file": "sandy-cove.spec.ts",
+    "title": "Cove actual finish retraces A only and manually assembles SAND",
+    "id": "9a2692d81e66cc5dbca7-f1e962c922eee4f7eaa6"
+  },
+  {
+    "project": "webkit",
+    "file": "sandy-cove.spec.ts",
+    "title": "Cove actual finish retraces N only and manually assembles SAND",
+    "id": "9a2692d81e66cc5dbca7-c835b0493a9ab3eaa9de"
+  },
+  {
+    "project": "webkit",
+    "file": "sandy-cove.spec.ts",
+    "title": "Cove lower route accepts standard controller movement through the final trail finish",
+    "id": "9a2692d81e66cc5dbca7-5723fa124d108d98b683"
+  },
+  {
+    "project": "webkit",
+    "file": "sandy-cove.spec.ts",
+    "title": "Cove cached map preview renders fixed stones and its initial dune framing",
+    "id": "9a2692d81e66cc5dbca7-ce706ebbd3a29ada4f14"
+  },
+  {
+    "project": "webkit",
+    "file": "sandy-cove.spec.ts",
+    "title": "Cove all 42 gems use native input, fixed stones, low finds and three optional spring attempts",
+    "id": "9a2692d81e66cc5dbca7-3adc085ed9c03d2067f4"
+  },
+  {
+    "project": "webkit",
+    "file": "sandy-cove.spec.ts",
+    "title": "Cove terrain kit manifest.json failure recovers through ordinary Retry",
+    "id": "9a2692d81e66cc5dbca7-ce5a9832c3efb273b853"
+  },
+  {
+    "project": "webkit",
+    "file": "sandy-cove.spec.ts",
+    "title": "Cove terrain kit atlas.png failure recovers through ordinary Retry",
+    "id": "9a2692d81e66cc5dbca7-3fb8f6a04407d1048f14"
+  },
+  {
+    "project": "webkit",
+    "file": "sandy-cove.spec.ts",
+    "title": "Cove terrain kit ground.png failure recovers through ordinary Retry",
+    "id": "9a2692d81e66cc5dbca7-090a1c59789d10724cee"
+  },
+  {
+    "project": "webkit",
+    "file": "sandy-cove.spec.ts",
+    "title": "Cove illustrated kit keeps underpass and upper-return rests at 426px",
+    "id": "9a2692d81e66cc5dbca7-7f92b7633cf016221279"
+  },
+  {
+    "project": "webkit",
+    "file": "sandy-cove.spec.ts",
+    "title": "Cove illustrated kit keeps underpass and upper-return rests at 320px",
+    "id": "9a2692d81e66cc5dbca7-a52261bac1f9db59b291"
+  },
+  {
+    "project": "chromium",
+    "file": "slime-squash.spec.ts",
+    "title": "slime squash through real keyboard controls leaves a flattened costume",
+    "id": "9adb4d8a13a310f7fb47-5ed513ce7613f701570b"
+  },
+  {
+    "project": "chromium",
+    "file": "slime-squash.spec.ts",
+    "title": "slime squash through real controller controls leaves a flattened costume",
+    "id": "9adb4d8a13a310f7fb47-bf0ddf69ec430b7935a2"
+  },
+  {
+    "project": "chromium",
+    "file": "slime-squash.spec.ts",
+    "title": "squish can be auditioned in the existing audio preview",
+    "id": "9adb4d8a13a310f7fb47-4ba36659c533857b5832"
+  },
+  {
+    "project": "chromium",
+    "file": "slime-squash.spec.ts",
+    "title": "all six upright and flattened costumes retain their accessory pixels and ground anchor",
+    "id": "9adb4d8a13a310f7fb47-ac83d3a1f600c7b0ec38"
+  },
+  {
+    "project": "firefox",
+    "file": "slime-squash.spec.ts",
+    "title": "slime squash through real keyboard controls leaves a flattened costume",
+    "id": "9adb4d8a13a310f7fb47-10756ceb643a67e8e63e"
+  },
+  {
+    "project": "firefox",
+    "file": "slime-squash.spec.ts",
+    "title": "slime squash through real controller controls leaves a flattened costume",
+    "id": "9adb4d8a13a310f7fb47-ea94f2c09e4121e9bb04"
+  },
+  {
+    "project": "firefox",
+    "file": "slime-squash.spec.ts",
+    "title": "squish can be auditioned in the existing audio preview",
+    "id": "9adb4d8a13a310f7fb47-e193d85db7164d3b0bfd"
+  },
+  {
+    "project": "firefox",
+    "file": "slime-squash.spec.ts",
+    "title": "all six upright and flattened costumes retain their accessory pixels and ground anchor",
+    "id": "9adb4d8a13a310f7fb47-1b733e99ecd13dc5d645"
+  },
+  {
+    "project": "webkit",
+    "file": "slime-squash.spec.ts",
+    "title": "slime squash through real keyboard controls leaves a flattened costume",
+    "id": "9adb4d8a13a310f7fb47-dbc95c7afdfbf5a7ad84"
+  },
+  {
+    "project": "webkit",
+    "file": "slime-squash.spec.ts",
+    "title": "slime squash through real controller controls leaves a flattened costume",
+    "id": "9adb4d8a13a310f7fb47-bc317a8d3ce78ae8b028"
+  },
+  {
+    "project": "webkit",
+    "file": "slime-squash.spec.ts",
+    "title": "squish can be auditioned in the existing audio preview",
+    "id": "9adb4d8a13a310f7fb47-ab9f5d0f31bca385755b"
+  },
+  {
+    "project": "webkit",
+    "file": "slime-squash.spec.ts",
+    "title": "all six upright and flattened costumes retain their accessory pixels and ground anchor",
+    "id": "9adb4d8a13a310f7fb47-acc18010fd95bafb3074"
+  },
+  {
+    "project": "chromium",
+    "file": "sunset-scaffolds.spec.ts",
+    "title": "Sunset fixed main route has zero BEAM letters at 426px",
+    "id": "707918baf227603e52bc-b2d9e7c9e3b53b2796a8"
+  },
+  {
+    "project": "chromium",
+    "file": "sunset-scaffolds.spec.ts",
+    "title": "Sunset fixed main route has zero BEAM letters at 320px",
+    "id": "707918baf227603e52bc-d74dbaf6cc9e44a30e90"
+  },
+  {
+    "project": "chromium",
+    "file": "sunset-scaffolds.spec.ts",
+    "title": "Sunset fixed main route has zero BEAM letters at 1366px",
+    "id": "707918baf227603e52bc-5284d2834e5d58e645d3"
+  },
+  {
+    "project": "chromium",
+    "file": "sunset-scaffolds.spec.ts",
+    "title": "Sunset actual finish retrace recovers all missed BEAM, reactivates checkpoints and returns",
+    "id": "707918baf227603e52bc-cdb5ff01ea19c7807d32"
+  },
+  {
+    "project": "chromium",
+    "file": "sunset-scaffolds.spec.ts",
+    "title": "Sunset only missed M uses native retrace and returns to word flow",
+    "id": "707918baf227603e52bc-fe2095b3a90df10029e6"
+  },
+  {
+    "project": "chromium",
+    "file": "sunset-scaffolds.spec.ts",
+    "title": "Sunset only missed A uses native retrace and returns to word flow",
+    "id": "707918baf227603e52bc-7fca038bedeb1a085a77"
+  },
+  {
+    "project": "chromium",
+    "file": "sunset-scaffolds.spec.ts",
+    "title": "Sunset optional crane boards, carries and disembarks by walking in both directions",
+    "id": "707918baf227603e52bc-38ffa680f890f1e07667"
+  },
+  {
+    "project": "chromium",
+    "file": "sunset-scaffolds.spec.ts",
+    "title": "Sunset held-right cannot bypass the first tower and recovers to its local entrance",
+    "id": "707918baf227603e52bc-be28868faca645023010"
+  },
+  {
+    "project": "chromium",
+    "file": "sunset-scaffolds.spec.ts",
+    "title": "Sunset multi-jump gap continuation pre2 takeoff970 uses actual rendered contacts",
+    "id": "707918baf227603e52bc-c787ddcf6c6c1ebaf51b"
+  },
+  {
+    "project": "chromium",
+    "file": "sunset-scaffolds.spec.ts",
+    "title": "Sunset multi-jump gap continuation pre0 takeoff974 uses actual rendered contacts",
+    "id": "707918baf227603e52bc-e7db96569316a4d66cb2"
+  },
+  {
+    "project": "chromium",
+    "file": "sunset-scaffolds.spec.ts",
+    "title": "Sunset multi-jump gap continuation pre1 takeoff978 uses actual rendered contacts",
+    "id": "707918baf227603e52bc-5055cb32177af35d31d9"
+  },
+  {
+    "project": "firefox",
+    "file": "sunset-scaffolds.spec.ts",
+    "title": "Sunset fixed main route has zero BEAM letters at 426px",
+    "id": "707918baf227603e52bc-fa696eb7eaac644c1c2b"
+  },
+  {
+    "project": "firefox",
+    "file": "sunset-scaffolds.spec.ts",
+    "title": "Sunset fixed main route has zero BEAM letters at 320px",
+    "id": "707918baf227603e52bc-589ef5b4fa3b282ad8b3"
+  },
+  {
+    "project": "firefox",
+    "file": "sunset-scaffolds.spec.ts",
+    "title": "Sunset fixed main route has zero BEAM letters at 1366px",
+    "id": "707918baf227603e52bc-687e20421c37428a0ff1"
+  },
+  {
+    "project": "firefox",
+    "file": "sunset-scaffolds.spec.ts",
+    "title": "Sunset actual finish retrace recovers all missed BEAM, reactivates checkpoints and returns",
+    "id": "707918baf227603e52bc-4a7ff43d9c8f0eb7f982"
+  },
+  {
+    "project": "firefox",
+    "file": "sunset-scaffolds.spec.ts",
+    "title": "Sunset only missed M uses native retrace and returns to word flow",
+    "id": "707918baf227603e52bc-7191503326a4f7e005d5"
+  },
+  {
+    "project": "firefox",
+    "file": "sunset-scaffolds.spec.ts",
+    "title": "Sunset only missed A uses native retrace and returns to word flow",
+    "id": "707918baf227603e52bc-1d2961f82825764fcade"
+  },
+  {
+    "project": "firefox",
+    "file": "sunset-scaffolds.spec.ts",
+    "title": "Sunset optional crane boards, carries and disembarks by walking in both directions",
+    "id": "707918baf227603e52bc-911f8979b7c1fd699e76"
+  },
+  {
+    "project": "firefox",
+    "file": "sunset-scaffolds.spec.ts",
+    "title": "Sunset held-right cannot bypass the first tower and recovers to its local entrance",
+    "id": "707918baf227603e52bc-b6e40ccc3903948413f9"
+  },
+  {
+    "project": "firefox",
+    "file": "sunset-scaffolds.spec.ts",
+    "title": "Sunset multi-jump gap continuation pre2 takeoff970 uses actual rendered contacts",
+    "id": "707918baf227603e52bc-352d71af17d0ddd0fd51"
+  },
+  {
+    "project": "firefox",
+    "file": "sunset-scaffolds.spec.ts",
+    "title": "Sunset multi-jump gap continuation pre0 takeoff974 uses actual rendered contacts",
+    "id": "707918baf227603e52bc-c0e558af494e45c47460"
+  },
+  {
+    "project": "firefox",
+    "file": "sunset-scaffolds.spec.ts",
+    "title": "Sunset multi-jump gap continuation pre1 takeoff978 uses actual rendered contacts",
+    "id": "707918baf227603e52bc-735ef1074b98643f1072"
+  },
+  {
+    "project": "webkit",
+    "file": "sunset-scaffolds.spec.ts",
+    "title": "Sunset fixed main route has zero BEAM letters at 426px",
+    "id": "707918baf227603e52bc-7821a260ae6fa7f533f1"
+  },
+  {
+    "project": "webkit",
+    "file": "sunset-scaffolds.spec.ts",
+    "title": "Sunset fixed main route has zero BEAM letters at 320px",
+    "id": "707918baf227603e52bc-a0fa50aa58f564440748"
+  },
+  {
+    "project": "webkit",
+    "file": "sunset-scaffolds.spec.ts",
+    "title": "Sunset fixed main route has zero BEAM letters at 1366px",
+    "id": "707918baf227603e52bc-1685e8477aa22367fbde"
+  },
+  {
+    "project": "webkit",
+    "file": "sunset-scaffolds.spec.ts",
+    "title": "Sunset actual finish retrace recovers all missed BEAM, reactivates checkpoints and returns",
+    "id": "707918baf227603e52bc-4b599165a2d34ba6ffcc"
+  },
+  {
+    "project": "webkit",
+    "file": "sunset-scaffolds.spec.ts",
+    "title": "Sunset only missed M uses native retrace and returns to word flow",
+    "id": "707918baf227603e52bc-4df59b00d82b035c5a79"
+  },
+  {
+    "project": "webkit",
+    "file": "sunset-scaffolds.spec.ts",
+    "title": "Sunset only missed A uses native retrace and returns to word flow",
+    "id": "707918baf227603e52bc-4b085f147c32cce16056"
+  },
+  {
+    "project": "webkit",
+    "file": "sunset-scaffolds.spec.ts",
+    "title": "Sunset optional crane boards, carries and disembarks by walking in both directions",
+    "id": "707918baf227603e52bc-88799f6394223c358866"
+  },
+  {
+    "project": "webkit",
+    "file": "sunset-scaffolds.spec.ts",
+    "title": "Sunset held-right cannot bypass the first tower and recovers to its local entrance",
+    "id": "707918baf227603e52bc-75081539079029dd0752"
+  },
+  {
+    "project": "webkit",
+    "file": "sunset-scaffolds.spec.ts",
+    "title": "Sunset multi-jump gap continuation pre2 takeoff970 uses actual rendered contacts",
+    "id": "707918baf227603e52bc-711d1058064985341227"
+  },
+  {
+    "project": "webkit",
+    "file": "sunset-scaffolds.spec.ts",
+    "title": "Sunset multi-jump gap continuation pre0 takeoff974 uses actual rendered contacts",
+    "id": "707918baf227603e52bc-8ca78629f234a0e81081"
+  },
+  {
+    "project": "webkit",
+    "file": "sunset-scaffolds.spec.ts",
+    "title": "Sunset multi-jump gap continuation pre1 takeoff978 uses actual rendered contacts",
+    "id": "707918baf227603e52bc-f4a6cde41cd2b2ef2352"
+  },
+  {
+    "project": "chromium",
+    "file": "timbers-art.spec.ts",
+    "title": "Timbers illustrated preview input journey and actual silhouette clearance at 426px",
+    "id": "72d2548e97958c413fdc-cc58907b2486b17a6f70"
+  },
+  {
+    "project": "chromium",
+    "file": "timbers-art.spec.ts",
+    "title": "Timbers illustrated preview input journey and actual silhouette clearance at 320px",
+    "id": "72d2548e97958c413fdc-35efdbaf30f0513b2427"
+  },
+  {
+    "project": "chromium",
+    "file": "timbers-art.spec.ts",
+    "title": "Timbers required manifest.json fails visibly and recovers with ordinary Retry",
+    "id": "72d2548e97958c413fdc-e427bc1ee083f40474f8"
+  },
+  {
+    "project": "chromium",
+    "file": "timbers-art.spec.ts",
+    "title": "Timbers required ground.png fails visibly and recovers with ordinary Retry",
+    "id": "72d2548e97958c413fdc-a40f88a3dd551d87921f"
+  },
+  {
+    "project": "chromium",
+    "file": "timbers-art.spec.ts",
+    "title": "Timbers required branch-580.png fails visibly and recovers with ordinary Retry",
+    "id": "72d2548e97958c413fdc-e196445d973723a8ceb4"
+  },
+  {
+    "project": "chromium",
+    "file": "timbers-art.spec.ts",
+    "title": "Timbers tree required manifest.json fails visibly and recovers with ordinary Retry",
+    "id": "72d2548e97958c413fdc-7ba3b42e6b57325efbe0"
+  },
+  {
+    "project": "chromium",
+    "file": "timbers-art.spec.ts",
+    "title": "Timbers tree required tree.png fails visibly and recovers with ordinary Retry",
+    "id": "72d2548e97958c413fdc-9aecc7d1c85d2512b2cb"
+  },
+  {
+    "project": "chromium",
+    "file": "timbers-art.spec.ts",
+    "title": "Timbers tree required declaration fails visibly and recovers with ordinary Retry",
+    "id": "72d2548e97958c413fdc-cf04f6ee03e7262be658"
+  },
+  {
+    "project": "firefox",
+    "file": "timbers-art.spec.ts",
+    "title": "Timbers illustrated preview input journey and actual silhouette clearance at 426px",
+    "id": "72d2548e97958c413fdc-f2b635f2d626a42b408f"
+  },
+  {
+    "project": "firefox",
+    "file": "timbers-art.spec.ts",
+    "title": "Timbers illustrated preview input journey and actual silhouette clearance at 320px",
+    "id": "72d2548e97958c413fdc-822f58de735ea1b62c8c"
+  },
+  {
+    "project": "firefox",
+    "file": "timbers-art.spec.ts",
+    "title": "Timbers required manifest.json fails visibly and recovers with ordinary Retry",
+    "id": "72d2548e97958c413fdc-99c5d9f529d24ec204c2"
+  },
+  {
+    "project": "firefox",
+    "file": "timbers-art.spec.ts",
+    "title": "Timbers required ground.png fails visibly and recovers with ordinary Retry",
+    "id": "72d2548e97958c413fdc-f3b01f5640c99d533108"
+  },
+  {
+    "project": "firefox",
+    "file": "timbers-art.spec.ts",
+    "title": "Timbers required branch-580.png fails visibly and recovers with ordinary Retry",
+    "id": "72d2548e97958c413fdc-34ca4ee0f441039d247e"
+  },
+  {
+    "project": "firefox",
+    "file": "timbers-art.spec.ts",
+    "title": "Timbers tree required manifest.json fails visibly and recovers with ordinary Retry",
+    "id": "72d2548e97958c413fdc-9771b1024460660d66a4"
+  },
+  {
+    "project": "firefox",
+    "file": "timbers-art.spec.ts",
+    "title": "Timbers tree required tree.png fails visibly and recovers with ordinary Retry",
+    "id": "72d2548e97958c413fdc-744d350be51d9381360d"
+  },
+  {
+    "project": "firefox",
+    "file": "timbers-art.spec.ts",
+    "title": "Timbers tree required declaration fails visibly and recovers with ordinary Retry",
+    "id": "72d2548e97958c413fdc-ddfb575d0fcfdbe4f266"
+  },
+  {
+    "project": "webkit",
+    "file": "timbers-art.spec.ts",
+    "title": "Timbers illustrated preview input journey and actual silhouette clearance at 426px",
+    "id": "72d2548e97958c413fdc-df69131963ba3881092f"
+  },
+  {
+    "project": "webkit",
+    "file": "timbers-art.spec.ts",
+    "title": "Timbers illustrated preview input journey and actual silhouette clearance at 320px",
+    "id": "72d2548e97958c413fdc-f76214c12367e6e8c722"
+  },
+  {
+    "project": "webkit",
+    "file": "timbers-art.spec.ts",
+    "title": "Timbers required manifest.json fails visibly and recovers with ordinary Retry",
+    "id": "72d2548e97958c413fdc-663c86a7a16ec113a262"
+  },
+  {
+    "project": "webkit",
+    "file": "timbers-art.spec.ts",
+    "title": "Timbers required ground.png fails visibly and recovers with ordinary Retry",
+    "id": "72d2548e97958c413fdc-5c409d616540de7a61bc"
+  },
+  {
+    "project": "webkit",
+    "file": "timbers-art.spec.ts",
+    "title": "Timbers required branch-580.png fails visibly and recovers with ordinary Retry",
+    "id": "72d2548e97958c413fdc-a991ead1855d6be01b8f"
+  },
+  {
+    "project": "webkit",
+    "file": "timbers-art.spec.ts",
+    "title": "Timbers tree required manifest.json fails visibly and recovers with ordinary Retry",
+    "id": "72d2548e97958c413fdc-6f0e446e3d8a01678b43"
+  },
+  {
+    "project": "webkit",
+    "file": "timbers-art.spec.ts",
+    "title": "Timbers tree required tree.png fails visibly and recovers with ordinary Retry",
+    "id": "72d2548e97958c413fdc-de8c9ec09d55d94b3e17"
+  },
+  {
+    "project": "webkit",
+    "file": "timbers-art.spec.ts",
+    "title": "Timbers tree required declaration fails visibly and recovers with ordinary Retry",
+    "id": "72d2548e97958c413fdc-5bedaa9db98fd89a41d6"
+  },
+  {
+    "project": "chromium",
+    "file": "timbers-ascent.spec.ts",
+    "title": "Timbers right fork input ascent frames roots, middle and summit at 426px",
+    "id": "5d4fe9d69e09ed7c4759-32c5539715373593cd58"
+  },
+  {
+    "project": "chromium",
+    "file": "timbers-ascent.spec.ts",
+    "title": "Timbers right fork input ascent frames roots, middle and summit at 320px",
+    "id": "5d4fe9d69e09ed7c4759-a651be24e0bc26a45578"
+  },
+  {
+    "project": "chromium",
+    "file": "timbers-ascent.spec.ts",
+    "title": "Timbers right fork input ascent frames roots, middle and summit at 1366px",
+    "id": "5d4fe9d69e09ed7c4759-cc72b195474e4187cd99"
+  },
+  {
+    "project": "chromium",
+    "file": "timbers-ascent.spec.ts",
+    "title": "Timbers input return recovers all missed TREE tiles and revisits the finish",
+    "id": "5d4fe9d69e09ed7c4759-86ad08406962245b5e4a"
+  },
+  {
+    "project": "chromium",
+    "file": "timbers-ascent.spec.ts",
+    "title": "Timbers only missed summit E returns to word flow without reopening immediately",
+    "id": "5d4fe9d69e09ed7c4759-04cb59ede95e0b955426"
+  },
+  {
+    "project": "chromium",
+    "file": "timbers-ascent.spec.ts",
+    "title": "Timbers left fork visits both outer stars and returns to the lookout by input",
+    "id": "5d4fe9d69e09ed7c4759-42fab9c1ee4bf070da70"
+  },
+  {
+    "project": "chromium",
+    "file": "timbers-ascent.spec.ts",
+    "title": "Timbers Star 3 wrong-end walk-off catches locally and rejoins by input",
+    "id": "5d4fe9d69e09ed7c4759-ba702d383b10b0c87334"
+  },
+  {
+    "project": "chromium",
+    "file": "timbers-ascent.spec.ts",
+    "title": "Timbers optional spring reaches Star 2 and permits a safe repeat approach",
+    "id": "5d4fe9d69e09ed7c4759-2d2efb62d235f9e7b027"
+  },
+  {
+    "project": "firefox",
+    "file": "timbers-ascent.spec.ts",
+    "title": "Timbers right fork input ascent frames roots, middle and summit at 426px",
+    "id": "5d4fe9d69e09ed7c4759-08e6a19608e1c4d49fca"
+  },
+  {
+    "project": "firefox",
+    "file": "timbers-ascent.spec.ts",
+    "title": "Timbers right fork input ascent frames roots, middle and summit at 320px",
+    "id": "5d4fe9d69e09ed7c4759-c328f1f1da1ac6f2d384"
+  },
+  {
+    "project": "firefox",
+    "file": "timbers-ascent.spec.ts",
+    "title": "Timbers right fork input ascent frames roots, middle and summit at 1366px",
+    "id": "5d4fe9d69e09ed7c4759-b0c5290868f4d8c3d422"
+  },
+  {
+    "project": "firefox",
+    "file": "timbers-ascent.spec.ts",
+    "title": "Timbers input return recovers all missed TREE tiles and revisits the finish",
+    "id": "5d4fe9d69e09ed7c4759-68a1d82e3519c59a1d2b"
+  },
+  {
+    "project": "firefox",
+    "file": "timbers-ascent.spec.ts",
+    "title": "Timbers only missed summit E returns to word flow without reopening immediately",
+    "id": "5d4fe9d69e09ed7c4759-b23c05915f6aeb4ecb86"
+  },
+  {
+    "project": "firefox",
+    "file": "timbers-ascent.spec.ts",
+    "title": "Timbers left fork visits both outer stars and returns to the lookout by input",
+    "id": "5d4fe9d69e09ed7c4759-34151dfc6d56fb318a1c"
+  },
+  {
+    "project": "firefox",
+    "file": "timbers-ascent.spec.ts",
+    "title": "Timbers Star 3 wrong-end walk-off catches locally and rejoins by input",
+    "id": "5d4fe9d69e09ed7c4759-aea9ae588d010f9c74b3"
+  },
+  {
+    "project": "firefox",
+    "file": "timbers-ascent.spec.ts",
+    "title": "Timbers optional spring reaches Star 2 and permits a safe repeat approach",
+    "id": "5d4fe9d69e09ed7c4759-53a1584fd1a64a04c6b4"
+  },
+  {
+    "project": "webkit",
+    "file": "timbers-ascent.spec.ts",
+    "title": "Timbers right fork input ascent frames roots, middle and summit at 426px",
+    "id": "5d4fe9d69e09ed7c4759-df1ca7885b773d44f37f"
+  },
+  {
+    "project": "webkit",
+    "file": "timbers-ascent.spec.ts",
+    "title": "Timbers right fork input ascent frames roots, middle and summit at 320px",
+    "id": "5d4fe9d69e09ed7c4759-a12adba91b2081598fe2"
+  },
+  {
+    "project": "webkit",
+    "file": "timbers-ascent.spec.ts",
+    "title": "Timbers right fork input ascent frames roots, middle and summit at 1366px",
+    "id": "5d4fe9d69e09ed7c4759-b0185512bc11659a6212"
+  },
+  {
+    "project": "webkit",
+    "file": "timbers-ascent.spec.ts",
+    "title": "Timbers input return recovers all missed TREE tiles and revisits the finish",
+    "id": "5d4fe9d69e09ed7c4759-f7332cd73d49f525da14"
+  },
+  {
+    "project": "webkit",
+    "file": "timbers-ascent.spec.ts",
+    "title": "Timbers only missed summit E returns to word flow without reopening immediately",
+    "id": "5d4fe9d69e09ed7c4759-71c7e6b5f21798c5489a"
+  },
+  {
+    "project": "webkit",
+    "file": "timbers-ascent.spec.ts",
+    "title": "Timbers left fork visits both outer stars and returns to the lookout by input",
+    "id": "5d4fe9d69e09ed7c4759-442dc031030d0a12e5ba"
+  },
+  {
+    "project": "webkit",
+    "file": "timbers-ascent.spec.ts",
+    "title": "Timbers Star 3 wrong-end walk-off catches locally and rejoins by input",
+    "id": "5d4fe9d69e09ed7c4759-b72f6882799799d2a06c"
+  },
+  {
+    "project": "webkit",
+    "file": "timbers-ascent.spec.ts",
+    "title": "Timbers optional spring reaches Star 2 and permits a safe repeat approach",
+    "id": "5d4fe9d69e09ed7c4759-0552479da484aa9f9397"
+  },
+  {
+    "project": "chromium",
+    "file": "water-landing.spec.ts",
+    "title": "Cove ordinary water landing splashes while the dry pool stone landing retains dust",
+    "id": "ecfbe8a95571856a37a1-99ca0947458a25f1b58f"
+  },
+  {
+    "project": "firefox",
+    "file": "water-landing.spec.ts",
+    "title": "Cove ordinary water landing splashes while the dry pool stone landing retains dust",
+    "id": "ecfbe8a95571856a37a1-46bf119ef6ddda45973d"
+  },
+  {
+    "project": "webkit",
+    "file": "water-landing.spec.ts",
+    "title": "Cove ordinary water landing splashes while the dry pool stone landing retains dust",
+    "id": "ecfbe8a95571856a37a1-1378a8b19aa814db156e"
+  }
+]
