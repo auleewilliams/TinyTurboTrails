@@ -1,7 +1,7 @@
 import { afterEach, expect, it, vi } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
-const { beforePlainsContour } = createRequire(import.meta.url)('../scripts/plains-contour-preservation.mjs') as { beforePlainsContour(path: string, bytes: Buffer): Buffer };
+const { beforeTimbersPreview } = createRequire(import.meta.url)('../scripts/timbers-preservation.mjs') as { beforeTimbersPreview(path: string, bytes: Buffer): Buffer };
 import { createHash } from 'node:crypto';
 import { transformSync } from 'rolldown/utils';
 import { SUNSET_SITE } from '../src/world/sunset-site';
@@ -124,7 +124,7 @@ it('keeps accepted/shared artwork, all other trails and simulation bytes unchang
   const approved = new Set(['src/world/assets.ts', 'src/world/renderer.ts', 'src/world/sunset-site.ts', 'public/assets/site/manifest.json']);
   for (const [path, digest] of Object.entries(baseline.sourceHashes)) {
     if ((!path.startsWith('src/') && !path.startsWith('public/')) || approved.has(path)) continue;
-    const actual = createHash('sha256').update(beforePlainsContour(path, readFileSync(new URL('../' + path, import.meta.url)))).digest('hex');
+    const actual = createHash('sha256').update(beforeTimbersPreview(path, readFileSync(new URL('../' + path, import.meta.url)))).digest('hex');
     expect(actual, path).toBe(digest);
   }
 });

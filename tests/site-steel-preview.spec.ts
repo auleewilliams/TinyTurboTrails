@@ -1,3 +1,4 @@
+import { createCoveResponseObserver } from './cove-response-observation';
 import { test, expect } from '@playwright/test';
 import { createHash } from 'node:crypto';
 import { readFileSync, readdirSync } from 'node:fs';
@@ -16,15 +17,20 @@ for (const width of [426, 320]) test(`Sunset steel preview uses ordinary ground,
     .filter(entry => entry.isFile()).map(entry => join(entry.parentPath, entry.name))).sort();
   const source = Object.fromEntries(sourceFiles.map(path => [path, hash(readFileSync(path))]));
   const responses: object[] = [], responseErrors: string[] = [], pending: Promise<void>[] = [], errors: string[] = [];
+  const transport = createCoveResponseObserver();
+  let cacheBindings: ReturnType<typeof transport.assertComplete> = [];
   page.on('pageerror', error => errors.push(error.message));
   page.on('response', response => {
     const url = new URL(response.url());
     if (url.origin !== new URL(info.project.use.baseURL!).origin) return;
+    transport.observe(response);
+    // A 304 has no body; assertComplete binds it to an earlier 200 at this exact URL.
+    if (response.status() === 304) return;
     pending.push((async () => {
       try {
         const bytes = await response.body(), path = url.pathname === '/' ? 'index.html' : decodeURIComponent(url.pathname.slice(1));
         const build = readFileSync(resolve('dist', path));
-        responses.push({ path, status: response.status(), bytes: bytes.length, servedSha256: hash(bytes), buildSha256: hash(build) });
+        responses.push({ path, url: response.url(), status: response.status(), bytes: bytes.length, servedSha256: hash(bytes), buildSha256: hash(build) });
         expect(hash(bytes), path).toBe(hash(build));
       } catch (error) { responseErrors.push(String(error)); }
     })());
@@ -110,15 +116,17 @@ for (const width of [426, 320]) test(`Sunset steel preview uses ordinary ground,
     await drive('return-dock', [drop(800, 1, 850, 380), walk(440), jump(440, 320), walk(350)]);
     await capture('return-high-deck');
     await Promise.all(pending);
+    await transport.settle(); cacheBindings = transport.assertComplete();
+    expect(transport.records.filter(row => row.status === 200)).toHaveLength(responses.length);
     expect(responseErrors).toEqual([]); expect(errors).toEqual([]);
     expect(responses.length).toBeGreaterThan(50);
     for (const [path, digest] of Object.entries(source)) expect(hash(readFileSync(path)), path).toBe(digest);
   } finally {
-    await Promise.all(pending);
+    await Promise.all(pending); await transport.settle();
     await evidence.observe('source-build-input-provenance', {
       sourceRevision: process.env.BROWSER_REPORT_SOURCE_SHA ?? null,
       workingBase: execFileSync('git', ['rev-parse', 'HEAD']).toString().trim(), source,
-      browser: browser.browserType().name(), version: browser.version(), routes, responses, responseErrors, errors,
+      browser: browser.browserType().name(), version: browser.version(), routes, responses, responseErrors, errors, responseTransport: transport.records, cacheBindings,
       scope: 'Actual input and production canvas. First-jump screenshot holds the existing pilot clock at an input-reached pose. Not owner acceptance.',
     });
     await evidence.assertIntegrity();

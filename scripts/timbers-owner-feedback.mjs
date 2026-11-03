@@ -1,3 +1,4 @@
+import { beforeSiteArt } from './site-art-preservation.mjs';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
@@ -9,6 +10,7 @@ const record = JSON.parse(raw);
 // Keep earlier art-only approvals immutable. Reverse precisely the subsequently
 // requested marker removal and eleven new entities before historical byte oracles.
 export function beforeTimbersOwnerFeedback(path, bytes) {
+  bytes = beforeSiteArt(path, bytes);
   const entry = record.files[path];
   if (!entry) return bytes;
   assert.equal(hash(bytes), entry.currentSha256, `${path}: exact owner feedback changes`);

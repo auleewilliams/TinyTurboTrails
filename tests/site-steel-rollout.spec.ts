@@ -1,3 +1,4 @@
+import { createCoveResponseObserver } from './cove-response-observation';
 import { test, expect } from '@playwright/test';
 import { readFileSync, readdirSync } from 'node:fs';
 import { createHash } from 'node:crypto';
@@ -14,15 +15,20 @@ for (const width of [426, 320]) test(`Sunset whole steel rollout reaches the roo
     .filter(entry => entry.isFile()).map(entry => join(entry.parentPath, entry.name))).sort();
   const source = Object.fromEntries(files.map(path => [path, hash(readFileSync(path))]));
   const responses: object[] = [], errors: string[] = [], pending: Promise<void>[] = [], routes: object[] = [];
+  const transport = createCoveResponseObserver();
+  let cacheBindings: ReturnType<typeof transport.assertComplete> = [];
   page.on('pageerror', e => errors.push(e.message));
   page.on('response', response => {
     const url = new URL(response.url());
     if (url.origin !== new URL(info.project.use.baseURL!).origin) return;
+    transport.observe(response);
+    // A 304 has no body; assertComplete binds it to an earlier 200 at this exact URL.
+    if (response.status() === 304) return;
     pending.push((async () => {
       try {
         const path = url.pathname === '/' ? 'index.html' : decodeURIComponent(url.pathname.slice(1));
         const body = await response.body(), build = readFileSync(resolve('dist', path));
-        responses.push({ path, status: response.status(), servedSha256: hash(body), buildSha256: hash(build) });
+        responses.push({ path, url: response.url(), status: response.status(), servedSha256: hash(body), buildSha256: hash(build) });
         expect(response.status()).toBe(200); expect(hash(body), path).toBe(hash(build));
       } catch (e) { errors.push(String(e)); }
     })());
@@ -61,12 +67,14 @@ for (const width of [426, 320]) test(`Sunset whole steel rollout reaches the roo
     await driveSunset(page, [{ kind: 'finish' }]);
     await page.getByRole('button', { name: 'Build your word', exact: true }).click();
     await expect(page.locator('#status')).toContainText('Bag 0/4'); await capture('finish');
-    await Promise.all(pending); expect(errors).toEqual([]); expect(responses.length).toBeGreaterThan(80);
+    await Promise.all(pending);
+    await transport.settle(); cacheBindings = transport.assertComplete();
+    expect(transport.records.filter(row => row.status === 200)).toHaveLength(responses.length); expect(errors).toEqual([]); expect(responses.length).toBeGreaterThan(80);
     for (const [path, digest] of Object.entries(source)) expect(hash(readFileSync(path)), path).toBe(digest);
   } finally {
-    await Promise.all(pending);
+    await Promise.all(pending); await transport.settle();
     await evidence.observe('source-build-input-provenance', { sourceRevision: process.env.BROWSER_REPORT_SOURCE_SHA ?? null,
-      workingBase: execFileSync('git', ['rev-parse', 'HEAD']).toString().trim(), source, responses, errors, routes,
+      workingBase: execFileSync('git', ['rev-parse', 'HEAD']).toString().trim(), source, responses, errors, routes, responseTransport: transport.records, cacheBindings,
       browser: browser.browserType().name(), version: browser.version(), reducedMotion: width === 320,
       scope: 'Actual input-driven full main route and real Pause; no state injection. Separate from owner playtesting.' });
     await evidence.assertIntegrity();

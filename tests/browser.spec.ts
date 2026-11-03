@@ -15,7 +15,7 @@ import { installQuarryPilotScript } from './quarry-pilot';
 import { QUARRY_DESCENT, QUARRY_RETURN, QUARRY_STARS, type QuarryWaypoint } from './quarry-route';
 import { installPlainsRewardPilot } from './plains-pilot';
 import { bay1KeyboardPilotInit } from './cove-bay1-input';
-import { installTimberKeyboardPilot, runTimberStages, TIMBER_ONLY_E2_ASCENT } from './timbers-browser-pilot';
+import { installTimberKeyboardPilot, runTimberStages, TIMBER_ONLY_E2_ASCENT, TIMBER_ASCENT_RIGHT } from './timbers-browser-pilot';
 import { drawTerrainMaterial, drawTerrainEdge, drawTrailBackdrop } from '../src/world/trail-presentation';
 import { installRetracePilotScript } from './retrace-pilot';
 import { observedDamage, sustainedControllerMovement, type ActuatorCall, type HealthObservation } from './rumble-observation';
@@ -30,6 +30,8 @@ import { LEVELS, QUARRY_RUN } from '../src/world/levels';
 import { DEFAULT_MOVEMENT, surfaceY } from '../src/game/movement';
 import { platformBodyAt } from '../src/game/platforms';
 import { coveGroundY, coveRepeatColumn, validateCoveTerrain, loadCoveTerrain, drawCoveGround, drawCovePlatform } from '../src/world/cove-terrain';
+import { timbersPreviewIds, timbersPlatformWidths, validateTimbersTerrain, loadTimbersTerrain, drawTimbersGround, drawTimbersPlatform } from '../src/world/timbers-terrain';
+import { validateTimbersTree, loadTimbersTree, drawTimbersTree } from '../src/world/timbers-tree';
 import { validateCoveMaterials, loadCoveMaterials, coveRipplePhase, drawCoveMaterials, drawSurfaceMaterials } from '../src/world/surface-materials';
 import { drawSlime, drawGem, drawSpecial, drawLandingBands, drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawTerrainTiles, drawTimberTrunk, drawSiteFrame, drawWorld } from '../src/world/renderer';
 import { TRAIL_WORDS } from '../src/game/education';
@@ -182,7 +184,7 @@ test('app fullscreen retains feedback controls and native map and pause targets'
 });
 
 /** The renderer is injected as plain functions, so every helper it calls has to travel with it. */
-const RENDERER_SOURCE = [plainsContourRange, plainsContourColumns, drawPlainsContourGround,validateCoveMaterials, loadCoveMaterials, coveRipplePhase, drawCoveMaterials, coveGroundY, coveRepeatColumn, validateCoveTerrain, loadCoveTerrain, drawCoveGround, drawCovePlatform, drawAmbientWeather, drawSlime, drawGem, drawSpecial, drawLandingBands, drawTerrainMaterial, drawTerrainEdge, drawTrailBackdrop, drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawTerrainTiles, drawTimberTrunk, drawSiteFrame, drawSurfaceMaterials].map((helper) => helper.toString()).join('\n');
+const RENDERER_SOURCE = [plainsContourRange, plainsContourColumns, drawPlainsContourGround, timbersPreviewIds, timbersPlatformWidths, validateTimbersTerrain, loadTimbersTerrain, drawTimbersGround, drawTimbersPlatform, validateTimbersTree, loadTimbersTree, drawTimbersTree, validateCoveMaterials, loadCoveMaterials, coveRipplePhase, drawCoveMaterials, coveGroundY, coveRepeatColumn, validateCoveTerrain, loadCoveTerrain, drawCoveGround, drawCovePlatform, drawAmbientWeather, drawSlime, drawGem, drawSpecial, drawLandingBands, drawTerrainMaterial, drawTerrainEdge, drawTrailBackdrop, drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawTerrainTiles, drawTimberTrunk, drawSiteFrame, drawSurfaceMaterials].map((helper) => helper.toString()).join('\n');
 
 test('ambient weather repeats the same pixels, respects reduced motion and stays behind terrain', async ({ page }, info) => {
   // Six full-image comparisons need extra readback time on constrained WebKit hosts.
@@ -202,8 +204,10 @@ test('ambient weather repeats the same pixels, respects reduced motion and stays
       // Isolate weather from trail-specific scenery, including Timbers' trunk.
       const base = { ...level, id: 'weather-fixture', theme: { ...level.theme, scenery: false, parallax: [] } };
       const coveTerrain = await (window as unknown as { loadCoveTerrain: typeof loadCoveTerrain }).loadCoveTerrain(`/assets/${level.atlas}/`, manifest.terrainKit);
+      const timbersTerrain = await (window as unknown as { loadTimbersTerrain: typeof loadTimbersTerrain }).loadTimbersTerrain(`/assets/${level.atlas}/`, manifest.timbersKit);
+      const timbersTree = await (window as unknown as { loadTimbersTree: typeof loadTimbersTree }).loadTimbersTree(`/assets/${level.atlas}/`, manifest.timbersTree);
       const coveMaterials = await (window as unknown as { loadCoveMaterials: typeof loadCoveMaterials }).loadCoveMaterials(`/assets/${level.atlas}/`, manifest.surfaceKit);
-      const assets = { atlas, manifest, gems, materials, backdrops, slimes, panorama, coveTerrain, coveMaterials };
+      const assets = { atlas, manifest, gems, materials, backdrops, slimes, panorama, coveTerrain, coveMaterials, timbersTerrain, timbersTree };
       const canvas = document.createElement('canvas'); canvas.width = 426; canvas.height = 240;
       const ctx = canvas.getContext('2d')!; ctx.imageSmoothingEnabled = false;
       const camera = { position: { x: Math.min(1400.25, level.maxX - 426), y: level.progressAxis === 'y' ? level.height - 240 : 0 } } as Parameters<typeof drawWorld>[3];
@@ -2195,8 +2199,10 @@ test('finish artwork pixels meet terrain in all six trails, including the sloped
       const ctx = canvas.getContext('2d')!; ctx.imageSmoothingEnabled = false;
       const offset = { x: level.finish.x - 213, y: level.progressAxis === 'y' ? level.finish.y - 180 : 0 };
       const coveTerrain = await (window as unknown as { loadCoveTerrain: typeof loadCoveTerrain }).loadCoveTerrain(base, manifest.terrainKit);
+      const timbersTerrain = await (window as unknown as { loadTimbersTerrain: typeof loadTimbersTerrain }).loadTimbersTerrain(base, manifest.timbersKit);
+      const timbersTree = await (window as unknown as { loadTimbersTree: typeof loadTimbersTree }).loadTimbersTree(base, manifest.timbersTree);
       const coveMaterials = await (window as unknown as { loadCoveMaterials: typeof loadCoveMaterials }).loadCoveMaterials(base, manifest.surfaceKit);
-      const assets = { atlas, manifest, gems, backdrops, materials, panorama, coveTerrain, coveMaterials };
+      const assets = { atlas, manifest, gems, backdrops, materials, panorama, coveTerrain, coveMaterials, timbersTerrain, timbersTree };
       const route = { ...level, entities: [] };
       const fixed = (level.platforms ?? []).filter(platform => platform.from.x === platform.to.x && platform.from.y === platform.to.y)
         .map(platform => ({ id: platform.id, x: platform.from.x, y: platform.from.y,
@@ -2342,8 +2348,12 @@ async function acknowledgeTrailNeutral(page: Page): Promise<void> {
 
 test('Timbers roots keep a safe, open first-jump run-up', async ({ page }, info) => {
   const level = LEVELS.find(candidate => candidate.id === 'timbers')!;
-  expect(level.entities.filter(entity => entity.kind === 'hazard' || entity.kind === 'slime')).toEqual([]);
-  await info.attach('old-prop-inventory-replaced', { body: JSON.stringify({ source: 'level data',
+  const firstLanding = level.platforms!.find(platform => platform.id === 'timber-low-1')!.from.y;
+  // Keep the root run-up and first landing clear; enemies on higher boughs
+  // were explicitly restored after the artwork playtest.
+  expect(level.entities.filter(entity => (entity.kind === 'hazard' || entity.kind === 'slime')
+    && entity.y >= firstLanding - DEFAULT_MOVEMENT.height - 28)).toEqual([]);
+  await info.attach('root-clearance-inventory', { body: JSON.stringify({ source: 'level data', firstLanding,
     hazards: level.entities.filter(entity => entity.kind === 'hazard'),
     slimes: level.entities.filter(entity => entity.kind === 'slime') }), contentType: 'application/json' });
   await page.addInitScript(() => {
@@ -3172,8 +3182,10 @@ test('celebration preview preserves gameplay pixels and final pose under reduced
 });
 
 for (const [costume, level] of [...LEVELS.entries()].filter(([, level]) => level.entities.some(entity => entity.kind === 'slime'))) {
-  test(`${level.id} uses the common slime atlas, patrols and pauses in play`, async ({ page }, info) => {
+  const hopping = level.id === 'timbers';
+  test(`${level.id} uses the common slime atlas, ${hopping ? 'hops' : 'patrols'} and pauses in play`, async ({ page }, info) => {
     test.setTimeout(45_000);
+    if (hopping) await installTimberKeyboardPilot(page);
     await page.addInitScript((sky) => {
       const fillRect = CanvasRenderingContext2D.prototype.fillRect;
       const drawImage = CanvasRenderingContext2D.prototype.drawImage;
@@ -3198,13 +3210,22 @@ for (const [costume, level] of [...LEVELS.entries()].filter(([, level]) => level
     await expect.poll(async () => (await read()).length).toBe(level.entities.filter(e => e.kind === 'slime').length);
     const initial = await read();
     for (const call of initial) expect([call[0], call[1], call[2], call[3], call[6], call[7]]).toEqual([costume * 48, 0, 48, 48, 48, 48]);
-    await expect.poll(async () => (await read())[0][4]).not.toBe(initial[0][4]);
+    const animatedAxis = hopping ? 5 : 4;
+    await expect.poll(async () => (await read())[0][animatedAxis]).not.toBe(initial[0][animatedAxis]);
+    if (hopping) expect((await read()).map(call => call[4])).toEqual(initial.map(call => call[4]));
     const first = level.entities.find(e => e.kind === 'slime')!;
-    // Walk to a clear viewing distance through the actual controls.
-    const position = async (): Promise<number> => Number((await page.locator('#status').innerText()).match(/X (\d+)/)?.[1] ?? 0);
-    await page.keyboard.down('ArrowRight');
-    await expect.poll(position, { timeout: 15_000, intervals: [30] }).toBeGreaterThan(first.x - 120);
-    await page.keyboard.up('ArrowRight');
+    // Reach a real viewing position through controls: climb to an elevated
+    // Timbers slime, or walk along the ground toward a patrolling one.
+    if (hopping) {
+      const route = await runTimberStages(page, [...TIMBER_ASCENT_RIGHT.slice(0, 5), { kind: 'walk', x: 270 }]);
+      expect(route).toMatchObject({ done: true, error: '' });
+      await expect(page.locator('#status')).toContainText('Y 866');
+    } else {
+      const position = async (): Promise<number> => Number((await page.locator('#status').innerText()).match(/X (\d+)/)?.[1] ?? 0);
+      await page.keyboard.down('ArrowRight');
+      await expect.poll(position, { timeout: 15_000, intervals: [30] }).toBeGreaterThan(first.x - 120);
+      await page.keyboard.up('ArrowRight');
+    }
     await page.waitForTimeout(350);
     const evidence = info.outputPath(`${level.id}-slime.png`);
     await canvas.screenshot({ path: evidence });
@@ -3216,7 +3237,7 @@ for (const [costume, level] of [...LEVELS.entries()].filter(([, level]) => level
     expect(await read()).toEqual(frozen);
     await page.keyboard.press('Escape');
     await expect(page.locator('#status')).toContainText('Playing');
-    await expect.poll(async () => (await read())[0][4]).not.toBe(frozen[0][4]);
+    await expect.poll(async () => (await read())[0][animatedAxis]).not.toBe(frozen[0][animatedAxis]);
   });
 }
 
@@ -4474,7 +4495,7 @@ test('builder-kit visual fixture renders all six words and generated stickers at
 for (const level of LEVELS) test(`compact HUD renderer fixture: ${level.id} identity marks and real glyph clearance`, async ({ page }, info) => {
   // Explicit layout states, not scene mutation or a claim of input-driven gameplay.
   const names = ['world/camera.ts', 'game/platforms.ts', 'game/movement.ts', 'game/education.ts', 'art/interface-kit.ts', 'game/hud.ts', 'world/scenery.ts',
-    'world/cove-terrain.ts', 'world/site-terrain.ts', 'world/surface-materials.ts', 'world/plains-contour.ts', 'world/assets.ts', 'world/trail-presentation.ts', 'world/ambient-weather.ts', 'world/renderer.ts'];
+    'world/cove-terrain.ts', 'world/site-terrain.ts', 'world/plains-contour.ts', 'world/timbers-terrain.ts', 'world/timbers-tree.ts', 'world/surface-materials.ts', 'world/assets.ts', 'world/trail-presentation.ts', 'world/ambient-weather.ts', 'world/renderer.ts'];
   const errors: string[] = []; page.on('pageerror', error => errors.push(error.message));
   const modules = names.map(name => readFileSync(new URL(`../src/${name}`, import.meta.url), 'utf8'));
   const runtimeImports = [...new Set(modules.flatMap(source => [...source.matchAll(/^import (?!type )\{([^}]*)\} from .*;$/gm)]
@@ -4748,7 +4769,7 @@ for (const [selection, trail] of LEVELS.entries()) test(`landmark labels: render
   // Use the actual map method and its complete renderer dependency graph. These
   // explicit presentation states are not completed gameplay or scene mutations.
   const names = ['world/camera.ts', 'game/platforms.ts', 'game/movement.ts', 'art/henry.ts', 'art/animation.ts', 'art/interface-kit.ts', 'game/education.ts',
-    'world/scenery.ts', 'world/cove-terrain.ts', 'world/site-terrain.ts', 'world/surface-materials.ts', 'world/plains-contour.ts', 'world/assets.ts', 'world/trail-presentation.ts', 'world/ambient-weather.ts',
+    'world/scenery.ts', 'world/cove-terrain.ts', 'world/site-terrain.ts', 'world/plains-contour.ts', 'world/timbers-terrain.ts', 'world/timbers-tree.ts', 'world/surface-materials.ts', 'world/assets.ts', 'world/trail-presentation.ts', 'world/ambient-weather.ts',
     'world/renderer.ts', 'game/reward-result.ts', 'game/overworld.ts'];
   const modules = names.map(name => readFileSync(new URL(`../src/${name}`, import.meta.url), 'utf8'));
   const runtimeImports = [...new Set(modules.flatMap(source => [...source.matchAll(/^import (?!type )\{([^}]*)\} from .*;$/gm)]
