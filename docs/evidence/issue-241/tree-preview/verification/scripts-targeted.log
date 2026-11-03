@@ -1,0 +1,46 @@
+TAP version 13
+# Subtest: Timbers prepared images reproduce exact complete RGBA, PNG structure and source bindings
+ok 1 - Timbers prepared images reproduce exact complete RGBA, PNG structure and source bindings
+  ---
+  duration_ms: 1544.488026
+  type: 'test'
+  ...
+# Subtest: Timbers whole end caps and centre provenance hold for every assembled pixel, without alpha thresholding
+ok 2 - Timbers whole end caps and centre provenance hold for every assembled pixel, without alpha thresholding
+  ---
+  duration_ms: 201.890994
+  type: 'test'
+  ...
+# Subtest: Timbers preservation allows only exact declared deltas and rejects unrelated edits in shared files
+ok 3 - Timbers preservation allows only exact declared deltas and rejects unrelated edits in shared files
+  ---
+  duration_ms: 17.843281
+  type: 'test'
+  ...
+# Subtest: whole-tree uniform preparation reproduces exact PNG/RGBA and keeps all prior terrain files unchanged
+ok 4 - whole-tree uniform preparation reproduces exact PNG/RGBA and keeps all prior terrain files unchanged
+  ---
+  duration_ms: 1480.402527
+  type: 'test'
+  ...
+# Subtest: the tree has six separate outer limbs and a contiguous broad foot, without editing alpha
+ok 5 - the tree has six separate outer limbs and a contiguous broad foot, without editing alpha
+  ---
+  duration_ms: 145.786833
+  type: 'test'
+  ...
+# Subtest: tree preservation reverses only pinned changes and rejects unrelated shared edits
+ok 6 - tree preservation reverses only pinned changes and rejects unrelated shared edits
+  ---
+  duration_ms: 19.757766
+  type: 'test'
+  ...
+1..6
+# tests 6
+# suites 0
+# pass 6
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2093.393744

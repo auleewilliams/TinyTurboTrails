@@ -1,0 +1,20 @@
+{
+  "tool": "image_gen.imagegen",
+  "role": "T",
+  "call": "T-01",
+  "request": {
+    "prompt": "Use case: style-transfer.\nAsset type: a single transparent connected background tree sprite for the existing Treetop Timbers 2D game.\nImage 1 is a CODE-DERIVED LAYOUT GUIDE ONLY. Its transparent portrait frame, tapered trunk, exactly six side limbs, attachment positions, limb directions and lengths, and flat ground-contact baseline are the composition to retain. Image 2 is a MATERIAL/ILLUSTRATION STYLE REFERENCE ONLY for the warm sculpted bark; do not copy its horizontal platform or bright walking lip.\n\nTransform the plain brown silhouette in Image 1 into a coherent hand-painted illustrated wooden trunk with those same SIX connected limbs. Keep the full composition and portrait 3:5 frame; do not re-centre the trunk. The trunk axis is about 65.6% across the frame, not the middle. The wide trunk base ends at 97.5% of frame height on a flat ground-contact line. Its narrow top begins at 3.75% of frame height. Keep the six outer limb tips at the same locations as the guide: two upper limbs pointing left, third right, fourth long left, fifth right, sixth lower left. All six belong to ONE continuous trunk with natural rounded knuckles and bark flowing through their junctions. Preserve full limb tips and the complete base, with generous genuinely transparent surrounding space matching the guide.\n\nNative game frame will be 576 x 960, uniformly reduced from this whole source. The old trunk is 40px wide near the top and 135px wide at the base, with six gently diagonal connectors. Follow those proportions and positions. Turn the angular edges into subtly organic rounded edges without widening or moving the limbs. The bottom must stay a broad substantial grounded base at the guide baseline, not taper to a point or hang above it. No roots stretching outside the guide, no branches added or removed.\n\nStyle: warm umber and cinnamon bark with restrained amber planes, rounded chunky bark scales, a few quiet vertical furrows and knots. Match the reference's hand-painted dimensional wood, but make this BACKGROUND tree appreciably darker and quieter than the reference platform's golden walking top. Moderate broad detail legible at native game scale; soft diffuse frontal light and gentle volume, no dramatic rim lights.\nCritical gameplay readability: these six limbs are NON-WALKABLE SCENERY behind separate foreground platforms. No bright horizontal walking lips, flat shelf tops, glowy outlines, or platform-like ledges. Avoid making the decorative limbs brighter than the trunk. Keep an organic connected silhouette rather than a construction beam frame.\nOutput only this one complete connected tree on genuine transparent alpha. No opaque/white/black/checkerboard background, no floor, cast ground shadow, halo, stray alpha specks, leaves, canopy, vines, grass, landscape, extra limbs, platforms, character, props, labels, numbers, text, border or watermark. Do not include the reference platform as a separate object.",
+    "referenced_image_paths": [
+      "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/assets/source/timbers/tree-v1/layout-guide.png",
+      "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/assets/source/timbers/illustrated-v1/a-01-original.png"
+    ],
+    "transparent_background": true
+  },
+  "inputRoles": [
+    "Code-derived non-production layout guide",
+    "Original A-01 material/style reference, immutable"
+  ],
+  "provider": null,
+  "model": null,
+  "requestId": null
+}

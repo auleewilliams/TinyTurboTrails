@@ -1,0 +1,137 @@
+{
+  "recordedAt": "2026-11-02T19:38:29.538767+00:00",
+  "baseCommit": "039866f7da5dda126f38a028843bb8b5110fad6e",
+  "runtimeDelta": "presentation-delta.json",
+  "runtimeDeltaSha256": "219a40d2e12eac2fd1c1afb1a6fd5b5e13b563721cfd77326c8bbf2065bbf6e9",
+  "units": {
+    "passed": 2053,
+    "files": 110,
+    "command": "npm test -- --maxWorkers=2"
+  },
+  "scripts": {
+    "passed": 116,
+    "command": "npm run test:ci"
+  },
+  "typecheck": "passed",
+  "build": "passed",
+  "logs": {
+    "unit-final.log": {
+      "path": "playwright-report/issue-241/owner-feedback/unit-final.log",
+      "sha256": "04fc4c958daf81fd288b7fa6193b91fa74e8c01081fd042c5ad49d1dabac4d64"
+    },
+    "scripts-final.log": {
+      "path": "playwright-report/issue-241/owner-feedback/scripts-final.log",
+      "sha256": "13b5b0a13785b6e4c19bf842738c9696486b5b793a406d0088a388410659e522"
+    },
+    "typecheck-complete.log": {
+      "path": "playwright-report/issue-241/owner-feedback/typecheck-complete.log",
+      "sha256": "7ec4f16ac6ef6f684235a4bac0597e5adf1a7d3a8ff33528bba2dd5918c35799"
+    },
+    "build-final.log": {
+      "path": "playwright-report/issue-241/owner-feedback/build-final.log",
+      "sha256": "8405830834adeb2606347df2b9f363f23a44d8101d80f127f8a9dd414f232fe7"
+    },
+    "initial-unit-failures.log": {
+      "path": "playwright-report/issue-241/owner-feedback/initial-unit-failures.log",
+      "sha256": "c2258cc1775d94f9a7d1c4012acb7a3e2cf46d0f5ffcc8ba5e4530be1b3a35b9"
+    },
+    "level-comparison.json": {
+      "path": "playwright-report/issue-241/owner-feedback/level-comparison.json",
+      "sha256": "f1f6ffbfd8749ea2f928fbb69521d676543ab33ed5ff39bba9381a6ea25b90b5"
+    },
+    "source-build-checkpoint.json": {
+      "path": "playwright-report/issue-241/owner-feedback/source-build-checkpoint.json",
+      "sha256": "f668327fa162f112b5c79857731e6a924a0aeddf0024be46ace44d28cd21c11b"
+    }
+  },
+  "browserReports": {
+    "chromium": {
+      "report": "playwright-report/issue-241/owner-feedback/chromium-report.json",
+      "sha256": "864ae9bbd84cd0214310eb243e7c72842f9490795922a5cfd5e84eb9b02e51ab",
+      "stats": {
+        "startTime": "2026-11-02T19:26:25.064Z",
+        "duration": 206155.717,
+        "expected": 26,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "readback": "playwright-report/issue-241/owner-feedback/chromium-readback.json",
+      "readbackSha256": "56bac2372b8600c34756169e24b760c23df2563ee2c90b62f0c71f870511c944",
+      "verifiedCases": 26,
+      "verifiedPngs": 260,
+      "verifiedFileAttachments": 186,
+      "sourceBuildBoundJourneys": 4
+    },
+    "firefox-webkit": {
+      "report": "playwright-report/issue-241/owner-feedback/firefox-webkit-report.json",
+      "sha256": "bddddda5e3cc49d8588076433fd48c8470d91f78f5202e46390f61a664158e09",
+      "stats": {
+        "startTime": "2026-11-02T19:28:19.498Z",
+        "duration": 451886.74600000004,
+        "expected": 52,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "readback": "playwright-report/issue-241/owner-feedback/firefox-webkit-readback.json",
+      "readbackSha256": "40a446af5bc14620c03cc2204f1ba64eb9fb3a789f83f02739ced81bbc67f9f0",
+      "verifiedCases": 52,
+      "verifiedPngs": 520,
+      "verifiedFileAttachments": 372,
+      "sourceBuildBoundJourneys": 8
+    },
+    "slime": {
+      "report": "playwright-report/issue-241/owner-feedback/slime-report.json",
+      "sha256": "139ccc4cc10c1f839b32ca5a011da22d2e44096d8bc79f69bcb46d9960efc074",
+      "stats": {
+        "startTime": "2026-11-02T19:33:00.835Z",
+        "duration": 40149.508,
+        "expected": 10,
+        "skipped": 0,
+        "unexpected": 2,
+        "flaky": 0
+      },
+      "readback": "playwright-report/issue-241/owner-feedback/slime-readback.json",
+      "readbackSha256": "01c8b4cb1ca1182e56bf6e7dd5e585cc7abdd07b6adfb48adc3dffa9de319641",
+      "verifiedCases": 12,
+      "verifiedPngs": 17,
+      "verifiedFileAttachments": 10,
+      "sourceBuildBoundJourneys": 0
+    },
+    "slime-isolated": {
+      "report": "playwright-report/issue-241/owner-feedback/slime-isolated-report.json",
+      "sha256": "dabe902e437519c1785781ff25623a51f25c3784cd2b982b889dbf01f3a746e3",
+      "stats": {
+        "startTime": "2026-11-02T19:36:56.406Z",
+        "duration": 19905.304,
+        "expected": 2,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "readback": "playwright-report/issue-241/owner-feedback/slime-isolated-readback.json",
+      "readbackSha256": "e962e8c8c2b4954bba7684eef13781ce2188d8be43779e5211788af0c031956d",
+      "verifiedCases": 2,
+      "verifiedPngs": 6,
+      "verifiedFileAttachments": 2,
+      "sourceBuildBoundJourneys": 0
+    }
+  },
+  "visualInspection": "Representative actual 426px native and 320px CSS Timbers captures inspected in Chromium, Firefox and WebKit; clean branch tops, grounded bush bases, visible leaf-capped slimes and clear HUD/landings.",
+  "screenshots": {
+    "fork-native.png": "c2994446fc45385e6c06716534aa9b240572c49cafa03e0d9c09f01b071d559d",
+    "spring-320-css.png": "a581594c668b65f1909558f893d811c157eb49509fc319a5ed6b1822de712d67"
+  },
+  "retainedFailures": {
+    "initialUnits": "Exploratory run during edits, not bound to an immutable commit. Detected the return-path slime collision, elevated squash rest-plane bug and a ground-only landing-band assumption. Corrected before final verification.",
+    "webkitSlimeApproach": "Initial shared slime run: 10 passed, 2 WebKit failures at unchanged 5s readiness deadline before stomp (X1440 keyboard, X1557 controller), while Timbers browsers ran concurrently. Separate unchanged one-worker run: 2 passed. Cause not established; original failures/traces retained."
+  },
+  "pending": [
+    "Fresh whole-PR Claude review of the new commit",
+    "Canonical full CI and artifact readback on the new commit",
+    "Owner playtest acceptance"
+  ],
+  "generationCallsUsedThisFollowup": 0,
+  "remainingOriginalReserves": 2
+}

@@ -1,0 +1,632 @@
+{
+  "config": {
+    "argv": [
+      "/usr/bin/node",
+      "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/node_modules/.bin/playwright",
+      "test",
+      "tests/timbers-art.spec.ts",
+      "--project=chromium",
+      "--grep",
+      "illustrated preview input journey",
+      "--workers=1",
+      "--output=docs/evidence/issue-241/tree-preview/pilot-centred/artifacts",
+      "--reporter=json"
+    ],
+    "configFile": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright.config.ts",
+    "rootDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/tests",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": true,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "sourceRevision": null,
+      "nodeVersion": "v22.22.1",
+      "platform": "linux",
+      "arch": "x64",
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "sourceRevision": null,
+          "nodeVersion": "v22.22.1",
+          "platform": "linux",
+          "arch": "x64",
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.spec.ts"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "sourceRevision": null,
+          "nodeVersion": "v22.22.1",
+          "platform": "linux",
+          "arch": "x64",
+          "actualWorkers": 1
+        },
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.spec.ts"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "sourceRevision": null,
+          "nodeVersion": "v22.22.1",
+          "platform": "linux",
+          "arch": "x64",
+          "actualWorkers": 1
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.spec.ts"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "sourceRevision": null,
+          "nodeVersion": "v22.22.1",
+          "platform": "linux",
+          "arch": "x64",
+          "actualWorkers": 1
+        },
+        "name": "chromium",
+        "testDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/tests",
+        "snapshotDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/tests",
+        "testIgnore": [],
+        "testMatch": "**/*.spec.ts",
+        "timeout": 30000,
+        "use": {
+          "trace": "retain-on-failure",
+          "screenshot": "only-on-failure",
+          "baseURL": "http://127.0.0.1:4173",
+          "viewport": {
+            "width": 1366,
+            "height": 768
+          },
+          "browserName": "chromium"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "chromium"
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "json"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.1",
+    "workers": 1,
+    "webServer": {
+      "command": "npm run preview -- --port 4173 --strictPort",
+      "url": "http://127.0.0.1:4173",
+      "reuseExistingServer": false
+    }
+  },
+  "suites": [
+    {
+      "title": "timbers-art.spec.ts",
+      "file": "timbers-art.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "Timbers illustrated preview input journey and actual silhouette clearance at 426px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 59842,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T22:27:13.420Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "map",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/map-c660092398fc4e8c25f958b8a4ec3d5f48413eba.png"
+                    },
+                    {
+                      "name": "map-metadata",
+                      "contentType": "application/json",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/map-metadata-7c475e2dc1e7545c30113fd2f270c08e186a45b9.json"
+                    },
+                    {
+                      "name": "roots-native",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/roots-native-42cb14c2dd4242ffd3cf8c8af54ef9c0e6eb1277.png"
+                    },
+                    {
+                      "name": "roots-css",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/roots-css-0aa4048c223b11a85220121e5e264b5d352d4d6e.png"
+                    },
+                    {
+                      "name": "roots-metadata",
+                      "contentType": "application/json",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/roots-metadata-68312e16abb8f6a7f54fb1b469d1622336ee01dd.json"
+                    },
+                    {
+                      "name": "tree-base-native",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/tree-base-native-9143c577475f7ecf3a6ff51db9b7153849d3c9f4.png"
+                    },
+                    {
+                      "name": "tree-base-css",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/tree-base-css-1891649fbbd40bee79cd13eb552780251267b067.png"
+                    },
+                    {
+                      "name": "tree-base-metadata",
+                      "contentType": "application/json",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/tree-base-metadata-640942d6c548b833cf262d25fa329c43ca627c7f.json"
+                    },
+                    {
+                      "name": "middle-native",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/middle-native-4da746d2cc53f6c66dd9869e8ded656379d46875.png"
+                    },
+                    {
+                      "name": "middle-css",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/middle-css-7b7fa2a459a66d0daec2052382714853b4e2371a.png"
+                    },
+                    {
+                      "name": "middle-metadata",
+                      "contentType": "application/json",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/middle-metadata-edea585b8597c3b1ea8711f074848641755c6613.json"
+                    },
+                    {
+                      "name": "under-spring-native",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/under-spring-native-f8c196bc219971e670708692bd282bd3b5e4c9e1.png"
+                    },
+                    {
+                      "name": "under-spring-css",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/under-spring-css-a6205848397eaa5f3c482e3efee4d402d7251f71.png"
+                    },
+                    {
+                      "name": "under-spring-metadata",
+                      "contentType": "application/json",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/under-spring-metadata-793b537e525d1bd084251b93ab77db95b845479a.json"
+                    },
+                    {
+                      "name": "spring-reward-native",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/spring-reward-native-bbbac2d30cc8a2a3768fdf5691c9855ff8731c76.png"
+                    },
+                    {
+                      "name": "spring-reward-css",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/spring-reward-css-7296dc11862a81ee61286ecdb02eabb7a5fa6e4d.png"
+                    },
+                    {
+                      "name": "spring-reward-metadata",
+                      "contentType": "application/json",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/spring-reward-metadata-a3cca0610718c7bfd168e00f23c896f024e9b9e9.json"
+                    },
+                    {
+                      "name": "spring-catch-native",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/spring-catch-native-a2302aef464f23ab9738ad061728954f896f0fc7.png"
+                    },
+                    {
+                      "name": "spring-catch-css",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/spring-catch-css-f27d8a0bb67da58b0c9b0be7f6a13e74fa4aba55.png"
+                    },
+                    {
+                      "name": "spring-catch-metadata",
+                      "contentType": "application/json",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/spring-catch-metadata-bdd9e3486db49bc6f0a5931e1f5faf66b1ca62d4.json"
+                    },
+                    {
+                      "name": "spring-repeat-native",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/spring-repeat-native-74b1dafff6ec02e0dfb3ff47c576f611b4e84dad.png"
+                    },
+                    {
+                      "name": "spring-repeat-css",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/spring-repeat-css-cf5e5267da406d030d334f2d9eb8450bbd78ed20.png"
+                    },
+                    {
+                      "name": "spring-repeat-metadata",
+                      "contentType": "application/json",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/spring-repeat-metadata-e703c75c0049a62f2ee677ed3c023d2c4ec6cadc.json"
+                    },
+                    {
+                      "name": "lookout-native",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/lookout-native-6aaf5199657e34aa6a5ae09ad8ce4a55a0ed77e2.png"
+                    },
+                    {
+                      "name": "lookout-css",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/lookout-css-78912daf369c2d68a738e541f0d4365a5bbfdbfd.png"
+                    },
+                    {
+                      "name": "lookout-metadata",
+                      "contentType": "application/json",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/lookout-metadata-70a895a04ff8a8358c0bc841af86e1d2298bbca3.json"
+                    },
+                    {
+                      "name": "return-middle-edge-native",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/return-middle-edge-native-4c3d9aefef29cf601056451658eb7fdd5b6ee916.png"
+                    },
+                    {
+                      "name": "return-middle-edge-css",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/return-middle-edge-css-be86e22ded162b71206520e1b043ae2481aef460.png"
+                    },
+                    {
+                      "name": "return-middle-edge-metadata",
+                      "contentType": "application/json",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/return-middle-edge-metadata-d92882e6703a7e42f7a838fe9d72a7baaa380b17.json"
+                    },
+                    {
+                      "name": "return720-native",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/return720-native-81dab52f195d5b846b8ba5760b66e2ca55ad9ca2.png"
+                    },
+                    {
+                      "name": "return720-css",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/return720-css-65f17ca2b4bc768f6e1c8d68df900c87c733c2af.png"
+                    },
+                    {
+                      "name": "return720-metadata",
+                      "contentType": "application/json",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/return720-metadata-b6ec319d35bee9deec9a4713774a346048459d62.json"
+                    },
+                    {
+                      "name": "return780-native",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/return780-native-a147d4e300833c6ff45a332007b283579bdc9dcb.png"
+                    },
+                    {
+                      "name": "return780-css",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/return780-css-6bc6d5ae1a5b1e4847e3b79ffe0d1a621cc0723a.png"
+                    },
+                    {
+                      "name": "return780-metadata",
+                      "contentType": "application/json",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/return780-metadata-123eef538bf43de85fff725dc14aa70fd737789b.json"
+                    },
+                    {
+                      "name": "returned-roots-native",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/returned-roots-native-07b58175ed98ad093bc916af4fb7f37395c85198.png"
+                    },
+                    {
+                      "name": "returned-roots-css",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/returned-roots-css-a2bed5414975d0c8c0c3b367579f77897a940e9d.png"
+                    },
+                    {
+                      "name": "returned-roots-metadata",
+                      "contentType": "application/json",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/returned-roots-metadata-ae95ad0797659b13387aac2749ef37db2a973f1c.json"
+                    },
+                    {
+                      "name": "journey",
+                      "contentType": "application/json",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-4f460-lhouette-clearance-at-426px-chromium/attachments/journey-05179d257d357e350216c43e291608ad6b4d5bb6.json"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-cc58907b2486b17a6f70",
+          "file": "timbers-art.spec.ts",
+          "line": 90,
+          "column": 33
+        },
+        {
+          "title": "Timbers illustrated preview input journey and actual silhouette clearance at 320px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 59382,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T22:28:13.438Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "map",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/map-bce5688458ff2bdef25f5f50034f8242b153a240.png"
+                    },
+                    {
+                      "name": "map-metadata",
+                      "contentType": "application/json",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/map-metadata-eff15430aae09c963cc1b076fd8ae8c4799a0630.json"
+                    },
+                    {
+                      "name": "roots-native",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/roots-native-b98fc0feecee6368db1f980624d06c3f667348a0.png"
+                    },
+                    {
+                      "name": "roots-css",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/roots-css-5a467d5fa92d8e355d4f2488f3dc889d871162ce.png"
+                    },
+                    {
+                      "name": "roots-metadata",
+                      "contentType": "application/json",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/roots-metadata-7b74b5cb5de526afa96e6dba24bdcbf448ade60e.json"
+                    },
+                    {
+                      "name": "tree-base-native",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/tree-base-native-4e12b8549d0ac7ac59051a0320b0b30bf37ca8b0.png"
+                    },
+                    {
+                      "name": "tree-base-css",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/tree-base-css-29c297723b0d166aa82ffd8454be7a48345619f7.png"
+                    },
+                    {
+                      "name": "tree-base-metadata",
+                      "contentType": "application/json",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/tree-base-metadata-3402888f10346bb3bd020ce6ba75d22bc0942abd.json"
+                    },
+                    {
+                      "name": "middle-native",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/middle-native-a54e381b93e17c4cf9cafd435b8ee4cfddcbf905.png"
+                    },
+                    {
+                      "name": "middle-css",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/middle-css-4971389510757e9313803dfbed96f1d1fad773b9.png"
+                    },
+                    {
+                      "name": "middle-metadata",
+                      "contentType": "application/json",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/middle-metadata-6f44064fbe9541f3e6cf30937e2510a4bc2bad15.json"
+                    },
+                    {
+                      "name": "under-spring-native",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/under-spring-native-0d536c3c39c4e0bd7c113b48a58ddbd3e27546b9.png"
+                    },
+                    {
+                      "name": "under-spring-css",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/under-spring-css-13e647efa528963982de83384af1d766cc107860.png"
+                    },
+                    {
+                      "name": "under-spring-metadata",
+                      "contentType": "application/json",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/under-spring-metadata-afe631acbc7ac566d20e62bd160d2d5148974518.json"
+                    },
+                    {
+                      "name": "spring-reward-native",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/spring-reward-native-e4456f9fac597f81e6bd158a52da96794c59390f.png"
+                    },
+                    {
+                      "name": "spring-reward-css",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/spring-reward-css-4833ca4572d17ed79066636cc8d230038d564978.png"
+                    },
+                    {
+                      "name": "spring-reward-metadata",
+                      "contentType": "application/json",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/spring-reward-metadata-78543015d2cdb9f37ead9820573305e79068291c.json"
+                    },
+                    {
+                      "name": "spring-catch-native",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/spring-catch-native-562ff56ad13f60c894c7d2966d26990b26c6bb1d.png"
+                    },
+                    {
+                      "name": "spring-catch-css",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/spring-catch-css-3b96502747c80b202e828af17f513142eeb603c5.png"
+                    },
+                    {
+                      "name": "spring-catch-metadata",
+                      "contentType": "application/json",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/spring-catch-metadata-e5183e0bd7e9ef1766b587039628b0af48f4c329.json"
+                    },
+                    {
+                      "name": "spring-repeat-native",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/spring-repeat-native-29b51f6db9ea3c93587f9c4387c0aaea6bccbe58.png"
+                    },
+                    {
+                      "name": "spring-repeat-css",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/spring-repeat-css-a2049b5abf679b44747a7ad5c60d869bd2ea7063.png"
+                    },
+                    {
+                      "name": "spring-repeat-metadata",
+                      "contentType": "application/json",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/spring-repeat-metadata-3fb792444d3f36ca8f5cebf0c3cb3950c06447a5.json"
+                    },
+                    {
+                      "name": "lookout-native",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/lookout-native-ac75a64d590b387be3e12a8bfe707b5de706b746.png"
+                    },
+                    {
+                      "name": "lookout-css",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/lookout-css-aad49d76e189183f826594d81d85e36048759401.png"
+                    },
+                    {
+                      "name": "lookout-metadata",
+                      "contentType": "application/json",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/lookout-metadata-3deab810a55b2c7c8c0a64ea9ae33dc26638c7a5.json"
+                    },
+                    {
+                      "name": "return-middle-edge-native",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/return-middle-edge-native-d9ac5cf9ae1615b0407afc95129e5673da2f2712.png"
+                    },
+                    {
+                      "name": "return-middle-edge-css",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/return-middle-edge-css-2ccd10bb6c43ed688a64cfd4aa9da661ed569ab8.png"
+                    },
+                    {
+                      "name": "return-middle-edge-metadata",
+                      "contentType": "application/json",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/return-middle-edge-metadata-b8472b8cbfbb670bcb6d17fe524ba01a22cc40ba.json"
+                    },
+                    {
+                      "name": "return720-native",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/return720-native-eb74433a705999637756f22155a82bc116b7062d.png"
+                    },
+                    {
+                      "name": "return720-css",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/return720-css-1a6af06c206bedf6e1ebcb436cff08a534739e8c.png"
+                    },
+                    {
+                      "name": "return720-metadata",
+                      "contentType": "application/json",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/return720-metadata-c3732be76628793da4ada603d41de897da80cb8c.json"
+                    },
+                    {
+                      "name": "return780-native",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/return780-native-da2c2411a17dbdee672c891eadd32df0aeb73567.png"
+                    },
+                    {
+                      "name": "return780-css",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/return780-css-abf0d74608e7a7706e2b70b6a3e910f8275e817b.png"
+                    },
+                    {
+                      "name": "return780-metadata",
+                      "contentType": "application/json",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/return780-metadata-f23761f5f41b42a60bedab247037da1a5448b40b.json"
+                    },
+                    {
+                      "name": "returned-roots-native",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/returned-roots-native-14a0efdb50b6a2eb238685e4ab082b873e287845.png"
+                    },
+                    {
+                      "name": "returned-roots-css",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/returned-roots-css-0482364ebc4c4b5f0d1dc4b6b15aa060bb970492.png"
+                    },
+                    {
+                      "name": "returned-roots-metadata",
+                      "contentType": "application/json",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/returned-roots-metadata-ae378b56c045daa91be39672fa2a264edddcc65c.json"
+                    },
+                    {
+                      "name": "journey",
+                      "contentType": "application/json",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/tree-preview/pilot-centred/artifacts/timbers-art-Timbers-illust-85d22-lhouette-clearance-at-320px-chromium/attachments/journey-687926837c1be25da5fed167fc8c2ea07b823923.json"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-35efdbaf30f0513b2427",
+          "file": "timbers-art.spec.ts",
+          "line": 90,
+          "column": 33
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-01T22:27:09.537Z",
+    "duration": 123454.628,
+    "expected": 2,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

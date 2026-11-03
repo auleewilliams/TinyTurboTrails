@@ -1,0 +1,23 @@
+{
+  "downloadSha256": "4e5a094efd3f8dabf36c7cad69f457cf17f68f6b3d2975f264e08fa34c923486",
+  "downloadBytes": 863748026,
+  "artifactId": 13179494154,
+  "githubDigest": "sha256:4e5a094efd3f8dabf36c7cad69f457cf17f68f6b3d2975f264e08fa34c923486",
+  "stats": {
+    "startTime": "2026-11-02T20:01:51.348Z",
+    "duration": 4783013.012,
+    "expected": 718,
+    "skipped": 1,
+    "unexpected": 25,
+    "flaky": 0
+  },
+  "failureCount": 25,
+  "sampleTrace": "cove-bay1-B-bay1-real-input-pilot-at-426px-firefox/trace.zip",
+  "sampleCachedResponses": [
+    {
+      "url": "http://127.0.0.1:4173/assets/plains/scenery/manifest.json",
+      "status": 304,
+      "headers": {}
+    }
+  ]
+}

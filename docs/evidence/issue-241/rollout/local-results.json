@@ -1,0 +1,37 @@
+{
+  "unit": {
+    "passed": 1953,
+    "failed": 0,
+    "log": "checks/unit-full.log",
+    "logSha256": "8f61ab3b060ee1fcb5dd269711fcc51935153faf730e7f2c240f1cdcad42ffa1"
+  },
+  "scripts": {
+    "passed": 106,
+    "failed": 0,
+    "log": "checks/scripts-full.log",
+    "logSha256": "feec1e6b04414882a83f33cf505c7b092f89e389096106dce5e77396031bb6c2"
+  },
+  "typecheck": {
+    "exitCode": 0,
+    "log": "checks/typecheck-final.log",
+    "logSha256": "7ec4f16ac6ef6f684235a4bac0597e5adf1a7d3a8ff33528bba2dd5918c35799"
+  },
+  "build": {
+    "exitCode": 0,
+    "log": "checks/build-final.log",
+    "logSha256": "c4fe76302fe754abf1d54d97ac194f3220a4080c17283fbd9e74c595743e41f7"
+  },
+  "native": {
+    "cases": 105,
+    "passed": 105,
+    "failed": 0,
+    "skipped": 0,
+    "retries": 0,
+    "reportSha256": "208acb343c78c173acf23cf4aa79a711017af3b48fa271a49936c911b8408706",
+    "evidence": "native/verification.json"
+  },
+  "fullConfiguredBrowserCases": 729,
+  "canonicalCI": "pending publication",
+  "freshClaudeReview": "pending publication",
+  "ownerWholeTrailAcceptance": "pending"
+}

@@ -1,5 +1,8 @@
 {
   "image": "environment.png",
+  "scenery": "../plains/scenery/manifest.json",
+  "timbersKit": "terrain-kit-v1/manifest.json",
+  "timbersTree": "tree-v1/manifest.json",
   "cellSize": 48,
   "assets": {
     "terrain-flat": 0,

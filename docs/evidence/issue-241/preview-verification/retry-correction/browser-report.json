@@ -1,0 +1,642 @@
+{
+  "config": {
+    "argv": [
+      "/usr/bin/node",
+      "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/node_modules/.bin/playwright",
+      "test",
+      "tests/timbers-art.spec.ts",
+      "--grep",
+      "Timbers required",
+      "--workers=2",
+      "--output=docs/evidence/issue-241/preview-verification/retry-correction/artifacts",
+      "--reporter=json"
+    ],
+    "configFile": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright.config.ts",
+    "rootDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/tests",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": true,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "sourceRevision": null,
+      "nodeVersion": "v22.22.1",
+      "platform": "linux",
+      "arch": "x64",
+      "actualWorkers": 2
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/preview-verification/retry-correction/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "sourceRevision": null,
+          "nodeVersion": "v22.22.1",
+          "platform": "linux",
+          "arch": "x64",
+          "actualWorkers": 2
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.spec.ts"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/preview-verification/retry-correction/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "sourceRevision": null,
+          "nodeVersion": "v22.22.1",
+          "platform": "linux",
+          "arch": "x64",
+          "actualWorkers": 2
+        },
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.spec.ts"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/preview-verification/retry-correction/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "sourceRevision": null,
+          "nodeVersion": "v22.22.1",
+          "platform": "linux",
+          "arch": "x64",
+          "actualWorkers": 2
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.spec.ts"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/preview-verification/retry-correction/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "sourceRevision": null,
+          "nodeVersion": "v22.22.1",
+          "platform": "linux",
+          "arch": "x64",
+          "actualWorkers": 2
+        },
+        "name": "chromium",
+        "testDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/tests",
+        "snapshotDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/tests",
+        "testIgnore": [],
+        "testMatch": "**/*.spec.ts",
+        "timeout": 30000,
+        "use": {
+          "trace": "retain-on-failure",
+          "screenshot": "only-on-failure",
+          "baseURL": "http://127.0.0.1:4173",
+          "viewport": {
+            "width": 1366,
+            "height": 768
+          },
+          "browserName": "chromium"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "chromium"
+      },
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/preview-verification/retry-correction/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "sourceRevision": null,
+          "nodeVersion": "v22.22.1",
+          "platform": "linux",
+          "arch": "x64",
+          "actualWorkers": 2
+        },
+        "name": "firefox",
+        "testDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/tests",
+        "snapshotDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/tests",
+        "testIgnore": [],
+        "testMatch": "**/*.spec.ts",
+        "timeout": 30000,
+        "use": {
+          "trace": "retain-on-failure",
+          "screenshot": "only-on-failure",
+          "baseURL": "http://127.0.0.1:4173",
+          "viewport": {
+            "width": 1366,
+            "height": 768
+          },
+          "browserName": "firefox"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "firefox"
+      },
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/preview-verification/retry-correction/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "sourceRevision": null,
+          "nodeVersion": "v22.22.1",
+          "platform": "linux",
+          "arch": "x64",
+          "actualWorkers": 2
+        },
+        "name": "webkit",
+        "testDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/tests",
+        "snapshotDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/tests",
+        "testIgnore": [],
+        "testMatch": "**/*.spec.ts",
+        "timeout": 30000,
+        "use": {
+          "trace": "retain-on-failure",
+          "screenshot": "only-on-failure",
+          "baseURL": "http://127.0.0.1:4173",
+          "viewport": {
+            "width": 1366,
+            "height": 768
+          },
+          "browserName": "webkit"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "webkit"
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "json"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.1",
+    "workers": 2,
+    "webServer": {
+      "command": "npm run preview -- --port 4173 --strictPort",
+      "url": "http://127.0.0.1:4173",
+      "reuseExistingServer": false
+    }
+  },
+  "suites": [
+    {
+      "title": "timbers-art.spec.ts",
+      "file": "timbers-art.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "Timbers required manifest.json fails visibly and recovers with ordinary Retry",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1933,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T21:46:38.211Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "required-resource-failed",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/preview-verification/retry-correction/artifacts/timbers-art-Timbers-requir-7baa0-ecovers-with-ordinary-Retry-chromium/attachments/required-resource-failed-dc3b2786b123f33921279e4b67bb469cf75fce11.png"
+                    },
+                    {
+                      "name": "required-resource-recovered",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/preview-verification/retry-correction/artifacts/timbers-art-Timbers-requir-7baa0-ecovers-with-ordinary-Retry-chromium/attachments/required-resource-recovered-a9821dcf35645938b2299730b455733000dc9017.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-e427bc1ee083f40474f8",
+          "file": "timbers-art.spec.ts",
+          "line": 155,
+          "column": 71
+        },
+        {
+          "title": "Timbers required ground.png fails visibly and recovers with ordinary Retry",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 1943,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T21:46:38.274Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "required-resource-failed",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/preview-verification/retry-correction/artifacts/timbers-art-Timbers-requir-711d4-ecovers-with-ordinary-Retry-chromium/attachments/required-resource-failed-6aad2b2676239066febf3d0b8da00559b173beb2.png"
+                    },
+                    {
+                      "name": "required-resource-recovered",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/preview-verification/retry-correction/artifacts/timbers-art-Timbers-requir-711d4-ecovers-with-ordinary-Retry-chromium/attachments/required-resource-recovered-88508e28bb7f226104d794c86a73e19ad0743dd2.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-a40f88a3dd551d87921f",
+          "file": "timbers-art.spec.ts",
+          "line": 155,
+          "column": 71
+        },
+        {
+          "title": "Timbers required branch-580.png fails visibly and recovers with ordinary Retry",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1355,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T21:46:40.328Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "required-resource-failed",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/preview-verification/retry-correction/artifacts/timbers-art-Timbers-requir-e6e94-ecovers-with-ordinary-Retry-chromium/attachments/required-resource-failed-d9f28c393b3fa4926dc740d2d88e388c34b0bef3.png"
+                    },
+                    {
+                      "name": "required-resource-recovered",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/preview-verification/retry-correction/artifacts/timbers-art-Timbers-requir-e6e94-ecovers-with-ordinary-Retry-chromium/attachments/required-resource-recovered-c6546e6938940b14905ed3a557dc818d4a779e18.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-e196445d973723a8ceb4",
+          "file": "timbers-art.spec.ts",
+          "line": 155,
+          "column": 71
+        },
+        {
+          "title": "Timbers required manifest.json fails visibly and recovers with ordinary Retry",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 3742,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T21:46:42.034Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "required-resource-failed",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/preview-verification/retry-correction/artifacts/timbers-art-Timbers-requir-7baa0-ecovers-with-ordinary-Retry-firefox/attachments/required-resource-failed-b1d90368f31d21019399f55b83fbe5725cd70c13.png"
+                    },
+                    {
+                      "name": "required-resource-recovered",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/preview-verification/retry-correction/artifacts/timbers-art-Timbers-requir-7baa0-ecovers-with-ordinary-Retry-firefox/attachments/required-resource-recovered-7786a72cb127920c6315081fd4ba09044c4dc38e.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-99c5d9f529d24ec204c2",
+          "file": "timbers-art.spec.ts",
+          "line": 155,
+          "column": 71
+        },
+        {
+          "title": "Timbers required ground.png fails visibly and recovers with ordinary Retry",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3895,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T21:46:43.289Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "required-resource-failed",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/preview-verification/retry-correction/artifacts/timbers-art-Timbers-requir-711d4-ecovers-with-ordinary-Retry-firefox/attachments/required-resource-failed-d9655e3090be14b6d0dd496eec0f618e35922a5f.png"
+                    },
+                    {
+                      "name": "required-resource-recovered",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/preview-verification/retry-correction/artifacts/timbers-art-Timbers-requir-711d4-ecovers-with-ordinary-Retry-firefox/attachments/required-resource-recovered-a47e1128e00ef7f958cbb24a0749c617bc35a796.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-f3b01f5640c99d533108",
+          "file": "timbers-art.spec.ts",
+          "line": 155,
+          "column": 71
+        },
+        {
+          "title": "Timbers required branch-580.png fails visibly and recovers with ordinary Retry",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 2030,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T21:46:46.485Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "required-resource-failed",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/preview-verification/retry-correction/artifacts/timbers-art-Timbers-requir-e6e94-ecovers-with-ordinary-Retry-firefox/attachments/required-resource-failed-50e2d94b712c4a3e21829ab9b2c05277bdc189b2.png"
+                    },
+                    {
+                      "name": "required-resource-recovered",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/preview-verification/retry-correction/artifacts/timbers-art-Timbers-requir-e6e94-ecovers-with-ordinary-Retry-firefox/attachments/required-resource-recovered-3846cdede04f16265f38cabb413fb48d796d65f4.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-34ca4ee0f441039d247e",
+          "file": "timbers-art.spec.ts",
+          "line": 155,
+          "column": 71
+        },
+        {
+          "title": "Timbers required manifest.json fails visibly and recovers with ordinary Retry",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3172,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T21:46:49.986Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "required-resource-failed",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/preview-verification/retry-correction/artifacts/timbers-art-Timbers-requir-7baa0-ecovers-with-ordinary-Retry-webkit/attachments/required-resource-failed-cd167681c8088001254997cfa1e0ac82496b7df5.png"
+                    },
+                    {
+                      "name": "required-resource-recovered",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/preview-verification/retry-correction/artifacts/timbers-art-Timbers-requir-7baa0-ecovers-with-ordinary-Retry-webkit/attachments/required-resource-recovered-33874e034bbb976e4c653ea51a2567f777d90ddf.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-663c86a7a16ec113a262",
+          "file": "timbers-art.spec.ts",
+          "line": 155,
+          "column": 71
+        },
+        {
+          "title": "Timbers required ground.png fails visibly and recovers with ordinary Retry",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 3260,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T21:46:50.573Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "required-resource-failed",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/preview-verification/retry-correction/artifacts/timbers-art-Timbers-requir-711d4-ecovers-with-ordinary-Retry-webkit/attachments/required-resource-failed-1039f4dceeb6157650ebe3fe7a77150c4956427b.png"
+                    },
+                    {
+                      "name": "required-resource-recovered",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/preview-verification/retry-correction/artifacts/timbers-art-Timbers-requir-711d4-ecovers-with-ordinary-Retry-webkit/attachments/required-resource-recovered-1972b6529f9767c9bfbb011d467a5c80cdae92ae.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-5c409d616540de7a61bc",
+          "file": "timbers-art.spec.ts",
+          "line": 155,
+          "column": 71
+        },
+        {
+          "title": "Timbers required branch-580.png fails visibly and recovers with ordinary Retry",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3233,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-01T21:46:53.414Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "required-resource-failed",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/preview-verification/retry-correction/artifacts/timbers-art-Timbers-requir-e6e94-ecovers-with-ordinary-Retry-webkit/attachments/required-resource-failed-d4842bdbda37898b717b388746055ff35b8a54bf.png"
+                    },
+                    {
+                      "name": "required-resource-recovered",
+                      "contentType": "image/png",
+                      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/docs/evidence/issue-241/preview-verification/retry-correction/artifacts/timbers-art-Timbers-requir-e6e94-ecovers-with-ordinary-Retry-webkit/attachments/required-resource-recovered-f0aa32bacd2fb896dbb2d696a87caedca94a4023.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "72d2548e97958c413fdc-a991ead1855d6be01b8f",
+          "file": "timbers-art.spec.ts",
+          "line": 155,
+          "column": 71
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-01T21:46:34.328Z",
+    "duration": 22471.721,
+    "expected": 9,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

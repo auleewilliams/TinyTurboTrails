@@ -1,0 +1,17 @@
+{
+  "status": "Adventure preview · Title · X 60 Y 172 V 0 F 1 · Escape to pause · M to mute",
+  "native": [
+    426,
+    240
+  ],
+  "css": {
+    "width": 426,
+    "height": 240
+  },
+  "viewport": [
+    426,
+    300
+  ],
+  "treeRenders": 1,
+  "cssSha256": "89db3aaa93c087865ee3c335a1a3340973d728190856a72d09a90604b5214d02"
+}

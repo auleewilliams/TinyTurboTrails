@@ -1,0 +1,15 @@
+{
+  "tool": "image_gen.imagegen",
+  "role": "C root ground refinement",
+  "reason": "C-01 has stray near-transparent background pixels; at uniform factor5 they survive outside the block with alpha1. Request full-bleed opaque ground source to avoid background masking or alpha thresholds.",
+  "request": {
+    "prompt": "Use case: precise-object-edit.\nAsset: Treetop Timbers ground role C, one allowed refinement.\nThe supplied image is the unaccepted ground-source attempt. Its warm illustrated root/bark material is suitable, but the nearly transparent surrounding margin contains stray nonzero alpha pixels that make it unsuitable for exact terrain placement.\nDeliver a newly composed FULL-BLEED OPAQUE RECTANGULAR ground tile using this same material and style. There must be NO surrounding margin and NO alpha transparency anywhere in the returned image: the entire canvas is the ground block. Do not merely crop the source; redraw/recompose the WHOLE block, preserving its complete top walking lip, complete left and right boundary faces and complete lower fill, inside the new canvas.\nA perfectly level flat golden-brown woody walking lip runs along the topmost image row from corner to corner, with NO sky or transparent pixels above it and nothing projecting above it. Left and right vertical boundary faces lie along the image boundaries. The entire bottommost row is filled with quiet dark brown material. Roots are most prominent in the upper third, with subdued bark/earth fill below. Continuous repeatable horizontal centre; no giant focal feature, panel guides, dividing lines, text, new props or objects.\nLandscape rectangle, about 3:1 width to height. Intended display depth100 pixels at one uniform scale. This is a filled terrain material block, not a floating platform: every pixel belongs to the ground. No shadows outside the block. Preserve the warm golden/russet/chocolate palette and coherent painted roots.",
+    "transparent_background": false,
+    "referenced_image_paths": [
+      "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/assets/source/timbers/illustrated-v1/c-01-original.png"
+    ]
+  },
+  "referenceRole": "unaccepted C-01 source and style reference",
+  "provider": null,
+  "model": null
+}

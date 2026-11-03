@@ -1,0 +1,44 @@
+{
+  "typecheck": {
+    "command": "npm run typecheck",
+    "exitCode": 0,
+    "log": "typecheck-final.log",
+    "logSha256": "7ec4f16ac6ef6f684235a4bac0597e5adf1a7d3a8ff33528bba2dd5918c35799"
+  },
+  "build": {
+    "command": "npm run build",
+    "exitCode": 0,
+    "log": "build.log",
+    "logSha256": "ccd3bc8530e2a94db95452153962db1a2ceb11967994f8144807de908a0d0b41"
+  },
+  "scripts": {
+    "command": "npm run test:ci",
+    "exitCode": 0,
+    "passed": 102,
+    "log": "scripts-full.log",
+    "logSha256": "4815536b1903a176579603e7e75fbd064b4e4072bfc91930ec5730d936106f29"
+  },
+  "units": {
+    "command": "npm test",
+    "exitCode": 1,
+    "passed": 1951,
+    "failed": 1,
+    "log": "unit-full.log",
+    "logSha256": "946fa735b6a30443720c061cf0be3cf1adc6862732e489e0e96c93d65d5ec5e7"
+  },
+  "browser": {
+    "command": "PLAYWRIGHT_JSON_OUTPUT_FILE=playwright-report/issue-241/tree-full/browser-report.json npm run test:browser -- --workers=2 --output=playwright-report/issue-241/tree-full/artifacts",
+    "exitCode": 1,
+    "passed": 696,
+    "timedOut": 2,
+    "skipped": 1,
+    "retries": 0,
+    "report": "playwright-report/issue-241/tree-full/browser-report.json"
+  },
+  "audit": {
+    "command": "python3 docs/evidence/issue-241/tree-preview/verification/audit-full-browser.py",
+    "exitCode": 0,
+    "log": "full-browser-audit.log",
+    "logSha256": "ae031f8b4efe28e15534ab4c81c1c89d6ab4b5389637bd785edf95fe40ba6c50"
+  }
+}

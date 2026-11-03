@@ -1,0 +1,44 @@
+{
+  "sourceRevision": "885b6c16d5397e061f1ccb40ca326856bc77db88",
+  "browser": {
+    "name": "chromium",
+    "version": "156.0.8078.4"
+  },
+  "cases": [
+    {
+      "width": 426,
+      "captures": 11,
+      "routeGroups": 10,
+      "css": {
+        "width": 426,
+        "height": 240
+      },
+      "requests": 104,
+      "bodyMatches": 62,
+      "pageErrors": 0,
+      "responseBodyReadErrors": 40,
+      "errorUrlsWithSuccessfulBuildMatch": 40,
+      "repeatDeliveryProvenance": "Incomplete: failed body reads omitted response status; do not infer cache/redirect status."
+    },
+    {
+      "width": 320,
+      "captures": 11,
+      "routeGroups": 10,
+      "css": {
+        "width": 320,
+        "height": 180.28125
+      },
+      "requests": 104,
+      "bodyMatches": 62,
+      "pageErrors": 0,
+      "responseBodyReadErrors": 40,
+      "errorUrlsWithSuccessfulBuildMatch": 40,
+      "repeatDeliveryProvenance": "Incomplete: failed body reads omitted response status; do not infer cache/redirect status."
+    }
+  ],
+  "verifiedPngs": 46,
+  "routeGroups": 20,
+  "supports": 44,
+  "scenery": 11,
+  "scope": "Planning baseline and artifact readback only; no new artwork or full regression claim."
+}

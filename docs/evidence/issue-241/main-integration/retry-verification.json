@@ -1,0 +1,39 @@
+{
+  "rawReport": "playwright-report/issue-241/main-integration-retry/browser-report.json",
+  "reportSha256": "2c52a43634f43b1e857e5c1ce5c55b56a4df9b46ddea56fa1e8c08b1d4ec390c",
+  "stats": {
+    "startTime": "2026-11-02T03:59:10.625Z",
+    "duration": 15018.777999999998,
+    "expected": 1,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "cases": [
+    {
+      "project": "webkit",
+      "file": "plains-contour-pilot.spec.ts",
+      "title": "Plains required contour soil error offers ordinary Retry loading",
+      "id": "998187aca5248271c8fd-57f9d842beec422a68cb",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "attempts": [
+        {
+          "status": "passed",
+          "retry": 0,
+          "duration": 10927,
+          "errors": [],
+          "annotations": []
+        }
+      ]
+    }
+  ],
+  "journeys": [],
+  "fileAttachments": {
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/main-integration-retry/artifacts/plains-contour-pilot-Plain-d2556-fers-ordinary-Retry-loading-webkit/attachments/rollout-image-cf7062a45d1f090a45d2ab1cc4d86bb66d79d54467145cfd055609e9222257ef-9c153de74f8c5e27827347a6c1de3428fc584a9b.png": "cf7062a45d1f090a45d2ab1cc4d86bb66d79d54467145cfd055609e9222257ef",
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/playwright-report/issue-241/main-integration-retry/artifacts/plains-contour-pilot-Plain-d2556-fers-ordinary-Retry-loading-webkit/attachments/raw-frame-contact-input-history-7fe809cfd919d0c5f1c0d0b5ff02929dc1c49afc.json": "8854f42a15be841e1af684317a4da57e908b50217259f337257e39e0441136c2"
+  },
+  "inlineAttachments": [],
+  "curatedFiles": [],
+  "note": "Complete original report/traces/file outputs remain in the ignored local archive. This repository packet contains curated captures and exact hashes; historical failures are retained, not relabelled."
+}

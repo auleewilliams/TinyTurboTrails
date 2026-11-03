@@ -1,0 +1,11 @@
+# Timbers preparation metadata portability
+
+The no-checks notice referred to obsolete head `0351b48`. CI did run on integrated head `597d2d8`: [run 41386334206](https://github.com/auleewilliams/TinyTurboTrails/actions/runs/41386334206) passed type-checking and all 2,045 unit tests, then failed two of 115 script tests. The browser and deployment steps did not run.
+
+The terrain and tree preparation tests already verified complete RGBA bytes, immutable pixel hashes, PNG dimensions/CRC/scanline structure and the shipped PNG hashes. Their final metadata comparison nevertheless required regenerated compressed PNG hashes to equal the historical encoder’s hashes. Official Node 22.23.4 (zlib `1.3.1-e00f703`) reproduces both failures; local Node 22.22.1 (zlib `1.3.1`) produces the historical compressed bytes. The downloaded official runtime was checked against its SHA256 listing.
+
+The two tests now bind each regenerated metadata hash to its actual PNG before comparing all non-compression metadata exactly. They also regenerate twice and require identical PNG bytes within the same encoder. The original preparation scripts, source images, shipped PNGs, provenance, preservation records, manifests and runtime are unchanged. No generation call was used, and no pixel tolerance or assertion deadline was introduced.
+
+Validation: all 115 script tests pass on both Node versions; the nine focused preparation/pixel-contract checks pass locally, including alternate valid compression and corrupt RGB, alpha, dimensions, CRC and scanline rejection. The production build passes and is byte-identical to the integrated build. Of its 551 source/build/asset/test checkpoint files, only the two test files changed; the other 549 remain exact. A fresh full unit run with two workers also passes all 2,045 tests across 110 files (124.80 seconds). See [verification and retained logs](evidence/issue-241/ci-portability/verification.json).
+
+The earlier [main-integration browser results](timbers-main-integration-241.md) remain historical, including the WebKit Plains Retry deadline failure and its separate unchanged diagnostic pass. New-head canonical CI, fresh whole-PR review, downloaded browser-artifact readback and owner completed-trail playtest remain pending.

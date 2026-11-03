@@ -1,0 +1,54 @@
+{
+  "parents": {
+    "timbers": "0351b48d2bb7a19b928d7a68fa569ea1ce389a37",
+    "main": "fbf98b93d0c28e7cd393b1b7213a3dc2b3a2bacb"
+  },
+  "unitInitial": {
+    "passed": 2041,
+    "failed": 4,
+    "failures": "unchanged five-second deadlines: three finish-layout cases and Plains full-cache pixel case"
+  },
+  "unitTwoWorkers": {
+    "passed": 2045,
+    "failed": 0,
+    "files": 110,
+    "durationSeconds": 130.78
+  },
+  "scripts": {
+    "passed": 115,
+    "failed": 0
+  },
+  "typecheck": "passed",
+  "build": "passed",
+  "native": {
+    "startTime": "2026-11-02T03:41:49.047Z",
+    "duration": 1028404.919,
+    "expected": 125,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  },
+  "nativeReportSha256": "88fba2afacadf47d726f97093af19c68833feb681ac44d3475f176a2103d82c4",
+  "isolatedUnchangedRetry": {
+    "startTime": "2026-11-02T03:59:10.625Z",
+    "duration": 15018.777999999998,
+    "expected": 1,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "retryReportSha256": "2c52a43634f43b1e857e5c1ce5c55b56a4df9b46ddea56fa1e8c08b1d4ec390c",
+  "artifactAudit": {
+    "fileAttachments": 785,
+    "inlineAttachments": 324,
+    "timbersJourneys": 12,
+    "plainsJourneys": 6,
+    "plainsCapturePNGs": 192,
+    "frozenCandidateFiles": 551
+  },
+  "fullConfiguredBrowserCases": 741,
+  "canonicalCI": "pending pushed merge head",
+  "freshWholePRReview": "pending pushed merge head",
+  "ownerWholeTrailAcceptance": "pending",
+  "limitations": "Initial timeout failures remain failures. The isolated unchanged diagnostic is not a fix or waiver. Raw reports/traces and all images remain in ignored local archives; this packet includes audit summaries, selected screenshots and hashes."
+}

@@ -1,0 +1,6 @@
+{
+  "originalOutputRoot": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/test-results",
+  "archivedOutputRoot": "docs/evidence/issue-241/preview-pilot/",
+  "reportSha256": "f9b669838938196c3f1ab2e92745e8ae9a3975804a8b8ee22603fd7b88eaabeb",
+  "note": "Raw report is preserved. Resolve its original test-results path suffix beneath archivedOutputRoot; do not resolve against a later run."
+}

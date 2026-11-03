@@ -1,0 +1,64 @@
+[WebServer] (node:309871) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:309883) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 126 tests using 2 workers
+(node:309936) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:309935) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+·········································(node:312289) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+···(node:312596) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+····································
+···(node:316298) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+··(node:316481) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+··············F(node:317799) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+··························
+
+  1) [webkit] › tests/plains-contour-pilot.spec.ts:184:52 › Plains required contour soil error offers ordinary Retry loading 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+    Call Log:
+    - Timeout 20000ms exceeded while waiting on the predicate
+
+      41 |     if (c.error) throw new Error(c.error);
+      42 |     return c.results.some(r => r.id === id);
+    > 43 |   }, id), { timeout: createContourControllerKernel().goalBudget(goal.mode) }).toBe(true);
+         |                                                                               ^
+      44 |   return { id };
+      45 | }
+      46 | async function walkToFlat(page: Page, target: number) {
+        at driveGoal (/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/tests/plains-contour-pilot.spec.ts:43:79)
+        at /home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/tests/plains-contour-pilot.spec.ts:204:5
+
+    attachment #1: raw-frame-contact-input-history (application/json) ──────────────────────────────
+    playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-d2556-fers-ordinary-Retry-loading-webkit/attachments/raw-frame-contact-input-history-427c6e710bff853488cc8965d1dd591eefd17036.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-d2556-fers-ordinary-Retry-loading-webkit/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-d2556-fers-ordinary-Retry-loading-webkit/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-d2556-fers-ordinary-Retry-loading-webkit/trace.zip
+    Usage:
+
+        npx playwright show-trace playwright-report/issue-241/main-integration/artifacts/plains-contour-pilot-Plain-d2556-fers-ordinary-Retry-loading-webkit/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [webkit] › tests/plains-contour-pilot.spec.ts:184:52 › Plains required contour soil error offers ordinary Retry loading 
+  125 passed (17.1m)

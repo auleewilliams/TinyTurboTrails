@@ -1,0 +1,14 @@
+[
+  {
+    "url": "http://127.0.0.1:4173/assets/plains/scenery/manifest.json",
+    "status": 200,
+    "started": "2026-11-02T20:39:06.265Z",
+    "bodyRef": null
+  },
+  {
+    "url": "http://127.0.0.1:4173/assets/plains/scenery/manifest.json",
+    "status": 304,
+    "started": "2026-11-02T20:39:06.330Z",
+    "bodyRef": null
+  }
+]

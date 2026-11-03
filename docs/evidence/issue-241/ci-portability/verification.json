@@ -1,0 +1,114 @@
+{
+  "previousHead": "597d2d89a8e4f06285e08558137a3208f47b9221",
+  "base": "fbf98b93d0c28e7cd393b1b7213a3dc2b3a2bacb",
+  "originalCI": {
+    "url": "https://github.com/auleewilliams/TinyTurboTrails/actions/runs/41386334206",
+    "unitPassed": 2045,
+    "scriptsPassed": 113,
+    "scriptsFailed": 2,
+    "browser": "not run: failed script gate",
+    "node": "22.23.4",
+    "checkoutMergeAbbreviation": "a1dd059"
+  },
+  "officialNodeTarball": {
+    "url": "https://nodejs.org/dist/v22.23.4/node-v22.23.4-linux-x64.tar.xz",
+    "sha256": "1805bcd35e6815559bd2eb97db438d3fdb0eb3a5e6a977b7c1badca76337e9ce",
+    "checkedAgainst": "https://nodejs.org/dist/v22.23.4/SHASUMS256.txt",
+    "zlib": "1.3.1-e00f703"
+  },
+  "localNode": {
+    "version": "22.22.1",
+    "zlib": "1.3.1"
+  },
+  "regressionReproduction": {
+    "historicalArtTests": {
+      "passed": 2,
+      "failed": 1
+    },
+    "historicalTreeTests": {
+      "passed": 2,
+      "failed": 1
+    },
+    "transport": "Historical source from git show 597d2d8, import paths/import.meta.url resolved to original locations, evaluated by official Node 22.23.4 using node:test; no assertion or test body changed.",
+    "sameAlternateHashesAsCI": {
+      "branch-120.png": "10192b045d98eadb8baa95e5bbf39ab635bb1c6d9b253bf4134a5341fba177e8",
+      "tree.png": "809e137a0cb9e8b699e7e7d0a110165bc3e6945e8d345d6373c995358fa6f003"
+    }
+  },
+  "fixedChecks": {
+    "localFocused": {
+      "passed": 9,
+      "failed": 0
+    },
+    "scriptsNode22.22.1": {
+      "passed": 115,
+      "failed": 0
+    },
+    "scriptsNode22.23.4": {
+      "passed": 115,
+      "failed": 0
+    },
+    "build": "passed",
+    "unit": {
+      "passed": 2045,
+      "failed": 0,
+      "files": 110,
+      "workers": 2,
+      "durationSeconds": 124.8
+    }
+  },
+  "changedCheckpointFiles": {
+    "scripts/prepare-timbers-art.test.mjs": {
+      "before": "c75efa5021c809d5f7ca3e5a4bb786547450a5794de0660cb0192333147ae4dd",
+      "after": "d86eb444dd60f6ac02475efd14a07f7eed145b50dc70b917ba0f7a5099ada85a"
+    },
+    "scripts/prepare-timbers-tree.test.mjs": {
+      "before": "1fb8e729e6798543b320d02777c9eb84bb6b56617c7e956143844f79b6ca9e49",
+      "after": "3b02666fd20da9e2517feacdca0a5f39b972d2ee713ae5e09a285daab5c685db"
+    }
+  },
+  "unchangedCheckpointFiles": 549,
+  "checkpoint": "../main-integration/candidate.json",
+  "logs": {
+    "original-ci-full.log.gz": {
+      "sha256": "eb613543e464d09189d6600820be01589dcc977ad28104e826b68f61e8bacd7b",
+      "uncompressedSha256": "93dbda36d1261512c68004ec3e9d301c4ff7f34811846d6fdb82baab6d82e348",
+      "uncompressedBytes": 597683
+    },
+    "before-art-node22.23.4.log.gz": {
+      "sha256": "2844be711bcd8a5d55decd490ddd3f435382d6dac3671d4a3d4d5a49b72fd621",
+      "uncompressedSha256": "391828972867be3b77b2d54e0f34c349bbec7bcb6d957c8b6fa64aafed41e9b9",
+      "uncompressedBytes": 107185
+    },
+    "before-tree-node22.23.4.log.gz": {
+      "sha256": "748dce0099da6ab7f52122cc3e24ae3416dec04e59547a58d9892da94342c7af",
+      "uncompressedSha256": "d13c403d15022916939291e8d9c92e34f77ddd2ecf5482a973fecbf5a7c5c27e",
+      "uncompressedBytes": 7699
+    },
+    "focused-local.log": {
+      "sha256": "59a23325ff0dffb9095ccecf5431c937c1480391a98141be50a55ca0e3d615b9",
+      "uncompressedSha256": "59a23325ff0dffb9095ccecf5431c937c1480391a98141be50a55ca0e3d615b9",
+      "uncompressedBytes": 2461
+    },
+    "scripts-node22.22.1.log": {
+      "sha256": "7079354d2df055479f5c7a795db81b97ea6b3c810c925de9391885050c901ea7",
+      "uncompressedSha256": "7079354d2df055479f5c7a795db81b97ea6b3c810c925de9391885050c901ea7",
+      "uncompressedBytes": 27491
+    },
+    "scripts-node22.23.4.log": {
+      "sha256": "2ec619dc78341e4458a4ecbcd4f1423d95d0a8e277c409955264169b64ad11a6",
+      "uncompressedSha256": "2ec619dc78341e4458a4ecbcd4f1423d95d0a8e277c409955264169b64ad11a6",
+      "uncompressedBytes": 27426
+    },
+    "build.log": {
+      "sha256": "73ed0d9b616cf60d62e5f00397d2e9b846df5273717f535d615b01b92c855c65",
+      "uncompressedSha256": "73ed0d9b616cf60d62e5f00397d2e9b846df5273717f535d615b01b92c855c65",
+      "uncompressedBytes": 429
+    },
+    "units.log": {
+      "sha256": "285e193c52a9a07d8bdae4cf834cad034f12a0f0e3aef7fe008eb963242e9d18",
+      "uncompressedSha256": "285e193c52a9a07d8bdae4cf834cad034f12a0f0e3aef7fe008eb963242e9d18",
+      "uncompressedBytes": 472
+    }
+  }
+}

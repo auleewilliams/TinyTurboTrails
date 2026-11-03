@@ -75,6 +75,30 @@ function recordingContext(): { ctx: CanvasRenderingContext2D; images: unknown[][
 
 const worldAssets: WorldAssets = { atlas: {} as HTMLImageElement, gems: {} as HTMLImageElement, manifest, slimes: {} as HTMLImageElement };
 
+it('hides stationary Timbers path markers while preserving actual moving-platform cues', () => {
+  const fixed = TREETOP_TIMBERS.platforms![0];
+  for (const [id, moving, markers] of [['timbers', false, false], ['timbers', true, true], ['site', false, true]] as const) {
+    const platform = { ...fixed, to: moving ? { x: fixed.from.x + 100, y: fixed.from.y } : fixed.to };
+    const { ctx, rects } = recordingContext();
+    drawPlatforms(ctx, { ...TREETOP_TIMBERS, id, platforms: [platform] }, { x: 20.25, y: 700.5 }, [platformBodyAt(platform, 0)]);
+    expect(rects.some(rect => rect.fillStyle === '#ffffff66')).toBe(markers);
+  }
+});
+
+it('draws Timbers bushes from the reused scenery sheet on their branch planes without adding its background', () => {
+  const sceneryManifest = JSON.parse(readFileSync(new URL('../public/assets/plains/scenery/manifest.json', import.meta.url), 'utf8'));
+  expect(timberManifest.scenery).toBe('../plains/scenery/manifest.json');
+  const foreground = {} as HTMLImageElement, background = {} as HTMLImageElement;
+  const assets = { ...worldAssets, manifest: timberManifest, scenery: { foreground, background, manifest: sceneryManifest } };
+  const camera = new Camera({ width: 426, height: 240, worldWidth: 820, worldHeight: 1180 });
+  const { ctx, images } = recordingContext();
+  drawWorld(ctx, assets, TREETOP_TIMBERS, camera);
+  const bushes = TREETOP_TIMBERS.entities.filter(entity => entity.asset === 'bush');
+  expect(images.filter(call => call[0] === foreground)).toEqual(bushes.map(bush => [foreground,
+    201.25, 101.25, 70, 51.25, bush.x - camera.position.x - 22, bush.y - camera.position.y - 32, 44, 32]));
+  expect(images.some(call => call[0] === background)).toBe(false);
+});
+
 it.each(LEVELS)('$name renders terrain landing bands without text boards or posts', level => {
   const positions = level.id === 'plains' ? [700, 810] : level.id === 'quarry' ? [350, 450]
     : level.id === 'timbers' ? [900, 1100, 1820, 3320] : [level.start.x];

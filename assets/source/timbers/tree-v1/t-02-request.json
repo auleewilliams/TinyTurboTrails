@@ -1,0 +1,19 @@
+{
+  "tool": "image_gen.imagegen",
+  "role": "T refinement",
+  "call": "T-02",
+  "reason": "Initial output has strong gold rim/top highlights on non-walkable scenery; quiet background tonal hierarchy was not met.",
+  "request": {
+    "prompt": "Use case: lighting-weather / precise-object-edit.\nEdit ONLY the lighting and tonal hierarchy of this connected six-limb tree sprite. It is NON-WALKABLE BACKGROUND SCENERY in a platform game, behind brighter separately drawn platforms and the player.\nPreserve the complete tree silhouette, every one of the six limbs, all attachment/tip positions, proportions, root/base shape, flat base baseline, top cap, knots, portrait framing, and genuine transparent background. Do not move, crop, add or remove any part. Do not add foliage, platforms, other objects or scenery.\n\nThe current tree is too brightly golden, particularly the long upper edges of its diagonal limbs. Make the bark noticeably quieter, darker warm brown/umber with soft diffuse flat light: roughly one-third less bright overall and much gentler contrast between adjacent bark ridges and furrows. Retain warm dimensional illustrated wood and readable broad bark, but remove the bright yellow/orange rim highlights and glowing top-edge strips from all SIX limbs. The decorative limbs must have the same quiet brown lighting as the trunk, with NO bright walkable-looking lips or shelf tops. No high-contrast golden streak down the trunk. This is a targeted background-lighting refinement, not a redesign or a new composition. Keep edges clean on true transparency, without halo, coloured stray edge speckles, opaque black/white background, checkerboard, cast shadow, text or watermark. Return the complete same tree in the same transparent portrait frame.",
+    "referenced_image_paths": [
+      "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d9eb1132/assets/source/timbers/tree-v1/t-01-original.png"
+    ],
+    "transparent_background": true
+  },
+  "inputRoles": [
+    "Edit target: complete unmodified T-01 tree source"
+  ],
+  "provider": null,
+  "model": null,
+  "requestId": null
+}

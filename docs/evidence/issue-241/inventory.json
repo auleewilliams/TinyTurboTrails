@@ -1,0 +1,3854 @@
+{
+  "sourceRevision": "885b6c16d5397e061f1ccb40ca326856bc77db88",
+  "measurement": "Static authored support geometry and decoded source alpha. Lower corridors conservatively expand each lower support by the widest visible half-silhouette. They are not observed landing routes or collision solids.",
+  "actorHeight": 40,
+  "actorHalfWidth": 16,
+  "actorFrames": [
+    {
+      "animation": "idle",
+      "id": 0,
+      "minX": 14,
+      "maxX": 33,
+      "minY": 4,
+      "maxY": 43,
+      "aboveFeet": 40
+    },
+    {
+      "animation": "idle",
+      "id": 1,
+      "minX": 14,
+      "maxX": 33,
+      "minY": 4,
+      "maxY": 43,
+      "aboveFeet": 40
+    },
+    {
+      "animation": "idle",
+      "id": 2,
+      "minX": 14,
+      "maxX": 33,
+      "minY": 4,
+      "maxY": 43,
+      "aboveFeet": 40
+    },
+    {
+      "animation": "idle",
+      "id": 3,
+      "minX": 14,
+      "maxX": 33,
+      "minY": 5,
+      "maxY": 43,
+      "aboveFeet": 39
+    },
+    {
+      "animation": "run",
+      "id": 4,
+      "minX": 9,
+      "maxX": 37,
+      "minY": 5,
+      "maxY": 43,
+      "aboveFeet": 39
+    },
+    {
+      "animation": "run",
+      "id": 5,
+      "minX": 12,
+      "maxX": 35,
+      "minY": 4,
+      "maxY": 43,
+      "aboveFeet": 40
+    },
+    {
+      "animation": "run",
+      "id": 6,
+      "minX": 11,
+      "maxX": 36,
+      "minY": 4,
+      "maxY": 43,
+      "aboveFeet": 40
+    },
+    {
+      "animation": "run",
+      "id": 7,
+      "minX": 10,
+      "maxX": 37,
+      "minY": 4,
+      "maxY": 43,
+      "aboveFeet": 40
+    },
+    {
+      "animation": "jump",
+      "id": 8,
+      "minX": 11,
+      "maxX": 36,
+      "minY": 5,
+      "maxY": 38,
+      "aboveFeet": 39
+    },
+    {
+      "animation": "jump",
+      "id": 9,
+      "minX": 10,
+      "maxX": 36,
+      "minY": 5,
+      "maxY": 43,
+      "aboveFeet": 39
+    },
+    {
+      "animation": "jump",
+      "id": 10,
+      "minX": 11,
+      "maxX": 36,
+      "minY": 4,
+      "maxY": 43,
+      "aboveFeet": 40
+    },
+    {
+      "animation": "jump",
+      "id": 11,
+      "minX": 11,
+      "maxX": 36,
+      "minY": 4,
+      "maxY": 43,
+      "aboveFeet": 40
+    },
+    {
+      "animation": "fall",
+      "id": 12,
+      "minX": 9,
+      "maxX": 37,
+      "minY": 4,
+      "maxY": 43,
+      "aboveFeet": 40
+    },
+    {
+      "animation": "fall",
+      "id": 13,
+      "minX": 10,
+      "maxX": 37,
+      "minY": 4,
+      "maxY": 43,
+      "aboveFeet": 40
+    },
+    {
+      "animation": "fall",
+      "id": 14,
+      "minX": 10,
+      "maxX": 38,
+      "minY": 5,
+      "maxY": 43,
+      "aboveFeet": 39
+    },
+    {
+      "animation": "fall",
+      "id": 15,
+      "minX": 8,
+      "maxX": 39,
+      "minY": 4,
+      "maxY": 43,
+      "aboveFeet": 40
+    }
+  ],
+  "ground": {
+    "id": "ground-0",
+    "x": 40,
+    "right": 820,
+    "y": 1080,
+    "width": 780,
+    "visibleDepth": 100,
+    "proposal": "Replace wood atlas tiles and shared fill with a Timbers root-and-bark ground kit; unchanged contour."
+  },
+  "supports": [
+    {
+      "id": "timber-low-1",
+      "x": 240,
+      "right": 440,
+      "y": 1020,
+      "width": 200,
+      "from": {
+        "x": 240,
+        "y": 1020
+      },
+      "to": {
+        "x": 240,
+        "y": 1020
+      },
+      "seconds": 1,
+      "currentMaximumDepth": 16,
+      "family": "ordinary modular branch",
+      "proposedGeometry": "unchanged",
+      "associatedEntities": [
+        "timber-gem-002",
+        "timber-gem-003"
+      ],
+      "lowerNeighbours": [
+        {
+          "id": "ground-0",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            240,
+            440
+          ],
+          "depthForTwoPixelStandingGap": 18
+        }
+      ],
+      "proposedEnvelope": "18px nominal designed body; up to 28px only outside the conservative lower-standing corridors listed here, with natural continuous taper. No post-generation cutting or squeezing.",
+      "maximumDepthIntervals": [
+        {
+          "fromX": 240,
+          "toX": 440,
+          "depth": 18
+        }
+      ]
+    },
+    {
+      "id": "timber-low-2",
+      "x": 360,
+      "right": 560,
+      "y": 960,
+      "width": 200,
+      "from": {
+        "x": 360,
+        "y": 960
+      },
+      "to": {
+        "x": 360,
+        "y": 960
+      },
+      "seconds": 1,
+      "currentMaximumDepth": 16,
+      "family": "ordinary modular branch",
+      "proposedGeometry": "unchanged",
+      "associatedEntities": [
+        "timber-gem-004",
+        "timber-gem-005"
+      ],
+      "lowerNeighbours": [
+        {
+          "id": "timber-low-1",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            360,
+            456
+          ],
+          "depthForTwoPixelStandingGap": 18
+        },
+        {
+          "id": "timber-return-1020",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            504,
+            560
+          ],
+          "depthForTwoPixelStandingGap": 18
+        },
+        {
+          "id": "ground-0",
+          "topSeparation": 120,
+          "conservativeActorCorridor": [
+            360,
+            560
+          ],
+          "depthForTwoPixelStandingGap": 78
+        }
+      ],
+      "proposedEnvelope": "18px nominal designed body; up to 28px only outside the conservative lower-standing corridors listed here, with natural continuous taper. No post-generation cutting or squeezing.",
+      "maximumDepthIntervals": [
+        {
+          "fromX": 360,
+          "toX": 456,
+          "depth": 18
+        },
+        {
+          "fromX": 456,
+          "toX": 504,
+          "depth": 28
+        },
+        {
+          "fromX": 504,
+          "toX": 560,
+          "depth": 18
+        }
+      ]
+    },
+    {
+      "id": "timber-star-1",
+      "x": 60,
+      "right": 230,
+      "y": 960,
+      "width": 170,
+      "from": {
+        "x": 60,
+        "y": 960
+      },
+      "to": {
+        "x": 60,
+        "y": 960
+      },
+      "seconds": 1,
+      "currentMaximumDepth": 16,
+      "family": "ordinary modular branch",
+      "proposedGeometry": "unchanged",
+      "associatedEntities": [
+        "timber-gem-006",
+        "timbers-special-1"
+      ],
+      "lowerNeighbours": [
+        {
+          "id": "timber-low-1",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            224,
+            230
+          ],
+          "depthForTwoPixelStandingGap": 18
+        },
+        {
+          "id": "ground-0",
+          "topSeparation": 120,
+          "conservativeActorCorridor": [
+            60,
+            230
+          ],
+          "depthForTwoPixelStandingGap": 78
+        }
+      ],
+      "proposedEnvelope": "18px nominal designed body; up to 28px only outside the conservative lower-standing corridors listed here, with natural continuous taper. No post-generation cutting or squeezing.",
+      "maximumDepthIntervals": [
+        {
+          "fromX": 60,
+          "toX": 224,
+          "depth": 28
+        },
+        {
+          "fromX": 224,
+          "toX": 230,
+          "depth": 18
+        }
+      ]
+    },
+    {
+      "id": "timber-fork",
+      "x": 170,
+      "right": 620,
+      "y": 900,
+      "width": 450,
+      "from": {
+        "x": 170,
+        "y": 900
+      },
+      "to": {
+        "x": 170,
+        "y": 900
+      },
+      "seconds": 1,
+      "currentMaximumDepth": 22,
+      "family": "broad modular bough",
+      "proposedGeometry": "unchanged",
+      "associatedEntities": [
+        "timber-gem-007",
+        "timber-gem-008",
+        "timber-gem-009",
+        "timber-checkpoint-fork",
+        "timbers-letter-r"
+      ],
+      "lowerNeighbours": [
+        {
+          "id": "timber-low-1",
+          "topSeparation": 120,
+          "conservativeActorCorridor": [
+            224,
+            456
+          ],
+          "depthForTwoPixelStandingGap": 78
+        },
+        {
+          "id": "timber-low-2",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            344,
+            576
+          ],
+          "depthForTwoPixelStandingGap": 18
+        },
+        {
+          "id": "timber-star-1",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            170,
+            246
+          ],
+          "depthForTwoPixelStandingGap": 18
+        },
+        {
+          "id": "timber-return-960",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            604,
+            620
+          ],
+          "depthForTwoPixelStandingGap": 18
+        },
+        {
+          "id": "timber-return-1020",
+          "topSeparation": 120,
+          "conservativeActorCorridor": [
+            504,
+            620
+          ],
+          "depthForTwoPixelStandingGap": 78
+        }
+      ],
+      "proposedEnvelope": "18px nominal designed body; up to 28px only outside the conservative lower-standing corridors listed here, with natural continuous taper. No post-generation cutting or squeezing.",
+      "maximumDepthIntervals": [
+        {
+          "fromX": 170,
+          "toX": 246,
+          "depth": 18
+        },
+        {
+          "fromX": 246,
+          "toX": 344,
+          "depth": 28
+        },
+        {
+          "fromX": 344,
+          "toX": 576,
+          "depth": 18
+        },
+        {
+          "fromX": 576,
+          "toX": 604,
+          "depth": 28
+        },
+        {
+          "fromX": 604,
+          "toX": 620,
+          "depth": 18
+        }
+      ]
+    },
+    {
+      "id": "timber-fork-left-1",
+      "x": 180,
+      "right": 400,
+      "y": 840,
+      "width": 220,
+      "from": {
+        "x": 180,
+        "y": 840
+      },
+      "to": {
+        "x": 180,
+        "y": 840
+      },
+      "seconds": 1,
+      "currentMaximumDepth": 16,
+      "family": "ordinary modular branch",
+      "proposedGeometry": "unchanged",
+      "associatedEntities": [
+        "timber-gem-010",
+        "timber-gem-011"
+      ],
+      "lowerNeighbours": [
+        {
+          "id": "timber-low-2",
+          "topSeparation": 120,
+          "conservativeActorCorridor": [
+            344,
+            400
+          ],
+          "depthForTwoPixelStandingGap": 78
+        },
+        {
+          "id": "timber-star-1",
+          "topSeparation": 120,
+          "conservativeActorCorridor": [
+            180,
+            246
+          ],
+          "depthForTwoPixelStandingGap": 78
+        },
+        {
+          "id": "timber-fork",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            180,
+            400
+          ],
+          "depthForTwoPixelStandingGap": 18
+        }
+      ],
+      "proposedEnvelope": "18px nominal designed body; up to 28px only outside the conservative lower-standing corridors listed here, with natural continuous taper. No post-generation cutting or squeezing.",
+      "maximumDepthIntervals": [
+        {
+          "fromX": 180,
+          "toX": 400,
+          "depth": 18
+        }
+      ]
+    },
+    {
+      "id": "timber-fork-right-1",
+      "x": 470,
+      "right": 640,
+      "y": 840,
+      "width": 170,
+      "from": {
+        "x": 470,
+        "y": 840
+      },
+      "to": {
+        "x": 470,
+        "y": 840
+      },
+      "seconds": 1,
+      "currentMaximumDepth": 16,
+      "family": "ordinary modular branch",
+      "proposedGeometry": "unchanged",
+      "associatedEntities": [
+        "timber-gem-012"
+      ],
+      "lowerNeighbours": [
+        {
+          "id": "timber-low-2",
+          "topSeparation": 120,
+          "conservativeActorCorridor": [
+            470,
+            576
+          ],
+          "depthForTwoPixelStandingGap": 78
+        },
+        {
+          "id": "timber-fork",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            470,
+            636
+          ],
+          "depthForTwoPixelStandingGap": 18
+        },
+        {
+          "id": "timber-return-960",
+          "topSeparation": 120,
+          "conservativeActorCorridor": [
+            604,
+            640
+          ],
+          "depthForTwoPixelStandingGap": 78
+        }
+      ],
+      "proposedEnvelope": "18px nominal designed body; up to 28px only outside the conservative lower-standing corridors listed here, with natural continuous taper. No post-generation cutting or squeezing.",
+      "maximumDepthIntervals": [
+        {
+          "fromX": 470,
+          "toX": 636,
+          "depth": 18
+        },
+        {
+          "fromX": 636,
+          "toX": 640,
+          "depth": 28
+        }
+      ]
+    },
+    {
+      "id": "timber-fork-left-2",
+      "x": 260,
+      "right": 470,
+      "y": 780,
+      "width": 210,
+      "from": {
+        "x": 260,
+        "y": 780
+      },
+      "to": {
+        "x": 260,
+        "y": 780
+      },
+      "seconds": 1,
+      "currentMaximumDepth": 16,
+      "family": "ordinary modular branch",
+      "proposedGeometry": "unchanged",
+      "associatedEntities": [
+        "timber-gem-013",
+        "timber-gem-014"
+      ],
+      "lowerNeighbours": [
+        {
+          "id": "timber-fork",
+          "topSeparation": 120,
+          "conservativeActorCorridor": [
+            260,
+            470
+          ],
+          "depthForTwoPixelStandingGap": 78
+        },
+        {
+          "id": "timber-fork-left-1",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            260,
+            416
+          ],
+          "depthForTwoPixelStandingGap": 18
+        },
+        {
+          "id": "timber-fork-right-1",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            454,
+            470
+          ],
+          "depthForTwoPixelStandingGap": 18
+        },
+        {
+          "id": "timber-middle-left-catch-3",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            260,
+            266
+          ],
+          "depthForTwoPixelStandingGap": 18
+        }
+      ],
+      "proposedEnvelope": "18px nominal designed body; up to 28px only outside the conservative lower-standing corridors listed here, with natural continuous taper. No post-generation cutting or squeezing.",
+      "maximumDepthIntervals": [
+        {
+          "fromX": 260,
+          "toX": 416,
+          "depth": 18
+        },
+        {
+          "fromX": 416,
+          "toX": 454,
+          "depth": 28
+        },
+        {
+          "fromX": 454,
+          "toX": 470,
+          "depth": 18
+        }
+      ]
+    },
+    {
+      "id": "timber-fork-right-2",
+      "x": 420,
+      "right": 620,
+      "y": 780,
+      "width": 200,
+      "from": {
+        "x": 420,
+        "y": 780
+      },
+      "to": {
+        "x": 420,
+        "y": 780
+      },
+      "seconds": 1,
+      "currentMaximumDepth": 16,
+      "family": "ordinary modular branch",
+      "proposedGeometry": "unchanged",
+      "associatedEntities": [
+        "timber-gem-014",
+        "timber-gem-015"
+      ],
+      "lowerNeighbours": [
+        {
+          "id": "timber-fork",
+          "topSeparation": 120,
+          "conservativeActorCorridor": [
+            420,
+            620
+          ],
+          "depthForTwoPixelStandingGap": 78
+        },
+        {
+          "id": "timber-fork-right-1",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            454,
+            620
+          ],
+          "depthForTwoPixelStandingGap": 18
+        },
+        {
+          "id": "timber-return-840",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            564,
+            620
+          ],
+          "depthForTwoPixelStandingGap": 18
+        }
+      ],
+      "proposedEnvelope": "18px nominal designed body; up to 28px only outside the conservative lower-standing corridors listed here, with natural continuous taper. No post-generation cutting or squeezing.",
+      "maximumDepthIntervals": [
+        {
+          "fromX": 420,
+          "toX": 454,
+          "depth": 28
+        },
+        {
+          "fromX": 454,
+          "toX": 620,
+          "depth": 18
+        }
+      ]
+    },
+    {
+      "id": "timber-shared",
+      "x": 360,
+      "right": 540,
+      "y": 720,
+      "width": 180,
+      "from": {
+        "x": 360,
+        "y": 720
+      },
+      "to": {
+        "x": 360,
+        "y": 720
+      },
+      "seconds": 1,
+      "currentMaximumDepth": 16,
+      "family": "ordinary modular branch",
+      "proposedGeometry": "unchanged",
+      "associatedEntities": [
+        "timber-gem-016",
+        "timber-gem-017"
+      ],
+      "lowerNeighbours": [
+        {
+          "id": "timber-fork-left-1",
+          "topSeparation": 120,
+          "conservativeActorCorridor": [
+            360,
+            416
+          ],
+          "depthForTwoPixelStandingGap": 78
+        },
+        {
+          "id": "timber-fork-right-1",
+          "topSeparation": 120,
+          "conservativeActorCorridor": [
+            454,
+            540
+          ],
+          "depthForTwoPixelStandingGap": 78
+        },
+        {
+          "id": "timber-fork-left-2",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            360,
+            486
+          ],
+          "depthForTwoPixelStandingGap": 18
+        },
+        {
+          "id": "timber-fork-right-2",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            404,
+            540
+          ],
+          "depthForTwoPixelStandingGap": 18
+        },
+        {
+          "id": "timber-return-780",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            504,
+            540
+          ],
+          "depthForTwoPixelStandingGap": 18
+        }
+      ],
+      "proposedEnvelope": "18px nominal designed body; up to 28px only outside the conservative lower-standing corridors listed here, with natural continuous taper. No post-generation cutting or squeezing.",
+      "maximumDepthIntervals": [
+        {
+          "fromX": 360,
+          "toX": 540,
+          "depth": 18
+        }
+      ]
+    },
+    {
+      "id": "timber-middle",
+      "x": 40,
+      "right": 620,
+      "y": 660,
+      "width": 580,
+      "from": {
+        "x": 40,
+        "y": 660
+      },
+      "to": {
+        "x": 40,
+        "y": 660
+      },
+      "seconds": 1,
+      "currentMaximumDepth": 22,
+      "family": "broad modular bough",
+      "proposedGeometry": "unchanged",
+      "associatedEntities": [
+        "timber-gem-018",
+        "timber-gem-019",
+        "timber-gem-020",
+        "timber-checkpoint-middle"
+      ],
+      "lowerNeighbours": [
+        {
+          "id": "timber-fork-left-2",
+          "topSeparation": 120,
+          "conservativeActorCorridor": [
+            244,
+            486
+          ],
+          "depthForTwoPixelStandingGap": 78
+        },
+        {
+          "id": "timber-fork-right-2",
+          "topSeparation": 120,
+          "conservativeActorCorridor": [
+            404,
+            620
+          ],
+          "depthForTwoPixelStandingGap": 78
+        },
+        {
+          "id": "timber-shared",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            344,
+            556
+          ],
+          "depthForTwoPixelStandingGap": 18
+        },
+        {
+          "id": "timber-return-720",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            564,
+            620
+          ],
+          "depthForTwoPixelStandingGap": 18
+        },
+        {
+          "id": "timber-return-780",
+          "topSeparation": 120,
+          "conservativeActorCorridor": [
+            504,
+            620
+          ],
+          "depthForTwoPixelStandingGap": 78
+        },
+        {
+          "id": "timber-middle-left-catch",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            40,
+            306
+          ],
+          "depthForTwoPixelStandingGap": 18
+        },
+        {
+          "id": "timber-middle-left-catch-2",
+          "topSeparation": 120,
+          "conservativeActorCorridor": [
+            40,
+            266
+          ],
+          "depthForTwoPixelStandingGap": 78
+        }
+      ],
+      "proposedEnvelope": "18px nominal designed body; up to 28px only outside the conservative lower-standing corridors listed here, with natural continuous taper. No post-generation cutting or squeezing.",
+      "maximumDepthIntervals": [
+        {
+          "fromX": 40,
+          "toX": 306,
+          "depth": 18
+        },
+        {
+          "fromX": 306,
+          "toX": 344,
+          "depth": 28
+        },
+        {
+          "fromX": 344,
+          "toX": 556,
+          "depth": 18
+        },
+        {
+          "fromX": 556,
+          "toX": 564,
+          "depth": 28
+        },
+        {
+          "fromX": 564,
+          "toX": 620,
+          "depth": 18
+        }
+      ]
+    },
+    {
+      "id": "timber-spring",
+      "x": 40,
+      "right": 190,
+      "y": 600,
+      "width": 150,
+      "from": {
+        "x": 40,
+        "y": 600
+      },
+      "to": {
+        "x": 40,
+        "y": 600
+      },
+      "seconds": 1,
+      "currentMaximumDepth": 16,
+      "family": "ordinary modular branch",
+      "proposedGeometry": "unchanged",
+      "associatedEntities": [
+        "timber-gem-023",
+        "timber-spring-1"
+      ],
+      "lowerNeighbours": [
+        {
+          "id": "timber-middle",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            40,
+            190
+          ],
+          "depthForTwoPixelStandingGap": 18
+        },
+        {
+          "id": "timber-middle-left-catch",
+          "topSeparation": 120,
+          "conservativeActorCorridor": [
+            40,
+            190
+          ],
+          "depthForTwoPixelStandingGap": 78
+        }
+      ],
+      "proposedEnvelope": "18px nominal designed body; up to 28px only outside the conservative lower-standing corridors listed here, with natural continuous taper. No post-generation cutting or squeezing.",
+      "maximumDepthIntervals": [
+        {
+          "fromX": 40,
+          "toX": 190,
+          "depth": 18
+        }
+      ]
+    },
+    {
+      "id": "timber-approach-1",
+      "x": 230,
+      "right": 450,
+      "y": 600,
+      "width": 220,
+      "from": {
+        "x": 230,
+        "y": 600
+      },
+      "to": {
+        "x": 230,
+        "y": 600
+      },
+      "seconds": 1,
+      "currentMaximumDepth": 16,
+      "family": "ordinary modular branch",
+      "proposedGeometry": "unchanged",
+      "associatedEntities": [
+        "timber-gem-021",
+        "timber-gem-022"
+      ],
+      "lowerNeighbours": [
+        {
+          "id": "timber-shared",
+          "topSeparation": 120,
+          "conservativeActorCorridor": [
+            344,
+            450
+          ],
+          "depthForTwoPixelStandingGap": 78
+        },
+        {
+          "id": "timber-middle",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            230,
+            450
+          ],
+          "depthForTwoPixelStandingGap": 18
+        },
+        {
+          "id": "timber-middle-left-catch",
+          "topSeparation": 120,
+          "conservativeActorCorridor": [
+            230,
+            306
+          ],
+          "depthForTwoPixelStandingGap": 78
+        }
+      ],
+      "proposedEnvelope": "18px nominal designed body; up to 28px only outside the conservative lower-standing corridors listed here, with natural continuous taper. No post-generation cutting or squeezing.",
+      "maximumDepthIntervals": [
+        {
+          "fromX": 230,
+          "toX": 450,
+          "depth": 18
+        }
+      ]
+    },
+    {
+      "id": "timber-approach-2",
+      "x": 320,
+      "right": 560,
+      "y": 540,
+      "width": 240,
+      "from": {
+        "x": 320,
+        "y": 540
+      },
+      "to": {
+        "x": 320,
+        "y": 540
+      },
+      "seconds": 1,
+      "currentMaximumDepth": 16,
+      "family": "ordinary modular branch",
+      "proposedGeometry": "unchanged",
+      "associatedEntities": [
+        "timber-gem-025",
+        "timber-gem-026"
+      ],
+      "lowerNeighbours": [
+        {
+          "id": "timber-middle",
+          "topSeparation": 120,
+          "conservativeActorCorridor": [
+            320,
+            560
+          ],
+          "depthForTwoPixelStandingGap": 78
+        },
+        {
+          "id": "timber-approach-1",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            320,
+            466
+          ],
+          "depthForTwoPixelStandingGap": 18
+        }
+      ],
+      "proposedEnvelope": "18px nominal designed body; up to 28px only outside the conservative lower-standing corridors listed here, with natural continuous taper. No post-generation cutting or squeezing.",
+      "maximumDepthIntervals": [
+        {
+          "fromX": 320,
+          "toX": 466,
+          "depth": 18
+        },
+        {
+          "fromX": 466,
+          "toX": 560,
+          "depth": 28
+        }
+      ]
+    },
+    {
+      "id": "timber-spring-reward",
+      "x": 40,
+      "right": 200,
+      "y": 510,
+      "width": 160,
+      "from": {
+        "x": 40,
+        "y": 510
+      },
+      "to": {
+        "x": 40,
+        "y": 510
+      },
+      "seconds": 1,
+      "currentMaximumDepth": 16,
+      "family": "ordinary modular branch",
+      "proposedGeometry": "unchanged",
+      "associatedEntities": [
+        "timber-gem-024",
+        "timbers-special-2"
+      ],
+      "lowerNeighbours": [
+        {
+          "id": "timber-spring",
+          "topSeparation": 90,
+          "conservativeActorCorridor": [
+            40,
+            200
+          ],
+          "depthForTwoPixelStandingGap": 48
+        },
+        {
+          "id": "timber-spring-catch",
+          "topSeparation": 30,
+          "conservativeActorCorridor": [
+            114,
+            200
+          ],
+          "depthForTwoPixelStandingGap": -12
+        }
+      ],
+      "proposedEnvelope": "18px nominal depth; 30px overlap is an intentional pass-through corridor, not a standing underpass; catch rest x230 remains outside upper right200.",
+      "maximumDepthIntervals": [
+        {
+          "fromX": 40,
+          "toX": 200,
+          "depth": 18
+        }
+      ]
+    },
+    {
+      "id": "timber-spring-catch",
+      "x": 130,
+      "right": 280,
+      "y": 540,
+      "width": 150,
+      "from": {
+        "x": 130,
+        "y": 540
+      },
+      "to": {
+        "x": 130,
+        "y": 540
+      },
+      "seconds": 1,
+      "currentMaximumDepth": 16,
+      "family": "ordinary modular branch",
+      "proposedGeometry": "unchanged",
+      "associatedEntities": [],
+      "lowerNeighbours": [
+        {
+          "id": "timber-middle",
+          "topSeparation": 120,
+          "conservativeActorCorridor": [
+            130,
+            280
+          ],
+          "depthForTwoPixelStandingGap": 78
+        },
+        {
+          "id": "timber-spring",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            130,
+            206
+          ],
+          "depthForTwoPixelStandingGap": 18
+        },
+        {
+          "id": "timber-approach-1",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            214,
+            280
+          ],
+          "depthForTwoPixelStandingGap": 18
+        }
+      ],
+      "proposedEnvelope": "18px nominal designed body; up to 28px only outside the conservative lower-standing corridors listed here, with natural continuous taper. No post-generation cutting or squeezing.",
+      "maximumDepthIntervals": [
+        {
+          "fromX": 130,
+          "toX": 206,
+          "depth": 18
+        },
+        {
+          "fromX": 206,
+          "toX": 214,
+          "depth": 28
+        },
+        {
+          "fromX": 214,
+          "toX": 280,
+          "depth": 18
+        }
+      ]
+    },
+    {
+      "id": "timber-approach-3",
+      "x": 240,
+      "right": 460,
+      "y": 480,
+      "width": 220,
+      "from": {
+        "x": 240,
+        "y": 480
+      },
+      "to": {
+        "x": 240,
+        "y": 480
+      },
+      "seconds": 1,
+      "currentMaximumDepth": 16,
+      "family": "ordinary modular branch",
+      "proposedGeometry": "unchanged",
+      "associatedEntities": [
+        "timber-gem-027",
+        "timber-gem-028"
+      ],
+      "lowerNeighbours": [
+        {
+          "id": "timber-approach-1",
+          "topSeparation": 120,
+          "conservativeActorCorridor": [
+            240,
+            460
+          ],
+          "depthForTwoPixelStandingGap": 78
+        },
+        {
+          "id": "timber-approach-2",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            304,
+            460
+          ],
+          "depthForTwoPixelStandingGap": 18
+        },
+        {
+          "id": "timber-spring-catch",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            240,
+            296
+          ],
+          "depthForTwoPixelStandingGap": 18
+        }
+      ],
+      "proposedEnvelope": "18px nominal designed body; up to 28px only outside the conservative lower-standing corridors listed here, with natural continuous taper. No post-generation cutting or squeezing.",
+      "maximumDepthIntervals": [
+        {
+          "fromX": 240,
+          "toX": 296,
+          "depth": 18
+        },
+        {
+          "fromX": 296,
+          "toX": 304,
+          "depth": 28
+        },
+        {
+          "fromX": 304,
+          "toX": 460,
+          "depth": 18
+        }
+      ]
+    },
+    {
+      "id": "timber-canopy",
+      "x": 180,
+      "right": 620,
+      "y": 420,
+      "width": 440,
+      "from": {
+        "x": 180,
+        "y": 420
+      },
+      "to": {
+        "x": 180,
+        "y": 420
+      },
+      "seconds": 1,
+      "currentMaximumDepth": 22,
+      "family": "broad modular bough",
+      "proposedGeometry": "unchanged",
+      "associatedEntities": [
+        "timber-gem-029",
+        "timber-gem-030",
+        "timber-checkpoint-canopy",
+        "timbers-letter-e1"
+      ],
+      "lowerNeighbours": [
+        {
+          "id": "timber-approach-2",
+          "topSeparation": 120,
+          "conservativeActorCorridor": [
+            304,
+            576
+          ],
+          "depthForTwoPixelStandingGap": 78
+        },
+        {
+          "id": "timber-spring-reward",
+          "topSeparation": 90,
+          "conservativeActorCorridor": [
+            180,
+            216
+          ],
+          "depthForTwoPixelStandingGap": 48
+        },
+        {
+          "id": "timber-spring-catch",
+          "topSeparation": 120,
+          "conservativeActorCorridor": [
+            180,
+            296
+          ],
+          "depthForTwoPixelStandingGap": 78
+        },
+        {
+          "id": "timber-approach-3",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            224,
+            476
+          ],
+          "depthForTwoPixelStandingGap": 18
+        },
+        {
+          "id": "timber-return-480",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            564,
+            620
+          ],
+          "depthForTwoPixelStandingGap": 18
+        },
+        {
+          "id": "timber-return-540",
+          "topSeparation": 120,
+          "conservativeActorCorridor": [
+            504,
+            620
+          ],
+          "depthForTwoPixelStandingGap": 78
+        }
+      ],
+      "proposedEnvelope": "18px nominal designed body; up to 28px only outside the conservative lower-standing corridors listed here, with natural continuous taper. No post-generation cutting or squeezing.",
+      "maximumDepthIntervals": [
+        {
+          "fromX": 180,
+          "toX": 224,
+          "depth": 28
+        },
+        {
+          "fromX": 224,
+          "toX": 476,
+          "depth": 18
+        },
+        {
+          "fromX": 476,
+          "toX": 564,
+          "depth": 28
+        },
+        {
+          "fromX": 564,
+          "toX": 620,
+          "depth": 18
+        }
+      ]
+    },
+    {
+      "id": "timber-upper-1",
+      "x": 330,
+      "right": 550,
+      "y": 360,
+      "width": 220,
+      "from": {
+        "x": 330,
+        "y": 360
+      },
+      "to": {
+        "x": 330,
+        "y": 360
+      },
+      "seconds": 1,
+      "currentMaximumDepth": 16,
+      "family": "ordinary modular branch",
+      "proposedGeometry": "unchanged",
+      "associatedEntities": [
+        "timber-gem-031"
+      ],
+      "lowerNeighbours": [
+        {
+          "id": "timber-approach-3",
+          "topSeparation": 120,
+          "conservativeActorCorridor": [
+            330,
+            476
+          ],
+          "depthForTwoPixelStandingGap": 78
+        },
+        {
+          "id": "timber-canopy",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            330,
+            550
+          ],
+          "depthForTwoPixelStandingGap": 18
+        }
+      ],
+      "proposedEnvelope": "18px nominal designed body; up to 28px only outside the conservative lower-standing corridors listed here, with natural continuous taper. No post-generation cutting or squeezing.",
+      "maximumDepthIntervals": [
+        {
+          "fromX": 330,
+          "toX": 550,
+          "depth": 18
+        }
+      ]
+    },
+    {
+      "id": "timber-star-3-catch",
+      "x": 40,
+      "right": 250,
+      "y": 360,
+      "width": 210,
+      "from": {
+        "x": 40,
+        "y": 360
+      },
+      "to": {
+        "x": 40,
+        "y": 360
+      },
+      "seconds": 1,
+      "currentMaximumDepth": 16,
+      "family": "ordinary modular branch",
+      "proposedGeometry": "unchanged",
+      "associatedEntities": [],
+      "lowerNeighbours": [
+        {
+          "id": "timber-approach-3",
+          "topSeparation": 120,
+          "conservativeActorCorridor": [
+            224,
+            250
+          ],
+          "depthForTwoPixelStandingGap": 78
+        },
+        {
+          "id": "timber-canopy",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            164,
+            250
+          ],
+          "depthForTwoPixelStandingGap": 18
+        }
+      ],
+      "proposedEnvelope": "18px nominal designed body; up to 28px only outside the conservative lower-standing corridors listed here, with natural continuous taper. No post-generation cutting or squeezing.",
+      "maximumDepthIntervals": [
+        {
+          "fromX": 40,
+          "toX": 164,
+          "depth": 28
+        },
+        {
+          "fromX": 164,
+          "toX": 250,
+          "depth": 18
+        }
+      ]
+    },
+    {
+      "id": "timber-upper-2",
+      "x": 230,
+      "right": 450,
+      "y": 300,
+      "width": 220,
+      "from": {
+        "x": 230,
+        "y": 300
+      },
+      "to": {
+        "x": 230,
+        "y": 300
+      },
+      "seconds": 1,
+      "currentMaximumDepth": 16,
+      "family": "ordinary modular branch",
+      "proposedGeometry": "unchanged",
+      "associatedEntities": [
+        "timber-gem-032"
+      ],
+      "lowerNeighbours": [
+        {
+          "id": "timber-canopy",
+          "topSeparation": 120,
+          "conservativeActorCorridor": [
+            230,
+            450
+          ],
+          "depthForTwoPixelStandingGap": 78
+        },
+        {
+          "id": "timber-upper-1",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            314,
+            450
+          ],
+          "depthForTwoPixelStandingGap": 18
+        },
+        {
+          "id": "timber-star-3-catch",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            230,
+            266
+          ],
+          "depthForTwoPixelStandingGap": 18
+        }
+      ],
+      "proposedEnvelope": "18px nominal designed body; up to 28px only outside the conservative lower-standing corridors listed here, with natural continuous taper. No post-generation cutting or squeezing.",
+      "maximumDepthIntervals": [
+        {
+          "fromX": 230,
+          "toX": 266,
+          "depth": 18
+        },
+        {
+          "fromX": 266,
+          "toX": 314,
+          "depth": 28
+        },
+        {
+          "fromX": 314,
+          "toX": 450,
+          "depth": 18
+        }
+      ]
+    },
+    {
+      "id": "timber-star-3",
+      "x": 60,
+      "right": 200,
+      "y": 300,
+      "width": 140,
+      "from": {
+        "x": 60,
+        "y": 300
+      },
+      "to": {
+        "x": 60,
+        "y": 300
+      },
+      "seconds": 1,
+      "currentMaximumDepth": 16,
+      "family": "ordinary modular branch",
+      "proposedGeometry": "unchanged",
+      "associatedEntities": [
+        "timbers-special-3"
+      ],
+      "lowerNeighbours": [
+        {
+          "id": "timber-canopy",
+          "topSeparation": 120,
+          "conservativeActorCorridor": [
+            164,
+            200
+          ],
+          "depthForTwoPixelStandingGap": 78
+        },
+        {
+          "id": "timber-star-3-catch",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            60,
+            200
+          ],
+          "depthForTwoPixelStandingGap": 18
+        }
+      ],
+      "proposedEnvelope": "18px nominal designed body; up to 28px only outside the conservative lower-standing corridors listed here, with natural continuous taper. No post-generation cutting or squeezing.",
+      "maximumDepthIntervals": [
+        {
+          "fromX": 60,
+          "toX": 200,
+          "depth": 18
+        }
+      ]
+    },
+    {
+      "id": "timber-upper-3",
+      "x": 350,
+      "right": 530,
+      "y": 240,
+      "width": 180,
+      "from": {
+        "x": 350,
+        "y": 240
+      },
+      "to": {
+        "x": 350,
+        "y": 240
+      },
+      "seconds": 1,
+      "currentMaximumDepth": 16,
+      "family": "ordinary modular branch",
+      "proposedGeometry": "unchanged",
+      "associatedEntities": [
+        "timber-gem-033"
+      ],
+      "lowerNeighbours": [
+        {
+          "id": "timber-upper-1",
+          "topSeparation": 120,
+          "conservativeActorCorridor": [
+            350,
+            530
+          ],
+          "depthForTwoPixelStandingGap": 78
+        },
+        {
+          "id": "timber-upper-2",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            350,
+            466
+          ],
+          "depthForTwoPixelStandingGap": 18
+        },
+        {
+          "id": "timber-return-300",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            504,
+            530
+          ],
+          "depthForTwoPixelStandingGap": 18
+        }
+      ],
+      "proposedEnvelope": "18px nominal designed body; up to 28px only outside the conservative lower-standing corridors listed here, with natural continuous taper. No post-generation cutting or squeezing.",
+      "maximumDepthIntervals": [
+        {
+          "fromX": 350,
+          "toX": 466,
+          "depth": 18
+        },
+        {
+          "fromX": 466,
+          "toX": 504,
+          "depth": 28
+        },
+        {
+          "fromX": 504,
+          "toX": 530,
+          "depth": 18
+        }
+      ]
+    },
+    {
+      "id": "timber-lookout",
+      "x": 250,
+      "right": 590,
+      "y": 180,
+      "width": 340,
+      "from": {
+        "x": 250,
+        "y": 180
+      },
+      "to": {
+        "x": 250,
+        "y": 180
+      },
+      "seconds": 1,
+      "currentMaximumDepth": 22,
+      "family": "broad modular bough",
+      "proposedGeometry": "unchanged",
+      "associatedEntities": [
+        "timbers-letter-e2",
+        "finish"
+      ],
+      "lowerNeighbours": [
+        {
+          "id": "timber-upper-2",
+          "topSeparation": 120,
+          "conservativeActorCorridor": [
+            250,
+            466
+          ],
+          "depthForTwoPixelStandingGap": 78
+        },
+        {
+          "id": "timber-upper-3",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            334,
+            546
+          ],
+          "depthForTwoPixelStandingGap": 18
+        },
+        {
+          "id": "timber-return-240",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            554,
+            590
+          ],
+          "depthForTwoPixelStandingGap": 18
+        },
+        {
+          "id": "timber-return-300",
+          "topSeparation": 120,
+          "conservativeActorCorridor": [
+            504,
+            590
+          ],
+          "depthForTwoPixelStandingGap": 78
+        }
+      ],
+      "proposedEnvelope": "18px nominal designed body; up to 28px only outside the conservative lower-standing corridors listed here, with natural continuous taper. No post-generation cutting or squeezing.",
+      "maximumDepthIntervals": [
+        {
+          "fromX": 250,
+          "toX": 334,
+          "depth": 28
+        },
+        {
+          "fromX": 334,
+          "toX": 546,
+          "depth": 18
+        },
+        {
+          "fromX": 546,
+          "toX": 554,
+          "depth": 28
+        },
+        {
+          "fromX": 554,
+          "toX": 590,
+          "depth": 18
+        }
+      ]
+    },
+    {
+      "id": "timber-return-240",
+      "x": 570,
+      "right": 740,
+      "y": 240,
+      "width": 170,
+      "from": {
+        "x": 570,
+        "y": 240
+      },
+      "to": {
+        "x": 570,
+        "y": 240
+      },
+      "seconds": 1,
+      "currentMaximumDepth": 16,
+      "family": "ordinary modular branch",
+      "proposedGeometry": "unchanged",
+      "associatedEntities": [],
+      "lowerNeighbours": [
+        {
+          "id": "timber-return-300",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            570,
+            676
+          ],
+          "depthForTwoPixelStandingGap": 18
+        },
+        {
+          "id": "timber-return-360",
+          "topSeparation": 120,
+          "conservativeActorCorridor": [
+            570,
+            740
+          ],
+          "depthForTwoPixelStandingGap": 78
+        },
+        {
+          "id": "timber-outer-catch-300",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            684,
+            740
+          ],
+          "depthForTwoPixelStandingGap": 18
+        }
+      ],
+      "proposedEnvelope": "18px nominal designed body; up to 28px only outside the conservative lower-standing corridors listed here, with natural continuous taper. No post-generation cutting or squeezing.",
+      "maximumDepthIntervals": [
+        {
+          "fromX": 570,
+          "toX": 676,
+          "depth": 18
+        },
+        {
+          "fromX": 676,
+          "toX": 684,
+          "depth": 28
+        },
+        {
+          "fromX": 684,
+          "toX": 740,
+          "depth": 18
+        }
+      ]
+    },
+    {
+      "id": "timber-return-300",
+      "x": 520,
+      "right": 660,
+      "y": 300,
+      "width": 140,
+      "from": {
+        "x": 520,
+        "y": 300
+      },
+      "to": {
+        "x": 520,
+        "y": 300
+      },
+      "seconds": 1,
+      "currentMaximumDepth": 16,
+      "family": "ordinary modular branch",
+      "proposedGeometry": "unchanged",
+      "associatedEntities": [],
+      "lowerNeighbours": [
+        {
+          "id": "timber-canopy",
+          "topSeparation": 120,
+          "conservativeActorCorridor": [
+            520,
+            636
+          ],
+          "depthForTwoPixelStandingGap": 78
+        },
+        {
+          "id": "timber-upper-1",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            520,
+            566
+          ],
+          "depthForTwoPixelStandingGap": 18
+        },
+        {
+          "id": "timber-return-360",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            564,
+            660
+          ],
+          "depthForTwoPixelStandingGap": 18
+        }
+      ],
+      "proposedEnvelope": "18px nominal designed body; up to 28px only outside the conservative lower-standing corridors listed here, with natural continuous taper. No post-generation cutting or squeezing.",
+      "maximumDepthIntervals": [
+        {
+          "fromX": 520,
+          "toX": 660,
+          "depth": 18
+        }
+      ]
+    },
+    {
+      "id": "timber-return-360",
+      "x": 580,
+      "right": 740,
+      "y": 360,
+      "width": 160,
+      "from": {
+        "x": 580,
+        "y": 360
+      },
+      "to": {
+        "x": 580,
+        "y": 360
+      },
+      "seconds": 1,
+      "currentMaximumDepth": 16,
+      "family": "ordinary modular branch",
+      "proposedGeometry": "unchanged",
+      "associatedEntities": [],
+      "lowerNeighbours": [
+        {
+          "id": "timber-canopy",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            580,
+            636
+          ],
+          "depthForTwoPixelStandingGap": 18
+        },
+        {
+          "id": "timber-return-480",
+          "topSeparation": 120,
+          "conservativeActorCorridor": [
+            580,
+            740
+          ],
+          "depthForTwoPixelStandingGap": 78
+        },
+        {
+          "id": "timber-outer-catch-420",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            684,
+            740
+          ],
+          "depthForTwoPixelStandingGap": 18
+        }
+      ],
+      "proposedEnvelope": "18px nominal designed body; up to 28px only outside the conservative lower-standing corridors listed here, with natural continuous taper. No post-generation cutting or squeezing.",
+      "maximumDepthIntervals": [
+        {
+          "fromX": 580,
+          "toX": 636,
+          "depth": 18
+        },
+        {
+          "fromX": 636,
+          "toX": 684,
+          "depth": 28
+        },
+        {
+          "fromX": 684,
+          "toX": 740,
+          "depth": 18
+        }
+      ]
+    },
+    {
+      "id": "timber-return-480",
+      "x": 580,
+      "right": 740,
+      "y": 480,
+      "width": 160,
+      "from": {
+        "x": 580,
+        "y": 480
+      },
+      "to": {
+        "x": 580,
+        "y": 480
+      },
+      "seconds": 1,
+      "currentMaximumDepth": 16,
+      "family": "ordinary modular branch",
+      "proposedGeometry": "unchanged",
+      "associatedEntities": [],
+      "lowerNeighbours": [
+        {
+          "id": "timber-return-540",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            580,
+            676
+          ],
+          "depthForTwoPixelStandingGap": 18
+        },
+        {
+          "id": "timber-return-600",
+          "topSeparation": 120,
+          "conservativeActorCorridor": [
+            580,
+            740
+          ],
+          "depthForTwoPixelStandingGap": 78
+        },
+        {
+          "id": "timber-outer-catch-540",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            684,
+            740
+          ],
+          "depthForTwoPixelStandingGap": 18
+        }
+      ],
+      "proposedEnvelope": "18px nominal designed body; up to 28px only outside the conservative lower-standing corridors listed here, with natural continuous taper. No post-generation cutting or squeezing.",
+      "maximumDepthIntervals": [
+        {
+          "fromX": 580,
+          "toX": 676,
+          "depth": 18
+        },
+        {
+          "fromX": 676,
+          "toX": 684,
+          "depth": 28
+        },
+        {
+          "fromX": 684,
+          "toX": 740,
+          "depth": 18
+        }
+      ]
+    },
+    {
+      "id": "timber-return-540",
+      "x": 520,
+      "right": 660,
+      "y": 540,
+      "width": 140,
+      "from": {
+        "x": 520,
+        "y": 540
+      },
+      "to": {
+        "x": 520,
+        "y": 540
+      },
+      "seconds": 1,
+      "currentMaximumDepth": 16,
+      "family": "ordinary modular branch",
+      "proposedGeometry": "unchanged",
+      "associatedEntities": [],
+      "lowerNeighbours": [
+        {
+          "id": "timber-middle",
+          "topSeparation": 120,
+          "conservativeActorCorridor": [
+            520,
+            636
+          ],
+          "depthForTwoPixelStandingGap": 78
+        },
+        {
+          "id": "timber-return-600",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            564,
+            660
+          ],
+          "depthForTwoPixelStandingGap": 18
+        }
+      ],
+      "proposedEnvelope": "18px nominal designed body; up to 28px only outside the conservative lower-standing corridors listed here, with natural continuous taper. No post-generation cutting or squeezing.",
+      "maximumDepthIntervals": [
+        {
+          "fromX": 520,
+          "toX": 564,
+          "depth": 28
+        },
+        {
+          "fromX": 564,
+          "toX": 660,
+          "depth": 18
+        }
+      ]
+    },
+    {
+      "id": "timber-return-600",
+      "x": 580,
+      "right": 740,
+      "y": 600,
+      "width": 160,
+      "from": {
+        "x": 580,
+        "y": 600
+      },
+      "to": {
+        "x": 580,
+        "y": 600
+      },
+      "seconds": 1,
+      "currentMaximumDepth": 16,
+      "family": "ordinary modular branch",
+      "proposedGeometry": "unchanged",
+      "associatedEntities": [],
+      "lowerNeighbours": [
+        {
+          "id": "timber-middle",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            580,
+            636
+          ],
+          "depthForTwoPixelStandingGap": 18
+        },
+        {
+          "id": "timber-return-720",
+          "topSeparation": 120,
+          "conservativeActorCorridor": [
+            580,
+            740
+          ],
+          "depthForTwoPixelStandingGap": 78
+        },
+        {
+          "id": "timber-outer-catch-660",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            684,
+            740
+          ],
+          "depthForTwoPixelStandingGap": 18
+        }
+      ],
+      "proposedEnvelope": "18px nominal designed body; up to 28px only outside the conservative lower-standing corridors listed here, with natural continuous taper. No post-generation cutting or squeezing.",
+      "maximumDepthIntervals": [
+        {
+          "fromX": 580,
+          "toX": 636,
+          "depth": 18
+        },
+        {
+          "fromX": 636,
+          "toX": 684,
+          "depth": 28
+        },
+        {
+          "fromX": 684,
+          "toX": 740,
+          "depth": 18
+        }
+      ]
+    },
+    {
+      "id": "timber-return-720",
+      "x": 580,
+      "right": 740,
+      "y": 720,
+      "width": 160,
+      "from": {
+        "x": 580,
+        "y": 720
+      },
+      "to": {
+        "x": 580,
+        "y": 720
+      },
+      "seconds": 1,
+      "currentMaximumDepth": 16,
+      "family": "ordinary modular branch",
+      "proposedGeometry": "unchanged",
+      "associatedEntities": [],
+      "lowerNeighbours": [
+        {
+          "id": "timber-fork-right-1",
+          "topSeparation": 120,
+          "conservativeActorCorridor": [
+            580,
+            656
+          ],
+          "depthForTwoPixelStandingGap": 78
+        },
+        {
+          "id": "timber-fork-right-2",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            580,
+            636
+          ],
+          "depthForTwoPixelStandingGap": 18
+        },
+        {
+          "id": "timber-return-780",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            580,
+            676
+          ],
+          "depthForTwoPixelStandingGap": 18
+        },
+        {
+          "id": "timber-return-840",
+          "topSeparation": 120,
+          "conservativeActorCorridor": [
+            580,
+            740
+          ],
+          "depthForTwoPixelStandingGap": 78
+        },
+        {
+          "id": "timber-outer-catch-780",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            684,
+            740
+          ],
+          "depthForTwoPixelStandingGap": 18
+        }
+      ],
+      "proposedEnvelope": "18px nominal designed body; up to 28px only outside the conservative lower-standing corridors listed here, with natural continuous taper. No post-generation cutting or squeezing.",
+      "maximumDepthIntervals": [
+        {
+          "fromX": 580,
+          "toX": 676,
+          "depth": 18
+        },
+        {
+          "fromX": 676,
+          "toX": 684,
+          "depth": 28
+        },
+        {
+          "fromX": 684,
+          "toX": 740,
+          "depth": 18
+        }
+      ]
+    },
+    {
+      "id": "timber-return-780",
+      "x": 520,
+      "right": 660,
+      "y": 780,
+      "width": 140,
+      "from": {
+        "x": 520,
+        "y": 780
+      },
+      "to": {
+        "x": 520,
+        "y": 780
+      },
+      "seconds": 1,
+      "currentMaximumDepth": 16,
+      "family": "ordinary modular branch",
+      "proposedGeometry": "unchanged",
+      "associatedEntities": [
+        "timber-gem-015"
+      ],
+      "lowerNeighbours": [
+        {
+          "id": "timber-fork",
+          "topSeparation": 120,
+          "conservativeActorCorridor": [
+            520,
+            636
+          ],
+          "depthForTwoPixelStandingGap": 78
+        },
+        {
+          "id": "timber-fork-right-1",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            520,
+            656
+          ],
+          "depthForTwoPixelStandingGap": 18
+        },
+        {
+          "id": "timber-return-840",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            564,
+            660
+          ],
+          "depthForTwoPixelStandingGap": 18
+        }
+      ],
+      "proposedEnvelope": "18px nominal designed body; up to 28px only outside the conservative lower-standing corridors listed here, with natural continuous taper. No post-generation cutting or squeezing.",
+      "maximumDepthIntervals": [
+        {
+          "fromX": 520,
+          "toX": 660,
+          "depth": 18
+        }
+      ]
+    },
+    {
+      "id": "timber-return-840",
+      "x": 580,
+      "right": 740,
+      "y": 840,
+      "width": 160,
+      "from": {
+        "x": 580,
+        "y": 840
+      },
+      "to": {
+        "x": 580,
+        "y": 840
+      },
+      "seconds": 1,
+      "currentMaximumDepth": 16,
+      "family": "ordinary modular branch",
+      "proposedGeometry": "unchanged",
+      "associatedEntities": [],
+      "lowerNeighbours": [
+        {
+          "id": "timber-fork",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            580,
+            636
+          ],
+          "depthForTwoPixelStandingGap": 18
+        },
+        {
+          "id": "timber-return-960",
+          "topSeparation": 120,
+          "conservativeActorCorridor": [
+            604,
+            740
+          ],
+          "depthForTwoPixelStandingGap": 78
+        },
+        {
+          "id": "timber-outer-catch-900",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            684,
+            740
+          ],
+          "depthForTwoPixelStandingGap": 18
+        }
+      ],
+      "proposedEnvelope": "18px nominal designed body; up to 28px only outside the conservative lower-standing corridors listed here, with natural continuous taper. No post-generation cutting or squeezing.",
+      "maximumDepthIntervals": [
+        {
+          "fromX": 580,
+          "toX": 636,
+          "depth": 18
+        },
+        {
+          "fromX": 636,
+          "toX": 684,
+          "depth": 28
+        },
+        {
+          "fromX": 684,
+          "toX": 740,
+          "depth": 18
+        }
+      ]
+    },
+    {
+      "id": "timber-return-960",
+      "x": 620,
+      "right": 740,
+      "y": 960,
+      "width": 120,
+      "from": {
+        "x": 620,
+        "y": 960
+      },
+      "to": {
+        "x": 620,
+        "y": 960
+      },
+      "seconds": 1,
+      "currentMaximumDepth": 16,
+      "family": "ordinary modular branch",
+      "proposedGeometry": "unchanged",
+      "associatedEntities": [],
+      "lowerNeighbours": [
+        {
+          "id": "timber-return-1020",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            620,
+            676
+          ],
+          "depthForTwoPixelStandingGap": 18
+        },
+        {
+          "id": "timber-outer-catch-1020",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            684,
+            740
+          ],
+          "depthForTwoPixelStandingGap": 18
+        },
+        {
+          "id": "ground-0",
+          "topSeparation": 120,
+          "conservativeActorCorridor": [
+            620,
+            740
+          ],
+          "depthForTwoPixelStandingGap": 78
+        }
+      ],
+      "proposedEnvelope": "18px nominal designed body; up to 28px only outside the conservative lower-standing corridors listed here, with natural continuous taper. No post-generation cutting or squeezing.",
+      "maximumDepthIntervals": [
+        {
+          "fromX": 620,
+          "toX": 676,
+          "depth": 18
+        },
+        {
+          "fromX": 676,
+          "toX": 684,
+          "depth": 28
+        },
+        {
+          "fromX": 684,
+          "toX": 740,
+          "depth": 18
+        }
+      ]
+    },
+    {
+      "id": "timber-return-1020",
+      "x": 520,
+      "right": 660,
+      "y": 1020,
+      "width": 140,
+      "from": {
+        "x": 520,
+        "y": 1020
+      },
+      "to": {
+        "x": 520,
+        "y": 1020
+      },
+      "seconds": 1,
+      "currentMaximumDepth": 16,
+      "family": "ordinary modular branch",
+      "proposedGeometry": "unchanged",
+      "associatedEntities": [],
+      "lowerNeighbours": [
+        {
+          "id": "ground-0",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            520,
+            660
+          ],
+          "depthForTwoPixelStandingGap": 18
+        }
+      ],
+      "proposedEnvelope": "18px nominal designed body; up to 28px only outside the conservative lower-standing corridors listed here, with natural continuous taper. No post-generation cutting or squeezing.",
+      "maximumDepthIntervals": [
+        {
+          "fromX": 520,
+          "toX": 660,
+          "depth": 18
+        }
+      ]
+    },
+    {
+      "id": "timber-outer-catch-300",
+      "x": 700,
+      "right": 820,
+      "y": 300,
+      "width": 120,
+      "from": {
+        "x": 700,
+        "y": 300
+      },
+      "to": {
+        "x": 700,
+        "y": 300
+      },
+      "seconds": 1,
+      "currentMaximumDepth": 16,
+      "family": "ordinary modular branch",
+      "proposedGeometry": "unchanged",
+      "associatedEntities": [],
+      "lowerNeighbours": [
+        {
+          "id": "timber-return-360",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            700,
+            756
+          ],
+          "depthForTwoPixelStandingGap": 18
+        },
+        {
+          "id": "timber-outer-catch-420",
+          "topSeparation": 120,
+          "conservativeActorCorridor": [
+            700,
+            820
+          ],
+          "depthForTwoPixelStandingGap": 78
+        }
+      ],
+      "proposedEnvelope": "18px nominal designed body; up to 28px only outside the conservative lower-standing corridors listed here, with natural continuous taper. No post-generation cutting or squeezing.",
+      "maximumDepthIntervals": [
+        {
+          "fromX": 700,
+          "toX": 756,
+          "depth": 18
+        },
+        {
+          "fromX": 756,
+          "toX": 820,
+          "depth": 28
+        }
+      ]
+    },
+    {
+      "id": "timber-outer-catch-420",
+      "x": 700,
+      "right": 820,
+      "y": 420,
+      "width": 120,
+      "from": {
+        "x": 700,
+        "y": 420
+      },
+      "to": {
+        "x": 700,
+        "y": 420
+      },
+      "seconds": 1,
+      "currentMaximumDepth": 16,
+      "family": "ordinary modular branch",
+      "proposedGeometry": "unchanged",
+      "associatedEntities": [],
+      "lowerNeighbours": [
+        {
+          "id": "timber-return-480",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            700,
+            756
+          ],
+          "depthForTwoPixelStandingGap": 18
+        },
+        {
+          "id": "timber-outer-catch-540",
+          "topSeparation": 120,
+          "conservativeActorCorridor": [
+            700,
+            820
+          ],
+          "depthForTwoPixelStandingGap": 78
+        }
+      ],
+      "proposedEnvelope": "18px nominal designed body; up to 28px only outside the conservative lower-standing corridors listed here, with natural continuous taper. No post-generation cutting or squeezing.",
+      "maximumDepthIntervals": [
+        {
+          "fromX": 700,
+          "toX": 756,
+          "depth": 18
+        },
+        {
+          "fromX": 756,
+          "toX": 820,
+          "depth": 28
+        }
+      ]
+    },
+    {
+      "id": "timber-outer-catch-540",
+      "x": 700,
+      "right": 820,
+      "y": 540,
+      "width": 120,
+      "from": {
+        "x": 700,
+        "y": 540
+      },
+      "to": {
+        "x": 700,
+        "y": 540
+      },
+      "seconds": 1,
+      "currentMaximumDepth": 16,
+      "family": "ordinary modular branch",
+      "proposedGeometry": "unchanged",
+      "associatedEntities": [],
+      "lowerNeighbours": [
+        {
+          "id": "timber-return-600",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            700,
+            756
+          ],
+          "depthForTwoPixelStandingGap": 18
+        },
+        {
+          "id": "timber-outer-catch-660",
+          "topSeparation": 120,
+          "conservativeActorCorridor": [
+            700,
+            820
+          ],
+          "depthForTwoPixelStandingGap": 78
+        }
+      ],
+      "proposedEnvelope": "18px nominal designed body; up to 28px only outside the conservative lower-standing corridors listed here, with natural continuous taper. No post-generation cutting or squeezing.",
+      "maximumDepthIntervals": [
+        {
+          "fromX": 700,
+          "toX": 756,
+          "depth": 18
+        },
+        {
+          "fromX": 756,
+          "toX": 820,
+          "depth": 28
+        }
+      ]
+    },
+    {
+      "id": "timber-outer-catch-660",
+      "x": 700,
+      "right": 820,
+      "y": 660,
+      "width": 120,
+      "from": {
+        "x": 700,
+        "y": 660
+      },
+      "to": {
+        "x": 700,
+        "y": 660
+      },
+      "seconds": 1,
+      "currentMaximumDepth": 16,
+      "family": "ordinary modular branch",
+      "proposedGeometry": "unchanged",
+      "associatedEntities": [],
+      "lowerNeighbours": [
+        {
+          "id": "timber-return-720",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            700,
+            756
+          ],
+          "depthForTwoPixelStandingGap": 18
+        },
+        {
+          "id": "timber-outer-catch-780",
+          "topSeparation": 120,
+          "conservativeActorCorridor": [
+            700,
+            820
+          ],
+          "depthForTwoPixelStandingGap": 78
+        }
+      ],
+      "proposedEnvelope": "18px nominal designed body; up to 28px only outside the conservative lower-standing corridors listed here, with natural continuous taper. No post-generation cutting or squeezing.",
+      "maximumDepthIntervals": [
+        {
+          "fromX": 700,
+          "toX": 756,
+          "depth": 18
+        },
+        {
+          "fromX": 756,
+          "toX": 820,
+          "depth": 28
+        }
+      ]
+    },
+    {
+      "id": "timber-outer-catch-780",
+      "x": 700,
+      "right": 820,
+      "y": 780,
+      "width": 120,
+      "from": {
+        "x": 700,
+        "y": 780
+      },
+      "to": {
+        "x": 700,
+        "y": 780
+      },
+      "seconds": 1,
+      "currentMaximumDepth": 16,
+      "family": "ordinary modular branch",
+      "proposedGeometry": "unchanged",
+      "associatedEntities": [],
+      "lowerNeighbours": [
+        {
+          "id": "timber-return-840",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            700,
+            756
+          ],
+          "depthForTwoPixelStandingGap": 18
+        },
+        {
+          "id": "timber-outer-catch-900",
+          "topSeparation": 120,
+          "conservativeActorCorridor": [
+            700,
+            820
+          ],
+          "depthForTwoPixelStandingGap": 78
+        }
+      ],
+      "proposedEnvelope": "18px nominal designed body; up to 28px only outside the conservative lower-standing corridors listed here, with natural continuous taper. No post-generation cutting or squeezing.",
+      "maximumDepthIntervals": [
+        {
+          "fromX": 700,
+          "toX": 756,
+          "depth": 18
+        },
+        {
+          "fromX": 756,
+          "toX": 820,
+          "depth": 28
+        }
+      ]
+    },
+    {
+      "id": "timber-outer-catch-900",
+      "x": 700,
+      "right": 820,
+      "y": 900,
+      "width": 120,
+      "from": {
+        "x": 700,
+        "y": 900
+      },
+      "to": {
+        "x": 700,
+        "y": 900
+      },
+      "seconds": 1,
+      "currentMaximumDepth": 16,
+      "family": "ordinary modular branch",
+      "proposedGeometry": "unchanged",
+      "associatedEntities": [],
+      "lowerNeighbours": [
+        {
+          "id": "timber-return-960",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            700,
+            756
+          ],
+          "depthForTwoPixelStandingGap": 18
+        },
+        {
+          "id": "timber-outer-catch-1020",
+          "topSeparation": 120,
+          "conservativeActorCorridor": [
+            700,
+            820
+          ],
+          "depthForTwoPixelStandingGap": 78
+        }
+      ],
+      "proposedEnvelope": "18px nominal designed body; up to 28px only outside the conservative lower-standing corridors listed here, with natural continuous taper. No post-generation cutting or squeezing.",
+      "maximumDepthIntervals": [
+        {
+          "fromX": 700,
+          "toX": 756,
+          "depth": 18
+        },
+        {
+          "fromX": 756,
+          "toX": 820,
+          "depth": 28
+        }
+      ]
+    },
+    {
+      "id": "timber-outer-catch-1020",
+      "x": 700,
+      "right": 820,
+      "y": 1020,
+      "width": 120,
+      "from": {
+        "x": 700,
+        "y": 1020
+      },
+      "to": {
+        "x": 700,
+        "y": 1020
+      },
+      "seconds": 1,
+      "currentMaximumDepth": 16,
+      "family": "ordinary modular branch",
+      "proposedGeometry": "unchanged",
+      "associatedEntities": [],
+      "lowerNeighbours": [
+        {
+          "id": "ground-0",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            700,
+            820
+          ],
+          "depthForTwoPixelStandingGap": 18
+        }
+      ],
+      "proposedEnvelope": "18px nominal designed body; up to 28px only outside the conservative lower-standing corridors listed here, with natural continuous taper. No post-generation cutting or squeezing.",
+      "maximumDepthIntervals": [
+        {
+          "fromX": 700,
+          "toX": 820,
+          "depth": 18
+        }
+      ]
+    },
+    {
+      "id": "timber-middle-left-catch",
+      "x": 40,
+      "right": 290,
+      "y": 720,
+      "width": 250,
+      "from": {
+        "x": 40,
+        "y": 720
+      },
+      "to": {
+        "x": 40,
+        "y": 720
+      },
+      "seconds": 1,
+      "currentMaximumDepth": 16,
+      "family": "ordinary modular branch",
+      "proposedGeometry": "unchanged",
+      "associatedEntities": [],
+      "lowerNeighbours": [
+        {
+          "id": "timber-fork-left-1",
+          "topSeparation": 120,
+          "conservativeActorCorridor": [
+            164,
+            290
+          ],
+          "depthForTwoPixelStandingGap": 78
+        },
+        {
+          "id": "timber-fork-left-2",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            244,
+            290
+          ],
+          "depthForTwoPixelStandingGap": 18
+        },
+        {
+          "id": "timber-middle-left-catch-2",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            40,
+            266
+          ],
+          "depthForTwoPixelStandingGap": 18
+        },
+        {
+          "id": "timber-middle-left-catch-3",
+          "topSeparation": 120,
+          "conservativeActorCorridor": [
+            40,
+            266
+          ],
+          "depthForTwoPixelStandingGap": 78
+        }
+      ],
+      "proposedEnvelope": "18px nominal designed body; up to 28px only outside the conservative lower-standing corridors listed here, with natural continuous taper. No post-generation cutting or squeezing.",
+      "maximumDepthIntervals": [
+        {
+          "fromX": 40,
+          "toX": 290,
+          "depth": 18
+        }
+      ]
+    },
+    {
+      "id": "timber-middle-left-catch-2",
+      "x": 40,
+      "right": 250,
+      "y": 780,
+      "width": 210,
+      "from": {
+        "x": 40,
+        "y": 780
+      },
+      "to": {
+        "x": 40,
+        "y": 780
+      },
+      "seconds": 1,
+      "currentMaximumDepth": 16,
+      "family": "ordinary modular branch",
+      "proposedGeometry": "unchanged",
+      "associatedEntities": [],
+      "lowerNeighbours": [
+        {
+          "id": "timber-fork",
+          "topSeparation": 120,
+          "conservativeActorCorridor": [
+            154,
+            250
+          ],
+          "depthForTwoPixelStandingGap": 78
+        },
+        {
+          "id": "timber-fork-left-1",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            164,
+            250
+          ],
+          "depthForTwoPixelStandingGap": 18
+        },
+        {
+          "id": "timber-middle-left-catch-3",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            40,
+            250
+          ],
+          "depthForTwoPixelStandingGap": 18
+        }
+      ],
+      "proposedEnvelope": "18px nominal designed body; up to 28px only outside the conservative lower-standing corridors listed here, with natural continuous taper. No post-generation cutting or squeezing.",
+      "maximumDepthIntervals": [
+        {
+          "fromX": 40,
+          "toX": 250,
+          "depth": 18
+        }
+      ]
+    },
+    {
+      "id": "timber-middle-left-catch-3",
+      "x": 40,
+      "right": 250,
+      "y": 840,
+      "width": 210,
+      "from": {
+        "x": 40,
+        "y": 840
+      },
+      "to": {
+        "x": 40,
+        "y": 840
+      },
+      "seconds": 1,
+      "currentMaximumDepth": 16,
+      "family": "ordinary modular branch",
+      "proposedGeometry": "unchanged",
+      "associatedEntities": [
+        "timber-gem-010"
+      ],
+      "lowerNeighbours": [
+        {
+          "id": "timber-star-1",
+          "topSeparation": 120,
+          "conservativeActorCorridor": [
+            44,
+            246
+          ],
+          "depthForTwoPixelStandingGap": 78
+        },
+        {
+          "id": "timber-fork",
+          "topSeparation": 60,
+          "conservativeActorCorridor": [
+            154,
+            250
+          ],
+          "depthForTwoPixelStandingGap": 18
+        }
+      ],
+      "proposedEnvelope": "18px nominal designed body; up to 28px only outside the conservative lower-standing corridors listed here, with natural continuous taper. No post-generation cutting or squeezing.",
+      "maximumDepthIntervals": [
+        {
+          "fromX": 40,
+          "toX": 154,
+          "depth": 28
+        },
+        {
+          "fromX": 154,
+          "toX": 250,
+          "depth": 18
+        }
+      ]
+    }
+  ],
+  "pickups": [
+    {
+      "id": "timber-gem-001",
+      "kind": "gem",
+      "x": 260,
+      "y": 1062,
+      "asset": "gem",
+      "layer": "world",
+      "supportY": 1080,
+      "proposedPosition": {
+        "x": 260,
+        "y": 1062,
+        "supportY": 1080
+      }
+    },
+    {
+      "id": "timber-gem-002",
+      "kind": "gem",
+      "x": 330,
+      "y": 1002,
+      "asset": "gem",
+      "layer": "world",
+      "supportY": 1020,
+      "proposedPosition": {
+        "x": 330,
+        "y": 1002,
+        "supportY": 1020
+      }
+    },
+    {
+      "id": "timber-gem-003",
+      "kind": "gem",
+      "x": 410,
+      "y": 1002,
+      "asset": "gem",
+      "layer": "world",
+      "supportY": 1020,
+      "proposedPosition": {
+        "x": 410,
+        "y": 1002,
+        "supportY": 1020
+      }
+    },
+    {
+      "id": "timber-gem-004",
+      "kind": "gem",
+      "x": 410,
+      "y": 942,
+      "asset": "gem",
+      "layer": "world",
+      "supportY": 960,
+      "proposedPosition": {
+        "x": 410,
+        "y": 942,
+        "supportY": 960
+      }
+    },
+    {
+      "id": "timber-gem-005",
+      "kind": "gem",
+      "x": 500,
+      "y": 942,
+      "asset": "gem",
+      "layer": "world",
+      "supportY": 960,
+      "proposedPosition": {
+        "x": 500,
+        "y": 942,
+        "supportY": 960
+      }
+    },
+    {
+      "id": "timber-gem-006",
+      "kind": "gem",
+      "x": 205,
+      "y": 942,
+      "asset": "gem",
+      "layer": "world",
+      "supportY": 960,
+      "proposedPosition": {
+        "x": 205,
+        "y": 942,
+        "supportY": 960
+      }
+    },
+    {
+      "id": "timber-gem-007",
+      "kind": "gem",
+      "x": 320,
+      "y": 882,
+      "asset": "gem",
+      "layer": "world",
+      "supportY": 900,
+      "proposedPosition": {
+        "x": 320,
+        "y": 882,
+        "supportY": 900
+      }
+    },
+    {
+      "id": "timber-gem-008",
+      "kind": "gem",
+      "x": 370,
+      "y": 882,
+      "asset": "gem",
+      "layer": "world",
+      "supportY": 900,
+      "proposedPosition": {
+        "x": 370,
+        "y": 882,
+        "supportY": 900
+      }
+    },
+    {
+      "id": "timber-gem-009",
+      "kind": "gem",
+      "x": 540,
+      "y": 882,
+      "asset": "gem",
+      "layer": "world",
+      "supportY": 900,
+      "proposedPosition": {
+        "x": 540,
+        "y": 882,
+        "supportY": 900
+      }
+    },
+    {
+      "id": "timber-gem-010",
+      "kind": "gem",
+      "x": 240,
+      "y": 822,
+      "asset": "gem",
+      "layer": "world",
+      "supportY": 840,
+      "proposedPosition": {
+        "x": 240,
+        "y": 822,
+        "supportY": 840
+      }
+    },
+    {
+      "id": "timber-gem-011",
+      "kind": "gem",
+      "x": 350,
+      "y": 822,
+      "asset": "gem",
+      "layer": "world",
+      "supportY": 840,
+      "proposedPosition": {
+        "x": 350,
+        "y": 822,
+        "supportY": 840
+      }
+    },
+    {
+      "id": "timber-gem-012",
+      "kind": "gem",
+      "x": 530,
+      "y": 822,
+      "asset": "gem",
+      "layer": "world",
+      "supportY": 840,
+      "proposedPosition": {
+        "x": 530,
+        "y": 822,
+        "supportY": 840
+      }
+    },
+    {
+      "id": "timber-gem-013",
+      "kind": "gem",
+      "x": 320,
+      "y": 762,
+      "asset": "gem",
+      "layer": "world",
+      "supportY": 780,
+      "proposedPosition": {
+        "x": 320,
+        "y": 762,
+        "supportY": 780
+      }
+    },
+    {
+      "id": "timber-gem-014",
+      "kind": "gem",
+      "x": 440,
+      "y": 762,
+      "asset": "gem",
+      "layer": "world",
+      "supportY": 780,
+      "proposedPosition": {
+        "x": 440,
+        "y": 762,
+        "supportY": 780
+      }
+    },
+    {
+      "id": "timber-gem-015",
+      "kind": "gem",
+      "x": 550,
+      "y": 762,
+      "asset": "gem",
+      "layer": "world",
+      "supportY": 780,
+      "proposedPosition": {
+        "x": 550,
+        "y": 762,
+        "supportY": 780
+      }
+    },
+    {
+      "id": "timber-gem-016",
+      "kind": "gem",
+      "x": 440,
+      "y": 702,
+      "asset": "gem",
+      "layer": "world",
+      "supportY": 720,
+      "proposedPosition": {
+        "x": 440,
+        "y": 702,
+        "supportY": 720
+      }
+    },
+    {
+      "id": "timber-gem-017",
+      "kind": "gem",
+      "x": 490,
+      "y": 702,
+      "asset": "gem",
+      "layer": "world",
+      "supportY": 720,
+      "proposedPosition": {
+        "x": 490,
+        "y": 702,
+        "supportY": 720
+      }
+    },
+    {
+      "id": "timber-gem-018",
+      "kind": "gem",
+      "x": 160,
+      "y": 642,
+      "asset": "gem",
+      "layer": "world",
+      "supportY": 660,
+      "proposedPosition": {
+        "x": 160,
+        "y": 642,
+        "supportY": 660
+      }
+    },
+    {
+      "id": "timber-gem-019",
+      "kind": "gem",
+      "x": 360,
+      "y": 642,
+      "asset": "gem",
+      "layer": "world",
+      "supportY": 660,
+      "proposedPosition": {
+        "x": 360,
+        "y": 642,
+        "supportY": 660
+      }
+    },
+    {
+      "id": "timber-gem-020",
+      "kind": "gem",
+      "x": 540,
+      "y": 642,
+      "asset": "gem",
+      "layer": "world",
+      "supportY": 660,
+      "proposedPosition": {
+        "x": 540,
+        "y": 642,
+        "supportY": 660
+      }
+    },
+    {
+      "id": "timber-gem-021",
+      "kind": "gem",
+      "x": 310,
+      "y": 582,
+      "asset": "gem",
+      "layer": "world",
+      "supportY": 600,
+      "proposedPosition": {
+        "x": 310,
+        "y": 582,
+        "supportY": 600
+      }
+    },
+    {
+      "id": "timber-gem-022",
+      "kind": "gem",
+      "x": 390,
+      "y": 582,
+      "asset": "gem",
+      "layer": "world",
+      "supportY": 600,
+      "proposedPosition": {
+        "x": 390,
+        "y": 582,
+        "supportY": 600
+      }
+    },
+    {
+      "id": "timber-gem-023",
+      "kind": "gem",
+      "x": 165,
+      "y": 582,
+      "asset": "gem",
+      "layer": "world",
+      "supportY": 600,
+      "proposedPosition": {
+        "x": 165,
+        "y": 582,
+        "supportY": 600
+      }
+    },
+    {
+      "id": "timber-gem-024",
+      "kind": "gem",
+      "x": 175,
+      "y": 492,
+      "asset": "gem",
+      "layer": "world",
+      "supportY": 510,
+      "proposedPosition": {
+        "x": 175,
+        "y": 492,
+        "supportY": 510
+      }
+    },
+    {
+      "id": "timber-gem-025",
+      "kind": "gem",
+      "x": 370,
+      "y": 522,
+      "asset": "gem",
+      "layer": "world",
+      "supportY": 540,
+      "proposedPosition": {
+        "x": 370,
+        "y": 522,
+        "supportY": 540
+      }
+    },
+    {
+      "id": "timber-gem-026",
+      "kind": "gem",
+      "x": 480,
+      "y": 522,
+      "asset": "gem",
+      "layer": "world",
+      "supportY": 540,
+      "proposedPosition": {
+        "x": 480,
+        "y": 522,
+        "supportY": 540
+      }
+    },
+    {
+      "id": "timber-gem-027",
+      "kind": "gem",
+      "x": 300,
+      "y": 462,
+      "asset": "gem",
+      "layer": "world",
+      "supportY": 480,
+      "proposedPosition": {
+        "x": 300,
+        "y": 462,
+        "supportY": 480
+      }
+    },
+    {
+      "id": "timber-gem-028",
+      "kind": "gem",
+      "x": 410,
+      "y": 462,
+      "asset": "gem",
+      "layer": "world",
+      "supportY": 480,
+      "proposedPosition": {
+        "x": 410,
+        "y": 462,
+        "supportY": 480
+      }
+    },
+    {
+      "id": "timber-gem-029",
+      "kind": "gem",
+      "x": 270,
+      "y": 402,
+      "asset": "gem",
+      "layer": "world",
+      "supportY": 420,
+      "proposedPosition": {
+        "x": 270,
+        "y": 402,
+        "supportY": 420
+      }
+    },
+    {
+      "id": "timber-gem-030",
+      "kind": "gem",
+      "x": 410,
+      "y": 402,
+      "asset": "gem",
+      "layer": "world",
+      "supportY": 420,
+      "proposedPosition": {
+        "x": 410,
+        "y": 402,
+        "supportY": 420
+      }
+    },
+    {
+      "id": "timber-gem-031",
+      "kind": "gem",
+      "x": 400,
+      "y": 342,
+      "asset": "gem",
+      "layer": "world",
+      "supportY": 360,
+      "proposedPosition": {
+        "x": 400,
+        "y": 342,
+        "supportY": 360
+      }
+    },
+    {
+      "id": "timber-gem-032",
+      "kind": "gem",
+      "x": 320,
+      "y": 282,
+      "asset": "gem",
+      "layer": "world",
+      "supportY": 300,
+      "proposedPosition": {
+        "x": 320,
+        "y": 282,
+        "supportY": 300
+      }
+    },
+    {
+      "id": "timber-gem-033",
+      "kind": "gem",
+      "x": 440,
+      "y": 222,
+      "asset": "gem",
+      "layer": "world",
+      "supportY": 240,
+      "proposedPosition": {
+        "x": 440,
+        "y": 222,
+        "supportY": 240
+      }
+    },
+    {
+      "id": "timbers-special-1",
+      "kind": "special",
+      "x": 115,
+      "y": 935,
+      "asset": "special",
+      "layer": "world",
+      "supportY": 960,
+      "proposedPosition": {
+        "x": 115,
+        "y": 935,
+        "supportY": 960
+      }
+    },
+    {
+      "id": "timbers-special-2",
+      "kind": "special",
+      "x": 110,
+      "y": 485,
+      "asset": "special",
+      "layer": "world",
+      "supportY": 510,
+      "proposedPosition": {
+        "x": 110,
+        "y": 485,
+        "supportY": 510
+      }
+    },
+    {
+      "id": "timbers-special-3",
+      "kind": "special",
+      "x": 110,
+      "y": 275,
+      "asset": "special",
+      "layer": "world",
+      "supportY": 300,
+      "proposedPosition": {
+        "x": 110,
+        "y": 275,
+        "supportY": 300
+      }
+    },
+    {
+      "id": "timber-spring-1",
+      "kind": "spring",
+      "x": 100,
+      "y": 600,
+      "asset": "spring",
+      "layer": "world",
+      "supportY": 600,
+      "proposedPosition": {
+        "x": 100,
+        "y": 600,
+        "supportY": 600
+      }
+    },
+    {
+      "id": "timber-checkpoint-fork",
+      "x": 510,
+      "y": 900,
+      "kind": "checkpoint",
+      "asset": "checkpoint",
+      "layer": "world",
+      "supportY": 900,
+      "proposedPosition": {
+        "x": 510,
+        "y": 900,
+        "supportY": 900
+      }
+    },
+    {
+      "id": "timber-checkpoint-middle",
+      "x": 260,
+      "y": 660,
+      "kind": "checkpoint",
+      "asset": "checkpoint",
+      "layer": "world",
+      "supportY": 660,
+      "proposedPosition": {
+        "x": 260,
+        "y": 660,
+        "supportY": 660
+      }
+    },
+    {
+      "id": "timber-checkpoint-canopy",
+      "x": 500,
+      "y": 420,
+      "kind": "checkpoint",
+      "asset": "checkpoint",
+      "layer": "world",
+      "supportY": 420,
+      "proposedPosition": {
+        "x": 500,
+        "y": 420,
+        "supportY": 420
+      }
+    },
+    {
+      "id": "timbers-letter-t",
+      "letter": "T",
+      "x": 220,
+      "supportY": 1080,
+      "kind": "letter",
+      "y": 1048,
+      "proposedPosition": {
+        "x": 220,
+        "y": 1048,
+        "supportY": 1080
+      }
+    },
+    {
+      "id": "timbers-letter-r",
+      "letter": "R",
+      "x": 270,
+      "supportY": 900,
+      "kind": "letter",
+      "y": 868,
+      "proposedPosition": {
+        "x": 270,
+        "y": 868,
+        "supportY": 900
+      }
+    },
+    {
+      "id": "timbers-letter-e1",
+      "letter": "E",
+      "x": 300,
+      "supportY": 420,
+      "kind": "letter",
+      "y": 388,
+      "proposedPosition": {
+        "x": 300,
+        "y": 388,
+        "supportY": 420
+      }
+    },
+    {
+      "id": "timbers-letter-e2",
+      "letter": "E",
+      "x": 350,
+      "supportY": 180,
+      "kind": "letter",
+      "y": 148,
+      "proposedPosition": {
+        "x": 350,
+        "y": 148,
+        "supportY": 180
+      }
+    },
+    {
+      "id": "finish",
+      "kind": "finish",
+      "x": 530,
+      "y": 180,
+      "supportY": 180,
+      "proposedPosition": {
+        "x": 530,
+        "y": 180,
+        "supportY": 180
+      }
+    }
+  ],
+  "scenery": [
+    {
+      "key": "drawTimberTrunk:tree:0",
+      "note": "Inventory key, not an authored entity ID",
+      "asset": "tree",
+      "x": 115,
+      "y": 265,
+      "scale": 2.4,
+      "substantialBaseX": [
+        88.6,
+        139
+      ],
+      "baseBottomY": 265,
+      "realSupport": [],
+      "proposal": "Remove this decorative sprite draw; preserve atlas bytes, trunk, connecting limbs, panorama and ambient leaves."
+    },
+    {
+      "key": "drawTimberTrunk:tree:1",
+      "note": "Inventory key, not an authored entity ID",
+      "asset": "tree",
+      "x": 650,
+      "y": 320,
+      "scale": 2.6,
+      "substantialBaseX": [
+        621.4,
+        676
+      ],
+      "baseBottomY": 320,
+      "realSupport": [],
+      "proposal": "Remove this decorative sprite draw; preserve atlas bytes, trunk, connecting limbs, panorama and ambient leaves."
+    },
+    {
+      "key": "drawTimberTrunk:tree:2",
+      "note": "Inventory key, not an authored entity ID",
+      "asset": "tree",
+      "x": 130,
+      "y": 390,
+      "scale": 2.2,
+      "substantialBaseX": [
+        105.8,
+        152
+      ],
+      "baseBottomY": 390,
+      "realSupport": [],
+      "proposal": "Remove this decorative sprite draw; preserve atlas bytes, trunk, connecting limbs, panorama and ambient leaves."
+    },
+    {
+      "key": "drawTimberTrunk:tree:3",
+      "note": "Inventory key, not an authored entity ID",
+      "asset": "tree",
+      "x": 670,
+      "y": 460,
+      "scale": 2.3,
+      "substantialBaseX": [
+        644.7,
+        693
+      ],
+      "baseBottomY": 460,
+      "realSupport": [],
+      "proposal": "Remove this decorative sprite draw; preserve atlas bytes, trunk, connecting limbs, panorama and ambient leaves."
+    },
+    {
+      "key": "drawTimberTrunk:tree:4",
+      "note": "Inventory key, not an authored entity ID",
+      "asset": "tree",
+      "x": 95,
+      "y": 565,
+      "scale": 1.8,
+      "substantialBaseX": [
+        75.2,
+        113
+      ],
+      "baseBottomY": 565,
+      "realSupport": [],
+      "proposal": "Remove this decorative sprite draw; preserve atlas bytes, trunk, connecting limbs, panorama and ambient leaves."
+    },
+    {
+      "key": "drawTimberTrunk:bush:0",
+      "note": "Inventory key, not an authored entity ID",
+      "asset": "bush",
+      "x": 40,
+      "y": 580,
+      "scale": 2.2,
+      "substantialBaseX": [
+        -8.400000000000006,
+        88.4
+      ],
+      "baseBottomY": 580,
+      "realSupport": [],
+      "proposal": "Remove this decorative sprite draw; preserve atlas bytes, trunk, connecting limbs, panorama and ambient leaves."
+    },
+    {
+      "key": "drawTimberTrunk:bush:1",
+      "note": "Inventory key, not an authored entity ID",
+      "asset": "bush",
+      "x": 770,
+      "y": 620,
+      "scale": 2.2,
+      "substantialBaseX": [
+        721.6,
+        818.4
+      ],
+      "baseBottomY": 620,
+      "realSupport": [],
+      "proposal": "Remove this decorative sprite draw; preserve atlas bytes, trunk, connecting limbs, panorama and ambient leaves."
+    },
+    {
+      "key": "drawTimberTrunk:bush:2",
+      "note": "Inventory key, not an authored entity ID",
+      "asset": "bush",
+      "x": 60,
+      "y": 740,
+      "scale": 2.2,
+      "substantialBaseX": [
+        11.599999999999994,
+        108.4
+      ],
+      "baseBottomY": 740,
+      "realSupport": [],
+      "proposal": "Remove this decorative sprite draw; preserve atlas bytes, trunk, connecting limbs, panorama and ambient leaves."
+    },
+    {
+      "key": "drawTimberTrunk:bush:3",
+      "note": "Inventory key, not an authored entity ID",
+      "asset": "bush",
+      "x": 785,
+      "y": 795,
+      "scale": 2.2,
+      "substantialBaseX": [
+        736.6,
+        833.4
+      ],
+      "baseBottomY": 795,
+      "realSupport": [],
+      "proposal": "Remove this decorative sprite draw; preserve atlas bytes, trunk, connecting limbs, panorama and ambient leaves."
+    },
+    {
+      "key": "drawTimberTrunk:bush:4",
+      "note": "Inventory key, not an authored entity ID",
+      "asset": "bush",
+      "x": 70,
+      "y": 930,
+      "scale": 2.2,
+      "substantialBaseX": [
+        21.599999999999994,
+        118.4
+      ],
+      "baseBottomY": 930,
+      "realSupport": [],
+      "proposal": "Remove this decorative sprite draw; preserve atlas bytes, trunk, connecting limbs, panorama and ambient leaves."
+    },
+    {
+      "key": "drawTimberTrunk:bush:5",
+      "note": "Inventory key, not an authored entity ID",
+      "asset": "bush",
+      "x": 780,
+      "y": 1030,
+      "scale": 2.2,
+      "substantialBaseX": [
+        731.6,
+        828.4
+      ],
+      "baseBottomY": 1030,
+      "realSupport": [],
+      "proposal": "Remove this decorative sprite draw; preserve atlas bytes, trunk, connecting limbs, panorama and ambient leaves."
+    }
+  ],
+  "sceneryPreserved": {
+    "trunk": {
+      "y": [
+        180,
+        1080
+      ],
+      "approximateX": [
+        343,
+        478
+      ]
+    },
+    "connectingLimbs": [
+      [
+        300,
+        210
+      ],
+      [
+        420,
+        170
+      ],
+      [
+        540,
+        585
+      ],
+      [
+        660,
+        65
+      ],
+      [
+        780,
+        600
+      ],
+      [
+        900,
+        185
+      ]
+    ],
+    "panorama": "public/assets/trails/backdrops.webp row 1",
+    "ambientLeaves": {
+      "kind": "leaves",
+      "count": 14,
+      "color": "#b5a05b80",
+      "drift": 6,
+      "fall": 8,
+      "sway": 10
+    }
+  },
+  "invariants": {
+    "levelWidth": 820,
+    "levelHeight": 1180,
+    "minX": 40,
+    "maxX": 820,
+    "start": {
+      "x": 100,
+      "y": 1080
+    },
+    "finish": {
+      "x": 530,
+      "y": 180,
+      "asset": "finish-arch",
+      "supportOnly": true,
+      "boundedWidth": 46,
+      "rearmBelowY": 240,
+      "rearmLeftX": 300
+    },
+    "retrace": {
+      "x": 440,
+      "y": 180
+    },
+    "checkpoints": [
+      {
+        "id": "timber-checkpoint-fork",
+        "x": 510,
+        "y": 900
+      },
+      {
+        "id": "timber-checkpoint-middle",
+        "x": 260,
+        "y": 660
+      },
+      {
+        "id": "timber-checkpoint-canopy",
+        "x": 500,
+        "y": 420
+      }
+    ],
+    "landingBands": [
+      {
+        "x": 330,
+        "width": 120
+      },
+      {
+        "x": 270,
+        "width": 150
+      },
+      {
+        "x": 440,
+        "width": 140
+      }
+    ]
+  }
+}

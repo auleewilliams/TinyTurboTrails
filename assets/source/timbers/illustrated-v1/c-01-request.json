@@ -1,0 +1,12 @@
+{
+  "tool": "image_gen.imagegen",
+  "role": "C root ground",
+  "request": {
+    "prompt": "Use case: stylized-concept.\nAsset type: original modular ROOT-AND-BARK GROUND source artwork for Treetop Timbers, a small side-view illustrated platform game. Role C only.\nCreate ONE isolated rectangular cross-section of sturdy forest-root ground, against genuine transparent RGBA. Warm golden-brown level walking lip across its full top, with layered russet/chocolate woody roots and quieter dark bark/earth fill beneath. Broad restrained painted facets, readable chunky storybook game illustration. This should visually belong with warm organic wood branches, not construction planks, coastal stones or grassland turf.\nProduction geometry: a rectangular block about 2.5 times as wide as deep. Exactly level straight horizontal walking edge, no objects or foliage above the top. The top is a thin naturally rounded golden woody/root surface, backed by substantial brown material extending down to a completely filled flat bottom. The whole bottom area is material, not dangling roots over open air. Straight vertical outer sides. Roots woven through the body are part of the opaque ground, never gaps. This will be displayed around 250 pixels wide by 100 pixels deep using uniform scaling.\nModular design: complete narrow left and right boundary faces, and a long middle region designed for horizontal repeats. Keep the top level and the body depth consistent. No central focal object, no giant knots or stones. Lower material should be quiet and low contrast; detailed roots mainly occupy the upper third. The centre should extend naturally into the sides. One complete coherent block with no visible panel boundaries or guide lines.\nComposition: landscape canvas; the entire block large and centred with a modest transparent margin around all four edges. Actual alpha transparency outside the block. No cast shadow outside, no painted checkerboard, no text, no watermarks, no grass, mushrooms, pine trees, loose logs, characters, labels, extra sprites or props. Preserve light golden details as opaque paint.",
+    "transparent_background": true
+  },
+  "inputImages": [],
+  "provider": null,
+  "model": null,
+  "status": "dispatch pending"
+}

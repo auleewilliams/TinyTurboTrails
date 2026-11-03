@@ -1,0 +1,53 @@
+{
+  "authority": "Owner reply Approved to the representative preview scope and five-call cap in this conversation",
+  "approvalText": "Approved",
+  "baseline": "885b6c16d5397e061f1ccb40ca326856bc77db88",
+  "approvedPlanSha256": "1ea684431a242f9163f817b5d5b7b39277624a67e7270f0797a3153406cf7e3c",
+  "approvedPlanPath": "docs/timbers-art-plan-241.md",
+  "hardCallCap": 5,
+  "initialRoles": {
+    "A": 1,
+    "B": 1,
+    "C": 1
+  },
+  "restrictedReserve": 2,
+  "calls": [
+    {
+      "id": "A-01",
+      "role": "A",
+      "state": "returned",
+      "request": "a-01-request.json",
+      "result": "a-01-result.json"
+    },
+    {
+      "id": "C-01",
+      "role": "C",
+      "state": "rejected output",
+      "request": "c-01-request.json",
+      "result": "c-01-result.json",
+      "reason": "Stray alpha outside ground survives whole-image uniform downsample"
+    },
+    {
+      "id": "C-02",
+      "role": "C",
+      "allocation": "restricted reserve, one C refinement",
+      "state": "returned",
+      "request": "c-02-request.json",
+      "result": "c-02-result.json"
+    }
+  ],
+  "unapproved": [
+    "remaining trail rollout",
+    "commit/push",
+    "merge",
+    "deployment"
+  ],
+  "geometry": "All support and pickup coordinates unchanged",
+  "scenery": "Remove only 11 listed decorative draws",
+  "roleBDecision": "Unused: original A provides complete caps and a designed repeatable centre for the broad middle bough at the identical native texture scale. No separate B image needed for this preview.",
+  "callsSpent": 3,
+  "remainingAllocations": {
+    "B": 1,
+    "restricted reserve for A": 1
+  }
+}
