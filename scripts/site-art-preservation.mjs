@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs';
 
 const originalManifest = '176ce7b94cf713fa3c099f1e62511227b67c384e1159a4b8ecce3547c40333da';
 const declaration = '  "siteTerrain": "steel-v1/manifest.json",\n';
-const sourceRecord = JSON.parse(readFileSync(new URL('../assets/source/site/steel-v1/timbers-main-preservation.json', import.meta.url)));
+const sourceRecord = JSON.parse(readFileSync(new URL('../assets/source/site/steel-v1/owner-feedback-preservation.json', import.meta.url)));
 
 /** Remove only the exact recorded Sunset integration before historical pins.
  * Shared loader/renderer bytes return to merged Timbers main; callers then apply

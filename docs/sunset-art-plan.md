@@ -352,3 +352,19 @@ markers are now omitted; the ferry's actual endpoints, motion, carrying and
 timing remain unchanged, as do other trails' markers and all artwork. No image
 generation is needed. `ferry-marker-removal-preservation.json` pins this narrow
 renderer change separately; earlier records remain historical evidence.
+
+### Owner-requested construction prop and moving slimes (2026-11-03)
+
+The owner requested replacing the bush shown on the long girder and adding
+moving slimes. This explicitly extends the earlier art-only scope: `site-deco-2`
+at (1600,380) now uses the existing site atlas `stone` role, which depicts
+construction cones/mixer equipment. Its position, anchor and back layer stay
+fixed. No new generation or asset modification is needed.
+
+Three hard-hat slimes use existing ground patrol/contact/squash behavior at
+(650,680), (1660,680) and (2530,680), with IDs `site-slime-1` through `-3`.
+Each patrol spans +/-60px at 36px/s, clear of the gap and checkpoint approaches.
+No elevated patrol behavior or physics change is introduced. The fixed/ferry
+routes, all 62 gems (including the 38 approved offsets), BEAM and checkpoints remain.
+`owner-feedback-preservation.json` records these exact exceptions separately;
+previous accepted source records and artwork remain historical and unchanged.

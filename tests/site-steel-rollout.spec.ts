@@ -80,3 +80,19 @@ for (const width of [426, 320]) test(`Sunset whole steel rollout reaches the roo
     await evidence.assertIntegrity();
   }
 });
+
+for (const width of [426, 320]) test(`Sunset construction prop replaces the bush at ${width}px`, async ({ page }, info) => {
+  test.setTimeout(60_000);
+  const evidence = createRolloutEvidence(info);
+  await startSunsetPilot(page);
+  await page.setViewportSize({ width, height: width === 320 ? 240 : 300 });
+  await driveSunset(page, [...FIRST_CLIMB, CROSS_DESCENT[0], { kind: 'walk', x: 1540 }]);
+  await expect(page.locator('#status')).toContainText('Y 346');
+  await evidence.observe('construction-prop', await page.locator('#game').evaluate(canvas => ({
+    status: document.querySelector('#status')!.textContent,
+    png: (canvas as HTMLCanvasElement).toDataURL('image/png'),
+    scope: 'Ordinary input to the existing x1600 girder prop; no scene state injection.',
+  })));
+  await evidence.attach('construction-prop-css', { body: await page.locator('#game').screenshot(), contentType: 'image/png' });
+  await evidence.assertIntegrity();
+});

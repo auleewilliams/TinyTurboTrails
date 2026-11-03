@@ -3185,7 +3185,7 @@ for (const [costume, level] of [...LEVELS.entries()].filter(([, level]) => level
   const hopping = level.id === 'timbers';
   test(`${level.id} uses the common slime atlas, ${hopping ? 'hops' : 'patrols'} and pauses in play`, async ({ page }, info) => {
     test.setTimeout(45_000);
-    if (hopping) await installTimberKeyboardPilot(page);
+    if (hopping || level.id === 'sunset') await installTimberKeyboardPilot(page);
     await page.addInitScript((sky) => {
       const fillRect = CanvasRenderingContext2D.prototype.fillRect;
       const drawImage = CanvasRenderingContext2D.prototype.drawImage;
@@ -3220,6 +3220,12 @@ for (const [costume, level] of [...LEVELS.entries()].filter(([, level]) => level
       const route = await runTimberStages(page, [...TIMBER_ASCENT_RIGHT.slice(0, 5), { kind: 'walk', x: 270 }]);
       expect(route).toMatchObject({ done: true, error: '' });
       await expect(page.locator('#status')).toContainText('Y 866');
+    } else if (level.id === 'sunset') {
+      // Leave both fixed recovery decks, then approach the ground crew below.
+      await driveSunset(page, [{ kind: 'walk', x: 880 }, { kind: 'walk', x: 750 }]);
+      await expect(page.locator('#status')).toContainText('Y 646');
+      // A patrol can be left of the camera on arrival; capture its visible pass.
+      await expect.poll(async () => (await read())[0][4], { timeout: 8000 }).toBeGreaterThan(8);
     } else {
       const position = async (): Promise<number> => Number((await page.locator('#status').innerText()).match(/X (\d+)/)?.[1] ?? 0);
       await page.keyboard.down('ArrowRight');

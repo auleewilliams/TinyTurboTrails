@@ -94,7 +94,7 @@ it('omits all Sunset path markers while preserving fixed and moving markers on o
   expect(marks).toEqual(expected);
 });
 
-it('preserves the full layout and all rewards except the exact approved gem Y offsets', () => {
+it('preserves the layout and rewards with exact approved gem, prop and slime exceptions', () => {
   const baseline = JSON.parse(readFileSync(new URL('../docs/evidence/issue-242/inventory.json', import.meta.url), 'utf8'));
   const source = readFileSync(new URL('../assets/source/site/steel-v1/baseline/src/world/sunset-site.ts', import.meta.url), 'utf8');
   expect(createHash('sha256').update(source).digest('hex')).toBe(baseline.sourceHashes['src/world/sunset-site.ts']);
@@ -102,7 +102,12 @@ it('preserves the full layout and all rewards except the exact approved gem Y of
   const original = new Function(`${compiled}\nreturn SUNSET_SITE;`)() as typeof SUNSET_SITE;
   const completeExpected = { ...original, entities: original.entities.map(entity => ({
     ...entity, y: entity.y + (approvedGems.includes(entity.id) ? 2 : 0),
+    ...(entity.id === 'site-deco-2' ? { asset: 'stone' } : {}),
   })) };
+  completeExpected.entities.push(...[650, 1660, 2530].map((x, index) => ({
+    id: `site-slime-${index + 1}`, kind: 'slime' as const, x, y: 680,
+    asset: 'slime', layer: 'world' as const, patrol: { minX: x - 60, maxX: x + 60, speed: 36 },
+  })));
   expect(SUNSET_SITE).toEqual(completeExpected);
   const expected = baseline.platforms.map((p: { id: string; from: object; to: object; width: number; seconds: number; pause: number }) => ({
     id: p.id, from: p.from, to: p.to, width: p.width, seconds: p.seconds, ...(p.pause ? { pause: p.pause } : {}),

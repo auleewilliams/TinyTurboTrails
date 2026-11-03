@@ -81,9 +81,16 @@ const entities: WorldEntity[] = [
     kind: 'gem' as const, x, y: supportY - 18, asset: 'gem', layer: 'world' as const,
   })),
   ...checkpoints.map(point => ({ ...point, kind: 'checkpoint' as const, asset: 'checkpoint', layer: 'world' as const })),
-  ...[[100, 560, 'cave'], [1600, 380, 'bush'], [2320, 620, 'cave']].map(([x, y, asset], index) => ({
+  ...[[100, 560, 'cave'], [1600, 380, 'stone'], [2320, 620, 'cave']].map(([x, y, asset], index) => ({
     id: `site-deco-${index + 1}`, kind: 'decoration' as const, x: x as number, y: y as number,
     asset: asset as string, layer: 'back' as const,
+  })),
+  // Hard-hat crews patrol the ground-level work yards, clear of the recovery gap
+  // and checkpoint approaches. Elevated girder and ferry routes stay clear.
+  ...[650, 1660, 2530].map((x, index) => ({
+    id: `site-slime-${index + 1}`, kind: 'slime' as const,
+    x, y: 680, asset: 'slime', layer: 'world' as const,
+    patrol: { minX: x - 60, maxX: x + 60, speed: 36 },
   })),
 ];
 
