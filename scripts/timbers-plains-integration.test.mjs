@@ -1,3 +1,5 @@
+import { beforeQuarryRepresentative } from './quarry-representative-preservation.mjs';
+import { beforeQuarryShelves } from './quarry-shelves-preservation.mjs';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
@@ -12,10 +14,11 @@ for (const [name, project] of Object.entries({ beforePlainsMerge, beforeTimbersM
       assert.equal(hash(baseline), entry.baselineSha256, path);
       assert.throws(() => project(path, baseline), { code: 'ERR_ASSERTION' });
       assert.throws(() => project(path, Buffer.concat([bytes, Buffer.from(' ')])), { code: 'ERR_ASSERTION' });
+      const mutationDomain = beforeQuarryShelves(path, beforeQuarryRepresentative(path, bytes));
       // Exercise every integrated hunk, including both trails' guards and drawing calls.
       for (const change of entry.changes) if (change.after) {
-        const altered = Buffer.from(bytes.toString().replace(change.after, change.after + '// changed\n'));
-        assert.notDeepEqual(altered, bytes);
+        const altered = Buffer.from(mutationDomain.toString().replace(change.after, change.after + '// changed\n'));
+        assert.notDeepEqual(altered, mutationDomain);
         assert.throws(() => project(path, altered), { code: 'ERR_ASSERTION' });
       }
     }

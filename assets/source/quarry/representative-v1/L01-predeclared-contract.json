@@ -1,0 +1,31 @@
+{
+  "status": "COORDINATOR_PREDECLARED_AND_GATED_BEFORE_L01_DISPATCH",
+  "scope": "future L01 only; no inherited S05 source-specific repair approval",
+  "predicate": "R>=220 AND B>=200 AND G<=50 AND R-G>=170 AND B-G>=150 AND abs(R-B)<=40",
+  "connectivity": 4,
+  "seeds": "all matching canvas border pixels",
+  "preconditions": [
+    "all source border pixels satisfy predicate",
+    "one complete intended carriage; no detached components or internal magenta islands",
+    "retained original RGB bytes unchanged; removal only exterior-connected predicate pixels",
+    "boundary RGB/profile and actual native edges visually inspected; chroma dominance alone is risk evidence, not proof all dark slate is fringe"
+  ],
+  "nativeTransform": "one whole isotropic width-driven factor96/sourceOpaqueWholeWidth; remove only exterior transparent margins; top registration requires measured full intended top, not arbitrary anchor; transparent ceil canvas padding permitted",
+  "acceptance": [
+    "native96-wide continuous alpha255 top including both outer corners",
+    "full coherent carriage and both ends retained; max opaque depth<=18 as current proposed engineering envelope",
+    "actual-source region, PNG CRC, raw/decoded hashes, source/request/provider/model receipts",
+    "native retained RGB exact sample provenance; inspect fringe/light/dark views and material/carriage distinction",
+    "later all actual motion phases, top/bottom boarding, bidirectional catch crossings444/514/584/654, lower724 context, full Henry and next landing through ordinary input"
+  ],
+  "forbidden": [
+    "RGB repaint/despill/donor copies",
+    "alpha additions/removal beyond declared exterior predicate",
+    "erosion/dilation/hole-fill/notches/opaque clipping",
+    "independent width and height scale",
+    "using S05169-pixel repair permission for L",
+    "automatic retry or role borrowing"
+  ],
+  "failure": "retain source/result and stop; L has ONE initial call and NO refinement allocation. No automatic threshold widening/repair/second call. A nominal overrun is reported separately from measured real actor/gem conflict.",
+  "genuineAlphaBranch": "If genuine source alpha already supplies clean transparent exterior, preserve original alpha/RGB unchanged rather than chroma-keying; verify connected whole sprite/full native top/no painted matte. Border colour predicate applies to opaqueRGB-key branch only. No RGB/alpha repair permitted in either branch."
+}

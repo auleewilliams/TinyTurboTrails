@@ -1,0 +1,42 @@
+{
+  "SInitialNativeAnd43PathCodeGate": "PASS",
+  "scopeCorrection": "Five right catch PLANES contain nine actual authored supportIDs, not five. Recovering both inner/outer at each approved plane is not left-shaft or full rollout. No inner654 exists.",
+  "remainingTargetRoleCounts": {
+    "D": 2,
+    "L": 1,
+    "R": 9
+  },
+  "remainingTargets": [
+    "quarry-b-upper-dock",
+    "quarry-b-lower-dock",
+    "quarry-lift-b",
+    "quarry-right-inner-444",
+    "quarry-right-outer-444",
+    "quarry-right-inner-514",
+    "quarry-right-outer-514",
+    "quarry-right-inner-584",
+    "quarry-right-outer-584",
+    "quarry-right-outer-654",
+    "quarry-right-inner-724",
+    "quarry-right-outer-724"
+  ],
+  "existingFrozenSCount": 4,
+  "wholeOriginalPreviewTargetCount": 16,
+  "reuseDecision": "Accept D60 whole S05-160 immutable master reuse and R108/112 whole canonical Cove reuse; no new pixel repairs or D call. Native appearance/boarding/crossings still pending.",
+  "LDecision": "One initial source justified for distinct functional carriage; existing whole stones rejected for role appearance, not solely nominal depth",
+  "schemaValidated": true,
+  "referenceHashesAndVisualsInspected": true,
+  "backgroundContract": "coordinator-L01-predeclared-contract.json",
+  "requestSHA256": "64026b85cc4182a86998d6108973cba4e4d330aebd6cc9e81ada0fe5ab501dde",
+  "budgetBefore": {
+    "actualSpent": 5,
+    "overallCap": 8,
+    "SExhausted": true,
+    "LInitialRemaining": 1,
+    "LRefinements": 0,
+    "DInitialUnspentNoTransfer": 1,
+    "GDeferredInitial": 1
+  },
+  "newOwnerApprovalNeededForThisInitialLCall": false,
+  "newSourcePixelRepairPermission": false
+}

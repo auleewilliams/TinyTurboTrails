@@ -1,3 +1,5 @@
+import { drawQuarryPreviewPiece } from './quarry-preview-pieces';
+import { drawQuarryShelf } from './quarry-shelves';
 import { drawPlainsContourGround, plainsContourRange } from './plains-contour';
 import { drawTerrainMaterial, drawTerrainEdge, drawTrailBackdrop } from './trail-presentation';
 import { drawAmbientWeather } from './ambient-weather';
@@ -270,6 +272,8 @@ export function drawPlatforms(ctx: CanvasRenderingContext2D, level: LevelData, o
     }
     const body = platforms.find((candidate) => candidate.id === platform.id);
     if (!body) continue;
+    if (level.id === 'quarry' && assets?.quarryPreview && drawQuarryPreviewPiece(ctx, assets.quarryPreview, body, offset)) continue;
+    if (level.id === 'quarry' && assets?.quarryShelves && drawQuarryShelf(ctx, assets.quarryShelves, body, offset)) continue;
     if (level.id === 'timbers' && assets?.timbersTerrain && drawTimbersPlatform(ctx, assets.timbersTerrain, body, offset)) continue;
     if (level.id === 'cove' && platform.from.x === platform.to.x && platform.from.y === platform.to.y) {
       if (assets?.coveTerrain) {

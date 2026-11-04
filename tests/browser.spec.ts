@@ -1,3 +1,5 @@
+import { quarryPreviewPieces, validateQuarryPreviewPieces, loadQuarryPreviewPieces, drawQuarryPreviewPiece } from '../src/world/quarry-preview-pieces';
+import { quarryShelfPieces, validateQuarryShelves, loadQuarryShelves, drawQuarryShelf } from '../src/world/quarry-shelves';
 import { installPlainsSceneryObserver } from './plains-scenery-observer';
 import { contourCameraObservation } from './plains-contour-observer';
 import { createHash } from 'node:crypto';
@@ -184,7 +186,7 @@ test('app fullscreen retains feedback controls and native map and pause targets'
 });
 
 /** The renderer is injected as plain functions, so every helper it calls has to travel with it. */
-const RENDERER_SOURCE = [plainsContourRange, plainsContourColumns, drawPlainsContourGround, timbersPreviewIds, timbersPlatformWidths, validateTimbersTerrain, loadTimbersTerrain, drawTimbersGround, drawTimbersPlatform, validateTimbersTree, loadTimbersTree, drawTimbersTree, validateCoveMaterials, loadCoveMaterials, coveRipplePhase, drawCoveMaterials, coveGroundY, coveRepeatColumn, validateCoveTerrain, loadCoveTerrain, drawCoveGround, drawCovePlatform, drawAmbientWeather, drawSlime, drawGem, drawSpecial, drawLandingBands, drawTerrainMaterial, drawTerrainEdge, drawTrailBackdrop, drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawTerrainTiles, drawTimberTrunk, drawSiteFrame, drawSurfaceMaterials].map((helper) => helper.toString()).join('\n');
+const RENDERER_SOURCE = [quarryPreviewPieces, validateQuarryPreviewPieces, loadQuarryPreviewPieces, drawQuarryPreviewPiece, quarryShelfPieces, validateQuarryShelves, loadQuarryShelves, drawQuarryShelf, plainsContourRange, plainsContourColumns, drawPlainsContourGround, timbersPreviewIds, timbersPlatformWidths, validateTimbersTerrain, loadTimbersTerrain, drawTimbersGround, drawTimbersPlatform, validateTimbersTree, loadTimbersTree, drawTimbersTree, validateCoveMaterials, loadCoveMaterials, coveRipplePhase, drawCoveMaterials, coveGroundY, coveRepeatColumn, validateCoveTerrain, loadCoveTerrain, drawCoveGround, drawCovePlatform, drawAmbientWeather, drawSlime, drawGem, drawSpecial, drawLandingBands, drawTerrainMaterial, drawTerrainEdge, drawTrailBackdrop, drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawTerrainTiles, drawTimberTrunk, drawSiteFrame, drawSurfaceMaterials].map((helper) => helper.toString()).join('\n');
 
 test('ambient weather repeats the same pixels, respects reduced motion and stays behind terrain', async ({ page }, info) => {
   // Six full-image comparisons need extra readback time on constrained WebKit hosts.
@@ -4495,7 +4497,7 @@ test('builder-kit visual fixture renders all six words and generated stickers at
 for (const level of LEVELS) test(`compact HUD renderer fixture: ${level.id} identity marks and real glyph clearance`, async ({ page }, info) => {
   // Explicit layout states, not scene mutation or a claim of input-driven gameplay.
   const names = ['world/camera.ts', 'game/platforms.ts', 'game/movement.ts', 'game/education.ts', 'art/interface-kit.ts', 'game/hud.ts', 'world/scenery.ts',
-    'world/cove-terrain.ts', 'world/plains-contour.ts', 'world/timbers-terrain.ts', 'world/timbers-tree.ts', 'world/surface-materials.ts', 'world/assets.ts', 'world/trail-presentation.ts', 'world/ambient-weather.ts', 'world/renderer.ts'];
+    'world/quarry-preview-pieces.ts', 'world/quarry-shelves.ts', 'world/cove-terrain.ts', 'world/plains-contour.ts', 'world/timbers-terrain.ts', 'world/timbers-tree.ts', 'world/surface-materials.ts', 'world/assets.ts', 'world/trail-presentation.ts', 'world/ambient-weather.ts', 'world/renderer.ts'];
   const errors: string[] = []; page.on('pageerror', error => errors.push(error.message));
   const modules = names.map(name => readFileSync(new URL(`../src/${name}`, import.meta.url), 'utf8'));
   const runtimeImports = [...new Set(modules.flatMap(source => [...source.matchAll(/^import (?!type )\{([^}]*)\} from .*;$/gm)]
@@ -4769,7 +4771,7 @@ for (const [selection, trail] of LEVELS.entries()) test(`landmark labels: render
   // Use the actual map method and its complete renderer dependency graph. These
   // explicit presentation states are not completed gameplay or scene mutations.
   const names = ['world/camera.ts', 'game/platforms.ts', 'game/movement.ts', 'art/henry.ts', 'art/animation.ts', 'art/interface-kit.ts', 'game/education.ts',
-    'world/scenery.ts', 'world/cove-terrain.ts', 'world/plains-contour.ts', 'world/timbers-terrain.ts', 'world/timbers-tree.ts', 'world/surface-materials.ts', 'world/assets.ts', 'world/trail-presentation.ts', 'world/ambient-weather.ts',
+    'world/scenery.ts', 'world/quarry-preview-pieces.ts', 'world/quarry-shelves.ts', 'world/cove-terrain.ts', 'world/plains-contour.ts', 'world/timbers-terrain.ts', 'world/timbers-tree.ts', 'world/surface-materials.ts', 'world/assets.ts', 'world/trail-presentation.ts', 'world/ambient-weather.ts',
     'world/renderer.ts', 'game/reward-result.ts', 'game/overworld.ts'];
   const modules = names.map(name => readFileSync(new URL(`../src/${name}`, import.meta.url), 'utf8'));
   const runtimeImports = [...new Set(modules.flatMap(source => [...source.matchAll(/^import (?!type )\{([^}]*)\} from .*;$/gm)]

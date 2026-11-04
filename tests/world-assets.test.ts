@@ -52,6 +52,8 @@ it('loads each requested world atlas once', async () => {
   const requests: string[] = [];
   vi.stubGlobal('fetch', vi.fn(async (url: string) => {
     requests.push(url);
+    if (url.endsWith('/quarry/representative-v1/manifest.json')) return { ok: true, json: async () => JSON.parse(readFileSync(new URL('../public/assets/quarry/representative-v1/manifest.json', import.meta.url), 'utf8')) };
+    if (url.endsWith('/quarry/whole-ledges-v1/manifest.json')) return { ok: true, json: async () => JSON.parse(readFileSync(new URL('../public/assets/quarry/whole-ledges-v1/manifest.json', import.meta.url), 'utf8')) };
     if (url.endsWith('/terrain-kit-v1/manifest.json')) return { ok: true, json: async () => JSON.parse(readFileSync(new URL('../public/assets/timbers/terrain-kit-v1/manifest.json', import.meta.url), 'utf8')) };
     if (url.endsWith('/tree-v1/manifest.json')) return { ok: true, json: async () => JSON.parse(readFileSync(new URL('../public/assets/timbers/tree-v1/manifest.json', import.meta.url), 'utf8')) };
     return { ok: true, json: async () => ({
@@ -69,6 +71,10 @@ it('loads each requested world atlas once', async () => {
     onerror = (): void => {};
     set src(url: string) {
       requests.push(url);
+      if (url.includes('/quarry/representative-v1/')) { const w = Number(url.match(/-(\d+)\.png/)![1]); this.naturalWidth = w; this.naturalHeight = w === 60 ? 12 : w === 96 ? 17 : 24; }
+      if (url.includes('/quarry/whole-ledges-v1/')) {
+        this.naturalWidth = Number(url.match(/shelf-(\d+)/)![1]); this.naturalHeight = this.naturalWidth === 400 ? 45 : this.naturalWidth === 240 ? 37 : 32;
+      }
       if (url.includes('/terrain-kit-v1/')) {
         this.naturalWidth = url.endsWith('ground.png') ? 780 : Number(url.match(/branch-(\d+)/)![1]);
         this.naturalHeight = url.endsWith('ground.png') ? 100 : 17;
@@ -88,6 +94,8 @@ it('loads each requested world atlas once', async () => {
   expect([...requests].sort()).toEqual([
     '/assets/plains/manifest.json', '/assets/timbers/manifest.json',
     '/assets/plains/environment.png', '/assets/timbers/environment.png',
+    '/assets/quarry/representative-v1/manifest.json', '/assets/quarry/representative-v1/dock-60.png', '/assets/quarry/representative-v1/catch-108.png', '/assets/quarry/representative-v1/catch-112.png', '/assets/quarry/representative-v1/carriage-96.png',
+    '/assets/quarry/whole-ledges-v1/manifest.json', '/assets/quarry/whole-ledges-v1/shelf-400.png', '/assets/quarry/whole-ledges-v1/shelf-240.png', '/assets/quarry/whole-ledges-v1/shelf-160.png',
     '/assets/timbers/tree-v1/manifest.json', '/assets/timbers/tree-v1/tree.png',
     '/assets/timbers/terrain-kit-v1/manifest.json', '/assets/timbers/terrain-kit-v1/ground.png',
     ...[...new Set(Object.values(kit.platforms).map((piece) => (piece as { image: string }).image))].map(image => `/assets/timbers/terrain-kit-v1/${image}`),

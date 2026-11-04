@@ -1,0 +1,132 @@
+{
+  "version": 1,
+  "scope": "remaining12-original-representative-preview",
+  "files": {
+    "dock-60.png": {
+      "source": "public/assets/quarry/whole-ledges-v1/shelf-160.png",
+      "sourceSHA256": "0997161c693696fd30a080c7a5ccebd92d462dd7262d195408c04d9a64964494",
+      "sourceSize": [
+        160,
+        32
+      ],
+      "scale": [
+        60,
+        160
+      ],
+      "size": [
+        60,
+        12
+      ],
+      "PNGsha256": "0d6cf362a1f8b5e85bf9f45813fe528b046594d1fa474981ed7b2a9192eb3ec0",
+      "RGBAsha256": "66c8fb9a162f819802a82ecc583951eab51ef9bccf9c1c4e4de8c6aa24a11e65",
+      "repairs": 0,
+      "crop": null
+    },
+    "catch-108.png": {
+      "source": "public/assets/cove/bay1-b-v1/platform.png",
+      "sourceSHA256": "e1809f4f247e693c96968ce7661e2e2126d46d28567b032e534634ee6a2b94cc",
+      "sourceSize": [
+        140,
+        30
+      ],
+      "scale": [
+        108,
+        140
+      ],
+      "size": [
+        108,
+        24
+      ],
+      "PNGsha256": "7cf9784783e0f9a0d01c4ee4cd0121d9697b574ed1bb13334ee80c439e7a3906",
+      "RGBAsha256": "fcde94cc70bc509dbba6a5bbfdccd5713fc20d5abe277c5cbd183be7ff8ebe9e",
+      "repairs": 0,
+      "crop": null
+    },
+    "catch-112.png": {
+      "source": "public/assets/cove/bay1-b-v1/platform.png",
+      "sourceSHA256": "e1809f4f247e693c96968ce7661e2e2126d46d28567b032e534634ee6a2b94cc",
+      "sourceSize": [
+        140,
+        30
+      ],
+      "scale": [
+        112,
+        140
+      ],
+      "size": [
+        112,
+        24
+      ],
+      "PNGsha256": "f90194ef647036beb8e6adbcd5dfe3eae1f4a1d2076aa79b570fca14af79a5ab",
+      "RGBAsha256": "0fec2fd22fe3f1e7d05e171f1b8f3b846d3348eedf82781f55a9bc3b55b94909",
+      "repairs": 0,
+      "crop": null
+    },
+    "carriage-96.png": {
+      "source": "assets/source/quarry/representative-v1/L01-source.png",
+      "sourceSHA256": "f8ff8077d0cd61860a6cb1442a5b1ec9e094cef7c6a5132f72a9d64519c5236f",
+      "sourceSize": [
+        2172,
+        724
+      ],
+      "sourceBBoxExclusive": [
+        151,
+        209,
+        2021,
+        522
+      ],
+      "scale": [
+        96,
+        1870
+      ],
+      "size": [
+        96,
+        17
+      ],
+      "PNGsha256": "469bc00df7ee44645d8db9a2403fcdc516dfc356b3836d48ca662e3462ff86df",
+      "RGBAsha256": "6c7c634f93270a5a66429c9ec3fd1a24c8658586375dafeb396579b99449315d",
+      "repairs": 0
+    }
+  },
+  "frozenGameplay": {
+    "src/world/quarry-run.ts": "b8195d037769d2957626b88fc91b01fc02c1e1d88bf2d732aff52006d5370d49",
+    "src/game/movement.ts": "3f918871245baad33cccdbf60ba0520eee750d4c8fc785a53d8d08fc3fe7a58d",
+    "src/game/platforms.ts": "921e433e606cb951554e0d8c512b50c5c29e0360ae57a329a7b28b9bb056d280",
+    "src/game/interactions.ts": "d80d64cac02b995bba01031e4231c4b19f74c384d75891c8c780715de2d64b5d",
+    "src/game/adventure-scene.ts": "311c222b38c65c46f775b5a887a61b77d50d5680e2382ef0544653eb27a5067e",
+    "src/game/education.ts": "d96f4e20a4d928ec5766488cf0b1057806f362d155c7e1625603c1d831210a74"
+  },
+  "frozenS": {
+    "assets/source/quarry/whole-ledges-v1/approved-change-ledger.json": "89cc39afc94163e838c3afbcc4b7b7758711f9a51c4ded074690ff66e21be2fc",
+    "assets/source/quarry/whole-ledges-v1/approved-400.png": "5d6ed45c914d8b794cdcf4947514957199e9d708001f5c63f946c43a9f2adc9c",
+    "assets/source/quarry/whole-ledges-v1/owner-approval.json": "4e753ade72677efcf3742c1b02cb023b3190bd0c6233a0f531736036eff2e983",
+    "assets/source/quarry/whole-ledges-v1/historical-profile.json": "00ad874b19c28f1a7bed5cb43699a899320f46272625bb5b52c5a3ffe11585ac",
+    "assets/source/quarry/whole-ledges-v1/tool-result.json": "f09fe02690e1d3597c4ab53e055a66df65805b198045e88caca307b0635bcd5e",
+    "assets/source/quarry/whole-ledges-v1/approved-240.png": "e885aa6761274249f098608051dab96068346e9e8e7fb2467d7c9c2710d54a2f",
+    "assets/source/quarry/whole-ledges-v1/source.png": "5e53a2214b9325d8cd16442d6a57093ea49f549b675a6f6527b88f60d9c04188",
+    "assets/source/quarry/whole-ledges-v1/original-source-receipt.json": "5f1f38e5b90830677955749c80dea4fb9a9371c4b5d8de6a4e353a8df064a86a",
+    "assets/source/quarry/whole-ledges-v1/executed-request.json": "5b8621453298244f72f790f7e9318f661524202f30df1d1b4983c488ae277769",
+    "assets/source/quarry/whole-ledges-v1/approved-proposal.json": "56cebcb84f914afcea6c8f08031d7e24a05133193ab8a4773932920a2b42abee",
+    "assets/source/quarry/whole-ledges-v1/unmodified-400.png": "ef1c6f31df0d58ff16c3349efb7a21c975686cc17192c6e0aa26b204f9f7d24f",
+    "assets/source/quarry/whole-ledges-v1/unmodified-240.png": "e2eecfcf62a879b22ce2ee71f66ed4cfa72b7104a1a9636d9648d168a3ac376a",
+    "assets/source/quarry/whole-ledges-v1/PROVENANCE.md": "33741462185d85ffe8236bb06761408ea8689e48588edd4ff9a33be146a8065b",
+    "assets/source/quarry/whole-ledges-v1/parent-proposal-verification.json": "d6cb98cb37c18324bdec408c3c47b18b5616bce117678d2db1ceab4a497ad1ec",
+    "assets/source/quarry/whole-ledges-v1/unmodified-160.png": "cb706a71272e986b82840260ab3e5dcc5ac56dc0983df05195739d79e74325ed",
+    "assets/source/quarry/whole-ledges-v1/presentation-delta.json": "54bdcd2d7ac9191ac23c255d3b16fd98b74ba71068d7f43b9d16f4683ba8334f",
+    "assets/source/quarry/whole-ledges-v1/preparation-contract.json": "1499e9742a606f7d1c4b2a3e4d8271e905fd39f7b5f6b88a6565210a42b7c336",
+    "assets/source/quarry/whole-ledges-v1/approved-160.png": "0997161c693696fd30a080c7a5ccebd92d462dd7262d195408c04d9a64964494",
+    "assets/source/quarry/whole-ledges-v1/baseline/renderer.ts": "8c47f5ff878c9928f063cc150e711b582f027e135684f01e2fbaab308eed9a28",
+    "assets/source/quarry/whole-ledges-v1/baseline/assets.ts": "168788660f680f8ceab6837fc465c80bc84d241527d35107a0dff770288f5e9a",
+    "assets/source/quarry/whole-ledges-v1/references/S04-reference.png": "94c200e8c28501965535e58cffbc20396c2a3927b01f94ab539fe879d931feb1",
+    "assets/source/quarry/whole-ledges-v1/references/profile-guide.png": "e282571693175806d22411fb3811d0d9b4a548fff89cc024c5f44ff2df3a7ac0",
+    "assets/source/quarry/whole-ledges-v1/references/approved-cove-source.png": "2602a27083566049e701104c27534d7426b7a601e8f37e0e4921aba460346d93",
+    "assets/source/quarry/whole-ledges-v1/references/approved-cove-nn8-guide.png": "85418ef7fa26560143aa3bc61251a4d1c0afaa69bdcc388fed8a0a01e07560ae",
+    "public/assets/quarry/whole-ledges-v1/shelf-240.png": "e885aa6761274249f098608051dab96068346e9e8e7fb2467d7c9c2710d54a2f",
+    "public/assets/quarry/whole-ledges-v1/shelf-160.png": "0997161c693696fd30a080c7a5ccebd92d462dd7262d195408c04d9a64964494",
+    "public/assets/quarry/whole-ledges-v1/shelf-400.png": "5d6ed45c914d8b794cdcf4947514957199e9d708001f5c63f946c43a9f2adc9c",
+    "public/assets/quarry/whole-ledges-v1/manifest.json": "39b060131f69bdf7dccd10e65c401d6d5a0558b7bc6e2a1a63e1818b8dcc55af"
+  },
+  "roleBudget": "S5/5 and L1/1 exhausted; D unspent; G deferred; no refinements/transfers",
+  "sourceRevision": null,
+  "precommit": true
+}

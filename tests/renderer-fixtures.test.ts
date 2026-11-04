@@ -7,12 +7,19 @@ import { PLAINS_LEVEL } from '../src/world/level';
 import { SANDY_COVE } from '../src/world/sandy-cove';
 import { platformBodyAt } from '../src/game/platforms';
 
-// Exercise the same module lists and import stripping as the two browser fixtures.
+// Exercise each complete renderer module list with the real import stripping.
 // Missing real production dependencies must remain visible to their guards.
 const source = readFileSync(new URL('./browser.spec.ts', import.meta.url), 'utf8');
-for (const title of ['compact HUD renderer fixture:', 'landmark labels: renderer fixture']) {
+for (const [file, title] of [
+  ['browser.spec.ts', 'compact HUD renderer fixture:'],
+  ['browser.spec.ts', 'landmark labels: renderer fixture'],
+  ['hud-owner-layout.spec.ts', 'owner HUD order real-font fixture:'],
+]) {
   it(`${title} includes the real terrain helper dependency graph`, () => {
-    const section = source.slice(source.indexOf('test(`' + title));
+    const fixtureSource = readFileSync(new URL('./' + file, import.meta.url), 'utf8');
+    const start = fixtureSource.indexOf('test(`' + title);
+    expect(start).toBeGreaterThanOrEqual(0);
+    const section = fixtureSource.slice(start);
     const list = section.match(/const names = \[([\s\S]*?)\];/)![1];
     const names = [...list.matchAll(/'([^']+)'/g)].map(match => match[1]);
     const modules = names.map(name => readFileSync(new URL('../src/' + name, import.meta.url), 'utf8'));
@@ -28,6 +35,7 @@ for (const title of ['compact HUD renderer fixture:', 'landmark labels: renderer
     expect(names).toContain('world/cove-terrain.ts');
     expect(names.indexOf('world/surface-materials.ts')).toBeLessThan(names.indexOf('world/assets.ts'));
     expect(imports).toContain('loadCoveMaterials');
+    expect(imports).toEqual(expect.arrayContaining(['loadQuarryShelves', 'drawQuarryShelf']));
     expect(typeof fixture.camera).toBe('function');
     expect(code).toContain('function drawTimberTrunk');
     expect(code).toContain('function drawSiteFrame');
@@ -51,7 +59,7 @@ it('builder-kit fixture includes the real terrain dependency and keeps its runti
 
 it('function-string fixtures carry and execute the actual Cove helper dependency graph', () => {
   const list = source.match(/const RENDERER_SOURCE = \[([^\]]+)\]\.map/)![1].split(',').map(name => name.trim());
-  const names = ['world/cove-terrain.ts', 'world/plains-contour.ts', 'world/timbers-terrain.ts', 'world/timbers-tree.ts', 'world/trail-presentation.ts', 'world/ambient-weather.ts', 'world/surface-materials.ts', 'world/renderer.ts'];
+  const names = ['world/quarry-preview-pieces.ts', 'world/quarry-shelves.ts', 'world/cove-terrain.ts', 'world/plains-contour.ts', 'world/timbers-terrain.ts', 'world/timbers-tree.ts', 'world/trail-presentation.ts', 'world/ambient-weather.ts', 'world/surface-materials.ts', 'world/renderer.ts'];
   const code = names.map(name => transformSync(name, readFileSync(new URL('../src/' + name, import.meta.url), 'utf8')
     .replace(/^import .*;\n/gm, '').replace(/\bexport /g, ''), {}).code).join('\n');
   const helpers = new Function(`${code}\nreturn { ${list.join(',')} };`)() as Record<string, (...args: unknown[]) => unknown>;

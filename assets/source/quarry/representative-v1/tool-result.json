@@ -1,0 +1,17 @@
+{
+  "success": true,
+  "image": "/home/leew/.hermes/cache/generated/images/openai_codex_gpt-image-2-medium_20261103_220730_53619dd0.png",
+  "model": "gpt-image-2-medium",
+  "prompt": "Create ONE complete, distinctive horizontal quarry mine-lift carriage as an isolated game sprite. It is a functional movable landing carriage, clearly different from the stationary natural stone ledges in the material reference. Use a warm pale-ochre stone standing deck with a compact dark slate/steel structural underframe and two broad integrated braced skid ends BELOW the standing plane. Chunky, coherent, readable at96 pixels wide; one whole object, not a chain of little rocks, not a thin plank. All designed paint including both defining ends must fit a96:18 width-to-maximum-depth silhouette. The entire96-wide standing rim is one flat horizontal opaque plane with square complete outer top corners; nothing projects above that plane. Preserve both full ends; underside is nonperiodic and substantial, tapered only naturally within18 total depth. Warm pale/ochre/golden facets and dark restrained structural planes match the approved reference; avoid fine unreadable detail, logos, lettering or collectible-shaped notches. The second reference is ONLY an empty geometry/registration footprint; reproduce no guide marks, boxes or text. One object centered in a landscape canvas with ample empty margin on all sides, approximately1536x512 desired, object roughly1152x216 for its96:18 proportion; these are design requests. Exterior is a single clean flat pure magenta #FF00FF field, no checkerboard, gray/white matte, shadows, glow, reflection or scenery. Keep magenta outside the object only, hard clean colour boundaries without magenta fringe. No actors, pickups, ropes, overhead rails, wheels outside the18-depth body, scene, labels, UI or multiple alternate objects. Return the full isolated complete carriage, not an assembly chart.",
+  "aspect_ratio": "landscape",
+  "modality": "image",
+  "provider": "openai-codex",
+  "size": "1536x1024",
+  "quality": "medium",
+  "input_image_count": 2,
+  "requested_size": "1536x1024",
+  "pixel_size": "2172x724",
+  "reported_quality": "low",
+  "reported_size": "2172x724",
+  "imagegen_request_id": "2d56b369-f07d-4740-b735-04cd94e5272e"
+}

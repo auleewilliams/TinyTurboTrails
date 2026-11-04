@@ -1,0 +1,74 @@
+{
+  "version": 1,
+  "scope": "Four fixed Quarry S pilot targets only; every other target remains legacy/held",
+  "sourceSHA256": "5e53a2214b9325d8cd16442d6a57093ea49f549b675a6f6527b88f60d9c04188",
+  "ledgerSHA256": "89cc39afc94163e838c3afbcc4b7b7758711f9a51c4ded074690ff66e21be2fc",
+  "approvalSHA256": "4e753ade72677efcf3742c1b02cb023b3190bd0c6233a0f531736036eff2e983",
+  "files": {
+    "400": {
+      "width": 400,
+      "height": 45,
+      "sourceBBox": [
+        65,
+        130,
+        1707,
+        312
+      ],
+      "scale": [
+        400,
+        1643
+      ],
+      "beforePNGsha256": "ef1c6f31df0d58ff16c3349efb7a21c975686cc17192c6e0aa26b204f9f7d24f",
+      "approvedPNGsha256": "5d6ed45c914d8b794cdcf4947514957199e9d708001f5c63f946c43a9f2adc9c",
+      "approvedRGBAsha256": "f9ff17da3b95945b49943a4111f0d9845af6f1bf5a9c571d43b23ad40a300bd8"
+    },
+    "240": {
+      "width": 240,
+      "height": 37,
+      "sourceBBox": [
+        65,
+        405,
+        1093,
+        561
+      ],
+      "scale": [
+        240,
+        1029
+      ],
+      "beforePNGsha256": "e2eecfcf62a879b22ce2ee71f66ed4cfa72b7104a1a9636d9648d168a3ac376a",
+      "approvedPNGsha256": "e885aa6761274249f098608051dab96068346e9e8e7fb2467d7c9c2710d54a2f",
+      "approvedRGBAsha256": "ac84555e234c03006b1ec2b997a4dd1e5c8188977fc947a6f87240e02a666c8a"
+    },
+    "160": {
+      "width": 160,
+      "height": 32,
+      "sourceBBox": [
+        65,
+        668,
+        712,
+        794
+      ],
+      "scale": [
+        160,
+        648
+      ],
+      "beforePNGsha256": "cb706a71272e986b82840260ab3e5dcc5ac56dc0983df05195739d79e74325ed",
+      "approvedPNGsha256": "0997161c693696fd30a080c7a5ccebd92d462dd7262d195408c04d9a64964494",
+      "approvedRGBAsha256": "b90c55fe341b1eefbf697c66fdc7e3a72d2f5f8fea51337154533f59f779da11"
+    }
+  },
+  "background": "R>=220 B>=200 G<=50 R-G>=170 B-G>=150 abs(R-B)<=40;4-connected exterior only",
+  "sampler": "exact rational centre-inverse NN; entire component bounding source region, same factor both axes,ceil transparent padding; not per-source-pixel-lossless",
+  "corrections": {
+    "RGB": 164,
+    "alpha": 5,
+    "onlyThisExactSourceAndCanonicalMasters": true
+  },
+  "referenceHashes": {
+    "S04-reference.png": "94c200e8c28501965535e58cffbc20396c2a3927b01f94ab539fe879d931feb1",
+    "profile-guide.png": "e282571693175806d22411fb3811d0d9b4a548fff89cc024c5f44ff2df3a7ac0",
+    "approved-cove-source.png": "2602a27083566049e701104c27534d7426b7a601e8f37e0e4921aba460346d93",
+    "approved-cove-nn8-guide.png": "85418ef7fa26560143aa3bc61251a4d1c0afaa69bdcc388fed8a0a01e07560ae"
+  },
+  "limitations": "Source/profile/common-factor/two-pixel-reserve failures retained. Per-source isotropic trial only, native fractional/airborne/input acceptance pending."
+}

@@ -1,0 +1,14 @@
+[
+  {
+    "originalPath": "/home/leew/.hermes/cache/scratch/q240-next-roles/S05-160-NN6-STYLE-GUIDE.png",
+    "localCopy": "assets/source/quarry/representative-v1/references/S05-160-NN6-STYLE-GUIDE.png",
+    "sha256": "b9b2b359bf399d00b2d20e794cacd84efb34deee82bc4d6fec1d1b81d72db1c5",
+    "role": "approved-native style guide"
+  },
+  {
+    "originalPath": "/home/leew/.hermes/cache/scratch/q240-next-roles/L96x18-GEOMETRY-ONLY-guide.png",
+    "localCopy": "assets/source/quarry/representative-v1/references/L96x18-GEOMETRY-ONLY-guide.png",
+    "sha256": "1903d07ce4611433e3092009e65119f6a9d70d35637ecdf7ae11477bf51abab7",
+    "role": "geometry-only guide NOT artwork"
+  }
+]
