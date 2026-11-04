@@ -6,6 +6,7 @@ import { surfaceY } from '../src/game/movement';
 import { PLAINS_LEVEL } from '../src/world/level';
 import { SANDY_COVE } from '../src/world/sandy-cove';
 import { platformBodyAt } from '../src/game/platforms';
+import { QUARRY_RUN } from '../src/world/quarry-run';
 
 // Exercise each complete renderer module list with the real import stripping.
 // Missing real production dependencies must remain visible to their guards.
@@ -15,7 +16,7 @@ for (const [file, title] of [
   ['browser.spec.ts', 'landmark labels: renderer fixture'],
   ['hud-owner-layout.spec.ts', 'owner HUD order real-font fixture:'],
 ]) {
-  it(`${title} includes the real terrain helper dependency graph`, () => {
+  it(`${title} includes the real terrain helper dependency graph`, async () => {
     const fixtureSource = readFileSync(new URL('./' + file, import.meta.url), 'utf8');
     const start = fixtureSource.indexOf('test(`' + title);
     expect(start).toBeGreaterThanOrEqual(0);
@@ -27,7 +28,20 @@ for (const [file, title] of [
       .flatMap(([, names]) => names.split(',').map(name => name.trim()).filter(name => name && !name.startsWith('type ')))))];
     const code = modules.map((text, i) => transformSync(names[i], text.replace(/^import .*;\n/gm, '')
       .replace(/\bexport /g, '').replaceAll('import.meta.env.BASE_URL', JSON.stringify('./')), {}).code).join('\n');
-    const fixture = new Function('MAX_HEALTH', `${code}\nreturn { missing: [${imports.map(name => `typeof ${name} === 'undefined' && ${JSON.stringify(name)}`).join(',')}].filter(Boolean), height: typeof surfaceY === 'undefined' ? undefined : surfaceY, camera: typeof Camera === 'undefined' ? undefined : Camera };`)(MAX_HEALTH);
+    // Execute the fixture's actual asset initialization, not a copied loader choice.
+    const initialize = section.match(/const assets = [^;]+;/)![0];
+    const fetchAsset = async (url: string) => ({ ok: true, json: async () => JSON.parse(readFileSync(new URL('../public/' + url.replace(/^\.\//, '').replace(/^\//, ''), import.meta.url), 'utf8')) });
+    class FixtureImage {
+      naturalWidth = 1; naturalHeight = 1; onload = () => {}; onerror = () => {};
+      set src(url: string) {
+        try {
+          const bytes = readFileSync(new URL('../public/' + url.replace(/^\.\//, '').replace(/^\//, ''), import.meta.url));
+          if (bytes.toString('ascii', 1, 4) === 'PNG') { this.naturalWidth = bytes.readUInt32BE(16); this.naturalHeight = bytes.readUInt32BE(20); }
+          queueMicrotask(() => this.onload());
+        } catch { queueMicrotask(() => this.onerror()); }
+      }
+    }
+    const fixture = new Function('MAX_HEALTH', 'fetch', 'Image', 'document', `${code}\nreturn { initialize: async level => { ${initialize} return assets; }, loadWorldAssets, loadQuarryFloor, loadQuarryRollout, loadQuarryPreviewPieces, loadQuarryShelves, drawPlatforms, drawWorld, missing: [${imports.map(name => `typeof ${name} === 'undefined' && ${JSON.stringify(name)}`).join(',')}].filter(Boolean), height: typeof surfaceY === 'undefined' ? undefined : surfaceY, camera: typeof Camera === 'undefined' ? undefined : Camera };`)(MAX_HEALTH, fetchAsset, FixtureImage, { createElement: () => ({}) });
     expect(fixture.missing).toEqual([]);
     expect(names).toContain('game/movement.ts');
     expect(names).toContain('game/platforms.ts');
@@ -35,7 +49,29 @@ for (const [file, title] of [
     expect(names).toContain('world/cove-terrain.ts');
     expect(names.indexOf('world/surface-materials.ts')).toBeLessThan(names.indexOf('world/assets.ts'));
     expect(imports).toContain('loadCoveMaterials');
-    expect(imports).toEqual(expect.arrayContaining(['loadQuarryShelves', 'drawQuarryShelf']));
+    expect(imports).toEqual(expect.arrayContaining(['loadQuarryFloor', 'drawQuarryFloor', 'loadQuarryShelves', 'drawQuarryShelf', 'loadQuarryPreviewPieces', 'drawQuarryPreviewPiece', 'loadQuarryRollout', 'drawQuarryRollout']));
+    const assets = await fixture.initialize(QUARRY_RUN);
+    expect(assets.quarryFloor).toBeDefined(); expect(assets.quarryShelves).toBeDefined(); expect(assets.quarryPreview).toBeDefined(); expect(assets.quarryRollout).toBeDefined();
+    const calls: unknown[][] = [];
+    const ctx = new Proxy({ drawImage: (...args: unknown[]) => calls.push(args) }, { get: (target, name) => name in target ? target[name as keyof typeof target] : () => {}, set: () => true });
+    // Full production draw entry with real authored bodies must use the loaded kits.
+    fixture.drawWorld(ctx, assets, QUARRY_RUN, { position: { x: .25, y: .5 } }, undefined, undefined, QUARRY_RUN.platforms!.map(p => platformBodyAt(p, 0)), 0, true);
+    expect(calls.some(call => call[0] === assets.quarryRollout.images['quarry-rim'])).toBe(true);
+    if (title === 'compact HUD renderer fixture:') {
+      for (const heading of ['moving platform slabs and their telegraphed paths', 'finish artwork pixels meet terrain']) {
+        const start = source.indexOf("test('" + heading), end = source.indexOf('\n});', start);
+        const actual = source.slice(start, end);
+        const kitInitialization = actual.match(/const quarry = level.id === 'quarry' \? \{[\s\S]*?\} : \{\};/)![0];
+        const assetInitialization = actual.match(/const assets = [^;]+;/)![0];
+        const atlasOnly = await fixture.loadWorldAssets(QUARRY_RUN.atlas);
+        const initialize = new Function('level', 'base', 'window', transformSync('fixture.ts', `const initialize = async () => { const { atlas, manifest, gems, backdrops, materials, panorama, coveTerrain, coveMaterials, timbersTerrain, timbersTree } = base; ${kitInitialization} ${assetInitialization} return assets; };`, {}).code + '\nreturn initialize();');
+        const loaded = await initialize(QUARRY_RUN, atlasOnly, fixture);
+        expect(loaded.quarryFloor).toBeDefined(); expect(loaded.quarryShelves).toBeDefined(); expect(loaded.quarryPreview).toBeDefined(); expect(loaded.quarryRollout).toBeDefined();
+        calls.length = 0;
+        fixture.drawWorld(ctx, loaded, QUARRY_RUN, { position: { x: .25, y: .5 } }, undefined, undefined, QUARRY_RUN.platforms!.map(p => platformBodyAt(p, 0)), 0, true);
+        expect(calls.some(call => call[0] === loaded.quarryRollout.images['quarry-rim'])).toBe(true);
+      }
+    }
     expect(typeof fixture.camera).toBe('function');
     expect(code).toContain('function drawTimberTrunk');
     expect(code).toContain('function drawSiteFrame');
@@ -59,7 +95,7 @@ it('builder-kit fixture includes the real terrain dependency and keeps its runti
 
 it('function-string fixtures carry and execute the actual Cove helper dependency graph', () => {
   const list = source.match(/const RENDERER_SOURCE = \[([^\]]+)\]\.map/)![1].split(',').map(name => name.trim());
-  const names = ['world/quarry-preview-pieces.ts', 'world/quarry-shelves.ts', 'world/cove-terrain.ts', 'world/plains-contour.ts', 'world/timbers-terrain.ts', 'world/timbers-tree.ts', 'world/trail-presentation.ts', 'world/ambient-weather.ts', 'world/surface-materials.ts', 'world/renderer.ts'];
+  const names = ['world/quarry-floor.ts', 'world/quarry-rollout.ts', 'world/quarry-preview-pieces.ts', 'world/quarry-shelves.ts', 'world/cove-terrain.ts', 'world/plains-contour.ts', 'world/timbers-terrain.ts', 'world/timbers-tree.ts', 'world/trail-presentation.ts', 'world/ambient-weather.ts', 'world/surface-materials.ts', 'world/renderer.ts'];
   const code = names.map(name => transformSync(name, readFileSync(new URL('../src/' + name, import.meta.url), 'utf8')
     .replace(/^import .*;\n/gm, '').replace(/\bexport /g, ''), {}).code).join('\n');
   const helpers = new Function(`${code}\nreturn { ${list.join(',')} };`)() as Record<string, (...args: unknown[]) => unknown>;

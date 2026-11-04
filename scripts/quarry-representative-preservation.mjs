@@ -1,3 +1,4 @@
+import { beforeQuarryRollout } from './quarry-rollout-preservation.mjs';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
@@ -10,6 +11,7 @@ const record = JSON.parse(raw);
 export function beforeQuarryRepresentative(path, bytes) {
  const p=record.files[path];if(!p)return bytes;
  if(hash(bytes)===p.baselineSHA256)return bytes;
+ bytes = beforeQuarryRollout(path, bytes);
  assert.equal(hash(bytes),p.currentSHA256,`${path}: exact representative delta`);
  const baseline=readFileSync(new URL('baseline/'+p.baselineCopy,root));assert.equal(hash(baseline),p.baselineSHA256);return baseline;
 }

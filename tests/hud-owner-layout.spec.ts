@@ -80,7 +80,7 @@ const twoFrames = (page: Page) => page.evaluate(() => new Promise<void>(resolve 
 for (const level of LEVELS) test(`owner HUD order real-font fixture: ${level.id} identity marks and real glyph clearance`, async ({ page }, info) => {
   // Explicit layout states, not scene mutation or a claim of input-driven gameplay.
   const names = ['world/camera.ts', 'game/platforms.ts', 'game/movement.ts', 'game/education.ts', 'art/interface-kit.ts', 'game/hud.ts', 'world/scenery.ts',
-    'world/quarry-preview-pieces.ts', 'world/quarry-shelves.ts', 'world/cove-terrain.ts', 'world/plains-contour.ts', 'world/timbers-terrain.ts', 'world/timbers-tree.ts', 'world/surface-materials.ts', 'world/assets.ts', 'world/trail-presentation.ts', 'world/ambient-weather.ts', 'world/renderer.ts'];
+    'world/quarry-floor.ts', 'world/quarry-rollout.ts', 'world/quarry-preview-pieces.ts', 'world/quarry-shelves.ts', 'world/cove-terrain.ts', 'world/plains-contour.ts', 'world/timbers-terrain.ts', 'world/timbers-tree.ts', 'world/surface-materials.ts', 'world/assets.ts', 'world/trail-presentation.ts', 'world/ambient-weather.ts', 'world/renderer.ts'];
   const transport = createHudResponseObserver();
   page.on('response', transport.observe);
   const errors: string[] = []; page.on('pageerror', error => errors.push(error.message));
@@ -97,7 +97,8 @@ for (const level of LEVELS) test(`owner HUD order real-font fixture: ${level.id}
     ${fixture}
     window.hudFixtureMissing = [${[...runtimeImports, 'drawTimberTrunk', 'drawSiteFrame'].map(name => `typeof ${name} === 'undefined' && ${JSON.stringify(name)}`).join(', ')}].filter(Boolean);
     window.createHudFixture = async (level, runTemplate) => {
-      const assets = await loadWorldAssets(level.atlas), ui = await loadInterfaceKit();
+      const assets = (await loadWorldAssetMap([level.atlas]))[level.atlas], ui = await loadInterfaceKit();
+      if (level.id === 'quarry' && (!assets.quarryShelves || !assets.quarryPreview || !assets.quarryRollout || !assets.quarryFloor)) throw new Error('Incomplete Quarry fixture asset map');
       const pouch = await loadImage('/assets/spelling/pouch.png');
       const manifest = await (await fetch('/assets/henry/manifest.json')).json();
       const henry = await loadImage('/assets/henry/' + manifest.image), frame = manifest.frames[manifest.animations.idle.frames[0]];

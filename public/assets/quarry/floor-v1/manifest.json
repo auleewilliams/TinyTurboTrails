@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "scope": "approved-G01-floor",
+  "image": "floor-820.png",
+  "width": 820,
+  "height": 107,
+  "x": 0,
+  "y": 980,
+  "visibleHeight": 100,
+  "worldBottom": 1080,
+  "PNGsha256": "a36989f622677db21173d5c1bf2fa4025bfb4fd95df1c7278d28119639981fa9",
+  "RGBAsha256": "9ed5ec56a821dc6c5e00de900ab434a0259b43632e68af0f0b052ec5991f1bdc"
+}

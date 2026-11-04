@@ -1,3 +1,5 @@
+import { validateQuarryFloor, loadQuarryFloor, drawQuarryFloor } from '../src/world/quarry-floor';
+import { quarryRolloutPieces, validateQuarryRollout, loadQuarryRollout, drawQuarryRollout } from '../src/world/quarry-rollout';
 import { quarryPreviewPieces, validateQuarryPreviewPieces, loadQuarryPreviewPieces, drawQuarryPreviewPiece } from '../src/world/quarry-preview-pieces';
 import { quarryShelfPieces, validateQuarryShelves, loadQuarryShelves, drawQuarryShelf } from '../src/world/quarry-shelves';
 import { installPlainsSceneryObserver } from './plains-scenery-observer';
@@ -13,7 +15,7 @@ import { COVE_RETURN, COVE_LOWER, walk as coveWalk, jump as coveJump } from './c
 import { FROST_MAIN, FROST_RETURN, FROST_REASCENT, FROST_MISS_S } from './frost-pilot';
 import { driveSunset } from './sunset-browser-pilot';
 import { MAIN_ROUTE as SUNSET_MAIN, FIRST_CLIMB as SUNSET_FIRST, CROSS_DESCENT as SUNSET_CROSS, FINAL_CLIMB as SUNSET_FINAL, ALL_RETURN as SUNSET_RETURN, REASCENT as SUNSET_REASCENT, SUNSET_MISS_B } from './sunset-pilot';
-import { installQuarryPilotScript } from './quarry-pilot';
+import { installQuarryPilotScript, type QuarryLandingTarget, type QuarryLandingSample } from './quarry-pilot';
 import { QUARRY_DESCENT, QUARRY_RETURN, QUARRY_STARS, type QuarryWaypoint } from './quarry-route';
 import { installPlainsRewardPilot } from './plains-pilot';
 import { bay1KeyboardPilotInit } from './cove-bay1-input';
@@ -186,7 +188,7 @@ test('app fullscreen retains feedback controls and native map and pause targets'
 });
 
 /** The renderer is injected as plain functions, so every helper it calls has to travel with it. */
-const RENDERER_SOURCE = [quarryPreviewPieces, validateQuarryPreviewPieces, loadQuarryPreviewPieces, drawQuarryPreviewPiece, quarryShelfPieces, validateQuarryShelves, loadQuarryShelves, drawQuarryShelf, plainsContourRange, plainsContourColumns, drawPlainsContourGround, timbersPreviewIds, timbersPlatformWidths, validateTimbersTerrain, loadTimbersTerrain, drawTimbersGround, drawTimbersPlatform, validateTimbersTree, loadTimbersTree, drawTimbersTree, validateCoveMaterials, loadCoveMaterials, coveRipplePhase, drawCoveMaterials, coveGroundY, coveRepeatColumn, validateCoveTerrain, loadCoveTerrain, drawCoveGround, drawCovePlatform, drawAmbientWeather, drawSlime, drawGem, drawSpecial, drawLandingBands, drawTerrainMaterial, drawTerrainEdge, drawTrailBackdrop, drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawTerrainTiles, drawTimberTrunk, drawSiteFrame, drawSurfaceMaterials].map((helper) => helper.toString()).join('\n');
+const RENDERER_SOURCE = [validateQuarryFloor, loadQuarryFloor, drawQuarryFloor, quarryRolloutPieces, validateQuarryRollout, loadQuarryRollout, drawQuarryRollout, quarryPreviewPieces, validateQuarryPreviewPieces, loadQuarryPreviewPieces, drawQuarryPreviewPiece, quarryShelfPieces, validateQuarryShelves, loadQuarryShelves, drawQuarryShelf, plainsContourRange, plainsContourColumns, drawPlainsContourGround, timbersPreviewIds, timbersPlatformWidths, validateTimbersTerrain, loadTimbersTerrain, drawTimbersGround, drawTimbersPlatform, validateTimbersTree, loadTimbersTree, drawTimbersTree, validateCoveMaterials, loadCoveMaterials, coveRipplePhase, drawCoveMaterials, coveGroundY, coveRepeatColumn, validateCoveTerrain, loadCoveTerrain, drawCoveGround, drawCovePlatform, drawAmbientWeather, drawSlime, drawGem, drawSpecial, drawLandingBands, drawTerrainMaterial, drawTerrainEdge, drawTrailBackdrop, drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawTerrainTiles, drawTimberTrunk, drawSiteFrame, drawSurfaceMaterials].map((helper) => helper.toString()).join('\n');
 
 test('ambient weather repeats the same pixels, respects reduced motion and stays behind terrain', async ({ page }, info) => {
   // Six full-image comparisons need extra readback time on constrained WebKit hosts.
@@ -738,9 +740,7 @@ test('moving platform slabs and their telegraphed paths draw on the real canvas'
     id: platform.id,
     body: platformBodyAt(platform, 2),
   }));
-  const rgb = (hex: string): number[] => [1, 3, 5].map((start) => parseInt(hex.slice(start, start + 2), 16));
-  const theme = { edge: rgb(QUARRY_RUN.theme.edge), ground: rgb(QUARRY_RUN.theme.ground) };
-  const results = await page.evaluate(async ({ level, views: sampled, theme: colors }) => {
+  const results = await page.evaluate(async ({ level, views: sampled }) => {
     const manifest = await (await fetch('/assets/plains/manifest.json')).json();
     const atlas = new Image();
     atlas.src = `/assets/plains/${manifest.image}`;
@@ -751,47 +751,60 @@ test('moving platform slabs and their telegraphed paths draw on the real canvas'
     canvas.height = 240;
     const ctx = canvas.getContext('2d')!;
     const render = (window as unknown as { drawTerrainTestWorld: typeof drawWorld }).drawTerrainTestWorld;
+      const quarry = level.id === 'quarry' ? {
+        quarryFloor: await (window as unknown as { loadQuarryFloor: typeof loadQuarryFloor }).loadQuarryFloor('/assets/quarry/'),
+        quarryRollout: await (window as unknown as { loadQuarryRollout: typeof loadQuarryRollout }).loadQuarryRollout('/assets/quarry/'),
+        quarryPreview: await (window as unknown as { loadQuarryPreviewPieces: typeof loadQuarryPreviewPieces }).loadQuarryPreviewPieces('/assets/quarry/'),
+        quarryShelves: await (window as unknown as { loadQuarryShelves: typeof loadQuarryShelves }).loadQuarryShelves('/assets/quarry/'),
+      } : {};
+    const assets = { atlas, manifest, gems, ...quarry };
     const bare = { ...level, platforms: [] };
     return sampled.map(({ id, body }) => {
       const offset = { x: body.x - 150, y: body.y - 120 };
       const camera = { position: offset } as Parameters<typeof drawWorld>[3];
+      const carriage = (quarry.quarryRollout?.images[id] ?? quarry.quarryPreview?.images[id])!;
+      if (!carriage) throw new Error('Missing Quarry fixture carriage: ' + id);
       // The same frame without any platform data, to prove what the telegraph itself draws.
       ctx.clearRect(0, 0, 426, 240);
-      render(ctx, { atlas, manifest, gems }, bare, camera, () => true, (entity) => entity, []);
+      render(ctx, assets, bare, camera, () => true, (entity) => entity, []);
       const before = ctx.getImageData(0, 0, 426, 240).data;
       ctx.clearRect(0, 0, 426, 240);
-      render(ctx, { atlas, manifest, gems }, { ...level, platforms: level.platforms!.filter(platform => platform.id === id) }, camera, () => true, (entity) => entity, [body]);
+      render(ctx, assets, { ...level, platforms: level.platforms!.filter(platform => platform.id === id) }, camera, () => true, (entity) => entity, [body]);
       const after = ctx.getImageData(0, 0, 426, 240).data;
       // Everything outside the deck is identical between the two frames except the telegraph,
       // so counting changed pixels there counts exactly the pips and their end markers.
       let telegraphed = 0;
       for (let y = 0; y < 240; y++) {
         for (let x = 0; x < 426; x++) {
-          if (x >= 150 && x <= 150 + body.width && y >= 120 - 3 && y <= 120 + body.height) continue;
+          if (x >= 150 && x <= 150 + body.width && y >= 120 - 3 && y <= 120 + carriage.naturalHeight) continue;
           const pixel = (y * 426 + x) * 4;
           if (before[pixel] !== after[pixel] || before[pixel + 1] !== after[pixel + 1]) telegraphed++;
         }
       }
       // Count along the whole deck rather than sampling one pixel: entity art, such as the
       // bonus gem hanging over the lift, legitimately covers part of it.
-      const run = (y: number, colour: number[]): number => {
+      const reference = document.createElement('canvas'); reference.width = 426; reference.height = 240;
+      const ink = reference.getContext('2d')!; ink.imageSmoothingEnabled = ctx.imageSmoothingEnabled;
+      ink.drawImage(carriage, 150, 120);
+      const run = (y: number): number => {
+        const expected = ink.getImageData(150, Math.round(y), Math.round(body.width), 1).data;
         const data = ctx.getImageData(150, Math.round(y), Math.round(body.width), 1).data;
         let matches = 0;
         for (let index = 0; index < data.length; index += 4) {
-          if (data[index] === colour[0] && data[index + 1] === colour[1] && data[index + 2] === colour[2]) matches++;
+          if (expected[index + 3] === 255 && data[index] === expected[index] && data[index + 1] === expected[index + 1] && data[index + 2] === expected[index + 2]) matches++;
         }
         return matches;
       };
       return {
         id,
         width: body.width,
-        cap: run(121, colors.edge),
-        slab: run(126, colors.ground),
+        cap: run(121),
+        slab: run(126),
         telegraphed,
         image: canvas.toDataURL(),
       };
     });
-  }, { level: QUARRY_RUN, views, theme });
+  }, { level: QUARRY_RUN, views });
   expect(results.map(({ id }) => id)).toEqual(platforms.map((platform) => platform.id));
   for (const result of results) {
     // A quarter of the deck is a conservative floor: entity art legitimately covers the rest,
@@ -2204,7 +2217,13 @@ test('finish artwork pixels meet terrain in all six trails, including the sloped
       const timbersTerrain = await (window as unknown as { loadTimbersTerrain: typeof loadTimbersTerrain }).loadTimbersTerrain(base, manifest.timbersKit);
       const timbersTree = await (window as unknown as { loadTimbersTree: typeof loadTimbersTree }).loadTimbersTree(base, manifest.timbersTree);
       const coveMaterials = await (window as unknown as { loadCoveMaterials: typeof loadCoveMaterials }).loadCoveMaterials(base, manifest.surfaceKit);
-      const assets = { atlas, manifest, gems, backdrops, materials, panorama, coveTerrain, coveMaterials, timbersTerrain, timbersTree };
+      const quarry = level.id === 'quarry' ? {
+        quarryFloor: await (window as unknown as { loadQuarryFloor: typeof loadQuarryFloor }).loadQuarryFloor('/assets/quarry/'),
+        quarryRollout: await (window as unknown as { loadQuarryRollout: typeof loadQuarryRollout }).loadQuarryRollout('/assets/quarry/'),
+        quarryPreview: await (window as unknown as { loadQuarryPreviewPieces: typeof loadQuarryPreviewPieces }).loadQuarryPreviewPieces('/assets/quarry/'),
+        quarryShelves: await (window as unknown as { loadQuarryShelves: typeof loadQuarryShelves }).loadQuarryShelves('/assets/quarry/'),
+      } : {};
+      const assets = { atlas, manifest, gems, backdrops, materials, panorama, coveTerrain, coveMaterials, timbersTerrain, timbersTree, ...quarry };
       const route = { ...level, entities: [] };
       const fixed = (level.platforms ?? []).filter(platform => platform.from.x === platform.to.x && platform.from.y === platform.to.y)
         .map(platform => ({ id: platform.id, x: platform.from.x, y: platform.from.y,
@@ -4497,7 +4516,7 @@ test('builder-kit visual fixture renders all six words and generated stickers at
 for (const level of LEVELS) test(`compact HUD renderer fixture: ${level.id} identity marks and real glyph clearance`, async ({ page }, info) => {
   // Explicit layout states, not scene mutation or a claim of input-driven gameplay.
   const names = ['world/camera.ts', 'game/platforms.ts', 'game/movement.ts', 'game/education.ts', 'art/interface-kit.ts', 'game/hud.ts', 'world/scenery.ts',
-    'world/quarry-preview-pieces.ts', 'world/quarry-shelves.ts', 'world/cove-terrain.ts', 'world/plains-contour.ts', 'world/timbers-terrain.ts', 'world/timbers-tree.ts', 'world/surface-materials.ts', 'world/assets.ts', 'world/trail-presentation.ts', 'world/ambient-weather.ts', 'world/renderer.ts'];
+    'world/quarry-floor.ts', 'world/quarry-rollout.ts', 'world/quarry-preview-pieces.ts', 'world/quarry-shelves.ts', 'world/cove-terrain.ts', 'world/plains-contour.ts', 'world/timbers-terrain.ts', 'world/timbers-tree.ts', 'world/surface-materials.ts', 'world/assets.ts', 'world/trail-presentation.ts', 'world/ambient-weather.ts', 'world/renderer.ts'];
   const errors: string[] = []; page.on('pageerror', error => errors.push(error.message));
   const modules = names.map(name => readFileSync(new URL(`../src/${name}`, import.meta.url), 'utf8'));
   const runtimeImports = [...new Set(modules.flatMap(source => [...source.matchAll(/^import (?!type )\{([^}]*)\} from .*;$/gm)]
@@ -4512,7 +4531,8 @@ for (const level of LEVELS) test(`compact HUD renderer fixture: ${level.id} iden
     ${fixture}
     window.hudFixtureMissing = [${[...runtimeImports, 'drawTimberTrunk', 'drawSiteFrame'].map(name => `typeof ${name} === 'undefined' && ${JSON.stringify(name)}`).join(', ')}].filter(Boolean);
     window.createHudFixture = async (level, runTemplate) => {
-      const assets = await loadWorldAssets(level.atlas), ui = await loadInterfaceKit();
+      const assets = (await loadWorldAssetMap([level.atlas]))[level.atlas], ui = await loadInterfaceKit();
+      if (level.id === 'quarry' && (!assets.quarryShelves || !assets.quarryPreview || !assets.quarryRollout || !assets.quarryFloor)) throw new Error('Incomplete Quarry fixture asset map');
       const pouch = await loadImage('/assets/spelling/pouch.png');
       const manifest = await (await fetch('/assets/henry/manifest.json')).json();
       const henry = await loadImage('/assets/henry/' + manifest.image), frame = manifest.frames[manifest.animations.idle.frames[0]];
@@ -4771,7 +4791,7 @@ for (const [selection, trail] of LEVELS.entries()) test(`landmark labels: render
   // Use the actual map method and its complete renderer dependency graph. These
   // explicit presentation states are not completed gameplay or scene mutations.
   const names = ['world/camera.ts', 'game/platforms.ts', 'game/movement.ts', 'art/henry.ts', 'art/animation.ts', 'art/interface-kit.ts', 'game/education.ts',
-    'world/scenery.ts', 'world/quarry-preview-pieces.ts', 'world/quarry-shelves.ts', 'world/cove-terrain.ts', 'world/plains-contour.ts', 'world/timbers-terrain.ts', 'world/timbers-tree.ts', 'world/surface-materials.ts', 'world/assets.ts', 'world/trail-presentation.ts', 'world/ambient-weather.ts',
+    'world/scenery.ts', 'world/quarry-floor.ts', 'world/quarry-rollout.ts', 'world/quarry-preview-pieces.ts', 'world/quarry-shelves.ts', 'world/cove-terrain.ts', 'world/plains-contour.ts', 'world/timbers-terrain.ts', 'world/timbers-tree.ts', 'world/surface-materials.ts', 'world/assets.ts', 'world/trail-presentation.ts', 'world/ambient-weather.ts',
     'world/renderer.ts', 'game/reward-result.ts', 'game/overworld.ts'];
   const modules = names.map(name => readFileSync(new URL(`../src/${name}`, import.meta.url), 'utf8'));
   const runtimeImports = [...new Set(modules.flatMap(source => [...source.matchAll(/^import (?!type )\{([^}]*)\} from .*;$/gm)]
@@ -4795,7 +4815,8 @@ for (const [selection, trail] of LEVELS.entries()) test(`landmark labels: render
         loadImage('/assets/title/tiny-turbo-trails-v2.png'), loadImage('/assets/overworld/landmarks.png'),
         loadImage('/assets/overworld/background.png'), loadImage('/assets/gems/gems.png'), loadInterfaceKit(), loadHenry()]);
       const previews = await Promise.all(LEVELS.map(async level => {
-        const assets = await loadWorldAssets(level.atlas), canvas = document.createElement('canvas'); canvas.width = 426; canvas.height = 240;
+        const assets = (await loadWorldAssetMap([level.atlas]))[level.atlas], canvas = document.createElement('canvas'); canvas.width = 426; canvas.height = 240;
+        if (level.id === 'quarry' && (!assets.quarryShelves || !assets.quarryPreview || !assets.quarryRollout || !assets.quarryFloor)) throw new Error('Incomplete Quarry fixture asset map');
         const ctx = canvas.getContext('2d'); ctx.imageSmoothingEnabled = false;
         const camera = new Camera({ width: 426, height: 240, worldWidth: level.width,
           worldHeight: level.height, vertical: level.verticalCamera || level.progressAxis === 'y', lead: level.cameraLead });
@@ -5537,34 +5558,26 @@ test('Quarry native landing visibility: actual rest and approach frames reveal e
     await page.evaluate(() => { (window as unknown as { quarryPilot: { frozen: boolean } }).quarryPilot.frozen = true; });
     const id = nextIds[index];
     const platform = QUARRY_RUN.platforms!.find(platform => platform.id === id);
-    const next = platform ? { x: platform.from.x, y: platform.from.y, width: platform.width }
-      : { x: 0, y: 980, width: QUARRY_RUN.width };
+    const sourcePiece = quarryRolloutPieces()[id] ?? quarryPreviewPieces()[id] ?? quarryShelfPieces()[id];
+    const sourceFamily = quarryRolloutPieces()[id] ? 'rollout-v1' : quarryPreviewPieces()[id] ? 'representative-v1' : 'whole-ledges-v1';
+    const source = id === 'floor' ? '/assets/quarry/floor-v1/floor-820.png' : sourcePiece ? `/assets/quarry/${sourceFamily}/${sourcePiece.image}` : undefined;
+    const next = platform ? { x: platform.from.x, y: platform.from.y, width: platform.width, source }
+      : { x: 0, y: 980, width: QUARRY_RUN.width, source };
     for (const viewport of [{ width: 426, height: 300 }, { width: 320, height: 240 }, { width: 1366, height: 768 }]) {
       await page.setViewportSize(viewport); await twoFrames(page);
       await expectClearViewport(page);
       const sample = await page.evaluate(({ next, id }) => {
-        const frame = (window as unknown as { quarryPilot: { frame: { status: string; x: number; feet: number;
-          camera: { x: number; y: number }; henry: { x: number; y: number; width: number; height: number };
-          supports: { x: number; y: number; width: number }[] } } }).quarryPilot.frame;
         const ctx = document.querySelector<HTMLCanvasElement>('#game')!.getContext('2d')!;
-        const drawn = frame.supports.find(support => Math.abs(support.x + frame.camera.x - next.x) < 1.1
-          && Math.abs(support.y + frame.camera.y - next.y) < 1.1 && support.width === next.width);
-        const edge = drawn ?? { x: next.x - frame.camera.x, y: next.y - frame.camera.y, width: next.width };
-        const left = Math.max(0, Math.ceil(edge.x + 2)), right = Math.min(426, Math.floor(edge.x + edge.width - 2));
-        let capPixels = 0;
-        if (edge.y >= 0 && edge.y + 4 < 240 && right > left) {
-          const rgba = ctx.getImageData(left, Math.floor(edge.y), right - left, 4).data;
-          for (let pixel = 0; pixel < rgba.length; pixel += 4) {
-            if ((rgba[pixel] === 177 && rgba[pixel + 1] === 199 && rgba[pixel + 2] === 125)
-              || (rgba[pixel] === 154 && rgba[pixel + 1] === 171 && rgba[pixel + 2] === 150)) capPixels++;
-          }
-        }
-        return { ...frame, id, next, edge, drawn: Boolean(drawn), visibleWidth: right - left, capPixels };
+        return (window as unknown as { quarryLandingSample: (ctx: CanvasRenderingContext2D,
+          next: QuarryLandingTarget, id: string) => QuarryLandingSample }).quarryLandingSample(ctx, next, id);
       }, { next, id });
       expect(sample.status).toContain('Playing');
       expect(Math.abs(sample.feet - target.y)).toBeLessThan(2);
       expect(sample.supports.length).toBeGreaterThan(0);
-      if (id !== 'floor') expect(sample.drawn).toBe(true);
+      {
+        expect(sample.drawn).toBe(true);
+        expect(sample.edge.source).toBe(sample.next.source);
+      }
       samples.push({ viewport, ...sample });
       if (sample.edge.y <= 59 || sample.edge.y > 216 || sample.visibleWidth < 30 || sample.capPixels < 20
         || sample.henry.y < 59 || sample.henry.y + sample.henry.height > 221) {
@@ -5583,4 +5596,17 @@ test('Quarry native landing visibility: actual rest and approach frames reveal e
   await info.attach('landing-visibility-observations', { body: JSON.stringify({ samples, failures }), contentType: 'application/json' });
   expect(samples).toHaveLength(36);
   expect(failures).toEqual([]);
+});
+
+for (const resource of ['manifest.json', 'floor-820.png']) test(`required Quarry floor ${resource} failure recovers through ordinary Retry`, async ({ page }) => {
+  const path = `**/assets/quarry/floor-v1/${resource}`;
+  let attempts = 0;
+  await page.route(path, route => { attempts++; return route.abort(); });
+  await page.goto('/?scene=adventure');
+  await expect(page.getByRole('button', { name: /Retry loading/i })).toBeVisible();
+  expect(attempts).toBeGreaterThan(0);
+  await page.unroute(path);
+  const imageResponse = page.waitForResponse(response => new URL(response.url()).pathname === '/assets/quarry/floor-v1/floor-820.png' && response.ok());
+  await retryToMap(page);
+  expect(createHash('sha256').update(await (await imageResponse).body()).digest('hex')).toBe('a36989f622677db21173d5c1bf2fa4025bfb4fd95df1c7278d28119639981fa9');
 });

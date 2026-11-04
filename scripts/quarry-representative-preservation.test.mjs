@@ -12,7 +12,7 @@ test('new exact layer restores immutable S bytes and each named guard rejects mu
   const current=readFileSync(path),prior=beforeQuarryRepresentative(path,current);
   assert.equal(hash(prior),p.baselineSHA256);
   assert.equal(hash(beforeQuarryShelves(path,prior)),S.files[path].baselineSha256);
-  assert.throws(()=>beforeQuarryRepresentative(path,Buffer.concat([current,Buffer.from('x')])),/exact representative/);
+  assert.throws(()=>beforeQuarryRepresentative(path,Buffer.concat([current,Buffer.from('x')])),/exact (?:representative|approved floor)/);
   assert.throws(()=>beforeQuarryShelves(path,Buffer.concat([prior,Buffer.from('x')])),/exact Quarry pilot/);
   assert.equal(beforeQuarryRepresentative(path,prior),prior);
  }
