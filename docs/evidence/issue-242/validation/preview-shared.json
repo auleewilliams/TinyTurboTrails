@@ -1,0 +1,704 @@
+{
+  "originalReport": "test-results/issue-242/preview-shared/report.json",
+  "originalReportSha256": "5386cab23947b0636ddaed92f7159fe003a964cd7739c934c2315e7b625afe03",
+  "note": "Case identities, results and attachment digests only. Original full report and attachments remain in the local test-results directory; no absent attachment is presented as committed evidence. Captures used for owner review have a separate complete file-backed packet.",
+  "stats": {
+    "startTime": "2026-11-01T20:29:47.029Z",
+    "duration": 94019.488,
+    "expected": 9,
+    "skipped": 0,
+    "unexpected": 3,
+    "flaky": 0
+  },
+  "config": {
+    "argv": [
+      "/usr/bin/node",
+      "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/node_modules/.bin/playwright",
+      "test",
+      "tests/browser.spec.ts",
+      "tests/hud-owner-layout.spec.ts",
+      "--workers=1",
+      "--grep",
+      "all six trail previews|compact HUD renderer fixture: sunset|landmark labels: renderer fixture sunset|owner HUD order real-font fixture: sunset",
+      "--output=test-results/issue-242/preview-shared/artifacts",
+      "--reporter=json"
+    ],
+    "configFile": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/playwright.config.ts",
+    "rootDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/tests",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": true,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "sourceRevision": null,
+      "nodeVersion": "v22.22.1",
+      "platform": "linux",
+      "arch": "x64",
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/preview-shared/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "sourceRevision": null,
+          "nodeVersion": "v22.22.1",
+          "platform": "linux",
+          "arch": "x64",
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.spec.ts"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/preview-shared/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "sourceRevision": null,
+          "nodeVersion": "v22.22.1",
+          "platform": "linux",
+          "arch": "x64",
+          "actualWorkers": 1
+        },
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.spec.ts"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/preview-shared/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "sourceRevision": null,
+          "nodeVersion": "v22.22.1",
+          "platform": "linux",
+          "arch": "x64",
+          "actualWorkers": 1
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.spec.ts"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/preview-shared/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "sourceRevision": null,
+          "nodeVersion": "v22.22.1",
+          "platform": "linux",
+          "arch": "x64",
+          "actualWorkers": 1
+        },
+        "name": "chromium",
+        "testDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/tests",
+        "snapshotDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/tests",
+        "testIgnore": [],
+        "testMatch": "**/*.spec.ts",
+        "timeout": 30000,
+        "use": {
+          "trace": "retain-on-failure",
+          "screenshot": "only-on-failure",
+          "baseURL": "http://127.0.0.1:4246",
+          "viewport": {
+            "width": 1366,
+            "height": 768
+          },
+          "browserName": "chromium"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "chromium"
+      },
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/preview-shared/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "sourceRevision": null,
+          "nodeVersion": "v22.22.1",
+          "platform": "linux",
+          "arch": "x64",
+          "actualWorkers": 1
+        },
+        "name": "firefox",
+        "testDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/tests",
+        "snapshotDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/tests",
+        "testIgnore": [],
+        "testMatch": "**/*.spec.ts",
+        "timeout": 30000,
+        "use": {
+          "trace": "retain-on-failure",
+          "screenshot": "only-on-failure",
+          "baseURL": "http://127.0.0.1:4246",
+          "viewport": {
+            "width": 1366,
+            "height": 768
+          },
+          "browserName": "firefox"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "firefox"
+      },
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/preview-shared/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "sourceRevision": null,
+          "nodeVersion": "v22.22.1",
+          "platform": "linux",
+          "arch": "x64",
+          "actualWorkers": 1
+        },
+        "name": "webkit",
+        "testDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/tests",
+        "snapshotDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/tests",
+        "testIgnore": [],
+        "testMatch": "**/*.spec.ts",
+        "timeout": 30000,
+        "use": {
+          "trace": "retain-on-failure",
+          "screenshot": "only-on-failure",
+          "baseURL": "http://127.0.0.1:4246",
+          "viewport": {
+            "width": 1366,
+            "height": 768
+          },
+          "browserName": "webkit"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "webkit"
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "json"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.1",
+    "workers": 1,
+    "webServer": {
+      "command": "npm run preview -- --port 4246 --strictPort",
+      "url": "http://127.0.0.1:4246",
+      "reuseExistingServer": false
+    }
+  },
+  "errors": [],
+  "cases": [
+    {
+      "title": "all six trail previews show cached gameplay and the map requests no story artwork",
+      "file": "browser.spec.ts",
+      "line": 2065,
+      "project": "chromium",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 2901,
+          "retry": 0,
+          "errors": [],
+          "attachments": [
+            {
+              "name": "plains-map",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "a7bfd9e37c63124586a9420c6cae617093e81efe69a66929d19b6640f5b37509",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "quarry-map",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "3c608791744a905a1c00b33d7d31dbd75e243d61915232f8f57d12a303725e45",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "timbers-map",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "737996e2437415bf652e33a911cdf231d8fb4462683be036a2b17adbedbfa15a",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "sunset-map",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "6de55820d021e4a8cb03bb61f5365b9ff0eccb4bcb79b247187e616491bb3c41",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "frost-map",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "e6ffaf88f2416b50d3ce45d7ef321c04edac231fc1fad16d134194f959b647f3",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "cove-map",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "91f6000ae8403fc36ff7c197ed75627f5e7f9e725e5700cce66ce93ac6f744f9",
+              "inlineBodyEncoding": "original JSON reporter string"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "compact HUD renderer fixture: sunset identity marks and real glyph clearance",
+      "file": "browser.spec.ts",
+      "line": 4482,
+      "project": "chromium",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 6599,
+          "retry": 0,
+          "errors": [],
+          "attachments": [
+            {
+              "name": "actual-renderer-ribbon-band-pose",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "377725cd8a07503d25fa491ff7e9ccac4f8870e8a595ac5ba03473c00a9c0929",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "ribbon-band-fixture-bounds",
+              "contentType": "application/json",
+              "sourcePath": null,
+              "sha256": "8bdce3ca2a8190dcf39574b6193bc26eb1c2a28c03b4009d3463a303156ada70",
+              "inlineBodyEncoding": "original JSON reporter string"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "landmark labels: renderer fixture sunset clears real art, paths, frames, badges and Henry in every completion state",
+      "file": "browser.spec.ts",
+      "line": 4755,
+      "project": "chromium",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 6427,
+          "retry": 0,
+          "errors": [],
+          "attachments": []
+        }
+      ]
+    },
+    {
+      "title": "all six trail previews show cached gameplay and the map requests no story artwork",
+      "file": "browser.spec.ts",
+      "line": 2065,
+      "project": "firefox",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 4659,
+          "retry": 0,
+          "errors": [],
+          "attachments": [
+            {
+              "name": "plains-map",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "90fdd552c902af11598331c0b90d357273ee8e90d5272057cf97a300aba99350",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "quarry-map",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "8a892b5b89e804f072f9daa64c537a9374134fa46b54a9b305f80d00b0e954bc",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "timbers-map",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "4718e9ac2e9c7fb54a79c58284c6c5c92a20dbeba055a8290e63eaf9b7cd7444",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "sunset-map",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "43ec5289d8f14e28df2c7366b5fd154e8be739147bec2355e223478fa7f889f0",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "frost-map",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "eed08c7b3c2c424eb44557c589843a4f8ae72e7e0dbd81c35f3c9df1442bbb34",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "cove-map",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "ca8c3d383157d95ebe1e07d2cd876f1d6492ef13f8559c15b63daef389c5f4bf",
+              "inlineBodyEncoding": "original JSON reporter string"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "compact HUD renderer fixture: sunset identity marks and real glyph clearance",
+      "file": "browser.spec.ts",
+      "line": 4482,
+      "project": "firefox",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 11483,
+          "retry": 0,
+          "errors": [],
+          "attachments": [
+            {
+              "name": "actual-renderer-ribbon-band-pose",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "75768e75a13c02f5c49caac50ed013d99e34a119a6a2ad2726edb95ad76acd50",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "ribbon-band-fixture-bounds",
+              "contentType": "application/json",
+              "sourcePath": null,
+              "sha256": "8bdce3ca2a8190dcf39574b6193bc26eb1c2a28c03b4009d3463a303156ada70",
+              "inlineBodyEncoding": "original JSON reporter string"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "landmark labels: renderer fixture sunset clears real art, paths, frames, badges and Henry in every completion state",
+      "file": "browser.spec.ts",
+      "line": 4755,
+      "project": "firefox",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 8130,
+          "retry": 0,
+          "errors": [],
+          "attachments": []
+        }
+      ]
+    },
+    {
+      "title": "all six trail previews show cached gameplay and the map requests no story artwork",
+      "file": "browser.spec.ts",
+      "line": 2065,
+      "project": "webkit",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 9545,
+          "retry": 0,
+          "errors": [],
+          "attachments": [
+            {
+              "name": "plains-map",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "5e5c6fe3a6b80683790d29bf459bd18c35f8bdf9d4ea988edb2e7166ee123a6b",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "quarry-map",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "8d871e426fabace2913261f22faef5afc772e1c4b2426ee2d83a0a8554c4eb3a",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "timbers-map",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "04f54e8fbdf5575bad48d137c9ebbc1652163fd4bf6d3f9931f52400475e871f",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "sunset-map",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "7db7ef20c6d3444e38dafba6274d57ae0c0970ef447ab85f9730b9d391c6e25a",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "frost-map",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "9da63da2ccd429419318d5cfb5d62444682f3ae8585feb721e3e7fca284c5439",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "cove-map",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "1be03e9ef87093e4a5b49a8b06605c3d21b45e6c60875a2d6d41e3432dad5d06",
+              "inlineBodyEncoding": "original JSON reporter string"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "compact HUD renderer fixture: sunset identity marks and real glyph clearance",
+      "file": "browser.spec.ts",
+      "line": 4482,
+      "project": "webkit",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 12745,
+          "retry": 0,
+          "errors": [],
+          "attachments": [
+            {
+              "name": "actual-renderer-ribbon-band-pose",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "63a76bcb761a14e0fcff871173cb7fa178d7f61939cafcc0d4380e51479ca653",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "ribbon-band-fixture-bounds",
+              "contentType": "application/json",
+              "sourcePath": null,
+              "sha256": "8bdce3ca2a8190dcf39574b6193bc26eb1c2a28c03b4009d3463a303156ada70",
+              "inlineBodyEncoding": "original JSON reporter string"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "landmark labels: renderer fixture sunset clears real art, paths, frames, badges and Henry in every completion state",
+      "file": "browser.spec.ts",
+      "line": 4755,
+      "project": "webkit",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 8166,
+          "retry": 0,
+          "errors": [],
+          "attachments": []
+        }
+      ]
+    },
+    {
+      "title": "owner HUD order real-font fixture: sunset identity marks and real glyph clearance",
+      "file": "hud-owner-layout.spec.ts",
+      "line": 80,
+      "project": "chromium",
+      "status": "unexpected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "failed",
+          "duration": 1242,
+          "retry": 0,
+          "errors": [
+            {
+              "location": {
+                "file": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/tests/hud-owner-layout.spec.ts",
+                "column": 111,
+                "line": 165
+              },
+              "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 5\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"loadSiteTerrain\",\u001b[39m\n\u001b[31m+   \"drawSiteGround\",\u001b[39m\n\u001b[31m+   \"drawSitePlatform\",\u001b[39m\n\u001b[31m+ ]\u001b[39m\n\n  163 |     };\n  164 |   })();` });\n> 165 |   expect(await page.evaluate(() => (window as unknown as { hudFixtureMissing: string[] }).hudFixtureMissing)).toEqual([]);\n      |                                                                                                               ^\n  166 |   await page.evaluate(({ level, run }) => (window as unknown as { createHudFixture(level: unknown, run: unknown): Promise<void> }).createHudFixture(level, run), { level, run: createRun(level) });\n  167 |   const samples = [];\n  168 |   for (const viewport of [{ width: 426, height: 300 }, { width: 320, height: 240 }]) {\n    at /home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/tests/hud-owner-layout.spec.ts:165:111"
+            }
+          ],
+          "attachments": [
+            {
+              "name": "screenshot",
+              "contentType": "image/png",
+              "sourcePath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/preview-shared/artifacts/hud-owner-layout-owner-HUD-c6dbe-ks-and-real-glyph-clearance-chromium/test-failed-1.png",
+              "sha256": "f4117223e8d921b6652de91335d7c19938bbc6d403d17f478599df8d3433a66e",
+              "inlineBodyEncoding": null
+            },
+            {
+              "name": "error-context",
+              "contentType": "text/markdown",
+              "sourcePath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/preview-shared/artifacts/hud-owner-layout-owner-HUD-c6dbe-ks-and-real-glyph-clearance-chromium/error-context.md",
+              "sha256": "c1b5a107ab99abbccbb896a3afbb8fb531e904c57e5c63a869aa1690d93b6e26",
+              "inlineBodyEncoding": null
+            },
+            {
+              "name": "trace",
+              "contentType": "application/zip",
+              "sourcePath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/preview-shared/artifacts/hud-owner-layout-owner-HUD-c6dbe-ks-and-real-glyph-clearance-chromium/trace.zip",
+              "sha256": "af92cc721271c2d05f7ca2b7933c6e9b66fba29a9a0dca29b45a511027bf5711",
+              "inlineBodyEncoding": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "owner HUD order real-font fixture: sunset identity marks and real glyph clearance",
+      "file": "hud-owner-layout.spec.ts",
+      "line": 80,
+      "project": "firefox",
+      "status": "unexpected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "failed",
+          "duration": 2692,
+          "retry": 0,
+          "errors": [
+            {
+              "location": {
+                "file": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/tests/hud-owner-layout.spec.ts",
+                "column": 111,
+                "line": 165
+              },
+              "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 5\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"loadSiteTerrain\",\u001b[39m\n\u001b[31m+   \"drawSiteGround\",\u001b[39m\n\u001b[31m+   \"drawSitePlatform\",\u001b[39m\n\u001b[31m+ ]\u001b[39m\n\n  163 |     };\n  164 |   })();` });\n> 165 |   expect(await page.evaluate(() => (window as unknown as { hudFixtureMissing: string[] }).hudFixtureMissing)).toEqual([]);\n      |                                                                                                               ^\n  166 |   await page.evaluate(({ level, run }) => (window as unknown as { createHudFixture(level: unknown, run: unknown): Promise<void> }).createHudFixture(level, run), { level, run: createRun(level) });\n  167 |   const samples = [];\n  168 |   for (const viewport of [{ width: 426, height: 300 }, { width: 320, height: 240 }]) {\n    at /home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/tests/hud-owner-layout.spec.ts:165:111"
+            }
+          ],
+          "attachments": [
+            {
+              "name": "screenshot",
+              "contentType": "image/png",
+              "sourcePath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/preview-shared/artifacts/hud-owner-layout-owner-HUD-c6dbe-ks-and-real-glyph-clearance-firefox/test-failed-1.png",
+              "sha256": "ebf2ec443fb1c9dbbda8e538d5b6d74a84da21159ded4792c6b2d79c1e98919e",
+              "inlineBodyEncoding": null
+            },
+            {
+              "name": "error-context",
+              "contentType": "text/markdown",
+              "sourcePath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/preview-shared/artifacts/hud-owner-layout-owner-HUD-c6dbe-ks-and-real-glyph-clearance-firefox/error-context.md",
+              "sha256": "c1b5a107ab99abbccbb896a3afbb8fb531e904c57e5c63a869aa1690d93b6e26",
+              "inlineBodyEncoding": null
+            },
+            {
+              "name": "trace",
+              "contentType": "application/zip",
+              "sourcePath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/preview-shared/artifacts/hud-owner-layout-owner-HUD-c6dbe-ks-and-real-glyph-clearance-firefox/trace.zip",
+              "sha256": "1e1adde084bdf104e58fdfb4c754341631d8a622aef90374ffdfd0c5e540364a",
+              "inlineBodyEncoding": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "owner HUD order real-font fixture: sunset identity marks and real glyph clearance",
+      "file": "hud-owner-layout.spec.ts",
+      "line": 80,
+      "project": "webkit",
+      "status": "unexpected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "failed",
+          "duration": 2978,
+          "retry": 0,
+          "errors": [
+            {
+              "location": {
+                "file": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/tests/hud-owner-layout.spec.ts",
+                "column": 111,
+                "line": 165
+              },
+              "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 5\u001b[39m\n\n\u001b[32m- Array []\u001b[39m\n\u001b[31m+ Array [\u001b[39m\n\u001b[31m+   \"loadSiteTerrain\",\u001b[39m\n\u001b[31m+   \"drawSiteGround\",\u001b[39m\n\u001b[31m+   \"drawSitePlatform\",\u001b[39m\n\u001b[31m+ ]\u001b[39m\n\n  163 |     };\n  164 |   })();` });\n> 165 |   expect(await page.evaluate(() => (window as unknown as { hudFixtureMissing: string[] }).hudFixtureMissing)).toEqual([]);\n      |                                                                                                               ^\n  166 |   await page.evaluate(({ level, run }) => (window as unknown as { createHudFixture(level: unknown, run: unknown): Promise<void> }).createHudFixture(level, run), { level, run: createRun(level) });\n  167 |   const samples = [];\n  168 |   for (const viewport of [{ width: 426, height: 300 }, { width: 320, height: 240 }]) {\n    at /home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/tests/hud-owner-layout.spec.ts:165:111"
+            }
+          ],
+          "attachments": [
+            {
+              "name": "screenshot",
+              "contentType": "image/png",
+              "sourcePath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/preview-shared/artifacts/hud-owner-layout-owner-HUD-c6dbe-ks-and-real-glyph-clearance-webkit/test-failed-1.png",
+              "sha256": "b377ab93b51cbdc0087e02e9d5aa149976320aaaa0ddf05307a35175696ed34b",
+              "inlineBodyEncoding": null
+            },
+            {
+              "name": "error-context",
+              "contentType": "text/markdown",
+              "sourcePath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/preview-shared/artifacts/hud-owner-layout-owner-HUD-c6dbe-ks-and-real-glyph-clearance-webkit/error-context.md",
+              "sha256": "c1b5a107ab99abbccbb896a3afbb8fb531e904c57e5c63a869aa1690d93b6e26",
+              "inlineBodyEncoding": null
+            },
+            {
+              "name": "trace",
+              "contentType": "application/zip",
+              "sourcePath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/preview-shared/artifacts/hud-owner-layout-owner-HUD-c6dbe-ks-and-real-glyph-clearance-webkit/trace.zip",
+              "sha256": "cc7a9107fcec8fca25387b29c5aaabc599018115210defdd93320a2b65e96c54",
+              "inlineBodyEncoding": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

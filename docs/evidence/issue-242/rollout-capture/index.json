@@ -1,0 +1,873 @@
+{
+  "originalReport": "test-results/issue-242/rollout-final-native/report.json",
+  "originalReportSha256": "43517a57c0602ba3e31e14548c2bb2a8ad96c7ed3495c6e7a6d918eee4187b5f",
+  "stats": {
+    "startTime": "2026-11-01T21:06:52.519Z",
+    "duration": 111698.842,
+    "expected": 9,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "subset": "Chromium owner gallery only; stats are from the complete nine-case report. All engine results are retained separately in validation/rollout-final-native.json.",
+  "note": "Original metadata copied byte-for-byte. Resolve its absolute attachment references via fileMap. SourceRevision null is preserved; workingBase pins the then-current commit and actual source hashes bind runtime bytes.",
+  "cases": [
+    {
+      "title": "Sunset required steel resource site-declaration recovers through ordinary Retry",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 1853,
+      "attachments": [
+        {
+          "name": "recovered-game",
+          "contentType": "image/png",
+          "originalPath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-preview-Sunset--4f8a2-vers-through-ordinary-Retry-chromium/attachments/recovered-game-a6334ae55baab24d2f4140824befe26d959f94f6.png",
+          "path": "files/50ed0210481854d6f63df1b9c3de8e96dbe02dc824af9c9e93d3f4766ed9c376.png",
+          "sha256": "50ed0210481854d6f63df1b9c3de8e96dbe02dc824af9c9e93d3f4766ed9c376",
+          "bytes": 186675
+        }
+      ]
+    },
+    {
+      "title": "Sunset whole steel rollout reaches the roof and finish at 426px with Pause",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 31660,
+      "attachments": [
+        {
+          "name": "rollout-image-7de7c3536c2e5d733a7e394dacaf14146fde3a75913f0df5f3bf9ad561cab563",
+          "contentType": "image/png",
+          "originalPath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/attachments/rollout-image-7de7c3536c2e5d733a7e394dacaf14146fde3a75913f0df5f3bf9ad561cab563-095bd961c87be9e2d3e7fe2841856e046275e72d.png",
+          "path": "files/7de7c3536c2e5d733a7e394dacaf14146fde3a75913f0df5f3bf9ad561cab563.png",
+          "sha256": "7de7c3536c2e5d733a7e394dacaf14146fde3a75913f0df5f3bf9ad561cab563",
+          "bytes": 190361
+        },
+        {
+          "name": "entrance",
+          "contentType": "application/json",
+          "originalPath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/attachments/entrance-cb311f8fcb9cc0d57f2545617b63e39b1b4c84cb.json",
+          "path": "files/940491bc4ba2823a98181f7323c0f88aae6681c160a14428ca58ee555cede455.json",
+          "sha256": "940491bc4ba2823a98181f7323c0f88aae6681c160a14428ca58ee555cede455",
+          "bytes": 856
+        },
+        {
+          "name": "entrance-css",
+          "contentType": "image/png",
+          "originalPath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/attachments/entrance-css-5a732c066da65178bd917e28051e0a1be6aef5a6.png",
+          "path": "files/ffc206b809611735e57b76cb8c11d62bd281957314742748d4e68f84f8b51ea0.png",
+          "sha256": "ffc206b809611735e57b76cb8c11d62bd281957314742748d4e68f84f8b51ea0",
+          "bytes": 126498
+        },
+        {
+          "name": "rollout-image-36f7229bde0bdaa3d0fd84d678776e5336b92fea2b99faab62a34626147002d0",
+          "contentType": "image/png",
+          "originalPath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/attachments/rollout-image-36f7229bde0bdaa3d0fd84d678776e5336b92fea2b99faab62a34626147002d0-c00b7e818b1a630ebf2a2f76cb6e64a6f099e319.png",
+          "path": "files/36f7229bde0bdaa3d0fd84d678776e5336b92fea2b99faab62a34626147002d0.png",
+          "sha256": "36f7229bde0bdaa3d0fd84d678776e5336b92fea2b99faab62a34626147002d0",
+          "bytes": 193344
+        },
+        {
+          "name": "stacked-underpass",
+          "contentType": "application/json",
+          "originalPath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/attachments/stacked-underpass-c365e73e259e7e430ef7544435a1172599b82eca.json",
+          "path": "files/defb5b3f3ca6a9b8291481703ed9a1dc7a1d811f1b21932f15fd4711a44be921.json",
+          "sha256": "defb5b3f3ca6a9b8291481703ed9a1dc7a1d811f1b21932f15fd4711a44be921",
+          "bytes": 857
+        },
+        {
+          "name": "stacked-underpass-css",
+          "contentType": "image/png",
+          "originalPath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/attachments/stacked-underpass-css-df09c25100143bcfd693bc586b79099b4ee3f2fe.png",
+          "path": "files/e0ea45cae5d9e496e8ab14e36aee8a665eccdde05b60f99201e33e134ec10e98.png",
+          "sha256": "e0ea45cae5d9e496e8ab14e36aee8a665eccdde05b60f99201e33e134ec10e98",
+          "bytes": 130478
+        },
+        {
+          "name": "rollout-image-e1a21e0325db609b85167d27779f3a84a90787c6c5da4d7eafb98c805f961c9f",
+          "contentType": "image/png",
+          "originalPath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/attachments/rollout-image-e1a21e0325db609b85167d27779f3a84a90787c6c5da4d7eafb98c805f961c9f-c46e0bdafb3356b6178199bfdd14b77190289b60.png",
+          "path": "files/e1a21e0325db609b85167d27779f3a84a90787c6c5da4d7eafb98c805f961c9f.png",
+          "sha256": "e1a21e0325db609b85167d27779f3a84a90787c6c5da4d7eafb98c805f961c9f",
+          "bytes": 197800
+        },
+        {
+          "name": "high-deck",
+          "contentType": "application/json",
+          "originalPath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/attachments/high-deck-7ea88c7dff766780634a8a4b77b04a8e24b3605b.json",
+          "path": "files/ef6069d66a5a07d784b8ec23e420e2826c94126734c9876d81c11829c0f8248f.json",
+          "sha256": "ef6069d66a5a07d784b8ec23e420e2826c94126734c9876d81c11829c0f8248f",
+          "bytes": 857
+        },
+        {
+          "name": "high-deck-css",
+          "contentType": "image/png",
+          "originalPath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/attachments/high-deck-css-1c6c9816c7ca554b606db697571ad010f7213167.png",
+          "path": "files/ce210220c9db56c4d9a67463b9cc389fd814f9cfb6e61555099346189bbe3096.png",
+          "sha256": "ce210220c9db56c4d9a67463b9cc389fd814f9cfb6e61555099346189bbe3096",
+          "bytes": 133658
+        },
+        {
+          "name": "rollout-image-cb623ddea80b913884c6fc27aa0fd38c0b7e6996d9ff0cfb067827cd37c7d0d6",
+          "contentType": "image/png",
+          "originalPath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/attachments/rollout-image-cb623ddea80b913884c6fc27aa0fd38c0b7e6996d9ff0cfb067827cd37c7d0d6-7886442a06f9e097969dc01971b3a02beab4acf5.png",
+          "path": "files/cb623ddea80b913884c6fc27aa0fd38c0b7e6996d9ff0cfb067827cd37c7d0d6.png",
+          "sha256": "cb623ddea80b913884c6fc27aa0fd38c0b7e6996d9ff0cfb067827cd37c7d0d6",
+          "bytes": 200567
+        },
+        {
+          "name": "descent",
+          "contentType": "application/json",
+          "originalPath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/attachments/descent-011130f9f0d2ed22475605b67da26efc8b192f21.json",
+          "path": "files/948d62e7a548f137dc83a2853edf636dfa7df25e44df387d75d2a6bc09c87231.json",
+          "sha256": "948d62e7a548f137dc83a2853edf636dfa7df25e44df387d75d2a6bc09c87231",
+          "bytes": 859
+        },
+        {
+          "name": "descent-css",
+          "contentType": "image/png",
+          "originalPath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/attachments/descent-css-11873d70e4b23fa85ccedd76359d9885cf146af1.png",
+          "path": "files/5feef1d993f6c037afec42219fcfb8352d76beaed449613a0331947430060121.png",
+          "sha256": "5feef1d993f6c037afec42219fcfb8352d76beaed449613a0331947430060121",
+          "bytes": 136972
+        },
+        {
+          "name": "rollout-image-8879be8b95a0fd23931e36b7194df3b6da54f2e78569a97fd9c1ac8492f1e689",
+          "contentType": "image/png",
+          "originalPath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/attachments/rollout-image-8879be8b95a0fd23931e36b7194df3b6da54f2e78569a97fd9c1ac8492f1e689-0a7df329cfb6c7d656fa23e8b454ed7922f3bf2d.png",
+          "path": "files/8879be8b95a0fd23931e36b7194df3b6da54f2e78569a97fd9c1ac8492f1e689.png",
+          "sha256": "8879be8b95a0fd23931e36b7194df3b6da54f2e78569a97fd9c1ac8492f1e689",
+          "bytes": 194172
+        },
+        {
+          "name": "yard",
+          "contentType": "application/json",
+          "originalPath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/attachments/yard-5efe223ed9810df18a40bd416a840967b335e08d.json",
+          "path": "files/cbaaca59005af5d0a1709f3eacda15fd22671214d0d79c20b76c5eec8f2922e4.json",
+          "sha256": "cbaaca59005af5d0a1709f3eacda15fd22671214d0d79c20b76c5eec8f2922e4",
+          "bytes": 858
+        },
+        {
+          "name": "yard-css",
+          "contentType": "image/png",
+          "originalPath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/attachments/yard-css-ad63d6b6e1554ab3a2c2412a8c11cf046cc328b4.png",
+          "path": "files/32f6a4505f1875d29f67bd919932125b91fb40cba92bdd593fb204238b8b49e4.png",
+          "sha256": "32f6a4505f1875d29f67bd919932125b91fb40cba92bdd593fb204238b8b49e4",
+          "bytes": 134792
+        },
+        {
+          "name": "rollout-image-f0a0ccadfc63a83438aafeed3a431dc797658e9f13269987a8139134a4ef1a26",
+          "contentType": "image/png",
+          "originalPath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/attachments/rollout-image-f0a0ccadfc63a83438aafeed3a431dc797658e9f13269987a8139134a4ef1a26-5265a76258084b96d217cf98365a4031a17b516f.png",
+          "path": "files/f0a0ccadfc63a83438aafeed3a431dc797658e9f13269987a8139134a4ef1a26.png",
+          "sha256": "f0a0ccadfc63a83438aafeed3a431dc797658e9f13269987a8139134a4ef1a26",
+          "bytes": 200007
+        },
+        {
+          "name": "rest",
+          "contentType": "application/json",
+          "originalPath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/attachments/rest-3d2eac82749900cc8aa50d08b11fee77b57e8af7.json",
+          "path": "files/3c149d592096710c44aaa19b5a222562b172716255c82db03ce526d9b9d2afaf.json",
+          "sha256": "3c149d592096710c44aaa19b5a222562b172716255c82db03ce526d9b9d2afaf",
+          "bytes": 858
+        },
+        {
+          "name": "rest-css",
+          "contentType": "image/png",
+          "originalPath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/attachments/rest-css-957b3a47c744fd6c28d1b1b34a487dac6c3b23ee.png",
+          "path": "files/6a90160dcb7c13ad79501e4d8543ca321014c426035aa5748f41d918039752df.png",
+          "sha256": "6a90160dcb7c13ad79501e4d8543ca321014c426035aa5748f41d918039752df",
+          "bytes": 136194
+        },
+        {
+          "name": "rollout-image-3d2e7b1a88259ee888a33bdd0d0084f27f60fb4b5aeb589dfe09b8d59bd19ea4",
+          "contentType": "image/png",
+          "originalPath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/attachments/rollout-image-3d2e7b1a88259ee888a33bdd0d0084f27f60fb4b5aeb589dfe09b8d59bd19ea4-f9499b312679dbe60d95f59fee62d1b01afda060.png",
+          "path": "files/3d2e7b1a88259ee888a33bdd0d0084f27f60fb4b5aeb589dfe09b8d59bd19ea4.png",
+          "sha256": "3d2e7b1a88259ee888a33bdd0d0084f27f60fb4b5aeb589dfe09b8d59bd19ea4",
+          "bytes": 95477
+        },
+        {
+          "name": "paused-rest",
+          "contentType": "application/json",
+          "originalPath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/attachments/paused-rest-fab93258c5cf2acf1ce5747ea66d22a1b345917f.json",
+          "path": "files/0023106f43d54244e88992d6c99689ce8d8a9b1139e510d458620bf309e8f4e3.json",
+          "sha256": "0023106f43d54244e88992d6c99689ce8d8a9b1139e510d458620bf309e8f4e3",
+          "bytes": 780
+        },
+        {
+          "name": "paused-rest-css",
+          "contentType": "image/png",
+          "originalPath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/attachments/paused-rest-css-6048b65993d93cf21772558e3506c04d7eef61c8.png",
+          "path": "files/7f6c0ffbf5825effc8f4d47e06d473dbd3a845b45418ccd8819937715935cd9c.png",
+          "sha256": "7f6c0ffbf5825effc8f4d47e06d473dbd3a845b45418ccd8819937715935cd9c",
+          "bytes": 53419
+        },
+        {
+          "name": "rollout-image-d677299e7f52673c1b580c7f492e6c46b57015c72062fbfb77b618b1d0a245e9",
+          "contentType": "image/png",
+          "originalPath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/attachments/rollout-image-d677299e7f52673c1b580c7f492e6c46b57015c72062fbfb77b618b1d0a245e9-ec8c1d009a8e15be6bbeb634510f6032b8f018eb.png",
+          "path": "files/d677299e7f52673c1b580c7f492e6c46b57015c72062fbfb77b618b1d0a245e9.png",
+          "sha256": "d677299e7f52673c1b580c7f492e6c46b57015c72062fbfb77b618b1d0a245e9",
+          "bytes": 193860
+        },
+        {
+          "name": "roof",
+          "contentType": "application/json",
+          "originalPath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/attachments/roof-099c4d7d25b954dedf0419cda7611b5a696e202b.json",
+          "path": "files/6a68f5478ecbfacb569b18074351eddf3cd2b844435e8e5e1b2220fe58e9d39d.json",
+          "sha256": "6a68f5478ecbfacb569b18074351eddf3cd2b844435e8e5e1b2220fe58e9d39d",
+          "bytes": 858
+        },
+        {
+          "name": "roof-css",
+          "contentType": "image/png",
+          "originalPath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/attachments/roof-css-186e709947c59e86d923aa4a4bd2a1d15b26b1c7.png",
+          "path": "files/b0f1453445743c186505054d7ade7ae2be6ae09009f4f9b292ff0271beeaa7a5.png",
+          "sha256": "b0f1453445743c186505054d7ade7ae2be6ae09009f4f9b292ff0271beeaa7a5",
+          "bytes": 132428
+        },
+        {
+          "name": "rollout-image-f35d8637eea0f4a4394b9c29a508d4fcdb2af1de74a8e4d5c3694502287644c8",
+          "contentType": "image/png",
+          "originalPath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/attachments/rollout-image-f35d8637eea0f4a4394b9c29a508d4fcdb2af1de74a8e4d5c3694502287644c8-6cd3eaa0659ffaffe02227d96077d08c64ab2168.png",
+          "path": "files/f35d8637eea0f4a4394b9c29a508d4fcdb2af1de74a8e4d5c3694502287644c8.png",
+          "sha256": "f35d8637eea0f4a4394b9c29a508d4fcdb2af1de74a8e4d5c3694502287644c8",
+          "bytes": 51976
+        },
+        {
+          "name": "finish",
+          "contentType": "application/json",
+          "originalPath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/attachments/finish-891c50b338d55b19d940b9e6a3ecf6727945152c.json",
+          "path": "files/fb9d1cb4c341eafc2b2c36212ca34bf18ccab6bb174e461473f69941fd725bec.json",
+          "sha256": "fb9d1cb4c341eafc2b2c36212ca34bf18ccab6bb174e461473f69941fd725bec",
+          "bytes": 932
+        },
+        {
+          "name": "finish-css",
+          "contentType": "image/png",
+          "originalPath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/attachments/finish-css-124ee8bff4fb4007863893e19b7f782592c99ec0.png",
+          "path": "files/177eea2e944532aedb4f0b3dac51775059111cb5958f65af9767401cbf2120bf.png",
+          "sha256": "177eea2e944532aedb4f0b3dac51775059111cb5958f65af9767401cbf2120bf",
+          "bytes": 33173
+        },
+        {
+          "name": "source-build-input-provenance",
+          "contentType": "application/json",
+          "originalPath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/attachments/source-build-input-provenance-0e9ff6de4dab59b7acfe5b0790e385175ed92f7e.json",
+          "path": "files/fb70ff38ce5aa686d3aeab9c396ffc7724b20744b762002c48757ab0b273080f.json",
+          "sha256": "fb70ff38ce5aa686d3aeab9c396ffc7724b20744b762002c48757ab0b273080f",
+          "bytes": 36283
+        }
+      ]
+    },
+    {
+      "title": "Sunset whole steel rollout reaches the roof and finish at 320px with Pause",
+      "project": "chromium",
+      "status": "passed",
+      "duration": 31195,
+      "attachments": [
+        {
+          "name": "rollout-image-7de7c3536c2e5d733a7e394dacaf14146fde3a75913f0df5f3bf9ad561cab563",
+          "contentType": "image/png",
+          "originalPath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/attachments/rollout-image-7de7c3536c2e5d733a7e394dacaf14146fde3a75913f0df5f3bf9ad561cab563-368e8972704fb4f797d34dabb30d9223956f8a6c.png",
+          "path": "files/7de7c3536c2e5d733a7e394dacaf14146fde3a75913f0df5f3bf9ad561cab563.png",
+          "sha256": "7de7c3536c2e5d733a7e394dacaf14146fde3a75913f0df5f3bf9ad561cab563",
+          "bytes": 190361
+        },
+        {
+          "name": "entrance",
+          "contentType": "application/json",
+          "originalPath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/attachments/entrance-945a855a0641793f7afdf1052e8b58ce4ee02844.json",
+          "path": "files/2d94681d7dadb1840f80b4ebea79c95324b8b39bb5742d6e3a3b5361508062d8.json",
+          "sha256": "2d94681d7dadb1840f80b4ebea79c95324b8b39bb5742d6e3a3b5361508062d8",
+          "bytes": 862
+        },
+        {
+          "name": "entrance-css",
+          "contentType": "image/png",
+          "originalPath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/attachments/entrance-css-5f7681cb2595b71f2fc6147b1e09e0f1530324a4.png",
+          "path": "files/0f1fdf8274f62361a3777c63ae5e928a6464682e08dc853fa07bb951b4ead218.png",
+          "sha256": "0f1fdf8274f62361a3777c63ae5e928a6464682e08dc853fa07bb951b4ead218",
+          "bytes": 79941
+        },
+        {
+          "name": "rollout-image-e9964ea5bd53df679b5e69b6d7f8b7edde90810b107da58a1891cdd94bbcd52a",
+          "contentType": "image/png",
+          "originalPath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/attachments/rollout-image-e9964ea5bd53df679b5e69b6d7f8b7edde90810b107da58a1891cdd94bbcd52a-8c1ed07dab4e500bd9bb1d4f0f35077f14812e78.png",
+          "path": "files/e9964ea5bd53df679b5e69b6d7f8b7edde90810b107da58a1891cdd94bbcd52a.png",
+          "sha256": "e9964ea5bd53df679b5e69b6d7f8b7edde90810b107da58a1891cdd94bbcd52a",
+          "bytes": 193188
+        },
+        {
+          "name": "stacked-underpass",
+          "contentType": "application/json",
+          "originalPath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/attachments/stacked-underpass-bae5077b4d8dcb6c3d30e34994d91939a9a8a903.json",
+          "path": "files/42ebfff5b5a00776b712d77cc8d2d7a81c55a07eebad6a1ea0279a70b66d8d13.json",
+          "sha256": "42ebfff5b5a00776b712d77cc8d2d7a81c55a07eebad6a1ea0279a70b66d8d13",
+          "bytes": 863
+        },
+        {
+          "name": "stacked-underpass-css",
+          "contentType": "image/png",
+          "originalPath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/attachments/stacked-underpass-css-1bb92a8b3f4e703833f58a4b9e55a3bb00172dad.png",
+          "path": "files/51c9091da5f15bbeaa250c3ec53f721650244663f94a30efdb89745c221ffe26.png",
+          "sha256": "51c9091da5f15bbeaa250c3ec53f721650244663f94a30efdb89745c221ffe26",
+          "bytes": 81899
+        },
+        {
+          "name": "rollout-image-a593d9d5e3610606934dfe274bd93faf44d849989059226d982dceb6516d0200",
+          "contentType": "image/png",
+          "originalPath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/attachments/rollout-image-a593d9d5e3610606934dfe274bd93faf44d849989059226d982dceb6516d0200-996ea06dd6247bafa7ca803444efdcb500c04186.png",
+          "path": "files/a593d9d5e3610606934dfe274bd93faf44d849989059226d982dceb6516d0200.png",
+          "sha256": "a593d9d5e3610606934dfe274bd93faf44d849989059226d982dceb6516d0200",
+          "bytes": 197825
+        },
+        {
+          "name": "high-deck",
+          "contentType": "application/json",
+          "originalPath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/attachments/high-deck-6885391a8a79f33033a8d4857ea6b951a9d5f7ad.json",
+          "path": "files/682ebf150b3439ce80a50080e73201e42957db178e6740dd3cd144c66b4d8d5d.json",
+          "sha256": "682ebf150b3439ce80a50080e73201e42957db178e6740dd3cd144c66b4d8d5d",
+          "bytes": 863
+        },
+        {
+          "name": "high-deck-css",
+          "contentType": "image/png",
+          "originalPath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/attachments/high-deck-css-518a818f9b4301a1f4d255b346f260a0a08d2542.png",
+          "path": "files/02a60d667cadcae6d6e8203fd1343ebfdfdb13cd8fa1de16a807a809c23d0d85.png",
+          "sha256": "02a60d667cadcae6d6e8203fd1343ebfdfdb13cd8fa1de16a807a809c23d0d85",
+          "bytes": 81941
+        },
+        {
+          "name": "rollout-image-d79ada69e53b063122da2bc962420dd6ce7c4cb7e872f03dac2c84d1fc5c3ff3",
+          "contentType": "image/png",
+          "originalPath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/attachments/rollout-image-d79ada69e53b063122da2bc962420dd6ce7c4cb7e872f03dac2c84d1fc5c3ff3-ede7e4ddb9f498d264980f9db739b151fe0e5522.png",
+          "path": "files/d79ada69e53b063122da2bc962420dd6ce7c4cb7e872f03dac2c84d1fc5c3ff3.png",
+          "sha256": "d79ada69e53b063122da2bc962420dd6ce7c4cb7e872f03dac2c84d1fc5c3ff3",
+          "bytes": 200292
+        },
+        {
+          "name": "descent",
+          "contentType": "application/json",
+          "originalPath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/attachments/descent-22e976ce227dd7bf72872f3d58284bdc9a74053f.json",
+          "path": "files/058afb8d40a37dc3376c1e578799dd95b31fda6765dd65ad27fda8e17e8d006e.json",
+          "sha256": "058afb8d40a37dc3376c1e578799dd95b31fda6765dd65ad27fda8e17e8d006e",
+          "bytes": 865
+        },
+        {
+          "name": "descent-css",
+          "contentType": "image/png",
+          "originalPath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/attachments/descent-css-dd1ce9842929a2f7da9c5a477dcd3a61425d649a.png",
+          "path": "files/4c27fc9ed8d5f919269196722722f0e3cfc116404309e328f1ae0f22009ba915.png",
+          "sha256": "4c27fc9ed8d5f919269196722722f0e3cfc116404309e328f1ae0f22009ba915",
+          "bytes": 84086
+        },
+        {
+          "name": "rollout-image-a204c38b559750f27cf9fb1742677bf21c695a7b736d4d0a9de8376e09cc0037",
+          "contentType": "image/png",
+          "originalPath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/attachments/rollout-image-a204c38b559750f27cf9fb1742677bf21c695a7b736d4d0a9de8376e09cc0037-a860c817e6e97d3580f075ba00e3096ac874ab99.png",
+          "path": "files/a204c38b559750f27cf9fb1742677bf21c695a7b736d4d0a9de8376e09cc0037.png",
+          "sha256": "a204c38b559750f27cf9fb1742677bf21c695a7b736d4d0a9de8376e09cc0037",
+          "bytes": 194416
+        },
+        {
+          "name": "yard",
+          "contentType": "application/json",
+          "originalPath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/attachments/yard-84fbe6babd808b5eece531fca8c5af71d015db85.json",
+          "path": "files/1a2496968cec3376133ba44d09106c0d5c4be1eef3d9b3ba40ecc6c77bd8710a.json",
+          "sha256": "1a2496968cec3376133ba44d09106c0d5c4be1eef3d9b3ba40ecc6c77bd8710a",
+          "bytes": 864
+        },
+        {
+          "name": "yard-css",
+          "contentType": "image/png",
+          "originalPath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/attachments/yard-css-35ab9d5b7962170e82e0bd610d7e8526c721679d.png",
+          "path": "files/3a04a5a48ba5aa3386b5f23b8a2572ff8d945aa6b9c9b0742a7ce49b29edf8d9.png",
+          "sha256": "3a04a5a48ba5aa3386b5f23b8a2572ff8d945aa6b9c9b0742a7ce49b29edf8d9",
+          "bytes": 87429
+        },
+        {
+          "name": "rollout-image-16e7f3930c502bbab43540d1afba255c6ba39ed35dfe76e00e90c6e8aa57ab99",
+          "contentType": "image/png",
+          "originalPath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/attachments/rollout-image-16e7f3930c502bbab43540d1afba255c6ba39ed35dfe76e00e90c6e8aa57ab99-1ab55037d4c0f7833d4d334949360bc4d1f0c752.png",
+          "path": "files/16e7f3930c502bbab43540d1afba255c6ba39ed35dfe76e00e90c6e8aa57ab99.png",
+          "sha256": "16e7f3930c502bbab43540d1afba255c6ba39ed35dfe76e00e90c6e8aa57ab99",
+          "bytes": 199872
+        },
+        {
+          "name": "rest",
+          "contentType": "application/json",
+          "originalPath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/attachments/rest-162bdcd4e0fb429080bf7e9eba2e4917c9cc172d.json",
+          "path": "files/96847e4b2d62e6d2c700a90e48cb35c19170696eef22f1e87b029001514f6440.json",
+          "sha256": "96847e4b2d62e6d2c700a90e48cb35c19170696eef22f1e87b029001514f6440",
+          "bytes": 864
+        },
+        {
+          "name": "rest-css",
+          "contentType": "image/png",
+          "originalPath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/attachments/rest-css-c9b1a3c56508d49575f009e7be0b752ca40d4545.png",
+          "path": "files/00519166410d5127c826ff265b86460845662fd7005a95d7a4223adeedffb43b.png",
+          "sha256": "00519166410d5127c826ff265b86460845662fd7005a95d7a4223adeedffb43b",
+          "bytes": 84004
+        },
+        {
+          "name": "rollout-image-3d2e7b1a88259ee888a33bdd0d0084f27f60fb4b5aeb589dfe09b8d59bd19ea4",
+          "contentType": "image/png",
+          "originalPath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/attachments/rollout-image-3d2e7b1a88259ee888a33bdd0d0084f27f60fb4b5aeb589dfe09b8d59bd19ea4-fcf25ecbb7210477ab575a13269908db99e23fb0.png",
+          "path": "files/3d2e7b1a88259ee888a33bdd0d0084f27f60fb4b5aeb589dfe09b8d59bd19ea4.png",
+          "sha256": "3d2e7b1a88259ee888a33bdd0d0084f27f60fb4b5aeb589dfe09b8d59bd19ea4",
+          "bytes": 95477
+        },
+        {
+          "name": "paused-rest",
+          "contentType": "application/json",
+          "originalPath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/attachments/paused-rest-18b0f8c0b8addcdcf71e7b189893d74321894662.json",
+          "path": "files/4dec43b4995ce52cafc600c57057807550f95aac98025e5385a32bfbf779f263.json",
+          "sha256": "4dec43b4995ce52cafc600c57057807550f95aac98025e5385a32bfbf779f263",
+          "bytes": 786
+        },
+        {
+          "name": "paused-rest-css",
+          "contentType": "image/png",
+          "originalPath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/attachments/paused-rest-css-5593c713de1a6da47c785ef8eb2b71a7f22d5dd4.png",
+          "path": "files/ceece2e3f32983bd52cb63bd1dec0f6bd85aeeb01b64f0c3fde8170ea0844829.png",
+          "sha256": "ceece2e3f32983bd52cb63bd1dec0f6bd85aeeb01b64f0c3fde8170ea0844829",
+          "bytes": 40916
+        },
+        {
+          "name": "rollout-image-c917bb6ccf94df12c35e0fad2fc94393e3e9fb43f9c589ab9db81f82b4acdf80",
+          "contentType": "image/png",
+          "originalPath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/attachments/rollout-image-c917bb6ccf94df12c35e0fad2fc94393e3e9fb43f9c589ab9db81f82b4acdf80-4455b1ce4ae16d6b5e522373e08fbd0cdd7a317a.png",
+          "path": "files/c917bb6ccf94df12c35e0fad2fc94393e3e9fb43f9c589ab9db81f82b4acdf80.png",
+          "sha256": "c917bb6ccf94df12c35e0fad2fc94393e3e9fb43f9c589ab9db81f82b4acdf80",
+          "bytes": 193782
+        },
+        {
+          "name": "roof",
+          "contentType": "application/json",
+          "originalPath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/attachments/roof-17091d490326deba3550f3e4bdecde81fdcdd730.json",
+          "path": "files/d9aee6f4a4787def0df83267c512d98b50419592985423f2dd79fbcd2f63d02e.json",
+          "sha256": "d9aee6f4a4787def0df83267c512d98b50419592985423f2dd79fbcd2f63d02e",
+          "bytes": 864
+        },
+        {
+          "name": "roof-css",
+          "contentType": "image/png",
+          "originalPath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/attachments/roof-css-d5003fc264b7e13fa7720e34041ab81f1101cb86.png",
+          "path": "files/02eaa99842709536b2e493bf294ff56422d8b7426b96c6388cfcf74ca8311d0c.png",
+          "sha256": "02eaa99842709536b2e493bf294ff56422d8b7426b96c6388cfcf74ca8311d0c",
+          "bytes": 81657
+        },
+        {
+          "name": "rollout-image-a3715b45bc2264999e85caf2ed34168f80af7e2034de31cb249aaf5ea89af78f",
+          "contentType": "image/png",
+          "originalPath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/attachments/rollout-image-a3715b45bc2264999e85caf2ed34168f80af7e2034de31cb249aaf5ea89af78f-b999dcddcb36f91f427e15539ce3213a8a0ada6e.png",
+          "path": "files/a3715b45bc2264999e85caf2ed34168f80af7e2034de31cb249aaf5ea89af78f.png",
+          "sha256": "a3715b45bc2264999e85caf2ed34168f80af7e2034de31cb249aaf5ea89af78f",
+          "bytes": 52454
+        },
+        {
+          "name": "finish",
+          "contentType": "application/json",
+          "originalPath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/attachments/finish-583f336e5a441563a93d745395725eba86121f6a.json",
+          "path": "files/f74a93844be239c26b5ca4d98c4bccfbfa6f1ca37a6edae2ac887dc64d51b529.json",
+          "sha256": "f74a93844be239c26b5ca4d98c4bccfbfa6f1ca37a6edae2ac887dc64d51b529",
+          "bytes": 938
+        },
+        {
+          "name": "finish-css",
+          "contentType": "image/png",
+          "originalPath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/attachments/finish-css-e7fe518af9305a39f2e093da652238e8fcd2dbff.png",
+          "path": "files/652da41f01db4709855a02c8410beb08a47236c6f4d2f6b87340ff8a5f24cc42.png",
+          "sha256": "652da41f01db4709855a02c8410beb08a47236c6f4d2f6b87340ff8a5f24cc42",
+          "bytes": 24529
+        },
+        {
+          "name": "source-build-input-provenance",
+          "contentType": "application/json",
+          "originalPath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/attachments/source-build-input-provenance-8762720dd8557475af4627354fd693ef338828e2.json",
+          "path": "files/22e279537e8f8fa52dd9b3dfda13493c16b8135425f7bae6f9c62e5adda2de1b.json",
+          "sha256": "22e279537e8f8fa52dd9b3dfda13493c16b8135425f7bae6f9c62e5adda2de1b",
+          "bytes": 36286
+        }
+      ]
+    }
+  ],
+  "fileMap": {
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-preview-Sunset--4f8a2-vers-through-ordinary-Retry-chromium/attachments/recovered-game-a6334ae55baab24d2f4140824befe26d959f94f6.png": {
+      "path": "files/50ed0210481854d6f63df1b9c3de8e96dbe02dc824af9c9e93d3f4766ed9c376.png",
+      "sha256": "50ed0210481854d6f63df1b9c3de8e96dbe02dc824af9c9e93d3f4766ed9c376",
+      "bytes": 186675
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/attachments/rollout-image-7de7c3536c2e5d733a7e394dacaf14146fde3a75913f0df5f3bf9ad561cab563-095bd961c87be9e2d3e7fe2841856e046275e72d.png": {
+      "path": "files/7de7c3536c2e5d733a7e394dacaf14146fde3a75913f0df5f3bf9ad561cab563.png",
+      "sha256": "7de7c3536c2e5d733a7e394dacaf14146fde3a75913f0df5f3bf9ad561cab563",
+      "bytes": 190361
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/attachments/entrance-cb311f8fcb9cc0d57f2545617b63e39b1b4c84cb.json": {
+      "path": "files/940491bc4ba2823a98181f7323c0f88aae6681c160a14428ca58ee555cede455.json",
+      "sha256": "940491bc4ba2823a98181f7323c0f88aae6681c160a14428ca58ee555cede455",
+      "bytes": 856
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/attachments/entrance-css-5a732c066da65178bd917e28051e0a1be6aef5a6.png": {
+      "path": "files/ffc206b809611735e57b76cb8c11d62bd281957314742748d4e68f84f8b51ea0.png",
+      "sha256": "ffc206b809611735e57b76cb8c11d62bd281957314742748d4e68f84f8b51ea0",
+      "bytes": 126498
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/attachments/rollout-image-36f7229bde0bdaa3d0fd84d678776e5336b92fea2b99faab62a34626147002d0-c00b7e818b1a630ebf2a2f76cb6e64a6f099e319.png": {
+      "path": "files/36f7229bde0bdaa3d0fd84d678776e5336b92fea2b99faab62a34626147002d0.png",
+      "sha256": "36f7229bde0bdaa3d0fd84d678776e5336b92fea2b99faab62a34626147002d0",
+      "bytes": 193344
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/attachments/stacked-underpass-c365e73e259e7e430ef7544435a1172599b82eca.json": {
+      "path": "files/defb5b3f3ca6a9b8291481703ed9a1dc7a1d811f1b21932f15fd4711a44be921.json",
+      "sha256": "defb5b3f3ca6a9b8291481703ed9a1dc7a1d811f1b21932f15fd4711a44be921",
+      "bytes": 857
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/attachments/stacked-underpass-css-df09c25100143bcfd693bc586b79099b4ee3f2fe.png": {
+      "path": "files/e0ea45cae5d9e496e8ab14e36aee8a665eccdde05b60f99201e33e134ec10e98.png",
+      "sha256": "e0ea45cae5d9e496e8ab14e36aee8a665eccdde05b60f99201e33e134ec10e98",
+      "bytes": 130478
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/attachments/rollout-image-e1a21e0325db609b85167d27779f3a84a90787c6c5da4d7eafb98c805f961c9f-c46e0bdafb3356b6178199bfdd14b77190289b60.png": {
+      "path": "files/e1a21e0325db609b85167d27779f3a84a90787c6c5da4d7eafb98c805f961c9f.png",
+      "sha256": "e1a21e0325db609b85167d27779f3a84a90787c6c5da4d7eafb98c805f961c9f",
+      "bytes": 197800
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/attachments/high-deck-7ea88c7dff766780634a8a4b77b04a8e24b3605b.json": {
+      "path": "files/ef6069d66a5a07d784b8ec23e420e2826c94126734c9876d81c11829c0f8248f.json",
+      "sha256": "ef6069d66a5a07d784b8ec23e420e2826c94126734c9876d81c11829c0f8248f",
+      "bytes": 857
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/attachments/high-deck-css-1c6c9816c7ca554b606db697571ad010f7213167.png": {
+      "path": "files/ce210220c9db56c4d9a67463b9cc389fd814f9cfb6e61555099346189bbe3096.png",
+      "sha256": "ce210220c9db56c4d9a67463b9cc389fd814f9cfb6e61555099346189bbe3096",
+      "bytes": 133658
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/attachments/rollout-image-cb623ddea80b913884c6fc27aa0fd38c0b7e6996d9ff0cfb067827cd37c7d0d6-7886442a06f9e097969dc01971b3a02beab4acf5.png": {
+      "path": "files/cb623ddea80b913884c6fc27aa0fd38c0b7e6996d9ff0cfb067827cd37c7d0d6.png",
+      "sha256": "cb623ddea80b913884c6fc27aa0fd38c0b7e6996d9ff0cfb067827cd37c7d0d6",
+      "bytes": 200567
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/attachments/descent-011130f9f0d2ed22475605b67da26efc8b192f21.json": {
+      "path": "files/948d62e7a548f137dc83a2853edf636dfa7df25e44df387d75d2a6bc09c87231.json",
+      "sha256": "948d62e7a548f137dc83a2853edf636dfa7df25e44df387d75d2a6bc09c87231",
+      "bytes": 859
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/attachments/descent-css-11873d70e4b23fa85ccedd76359d9885cf146af1.png": {
+      "path": "files/5feef1d993f6c037afec42219fcfb8352d76beaed449613a0331947430060121.png",
+      "sha256": "5feef1d993f6c037afec42219fcfb8352d76beaed449613a0331947430060121",
+      "bytes": 136972
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/attachments/rollout-image-8879be8b95a0fd23931e36b7194df3b6da54f2e78569a97fd9c1ac8492f1e689-0a7df329cfb6c7d656fa23e8b454ed7922f3bf2d.png": {
+      "path": "files/8879be8b95a0fd23931e36b7194df3b6da54f2e78569a97fd9c1ac8492f1e689.png",
+      "sha256": "8879be8b95a0fd23931e36b7194df3b6da54f2e78569a97fd9c1ac8492f1e689",
+      "bytes": 194172
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/attachments/yard-5efe223ed9810df18a40bd416a840967b335e08d.json": {
+      "path": "files/cbaaca59005af5d0a1709f3eacda15fd22671214d0d79c20b76c5eec8f2922e4.json",
+      "sha256": "cbaaca59005af5d0a1709f3eacda15fd22671214d0d79c20b76c5eec8f2922e4",
+      "bytes": 858
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/attachments/yard-css-ad63d6b6e1554ab3a2c2412a8c11cf046cc328b4.png": {
+      "path": "files/32f6a4505f1875d29f67bd919932125b91fb40cba92bdd593fb204238b8b49e4.png",
+      "sha256": "32f6a4505f1875d29f67bd919932125b91fb40cba92bdd593fb204238b8b49e4",
+      "bytes": 134792
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/attachments/rollout-image-f0a0ccadfc63a83438aafeed3a431dc797658e9f13269987a8139134a4ef1a26-5265a76258084b96d217cf98365a4031a17b516f.png": {
+      "path": "files/f0a0ccadfc63a83438aafeed3a431dc797658e9f13269987a8139134a4ef1a26.png",
+      "sha256": "f0a0ccadfc63a83438aafeed3a431dc797658e9f13269987a8139134a4ef1a26",
+      "bytes": 200007
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/attachments/rest-3d2eac82749900cc8aa50d08b11fee77b57e8af7.json": {
+      "path": "files/3c149d592096710c44aaa19b5a222562b172716255c82db03ce526d9b9d2afaf.json",
+      "sha256": "3c149d592096710c44aaa19b5a222562b172716255c82db03ce526d9b9d2afaf",
+      "bytes": 858
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/attachments/rest-css-957b3a47c744fd6c28d1b1b34a487dac6c3b23ee.png": {
+      "path": "files/6a90160dcb7c13ad79501e4d8543ca321014c426035aa5748f41d918039752df.png",
+      "sha256": "6a90160dcb7c13ad79501e4d8543ca321014c426035aa5748f41d918039752df",
+      "bytes": 136194
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/attachments/rollout-image-3d2e7b1a88259ee888a33bdd0d0084f27f60fb4b5aeb589dfe09b8d59bd19ea4-f9499b312679dbe60d95f59fee62d1b01afda060.png": {
+      "path": "files/3d2e7b1a88259ee888a33bdd0d0084f27f60fb4b5aeb589dfe09b8d59bd19ea4.png",
+      "sha256": "3d2e7b1a88259ee888a33bdd0d0084f27f60fb4b5aeb589dfe09b8d59bd19ea4",
+      "bytes": 95477
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/attachments/paused-rest-fab93258c5cf2acf1ce5747ea66d22a1b345917f.json": {
+      "path": "files/0023106f43d54244e88992d6c99689ce8d8a9b1139e510d458620bf309e8f4e3.json",
+      "sha256": "0023106f43d54244e88992d6c99689ce8d8a9b1139e510d458620bf309e8f4e3",
+      "bytes": 780
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/attachments/paused-rest-css-6048b65993d93cf21772558e3506c04d7eef61c8.png": {
+      "path": "files/7f6c0ffbf5825effc8f4d47e06d473dbd3a845b45418ccd8819937715935cd9c.png",
+      "sha256": "7f6c0ffbf5825effc8f4d47e06d473dbd3a845b45418ccd8819937715935cd9c",
+      "bytes": 53419
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/attachments/rollout-image-d677299e7f52673c1b580c7f492e6c46b57015c72062fbfb77b618b1d0a245e9-ec8c1d009a8e15be6bbeb634510f6032b8f018eb.png": {
+      "path": "files/d677299e7f52673c1b580c7f492e6c46b57015c72062fbfb77b618b1d0a245e9.png",
+      "sha256": "d677299e7f52673c1b580c7f492e6c46b57015c72062fbfb77b618b1d0a245e9",
+      "bytes": 193860
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/attachments/roof-099c4d7d25b954dedf0419cda7611b5a696e202b.json": {
+      "path": "files/6a68f5478ecbfacb569b18074351eddf3cd2b844435e8e5e1b2220fe58e9d39d.json",
+      "sha256": "6a68f5478ecbfacb569b18074351eddf3cd2b844435e8e5e1b2220fe58e9d39d",
+      "bytes": 858
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/attachments/roof-css-186e709947c59e86d923aa4a4bd2a1d15b26b1c7.png": {
+      "path": "files/b0f1453445743c186505054d7ade7ae2be6ae09009f4f9b292ff0271beeaa7a5.png",
+      "sha256": "b0f1453445743c186505054d7ade7ae2be6ae09009f4f9b292ff0271beeaa7a5",
+      "bytes": 132428
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/attachments/rollout-image-f35d8637eea0f4a4394b9c29a508d4fcdb2af1de74a8e4d5c3694502287644c8-6cd3eaa0659ffaffe02227d96077d08c64ab2168.png": {
+      "path": "files/f35d8637eea0f4a4394b9c29a508d4fcdb2af1de74a8e4d5c3694502287644c8.png",
+      "sha256": "f35d8637eea0f4a4394b9c29a508d4fcdb2af1de74a8e4d5c3694502287644c8",
+      "bytes": 51976
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/attachments/finish-891c50b338d55b19d940b9e6a3ecf6727945152c.json": {
+      "path": "files/fb9d1cb4c341eafc2b2c36212ca34bf18ccab6bb174e461473f69941fd725bec.json",
+      "sha256": "fb9d1cb4c341eafc2b2c36212ca34bf18ccab6bb174e461473f69941fd725bec",
+      "bytes": 932
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/attachments/finish-css-124ee8bff4fb4007863893e19b7f782592c99ec0.png": {
+      "path": "files/177eea2e944532aedb4f0b3dac51775059111cb5958f65af9767401cbf2120bf.png",
+      "sha256": "177eea2e944532aedb4f0b3dac51775059111cb5958f65af9767401cbf2120bf",
+      "bytes": 33173
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/attachments/source-build-input-provenance-0e9ff6de4dab59b7acfe5b0790e385175ed92f7e.json": {
+      "path": "files/fb70ff38ce5aa686d3aeab9c396ffc7724b20744b762002c48757ab0b273080f.json",
+      "sha256": "fb70ff38ce5aa686d3aeab9c396ffc7724b20744b762002c48757ab0b273080f",
+      "bytes": 36283
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/rollout-evidence/7de7c3536c2e5d733a7e394dacaf14146fde3a75913f0df5f3bf9ad561cab563.png": {
+      "path": "files/7de7c3536c2e5d733a7e394dacaf14146fde3a75913f0df5f3bf9ad561cab563.png",
+      "sha256": "7de7c3536c2e5d733a7e394dacaf14146fde3a75913f0df5f3bf9ad561cab563",
+      "bytes": 190361
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/rollout-evidence/36f7229bde0bdaa3d0fd84d678776e5336b92fea2b99faab62a34626147002d0.png": {
+      "path": "files/36f7229bde0bdaa3d0fd84d678776e5336b92fea2b99faab62a34626147002d0.png",
+      "sha256": "36f7229bde0bdaa3d0fd84d678776e5336b92fea2b99faab62a34626147002d0",
+      "bytes": 193344
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/rollout-evidence/e1a21e0325db609b85167d27779f3a84a90787c6c5da4d7eafb98c805f961c9f.png": {
+      "path": "files/e1a21e0325db609b85167d27779f3a84a90787c6c5da4d7eafb98c805f961c9f.png",
+      "sha256": "e1a21e0325db609b85167d27779f3a84a90787c6c5da4d7eafb98c805f961c9f",
+      "bytes": 197800
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/rollout-evidence/cb623ddea80b913884c6fc27aa0fd38c0b7e6996d9ff0cfb067827cd37c7d0d6.png": {
+      "path": "files/cb623ddea80b913884c6fc27aa0fd38c0b7e6996d9ff0cfb067827cd37c7d0d6.png",
+      "sha256": "cb623ddea80b913884c6fc27aa0fd38c0b7e6996d9ff0cfb067827cd37c7d0d6",
+      "bytes": 200567
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/rollout-evidence/8879be8b95a0fd23931e36b7194df3b6da54f2e78569a97fd9c1ac8492f1e689.png": {
+      "path": "files/8879be8b95a0fd23931e36b7194df3b6da54f2e78569a97fd9c1ac8492f1e689.png",
+      "sha256": "8879be8b95a0fd23931e36b7194df3b6da54f2e78569a97fd9c1ac8492f1e689",
+      "bytes": 194172
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/rollout-evidence/f0a0ccadfc63a83438aafeed3a431dc797658e9f13269987a8139134a4ef1a26.png": {
+      "path": "files/f0a0ccadfc63a83438aafeed3a431dc797658e9f13269987a8139134a4ef1a26.png",
+      "sha256": "f0a0ccadfc63a83438aafeed3a431dc797658e9f13269987a8139134a4ef1a26",
+      "bytes": 200007
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/rollout-evidence/3d2e7b1a88259ee888a33bdd0d0084f27f60fb4b5aeb589dfe09b8d59bd19ea4.png": {
+      "path": "files/3d2e7b1a88259ee888a33bdd0d0084f27f60fb4b5aeb589dfe09b8d59bd19ea4.png",
+      "sha256": "3d2e7b1a88259ee888a33bdd0d0084f27f60fb4b5aeb589dfe09b8d59bd19ea4",
+      "bytes": 95477
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/rollout-evidence/d677299e7f52673c1b580c7f492e6c46b57015c72062fbfb77b618b1d0a245e9.png": {
+      "path": "files/d677299e7f52673c1b580c7f492e6c46b57015c72062fbfb77b618b1d0a245e9.png",
+      "sha256": "d677299e7f52673c1b580c7f492e6c46b57015c72062fbfb77b618b1d0a245e9",
+      "bytes": 193860
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/rollout-evidence/f35d8637eea0f4a4394b9c29a508d4fcdb2af1de74a8e4d5c3694502287644c8.png": {
+      "path": "files/f35d8637eea0f4a4394b9c29a508d4fcdb2af1de74a8e4d5c3694502287644c8.png",
+      "sha256": "f35d8637eea0f4a4394b9c29a508d4fcdb2af1de74a8e4d5c3694502287644c8",
+      "bytes": 51976
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/attachments/rollout-image-7de7c3536c2e5d733a7e394dacaf14146fde3a75913f0df5f3bf9ad561cab563-368e8972704fb4f797d34dabb30d9223956f8a6c.png": {
+      "path": "files/7de7c3536c2e5d733a7e394dacaf14146fde3a75913f0df5f3bf9ad561cab563.png",
+      "sha256": "7de7c3536c2e5d733a7e394dacaf14146fde3a75913f0df5f3bf9ad561cab563",
+      "bytes": 190361
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/attachments/entrance-945a855a0641793f7afdf1052e8b58ce4ee02844.json": {
+      "path": "files/2d94681d7dadb1840f80b4ebea79c95324b8b39bb5742d6e3a3b5361508062d8.json",
+      "sha256": "2d94681d7dadb1840f80b4ebea79c95324b8b39bb5742d6e3a3b5361508062d8",
+      "bytes": 862
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/attachments/entrance-css-5f7681cb2595b71f2fc6147b1e09e0f1530324a4.png": {
+      "path": "files/0f1fdf8274f62361a3777c63ae5e928a6464682e08dc853fa07bb951b4ead218.png",
+      "sha256": "0f1fdf8274f62361a3777c63ae5e928a6464682e08dc853fa07bb951b4ead218",
+      "bytes": 79941
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/attachments/rollout-image-e9964ea5bd53df679b5e69b6d7f8b7edde90810b107da58a1891cdd94bbcd52a-8c1ed07dab4e500bd9bb1d4f0f35077f14812e78.png": {
+      "path": "files/e9964ea5bd53df679b5e69b6d7f8b7edde90810b107da58a1891cdd94bbcd52a.png",
+      "sha256": "e9964ea5bd53df679b5e69b6d7f8b7edde90810b107da58a1891cdd94bbcd52a",
+      "bytes": 193188
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/attachments/stacked-underpass-bae5077b4d8dcb6c3d30e34994d91939a9a8a903.json": {
+      "path": "files/42ebfff5b5a00776b712d77cc8d2d7a81c55a07eebad6a1ea0279a70b66d8d13.json",
+      "sha256": "42ebfff5b5a00776b712d77cc8d2d7a81c55a07eebad6a1ea0279a70b66d8d13",
+      "bytes": 863
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/attachments/stacked-underpass-css-1bb92a8b3f4e703833f58a4b9e55a3bb00172dad.png": {
+      "path": "files/51c9091da5f15bbeaa250c3ec53f721650244663f94a30efdb89745c221ffe26.png",
+      "sha256": "51c9091da5f15bbeaa250c3ec53f721650244663f94a30efdb89745c221ffe26",
+      "bytes": 81899
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/attachments/rollout-image-a593d9d5e3610606934dfe274bd93faf44d849989059226d982dceb6516d0200-996ea06dd6247bafa7ca803444efdcb500c04186.png": {
+      "path": "files/a593d9d5e3610606934dfe274bd93faf44d849989059226d982dceb6516d0200.png",
+      "sha256": "a593d9d5e3610606934dfe274bd93faf44d849989059226d982dceb6516d0200",
+      "bytes": 197825
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/attachments/high-deck-6885391a8a79f33033a8d4857ea6b951a9d5f7ad.json": {
+      "path": "files/682ebf150b3439ce80a50080e73201e42957db178e6740dd3cd144c66b4d8d5d.json",
+      "sha256": "682ebf150b3439ce80a50080e73201e42957db178e6740dd3cd144c66b4d8d5d",
+      "bytes": 863
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/attachments/high-deck-css-518a818f9b4301a1f4d255b346f260a0a08d2542.png": {
+      "path": "files/02a60d667cadcae6d6e8203fd1343ebfdfdb13cd8fa1de16a807a809c23d0d85.png",
+      "sha256": "02a60d667cadcae6d6e8203fd1343ebfdfdb13cd8fa1de16a807a809c23d0d85",
+      "bytes": 81941
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/attachments/rollout-image-d79ada69e53b063122da2bc962420dd6ce7c4cb7e872f03dac2c84d1fc5c3ff3-ede7e4ddb9f498d264980f9db739b151fe0e5522.png": {
+      "path": "files/d79ada69e53b063122da2bc962420dd6ce7c4cb7e872f03dac2c84d1fc5c3ff3.png",
+      "sha256": "d79ada69e53b063122da2bc962420dd6ce7c4cb7e872f03dac2c84d1fc5c3ff3",
+      "bytes": 200292
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/attachments/descent-22e976ce227dd7bf72872f3d58284bdc9a74053f.json": {
+      "path": "files/058afb8d40a37dc3376c1e578799dd95b31fda6765dd65ad27fda8e17e8d006e.json",
+      "sha256": "058afb8d40a37dc3376c1e578799dd95b31fda6765dd65ad27fda8e17e8d006e",
+      "bytes": 865
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/attachments/descent-css-dd1ce9842929a2f7da9c5a477dcd3a61425d649a.png": {
+      "path": "files/4c27fc9ed8d5f919269196722722f0e3cfc116404309e328f1ae0f22009ba915.png",
+      "sha256": "4c27fc9ed8d5f919269196722722f0e3cfc116404309e328f1ae0f22009ba915",
+      "bytes": 84086
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/attachments/rollout-image-a204c38b559750f27cf9fb1742677bf21c695a7b736d4d0a9de8376e09cc0037-a860c817e6e97d3580f075ba00e3096ac874ab99.png": {
+      "path": "files/a204c38b559750f27cf9fb1742677bf21c695a7b736d4d0a9de8376e09cc0037.png",
+      "sha256": "a204c38b559750f27cf9fb1742677bf21c695a7b736d4d0a9de8376e09cc0037",
+      "bytes": 194416
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/attachments/yard-84fbe6babd808b5eece531fca8c5af71d015db85.json": {
+      "path": "files/1a2496968cec3376133ba44d09106c0d5c4be1eef3d9b3ba40ecc6c77bd8710a.json",
+      "sha256": "1a2496968cec3376133ba44d09106c0d5c4be1eef3d9b3ba40ecc6c77bd8710a",
+      "bytes": 864
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/attachments/yard-css-35ab9d5b7962170e82e0bd610d7e8526c721679d.png": {
+      "path": "files/3a04a5a48ba5aa3386b5f23b8a2572ff8d945aa6b9c9b0742a7ce49b29edf8d9.png",
+      "sha256": "3a04a5a48ba5aa3386b5f23b8a2572ff8d945aa6b9c9b0742a7ce49b29edf8d9",
+      "bytes": 87429
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/attachments/rollout-image-16e7f3930c502bbab43540d1afba255c6ba39ed35dfe76e00e90c6e8aa57ab99-1ab55037d4c0f7833d4d334949360bc4d1f0c752.png": {
+      "path": "files/16e7f3930c502bbab43540d1afba255c6ba39ed35dfe76e00e90c6e8aa57ab99.png",
+      "sha256": "16e7f3930c502bbab43540d1afba255c6ba39ed35dfe76e00e90c6e8aa57ab99",
+      "bytes": 199872
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/attachments/rest-162bdcd4e0fb429080bf7e9eba2e4917c9cc172d.json": {
+      "path": "files/96847e4b2d62e6d2c700a90e48cb35c19170696eef22f1e87b029001514f6440.json",
+      "sha256": "96847e4b2d62e6d2c700a90e48cb35c19170696eef22f1e87b029001514f6440",
+      "bytes": 864
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/attachments/rest-css-c9b1a3c56508d49575f009e7be0b752ca40d4545.png": {
+      "path": "files/00519166410d5127c826ff265b86460845662fd7005a95d7a4223adeedffb43b.png",
+      "sha256": "00519166410d5127c826ff265b86460845662fd7005a95d7a4223adeedffb43b",
+      "bytes": 84004
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/attachments/rollout-image-3d2e7b1a88259ee888a33bdd0d0084f27f60fb4b5aeb589dfe09b8d59bd19ea4-fcf25ecbb7210477ab575a13269908db99e23fb0.png": {
+      "path": "files/3d2e7b1a88259ee888a33bdd0d0084f27f60fb4b5aeb589dfe09b8d59bd19ea4.png",
+      "sha256": "3d2e7b1a88259ee888a33bdd0d0084f27f60fb4b5aeb589dfe09b8d59bd19ea4",
+      "bytes": 95477
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/attachments/paused-rest-18b0f8c0b8addcdcf71e7b189893d74321894662.json": {
+      "path": "files/4dec43b4995ce52cafc600c57057807550f95aac98025e5385a32bfbf779f263.json",
+      "sha256": "4dec43b4995ce52cafc600c57057807550f95aac98025e5385a32bfbf779f263",
+      "bytes": 786
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/attachments/paused-rest-css-5593c713de1a6da47c785ef8eb2b71a7f22d5dd4.png": {
+      "path": "files/ceece2e3f32983bd52cb63bd1dec0f6bd85aeeb01b64f0c3fde8170ea0844829.png",
+      "sha256": "ceece2e3f32983bd52cb63bd1dec0f6bd85aeeb01b64f0c3fde8170ea0844829",
+      "bytes": 40916
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/attachments/rollout-image-c917bb6ccf94df12c35e0fad2fc94393e3e9fb43f9c589ab9db81f82b4acdf80-4455b1ce4ae16d6b5e522373e08fbd0cdd7a317a.png": {
+      "path": "files/c917bb6ccf94df12c35e0fad2fc94393e3e9fb43f9c589ab9db81f82b4acdf80.png",
+      "sha256": "c917bb6ccf94df12c35e0fad2fc94393e3e9fb43f9c589ab9db81f82b4acdf80",
+      "bytes": 193782
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/attachments/roof-17091d490326deba3550f3e4bdecde81fdcdd730.json": {
+      "path": "files/d9aee6f4a4787def0df83267c512d98b50419592985423f2dd79fbcd2f63d02e.json",
+      "sha256": "d9aee6f4a4787def0df83267c512d98b50419592985423f2dd79fbcd2f63d02e",
+      "bytes": 864
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/attachments/roof-css-d5003fc264b7e13fa7720e34041ab81f1101cb86.png": {
+      "path": "files/02eaa99842709536b2e493bf294ff56422d8b7426b96c6388cfcf74ca8311d0c.png",
+      "sha256": "02eaa99842709536b2e493bf294ff56422d8b7426b96c6388cfcf74ca8311d0c",
+      "bytes": 81657
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/attachments/rollout-image-a3715b45bc2264999e85caf2ed34168f80af7e2034de31cb249aaf5ea89af78f-b999dcddcb36f91f427e15539ce3213a8a0ada6e.png": {
+      "path": "files/a3715b45bc2264999e85caf2ed34168f80af7e2034de31cb249aaf5ea89af78f.png",
+      "sha256": "a3715b45bc2264999e85caf2ed34168f80af7e2034de31cb249aaf5ea89af78f",
+      "bytes": 52454
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/attachments/finish-583f336e5a441563a93d745395725eba86121f6a.json": {
+      "path": "files/f74a93844be239c26b5ca4d98c4bccfbfa6f1ca37a6edae2ac887dc64d51b529.json",
+      "sha256": "f74a93844be239c26b5ca4d98c4bccfbfa6f1ca37a6edae2ac887dc64d51b529",
+      "bytes": 938
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/attachments/finish-css-e7fe518af9305a39f2e093da652238e8fcd2dbff.png": {
+      "path": "files/652da41f01db4709855a02c8410beb08a47236c6f4d2f6b87340ff8a5f24cc42.png",
+      "sha256": "652da41f01db4709855a02c8410beb08a47236c6f4d2f6b87340ff8a5f24cc42",
+      "bytes": 24529
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/attachments/source-build-input-provenance-8762720dd8557475af4627354fd693ef338828e2.json": {
+      "path": "files/22e279537e8f8fa52dd9b3dfda13493c16b8135425f7bae6f9c62e5adda2de1b.json",
+      "sha256": "22e279537e8f8fa52dd9b3dfda13493c16b8135425f7bae6f9c62e5adda2de1b",
+      "bytes": 36286
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/rollout-evidence/7de7c3536c2e5d733a7e394dacaf14146fde3a75913f0df5f3bf9ad561cab563.png": {
+      "path": "files/7de7c3536c2e5d733a7e394dacaf14146fde3a75913f0df5f3bf9ad561cab563.png",
+      "sha256": "7de7c3536c2e5d733a7e394dacaf14146fde3a75913f0df5f3bf9ad561cab563",
+      "bytes": 190361
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/rollout-evidence/e9964ea5bd53df679b5e69b6d7f8b7edde90810b107da58a1891cdd94bbcd52a.png": {
+      "path": "files/e9964ea5bd53df679b5e69b6d7f8b7edde90810b107da58a1891cdd94bbcd52a.png",
+      "sha256": "e9964ea5bd53df679b5e69b6d7f8b7edde90810b107da58a1891cdd94bbcd52a",
+      "bytes": 193188
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/rollout-evidence/a593d9d5e3610606934dfe274bd93faf44d849989059226d982dceb6516d0200.png": {
+      "path": "files/a593d9d5e3610606934dfe274bd93faf44d849989059226d982dceb6516d0200.png",
+      "sha256": "a593d9d5e3610606934dfe274bd93faf44d849989059226d982dceb6516d0200",
+      "bytes": 197825
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/rollout-evidence/d79ada69e53b063122da2bc962420dd6ce7c4cb7e872f03dac2c84d1fc5c3ff3.png": {
+      "path": "files/d79ada69e53b063122da2bc962420dd6ce7c4cb7e872f03dac2c84d1fc5c3ff3.png",
+      "sha256": "d79ada69e53b063122da2bc962420dd6ce7c4cb7e872f03dac2c84d1fc5c3ff3",
+      "bytes": 200292
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/rollout-evidence/a204c38b559750f27cf9fb1742677bf21c695a7b736d4d0a9de8376e09cc0037.png": {
+      "path": "files/a204c38b559750f27cf9fb1742677bf21c695a7b736d4d0a9de8376e09cc0037.png",
+      "sha256": "a204c38b559750f27cf9fb1742677bf21c695a7b736d4d0a9de8376e09cc0037",
+      "bytes": 194416
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/rollout-evidence/16e7f3930c502bbab43540d1afba255c6ba39ed35dfe76e00e90c6e8aa57ab99.png": {
+      "path": "files/16e7f3930c502bbab43540d1afba255c6ba39ed35dfe76e00e90c6e8aa57ab99.png",
+      "sha256": "16e7f3930c502bbab43540d1afba255c6ba39ed35dfe76e00e90c6e8aa57ab99",
+      "bytes": 199872
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/rollout-evidence/3d2e7b1a88259ee888a33bdd0d0084f27f60fb4b5aeb589dfe09b8d59bd19ea4.png": {
+      "path": "files/3d2e7b1a88259ee888a33bdd0d0084f27f60fb4b5aeb589dfe09b8d59bd19ea4.png",
+      "sha256": "3d2e7b1a88259ee888a33bdd0d0084f27f60fb4b5aeb589dfe09b8d59bd19ea4",
+      "bytes": 95477
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/rollout-evidence/c917bb6ccf94df12c35e0fad2fc94393e3e9fb43f9c589ab9db81f82b4acdf80.png": {
+      "path": "files/c917bb6ccf94df12c35e0fad2fc94393e3e9fb43f9c589ab9db81f82b4acdf80.png",
+      "sha256": "c917bb6ccf94df12c35e0fad2fc94393e3e9fb43f9c589ab9db81f82b4acdf80",
+      "bytes": 193782
+    },
+    "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-final-native/artifacts/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/rollout-evidence/a3715b45bc2264999e85caf2ed34168f80af7e2034de31cb249aaf5ea89af78f.png": {
+      "path": "files/a3715b45bc2264999e85caf2ed34168f80af7e2034de31cb249aaf5ea89af78f.png",
+      "sha256": "a3715b45bc2264999e85caf2ed34168f80af7e2034de31cb249aaf5ea89af78f",
+      "bytes": 52454
+    }
+  }
+}

@@ -1,0 +1,1356 @@
+{
+  "originalReport": "test-results/issue-242/rollout-shared/report.json",
+  "originalReportSha256": "cff06e69a0f34138448bf61140c22f6644bcb26514a486de1645b54043b26595",
+  "note": "Case identities, results and attachment digests only. Original full report and attachments remain in the local test-results directory; no absent attachment is presented as committed evidence. Captures used for owner review have a separate complete file-backed packet.",
+  "stats": {
+    "startTime": "2026-11-01T20:59:26.288Z",
+    "duration": 110724.321,
+    "expected": 24,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "config": {
+    "argv": [
+      "/usr/bin/node",
+      "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/node_modules/.bin/playwright",
+      "test",
+      "tests/browser.spec.ts",
+      "tests/hud-owner-layout.spec.ts",
+      "tests/site-steel-preview.spec.ts",
+      "--workers=1",
+      "--grep",
+      "all six trail previews|compact HUD renderer fixture: sunset|landmark labels: renderer fixture sunset|owner HUD order real-font fixture: sunset|required steel resource (manifest.json|ground-full.png|site-roof.png|site-descent-base-catch.png)",
+      "--output=test-results/issue-242/rollout-shared/artifacts",
+      "--reporter=json"
+    ],
+    "configFile": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/playwright.config.ts",
+    "rootDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/tests",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": true,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "sourceRevision": null,
+      "nodeVersion": "v22.22.1",
+      "platform": "linux",
+      "arch": "x64",
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-shared/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "sourceRevision": null,
+          "nodeVersion": "v22.22.1",
+          "platform": "linux",
+          "arch": "x64",
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.spec.ts"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-shared/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "sourceRevision": null,
+          "nodeVersion": "v22.22.1",
+          "platform": "linux",
+          "arch": "x64",
+          "actualWorkers": 1
+        },
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.spec.ts"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-shared/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "sourceRevision": null,
+          "nodeVersion": "v22.22.1",
+          "platform": "linux",
+          "arch": "x64",
+          "actualWorkers": 1
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.spec.ts"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-shared/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "sourceRevision": null,
+          "nodeVersion": "v22.22.1",
+          "platform": "linux",
+          "arch": "x64",
+          "actualWorkers": 1
+        },
+        "name": "chromium",
+        "testDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/tests",
+        "snapshotDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/tests",
+        "testIgnore": [],
+        "testMatch": "**/*.spec.ts",
+        "timeout": 30000,
+        "use": {
+          "trace": "retain-on-failure",
+          "screenshot": "only-on-failure",
+          "baseURL": "http://127.0.0.1:4247",
+          "viewport": {
+            "width": 1366,
+            "height": 768
+          },
+          "browserName": "chromium"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "chromium"
+      },
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-shared/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "sourceRevision": null,
+          "nodeVersion": "v22.22.1",
+          "platform": "linux",
+          "arch": "x64",
+          "actualWorkers": 1
+        },
+        "name": "firefox",
+        "testDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/tests",
+        "snapshotDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/tests",
+        "testIgnore": [],
+        "testMatch": "**/*.spec.ts",
+        "timeout": 30000,
+        "use": {
+          "trace": "retain-on-failure",
+          "screenshot": "only-on-failure",
+          "baseURL": "http://127.0.0.1:4247",
+          "viewport": {
+            "width": 1366,
+            "height": 768
+          },
+          "browserName": "firefox"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "firefox"
+      },
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-shared/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "sourceRevision": null,
+          "nodeVersion": "v22.22.1",
+          "platform": "linux",
+          "arch": "x64",
+          "actualWorkers": 1
+        },
+        "name": "webkit",
+        "testDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/tests",
+        "snapshotDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/tests",
+        "testIgnore": [],
+        "testMatch": "**/*.spec.ts",
+        "timeout": 30000,
+        "use": {
+          "trace": "retain-on-failure",
+          "screenshot": "only-on-failure",
+          "baseURL": "http://127.0.0.1:4247",
+          "viewport": {
+            "width": 1366,
+            "height": 768
+          },
+          "browserName": "webkit"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "webkit"
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "json"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.1",
+    "workers": 1,
+    "webServer": {
+      "command": "npm run preview -- --port 4247 --strictPort",
+      "url": "http://127.0.0.1:4247",
+      "reuseExistingServer": false
+    }
+  },
+  "errors": [],
+  "cases": [
+    {
+      "title": "all six trail previews show cached gameplay and the map requests no story artwork",
+      "file": "browser.spec.ts",
+      "line": 2065,
+      "project": "chromium",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 2992,
+          "retry": 0,
+          "errors": [],
+          "attachments": [
+            {
+              "name": "plains-map",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "a7bfd9e37c63124586a9420c6cae617093e81efe69a66929d19b6640f5b37509",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "quarry-map",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "9e99f137d639ee64b15dff3d5ca0f699a47b71d9d7442fd8ccf89a747a44f2e8",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "timbers-map",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "c9f46060404ee553517f56a2caa6b2898f90ed637cc05b5de03f0dfdf281bbcd",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "sunset-map",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "ec2c6e4155ab1ef6be1c975cd60ec9b2786d4faf513da8533f3c319730840c4a",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "frost-map",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "d5fe6d650ddf3cd15773c5063db6ce4ddf93c91bc80a40c1a8d7b23017d4ddf4",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "cove-map",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "30af9d1fa33f10a31f473e3d6d7eb618ff242853536cd03969edb85ca2571905",
+              "inlineBodyEncoding": "original JSON reporter string"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "compact HUD renderer fixture: sunset identity marks and real glyph clearance",
+      "file": "browser.spec.ts",
+      "line": 4482,
+      "project": "chromium",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 5413,
+          "retry": 0,
+          "errors": [],
+          "attachments": [
+            {
+              "name": "actual-renderer-ribbon-band-pose",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "bf0c3de0c4cd2c0fadf89d1319a6c9ca452b893d28a9b36f9b69dddef73555fa",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "ribbon-band-fixture-bounds",
+              "contentType": "application/json",
+              "sourcePath": null,
+              "sha256": "8bdce3ca2a8190dcf39574b6193bc26eb1c2a28c03b4009d3463a303156ada70",
+              "inlineBodyEncoding": "original JSON reporter string"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "landmark labels: renderer fixture sunset clears real art, paths, frames, badges and Henry in every completion state",
+      "file": "browser.spec.ts",
+      "line": 4755,
+      "project": "chromium",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 5509,
+          "retry": 0,
+          "errors": [],
+          "attachments": []
+        }
+      ]
+    },
+    {
+      "title": "all six trail previews show cached gameplay and the map requests no story artwork",
+      "file": "browser.spec.ts",
+      "line": 2065,
+      "project": "firefox",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 4756,
+          "retry": 0,
+          "errors": [],
+          "attachments": [
+            {
+              "name": "plains-map",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "90fdd552c902af11598331c0b90d357273ee8e90d5272057cf97a300aba99350",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "quarry-map",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "c6e15d42a8f3a4ea21a305f827eda1b662dfb2e78ca856e1e561c1ea8c049c23",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "timbers-map",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "4718e9ac2e9c7fb54a79c58284c6c5c92a20dbeba055a8290e63eaf9b7cd7444",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "sunset-map",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "11f1c8a86a00489e16acf0029053a4a47a2047dd8aeeaee8c7b14b417191e0f2",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "frost-map",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "f88b265f540e13d3a661e52936e4dbba70f096a65a4896615beda69792358719",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "cove-map",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "7d0cb28cd8257587d94c4ff90f5f3f10b3158a5d49ce84b6a1235ef06ddd75e0",
+              "inlineBodyEncoding": "original JSON reporter string"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "compact HUD renderer fixture: sunset identity marks and real glyph clearance",
+      "file": "browser.spec.ts",
+      "line": 4482,
+      "project": "firefox",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 6906,
+          "retry": 0,
+          "errors": [],
+          "attachments": [
+            {
+              "name": "actual-renderer-ribbon-band-pose",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "4d1fa3985c6b6bf79f773fc0a6a996229f709cfa3e76523c12748333ef142616",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "ribbon-band-fixture-bounds",
+              "contentType": "application/json",
+              "sourcePath": null,
+              "sha256": "8bdce3ca2a8190dcf39574b6193bc26eb1c2a28c03b4009d3463a303156ada70",
+              "inlineBodyEncoding": "original JSON reporter string"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "landmark labels: renderer fixture sunset clears real art, paths, frames, badges and Henry in every completion state",
+      "file": "browser.spec.ts",
+      "line": 4755,
+      "project": "firefox",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 5649,
+          "retry": 0,
+          "errors": [],
+          "attachments": []
+        }
+      ]
+    },
+    {
+      "title": "all six trail previews show cached gameplay and the map requests no story artwork",
+      "file": "browser.spec.ts",
+      "line": 2065,
+      "project": "webkit",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 5374,
+          "retry": 0,
+          "errors": [],
+          "attachments": [
+            {
+              "name": "plains-map",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "ff45a132954c2b0d1c39054507ec09298d96d0d0701f15809d975f15ac2b0a58",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "quarry-map",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "73a5af43a57b8386768823e73618102bf3c26d75d2752b1f590bb1d923496a53",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "timbers-map",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "a23c959af04757c1c36ce6271147eb4297d3fe3a6d06c1c71e6959e75e2145b4",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "sunset-map",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "2d5a7faafca1aa6e15cc3a3f551bc7afcc58fbeb3aca86936f2677256034e9bd",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "frost-map",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "485d749d53c9ffb25129a783011974cf77ffcb644ec58c61f3a9da796dc5d4e2",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "cove-map",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "ba0419eba8b9363b8559a0fbc0b99c00ebf166529cc7dcb5c3fb4c15603080db",
+              "inlineBodyEncoding": "original JSON reporter string"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "compact HUD renderer fixture: sunset identity marks and real glyph clearance",
+      "file": "browser.spec.ts",
+      "line": 4482,
+      "project": "webkit",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 8269,
+          "retry": 0,
+          "errors": [],
+          "attachments": [
+            {
+              "name": "actual-renderer-ribbon-band-pose",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "9a133179e8efd9c44147bd594d29ae7b7ebdd76781a432262e9d7d0389dd67da",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "ribbon-band-fixture-bounds",
+              "contentType": "application/json",
+              "sourcePath": null,
+              "sha256": "8bdce3ca2a8190dcf39574b6193bc26eb1c2a28c03b4009d3463a303156ada70",
+              "inlineBodyEncoding": "original JSON reporter string"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "landmark labels: renderer fixture sunset clears real art, paths, frames, badges and Henry in every completion state",
+      "file": "browser.spec.ts",
+      "line": 4755,
+      "project": "webkit",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 6472,
+          "retry": 0,
+          "errors": [],
+          "attachments": []
+        }
+      ]
+    },
+    {
+      "title": "owner HUD order real-font fixture: sunset identity marks and real glyph clearance",
+      "file": "hud-owner-layout.spec.ts",
+      "line": 80,
+      "project": "chromium",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 4839,
+          "retry": 0,
+          "errors": [],
+          "attachments": [
+            {
+              "name": "observed-sunset-426-0",
+              "contentType": "application/json",
+              "sourcePath": null,
+              "sha256": "9a904d71cc835c294ca2e0164b899065a26e91ffc29da66c6d06f81e8f5e709f",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "observed-png-sunset-426-0",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "7ee45538605ba5499b44613aeefc8e5b07483d3850ed7eefb38ab30c8e252985",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "observed-sunset-426-1",
+              "contentType": "application/json",
+              "sourcePath": null,
+              "sha256": "eb49d732195323ea980f971d8598d99589c007f9fd252b6821ba7e1d08a59066",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "observed-png-sunset-426-1",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "5428ee20d303f7752534f7544fd5d2b3e7de9210d871f8fbac0ce3f79a119622",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "observed-sunset-426-2",
+              "contentType": "application/json",
+              "sourcePath": null,
+              "sha256": "8395f902bb9f2304cc1bb51d97b1b5faffbe2ec01e479e8a45ebc851ee581383",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "observed-png-sunset-426-2",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "1c398b838b77976d2c521d51ed37cb8ab6a23fa7a4a45ae30c19c8c3eba60ae3",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "observed-sunset-426-3",
+              "contentType": "application/json",
+              "sourcePath": null,
+              "sha256": "4cbd8fc2b2208ef74ace8fb3139b0c89c647d67b04e901d04c9669df22d64c20",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "observed-png-sunset-426-3",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "b4ddd3b17532591622d82f02e69b1175505b97a7aba9db52c4289858ad5082d2",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "observed-sunset-426-4",
+              "contentType": "application/json",
+              "sourcePath": null,
+              "sha256": "7362aba1160b5d59e55cf39b6fac41ca494a2bf0d3fc9d0fcc952f1396c73ed8",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "observed-png-sunset-426-4",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "85672efc88144052049bb9ffd5a4f4a717c97872a69e0df32b4f7f61d234516a",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "observed-sunset-320-0",
+              "contentType": "application/json",
+              "sourcePath": null,
+              "sha256": "2e793ccb31a09dd7e1ac6f42fb5c2dd8625c9c546737e1a2b17e288915804393",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "observed-png-sunset-320-0",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "3de1ccd974121a700d5ada1e95ce55a51c030803b16fec75f6e6729c264c59f3",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "observed-sunset-320-1",
+              "contentType": "application/json",
+              "sourcePath": null,
+              "sha256": "4c7464baa691ad76ecae1923b388ff5d2f95c124b13c37dbf5681a932069b2c5",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "observed-png-sunset-320-1",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "1a0c044954b49526f6027c00b87457469a6435dd03baf689e1b07321dd8cbc35",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "observed-sunset-320-2",
+              "contentType": "application/json",
+              "sourcePath": null,
+              "sha256": "a54d5f9e0d323c03b97f26e474097352ff225f9ee9918c5eab3d49722a0616e9",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "observed-png-sunset-320-2",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "ae776622ac8e99b35c96b0d0b8568032b1c895701e3b945e1c605ccfce14fd76",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "observed-sunset-320-3",
+              "contentType": "application/json",
+              "sourcePath": null,
+              "sha256": "7e57b7f8077288daff33fb3482bc14a885c0f18b457cc94c8a4e5af1a6d86c76",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "observed-png-sunset-320-3",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "c3daeda1ae2588ec43980dfd7fe58f58c13694687214687d2d498d84b08ee281",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "observed-sunset-320-4",
+              "contentType": "application/json",
+              "sourcePath": null,
+              "sha256": "d0f30b557c960e070eba0f3c17dc89efd466a3ab29ce184e94e612505c754371",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "observed-png-sunset-320-4",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "9e59f00e9716ba8cb18abd12f60f693ac81bfeff6f4770fdd88819f62c232725",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "source-glyph-ledger",
+              "contentType": "application/json",
+              "sourcePath": null,
+              "sha256": "d2e1e384add864f7f850b7324c0c88b9d8ec8a700780f7562f81bb4894a7ec72",
+              "inlineBodyEncoding": "original JSON reporter string"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "owner HUD order real-font fixture: sunset identity marks and real glyph clearance",
+      "file": "hud-owner-layout.spec.ts",
+      "line": 80,
+      "project": "firefox",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 6004,
+          "retry": 0,
+          "errors": [],
+          "attachments": [
+            {
+              "name": "observed-sunset-426-0",
+              "contentType": "application/json",
+              "sourcePath": null,
+              "sha256": "e7057cd43d4642af4693f0e1f634a76da0b3ce854a7a92e344398b5d7267a87f",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "observed-png-sunset-426-0",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "930e58cb681856bcdc226ecebcfbb0edb702c6318aa25b7b6e9f2c755efe5e3a",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "observed-sunset-426-1",
+              "contentType": "application/json",
+              "sourcePath": null,
+              "sha256": "f2b9ddbcaed25ca5a1d4599a824341c689991beb2a5ef2fcd8ad4d7008469700",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "observed-png-sunset-426-1",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "e66c8abf4175d517290162218cdf7ef1c4c62e5e989f445365c76b23f7e9081b",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "observed-sunset-426-2",
+              "contentType": "application/json",
+              "sourcePath": null,
+              "sha256": "06f70e082bc6bbb359286747dda38a8fca839f07997ec862cb94c1415df7f219",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "observed-png-sunset-426-2",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "78a39c0b8700f0c3d0e5215fe612f7028b907643e2ce0fa141e572a751c3517f",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "observed-sunset-426-3",
+              "contentType": "application/json",
+              "sourcePath": null,
+              "sha256": "a1d56192b10e822433c2c5479c8ef3f8e3b85e0b570ceaa1f9ca7b59345fb831",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "observed-png-sunset-426-3",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "978479ec365310095f07b7557530730bbb6f84188a36b9cac7c1cc9ec95a4110",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "observed-sunset-426-4",
+              "contentType": "application/json",
+              "sourcePath": null,
+              "sha256": "f62e000f596f625abe50c380bc68c7ed48a70aea6dcdf1d31cc00bfa4b2a81da",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "observed-png-sunset-426-4",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "026781f9d9e1ab2c98ebed447ec4f2d05c76b764e063c866185a652b3308a8db",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "observed-sunset-320-0",
+              "contentType": "application/json",
+              "sourcePath": null,
+              "sha256": "b818f1776eee6de412a7867a6d2274d849464be0b38076113cc51a86f6a687a8",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "observed-png-sunset-320-0",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "bf9e967a99f7a3c7acee16ac067e49e19b95a2e3bae3fd64c04ebdc26b145bcc",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "observed-sunset-320-1",
+              "contentType": "application/json",
+              "sourcePath": null,
+              "sha256": "187dc50630817384c3cfad167690190d2420ec32d0741c428c9728ea1eb264c6",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "observed-png-sunset-320-1",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "5584352044fabe7337d8dcd2c606eebecf1120982cdd2924afdd2611deaac0e6",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "observed-sunset-320-2",
+              "contentType": "application/json",
+              "sourcePath": null,
+              "sha256": "00ad3c64583df54b89490d69a38791d7bed61069586e9abf40af17f49fedc09d",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "observed-png-sunset-320-2",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "fefb83649400f7f32354e0caf21113dc8ea7a727b3642415bd7bceb61cb6296e",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "observed-sunset-320-3",
+              "contentType": "application/json",
+              "sourcePath": null,
+              "sha256": "0d2c1035c8cb2174225c916013bd1dd9f518979334d3335123f0881ed6b571c2",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "observed-png-sunset-320-3",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "58b452dae0c70afb9952454e57e102a52b06648d9277a320dbe49066873e7c90",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "observed-sunset-320-4",
+              "contentType": "application/json",
+              "sourcePath": null,
+              "sha256": "0fbb69f1551f38e6ecf7da4514138663e8d66571c6e349af00dadb787e6f2f39",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "observed-png-sunset-320-4",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "3b4dad972274328a8d90e9533af8330d1f93d673bb396ab34cb351caaed49689",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "source-glyph-ledger",
+              "contentType": "application/json",
+              "sourcePath": null,
+              "sha256": "5e7ab16c437edb1f16c4bfece829c5c4af1c448b8e69ebeb3cc62076aa3b0ae0",
+              "inlineBodyEncoding": "original JSON reporter string"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "owner HUD order real-font fixture: sunset identity marks and real glyph clearance",
+      "file": "hud-owner-layout.spec.ts",
+      "line": 80,
+      "project": "webkit",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 8132,
+          "retry": 0,
+          "errors": [],
+          "attachments": [
+            {
+              "name": "observed-sunset-426-0",
+              "contentType": "application/json",
+              "sourcePath": null,
+              "sha256": "9ba3092ca0c37103258522da207a04084e90e91fb1be1f4a90e3ce1d8f245f65",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "observed-png-sunset-426-0",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "2049056bbbabf11c4870ca0d0dcd99a13346ebcc95d8e2413b010adf2b772195",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "observed-sunset-426-1",
+              "contentType": "application/json",
+              "sourcePath": null,
+              "sha256": "7de986c5b667bdfe0902769a8c1e59ad35c80ecf2efd45a5a0e18109acb7a660",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "observed-png-sunset-426-1",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "cbbe0663971c75db46d457685c53c238b7e334d7f31ec524f3db01b201dd72b5",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "observed-sunset-426-2",
+              "contentType": "application/json",
+              "sourcePath": null,
+              "sha256": "5b32def2870e1edd1bca144a0b29ff6ae421fbea77d093c24dce7bc2d3216e94",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "observed-png-sunset-426-2",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "fd2688caca45602a27dedf3f96c774870c6ae2b90b5c391de6939504e1020b14",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "observed-sunset-426-3",
+              "contentType": "application/json",
+              "sourcePath": null,
+              "sha256": "4b635adae007b5c0cc8eb3dc13105a769abfa1a00d8148e0286b6714d290e312",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "observed-png-sunset-426-3",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "2ece81c084387c416112e87f5ca4ed263234830e1c753a53e6608adbc4b9426a",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "observed-sunset-426-4",
+              "contentType": "application/json",
+              "sourcePath": null,
+              "sha256": "bfb3f1abe0ae0cc132a74c45d65d0681a332254ffd7a076f544660d5534b0627",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "observed-png-sunset-426-4",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "65112458a3562cf969824d6886f7964c8083a0ee2cf58d4d9d434b0ea1d268a8",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "observed-sunset-320-0",
+              "contentType": "application/json",
+              "sourcePath": null,
+              "sha256": "4876a6215dda7f69b53238b6bb66bfdacf847eecafd7bf371cbdcef042c55965",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "observed-png-sunset-320-0",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "261ffb6662f2b155aef9dcd1bd77b480b175e0772faea4f5585ca5f0ffa97ce5",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "observed-sunset-320-1",
+              "contentType": "application/json",
+              "sourcePath": null,
+              "sha256": "d328752817e49c781d7453357222581855f3f5b7de631b23b06786f2c4e3da23",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "observed-png-sunset-320-1",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "97466b9595e72a9ab84347cf72cbd1eccb31a1ba6217dbb9b40ec5a6689a507f",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "observed-sunset-320-2",
+              "contentType": "application/json",
+              "sourcePath": null,
+              "sha256": "1df574c67b3651f7f925b8ff6ca19c290fbf33f15be14055520598146ab5f51b",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "observed-png-sunset-320-2",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "4f44147265cab8266305db4f953bd5f31fa56761c5d66380933f85a303522e2e",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "observed-sunset-320-3",
+              "contentType": "application/json",
+              "sourcePath": null,
+              "sha256": "0dbb0cdaa94b752df6a42f301719d348c1114ce7e2c53810c538ce84a93c6751",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "observed-png-sunset-320-3",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "9348e64ffa8fdc2ea2ad969c77f1629b3d6bcd7f028c5048f3da498f848d94ae",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "observed-sunset-320-4",
+              "contentType": "application/json",
+              "sourcePath": null,
+              "sha256": "87e506a3f43947ac11bc5402fe47bbedfdf1f7e9cd5e15d2389466f95d403ce2",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "observed-png-sunset-320-4",
+              "contentType": "image/png",
+              "sourcePath": null,
+              "sha256": "79edf18efc61d6e1aaf3527c3928689878b3b1ebe4771f136333287f0ab6b01b",
+              "inlineBodyEncoding": "original JSON reporter string"
+            },
+            {
+              "name": "source-glyph-ledger",
+              "contentType": "application/json",
+              "sourcePath": null,
+              "sha256": "b4b8246b577fb718aef7d3d17977de822eb1945575404383cc702bc9f8231265",
+              "inlineBodyEncoding": "original JSON reporter string"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Sunset required steel resource manifest.json recovers through ordinary Retry",
+      "file": "site-steel-preview.spec.ts",
+      "line": 130,
+      "project": "chromium",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 1582,
+          "retry": 0,
+          "errors": [],
+          "attachments": [
+            {
+              "name": "recovered-game",
+              "contentType": "image/png",
+              "sourcePath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-shared/artifacts/site-steel-preview-Sunset--a3402-vers-through-ordinary-Retry-chromium/attachments/recovered-game-1bd6dd4be709b40f675f3710dd675dd57692dabf.png",
+              "sha256": "50ed0210481854d6f63df1b9c3de8e96dbe02dc824af9c9e93d3f4766ed9c376",
+              "inlineBodyEncoding": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Sunset required steel resource site-roof.png recovers through ordinary Retry",
+      "file": "site-steel-preview.spec.ts",
+      "line": 130,
+      "project": "chromium",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 1580,
+          "retry": 0,
+          "errors": [],
+          "attachments": [
+            {
+              "name": "recovered-game",
+              "contentType": "image/png",
+              "sourcePath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-shared/artifacts/site-steel-preview-Sunset--82d1a-vers-through-ordinary-Retry-chromium/attachments/recovered-game-f8a50d49e9d4e466602ae97871590517868dd5fb.png",
+              "sha256": "50ed0210481854d6f63df1b9c3de8e96dbe02dc824af9c9e93d3f4766ed9c376",
+              "inlineBodyEncoding": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Sunset required steel resource site-descent-base-catch.png recovers through ordinary Retry",
+      "file": "site-steel-preview.spec.ts",
+      "line": 130,
+      "project": "chromium",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 1806,
+          "retry": 0,
+          "errors": [],
+          "attachments": [
+            {
+              "name": "recovered-game",
+              "contentType": "image/png",
+              "sourcePath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-shared/artifacts/site-steel-preview-Sunset--8e298-vers-through-ordinary-Retry-chromium/attachments/recovered-game-53d28d27ee1aeb169d0fd242c81555e67ccf0c32.png",
+              "sha256": "50ed0210481854d6f63df1b9c3de8e96dbe02dc824af9c9e93d3f4766ed9c376",
+              "inlineBodyEncoding": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Sunset required steel resource ground-full.png recovers through ordinary Retry",
+      "file": "site-steel-preview.spec.ts",
+      "line": 130,
+      "project": "chromium",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 1613,
+          "retry": 0,
+          "errors": [],
+          "attachments": [
+            {
+              "name": "recovered-game",
+              "contentType": "image/png",
+              "sourcePath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-shared/artifacts/site-steel-preview-Sunset--7f505-vers-through-ordinary-Retry-chromium/attachments/recovered-game-5bd13e48c90e8424c23517c4787e3383794ec22a.png",
+              "sha256": "50ed0210481854d6f63df1b9c3de8e96dbe02dc824af9c9e93d3f4766ed9c376",
+              "inlineBodyEncoding": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Sunset required steel resource manifest.json recovers through ordinary Retry",
+      "file": "site-steel-preview.spec.ts",
+      "line": 130,
+      "project": "firefox",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 2214,
+          "retry": 0,
+          "errors": [],
+          "attachments": [
+            {
+              "name": "recovered-game",
+              "contentType": "image/png",
+              "sourcePath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-shared/artifacts/site-steel-preview-Sunset--a3402-vers-through-ordinary-Retry-firefox/attachments/recovered-game-2ee4057e1ae2e33b536ca0585f7e759584622956.png",
+              "sha256": "d0a624c9698ce6cde028b094357080524ba7127a2822b3eddd953705452e1de2",
+              "inlineBodyEncoding": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Sunset required steel resource site-roof.png recovers through ordinary Retry",
+      "file": "site-steel-preview.spec.ts",
+      "line": 130,
+      "project": "firefox",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 2158,
+          "retry": 0,
+          "errors": [],
+          "attachments": [
+            {
+              "name": "recovered-game",
+              "contentType": "image/png",
+              "sourcePath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-shared/artifacts/site-steel-preview-Sunset--82d1a-vers-through-ordinary-Retry-firefox/attachments/recovered-game-60cb036006f7d56f7c9a6c7893bd6e09c3dddba7.png",
+              "sha256": "d0a624c9698ce6cde028b094357080524ba7127a2822b3eddd953705452e1de2",
+              "inlineBodyEncoding": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Sunset required steel resource site-descent-base-catch.png recovers through ordinary Retry",
+      "file": "site-steel-preview.spec.ts",
+      "line": 130,
+      "project": "firefox",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 2566,
+          "retry": 0,
+          "errors": [],
+          "attachments": [
+            {
+              "name": "recovered-game",
+              "contentType": "image/png",
+              "sourcePath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-shared/artifacts/site-steel-preview-Sunset--8e298-vers-through-ordinary-Retry-firefox/attachments/recovered-game-c63e35d2cf2472302ff617dd5ac32c8c1c50025c.png",
+              "sha256": "6de635a1c3e146e0aa13e17b6188079d8682f8cbbebbaec117a99479a6d29643",
+              "inlineBodyEncoding": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Sunset required steel resource ground-full.png recovers through ordinary Retry",
+      "file": "site-steel-preview.spec.ts",
+      "line": 130,
+      "project": "firefox",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 2340,
+          "retry": 0,
+          "errors": [],
+          "attachments": [
+            {
+              "name": "recovered-game",
+              "contentType": "image/png",
+              "sourcePath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-shared/artifacts/site-steel-preview-Sunset--7f505-vers-through-ordinary-Retry-firefox/attachments/recovered-game-5826e26c79a072df731e9b388f13cc6a17ebc257.png",
+              "sha256": "6de635a1c3e146e0aa13e17b6188079d8682f8cbbebbaec117a99479a6d29643",
+              "inlineBodyEncoding": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Sunset required steel resource manifest.json recovers through ordinary Retry",
+      "file": "site-steel-preview.spec.ts",
+      "line": 130,
+      "project": "webkit",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 2665,
+          "retry": 0,
+          "errors": [],
+          "attachments": [
+            {
+              "name": "recovered-game",
+              "contentType": "image/png",
+              "sourcePath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-shared/artifacts/site-steel-preview-Sunset--a3402-vers-through-ordinary-Retry-webkit/attachments/recovered-game-4f5bf604460a7caeaa74b9937d0b88a0de92637f.png",
+              "sha256": "452d1c73f5eb2a9d323e20dd79524f4df2f3ed63597ff3e960804181c3148a3f",
+              "inlineBodyEncoding": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Sunset required steel resource site-roof.png recovers through ordinary Retry",
+      "file": "site-steel-preview.spec.ts",
+      "line": 130,
+      "project": "webkit",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 3307,
+          "retry": 0,
+          "errors": [],
+          "attachments": [
+            {
+              "name": "recovered-game",
+              "contentType": "image/png",
+              "sourcePath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-shared/artifacts/site-steel-preview-Sunset--82d1a-vers-through-ordinary-Retry-webkit/attachments/recovered-game-ba4e5b62174f1b9d6c03c06eba428bb9e34daa48.png",
+              "sha256": "6e4a7e7c75df78e94b605eb22c3a8f018a56960d712a69f67df2a4680a7e0706",
+              "inlineBodyEncoding": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Sunset required steel resource site-descent-base-catch.png recovers through ordinary Retry",
+      "file": "site-steel-preview.spec.ts",
+      "line": 130,
+      "project": "webkit",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 3416,
+          "retry": 0,
+          "errors": [],
+          "attachments": [
+            {
+              "name": "recovered-game",
+              "contentType": "image/png",
+              "sourcePath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-shared/artifacts/site-steel-preview-Sunset--8e298-vers-through-ordinary-Retry-webkit/attachments/recovered-game-bb0c7b1f68f8a94b4f3a8ea83d6540ad07b5472f.png",
+              "sha256": "6e4a7e7c75df78e94b605eb22c3a8f018a56960d712a69f67df2a4680a7e0706",
+              "inlineBodyEncoding": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Sunset required steel resource ground-full.png recovers through ordinary Retry",
+      "file": "site-steel-preview.spec.ts",
+      "line": 130,
+      "project": "webkit",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 3802,
+          "retry": 0,
+          "errors": [],
+          "attachments": [
+            {
+              "name": "recovered-game",
+              "contentType": "image/png",
+              "sourcePath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/rollout-shared/artifacts/site-steel-preview-Sunset--7f505-vers-through-ordinary-Retry-webkit/attachments/recovered-game-fd1f42f6e03303ea009cf841af48869ad11b2b82.png",
+              "sha256": "429d5b11d84cdcc74bac55e392ebb84c392353207258098d97c23938d55f39c6",
+              "inlineBodyEncoding": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

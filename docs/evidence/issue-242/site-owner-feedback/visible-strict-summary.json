@@ -1,0 +1,112 @@
+{
+  "metadata": {
+    "sourceRevision": null,
+    "nodeVersion": "v22.22.1",
+    "platform": "linux",
+    "arch": "x64",
+    "actualWorkers": 2
+  },
+  "stats": {
+    "startTime": "2026-11-03T19:37:07.928Z",
+    "duration": 28020.978000000003,
+    "expected": 3,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "errors": [],
+  "configured": 3,
+  "enumerated": 3,
+  "totals": {
+    "expected": 3,
+    "unexpected": 0,
+    "skipped": 0,
+    "flaky": 0
+  },
+  "projects": {
+    "chromium": {
+      "expected": 1,
+      "unexpected": 0,
+      "skipped": 0,
+      "flaky": 0
+    },
+    "firefox": {
+      "expected": 1,
+      "unexpected": 0,
+      "skipped": 0,
+      "flaky": 0
+    },
+    "webkit": {
+      "expected": 1,
+      "unexpected": 0,
+      "skipped": 0,
+      "flaky": 0
+    }
+  },
+  "cases": [
+    {
+      "id": "fbeac1b2decfba2c3acd-1fcefe4e7f372d740fd2",
+      "title": "browser.spec.ts > sunset uses the common slime atlas, patrols and pauses in play",
+      "file": "browser.spec.ts",
+      "line": 3186,
+      "column": 3,
+      "project": "chromium",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 9738,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "fbeac1b2decfba2c3acd-f2c6bf16bfbcd93b1ce1",
+      "title": "browser.spec.ts > sunset uses the common slime atlas, patrols and pauses in play",
+      "file": "browser.spec.ts",
+      "line": 3186,
+      "column": 3,
+      "project": "firefox",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 11803,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "fbeac1b2decfba2c3acd-2d46b3c9061c735f21a4",
+      "title": "browser.spec.ts > sunset uses the common slime atlas, patrols and pauses in play",
+      "file": "browser.spec.ts",
+      "line": 3186,
+      "column": 3,
+      "project": "webkit",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 11582,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    }
+  ],
+  "attachmentVerification": {
+    "checked": 3,
+    "inline": 0,
+    "missing": 0,
+    "invalid": 0,
+    "diagnostics": []
+  }
+}

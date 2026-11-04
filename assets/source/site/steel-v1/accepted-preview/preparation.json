@@ -1,0 +1,174 @@
+{
+  "sourceRevision": "885b6c16d5397e061f1ccb40ca326856bc77db88",
+  "preparations": [
+    {
+      "file": "call-01-original.png",
+      "sha256": "c1705d95e990b1b0833303e433c9ccc4f9f94d26f41fa1b1ad62541eb4294f3f",
+      "width": 2172,
+      "height": 724,
+      "uniformScale": {
+        "numerator": 1,
+        "denominator": 16
+      },
+      "fullResampledSize": {
+        "width": 136,
+        "height": 46
+      },
+      "transparentTrim": {
+        "x": 1,
+        "y": 14,
+        "width": 133,
+        "height": 18
+      },
+      "resampling": "Premultiplied exact rational area weights; alpha floors globally, RGB rounds. No colour key, threshold or local repair."
+    },
+    {
+      "file": "call-02-original.png",
+      "sha256": "c3288cf9164627b847acfb812a4938312cc774470ffcd4e66031300ad7affd0e",
+      "width": 2167,
+      "height": 726,
+      "uniformScale": {
+        "numerator": 4,
+        "denominator": 89
+      },
+      "fullResampledSize": {
+        "width": 98,
+        "height": 33
+      },
+      "transparentTrim": {
+        "x": 1,
+        "y": 10,
+        "width": 96,
+        "height": 15
+      },
+      "resampling": "Premultiplied exact rational area weights; alpha floors globally, RGB rounds. No colour key, threshold or local repair."
+    },
+    {
+      "file": "call-03-original.png",
+      "sha256": "a3e25e12ac3e3f8ca176da00fce6b4800b86a73c1e929a2a7db18b74499acaa1",
+      "width": 2172,
+      "height": 724,
+      "uniformScale": {
+        "numerator": 1,
+        "denominator": 14
+      },
+      "fullResampledSize": {
+        "width": 156,
+        "height": 52
+      },
+      "transparentTrim": {
+        "x": 1,
+        "y": 19,
+        "width": 153,
+        "height": 16
+      },
+      "resampling": "Premultiplied exact rational area weights; alpha floors globally, RGB rounds. No colour key, threshold or local repair."
+    },
+    {
+      "file": "call-04-original.png",
+      "sha256": "12ea0acbb1346fd3416990fe3f60e5a10e59048261d90cb45af8e56b8d6012c5",
+      "width": 1254,
+      "height": 1254,
+      "uniformScale": {
+        "numerator": 64,
+        "denominator": 1254
+      },
+      "fullResampledSize": {
+        "width": 64,
+        "height": 64
+      },
+      "transparentTrim": {
+        "x": 0,
+        "y": 0,
+        "width": 64,
+        "height": 64
+      },
+      "resampling": "Premultiplied exact rational area weights; alpha floors globally, RGB rounds. No colour key, threshold or local repair."
+    }
+  ],
+  "plannedCells": {
+    "left": [
+      0,
+      0,
+      20,
+      18
+    ],
+    "center": [
+      20,
+      0,
+      20,
+      18
+    ],
+    "half": [
+      40,
+      0,
+      10,
+      18
+    ],
+    "right": [
+      113,
+      0,
+      20,
+      18
+    ]
+  },
+  "sourcePreservation": "Every source pixel participates in whole-image resampling. Only zero-alpha exterior output padding is trimmed. Whole ferry is padded below to18; its entire15px silhouette remains. All defining fixed-beam end plates remain in20px caps.",
+  "artifacts": [
+    {
+      "name": "site-high-deck.png",
+      "width": 210,
+      "height": 18,
+      "sha256": "1334dc9a952cf7bf14ce7a99fcd1380df7dea10b9cb3c66b998e49870e12f704",
+      "pixelSha256": "9d16445f5b08b57403fcc0b9917cabaa37991862995be81ca716f4a5582f2121"
+    },
+    {
+      "name": "site-far-dock.png",
+      "width": 150,
+      "height": 18,
+      "sha256": "4ea2e6f98c5d33cfda80bc21dada1908e05aff1587a1d6e024a2a7ba5bb370f9",
+      "pixelSha256": "f6eaf02f69fae370ab0c8d53977cf834fbeb0999bbd1cc941970ca4c342de804"
+    },
+    {
+      "name": "site-first-3.png",
+      "width": 1740,
+      "height": 18,
+      "sha256": "d9fd457e57b333495096456c5555b70a081d189e28027eda1a33105cf4349766",
+      "pixelSha256": "fb13d2b05818a3ed7e22d99ac0dff2e7c446e9a46448daf83f5c87a02cb6e332"
+    },
+    {
+      "name": "site-first-b.png",
+      "width": 430,
+      "height": 18,
+      "sha256": "bf6ef228b0f99a617ca851d568e8e6abc60d2536165a79e1b867873f7c9b9b3c",
+      "pixelSha256": "dc2891b1fb950bbbd1f92ffb9d3fe41b34abee8f93c14af30f00c7e33cc1f9af"
+    },
+    {
+      "name": "site-first-left-1.png",
+      "width": 340,
+      "height": 18,
+      "sha256": "3035778703e09fe329ff36ca300f2212b19c84ac4407df00d374b4f2c78f8d4e",
+      "pixelSha256": "327fe9013bf921cceeabab15d76c044fea672027079f7040c7482f5bba535e6c"
+    },
+    {
+      "name": "site-lower-catch.png",
+      "width": 840,
+      "height": 18,
+      "sha256": "fd0d2a5d28be2982c8b5e97f8daea4fa7c15b77bdd221e4afcc13aaa286bd62f",
+      "pixelSha256": "a4208a76682ee892c4a00dfd49ef790d0ec7ed6b9f3719684e2ee1667920950e"
+    },
+    {
+      "name": "ferry.png",
+      "width": 96,
+      "height": 18,
+      "sha256": "0f9af746b998915f394b3f5c6c69ca061b29c0eb5992ac9ac8d40a7891b87808",
+      "pixelSha256": "c414bc5c1fb447d448b03cc85ae889ec300389ef31e46371e839c191571e252a"
+    },
+    {
+      "name": "ground.png",
+      "width": 980,
+      "height": 1064,
+      "sha256": "db23a5bbbf9a426e5ffbaed04e6d625626d0593f06a64a125bf5d26514ef959b",
+      "pixelSha256": "2679d25c3fccf52dcd41fe8316be0ae43d48be7d22961ac3f3d2d11301ccfb66"
+    }
+  ]
+}

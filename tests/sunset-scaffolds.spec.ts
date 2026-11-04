@@ -1,4 +1,5 @@
 import { sunsetWallControllerInit, sunsetWallPaintInit, SUNSET_WALL_MAX_PAINT_ADVANCE } from './sunset-wall-browser-controller';
+import { siteSteelDockInit, siteSteelSupports } from './site-steel-observer';
 import { expect, test } from '@playwright/test';
 import { startSunsetPilot, driveSunset } from './sunset-browser-pilot';
 import { MAIN_ROUTE, ALL_RETURN, REASCENT, FIRST_CLIMB, CROSS_DESCENT, FINAL_CLIMB, DOWN_FINAL, UP_DESCENT, walk, jump, drop } from './sunset-pilot';
@@ -99,17 +100,7 @@ for (const only of ['M', 'A']) test(`Sunset only missed ${only} uses native retr
 test('Sunset optional crane boards, carries and disembarks by walking in both directions', async ({ page, browser }, info) => {
   test.setTimeout(60_000);
   // Observe the shipped carriage top, never scene state or a synthetic platform.
-  await page.addInitScript(() => {
-    const fill = CanvasRenderingContext2D.prototype.fillRect;
-    CanvasRenderingContext2D.prototype.fillRect = function (x, y, width, height) {
-      if (this.canvas.id === 'game' && height === 3) {
-        if (width === 96) this.canvas.dataset.craneScreenX = String(x);
-        if (width === 210) this.canvas.dataset.nearDockScreenX = String(x + width);
-        if (width === 150) this.canvas.dataset.farDockScreenX = String(x - 96);
-      }
-      fill.call(this, x, y, width, height);
-    };
-  });
+  await page.addInitScript(siteSteelDockInit, siteSteelSupports());
   await startSunsetPilot(page);
   await driveSunset(page, [...FIRST_CLIMB, walk(440)]);
   await info.attach('near-dock-and-lower-catch', { body: await page.locator('#game').screenshot(), contentType: 'image/png' });
@@ -192,7 +183,7 @@ for (const witness of [{ pre: 2, takeoff: 970 }, { pre: 0, takeoff: 974 }, { pre
   test(`Sunset multi-jump gap continuation pre${witness.pre} takeoff${witness.takeoff} uses actual rendered contacts`, async ({ page, browser }, info) => {
     // Read exact world coordinates from the shipped sprite and fixed girder
     // draw calls. No player/run-state access or callback-time replacement.
-    await page.addInitScript(sunsetWallPaintInit);
+    await page.addInitScript(sunsetWallPaintInit, siteSteelSupports().near);
     await startSunsetPilot(page);
     await page.evaluate(sunsetWallControllerInit, { ...witness, maximumAdvance: SUNSET_WALL_MAX_PAINT_ADVANCE, surfaces: (await import('../src/world/levels')).SUNSET_SITE.surfaces });
     let proof!: ReturnType<typeof sunsetWallControllerInit>;

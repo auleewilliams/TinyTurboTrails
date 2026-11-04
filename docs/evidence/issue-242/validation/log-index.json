@@ -1,0 +1,27 @@
+[
+  {
+    "file": "preview-affected-final.log.gz",
+    "decodedSha256": "69411ead458e713956562b8db622cb71d840228c243fefe8fcd74251f2be2884",
+    "decodedBytes": 215
+  },
+  {
+    "file": "preview-scripts-02.log.gz",
+    "decodedSha256": "41e5321f84d2c878884313e023b8dfde1886d36975c89cd84198258321b86c44",
+    "decodedBytes": 24225
+  },
+  {
+    "file": "preview-targeted-02.log.gz",
+    "decodedSha256": "adecf3bb9190588c99b9b00a6342d4284d74b93cb11e519992059847d8c44a99",
+    "decodedBytes": 1100
+  },
+  {
+    "file": "preview-units.log.gz",
+    "decodedSha256": "66204b67155591cd4896e74a49034b99f6cd313049f05df1d37d65993dc306a1",
+    "decodedBytes": 2698
+  },
+  {
+    "file": "preview-scripts.log.gz",
+    "decodedSha256": "c7ab9a19e41553b9d6862f57e62a4aa99b9e29b68adb687734e96bfd2732f462",
+    "decodedBytes": 25195
+  }
+]

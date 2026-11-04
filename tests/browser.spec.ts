@@ -3185,7 +3185,7 @@ for (const [costume, level] of [...LEVELS.entries()].filter(([, level]) => level
   const hopping = level.id === 'timbers';
   test(`${level.id} uses the common slime atlas, ${hopping ? 'hops' : 'patrols'} and pauses in play`, async ({ page }, info) => {
     test.setTimeout(45_000);
-    if (hopping) await installTimberKeyboardPilot(page);
+    if (hopping || level.id === 'sunset') await installTimberKeyboardPilot(page);
     await page.addInitScript((sky) => {
       const fillRect = CanvasRenderingContext2D.prototype.fillRect;
       const drawImage = CanvasRenderingContext2D.prototype.drawImage;
@@ -3220,6 +3220,12 @@ for (const [costume, level] of [...LEVELS.entries()].filter(([, level]) => level
       const route = await runTimberStages(page, [...TIMBER_ASCENT_RIGHT.slice(0, 5), { kind: 'walk', x: 270 }]);
       expect(route).toMatchObject({ done: true, error: '' });
       await expect(page.locator('#status')).toContainText('Y 866');
+    } else if (level.id === 'sunset') {
+      // Leave both fixed recovery decks, then approach the ground crew below.
+      await driveSunset(page, [{ kind: 'walk', x: 880 }, { kind: 'walk', x: 750 }]);
+      await expect(page.locator('#status')).toContainText('Y 646');
+      // A patrol can be left of the camera on arrival; capture its visible pass.
+      await expect.poll(async () => (await read())[0][4], { timeout: 8000 }).toBeGreaterThan(8);
     } else {
       const position = async (): Promise<number> => Number((await page.locator('#status').innerText()).match(/X (\d+)/)?.[1] ?? 0);
       await page.keyboard.down('ArrowRight');
@@ -4495,7 +4501,7 @@ test('builder-kit visual fixture renders all six words and generated stickers at
 for (const level of LEVELS) test(`compact HUD renderer fixture: ${level.id} identity marks and real glyph clearance`, async ({ page }, info) => {
   // Explicit layout states, not scene mutation or a claim of input-driven gameplay.
   const names = ['world/camera.ts', 'game/platforms.ts', 'game/movement.ts', 'game/education.ts', 'art/interface-kit.ts', 'game/hud.ts', 'world/scenery.ts',
-    'world/cove-terrain.ts', 'world/plains-contour.ts', 'world/timbers-terrain.ts', 'world/timbers-tree.ts', 'world/surface-materials.ts', 'world/assets.ts', 'world/trail-presentation.ts', 'world/ambient-weather.ts', 'world/renderer.ts'];
+    'world/cove-terrain.ts', 'world/site-terrain.ts', 'world/plains-contour.ts', 'world/timbers-terrain.ts', 'world/timbers-tree.ts', 'world/surface-materials.ts', 'world/assets.ts', 'world/trail-presentation.ts', 'world/ambient-weather.ts', 'world/renderer.ts'];
   const errors: string[] = []; page.on('pageerror', error => errors.push(error.message));
   const modules = names.map(name => readFileSync(new URL(`../src/${name}`, import.meta.url), 'utf8'));
   const runtimeImports = [...new Set(modules.flatMap(source => [...source.matchAll(/^import (?!type )\{([^}]*)\} from .*;$/gm)]
@@ -4769,7 +4775,7 @@ for (const [selection, trail] of LEVELS.entries()) test(`landmark labels: render
   // Use the actual map method and its complete renderer dependency graph. These
   // explicit presentation states are not completed gameplay or scene mutations.
   const names = ['world/camera.ts', 'game/platforms.ts', 'game/movement.ts', 'art/henry.ts', 'art/animation.ts', 'art/interface-kit.ts', 'game/education.ts',
-    'world/scenery.ts', 'world/cove-terrain.ts', 'world/plains-contour.ts', 'world/timbers-terrain.ts', 'world/timbers-tree.ts', 'world/surface-materials.ts', 'world/assets.ts', 'world/trail-presentation.ts', 'world/ambient-weather.ts',
+    'world/scenery.ts', 'world/cove-terrain.ts', 'world/site-terrain.ts', 'world/plains-contour.ts', 'world/timbers-terrain.ts', 'world/timbers-tree.ts', 'world/surface-materials.ts', 'world/assets.ts', 'world/trail-presentation.ts', 'world/ambient-weather.ts',
     'world/renderer.ts', 'game/reward-result.ts', 'game/overworld.ts'];
   const modules = names.map(name => readFileSync(new URL(`../src/${name}`, import.meta.url), 'utf8'));
   const runtimeImports = [...new Set(modules.flatMap(source => [...source.matchAll(/^import (?!type )\{([^}]*)\} from .*;$/gm)]

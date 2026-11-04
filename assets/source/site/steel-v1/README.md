@@ -1,0 +1,82 @@
+# Sunset steel preview sources
+
+The owner approved `docs/sunset-art-plan.md` in this conversation: an 18px maximum
+steel envelope, the exact38 proposed gem Y changes, unchanged supports/scenery/
+motion, and six image-generation calls with bounded reserves. The unedited
+approved text is [approved-plan.md](approved-plan.md); its hash and the inventory
+hash are recorded in [authorization.json](authorization.json).
+
+Four initial calls have been spent. The steel and ground refinement reservations
+remain unused. The owner approved the integrated preview and rollout using these
+same components after the review findings were presented. The full rollout now
+uses them; final completed-trail acceptance remains separate.
+
+| Call | Allocation | Original output | Preparation |
+| --- | --- | --- | --- |
+| 01 | Fixed steel | 2172×724 RGBA | Whole-image uniform1/16 area reduction; native133×18 whole beam, then planned20px end/centre and10px centre cells |
+| 02 | Moving steel ferry | 2167×726 RGBA | Whole-image uniform4/89 area reduction;96×15 nonzero-alpha bounds, padded below to96×18; substantial body occupies13rows |
+| 03 | Gravel edge | 2172×724 RGBA | Whole-image uniform1/14 area reduction; entire153×16 edge, designed113px repeat centre |
+| 04 | Gravel substrate | 1254×1254 RGB | Entire square uniformly reduced to64×64 |
+
+Each `call-NN-prompt.txt` is the exact executed prompt. The corresponding request
+JSON records the actual tool arguments; `call-NN-result.json` records returned
+dimensions, file hash, and exposed metadata. The built-in `image_gen.imagegen`
+tool returned image bytes plus a local save hint, but did not expose the actual
+provider/model identifiers. Those fields are explicitly null, not guesses.
+No image references were attached to these calls. The accepted Cove art was
+inspected for weight and outline language; steel is newly generated material.
+
+## Deterministic preparation and alpha
+
+Original returned files remain unchanged. The tool's transparent outputs contain
+near-invisible alpha noise in the outer padding, and the steel bodies themselves
+are slightly translucent (shipped maximum alpha253/255), inherited from the
+returned sources. All pixels participate
+in exact area-weighted, premultiplied, isotropic resampling. Alpha is quantized
+downward for EVERY output pixel (less than one byte error); RGB is rounded after
+unpremultiplication. This removes low-coverage noise through ordinary downsampling,
+without an alpha threshold, colour key, pixel-specific repair or silhouette mask.
+Only completely zero-alpha exterior padding is then trimmed.
+
+The exploratory round-to-nearest output for call01 remains as
+`call-01-uniform-full.png`; it retained stray alpha and was not shipped. The
+floor-quantized full output and native candidates are retained separately.
+The production preparation is [scripts/prepare-site-art.mjs](../../../../scripts/prepare-site-art.mjs),
+using [site-art-pixels.mjs](../../../../scripts/site-art-pixels.mjs). It preserves
+all defining beam end plates and the whole ferry; it never squashes either axis.
+The metadata field `visibleDepth: 15` means the ferry's nonzero-alpha bounds,
+not fifteen strongly visible rows. Its first row peaks at1/255 and row14 at2/255;
+the substantial body occupies rows1–13. Fixed steel's first row peaks at7/255.
+Both therefore have a faint1px fringe at the collision line and a stronger top
+one pixel below it, which can look like a1px foot-to-deck gap. This was missed in
+the first visual audit. See the exact [row measurements](../../../../docs/evidence/issue-242/review-01/alpha-audit.json).
+No threshold, repositioning, opacity repair or additional generation has been
+applied. The owner subsequently approved rollout using these same components.
+
+Mirrored repeat neighbours share boundary samples without painting seam fixes.
+Mirroring was disclosed here but not explicitly listed in the approved plan's
+preparation operations. This was disclosed in the review before the owner approved
+rollout using the same components.
+Each joined support run is prepared as ONE native PNG, preventing fractional
+camera offsets from exposing strip boundaries. The ground is likewise a native
+world bitmap, preserving the authored steep contour. The original preview covers
+x[0,980) and remains frozen as `ground.png`. `ground-full.png` extends the same
+material across all five terrain segments while preserving every accepted left
+bank pixel. All39fixed supports and the ferry now use this accepted family.
+
+The complete executed resampling/cell/source/output hashes are in
+[preparation.json](../../../../public/assets/site/steel-v1/preparation.json).
+`node scripts/prepare-site-art.mjs <temporary-output-directory>` reproduces it.
+The script suite checks every prepared PNG's decoded RGBA and dimensions, PNG
+structure/CRC, committed-copy equality and deterministic regeneration. Small
+negative controls cover premultiplication, pale pixels, alpha and edge retention.
+
+## Scoped preservation
+
+[preservation.json](preservation.json) retains the preview binding;
+[rollout-preservation.json](rollout-preservation.json) and `baseline/` bind the four
+changed existing production files for the rollout to the inspected main revision. They are a new
+projection before the immutable Cove preservation oracles; the old evidence is
+unchanged. Unknown bytes, duplicate declarations and unauthorized position edits
+fail. Separate layout/source tests pin all supports, paths, checkpoints, rewards,
+other trails and accepted/shared art.

@@ -9,6 +9,7 @@ import type { WorldAsset, WorldAssets } from './assets';
 import { drawSceneryBackground, drawScenerySprite, foregroundPlacements, sceneryForDecoration } from './scenery';
 import { drawSurfaceMaterials } from './surface-materials';
 import { drawCoveGround, drawCovePlatform } from './cove-terrain';
+import { drawSiteGround, drawSitePlatform } from './site-terrain';
 import { drawTimbersGround, drawTimbersPlatform } from './timbers-terrain';
 import { drawTimbersTree } from './timbers-tree';
 import type { SlimeAccessory } from './slimes';
@@ -60,12 +61,13 @@ export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, le
     ctx.fill();
     ctx.save(); ctx.clip();
     if (level.id === 'cove' && assets.coveTerrain) drawCoveGround(ctx, assets.coveTerrain, level, offset, first.x1, last.x2);
+    else if (level.id === 'sunset' && assets.siteTerrain) drawSiteGround(ctx, assets.siteTerrain, offset);
     else if (level.id === 'timbers' && assets.timbersTerrain) drawTimbersGround(ctx, assets.timbersTerrain, level, offset);
     else drawTerrainMaterial(ctx, level, offset, assets, first.x1, last.x2);
     ctx.restore();
   }
   if (level.theme.material === 'wood' && !(level.id === 'timbers' && assets.timbersTerrain)) drawTerrainTiles(ctx, assets, level, offset);
-  if (!(level.id === 'cove' && assets.coveTerrain) && !(level.id === 'timbers' && assets.timbersTerrain)) drawTerrainEdge(ctx, level, offset, assets.plainsContour ? plainsContourRange(level) : undefined);
+  if (!(level.id === 'sunset' && assets.siteTerrain) && !(level.id === 'cove' && assets.coveTerrain) && !(level.id === 'timbers' && assets.timbersTerrain)) drawTerrainEdge(ctx, level, offset, assets.plainsContour ? plainsContourRange(level) : undefined);
   drawPlainsContourGround(ctx, assets, level, offset);
   drawSurfaceMaterials(ctx, level, offset, assets.coveMaterials, runSeconds, reducedMotion);
   for (const surface of level.surfaces) drawSurfaceGrip(ctx, surface, offset);
@@ -264,12 +266,13 @@ function drawSun(ctx: CanvasRenderingContext2D, sun: LevelSun, cameraX: number):
 export function drawPlatforms(ctx: CanvasRenderingContext2D, level: LevelData, offset: { x: number; y: number },
   platforms: readonly PlatformBody[], assets?: WorldAssets): void {
   for (const platform of level.platforms ?? []) {
-    // A fixed Timbers bough has no travel path; overlapping endpoints made a white T.
-    if (level.id !== 'timbers' || platform.from.x !== platform.to.x || platform.from.y !== platform.to.y) {
+    // Sunset hides every path marker; Timbers hides stationary endpoint marks.
+    if (level.id !== 'sunset' && (level.id !== 'timbers' || platform.from.x !== platform.to.x || platform.from.y !== platform.to.y)) {
       drawPlatformPath(ctx, platform, offset);
     }
     const body = platforms.find((candidate) => candidate.id === platform.id);
     if (!body) continue;
+    if (level.id === 'sunset' && assets?.siteTerrain && drawSitePlatform(ctx, assets.siteTerrain, level, body, offset)) continue;
     if (level.id === 'timbers' && assets?.timbersTerrain && drawTimbersPlatform(ctx, assets.timbersTerrain, body, offset)) continue;
     if (level.id === 'cove' && platform.from.x === platform.to.x && platform.from.y === platform.to.y) {
       if (assets?.coveTerrain) {

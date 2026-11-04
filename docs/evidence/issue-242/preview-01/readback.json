@@ -1,0 +1,28 @@
+{
+  "auditedAt": "2026-11-01T20:32:13.349Z",
+  "files": 41,
+  "observations": 14,
+  "checks": [
+    "All retained attachments match SHA256 and byte length",
+    "All native and CSS PNGs decode at recorded dimensions",
+    "Every recorded runtime source hash matches current candidate",
+    "Every served response hash matches recorded build body"
+  ],
+  "sources": [
+    {
+      "title": "Sunset steel preview uses ordinary ground, underpass and dock input at 426px",
+      "sourceFiles": 70,
+      "responses": 61,
+      "browser": "chromium",
+      "version": "156.0.8078.4"
+    },
+    {
+      "title": "Sunset steel preview uses ordinary ground, underpass and dock input at 320px",
+      "sourceFiles": 70,
+      "responses": 61,
+      "browser": "chromium",
+      "version": "156.0.8078.4"
+    }
+  ],
+  "note": "Same-byte working tree binding; not a commit or owner approval."
+}
