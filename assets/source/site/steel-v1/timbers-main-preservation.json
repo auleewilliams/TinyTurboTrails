@@ -1,0 +1,29 @@
+{
+  "phase": "Integrate Sunset with merged Timbers main",
+  "baselineRevision": "885b6c16d5397e061f1ccb40ca326856bc77db88",
+  "scope": "Preserve merged Timbers and Plains behavior; add only the accepted Sunset loader/drawing and all-marker omission. No asset, Sunset layout, motion or generation changes.",
+  "files": {
+    "public/assets/site/manifest.json": {
+      "baselineSha256": "176ce7b94cf713fa3c099f1e62511227b67c384e1159a4b8ecce3547c40333da",
+      "currentSha256": "380cf415e2decc8d259f4de6be6e382817a9387e9385f6fd0ef6562b17ae9f54",
+      "baselineCopy": "assets/source/site/steel-v1/baseline/public/assets/site/manifest.json"
+    },
+    "src/world/assets.ts": {
+      "baselineSha256": "168788660f680f8ceab6837fc465c80bc84d241527d35107a0dff770288f5e9a",
+      "currentSha256": "4bb004320b2af13ee15001b98564dfc70c92e351c61b24c7feef677bf00c9b1b",
+      "baselineCopy": "assets/source/site/steel-v1/timbers-main-baseline/src/world/assets.ts"
+    },
+    "src/world/renderer.ts": {
+      "baselineSha256": "8c47f5ff878c9928f063cc150e711b582f027e135684f01e2fbaab308eed9a28",
+      "currentSha256": "0bba8709945de30f18e5335881d84d222995866d9db645a8333b5a79ac7c83a1",
+      "baselineCopy": "assets/source/site/steel-v1/timbers-main-baseline/src/world/renderer.ts"
+    },
+    "src/world/sunset-site.ts": {
+      "baselineSha256": "5ef2db7021744d2b04dfff636b22842ce3d53d15c91bd9d91c4eca25f53be0d5",
+      "currentSha256": "22f7675b140ac6018337a2e9eac7227f426c16b010159ca9d43fb0d8a147eb38",
+      "baselineCopy": "assets/source/site/steel-v1/baseline/src/world/sunset-site.ts"
+    }
+  },
+  "previousRevision": "6aa7128fa93c005eb832ff48d0d81035d8c5d6dc",
+  "mainRevision": "01645980faddaed1c918c2f38f195f49ec40a108"
+}

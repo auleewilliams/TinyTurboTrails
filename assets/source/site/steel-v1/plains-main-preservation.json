@@ -1,0 +1,29 @@
+{
+  "phase": "Integrate merged Plains artwork with approved Sunset rollout and marker removal",
+  "baselineRevision": "885b6c16d5397e061f1ccb40ca326856bc77db88",
+  "scope": "Preserve merged Plains implementation and approved Sunset implementation together. Shared assets.ts/renderer.ts project to exact merged-main copies before the unchanged Plains preservation projection. No art, layout, motion or generation changes.",
+  "files": {
+    "public/assets/site/manifest.json": {
+      "baselineSha256": "176ce7b94cf713fa3c099f1e62511227b67c384e1159a4b8ecce3547c40333da",
+      "currentSha256": "380cf415e2decc8d259f4de6be6e382817a9387e9385f6fd0ef6562b17ae9f54",
+      "baselineCopy": "assets/source/site/steel-v1/baseline/public/assets/site/manifest.json"
+    },
+    "src/world/assets.ts": {
+      "baselineSha256": "9cc49f87a657acf74953fc7a537358bfd9a18d339ee87b13f247b366c06eb538",
+      "currentSha256": "cd817a5655035a3f8eea8118e911a151060691906c69948842623ff6f1a883d2",
+      "baselineCopy": "assets/source/site/steel-v1/plains-main-baseline/src/world/assets.ts"
+    },
+    "src/world/renderer.ts": {
+      "baselineSha256": "27980da2c82ccec163b8c47b03b424f6f514d7b882470d9f0cc909362735df13",
+      "currentSha256": "2526026a9466f00bf265c0f797b1f86bdfa20bb9152547109cabc7469202c3cc",
+      "baselineCopy": "assets/source/site/steel-v1/plains-main-baseline/src/world/renderer.ts"
+    },
+    "src/world/sunset-site.ts": {
+      "baselineSha256": "5ef2db7021744d2b04dfff636b22842ce3d53d15c91bd9d91c4eca25f53be0d5",
+      "currentSha256": "22f7675b140ac6018337a2e9eac7227f426c16b010159ca9d43fb0d8a147eb38",
+      "baselineCopy": "assets/source/site/steel-v1/baseline/src/world/sunset-site.ts"
+    }
+  },
+  "previousRevision": "681607848729d50ceeea415e3653fd58c4b198ef",
+  "mainRevision": "fbf98b93d0c28e7cd393b1b7213a3dc2b3a2bacb"
+}

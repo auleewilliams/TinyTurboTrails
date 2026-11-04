@@ -1,0 +1,344 @@
+[
+  {
+    "scene": "entrance",
+    "viewport": {
+      "width": 426,
+      "height": 300
+    },
+    "logical": {
+      "width": 426,
+      "height": 240
+    },
+    "css": {
+      "width": 426,
+      "height": 240
+    },
+    "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 60 Y 526 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute",
+    "native": "files/7de7c3536c2e5d733a7e394dacaf14146fde3a75913f0df5f3bf9ad561cab563.png",
+    "display": "files/ffc206b809611735e57b76cb8c11d62bd281957314742748d4e68f84f8b51ea0.png",
+    "observation": "files/940491bc4ba2823a98181f7323c0f88aae6681c160a14428ca58ee555cede455.json"
+  },
+  {
+    "scene": "stacked-underpass",
+    "viewport": {
+      "width": 426,
+      "height": 300
+    },
+    "logical": {
+      "width": 426,
+      "height": 240
+    },
+    "css": {
+      "width": 426,
+      "height": 240
+    },
+    "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 208 Y 466 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute",
+    "native": "files/36f7229bde0bdaa3d0fd84d678776e5336b92fea2b99faab62a34626147002d0.png",
+    "display": "files/e0ea45cae5d9e496e8ab14e36aee8a665eccdde05b60f99201e33e134ec10e98.png",
+    "observation": "files/defb5b3f3ca6a9b8291481703ed9a1dc7a1d811f1b21932f15fd4711a44be921.json"
+  },
+  {
+    "scene": "high-deck",
+    "viewport": {
+      "width": 426,
+      "height": 300
+    },
+    "logical": {
+      "width": 426,
+      "height": 240
+    },
+    "css": {
+      "width": 426,
+      "height": 240
+    },
+    "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 349 Y 286 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute",
+    "native": "files/e1a21e0325db609b85167d27779f3a84a90787c6c5da4d7eafb98c805f961c9f.png",
+    "display": "files/ce210220c9db56c4d9a67463b9cc389fd814f9cfb6e61555099346189bbe3096.png",
+    "observation": "files/ef6069d66a5a07d784b8ec23e420e2826c94126734c9876d81c11829c0f8248f.json"
+  },
+  {
+    "scene": "descent",
+    "viewport": {
+      "width": 426,
+      "height": 300
+    },
+    "logical": {
+      "width": 426,
+      "height": 240
+    },
+    "css": {
+      "width": 426,
+      "height": 240
+    },
+    "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 2031 Y 466 V 0 F -1 \u00b7 Escape to pause \u00b7 M to mute",
+    "native": "files/cb623ddea80b913884c6fc27aa0fd38c0b7e6996d9ff0cfb067827cd37c7d0d6.png",
+    "display": "files/5feef1d993f6c037afec42219fcfb8352d76beaed449613a0331947430060121.png",
+    "observation": "files/948d62e7a548f137dc83a2853edf636dfa7df25e44df387d75d2a6bc09c87231.json"
+  },
+  {
+    "scene": "yard",
+    "viewport": {
+      "width": 426,
+      "height": 300
+    },
+    "logical": {
+      "width": 426,
+      "height": 240
+    },
+    "css": {
+      "width": 426,
+      "height": 240
+    },
+    "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 2251 Y 586 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute",
+    "native": "files/8879be8b95a0fd23931e36b7194df3b6da54f2e78569a97fd9c1ac8492f1e689.png",
+    "display": "files/32f6a4505f1875d29f67bd919932125b91fb40cba92bdd593fb204238b8b49e4.png",
+    "observation": "files/cbaaca59005af5d0a1709f3eacda15fd22671214d0d79c20b76c5eec8f2922e4.json"
+  },
+  {
+    "scene": "rest",
+    "viewport": {
+      "width": 426,
+      "height": 300
+    },
+    "logical": {
+      "width": 426,
+      "height": 240
+    },
+    "css": {
+      "width": 426,
+      "height": 240
+    },
+    "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 2799 Y 406 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute",
+    "native": "files/f0a0ccadfc63a83438aafeed3a431dc797658e9f13269987a8139134a4ef1a26.png",
+    "display": "files/6a90160dcb7c13ad79501e4d8543ca321014c426035aa5748f41d918039752df.png",
+    "observation": "files/3c149d592096710c44aaa19b5a222562b172716255c82db03ce526d9b9d2afaf.json"
+  },
+  {
+    "scene": "paused-rest",
+    "viewport": {
+      "width": 426,
+      "height": 300
+    },
+    "logical": {
+      "width": 426,
+      "height": 240
+    },
+    "css": {
+      "width": 426,
+      "height": 240
+    },
+    "status": "Paused \u00b7 Escape to resume",
+    "native": "files/3d2e7b1a88259ee888a33bdd0d0084f27f60fb4b5aeb589dfe09b8d59bd19ea4.png",
+    "display": "files/7f6c0ffbf5825effc8f4d47e06d473dbd3a845b45418ccd8819937715935cd9c.png",
+    "observation": "files/0023106f43d54244e88992d6c99689ce8d8a9b1139e510d458620bf309e8f4e3.json"
+  },
+  {
+    "scene": "roof",
+    "viewport": {
+      "width": 426,
+      "height": 300
+    },
+    "logical": {
+      "width": 426,
+      "height": 240
+    },
+    "css": {
+      "width": 426,
+      "height": 240
+    },
+    "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 2848 Y 106 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute",
+    "native": "files/d677299e7f52673c1b580c7f492e6c46b57015c72062fbfb77b618b1d0a245e9.png",
+    "display": "files/b0f1453445743c186505054d7ade7ae2be6ae09009f4f9b292ff0271beeaa7a5.png",
+    "observation": "files/6a68f5478ecbfacb569b18074351eddf3cd2b844435e8e5e1b2220fe58e9d39d.json"
+  },
+  {
+    "scene": "finish",
+    "viewport": {
+      "width": 426,
+      "height": 300
+    },
+    "logical": {
+      "width": 426,
+      "height": 240
+    },
+    "css": {
+      "width": 426,
+      "height": 240
+    },
+    "status": "Adventure preview \u00b7 Finish \u00b7 Build BEAM \u00b7 _ _ _ _ \u00b7 Bag 0/4 \u00b7 Choose a letter, then a space. \u00b7 Gems 36/62 \u00b7 X 3051 Y 106 V 220 F 1 \u00b7 Escape to leave activity \u00b7 M to mute",
+    "native": "files/f35d8637eea0f4a4394b9c29a508d4fcdb2af1de74a8e4d5c3694502287644c8.png",
+    "display": "files/177eea2e944532aedb4f0b3dac51775059111cb5958f65af9767401cbf2120bf.png",
+    "observation": "files/fb9d1cb4c341eafc2b2c36212ca34bf18ccab6bb174e461473f69941fd725bec.json"
+  },
+  {
+    "scene": "entrance",
+    "viewport": {
+      "width": 320,
+      "height": 240
+    },
+    "logical": {
+      "width": 426,
+      "height": 240
+    },
+    "css": {
+      "width": 320,
+      "height": 180.28125
+    },
+    "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 60 Y 526 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute",
+    "native": "files/7de7c3536c2e5d733a7e394dacaf14146fde3a75913f0df5f3bf9ad561cab563.png",
+    "display": "files/0f1fdf8274f62361a3777c63ae5e928a6464682e08dc853fa07bb951b4ead218.png",
+    "observation": "files/2d94681d7dadb1840f80b4ebea79c95324b8b39bb5742d6e3a3b5361508062d8.json"
+  },
+  {
+    "scene": "stacked-underpass",
+    "viewport": {
+      "width": 320,
+      "height": 240
+    },
+    "logical": {
+      "width": 426,
+      "height": 240
+    },
+    "css": {
+      "width": 320,
+      "height": 180.28125
+    },
+    "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 208 Y 466 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute",
+    "native": "files/e9964ea5bd53df679b5e69b6d7f8b7edde90810b107da58a1891cdd94bbcd52a.png",
+    "display": "files/51c9091da5f15bbeaa250c3ec53f721650244663f94a30efdb89745c221ffe26.png",
+    "observation": "files/42ebfff5b5a00776b712d77cc8d2d7a81c55a07eebad6a1ea0279a70b66d8d13.json"
+  },
+  {
+    "scene": "high-deck",
+    "viewport": {
+      "width": 320,
+      "height": 240
+    },
+    "logical": {
+      "width": 426,
+      "height": 240
+    },
+    "css": {
+      "width": 320,
+      "height": 180.28125
+    },
+    "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 349 Y 286 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute",
+    "native": "files/a593d9d5e3610606934dfe274bd93faf44d849989059226d982dceb6516d0200.png",
+    "display": "files/02a60d667cadcae6d6e8203fd1343ebfdfdb13cd8fa1de16a807a809c23d0d85.png",
+    "observation": "files/682ebf150b3439ce80a50080e73201e42957db178e6740dd3cd144c66b4d8d5d.json"
+  },
+  {
+    "scene": "descent",
+    "viewport": {
+      "width": 320,
+      "height": 240
+    },
+    "logical": {
+      "width": 426,
+      "height": 240
+    },
+    "css": {
+      "width": 320,
+      "height": 180.28125
+    },
+    "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 2031 Y 466 V 0 F -1 \u00b7 Escape to pause \u00b7 M to mute",
+    "native": "files/d79ada69e53b063122da2bc962420dd6ce7c4cb7e872f03dac2c84d1fc5c3ff3.png",
+    "display": "files/4c27fc9ed8d5f919269196722722f0e3cfc116404309e328f1ae0f22009ba915.png",
+    "observation": "files/058afb8d40a37dc3376c1e578799dd95b31fda6765dd65ad27fda8e17e8d006e.json"
+  },
+  {
+    "scene": "yard",
+    "viewport": {
+      "width": 320,
+      "height": 240
+    },
+    "logical": {
+      "width": 426,
+      "height": 240
+    },
+    "css": {
+      "width": 320,
+      "height": 180.28125
+    },
+    "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 2251 Y 586 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute",
+    "native": "files/a204c38b559750f27cf9fb1742677bf21c695a7b736d4d0a9de8376e09cc0037.png",
+    "display": "files/3a04a5a48ba5aa3386b5f23b8a2572ff8d945aa6b9c9b0742a7ce49b29edf8d9.png",
+    "observation": "files/1a2496968cec3376133ba44d09106c0d5c4be1eef3d9b3ba40ecc6c77bd8710a.json"
+  },
+  {
+    "scene": "rest",
+    "viewport": {
+      "width": 320,
+      "height": 240
+    },
+    "logical": {
+      "width": 426,
+      "height": 240
+    },
+    "css": {
+      "width": 320,
+      "height": 180.28125
+    },
+    "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 2799 Y 406 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute",
+    "native": "files/16e7f3930c502bbab43540d1afba255c6ba39ed35dfe76e00e90c6e8aa57ab99.png",
+    "display": "files/00519166410d5127c826ff265b86460845662fd7005a95d7a4223adeedffb43b.png",
+    "observation": "files/96847e4b2d62e6d2c700a90e48cb35c19170696eef22f1e87b029001514f6440.json"
+  },
+  {
+    "scene": "paused-rest",
+    "viewport": {
+      "width": 320,
+      "height": 240
+    },
+    "logical": {
+      "width": 426,
+      "height": 240
+    },
+    "css": {
+      "width": 320,
+      "height": 180.28125
+    },
+    "status": "Paused \u00b7 Escape to resume",
+    "native": "files/3d2e7b1a88259ee888a33bdd0d0084f27f60fb4b5aeb589dfe09b8d59bd19ea4.png",
+    "display": "files/ceece2e3f32983bd52cb63bd1dec0f6bd85aeeb01b64f0c3fde8170ea0844829.png",
+    "observation": "files/4dec43b4995ce52cafc600c57057807550f95aac98025e5385a32bfbf779f263.json"
+  },
+  {
+    "scene": "roof",
+    "viewport": {
+      "width": 320,
+      "height": 240
+    },
+    "logical": {
+      "width": 426,
+      "height": 240
+    },
+    "css": {
+      "width": 320,
+      "height": 180.28125
+    },
+    "status": "Adventure preview \u00b7 Playing \u00b7 Letter bag: 0/4 \u00b7 X 2848 Y 106 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute",
+    "native": "files/c917bb6ccf94df12c35e0fad2fc94393e3e9fb43f9c589ab9db81f82b4acdf80.png",
+    "display": "files/02eaa99842709536b2e493bf294ff56422d8b7426b96c6388cfcf74ca8311d0c.png",
+    "observation": "files/d9aee6f4a4787def0df83267c512d98b50419592985423f2dd79fbcd2f63d02e.json"
+  },
+  {
+    "scene": "finish",
+    "viewport": {
+      "width": 320,
+      "height": 240
+    },
+    "logical": {
+      "width": 426,
+      "height": 240
+    },
+    "css": {
+      "width": 320,
+      "height": 180.28125
+    },
+    "status": "Adventure preview \u00b7 Finish \u00b7 Build BEAM \u00b7 _ _ _ _ \u00b7 Bag 0/4 \u00b7 Choose a letter, then a space. \u00b7 Gems 36/62 \u00b7 X 3050 Y 106 V 220 F 1 \u00b7 Escape to leave activity \u00b7 M to mute",
+    "native": "files/a3715b45bc2264999e85caf2ed34168f80af7e2034de31cb249aaf5ea89af78f.png",
+    "display": "files/652da41f01db4709855a02c8410beb08a47236c6f4d2f6b87340ff8a5f24cc42.png",
+    "observation": "files/f74a93844be239c26b5ca4d98c4bccfbfa6f1ca37a6edae2ac887dc64d51b529.json"
+  }
+]

@@ -1,0 +1,853 @@
+{
+  "metadata": {
+    "sourceRevision": null,
+    "nodeVersion": "v22.22.1",
+    "platform": "linux",
+    "arch": "x64",
+    "actualWorkers": 2
+  },
+  "stats": {
+    "startTime": "2026-11-02T03:33:59.049Z",
+    "duration": 521808.202,
+    "expected": 40,
+    "skipped": 0,
+    "unexpected": 2,
+    "flaky": 0
+  },
+  "errors": [],
+  "configured": 42,
+  "enumerated": 42,
+  "totals": {
+    "expected": 40,
+    "unexpected": 2,
+    "skipped": 0,
+    "flaky": 0
+  },
+  "projects": {
+    "chromium": {
+      "expected": 14,
+      "unexpected": 0,
+      "skipped": 0,
+      "flaky": 0
+    },
+    "firefox": {
+      "expected": 14,
+      "unexpected": 0,
+      "skipped": 0,
+      "flaky": 0
+    },
+    "webkit": {
+      "expected": 12,
+      "unexpected": 2,
+      "skipped": 0,
+      "flaky": 0
+    }
+  },
+  "cases": [
+    {
+      "id": "fbeac1b2decfba2c3acd-05452ff6749338c316a8",
+      "title": "browser.spec.ts > all six trail previews show cached gameplay and the map requests no story artwork",
+      "file": "browser.spec.ts",
+      "line": 2057,
+      "column": 1,
+      "project": "chromium",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 2543,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "fbeac1b2decfba2c3acd-595b6097189a7a03aa44",
+      "title": "browser.spec.ts > compact HUD renderer fixture: plains identity marks and real glyph clearance",
+      "file": "browser.spec.ts",
+      "line": 4474,
+      "column": 29,
+      "project": "chromium",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 4529,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "fbeac1b2decfba2c3acd-8da851458c05c1948306",
+      "title": "browser.spec.ts > compact HUD renderer fixture: sunset identity marks and real glyph clearance",
+      "file": "browser.spec.ts",
+      "line": 4474,
+      "column": 29,
+      "project": "chromium",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 5671,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "fbeac1b2decfba2c3acd-1515621e962b884c8d9b",
+      "title": "browser.spec.ts > landmark labels: renderer fixture plains clears real art, paths, frames, badges and Henry in every completion state",
+      "file": "browser.spec.ts",
+      "line": 4747,
+      "column": 52,
+      "project": "chromium",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 5858,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "fbeac1b2decfba2c3acd-5362ebdeb59d97a6d3ce",
+      "title": "browser.spec.ts > landmark labels: renderer fixture sunset clears real art, paths, frames, badges and Henry in every completion state",
+      "file": "browser.spec.ts",
+      "line": 4747,
+      "column": 52,
+      "project": "chromium",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 5147,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "fbeac1b2decfba2c3acd-0385918fc16437e0176b",
+      "title": "browser.spec.ts > all six trail previews show cached gameplay and the map requests no story artwork",
+      "file": "browser.spec.ts",
+      "line": 2057,
+      "column": 1,
+      "project": "firefox",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 4461,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "fbeac1b2decfba2c3acd-dab2939804c7e57f6d0e",
+      "title": "browser.spec.ts > compact HUD renderer fixture: plains identity marks and real glyph clearance",
+      "file": "browser.spec.ts",
+      "line": 4474,
+      "column": 29,
+      "project": "firefox",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 7390,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "fbeac1b2decfba2c3acd-4f6282cb49ff9efadd81",
+      "title": "browser.spec.ts > compact HUD renderer fixture: sunset identity marks and real glyph clearance",
+      "file": "browser.spec.ts",
+      "line": 4474,
+      "column": 29,
+      "project": "firefox",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 6100,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "fbeac1b2decfba2c3acd-0e301c0dd33cf9c3f215",
+      "title": "browser.spec.ts > landmark labels: renderer fixture plains clears real art, paths, frames, badges and Henry in every completion state",
+      "file": "browser.spec.ts",
+      "line": 4747,
+      "column": 52,
+      "project": "firefox",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 8120,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "fbeac1b2decfba2c3acd-7c75ea5c0c44f1db55af",
+      "title": "browser.spec.ts > landmark labels: renderer fixture sunset clears real art, paths, frames, badges and Henry in every completion state",
+      "file": "browser.spec.ts",
+      "line": 4747,
+      "column": 52,
+      "project": "firefox",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 8310,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "fbeac1b2decfba2c3acd-5ffbf248991a8a20f58e",
+      "title": "browser.spec.ts > all six trail previews show cached gameplay and the map requests no story artwork",
+      "file": "browser.spec.ts",
+      "line": 2057,
+      "column": 1,
+      "project": "webkit",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 5698,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "fbeac1b2decfba2c3acd-c1a887fc5a108df81dd1",
+      "title": "browser.spec.ts > compact HUD renderer fixture: plains identity marks and real glyph clearance",
+      "file": "browser.spec.ts",
+      "line": 4474,
+      "column": 29,
+      "project": "webkit",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 13841,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "fbeac1b2decfba2c3acd-0ceeb4485655265da09d",
+      "title": "browser.spec.ts > compact HUD renderer fixture: sunset identity marks and real glyph clearance",
+      "file": "browser.spec.ts",
+      "line": 4474,
+      "column": 29,
+      "project": "webkit",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 9711,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "fbeac1b2decfba2c3acd-8cf4f7c3a47465c895f0",
+      "title": "browser.spec.ts > landmark labels: renderer fixture plains clears real art, paths, frames, badges and Henry in every completion state",
+      "file": "browser.spec.ts",
+      "line": 4747,
+      "column": 52,
+      "project": "webkit",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 6456,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "fbeac1b2decfba2c3acd-107cc8b3a95f48532977",
+      "title": "browser.spec.ts > landmark labels: renderer fixture sunset clears real art, paths, frames, badges and Henry in every completion state",
+      "file": "browser.spec.ts",
+      "line": 4747,
+      "column": 52,
+      "project": "webkit",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 6228,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "133fd3a0cef4fc812b99-573eced0391fa738534b",
+      "title": "hud-owner-layout.spec.ts > owner HUD order real-font fixture: plains identity marks and real glyph clearance",
+      "file": "hud-owner-layout.spec.ts",
+      "line": 80,
+      "column": 29,
+      "project": "chromium",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 3601,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "133fd3a0cef4fc812b99-f2430181dd3fbfdf0fa6",
+      "title": "hud-owner-layout.spec.ts > owner HUD order real-font fixture: sunset identity marks and real glyph clearance",
+      "file": "hud-owner-layout.spec.ts",
+      "line": 80,
+      "column": 29,
+      "project": "chromium",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 4013,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "133fd3a0cef4fc812b99-66e88e129b7498db09b4",
+      "title": "hud-owner-layout.spec.ts > owner HUD order real-font fixture: plains identity marks and real glyph clearance",
+      "file": "hud-owner-layout.spec.ts",
+      "line": 80,
+      "column": 29,
+      "project": "firefox",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 6855,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "133fd3a0cef4fc812b99-a5aa0a2e4ace071f338e",
+      "title": "hud-owner-layout.spec.ts > owner HUD order real-font fixture: sunset identity marks and real glyph clearance",
+      "file": "hud-owner-layout.spec.ts",
+      "line": 80,
+      "column": 29,
+      "project": "firefox",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 5583,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "133fd3a0cef4fc812b99-62c6bc7e014255a8e067",
+      "title": "hud-owner-layout.spec.ts > owner HUD order real-font fixture: plains identity marks and real glyph clearance",
+      "file": "hud-owner-layout.spec.ts",
+      "line": 80,
+      "column": 29,
+      "project": "webkit",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 13790,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "133fd3a0cef4fc812b99-696d02626bae63aa014d",
+      "title": "hud-owner-layout.spec.ts > owner HUD order real-font fixture: sunset identity marks and real glyph clearance",
+      "file": "hud-owner-layout.spec.ts",
+      "line": 80,
+      "column": 29,
+      "project": "webkit",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 7259,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "998187aca5248271c8fd-28ab5cf70a50cfb81d53",
+      "title": "plains-contour-pilot.spec.ts > Plains contour ordinary input 426: rest jump joins and return",
+      "file": "plains-contour-pilot.spec.ts",
+      "line": 97,
+      "column": 33,
+      "project": "chromium",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 80624,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "998187aca5248271c8fd-7c7eacff0f25d88a934b",
+      "title": "plains-contour-pilot.spec.ts > Plains contour ordinary input 320: rest jump joins and return",
+      "file": "plains-contour-pilot.spec.ts",
+      "line": 97,
+      "column": 33,
+      "project": "chromium",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 80525,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "998187aca5248271c8fd-2033b0a2c804d0071b12",
+      "title": "plains-contour-pilot.spec.ts > Plains required contour image error offers ordinary Retry loading",
+      "file": "plains-contour-pilot.spec.ts",
+      "line": 184,
+      "column": 52,
+      "project": "chromium",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 9571,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "998187aca5248271c8fd-8d73bcd259851378ffc0",
+      "title": "plains-contour-pilot.spec.ts > Plains required contour soil error offers ordinary Retry loading",
+      "file": "plains-contour-pilot.spec.ts",
+      "line": 184,
+      "column": 52,
+      "project": "chromium",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 9546,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "998187aca5248271c8fd-6a4d3cdde4e497a43a37",
+      "title": "plains-contour-pilot.spec.ts > Plains contour ordinary input 426: rest jump joins and return",
+      "file": "plains-contour-pilot.spec.ts",
+      "line": 97,
+      "column": 33,
+      "project": "firefox",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 102443,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "998187aca5248271c8fd-e240b8a1d3ee6ea5b554",
+      "title": "plains-contour-pilot.spec.ts > Plains contour ordinary input 320: rest jump joins and return",
+      "file": "plains-contour-pilot.spec.ts",
+      "line": 97,
+      "column": 33,
+      "project": "firefox",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 101391,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "998187aca5248271c8fd-03e62b236089edb7826b",
+      "title": "plains-contour-pilot.spec.ts > Plains required contour image error offers ordinary Retry loading",
+      "file": "plains-contour-pilot.spec.ts",
+      "line": 184,
+      "column": 52,
+      "project": "firefox",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 7784,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "998187aca5248271c8fd-0b21da25ea9b1c530e0f",
+      "title": "plains-contour-pilot.spec.ts > Plains required contour soil error offers ordinary Retry loading",
+      "file": "plains-contour-pilot.spec.ts",
+      "line": 184,
+      "column": 52,
+      "project": "firefox",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 7855,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "998187aca5248271c8fd-ef9c144be46add176ea1",
+      "title": "plains-contour-pilot.spec.ts > Plains contour ordinary input 426: rest jump joins and return",
+      "file": "plains-contour-pilot.spec.ts",
+      "line": 97,
+      "column": 33,
+      "project": "webkit",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 107056,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "998187aca5248271c8fd-3b145b99049c9dfe3ede",
+      "title": "plains-contour-pilot.spec.ts > Plains contour ordinary input 320: rest jump joins and return",
+      "file": "plains-contour-pilot.spec.ts",
+      "line": 97,
+      "column": 33,
+      "project": "webkit",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 104206,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "998187aca5248271c8fd-8bd28390974e60e26c60",
+      "title": "plains-contour-pilot.spec.ts > Plains required contour image error offers ordinary Retry loading",
+      "file": "plains-contour-pilot.spec.ts",
+      "line": 184,
+      "column": 52,
+      "project": "webkit",
+      "outcome": "unexpected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "failed",
+          "durationMs": 25468,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "998187aca5248271c8fd-57f9d842beec422a68cb",
+      "title": "plains-contour-pilot.spec.ts > Plains required contour soil error offers ordinary Retry loading",
+      "file": "plains-contour-pilot.spec.ts",
+      "line": 184,
+      "column": 52,
+      "project": "webkit",
+      "outcome": "unexpected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "failed",
+          "durationMs": 26239,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "3c0f926210d8ed1862c8-22ea05fe248c5e37b535",
+      "title": "site-steel-preview.spec.ts > Sunset required steel resource site-declaration recovers through ordinary Retry",
+      "file": "site-steel-preview.spec.ts",
+      "line": 130,
+      "column": 3,
+      "project": "chromium",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 1217,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "3c0f926210d8ed1862c8-f7fe4334e71dc034f011",
+      "title": "site-steel-preview.spec.ts > Sunset required steel resource site-declaration recovers through ordinary Retry",
+      "file": "site-steel-preview.spec.ts",
+      "line": 130,
+      "column": 3,
+      "project": "firefox",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 2381,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "3c0f926210d8ed1862c8-a86c340adf030b299961",
+      "title": "site-steel-preview.spec.ts > Sunset required steel resource site-declaration recovers through ordinary Retry",
+      "file": "site-steel-preview.spec.ts",
+      "line": 130,
+      "column": 3,
+      "project": "webkit",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 3431,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "88412551c662c97d69d6-2ceaf88a91ad33258557",
+      "title": "site-steel-rollout.spec.ts > Sunset whole steel rollout reaches the roof and finish at 426px with Pause",
+      "file": "site-steel-rollout.spec.ts",
+      "line": 10,
+      "column": 33,
+      "project": "chromium",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 30952,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "88412551c662c97d69d6-074139364890ff8b29d0",
+      "title": "site-steel-rollout.spec.ts > Sunset whole steel rollout reaches the roof and finish at 320px with Pause",
+      "file": "site-steel-rollout.spec.ts",
+      "line": 10,
+      "column": 33,
+      "project": "chromium",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 30629,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "88412551c662c97d69d6-63c829a8cc19ec2906e0",
+      "title": "site-steel-rollout.spec.ts > Sunset whole steel rollout reaches the roof and finish at 426px with Pause",
+      "file": "site-steel-rollout.spec.ts",
+      "line": 10,
+      "column": 33,
+      "project": "firefox",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 31479,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "88412551c662c97d69d6-611fee17b2818a55858b",
+      "title": "site-steel-rollout.spec.ts > Sunset whole steel rollout reaches the roof and finish at 320px with Pause",
+      "file": "site-steel-rollout.spec.ts",
+      "line": 10,
+      "column": 33,
+      "project": "firefox",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 31434,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "88412551c662c97d69d6-87e130ac77fd2b6dab7e",
+      "title": "site-steel-rollout.spec.ts > Sunset whole steel rollout reaches the roof and finish at 426px with Pause",
+      "file": "site-steel-rollout.spec.ts",
+      "line": 10,
+      "column": 33,
+      "project": "webkit",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 37244,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "88412551c662c97d69d6-6033e48743376c39c917",
+      "title": "site-steel-rollout.spec.ts > Sunset whole steel rollout reaches the roof and finish at 320px with Pause",
+      "file": "site-steel-rollout.spec.ts",
+      "line": 10,
+      "column": 33,
+      "project": "webkit",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 36867,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    }
+  ],
+  "attachmentVerification": {
+    "checked": 397,
+    "inline": 156,
+    "missing": 0,
+    "invalid": 0,
+    "diagnostics": []
+  }
+}

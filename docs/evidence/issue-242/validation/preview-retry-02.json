@@ -1,0 +1,907 @@
+{
+  "originalReport": "test-results/issue-242/preview-retry-02/report.json",
+  "originalReportSha256": "6c69e41694b734480b03ba1f8500abba0ca241a256da553815aaef32ab877b43",
+  "note": "Case identities, results and attachment digests only. Original full report and attachments remain in the local test-results directory; no absent attachment is presented as committed evidence. Captures used for owner review have a separate complete file-backed packet.",
+  "stats": {
+    "startTime": "2026-11-01T20:35:23.085Z",
+    "duration": 70895.568,
+    "expected": 27,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "config": {
+    "argv": [
+      "/usr/bin/node",
+      "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/node_modules/.bin/playwright",
+      "test",
+      "tests/site-steel-preview.spec.ts",
+      "--workers=1",
+      "--grep",
+      "required steel resource",
+      "--output=test-results/issue-242/preview-retry-02/artifacts",
+      "--reporter=json"
+    ],
+    "configFile": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/playwright.config.ts",
+    "rootDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/tests",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": true,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "sourceRevision": null,
+      "nodeVersion": "v22.22.1",
+      "platform": "linux",
+      "arch": "x64",
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/preview-retry-02/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "sourceRevision": null,
+          "nodeVersion": "v22.22.1",
+          "platform": "linux",
+          "arch": "x64",
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.spec.ts"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/preview-retry-02/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "sourceRevision": null,
+          "nodeVersion": "v22.22.1",
+          "platform": "linux",
+          "arch": "x64",
+          "actualWorkers": 1
+        },
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.spec.ts"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/preview-retry-02/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "sourceRevision": null,
+          "nodeVersion": "v22.22.1",
+          "platform": "linux",
+          "arch": "x64",
+          "actualWorkers": 1
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.spec.ts"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "filteredProjects": [
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/preview-retry-02/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "sourceRevision": null,
+          "nodeVersion": "v22.22.1",
+          "platform": "linux",
+          "arch": "x64",
+          "actualWorkers": 1
+        },
+        "name": "chromium",
+        "testDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/tests",
+        "snapshotDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/tests",
+        "testIgnore": [],
+        "testMatch": "**/*.spec.ts",
+        "timeout": 30000,
+        "use": {
+          "trace": "retain-on-failure",
+          "screenshot": "only-on-failure",
+          "baseURL": "http://127.0.0.1:4246",
+          "viewport": {
+            "width": 1366,
+            "height": 768
+          },
+          "browserName": "chromium"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "chromium"
+      },
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/preview-retry-02/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "sourceRevision": null,
+          "nodeVersion": "v22.22.1",
+          "platform": "linux",
+          "arch": "x64",
+          "actualWorkers": 1
+        },
+        "name": "firefox",
+        "testDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/tests",
+        "snapshotDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/tests",
+        "testIgnore": [],
+        "testMatch": "**/*.spec.ts",
+        "timeout": 30000,
+        "use": {
+          "trace": "retain-on-failure",
+          "screenshot": "only-on-failure",
+          "baseURL": "http://127.0.0.1:4246",
+          "viewport": {
+            "width": 1366,
+            "height": 768
+          },
+          "browserName": "firefox"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "firefox"
+      },
+      {
+        "grep": {},
+        "grepInvert": null,
+        "outputDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/preview-retry-02/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "sourceRevision": null,
+          "nodeVersion": "v22.22.1",
+          "platform": "linux",
+          "arch": "x64",
+          "actualWorkers": 1
+        },
+        "name": "webkit",
+        "testDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/tests",
+        "snapshotDir": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/tests",
+        "testIgnore": [],
+        "testMatch": "**/*.spec.ts",
+        "timeout": 30000,
+        "use": {
+          "trace": "retain-on-failure",
+          "screenshot": "only-on-failure",
+          "baseURL": "http://127.0.0.1:4246",
+          "viewport": {
+            "width": 1366,
+            "height": 768
+          },
+          "browserName": "webkit"
+        },
+        "dependencies": [],
+        "ignoreSnapshots": false,
+        "__projectId": "webkit"
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "json"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "default",
+    "updateSourceMethod": "patch",
+    "version": "1.64.1",
+    "workers": 1,
+    "webServer": {
+      "command": "npm run preview -- --port 4246 --strictPort",
+      "url": "http://127.0.0.1:4246",
+      "reuseExistingServer": false
+    }
+  },
+  "errors": [],
+  "cases": [
+    {
+      "title": "Sunset required steel resource manifest.json recovers through ordinary Retry",
+      "file": "site-steel-preview.spec.ts",
+      "line": 101,
+      "project": "chromium",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 2072,
+          "retry": 0,
+          "errors": [],
+          "attachments": [
+            {
+              "name": "recovered-game",
+              "contentType": "image/png",
+              "sourcePath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/preview-retry-02/artifacts/site-steel-preview-Sunset--a3402-vers-through-ordinary-Retry-chromium/attachments/recovered-game-a1704efcbc2b01064bcfc5fd607ff5821ac108d9.png",
+              "sha256": "a65d62d895b46b2f4cfb0a50fb2d36b7bb8514b8380cb4b5bf27a06319527570",
+              "inlineBodyEncoding": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Sunset required steel resource site-high-deck.png recovers through ordinary Retry",
+      "file": "site-steel-preview.spec.ts",
+      "line": 101,
+      "project": "chromium",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 1664,
+          "retry": 0,
+          "errors": [],
+          "attachments": [
+            {
+              "name": "recovered-game",
+              "contentType": "image/png",
+              "sourcePath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/preview-retry-02/artifacts/site-steel-preview-Sunset--71c35-vers-through-ordinary-Retry-chromium/attachments/recovered-game-9c4052087c31b7930b4ad1a58aabe87d0517a174.png",
+              "sha256": "dcf4880d31ee427844ce3702c08c80603db314ee119d5468c67e30f6ee7295e2",
+              "inlineBodyEncoding": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Sunset required steel resource site-far-dock.png recovers through ordinary Retry",
+      "file": "site-steel-preview.spec.ts",
+      "line": 101,
+      "project": "chromium",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 1615,
+          "retry": 0,
+          "errors": [],
+          "attachments": [
+            {
+              "name": "recovered-game",
+              "contentType": "image/png",
+              "sourcePath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/preview-retry-02/artifacts/site-steel-preview-Sunset--5a64a-vers-through-ordinary-Retry-chromium/attachments/recovered-game-e23a23064c4b76c35561ef6b63ece6ef4cded6e4.png",
+              "sha256": "dcf4880d31ee427844ce3702c08c80603db314ee119d5468c67e30f6ee7295e2",
+              "inlineBodyEncoding": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Sunset required steel resource site-first-3.png recovers through ordinary Retry",
+      "file": "site-steel-preview.spec.ts",
+      "line": 101,
+      "project": "chromium",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 1562,
+          "retry": 0,
+          "errors": [],
+          "attachments": [
+            {
+              "name": "recovered-game",
+              "contentType": "image/png",
+              "sourcePath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/preview-retry-02/artifacts/site-steel-preview-Sunset--2a662-vers-through-ordinary-Retry-chromium/attachments/recovered-game-4b1296e05c6a47c512515fc0a45fc31abb3196da.png",
+              "sha256": "dcf4880d31ee427844ce3702c08c80603db314ee119d5468c67e30f6ee7295e2",
+              "inlineBodyEncoding": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Sunset required steel resource site-first-b.png recovers through ordinary Retry",
+      "file": "site-steel-preview.spec.ts",
+      "line": 101,
+      "project": "chromium",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 1644,
+          "retry": 0,
+          "errors": [],
+          "attachments": [
+            {
+              "name": "recovered-game",
+              "contentType": "image/png",
+              "sourcePath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/preview-retry-02/artifacts/site-steel-preview-Sunset--b1f3e-vers-through-ordinary-Retry-chromium/attachments/recovered-game-6fa3342ccf8fdc560d860475fca749ef982d0ae4.png",
+              "sha256": "dcf4880d31ee427844ce3702c08c80603db314ee119d5468c67e30f6ee7295e2",
+              "inlineBodyEncoding": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Sunset required steel resource site-first-left-1.png recovers through ordinary Retry",
+      "file": "site-steel-preview.spec.ts",
+      "line": 101,
+      "project": "chromium",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 1537,
+          "retry": 0,
+          "errors": [],
+          "attachments": [
+            {
+              "name": "recovered-game",
+              "contentType": "image/png",
+              "sourcePath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/preview-retry-02/artifacts/site-steel-preview-Sunset--00452-vers-through-ordinary-Retry-chromium/attachments/recovered-game-2994718bbd5076d93ea493e711fdb1f6f5466300.png",
+              "sha256": "dcf4880d31ee427844ce3702c08c80603db314ee119d5468c67e30f6ee7295e2",
+              "inlineBodyEncoding": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Sunset required steel resource site-lower-catch.png recovers through ordinary Retry",
+      "file": "site-steel-preview.spec.ts",
+      "line": 101,
+      "project": "chromium",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 1569,
+          "retry": 0,
+          "errors": [],
+          "attachments": [
+            {
+              "name": "recovered-game",
+              "contentType": "image/png",
+              "sourcePath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/preview-retry-02/artifacts/site-steel-preview-Sunset--340ab-vers-through-ordinary-Retry-chromium/attachments/recovered-game-fcd969c573e60c875cc9f728f9da7a873a5f0093.png",
+              "sha256": "dcf4880d31ee427844ce3702c08c80603db314ee119d5468c67e30f6ee7295e2",
+              "inlineBodyEncoding": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Sunset required steel resource ferry.png recovers through ordinary Retry",
+      "file": "site-steel-preview.spec.ts",
+      "line": 101,
+      "project": "chromium",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 1506,
+          "retry": 0,
+          "errors": [],
+          "attachments": [
+            {
+              "name": "recovered-game",
+              "contentType": "image/png",
+              "sourcePath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/preview-retry-02/artifacts/site-steel-preview-Sunset--82a3d-vers-through-ordinary-Retry-chromium/attachments/recovered-game-aadecee7cead7a566735fdc9e70fe7eaa1d1d6d6.png",
+              "sha256": "dcf4880d31ee427844ce3702c08c80603db314ee119d5468c67e30f6ee7295e2",
+              "inlineBodyEncoding": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Sunset required steel resource ground.png recovers through ordinary Retry",
+      "file": "site-steel-preview.spec.ts",
+      "line": 101,
+      "project": "chromium",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 1718,
+          "retry": 0,
+          "errors": [],
+          "attachments": [
+            {
+              "name": "recovered-game",
+              "contentType": "image/png",
+              "sourcePath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/preview-retry-02/artifacts/site-steel-preview-Sunset--af0fd-vers-through-ordinary-Retry-chromium/attachments/recovered-game-666fbbc0c59f4ad630ea56388ca8d63b5c4abc16.png",
+              "sha256": "dcf4880d31ee427844ce3702c08c80603db314ee119d5468c67e30f6ee7295e2",
+              "inlineBodyEncoding": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Sunset required steel resource manifest.json recovers through ordinary Retry",
+      "file": "site-steel-preview.spec.ts",
+      "line": 101,
+      "project": "firefox",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 4369,
+          "retry": 0,
+          "errors": [],
+          "attachments": [
+            {
+              "name": "recovered-game",
+              "contentType": "image/png",
+              "sourcePath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/preview-retry-02/artifacts/site-steel-preview-Sunset--a3402-vers-through-ordinary-Retry-firefox/attachments/recovered-game-2ac6b95884bab28dac23da9b1794c4ac070a3e45.png",
+              "sha256": "e80a2f77bbe460869dfabc81fca3655e31ee650aafe01a13b85c4923c0b0fe97",
+              "inlineBodyEncoding": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Sunset required steel resource site-high-deck.png recovers through ordinary Retry",
+      "file": "site-steel-preview.spec.ts",
+      "line": 101,
+      "project": "firefox",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 2227,
+          "retry": 0,
+          "errors": [],
+          "attachments": [
+            {
+              "name": "recovered-game",
+              "contentType": "image/png",
+              "sourcePath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/preview-retry-02/artifacts/site-steel-preview-Sunset--71c35-vers-through-ordinary-Retry-firefox/attachments/recovered-game-656ba7ecc92a9afaef75acbe534821d0be05baa3.png",
+              "sha256": "e80a2f77bbe460869dfabc81fca3655e31ee650aafe01a13b85c4923c0b0fe97",
+              "inlineBodyEncoding": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Sunset required steel resource site-far-dock.png recovers through ordinary Retry",
+      "file": "site-steel-preview.spec.ts",
+      "line": 101,
+      "project": "firefox",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 2336,
+          "retry": 0,
+          "errors": [],
+          "attachments": [
+            {
+              "name": "recovered-game",
+              "contentType": "image/png",
+              "sourcePath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/preview-retry-02/artifacts/site-steel-preview-Sunset--5a64a-vers-through-ordinary-Retry-firefox/attachments/recovered-game-a451cbdc4c12b66a727bdde0532c49d1123b3b8a.png",
+              "sha256": "e80a2f77bbe460869dfabc81fca3655e31ee650aafe01a13b85c4923c0b0fe97",
+              "inlineBodyEncoding": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Sunset required steel resource site-first-3.png recovers through ordinary Retry",
+      "file": "site-steel-preview.spec.ts",
+      "line": 101,
+      "project": "firefox",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 1846,
+          "retry": 0,
+          "errors": [],
+          "attachments": [
+            {
+              "name": "recovered-game",
+              "contentType": "image/png",
+              "sourcePath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/preview-retry-02/artifacts/site-steel-preview-Sunset--2a662-vers-through-ordinary-Retry-firefox/attachments/recovered-game-d2c9c0a9974af05d8d8cde282c65f8d45051fdf5.png",
+              "sha256": "6852b83497a7f05f2938a5b76a5c07f2b48b8a8e9088bea9d3d97548a6ea4114",
+              "inlineBodyEncoding": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Sunset required steel resource site-first-b.png recovers through ordinary Retry",
+      "file": "site-steel-preview.spec.ts",
+      "line": 101,
+      "project": "firefox",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 2089,
+          "retry": 0,
+          "errors": [],
+          "attachments": [
+            {
+              "name": "recovered-game",
+              "contentType": "image/png",
+              "sourcePath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/preview-retry-02/artifacts/site-steel-preview-Sunset--b1f3e-vers-through-ordinary-Retry-firefox/attachments/recovered-game-4a91f1bcfc6ab9226f74897a77686ff45fd1816e.png",
+              "sha256": "6852b83497a7f05f2938a5b76a5c07f2b48b8a8e9088bea9d3d97548a6ea4114",
+              "inlineBodyEncoding": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Sunset required steel resource site-first-left-1.png recovers through ordinary Retry",
+      "file": "site-steel-preview.spec.ts",
+      "line": 101,
+      "project": "firefox",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 2272,
+          "retry": 0,
+          "errors": [],
+          "attachments": [
+            {
+              "name": "recovered-game",
+              "contentType": "image/png",
+              "sourcePath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/preview-retry-02/artifacts/site-steel-preview-Sunset--00452-vers-through-ordinary-Retry-firefox/attachments/recovered-game-04514faeb63665226ac1ee38e4110b6e71d9801f.png",
+              "sha256": "e80a2f77bbe460869dfabc81fca3655e31ee650aafe01a13b85c4923c0b0fe97",
+              "inlineBodyEncoding": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Sunset required steel resource site-lower-catch.png recovers through ordinary Retry",
+      "file": "site-steel-preview.spec.ts",
+      "line": 101,
+      "project": "firefox",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 1954,
+          "retry": 0,
+          "errors": [],
+          "attachments": [
+            {
+              "name": "recovered-game",
+              "contentType": "image/png",
+              "sourcePath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/preview-retry-02/artifacts/site-steel-preview-Sunset--340ab-vers-through-ordinary-Retry-firefox/attachments/recovered-game-0f55794c3c527fef9192a4092625bab2f9b77c29.png",
+              "sha256": "e80a2f77bbe460869dfabc81fca3655e31ee650aafe01a13b85c4923c0b0fe97",
+              "inlineBodyEncoding": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Sunset required steel resource ferry.png recovers through ordinary Retry",
+      "file": "site-steel-preview.spec.ts",
+      "line": 101,
+      "project": "firefox",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 1928,
+          "retry": 0,
+          "errors": [],
+          "attachments": [
+            {
+              "name": "recovered-game",
+              "contentType": "image/png",
+              "sourcePath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/preview-retry-02/artifacts/site-steel-preview-Sunset--82a3d-vers-through-ordinary-Retry-firefox/attachments/recovered-game-93df87c443daf5dc8a035ac2420ed6c4d140e39e.png",
+              "sha256": "6852b83497a7f05f2938a5b76a5c07f2b48b8a8e9088bea9d3d97548a6ea4114",
+              "inlineBodyEncoding": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Sunset required steel resource ground.png recovers through ordinary Retry",
+      "file": "site-steel-preview.spec.ts",
+      "line": 101,
+      "project": "firefox",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 1863,
+          "retry": 0,
+          "errors": [],
+          "attachments": [
+            {
+              "name": "recovered-game",
+              "contentType": "image/png",
+              "sourcePath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/preview-retry-02/artifacts/site-steel-preview-Sunset--af0fd-vers-through-ordinary-Retry-firefox/attachments/recovered-game-c22c9f2247fcc3ccb5bba28d80836f720e33fb5f.png",
+              "sha256": "6852b83497a7f05f2938a5b76a5c07f2b48b8a8e9088bea9d3d97548a6ea4114",
+              "inlineBodyEncoding": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Sunset required steel resource manifest.json recovers through ordinary Retry",
+      "file": "site-steel-preview.spec.ts",
+      "line": 101,
+      "project": "webkit",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 3060,
+          "retry": 0,
+          "errors": [],
+          "attachments": [
+            {
+              "name": "recovered-game",
+              "contentType": "image/png",
+              "sourcePath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/preview-retry-02/artifacts/site-steel-preview-Sunset--a3402-vers-through-ordinary-Retry-webkit/attachments/recovered-game-01d105db5e97fd41aaea9cbbee62f271a686e19d.png",
+              "sha256": "d5791f14a6c9923cd3e83107550fb4a6a36c88939cfa306109df7f65eb6c4df7",
+              "inlineBodyEncoding": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Sunset required steel resource site-high-deck.png recovers through ordinary Retry",
+      "file": "site-steel-preview.spec.ts",
+      "line": 101,
+      "project": "webkit",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 2721,
+          "retry": 0,
+          "errors": [],
+          "attachments": [
+            {
+              "name": "recovered-game",
+              "contentType": "image/png",
+              "sourcePath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/preview-retry-02/artifacts/site-steel-preview-Sunset--71c35-vers-through-ordinary-Retry-webkit/attachments/recovered-game-a7ec9e40ad8878b3062223923eff9f442e51f346.png",
+              "sha256": "ddbd0ab657584a1bbc3b688bd5f05ab45673c4a374db5caa6c224d9c6ba0cd88",
+              "inlineBodyEncoding": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Sunset required steel resource site-far-dock.png recovers through ordinary Retry",
+      "file": "site-steel-preview.spec.ts",
+      "line": 101,
+      "project": "webkit",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 2736,
+          "retry": 0,
+          "errors": [],
+          "attachments": [
+            {
+              "name": "recovered-game",
+              "contentType": "image/png",
+              "sourcePath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/preview-retry-02/artifacts/site-steel-preview-Sunset--5a64a-vers-through-ordinary-Retry-webkit/attachments/recovered-game-76e0a6d491acbdd3f3f98c984c21566bfe408bf5.png",
+              "sha256": "ddbd0ab657584a1bbc3b688bd5f05ab45673c4a374db5caa6c224d9c6ba0cd88",
+              "inlineBodyEncoding": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Sunset required steel resource site-first-3.png recovers through ordinary Retry",
+      "file": "site-steel-preview.spec.ts",
+      "line": 101,
+      "project": "webkit",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 2665,
+          "retry": 0,
+          "errors": [],
+          "attachments": [
+            {
+              "name": "recovered-game",
+              "contentType": "image/png",
+              "sourcePath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/preview-retry-02/artifacts/site-steel-preview-Sunset--2a662-vers-through-ordinary-Retry-webkit/attachments/recovered-game-dd506fbd48af75fd353c38328d8831375a99d3bb.png",
+              "sha256": "d5791f14a6c9923cd3e83107550fb4a6a36c88939cfa306109df7f65eb6c4df7",
+              "inlineBodyEncoding": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Sunset required steel resource site-first-b.png recovers through ordinary Retry",
+      "file": "site-steel-preview.spec.ts",
+      "line": 101,
+      "project": "webkit",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 3010,
+          "retry": 0,
+          "errors": [],
+          "attachments": [
+            {
+              "name": "recovered-game",
+              "contentType": "image/png",
+              "sourcePath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/preview-retry-02/artifacts/site-steel-preview-Sunset--b1f3e-vers-through-ordinary-Retry-webkit/attachments/recovered-game-ab988c401f20f01772e363a368c23562bd07b0ec.png",
+              "sha256": "d5791f14a6c9923cd3e83107550fb4a6a36c88939cfa306109df7f65eb6c4df7",
+              "inlineBodyEncoding": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Sunset required steel resource site-first-left-1.png recovers through ordinary Retry",
+      "file": "site-steel-preview.spec.ts",
+      "line": 101,
+      "project": "webkit",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 2680,
+          "retry": 0,
+          "errors": [],
+          "attachments": [
+            {
+              "name": "recovered-game",
+              "contentType": "image/png",
+              "sourcePath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/preview-retry-02/artifacts/site-steel-preview-Sunset--00452-vers-through-ordinary-Retry-webkit/attachments/recovered-game-01630d6597d9bd7a2bb7dc3eda1fe68ab03e6736.png",
+              "sha256": "d5791f14a6c9923cd3e83107550fb4a6a36c88939cfa306109df7f65eb6c4df7",
+              "inlineBodyEncoding": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Sunset required steel resource site-lower-catch.png recovers through ordinary Retry",
+      "file": "site-steel-preview.spec.ts",
+      "line": 101,
+      "project": "webkit",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 2838,
+          "retry": 0,
+          "errors": [],
+          "attachments": [
+            {
+              "name": "recovered-game",
+              "contentType": "image/png",
+              "sourcePath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/preview-retry-02/artifacts/site-steel-preview-Sunset--340ab-vers-through-ordinary-Retry-webkit/attachments/recovered-game-e2d4dd74550ef40ed47701633d11ea6a2f075302.png",
+              "sha256": "d5791f14a6c9923cd3e83107550fb4a6a36c88939cfa306109df7f65eb6c4df7",
+              "inlineBodyEncoding": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Sunset required steel resource ferry.png recovers through ordinary Retry",
+      "file": "site-steel-preview.spec.ts",
+      "line": 101,
+      "project": "webkit",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 2608,
+          "retry": 0,
+          "errors": [],
+          "attachments": [
+            {
+              "name": "recovered-game",
+              "contentType": "image/png",
+              "sourcePath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/preview-retry-02/artifacts/site-steel-preview-Sunset--82a3d-vers-through-ordinary-Retry-webkit/attachments/recovered-game-0bc59a29fe4ef9856e3b412749c5e97212309874.png",
+              "sha256": "d5791f14a6c9923cd3e83107550fb4a6a36c88939cfa306109df7f65eb6c4df7",
+              "inlineBodyEncoding": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Sunset required steel resource ground.png recovers through ordinary Retry",
+      "file": "site-steel-preview.spec.ts",
+      "line": 101,
+      "project": "webkit",
+      "status": "expected",
+      "expectedStatus": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 2637,
+          "retry": 0,
+          "errors": [],
+          "attachments": [
+            {
+              "name": "recovered-game",
+              "contentType": "image/png",
+              "sourcePath": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/preview-retry-02/artifacts/site-steel-preview-Sunset--af0fd-vers-through-ordinary-Retry-webkit/attachments/recovered-game-c8b6e73c658ae88555d4fa881c55cdcf68e08449.png",
+              "sha256": "ddbd0ab657584a1bbc3b688bd5f05ab45673c4a374db5caa6c224d9c6ba0cd88",
+              "inlineBodyEncoding": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

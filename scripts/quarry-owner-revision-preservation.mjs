@@ -1,3 +1,4 @@
+import { projectQuarrySiteSource } from './quarry-site-integration.mjs';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
@@ -7,6 +8,7 @@ assert.equal(hash(raw), 'dae2736f1159cccf76c09166c54ffff750dd743b34cbdd38cd38010
 const record = JSON.parse(raw);
 /** Reverse only the exact owner delta. Historical byte identities remain independent oracles. */
 export function beforeQuarryOwnerRevision(path, bytes) {
+  bytes = projectQuarrySiteSource(path, bytes, 'quarry');
   const entry = record.files[path];
   if (!entry) return bytes;
   const digest = hash(bytes);

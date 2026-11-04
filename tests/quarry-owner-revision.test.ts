@@ -36,7 +36,7 @@ function kits() {
     })) }];
   }));
 }
-it('removes only Quarry path pips/endcaps while drawing every real illustrated body', () => {
+it('preserves accepted Quarry and Sunset marker removal while drawing every real illustrated body', () => {
   const assets = kits();
   for (const seconds of [0, 2, 5.5, 8, 11]) {
     const { ctx, images, rects } = canvas(), bodies = platformBodiesAt(QUARRY_RUN.platforms!, seconds);
@@ -48,7 +48,8 @@ it('removes only Quarry path pips/endcaps while drawing every real illustrated b
   for (const level of LEVELS.filter(l => l.id !== 'quarry')) {
     const { ctx, rects } = canvas();
     drawPlatforms(ctx, level, { x: 0, y: 0 }, []);
-    const paths = level.platforms?.filter(p => level.id !== 'timbers' || p.from.x !== p.to.x || p.from.y !== p.to.y) ?? [];
+    const paths = level.platforms?.filter(p => level.id !== 'sunset' && (level.id !== 'timbers' || p.from.x !== p.to.x || p.from.y !== p.to.y)) ?? [];
+    if (level.id === 'sunset') expect(rects).toEqual([]);
     expect(rects.filter(r => r[0] === '#ffffff66' && r[3] === 8 && r[4] === 2)).toHaveLength(paths.length * 2);
   }
 });

@@ -1,0 +1,283 @@
+{
+  "metadata": {
+    "sourceRevision": null,
+    "nodeVersion": "v22.22.1",
+    "platform": "linux",
+    "arch": "x64",
+    "actualWorkers": 2
+  },
+  "stats": {
+    "startTime": "2026-11-03T09:23:15.679Z",
+    "duration": 238180.66999999998,
+    "expected": 12,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "errors": [],
+  "configured": 12,
+  "enumerated": 12,
+  "totals": {
+    "expected": 12,
+    "unexpected": 0,
+    "skipped": 0,
+    "flaky": 0
+  },
+  "projects": {
+    "chromium": {
+      "expected": 4,
+      "unexpected": 0,
+      "skipped": 0,
+      "flaky": 0
+    },
+    "firefox": {
+      "expected": 4,
+      "unexpected": 0,
+      "skipped": 0,
+      "flaky": 0
+    },
+    "webkit": {
+      "expected": 4,
+      "unexpected": 0,
+      "skipped": 0,
+      "flaky": 0
+    }
+  },
+  "cases": [
+    {
+      "id": "3c0f926210d8ed1862c8-20d4f09506c563ba4288",
+      "title": "site-steel-preview.spec.ts > Sunset steel preview uses ordinary ground, underpass and dock input at 426px",
+      "file": "site-steel-preview.spec.ts",
+      "line": 12,
+      "column": 33,
+      "project": "chromium",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 42411,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "3c0f926210d8ed1862c8-5b1801aa3e5defc4c580",
+      "title": "site-steel-preview.spec.ts > Sunset steel preview uses ordinary ground, underpass and dock input at 320px",
+      "file": "site-steel-preview.spec.ts",
+      "line": 12,
+      "column": 33,
+      "project": "chromium",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 42219,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "3c0f926210d8ed1862c8-cfedf9b400b3978ab5ee",
+      "title": "site-steel-preview.spec.ts > Sunset steel preview uses ordinary ground, underpass and dock input at 426px",
+      "file": "site-steel-preview.spec.ts",
+      "line": 12,
+      "column": 33,
+      "project": "firefox",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 44321,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "3c0f926210d8ed1862c8-6842659d38ff0a76c86c",
+      "title": "site-steel-preview.spec.ts > Sunset steel preview uses ordinary ground, underpass and dock input at 320px",
+      "file": "site-steel-preview.spec.ts",
+      "line": 12,
+      "column": 33,
+      "project": "firefox",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 44293,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "3c0f926210d8ed1862c8-006e3c7e07398e57a0ca",
+      "title": "site-steel-preview.spec.ts > Sunset steel preview uses ordinary ground, underpass and dock input at 426px",
+      "file": "site-steel-preview.spec.ts",
+      "line": 12,
+      "column": 33,
+      "project": "webkit",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 45012,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "3c0f926210d8ed1862c8-98bc459bb4136b9802e2",
+      "title": "site-steel-preview.spec.ts > Sunset steel preview uses ordinary ground, underpass and dock input at 320px",
+      "file": "site-steel-preview.spec.ts",
+      "line": 12,
+      "column": 33,
+      "project": "webkit",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 45084,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "88412551c662c97d69d6-2ceaf88a91ad33258557",
+      "title": "site-steel-rollout.spec.ts > Sunset whole steel rollout reaches the roof and finish at 426px with Pause",
+      "file": "site-steel-rollout.spec.ts",
+      "line": 11,
+      "column": 33,
+      "project": "chromium",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 31293,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "88412551c662c97d69d6-074139364890ff8b29d0",
+      "title": "site-steel-rollout.spec.ts > Sunset whole steel rollout reaches the roof and finish at 320px with Pause",
+      "file": "site-steel-rollout.spec.ts",
+      "line": 11,
+      "column": 33,
+      "project": "chromium",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 31166,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "88412551c662c97d69d6-63c829a8cc19ec2906e0",
+      "title": "site-steel-rollout.spec.ts > Sunset whole steel rollout reaches the roof and finish at 426px with Pause",
+      "file": "site-steel-rollout.spec.ts",
+      "line": 11,
+      "column": 33,
+      "project": "firefox",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 32749,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "88412551c662c97d69d6-611fee17b2818a55858b",
+      "title": "site-steel-rollout.spec.ts > Sunset whole steel rollout reaches the roof and finish at 320px with Pause",
+      "file": "site-steel-rollout.spec.ts",
+      "line": 11,
+      "column": 33,
+      "project": "firefox",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 32360,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "88412551c662c97d69d6-87e130ac77fd2b6dab7e",
+      "title": "site-steel-rollout.spec.ts > Sunset whole steel rollout reaches the roof and finish at 426px with Pause",
+      "file": "site-steel-rollout.spec.ts",
+      "line": 11,
+      "column": 33,
+      "project": "webkit",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 33261,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "88412551c662c97d69d6-6033e48743376c39c917",
+      "title": "site-steel-rollout.spec.ts > Sunset whole steel rollout reaches the roof and finish at 320px with Pause",
+      "file": "site-steel-rollout.spec.ts",
+      "line": 11,
+      "column": 33,
+      "project": "webkit",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 33295,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    }
+  ],
+  "attachmentVerification": {
+    "checked": 426,
+    "inline": 0,
+    "missing": 0,
+    "invalid": 0,
+    "diagnostics": []
+  }
+}

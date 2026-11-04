@@ -1,0 +1,135 @@
+{
+  "failures": [
+    {
+      "id": "998187aca5248271c8fd-8bd28390974e60e26c60",
+      "title": "plains-contour-pilot.spec.ts > Plains required contour image error offers ordinary Retry loading",
+      "file": "plains-contour-pilot.spec.ts",
+      "line": 184,
+      "column": 52,
+      "project": "webkit",
+      "outcome": "unexpected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "failed",
+          "durationMs": 25468,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "998187aca5248271c8fd-57f9d842beec422a68cb",
+      "title": "plains-contour-pilot.spec.ts > Plains required contour soil error offers ordinary Retry loading",
+      "file": "plains-contour-pilot.spec.ts",
+      "line": 184,
+      "column": 52,
+      "project": "webkit",
+      "outcome": "unexpected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "failed",
+          "durationMs": 26239,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    }
+  ],
+  "configured": 42,
+  "totals": {
+    "expected": 40,
+    "unexpected": 2,
+    "skipped": 0,
+    "flaky": 0
+  },
+  "attachmentVerification": {
+    "checked": 397,
+    "inline": 156,
+    "missing": 0,
+    "invalid": 0,
+    "diagnostics": []
+  },
+  "sourceComparisons": 714,
+  "servedBuildComparisons": 607,
+  "pngValidations": 559,
+  "nestedReferences": 160,
+  "reportSha256": "b7b2d284997b280526acad6030ca0cab97506ae00b01019db8eb1718867750c2",
+  "evidenceFiles": [
+    {
+      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/plains-main/browser/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-chromium/attachments/source-build-input-provenance-79a4b4660f069257f7e90bbebd951f6620eb2177.json",
+      "sha256": "b5be230090bd3269eecf430e5914f6f4d774e43870eb1578846d844aa39e9a40"
+    },
+    {
+      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/plains-main/browser/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-chromium/attachments/source-build-input-provenance-19d26b640c143bf69adbb57b968b0543a40d54d0.json",
+      "sha256": "82e326ad20491fa9e95214b2bbbb06a92ec5ee7dfd498d16dcc095737ad8b239"
+    },
+    {
+      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/plains-main/browser/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-firefox/attachments/source-build-input-provenance-9a43dd36748abe4654791f91b7c7841cacd76f2c.json",
+      "sha256": "2c503608857f042e0f8af8e0d5ef2226ff5c01c411779d4af65a141407c23d85"
+    },
+    {
+      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/plains-main/browser/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-firefox/attachments/source-build-input-provenance-571e1b38a805d21e9f6e6ec36cc261dc9564bd8a.json",
+      "sha256": "0def0e640f2659990925de959d848c2e76a541c2c76259e9a1a377f32e36832b"
+    },
+    {
+      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/plains-main/browser/site-steel-rollout-Sunset--10ab4--finish-at-426px-with-Pause-webkit/attachments/source-build-input-provenance-0efc7ba624663e96c020f4a7101db88c4e5542e3.json",
+      "sha256": "5a6a09da54014275caad6da914587a430829e281b32704f750cfc85bc19694eb"
+    },
+    {
+      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/plains-main/browser/site-steel-rollout-Sunset--f4425--finish-at-320px-with-Pause-webkit/attachments/source-build-input-provenance-6d2bdaf8df20ab621f23ef83d1a8efacbc11deb2.json",
+      "sha256": "7d6b59fb30a5d025db116a2b597b85ca2889c602be1afa8acb3c139b04325df4"
+    },
+    {
+      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/plains-main/browser/plains-contour-pilot-Plain-75107-fers-ordinary-Retry-loading-chromium/retry-recovery-evidence.json",
+      "sha256": "86b3cbd6736c415724c373b86cfb172c54dcb99e9c4be0c17382aedfaa5bad19"
+    },
+    {
+      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/plains-main/browser/plains-contour-pilot-Plain-75107-fers-ordinary-Retry-loading-firefox/retry-recovery-evidence.json",
+      "sha256": "1cbc04b2e9ecfdd2269accc0af4d1b939305032ab2235d0ca954a1c2f28f65ad"
+    },
+    {
+      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/plains-main/browser/plains-contour-pilot-Plain-75107-fers-ordinary-Retry-loading-webkit/retry-recovery-evidence.json",
+      "sha256": "de7d85fe20d949f3eee2a036b1011f96a4d571b37b21fb778bdb7992e120ce2e"
+    },
+    {
+      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/plains-main/browser/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-chromium/pilot-evidence.json",
+      "sha256": "6f3a61137f397520e74e0ea864a5f72fdf6bd93a7a79c7288a316c538f22a16b"
+    },
+    {
+      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/plains-main/browser/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-firefox/pilot-evidence.json",
+      "sha256": "780e72323a95abe504c51248bbd63751471ea114737b8ea8853adeb0c8ae8695"
+    },
+    {
+      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/plains-main/browser/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-webkit/pilot-evidence.json",
+      "sha256": "f4cb959f2f01fddd88e413c1953f9646ac1024ddf676b82c2892fedee55d068f"
+    },
+    {
+      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/plains-main/browser/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-chromium/pilot-evidence.json",
+      "sha256": "397ec25414e28cd678d9f67e28993d035560ba7740e071b0434af71b88ab02cc"
+    },
+    {
+      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/plains-main/browser/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-firefox/pilot-evidence.json",
+      "sha256": "b53ca965e5a5cdbd156846f7dce57464501cc3386a8ef4a7f77f880e664de5d2"
+    },
+    {
+      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/plains-main/browser/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-webkit/pilot-evidence.json",
+      "sha256": "be66aa66073ca440ab286e0dcabf50f6024f4047f67e6c2fced4476cc4502aee"
+    },
+    {
+      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/plains-main/browser/plains-contour-pilot-Plain-d2556-fers-ordinary-Retry-loading-chromium/retry-recovery-evidence.json",
+      "sha256": "ba91b24a8d093d79773a188a0ab07ce378be7e656cf773ee159efe083aebff94"
+    },
+    {
+      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/plains-main/browser/plains-contour-pilot-Plain-d2556-fers-ordinary-Retry-loading-firefox/retry-recovery-evidence.json",
+      "sha256": "8218ef62c43ac30c2588ac78caf7a46bcefbe888a88e90027016eaf103237f49"
+    },
+    {
+      "path": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-d5082008/test-results/issue-242/plains-main/browser/plains-contour-pilot-Plain-d2556-fers-ordinary-Retry-loading-webkit/retry-recovery-evidence.json",
+      "sha256": "452ad13dee7a5701715f26de0680af4578df50e9fe92f46c6954b5fac38eb88d"
+    }
+  ]
+}

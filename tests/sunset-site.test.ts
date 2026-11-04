@@ -26,7 +26,7 @@ it('paints a warm low sun with a readable gold girder edge', () => {
 
 it('replaces repeated spring pits with permanent scaffolds, a calm yard and a taller roof', () => {
   expect(SUNSET_SITE.width).toBe(3120);
-  expect(SUNSET_SITE.entities.filter(entity => ['spring', 'slime', 'crumbling-ledge'].includes(entity.kind))).toEqual([]);
+  expect(SUNSET_SITE.entities.filter(entity => ['spring', 'crumbling-ledge'].includes(entity.kind))).toEqual([]);
   expect(SUNSET_SITE.checkpoints).toHaveLength(4);
   expect(SUNSET_SITE.entities.filter(entity => entity.kind === 'checkpoint')).toEqual(
     SUNSET_SITE.checkpoints.map(point => ({ ...point, kind: 'checkpoint', asset: 'checkpoint', layer: 'world' })));

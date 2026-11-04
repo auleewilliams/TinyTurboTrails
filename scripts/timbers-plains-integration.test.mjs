@@ -1,5 +1,4 @@
-import { beforeQuarryRepresentative } from './quarry-representative-preservation.mjs';
-import { beforeQuarryShelves } from './quarry-shelves-preservation.mjs';
+import { beforeSiteArt } from './site-art-preservation.mjs';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
@@ -10,11 +9,12 @@ const record = JSON.parse(readFileSync(new URL('../docs/evidence/issue-241/main-
 for (const [name, project] of Object.entries({ beforePlainsMerge, beforeTimbersMerge })) {
   test(`${name} restores exact parent bytes and rejects altered or historical input`, () => {
     for (const [path, entry] of Object.entries(record.projections[name])) {
-      const bytes = readFileSync(path), baseline = project(path, bytes);
+      // Reverse the exact Sunset integration before mutating historical Timbers hunks.
+      const bytes = beforeSiteArt(path, readFileSync(path)), baseline = project(path, bytes);
       assert.equal(hash(baseline), entry.baselineSha256, path);
       assert.throws(() => project(path, baseline), { code: 'ERR_ASSERTION' });
       assert.throws(() => project(path, Buffer.concat([bytes, Buffer.from(' ')])), { code: 'ERR_ASSERTION' });
-      const mutationDomain = beforeQuarryShelves(path, beforeQuarryRepresentative(path, bytes));
+      const mutationDomain = bytes;
       // Exercise every integrated hunk, including both trails' guards and drawing calls.
       for (const change of entry.changes) if (change.after) {
         const altered = Buffer.from(mutationDomain.toString().replace(change.after, change.after + '// changed\n'));

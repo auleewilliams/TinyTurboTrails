@@ -1,0 +1,19 @@
+{
+  "path": "assets/source/site/steel-v1/call-01-original.png",
+  "width": 2172,
+  "height": 724,
+  "channels": 4,
+  "alphaBounds": {
+    "minX": 0,
+    "minY": 0,
+    "maxX": 2152,
+    "maxY": 723
+  },
+  "transparent": 981082,
+  "partial": 591297,
+  "sha256": "c1705d95e990b1b0833303e433c9ccc4f9f94d26f41fa1b1ad62541eb4294f3f",
+  "tool": "image_gen.imagegen",
+  "actualProvider": null,
+  "actualModel": null,
+  "metadataNote": "Tool returned image_url and local output_hint only. Provider/model not exposed; not inferred."
+}

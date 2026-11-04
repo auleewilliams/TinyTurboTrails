@@ -1,0 +1,625 @@
+{
+  "metadata": {
+    "sourceRevision": null,
+    "nodeVersion": "v22.22.1",
+    "platform": "linux",
+    "arch": "x64",
+    "actualWorkers": 2
+  },
+  "stats": {
+    "startTime": "2026-11-03T19:26:44.240Z",
+    "duration": 612639.4349999999,
+    "expected": 29,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  },
+  "errors": [],
+  "configured": 30,
+  "enumerated": 30,
+  "totals": {
+    "expected": 29,
+    "unexpected": 1,
+    "skipped": 0,
+    "flaky": 0
+  },
+  "projects": {
+    "chromium": {
+      "expected": 10,
+      "unexpected": 0,
+      "skipped": 0,
+      "flaky": 0
+    },
+    "firefox": {
+      "expected": 9,
+      "unexpected": 1,
+      "skipped": 0,
+      "flaky": 0
+    },
+    "webkit": {
+      "expected": 10,
+      "unexpected": 0,
+      "skipped": 0,
+      "flaky": 0
+    }
+  },
+  "cases": [
+    {
+      "id": "fbeac1b2decfba2c3acd-1fcefe4e7f372d740fd2",
+      "title": "browser.spec.ts > sunset uses the common slime atlas, patrols and pauses in play",
+      "file": "browser.spec.ts",
+      "line": 3186,
+      "column": 3,
+      "project": "chromium",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 7165,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "fbeac1b2decfba2c3acd-f2c6bf16bfbcd93b1ce1",
+      "title": "browser.spec.ts > sunset uses the common slime atlas, patrols and pauses in play",
+      "file": "browser.spec.ts",
+      "line": 3186,
+      "column": 3,
+      "project": "firefox",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 9225,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "fbeac1b2decfba2c3acd-2d46b3c9061c735f21a4",
+      "title": "browser.spec.ts > sunset uses the common slime atlas, patrols and pauses in play",
+      "file": "browser.spec.ts",
+      "line": 3186,
+      "column": 3,
+      "project": "webkit",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 11862,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "3c0f926210d8ed1862c8-20d4f09506c563ba4288",
+      "title": "site-steel-preview.spec.ts > Sunset steel preview uses ordinary ground, underpass and dock input at 426px",
+      "file": "site-steel-preview.spec.ts",
+      "line": 12,
+      "column": 33,
+      "project": "chromium",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 42420,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "3c0f926210d8ed1862c8-5b1801aa3e5defc4c580",
+      "title": "site-steel-preview.spec.ts > Sunset steel preview uses ordinary ground, underpass and dock input at 320px",
+      "file": "site-steel-preview.spec.ts",
+      "line": 12,
+      "column": 33,
+      "project": "chromium",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 41610,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "3c0f926210d8ed1862c8-cfedf9b400b3978ab5ee",
+      "title": "site-steel-preview.spec.ts > Sunset steel preview uses ordinary ground, underpass and dock input at 426px",
+      "file": "site-steel-preview.spec.ts",
+      "line": 12,
+      "column": 33,
+      "project": "firefox",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 43903,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "3c0f926210d8ed1862c8-6842659d38ff0a76c86c",
+      "title": "site-steel-preview.spec.ts > Sunset steel preview uses ordinary ground, underpass and dock input at 320px",
+      "file": "site-steel-preview.spec.ts",
+      "line": 12,
+      "column": 33,
+      "project": "firefox",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 44214,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "3c0f926210d8ed1862c8-006e3c7e07398e57a0ca",
+      "title": "site-steel-preview.spec.ts > Sunset steel preview uses ordinary ground, underpass and dock input at 426px",
+      "file": "site-steel-preview.spec.ts",
+      "line": 12,
+      "column": 33,
+      "project": "webkit",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 43681,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "3c0f926210d8ed1862c8-98bc459bb4136b9802e2",
+      "title": "site-steel-preview.spec.ts > Sunset steel preview uses ordinary ground, underpass and dock input at 320px",
+      "file": "site-steel-preview.spec.ts",
+      "line": 12,
+      "column": 33,
+      "project": "webkit",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 44067,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "88412551c662c97d69d6-2ceaf88a91ad33258557",
+      "title": "site-steel-rollout.spec.ts > Sunset whole steel rollout reaches the roof and finish at 426px with Pause",
+      "file": "site-steel-rollout.spec.ts",
+      "line": 11,
+      "column": 33,
+      "project": "chromium",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 31333,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "88412551c662c97d69d6-074139364890ff8b29d0",
+      "title": "site-steel-rollout.spec.ts > Sunset whole steel rollout reaches the roof and finish at 320px with Pause",
+      "file": "site-steel-rollout.spec.ts",
+      "line": 11,
+      "column": 33,
+      "project": "chromium",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 31466,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "88412551c662c97d69d6-f04cd1cc2b2799df65bc",
+      "title": "site-steel-rollout.spec.ts > Sunset construction prop replaces the bush at 426px",
+      "file": "site-steel-rollout.spec.ts",
+      "line": 84,
+      "column": 33,
+      "project": "chromium",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 12693,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "88412551c662c97d69d6-24d6f193453822292f4c",
+      "title": "site-steel-rollout.spec.ts > Sunset construction prop replaces the bush at 320px",
+      "file": "site-steel-rollout.spec.ts",
+      "line": 84,
+      "column": 33,
+      "project": "chromium",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 12610,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "88412551c662c97d69d6-63c829a8cc19ec2906e0",
+      "title": "site-steel-rollout.spec.ts > Sunset whole steel rollout reaches the roof and finish at 426px with Pause",
+      "file": "site-steel-rollout.spec.ts",
+      "line": 11,
+      "column": 33,
+      "project": "firefox",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 32205,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "88412551c662c97d69d6-611fee17b2818a55858b",
+      "title": "site-steel-rollout.spec.ts > Sunset whole steel rollout reaches the roof and finish at 320px with Pause",
+      "file": "site-steel-rollout.spec.ts",
+      "line": 11,
+      "column": 33,
+      "project": "firefox",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 33748,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "88412551c662c97d69d6-73165a59937130910fa6",
+      "title": "site-steel-rollout.spec.ts > Sunset construction prop replaces the bush at 426px",
+      "file": "site-steel-rollout.spec.ts",
+      "line": 84,
+      "column": 33,
+      "project": "firefox",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 13276,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "88412551c662c97d69d6-eafe9a19d23fb32ae135",
+      "title": "site-steel-rollout.spec.ts > Sunset construction prop replaces the bush at 320px",
+      "file": "site-steel-rollout.spec.ts",
+      "line": 84,
+      "column": 33,
+      "project": "firefox",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 13367,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "88412551c662c97d69d6-87e130ac77fd2b6dab7e",
+      "title": "site-steel-rollout.spec.ts > Sunset whole steel rollout reaches the roof and finish at 426px with Pause",
+      "file": "site-steel-rollout.spec.ts",
+      "line": 11,
+      "column": 33,
+      "project": "webkit",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 34058,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "88412551c662c97d69d6-6033e48743376c39c917",
+      "title": "site-steel-rollout.spec.ts > Sunset whole steel rollout reaches the roof and finish at 320px with Pause",
+      "file": "site-steel-rollout.spec.ts",
+      "line": 11,
+      "column": 33,
+      "project": "webkit",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 34591,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "88412551c662c97d69d6-9d4186afafe66f16d394",
+      "title": "site-steel-rollout.spec.ts > Sunset construction prop replaces the bush at 426px",
+      "file": "site-steel-rollout.spec.ts",
+      "line": 84,
+      "column": 33,
+      "project": "webkit",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 13572,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "88412551c662c97d69d6-142545a2326e629c2c14",
+      "title": "site-steel-rollout.spec.ts > Sunset construction prop replaces the bush at 320px",
+      "file": "site-steel-rollout.spec.ts",
+      "line": 84,
+      "column": 33,
+      "project": "webkit",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 13567,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "707918baf227603e52bc-cdb5ff01ea19c7807d32",
+      "title": "sunset-scaffolds.spec.ts > Sunset actual finish retrace recovers all missed BEAM, reactivates checkpoints and returns",
+      "file": "sunset-scaffolds.spec.ts",
+      "line": 33,
+      "column": 1,
+      "project": "chromium",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 84752,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "707918baf227603e52bc-fe2095b3a90df10029e6",
+      "title": "sunset-scaffolds.spec.ts > Sunset only missed M uses native retrace and returns to word flow",
+      "file": "sunset-scaffolds.spec.ts",
+      "line": 64,
+      "column": 32,
+      "project": "chromium",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 37252,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "707918baf227603e52bc-7fca038bedeb1a085a77",
+      "title": "sunset-scaffolds.spec.ts > Sunset only missed A uses native retrace and returns to word flow",
+      "file": "sunset-scaffolds.spec.ts",
+      "line": 64,
+      "column": 32,
+      "project": "chromium",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 75534,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "707918baf227603e52bc-4a7ff43d9c8f0eb7f982",
+      "title": "sunset-scaffolds.spec.ts > Sunset actual finish retrace recovers all missed BEAM, reactivates checkpoints and returns",
+      "file": "sunset-scaffolds.spec.ts",
+      "line": 33,
+      "column": 1,
+      "project": "firefox",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 86913,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "707918baf227603e52bc-7191503326a4f7e005d5",
+      "title": "sunset-scaffolds.spec.ts > Sunset only missed M uses native retrace and returns to word flow",
+      "file": "sunset-scaffolds.spec.ts",
+      "line": 64,
+      "column": 32,
+      "project": "firefox",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 38124,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "707918baf227603e52bc-1d2961f82825764fcade",
+      "title": "sunset-scaffolds.spec.ts > Sunset only missed A uses native retrace and returns to word flow",
+      "file": "sunset-scaffolds.spec.ts",
+      "line": 64,
+      "column": 32,
+      "project": "firefox",
+      "outcome": "unexpected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "failed",
+          "durationMs": 80628,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "707918baf227603e52bc-4b599165a2d34ba6ffcc",
+      "title": "sunset-scaffolds.spec.ts > Sunset actual finish retrace recovers all missed BEAM, reactivates checkpoints and returns",
+      "file": "sunset-scaffolds.spec.ts",
+      "line": 33,
+      "column": 1,
+      "project": "webkit",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 86244,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "707918baf227603e52bc-4df59b00d82b035c5a79",
+      "title": "sunset-scaffolds.spec.ts > Sunset only missed M uses native retrace and returns to word flow",
+      "file": "sunset-scaffolds.spec.ts",
+      "line": 64,
+      "column": 32,
+      "project": "webkit",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 39100,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "707918baf227603e52bc-4b085f147c32cce16056",
+      "title": "sunset-scaffolds.spec.ts > Sunset only missed A uses native retrace and returns to word flow",
+      "file": "sunset-scaffolds.spec.ts",
+      "line": 64,
+      "column": 32,
+      "project": "webkit",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 76381,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    }
+  ],
+  "attachmentVerification": {
+    "checked": 450,
+    "inline": 28,
+    "missing": 0,
+    "invalid": 0,
+    "diagnostics": []
+  }
+}

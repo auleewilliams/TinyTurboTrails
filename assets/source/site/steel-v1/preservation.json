@@ -1,0 +1,27 @@
+{
+  "phase": "owner-authorized preview implementation; visual approval pending",
+  "baselineRevision": "885b6c16d5397e061f1ccb40ca326856bc77db88",
+  "scope": "One required site manifest declaration, site-only loader/renderer integration, and the14 explicitly approved preview gem offsets. Independent geometry/reward/source tests retain all other invariants.",
+  "files": {
+    "public/assets/site/manifest.json": {
+      "baselineSha256": "176ce7b94cf713fa3c099f1e62511227b67c384e1159a4b8ecce3547c40333da",
+      "currentSha256": "380cf415e2decc8d259f4de6be6e382817a9387e9385f6fd0ef6562b17ae9f54",
+      "baselineCopy": "assets/source/site/steel-v1/baseline/public/assets/site/manifest.json"
+    },
+    "src/world/assets.ts": {
+      "baselineSha256": "9322228ed80f316a8e5a1fbe5707658f38334a54b2911c147b1de113a279499e",
+      "currentSha256": "aa04fe2df8dd1b742d4388183cd5d01e714116546d7741c16fa263f819fb1ee4",
+      "baselineCopy": "assets/source/site/steel-v1/baseline/src/world/assets.ts"
+    },
+    "src/world/renderer.ts": {
+      "baselineSha256": "c59b777d2462036f4c500a7e77cd5b76ba0cb4877c69e8b3dd9d79751cc19417",
+      "currentSha256": "046bbe28c50e6d905a026d475b1fbe57e8b21ace2ddd9699e5a1e2d2187d031a",
+      "baselineCopy": "assets/source/site/steel-v1/baseline/src/world/renderer.ts"
+    },
+    "src/world/sunset-site.ts": {
+      "baselineSha256": "5ef2db7021744d2b04dfff636b22842ce3d53d15c91bd9d91c4eca25f53be0d5",
+      "currentSha256": "85e0a2c188fa94e205d1b7cb0fbcc1f1bac46e4bb67ceb10b242d19336d48a89",
+      "baselineCopy": "assets/source/site/steel-v1/baseline/src/world/sunset-site.ts"
+    }
+  }
+}

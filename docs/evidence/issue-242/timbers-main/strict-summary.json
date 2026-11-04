@@ -1,0 +1,853 @@
+{
+  "metadata": {
+    "sourceRevision": null,
+    "nodeVersion": "v22.22.1",
+    "platform": "linux",
+    "arch": "x64",
+    "actualWorkers": 2
+  },
+  "stats": {
+    "startTime": "2026-11-03T09:14:28.710Z",
+    "duration": 501420.21900000004,
+    "expected": 38,
+    "skipped": 0,
+    "unexpected": 4,
+    "flaky": 0
+  },
+  "errors": [],
+  "configured": 42,
+  "enumerated": 42,
+  "totals": {
+    "expected": 38,
+    "unexpected": 4,
+    "skipped": 0,
+    "flaky": 0
+  },
+  "projects": {
+    "chromium": {
+      "expected": 14,
+      "unexpected": 0,
+      "skipped": 0,
+      "flaky": 0
+    },
+    "firefox": {
+      "expected": 10,
+      "unexpected": 4,
+      "skipped": 0,
+      "flaky": 0
+    },
+    "webkit": {
+      "expected": 14,
+      "unexpected": 0,
+      "skipped": 0,
+      "flaky": 0
+    }
+  },
+  "cases": [
+    {
+      "id": "fbeac1b2decfba2c3acd-05452ff6749338c316a8",
+      "title": "browser.spec.ts > all six trail previews show cached gameplay and the map requests no story artwork",
+      "file": "browser.spec.ts",
+      "line": 2061,
+      "column": 1,
+      "project": "chromium",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 2676,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "fbeac1b2decfba2c3acd-2b161adc464ce950c4cf",
+      "title": "browser.spec.ts > compact HUD renderer fixture: timbers identity marks and real glyph clearance",
+      "file": "browser.spec.ts",
+      "line": 4495,
+      "column": 29,
+      "project": "chromium",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 4794,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "fbeac1b2decfba2c3acd-8da851458c05c1948306",
+      "title": "browser.spec.ts > compact HUD renderer fixture: sunset identity marks and real glyph clearance",
+      "file": "browser.spec.ts",
+      "line": 4495,
+      "column": 29,
+      "project": "chromium",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 4697,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "fbeac1b2decfba2c3acd-0385918fc16437e0176b",
+      "title": "browser.spec.ts > all six trail previews show cached gameplay and the map requests no story artwork",
+      "file": "browser.spec.ts",
+      "line": 2061,
+      "column": 1,
+      "project": "firefox",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 4403,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "fbeac1b2decfba2c3acd-fde47d52833f85b97154",
+      "title": "browser.spec.ts > compact HUD renderer fixture: timbers identity marks and real glyph clearance",
+      "file": "browser.spec.ts",
+      "line": 4495,
+      "column": 29,
+      "project": "firefox",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 7600,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "fbeac1b2decfba2c3acd-4f6282cb49ff9efadd81",
+      "title": "browser.spec.ts > compact HUD renderer fixture: sunset identity marks and real glyph clearance",
+      "file": "browser.spec.ts",
+      "line": 4495,
+      "column": 29,
+      "project": "firefox",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 6110,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "fbeac1b2decfba2c3acd-5ffbf248991a8a20f58e",
+      "title": "browser.spec.ts > all six trail previews show cached gameplay and the map requests no story artwork",
+      "file": "browser.spec.ts",
+      "line": 2061,
+      "column": 1,
+      "project": "webkit",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 4498,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "fbeac1b2decfba2c3acd-e275b22ea67cccd9736a",
+      "title": "browser.spec.ts > compact HUD renderer fixture: timbers identity marks and real glyph clearance",
+      "file": "browser.spec.ts",
+      "line": 4495,
+      "column": 29,
+      "project": "webkit",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 7550,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "fbeac1b2decfba2c3acd-0ceeb4485655265da09d",
+      "title": "browser.spec.ts > compact HUD renderer fixture: sunset identity marks and real glyph clearance",
+      "file": "browser.spec.ts",
+      "line": 4495,
+      "column": 29,
+      "project": "webkit",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 7598,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "133fd3a0cef4fc812b99-80062ab0e223f6d2ded2",
+      "title": "hud-owner-layout.spec.ts > owner HUD order real-font fixture: timbers identity marks and real glyph clearance",
+      "file": "hud-owner-layout.spec.ts",
+      "line": 80,
+      "column": 29,
+      "project": "chromium",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 4058,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "133fd3a0cef4fc812b99-f2430181dd3fbfdf0fa6",
+      "title": "hud-owner-layout.spec.ts > owner HUD order real-font fixture: sunset identity marks and real glyph clearance",
+      "file": "hud-owner-layout.spec.ts",
+      "line": 80,
+      "column": 29,
+      "project": "chromium",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 4142,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "133fd3a0cef4fc812b99-e256d0ef0edaa9d054a9",
+      "title": "hud-owner-layout.spec.ts > owner HUD order real-font fixture: timbers identity marks and real glyph clearance",
+      "file": "hud-owner-layout.spec.ts",
+      "line": 80,
+      "column": 29,
+      "project": "firefox",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 5701,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "133fd3a0cef4fc812b99-a5aa0a2e4ace071f338e",
+      "title": "hud-owner-layout.spec.ts > owner HUD order real-font fixture: sunset identity marks and real glyph clearance",
+      "file": "hud-owner-layout.spec.ts",
+      "line": 80,
+      "column": 29,
+      "project": "firefox",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 5484,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "133fd3a0cef4fc812b99-f491929a7a5cfe494d50",
+      "title": "hud-owner-layout.spec.ts > owner HUD order real-font fixture: timbers identity marks and real glyph clearance",
+      "file": "hud-owner-layout.spec.ts",
+      "line": 80,
+      "column": 29,
+      "project": "webkit",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 7047,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "133fd3a0cef4fc812b99-696d02626bae63aa014d",
+      "title": "hud-owner-layout.spec.ts > owner HUD order real-font fixture: sunset identity marks and real glyph clearance",
+      "file": "hud-owner-layout.spec.ts",
+      "line": 80,
+      "column": 29,
+      "project": "webkit",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 6435,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "3c0f926210d8ed1862c8-20d4f09506c563ba4288",
+      "title": "site-steel-preview.spec.ts > Sunset steel preview uses ordinary ground, underpass and dock input at 426px",
+      "file": "site-steel-preview.spec.ts",
+      "line": 11,
+      "column": 33,
+      "project": "chromium",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 42077,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "3c0f926210d8ed1862c8-5b1801aa3e5defc4c580",
+      "title": "site-steel-preview.spec.ts > Sunset steel preview uses ordinary ground, underpass and dock input at 320px",
+      "file": "site-steel-preview.spec.ts",
+      "line": 11,
+      "column": 33,
+      "project": "chromium",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 41879,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "3c0f926210d8ed1862c8-22ea05fe248c5e37b535",
+      "title": "site-steel-preview.spec.ts > Sunset required steel resource site-declaration recovers through ordinary Retry",
+      "file": "site-steel-preview.spec.ts",
+      "line": 130,
+      "column": 3,
+      "project": "chromium",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 1570,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "3c0f926210d8ed1862c8-cfedf9b400b3978ab5ee",
+      "title": "site-steel-preview.spec.ts > Sunset steel preview uses ordinary ground, underpass and dock input at 426px",
+      "file": "site-steel-preview.spec.ts",
+      "line": 11,
+      "column": 33,
+      "project": "firefox",
+      "outcome": "unexpected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "failed",
+          "durationMs": 44181,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "3c0f926210d8ed1862c8-6842659d38ff0a76c86c",
+      "title": "site-steel-preview.spec.ts > Sunset steel preview uses ordinary ground, underpass and dock input at 320px",
+      "file": "site-steel-preview.spec.ts",
+      "line": 11,
+      "column": 33,
+      "project": "firefox",
+      "outcome": "unexpected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "failed",
+          "durationMs": 43888,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "3c0f926210d8ed1862c8-f7fe4334e71dc034f011",
+      "title": "site-steel-preview.spec.ts > Sunset required steel resource site-declaration recovers through ordinary Retry",
+      "file": "site-steel-preview.spec.ts",
+      "line": 130,
+      "column": 3,
+      "project": "firefox",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 4109,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "3c0f926210d8ed1862c8-006e3c7e07398e57a0ca",
+      "title": "site-steel-preview.spec.ts > Sunset steel preview uses ordinary ground, underpass and dock input at 426px",
+      "file": "site-steel-preview.spec.ts",
+      "line": 11,
+      "column": 33,
+      "project": "webkit",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 43966,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "3c0f926210d8ed1862c8-98bc459bb4136b9802e2",
+      "title": "site-steel-preview.spec.ts > Sunset steel preview uses ordinary ground, underpass and dock input at 320px",
+      "file": "site-steel-preview.spec.ts",
+      "line": 11,
+      "column": 33,
+      "project": "webkit",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 43942,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "3c0f926210d8ed1862c8-a86c340adf030b299961",
+      "title": "site-steel-preview.spec.ts > Sunset required steel resource site-declaration recovers through ordinary Retry",
+      "file": "site-steel-preview.spec.ts",
+      "line": 130,
+      "column": 3,
+      "project": "webkit",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 3332,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "88412551c662c97d69d6-2ceaf88a91ad33258557",
+      "title": "site-steel-rollout.spec.ts > Sunset whole steel rollout reaches the roof and finish at 426px with Pause",
+      "file": "site-steel-rollout.spec.ts",
+      "line": 10,
+      "column": 33,
+      "project": "chromium",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 30961,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "88412551c662c97d69d6-074139364890ff8b29d0",
+      "title": "site-steel-rollout.spec.ts > Sunset whole steel rollout reaches the roof and finish at 320px with Pause",
+      "file": "site-steel-rollout.spec.ts",
+      "line": 10,
+      "column": 33,
+      "project": "chromium",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 30725,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "88412551c662c97d69d6-63c829a8cc19ec2906e0",
+      "title": "site-steel-rollout.spec.ts > Sunset whole steel rollout reaches the roof and finish at 426px with Pause",
+      "file": "site-steel-rollout.spec.ts",
+      "line": 10,
+      "column": 33,
+      "project": "firefox",
+      "outcome": "unexpected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "failed",
+          "durationMs": 34920,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "88412551c662c97d69d6-611fee17b2818a55858b",
+      "title": "site-steel-rollout.spec.ts > Sunset whole steel rollout reaches the roof and finish at 320px with Pause",
+      "file": "site-steel-rollout.spec.ts",
+      "line": 10,
+      "column": 33,
+      "project": "firefox",
+      "outcome": "unexpected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "failed",
+          "durationMs": 32913,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "88412551c662c97d69d6-87e130ac77fd2b6dab7e",
+      "title": "site-steel-rollout.spec.ts > Sunset whole steel rollout reaches the roof and finish at 426px with Pause",
+      "file": "site-steel-rollout.spec.ts",
+      "line": 10,
+      "column": 33,
+      "project": "webkit",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 32984,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "88412551c662c97d69d6-6033e48743376c39c917",
+      "title": "site-steel-rollout.spec.ts > Sunset whole steel rollout reaches the roof and finish at 320px with Pause",
+      "file": "site-steel-rollout.spec.ts",
+      "line": 10,
+      "column": 33,
+      "project": "webkit",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 32516,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "72d2548e97958c413fdc-cc58907b2486b17a6f70",
+      "title": "timbers-art.spec.ts > Timbers illustrated preview input journey and actual silhouette clearance at 426px",
+      "file": "timbers-art.spec.ts",
+      "line": 119,
+      "column": 33,
+      "project": "chromium",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 63858,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "72d2548e97958c413fdc-35efdbaf30f0513b2427",
+      "title": "timbers-art.spec.ts > Timbers illustrated preview input journey and actual silhouette clearance at 320px",
+      "file": "timbers-art.spec.ts",
+      "line": 119,
+      "column": 33,
+      "project": "chromium",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 63117,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "72d2548e97958c413fdc-cf04f6ee03e7262be658",
+      "title": "timbers-art.spec.ts > Timbers tree required declaration fails visibly and recovers with ordinary Retry",
+      "file": "timbers-art.spec.ts",
+      "line": 250,
+      "column": 70,
+      "project": "chromium",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 2172,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "72d2548e97958c413fdc-ce2952bc84ccd87d0823",
+      "title": "timbers-art.spec.ts > Timbers complete terrain declaration is required and ordinary Retry recovers it",
+      "file": "timbers-art.spec.ts",
+      "line": 335,
+      "column": 1,
+      "project": "chromium",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 2272,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "72d2548e97958c413fdc-f2b635f2d626a42b408f",
+      "title": "timbers-art.spec.ts > Timbers illustrated preview input journey and actual silhouette clearance at 426px",
+      "file": "timbers-art.spec.ts",
+      "line": 119,
+      "column": 33,
+      "project": "firefox",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 68397,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "72d2548e97958c413fdc-822f58de735ea1b62c8c",
+      "title": "timbers-art.spec.ts > Timbers illustrated preview input journey and actual silhouette clearance at 320px",
+      "file": "timbers-art.spec.ts",
+      "line": 119,
+      "column": 33,
+      "project": "firefox",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 68337,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "72d2548e97958c413fdc-ddfb575d0fcfdbe4f266",
+      "title": "timbers-art.spec.ts > Timbers tree required declaration fails visibly and recovers with ordinary Retry",
+      "file": "timbers-art.spec.ts",
+      "line": 250,
+      "column": 70,
+      "project": "firefox",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 2609,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "72d2548e97958c413fdc-090b3529c16deb89e812",
+      "title": "timbers-art.spec.ts > Timbers complete terrain declaration is required and ordinary Retry recovers it",
+      "file": "timbers-art.spec.ts",
+      "line": 335,
+      "column": 1,
+      "project": "firefox",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 2607,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "72d2548e97958c413fdc-df69131963ba3881092f",
+      "title": "timbers-art.spec.ts > Timbers illustrated preview input journey and actual silhouette clearance at 426px",
+      "file": "timbers-art.spec.ts",
+      "line": 119,
+      "column": 33,
+      "project": "webkit",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 67923,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "72d2548e97958c413fdc-f76214c12367e6e8c722",
+      "title": "timbers-art.spec.ts > Timbers illustrated preview input journey and actual silhouette clearance at 320px",
+      "file": "timbers-art.spec.ts",
+      "line": 119,
+      "column": 33,
+      "project": "webkit",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 67845,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "72d2548e97958c413fdc-5bedaa9db98fd89a41d6",
+      "title": "timbers-art.spec.ts > Timbers tree required declaration fails visibly and recovers with ordinary Retry",
+      "file": "timbers-art.spec.ts",
+      "line": 250,
+      "column": 70,
+      "project": "webkit",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 3379,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    },
+    {
+      "id": "72d2548e97958c413fdc-33f1600603f6d7a159e0",
+      "title": "timbers-art.spec.ts > Timbers complete terrain declaration is required and ordinary Retry recovers it",
+      "file": "timbers-art.spec.ts",
+      "line": 335,
+      "column": 1,
+      "project": "webkit",
+      "outcome": "expected",
+      "expectedStatus": "passed",
+      "annotations": [],
+      "attempts": [
+        {
+          "status": "passed",
+          "durationMs": 3349,
+          "retry": 0
+        }
+      ],
+      "skipReasons": []
+    }
+  ],
+  "attachmentVerification": {
+    "checked": 825,
+    "inline": 156,
+    "missing": 0,
+    "invalid": 0,
+    "diagnostics": []
+  }
+}

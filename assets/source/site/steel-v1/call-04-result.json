@@ -1,0 +1,11 @@
+{
+  "path": "assets/source/site/steel-v1/call-04-original.png",
+  "width": 1254,
+  "height": 1254,
+  "channels": 3,
+  "sha256": "12ea0acbb1346fd3416990fe3f60e5a10e59048261d90cb45af8e56b8d6012c5",
+  "tool": "image_gen.imagegen",
+  "actualProvider": null,
+  "actualModel": null,
+  "metadataNote": "Tool returned image_url and local output_hint only."
+}

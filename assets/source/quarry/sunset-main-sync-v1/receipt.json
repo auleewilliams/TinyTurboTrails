@@ -1,0 +1,255 @@
+{
+  "version": 1,
+  "scope": "Only composition of accepted Quarry d44 and merged Sunset b4 shared loader/renderer; no gameplay or artwork edits",
+  "quarryRevision": "d44c2e5ada91ac86c5835448a32c7db7a3f2f79e",
+  "sunsetRevision": "b4b152d05a61f9cc87c075516b93d5a6d4ec6e16",
+  "sharedRevision": "01645980faddaed1c918c2f38f195f49ec40a108",
+  "files": {
+    "src/world/assets.ts": {
+      "combinedSha256": "ef25270b0e7db075ad2e6ef6bd748dd5e9f97777517e2b4ffb4bb4d39dc4acbc",
+      "projections": {
+        "quarry": {
+          "sha256": "e56ea56c04c1a2eef6404f6df8b1ee24c767df7b8114bdb0fb457fde139fe439",
+          "copy": "assets/source/quarry/sunset-main-sync-v1/quarry/assets.ts",
+          "changes": [
+            {
+              "offset": 631,
+              "before": "",
+              "after": "import { loadSiteTerrain, type SiteTerrainAssets } from './site-terrain';\n"
+            },
+            {
+              "offset": 1256,
+              "before": "",
+              "after": "  siteTerrain?: string;\n"
+            },
+            {
+              "offset": 1517,
+              "before": "export interface WorldAssets { atlas: HTMLImageElement; manifest: WorldManifest; gems: HTMLImageElement; scenery?: SceneryAssets; materials?: HTMLImageElement; backdrops?: HTMLImageElement; panorama?: HTMLImageElement; slimes?: HTMLImageElement; coveTerrain?: CoveTerrainAssets; coveMaterials?: CoveMaterialAssets; timbersTerrain?: TimbersTerrainAssets; timbersTree?: TimbersTreeAssets; plainsContour?: PlainsContourAssets; quarryFloor?: QuarryFloorAssets; quarryShelves?: QuarryShelvesAssets; quarryRollout?: QuarryRolloutAssets; quarryPreview?: QuarryPreviewAssets }\n",
+              "after": "export interface WorldAssets { atlas: HTMLImageElement; manifest: WorldManifest; gems: HTMLImageElement; scenery?: SceneryAssets; materials?: HTMLImageElement; backdrops?: HTMLImageElement; panorama?: HTMLImageElement; slimes?: HTMLImageElement; coveTerrain?: CoveTerrainAssets; coveMaterials?: CoveMaterialAssets; siteTerrain?: SiteTerrainAssets; timbersTerrain?: TimbersTerrainAssets; timbersTree?: TimbersTreeAssets; plainsContour?: PlainsContourAssets; quarryFloor?: QuarryFloorAssets; quarryShelves?: QuarryShelvesAssets; quarryRollout?: QuarryRolloutAssets; quarryPreview?: QuarryPreviewAssets }\n"
+            },
+            {
+              "offset": 3080,
+              "before": "",
+              "after": "  if (manifest.siteTerrain !== undefined && directory !== 'site') throw new Error('Sunset steel declared by another world');\n  if (directory === 'site' && manifest.siteTerrain !== 'steel-v1/manifest.json') throw new Error('Missing required Sunset steel declaration');\n"
+            },
+            {
+              "offset": 4814,
+              "before": "  const [{ materials, backdrops, slimes, gems }, panorama, coveTerrain, coveMaterials, timbersTerrain, timbersTree] = await Promise.all([\n",
+              "after": "  const [{ materials, backdrops, slimes, gems }, panorama, coveTerrain, coveMaterials, siteTerrain, timbersTerrain, timbersTree] = await Promise.all([\n"
+            },
+            {
+              "offset": 5170,
+              "before": "",
+              "after": "    loadSiteTerrain(base, manifest.siteTerrain),\n"
+            },
+            {
+              "offset": 5276,
+              "before": "  if (!manifest.scenery) return { atlas, manifest, materials, backdrops, panorama, slimes, gems, coveTerrain, coveMaterials, timbersTerrain, timbersTree, plainsContour };\n",
+              "after": "  if (!manifest.scenery) return { atlas, manifest, materials, backdrops, panorama, slimes, gems, coveTerrain, coveMaterials, siteTerrain, timbersTerrain, timbersTree, plainsContour };\n"
+            },
+            {
+              "offset": 6056,
+              "before": "  return { atlas, manifest, materials, backdrops, panorama, slimes, gems, coveTerrain, coveMaterials, timbersTerrain, timbersTree, plainsContour, scenery: { background, foreground, manifest: sceneryManifest } };\n",
+              "after": "  return { atlas, manifest, materials, backdrops, panorama, slimes, gems, coveTerrain, coveMaterials, siteTerrain, timbersTerrain, timbersTree, plainsContour, scenery: { background, foreground, manifest: sceneryManifest } };\n"
+            }
+          ]
+        },
+        "sunset": {
+          "sha256": "4bb004320b2af13ee15001b98564dfc70c92e351c61b24c7feef677bf00c9b1b",
+          "copy": "assets/source/quarry/sunset-main-sync-v1/sunset/assets.ts",
+          "changes": [
+            {
+              "offset": 0,
+              "before": "",
+              "after": "import { loadQuarryFloor, type QuarryFloorAssets } from './quarry-floor';\nimport { loadQuarryRollout, type QuarryRolloutAssets } from './quarry-rollout';\nimport { loadQuarryPreviewPieces, type QuarryPreviewAssets } from './quarry-preview-pieces';\nimport { loadQuarryShelves, type QuarryShelvesAssets } from './quarry-shelves';\n"
+            },
+            {
+              "offset": 1288,
+              "before": "export interface WorldAssets { atlas: HTMLImageElement; manifest: WorldManifest; gems: HTMLImageElement; scenery?: SceneryAssets; materials?: HTMLImageElement; backdrops?: HTMLImageElement; panorama?: HTMLImageElement; slimes?: HTMLImageElement; coveTerrain?: CoveTerrainAssets; coveMaterials?: CoveMaterialAssets; siteTerrain?: SiteTerrainAssets; timbersTerrain?: TimbersTerrainAssets; timbersTree?: TimbersTreeAssets; plainsContour?: PlainsContourAssets }\n",
+              "after": "export interface WorldAssets { atlas: HTMLImageElement; manifest: WorldManifest; gems: HTMLImageElement; scenery?: SceneryAssets; materials?: HTMLImageElement; backdrops?: HTMLImageElement; panorama?: HTMLImageElement; slimes?: HTMLImageElement; coveTerrain?: CoveTerrainAssets; coveMaterials?: CoveMaterialAssets; siteTerrain?: SiteTerrainAssets; timbersTerrain?: TimbersTerrainAssets; timbersTree?: TimbersTreeAssets; plainsContour?: PlainsContourAssets; quarryFloor?: QuarryFloorAssets; quarryShelves?: QuarryShelvesAssets; quarryRollout?: QuarryRolloutAssets; quarryPreview?: QuarryPreviewAssets }\n"
+            },
+            {
+              "offset": 7406,
+              "before": "  return Object.fromEntries(unique.map((directory, index) => [directory, loaded[index]]));\n",
+              "after": "  const quarryShelves = unique.includes('plains') ? await loadQuarryShelves(`${import.meta.env.BASE_URL}assets/quarry/`) : undefined;\n  const quarryPreview = unique.includes('plains') ? await loadQuarryPreviewPieces(`${import.meta.env.BASE_URL}assets/quarry/`) : undefined;\n  const quarryRollout = unique.includes('plains') ? await loadQuarryRollout(`${import.meta.env.BASE_URL}assets/quarry/`) : undefined;\n  const quarryFloor = unique.includes('plains') ? await loadQuarryFloor(`${import.meta.env.BASE_URL}assets/quarry/`) : undefined;\n  return Object.fromEntries(unique.map((directory, index) => [directory, directory === 'plains' ? { ...loaded[index], quarryShelves, quarryPreview, quarryRollout, quarryFloor } : loaded[index]]));\n"
+            }
+          ]
+        },
+        "shared": {
+          "sha256": "168788660f680f8ceab6837fc465c80bc84d241527d35107a0dff770288f5e9a",
+          "copy": "assets/source/quarry/whole-ledges-v1/baseline/assets.ts",
+          "changes": [
+            {
+              "offset": 0,
+              "before": "",
+              "after": "import { loadQuarryFloor, type QuarryFloorAssets } from './quarry-floor';\nimport { loadQuarryRollout, type QuarryRolloutAssets } from './quarry-rollout';\nimport { loadQuarryPreviewPieces, type QuarryPreviewAssets } from './quarry-preview-pieces';\nimport { loadQuarryShelves, type QuarryShelvesAssets } from './quarry-shelves';\n"
+            },
+            {
+              "offset": 304,
+              "before": "",
+              "after": "import { loadSiteTerrain, type SiteTerrainAssets } from './site-terrain';\n"
+            },
+            {
+              "offset": 929,
+              "before": "",
+              "after": "  siteTerrain?: string;\n"
+            },
+            {
+              "offset": 1190,
+              "before": "export interface WorldAssets { atlas: HTMLImageElement; manifest: WorldManifest; gems: HTMLImageElement; scenery?: SceneryAssets; materials?: HTMLImageElement; backdrops?: HTMLImageElement; panorama?: HTMLImageElement; slimes?: HTMLImageElement; coveTerrain?: CoveTerrainAssets; coveMaterials?: CoveMaterialAssets; timbersTerrain?: TimbersTerrainAssets; timbersTree?: TimbersTreeAssets; plainsContour?: PlainsContourAssets }\n",
+              "after": "export interface WorldAssets { atlas: HTMLImageElement; manifest: WorldManifest; gems: HTMLImageElement; scenery?: SceneryAssets; materials?: HTMLImageElement; backdrops?: HTMLImageElement; panorama?: HTMLImageElement; slimes?: HTMLImageElement; coveTerrain?: CoveTerrainAssets; coveMaterials?: CoveMaterialAssets; siteTerrain?: SiteTerrainAssets; timbersTerrain?: TimbersTerrainAssets; timbersTree?: TimbersTreeAssets; plainsContour?: PlainsContourAssets; quarryFloor?: QuarryFloorAssets; quarryShelves?: QuarryShelvesAssets; quarryRollout?: QuarryRolloutAssets; quarryPreview?: QuarryPreviewAssets }\n"
+            },
+            {
+              "offset": 2609,
+              "before": "",
+              "after": "  if (manifest.siteTerrain !== undefined && directory !== 'site') throw new Error('Sunset steel declared by another world');\n  if (directory === 'site' && manifest.siteTerrain !== 'steel-v1/manifest.json') throw new Error('Missing required Sunset steel declaration');\n"
+            },
+            {
+              "offset": 4343,
+              "before": "  const [{ materials, backdrops, slimes, gems }, panorama, coveTerrain, coveMaterials, timbersTerrain, timbersTree] = await Promise.all([\n",
+              "after": "  const [{ materials, backdrops, slimes, gems }, panorama, coveTerrain, coveMaterials, siteTerrain, timbersTerrain, timbersTree] = await Promise.all([\n"
+            },
+            {
+              "offset": 4699,
+              "before": "",
+              "after": "    loadSiteTerrain(base, manifest.siteTerrain),\n"
+            },
+            {
+              "offset": 4805,
+              "before": "  if (!manifest.scenery) return { atlas, manifest, materials, backdrops, panorama, slimes, gems, coveTerrain, coveMaterials, timbersTerrain, timbersTree, plainsContour };\n",
+              "after": "  if (!manifest.scenery) return { atlas, manifest, materials, backdrops, panorama, slimes, gems, coveTerrain, coveMaterials, siteTerrain, timbersTerrain, timbersTree, plainsContour };\n"
+            },
+            {
+              "offset": 5585,
+              "before": "  return { atlas, manifest, materials, backdrops, panorama, slimes, gems, coveTerrain, coveMaterials, timbersTerrain, timbersTree, plainsContour, scenery: { background, foreground, manifest: sceneryManifest } };\n",
+              "after": "  return { atlas, manifest, materials, backdrops, panorama, slimes, gems, coveTerrain, coveMaterials, siteTerrain, timbersTerrain, timbersTree, plainsContour, scenery: { background, foreground, manifest: sceneryManifest } };\n"
+            },
+            {
+              "offset": 6919,
+              "before": "  return Object.fromEntries(unique.map((directory, index) => [directory, loaded[index]]));\n",
+              "after": "  const quarryShelves = unique.includes('plains') ? await loadQuarryShelves(`${import.meta.env.BASE_URL}assets/quarry/`) : undefined;\n  const quarryPreview = unique.includes('plains') ? await loadQuarryPreviewPieces(`${import.meta.env.BASE_URL}assets/quarry/`) : undefined;\n  const quarryRollout = unique.includes('plains') ? await loadQuarryRollout(`${import.meta.env.BASE_URL}assets/quarry/`) : undefined;\n  const quarryFloor = unique.includes('plains') ? await loadQuarryFloor(`${import.meta.env.BASE_URL}assets/quarry/`) : undefined;\n  return Object.fromEntries(unique.map((directory, index) => [directory, directory === 'plains' ? { ...loaded[index], quarryShelves, quarryPreview, quarryRollout, quarryFloor } : loaded[index]]));\n"
+            }
+          ]
+        }
+      }
+    },
+    "src/world/renderer.ts": {
+      "combinedSha256": "416557d31b4f8204f5cc9e0524e6c96d582deee24ec5af0f0192c2e52748d1f8",
+      "projections": {
+        "quarry": {
+          "sha256": "0d829f43631ee468f0ecf2d01d3ebb5529d55fa823d266655e233bcc9ca40369",
+          "copy": "assets/source/quarry/sunset-main-sync-v1/quarry/renderer.ts",
+          "changes": [
+            {
+              "offset": 977,
+              "before": "",
+              "after": "import { drawSiteGround, drawSitePlatform } from './site-terrain';\n"
+            },
+            {
+              "offset": 3788,
+              "before": "",
+              "after": "    else if (level.id === 'sunset' && assets.siteTerrain) drawSiteGround(ctx, assets.siteTerrain, offset);\n"
+            },
+            {
+              "offset": 4155,
+              "before": "  if (level.id !== 'quarry' && !(level.id === 'cove' && assets.coveTerrain) && !(level.id === 'timbers' && assets.timbersTerrain)) drawTerrainEdge(ctx, level, offset, assets.plainsContour ? plainsContourRange(level) : undefined);\n",
+              "after": "  if (level.id !== 'quarry' && !(level.id === 'sunset' && assets.siteTerrain) && !(level.id === 'cove' && assets.coveTerrain) && !(level.id === 'timbers' && assets.timbersTerrain)) drawTerrainEdge(ctx, level, offset, assets.plainsContour ? plainsContourRange(level) : undefined);\n"
+            },
+            {
+              "offset": 14751,
+              "before": "    // A fixed Timbers bough has no travel path; overlapping endpoints made a white T.\n    if (level.id !== 'quarry' && (level.id !== 'timbers' || platform.from.x !== platform.to.x || platform.from.y !== platform.to.y)) {\n",
+              "after": "    // Quarry and Sunset hide every marker; Timbers hides stationary endpoints.\n    if (level.id !== 'quarry' && level.id !== 'sunset' && (level.id !== 'timbers' || platform.from.x !== platform.to.x || platform.from.y !== platform.to.y)) {\n"
+            },
+            {
+              "offset": 15502,
+              "before": "",
+              "after": "    if (level.id === 'sunset' && assets?.siteTerrain && drawSitePlatform(ctx, assets.siteTerrain, level, body, offset)) continue;\n"
+            }
+          ]
+        },
+        "sunset": {
+          "sha256": "0bba8709945de30f18e5335881d84d222995866d9db645a8333b5a79ac7c83a1",
+          "copy": "assets/source/quarry/sunset-main-sync-v1/sunset/renderer.ts",
+          "changes": [
+            {
+              "offset": 0,
+              "before": "",
+              "after": "import { drawQuarryFloor } from './quarry-floor';\nimport { drawQuarryRollout } from './quarry-rollout';\nimport { drawQuarryPreviewPiece } from './quarry-preview-pieces';\nimport { drawQuarryShelf } from './quarry-shelves';\n"
+            },
+            {
+              "offset": 2584,
+              "before": "",
+              "after": "  if (level.id === 'quarry') drawQuarryFloor(ctx, assets.quarryFloor, level, offset);\n  else {\n"
+            },
+            {
+              "offset": 3869,
+              "before": "",
+              "after": "  }\n"
+            },
+            {
+              "offset": 4008,
+              "before": "  if (!(level.id === 'sunset' && assets.siteTerrain) && !(level.id === 'cove' && assets.coveTerrain) && !(level.id === 'timbers' && assets.timbersTerrain)) drawTerrainEdge(ctx, level, offset, assets.plainsContour ? plainsContourRange(level) : undefined);\n",
+              "after": "  if (level.id !== 'quarry' && !(level.id === 'sunset' && assets.siteTerrain) && !(level.id === 'cove' && assets.coveTerrain) && !(level.id === 'timbers' && assets.timbersTerrain)) drawTerrainEdge(ctx, level, offset, assets.plainsContour ? plainsContourRange(level) : undefined);\n"
+            },
+            {
+              "offset": 14629,
+              "before": "    // Sunset hides every path marker; Timbers hides stationary endpoint marks.\n    if (level.id !== 'sunset' && (level.id !== 'timbers' || platform.from.x !== platform.to.x || platform.from.y !== platform.to.y)) {\n",
+              "after": "    // Quarry and Sunset hide every marker; Timbers hides stationary endpoints.\n    if (level.id !== 'quarry' && level.id !== 'sunset' && (level.id !== 'timbers' || platform.from.x !== platform.to.x || platform.from.y !== platform.to.y)) {\n"
+            },
+            {
+              "offset": 15000,
+              "before": "",
+              "after": "    if (level.id === 'quarry' && assets && drawQuarryRollout(ctx, assets.quarryRollout!, body, offset)) continue;\n    if (level.id === 'quarry' && assets?.quarryPreview && drawQuarryPreviewPiece(ctx, assets.quarryPreview, body, offset)) continue;\n    if (level.id === 'quarry' && assets?.quarryShelves && drawQuarryShelf(ctx, assets.quarryShelves, body, offset)) continue;\n"
+            }
+          ]
+        },
+        "shared": {
+          "sha256": "8c47f5ff878c9928f063cc150e711b582f027e135684f01e2fbaab308eed9a28",
+          "copy": "assets/source/quarry/whole-ledges-v1/baseline/renderer.ts",
+          "changes": [
+            {
+              "offset": 0,
+              "before": "",
+              "after": "import { drawQuarryFloor } from './quarry-floor';\nimport { drawQuarryRollout } from './quarry-rollout';\nimport { drawQuarryPreviewPiece } from './quarry-preview-pieces';\nimport { drawQuarryShelf } from './quarry-shelves';\n"
+            },
+            {
+              "offset": 755,
+              "before": "",
+              "after": "import { drawSiteGround, drawSitePlatform } from './site-terrain';\n"
+            },
+            {
+              "offset": 2517,
+              "before": "",
+              "after": "  if (level.id === 'quarry') drawQuarryFloor(ctx, assets.quarryFloor, level, offset);\n  else {\n"
+            },
+            {
+              "offset": 3471,
+              "before": "",
+              "after": "    else if (level.id === 'sunset' && assets.siteTerrain) drawSiteGround(ctx, assets.siteTerrain, offset);\n"
+            },
+            {
+              "offset": 3695,
+              "before": "",
+              "after": "  }\n"
+            },
+            {
+              "offset": 3834,
+              "before": "  if (!(level.id === 'cove' && assets.coveTerrain) && !(level.id === 'timbers' && assets.timbersTerrain)) drawTerrainEdge(ctx, level, offset, assets.plainsContour ? plainsContourRange(level) : undefined);\n",
+              "after": "  if (level.id !== 'quarry' && !(level.id === 'sunset' && assets.siteTerrain) && !(level.id === 'cove' && assets.coveTerrain) && !(level.id === 'timbers' && assets.timbersTerrain)) drawTerrainEdge(ctx, level, offset, assets.plainsContour ? plainsContourRange(level) : undefined);\n"
+            },
+            {
+              "offset": 14405,
+              "before": "    // A fixed Timbers bough has no travel path; overlapping endpoints made a white T.\n    if (level.id !== 'timbers' || platform.from.x !== platform.to.x || platform.from.y !== platform.to.y) {\n",
+              "after": "    // Quarry and Sunset hide every marker; Timbers hides stationary endpoints.\n    if (level.id !== 'quarry' && level.id !== 'sunset' && (level.id !== 'timbers' || platform.from.x !== platform.to.x || platform.from.y !== platform.to.y)) {\n"
+            },
+            {
+              "offset": 14756,
+              "before": "",
+              "after": "    if (level.id === 'quarry' && assets && drawQuarryRollout(ctx, assets.quarryRollout!, body, offset)) continue;\n    if (level.id === 'quarry' && assets?.quarryPreview && drawQuarryPreviewPiece(ctx, assets.quarryPreview, body, offset)) continue;\n    if (level.id === 'quarry' && assets?.quarryShelves && drawQuarryShelf(ctx, assets.quarryShelves, body, offset)) continue;\n    if (level.id === 'sunset' && assets?.siteTerrain && drawSitePlatform(ctx, assets.siteTerrain, level, body, offset)) continue;\n"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

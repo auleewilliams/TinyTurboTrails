@@ -1,0 +1,339 @@
+{
+  "version": 1,
+  "phase": "rollout",
+  "depth": 18,
+  "runs": [
+    {
+      "id": "site-roof",
+      "supportIds": [
+        "site-roof"
+      ],
+      "x": 2800,
+      "y": 140,
+      "width": 320,
+      "image": "site-roof.png"
+    },
+    {
+      "id": "site-final-m",
+      "supportIds": [
+        "site-final-m"
+      ],
+      "x": 2660,
+      "y": 200,
+      "width": 220,
+      "image": "site-final-m.png"
+    },
+    {
+      "id": "site-final-left-260",
+      "supportIds": [
+        "site-final-left-260"
+      ],
+      "x": 2540,
+      "y": 260,
+      "width": 180,
+      "image": "site-final-left-260.png"
+    },
+    {
+      "id": "site-final-6",
+      "supportIds": [
+        "site-final-6"
+      ],
+      "x": 2760,
+      "y": 260,
+      "width": 240,
+      "image": "site-final-6.png"
+    },
+    {
+      "id": "site-high-deck",
+      "supportIds": [
+        "site-high-deck"
+      ],
+      "x": 260,
+      "y": 320,
+      "width": 210,
+      "image": "site-high-deck.png"
+    },
+    {
+      "id": "site-far-dock",
+      "supportIds": [
+        "site-far-dock"
+      ],
+      "x": 650,
+      "y": 320,
+      "width": 150,
+      "image": "site-far-dock.png"
+    },
+    {
+      "id": "site-final-left-320",
+      "supportIds": [
+        "site-final-left-320"
+      ],
+      "x": 2400,
+      "y": 320,
+      "width": 200,
+      "image": "site-final-left-320.png"
+    },
+    {
+      "id": "site-final-5",
+      "supportIds": [
+        "site-final-5"
+      ],
+      "x": 2660,
+      "y": 320,
+      "width": 180,
+      "image": "site-final-5.png"
+    },
+    {
+      "id": "site-final-right-320",
+      "supportIds": [
+        "site-final-right-320"
+      ],
+      "x": 2880,
+      "y": 320,
+      "width": 240,
+      "image": "site-final-right-320.png"
+    },
+    {
+      "id": "site-first-3",
+      "supportIds": [
+        "site-first-3",
+        "site-crane-catch"
+      ],
+      "x": 160,
+      "y": 380,
+      "width": 1740,
+      "image": "site-first-3.png"
+    },
+    {
+      "id": "site-final-outside-380",
+      "supportIds": [
+        "site-final-outside-380"
+      ],
+      "x": 2260,
+      "y": 380,
+      "width": 240,
+      "image": "site-final-outside-380.png"
+    },
+    {
+      "id": "site-final-4",
+      "supportIds": [
+        "site-final-4"
+      ],
+      "x": 2560,
+      "y": 380,
+      "width": 180,
+      "image": "site-final-4.png"
+    },
+    {
+      "id": "site-final-right-380",
+      "supportIds": [
+        "site-final-right-380"
+      ],
+      "x": 2780,
+      "y": 380,
+      "width": 340,
+      "image": "site-final-right-380.png"
+    },
+    {
+      "id": "site-first-b",
+      "supportIds": [
+        "site-first-b"
+      ],
+      "x": 0,
+      "y": 440,
+      "width": 430,
+      "image": "site-first-b.png"
+    },
+    {
+      "id": "site-descent-1",
+      "supportIds": [
+        "site-descent-1"
+      ],
+      "x": 1820,
+      "y": 440,
+      "width": 200,
+      "image": "site-descent-1.png"
+    },
+    {
+      "id": "site-final-outside-440",
+      "supportIds": [
+        "site-final-outside-440"
+      ],
+      "x": 2140,
+      "y": 440,
+      "width": 260,
+      "image": "site-final-outside-440.png"
+    },
+    {
+      "id": "site-final-left-440",
+      "supportIds": [
+        "site-final-left-440"
+      ],
+      "x": 2460,
+      "y": 440,
+      "width": 140,
+      "image": "site-final-left-440.png"
+    },
+    {
+      "id": "site-rest",
+      "supportIds": [
+        "site-rest"
+      ],
+      "x": 2660,
+      "y": 440,
+      "width": 260,
+      "image": "site-rest.png"
+    },
+    {
+      "id": "site-first-left-1",
+      "supportIds": [
+        "site-first-left-1",
+        "site-first-1"
+      ],
+      "x": 0,
+      "y": 500,
+      "width": 340,
+      "image": "site-first-left-1.png"
+    },
+    {
+      "id": "site-first-right",
+      "supportIds": [
+        "site-first-right"
+      ],
+      "x": 400,
+      "y": 500,
+      "width": 160,
+      "image": "site-first-right.png"
+    },
+    {
+      "id": "site-descent-left-1",
+      "supportIds": [
+        "site-descent-left-1",
+        "site-descent-e"
+      ],
+      "x": 1700,
+      "y": 500,
+      "width": 420,
+      "image": "site-descent-left-1.png"
+    },
+    {
+      "id": "site-final-outside-500",
+      "supportIds": [
+        "site-final-outside-500"
+      ],
+      "x": 2220,
+      "y": 500,
+      "width": 280,
+      "image": "site-final-outside-500.png"
+    },
+    {
+      "id": "site-final-2",
+      "supportIds": [
+        "site-final-2"
+      ],
+      "x": 2560,
+      "y": 500,
+      "width": 180,
+      "image": "site-final-2.png"
+    },
+    {
+      "id": "site-final-right-500",
+      "supportIds": [
+        "site-final-right-500"
+      ],
+      "x": 2880,
+      "y": 500,
+      "width": 240,
+      "image": "site-final-right-500.png"
+    },
+    {
+      "id": "site-entrance",
+      "supportIds": [
+        "site-entrance",
+        "site-first-low-right"
+      ],
+      "x": 0,
+      "y": 560,
+      "width": 720,
+      "image": "site-entrance.png"
+    },
+    {
+      "id": "site-descent-outside",
+      "supportIds": [
+        "site-descent-outside",
+        "site-descent-left-2"
+      ],
+      "x": 1580,
+      "y": 560,
+      "width": 320,
+      "image": "site-descent-outside.png"
+    },
+    {
+      "id": "site-descent-3",
+      "supportIds": [
+        "site-descent-3"
+      ],
+      "x": 2020,
+      "y": 560,
+      "width": 200,
+      "image": "site-descent-3.png"
+    },
+    {
+      "id": "site-final-outside-560",
+      "supportIds": [
+        "site-final-outside-560",
+        "site-final-1"
+      ],
+      "x": 2380,
+      "y": 560,
+      "width": 240,
+      "image": "site-final-outside-560.png"
+    },
+    {
+      "id": "site-final-right-560",
+      "supportIds": [
+        "site-final-right-560"
+      ],
+      "x": 2700,
+      "y": 560,
+      "width": 420,
+      "image": "site-final-right-560.png"
+    },
+    {
+      "id": "site-lower-catch",
+      "supportIds": [
+        "site-lower-catch"
+      ],
+      "x": 0,
+      "y": 620,
+      "width": 840,
+      "image": "site-lower-catch.png"
+    },
+    {
+      "id": "site-descent-base-catch",
+      "supportIds": [
+        "site-descent-base-catch",
+        "site-yard",
+        "site-final-base-catch"
+      ],
+      "x": 1460,
+      "y": 620,
+      "width": 1660,
+      "image": "site-descent-base-catch.png"
+    }
+  ],
+  "ferry": {
+    "id": "site-crane-ferry",
+    "image": "ferry.png",
+    "width": 96,
+    "height": 18,
+    "visibleDepth": 15
+  },
+  "ground": {
+    "image": "ground-full.png",
+    "width": 3120,
+    "height": 1064,
+    "from": 0,
+    "to": 3120
+  }
+}

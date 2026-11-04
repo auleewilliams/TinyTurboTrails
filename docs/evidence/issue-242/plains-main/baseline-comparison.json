@@ -1,0 +1,51 @@
+{
+  "baselineRevision": "fbf98b93d0c28e7cd393b1b7213a3dc2b3a2bacb",
+  "baselineRuntimeFilesVerified": 114,
+  "reports": {
+    "report.json": "b7b2d284997b280526acad6030ca0cab97506ae00b01019db8eb1718867750c2",
+    "baseline-report.json": "a75a3d7fca4c8ce14bfa3fc3e010ebb55facf7fd8ebf66ea9344bd72b0544f74"
+  },
+  "cases": [
+    {
+      "tree": "merged",
+      "case": "plains-contour-pilot-Plain-75107-fers-ordinary-Retry-loading-webkit",
+      "historySha256": "8a7027df45941133aeba3109cd35c5cd97954b9fa960f56b3b6ad027d200943b",
+      "movementSamples": 480,
+      "lateSamples": 411,
+      "stationaryCommands": 411,
+      "lastWorldX": 247.83027777777477,
+      "failure": "20-second movement goal timeout at plains-contour-pilot.spec.ts:204, after successful loading recovery"
+    },
+    {
+      "tree": "merged",
+      "case": "plains-contour-pilot-Plain-d2556-fers-ordinary-Retry-loading-webkit",
+      "historySha256": "797fe0252f2fdd3b13050d7e30f33ffcea72d30d26e8853137c1dec41d300a17",
+      "movementSamples": 507,
+      "lateSamples": 429,
+      "stationaryCommands": 429,
+      "lastWorldX": 346.0399999999959,
+      "failure": "20-second movement goal timeout at plains-contour-pilot.spec.ts:204, after successful loading recovery"
+    },
+    {
+      "tree": "main",
+      "case": "plains-contour-pilot-Plain-75107-fers-ordinary-Retry-loading-webkit",
+      "historySha256": "0c8a98e7529ca8cd2d18fa2b7d23f7353ce8293050fc2f9f0859bd64e6e8da19",
+      "movementSamples": 410,
+      "lateSamples": 406,
+      "stationaryCommands": 406,
+      "lastWorldX": 63.77777777777783,
+      "failure": "20-second movement goal timeout at plains-contour-pilot.spec.ts:204, after successful loading recovery"
+    },
+    {
+      "tree": "main",
+      "case": "plains-contour-pilot-Plain-d2556-fers-ordinary-Retry-loading-webkit",
+      "historySha256": "be58425814c9cd8d37b6e6e30c657ea8e4691e9ac7d743ecbf8bf457cdf7823e",
+      "movementSamples": 468,
+      "lateSamples": 449,
+      "stationaryCommands": 449,
+      "lastWorldX": 77.94444444444446,
+      "failure": "20-second movement goal timeout at plains-contour-pilot.spec.ts:204, after successful loading recovery"
+    }
+  ],
+  "interpretation": "Both failures reproduce on unmodified main at the same movement assertion. Late-frame controller braking is observed in both. This is not a root-cause fix, waiver, or passing Retry test."
+}

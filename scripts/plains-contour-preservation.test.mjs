@@ -2,7 +2,9 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { test } from 'node:test';
-import { beforePlainsContour } from './plains-contour-preservation.mjs';
+import { beforePlainsContour as beforePlains } from './plains-contour-preservation.mjs';
+import { beforeSiteArt } from './site-art-preservation.mjs';
+const beforePlainsContour = (path, bytes) => beforePlains(path, beforeSiteArt(path, bytes));
 const read = path => readFileSync(new URL(`../${path}`, import.meta.url));
 const hash = bytes => createHash('sha256').update(bytes).digest('hex');
 const before = {

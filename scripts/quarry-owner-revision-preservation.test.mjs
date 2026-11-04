@@ -1,3 +1,4 @@
+import { projectQuarrySiteSource } from './quarry-site-integration.mjs';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
@@ -14,7 +15,7 @@ test('every owner-authorized source delta restores its exact prior whole-file id
     'src/world/renderer.ts', 'src/world/slimes.ts',
   ]);
   for (const [path, entry] of Object.entries(record.files)) {
-    const current = readFileSync(path), prior = beforeQuarryOwnerRevision(path, current);
+    const integrated = readFileSync(path), current = projectQuarrySiteSource(path, integrated, 'quarry'), prior = beforeQuarryOwnerRevision(path, integrated);
     assert.equal(hash(current), entry.currentSHA256, path);
     assert.equal(hash(prior), entry.priorSHA256, path);
     assert.equal(beforeQuarryOwnerRevision(path, prior), prior);
