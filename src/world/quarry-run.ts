@@ -1,5 +1,6 @@
 import type { MovingPlatform } from '../game/platforms';
 import type { LevelData, WorldEntity } from './level';
+import { SLIME_SPEED } from './slimes';
 
 /** Permanent one-way rock shelves above the single continuous quarry floor. */
 function shelf(id: string, x: number, y: number, width: number): MovingPlatform {
@@ -70,6 +71,15 @@ export const QUARRY_RUN: LevelData = {
   surfaces: [{ x1: 0, x2: 820, y1: 980, y2: 980 }],
   checkpoints, platforms, landingBands: [{ x: 450, width: 100 }],
   entities: [
+    // Short jump encounters on permanent shelves, clear of flags, docks and lift handoffs.
+    ...[
+      { id: 'quarry-slime-upper', supportId: 'quarry-terrace-2', x: 390, y: 280, minX: 350, maxX: 430 },
+      { id: 'quarry-slime-middle', supportId: 'quarry-terrace-5', x: 430, y: 560, minX: 390, maxX: 470 },
+      { id: 'quarry-slime-lower', supportId: 'quarry-terrace-8', x: 400, y: 840, minX: 360, maxX: 440 },
+    ].map(({ id, supportId, x, y, minX, maxX }): WorldEntity => ({
+      id, kind: 'slime', asset: 'slime', layer: 'world', x, y,
+      patrol: { supportId, minX, maxX, speed: SLIME_SPEED },
+    })),
     ...gems.map(([x, y], index): WorldEntity => ({
       id: index < 31 ? `quarry-gem-${String(index + 1).padStart(3, '0')}` : `quarry-bonus-${String(index - 30).padStart(3, '0')}`,
       kind: 'gem', asset: 'gem', layer: 'world', x, y,

@@ -1,3 +1,4 @@
+import { beforeQuarryOwnerRevision } from './quarry-owner-revision-preservation.mjs';
 import { prepareQuarryRollout } from './quarry-rollout-preparation.mjs';
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
@@ -22,7 +23,7 @@ function checked(raw) {
 }
 test('all new whole sources reproduce exact isotropic PNG/RGBA, full rims, alpha and whole ends without repairs', () => {
   const prepared = prepareQuarryRollout(readFileSync(root + 'preparation-contract.json'), readFileSync);
-  assert.equal(hash(readFileSync('src/world/quarry-run.ts')), contract.frozenSourceSHA256);
+  assert.equal(hash(beforeQuarryOwnerRevision('src/world/quarry-run.ts', readFileSync('src/world/quarry-run.ts'))), contract.frozenSourceSHA256);
   for (const [file, p] of Object.entries(contract.files)) {
     const raw = readFileSync(p.source); assert.equal(hash(raw), p.sourceSHA256); const source = checked(raw);
     assert.equal(hash(source.data), p.sourceRGBAsha256); assert.deepEqual([source.width, source.height], p.sourceSize);

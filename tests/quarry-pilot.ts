@@ -13,10 +13,12 @@ export function installQuarryPilotScript(): void {
   const pilot = { active: false, frozen: false, route: [] as QuarryWaypoint[], index: 0, stageFrames: 0,
     jumped: false, jumping: false, pauseIndex: -1, time: 0, observations: [] as object[],
     decks: [] as { id: string; y: number; stationary: boolean }[], error: '',
+    history: [] as QuarryWaypoint[], recovery: [] as QuarryWaypoint[], previous: null as null | { x: number; feet: number }, avoidFrames: 0,
     frame: null as null | { status: string; x: number; feet: number; camera: { x: number; y: number };
-      henry: { x: number; y: number; width: number; height: number }; supports: QuarrySupportDraw[] } };
+      henry: { x: number; y: number; width: number; height: number }; supports: QuarrySupportDraw[]; slimes: { x: number; y: number; live: boolean }[] } };
   Object.assign(window, { quarryPilot: pilot });
   let slabs: { x: number; y: number }[] = [];
+  let slimes: { x: number; y: number; live: boolean }[] = [];
   let supports: QuarrySupportDraw[] = [];
   let previousDecks = pilot.decks;
   const references = new Map<QuarrySupportDraw, { image: HTMLImageElement; x: number; y: number; transform: DOMMatrix }>();
@@ -81,7 +83,7 @@ export function installQuarryPilotScript(): void {
     if (this.canvas.id === 'game') {
       if (x === 0 && y === 0 && width === 426 && height === 240) {
         previousDecks = pilot.decks; pilot.decks = []; pilot.frame = null;
-        slabs = []; supports = []; references.clear();
+        slabs = []; supports = []; slimes = []; references.clear();
       }
       const t = this.getTransform();
       if (t.a === 1 && t.b === 0 && t.c === 0 && t.d === 1) {
@@ -104,6 +106,15 @@ export function installQuarryPilotScript(): void {
         if (url.pathname.endsWith('/carriage-96.png')) slabs.push(support);
       }
     }
+    if (this.canvas.id === 'game' && args[0] instanceof HTMLImageElement && args.length === 9) {
+      const image = args[0], url = new URL(image.src, window.location.origin), t = this.getTransform();
+      if (url.origin === window.location.origin && !url.search && !url.hash && url.pathname === '/assets/slimes/slimes.png'
+        && image.complete && args[1] === 48 && args[2] === 0 && args[3] === 48 && args[4] === 48
+        && t.a === 1 && t.b === 0 && t.c === 0 && t.d === 1) {
+        slimes.push({ x: Number(args[5]) + Number(args[7]) / 2 + t.e,
+          y: Number(args[6]) + Number(args[8]) * 44 / 48 + t.f, live: Number(args[8]) >= 47 });
+      }
+    }
     if (this.canvas.id === 'game' && args[0] instanceof HTMLImageElement && args[0].src.endsWith('/assets/henry/henry-celebration.png') && args.length === 9 && args[8] === 48) {
       const status = document.querySelector('#status')?.textContent ?? '';
       const match = status.match(/X (-?\d+) Y (-?\d+)/);
@@ -111,7 +122,8 @@ export function installQuarryPilotScript(): void {
         const feet = this.getTransform().transformPoint(new DOMPoint(Number(args[5]) + 24, Number(args[6]) + 44));
         const camera = { x: Number(match[1]) - feet.x, y: Number(match[2]) + 34 - feet.y };
         pilot.frame = { status, x: Number(match[1]), feet: Number(match[2]) + 34, camera,
-          henry: { x: feet.x - 24, y: feet.y - 44, width: 48, height: 48 }, supports: [...supports] };
+          henry: { x: feet.x - 24, y: feet.y - 44, width: 48, height: 48 }, supports: [...supports],
+          slimes: slimes.map(slime => ({ ...slime, x: slime.x + camera.x, y: slime.y + camera.y })) };
         const previous = previousDecks;
         pilot.decks = slabs.map(slab => {
           const x = slab.x + camera.x, y = slab.y + camera.y;
@@ -134,18 +146,39 @@ export function installQuarryPilotScript(): void {
     let horizontal = 0, jump = false, speed = 1;
     if (pilot.active && status.includes('Playing') && match) {
       const [x, feet, vx] = [Number(match[1]), Number(match[2]) + 34, Number(match[3])];
-      const target = pilot.route[pilot.index];
+      // A real recovery returns to a fixed checkpoint, not the last requested terrace.
+      const previous = pilot.previous;
+      if (previous && previous.feet - feet > 80 &&
+        ((Math.abs(x - 450) < 2 && [420, 700, 980].includes(feet)) || (Math.abs(x - 300) < 2 && feet === 140))) {
+        const requested = pilot.route[pilot.index];
+        let last = pilot.history.length - 1;
+        while (last >= 0 && pilot.history[last].y > feet) last--;
+        pilot.recovery = requested && requested.y > feet
+          ? pilot.history.slice(last + 1).filter(point => point.y > feet && point.y < requested.y) : [];
+        pilot.avoidFrames = 0;
+        pilot.observations.push({ kind: 'observed-checkpoint-return', from: previous, x, feet, recovery: pilot.recovery.map(point => point.tag) });
+      }
+      pilot.previous = { x, feet };
+      const target = pilot.recovery[0] ?? pilot.route[pilot.index];
       if (!target) pilot.active = false;
       else {
         const stop = x + Math.sign(vx) * vx ** 2 / 2400;
         horizontal = stop < target.x - 3 ? 1 : stop > target.x + 3 ? -1 : 0;
         if (target.jump && !pilot.jumped) { pilot.jumped = true; jump = true; }
         else jump = Boolean(target.jump && pilot.stageFrames < 24);
+        const direction = Math.sign(target.x - x);
+        const threat = pilot.frame?.slimes.find(slime => slime.live && Math.abs(slime.y - feet) < 3
+          && Math.abs(slime.x - x) < 72 && (direction === 0 || (slime.x - x) * direction >= -20));
+        const avoiding = Boolean(threat) || pilot.avoidFrames > 0;
+        if (threat && pilot.avoidFrames === 0) pilot.avoidFrames = 12;
+        if (pilot.avoidFrames > 0) { jump = true; pilot.avoidFrames--; }
         const dock = target.waitFor;
         const ready = !dock || pilot.decks.some(deck => deck.id === dock.id && Math.abs(deck.y - dock.y) < 1 && deck.stationary);
-        if (Math.abs(x - target.x) < 7 && Math.abs(feet - target.y) < 1.1 && (!target.jump || pilot.stageFrames > 24) && ready) {
+        if (Math.abs(x - target.x) < 7 && Math.abs(feet - target.y) < 1.1 && (!target.jump || pilot.stageFrames > 24) && !avoiding && ready) {
           pilot.observations.push({ index: pilot.index, tag: target.tag, x, feet, decks: pilot.decks, status });
-          pilot.index++; pilot.stageFrames = 0; pilot.jumped = false;
+          if (pilot.recovery.length) pilot.recovery.shift();
+          else { pilot.history.push(target); pilot.index++; }
+          pilot.stageFrames = 0; pilot.jumped = false;
           if (pilot.index === pilot.pauseIndex) pilot.frozen = true;
           if (pilot.index === pilot.route.length) pilot.active = false;
           horizontal = 0; jump = false;

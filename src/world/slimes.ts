@@ -1,11 +1,32 @@
-import type { Terrain, Surface } from '../game/movement';
-import type { LevelData } from './level';
+import { surfaceY, type Terrain, type Surface } from '../game/movement';
+import type { MovingPlatform } from '../game/platforms';
+import type { LevelData, WorldEntity } from './level';
 
 export type SlimeAccessory = 'straw' | 'miner' | 'leaf' | 'hard-hat' | 'bobble' | 'snorkel';
 export const SLIME_SPEED = 36;
 export const SLIME_BODY_WIDTH = 32;
 export const SLIME_EDGE_CLEARANCE = SLIME_BODY_WIDTH / 2 + 4;
 export const SLIME_PATROL_RADIUS = 60;
+
+/** Resolve only explicit, immutable shelf support, including the authored rest height. */
+export function slimeFixedSupport(level: LevelData, entity: WorldEntity): MovingPlatform | undefined {
+  const id = entity.patrol?.supportId;
+  if (id === undefined) return undefined;
+  if (entity.kind !== 'slime') throw new Error(`fixed support binding requires a slime: ${entity.id}`);
+  const matches = level.platforms?.filter(platform => platform.id === id) ?? [];
+  const support = matches[0];
+  if (matches.length !== 1 || !support || support.from.x !== support.to.x || support.from.y !== support.to.y
+    || ![support.from.x, support.from.y, support.width, entity.y].every(Number.isFinite)
+    || support.width <= 0 || entity.y !== support.from.y) {
+    throw new Error(`slime lacks matching fixed support: ${entity.id}`);
+  }
+  return support;
+}
+
+/** Shared by walking, bounce anchoring and stomp rest; unbound patrols follow terrain. */
+export function slimeGroundY(level: LevelData, entity: WorldEntity, x: number): number {
+  return slimeFixedSupport(level, entity)?.from.y ?? surfaceY(level, x);
+}
 
 const walkable = (surface: Surface): boolean => surface.x2 > surface.x1
   && Math.abs(surface.y2 - surface.y1) <= surface.x2 - surface.x1;

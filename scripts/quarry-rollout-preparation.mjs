@@ -1,3 +1,4 @@
+import { beforeQuarryOwnerRevision } from './quarry-owner-revision-preservation.mjs';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { crc32, inflateSync } from 'node:zlib';
@@ -41,7 +42,7 @@ function checked(bytes) {
 export function prepareQuarryRollout(contractBytes, read, encode = encodePng) {
   assert.equal(hash(contractBytes), 'aa13c0f67bd4768aafe080b4142f1b8ff622be711b2009f65ed0e047e4ee368d', 'sealed rollout preparation contract');
   const contract = JSON.parse(contractBytes), result = {};
-  assert.equal(hash(read('src/world/quarry-run.ts')), contract.frozenSourceSHA256, 'frozen Quarry world');
+  assert.equal(hash(beforeQuarryOwnerRevision('src/world/quarry-run.ts', read('src/world/quarry-run.ts'))), contract.frozenSourceSHA256, 'frozen Quarry world');
   for (const [file, p] of Object.entries(contract.files)) {
     const raw = read(p.source);
     assert.equal(hash(raw), p.sourceSHA256, 'immutable source PNG');

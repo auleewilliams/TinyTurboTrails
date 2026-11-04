@@ -1,3 +1,4 @@
+import { installQuarryMapPreviewObserver } from './quarry-map-preview';
 import { validateQuarryFloor, loadQuarryFloor, drawQuarryFloor } from '../src/world/quarry-floor';
 import { quarryRolloutPieces, validateQuarryRollout, loadQuarryRollout, drawQuarryRollout } from '../src/world/quarry-rollout';
 import { quarryPreviewPieces, validateQuarryPreviewPieces, loadQuarryPreviewPieces, drawQuarryPreviewPiece } from '../src/world/quarry-preview-pieces';
@@ -731,7 +732,8 @@ test('terrain joins stay solid while scrolling in both directions at integer and
   expect(result.failures).toEqual([]);
 });
 
-test('moving platform slabs and their telegraphed paths draw on the real canvas', async ({ page }, info) => {
+test('moving platform slabs and their telegraphed paths: Quarry draws three illustrated lifts with zero white path ink', async ({ page }, info) => {
+  info.annotations.push({ type: 'owner-contract', description: 'Quarry: three native carriages; zero white pips/endcaps. Replaces the prior telegraphs-required case in Chromium, Firefox and WebKit.' });
   await page.goto('/?scene=foundation');
   await page.addScriptTag({ content: `${RENDERER_SOURCE}\nwindow.drawTerrainTestWorld = ${drawWorld.toString()};` });
   const platforms = (QUARRY_RUN.platforms ?? []).filter(platform => platform.from.x !== platform.to.x || platform.from.y !== platform.to.y);
@@ -764,23 +766,33 @@ test('moving platform slabs and their telegraphed paths draw on the real canvas'
       const camera = { position: offset } as Parameters<typeof drawWorld>[3];
       const carriage = (quarry.quarryRollout?.images[id] ?? quarry.quarryPreview?.images[id])!;
       if (!carriage) throw new Error('Missing Quarry fixture carriage: ' + id);
-      // The same frame without any platform data, to prove what the telegraph itself draws.
+      // Compare the same native frame with and without this carriage; no path ink is authorized.
+      const nativeFillRect = ctx.fillRect.bind(ctx);
+      ctx.fillStyle = '#ffffff66'; const markerStyle = ctx.fillStyle;
+      let markerCalls = 0;
+      ctx.fillRect = (x, y, width, height) => {
+        if (ctx.fillStyle === markerStyle && ((width === 2 && height === 2) || (width === 8 && height === 2))) markerCalls++;
+        nativeFillRect(x, y, width, height);
+      };
       ctx.clearRect(0, 0, 426, 240);
       render(ctx, assets, bare, camera, () => true, (entity) => entity, []);
       const before = ctx.getImageData(0, 0, 426, 240).data;
       ctx.clearRect(0, 0, 426, 240);
+      markerCalls = 0;
       render(ctx, assets, { ...level, platforms: level.platforms!.filter(platform => platform.id === id) }, camera, () => true, (entity) => entity, [body]);
       const after = ctx.getImageData(0, 0, 426, 240).data;
-      // Everything outside the deck is identical between the two frames except the telegraph,
-      // so counting changed pixels there counts exactly the pips and their end markers.
-      let telegraphed = 0;
-      for (let y = 0; y < 240; y++) {
-        for (let x = 0; x < 426; x++) {
-          if (x >= 150 && x <= 150 + body.width && y >= 120 - 3 && y <= 120 + carriage.naturalHeight) continue;
+      // Same pixel-region oracle for the clean native frame and the actual legacy draw below.
+      const countOutsideDeck = (baseline: Uint8ClampedArray, pixels: Uint8ClampedArray, width: number, height: number): number => {
+        let changed = 0;
+        for (let y = 0; y < 240; y++) for (let x = 0; x < 426; x++) {
+          if (x >= 150 && x <= 150 + width && y >= 117 && y <= 120 + height) continue;
           const pixel = (y * 426 + x) * 4;
-          if (before[pixel] !== after[pixel] || before[pixel + 1] !== after[pixel + 1]) telegraphed++;
+          if ([0, 1, 2, 3].some(channel => baseline[pixel + channel] !== pixels[pixel + channel])) changed++;
         }
-      }
+        return changed;
+      };
+      const outsideDeck = countOutsideDeck(before, after, body.width, carriage.naturalHeight);
+      const cleanMarkerCalls = markerCalls;
       // Count along the whole deck rather than sampling one pixel: entity art, such as the
       // bonus gem hanging over the lift, legitimately covers part of it.
       const reference = document.createElement('canvas'); reference.width = 426; reference.height = 240;
@@ -795,27 +807,33 @@ test('moving platform slabs and their telegraphed paths draw on the real canvas'
         }
         return matches;
       };
-      return {
-        id,
-        width: body.width,
-        cap: run(121),
-        slab: run(126),
-        telegraphed,
-        image: canvas.toDataURL(),
-      };
+      const cap = run(121), slab = run(126), image = canvas.toDataURL();
+      // Bounded counterfactual: paint the real legacy white path on this same native canvas.
+      // The clean image above remains the sole per-lift attachment identity.
+      const platform = level.platforms!.find(platform => platform.id === id)!;
+      (window as unknown as { drawPlatformPath: typeof drawPlatformPath }).drawPlatformPath(ctx, platform, offset);
+      const legacyOutsideDeck = countOutsideDeck(after, ctx.getImageData(0, 0, 426, 240).data, body.width, carriage.naturalHeight);
+      ctx.fillRect = nativeFillRect;
+      return { id, width: body.width, cap, slab, outsideDeck, markerCalls: cleanMarkerCalls,
+        legacyOutsideDeck, legacyMarkerCalls: markerCalls - cleanMarkerCalls, image };
     });
   }, { level: QUARRY_RUN, views });
-  expect(results.map(({ id }) => id)).toEqual(platforms.map((platform) => platform.id));
+  // Retain all three original native images before any final assertion can fail.
   for (const result of results) {
-    // A quarter of the deck is a conservative floor: entity art legitimately covers the rest,
-    // such as the bonus gem hanging over the lift or the hazards the ferry passes.
-    expect(result.cap).toBeGreaterThan(result.width / 4);
-    expect(result.slab).toBeGreaterThan(result.width / 4);
-    // Pips mark the route away from the deck, whatever the ride happens to pass in front of.
-    expect(result.telegraphed).toBeGreaterThan(20);
     const evidence = info.outputPath(`${result.id}.png`);
     await writeFile(evidence, Buffer.from(result.image.split(',')[1], 'base64'));
     await info.attach(result.id, { path: evidence, contentType: 'image/png' });
+  }
+  expect(results.map(({ id }) => id)).toEqual(platforms.map((platform) => platform.id));
+  expect(results.map(({ id }) => id)).toEqual(['quarry-lift-a', 'quarry-lift-b', 'quarry-lift-c']);
+  for (const result of results) {
+    // Keep the original native cap/slab reference bounds; entity art may cover the rest.
+    expect(result.cap).toBeGreaterThan(result.width / 4);
+    expect(result.slab).toBeGreaterThan(result.width / 4);
+    expect(result.outsideDeck).toBe(0);
+    expect(result.markerCalls).toBe(0);
+    expect(result.legacyOutsideDeck).toBeGreaterThan(20);
+    expect(result.legacyMarkerCalls).toBeGreaterThan(0);
   }
 });
 
@@ -5498,33 +5516,7 @@ test('Quarry three lifts: actual downward boarding and exit at every dock', { lo
 });
 
 test('selected Quarry map thumbnail shows its real starting rim support', async ({ page }, info) => {
-  await page.addInitScript(() => {
-    type Preview = { heading: string; width: number; height: number; rimPixels: number; image: string };
-    const probe = { heading: '', plains: null as Preview | null, quarry: null as Preview | null };
-    const fillText = CanvasRenderingContext2D.prototype.fillText;
-    CanvasRenderingContext2D.prototype.fillText = function(...args) {
-      if (this.canvas.id === 'game' && args[1] === 350 && args[2] === 63) probe.heading = String(args[0]);
-      return Reflect.apply(fillText, this, args);
-    };
-    const original = CanvasRenderingContext2D.prototype.drawImage;
-    CanvasRenderingContext2D.prototype.drawImage = function(image: CanvasImageSource, ...args: number[]) {
-      if (this.canvas.id === 'game' && image instanceof HTMLCanvasElement && args[0] === 287 && args[1] === 84
-        && args[2] === 126 && args[3] === 71 && (probe.heading === 'PLAINS' || probe.heading === 'QUARRY')) {
-        const pixels = image.getContext('2d')!.getImageData(0, 0, 426, 240).data;
-        let rimPixels = 0;
-        for (let y = 120; y <= 160; y++) for (let x = 150; x <= 350; x++) {
-          const at = (y * 426 + x) * 4;
-          if (pixels[at] === 177 && pixels[at + 1] === 199 && pixels[at + 2] === 125) rimPixels++;
-        }
-        const sample = { heading: probe.heading, width: image.width, height: image.height, rimPixels,
-          image: image.toDataURL() };
-        if (probe.heading === 'PLAINS' && !probe.plains) probe.plains = sample;
-        if (probe.heading === 'QUARRY' && !probe.quarry) probe.quarry = sample;
-      }
-      return Reflect.apply(original, this, [image, ...args]);
-    };
-    Object.assign(window, { quarryMapPreview: probe });
-  });
+  await page.addInitScript(installQuarryMapPreviewObserver);
   await openAdventure(page, '/?scene=adventure');
   await expect.poll(() => page.evaluate(() => (window as unknown as { quarryMapPreview: {
     plains: { heading: string } | null } }).quarryMapPreview.plains?.heading)).toBe('PLAINS');
@@ -5538,11 +5530,11 @@ test('selected Quarry map thumbnail shows its real starting rim support', async 
     quarry: { heading: string } | null } }).quarryMapPreview.quarry?.heading)).toBe('QUARRY');
   const selectedPreview = await page.evaluate(() => (window as unknown as { quarryMapPreview: {
     quarry: { heading: string; width: number; height: number; rimPixels: number; image: string } } }).quarryMapPreview.quarry);
+  await info.attach('quarry-selected-map-preview', { body: Buffer.from(selectedPreview.image.split(',')[1], 'base64'), contentType: 'image/png' });
+  await info.attach('quarry-selected-map-window', { body: await page.screenshot(), contentType: 'image/png' });
   expect(selectedPreview.heading).toBe('QUARRY');
   expect(selectedPreview.width).toBe(426); expect(selectedPreview.height).toBe(240);
   expect(selectedPreview.rimPixels).toBeGreaterThan(80);
-  await info.attach('quarry-selected-map-preview', { body: Buffer.from(selectedPreview.image.split(',')[1], 'base64'), contentType: 'image/png' });
-  await info.attach('quarry-selected-map-window', { body: await page.screenshot(), contentType: 'image/png' });
 });
 
 test('Quarry native landing visibility: actual rest and approach frames reveal each next landing before stepping off', { lock: 'native-route' }, async ({ page }, info) => {

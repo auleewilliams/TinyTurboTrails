@@ -1,3 +1,4 @@
+import { beforeQuarryOwnerRevision } from './quarry-owner-revision-preservation.mjs';
 import { beforeTimbersMerge } from './timbers-plains-integration.mjs';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
@@ -78,6 +79,7 @@ const approved = {
 };
 
 export function beforePlainsContour(path, bytes) {
+  bytes = beforeQuarryOwnerRevision(path, bytes);
   bytes = beforeTimbersMerge(path, bytes);
   const entry = approved[path];
   if (!entry) return bytes; // The caller's historical oracle still checks every other byte.

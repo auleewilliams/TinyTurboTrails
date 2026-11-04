@@ -1,3 +1,4 @@
+import { beforeQuarryOwnerRevision } from './quarry-owner-revision-preservation.mjs';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
@@ -12,9 +13,10 @@ test('owner feedback restores the full pre-feedback files and rejects any other 
     assert.equal(createHash('sha256').update(baseline).digest('hex'), entry.baselineSha256);
     assert.throws(() => beforeTimbersOwnerFeedback(path, baseline));
     assert.throws(() => beforeTimbersOwnerFeedback(path, Buffer.concat([bytes, Buffer.from(' ')])));
+    const mutationDomain = beforeQuarryOwnerRevision(path, bytes);
     for (const change of entry.changes) {
-      const altered = Buffer.from(bytes.toString().replace(change.after, '// missing authorized change\n'));
-      assert.notDeepEqual(altered, bytes);
+      const altered = Buffer.from(mutationDomain.toString().replace(change.after, '// missing authorized change\n'));
+      assert.notDeepEqual(altered, mutationDomain);
       assert.throws(() => beforeTimbersOwnerFeedback(path, altered));
     }
   }

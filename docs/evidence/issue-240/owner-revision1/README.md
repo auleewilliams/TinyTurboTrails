@@ -1,0 +1,25 @@
+# Quarry owner amendment: markers and three patrols
+
+Owner message `71aenqrabtfajedfbc1eic4bxo` requests removal of the white platform markers and restoration of some moving slimes. This current amendment supersedes the art-only freeze solely for Quarry marker drawing, these three entities, and the necessary fixed-support patrol grounding. It does not amend historical art approvals or preparation contracts.
+
+| Entity | Fixed support | Authored centre | Top | Patrol centres | Speed |
+| --- | --- | ---: | ---: | --- | ---: |
+| quarry-slime-upper | quarry-terrace-2 | 390 | 280 | 350–430 | 36 px/s |
+| quarry-slime-middle | quarry-terrace-5 | 430 | 560 | 390–470 | 36 px/s |
+| quarry-slime-lower | quarry-terrace-8 | 400 | 840 | 360–440 | 36 px/s |
+
+Each is the existing miner slime, walking left/right with no bounce added. Its 32px contact body retains the existing 4px edge margin. The actual body envelopes also stay well inside the shelf edges. Spawn, checkpoint/finish/retrace tops are at least 140px away vertically; the patrol envelopes stay between the lift shafts and clear of the docks. Ordinary movement tests jump past each encounter with no damage. Existing full descent, finish, return for ROCK/stars and replay tests pass without changing their routes, assertions, clocks or limits. Native visible gameplay remains a parent gate.
+
+`EntityPatrol.supportId` is an explicit opt-in reference to one unique permanent platform. Validation rejects missing/moving support, incorrect rest height, non-slime binding and patrol bounds without whole-body edge clearance. Live walking, optional bounce anchoring and stomp rest use the same support height. Rendering/contact consume the same run-owned position. Unbound patrols retain terrain-following behavior; other trails' data and behavior are unchanged. No platform riding or new enemy mechanics were added.
+
+`drawPlatforms` omits `drawPlatformPath` only for Quarry. All 45 existing illustrated platform bodies still dispatch through their original kits. The independent floor is unchanged. Other trails retain their exact path/endcap behavior, including Timbers' existing fixed-bough exception. No replacement cue was added.
+
+`amendment.json` records exact current/prior whole-file hashes and reversible source hunks for the five production files. `scripts/quarry-owner-revision-preservation.mjs` pins that record and restores only those exact hunks before the historical guards. Explicit historical whole-file hashes support the existing layered projections; unknown changed bytes fail. The current adapters cover the floor/rollout/representative/shelf chain, representative and rollout preparation, Timbers owner feedback/integration, and Plains/Cove preservation consumers. The historical Timbers mutation fixture now obtains its prior source through the same exact projection before applying every original corruption case. The direct Plains fixture does likewise before its original flower/terrain oracle. No historical catalog, baseline, art metadata, contract, approval or PNG was edited.
+
+Validation: 375 Vitest cases in 22 explicitly named files pass; 12 explicitly named pure Node script files pass; typecheck and production build pass. The new renderer test executes actual `drawPlatforms` with all authored bodies, real manifests and shipped PNG dimensions, and rejects every Quarry path/endcap fill. It retains other-trail endcap counts. The new patrol tests cover 20 ordinary seconds, both endpoints and directions, live rendering/contact, jump avoidance, stomp, persistent squash, recovery/replay, support validation negatives and optional bounce anchoring. They also reconstruct the exact prior Quarry export and compare every non-slime field/entity.
+
+The historical Timbers art/tree regeneration subprocesses were blocked by host `spawnSync /usr/bin/node EPERM`; their two other pure checks in each file passed. Failures are retained in the worker evidence; these files were not changed or rerun after that cause was identified. `tests/sprite-processing.test.ts` and `tests/finish-grounding.test.ts` remain held and were never invoked, imported or reached through a helper. No full-unit command ran.
+
+All prewriter source/public art pins, the floor's exact 48 RGB / zero alpha corrections, and the existing three-file map-observer repair remain byte-identical. The new build changes only its fingerprinted JavaScript and index linkage. Prior source/build snapshots, Chromium28 results and failed map CI evidence remain separate historical records; their review/validation does not certify this amendment.
+
+Parent gates: native marker-free fixed/lift artwork and moving-slime dodge/stomp/damage/recovery checks, full descent/return/ROCK/replay, affected browser coverage on this source, fresh whole-PR review, and separately authorized commit/immediate push/readback/CI. No browser/server execution, installation, paid art, commit, push, tracker/PR/CI mutation, merge, deploy, closure or security/settings changes were performed here.

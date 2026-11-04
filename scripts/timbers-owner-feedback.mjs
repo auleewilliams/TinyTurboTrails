@@ -1,3 +1,4 @@
+import { beforeQuarryOwnerRevision } from './quarry-owner-revision-preservation.mjs';
 import { beforeQuarryRepresentative } from './quarry-representative-preservation.mjs';
 import { beforeQuarryShelves } from './quarry-shelves-preservation.mjs';
 import assert from 'node:assert/strict';
@@ -11,6 +12,7 @@ const record = JSON.parse(raw);
 // Keep earlier art-only approvals immutable. Reverse precisely the subsequently
 // requested marker removal and eleven new entities before historical byte oracles.
 export function beforeTimbersOwnerFeedback(path, bytes) {
+  bytes = beforeQuarryOwnerRevision(path, bytes);
   bytes = beforeQuarryShelves(path, beforeQuarryRepresentative(path, bytes));
   const entry = record.files[path];
   if (!entry) return bytes;

@@ -1,3 +1,4 @@
+import { beforeQuarryOwnerRevision } from './quarry-owner-revision-preservation.mjs';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { crc32 } from 'node:zlib';
@@ -22,7 +23,7 @@ export function wholeSample(source, box, num, den) {
 }
 export function prepareRepresentative(contractBytes, read) {
  assert.equal(hash(contractBytes),'5730085531c0ac914f97effc1bc3f6f11cbdd01f56de15b6b402c53d8692ac7d','exact source-specific representative contract');const contract=JSON.parse(contractBytes),result={};
- for(const [path,pin]of Object.entries({...contract.frozenGameplay,...contract.frozenS}))assert.equal(hash(read(path)),pin,'frozen gameplay/S');
+ for(const [path,pin]of Object.entries({...contract.frozenGameplay,...contract.frozenS}))assert.equal(hash(beforeQuarryOwnerRevision(path, read(path))),pin,'frozen gameplay/S');
  for(const [file,p]of Object.entries(contract.files)){
   const raw=read(p.source);assert.equal(hash(raw),p.sourceSHA256,'immutable whole source');const source=checked(raw);let box=p.sourceBBoxExclusive??[0,0,source.width,source.height];
   if(file==='carriage-96.png'){

@@ -1,4 +1,4 @@
-import { withSlimePatrols, slimeGroundBounds, SLIME_SPEED, type SlimeAccessory } from './slimes';
+import { withSlimePatrols, slimeGroundBounds, slimeFixedSupport, SLIME_EDGE_CLEARANCE, SLIME_SPEED, type SlimeAccessory } from './slimes';
 import { DEFAULT_MOVEMENT, MAX_SURFACE_FRICTION, MIN_SURFACE_FRICTION, surfaceY, type Surface } from '../game/movement';
 import { PLATFORM_MAX_SPEED, platformSpeed, type MovingPlatform } from '../game/platforms';
 import type { WorldAsset } from './assets';
@@ -6,7 +6,13 @@ import type { WorldAsset } from './assets';
 /** Legacy 'hazard' tags identify static artwork props, now harmless pass-through scenery (#191). */
 export type WorldEntityKind = 'gem' | 'special' | 'slime' | 'spring' | 'checkpoint' | 'hazard' | 'decoration' | 'crumbling-ledge';
 /** Back-and-forth walk between two X bounds. The run owns the position; level data stays immutable. */
-export interface EntityPatrol { minX: number; maxX: number; speed: number }
+export interface EntityPatrol {
+  minX: number;
+  maxX: number;
+  speed: number;
+  /** Opt-in grounding on one permanent authored shelf; never a moving platform. */
+  supportId?: string;
+}
 export interface WorldEntity {
   id: string;
   kind: WorldEntityKind;
@@ -181,6 +187,14 @@ function validatePatrol(level: LevelData, entity: WorldEntity): void {
   if (entity.x < patrol.minX || entity.x > patrol.maxX) throw new Error(`patrol excludes its own entity: ${entity.id}`);
   if (patrol.speed <= 0 || patrol.speed > MAX_PATROL_SPEED) throw new Error(`patrol speed must stay catchable: ${entity.id}`);
   if (![patrol.minX, patrol.maxX, patrol.speed].every(Number.isFinite)) throw new Error(`invalid patrol numbers: ${entity.id}`);
+  if (patrol.supportId !== undefined) {
+    const support = slimeFixedSupport(level, entity)!;
+    if (patrol.minX < support.from.x + SLIME_EDGE_CLEARANCE
+      || patrol.maxX > support.from.x + support.width - SLIME_EDGE_CLEARANCE) {
+      throw new Error(`patrol lacks fixed support edge clearance: ${entity.id}`);
+    }
+    return;
+  }
   if (entity.kind === 'slime') {
     const ground = slimeGroundBounds(level, entity.x);
     if (patrol.minX < ground.minX || patrol.maxX > ground.maxX) throw new Error(`patrol crosses unwalkable ground or lacks edge clearance: ${entity.id}`);

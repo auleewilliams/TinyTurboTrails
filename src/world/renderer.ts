@@ -272,7 +272,7 @@ export function drawPlatforms(ctx: CanvasRenderingContext2D, level: LevelData, o
   platforms: readonly PlatformBody[], assets?: WorldAssets): void {
   for (const platform of level.platforms ?? []) {
     // A fixed Timbers bough has no travel path; overlapping endpoints made a white T.
-    if (level.id !== 'timbers' || platform.from.x !== platform.to.x || platform.from.y !== platform.to.y) {
+    if (level.id !== 'quarry' && (level.id !== 'timbers' || platform.from.x !== platform.to.x || platform.from.y !== platform.to.y)) {
       drawPlatformPath(ctx, platform, offset);
     }
     const body = platforms.find((candidate) => candidate.id === platform.id);
