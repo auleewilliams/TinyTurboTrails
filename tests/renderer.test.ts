@@ -73,7 +73,9 @@ function recordingContext(): { ctx: CanvasRenderingContext2D; images: unknown[][
   return { ctx: ctx as unknown as CanvasRenderingContext2D, images, texts, rects, moves };
 }
 
-const worldAssets: WorldAssets = { atlas: {} as HTMLImageElement, gems: {} as HTMLImageElement, manifest, slimes: {} as HTMLImageElement };
+const floorManifest = JSON.parse(readFileSync(new URL('../public/assets/quarry/floor-v1/manifest.json', import.meta.url), 'utf8'));
+const floorImage = { naturalWidth: 820, naturalHeight: 107 } as HTMLImageElement;
+const worldAssets: WorldAssets = { quarryFloor: { manifest: floorManifest, image: floorImage }, atlas: {} as HTMLImageElement, gems: {} as HTMLImageElement, manifest, slimes: {} as HTMLImageElement };
 
 it('hides stationary Timbers path markers while preserving actual moving-platform cues', () => {
   const fixed = TREETOP_TIMBERS.platforms![0];
@@ -199,7 +201,7 @@ it('uses new art only for Plains decoration, keeping hazards distinct and Quarry
   expect(images.indexOf(tree)).toBeLessThan(images.indexOf(hazard!));
   const quarry = recordingContext();
   drawWorld(quarry.ctx, sceneryAssets, QUARRY_RUN, camera);
-  expect(quarry.images.every((call) => call[0] === worldAssets.atlas || call[0] === worldAssets.slimes || call[0] === worldAssets.gems)).toBe(true);
+  expect(quarry.images.every((call) => call[0] === floorImage || call[0] === worldAssets.atlas || call[0] === worldAssets.slimes || call[0] === worldAssets.gems)).toBe(true);
 });
 
 it('selects a backdrop and parallax fallback entirely from theme metadata', () => {
@@ -347,7 +349,9 @@ const silentAudio: GameAudio = {
 };
 
 it('uses the run clock for weather, freezes it on pause and resets it on replay', () => {
-  const scene = new AdventureScene({} as HTMLImageElement, henryAssets, worldMap(worldAssets), silentAudio, QUARRY_RUN);
+  const rollout = JSON.parse(readFileSync(new URL('../public/assets/quarry/rollout-v1/manifest.json', import.meta.url), 'utf8'));
+  const quarryAssets = { ...worldAssets, quarryRollout: { manifest: rollout, images: Object.fromEntries(Object.keys(rollout.platforms).map(id => [id, {} as HTMLImageElement])) } };
+  const scene = new AdventureScene({} as HTMLImageElement, henryAssets, worldMap(quarryAssets), silentAudio, QUARRY_RUN);
   scene.startSelected();
   const run = (scene as unknown as { run: RunState }).run;
   run.seconds = 37.5;
@@ -622,4 +626,21 @@ it('distinguishes Cove permanent stone tops from sandy terrain at the actual col
     expect(rects).toContainEqual(expect.objectContaining({fillStyle:'#87979b',x:body.x-1600,y:body.y-220,width:body.width,height:body.height}));
     expect(rects).toContainEqual(expect.objectContaining({fillStyle:'#e3e6ce',x:body.x-1600,y:body.y-220,width:body.width,height:3}));
   }
+});
+
+it('requires the rollout kit for Quarry bodies instead of silently drawing legacy slabs', () => {
+  // Fixture contract: loadWorldAssetMap supplies all three Quarry kits. The existing
+  // strict rollout throw is intentional; atlas-only fixture assets are incomplete.
+  const rim = QUARRY_RUN.platforms!.find(p => p.id === 'quarry-rim')!;
+  const level = { ...QUARRY_RUN, platforms: [rim] }, body = platformBodyAt(rim, 0);
+  const { ctx, images, rects } = recordingContext();
+  expect(() => drawPlatforms(ctx, level, { x: .25, y: .5 }, [body], worldAssets)).toThrow('Missing Quarry rollout kit: quarry-rim');
+  expect(images).toEqual([]);
+  expect(rects.some(rect => rect.width === rim.width && rect.height === body.height)).toBe(false);
+  const manifest = JSON.parse(readFileSync(new URL('../public/assets/quarry/rollout-v1/manifest.json', import.meta.url), 'utf8'));
+  const image = {} as HTMLImageElement;
+  expect(() => drawPlatforms(ctx, level, { x: .25, y: .5 }, [body], { ...worldAssets, quarryRollout: { manifest, images: {} } })).toThrow();
+  images.length = 0;
+  drawPlatforms(ctx, level, { x: .25, y: .5 }, [body], { ...worldAssets, quarryRollout: { manifest, images: { 'quarry-rim': image } } });
+  expect(images).toEqual([[image, body.x - .25, body.y - .5]]);
 });

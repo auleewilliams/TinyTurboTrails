@@ -1,0 +1,53 @@
+{
+  "decision": "FAILED_STRICT_FIT",
+  "sourceSHA256": "c8e1061038cb3355543a00e55692bf4e6beedbadb83cdbfc8005f80a35fc277f",
+  "sourceDimensions": [
+    2170,
+    725
+  ],
+  "sourceMode": "RGB",
+  "predicate": "R>=220 B>=200 G<=50 R-G>=170 B-G>=150 abs(R-B)<=40",
+  "extraction": "actual exact-predicate 4-connected exterior flood, original retained RGB unchanged",
+  "exteriorPixels": 1059967,
+  "internalKeyPixels": 0,
+  "wholeBBoxExclusive": [
+    91,
+    225,
+    2079,
+    484
+  ],
+  "sourceBBoxDimensions": [
+    1988,
+    259
+  ],
+  "scaleNumerator": 820,
+  "scaleDenominator": 1988,
+  "exactScaledHeight": 106.83098591549296,
+  "nativeDimensions": [
+    820,
+    107
+  ],
+  "opaqueBoundsExclusive": [
+    0,
+    0,
+    820,
+    107
+  ],
+  "alphaValues": [
+    0,
+    255
+  ],
+  "first100FullyOpaque": true,
+  "first100AlphaFailures": 0,
+  "topOpaque": 820,
+  "opaqueBeyond100": 5075,
+  "nativeKeyPixels": 0,
+  "fringeRiskPixels": 211,
+  "fringeRiskDefinition": "min(R,B)>G+20 retained opaque pixels; diagnostic only, not key predicate",
+  "RGBSourceMapAllPixelsVerified": true,
+  "nativeSHA256": "88f18cc6682f3fbfcad2eb92a6f86c2f55c96416bd0f3b43e33e6f8399aa065a",
+  "sampler": "sourceX=x0+floor((2*x+1)*sourceWidth/(2*820)); sourceY=y0+floor((2*y+1)*sourceWidth/(2*820)); out-of-bbox centre transparent; SAME rational both axes",
+  "repairApplied": false,
+  "strictFailure": "Opaque whole depth exceeds exactly100; no relaxation or retry",
+  "proposal": "NONCOMPLIANT, owner decision required; unchanged whole native at y980, geometric viewport clipping only; no integration"
+}

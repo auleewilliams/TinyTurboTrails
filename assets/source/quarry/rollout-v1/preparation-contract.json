@@ -1,0 +1,304 @@
+{
+  "version": 1,
+  "scope": "remaining29-nonfloor-rollout",
+  "files": {
+    "shelf-360.png": {
+      "source": "assets/source/quarry/whole-ledges-v1/approved-400.png",
+      "sourceSHA256": "5d6ed45c914d8b794cdcf4947514957199e9d708001f5c63f946c43a9f2adc9c",
+      "sourceSize": [
+        400,
+        45
+      ],
+      "sourceRGBAsha256": "f9ff17da3b95945b49943a4111f0d9845af6f1bf5a9c571d43b23ad40a300bd8",
+      "box": [
+        0,
+        0,
+        400,
+        45
+      ],
+      "scale": [
+        360,
+        400
+      ],
+      "size": [
+        360,
+        41
+      ],
+      "PNGsha256": "8f0e4381f9653e09a234cd593376c795036aa880fbb91fbbea2ac52d9a2a6577",
+      "RGBAsha256": "faf2f7f75e02edf78504426866d669b8b5dbcc06582071d642974ae3c69717be",
+      "maxOpaqueDepth": 40,
+      "wholeEnds": true,
+      "RGBRepairs": 0,
+      "alphaRepairs": 0
+    },
+    "rock-140.png": {
+      "source": "public/assets/cove/bay1-b-v1/platform.png",
+      "sourceSHA256": "e1809f4f247e693c96968ce7661e2e2126d46d28567b032e534634ee6a2b94cc",
+      "sourceSize": [
+        140,
+        30
+      ],
+      "sourceRGBAsha256": "52ee522781185b896c09302377b99cf9d16c0aaf0db73dc5d1239821b38fb1a6",
+      "box": [
+        0,
+        0,
+        140,
+        30
+      ],
+      "scale": [
+        140,
+        140
+      ],
+      "size": [
+        140,
+        30
+      ],
+      "PNGsha256": "e1809f4f247e693c96968ce7661e2e2126d46d28567b032e534634ee6a2b94cc",
+      "RGBAsha256": "52ee522781185b896c09302377b99cf9d16c0aaf0db73dc5d1239821b38fb1a6",
+      "maxOpaqueDepth": 27,
+      "wholeEnds": true,
+      "RGBRepairs": 0,
+      "alphaRepairs": 0
+    },
+    "shelf-240.png": {
+      "source": "assets/source/quarry/whole-ledges-v1/approved-400.png",
+      "sourceSHA256": "5d6ed45c914d8b794cdcf4947514957199e9d708001f5c63f946c43a9f2adc9c",
+      "sourceSize": [
+        400,
+        45
+      ],
+      "sourceRGBAsha256": "f9ff17da3b95945b49943a4111f0d9845af6f1bf5a9c571d43b23ad40a300bd8",
+      "box": [
+        0,
+        0,
+        400,
+        45
+      ],
+      "scale": [
+        240,
+        400
+      ],
+      "size": [
+        240,
+        27
+      ],
+      "PNGsha256": "70ffc748c290443d9cd799efeff1cb84f3fcd8ff97f3cbb93859e00ac404a69c",
+      "RGBAsha256": "b8062a0db5ccb241bcd5848a011258fa2244af67909df8c7d854d8962c8e735c",
+      "maxOpaqueDepth": 27,
+      "wholeEnds": true,
+      "RGBRepairs": 0,
+      "alphaRepairs": 0
+    },
+    "star-160.png": {
+      "source": "public/assets/cove/bay2-whole-v1/platform.png",
+      "sourceSHA256": "595d98c49269f0231dddcd95e5323a508eae5c28d9185257d15ec3daf19e6b5f",
+      "sourceSize": [
+        160,
+        35
+      ],
+      "sourceRGBAsha256": "2586197f928142b5027c1d6213820336c565f5ea935c646b6f22a0b693b51653",
+      "box": [
+        0,
+        0,
+        160,
+        35
+      ],
+      "scale": [
+        160,
+        160
+      ],
+      "size": [
+        160,
+        35
+      ],
+      "PNGsha256": "595d98c49269f0231dddcd95e5323a508eae5c28d9185257d15ec3daf19e6b5f",
+      "RGBAsha256": "2586197f928142b5027c1d6213820336c565f5ea935c646b6f22a0b693b51653",
+      "maxOpaqueDepth": 31,
+      "wholeEnds": true,
+      "RGBRepairs": 0,
+      "alphaRepairs": 0
+    },
+    "shelf-180.png": {
+      "source": "assets/source/quarry/whole-ledges-v1/approved-240.png",
+      "sourceSHA256": "e885aa6761274249f098608051dab96068346e9e8e7fb2467d7c9c2710d54a2f",
+      "sourceSize": [
+        240,
+        37
+      ],
+      "sourceRGBAsha256": "ac84555e234c03006b1ec2b997a4dd1e5c8188977fc947a6f87240e02a666c8a",
+      "box": [
+        0,
+        0,
+        240,
+        37
+      ],
+      "scale": [
+        180,
+        240
+      ],
+      "size": [
+        180,
+        28
+      ],
+      "PNGsha256": "95e19ab2b1e7b50dd3dbaa6245e548a2e98eba1df803ec7a310198308a666961",
+      "RGBAsha256": "a2f38f32e7a466ad4c35d77af5861b94adcdb0ec453dc1f6349f05685275cdd9",
+      "maxOpaqueDepth": 28,
+      "wholeEnds": true,
+      "RGBRepairs": 0,
+      "alphaRepairs": 0
+    },
+    "shelf-220.png": {
+      "source": "assets/source/quarry/whole-ledges-v1/approved-400.png",
+      "sourceSHA256": "5d6ed45c914d8b794cdcf4947514957199e9d708001f5c63f946c43a9f2adc9c",
+      "sourceSize": [
+        400,
+        45
+      ],
+      "sourceRGBAsha256": "f9ff17da3b95945b49943a4111f0d9845af6f1bf5a9c571d43b23ad40a300bd8",
+      "box": [
+        0,
+        0,
+        400,
+        45
+      ],
+      "scale": [
+        220,
+        400
+      ],
+      "size": [
+        220,
+        25
+      ],
+      "PNGsha256": "23323d785a6548bb405115f483863d5a69efb06d3f6806563c8bb0d059edfc33",
+      "RGBAsha256": "4e07d24a8b34ec2b23f29ecd86163d49e80773a9945a66ad5c18bbbc59f0e006",
+      "maxOpaqueDepth": 25,
+      "wholeEnds": true,
+      "RGBRepairs": 0,
+      "alphaRepairs": 0
+    },
+    "shelf-260.png": {
+      "source": "assets/source/quarry/whole-ledges-v1/approved-400.png",
+      "sourceSHA256": "5d6ed45c914d8b794cdcf4947514957199e9d708001f5c63f946c43a9f2adc9c",
+      "sourceSize": [
+        400,
+        45
+      ],
+      "sourceRGBAsha256": "f9ff17da3b95945b49943a4111f0d9845af6f1bf5a9c571d43b23ad40a300bd8",
+      "box": [
+        0,
+        0,
+        400,
+        45
+      ],
+      "scale": [
+        260,
+        400
+      ],
+      "size": [
+        260,
+        30
+      ],
+      "PNGsha256": "703f9a3257f03cbc4fc29bcb4393e7c0fef2debaee9509b0275e50bf9993a3c2",
+      "RGBAsha256": "f32cb68d00f37523fbdad007f9702293d13163a23b5ac1fa7d0ef83d82c4e15f",
+      "maxOpaqueDepth": 29,
+      "wholeEnds": true,
+      "RGBRepairs": 0,
+      "alphaRepairs": 0
+    },
+    "shelf-200.png": {
+      "source": "assets/source/quarry/whole-ledges-v1/approved-400.png",
+      "sourceSHA256": "5d6ed45c914d8b794cdcf4947514957199e9d708001f5c63f946c43a9f2adc9c",
+      "sourceSize": [
+        400,
+        45
+      ],
+      "sourceRGBAsha256": "f9ff17da3b95945b49943a4111f0d9845af6f1bf5a9c571d43b23ad40a300bd8",
+      "box": [
+        0,
+        0,
+        400,
+        45
+      ],
+      "scale": [
+        200,
+        400
+      ],
+      "size": [
+        200,
+        23
+      ],
+      "PNGsha256": "70bc8962a7a475cb64d48a0ac2fe2142632d64af161d844a0ff9d13066a24404",
+      "RGBAsha256": "a44e591348fea5983afa5b90bc6b682321f9f0a014e088b3108070af1aafa758",
+      "maxOpaqueDepth": 22,
+      "wholeEnds": true,
+      "RGBRepairs": 0,
+      "alphaRepairs": 0
+    },
+    "rock-112.png": {
+      "source": "public/assets/cove/bay1-b-v1/platform.png",
+      "sourceSHA256": "e1809f4f247e693c96968ce7661e2e2126d46d28567b032e534634ee6a2b94cc",
+      "sourceSize": [
+        140,
+        30
+      ],
+      "sourceRGBAsha256": "52ee522781185b896c09302377b99cf9d16c0aaf0db73dc5d1239821b38fb1a6",
+      "box": [
+        0,
+        0,
+        140,
+        30
+      ],
+      "scale": [
+        112,
+        140
+      ],
+      "size": [
+        112,
+        24
+      ],
+      "PNGsha256": "3f17c494faf00f6fcbac4d8521b93eb8667355f94776d7e183a038a3c1161dc6",
+      "RGBAsha256": "0fec2fd22fe3f1e7d05e171f1b8f3b846d3348eedf82781f55a9bc3b55b94909",
+      "maxOpaqueDepth": 22,
+      "wholeEnds": true,
+      "RGBRepairs": 0,
+      "alphaRepairs": 0
+    },
+    "carriage-96.png": {
+      "source": "public/assets/quarry/representative-v1/carriage-96.png",
+      "sourceSHA256": "469bc00df7ee44645d8db9a2403fcdc516dfc356b3836d48ca662e3462ff86df",
+      "sourceSize": [
+        96,
+        17
+      ],
+      "sourceRGBAsha256": "6c7c634f93270a5a66429c9ec3fd1a24c8658586375dafeb396579b99449315d",
+      "box": [
+        0,
+        0,
+        96,
+        17
+      ],
+      "scale": [
+        96,
+        96
+      ],
+      "size": [
+        96,
+        17
+      ],
+      "PNGsha256": "469bc00df7ee44645d8db9a2403fcdc516dfc356b3836d48ca662e3462ff86df",
+      "RGBAsha256": "6c7c634f93270a5a66429c9ec3fd1a24c8658586375dafeb396579b99449315d",
+      "maxOpaqueDepth": 16,
+      "wholeEnds": true,
+      "RGBRepairs": 0,
+      "alphaRepairs": 0
+    }
+  },
+  "frozenSourceSHA256": "b8195d037769d2957626b88fc91b01fc02c1e1d88bf2d732aff52006d5370d49",
+  "counts": {
+    "accepted": 16,
+    "added": 29,
+    "readySupports": 45,
+    "pendingFloor": 1,
+    "whole46Complete": false
+  }
+}

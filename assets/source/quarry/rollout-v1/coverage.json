@@ -1,0 +1,963 @@
+[
+  {
+    "id": "quarry-rim",
+    "status": "implemented-native-pending",
+    "family": "S",
+    "from": {
+      "x": 160,
+      "y": 140
+    },
+    "to": {
+      "x": 160,
+      "y": 140
+    },
+    "width": 360,
+    "seconds": 1,
+    "file": "shelf-360.png",
+    "source": "assets/source/quarry/whole-ledges-v1/approved-400.png",
+    "sourceSHA256": "5d6ed45c914d8b794cdcf4947514957199e9d708001f5c63f946c43a9f2adc9c",
+    "PNGsha256": "8f0e4381f9653e09a234cd593376c795036aa880fbb91fbbea2ac52d9a2a6577",
+    "RGBAsha256": "faf2f7f75e02edf78504426866d669b8b5dbcc06582071d642974ae3c69717be",
+    "fit": {
+      "opaqueDepth": 40,
+      "nominal70pxHenry40Gap": -10,
+      "choice": "whole400 master; equal-axis360/400; per-placement context required"
+    }
+  },
+  {
+    "id": "quarry-terrace-1",
+    "status": "implemented-native-pending",
+    "family": "R",
+    "from": {
+      "x": 440,
+      "y": 210
+    },
+    "to": {
+      "x": 440,
+      "y": 210
+    },
+    "width": 140,
+    "seconds": 1,
+    "file": "rock-140.png",
+    "source": "public/assets/cove/bay1-b-v1/platform.png",
+    "sourceSHA256": "e1809f4f247e693c96968ce7661e2e2126d46d28567b032e534634ee6a2b94cc",
+    "PNGsha256": "e1809f4f247e693c96968ce7661e2e2126d46d28567b032e534634ee6a2b94cc",
+    "RGBAsha256": "52ee522781185b896c09302377b99cf9d16c0aaf0db73dc5d1239821b38fb1a6",
+    "fit": {
+      "opaqueDepth": 27,
+      "nominal70pxHenry40Gap": 3,
+      "choice": "approved whole source; no repair"
+    }
+  },
+  {
+    "id": "quarry-terrace-2",
+    "status": "implemented-native-pending",
+    "family": "S",
+    "from": {
+      "x": 280,
+      "y": 280
+    },
+    "to": {
+      "x": 280,
+      "y": 280
+    },
+    "width": 240,
+    "seconds": 1,
+    "file": "shelf-240.png",
+    "source": "assets/source/quarry/whole-ledges-v1/approved-400.png",
+    "sourceSHA256": "5d6ed45c914d8b794cdcf4947514957199e9d708001f5c63f946c43a9f2adc9c",
+    "PNGsha256": "70ffc748c290443d9cd799efeff1cb84f3fcd8ff97f3cbb93859e00ac404a69c",
+    "RGBAsha256": "b8062a0db5ccb241bcd5848a011258fa2244af67909df8c7d854d8962c8e735c",
+    "fit": {
+      "opaqueDepth": 27,
+      "nominal70pxHenry40Gap": 3,
+      "choice": "whole400 master; equal-axis240/400; per-placement context required"
+    }
+  },
+  {
+    "id": "quarry-star-upper",
+    "status": "implemented-native-pending",
+    "family": "R",
+    "from": {
+      "x": 600,
+      "y": 280
+    },
+    "to": {
+      "x": 600,
+      "y": 280
+    },
+    "width": 160,
+    "seconds": 1,
+    "file": "star-160.png",
+    "source": "public/assets/cove/bay2-whole-v1/platform.png",
+    "sourceSHA256": "595d98c49269f0231dddcd95e5323a508eae5c28d9185257d15ec3daf19e6b5f",
+    "PNGsha256": "595d98c49269f0231dddcd95e5323a508eae5c28d9185257d15ec3daf19e6b5f",
+    "RGBAsha256": "2586197f928142b5027c1d6213820336c565f5ea935c646b6f22a0b693b51653",
+    "fit": {
+      "opaqueDepth": 31,
+      "nominal70pxHenry40Gap": -1,
+      "choice": "approved whole source; no repair"
+    }
+  },
+  {
+    "id": "quarry-terrace-3",
+    "status": "implemented-native-pending",
+    "family": "S",
+    "from": {
+      "x": 180,
+      "y": 350
+    },
+    "to": {
+      "x": 180,
+      "y": 350
+    },
+    "width": 180,
+    "seconds": 1,
+    "file": "shelf-180.png",
+    "source": "assets/source/quarry/whole-ledges-v1/approved-240.png",
+    "sourceSHA256": "e885aa6761274249f098608051dab96068346e9e8e7fb2467d7c9c2710d54a2f",
+    "PNGsha256": "95e19ab2b1e7b50dd3dbaa6245e548a2e98eba1df803ec7a310198308a666961",
+    "RGBAsha256": "a2f38f32e7a466ad4c35d77af5861b94adcdb0ec453dc1f6349f05685275cdd9",
+    "fit": {
+      "opaqueDepth": 28,
+      "nominal70pxHenry40Gap": 2,
+      "choice": "whole240 master; equal-axis180/240; per-placement context required"
+    }
+  },
+  {
+    "id": "quarry-upper",
+    "status": "frozen-accepted16",
+    "from": {
+      "x": 160,
+      "y": 420
+    },
+    "to": {
+      "x": 160,
+      "y": 420
+    },
+    "width": 400,
+    "seconds": 1
+  },
+  {
+    "id": "quarry-b-upper-dock",
+    "status": "frozen-accepted16",
+    "from": {
+      "x": 600,
+      "y": 420
+    },
+    "to": {
+      "x": 600,
+      "y": 420
+    },
+    "width": 60,
+    "seconds": 1
+  },
+  {
+    "id": "quarry-terrace-4",
+    "status": "frozen-accepted16",
+    "from": {
+      "x": 480,
+      "y": 490
+    },
+    "to": {
+      "x": 480,
+      "y": 490
+    },
+    "width": 160,
+    "seconds": 1
+  },
+  {
+    "id": "quarry-terrace-5",
+    "status": "frozen-accepted16",
+    "from": {
+      "x": 320,
+      "y": 560
+    },
+    "to": {
+      "x": 320,
+      "y": 560
+    },
+    "width": 240,
+    "seconds": 1
+  },
+  {
+    "id": "quarry-terrace-6",
+    "status": "implemented-native-pending",
+    "family": "S",
+    "from": {
+      "x": 180,
+      "y": 630
+    },
+    "to": {
+      "x": 180,
+      "y": 630
+    },
+    "width": 220,
+    "seconds": 1,
+    "file": "shelf-220.png",
+    "source": "assets/source/quarry/whole-ledges-v1/approved-400.png",
+    "sourceSHA256": "5d6ed45c914d8b794cdcf4947514957199e9d708001f5c63f946c43a9f2adc9c",
+    "PNGsha256": "23323d785a6548bb405115f483863d5a69efb06d3f6806563c8bb0d059edfc33",
+    "RGBAsha256": "4e07d24a8b34ec2b23f29ecd86163d49e80773a9945a66ad5c18bbbc59f0e006",
+    "fit": {
+      "opaqueDepth": 25,
+      "nominal70pxHenry40Gap": 5,
+      "choice": "whole400 master; equal-axis220/400; per-placement context required"
+    }
+  },
+  {
+    "id": "quarry-mine",
+    "status": "frozen-accepted16",
+    "from": {
+      "x": 160,
+      "y": 700
+    },
+    "to": {
+      "x": 160,
+      "y": 700
+    },
+    "width": 400,
+    "seconds": 1
+  },
+  {
+    "id": "quarry-b-lower-dock",
+    "status": "frozen-accepted16",
+    "from": {
+      "x": 600,
+      "y": 700
+    },
+    "to": {
+      "x": 600,
+      "y": 700
+    },
+    "width": 60,
+    "seconds": 1
+  },
+  {
+    "id": "quarry-terrace-7",
+    "status": "implemented-native-pending",
+    "family": "S",
+    "from": {
+      "x": 420,
+      "y": 770
+    },
+    "to": {
+      "x": 420,
+      "y": 770
+    },
+    "width": 180,
+    "seconds": 1,
+    "file": "shelf-180.png",
+    "source": "assets/source/quarry/whole-ledges-v1/approved-240.png",
+    "sourceSHA256": "e885aa6761274249f098608051dab96068346e9e8e7fb2467d7c9c2710d54a2f",
+    "PNGsha256": "95e19ab2b1e7b50dd3dbaa6245e548a2e98eba1df803ec7a310198308a666961",
+    "RGBAsha256": "a2f38f32e7a466ad4c35d77af5861b94adcdb0ec453dc1f6349f05685275cdd9",
+    "fit": {
+      "opaqueDepth": 28,
+      "nominal70pxHenry40Gap": 2,
+      "choice": "whole240 master; equal-axis180/240; per-placement context required"
+    }
+  },
+  {
+    "id": "quarry-terrace-8",
+    "status": "implemented-native-pending",
+    "family": "S",
+    "from": {
+      "x": 280,
+      "y": 840
+    },
+    "to": {
+      "x": 280,
+      "y": 840
+    },
+    "width": 260,
+    "seconds": 1,
+    "file": "shelf-260.png",
+    "source": "assets/source/quarry/whole-ledges-v1/approved-400.png",
+    "sourceSHA256": "5d6ed45c914d8b794cdcf4947514957199e9d708001f5c63f946c43a9f2adc9c",
+    "PNGsha256": "703f9a3257f03cbc4fc29bcb4393e7c0fef2debaee9509b0275e50bf9993a3c2",
+    "RGBAsha256": "f32cb68d00f37523fbdad007f9702293d13163a23b5ac1fa7d0ef83d82c4e15f",
+    "fit": {
+      "opaqueDepth": 29,
+      "nominal70pxHenry40Gap": 1,
+      "choice": "whole400 master; equal-axis260/400; per-placement context required"
+    }
+  },
+  {
+    "id": "quarry-star-lower",
+    "status": "implemented-native-pending",
+    "family": "R",
+    "from": {
+      "x": 600,
+      "y": 840
+    },
+    "to": {
+      "x": 600,
+      "y": 840
+    },
+    "width": 160,
+    "seconds": 1,
+    "file": "star-160.png",
+    "source": "public/assets/cove/bay2-whole-v1/platform.png",
+    "sourceSHA256": "595d98c49269f0231dddcd95e5323a508eae5c28d9185257d15ec3daf19e6b5f",
+    "PNGsha256": "595d98c49269f0231dddcd95e5323a508eae5c28d9185257d15ec3daf19e6b5f",
+    "RGBAsha256": "2586197f928142b5027c1d6213820336c565f5ea935c646b6f22a0b693b51653",
+    "fit": {
+      "opaqueDepth": 31,
+      "nominal70pxHenry40Gap": -1,
+      "choice": "approved whole source; no repair"
+    }
+  },
+  {
+    "id": "quarry-terrace-9",
+    "status": "implemented-native-pending",
+    "family": "S",
+    "from": {
+      "x": 180,
+      "y": 910
+    },
+    "to": {
+      "x": 180,
+      "y": 910
+    },
+    "width": 200,
+    "seconds": 1,
+    "file": "shelf-200.png",
+    "source": "assets/source/quarry/whole-ledges-v1/approved-400.png",
+    "sourceSHA256": "5d6ed45c914d8b794cdcf4947514957199e9d708001f5c63f946c43a9f2adc9c",
+    "PNGsha256": "70bc8962a7a475cb64d48a0ac2fe2142632d64af161d844a0ff9d13066a24404",
+    "RGBAsha256": "a44e591348fea5983afa5b90bc6b682321f9f0a014e088b3108070af1aafa758",
+    "fit": {
+      "opaqueDepth": 22,
+      "nominal70pxHenry40Gap": 8,
+      "choice": "whole400 master; equal-axis200/400; per-placement context required"
+    }
+  },
+  {
+    "id": "quarry-left-outer-164",
+    "status": "implemented-native-pending",
+    "family": "R",
+    "from": {
+      "x": 0,
+      "y": 164
+    },
+    "to": {
+      "x": 0,
+      "y": 164
+    },
+    "width": 112,
+    "seconds": 1,
+    "file": "rock-112.png",
+    "source": "public/assets/cove/bay1-b-v1/platform.png",
+    "sourceSHA256": "e1809f4f247e693c96968ce7661e2e2126d46d28567b032e534634ee6a2b94cc",
+    "PNGsha256": "3f17c494faf00f6fcbac4d8521b93eb8667355f94776d7e183a038a3c1161dc6",
+    "RGBAsha256": "0fec2fd22fe3f1e7d05e171f1b8f3b846d3348eedf82781f55a9bc3b55b94909",
+    "fit": {
+      "opaqueDepth": 22,
+      "nominal70pxHenry40Gap": 8,
+      "choice": "approved whole source; no repair"
+    }
+  },
+  {
+    "id": "quarry-left-inner-164",
+    "status": "implemented-native-pending",
+    "family": "R",
+    "from": {
+      "x": 112,
+      "y": 164
+    },
+    "to": {
+      "x": 112,
+      "y": 164
+    },
+    "width": 112,
+    "seconds": 1,
+    "file": "rock-112.png",
+    "source": "public/assets/cove/bay1-b-v1/platform.png",
+    "sourceSHA256": "e1809f4f247e693c96968ce7661e2e2126d46d28567b032e534634ee6a2b94cc",
+    "PNGsha256": "3f17c494faf00f6fcbac4d8521b93eb8667355f94776d7e183a038a3c1161dc6",
+    "RGBAsha256": "0fec2fd22fe3f1e7d05e171f1b8f3b846d3348eedf82781f55a9bc3b55b94909",
+    "fit": {
+      "opaqueDepth": 22,
+      "nominal70pxHenry40Gap": 8,
+      "choice": "approved whole source; no repair"
+    }
+  },
+  {
+    "id": "quarry-left-outer-234",
+    "status": "implemented-native-pending",
+    "family": "R",
+    "from": {
+      "x": 0,
+      "y": 234
+    },
+    "to": {
+      "x": 0,
+      "y": 234
+    },
+    "width": 112,
+    "seconds": 1,
+    "file": "rock-112.png",
+    "source": "public/assets/cove/bay1-b-v1/platform.png",
+    "sourceSHA256": "e1809f4f247e693c96968ce7661e2e2126d46d28567b032e534634ee6a2b94cc",
+    "PNGsha256": "3f17c494faf00f6fcbac4d8521b93eb8667355f94776d7e183a038a3c1161dc6",
+    "RGBAsha256": "0fec2fd22fe3f1e7d05e171f1b8f3b846d3348eedf82781f55a9bc3b55b94909",
+    "fit": {
+      "opaqueDepth": 22,
+      "nominal70pxHenry40Gap": 8,
+      "choice": "approved whole source; no repair"
+    }
+  },
+  {
+    "id": "quarry-left-inner-234",
+    "status": "implemented-native-pending",
+    "family": "R",
+    "from": {
+      "x": 112,
+      "y": 234
+    },
+    "to": {
+      "x": 112,
+      "y": 234
+    },
+    "width": 112,
+    "seconds": 1,
+    "file": "rock-112.png",
+    "source": "public/assets/cove/bay1-b-v1/platform.png",
+    "sourceSHA256": "e1809f4f247e693c96968ce7661e2e2126d46d28567b032e534634ee6a2b94cc",
+    "PNGsha256": "3f17c494faf00f6fcbac4d8521b93eb8667355f94776d7e183a038a3c1161dc6",
+    "RGBAsha256": "0fec2fd22fe3f1e7d05e171f1b8f3b846d3348eedf82781f55a9bc3b55b94909",
+    "fit": {
+      "opaqueDepth": 22,
+      "nominal70pxHenry40Gap": 8,
+      "choice": "approved whole source; no repair"
+    }
+  },
+  {
+    "id": "quarry-left-outer-304",
+    "status": "implemented-native-pending",
+    "family": "R",
+    "from": {
+      "x": 0,
+      "y": 304
+    },
+    "to": {
+      "x": 0,
+      "y": 304
+    },
+    "width": 112,
+    "seconds": 1,
+    "file": "rock-112.png",
+    "source": "public/assets/cove/bay1-b-v1/platform.png",
+    "sourceSHA256": "e1809f4f247e693c96968ce7661e2e2126d46d28567b032e534634ee6a2b94cc",
+    "PNGsha256": "3f17c494faf00f6fcbac4d8521b93eb8667355f94776d7e183a038a3c1161dc6",
+    "RGBAsha256": "0fec2fd22fe3f1e7d05e171f1b8f3b846d3348eedf82781f55a9bc3b55b94909",
+    "fit": {
+      "opaqueDepth": 22,
+      "nominal70pxHenry40Gap": 8,
+      "choice": "approved whole source; no repair"
+    }
+  },
+  {
+    "id": "quarry-left-inner-304",
+    "status": "implemented-native-pending",
+    "family": "R",
+    "from": {
+      "x": 112,
+      "y": 304
+    },
+    "to": {
+      "x": 112,
+      "y": 304
+    },
+    "width": 112,
+    "seconds": 1,
+    "file": "rock-112.png",
+    "source": "public/assets/cove/bay1-b-v1/platform.png",
+    "sourceSHA256": "e1809f4f247e693c96968ce7661e2e2126d46d28567b032e534634ee6a2b94cc",
+    "PNGsha256": "3f17c494faf00f6fcbac4d8521b93eb8667355f94776d7e183a038a3c1161dc6",
+    "RGBAsha256": "0fec2fd22fe3f1e7d05e171f1b8f3b846d3348eedf82781f55a9bc3b55b94909",
+    "fit": {
+      "opaqueDepth": 22,
+      "nominal70pxHenry40Gap": 8,
+      "choice": "approved whole source; no repair"
+    }
+  },
+  {
+    "id": "quarry-left-outer-374",
+    "status": "implemented-native-pending",
+    "family": "R",
+    "from": {
+      "x": 0,
+      "y": 374
+    },
+    "to": {
+      "x": 0,
+      "y": 374
+    },
+    "width": 112,
+    "seconds": 1,
+    "file": "rock-112.png",
+    "source": "public/assets/cove/bay1-b-v1/platform.png",
+    "sourceSHA256": "e1809f4f247e693c96968ce7661e2e2126d46d28567b032e534634ee6a2b94cc",
+    "PNGsha256": "3f17c494faf00f6fcbac4d8521b93eb8667355f94776d7e183a038a3c1161dc6",
+    "RGBAsha256": "0fec2fd22fe3f1e7d05e171f1b8f3b846d3348eedf82781f55a9bc3b55b94909",
+    "fit": {
+      "opaqueDepth": 22,
+      "nominal70pxHenry40Gap": 8,
+      "choice": "approved whole source; no repair"
+    }
+  },
+  {
+    "id": "quarry-left-outer-444",
+    "status": "implemented-native-pending",
+    "family": "R",
+    "from": {
+      "x": 0,
+      "y": 444
+    },
+    "to": {
+      "x": 0,
+      "y": 444
+    },
+    "width": 112,
+    "seconds": 1,
+    "file": "rock-112.png",
+    "source": "public/assets/cove/bay1-b-v1/platform.png",
+    "sourceSHA256": "e1809f4f247e693c96968ce7661e2e2126d46d28567b032e534634ee6a2b94cc",
+    "PNGsha256": "3f17c494faf00f6fcbac4d8521b93eb8667355f94776d7e183a038a3c1161dc6",
+    "RGBAsha256": "0fec2fd22fe3f1e7d05e171f1b8f3b846d3348eedf82781f55a9bc3b55b94909",
+    "fit": {
+      "opaqueDepth": 22,
+      "nominal70pxHenry40Gap": 8,
+      "choice": "approved whole source; no repair"
+    }
+  },
+  {
+    "id": "quarry-left-inner-444",
+    "status": "implemented-native-pending",
+    "family": "R",
+    "from": {
+      "x": 112,
+      "y": 444
+    },
+    "to": {
+      "x": 112,
+      "y": 444
+    },
+    "width": 112,
+    "seconds": 1,
+    "file": "rock-112.png",
+    "source": "public/assets/cove/bay1-b-v1/platform.png",
+    "sourceSHA256": "e1809f4f247e693c96968ce7661e2e2126d46d28567b032e534634ee6a2b94cc",
+    "PNGsha256": "3f17c494faf00f6fcbac4d8521b93eb8667355f94776d7e183a038a3c1161dc6",
+    "RGBAsha256": "0fec2fd22fe3f1e7d05e171f1b8f3b846d3348eedf82781f55a9bc3b55b94909",
+    "fit": {
+      "opaqueDepth": 22,
+      "nominal70pxHenry40Gap": 8,
+      "choice": "approved whole source; no repair"
+    }
+  },
+  {
+    "id": "quarry-left-outer-724",
+    "status": "implemented-native-pending",
+    "family": "R",
+    "from": {
+      "x": 0,
+      "y": 724
+    },
+    "to": {
+      "x": 0,
+      "y": 724
+    },
+    "width": 112,
+    "seconds": 1,
+    "file": "rock-112.png",
+    "source": "public/assets/cove/bay1-b-v1/platform.png",
+    "sourceSHA256": "e1809f4f247e693c96968ce7661e2e2126d46d28567b032e534634ee6a2b94cc",
+    "PNGsha256": "3f17c494faf00f6fcbac4d8521b93eb8667355f94776d7e183a038a3c1161dc6",
+    "RGBAsha256": "0fec2fd22fe3f1e7d05e171f1b8f3b846d3348eedf82781f55a9bc3b55b94909",
+    "fit": {
+      "opaqueDepth": 22,
+      "nominal70pxHenry40Gap": 8,
+      "choice": "approved whole source; no repair"
+    }
+  },
+  {
+    "id": "quarry-left-inner-724",
+    "status": "implemented-native-pending",
+    "family": "R",
+    "from": {
+      "x": 112,
+      "y": 724
+    },
+    "to": {
+      "x": 112,
+      "y": 724
+    },
+    "width": 112,
+    "seconds": 1,
+    "file": "rock-112.png",
+    "source": "public/assets/cove/bay1-b-v1/platform.png",
+    "sourceSHA256": "e1809f4f247e693c96968ce7661e2e2126d46d28567b032e534634ee6a2b94cc",
+    "PNGsha256": "3f17c494faf00f6fcbac4d8521b93eb8667355f94776d7e183a038a3c1161dc6",
+    "RGBAsha256": "0fec2fd22fe3f1e7d05e171f1b8f3b846d3348eedf82781f55a9bc3b55b94909",
+    "fit": {
+      "opaqueDepth": 22,
+      "nominal70pxHenry40Gap": 8,
+      "choice": "approved whole source; no repair"
+    }
+  },
+  {
+    "id": "quarry-left-outer-794",
+    "status": "implemented-native-pending",
+    "family": "R",
+    "from": {
+      "x": 0,
+      "y": 794
+    },
+    "to": {
+      "x": 0,
+      "y": 794
+    },
+    "width": 112,
+    "seconds": 1,
+    "file": "rock-112.png",
+    "source": "public/assets/cove/bay1-b-v1/platform.png",
+    "sourceSHA256": "e1809f4f247e693c96968ce7661e2e2126d46d28567b032e534634ee6a2b94cc",
+    "PNGsha256": "3f17c494faf00f6fcbac4d8521b93eb8667355f94776d7e183a038a3c1161dc6",
+    "RGBAsha256": "0fec2fd22fe3f1e7d05e171f1b8f3b846d3348eedf82781f55a9bc3b55b94909",
+    "fit": {
+      "opaqueDepth": 22,
+      "nominal70pxHenry40Gap": 8,
+      "choice": "approved whole source; no repair"
+    }
+  },
+  {
+    "id": "quarry-left-inner-794",
+    "status": "implemented-native-pending",
+    "family": "R",
+    "from": {
+      "x": 112,
+      "y": 794
+    },
+    "to": {
+      "x": 112,
+      "y": 794
+    },
+    "width": 112,
+    "seconds": 1,
+    "file": "rock-112.png",
+    "source": "public/assets/cove/bay1-b-v1/platform.png",
+    "sourceSHA256": "e1809f4f247e693c96968ce7661e2e2126d46d28567b032e534634ee6a2b94cc",
+    "PNGsha256": "3f17c494faf00f6fcbac4d8521b93eb8667355f94776d7e183a038a3c1161dc6",
+    "RGBAsha256": "0fec2fd22fe3f1e7d05e171f1b8f3b846d3348eedf82781f55a9bc3b55b94909",
+    "fit": {
+      "opaqueDepth": 22,
+      "nominal70pxHenry40Gap": 8,
+      "choice": "approved whole source; no repair"
+    }
+  },
+  {
+    "id": "quarry-left-outer-864",
+    "status": "implemented-native-pending",
+    "family": "R",
+    "from": {
+      "x": 0,
+      "y": 864
+    },
+    "to": {
+      "x": 0,
+      "y": 864
+    },
+    "width": 112,
+    "seconds": 1,
+    "file": "rock-112.png",
+    "source": "public/assets/cove/bay1-b-v1/platform.png",
+    "sourceSHA256": "e1809f4f247e693c96968ce7661e2e2126d46d28567b032e534634ee6a2b94cc",
+    "PNGsha256": "3f17c494faf00f6fcbac4d8521b93eb8667355f94776d7e183a038a3c1161dc6",
+    "RGBAsha256": "0fec2fd22fe3f1e7d05e171f1b8f3b846d3348eedf82781f55a9bc3b55b94909",
+    "fit": {
+      "opaqueDepth": 22,
+      "nominal70pxHenry40Gap": 8,
+      "choice": "approved whole source; no repair"
+    }
+  },
+  {
+    "id": "quarry-left-inner-864",
+    "status": "implemented-native-pending",
+    "family": "R",
+    "from": {
+      "x": 112,
+      "y": 864
+    },
+    "to": {
+      "x": 112,
+      "y": 864
+    },
+    "width": 112,
+    "seconds": 1,
+    "file": "rock-112.png",
+    "source": "public/assets/cove/bay1-b-v1/platform.png",
+    "sourceSHA256": "e1809f4f247e693c96968ce7661e2e2126d46d28567b032e534634ee6a2b94cc",
+    "PNGsha256": "3f17c494faf00f6fcbac4d8521b93eb8667355f94776d7e183a038a3c1161dc6",
+    "RGBAsha256": "0fec2fd22fe3f1e7d05e171f1b8f3b846d3348eedf82781f55a9bc3b55b94909",
+    "fit": {
+      "opaqueDepth": 22,
+      "nominal70pxHenry40Gap": 8,
+      "choice": "approved whole source; no repair"
+    }
+  },
+  {
+    "id": "quarry-left-outer-934",
+    "status": "implemented-native-pending",
+    "family": "R",
+    "from": {
+      "x": 0,
+      "y": 934
+    },
+    "to": {
+      "x": 0,
+      "y": 934
+    },
+    "width": 112,
+    "seconds": 1,
+    "file": "rock-112.png",
+    "source": "public/assets/cove/bay1-b-v1/platform.png",
+    "sourceSHA256": "e1809f4f247e693c96968ce7661e2e2126d46d28567b032e534634ee6a2b94cc",
+    "PNGsha256": "3f17c494faf00f6fcbac4d8521b93eb8667355f94776d7e183a038a3c1161dc6",
+    "RGBAsha256": "0fec2fd22fe3f1e7d05e171f1b8f3b846d3348eedf82781f55a9bc3b55b94909",
+    "fit": {
+      "opaqueDepth": 22,
+      "nominal70pxHenry40Gap": 8,
+      "choice": "approved whole source; no repair"
+    }
+  },
+  {
+    "id": "quarry-left-inner-934",
+    "status": "implemented-native-pending",
+    "family": "R",
+    "from": {
+      "x": 112,
+      "y": 934
+    },
+    "to": {
+      "x": 112,
+      "y": 934
+    },
+    "width": 112,
+    "seconds": 1,
+    "file": "rock-112.png",
+    "source": "public/assets/cove/bay1-b-v1/platform.png",
+    "sourceSHA256": "e1809f4f247e693c96968ce7661e2e2126d46d28567b032e534634ee6a2b94cc",
+    "PNGsha256": "3f17c494faf00f6fcbac4d8521b93eb8667355f94776d7e183a038a3c1161dc6",
+    "RGBAsha256": "0fec2fd22fe3f1e7d05e171f1b8f3b846d3348eedf82781f55a9bc3b55b94909",
+    "fit": {
+      "opaqueDepth": 22,
+      "nominal70pxHenry40Gap": 8,
+      "choice": "approved whole source; no repair"
+    }
+  },
+  {
+    "id": "quarry-right-inner-444",
+    "status": "frozen-accepted16",
+    "from": {
+      "x": 600,
+      "y": 444
+    },
+    "to": {
+      "x": 600,
+      "y": 444
+    },
+    "width": 108,
+    "seconds": 1
+  },
+  {
+    "id": "quarry-right-outer-444",
+    "status": "frozen-accepted16",
+    "from": {
+      "x": 708,
+      "y": 444
+    },
+    "to": {
+      "x": 708,
+      "y": 444
+    },
+    "width": 112,
+    "seconds": 1
+  },
+  {
+    "id": "quarry-right-inner-514",
+    "status": "frozen-accepted16",
+    "from": {
+      "x": 600,
+      "y": 514
+    },
+    "to": {
+      "x": 600,
+      "y": 514
+    },
+    "width": 108,
+    "seconds": 1
+  },
+  {
+    "id": "quarry-right-outer-514",
+    "status": "frozen-accepted16",
+    "from": {
+      "x": 708,
+      "y": 514
+    },
+    "to": {
+      "x": 708,
+      "y": 514
+    },
+    "width": 112,
+    "seconds": 1
+  },
+  {
+    "id": "quarry-right-inner-584",
+    "status": "frozen-accepted16",
+    "from": {
+      "x": 600,
+      "y": 584
+    },
+    "to": {
+      "x": 600,
+      "y": 584
+    },
+    "width": 108,
+    "seconds": 1
+  },
+  {
+    "id": "quarry-right-outer-584",
+    "status": "frozen-accepted16",
+    "from": {
+      "x": 708,
+      "y": 584
+    },
+    "to": {
+      "x": 708,
+      "y": 584
+    },
+    "width": 112,
+    "seconds": 1
+  },
+  {
+    "id": "quarry-right-outer-654",
+    "status": "frozen-accepted16",
+    "from": {
+      "x": 708,
+      "y": 654
+    },
+    "to": {
+      "x": 708,
+      "y": 654
+    },
+    "width": 112,
+    "seconds": 1
+  },
+  {
+    "id": "quarry-right-inner-724",
+    "status": "frozen-accepted16",
+    "from": {
+      "x": 600,
+      "y": 724
+    },
+    "to": {
+      "x": 600,
+      "y": 724
+    },
+    "width": 108,
+    "seconds": 1
+  },
+  {
+    "id": "quarry-right-outer-724",
+    "status": "frozen-accepted16",
+    "from": {
+      "x": 708,
+      "y": 724
+    },
+    "to": {
+      "x": 708,
+      "y": 724
+    },
+    "width": 112,
+    "seconds": 1
+  },
+  {
+    "id": "quarry-lift-a",
+    "status": "implemented-native-pending",
+    "family": "L",
+    "from": {
+      "x": 64,
+      "y": 140
+    },
+    "to": {
+      "x": 64,
+      "y": 420
+    },
+    "width": 96,
+    "seconds": 4,
+    "pause": 1.5,
+    "file": "carriage-96.png",
+    "source": "public/assets/quarry/representative-v1/carriage-96.png",
+    "sourceSHA256": "469bc00df7ee44645d8db9a2403fcdc516dfc356b3836d48ca662e3462ff86df",
+    "PNGsha256": "469bc00df7ee44645d8db9a2403fcdc516dfc356b3836d48ca662e3462ff86df",
+    "RGBAsha256": "6c7c634f93270a5a66429c9ec3fd1a24c8658586375dafeb396579b99449315d",
+    "fit": {
+      "opaqueDepth": 16,
+      "nominal70pxHenry40Gap": 14,
+      "choice": "approved whole source; no repair"
+    }
+  },
+  {
+    "id": "quarry-lift-b",
+    "status": "frozen-accepted16",
+    "from": {
+      "x": 660,
+      "y": 420
+    },
+    "to": {
+      "x": 660,
+      "y": 700
+    },
+    "width": 96,
+    "seconds": 4,
+    "pause": 1.5
+  },
+  {
+    "id": "quarry-lift-c",
+    "status": "implemented-native-pending",
+    "family": "L",
+    "from": {
+      "x": 64,
+      "y": 700
+    },
+    "to": {
+      "x": 64,
+      "y": 980
+    },
+    "width": 96,
+    "seconds": 4,
+    "pause": 1.5,
+    "file": "carriage-96.png",
+    "source": "public/assets/quarry/representative-v1/carriage-96.png",
+    "sourceSHA256": "469bc00df7ee44645d8db9a2403fcdc516dfc356b3836d48ca662e3462ff86df",
+    "PNGsha256": "469bc00df7ee44645d8db9a2403fcdc516dfc356b3836d48ca662e3462ff86df",
+    "RGBAsha256": "6c7c634f93270a5a66429c9ec3fd1a24c8658586375dafeb396579b99449315d",
+    "fit": {
+      "opaqueDepth": 16,
+      "nominal70pxHenry40Gap": 14,
+      "choice": "approved whole source; no repair"
+    }
+  },
+  {
+    "id": "quarry-terrain-000",
+    "family": "G",
+    "status": "pending-source",
+    "x1": 0,
+    "x2": 820,
+    "y": 980,
+    "depth": 100
+  }
+]

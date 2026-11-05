@@ -1,0 +1,34 @@
+{
+  "producerExit": 0,
+  "runtime": {
+    "timestamp": "2026-11-03T19:55:23.424Z",
+    "model": "gpt-6.1-sol",
+    "cwd": "/home/leew/.hermes/cache/scratch/tinyturbotrails-quarry-art-240"
+  },
+  "checkpointArtifactHashesVerified": true,
+  "independentDecodedPixelComparison": [
+    {
+      "width": 400,
+      "RGBChanges": 72,
+      "alphaAdditions": 2
+    },
+    {
+      "width": 240,
+      "RGBChanges": 68,
+      "alphaAdditions": 1
+    },
+    {
+      "width": 160,
+      "RGBChanges": 24,
+      "alphaAdditions": 2
+    }
+  ],
+  "totalBoundaryRGB": 164,
+  "totalAlphaAdditions": 5,
+  "trackedHashesVerified": 4223,
+  "boardsDirectlyVisuallyInspected": true,
+  "visualJudgement": "Proposed repair substantially removes vivid pink edge points without changing the whole silhouettes. A few retained dark purple original edge tones remain. It is not gameplay or complete unmatting certification.",
+  "sourceAccepted": false,
+  "productionCleanupApproved": false,
+  "nextGate": "Owner approval of exact169-pixel source-specific correction set and host-side locked dependency setup/bounded browserpilot. No additional generation or securitysetting changes."
+}

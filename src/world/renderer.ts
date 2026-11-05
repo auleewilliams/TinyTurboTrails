@@ -1,3 +1,7 @@
+import { drawQuarryFloor } from './quarry-floor';
+import { drawQuarryRollout } from './quarry-rollout';
+import { drawQuarryPreviewPiece } from './quarry-preview-pieces';
+import { drawQuarryShelf } from './quarry-shelves';
 import { drawPlainsContourGround, plainsContourRange } from './plains-contour';
 import { drawTerrainMaterial, drawTerrainEdge, drawTrailBackdrop } from './trail-presentation';
 import { drawAmbientWeather } from './ambient-weather';
@@ -39,6 +43,8 @@ export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, le
   if (level.id === 'timbers') drawTimberTrunk(ctx, assets, offset);
   if (level.id === 'sunset' && level.verticalCamera) drawSiteFrame(ctx, assets, offset);
   drawAmbientWeather(ctx, level.theme.weather, offset, runSeconds, reducedMotion);
+  if (level.id === 'quarry') drawQuarryFloor(ctx, assets.quarryFloor, level, offset);
+  else {
   ctx.fillStyle = level.theme.ground;
   // Fill each connected ground contour once: separately antialiased polygon
   // edges leave the background showing through at fractional camera offsets.
@@ -66,8 +72,9 @@ export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, le
     else drawTerrainMaterial(ctx, level, offset, assets, first.x1, last.x2);
     ctx.restore();
   }
+  }
   if (level.theme.material === 'wood' && !(level.id === 'timbers' && assets.timbersTerrain)) drawTerrainTiles(ctx, assets, level, offset);
-  if (!(level.id === 'sunset' && assets.siteTerrain) && !(level.id === 'cove' && assets.coveTerrain) && !(level.id === 'timbers' && assets.timbersTerrain)) drawTerrainEdge(ctx, level, offset, assets.plainsContour ? plainsContourRange(level) : undefined);
+  if (level.id !== 'quarry' && !(level.id === 'sunset' && assets.siteTerrain) && !(level.id === 'cove' && assets.coveTerrain) && !(level.id === 'timbers' && assets.timbersTerrain)) drawTerrainEdge(ctx, level, offset, assets.plainsContour ? plainsContourRange(level) : undefined);
   drawPlainsContourGround(ctx, assets, level, offset);
   drawSurfaceMaterials(ctx, level, offset, assets.coveMaterials, runSeconds, reducedMotion);
   for (const surface of level.surfaces) drawSurfaceGrip(ctx, surface, offset);
@@ -266,12 +273,15 @@ function drawSun(ctx: CanvasRenderingContext2D, sun: LevelSun, cameraX: number):
 export function drawPlatforms(ctx: CanvasRenderingContext2D, level: LevelData, offset: { x: number; y: number },
   platforms: readonly PlatformBody[], assets?: WorldAssets): void {
   for (const platform of level.platforms ?? []) {
-    // Sunset hides every path marker; Timbers hides stationary endpoint marks.
-    if (level.id !== 'sunset' && (level.id !== 'timbers' || platform.from.x !== platform.to.x || platform.from.y !== platform.to.y)) {
+    // Quarry and Sunset hide every marker; Timbers hides stationary endpoints.
+    if (level.id !== 'quarry' && level.id !== 'sunset' && (level.id !== 'timbers' || platform.from.x !== platform.to.x || platform.from.y !== platform.to.y)) {
       drawPlatformPath(ctx, platform, offset);
     }
     const body = platforms.find((candidate) => candidate.id === platform.id);
     if (!body) continue;
+    if (level.id === 'quarry' && assets && drawQuarryRollout(ctx, assets.quarryRollout!, body, offset)) continue;
+    if (level.id === 'quarry' && assets?.quarryPreview && drawQuarryPreviewPiece(ctx, assets.quarryPreview, body, offset)) continue;
+    if (level.id === 'quarry' && assets?.quarryShelves && drawQuarryShelf(ctx, assets.quarryShelves, body, offset)) continue;
     if (level.id === 'sunset' && assets?.siteTerrain && drawSitePlatform(ctx, assets.siteTerrain, level, body, offset)) continue;
     if (level.id === 'timbers' && assets?.timbersTerrain && drawTimbersPlatform(ctx, assets.timbersTerrain, body, offset)) continue;
     if (level.id === 'cove' && platform.from.x === platform.to.x && platform.from.y === platform.to.y) {

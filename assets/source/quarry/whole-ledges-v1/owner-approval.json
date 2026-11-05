@@ -1,0 +1,18 @@
+{
+  "ownerReply": "Approved",
+  "scope": "Approval bound to immediately preceding two-step Quarry representative-preview request",
+  "approved": [
+    "Exact S05 canonical-native164 edge RGB corrections plus5 top additions, all other pixels/gameplay/layout unchanged",
+    "Host-terminal locked dependency npm ci --ignore-scripts with task-owned cache/TMPDIR, and bounded browser pilot; no security changes"
+  ],
+  "excluded": [
+    "Additional image calls in this step",
+    "Wider rollout",
+    "Frost changes or install",
+    "Merge",
+    "Deployment",
+    "General family/sibling RGB repair"
+  ],
+  "proposal": "/home/leew/.hermes/task-evidence/ttt-art-240/preview-1/exact-cleanup-proposal-05/exact-preparation-proposal.json",
+  "proposalSHA256": "56cebcb84f914afcea6c8f08031d7e24a05133193ab8a4773932920a2b42abee"
+}

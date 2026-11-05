@@ -1,3 +1,7 @@
+import { loadQuarryFloor, type QuarryFloorAssets } from './quarry-floor';
+import { loadQuarryRollout, type QuarryRolloutAssets } from './quarry-rollout';
+import { loadQuarryPreviewPieces, type QuarryPreviewAssets } from './quarry-preview-pieces';
+import { loadQuarryShelves, type QuarryShelvesAssets } from './quarry-shelves';
 import type { PlainsContourAssets } from './plains-contour';
 import { loadCoveMaterials, type CoveMaterialAssets } from './surface-materials';
 import { validateScenery, type SceneryAssets, type SceneryManifest } from './scenery';
@@ -28,7 +32,7 @@ export interface WorldManifest {
   anchors?: Partial<Record<WorldAsset, { x: number; y: number }>>;
   terrainTops?: Partial<Record<WorldAsset, { left: number; right: number }>>;
 }
-export interface WorldAssets { atlas: HTMLImageElement; manifest: WorldManifest; gems: HTMLImageElement; scenery?: SceneryAssets; materials?: HTMLImageElement; backdrops?: HTMLImageElement; panorama?: HTMLImageElement; slimes?: HTMLImageElement; coveTerrain?: CoveTerrainAssets; coveMaterials?: CoveMaterialAssets; siteTerrain?: SiteTerrainAssets; timbersTerrain?: TimbersTerrainAssets; timbersTree?: TimbersTreeAssets; plainsContour?: PlainsContourAssets }
+export interface WorldAssets { atlas: HTMLImageElement; manifest: WorldManifest; gems: HTMLImageElement; scenery?: SceneryAssets; materials?: HTMLImageElement; backdrops?: HTMLImageElement; panorama?: HTMLImageElement; slimes?: HTMLImageElement; coveTerrain?: CoveTerrainAssets; coveMaterials?: CoveMaterialAssets; siteTerrain?: SiteTerrainAssets; timbersTerrain?: TimbersTerrainAssets; timbersTree?: TimbersTreeAssets; plainsContour?: PlainsContourAssets; quarryFloor?: QuarryFloorAssets; quarryShelves?: QuarryShelvesAssets; quarryRollout?: QuarryRolloutAssets; quarryPreview?: QuarryPreviewAssets }
 export type WorldAssetMap = Readonly<Record<string, WorldAssets>>;
 
 async function loadImage(url: string, label: string): Promise<HTMLImageElement> {
@@ -103,5 +107,9 @@ function loadPresentation(): Promise<Pick<WorldAssets, 'materials' | 'backdrops'
 export async function loadWorldAssetMap(directories: readonly string[]): Promise<WorldAssetMap> {
   const unique = [...new Set(directories)];
   const loaded = await Promise.all(unique.map(loadWorldAssets));
-  return Object.fromEntries(unique.map((directory, index) => [directory, loaded[index]]));
+  const quarryShelves = unique.includes('plains') ? await loadQuarryShelves(`${import.meta.env.BASE_URL}assets/quarry/`) : undefined;
+  const quarryPreview = unique.includes('plains') ? await loadQuarryPreviewPieces(`${import.meta.env.BASE_URL}assets/quarry/`) : undefined;
+  const quarryRollout = unique.includes('plains') ? await loadQuarryRollout(`${import.meta.env.BASE_URL}assets/quarry/`) : undefined;
+  const quarryFloor = unique.includes('plains') ? await loadQuarryFloor(`${import.meta.env.BASE_URL}assets/quarry/`) : undefined;
+  return Object.fromEntries(unique.map((directory, index) => [directory, directory === 'plains' ? { ...loaded[index], quarryShelves, quarryPreview, quarryRollout, quarryFloor } : loaded[index]]));
 }

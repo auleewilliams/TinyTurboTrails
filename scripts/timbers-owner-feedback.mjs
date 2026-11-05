@@ -1,3 +1,7 @@
+import { projectQuarrySiteSource, isSharedArtBaseline } from './quarry-site-integration.mjs';
+import { beforeQuarryOwnerRevision } from './quarry-owner-revision-preservation.mjs';
+import { beforeQuarryRepresentative } from './quarry-representative-preservation.mjs';
+import { beforeQuarryShelves } from './quarry-shelves-preservation.mjs';
 import { beforeSiteArt } from './site-art-preservation.mjs';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
@@ -10,6 +14,11 @@ const record = JSON.parse(raw);
 // Keep earlier art-only approvals immutable. Reverse precisely the subsequently
 // requested marker removal and eleven new entities before historical byte oracles.
 export function beforeTimbersOwnerFeedback(path, bytes) {
+  bytes = projectQuarrySiteSource(path, bytes, 'shared');
+  if (!isSharedArtBaseline(path, bytes)) {
+    bytes = beforeQuarryOwnerRevision(path, bytes);
+    bytes = beforeQuarryShelves(path, beforeQuarryRepresentative(path, bytes));
+  }
   bytes = beforeSiteArt(path, bytes);
   const entry = record.files[path];
   if (!entry) return bytes;

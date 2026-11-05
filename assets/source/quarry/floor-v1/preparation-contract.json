@@ -1,0 +1,112 @@
+{
+  "status": "PASS_APPROVED_SOURCE_PREPARATION_ONLY",
+  "output": {
+    "path": "/home/leew/.hermes/cache/scratch/q240-Gapproved1/approved-floor.png",
+    "bytes": 150098,
+    "sha256": "a36989f622677db21173d5c1bf2fa4025bfb4fd95df1c7278d28119639981fa9"
+  },
+  "recipe": {
+    "sourceDimensions": [
+      2170,
+      725
+    ],
+    "wholeBBoxExclusive": [
+      91,
+      225,
+      2079,
+      484
+    ],
+    "uniformScale": [
+      820,
+      1988
+    ],
+    "nativeDimensions": [
+      820,
+      107
+    ],
+    "exteriorPixels": 1059967,
+    "internalKeyPixels": 0
+  },
+  "verification": {
+    "RGBEditedPixels": 48,
+    "alphaEditedPixels": 0,
+    "otherIdenticalPixels": 87692,
+    "visibleOpaquePixels": 82000,
+    "hiddenRowsUnchanged": true,
+    "RGBAsha256": "9ed5ec56a821dc6c5e00de900ab434a0259b43632e68af0f0b052ec5991f1bdc"
+  },
+  "inputs": {
+    "/home/leew/.hermes/task-evidence/ttt-art-240/rollout-1/G01-approved-floor/owner-approval.json": {
+      "path": "/home/leew/.hermes/task-evidence/ttt-art-240/rollout-1/G01-approved-floor/owner-approval.json",
+      "bytes": 1094,
+      "sha256": "eccb8c706f1f137772c642309bd4a3d648b3c920ca4d5501efb0f942a990d839"
+    },
+    "/home/leew/.hermes/cache/scratch/q240-G01/source.png": {
+      "path": "/home/leew/.hermes/cache/scratch/q240-G01/source.png",
+      "bytes": 1411534,
+      "sha256": "c8e1061038cb3355543a00e55692bf4e6beedbadb83cdbfc8005f80a35fc277f"
+    },
+    "/home/leew/.hermes/cache/scratch/q240-Gfit1/OWNER-ONLY-bounded-repair-proposal.json": {
+      "path": "/home/leew/.hermes/cache/scratch/q240-Gfit1/OWNER-ONLY-bounded-repair-proposal.json",
+      "bytes": 24517,
+      "sha256": "079198f38667452fd3eba6b88a1ed531bd8188d4d98dd8262bdc385b36732f43"
+    },
+    "/home/leew/.hermes/cache/scratch/q240-Gfit1/G01-DIAGNOSTIC-whole-native.png": {
+      "path": "/home/leew/.hermes/cache/scratch/q240-Gfit1/G01-DIAGNOSTIC-whole-native.png",
+      "bytes": 150149,
+      "sha256": "88f18cc6682f3fbfcad2eb92a6f86c2f55c96416bd0f3b43e33e6f8399aa065a"
+    },
+    "/home/leew/.hermes/cache/scratch/q240-Gfit1/prepare.py": {
+      "path": "/home/leew/.hermes/cache/scratch/q240-Gfit1/prepare.py",
+      "bytes": 8192,
+      "sha256": "53c41dcdf0218224e88ef7f2839b9a1f8382fee95c42e0aa1c9394d5643141ae"
+    },
+    "/home/leew/.hermes/cache/scratch/q240-Gfit1/G-strict-decision.json": {
+      "path": "/home/leew/.hermes/cache/scratch/q240-Gfit1/G-strict-decision.json",
+      "bytes": 1584,
+      "sha256": "b7d39c0e97f1ddadb61789efb41bbb11dff940fdf75c8c76ef4232b296f7ff81"
+    },
+    "/home/leew/.hermes/task-evidence/ttt-art-240/rollout-1/G01-exact48-repair-proposal/proof.py": {
+      "path": "/home/leew/.hermes/task-evidence/ttt-art-240/rollout-1/G01-exact48-repair-proposal/proof.py",
+      "bytes": 9530,
+      "sha256": "2c47ee6d91d7f3b6c707f05ec6d755f004da5278df8ec3c78584c7cf483b3d4c"
+    },
+    "/home/leew/.hermes/task-evidence/ttt-art-240/rollout-1/G01-exact48-repair-proposal/parent-proposal-verification.json": {
+      "path": "/home/leew/.hermes/task-evidence/ttt-art-240/rollout-1/G01-exact48-repair-proposal/parent-proposal-verification.json",
+      "bytes": 848,
+      "sha256": "5e0db992e533c7a37c10454bc2dfbc4a88f67eb2441b79cab18e673daf96f9ae"
+    },
+    "/home/leew/.hermes/task-evidence/ttt-art-240/rollout-1/G01-exact48-repair-proposal/NONCOMPLIANT-PROPOSED-native-820x107.png": {
+      "path": "/home/leew/.hermes/task-evidence/ttt-art-240/rollout-1/G01-exact48-repair-proposal/NONCOMPLIANT-PROPOSED-native-820x107.png",
+      "bytes": 150098,
+      "sha256": "a36989f622677db21173d5c1bf2fa4025bfb4fd95df1c7278d28119639981fa9"
+    }
+  },
+  "pillowVersion": "12.3.0",
+  "storage": {
+    "availableBytes": 5265637376,
+    "availableInodes": 3612162,
+    "evidenceBytes": 1421675
+  },
+  "historicalStrict100": "FAILED_STRICT_FIT retained; approved narrow exception, never retroactively passed",
+  "historicalPNGText": "Retained byte-for-byte; owner receipt supersedes historical noncompliant classification",
+  "nativeBrowserStatus": "NOT_RUN",
+  "productionIntegrationStatus": "NOT_PERFORMED_SEQUENCE_HOLD",
+  "manifest": {
+    "version": 1,
+    "scope": "approved-G01-floor",
+    "image": "floor-820.png",
+    "width": 820,
+    "height": 107,
+    "x": 0,
+    "y": 980,
+    "visibleHeight": 100,
+    "worldBottom": 1080,
+    "PNGsha256": "a36989f622677db21173d5c1bf2fa4025bfb4fd95df1c7278d28119639981fa9",
+    "RGBAsha256": "9ed5ec56a821dc6c5e00de900ab434a0259b43632e68af0f0b052ec5991f1bdc"
+  },
+  "sourceSHA256": "c8e1061038cb3355543a00e55692bf4e6beedbadb83cdbfc8005f80a35fc277f",
+  "tableSHA256": "079198f38667452fd3eba6b88a1ed531bd8188d4d98dd8262bdc385b36732f43",
+  "approvalSHA256": "eccb8c706f1f137772c642309bd4a3d648b3c920ca4d5501efb0f942a990d839",
+  "scope": "45 preserved supports + 1 approved floor; native browser acceptance pending"
+}

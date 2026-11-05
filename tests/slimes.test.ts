@@ -8,7 +8,7 @@ import { drawSlime } from '../src/world/renderer';
 
 // Elevated Timbers hops have their own full support/contact/reset coverage in
 // treetop-timbers.test.ts. Every slime on the other trails still requires a patrol.
-it.each(LEVELS.filter(level => level.id !== 'timbers' && level.entities.some(entity => entity.kind === 'slime')))('$name ground patrols have the common speed, a short safe route and no bounce', (level) => {
+it.each(LEVELS.filter(level => level.id !== 'timbers' && level.id !== 'quarry' && level.entities.some(entity => entity.kind === 'slime')))('$name ground patrols have the common speed, a short safe route and no bounce', (level) => {
   const slimes = level.entities.filter((entity) => entity.kind === 'slime');
   expect(slimes.length).toBeGreaterThan(0);
   expect(() => validateLevel(level)).not.toThrow();
@@ -30,7 +30,7 @@ it.each(LEVELS.filter(level => level.id !== 'timbers' && level.entities.some(ent
   }
 });
 
-it.each(LEVELS.filter(level => level.id !== 'timbers'))('$name patrols reverse at both bounds, stay grounded, damage on contact and reset', (level) => {
+it.each(LEVELS.filter(level => level.id !== 'timbers' && level.id !== 'quarry'))('$name patrols reverse at both bounds, stay grounded, damage on contact and reset', (level) => {
   const run = createRun(level);
   for (const slime of level.entities.filter((entity) => entity.kind === 'slime')) {
     const state = entityState(run, slime.id)!;

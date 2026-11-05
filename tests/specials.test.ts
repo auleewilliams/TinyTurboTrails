@@ -3,12 +3,43 @@ import { AdventureScene } from '../src/game/adventure-scene';
 import { createPlayer, surfaceY, type Player } from '../src/game/movement';
 import { activateCheckpoint, collectSpecial, createRun, damagePlayer, recoverFromFall, startNewRun, stepEntities, type RunEvent, type RunState } from '../src/game/interactions';
 import { LEVELS } from '../src/world/levels';
-import { validateLevel } from '../src/world/level';
+import { validateLevel, type LevelData, type WorldEntity } from '../src/world/level';
+import { slimeFixedSupport } from '../src/world/slimes';
 
 const neutral = { horizontal: 0, jumpHeld: false, jumpPressed: false, pausePressed: false, mutePressed: false };
 const worlds = Object.fromEntries(LEVELS.map(level => [level.atlas, {} as never]));
 const audio = { unlock: async () => {}, setMuted() {}, setSuspended() {}, startMusic() {}, play() {}, stop() {}, dispose() {} };
 type Live = { player: Player; run: RunState };
+
+function landingClearOfHazard(level: LevelData, band: { x: number; width: number }, hazard: WorldEntity): boolean {
+  const left = band.x - band.width / 2;
+  const right = band.x + band.width / 2;
+  const min = (hazard.patrol?.minX ?? hazard.x) - 18;
+  const max = (hazard.patrol?.maxX ?? hazard.x) + 18;
+  if (max < left || min > right) return true;
+  // Preserve the static higher-bough rule. Unbound patrols follow terrain,
+  // regardless of their authored Y, so only a validated binding can exempt one.
+  if (!hazard.patrol) return surfaceY(level, hazard.x) - hazard.y > 68;
+  if (hazard.patrol.supportId === undefined) return false;
+  try {
+    validateLevel(level); // Includes the whole patrol's fixed-support edge clearance.
+    const support = slimeFixedSupport(level, hazard)!;
+    const overlapLeft = Math.max(left, min);
+    const overlapRight = Math.min(right, max);
+    // surfaceY chooses the earlier segment at shared X. Reject vertical steps
+    // and reversed spans touching the overlap rather than miss their other side.
+    if (level.surfaces.some(surface => surface.x2 <= surface.x1
+      && Math.max(surface.x1, surface.x2) >= overlapLeft
+      && Math.min(surface.x1, surface.x2) <= overlapRight)) return false;
+    // With strictly forward spans in the overlap, endpoints and intervening
+    // vertices give the minimum clearance across the complete body envelope.
+    const xs = [overlapLeft, overlapRight, ...level.surfaces.flatMap(surface => [surface.x1, surface.x2])];
+    return xs.filter(x => x >= overlapLeft && x <= overlapRight)
+      .every(x => surfaceY(level, x) - support.from.y > 68);
+  } catch {
+    return false; // Missing, moving, mismatched or otherwise invalid bindings fail closed.
+  }
+}
 
 it('authors exactly nine stars on three trails and keeps other trails optional', () => {
   expect(LEVELS.map(level => level.entities.filter(entity => entity.kind === 'special').length)).toEqual([3, 3, 3, 0, 0, 0]);
@@ -23,14 +54,67 @@ it.each(LEVELS.slice(0, 3))('$name keeps marked landing bands clear of pits and 
     const right = band.x + band.width / 2;
     for (let x = left; x <= right; x++) expect(surfaceY(level, x)).toBeLessThan(level.height);
     for (const hazard of level.entities.filter(entity => entity.kind === 'slime' || entity.kind === 'hazard')) {
-      const min = (hazard.patrol?.minX ?? hazard.x) - 18;
-      const max = (hazard.patrol?.maxX ?? hazard.x) + 18;
-      // These bands mark ground. A fixed creature on a higher bough does not
-      // occupy the same landing; leave a full standing body plus contact margin.
-      const aboveLanding = !hazard.patrol && surfaceY(level, hazard.x) - hazard.y > 68;
-      expect(max < left || min > right || aboveLanding, `landing at ${band.x}: ${hazard.id}`).toBe(true);
+      expect(landingClearOfHazard(level, band, hazard), `landing at ${band.x}: ${hazard.id}`).toBe(true);
     }
   }
+});
+
+it.each([
+  ['high fixed patrol', 69, 'bound', true],
+  ['ground-level patrol', 0, 'unbound', false],
+  ['unbound patrol with elevated authored Y', 100, 'unbound', false],
+  ['fixed patrol too close', 67, 'bound', false],
+  ['fixed patrol exactly at margin', 68, 'bound', false],
+  ['centre clear but full patrol intersects', 0, 'wide', false],
+  ['body envelope touches band', 0, 'touching', false],
+  ['disjoint ground patrol', 0, 'disjoint', true],
+  ['missing support', 100, 'missing', false],
+  ['moving support', 100, 'moving', false],
+  ['mismatched support top', 100, 'mismatched', false],
+  ['duplicate support', 100, 'duplicate', false],
+  ['insufficient support edge clearance', 100, 'edge', false],
+  ['clear centre but low terrain inside overlap', 100, 'terrain', false],
+  ['step-up then descent inside overlap', 100, 'step', false],
+  ['static higher bough', 69, 'static', true],
+  ['static bough exactly at margin', 68, 'static', false],
+] as const)('landing oracle: %s', (_name, clearance, mode, expected) => {
+  const band = { x: 450, width: 100 };
+  const y = 200 - clearance;
+  const hazard: WorldEntity = {
+    id: 'probe', kind: 'slime', asset: 'slime', layer: 'world', x: 450, y,
+    patrol: { minX: 330, maxX: 470, speed: 36, supportId: 'shelf' },
+  };
+  const support = { id: 'shelf', from: { x: 300, y }, to: { x: 300, y }, width: 220, seconds: 2 };
+  const level: LevelData = {
+    ...LEVELS[0], surfaces: [{ x1: 0, x2: LEVELS[0].maxX, y1: 200, y2: 200 }],
+    checkpoints: [{ id: 'checkpoint', x: 40, y: 200 }], landingBands: [band], platforms: [support],
+    entities: [{ id: 'checkpoint', kind: 'checkpoint', asset: 'checkpoint', layer: 'world', x: 40, y: 200 }, hazard],
+  };
+  if (['wide', 'touching', 'disjoint'].includes(mode)) hazard.x = 350;
+  if (['unbound', 'wide', 'touching', 'disjoint'].includes(mode)) delete hazard.patrol!.supportId;
+  if (mode === 'touching' || mode === 'disjoint') hazard.patrol!.maxX = mode === 'touching' ? 382 : 381;
+  if (mode === 'static') { hazard.x = band.x; delete hazard.patrol; }
+  if (mode === 'missing') hazard.patrol!.supportId = 'absent';
+  if (mode === 'moving') support.to.x++;
+  if (mode === 'mismatched') hazard.y++;
+  if (mode === 'duplicate') level.platforms = [support, { ...support }];
+  if (mode === 'edge') hazard.patrol!.minX = 319;
+  if (mode === 'terrain') level.surfaces = [
+    { x1: 0, x2: 440, y1: 200, y2: 200 },
+    { x1: 440, x2: 460, y1: 200, y2: 168 },
+    { x1: 460, x2: 480, y1: 168, y2: 200 },
+    { x1: 480, x2: level.maxX, y1: 200, y2: 200 },
+  ];
+  if (mode === 'step') {
+    level.surfaces = [
+      { x1: 0, x2: 450, y1: 200, y2: 200 },
+      { x1: 450, x2: 450, y1: 200, y2: 130 },
+      { x1: 450, x2: 490, y1: 130, y2: 200 },
+      { x1: 490, x2: level.maxX, y1: 200, y2: 200 },
+    ];
+    expect(() => validateLevel(level)).not.toThrow();
+  }
+  expect(landingClearOfHazard(level, band, hazard)).toBe(expected);
 });
 
 it('keeps authored landing bands as non-textual route guidance', () => {

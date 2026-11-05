@@ -1,3 +1,5 @@
+import { createRequire } from 'node:module';
+const { beforeQuarryOwnerRevision } = createRequire(import.meta.url)('../scripts/quarry-owner-revision-preservation.mjs') as { beforeQuarryOwnerRevision(path: string, bytes: Buffer): Buffer };
 import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { expect, it } from 'vitest';
@@ -7,6 +9,7 @@ const pins: Record<string, string> = JSON.parse(readFileSync(new URL('../assets/
 const hash = (bytes: Uint8Array | string) => createHash('sha256').update(bytes).digest('hex');
 const levelSource = readFileSync(new URL('../src/world/level.ts', import.meta.url), 'utf8');
 function exactApprovedLevelDelta(source: string): boolean {
+  try { source = beforeQuarryOwnerRevision('src/world/level.ts', Buffer.from(source)).toString(); } catch { return false; }
   const moves = [["[772, 'bush']", "[470, 'bush']"], ["[150, 'flowers']", "[240, 'flowers']"], ["[2342, 'flowers']", "[2530, 'flowers']"]];
   for (const [current, original] of moves) {
     if (source.split(current).length !== 2) return false;
@@ -26,7 +29,7 @@ it('permits exactly the bush and two authorized flower X moves and no other sour
 it('keeps physics, camera, pickups, shared sprites and accepted Cove source pins exact', () => {
   for (const [name, expected] of Object.entries(pins)) {
     if (name === 'src/world/level.ts') continue;
-    expect(hash(readFileSync(new URL(`../${name}`, import.meta.url))), name).toBe(expected);
+    expect(hash(beforeQuarryOwnerRevision(name, readFileSync(new URL(`../${name}`, import.meta.url)))), name).toBe(expected);
   }
 });
 it('keeps public A and prepared canonical bytes identical to the approved one-pixel source', () => {

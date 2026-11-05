@@ -1,0 +1,14 @@
+{
+  "files": {
+    "src/world/assets.ts": {
+      "currentSHA256": "23b28d76fd8a0eaaa3cb53495fa421d503d94a4093cc3c4490c4b3e0673ecfcd",
+      "baselineSHA256": "9bc25810c4504d7705801811298d2cba21e37ac301ef9a5e6757bba46f09ebbf",
+      "baselineCopy": "assets.ts"
+    },
+    "src/world/renderer.ts": {
+      "currentSHA256": "aacbfc83963a91820371140d8671ca25ded0806dc28e5b53823998b6749fc790",
+      "baselineSHA256": "09d6e7619723ce0d930fa7bd880b3ea49568f553dad86d5185ce16194ef5e7de",
+      "baselineCopy": "renderer.ts"
+    }
+  }
+}

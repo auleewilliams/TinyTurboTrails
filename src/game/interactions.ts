@@ -1,5 +1,6 @@
-import { DEFAULT_MOVEMENT, MAX_STEP_SECONDS, detachFromGround, launchSpring, surfaceY, type CollisionPlatform, type MovementSegment, type Player } from './movement';
+import { DEFAULT_MOVEMENT, MAX_STEP_SECONDS, detachFromGround, launchSpring, type CollisionPlatform, type MovementSegment, type Player } from './movement';
 import type { LevelData, WorldEntity } from '../world/level';
+import { slimeGroundY } from '../world/slimes';
 
 export type RunEvent =
   | { type: 'squash'; entityId: string }
@@ -153,7 +154,7 @@ export function advancePatrols(run: RunState, level: LevelData, seconds: number)
     state.x += patrol.speed * state.direction * dt;
     if (state.x <= patrol.minX) { state.x = patrol.minX; state.direction = 1; }
     else if (state.x >= patrol.maxX) { state.x = patrol.maxX; state.direction = -1; }
-    state.y = surfaceY(level, state.x);
+    state.y = slimeGroundY(level, entity, state.x);
   }
 }
 
@@ -163,7 +164,7 @@ export function advanceBounces(run: RunState, level: LevelData): void {
     const bounce = entity.bounce;
     const state = entityState(run, entity.id);
     if (!bounce || !state || state.squashed) continue;
-    const baseY = entity.patrol ? surfaceY(level, state.x) : entity.y;
+    const baseY = entity.patrol ? slimeGroundY(level, entity, state.x) : entity.y;
     const phase = (run.seconds % bounce.seconds) / bounce.seconds;
     state.y = baseY - Math.sin(phase * Math.PI) ** 2 * bounce.amplitude;
   }
@@ -200,7 +201,7 @@ export function stepEntities(run: RunState, level: LevelData, player: Player, se
       const fraction = (top - fromFeet) / (toFeet - fromFeet);
       const impactX = segment.from.x + (segment.to.x - segment.from.x) * fraction;
       if (Math.abs(impactX - state.x) <= 16 + DEFAULT_MOVEMENT.width / 2 + SLIME_EDGE_FORGIVENESS) {
-        tops.push({ state, top, restY: entity.patrol ? surfaceY(level, state.x) : entity.y,
+        tops.push({ state, top, restY: entity.patrol ? slimeGroundY(level, entity, state.x) : entity.y,
           fraction: (index + fraction) / trajectory.length });
         break;
       }

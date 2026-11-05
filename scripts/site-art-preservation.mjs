@@ -1,3 +1,4 @@
+import { projectQuarrySiteSource } from './quarry-site-integration.mjs';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
@@ -11,6 +12,7 @@ const sourceRecord = JSON.parse(readFileSync(new URL('../assets/source/site/stee
  * the existing Timbers/Plains projections. Any unrelated source byte change still fails.
  */
 export function beforeSiteArt(path, bytes) {
+  bytes = projectQuarrySiteSource(path, bytes, 'sunset');
   if (path !== 'public/assets/site/manifest.json') {
     const record = sourceRecord.files[path];
     if (!record) return bytes;

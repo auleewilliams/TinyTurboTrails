@@ -1,0 +1,103 @@
+{
+  "status": "FOR OWNER DECISION ONLY; NONCOMPLIANT PROPOSED PREPARATION, NOT ACCEPTED ART/GAMEPLAY",
+  "exactSource": {
+    "path": "/home/leew/.hermes/cache/scratch/ttt-art-240/preview-1/generation-S-05/source.png",
+    "sha256": "5e53a2214b9325d8cd16442d6a57093ea49f549b675a6f6527b88f60d9c04188"
+  },
+  "approvalQuestionForCoordinator": "Approve only the exact169 canonical-native pixel changes in actual-change-ledger.json (164 boundary RGB donor copies and5 listed top RGBA additions), with everything else unchanged, and an integrated representative preview trial?",
+  "allowedIfApproved": {
+    "boundaryRGB": 164,
+    "topAlpha": 5,
+    "canonicalMasterCount": 3,
+    "perMaster": [
+      {
+        "width": 400,
+        "boundaryRGB": 72,
+        "topAlpha": 2,
+        "totalChanged": 74,
+        "outsideWhitelistRGBAIdentical": true,
+        "unmodifiedInputPNGsha256": "ef1c6f31df0d58ff16c3349efb7a21c975686cc17192c6e0aa26b204f9f7d24f",
+        "beforeRGBAsha256": "6d7f6c7e40ba3821bb786fc420dc5509c82252b576e5db2fbba550702a6a717c",
+        "proposedPNGsha256": "5d6ed45c914d8b794cdcf4947514957199e9d708001f5c63f946c43a9f2adc9c",
+        "proposedRGBAsha256": "f9ff17da3b95945b49943a4111f0d9845af6f1bf5a9c571d43b23ad40a300bd8",
+        "file": "NONCOMPLIANT-PROPOSED-native-400.png"
+      },
+      {
+        "width": 240,
+        "boundaryRGB": 68,
+        "topAlpha": 1,
+        "totalChanged": 69,
+        "outsideWhitelistRGBAIdentical": true,
+        "unmodifiedInputPNGsha256": "e2eecfcf62a879b22ce2ee71f66ed4cfa72b7104a1a9636d9648d168a3ac376a",
+        "beforeRGBAsha256": "63ea35aff4c40b6b202ca23df4ad7a5abfb3c08e0abb3f5b556f1a760d83aff8",
+        "proposedPNGsha256": "e885aa6761274249f098608051dab96068346e9e8e7fb2467d7c9c2710d54a2f",
+        "proposedRGBAsha256": "ac84555e234c03006b1ec2b997a4dd1e5c8188977fc947a6f87240e02a666c8a",
+        "file": "NONCOMPLIANT-PROPOSED-native-240.png"
+      },
+      {
+        "width": 160,
+        "boundaryRGB": 24,
+        "topAlpha": 2,
+        "totalChanged": 26,
+        "outsideWhitelistRGBAIdentical": true,
+        "unmodifiedInputPNGsha256": "cb706a71272e986b82840260ab3e5dcc5ac56dc0983df05195739d79e74325ed",
+        "beforeRGBAsha256": "ec93625c2320531bb832ce8d7d3fff7805c761d35cfdcf5803ab184f5913af74",
+        "proposedPNGsha256": "0997161c693696fd30a080c7a5ccebd92d462dd7262d195408c04d9a64964494",
+        "proposedRGBAsha256": "b90c55fe341b1eefbf697c66fdc7e3a72d2f5f8fea51337154533f59f779da11",
+        "file": "NONCOMPLIANT-PROPOSED-native-160.png"
+      }
+    ],
+    "exactLedger": "actual-change-ledger.json",
+    "ownerScope": "Only this exact source-specific native-master correction set and integrated preview trial; no raw-source repaint/general family/future sibling allowance.",
+    "otherPixels": "All other decodedRGBA bytes must match unmodified native masters exactly."
+  },
+  "diagnosticAuthorityCorrection": "The previous128 diagnostic cap came from coordinator scope, not an express human production restriction; current coordinator instruction authorizes exactly164/5 for THIS diagnostic. Historical old wording unchanged.",
+  "diagnosticProofs": {
+    "wholeBeforeAfter": "BEFORE-vs-PROPOSED-whole-board.png",
+    "edgeDetails": "BEFORE-vs-PROPOSED-edge-top-details.png",
+    "labels": "software source-fit / NOT GAMEPLAY / proposed corrections not approved"
+  },
+  "geometryMethod": {
+    "perSourceWholeIsotropicTrialOnly": true,
+    "factorDiffPercent": [
+      0,
+      -4.198250728862973,
+      1.4197530864197505
+    ],
+    "oldCommonFactorProfileTwoRowFailuresStillFailures": true,
+    "unchangedBeforeAfterStandingGemIntersections": 0,
+    "staticActorEmptyRows": {
+      "upper": 8,
+      "mine": 3,
+      "medium": 0,
+      "short": 0
+    },
+    "RGBChangeIsNotGeometryClearanceChange": true,
+    "fiveAlphaAdditionsRechecked": true,
+    "mandatoryTightNativeWitnesses": [
+      {
+        "centreX": 408,
+        "feetY": 630
+      },
+      {
+        "centreX": 568,
+        "feetY": 560
+      }
+    ],
+    "unperformed": [
+      "fractional Canvas/native rendering",
+      "airborne and ordinary-input routes",
+      "native camera/clock and moving one-way presentation"
+    ]
+  },
+  "limits": [
+    "No production correction/integration occurred.",
+    "Final source/visual acceptance requires actual native checks and owner integrated-preview acceptance.",
+    "Some unlisted original dark/purple tones remain; proof is not a claim of perfect unmatting.",
+    "No image calls,geometry/input/physics/test-policy changes,full rollout,Frost,merge or deployment.",
+    "Dependency EAI_AGAIN still blocks certified exact environment; no retry/surface change here."
+  ],
+  "Sremaining": 0,
+  "D_L": "held",
+  "G": "deferred"
+}

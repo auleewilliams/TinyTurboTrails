@@ -1,26 +1,120 @@
 import type { QuarryWaypoint } from './quarry-route';
 
+export type QuarrySupportDraw = { x: number; y: number; width: number; source?: string };
+
+export type QuarryLandingTarget = { x: number; y: number; width: number; source?: string };
+export type QuarryPilotFrame = { status: string; x: number; feet: number; camera: { x: number; y: number };
+  henry: { x: number; y: number; width: number; height: number }; supports: QuarrySupportDraw[] };
+export type QuarryLandingSample = QuarryPilotFrame & { id: string; next: QuarryLandingTarget;
+  edge: QuarrySupportDraw; drawn: boolean; visibleWidth: number; capPixels: number };
+
 /** Self-contained browser input pilot. Observes shipped status and actual canvas draws only. */
 export function installQuarryPilotScript(): void {
   const pilot = { active: false, frozen: false, route: [] as QuarryWaypoint[], index: 0, stageFrames: 0,
     jumped: false, jumping: false, pauseIndex: -1, time: 0, observations: [] as object[],
     decks: [] as { id: string; y: number; stationary: boolean }[], error: '',
+    history: [] as QuarryWaypoint[], recovery: [] as QuarryWaypoint[], previous: null as null | { x: number; feet: number }, avoidFrames: 0,
     frame: null as null | { status: string; x: number; feet: number; camera: { x: number; y: number };
-      henry: { x: number; y: number; width: number; height: number }; supports: { x: number; y: number; width: number }[] } };
+      henry: { x: number; y: number; width: number; height: number }; supports: QuarrySupportDraw[]; slimes: { x: number; y: number; live: boolean }[] } };
   Object.assign(window, { quarryPilot: pilot });
   let slabs: { x: number; y: number }[] = [];
-  let supports: { x: number; y: number; width: number }[] = [];
+  let slimes: { x: number; y: number; live: boolean }[] = [];
+  let supports: QuarrySupportDraw[] = [];
+  let previousDecks = pilot.decks;
+  const references = new Map<QuarrySupportDraw, { image: HTMLImageElement; x: number; y: number; transform: DOMMatrix }>();
+  // Exact shipped native contracts, kept inside the serialized init function.
+  const sources: Record<string, [number, number]> = {
+    '/assets/quarry/floor-v1/floor-820.png': [820, 107],
+    '/assets/quarry/representative-v1/dock-60.png': [60, 12],
+    '/assets/quarry/representative-v1/catch-108.png': [108, 24],
+    '/assets/quarry/representative-v1/catch-112.png': [112, 24],
+    '/assets/quarry/representative-v1/carriage-96.png': [96, 17],
+    '/assets/quarry/whole-ledges-v1/shelf-400.png': [400, 45],
+    '/assets/quarry/whole-ledges-v1/shelf-160.png': [160, 32],
+    '/assets/quarry/whole-ledges-v1/shelf-240.png': [240, 37],
+    '/assets/quarry/rollout-v1/shelf-360.png': [360, 41],
+    '/assets/quarry/rollout-v1/rock-140.png': [140, 30],
+    '/assets/quarry/rollout-v1/shelf-240.png': [240, 27],
+    '/assets/quarry/rollout-v1/star-160.png': [160, 35],
+    '/assets/quarry/rollout-v1/shelf-180.png': [180, 28],
+    '/assets/quarry/rollout-v1/shelf-220.png': [220, 25],
+    '/assets/quarry/rollout-v1/shelf-260.png': [260, 30],
+    '/assets/quarry/rollout-v1/shelf-200.png': [200, 23],
+    '/assets/quarry/rollout-v1/rock-112.png': [112, 24],
+    '/assets/quarry/rollout-v1/carriage-96.png': [96, 17],
+  };
+  const landingPixels = (ctx: CanvasRenderingContext2D, edge: QuarrySupportDraw, left: number, right: number): number => {
+    if (edge.y < 0 || edge.y + 4 >= 240 || right <= left) return 0;
+    const actual = ctx.getImageData(left, Math.floor(edge.y), right - left, 4).data;
+    const reference = references.get(edge);
+    let expected: Uint8ClampedArray | undefined;
+    if (reference) {
+      const canvas = document.createElement('canvas'); canvas.width = 426; canvas.height = 240;
+      const native = canvas.getContext('2d')!;
+      native.imageSmoothingEnabled = ctx.imageSmoothingEnabled;
+      native.setTransform(reference.transform);
+      native.drawImage(reference.image, reference.x, reference.y);
+      expected = native.getImageData(left, Math.floor(edge.y), right - left, 4).data;
+    }
+    let count = 0;
+    for (let pixel = 0; pixel < actual.length; pixel += 4) {
+      if (expected ? expected[pixel + 3] === 255 && actual[pixel] === expected[pixel]
+        && actual[pixel + 1] === expected[pixel + 1] && actual[pixel + 2] === expected[pixel + 2]
+        : !edge.source && ((actual[pixel] === 177 && actual[pixel + 1] === 199 && actual[pixel + 2] === 125)
+          || (actual[pixel] === 154 && actual[pixel + 1] === 171 && actual[pixel + 2] === 150))) count++;
+    }
+    return count;
+  };
+  // Frame, source references and raster reads must be consumed in the same evaluate.
+  Object.assign(window, { quarryLandingPixels: landingPixels, quarryLandingSample: (ctx: CanvasRenderingContext2D,
+    next: QuarryLandingTarget, id: string): QuarryLandingSample => {
+    const frame = pilot.frame!;
+    const drawn = frame.supports.find(support => Math.abs(support.x + frame.camera.x - next.x) < 1.1
+      && Math.abs(support.y + frame.camera.y - next.y) < 1.1 && support.width === next.width
+      && Boolean(next.source && support.source === next.source));
+    const edge = drawn ?? { x: next.x - frame.camera.x, y: next.y - frame.camera.y, width: next.width, source: next.source };
+    const left = Math.max(0, Math.ceil(edge.x + 2)), right = Math.min(426, Math.floor(edge.x + edge.width - 2));
+    const capPixels = drawn ? landingPixels(ctx, edge, left, right) : 0;
+    return { ...frame, id, next, edge, drawn: Boolean(drawn), visibleWidth: right - left, capPixels };
+  } });
+
   const fill = CanvasRenderingContext2D.prototype.fillRect;
   CanvasRenderingContext2D.prototype.fillRect = function(x, y, width, height) {
     if (this.canvas.id === 'game') {
-      if (x === 0 && y === 0 && width === 426 && height === 240) { slabs = []; supports = []; }
-      if (width === 96 && height === 10) slabs.push({ x, y });
-      if (height === 10 && this.fillStyle === '#59616a') supports.push({ x, y, width });
+      if (x === 0 && y === 0 && width === 426 && height === 240) {
+        previousDecks = pilot.decks; pilot.decks = []; pilot.frame = null;
+        slabs = []; supports = []; slimes = []; references.clear();
+      }
+      const t = this.getTransform();
+      if (t.a === 1 && t.b === 0 && t.c === 0 && t.d === 1) {
+        if (width === 96 && height === 10 && this.fillStyle === '#59616a') slabs.push({ x: x + t.e, y: y + t.f });
+        if (height === 10 && this.fillStyle === '#59616a') supports.push({ x: x + t.e, y: y + t.f, width });
+      }
     }
     fill.call(this, x, y, width, height);
   };
   const draw = CanvasRenderingContext2D.prototype.drawImage;
   CanvasRenderingContext2D.prototype.drawImage = function(this: CanvasRenderingContext2D, ...args: unknown[]) {
+    if (this.canvas.id === 'game' && args[0] instanceof HTMLImageElement && args.length === 3) {
+      const image = args[0], url = new URL(image.src, window.location.origin), size = sources[url.pathname], t = this.getTransform();
+      if (url.origin === window.location.origin && !url.search && !url.hash && size && image.complete
+        && image.naturalWidth === size[0] && image.naturalHeight === size[1]
+        && t.a === 1 && t.b === 0 && t.c === 0 && t.d === 1
+        && typeof args[1] === 'number' && Number.isFinite(args[1]) && typeof args[2] === 'number' && Number.isFinite(args[2])) {
+        const support = { x: args[1] + t.e, y: args[2] + t.f, width: size[0], source: url.pathname };
+        supports.push(support); references.set(support, { image, x: args[1], y: args[2], transform: t });
+        if (url.pathname.endsWith('/carriage-96.png')) slabs.push(support);
+      }
+    }
+    if (this.canvas.id === 'game' && args[0] instanceof HTMLImageElement && args.length === 9) {
+      const image = args[0], url = new URL(image.src, window.location.origin), t = this.getTransform();
+      if (url.origin === window.location.origin && !url.search && !url.hash && url.pathname === '/assets/slimes/slimes.png'
+        && image.complete && args[1] === 48 && args[2] === 0 && args[3] === 48 && args[4] === 48
+        && t.a === 1 && t.b === 0 && t.c === 0 && t.d === 1) {
+        slimes.push({ x: Number(args[5]) + Number(args[7]) / 2 + t.e,
+          y: Number(args[6]) + Number(args[8]) * 44 / 48 + t.f, live: Number(args[8]) >= 47 });
+      }
+    }
     if (this.canvas.id === 'game' && args[0] instanceof HTMLImageElement && args[0].src.endsWith('/assets/henry/henry-celebration.png') && args.length === 9 && args[8] === 48) {
       const status = document.querySelector('#status')?.textContent ?? '';
       const match = status.match(/X (-?\d+) Y (-?\d+)/);
@@ -28,8 +122,9 @@ export function installQuarryPilotScript(): void {
         const feet = this.getTransform().transformPoint(new DOMPoint(Number(args[5]) + 24, Number(args[6]) + 44));
         const camera = { x: Number(match[1]) - feet.x, y: Number(match[2]) + 34 - feet.y };
         pilot.frame = { status, x: Number(match[1]), feet: Number(match[2]) + 34, camera,
-          henry: { x: feet.x - 24, y: feet.y - 44, width: 48, height: 48 }, supports: [...supports] };
-        const previous = pilot.decks;
+          henry: { x: feet.x - 24, y: feet.y - 44, width: 48, height: 48 }, supports: [...supports],
+          slimes: slimes.map(slime => ({ ...slime, x: slime.x + camera.x, y: slime.y + camera.y })) };
+        const previous = previousDecks;
         pilot.decks = slabs.map(slab => {
           const x = slab.x + camera.x, y = slab.y + camera.y;
           const id = x > 500 ? 'quarry-lift-b' : y < 560 ? 'quarry-lift-a' : 'quarry-lift-c';
@@ -51,18 +146,39 @@ export function installQuarryPilotScript(): void {
     let horizontal = 0, jump = false, speed = 1;
     if (pilot.active && status.includes('Playing') && match) {
       const [x, feet, vx] = [Number(match[1]), Number(match[2]) + 34, Number(match[3])];
-      const target = pilot.route[pilot.index];
+      // A real recovery returns to a fixed checkpoint, not the last requested terrace.
+      const previous = pilot.previous;
+      if (previous && previous.feet - feet > 80 &&
+        ((Math.abs(x - 450) < 2 && [420, 700, 980].includes(feet)) || (Math.abs(x - 300) < 2 && feet === 140))) {
+        const requested = pilot.route[pilot.index];
+        let last = pilot.history.length - 1;
+        while (last >= 0 && pilot.history[last].y > feet) last--;
+        pilot.recovery = requested && requested.y > feet
+          ? pilot.history.slice(last + 1).filter(point => point.y > feet && point.y < requested.y) : [];
+        pilot.avoidFrames = 0;
+        pilot.observations.push({ kind: 'observed-checkpoint-return', from: previous, x, feet, recovery: pilot.recovery.map(point => point.tag) });
+      }
+      pilot.previous = { x, feet };
+      const target = pilot.recovery[0] ?? pilot.route[pilot.index];
       if (!target) pilot.active = false;
       else {
         const stop = x + Math.sign(vx) * vx ** 2 / 2400;
         horizontal = stop < target.x - 3 ? 1 : stop > target.x + 3 ? -1 : 0;
         if (target.jump && !pilot.jumped) { pilot.jumped = true; jump = true; }
         else jump = Boolean(target.jump && pilot.stageFrames < 24);
+        const direction = Math.sign(target.x - x);
+        const threat = pilot.frame?.slimes.find(slime => slime.live && Math.abs(slime.y - feet) < 3
+          && Math.abs(slime.x - x) < 72 && (direction === 0 || (slime.x - x) * direction >= -20));
+        const avoiding = Boolean(threat) || pilot.avoidFrames > 0;
+        if (threat && pilot.avoidFrames === 0) pilot.avoidFrames = 12;
+        if (pilot.avoidFrames > 0) { jump = true; pilot.avoidFrames--; }
         const dock = target.waitFor;
         const ready = !dock || pilot.decks.some(deck => deck.id === dock.id && Math.abs(deck.y - dock.y) < 1 && deck.stationary);
-        if (Math.abs(x - target.x) < 7 && Math.abs(feet - target.y) < 1.1 && (!target.jump || pilot.stageFrames > 24) && ready) {
+        if (Math.abs(x - target.x) < 7 && Math.abs(feet - target.y) < 1.1 && (!target.jump || pilot.stageFrames > 24) && !avoiding && ready) {
           pilot.observations.push({ index: pilot.index, tag: target.tag, x, feet, decks: pilot.decks, status });
-          pilot.index++; pilot.stageFrames = 0; pilot.jumped = false;
+          if (pilot.recovery.length) pilot.recovery.shift();
+          else { pilot.history.push(target); pilot.index++; }
+          pilot.stageFrames = 0; pilot.jumped = false;
           if (pilot.index === pilot.pauseIndex) pilot.frozen = true;
           if (pilot.index === pilot.route.length) pilot.active = false;
           horizontal = 0; jump = false;
