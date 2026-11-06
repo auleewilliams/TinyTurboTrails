@@ -1,3 +1,4 @@
+import { beforeFrostTrial } from './frost-trial-preservation.mjs';
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { readFileSync } from 'node:fs';
@@ -14,7 +15,7 @@ const receipt = JSON.parse(readFileSync('assets/source/quarry/sunset-main-sync-v
 test('only the two exact shared files project to both independent accepted sides and shared main', () => {
   assert.deepEqual(Object.keys(receipt.files).sort(), ['src/world/assets.ts', 'src/world/renderer.ts']);
   for (const [path, entry] of Object.entries(receipt.files)) {
-    const combined = readFileSync(path);
+    const combined = beforeFrostTrial(path, readFileSync(path));
     assert.equal(hash(combined), entry.combinedSha256, 'current complete combined file');
     for (const [side, pin] of Object.entries(entry.projections)) {
       const accepted = readFileSync(pin.copy);
@@ -37,7 +38,7 @@ test('only the two exact shared files project to both independent accepted sides
 
 test('each composed hunk and unrelated byte still fails through the original named guards', () => {
   for (const [path, entry] of Object.entries(receipt.files)) {
-    const combined = readFileSync(path);
+    const combined = beforeFrostTrial(path, readFileSync(path));
     const corruptions = [Buffer.concat([combined, Buffer.from('// unrelated')])];
     for (const projection of Object.values(entry.projections)) {
       for (const change of projection.changes) if (change.after) {
@@ -56,7 +57,7 @@ test('each composed hunk and unrelated byte still fails through the original nam
 });
 
 test('neither marker suppression nor trail kit dispatch can be removed by composition', () => {
-  const path = 'src/world/renderer.ts', combined = readFileSync(path);
+  const path = 'src/world/renderer.ts', combined = beforeFrostTrial(path, readFileSync(path));
   for (const [from, to] of [
     ["level.id !== 'quarry' && level.id !== 'sunset' &&", "level.id !== 'quarry' &&"],
     ["level.id !== 'quarry' && level.id !== 'sunset' &&", "level.id !== 'sunset' &&"],

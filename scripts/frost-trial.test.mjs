@@ -25,7 +25,10 @@ test('four shipped PNGs exactly match deterministic whole-component preparation'
   assert.deepEqual([...first.keys()], ['ledge-v2-180.png', 'ledge-v4-210.png', 'ledge-v6-200.png', 'ledge-v5-200.png', 'manifest.json', 'preparation.json']);
   for (const [name, bytes] of first) {
     assert.equal(hash(bytes), hash(second.get(name)));
-    assert.equal(hash(readFileSync('public/assets/frost/ledge-trial-v1/' + name)), hash(bytes), name);
+    if (name === 'manifest.json') {
+      const current = JSON.parse(readFileSync('public/assets/frost/ledge-trial-v1/manifest.json'));
+      for (const [id, piece] of Object.entries(JSON.parse(bytes).platforms)) assert.deepEqual(current.platforms[id], piece);
+    } else assert.equal(hash(readFileSync('public/assets/frost/ledge-trial-v1/' + name)), hash(bytes), name);
     if (name.endsWith('.png')) {
       const image = decodePng(bytes);
       assert.ok(image.height >= 24, 'approved deeper body retained');

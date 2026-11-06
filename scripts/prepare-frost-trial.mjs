@@ -40,9 +40,53 @@ export function prepareFrostTrial() {
     exception: 'human-trial-approval.json permits this exact key63 source for diagnostic preview only. Historical source-fit and clearance FAIL remain FAIL. Rounded rims, deep bodies and residual pink fringe retained; native readability UNPERFORMED.' }, null, 2) + '\n'));
   return files;
 }
+/** Additive owner-approved remaining placement preparation. Historical four-file output stays reproducible. */
+export function prepareFrostExtension() {
+  const baseline = JSON.parse(readFileSync(new URL('extension/presentation-delta.json', source)))['public/assets/frost/ledge-trial-v1/manifest.json'];
+  const manifest = JSON.parse(baseline.before);
+  assert.equal(hash(Buffer.from(baseline.before)), '82d36f58b4bdfaaadd1e24e33c2a2bfa26e866dd3feaa32c34c918407707c288');
+  const files = new Map();
+  for (const piece of Object.values(manifest.platforms)) {
+    const png = readFileSync(new URL('../public/assets/frost/ledge-trial-v1/' + piece.image, import.meta.url));
+    files.set(piece.image, png);
+  }
+  files.set('preparation.json', readFileSync(new URL('../public/assets/frost/ledge-trial-v1/preparation.json', import.meta.url)));
+  const bytes = readFileSync(new URL('proposed-key63-NONCOMPLIANT-UNAPPROVED.png', source));
+  assert.equal(hash(bytes), '6e45cee8032aef41d3eceb5bfe28baa04772172bcbc02363257795baa70d18b2');
+  assert.equal(hash(files.get('preparation.json')), '131e93d19cbcd93a878bd5d89b54459feac217d45522cbec6c666aaec7fa5578');
+  const acceptedRecords = JSON.parse(files.get('preparation.json')).records;
+  for (const [name, record] of Object.entries(acceptedRecords)) assert.equal(hash(files.get(name)), record.pngSha256);
+  const sheet = decodePng(bytes), records = {};
+  for (const [id, variant, width, rect, expected] of [
+    [1, 1, 140, { x: 187, y: 116, width: 456, height: 78 }, '5897de57c44b1c194266519d6cae9c9558b294f64e2fce6fa14029c91f785f07'],
+    [2, 3, 190, { x: 102, y: 425, width: 628, height: 107 }, 'c9c938700b14b6bdd8e38250a9548361c9a9608d7c4c101d5e10e4336942504c'],
+  ]) {
+    const image = wholeImageAtWidth(crop(sheet, rect), width), png = encodePng(image);
+    assert.equal(hash(png), expected, 'exact approved whole source preparation');
+    const name = `ledge-v${variant}-${width}.png`;
+    files.set(name, png);
+    manifest.platforms[`frost-return-${id}`] = { image: name, width, height: image.height, variant };
+    records[name] = { sourceRect: rect, uniformRatio: [width, rect.width], width, height: image.height,
+      pngSha256: hash(png), pixelSha256: hash(image.data) };
+  }
+  const reused = files.get('ledge-v4-210.png');
+  assert.equal(hash(reused), 'bdcfa27e460280365a5c6a6dfe77fa8b120ba44312c4c02669a70f3764081065');
+  for (const id of [3, 6, 7, 8]) manifest.platforms[`frost-return-${id}`] = { ...manifest.platforms['frost-return-5'] };
+  files.set('manifest.json', Buffer.from(JSON.stringify(manifest, null, 2) + '\n'));
+  files.set('extension-preparation.json', Buffer.from(JSON.stringify({ sourceSha256: hash(bytes), records,
+    reused: { image: 'ledge-v4-210.png', pngSha256: hash(reused), ids: [3, 6, 7, 8] },
+    approval: 'assets/source/frost/ledge-trial-v1/extension/extension-approval.json', historicalPreparation: 'preparation.json',
+    method: 'Shared wholeImageAtWidth equal-axis sampler; complete whole paint/body/ends, transparent ceil padding only. V4 exact-byte reuse. No source repair or geometry/pickup change.',
+    limitations: 'Historical source/fit FAIL retained. Ground1 -4px/39 cells, ground8 -0.65px/2 cells, lower partial -6px and gem6 27 core-alpha253 intersections are disclosed model risks; native readability pending.' }, null, 2) + '\n'));
+  return files;
+}
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   const output = process.argv[2] ?? 'public/assets/frost/ledge-trial-v1';
   mkdirSync(output, { recursive: true });
-  for (const [name, bytes] of prepareFrostTrial()) writeFileSync(`${output}/${name}`, bytes);
-  console.log('Prepared exactly four whole Frost trial ledges');
+  for (const [name, bytes] of prepareFrostExtension()) {
+    // Accepted PNGs/preparation are copied only when preparing a separate output directory.
+    if (output === 'public/assets/frost/ledge-trial-v1' && (name === 'preparation.json' || ['ledge-v2-180.png', 'ledge-v4-210.png', 'ledge-v6-200.png', 'ledge-v5-200.png'].includes(name))) continue;
+    writeFileSync(`${output}/${name}`, bytes);
+  }
+  console.log('Prepared ten mappings: two additional whole sources and four exact V4 reuses; accepted four unchanged');
 }

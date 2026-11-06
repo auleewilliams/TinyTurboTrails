@@ -1,0 +1,40 @@
+{
+  "scope": "Owner-approved six remaining whole-ledge diagnostic placements only",
+  "headAtDispatch": "da6d37658395eb7f86bfaa76c2995bac66c6879e",
+  "base": "6a67a25bffd936bfa2013b5f64ccb40e16247c26",
+  "approval": "extension-approval.json",
+  "approvalSHA256": "aaeffe9478992062f5b4d8ecdc01964bf1181066f5bc2d64bd73d116a743853e",
+  "approvedInputs": {
+    "/home/leew/.hermes/cache/scratch/f243-ground17/continuation-contract.md": "1af9a8bbb0fcb5c213a667450be54b6a442ef74c7d2d09a2d6dcb47aa4a2c25e",
+    "/home/leew/.hermes/cache/scratch/f243-ground17/remaining-targets.json": "24d05c86345d79e8a33a32a750348d49df975ebb7f2d3005d4ab904bc31bbd06",
+    "/home/leew/.hermes/cache/scratch/f243-ground17/ground-underpass-findings.json": "65fd4603d5852f4e5d8e9410c36efb0e4fa544bfbcb4709a47f0c564b7f26b4f",
+    "/home/leew/.hermes/cache/scratch/f243-ground17/input-bindings.json": "5f381910d0d3685dcebc1bed8fd019c07621bca74cfba185569dad927ac5a423",
+    "/home/leew/.hermes/cache/scratch/f243-rollout16-review/parent-decision-review-certificate.json": "8d500d1073e7d146bda15e1873c4bd100b9e7b4d33913a143db9a453d599bf20"
+  },
+  "publicProposal": "https://github.com/auleewilliams/TinyTurboTrails/issues/243#issuecomment-6681009136",
+  "acceptedFrozen": [
+    4,
+    5,
+    9,
+    10
+  ],
+  "implementedRemaining": [
+    1,
+    2,
+    3,
+    6,
+    7,
+    8
+  ],
+  "geometryAdjustments": [],
+  "pickupAdjustments": [],
+  "newImageCalls": 0,
+  "native": "UNRUN_PARENT_OWNS_NORMAL_HOST_COHORT",
+  "historicalSourceAndFit": "FAIL_RETAINED",
+  "runtime": {
+    "node": "v22.22.1",
+    "zlib": "1.3.1",
+    "executable": "/usr/bin/node"
+  },
+  "publicPreparationSHA256": "188d61969921b7f54f9776e2e65559f9663df1e0888be4c2ed4f36f6005bb14a"
+}

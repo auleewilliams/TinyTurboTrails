@@ -7,6 +7,9 @@ export interface FrostLedgeAssets { manifest: FrostLedgeManifest; platforms: Rec
 export function validateFrostLedges(value: unknown): asserts value is FrostLedgeManifest {
   const data = value as FrostLedgeManifest;
   const expected: Record<string, readonly [number, number, number]> = {
+    'frost-return-1': [1, 140, 24], 'frost-return-2': [3, 190, 33],
+    'frost-return-3': [4, 210, 33], 'frost-return-6': [4, 210, 33],
+    'frost-return-7': [4, 210, 33], 'frost-return-8': [4, 210, 33],
     'frost-return-4': [2, 180, 24], 'frost-return-5': [4, 210, 33],
     'frost-return-9': [6, 200, 33], 'frost-return-10': [5, 200, 33],
   };
@@ -39,7 +42,7 @@ export async function loadFrostLedges(base: string, path?: string): Promise<Fros
   return { manifest, platforms };
 }
 
-/** Native image width and top coincide with the collider. Other six supports keep their existing paint. */
+/** Native image width and top coincide with the collider. All ten fixed supports use whole approved sources. */
 export function drawFrostLedge(ctx: CanvasRenderingContext2D, kit: FrostLedgeAssets,
   body: PlatformBody, offset: { x: number; y: number }): boolean {
   const piece = kit.manifest.platforms[body.id];

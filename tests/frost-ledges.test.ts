@@ -1,13 +1,18 @@
+import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { expect, it, vi } from 'vitest';
 import { validateFrostLedges, drawFrostLedge, loadFrostLedges, type FrostLedgeAssets } from '../src/world/frost-ledges';
 import { FROST_RIDGE } from '../src/world/frost-ridge';
 import { platformBodiesAt } from '../src/game/platforms';
 const metadata = () => JSON.parse(readFileSync('public/assets/frost/ledge-trial-v1/manifest.json', 'utf8'));
-it('accepts exactly the four assigned variants and rejects extra supports, missing images and altered dimensions', () => {
+it('accepts exactly the ten assigned variants and rejects extra supports, missing images and altered dimensions', () => {
   validateFrostLedges(metadata());
+  expect(Object.keys(metadata().platforms).sort()).toEqual(FROST_RIDGE.platforms!.map(p => p.id).sort());
   for (const change of [
     (m: ReturnType<typeof metadata>) => { delete m.platforms['frost-return-4']; },
+    ...[1, 2, 3, 6, 7, 8].map(id => (m: ReturnType<typeof metadata>) => { delete m.platforms[`frost-return-${id}`]; }),
+    (m: ReturnType<typeof metadata>) => { m.platforms['frost-return-11'] = m.platforms['frost-return-5']; },
+    (m: ReturnType<typeof metadata>) => { m.platforms['frost-return-2'].height = 32; },
     (m: ReturnType<typeof metadata>) => { m.platforms['frost-return-1'] = m.platforms['frost-return-4']; },
     (m: ReturnType<typeof metadata>) => { m.platforms['frost-return-9'].width++; },
     (m: ReturnType<typeof metadata>) => { m.platforms['frost-return-10'].image = '../other.png'; },
@@ -41,6 +46,34 @@ it('does not cache a failed required manifest and retries through the ordinary l
   try {
     await expect(loadFrostLedges('/assets/frost/', 'ledge-trial-v1/manifest.json')).rejects.toThrow();
     const loaded = await loadFrostLedges('/assets/frost/', 'ledge-trial-v1/manifest.json');
-    expect(Object.keys(loaded!.platforms)).toHaveLength(4); expect(fetchMock).toHaveBeenCalledTimes(2);
+    expect(Object.keys(loaded!.platforms)).toHaveLength(10); expect(fetchMock).toHaveBeenCalledTimes(2);
+  } finally { vi.unstubAllGlobals(); }
+});
+
+it('preserves the complete accepted geometry and pickup projection', () => {
+  const digest = createHash('sha256').update(JSON.stringify(FROST_RIDGE)).digest('hex');
+  expect(digest).toBe('9489be2c950ad2f4ecf9e88abccf2309611c38566b0e2978a31d3f19e9599db2');
+});
+
+it('rejects required new images with wrong dimensions or failed decode', async () => {
+  let mode: 'size' | 'decode' = 'size';
+  vi.stubGlobal('fetch', vi.fn(async () => ({ ok: true, json: async () => metadata() })));
+  class InvalidImage {
+    naturalWidth = 0; naturalHeight = 0; onload = () => {}; onerror = () => {};
+    set src(url: string) {
+      const bytes = readFileSync('public' + url);
+      this.naturalWidth = bytes.readUInt32BE(16); this.naturalHeight = bytes.readUInt32BE(20);
+      if (url.endsWith('ledge-v3-190.png')) {
+        if (mode === 'size') this.naturalHeight--;
+        else { queueMicrotask(() => this.onerror()); return; }
+      }
+      queueMicrotask(() => this.onload());
+    }
+  }
+  vi.stubGlobal('Image', InvalidImage);
+  try {
+    await expect(loadFrostLedges('/assets/frost/', 'ledge-trial-v1/manifest.json')).rejects.toThrow('Invalid Frost ledge dimensions: frost-return-2');
+    mode = 'decode';
+    await expect(loadFrostLedges('/assets/frost/', 'ledge-trial-v1/manifest.json')).rejects.toThrow('Could not load Frost ledge: frost-return-2');
   } finally { vi.unstubAllGlobals(); }
 });

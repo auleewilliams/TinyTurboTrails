@@ -84,6 +84,7 @@ for (const [file, title] of [
     expect(calls.some(call => call[0] === siteAssets.siteTerrain.ferry)).toBe(true);
     const frostAssets = await fixture.initialize(FROST_RIDGE);
     expect(frostAssets.frostLedges).toBeDefined();
+    expect(Object.keys(frostAssets.frostLedges.platforms).sort()).toEqual(FROST_RIDGE.platforms!.map(p => p.id).sort());
     calls.length = 0;
     fixture.drawWorld(ctx, frostAssets, FROST_RIDGE, { position: { x: 3400.25, y: 280.5 } }, undefined, undefined, FROST_RIDGE.platforms!.map(p => platformBodyAt(p, 0)), 0, true);
     for (const [id, image] of Object.entries(frostAssets.frostLedges.platforms)) {
