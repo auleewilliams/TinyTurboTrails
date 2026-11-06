@@ -1,3 +1,4 @@
+import { beforeFrostTrial } from './frost-trial-preservation.mjs';
 import { beforeQuarryOwnerRevision } from './quarry-owner-revision-preservation.mjs';
 import { beforeTimbersMerge } from './timbers-plains-integration.mjs';
 import assert from 'node:assert/strict';
@@ -79,6 +80,7 @@ const approved = {
 };
 
 export function beforePlainsContour(path, bytes) {
+  bytes = beforeFrostTrial(path, bytes);
   bytes = beforeQuarryOwnerRevision(path, bytes);
   bytes = beforeTimbersMerge(path, bytes);
   const entry = approved[path];

@@ -1,0 +1,228 @@
+{
+  "status": "NONCOMPLIANT / UNAPPROVED DIAGNOSTIC ONLY",
+  "at": "2026-11-05T22:11:34.601169+00:00",
+  "predicate": {
+    "R": [
+      192,
+      255
+    ],
+    "B": [
+      192,
+      255
+    ],
+    "G": [
+      0,
+      63
+    ],
+    "A": 255
+  },
+  "connectivity": 4,
+  "delta_alpha_pixels": 3019,
+  "delta_runs_sha256": "a37534ca648f3e8c3ea3a2160ff5a2f346690f36bef2e64b31af78af4586cbee",
+  "sourceRGB_every_pixel_byteexact": true,
+  "RGBA_outside_delta_every_pixel_byteexact": true,
+  "outside_delta_pixels": 1570333,
+  "raw_unchanged": true,
+  "frozen_sha256_before_after_identical": {
+    "L02-returned-raw.png": "0d5f65932786dbbc1dcbbd8187bf0592b8d1a19b45de822fda9ba0abb22ea25e",
+    "L02-request.json": "49ddee84c7f09873d58d7492a5e609935b04e335641247aec204fa3d55a7566e",
+    "background-key-contract.json": "d780f352055d25fc8c2a06cd86395ce825089a20c8252e54ff1d3f96677fa57c",
+    "background-key-contract.md": "0a51ccd34f1c2e27a94c99e22d3201d26e161466e69f09077ff40e23e0c05951",
+    "inspect-L02.py": "995c1245a6c403622781e812c9e9861ade35ea2c1a022d7739d4806e4745ecb4",
+    "L02-native-tool-result.json": "f0d2e908ed21ba993ae31dc467d0295057888bd60d67828b600273a16a29e861",
+    "L02-actual-diagnostic/report.json": "b52d386d39ccbbdb3008e386136350131956583933276b134636227544a05b0c",
+    "L02-actual-diagnostic/keyed-DIAGNOSTIC.png": "47fbfb642bf55a819b82525e5ac76217dcb5d5f9ba0a5cf49dd05eb7ff7858c1",
+    "L02-actual-diagnostic/changed-pixels.json": "0a7ed279c1a48ff886d521a2757fd62f94b8620c9beb595d26526815ac88759e",
+    "actual-source-diagnosis.md": "a7e5e0271c5528468be2c0cc7a3bec67e3e4d26a5b280f5d37e76943f5d787e4",
+    "actual-source-diagnosis.json": "02d6a5dab692f17325e9df10b554c40c92b8efe9f6f6cd1e4f21ba3c1e948551",
+    "diagnose-L02-actual.py": "584fac09b3e1b4be7e8388cf186609bef1e3470b431c8c9f1482aa822b248eb1",
+    "diagnose-L02-static.py": "8d6d1669aa24d921142954c533e6b4193b672120485dcc7a81c55ae41f4b2843",
+    "finalize-L02-diagnosis.py": "fbf76aae7ac8d549982bf86d0e2a0e4f83e1b26744b7723014132a1a55127459"
+  },
+  "raw_to_proposed_alpha_changes": 1292080,
+  "remaining_predicate_enclosed_pixels": 0,
+  "key31_components_unchanged_inventory": [
+    {
+      "id": 0,
+      "pixels": 29725,
+      "bbox": [
+        187,
+        116,
+        643,
+        194
+      ],
+      "heuristic_near_magenta_pixels": 422
+    },
+    {
+      "id": 1,
+      "pixels": 39995,
+      "bbox": [
+        951,
+        116,
+        1547,
+        194
+      ],
+      "heuristic_near_magenta_pixels": 500
+    },
+    {
+      "id": 2,
+      "pixels": 47497,
+      "bbox": [
+        102,
+        425,
+        730,
+        532
+      ],
+      "heuristic_near_magenta_pixels": 375
+    },
+    {
+      "id": 3,
+      "pixels": 54356,
+      "bbox": [
+        897,
+        425,
+        1597,
+        532
+      ],
+      "heuristic_near_magenta_pixels": 378
+    },
+    {
+      "id": 4,
+      "pixels": 52619,
+      "bbox": [
+        86,
+        739,
+        747,
+        847
+      ],
+      "heuristic_near_magenta_pixels": 629
+    },
+    {
+      "id": 5,
+      "pixels": 60098,
+      "bbox": [
+        913,
+        739,
+        1582,
+        847
+      ],
+      "heuristic_near_magenta_pixels": 714
+    },
+    {
+      "id": 6,
+      "pixels": 1,
+      "bbox": [
+        0,
+        940,
+        1,
+        941
+      ],
+      "heuristic_near_magenta_pixels": 1
+    }
+  ],
+  "proposed_components4": [
+    {
+      "id": 0,
+      "pixels": 29303,
+      "bbox": [
+        187,
+        116,
+        643,
+        193
+      ]
+    },
+    {
+      "id": 1,
+      "pixels": 39495,
+      "bbox": [
+        951,
+        116,
+        1547,
+        193
+      ]
+    },
+    {
+      "id": 2,
+      "pixels": 47122,
+      "bbox": [
+        102,
+        425,
+        730,
+        532
+      ]
+    },
+    {
+      "id": 3,
+      "pixels": 53978,
+      "bbox": [
+        897,
+        425,
+        1597,
+        532
+      ]
+    },
+    {
+      "id": 4,
+      "pixels": 51990,
+      "bbox": [
+        87,
+        739,
+        747,
+        847
+      ]
+    },
+    {
+      "id": 5,
+      "pixels": 59384,
+      "bbox": [
+        913,
+        739,
+        1582,
+        847
+      ]
+    }
+  ],
+  "complete_accounting": {
+    "image_pixels": 1573352,
+    "proposed_transparent": 1292080,
+    "proposed_retained": 281272,
+    "assigned_to_six_original_whole_boxes": 281272,
+    "unassigned_retained": 0,
+    "failure_if_unassigned": false
+  },
+  "interpretation": "Proposed-background candidates only, not proven damaged foreground. Source boxes include all original linked key31 paint; isolated original border pixel shown in full-sheet/context proof, not dropped from inventory. Boards are diagnostic display composites; exact preservation assertions refer to full-sheet PNG and delta file.",
+  "source_fit": "FAIL unchanged",
+  "clearance": "original FAIL / native unknown unchanged",
+  "spent": 2,
+  "trial_approved": false,
+  "image_calls": 0,
+  "outputs": {
+    "proposed-key63-NONCOMPLIANT-UNAPPROVED.png": {
+      "sha256": "6e45cee8032aef41d3eceb5bfe28baa04772172bcbc02363257795baa70d18b2",
+      "bytes": 1403599
+    },
+    "delta-key31-to-key63-alpha-runs.json": {
+      "sha256": "a37534ca648f3e8c3ea3a2160ff5a2f346690f36bef2e64b31af78af4586cbee",
+      "bytes": 15269
+    },
+    "before-after-light-ACTUAL-SOURCE.png": {
+      "sha256": "647582f311bc6a262995c864f38ed44ddd6a6143fd1015788cb9833a3d9948c2",
+      "bytes": 338188
+    },
+    "diagnostic-preview-decision.md": {
+      "sha256": "53e5984f0695b4bdfd5c0105540c31169d00767d10e22556d8210c955f23b990",
+      "bytes": 2049
+    },
+    "before-after-dark-ACTUAL-SOURCE.png": {
+      "sha256": "616d1ca919612fcef35230cad3800f2a625b967b099f76c69f778fb7dc203e47",
+      "bytes": 338891
+    }
+  },
+  "SourceCode_sha256": "e5d79ca807cb12c3dc3d20749d0813b1b75bdff603d69982c3522aaa964581f7",
+  "real_command_exits": [
+    0,
+    0
+  ],
+  "verification": "saved proof readback PASS mechanics only",
+  "visual_observation": "Pink edge colors remain outside the proposed predicate; preserved with no further cleanup, boundary/matte intent unresolved."
+}

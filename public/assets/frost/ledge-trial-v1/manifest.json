@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "diagnosticTrial": true,
+  "platforms": {
+    "frost-return-4": {
+      "image": "ledge-v2-180.png",
+      "width": 180,
+      "height": 24,
+      "variant": 2
+    },
+    "frost-return-5": {
+      "image": "ledge-v4-210.png",
+      "width": 210,
+      "height": 33,
+      "variant": 4
+    },
+    "frost-return-9": {
+      "image": "ledge-v6-200.png",
+      "width": 200,
+      "height": 33,
+      "variant": 6
+    },
+    "frost-return-10": {
+      "image": "ledge-v5-200.png",
+      "width": 200,
+      "height": 33,
+      "variant": 5
+    }
+  }
+}

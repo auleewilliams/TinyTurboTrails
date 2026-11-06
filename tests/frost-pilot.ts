@@ -8,7 +8,7 @@ export const FROST_MAIN: readonly TimberPilotStage[] = [
   jump(2680, 540), walk(3100), jump(3220, 492), walk(5265), jump(5380, 240), { kind: 'finish' },
 ];
 export const FROST_DOWN_SUMMIT: readonly TimberPilotStage[] = [walk(5320), travel(3900,-1)];
-export const FROST_UPPER_RETURN: readonly TimberPilotStage[] = [walk(3780), jump(3740, 410), walk(3630), jump(3550, 372), drop(3440, -1, 3400, 444), walk(3180), jump(3100, 492), walk(2620)];
+export const FROST_UPPER_RETURN: readonly TimberPilotStage[] = [walk(3780), jump(3740, 410), walk(3630), jump(3526, 372), drop(3416, -1, 3376, 444), walk(3180), jump(3100, 492), walk(2620)];
 export const FROST_BOWL_RETURN: readonly TimberPilotStage[] = [walk(2430), jump(2400, 500), walk(2290), jump(2200, 452), walk(2100), jump(2010, 404), walk(1910), jump(1820, 356), walk(1720), jump(1630, 308), drop(1520, -1, 1480, 380), walk(1190)];
 export const FROST_INTRO_RETURN: readonly TimberPilotStage[] = [walk(610), jump(580, 500), walk(510), jump(430, 450), walk(340), jump(250, 400), drop(140, -1, 110, 500)];
 export const FROST_RETURN: readonly TimberPilotStage[] = [...FROST_DOWN_SUMMIT, ...FROST_UPPER_RETURN, ...FROST_BOWL_RETURN, ...FROST_INTRO_RETURN];

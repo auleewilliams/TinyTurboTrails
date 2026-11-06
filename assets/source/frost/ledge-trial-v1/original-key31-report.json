@@ -1,0 +1,82 @@
+{
+  "status": "FAIL",
+  "failures": [
+    "non-key border: checkerboard/matte/foreground contact",
+    "outside-bound near-matte suspicion; predicate will not widen",
+    "ambiguous complete slices: expected three occupied row bands; no speck/label dropping",
+    "not all paint accounted by six complete sources"
+  ],
+  "raw_sha256": "0d5f65932786dbbc1dcbbd8187bf0592b8d1a19b45de822fda9ba0abb22ea25e",
+  "raw_bytes": 1473552,
+  "source": "/home/leew/.hermes/cache/scratch/f243-ledge8/L02-returned-raw.png",
+  "SourceCode_sha256": "995c1245a6c403622781e812c9e9861ade35ea2c1a022d7739d4806e4745ecb4",
+  "key_contract_sha256": "d780f352055d25fc8c2a06cd86395ce825089a20c8252e54ff1d3f96677fa57c",
+  "variants": [],
+  "gates": {
+    "chunkiness_integral_ends_snow_style": "UNPERFORMED HUMAN SOURCE REVIEW",
+    "matte_foreground_touch": "UNPERFORMED HUMAN SOURCE REVIEW",
+    "renderer_overlap_clearance_native_smallCSS": "UNPERFORMED LATER STAGE"
+  },
+  "source_acceptance": "PENDING; numeric PASS is insufficient",
+  "png_chunks": [
+    {
+      "type": "IHDR",
+      "bytes": 13,
+      "crc_ok": true
+    },
+    {
+      "type": "caBX",
+      "bytes": 23654,
+      "crc_ok": true
+    },
+    {
+      "type": "IDAT",
+      "bytes": 1449829,
+      "crc_ok": true
+    },
+    {
+      "type": "IEND",
+      "bytes": 0,
+      "crc_ok": true
+    }
+  ],
+  "dimensions": [
+    1672,
+    941
+  ],
+  "mode": "RGB",
+  "bands": [
+    "R",
+    "G",
+    "B"
+  ],
+  "decoded_rgba_sha256": "21d2e8eb24148ad4cd6de02dd78dd88cb1e27557aa9e292a464c4e6c871fbce8",
+  "alpha_extrema": [
+    255,
+    255
+  ],
+  "nonkey_border_pixels": 1,
+  "remaining_magenta_pixels": 0,
+  "changed_pixel_count": 1289061,
+  "nonkey_pixel_count": 284291,
+  "nonkey_rgba_byteexact": true,
+  "foreground_key_contact_pixels": 7658,
+  "near_magenta_pixels": 3019,
+  "prepared_rgba_sha256": "8fdbc83712704892e8cd8288e9e7ea86bb1b71918ba273a9f312e6acce0edbd7",
+  "changed_set_sha256": "0a7ed279c1a48ff886d521a2757fd62f94b8620c9beb595d26526815ac88759e",
+  "measured_complete_boxes": [],
+  "foreground_accounting": {
+    "remaining_pixels": 284291,
+    "assigned_pixels": 0,
+    "unassigned_pixels": 284291
+  },
+  "legacy_strict_layout": {
+    "canvas_matches_2048x1152": false,
+    "gate": "diagnostic only; no common4x/cell/attainedD requirement; L01 prior failure remains sealed",
+    "requested_aspect_matches": false,
+    "requested_cells": [],
+    "common_source_scale": false
+  },
+  "raw_unchanged": true,
+  "evidence_kind": "ACTUAL SOURCE; ACCEPTANCE PENDING"
+}

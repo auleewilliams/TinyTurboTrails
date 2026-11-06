@@ -16,6 +16,7 @@ import { drawCoveGround, drawCovePlatform } from './cove-terrain';
 import { drawSiteGround, drawSitePlatform } from './site-terrain';
 import { drawTimbersGround, drawTimbersPlatform } from './timbers-terrain';
 import { drawTimbersTree } from './timbers-tree';
+import { drawFrostLedge } from './frost-ledges';
 import type { SlimeAccessory } from './slimes';
 
 /** Scenes without run state draw the whole entity list; a run hides what it has consumed. */
@@ -297,6 +298,7 @@ export function drawPlatforms(ctx: CanvasRenderingContext2D, level: LevelData, o
       for (let rock = 8; rock < body.width - 6; rock += 23) ctx.fillRect(x + rock, y + 5, 9, 2);
       continue;
     }
+    if (level.id === 'frost' && assets?.frostLedges && drawFrostLedge(ctx, assets.frostLedges, body, offset)) continue;
     if (level.id === 'frost' && platform.from.x === platform.to.x && platform.from.y === platform.to.y) {
       const x = body.x - offset.x, y = body.y - offset.y;
       ctx.fillStyle = '#7997b0'; ctx.fillRect(x, y, body.width, body.height);

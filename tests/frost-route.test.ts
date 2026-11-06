@@ -105,7 +105,9 @@ it.each(exits)('measures release/reversal/held movement and boundary jumps at sn
     expect(p.onGround).toBe(true);
   }
 });
-it('clears the full forward sprite below permanent snow tops and reconnects every failed jump to terrain', () => {
+it('retains the collision-slab route envelope and reconnects every failed jump to terrain', () => {
+  // Collision-envelope invariant only: the 10px collider is unchanged.
+  // Whole illustrated source clearance retains its historical FAIL under the diagnostic exception.
   for(const platform of FROST_RIDGE.platforms!) {
     for(let x=platform.from.x-24;x<=platform.from.x+platform.width+24;x+=2) {
       expect(surfaceY(FROST_RIDGE,x)-platform.from.y-10,platform.id).toBeGreaterThanOrEqual(48);
@@ -191,7 +193,7 @@ it.each(['intro','bowl','upper'])('a higher %s return walk-off miss retains rewa
   route.run(steps.slice(0,chain==='bowl'?8:4));
   expect(route.player.platformId).not.toBeNull();
   const gems=new Set(route.runState.collectedGems), letters=route.scene.education.letterCount;
-  const edge=chain==='upper'?3440:chain==='bowl'?1710:330;
+  const edge=chain==='upper'?3416:chain==='bowl'?1710:330;
   // Explicit input fault injection: miss the higher takeoff by walking off its
   // left edge, then release on the actual connected terrain (no position seam).
   for(let f=0;f<180 && !(route.player.x<edge-12 && route.player.onGround && !route.player.platformId);f++) route.tick(-1);

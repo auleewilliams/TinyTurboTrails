@@ -1,0 +1,71 @@
+{
+  "sourceSha256": "6e45cee8032aef41d3eceb5bfe28baa04772172bcbc02363257795baa70d18b2",
+  "records": {
+    "ledge-v2-180.png": {
+      "sourceRect": {
+        "x": 951,
+        "y": 116,
+        "width": 596,
+        "height": 78
+      },
+      "uniformRatio": [
+        180,
+        596
+      ],
+      "width": 180,
+      "height": 24,
+      "pngSha256": "9d3a82c23a24157e5ccfbf67e2d7ebfa099ce68cc53bebb093d55160560bc9ec",
+      "pixelSha256": "78e41da4a8e84a2bfdfb5aee0b8dac2052faa9c2b7d46e9b5019ba4a509f1fcc"
+    },
+    "ledge-v4-210.png": {
+      "sourceRect": {
+        "x": 897,
+        "y": 425,
+        "width": 700,
+        "height": 107
+      },
+      "uniformRatio": [
+        210,
+        700
+      ],
+      "width": 210,
+      "height": 33,
+      "pngSha256": "bdcfa27e460280365a5c6a6dfe77fa8b120ba44312c4c02669a70f3764081065",
+      "pixelSha256": "7f09b8d3d923323b78967626e53618137d27f4194aa99c5b6857b5ef29bcdb7f"
+    },
+    "ledge-v6-200.png": {
+      "sourceRect": {
+        "x": 913,
+        "y": 739,
+        "width": 669,
+        "height": 108
+      },
+      "uniformRatio": [
+        200,
+        669
+      ],
+      "width": 200,
+      "height": 33,
+      "pngSha256": "fc8fb5d435262afe2bfabc2e62db7533f9f8fcf0f5f00ca27dcc0b340bec4e6e",
+      "pixelSha256": "1dd185e0e64c10631c8c1ad91cf584e1242c59a970777ee4496ad016b25a3559"
+    },
+    "ledge-v5-200.png": {
+      "sourceRect": {
+        "x": 86,
+        "y": 739,
+        "width": 661,
+        "height": 108
+      },
+      "uniformRatio": [
+        200,
+        661
+      ],
+      "width": 200,
+      "height": 33,
+      "pngSha256": "b4372e107f0a2d25dedd0b44df91c84ed3a832f301361e9745aaf24124f0e39d",
+      "pixelSha256": "42eb2c252778af378e5df6ea9afe66934d48f8ded5626451ae604224f4e161df"
+    }
+  },
+  "method": "Whole component crop from surrounding transparent space; shared isotropic premultiplied integer-weight box sampler; transparent ceil padding only. No masks, repairs, notches, end/body crops, tiling or runtime scaling.",
+  "exception": "human-trial-approval.json permits this exact key63 source for diagnostic preview only. Historical source-fit and clearance FAIL remain FAIL. Rounded rims, deep bodies and residual pink fringe retained; native readability UNPERFORMED."
+}
