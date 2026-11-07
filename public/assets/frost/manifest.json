@@ -2,6 +2,7 @@
   "image": "environment.png",
   "panorama": "background.png",
   "frostLedges": "ledge-trial-v1/manifest.json",
+  "frostGround": "ground-ice-v1/manifest.json",
   "cellSize": 48,
   "assets": {
     "terrain-flat": 0,

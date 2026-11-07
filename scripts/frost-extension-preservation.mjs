@@ -1,3 +1,4 @@
+import { beforeFrostGround } from './frost-ground-preservation.mjs';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
@@ -7,6 +8,7 @@ assert.equal(hash(raw), '87b15eeefd8bb631a4e8fb8f45a66883c72ce2df9dba1b81bd98e45
 export const frostExtensionRecord = JSON.parse(raw);
 /** Exact full-file presentation projection; corruption passes to historical guards unchanged. */
 export function beforeFrostExtension(path, bytes) {
+  bytes = beforeFrostGround(path, bytes);
   const entry = frostExtensionRecord[path];
   if (!entry || hash(bytes) !== entry.currentSHA256) return bytes;
   assert.equal(hash(Buffer.from(entry.after)), entry.currentSHA256);

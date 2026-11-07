@@ -1,0 +1,8 @@
+{
+  "prompt": "Use the attached actual Frost screenshot for context and the accepted native snowy ledge for pale white/light-blue snow and chunky cool slate rock palette only. Do not reproduce characters, HUD, layout, magenta surrounds, atlas cells or separate platforms. Make a complete OPAQUE edge-to-edge material field, no sky, frame, isolated silhouette, painted transparency/checkerboard, chroma-key matte, text or empty margins. This is a new whole-field source, not a cutout. Terrain1: a square snow-covered rock cross-section. At the intended whole-image equal-axis 440px-high native scale, keep a continuous pale snow cap about 8px deep along the entire top edge (about 1/55 of source height), then substantial cool chunky rock through the entire remaining field and bottom edge. Use broad 12–32 native pixel rock facets. No bottom silhouette, ledge ends, shelves or scenery. Whole-field horizontal mirrored repetition will follow the unchanged ground contour; make both side edges coherent and rock substantial at every horizontal phase. No vertical repetition. Square is the requested source layout; no exact returned dimension or alpha is asserted. Actual source dimensions determine uniform preparation; no independent width fit.",
+  "aspect_ratio": "square",
+  "image_url": "/home/leew/.hermes/cache/scratch/f243-rollout18/capture-01-426-ground1-gem6.png",
+  "reference_image_urls": [
+    "/home/leew/.hermes/cache/scratch/ttt-frost-fit243/public/assets/frost/ledge-trial-v1/ledge-v4-210.png"
+  ]
+}

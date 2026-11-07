@@ -1,0 +1,78 @@
+{
+  "sourceCodeVerdict": "PASS",
+  "terrainReadiness": "PASS_FOR_BOUNDED_PILOT_direct440_phase",
+  "iceInitialCallEligibility": "PASS_originalinitialslotONLY",
+  "mandatoryFindings": [],
+  "actualModel": "claude-opus-5-5",
+  "session": "b2622481-56c5-43b7-aed9-a23b29a4d0b5",
+  "actualFullReadCoverage": {
+    "/home/leew/.hermes/cache/scratch/f243-terrain28/source-fit.mjs": {
+      "sha256": "86e6e894899c0cb042d152cd63596b7e849daff36cb6ee2994bfc53c0582ca30",
+      "actualFullReadLines": 193
+    },
+    "/home/leew/.hermes/cache/scratch/f243-terrain28/finalize-fit.mjs": {
+      "sha256": "4893d339b5a7fe355304368774aff0b18be8b4dc310c85b5725c9ccc00504715",
+      "actualFullReadLines": 64
+    },
+    "/home/leew/.hermes/cache/scratch/f243-terrain29/check-direct-reuse.mjs": {
+      "sha256": "477a6088bb996576ab7ac2934a6a2fbda5f5ddc681dc3814c3aedae8f94a3faf",
+      "actualFullReadLines": 65
+    },
+    "/home/leew/.hermes/cache/scratch/f243-terrain29/finalize-reuse.mjs": {
+      "sha256": "092af37d4c6e51b9fc2cf744b577a8e3f64d7ed41aabcfae1de8939d27f4a7ae",
+      "actualFullReadLines": 22
+    },
+    "/home/leew/.hermes/cache/scratch/f243-terrain30/finalize-current-source.mjs": {
+      "sha256": "1eaee583ea5a3a8498af001f3c0ea24e67c23c9a11490516d5abab5adbef77f3",
+      "actualFullReadLines": 96
+    },
+    "/home/leew/.hermes/cache/scratch/f243-terrain30/seal-current-packet.mjs": {
+      "sha256": "22c48a86da5eed1a596bfd394851568b274cce894fd027f5dbddfa0e601fd364",
+      "actualFullReadLines": 31
+    },
+    "/home/leew/.hermes/cache/scratch/ttt-frost-fit243/scripts/timbers-art.mjs": {
+      "sha256": "bc206e421bf523df63793155455a80d182ddf36b898fa9aed251c0e3df78163f",
+      "actualFullReadLines": 82
+    },
+    "/home/leew/.hermes/cache/scratch/ttt-frost-fit243/scripts/spelling-stickers.mjs": {
+      "sha256": "7f2a39ba40211a6974aa3f0191f17a653a7ae3c92bf36e0a184f111089c8c732",
+      "actualFullReadLines": 125
+    },
+    "/home/leew/.hermes/cache/scratch/f243-terrain30/current-source-contract.md": {
+      "sha256": "8c36ee4bfd4bb2efe513d838de5f71f22467b7a0fd98121e27a52dfae7da3f1a",
+      "actualFullReadLines": 18
+    },
+    "/home/leew/.hermes/cache/scratch/f243-terrain30/worker-handoff.md": {
+      "sha256": "9f75bce4bc5d7ab72c7d663f35d17b7eb54ca65fac2c0c1f6a8883b89f06a331",
+      "actualFullReadLines": 18
+    },
+    "/home/leew/.hermes/cache/scratch/f243-terrain30/ice1-request.json": {
+      "sha256": "6ef9f6001e379019305c762f5b9486a848310990457cb1c4d15a4e430982971e",
+      "actualFullReadLines": 9
+    },
+    "/home/leew/.hermes/cache/scratch/f243-terrain30/ice1-request-delta.json": {
+      "sha256": "112a5579f9f91071e0db74c35786a5954d5ff240f7b93f8e15368ae023281206",
+      "actualFullReadLines": 40
+    },
+    "/home/leew/.hermes/cache/scratch/f243-terrain30/current-ledger-association.json": {
+      "sha256": "db1aed95fb777859c0c51cca70d2579c519a0d2d055e1cacc705f1ef0f3b1c58",
+      "actualFullReadLines": 52
+    },
+    "/home/leew/.hermes/cache/scratch/f243-terrain30/parent-source-visual-adjudication.json": {
+      "sha256": "caa7c3618209763669af3fa0b1dee3baec61e960a406b5dd5861b45908011b9f",
+      "actualFullReadLines": 17
+    },
+    "/home/leew/.hermes/cache/scratch/f243-terrain30/current-source.stdout": {
+      "sha256": "30213f4a98c72c8155f306db940a3ccb3dbf700419f9f0bce1a2b998c9193a17",
+      "actualFullReadLines": 19
+    },
+    "/home/leew/.hermes/cache/scratch/f243-terrain22/image-tool-schema.json": {
+      "sha256": "ebad3e8a63f4822a3f76fe7af2fe792580028ea4359b507145988e4dc394a0c5",
+      "actualFullReadLines": 23
+    }
+  },
+  "numericData": "DataOnlySealed/partialexplicit,notreviewerFULL",
+  "images": "reviewerviewedactualT01raw/directpair/V4;parentalsodirectpairatnative",
+  "sourceBinding": "parentcompleteindependentshared440RGBA/PNG/mirrorproofpluscurrentfreshdirect5600identities",
+  "nativeProductionOwner": "UNRUN_NOTIMPLEMENTED_NOTACCEPTED"
+}

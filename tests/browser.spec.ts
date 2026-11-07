@@ -1,3 +1,4 @@
+import { frostGroundWindows, frostGroundIdentity, validateFrostGround, loadFrostGround, clipFrostLegacy, frostGroundColumn, drawFrostGround } from '../src/world/frost-ground';
 import { validateFrostLedges, loadFrostLedges, drawFrostLedge } from '../src/world/frost-ledges';
 import { SITE_FIXED_SUPPORT_IDS, validateSiteTerrain, validateSiteLayout, loadSiteTerrain, drawSiteGround, drawSitePlatform } from '../src/world/site-terrain';
 import { installQuarryMapPreviewObserver } from './quarry-map-preview';
@@ -191,7 +192,7 @@ test('app fullscreen retains feedback controls and native map and pause targets'
 });
 
 /** The renderer is injected as plain functions, so every helper it calls has to travel with it. */
-const RENDERER_SOURCE = [validateFrostLedges, loadFrostLedges, drawFrostLedge, validateSiteTerrain, validateSiteLayout, loadSiteTerrain, drawSiteGround, drawSitePlatform, validateQuarryFloor, loadQuarryFloor, drawQuarryFloor, quarryRolloutPieces, validateQuarryRollout, loadQuarryRollout, drawQuarryRollout, quarryPreviewPieces, validateQuarryPreviewPieces, loadQuarryPreviewPieces, drawQuarryPreviewPiece, quarryShelfPieces, validateQuarryShelves, loadQuarryShelves, drawQuarryShelf, plainsContourRange, plainsContourColumns, drawPlainsContourGround, timbersPreviewIds, timbersPlatformWidths, validateTimbersTerrain, loadTimbersTerrain, drawTimbersGround, drawTimbersPlatform, validateTimbersTree, loadTimbersTree, drawTimbersTree, validateCoveMaterials, loadCoveMaterials, coveRipplePhase, drawCoveMaterials, coveGroundY, coveRepeatColumn, validateCoveTerrain, loadCoveTerrain, drawCoveGround, drawCovePlatform, drawAmbientWeather, drawSlime, drawGem, drawSpecial, drawLandingBands, drawTerrainMaterial, drawTerrainEdge, drawTrailBackdrop, drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawTerrainTiles, drawTimberTrunk, drawSiteFrame, drawSurfaceMaterials].map((helper) => helper.toString()).join('\n') + `\nconst SITE_FIXED_SUPPORT_IDS = ${JSON.stringify(SITE_FIXED_SUPPORT_IDS)}; const checkedLayouts = new WeakMap();`;
+const RENDERER_SOURCE = [frostGroundWindows, frostGroundIdentity, validateFrostGround, loadFrostGround, clipFrostLegacy, frostGroundColumn, drawFrostGround, validateFrostLedges, loadFrostLedges, drawFrostLedge, validateSiteTerrain, validateSiteLayout, loadSiteTerrain, drawSiteGround, drawSitePlatform, validateQuarryFloor, loadQuarryFloor, drawQuarryFloor, quarryRolloutPieces, validateQuarryRollout, loadQuarryRollout, drawQuarryRollout, quarryPreviewPieces, validateQuarryPreviewPieces, loadQuarryPreviewPieces, drawQuarryPreviewPiece, quarryShelfPieces, validateQuarryShelves, loadQuarryShelves, drawQuarryShelf, plainsContourRange, plainsContourColumns, drawPlainsContourGround, timbersPreviewIds, timbersPlatformWidths, validateTimbersTerrain, loadTimbersTerrain, drawTimbersGround, drawTimbersPlatform, validateTimbersTree, loadTimbersTree, drawTimbersTree, validateCoveMaterials, loadCoveMaterials, coveRipplePhase, drawCoveMaterials, coveGroundY, coveRepeatColumn, validateCoveTerrain, loadCoveTerrain, drawCoveGround, drawCovePlatform, drawAmbientWeather, drawSlime, drawGem, drawSpecial, drawLandingBands, drawTerrainMaterial, drawTerrainEdge, drawTrailBackdrop, drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawTerrainTiles, drawTimberTrunk, drawSiteFrame, drawSurfaceMaterials].map((helper) => helper.toString()).join('\n') + `\nconst SITE_FIXED_SUPPORT_IDS = ${JSON.stringify(SITE_FIXED_SUPPORT_IDS)}; const checkedLayouts = new WeakMap();`;
 
 test('ambient weather repeats the same pixels, respects reduced motion and stays behind terrain', async ({ page }, info) => {
   // Six full-image comparisons need extra readback time on constrained WebKit hosts.
@@ -213,10 +214,11 @@ test('ambient weather repeats the same pixels, respects reduced motion and stays
       const coveTerrain = await (window as unknown as { loadCoveTerrain: typeof loadCoveTerrain }).loadCoveTerrain(`/assets/${level.atlas}/`, manifest.terrainKit);
       const timbersTerrain = await (window as unknown as { loadTimbersTerrain: typeof loadTimbersTerrain }).loadTimbersTerrain(`/assets/${level.atlas}/`, manifest.timbersKit);
       const timbersTree = await (window as unknown as { loadTimbersTree: typeof loadTimbersTree }).loadTimbersTree(`/assets/${level.atlas}/`, manifest.timbersTree);
+      const frostGround = await (window as unknown as { loadFrostGround: typeof loadFrostGround }).loadFrostGround(`/assets/${level.atlas}/`, manifest.frostGround);
       const frostLedges = await (window as unknown as { loadFrostLedges: typeof loadFrostLedges }).loadFrostLedges(`/assets/${level.atlas}/`, manifest.frostLedges);
       const coveMaterials = await (window as unknown as { loadCoveMaterials: typeof loadCoveMaterials }).loadCoveMaterials(`/assets/${level.atlas}/`, manifest.surfaceKit);
       const siteTerrain = await (window as unknown as { loadSiteTerrain: typeof loadSiteTerrain }).loadSiteTerrain(`/assets/${level.atlas}/`, manifest.siteTerrain);
-      const assets = { atlas, manifest, gems, materials, backdrops, slimes, panorama, coveTerrain, coveMaterials, siteTerrain, timbersTerrain, timbersTree, frostLedges };
+      const assets = { atlas, manifest, gems, materials, backdrops, slimes, panorama, coveTerrain, coveMaterials, siteTerrain, timbersTerrain, timbersTree, frostLedges, frostGround };
       const canvas = document.createElement('canvas'); canvas.width = 426; canvas.height = 240;
       const ctx = canvas.getContext('2d')!; ctx.imageSmoothingEnabled = false;
       const camera = { position: { x: Math.min(1400.25, level.maxX - 426), y: level.progressAxis === 'y' ? level.height - 240 : 0 } } as Parameters<typeof drawWorld>[3];
@@ -2238,6 +2240,7 @@ test('finish artwork pixels meet terrain in all six trails, including the sloped
       const coveTerrain = await (window as unknown as { loadCoveTerrain: typeof loadCoveTerrain }).loadCoveTerrain(base, manifest.terrainKit);
       const timbersTerrain = await (window as unknown as { loadTimbersTerrain: typeof loadTimbersTerrain }).loadTimbersTerrain(base, manifest.timbersKit);
       const timbersTree = await (window as unknown as { loadTimbersTree: typeof loadTimbersTree }).loadTimbersTree(base, manifest.timbersTree);
+      const frostGround = await (window as unknown as { loadFrostGround: typeof loadFrostGround }).loadFrostGround(`/assets/${level.atlas}/`, manifest.frostGround);
       const frostLedges = await (window as unknown as { loadFrostLedges: typeof loadFrostLedges }).loadFrostLedges(base, manifest.frostLedges);
       const coveMaterials = await (window as unknown as { loadCoveMaterials: typeof loadCoveMaterials }).loadCoveMaterials(base, manifest.surfaceKit);
       const siteTerrain = await (window as unknown as { loadSiteTerrain: typeof loadSiteTerrain }).loadSiteTerrain(base, manifest.siteTerrain);
@@ -2247,7 +2250,7 @@ test('finish artwork pixels meet terrain in all six trails, including the sloped
         quarryPreview: await (window as unknown as { loadQuarryPreviewPieces: typeof loadQuarryPreviewPieces }).loadQuarryPreviewPieces('/assets/quarry/'),
         quarryShelves: await (window as unknown as { loadQuarryShelves: typeof loadQuarryShelves }).loadQuarryShelves('/assets/quarry/'),
       } : {};
-      const assets = { atlas, manifest, gems, backdrops, materials, panorama, coveTerrain, coveMaterials, siteTerrain, timbersTerrain, timbersTree, frostLedges, ...quarry };
+      const assets = { atlas, manifest, gems, backdrops, materials, panorama, coveTerrain, coveMaterials, siteTerrain, timbersTerrain, timbersTree, frostLedges, frostGround, ...quarry };
       const route = { ...level, entities: [] };
       const fixed = (level.platforms ?? []).filter(platform => platform.from.x === platform.to.x && platform.from.y === platform.to.y)
         .map(platform => ({ id: platform.id, x: platform.from.x, y: platform.from.y,
@@ -4546,7 +4549,7 @@ test('builder-kit visual fixture renders all six words and generated stickers at
 for (const level of LEVELS) test(`compact HUD renderer fixture: ${level.id} identity marks and real glyph clearance`, async ({ page }, info) => {
   // Explicit layout states, not scene mutation or a claim of input-driven gameplay.
   const names = ['world/camera.ts', 'game/platforms.ts', 'game/movement.ts', 'game/education.ts', 'art/interface-kit.ts', 'game/hud.ts', 'world/scenery.ts',
-    'world/quarry-floor.ts', 'world/quarry-rollout.ts', 'world/quarry-preview-pieces.ts', 'world/quarry-shelves.ts', 'world/cove-terrain.ts', 'world/site-terrain.ts', 'world/plains-contour.ts', 'world/timbers-terrain.ts', 'world/timbers-tree.ts', 'world/frost-ledges.ts', 'world/surface-materials.ts', 'world/assets.ts', 'world/trail-presentation.ts', 'world/ambient-weather.ts', 'world/renderer.ts'];
+    'world/quarry-floor.ts', 'world/quarry-rollout.ts', 'world/quarry-preview-pieces.ts', 'world/quarry-shelves.ts', 'world/cove-terrain.ts', 'world/site-terrain.ts', 'world/plains-contour.ts', 'world/timbers-terrain.ts', 'world/timbers-tree.ts', 'world/frost-ledges.ts', 'world/frost-ground.ts', 'world/surface-materials.ts', 'world/assets.ts', 'world/trail-presentation.ts', 'world/ambient-weather.ts', 'world/renderer.ts'];
   const errors: string[] = []; page.on('pageerror', error => errors.push(error.message));
   const modules = names.map(name => readFileSync(new URL(`../src/${name}`, import.meta.url), 'utf8'));
   const runtimeImports = [...new Set(modules.flatMap(source => [...source.matchAll(/^import (?!type )\{([^}]*)\} from .*;$/gm)]
@@ -4821,7 +4824,7 @@ for (const [selection, trail] of LEVELS.entries()) test(`landmark labels: render
   // Use the actual map method and its complete renderer dependency graph. These
   // explicit presentation states are not completed gameplay or scene mutations.
   const names = ['world/camera.ts', 'game/platforms.ts', 'game/movement.ts', 'art/henry.ts', 'art/animation.ts', 'art/interface-kit.ts', 'game/education.ts',
-    'world/scenery.ts', 'world/quarry-floor.ts', 'world/quarry-rollout.ts', 'world/quarry-preview-pieces.ts', 'world/quarry-shelves.ts', 'world/cove-terrain.ts', 'world/site-terrain.ts', 'world/plains-contour.ts', 'world/timbers-terrain.ts', 'world/timbers-tree.ts', 'world/frost-ledges.ts', 'world/surface-materials.ts', 'world/assets.ts', 'world/trail-presentation.ts', 'world/ambient-weather.ts',
+    'world/scenery.ts', 'world/quarry-floor.ts', 'world/quarry-rollout.ts', 'world/quarry-preview-pieces.ts', 'world/quarry-shelves.ts', 'world/cove-terrain.ts', 'world/site-terrain.ts', 'world/plains-contour.ts', 'world/timbers-terrain.ts', 'world/timbers-tree.ts', 'world/frost-ledges.ts', 'world/frost-ground.ts', 'world/surface-materials.ts', 'world/assets.ts', 'world/trail-presentation.ts', 'world/ambient-weather.ts',
     'world/renderer.ts', 'game/reward-result.ts', 'game/overworld.ts'];
   const modules = names.map(name => readFileSync(new URL(`../src/${name}`, import.meta.url), 'utf8'));
   const runtimeImports = [...new Set(modules.flatMap(source => [...source.matchAll(/^import (?!type )\{([^}]*)\} from .*;$/gm)]

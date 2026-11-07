@@ -1,0 +1,16 @@
+{
+  "actualUserWords": "Yep, I did a playtest, looks good, move onto the other artwork.",
+  "acceptedScope": "Sixnewledges1/2/3/6/7/8accepted, earlier4/5/9/10alreadyaccepted. All10currentledgedesign/assets/placements/linkedfeedbackfrozen.",
+  "deliveredPreviewAtFeedback": "90a885827f9b8c4b18d9a386647930e53bab7114",
+  "explicitOwnerTestSHA": null,
+  "unreportedObservations": [
+    "device",
+    "duration",
+    "child",
+    "accessibility",
+    "exactnavigationcriterion"
+  ],
+  "continuation": "Move to remaining Frost snow-covered terrain/ice artwork stages; retire stale pendingnew6acceptance and ledge-stage sequencinghold. OriginalsourcefitFAIL/nativefailedcohortsremain evidence,notrelabelledPASS.",
+  "budget": "Existing10TOTAL,2spent; originalinitialterrain1andice1slots remainwithinallocation,rolemaxterrain3/ice3/ledges4. Noextrareserve/retry/borrowing/reallocationgrant. Parentmustchecknewrolefit/representation beforepaidbooking; sourcefailurestoprule retained.",
+  "excluded": "Noledgechanges,geometry/pickup/physicsmoves,merge/deployment/PR/closure,newbudgetincrease,automaticfailednativecohortretry."
+}

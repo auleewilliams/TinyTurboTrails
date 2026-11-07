@@ -1,3 +1,4 @@
+import { loadFrostGround, type FrostGroundAssets } from './frost-ground';
 import { loadQuarryFloor, type QuarryFloorAssets } from './quarry-floor';
 import { loadQuarryRollout, type QuarryRolloutAssets } from './quarry-rollout';
 import { loadQuarryPreviewPieces, type QuarryPreviewAssets } from './quarry-preview-pieces';
@@ -25,6 +26,7 @@ export interface WorldManifest {
   timbersKit?: string;
   timbersTree?: string;
   frostLedges?: string;
+  frostGround?: string;
   surfaceKit?: string;
   siteTerrain?: string;
   plainsContour?: string;
@@ -34,7 +36,7 @@ export interface WorldManifest {
   anchors?: Partial<Record<WorldAsset, { x: number; y: number }>>;
   terrainTops?: Partial<Record<WorldAsset, { left: number; right: number }>>;
 }
-export interface WorldAssets { atlas: HTMLImageElement; manifest: WorldManifest; gems: HTMLImageElement; scenery?: SceneryAssets; materials?: HTMLImageElement; backdrops?: HTMLImageElement; panorama?: HTMLImageElement; slimes?: HTMLImageElement; coveTerrain?: CoveTerrainAssets; coveMaterials?: CoveMaterialAssets; siteTerrain?: SiteTerrainAssets; timbersTerrain?: TimbersTerrainAssets; timbersTree?: TimbersTreeAssets; frostLedges?: FrostLedgeAssets; plainsContour?: PlainsContourAssets; quarryFloor?: QuarryFloorAssets; quarryShelves?: QuarryShelvesAssets; quarryRollout?: QuarryRolloutAssets; quarryPreview?: QuarryPreviewAssets }
+export interface WorldAssets { atlas: HTMLImageElement; manifest: WorldManifest; gems: HTMLImageElement; scenery?: SceneryAssets; materials?: HTMLImageElement; backdrops?: HTMLImageElement; panorama?: HTMLImageElement; slimes?: HTMLImageElement; coveTerrain?: CoveTerrainAssets; coveMaterials?: CoveMaterialAssets; siteTerrain?: SiteTerrainAssets; timbersTerrain?: TimbersTerrainAssets; timbersTree?: TimbersTreeAssets; frostLedges?: FrostLedgeAssets; frostGround?: FrostGroundAssets; plainsContour?: PlainsContourAssets; quarryFloor?: QuarryFloorAssets; quarryShelves?: QuarryShelvesAssets; quarryRollout?: QuarryRolloutAssets; quarryPreview?: QuarryPreviewAssets }
 export type WorldAssetMap = Readonly<Record<string, WorldAssets>>;
 
 async function loadImage(url: string, label: string): Promise<HTMLImageElement> {
@@ -55,6 +57,8 @@ export async function loadWorldAssets(directory = 'plains'): Promise<WorldAssets
   for (const asset of WORLD_ASSETS) {
     if (!Number.isInteger(manifest.assets?.[asset])) throw new Error(`Missing world asset: ${asset}`);
   }
+  if (manifest.frostGround !== undefined && directory !== 'frost') throw new Error('Frost ground declared by another world');
+  if (directory === 'frost' && manifest.frostGround !== 'ground-ice-v1/manifest.json') throw new Error('Missing required Frost ground declaration');
   if (manifest.frostLedges !== undefined && directory !== 'frost') throw new Error('Frost ledges declared by another world');
   if (directory === 'frost' && manifest.frostLedges !== 'ledge-trial-v1/manifest.json') throw new Error('Missing required Frost trial declaration');
   if (manifest.surfaceKit !== undefined && directory !== 'cove') throw new Error('Cove materials declared by another world');
@@ -72,7 +76,7 @@ export async function loadWorldAssets(directory = 'plains'): Promise<WorldAssets
   if (soil && (soil.naturalWidth !== 64 || soil.naturalHeight !== 64)) throw new Error('Invalid Plains contour soil image dimensions');
   const plainsContour = plainsContourImage ? { image: plainsContourImage, soil } : undefined;
   const atlas = await loadImage(`${base}${manifest.image}`, 'world atlas');
-  const [{ materials, backdrops, slimes, gems }, panorama, coveTerrain, coveMaterials, siteTerrain, timbersTerrain, timbersTree, frostLedges] = await Promise.all([
+  const [{ materials, backdrops, slimes, gems }, panorama, coveTerrain, coveMaterials, siteTerrain, timbersTerrain, timbersTree, frostLedges, frostGround] = await Promise.all([
     loadPresentation(),
     manifest.panorama ? loadImage(`${base}${manifest.panorama}`, 'trail panorama') : undefined,
     loadCoveTerrain(base, manifest.terrainKit),
@@ -81,8 +85,9 @@ export async function loadWorldAssets(directory = 'plains'): Promise<WorldAssets
     loadTimbersTerrain(base, manifest.timbersKit),
     loadTimbersTree(base, manifest.timbersTree),
     loadFrostLedges(base, manifest.frostLedges),
+    loadFrostGround(base, manifest.frostGround),
   ]);
-  if (!manifest.scenery) return { atlas, manifest, materials, backdrops, panorama, slimes, gems, coveTerrain, coveMaterials, siteTerrain, timbersTerrain, timbersTree, frostLedges, plainsContour };
+  if (!manifest.scenery) return { atlas, manifest, materials, backdrops, panorama, slimes, gems, coveTerrain, coveMaterials, siteTerrain, timbersTerrain, timbersTree, frostLedges, frostGround, plainsContour };
   const sceneryUrl = `${base}${manifest.scenery}`;
   const sceneryResponse = await fetch(sceneryUrl);
   if (!sceneryResponse.ok) throw new Error('Could not load scenery metadata');
@@ -93,7 +98,7 @@ export async function loadWorldAssets(directory = 'plains'): Promise<WorldAssets
     loadImage(`${sceneryBase}${sceneryManifest.background.image}`, 'scenery background'),
     loadImage(`${sceneryBase}${sceneryManifest.foreground.image}`, 'scenery foreground'),
   ]);
-  return { atlas, manifest, materials, backdrops, panorama, slimes, gems, coveTerrain, coveMaterials, siteTerrain, timbersTerrain, timbersTree, frostLedges, plainsContour, scenery: { background, foreground, manifest: sceneryManifest } };
+  return { atlas, manifest, materials, backdrops, panorama, slimes, gems, coveTerrain, coveMaterials, siteTerrain, timbersTerrain, timbersTree, frostLedges, frostGround, plainsContour, scenery: { background, foreground, manifest: sceneryManifest } };
 }
 
 let presentation: Promise<Pick<WorldAssets, 'materials' | 'backdrops' | 'slimes' | 'gems'>> | undefined;

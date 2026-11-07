@@ -1,3 +1,4 @@
+import { frostGroundIdentity } from '../world/frost-ground';
 import { EducationOverlay } from './education-overlay';
 import { EducationSession, TRAIL_WORDS, letterSupportY } from './education';
 import { drawLetterTile, type SpellingAssets } from '../art/spelling';
@@ -113,7 +114,7 @@ export class AdventureScene implements Scene {
   private finishArmed = true;
   private menuArmed = true;
   private marker = { x: 48, y: 88 };
-  private readonly previews = new Map<string, HTMLCanvasElement>();
+  private readonly previews = new Map<string, { canvas: HTMLCanvasElement; identity: string; terrain?: HTMLImageElement; ice?: HTMLImageElement }>();
   private inputSource: InputSource = 'keyboard';
   constructor(private readonly titleArtwork: HTMLImageElement, private readonly henry: HenryAssets, private readonly worlds: WorldAssetMap, private readonly audio: GameAudio, level: LevelData, private readonly landmarks?: HTMLImageElement, private readonly mapBackground?: HTMLImageElement, private readonly rumble?: GameRumble, private readonly spelling?: SpellingAssets, private readonly ui?: InterfaceKit) {
     this.educationOverlay = new EducationOverlay(this.education, spelling, ui);
@@ -410,7 +411,9 @@ export class AdventureScene implements Scene {
   private preview(): HTMLCanvasElement | undefined {
     if (typeof document === 'undefined') return;
     const level = LEVELS[this.selectedIndex];
-    if (!this.previews.has(level.id)) {
+    const kit = this.worlds[level.atlas].frostGround;
+    const identity = frostGroundIdentity(kit, level), previous = this.previews.get(level.id);
+    if (!previous || previous.identity !== identity || previous.terrain !== kit?.terrain || previous.ice !== kit?.ice) {
       const canvas = document.createElement('canvas'); canvas.width = 426; canvas.height = 240;
       const ctx = canvas.getContext('2d')!; ctx.imageSmoothingEnabled = false;
       const camera = new Camera({ width: 426, height: 240, worldWidth: level.width, worldHeight: level.height, vertical: level.verticalCamera || level.progressAxis === 'y', lead: level.cameraLead });
@@ -421,9 +424,9 @@ export class AdventureScene implements Scene {
       drawWorld(ctx, this.worlds[level.atlas], level, camera, undefined, undefined,
         level.verticalCamera || level.progressAxis === 'y' ? platformBodiesAt(level.platforms, 0) : [], 0, true);
       drawWorldForeground(ctx, this.worlds[level.atlas], level, camera);
-      this.previews.set(level.id, canvas);
+      this.previews.set(level.id, { canvas, identity, terrain: kit?.terrain, ice: kit?.ice });
     }
-    return this.previews.get(level.id);
+    return this.previews.get(level.id)?.canvas;
   }
 
   private drawHenry(ctx: CanvasRenderingContext2D): void {

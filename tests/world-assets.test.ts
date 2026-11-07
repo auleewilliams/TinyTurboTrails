@@ -174,7 +174,7 @@ it.each(['site', 'frost', 'cove'])('loads the %s panorama and can retry a failed
   expect([bytes.readUInt32BE(16), bytes.readUInt32BE(20)]).toEqual([720, 240]);
   const requests: string[] = [];
   let fail = true;
-  vi.stubGlobal('fetch', vi.fn(async (url: string) => ({ ok: true, json: async () => url.endsWith('/ledge-trial-v1/manifest.json')
+  vi.stubGlobal('fetch', vi.fn(async (url: string) => ({ ok: true, json: async () => url.endsWith('/ground-ice-v1/manifest.json') ? JSON.parse(readFileSync(new URL('../public/assets/frost/ground-ice-v1/manifest.json', import.meta.url), 'utf8')) : url.endsWith('/ledge-trial-v1/manifest.json')
     ? JSON.parse(readFileSync(new URL('../public/assets/frost/ledge-trial-v1/manifest.json', import.meta.url), 'utf8')) : url.endsWith('/steel-v1/manifest.json')
     ? JSON.parse(readFileSync(new URL('../public/assets/site/steel-v1/manifest.json', import.meta.url), 'utf8')) : url.endsWith('/materials/manifest.json')
     ? JSON.parse(readFileSync(new URL('../public/assets/cove/materials/manifest.json', import.meta.url), 'utf8')) : url.endsWith('/terrain-kit/manifest.json')
@@ -186,7 +186,7 @@ it.each(['site', 'frost', 'cove'])('loads the %s panorama and can retry a failed
     onerror = (): void => {};
     set src(url: string) {
       requests.push(url);
-      if ((url.includes('/site/steel-v1/') || url.includes('/frost/ledge-trial-v1/')) && url.endsWith('.png')) {
+      if ((url.includes('/site/steel-v1/') || url.includes('/frost/ledge-trial-v1/') || url.includes('/frost/ground-ice-v1/')) && url.endsWith('.png')) {
         const bytes = readFileSync(new URL('../public' + url, import.meta.url));
         this.naturalWidth = bytes.readUInt32BE(16); this.naturalHeight = bytes.readUInt32BE(20);
       }

@@ -1,3 +1,4 @@
+import { clipFrostLegacy, drawFrostGround } from './frost-ground';
 import { drawQuarryFloor } from './quarry-floor';
 import { drawQuarryRollout } from './quarry-rollout';
 import { drawQuarryPreviewPiece } from './quarry-preview-pieces';
@@ -70,15 +71,24 @@ export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, le
     if (level.id === 'cove' && assets.coveTerrain) drawCoveGround(ctx, assets.coveTerrain, level, offset, first.x1, last.x2);
     else if (level.id === 'sunset' && assets.siteTerrain) drawSiteGround(ctx, assets.siteTerrain, offset);
     else if (level.id === 'timbers' && assets.timbersTerrain) drawTimbersGround(ctx, assets.timbersTerrain, level, offset);
-    else drawTerrainMaterial(ctx, level, offset, assets, first.x1, last.x2);
+    else {
+      if (level.id === 'frost') { ctx.save(); clipFrostLegacy(ctx, level, offset); }
+      drawTerrainMaterial(ctx, level, offset, assets, first.x1, last.x2);
+      if (level.id === 'frost') ctx.restore();
+    }
+    drawFrostGround(ctx, assets.frostGround, level, offset);
     ctx.restore();
   }
   }
   if (level.theme.material === 'wood' && !(level.id === 'timbers' && assets.timbersTerrain)) drawTerrainTiles(ctx, assets, level, offset);
+  if (level.id === 'frost') { ctx.save(); clipFrostLegacy(ctx, level, offset); }
   if (level.id !== 'quarry' && !(level.id === 'sunset' && assets.siteTerrain) && !(level.id === 'cove' && assets.coveTerrain) && !(level.id === 'timbers' && assets.timbersTerrain)) drawTerrainEdge(ctx, level, offset, assets.plainsContour ? plainsContourRange(level) : undefined);
+  if (level.id === 'frost') ctx.restore();
   drawPlainsContourGround(ctx, assets, level, offset);
+  if (level.id === 'frost') { ctx.save(); clipFrostLegacy(ctx, level, offset); }
   drawSurfaceMaterials(ctx, level, offset, assets.coveMaterials, runSeconds, reducedMotion);
   for (const surface of level.surfaces) drawSurfaceGrip(ctx, surface, offset);
+  if (level.id === 'frost') ctx.restore();
   drawPlatforms(ctx, level, offset, platforms, assets);
   drawLandingBands(ctx, level, offset);
   // Decorative silhouettes sit behind every collectible, hazard and checkpoint.
