@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
-import { prepareFrostTrial, wholeImageAtWidth } from './prepare-frost-trial.mjs';
+import { prepareFrostTrial, wholeImageAtWidth, assertFrostPreparedPng } from './prepare-frost-trial.mjs';
 import { decodePng } from './timbers-art.mjs';
 const hash = b => createHash('sha256').update(b).digest('hex');
 test('whole isotropic sampler preserves ends, transparent holes and ceil padding', () => {
@@ -22,13 +22,28 @@ test('whole isotropic sampler preserves ends, transparent holes and ceil padding
 });
 test('four shipped PNGs exactly match deterministic whole-component preparation', () => {
   const first = prepareFrostTrial(), second = prepareFrostTrial();
+  const committedPreparation = readFileSync('public/assets/frost/ledge-trial-v1/preparation.json');
+  assert.equal(hash(committedPreparation), '131e93d19cbcd93a878bd5d89b54459feac217d45522cbec6c666aaec7fa5578');
+  const { records: committedRecords, ...committedFields } = JSON.parse(committedPreparation);
+  const { records: generatedRecords, ...generatedFields } = JSON.parse(first.get('preparation.json'));
+  assert.deepEqual(generatedFields, committedFields);
+  assert.deepEqual(Object.keys(generatedRecords), Object.keys(committedRecords));
+  for (const [name, record] of Object.entries(generatedRecords)) {
+    const { pngSha256, ...fields } = record;
+    const { pngSha256: committedHash, ...committed } = committedRecords[name];
+    assert.equal(pngSha256, hash(first.get(name)), name + ' actual generated metadata hash');
+    assert.equal(committedHash, hash(readFileSync('public/assets/frost/ledge-trial-v1/' + name)));
+    assert.deepEqual(fields, committed, name + ' exact noncompression metadata');
+  }
   assert.deepEqual([...first.keys()], ['ledge-v2-180.png', 'ledge-v4-210.png', 'ledge-v6-200.png', 'ledge-v5-200.png', 'manifest.json', 'preparation.json']);
   for (const [name, bytes] of first) {
     assert.equal(hash(bytes), hash(second.get(name)));
     if (name === 'manifest.json') {
       const current = JSON.parse(readFileSync('public/assets/frost/ledge-trial-v1/manifest.json'));
       for (const [id, piece] of Object.entries(JSON.parse(bytes).platforms)) assert.deepEqual(current.platforms[id], piece);
-    } else assert.equal(hash(readFileSync('public/assets/frost/ledge-trial-v1/' + name)), hash(bytes), name);
+    } else if (name.endsWith('.png')) {
+      assertFrostPreparedPng(bytes, readFileSync('public/assets/frost/ledge-trial-v1/' + name), committedRecords[name]);
+    }
     if (name.endsWith('.png')) {
       const image = decodePng(bytes);
       assert.ok(image.height >= 24, 'approved deeper body retained');

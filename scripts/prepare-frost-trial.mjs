@@ -3,8 +3,14 @@ import { readFileSync, mkdirSync, writeFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { pathToFileURL } from 'node:url';
 import { decodePng, encodePng, crop, wholeImageAtHeight } from './timbers-art.mjs';
+import { assertPngPixelContract } from './png-pixel-contract.mjs';
 const source = new URL('../assets/source/frost/ledge-trial-v1/', import.meta.url);
 const hash = b => createHash('sha256').update(b).digest('hex');
+/** Portable generated encoding; the approved committed encoding remains immutable. */
+export function assertFrostPreparedPng(actual, committed, expected) {
+  assert.equal(hash(committed), expected.pngSha256, 'immutable approved Frost PNG bytes');
+  assertPngPixelContract(actual, committed, expected);
+}
 function transpose(image) {
   const data = new Uint8Array(image.data.length);
   for (let y = 0; y < image.height; y++) for (let x = 0; x < image.width; x++)
@@ -57,13 +63,14 @@ export function prepareFrostExtension() {
   const acceptedRecords = JSON.parse(files.get('preparation.json')).records;
   for (const [name, record] of Object.entries(acceptedRecords)) assert.equal(hash(files.get(name)), record.pngSha256);
   const sheet = decodePng(bytes), records = {};
-  for (const [id, variant, width, rect, expected] of [
-    [1, 1, 140, { x: 187, y: 116, width: 456, height: 78 }, '5897de57c44b1c194266519d6cae9c9558b294f64e2fce6fa14029c91f785f07'],
-    [2, 3, 190, { x: 102, y: 425, width: 628, height: 107 }, 'c9c938700b14b6bdd8e38250a9548361c9a9608d7c4c101d5e10e4336942504c'],
+  for (const [id, variant, width, rect, expected, height, pixelSha256] of [
+    [1, 1, 140, { x: 187, y: 116, width: 456, height: 78 }, '5897de57c44b1c194266519d6cae9c9558b294f64e2fce6fa14029c91f785f07', 24, '60f3a99cd187fb6b8d27ed31687384d5cc81acee443536eada856b81949229c6'],
+    [2, 3, 190, { x: 102, y: 425, width: 628, height: 107 }, 'c9c938700b14b6bdd8e38250a9548361c9a9608d7c4c101d5e10e4336942504c', 33, '7c33ff4f5e0900ce5173dd376484733d540ef870441faccff421485ed71a75ea'],
   ]) {
     const image = wholeImageAtWidth(crop(sheet, rect), width), png = encodePng(image);
-    assert.equal(hash(png), expected, 'exact approved whole source preparation');
     const name = `ledge-v${variant}-${width}.png`;
+    const committed = readFileSync(new URL('../public/assets/frost/ledge-trial-v1/' + name, import.meta.url));
+    assertFrostPreparedPng(png, committed, { width, height, pixelSha256, pngSha256: expected });
     files.set(name, png);
     manifest.platforms[`frost-return-${id}`] = { image: name, width, height: image.height, variant };
     records[name] = { sourceRect: rect, uniformRatio: [width, rect.width], width, height: image.height,
