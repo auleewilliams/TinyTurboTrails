@@ -14,6 +14,7 @@ const { beforeWaterLanding } = createRequire(import.meta.url)('../scripts/water-
   beforeWaterLanding(path: string, bytes: Buffer): Buffer;
 };
 const { beforeOwnerHud } = createRequire(import.meta.url)('../scripts/hud-owner-preservation.mjs') as { beforeOwnerHud(path: string, bytes: Buffer): Buffer };
+const { beforeFrostGround } = createRequire(import.meta.url)('../scripts/frost-ground-preservation.mjs') as { beforeFrostGround(path: string, bytes: Buffer): Buffer };
 import { SANDY_COVE } from '../src/world/sandy-cove';
 import { surfaceAt, surfaceY } from '../src/game/movement';
 import { drawAsset } from '../src/world/renderer';
@@ -102,11 +103,16 @@ it('rejects extra source bytes and player-position mutations outside exact appro
   const pins = JSON.parse(read('assets/source/cove/terrain-kit/preserved-files.json').toString());
   for (const path of ['src/game/adventure-scene.ts', 'src/game/gameplay-preview.ts', 'src/game/feedback.ts']) {
     const bytes = read(path), pin = pins.files.find((entry: { path: string }) => entry.path === path);
-    expect(createHash('sha256').update(beforeWaterLanding(path, beforeOwnerHud(path, bytes))).digest('hex'), path).toBe(pin.sha256);
+    expect(createHash('sha256').update(beforeWaterLanding(path, beforeOwnerHud(path, beforeFrostGround(path, bytes)))).digest('hex'), path).toBe(pin.sha256);
     const positionEdit = Buffer.from(bytes.toString().replace('player.x', 'player.x + 1'));
     expect(positionEdit.equals(bytes), `${path} negative control changes input`).toBe(false);
-    for (const bad of [Buffer.concat([bytes, Buffer.from('\n// unrelated extra source\n')]), positionEdit]) {
-      expect(() => beforeWaterLanding(path, beforeOwnerHud(path, bad)), path).toThrow();
+    const cacheEdits = path === 'src/game/adventure-scene.ts' ? [
+      Buffer.from(bytes.toString().replace('previous.identity !== identity', 'previous.identity === identity')),
+      Buffer.from(bytes.toString().replace('?.canvas;', '?.canvasChanged;')),
+    ] : [];
+    for (const bad of [Buffer.concat([bytes, Buffer.from('\n// unrelated extra source\n')]), positionEdit, ...cacheEdits]) {
+      expect(bad.equals(bytes), `${path} negative control changes input`).toBe(false);
+      expect(() => beforeWaterLanding(path, beforeOwnerHud(path, beforeFrostGround(path, bad))), path).toThrow();
     }
   }
 });

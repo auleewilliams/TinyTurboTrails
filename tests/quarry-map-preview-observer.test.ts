@@ -5,6 +5,7 @@ import { runInNewContext } from 'node:vm';
 import { transformSync } from 'rolldown/utils';
 import { installQuarryMapPreviewObserver } from './quarry-map-preview';
 import { Camera } from '../src/world/camera';
+import { frostGroundIdentity } from '../src/world/frost-ground';
 import { LEVELS, QUARRY_RUN } from '../src/world/levels';
 import { platformBodiesAt } from '../src/game/platforms';
 import { drawWorld, drawWorldForeground } from '../src/world/renderer';
@@ -86,7 +87,7 @@ function harness(mode = '') {
   const scene = readFileSync('src/game/adventure-scene.ts', 'utf8');
   const method = scene.slice(scene.indexOf('  private preview():'), scene.indexOf('\n  private drawHenry'));
   const code = transformSync('preview-caller.ts', `class Caller { ${method} }`, { lang: 'ts' }).code;
-  const Caller = new Function('document', 'LEVELS', 'Camera', 'platformBodiesAt', 'drawWorld', 'drawWorldForeground', `${code}; return Caller;`)(document, LEVELS, Camera, platformBodiesAt, drawWorld, drawWorldForeground);
+  const Caller = new Function('document', 'LEVELS', 'Camera', 'platformBodiesAt', 'drawWorld', 'drawWorldForeground', 'frostGroundIdentity', `${code}; return Caller;`)(document, LEVELS, Camera, platformBodiesAt, drawWorld, drawWorldForeground, frostGroundIdentity);
   const caller = new Caller(); caller.selectedIndex = LEVELS.indexOf(QUARRY_RUN); caller.previews = new Map(); caller.worlds = { plains: assets };
   const cached = caller.preview() as Canvas;
   const game = new Canvas(); game.id = mode === 'wrong-canvas' ? 'other' : 'game';
@@ -136,4 +137,30 @@ it('executes the real browser caller through selection, shared observation and b
   await callback({ page }, { async attach(name: string) { attachments.push(name); } });
   expect(attachments).toEqual(['preselection-plains-observer', 'quarry-selected-map-preview', 'quarry-selected-map-window']);
   expect(h.probe.quarry!.rimPixels).toBeGreaterThan(80);
+});
+
+it('real preview cache tracks imported ground identity and same-source image replacements', () => {
+  const h = harness();
+  // Quarry shares the Plains atlas; its thumbnail still uses the real shared cache key.
+  const kit = { manifest: { recipe: 'identity-fixture' }, terrain: { src: 'terrain.png' }, ice: { src: 'ice.png' } };
+  h.caller.worlds.plains.frostGround = kit;
+  let previous = h.caller.preview();
+  expect(previous === h.cached).toBe(false);
+  expect(h.caller.preview()).toBe(previous);
+  for (const change of [
+    () => { kit.terrain = { ...kit.terrain }; },
+    () => { kit.ice = { ...kit.ice }; },
+    () => { kit.terrain.src += '?replacement'; },
+    () => { kit.ice.src += '?replacement'; },
+    () => { kit.manifest = { recipe: 'changed-fixture' }; },
+  ]) {
+    change();
+    const current = h.caller.preview();
+    expect(current === previous).toBe(false);
+    expect(h.caller.preview()).toBe(current);
+    h.probe.quarry = null;
+    h.present('QUARRY', current);
+    expect(h.probe.quarry!.rimPixels).toBeGreaterThan(80);
+    previous = current;
+  }
 });
