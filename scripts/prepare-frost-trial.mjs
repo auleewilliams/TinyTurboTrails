@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { readFileSync, mkdirSync, writeFileSync } from 'node:fs';
+import { readFileSync, mkdirSync, writeFileSync, existsSync, statSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { pathToFileURL } from 'node:url';
 import { decodePng, encodePng, crop, wholeImageAtHeight } from './timbers-art.mjs';
@@ -89,11 +89,15 @@ export function prepareFrostExtension() {
 }
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   const output = process.argv[2] ?? 'public/assets/frost/ledge-trial-v1';
-  mkdirSync(output, { recursive: true });
-  for (const [name, bytes] of prepareFrostExtension()) {
-    // Accepted PNGs/preparation are copied only when preparing a separate output directory.
-    if (output === 'public/assets/frost/ledge-trial-v1' && (name === 'preparation.json' || ['ledge-v2-180.png', 'ledge-v4-210.png', 'ledge-v6-200.png', 'ledge-v5-200.png'].includes(name))) continue;
-    writeFileSync(`${output}/${name}`, bytes);
+  const canonical = statSync(new URL('../public/assets/frost/ledge-trial-v1/', import.meta.url));
+  const destination = existsSync(output) ? statSync(output) : undefined;
+  const canonicalOutput = destination?.dev === canonical.dev && destination?.ino === canonical.ino;
+  const files = prepareFrostExtension();
+  // Directory identity covers relative/absolute spellings and symlink aliases.
+  // Canonical validation never rewrites even identical bytes or timestamps.
+  if (!canonicalOutput) {
+    mkdirSync(output, { recursive: true });
+    for (const [name, bytes] of files) writeFileSync(`${output}/${name}`, bytes);
   }
   console.log('Prepared ten mappings: two additional whole sources and four exact V4 reuses; accepted four unchanged');
 }
