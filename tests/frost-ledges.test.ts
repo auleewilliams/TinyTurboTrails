@@ -51,7 +51,17 @@ it('does not cache a failed required manifest and retries through the ordinary l
 });
 
 it('preserves the complete accepted geometry and pickup projection', () => {
-  const digest = createHash('sha256').update(JSON.stringify(FROST_RIDGE)).digest('hex');
+  const slimes = FROST_RIDGE.entities.filter(e => e.kind === 'slime');
+  expect(slimes).toEqual([
+    { id: 'frost-slime-1', kind: 'slime', asset: 'slime', layer: 'world', x: 1475, y: 380,
+      patrol: { minX: 1430, maxX: 1490, speed: 36 } },
+    { id: 'frost-slime-2', kind: 'slime', asset: 'slime', layer: 'world', x: 2900, y: 540,
+      patrol: { minX: 2840, maxX: 2960, speed: 36 } },
+    { id: 'frost-slime-3', kind: 'slime', asset: 'slime', layer: 'world', x: 4520, y: 432,
+      patrol: { minX: 4490, maxX: 4550, speed: 36 } },
+  ]);
+  const accepted = { ...FROST_RIDGE, entities: FROST_RIDGE.entities.filter(e => !slimes.includes(e)) };
+  const digest = createHash('sha256').update(JSON.stringify(accepted)).digest('hex');
   expect(digest).toBe('9489be2c950ad2f4ecf9e88abccf2309611c38566b0e2978a31d3f19e9599db2');
 });
 

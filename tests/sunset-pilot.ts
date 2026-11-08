@@ -55,6 +55,18 @@ export function routePilot(level: LevelData, cadence: readonly number[] = [0.016
   let ticks = 0;
   function tick(horizontal = 0, jumpPressed = false, jumpHeld = false): number {
     const dt = cadence[ticks++ % cadence.length];
+    // Frost's restored ground patrols are crossed with ordinary jump input.
+    // Keep the authored route stages, cadence and per-stage deadlines intact.
+    if (level.id === 'frost') {
+      const p = live.player;
+      const approaching = level.entities.some(e => e.kind === 'slime' && live.run.entities.some(s =>
+        s.id === e.id && s.active && !s.squashed && (s.x - p.x) * horizontal > 0
+        && Math.abs(s.x - p.x) < 100 && Math.abs(s.y - (p.y + 34)) < 2));
+      jumpPressed ||= p.onGround && approaching;
+      // Release avoidance hops after 36px of rise to stay below return shelves.
+      jumpHeld ||= jumpPressed || !p.onGround && p.vy < 0 && level.entities.some(e =>
+        e.kind === 'slime' && Math.abs(e.x - p.x) < 180 && e.y - (p.y + 34) < 36);
+    }
     scene.update(dt, { ...neutral, horizontal, jumpPressed, jumpHeld });
     events.push(...live.events);
     if (live.player.platformId) {

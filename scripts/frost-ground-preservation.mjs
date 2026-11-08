@@ -1,3 +1,4 @@
+import { beforeFrostSlimes } from './frost-slime-preservation.mjs';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
@@ -7,6 +8,7 @@ assert.equal(hash(raw), '21280764113190d453efde3a93fe3fc6a18b50c7301b9f24205b78b
 export const frostGroundRecord = JSON.parse(raw);
 /** Only complete exact approved presentation bytes project to the accepted ten-ledge tip. */
 export function beforeFrostGround(path, bytes) {
+  bytes = beforeFrostSlimes(path, bytes);
   const entry = frostGroundRecord[path];
   if (!entry || hash(bytes) !== entry.currentSHA256) return bytes;
   assert.equal(hash(Buffer.from(entry.after)), entry.currentSHA256);

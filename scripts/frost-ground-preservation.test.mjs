@@ -5,6 +5,7 @@ import { test } from 'node:test';
 import { beforeFrostGround, frostGroundRecord, frostGroundBindings, verifyFrostGroundFiles } from './frost-ground-preservation.mjs';
 import { beforeFrostExtension } from './frost-extension-preservation.mjs';
 import { beforeFrostTrial } from './frost-trial-preservation.mjs';
+import { frostSlimeRecord } from './frost-slime-preservation.mjs';
 const hash = b => createHash('sha256').update(b).digest('hex');
 test('bounded ground projection admits only complete exact final presentation bytes before the historical chain', () => {
   assert.deepEqual(Object.keys(frostGroundRecord).sort(), ['public/assets/frost/manifest.json', 'scripts/frost-extension-preservation.mjs', 'src/game/adventure-scene.ts', 'src/world/assets.ts', 'src/world/renderer.ts', 'tests/browser.spec.ts', 'tests/hud-owner-layout.spec.ts', 'tests/renderer-fixtures.test.ts', 'tests/world-assets.test.ts']);
@@ -18,7 +19,7 @@ test('bounded ground projection admits only complete exact final presentation by
     }
   }
   const geometry = readFileSync('src/world/frost-ridge.ts');
-  assert.equal(beforeFrostGround('src/world/frost-ridge.ts', geometry), geometry);
+  assert.equal(hash(beforeFrostGround('src/world/frost-ridge.ts', geometry)), frostSlimeRecord['src/world/frost-ridge.ts'].beforeSHA256);
   for (const p of ['src/game/movement.ts', 'public/assets/frost/ledge-trial-v1/manifest.json']) {
     const b = readFileSync(p); assert.equal(beforeFrostGround(p, b), b);
   }

@@ -1,5 +1,6 @@
 import { surfaceY, type Surface, type Terrain } from '../game/movement';
 import type { LevelData, WorldEntity } from './level';
+import { withSlimePatrols, SLIME_SPEED } from './slimes';
 
 // Ice carries movement; the connected snow shelves hold every decision.
 const contour: readonly (readonly [number, number])[] = [
@@ -39,7 +40,7 @@ const returns = [
   [3620, 3820, 410], [3416, 3616, 372],
 ] as const;
 
-export const FROST_RIDGE: LevelData = {
+export const FROST_RIDGE: LevelData = withSlimePatrols({
   id: 'frost', name: 'FROST RIDGE', atlas: 'frost',
   width: 5600, height: 680, ...terrain,
   start: { x: 60, y: 500 },
@@ -59,6 +60,10 @@ export const FROST_RIDGE: LevelData = {
   platforms: returns.map(([left, right, y], index) => ({ id: `frost-return-${index + 1}`,
     from: { x: left, y }, to: { x: left, y }, width: right - left, seconds: 1 })),
   entities: [
+    // Flat snow only: keep whole bodies clear of checkpoints and return undersides.
+    { ...grounded('slime', 'slime', 1475, 0), patrol: { minX: 1430, maxX: 1490, speed: SLIME_SPEED } },
+    grounded('slime', 'slime', 2900, 1),
+    { ...grounded('slime', 'slime', 4520, 2), patrol: { minX: 4490, maxX: 4550, speed: SLIME_SPEED } },
     ...gems.map((x, index) => ({ ...grounded('gem', 'gem', x, index), y: surfaceY(terrain, x) - 18 })),
     grounded('spring', 'spring', 3140, 0),
     ...[[3120, 370], [3140, 360], [3180, 370]].map(([x, y], index): WorldEntity => ({
@@ -67,4 +72,4 @@ export const FROST_RIDGE: LevelData = {
       .map((x, index) => grounded('decoration', 'tree', x, index)),
     ...checkpoints.map((checkpoint): WorldEntity => ({ ...checkpoint, kind: 'checkpoint', asset: 'checkpoint', layer: 'world' })),
   ],
-};
+});
