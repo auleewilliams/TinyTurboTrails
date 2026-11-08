@@ -19,9 +19,9 @@ it('actual AdventureScene preview refreshes on same-size source object, URL, geo
   scene.previews = new Map(); scene.selectedIndex = LEVELS.indexOf(FROST_RIDGE);
   const kit = { manifest, terrain, ice };
   scene.worlds = { frost: { manifest: { cellSize: 48, assets: {} }, atlas: {}, gems: {}, frostGround: kit, frostLedges: { manifest: ledges, platforms } } };
-  const a = scene.preview(), count = made.length; expect(count).toBe(3); expect(scene.preview()).toBe(a); expect(made).toHaveLength(count);
+  const a = scene.preview(), count = made.length; expect(count).toBe(2); expect(scene.preview()).toBe(a); expect(made).toHaveLength(count);
   for (const image of Object.values(platforms)) expect(drawings.some(a => a[0] === image)).toBe(true);
-  kit.terrain = { ...terrain }; const b = scene.preview(); expect(b).not.toBe(a); expect(made).toHaveLength(count + 3);
+  kit.terrain = { ...terrain }; const b = scene.preview(); expect(b).not.toBe(a); expect(made).toHaveLength(count + 2);
   kit.ice = { ...ice }; const c = scene.preview(); expect(c).not.toBe(b);
   kit.ice.src += '?replacement'; const d = scene.preview(); expect(d).not.toBe(c);
   // Invalid recipe must fail through the real caller instead of returning a stale thumbnail.

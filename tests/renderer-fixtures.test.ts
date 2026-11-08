@@ -93,8 +93,8 @@ for (const [file, title] of [
       const support = FROST_RIDGE.platforms!.find(p => p.id === id)!;
       expect(calls.filter(call => call[0] === image)).toEqual([[image, support.from.x - 3400.25, support.from.y - 280.5]]);
     }
-    expect(ribbonCalls.filter(c => c[0] === frostAssets.frostGround.terrain)).toHaveLength(880);
-    expect(ribbonCalls.filter(c => c[0] === frostAssets.frostGround.ice)).toHaveLength(490);
+    expect(ribbonCalls.filter(c => c[0] === frostAssets.frostGround.terrain)).toHaveLength(5600);
+    expect(ribbonCalls.filter(c => c[0] === frostAssets.frostGround.ice)).toHaveLength(1200);
     expect(calls.some(c => c[0] === frostAssets.frostGround.ribbon.windows[0].canvas)).toBe(true);
     expect(() => fixture.drawWorld(ctx, { ...frostAssets, frostGround: undefined }, FROST_RIDGE, { position: { x: 3400.25, y: 280.5 } })).toThrow('Missing required Frost ground');
     // The actual cached map path passes every authored zero-time body, including Frost.

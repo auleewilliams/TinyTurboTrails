@@ -1,3 +1,4 @@
+import { beforeFrostRollout } from './frost-ground-rollout-preservation.mjs';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
@@ -11,7 +12,7 @@ test('bounded ground projection admits only complete exact final presentation by
   assert.deepEqual(Object.keys(frostGroundRecord).sort(), ['public/assets/frost/manifest.json', 'scripts/frost-extension-preservation.mjs', 'src/game/adventure-scene.ts', 'src/world/assets.ts', 'src/world/renderer.ts', 'tests/browser.spec.ts', 'tests/hud-owner-layout.spec.ts', 'tests/renderer-fixtures.test.ts', 'tests/world-assets.test.ts']);
   for (const [path, entry] of Object.entries(frostGroundRecord)) {
     const bytes = readFileSync(path), before = beforeFrostGround(path, bytes);
-    assert.equal(hash(bytes), entry.currentSHA256, path);
+    assert.equal(hash(beforeFrostRollout(path, bytes)), entry.currentSHA256, path);
     assert.equal(hash(before), entry.beforeSHA256, path);
     for (const bad of [Buffer.concat([bytes, Buffer.from(' ')]), Buffer.from(bytes.toString().replace(/Frost|frost/, 'CORRUPT'))]) {
       assert.notDeepEqual(bad, bytes); assert.equal(beforeFrostGround(path, bad), bad);

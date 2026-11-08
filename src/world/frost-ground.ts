@@ -9,9 +9,9 @@ export interface FrostGroundAssets {
   ribbon?: { identity: string; terrain: HTMLImageElement; ice: HTMLImageElement; windows: { from: number; canvas: HTMLCanvasElement }[] };
 }
 
-/** Original half-open owner pilot only. Full source coverage is not rollout authority. */
+/** Owner-authorized continuous half-open Frost ground coverage. */
 export function frostGroundWindows(level: LevelData): readonly (readonly [number, number])[] {
-  return level.id === 'frost' ? [[2060, 2490], [3380, 3830]] : [];
+  return level.id === 'frost' ? [[0, level.width]] : [];
 }
 export function frostGroundIdentity(kit: FrostGroundAssets | undefined, level: LevelData): string {
   return kit ? JSON.stringify([kit.manifest, kit.terrain.currentSrc || kit.terrain.src, kit.ice.currentSrc || kit.ice.src, level.surfaces.map(s => [s.x1, s.y1, s.x2, s.y2, s.material]), frostGroundWindows(level)]) : '';
@@ -45,7 +45,7 @@ export async function loadFrostGround(base: string, path?: string): Promise<Fros
   }));
   return { manifest, terrain, ice };
 }
-/** Exclude the full pilot height, including the old above-contact grip stroke. */
+/** Exclude the full illustrated height, including the old above-contact grip stroke. */
 export function clipFrostLegacy(ctx: CanvasRenderingContext2D, level: LevelData, offset: { x: number; y: number }): void {
   let left = -100000;
   ctx.beginPath();
