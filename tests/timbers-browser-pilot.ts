@@ -7,6 +7,8 @@ export interface TimberPilotStage {
   frames?: number;
   edge?: number;
   direction?: -1 | 1;
+  /** Only Frost routes opt into observation of live bobble-hat patrols. */
+  frostAvoidance?: boolean;
 }
 
 /** Actual walk-off route, including the combined y840 right-fork end at x470. */
@@ -87,7 +89,8 @@ export async function runTimberStages(page: Page, stages: readonly TimberPilotSt
       stages: TimberPilotStage[]; active: boolean; paused: boolean; pauseAt: number; stage: number;
       frames: number; stable: number; previousY: number; phase: number; error: string; done: boolean; seenPlaying: boolean; history: object[];
     } }).timberKeyboardPilot;
-    Object.assign(pilot, { stages, active: true, paused: false, pauseAt: -1, stage: 0,
+    Object.assign(pilot, { stages, frostAvoidance: stages.some(stage => stage.frostAvoidance),
+      frostJumpY: NaN, frostJumpReleased: false, active: true, paused: false, pauseAt: -1, stage: 0,
       frames: 0, stable: 0, previousY: NaN, phase: 0, error: '', done: false, seenPlaying: false, observedX: NaN, observedY: NaN, history: [] });
   }, stages);
   await page.waitForFunction(() => {
@@ -121,10 +124,26 @@ export function timberKeyboardPilotInit(stages: TimberPilotStage[]): void {
 
     const pilot = { active: false, paused: false, frozen: false, pauseAt: -1, stage: 0, frames: 0,
       stable: 0, previousY: NaN, startY: NaN, phase: 0, error: '', done: false, seenPlaying: false, advanceMs: 0,
-      stages, history: [] as object[], recoveries: [] as string[], observedX: NaN, observedY: NaN };
+      stages, history: [] as object[], recoveries: [] as string[], observedX: NaN, observedY: NaN,
+      frostAvoidance: false, frostJumpY: NaN, frostJumpReleased: false };
     Object.assign(window, { timberKeyboardPilot: pilot });
     const send = (code: string, down: boolean): void => { window.dispatchEvent(new KeyboardEvent(down ? 'keydown' : 'keyup', { code })); };
     const release = (): void => { send('ArrowLeft', false); send('ArrowRight', false); send('Space', false); };
+    let slimes: { x: number; y: number }[] = [], henry: { x: number; y: number } | undefined;
+    const fill = CanvasRenderingContext2D.prototype.fillRect;
+    CanvasRenderingContext2D.prototype.fillRect = function(this: CanvasRenderingContext2D, ...args: Parameters<typeof fill>) {
+      if (this.canvas.id === 'game' && args[0] === 0 && args[1] === 0 && args[2] === 426 && args[3] === 240) { slimes = []; henry = undefined; }
+      Reflect.apply(fill, this, args);
+    };
+    const draw = CanvasRenderingContext2D.prototype.drawImage;
+    CanvasRenderingContext2D.prototype.drawImage = function(this: CanvasRenderingContext2D, ...args: Parameters<typeof draw>) {
+      Reflect.apply(draw, this, args);
+      if (this.canvas.id !== 'game' || !(args[0] instanceof HTMLImageElement) || args.length !== 9) return;
+      const image = args[0];
+      const point = (dx: number, dy: number) => this.getTransform().transformPoint(new DOMPoint(Number(args[5]) + dx, Number(args[6]) + dy));
+      if (image.src.endsWith('/assets/slimes/slimes.png') && args[1] === 192 && args[7] === 48 && args[8] === 48) slimes.push(point(24, 44));
+      else if (image.src.includes('/assets/henry/')) henry = point(24, 44);
+    } as typeof draw;
     const next = (status: string): void => {
       pilot.history.push({ stage: pilot.stage, status }); pilot.stage++; pilot.frames = 0;
       pilot.stable = 0; pilot.previousY = NaN; pilot.phase = 0; release();
@@ -141,8 +160,23 @@ export function timberKeyboardPilotInit(stages: TimberPilotStage[]): void {
       const vx = Number(status.match(/V (-?\d+)/)?.[1] ?? 0);
       if (now !== previousTime && pilot.active && status.includes('Playing')) pilot.seenPlaying = true;
       if (now !== previousTime && pilot.active && !pilot.paused && !pilot.done && !pilot.error && status.includes('Playing')) {
-        if (Number.isFinite(pilot.observedX) && (Math.abs(x - pilot.observedX) > 80 || Math.abs(y - pilot.observedY) > 120)) pilot.recoveries.push(status);
+        if (Number.isFinite(pilot.observedX) && (Math.abs(x - pilot.observedX) > 80 || Math.abs(y - pilot.observedY) > 120)) {
+          pilot.recoveries.push(status); pilot.frostJumpY = NaN; pilot.frostJumpReleased = false;
+        }
         pilot.observedX = x; pilot.observedY = y;
+        const move = (direction: number): void => {
+          // Observe the last real paint, rather than guessing the patrol phase.
+          // Other trails retain their existing movement and jump decisions.
+          const threat = pilot.frostAvoidance && henry ? slimes.find(s =>
+            (s.x - henry!.x) * direction > 0 && Math.abs(s.x - henry!.x) < 100
+            && Math.abs(s.y - henry!.y) < 2) : undefined;
+          if (!threat && pilot.frostJumpReleased) { pilot.frostJumpY = NaN; pilot.frostJumpReleased = false; }
+          if (threat && !Number.isFinite(pilot.frostJumpY)) pilot.frostJumpY = y;
+          // Ordinary short hops stay below the optional return shelves.
+          if (Number.isFinite(pilot.frostJumpY) && (y <= pilot.frostJumpY - 36 || y > pilot.frostJumpY + 4)) pilot.frostJumpReleased = true;
+          send('ArrowRight', direction > 0); send('ArrowLeft', direction < 0);
+          send('Space', Number.isFinite(pilot.frostJumpY) && !pilot.frostJumpReleased);
+        };
         const stage = pilot.stages[pilot.stage];
         if (!stage) { pilot.error = `stage overflow ${pilot.stage}`; release(); }
         else if (stage.kind === 'finish') {
@@ -161,14 +195,14 @@ export function timberKeyboardPilotInit(stages: TimberPilotStage[]): void {
           } else if (pilot.frames >= stage.frames!) next(status);
         } else if (stage.kind === 'travel') {
           const direction=stage.direction!;
-          send('ArrowRight',direction>0); send('ArrowLeft',direction<0); send('Space',false);
+          move(direction);
           pilot.frames++;
           if((x-stage.x!)*direction>=0) next(status);
           else if(pilot.frames>200) pilot.error=`travel ${pilot.stage} stalled ${status}`;
         } else if (stage.kind === 'walk') {
           const projected = x + Math.sign(vx) * vx ** 2 / 2400;
           const direction = projected < stage.x! - 3 ? 1 : projected > stage.x! + 3 ? -1 : 0;
-          send('ArrowRight', direction > 0); send('ArrowLeft', direction < 0); send('Space', false);
+          move(direction);
           pilot.frames++;
           if (Math.abs(x - stage.x!) < 4 && Math.abs(vx) < 20) next(status);
           else if (pilot.frames > 200) pilot.error = `walk ${pilot.stage} stalled ${status}`;

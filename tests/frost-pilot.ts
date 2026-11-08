@@ -2,17 +2,20 @@ import { surfaceAt, surfaceY } from '../src/game/movement';
 import { FROST_RIDGE } from '../src/world/frost-ridge';
 import { routePilot, walk, jump, drop } from './sunset-pilot';
 import type { TimberPilotStage } from './timbers-browser-pilot';
+// Only Frost routes opt into the serialized browser pilot's patrol avoidance.
+const frostStages = (stages: readonly TimberPilotStage[]): readonly TimberPilotStage[] =>
+  stages.map(stage => ({ ...stage, frostAvoidance: true }));
 export const travel = (x:number,direction:1|-1):TimberPilotStage => ({kind:'travel',x,direction});
-export const FROST_MAIN: readonly TimberPilotStage[] = [
+export const FROST_MAIN: readonly TimberPilotStage[] = frostStages([
   jump(145, 500), walk(620), walk(1140), jump(1250, 380), walk(2585),
   jump(2680, 540), walk(3100), jump(3220, 492), walk(5265), jump(5380, 240), { kind: 'finish' },
-];
-export const FROST_DOWN_SUMMIT: readonly TimberPilotStage[] = [walk(5320), travel(3900,-1)];
-export const FROST_UPPER_RETURN: readonly TimberPilotStage[] = [walk(3780), jump(3740, 410), walk(3630), jump(3526, 372), drop(3416, -1, 3376, 444), walk(3180), jump(3100, 492), walk(2620)];
-export const FROST_BOWL_RETURN: readonly TimberPilotStage[] = [walk(2430), jump(2400, 500), walk(2290), jump(2200, 452), walk(2100), jump(2010, 404), walk(1910), jump(1820, 356), walk(1720), jump(1630, 308), drop(1520, -1, 1480, 380), walk(1190)];
-export const FROST_INTRO_RETURN: readonly TimberPilotStage[] = [walk(610), jump(580, 500), walk(510), jump(430, 450), walk(340), jump(250, 400), drop(140, -1, 110, 500)];
-export const FROST_RETURN: readonly TimberPilotStage[] = [...FROST_DOWN_SUMMIT, ...FROST_UPPER_RETURN, ...FROST_BOWL_RETURN, ...FROST_INTRO_RETURN];
-export const FROST_REASCENT: readonly TimberPilotStage[] = [travel(620,1), travel(3000,1), walk(3100), jump(3220, 492), travel(5400,1), { kind: 'finish' }];
+]);
+export const FROST_DOWN_SUMMIT: readonly TimberPilotStage[] = frostStages([walk(5320), travel(3900,-1)]);
+export const FROST_UPPER_RETURN: readonly TimberPilotStage[] = frostStages([walk(3780), jump(3740, 410), walk(3630), jump(3526, 372), drop(3416, -1, 3376, 444), walk(3180), jump(3100, 492), walk(2620)]);
+export const FROST_BOWL_RETURN: readonly TimberPilotStage[] = frostStages([walk(2430), jump(2400, 500), walk(2290), jump(2200, 452), walk(2100), jump(2010, 404), walk(1910), jump(1820, 356), walk(1720), jump(1630, 308), drop(1520, -1, 1480, 380), walk(1190)]);
+export const FROST_INTRO_RETURN: readonly TimberPilotStage[] = frostStages([walk(610), jump(580, 500), walk(510), jump(430, 450), walk(340), jump(250, 400), drop(140, -1, 110, 500)]);
+export const FROST_RETURN: readonly TimberPilotStage[] = frostStages([...FROST_DOWN_SUMMIT, ...FROST_UPPER_RETURN, ...FROST_BOWL_RETURN, ...FROST_INTRO_RETURN]);
+export const FROST_REASCENT: readonly TimberPilotStage[] = frostStages([travel(620,1), travel(3000,1), walk(3100), jump(3220, 492), travel(5400,1), { kind: 'finish' }]);
 export const frostPilot = (cadence: readonly number[] = [0.016], held = 0.24) => routePilot(FROST_RIDGE, cadence, held);
 
 /** Every reward is earned in one run. landingX is the explicit old-landing negative-control seam. */
@@ -60,4 +63,4 @@ export function frostRewards(cadence: readonly number[] = [0.016], landingX = 30
   return {...route,springAttempts};
 }
 
-export const FROST_MISS_S: readonly TimberPilotStage[] = [jump(145, 500), travel(3000,1), walk(3100), jump(3220, 492), travel(5400,1), { kind: 'finish' }];
+export const FROST_MISS_S: readonly TimberPilotStage[] = frostStages([jump(145, 500), travel(3000,1), walk(3100), jump(3220, 492), travel(5400,1), { kind: 'finish' }]);
