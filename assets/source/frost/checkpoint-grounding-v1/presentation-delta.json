@@ -1,0 +1,34 @@
+{
+  "public/assets/frost/manifest.json": {
+    "beforeSHA256": "32c260c0971c3efbdc1f47c09e24601cf4645f8d417d937b083691fc78eaf238",
+    "currentSHA256": "4c6a55260ad5c9fc29f7e2b4560f6f8257bb657efd2de11d8c1245c5b841cee0",
+    "changes": [
+      {
+        "before": "\"checkpoint\": {\n      \"x\": 17,\n      \"y\": 44",
+        "after": "\"checkpoint\": {\n      \"x\": 17,\n      \"y\": 41"
+      }
+    ]
+  },
+  "src/world/renderer.ts": {
+    "beforeSHA256": "1accfdcef79781702666c762bd2a9c0724e08752a4e6aa25a4ebebcf416aeb55",
+    "currentSHA256": "544332cd89b150e96a220c1a38ebc2248e02e9c5a8a25ec388401cbd9ce932de",
+    "changes": [
+      {
+        "before": "        // A bright pennant and check remain visible after the celebration ends.\n        ctx.fillStyle",
+        "after": "        // Frost's snow foot ends at source edge 41. Keep the pennant/check\n        // attached to the pole when its source-derived anchor differs from 44.\n        const checkpointY = level.id === 'frost' ? y + 44 - (manifest.anchors?.checkpoint?.y ?? cell) : y;\n        // A bright pennant and check remain visible after the celebration ends.\n        ctx.fillStyle"
+      },
+      {
+        "before": "ctx.fillRect(x - 5, y - 38, 22, 13);",
+        "after": "ctx.fillRect(x - 5, checkpointY - 38, 22, 13);"
+      },
+      {
+        "before": "ctx.strokeRect(x - 5, y - 38, 22, 13);",
+        "after": "ctx.strokeRect(x - 5, checkpointY - 38, 22, 13);"
+      },
+      {
+        "before": "ctx.moveTo(x, y - 32); ctx.lineTo(x + 4, y - 28); ctx.lineTo(x + 12, y - 35); ctx.stroke();",
+        "after": "ctx.moveTo(x, checkpointY - 32); ctx.lineTo(x + 4, checkpointY - 28); ctx.lineTo(x + 12, checkpointY - 35); ctx.stroke();"
+      }
+    ]
+  }
+}

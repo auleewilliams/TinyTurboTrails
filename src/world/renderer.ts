@@ -121,14 +121,17 @@ export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, le
         ctx.restore();
       } else drawAsset(ctx, assets, entity.asset as WorldAsset, x, y, 1);
       if (position.checkpointActive) {
+        // Frost's snow foot ends at source edge 41. Keep the pennant/check
+        // attached to the pole when its source-derived anchor differs from 44.
+        const checkpointY = level.id === 'frost' ? y + 44 - (manifest.anchors?.checkpoint?.y ?? cell) : y;
         // A bright pennant and check remain visible after the celebration ends.
         ctx.fillStyle = '#ffda75';
-        ctx.fillRect(x - 5, y - 38, 22, 13);
+        ctx.fillRect(x - 5, checkpointY - 38, 22, 13);
         ctx.strokeStyle = '#10252c';
         ctx.lineWidth = 2;
-        ctx.strokeRect(x - 5, y - 38, 22, 13);
+        ctx.strokeRect(x - 5, checkpointY - 38, 22, 13);
         ctx.beginPath();
-        ctx.moveTo(x, y - 32); ctx.lineTo(x + 4, y - 28); ctx.lineTo(x + 12, y - 35); ctx.stroke();
+        ctx.moveTo(x, checkpointY - 32); ctx.lineTo(x + 4, checkpointY - 28); ctx.lineTo(x + 12, checkpointY - 35); ctx.stroke();
       }
     }
   }

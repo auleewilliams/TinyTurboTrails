@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { expect, it } from 'vitest';
-import { BAG_PICKUP, BAG_PLAQUE, HUD_PLAQUES, HudPresentation, drawCollectionBag, drawGameplayHud } from '../src/game/hud';
+import { BAG_PICKUP, BAG_PLAQUE, HUD_PLAQUES, TRAIL_RIBBON, drawTrailRibbon, HudPresentation, drawCollectionBag, drawGameplayHud } from '../src/game/hud';
 import { drawLetterTile } from '../src/art/spelling';
 import { EducationSession } from '../src/game/education';
 import { createRun } from '../src/game/interactions';
@@ -54,11 +54,58 @@ for (const reduced of [false,true]) it(`real pickup renderer follows the moved b
   expect(Number(call[4])).toBeCloseTo((reduced?25:18)-18,12);
 });
 
-it('retains the real bottom-right ribbon, activated checkpoints and finish flag', () => {
+it('retains the real top ribbon, activated checkpoints and finish flag', () => {
   const level=LEVELS[0],hud=new HudPresentation();hud.consume([{type:'checkpoint',entityId:level.checkpoints[0].id}]);
   const progress=hud.progress(level,level.finish.x,level.finish.y);expect(progress.position).toBe(1);expect(progress.checkpoints[0].activated).toBe(true);
   const fills:number[][]=[];const ctx={save(){},restore(){},fillRect(...args:number[]){fills.push(args);},fillText(){},measureText(){return {width:0};}} as unknown as CanvasRenderingContext2D;
   drawGameplayHud(ctx,createRun(level),'','',progress);
-  expect(fills).toContainEqual([413,223,3,2]);
+  expect(fills).toContainEqual([TRAIL_RIBBON.finishX + 1, TRAIL_RIBBON.y + 2, 3, 2]);
   expect(fills.some(r=>r[2]===3&&r[3]===4)).toBe(true);
+});
+
+// Actual HUD and nine-slice draw calls; native glyph metrics remain a browser gate.
+it.each(LEVELS)('$id draws a compact top ribbon clear of optional stars, pouch and notices', level => {
+  type Rect = { x: number; y: number; width: number; height: number };
+  const separate = (a: Rect, b: Rect) => a.x + a.width <= b.x || b.x + b.width <= a.x || a.y + a.height <= b.y || b.y + b.height <= a.y;
+  for (const stars of [0, 12]) for (const illustrated of [false, true]) {
+    const ribbonRects: Rect[] = [], blockers: Rect[] = [];
+    const record = (x: number, y: number, width: number, height: number) => {
+      (recordingRibbon ? ribbonRects : blockers).push({ x, y, width, height });
+    };
+    let recordingRibbon = false;
+    const ctx = { fillStyle: '', textAlign: 'left', save() {}, restore() {},
+      fillRect: record,
+      drawImage(_image: HTMLImageElement, ...args: number[]) {
+        const [x, y, width, height] = args.length === 4 ? args : args.slice(4);
+        record(x, y, width, height);
+      },
+      fillText() {},
+      measureText(text: string) { return { width: text.length * 6 }; },
+    } as unknown as CanvasRenderingContext2D;
+    const plaque = { path: 'public/assets/interface/plaque.png' } as unknown as HTMLImageElement;
+    const kit = illustrated ? { plaque } as import('../src/art/interface-kit').InterfaceKit : undefined;
+    const run = createRun(level); run.specialTotal = stars;
+    const notice = 'Checkpoint reached!';
+    drawGameplayHud(ctx, run, 'Arrows / A-D: move', notice, undefined, kit);
+    const collection = new EducationSession(); collection.selectTrail(level.id);
+    drawCollectionBag(ctx, collection, { path: 'public/assets/spelling/pouch.png' } as unknown as HTMLImageElement, kit);
+    recordingRibbon = true;
+    drawTrailRibbon(ctx, new HudPresentation().progress(level, level.finish.x, level.finish.y), kit);
+    expect(TRAIL_RIBBON.y).toBe(5);
+    expect(TRAIL_RIBBON.x).toBeGreaterThanOrEqual(HUD_PLAQUES.stars.x + HUD_PLAQUES.stars.width + 4);
+    expect(TRAIL_RIBBON.x + TRAIL_RIBBON.width).toBeLessThanOrEqual(BAG_PLAQUE.x - 4);
+    expect(ribbonRects.length).toBeGreaterThan(8);
+    for (const r of ribbonRects) {
+      expect(r.x).toBeGreaterThanOrEqual(TRAIL_RIBBON.x); expect(r.y).toBeGreaterThanOrEqual(TRAIL_RIBBON.y);
+      expect(r.x + r.width).toBeLessThanOrEqual(TRAIL_RIBBON.x + TRAIL_RIBBON.width);
+      expect(r.y + r.height).toBeLessThanOrEqual(TRAIL_RIBBON.y + TRAIL_RIBBON.height);
+      expect(blockers.length).toBeGreaterThan(8);
+      expect(blockers.every(b => separate(r, b))).toBe(true);
+      for (const cssWidth of [426, 320]) {
+        const scale = cssWidth / 426;
+        expect((r.x + r.width) * scale).toBeLessThanOrEqual(cssWidth);
+        expect((r.y + r.height) * scale).toBeLessThanOrEqual(240 * scale);
+      }
+    }
+  }
 });

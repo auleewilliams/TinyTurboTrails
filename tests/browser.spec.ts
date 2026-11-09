@@ -4592,7 +4592,7 @@ for (const level of LEVELS) test(`compact HUD renderer fixture: ${level.id} iden
         camera.update(level.start.x, ground - 34);
         drawWorld(ctx, assets, level, camera, undefined, undefined, platformBodiesAt(level.platforms, 0), 0, true);
         const henryRect = { x: level.start.x - camera.position.x - manifest.anchor.x, y: ground - camera.position.y - manifest.anchor.y, width: 48, height: 48 };
-        if (ribbonBandPose) { henryRect.x = 110 - manifest.anchor.x; henryRect.y = 230 - manifest.anchor.y; }
+        if (ribbonBandPose) { henryRect.x = 110 - manifest.anchor.x; henryRect.y = TRAIL_RIBBON.railY - 24; }
         ctx.drawImage(henry, frame.x, frame.y, frame.width, frame.height, henryRect.x, henryRect.y, 48, 48);
         drawWorldForeground(ctx, assets, level, camera);
         const hud = new HudPresentation(); if (state > 0) hud.consume([{ type: 'checkpoint', entityId: level.checkpoints[0].id }]);
@@ -4611,6 +4611,10 @@ for (const level of LEVELS) test(`compact HUD renderer fixture: ${level.id} iden
         }
         const quiet = { left: BAG_PLAQUE.x + PLAQUE_TEXT_SLICE.left, right: BAG_PLAQUE.x + BAG_PLAQUE.width - PLAQUE_TEXT_SLICE.right,
           top: BAG_PLAQUE.y + PLAQUE_TEXT_SLICE.top, bottom: BAG_PLAQUE.y + BAG_PLAQUE.height - PLAQUE_TEXT_SLICE.bottom };
+        const ribbonClear = [HUD_PLAQUES.gems, HUD_PLAQUES.hearts, ...(run.specialTotal ? [HUD_PLAQUES.stars] : []), BAG_PLAQUE,
+          ...texts.map(t => ({ x: t.left, y: t.top, width: t.right - t.left, height: t.bottom - t.top }))]
+          .every(r => !overlaps(TRAIL_RIBBON, { left: r.x, right: r.x + r.width, top: r.y, bottom: r.y + r.height }));
+        if (!ribbonClear || TRAIL_RIBBON.y !== 5) throw new Error('Top ribbon overlaps HUD artwork or glyphs');
         const clearance = {
           pouch: opaque.length > 0 && opaque.every(pixel => pixel.x >= quiet.left && pixel.x < quiet.right && pixel.y >= quiet.top && pixel.y < quiet.bottom),
           marks: marks.length === 4 && marks.filter(mark => mark.color === HUD_COLORS.hit).length === state,
@@ -4643,7 +4647,7 @@ for (const level of LEVELS) test(`compact HUD renderer fixture: ${level.id} iden
       const sample = await page.evaluate(() => (window as unknown as { hudFixtureSample: { count: number; clearance: Record<string, boolean>; assets: { loaded: boolean }[]; henryRect: { x: number; y: number; width: number; height: number } } }).hudFixtureSample);
       expect(sample.count).toBe(state); expect(sample.assets.every(asset => asset.loaded)).toBe(true);
       expect(sample.clearance).toEqual({ pouch: true, marks: true, icons: true, bag: true, hintAndNotice: true });
-      // The actual sprite rectangle is clear of both top lanes and the bottom ribbon.
+      // The actual sprite rectangle is clear of the top HUD and its compact ribbon.
       expect(sample.henryRect.y).toBeGreaterThan(59);
       expect(sample.henryRect.x + sample.henryRect.width).toBeLessThan(TRAIL_RIBBON.x);
       await expectClearViewport(page);
@@ -4656,8 +4660,8 @@ for (const level of LEVELS) test(`compact HUD renderer fixture: ${level.id} iden
     }
   }
   // Actual Henry atlas draw + actual HUD renderer, explicitly prepositioned
-  // layout fixture. Its feet occupy the rail band; horizontal clearance is
-  // therefore necessary, rather than passing because the sprite is above it.
+  // layout fixture. Its sprite spans the relocated rail band; horizontal
+  // clearance is therefore necessary rather than passing on vertical separation.
   await page.evaluate(() => (window as unknown as { hudFixture: { bandPose(): void } }).hudFixture.bandPose());
   await twoFrames(page);
   const bandRect = await page.evaluate(() => (window as unknown as {
@@ -4679,13 +4683,13 @@ for (const level of LEVELS) test(`compact HUD renderer fixture: ${level.id} iden
 
 test('compact HUD learned hints stay cleared through real input and pause while the ribbon remains', async ({ page }, info) => {
   await observeKitTextClearance(page);
-  await page.addInitScript(() => {
+  await page.addInitScript(ribbon => {
     const fill=CanvasRenderingContext2D.prototype.fillRect;
     CanvasRenderingContext2D.prototype.fillRect=function(x,y,width,height) {
       if(this.canvas.id==='game') {
         if(x===0&&y===0&&width===426&&height===240){this.canvas.dataset.hudRibbon='false';this.canvas.dataset.hudPosts='0';}
-        if(x===413&&y===223&&width===3&&height===2)this.canvas.dataset.hudRibbon='true';
-        if(y===228&&width===3&&height===4)this.canvas.dataset.hudPosts=String(Number(this.canvas.dataset.hudPosts??0)+1);
+        if(x===ribbon.finishX+1&&y===ribbon.y+2&&width===3&&height===2)this.canvas.dataset.hudRibbon='true';
+        if(y===ribbon.railY&&width===3&&height===4)this.canvas.dataset.hudPosts=String(Number(this.canvas.dataset.hudPosts??0)+1);
       }
       fill.call(this,x,y,width,height);
     };
@@ -4697,7 +4701,7 @@ test('compact HUD learned hints stay cleared through real input and pause while 
       }
       if (maxWidth === undefined) draw.call(this, text, x, y); else draw.call(this, text, x, y, maxWidth);
     };
-  });
+  }, TRAIL_RIBBON);
   await openAdventure(page, '/?debug=1');
   await page.getByRole('button', { name: 'Play PLAINS', exact: true }).click();
   const canvas = page.locator('#game');
