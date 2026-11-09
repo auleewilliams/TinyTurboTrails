@@ -130,6 +130,9 @@ export function timberKeyboardPilotInit(stages: TimberPilotStage[]): void {
     const send = (code: string, down: boolean): void => { window.dispatchEvent(new KeyboardEvent(down ? 'keydown' : 'keyup', { code })); };
     const release = (): void => { send('ArrowLeft', false); send('ArrowRight', false); send('Space', false); };
     let slimes: { x: number; y: number }[] = [], henry: { x: number; y: number } | undefined;
+  // Legacy input-only fixtures have no paint surface; native Frost still installs
+  // this observer before its route opts in through runTimberStages.
+  if (typeof CanvasRenderingContext2D === 'function' && typeof HTMLImageElement === 'function' && typeof DOMPoint === 'function') {
     const fill = CanvasRenderingContext2D.prototype.fillRect;
     CanvasRenderingContext2D.prototype.fillRect = function(this: CanvasRenderingContext2D, ...args: Parameters<typeof fill>) {
       if (this.canvas.id === 'game' && args[0] === 0 && args[1] === 0 && args[2] === 426 && args[3] === 240) { slimes = []; henry = undefined; }
@@ -144,6 +147,7 @@ export function timberKeyboardPilotInit(stages: TimberPilotStage[]): void {
       if (image.src.endsWith('/assets/slimes/slimes.png') && args[1] === 192 && args[7] === 48 && args[8] === 48) slimes.push(point(24, 44));
       else if (image.src.includes('/assets/henry/')) henry = point(24, 44);
     } as typeof draw;
+  }
     const next = (status: string): void => {
       pilot.history.push({ stage: pilot.stage, status }); pilot.stage++; pilot.frames = 0;
       pilot.stable = 0; pilot.previousY = NaN; pilot.phase = 0; release();

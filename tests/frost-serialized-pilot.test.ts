@@ -48,6 +48,7 @@ function harness(cadence: readonly number[], controller = false) {
     getTransform() { return { transformPoint: (p: { x: number; y: number }) => p }; }
   }
   const ctx = new Context(), slimeAtlas = new Image('/assets/slimes/slimes.png'), henryAtlas = new Image('/assets/henry/henry.png');
+  const originalFill = Context.prototype.fillRect, originalDraw = Context.prototype.drawImage;
   runInNewContext(`(${timberKeyboardPilotInit.toString()})([])`, {
     window: win, requestAnimationFrame: win.requestAnimationFrame,
     CanvasRenderingContext2D: Context, HTMLImageElement: Image,
@@ -55,6 +56,8 @@ function harness(cadence: readonly number[], controller = false) {
     document: { querySelector: () => ({ textContent: status }) },
     KeyboardEvent: class { repeat = false; constructor(public type: string, public init: { code: string }) {} get code() { return this.init.code; } preventDefault() {} },
   });
+  expect(Context.prototype.fillRect).not.toBe(originalFill);
+  expect(Context.prototype.drawImage).not.toBe(originalDraw);
   const pilot = (win as unknown as { timberKeyboardPilot: {
     stages: TimberPilotStage[]; active: boolean; done: boolean; error: string; stage: number; frames: number;
     stable: number; previousY: number; phase: number; seenPlaying: boolean; observedX: number; observedY: number;
@@ -103,6 +106,71 @@ it.each([false, true])('serialized Frost main route clears restored patrols via 
   expect(h.scene.screenState).toBe('finish');
   expect(h.scene.education.letterCount).toBe(0);
   expect(h.events.filter(e => ['damage', 'recover', 'spring'].includes(e.type))).toEqual([]);
+});
+
+it.each(['all', 'CanvasRenderingContext2D', 'HTMLImageElement', 'DOMPoint'])('keeps serialized non-Frost input usable without %s paint capabilities', absent => {
+  let callback: ((now: number) => void) | undefined;
+  const keys = new Map<string, boolean>();
+  class Context { fillRect() {} drawImage() {} }
+  class Image {}
+  class Point {}
+  const fill = Context.prototype.fillRect, draw = Context.prototype.drawImage;
+  const win = {
+    requestAnimationFrame: (next: (now: number) => void) => { callback = next; return 1; },
+    dispatchEvent: (event: { type: string; code: string }) => { keys.set(event.code, event.type === 'keydown'); return true; },
+  };
+  const globals: Record<string, unknown> = {
+    CanvasRenderingContext2D: Context, HTMLImageElement: Image, DOMPoint: Point,
+    window: win, requestAnimationFrame: win.requestAnimationFrame,
+    document: { querySelector: () => ({ textContent: 'Playing X 60 Y 466 V 0' }) },
+    KeyboardEvent: class { constructor(public type: string, public init: { code: string }) {} get code() { return this.init.code; } },
+  };
+  for (const name of ['CanvasRenderingContext2D', 'HTMLImageElement', 'DOMPoint']) if (absent === 'all' || absent === name) delete globals[name];
+  runInNewContext(`(${timberKeyboardPilotInit.toString()})([{kind:'travel',x:360,direction:1}])`, globals);
+  expect(Context.prototype.fillRect).toBe(fill); expect(Context.prototype.drawImage).toBe(draw);
+  const pilot = (win as unknown as { timberKeyboardPilot: { active: boolean; frostAvoidance: boolean; done: boolean; error: string; frames: number } }).timberKeyboardPilot;
+  expect(pilot.frostAvoidance).toBe(false); pilot.active = true;
+  for (let frame = 1; frame <= 201; frame++) { win.requestAnimationFrame(() => {}); callback!(frame * 16); }
+  expect(keys.get('ArrowRight')).toBe(true); expect(keys.get('ArrowLeft')).toBe(false); expect(keys.get('Space')).toBe(false);
+  expect(pilot.done).toBe(false); expect(pilot.frames).toBe(201);
+  expect(pilot.error).toBe('travel 0 stalled Playing X 60 Y 466 V 0');
+});
+
+it.each(['forward', 'mirrored', 'squashed', 'other-floor', 'stale'])('installs the live Frost observer and preserves %s paint geometry/lifetime', pose => {
+  let callback: ((now: number) => void) | undefined;
+  const keys = new Map<string, boolean>();
+  class Image { constructor(public src: string) {} }
+  class Context {
+    canvas = { id: 'game' }; a = 1; e = 37; f = -21;
+    saved: number[] = [];
+    fillRect(..._args: number[]) {} drawImage(..._args: unknown[]) {}
+    save() { this.saved = [this.a, this.e, this.f]; }
+    restore() { [this.a, this.e, this.f] = this.saved; }
+    translate(x: number, y: number) { this.e += this.a * x; this.f += y; }
+    scale(x: number, _y: number) { this.a *= x; }
+    getTransform() { return { transformPoint: (p: { x: number; y: number }) => ({ x: this.a * p.x + this.e, y: p.y + this.f }) }; }
+  }
+  const win = {
+    requestAnimationFrame: (next: (now: number) => void) => { callback = next; return 1; },
+    dispatchEvent: (event: { type: string; code: string }) => { keys.set(event.code, event.type === 'keydown'); return true; },
+  };
+  const fill = Context.prototype.fillRect, draw = Context.prototype.drawImage;
+  runInNewContext(`(${timberKeyboardPilotInit.toString()})([{kind:'travel',x:${pose === 'mirrored' ? 0 : 800},direction:${pose === 'mirrored' ? -1 : 1}}])`, {
+    window: win, requestAnimationFrame: win.requestAnimationFrame,
+    CanvasRenderingContext2D: Context, HTMLImageElement: Image,
+    DOMPoint: class { constructor(public x: number, public y: number) {} },
+    document: { querySelector: () => ({ textContent: 'Playing X 400 Y 398 V 220' }) },
+    KeyboardEvent: class { constructor(public type: string, public init: { code: string }) {} get code() { return this.init.code; } },
+  });
+  expect(Context.prototype.fillRect).not.toBe(fill); expect(Context.prototype.drawImage).not.toBe(draw);
+  Object.assign((win as unknown as { timberKeyboardPilot: object }).timberKeyboardPilot, { active: true, frostAvoidance: true });
+  const ctx = new Context(); ctx.fillRect(0, 0, 426, 240);
+  drawSlime(ctx as never, new Image('/assets/slimes/slimes.png') as never, 'bobble', pose === 'mirrored' ? 90 : 210,
+    pose === 'other-floor' ? 260 : 200, pose === 'squashed' ? 1 : undefined);
+  drawFacingSprite(ctx as never, new Image('/assets/henry/starter.png') as never, { x: 0, y: 0, width: 48, height: 48 }, 126, 156, 48, 48, pose === 'mirrored' ? -1 : 1);
+  if (pose === 'stale') ctx.fillRect(0, 0, 426, 240);
+  win.requestAnimationFrame(() => {}); callback!(16);
+  expect(keys.get('Space')).toBe(pose === 'forward' || pose === 'mirrored');
 });
 
 it('serialized Frost pilot completes actual return, SNOW assembly and re-ascent', () => {
