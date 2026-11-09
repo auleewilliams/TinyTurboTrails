@@ -1,3 +1,4 @@
+import { beforeHudRibbon } from './hud-ribbon-preservation.mjs';
 import { beforePlainsMerge } from './timbers-plains-integration.mjs';
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
@@ -20,7 +21,12 @@ test('rollout preserves accepted artwork, all gameplay and other worlds byte-for
   assert.equal(hash(readFileSync(source + 'accepted-preview.json')), 'c041eab1ea162093482a40e2e7a1ea0e5ae335c98e3763535c49cd0850df84a5');
   const changed = new Set(['src/world/assets.ts', 'src/world/timbers-terrain.ts', kit + 'manifest.json']);
   for (const [path, expected] of Object.entries(accepted.files)) {
-    if (!changed.has(path)) assert.equal(hash(beforePlainsMerge(path, readFileSync(path))), expected, path);
+    if (!changed.has(path)) {
+      const bytes = readFileSync(path);
+      // This accepted-preview oracle predates the shared ribbon relocation.
+      const approved = path === 'src/game/hud.ts' ? beforeHudRibbon(path, bytes) : bytes;
+      assert.equal(hash(beforePlainsMerge(path, approved)), expected, path);
+    }
   }
   const before = JSON.parse(readFileSync(source + 'accepted-manifest.json'));
   const after = JSON.parse(readFileSync(kit + 'manifest.json'));

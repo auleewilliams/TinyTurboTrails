@@ -2,6 +2,7 @@ import { afterEach, expect, it, vi } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 const { beforeTimbersPreview } = createRequire(import.meta.url)('../scripts/timbers-preservation.mjs') as { beforeTimbersPreview(path: string, bytes: Buffer): Buffer };
+const { beforeHudRibbon } = createRequire(import.meta.url)('../scripts/hud-ribbon-preservation.mjs') as { beforeHudRibbon(path: string, bytes: Buffer): Buffer };
 import { createHash } from 'node:crypto';
 import { transformSync } from 'rolldown/utils';
 import { SUNSET_SITE } from '../src/world/sunset-site';
@@ -127,10 +128,26 @@ it('preserves the layout and rewards with exact approved gem, prop and slime exc
 it('keeps accepted/shared artwork, all other trails and simulation bytes unchanged', () => {
   const baseline = JSON.parse(readFileSync(new URL('../docs/evidence/issue-242/inventory.json', import.meta.url), 'utf8')) as { sourceHashes: Record<string, string> };
   const approved = new Set(['src/world/assets.ts', 'src/world/renderer.ts', 'src/world/sunset-site.ts', 'public/assets/site/manifest.json']);
+  // This consumer owns a pre-ribbon HUD pin; historical unknown-path guards stay unchanged.
+  const preservedHash = (path: string, bytes: Buffer): string => createHash('sha256')
+    .update(beforeTimbersPreview(path, path === 'src/game/hud.ts' ? beforeHudRibbon(path, bytes) : bytes)).digest('hex');
   for (const [path, digest] of Object.entries(baseline.sourceHashes)) {
     if ((!path.startsWith('src/') && !path.startsWith('public/')) || approved.has(path)) continue;
-    const actual = createHash('sha256').update(beforeTimbersPreview(path, readFileSync(new URL('../' + path, import.meta.url)))).digest('hex');
+    const bytes = readFileSync(new URL('../' + path, import.meta.url));
+    const actual = preservedHash(path, bytes);
     expect(actual, path).toBe(digest);
+    if (path === 'src/game/hud.ts' || path === 'src/game/movement.ts') {
+      const mutations = path === 'src/game/hud.ts'
+        ? [bytes.toString().replace('x: 211', 'x: 212'), bytes.toString().replace('x: 325', 'x: 324')]
+        : [bytes.toString().replace('gravity: 1500', 'gravity: 1499')];
+      mutations.push(bytes.toString() + '\n// unrelated mutation');
+      for (const mutation of mutations) {
+        const bad = Buffer.from(mutation);
+        expect(bad).not.toEqual(bytes);
+        expect(beforeHudRibbon(path, bad)).toBe(bad);
+        expect(preservedHash(path, bad), path + ': strict historical hash rejects unrelated edits').not.toBe(digest);
+      }
+    }
   }
 });
 
