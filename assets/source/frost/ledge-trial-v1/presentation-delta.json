@@ -1,0 +1,74 @@
+{
+  "src/world/assets.ts": {
+    "beforeSHA256": "ef25270b0e7db075ad2e6ef6bd748dd5e9f97777517e2b4ffb4bb4d39dc4acbc",
+    "currentSHA256": "fdf17bfbca45995576f813c54718b7523c2e876aa3e35ac450e6605b871d7841",
+    "changes": [
+      {
+        "before": "import { loadTimbersTree, type TimbersTreeAssets } from './timbers-tree';\n",
+        "after": "import { loadTimbersTree, type TimbersTreeAssets } from './timbers-tree';\nimport { loadFrostLedges, type FrostLedgeAssets } from './frost-ledges';\n"
+      },
+      {
+        "before": "  timbersTree?: string;\n",
+        "after": "  timbersTree?: string;\n  frostLedges?: string;\n"
+      },
+      {
+        "before": "}\nexport interface WorldAssets { atlas: HTMLImageElement; manifest: WorldManifest; gems: HTMLImageElement; scenery?: SceneryAssets; materials?: HTMLImageElement; backdrops?: HTMLImageElement; panorama?: HTMLImageElement; slimes?: HTMLImageElement; coveTerrain?: CoveTerrainAssets; coveMaterials?: CoveMaterialAssets; siteTerrain?: SiteTerrainAssets; timbersTerrain?: TimbersTerrainAssets; timbersTree?: TimbersTreeAssets; plainsContour?: PlainsContourAssets; quarryFloor?: QuarryFloorAssets; quarryShelves?: QuarryShelvesAssets; quarryRollout?: QuarryRolloutAssets; quarryPreview?: QuarryPreviewAssets }\n",
+        "after": "}\nexport interface WorldAssets { atlas: HTMLImageElement; manifest: WorldManifest; gems: HTMLImageElement; scenery?: SceneryAssets; materials?: HTMLImageElement; backdrops?: HTMLImageElement; panorama?: HTMLImageElement; slimes?: HTMLImageElement; coveTerrain?: CoveTerrainAssets; coveMaterials?: CoveMaterialAssets; siteTerrain?: SiteTerrainAssets; timbersTerrain?: TimbersTerrainAssets; timbersTree?: TimbersTreeAssets; frostLedges?: FrostLedgeAssets; plainsContour?: PlainsContourAssets; quarryFloor?: QuarryFloorAssets; quarryShelves?: QuarryShelvesAssets; quarryRollout?: QuarryRolloutAssets; quarryPreview?: QuarryPreviewAssets }\n"
+      },
+      {
+        "before": "  }\n",
+        "after": "  }\n  if (manifest.frostLedges !== undefined && directory !== 'frost') throw new Error('Frost ledges declared by another world');\n  if (directory === 'frost' && manifest.frostLedges !== 'ledge-trial-v1/manifest.json') throw new Error('Missing required Frost trial declaration');\n"
+      },
+      {
+        "before": "  const atlas = await loadImage(`${base}${manifest.image}`, 'world atlas');\n  const [{ materials, backdrops, slimes, gems }, panorama, coveTerrain, coveMaterials, siteTerrain, timbersTerrain, timbersTree] = await Promise.all([\n",
+        "after": "  const atlas = await loadImage(`${base}${manifest.image}`, 'world atlas');\n  const [{ materials, backdrops, slimes, gems }, panorama, coveTerrain, coveMaterials, siteTerrain, timbersTerrain, timbersTree, frostLedges] = await Promise.all([\n"
+      },
+      {
+        "before": "    loadTimbersTree(base, manifest.timbersTree),\n",
+        "after": "    loadTimbersTree(base, manifest.timbersTree),\n    loadFrostLedges(base, manifest.frostLedges),\n"
+      },
+      {
+        "before": "  ]);\n  if (!manifest.scenery) return { atlas, manifest, materials, backdrops, panorama, slimes, gems, coveTerrain, coveMaterials, siteTerrain, timbersTerrain, timbersTree, plainsContour };\n",
+        "after": "  ]);\n  if (!manifest.scenery) return { atlas, manifest, materials, backdrops, panorama, slimes, gems, coveTerrain, coveMaterials, siteTerrain, timbersTerrain, timbersTree, frostLedges, plainsContour };\n"
+      },
+      {
+        "before": "  ]);\n  return { atlas, manifest, materials, backdrops, panorama, slimes, gems, coveTerrain, coveMaterials, siteTerrain, timbersTerrain, timbersTree, plainsContour, scenery: { background, foreground, manifest: sceneryManifest } };\n",
+        "after": "  ]);\n  return { atlas, manifest, materials, backdrops, panorama, slimes, gems, coveTerrain, coveMaterials, siteTerrain, timbersTerrain, timbersTree, frostLedges, plainsContour, scenery: { background, foreground, manifest: sceneryManifest } };\n"
+      }
+    ]
+  },
+  "src/world/renderer.ts": {
+    "beforeSHA256": "416557d31b4f8204f5cc9e0524e6c96d582deee24ec5af0f0192c2e52748d1f8",
+    "currentSHA256": "fc6f9fe352f00978b1c121d6c6b51ab96c32dad5c08f4bfbccd266914c9ba811",
+    "changes": [
+      {
+        "before": "import { drawTimbersTree } from './timbers-tree';\n",
+        "after": "import { drawTimbersTree } from './timbers-tree';\nimport { drawFrostLedge } from './frost-ledges';\n"
+      },
+      {
+        "before": "    }\n",
+        "after": "    }\n    if (level.id === 'frost' && assets?.frostLedges && drawFrostLedge(ctx, assets.frostLedges, body, offset)) continue;\n"
+      }
+    ]
+  },
+  "src/world/frost-ridge.ts": {
+    "beforeSHA256": "2b96ffe6e85a32aaf49c77e9f7f568978ac3ed1a3a74594cf30d7202154f191a",
+    "currentSHA256": "05378e7a8e0523c735a74a65cfae8cdd300120782f5ea31fef8d39dcb205a4b2",
+    "changes": [
+      {
+        "before": "  [1710, 1920, 356], [1520, 1730, 308],\n  [3620, 3820, 410], [3440, 3640, 372],\n",
+        "after": "  [1710, 1920, 356], [1520, 1730, 308],\n  [3620, 3820, 410], [3416, 3616, 372],\n"
+      }
+    ]
+  },
+  "public/assets/frost/manifest.json": {
+    "beforeSHA256": "17254c516c1999f9eb14d4f4a201d2a09c5199513a96c9dbca28123f3fbabcdc",
+    "currentSHA256": "2038a81d43a29060d7bf7c8c9d899a4cf70a1da732e47caeb6e4913b5474cef9",
+    "changes": [
+      {
+        "before": "  \"panorama\": \"background.png\",\n",
+        "after": "  \"panorama\": \"background.png\",\n  \"frostLedges\": \"ledge-trial-v1/manifest.json\",\n"
+      }
+    ]
+  }
+}

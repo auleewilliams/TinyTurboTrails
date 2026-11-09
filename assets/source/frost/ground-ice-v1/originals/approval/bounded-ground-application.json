@@ -1,0 +1,20 @@
+{
+  "author": "Etali_parent_coordinator",
+  "immutableOriginalPilotApproval": {
+    "path": "/home/leew/.hermes/task-evidence/ttt-art-243/pilot7-owner-approval/human-approval.json",
+    "sha256": "f068c68c0e231b761ca0c1e4d6ac92c60a4c19324a13be2b17e0c7011e492fef"
+  },
+  "laterOwnerAllTenAcceptanceAndMoveOtherArtwork": {
+    "path": "/home/leew/.hermes/cache/scratch/f243-terrain22/owner-ledges-acceptance.json",
+    "sha256": "b42e4a9282d77c6f63d70335ef6dee8dcd2a50e5f8a4e373116b52d0c37218d3"
+  },
+  "scope": "NEWground+iceimplementationONLYinoriginaltwoWindows[2060,2490)and[3380,3830);all10acceptedledges/worldfrozen",
+  "originalProductionEditGrant": "originalpilotexplicitlycoversnecessaryterrain/snow/ice;newownercontinue-other-artresolvesoldrole-sequencinghold;bothrealSourcegatesnowPASS",
+  "method": "wholeT01direct440/I01mirror16;noverticalrepeat",
+  "supersedes": "olderSOURCE-AUTHORscratch-onlyandnot-yet-source-readyholdsFORTHISboundedrepositoryimplementationONLY",
+  "nativeExecution": "HOLD:freshnormal-hostreadinessprobeandoneboundednewmaterialcohortapprovalneeded;donotstretchconsumedoldnativeproducers",
+  "publication": "HOLD:parentownsnewcommit/pushonlyafterownerpreviewauthorization;writerNOcommit",
+  "paidCalls": 4,
+  "all6reserves": "HELD",
+  "mergeDeployPRclosureWiderRollout": "NOTAUTHORIZED"
+}

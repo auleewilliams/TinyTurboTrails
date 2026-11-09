@@ -1,3 +1,6 @@
+import { hudFixtureRectanglesOverlap } from './hud-fixture-geometry';
+import { frostGroundWindows, frostGroundIdentity, validateFrostGround, loadFrostGround, clipFrostLegacy, frostGroundColumn, drawFrostGround } from '../src/world/frost-ground';
+import { validateFrostLedges, loadFrostLedges, drawFrostLedge } from '../src/world/frost-ledges';
 import { SITE_FIXED_SUPPORT_IDS, validateSiteTerrain, validateSiteLayout, loadSiteTerrain, drawSiteGround, drawSitePlatform } from '../src/world/site-terrain';
 import { installQuarryMapPreviewObserver } from './quarry-map-preview';
 import { validateQuarryFloor, loadQuarryFloor, drawQuarryFloor } from '../src/world/quarry-floor';
@@ -190,7 +193,7 @@ test('app fullscreen retains feedback controls and native map and pause targets'
 });
 
 /** The renderer is injected as plain functions, so every helper it calls has to travel with it. */
-const RENDERER_SOURCE = [validateSiteTerrain, validateSiteLayout, loadSiteTerrain, drawSiteGround, drawSitePlatform, validateQuarryFloor, loadQuarryFloor, drawQuarryFloor, quarryRolloutPieces, validateQuarryRollout, loadQuarryRollout, drawQuarryRollout, quarryPreviewPieces, validateQuarryPreviewPieces, loadQuarryPreviewPieces, drawQuarryPreviewPiece, quarryShelfPieces, validateQuarryShelves, loadQuarryShelves, drawQuarryShelf, plainsContourRange, plainsContourColumns, drawPlainsContourGround, timbersPreviewIds, timbersPlatformWidths, validateTimbersTerrain, loadTimbersTerrain, drawTimbersGround, drawTimbersPlatform, validateTimbersTree, loadTimbersTree, drawTimbersTree, validateCoveMaterials, loadCoveMaterials, coveRipplePhase, drawCoveMaterials, coveGroundY, coveRepeatColumn, validateCoveTerrain, loadCoveTerrain, drawCoveGround, drawCovePlatform, drawAmbientWeather, drawSlime, drawGem, drawSpecial, drawLandingBands, drawTerrainMaterial, drawTerrainEdge, drawTrailBackdrop, drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawTerrainTiles, drawTimberTrunk, drawSiteFrame, drawSurfaceMaterials].map((helper) => helper.toString()).join('\n') + `\nconst SITE_FIXED_SUPPORT_IDS = ${JSON.stringify(SITE_FIXED_SUPPORT_IDS)}; const checkedLayouts = new WeakMap();`;
+const RENDERER_SOURCE = [frostGroundWindows, frostGroundIdentity, validateFrostGround, loadFrostGround, clipFrostLegacy, frostGroundColumn, drawFrostGround, validateFrostLedges, loadFrostLedges, drawFrostLedge, validateSiteTerrain, validateSiteLayout, loadSiteTerrain, drawSiteGround, drawSitePlatform, validateQuarryFloor, loadQuarryFloor, drawQuarryFloor, quarryRolloutPieces, validateQuarryRollout, loadQuarryRollout, drawQuarryRollout, quarryPreviewPieces, validateQuarryPreviewPieces, loadQuarryPreviewPieces, drawQuarryPreviewPiece, quarryShelfPieces, validateQuarryShelves, loadQuarryShelves, drawQuarryShelf, plainsContourRange, plainsContourColumns, drawPlainsContourGround, timbersPreviewIds, timbersPlatformWidths, validateTimbersTerrain, loadTimbersTerrain, drawTimbersGround, drawTimbersPlatform, validateTimbersTree, loadTimbersTree, drawTimbersTree, validateCoveMaterials, loadCoveMaterials, coveRipplePhase, drawCoveMaterials, coveGroundY, coveRepeatColumn, validateCoveTerrain, loadCoveTerrain, drawCoveGround, drawCovePlatform, drawAmbientWeather, drawSlime, drawGem, drawSpecial, drawLandingBands, drawTerrainMaterial, drawTerrainEdge, drawTrailBackdrop, drawAsset, drawSurfaceGrip, drawCrumblingLedge, drawPlatformPath, drawPlatforms, drawTerrainTiles, drawTimberTrunk, drawSiteFrame, drawSurfaceMaterials].map((helper) => helper.toString()).join('\n') + `\nconst SITE_FIXED_SUPPORT_IDS = ${JSON.stringify(SITE_FIXED_SUPPORT_IDS)}; const checkedLayouts = new WeakMap();`;
 
 test('ambient weather repeats the same pixels, respects reduced motion and stays behind terrain', async ({ page }, info) => {
   // Six full-image comparisons need extra readback time on constrained WebKit hosts.
@@ -212,9 +215,11 @@ test('ambient weather repeats the same pixels, respects reduced motion and stays
       const coveTerrain = await (window as unknown as { loadCoveTerrain: typeof loadCoveTerrain }).loadCoveTerrain(`/assets/${level.atlas}/`, manifest.terrainKit);
       const timbersTerrain = await (window as unknown as { loadTimbersTerrain: typeof loadTimbersTerrain }).loadTimbersTerrain(`/assets/${level.atlas}/`, manifest.timbersKit);
       const timbersTree = await (window as unknown as { loadTimbersTree: typeof loadTimbersTree }).loadTimbersTree(`/assets/${level.atlas}/`, manifest.timbersTree);
+      const frostGround = await (window as unknown as { loadFrostGround: typeof loadFrostGround }).loadFrostGround(`/assets/${level.atlas}/`, manifest.frostGround);
+      const frostLedges = await (window as unknown as { loadFrostLedges: typeof loadFrostLedges }).loadFrostLedges(`/assets/${level.atlas}/`, manifest.frostLedges);
       const coveMaterials = await (window as unknown as { loadCoveMaterials: typeof loadCoveMaterials }).loadCoveMaterials(`/assets/${level.atlas}/`, manifest.surfaceKit);
       const siteTerrain = await (window as unknown as { loadSiteTerrain: typeof loadSiteTerrain }).loadSiteTerrain(`/assets/${level.atlas}/`, manifest.siteTerrain);
-      const assets = { atlas, manifest, gems, materials, backdrops, slimes, panorama, coveTerrain, coveMaterials, siteTerrain, timbersTerrain, timbersTree };
+      const assets = { atlas, manifest, gems, materials, backdrops, slimes, panorama, coveTerrain, coveMaterials, siteTerrain, timbersTerrain, timbersTree, frostLedges, frostGround };
       const canvas = document.createElement('canvas'); canvas.width = 426; canvas.height = 240;
       const ctx = canvas.getContext('2d')!; ctx.imageSmoothingEnabled = false;
       const camera = { position: { x: Math.min(1400.25, level.maxX - 426), y: level.progressAxis === 'y' ? level.height - 240 : 0 } } as Parameters<typeof drawWorld>[3];
@@ -2236,6 +2241,8 @@ test('finish artwork pixels meet terrain in all six trails, including the sloped
       const coveTerrain = await (window as unknown as { loadCoveTerrain: typeof loadCoveTerrain }).loadCoveTerrain(base, manifest.terrainKit);
       const timbersTerrain = await (window as unknown as { loadTimbersTerrain: typeof loadTimbersTerrain }).loadTimbersTerrain(base, manifest.timbersKit);
       const timbersTree = await (window as unknown as { loadTimbersTree: typeof loadTimbersTree }).loadTimbersTree(base, manifest.timbersTree);
+      const frostGround = await (window as unknown as { loadFrostGround: typeof loadFrostGround }).loadFrostGround(`/assets/${level.atlas}/`, manifest.frostGround);
+      const frostLedges = await (window as unknown as { loadFrostLedges: typeof loadFrostLedges }).loadFrostLedges(base, manifest.frostLedges);
       const coveMaterials = await (window as unknown as { loadCoveMaterials: typeof loadCoveMaterials }).loadCoveMaterials(base, manifest.surfaceKit);
       const siteTerrain = await (window as unknown as { loadSiteTerrain: typeof loadSiteTerrain }).loadSiteTerrain(base, manifest.siteTerrain);
       const quarry = level.id === 'quarry' ? {
@@ -2244,7 +2251,7 @@ test('finish artwork pixels meet terrain in all six trails, including the sloped
         quarryPreview: await (window as unknown as { loadQuarryPreviewPieces: typeof loadQuarryPreviewPieces }).loadQuarryPreviewPieces('/assets/quarry/'),
         quarryShelves: await (window as unknown as { loadQuarryShelves: typeof loadQuarryShelves }).loadQuarryShelves('/assets/quarry/'),
       } : {};
-      const assets = { atlas, manifest, gems, backdrops, materials, panorama, coveTerrain, coveMaterials, siteTerrain, timbersTerrain, timbersTree, ...quarry };
+      const assets = { atlas, manifest, gems, backdrops, materials, panorama, coveTerrain, coveMaterials, siteTerrain, timbersTerrain, timbersTree, frostLedges, frostGround, ...quarry };
       const route = { ...level, entities: [] };
       const fixed = (level.platforms ?? []).filter(platform => platform.from.x === platform.to.x && platform.from.y === platform.to.y)
         .map(platform => ({ id: platform.id, x: platform.from.x, y: platform.from.y,
@@ -4543,7 +4550,7 @@ test('builder-kit visual fixture renders all six words and generated stickers at
 for (const level of LEVELS) test(`compact HUD renderer fixture: ${level.id} identity marks and real glyph clearance`, async ({ page }, info) => {
   // Explicit layout states, not scene mutation or a claim of input-driven gameplay.
   const names = ['world/camera.ts', 'game/platforms.ts', 'game/movement.ts', 'game/education.ts', 'art/interface-kit.ts', 'game/hud.ts', 'world/scenery.ts',
-    'world/quarry-floor.ts', 'world/quarry-rollout.ts', 'world/quarry-preview-pieces.ts', 'world/quarry-shelves.ts', 'world/cove-terrain.ts', 'world/site-terrain.ts', 'world/plains-contour.ts', 'world/timbers-terrain.ts', 'world/timbers-tree.ts', 'world/surface-materials.ts', 'world/assets.ts', 'world/trail-presentation.ts', 'world/ambient-weather.ts', 'world/renderer.ts'];
+    'world/quarry-floor.ts', 'world/quarry-rollout.ts', 'world/quarry-preview-pieces.ts', 'world/quarry-shelves.ts', 'world/cove-terrain.ts', 'world/site-terrain.ts', 'world/plains-contour.ts', 'world/timbers-terrain.ts', 'world/timbers-tree.ts', 'world/frost-ledges.ts', 'world/frost-ground.ts', 'world/surface-materials.ts', 'world/assets.ts', 'world/trail-presentation.ts', 'world/ambient-weather.ts', 'world/renderer.ts'];
   const errors: string[] = []; page.on('pageerror', error => errors.push(error.message));
   const modules = names.map(name => readFileSync(new URL(`../src/${name}`, import.meta.url), 'utf8'));
   const runtimeImports = [...new Set(modules.flatMap(source => [...source.matchAll(/^import (?!type )\{([^}]*)\} from .*;$/gm)]
@@ -4586,7 +4593,7 @@ for (const level of LEVELS) test(`compact HUD renderer fixture: ${level.id} iden
         camera.update(level.start.x, ground - 34);
         drawWorld(ctx, assets, level, camera, undefined, undefined, platformBodiesAt(level.platforms, 0), 0, true);
         const henryRect = { x: level.start.x - camera.position.x - manifest.anchor.x, y: ground - camera.position.y - manifest.anchor.y, width: 48, height: 48 };
-        if (ribbonBandPose) { henryRect.x = 110 - manifest.anchor.x; henryRect.y = 230 - manifest.anchor.y; }
+        if (ribbonBandPose) { henryRect.x = 110 - manifest.anchor.x; henryRect.y = TRAIL_RIBBON.railY - 24; }
         ctx.drawImage(henry, frame.x, frame.y, frame.width, frame.height, henryRect.x, henryRect.y, 48, 48);
         drawWorldForeground(ctx, assets, level, camera);
         const hud = new HudPresentation(); if (state > 0) hud.consume([{ type: 'checkpoint', entityId: level.checkpoints[0].id }]);
@@ -4605,6 +4612,10 @@ for (const level of LEVELS) test(`compact HUD renderer fixture: ${level.id} iden
         }
         const quiet = { left: BAG_PLAQUE.x + PLAQUE_TEXT_SLICE.left, right: BAG_PLAQUE.x + BAG_PLAQUE.width - PLAQUE_TEXT_SLICE.right,
           top: BAG_PLAQUE.y + PLAQUE_TEXT_SLICE.top, bottom: BAG_PLAQUE.y + BAG_PLAQUE.height - PLAQUE_TEXT_SLICE.bottom };
+        const ribbonClear = [HUD_PLAQUES.gems, HUD_PLAQUES.hearts, ...(run.specialTotal ? [HUD_PLAQUES.stars] : []), BAG_PLAQUE,
+          ...texts.map(t => ({ x: t.left, y: t.top, width: t.right - t.left, height: t.bottom - t.top }))]
+          .every(r => !overlaps(TRAIL_RIBBON, { left: r.x, right: r.x + r.width, top: r.y, bottom: r.y + r.height }));
+        if (!ribbonClear || TRAIL_RIBBON.y !== 5) throw new Error('Top ribbon overlaps HUD artwork or glyphs');
         const clearance = {
           pouch: opaque.length > 0 && opaque.every(pixel => pixel.x >= quiet.left && pixel.x < quiet.right && pixel.y >= quiet.top && pixel.y < quiet.bottom),
           marks: marks.length === 4 && marks.filter(mark => mark.color === HUD_COLORS.hit).length === state,
@@ -4637,9 +4648,9 @@ for (const level of LEVELS) test(`compact HUD renderer fixture: ${level.id} iden
       const sample = await page.evaluate(() => (window as unknown as { hudFixtureSample: { count: number; clearance: Record<string, boolean>; assets: { loaded: boolean }[]; henryRect: { x: number; y: number; width: number; height: number } } }).hudFixtureSample);
       expect(sample.count).toBe(state); expect(sample.assets.every(asset => asset.loaded)).toBe(true);
       expect(sample.clearance).toEqual({ pouch: true, marks: true, icons: true, bag: true, hintAndNotice: true });
-      // The actual sprite rectangle is clear of both top lanes and the bottom ribbon.
+      // The actual sprite rectangle is clear of the top HUD and its compact ribbon.
       expect(sample.henryRect.y).toBeGreaterThan(59);
-      expect(sample.henryRect.x + sample.henryRect.width).toBeLessThan(TRAIL_RIBBON.x);
+      expect(hudFixtureRectanglesOverlap(sample.henryRect, TRAIL_RIBBON)).toBe(false);
       await expectClearViewport(page);
       samples.push({ viewport, ...sample, hint, notice });
       await page.screenshot({ path: info.outputPath(`fixture-${level.id}-bag${state}-${viewport.width}.png`) });
@@ -4650,8 +4661,8 @@ for (const level of LEVELS) test(`compact HUD renderer fixture: ${level.id} iden
     }
   }
   // Actual Henry atlas draw + actual HUD renderer, explicitly prepositioned
-  // layout fixture. Its feet occupy the rail band; horizontal clearance is
-  // therefore necessary, rather than passing because the sprite is above it.
+  // layout fixture. Its sprite spans the relocated rail band; horizontal
+  // clearance is therefore necessary rather than passing on vertical separation.
   await page.evaluate(() => (window as unknown as { hudFixture: { bandPose(): void } }).hudFixture.bandPose());
   await twoFrames(page);
   const bandRect = await page.evaluate(() => (window as unknown as {
@@ -4673,13 +4684,13 @@ for (const level of LEVELS) test(`compact HUD renderer fixture: ${level.id} iden
 
 test('compact HUD learned hints stay cleared through real input and pause while the ribbon remains', async ({ page }, info) => {
   await observeKitTextClearance(page);
-  await page.addInitScript(() => {
+  await page.addInitScript(ribbon => {
     const fill=CanvasRenderingContext2D.prototype.fillRect;
     CanvasRenderingContext2D.prototype.fillRect=function(x,y,width,height) {
       if(this.canvas.id==='game') {
         if(x===0&&y===0&&width===426&&height===240){this.canvas.dataset.hudRibbon='false';this.canvas.dataset.hudPosts='0';}
-        if(x===413&&y===223&&width===3&&height===2)this.canvas.dataset.hudRibbon='true';
-        if(y===228&&width===3&&height===4)this.canvas.dataset.hudPosts=String(Number(this.canvas.dataset.hudPosts??0)+1);
+        if(x===ribbon.finishX+1&&y===ribbon.y+2&&width===3&&height===2)this.canvas.dataset.hudRibbon='true';
+        if(y===ribbon.railY&&width===3&&height===4)this.canvas.dataset.hudPosts=String(Number(this.canvas.dataset.hudPosts??0)+1);
       }
       fill.call(this,x,y,width,height);
     };
@@ -4691,7 +4702,7 @@ test('compact HUD learned hints stay cleared through real input and pause while 
       }
       if (maxWidth === undefined) draw.call(this, text, x, y); else draw.call(this, text, x, y, maxWidth);
     };
-  });
+  }, TRAIL_RIBBON);
   await openAdventure(page, '/?debug=1');
   await page.getByRole('button', { name: 'Play PLAINS', exact: true }).click();
   const canvas = page.locator('#game');
@@ -4818,7 +4829,7 @@ for (const [selection, trail] of LEVELS.entries()) test(`landmark labels: render
   // Use the actual map method and its complete renderer dependency graph. These
   // explicit presentation states are not completed gameplay or scene mutations.
   const names = ['world/camera.ts', 'game/platforms.ts', 'game/movement.ts', 'art/henry.ts', 'art/animation.ts', 'art/interface-kit.ts', 'game/education.ts',
-    'world/scenery.ts', 'world/quarry-floor.ts', 'world/quarry-rollout.ts', 'world/quarry-preview-pieces.ts', 'world/quarry-shelves.ts', 'world/cove-terrain.ts', 'world/site-terrain.ts', 'world/plains-contour.ts', 'world/timbers-terrain.ts', 'world/timbers-tree.ts', 'world/surface-materials.ts', 'world/assets.ts', 'world/trail-presentation.ts', 'world/ambient-weather.ts',
+    'world/scenery.ts', 'world/quarry-floor.ts', 'world/quarry-rollout.ts', 'world/quarry-preview-pieces.ts', 'world/quarry-shelves.ts', 'world/cove-terrain.ts', 'world/site-terrain.ts', 'world/plains-contour.ts', 'world/timbers-terrain.ts', 'world/timbers-tree.ts', 'world/frost-ledges.ts', 'world/frost-ground.ts', 'world/surface-materials.ts', 'world/assets.ts', 'world/trail-presentation.ts', 'world/ambient-weather.ts',
     'world/renderer.ts', 'game/reward-result.ts', 'game/overworld.ts'];
   const modules = names.map(name => readFileSync(new URL(`../src/${name}`, import.meta.url), 'utf8'));
   const runtimeImports = [...new Set(modules.flatMap(source => [...source.matchAll(/^import (?!type )\{([^}]*)\} from .*;$/gm)]

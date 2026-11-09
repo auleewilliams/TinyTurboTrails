@@ -1,0 +1,27 @@
+{
+  "reason": "Correct the normal renderer-pose oracle after the sealed top ribbon relocation; retain strict safe-world bound and all band-pose assertions.",
+  "failedRun": "42606865707",
+  "failedHead": "75786aafe74989eaef502ec890a66d38665bb300",
+  "failedMerge": "eb3a6554111b03b57c0e50052845c9fc6f7e290b",
+  "sealedRibbonRecordSHA256": "dd9d329d7e4f74cb676f7ff3df18da328b1138f9fce7fe4cc60e738bbecfc883",
+  "files": {
+    "tests/browser.spec.ts": {
+      "beforeSHA256": "1336305a68077c213c951bf5a45c8aebffa8d3d867ce02465d687f2567ed9eb2",
+      "currentSHA256": "cc1b4a89c4bcae6080437a6bed22848624f0d3c1b7d2ae46483a6b034b4e860a",
+      "changes": [
+        {
+          "before": "import { frostGroundWindows, frostGroundIdentity, validateFrostGround, loadFrostGround, clipFrostLegacy, frostGroundColumn, drawFrostGround } from '../src/world/frost-ground';",
+          "after": "import { hudFixtureRectanglesOverlap } from './hud-fixture-geometry';\nimport { frostGroundWindows, frostGroundIdentity, validateFrostGround, loadFrostGround, clipFrostLegacy, frostGroundColumn, drawFrostGround } from '../src/world/frost-ground';"
+        },
+        {
+          "before": "expect(sample.henryRect.x + sample.henryRect.width).toBeLessThan(TRAIL_RIBBON.x);",
+          "after": "expect(hudFixtureRectanglesOverlap(sample.henryRect, TRAIL_RIBBON)).toBe(false);"
+        }
+      ]
+    }
+  },
+  "coverageBindings": {
+    "tests/hud-fixture-geometry.ts": "4c414dad85f59df5d850654673775e2012328697dc4c802db65653746e9e11fe",
+    "tests/hud-fixture-geometry.test.ts": "a2142f1dcdb16af2b84bce539f5ab8d0325a4e5285476c045cdf9bf2ad6d1cbc"
+  }
+}

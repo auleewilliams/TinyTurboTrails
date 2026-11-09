@@ -1,0 +1,8 @@
+{
+  "prompt": "Use the primary attached actual T01 snow/grey-slate rock field ONLY as palette contrast context; do not keep or reproduce its rock layout, snow cap or terrain composition. Use the accepted native snowy ledge reference ONLY for compatible illustration palette/style, not platform layout. Create a COMPLETE OPAQUE edge-to-edge SQUARE cold BLUE/CYAN ICE material field. The entire image, including all sides and the bottom, must be ice: no rock, soil, terrain body, bank, snow cap, isolated slab, strip silhouette, borders, empty margins, sky, labels, text, characters, HUD/UI, painted transparency/checkerboard or chroma-key matte. Make ice clearly blue/cyan compared with T01 pale near-white snow and grey slate rock; avoid a mostly white snow-like field. Use broad simple blue ice masses with sparse broad pale frost flecks and glints that survive uniform whole-image reduction to 8 by 8 native pixels. Do not draw tiny detailed crack networks or retain rock facets. The COMPLETE square will be prepared once with equal scaling on both axes to 8x8, with no crop, cap extraction or paint repair. A whole-field horizontal mirror with a 16-column native period is currently proposed for the nominal thin 8-row contour cue; reuse method, actual seam coherence and snow/ice distinction must be judged after returned-pixel inspection and later native/compositor readability review. No readability or seamlessness is promised by this request.",
+  "aspect_ratio": "square",
+  "image_url": "/home/leew/.hermes/cache/scratch/f243-terrain27/T01-returned-raw.png",
+  "reference_image_urls": [
+    "/home/leew/.hermes/cache/scratch/ttt-frost-fit243/public/assets/frost/ledge-trial-v1/ledge-v4-210.png"
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "sourceCodeVerdict": "PASS",
+  "iceReadiness": "PASS_FOR_BOUNDED_PILOT",
+  "actualModel": "claude-opus-5-5",
+  "session": "b2622481-56c5-43b7-aed9-a23b29a4d0b5",
+  "fullReads": {
+    "/home/leew/.hermes/cache/scratch/f243-ice33/prepare-ice-source.mjs": {
+      "sha256": "4d175bf5a208eae41837dece2e5a6793d50f97d409599fb15f303a54aa5d7b9b",
+      "actualFullLines": 73
+    },
+    "/home/leew/.hermes/cache/scratch/f243-ice34-review/seal-source-ready.lossless-review.txt": {
+      "sha256": "d8aa0c089d876d6a2b9fe9349b5550d05250650d2539dfe1673b9cf7dcc075be",
+      "actualFullLines": 37
+    },
+    "/home/leew/.hermes/cache/scratch/f243-ice34-review/lossless-view-binding.json": {
+      "sha256": "2087339fa2649941658925c37205c29229e8e4c2a0c33c820a26954a278804f6",
+      "actualFullLines": 189
+    },
+    "/home/leew/.hermes/cache/scratch/f243-ice33/source-ready-contract.md": {
+      "sha256": "5891f0b922a358b20466b7c94d5998b61b0070dd2ec001a5f30097d1d49b0edf",
+      "actualFullLines": 23
+    },
+    "/home/leew/.hermes/cache/scratch/f243-ice33/worker-handoff.md": {
+      "sha256": "174a4cd88b8b5a33af1a8ae265bef93885bab49d744b19306f7b291d7b26f06c",
+      "actualFullLines": 14
+    },
+    "/home/leew/.hermes/cache/scratch/f243-ice33/source-fit-findings.json": {
+      "sha256": "a07ad47add840adf3e252ae8b905ce2ffce02bd8a73488dbea2590f88dfbbbd5",
+      "actualFullLines": 94
+    },
+    "/home/leew/.hermes/cache/scratch/f243-ice33/ice-preparation-receipt.json": {
+      "sha256": "1a3b59cccf4760d8eb2bc5f74198d58249dd8b4374b3e7a54e45de00d9ef0945",
+      "actualFullLines": 289
+    },
+    "/home/leew/.hermes/cache/scratch/f243-ice33/ice-preparation.stdout": {
+      "sha256": "193627dded23e6222f33233fea95ee244f3fb089792ccb13d0d41c87946a7ebb",
+      "actualFullLines": 186
+    },
+    "/home/leew/.hermes/cache/scratch/f243-ice33/artifact-index.json": {
+      "sha256": "29cbd6ee44cd8057dea4988b23182087d7e11a16a7896390d9224d2ca23f5a83",
+      "actualFullLines": 196
+    }
+  },
+  "sealerFullViaView": {
+    "source": "/home/leew/.hermes/cache/scratch/f243-ice33/seal-source-ready.mjs",
+    "sha256": "60bf6fbb4cb1457d838e61bfa9a3224e86f534ffe94c433c7168b75bf3882a37",
+    "everyOriginalCharacterReconstructed": true
+  },
+  "mandatoryFindings": [],
+  "currentSpent": 4,
+  "nativeIntegrationHuman": "UNRUN",
+  "parentVisual": "actualcyanmaterialdistinctfrommutedT01snowandgreyrock;flatsoftwareONLY"
+}

@@ -1,0 +1,230 @@
+{
+  "sourceCodeVerdict": "PASS",
+  "terrainReadiness": "PASS_FOR_BOUNDED_PILOT",
+  "iceInitialCallEligibility": "PASS",
+  "mandatoryFindings": [],
+  "nonblockingNotes": [
+    "Direct mode: finalize-current-source.mjs:74 sets sourceX=x%440 and pairX=x%880. Lines 75-79 compare all 440 rows of every column, prepared RGBA against the decoded terrain29 direct pair. That is 5600\u00d7440=2,464,000, matching current-source.stdout. The terrain29 pair was built from the same prepared RGBA (check-direct-reuse.mjs:26), so this check shows the two are the same and correctly associated. It is not independent visual evidence.",
+    "Geometry reuse is limited correctly. Lines 69-72 recompute y0/y1/origin from appendix.surfaces and only assert they equal the historical x/owner/y0/y1/origin. Line 64 re-checks the contour against the bound frost-ridge.ts. Historical mirrored sourceX, bottomRgba and the old phase table are never read as current inputs. Fresh per-column source/backing hashes, topSourceRgba and bottomSourceRgba come from the prepared pixels at the direct sourceX. Old mirrored RGB records certify nothing in direct mode.",
+    "terrain28's SOURCE-ONLY-contour-raster.png/svg, whole-plus-mirrored-native.png and candidate-columns sourceX/bottomRgba are mirror-phase artifacts. Direct mode did not rebuild them, so none of them may be cited as direct-mode visual or contour evidence. The only actual direct-mode pixels are terrain29/whole-plus-direct-native.png. Direct-mode contour-clip appearance is still unseen.",
+    "The join check at line 86 assumes surfaces[index-1] is the left neighbour, i.e. that array position equals index. terrain28:176-180 checked the same thing independently with find(), and the reused owner equality ties the two together. No defect.",
+    "Line 28 re-reads direct-reuse-findings.json with a plain read, not the bound read(). This is a minor TOCTOU gap: the file was bound at line 26, and line 93 re-hashes every bound input after the run.",
+    "Preparation helper closure: wholeImageAtHeight uses numerator=1254 and denominator=440 on both axes, exact integer-area weights, alpha-weighted with alpha 255 everywhere. Output width is ceil(1254\u00b7440/1254)=440. No crop, key or repair, and the module imports only spelling-stickers.mjs. decodePng expands RGB (channels=3) to RGBA with alpha 255, which is consistent with the asserted raw.channels===3 and the full alpha loop. For Ice1, the same helper at height 8 gives an equal-axis 8\u00d78 from a square return.",
+    "Visual check through Read: the raw T01 is an opaque, square field of slate rock under a continuous snow/icicle fringe, with no matte, UI or margins. In the direct 880\u00d7440 pair the x440 wrap can be traced in the fringe step and in cut rock outlines. There is no broad blank and no strong value bar, the 440px motif repeats, and the mirrored diamonds are gone. This agrees with the parent's adjudication. The variances (bright core ~9 px, blue envelope 11-22 px, rocks ~40-130 px) are still requested-design variances. They are not failures and not exact compliance.",
+    "Ice1 payload (as written by lines 52-59): it has only the keys prompt, aspect_ratio=square, image_url and reference_image_urls, all checked against the bound schema. The delta against the immutable terrain23 payload (aab0c9e7\u2026, verified through the manifest at line 24) is exactly prompt plus image_url. reference_image_urls is unchanged at V4 (bdcfa27e\u2026). The primary is the T01 raw (7e4a1c06\u2026). current-bindings, the delta, the ledger association, stdout and the handoff all give the request hash as 6ef9f600\u2026. I did not compute that hash myself.",
+    "Risk: the T01 rock field is the primary image_url. If the provider treats that as an edit or init image, the return could keep rock layout or a snow cap despite the 'palette contrast ONLY' wording. Judge the returned pixels for rock/cap retention, square shape and opaque full-field ice. A failure there is not grounds for an automatic retry or for borrowing a reserve.",
+    "Ledger: terrain27 image-ledger asserts spent=3/10, role spend ledges 2 / terrain 1 / ice 0, held reserves 2/2/2 and a conditional initial ice:1. That is the original initial slot, not a reserve. The worker made 0 calls.",
+    "Integration carry-forward from the terrain23 consumer audit: the Frost cache/preview identity has to key the new direct phase (mod440) and the recipe version, not the old mirror880. The required sourceX/depth/RGBA witnesses should use the direct-phase-proof records."
+  ],
+  "actualReadCoverage": [
+    {
+      "path": "f243-terrain28/source-fit.mjs",
+      "depth": "FULL",
+      "intervals": [
+        [
+          1,
+          193
+        ]
+      ]
+    },
+    {
+      "path": "f243-terrain28/finalize-fit.mjs",
+      "depth": "FULL",
+      "intervals": [
+        [
+          1,
+          64
+        ]
+      ]
+    },
+    {
+      "path": "f243-terrain29/check-direct-reuse.mjs",
+      "depth": "FULL",
+      "intervals": [
+        [
+          1,
+          65
+        ]
+      ]
+    },
+    {
+      "path": "f243-terrain29/finalize-reuse.mjs",
+      "depth": "FULL",
+      "intervals": [
+        [
+          1,
+          22
+        ]
+      ]
+    },
+    {
+      "path": "f243-terrain30/finalize-current-source.mjs",
+      "depth": "FULL",
+      "intervals": [
+        [
+          1,
+          96
+        ]
+      ]
+    },
+    {
+      "path": "f243-terrain30/seal-current-packet.mjs",
+      "depth": "FULL",
+      "intervals": [
+        [
+          1,
+          31
+        ]
+      ]
+    },
+    {
+      "path": "ttt-frost-fit243/scripts/timbers-art.mjs",
+      "depth": "FULL",
+      "intervals": [
+        [
+          1,
+          82
+        ]
+      ]
+    },
+    {
+      "path": "ttt-frost-fit243/scripts/spelling-stickers.mjs",
+      "depth": "FULL",
+      "intervals": [
+        [
+          1,
+          125
+        ]
+      ]
+    },
+    {
+      "path": "f243-terrain30/current-source-contract.md",
+      "depth": "FULL",
+      "intervals": [
+        [
+          1,
+          18
+        ]
+      ]
+    },
+    {
+      "path": "f243-terrain30/worker-handoff.md",
+      "depth": "FULL",
+      "intervals": [
+        [
+          1,
+          18
+        ]
+      ]
+    },
+    {
+      "path": "f243-terrain30/ice1-request.json",
+      "depth": "FULL",
+      "intervals": [
+        [
+          1,
+          9
+        ]
+      ]
+    },
+    {
+      "path": "f243-terrain30/ice1-request-delta.json",
+      "depth": "FULL",
+      "intervals": [
+        [
+          1,
+          40
+        ]
+      ]
+    },
+    {
+      "path": "f243-terrain30/current-ledger-association.json",
+      "depth": "FULL",
+      "intervals": [
+        [
+          1,
+          52
+        ]
+      ]
+    },
+    {
+      "path": "f243-terrain30/parent-source-visual-adjudication.json",
+      "depth": "FULL",
+      "intervals": [
+        [
+          1,
+          17
+        ]
+      ]
+    },
+    {
+      "path": "f243-terrain30/current-source.stdout",
+      "depth": "FULL",
+      "intervals": [
+        [
+          1,
+          19
+        ]
+      ]
+    },
+    {
+      "path": "f243-terrain22/image-tool-schema.json",
+      "depth": "FULL",
+      "intervals": [
+        [
+          1,
+          23
+        ]
+      ]
+    },
+    {
+      "path": "f243-terrain30/current-bindings.json",
+      "depth": "GREP_PARTIAL",
+      "intervals": "key/sha/role lines 2-251"
+    },
+    {
+      "path": "f243-terrain30/direct-phase-proof.json",
+      "depth": "GREP_PARTIAL",
+      "intervals": "mode/phase/scope/summary/limitations lines 2,3,30,136272-136281"
+    },
+    {
+      "path": "f243-terrain23/consumer-audit.md",
+      "depth": "GREP_PARTIAL",
+      "intervals": "lines 7-23 matching ice/cache/grip; some long lines omitted"
+    },
+    {
+      "path": "f243-terrain27/T01-returned-raw.png",
+      "depth": "IMAGE_VIEWED",
+      "intervals": "whole"
+    },
+    {
+      "path": "f243-terrain29/whole-plus-direct-native.png",
+      "depth": "IMAGE_VIEWED",
+      "intervals": "whole"
+    },
+    {
+      "path": "public/assets/frost/ledge-trial-v1/ledge-v4-210.png",
+      "depth": "IMAGE_VIEWED",
+      "intervals": "whole"
+    }
+  ],
+  "dataOnlySealed": [
+    "f243-terrain30/direct-phase-proof.json per-column records (~136k lines)",
+    "f243-terrain28/candidate-columns.json, profiles.json, preparation-receipt.json, source-fit-findings.json",
+    "f243-terrain29/direct-reuse-findings.json, parent-shared-path-and-pair.stdout",
+    "f243-terrain27/image-ledger.json, T01-native-tool-result.json, T01-dispatched-arguments.json",
+    "f243-terrain23 contract/appendix/manifest/old ice1-request (via hash bindings only)",
+    "f243-terrain30/historical-associations.json, artifact-index.json, executed-commands.json"
+  ],
+  "remainingNativeHumanIntegrationGates": [
+    "Parent dispatches the original initial Ice1 slot; held reserves (ledges 2 / terrain 2 / ice 2) stay untouched; no automatic retry",
+    "Ice1 returned-pixel adjudication: square, opaque full-field blue/cyan, no T01 rock/cap retained, 8\u00d78 equal-axis prep, period-16 mirror reuse, distinct from snow",
+    "Separately authorized integration under the terrain23 consumer audit, with cache/preview keyed to the direct phase mod440",
+    "Direct-mode contour clip seen for real (mirror-era diagnostic not rebuilt)",
+    "Native antialiasing, fractional camera and compositor checks",
+    "Required loading/Retry, cache invalidation and first-warm",
+    "Actor and ice-boundary readability in ordinary traversal",
+    "Five held tests UNRUN: sprite-processing, finish-grounding, prepare-timbers-art, prepare-timbers-tree, specials",
+    "Owner/human acceptance; production, merge, deploy and closure not granted by this review"
+  ]
+}

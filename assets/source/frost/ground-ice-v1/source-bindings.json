@@ -1,0 +1,98 @@
+{
+  "Ice1-raw.png": {
+    "sha256": "28068fc63a0c736e46e993867c356500e509a8d89d4b60ca93934f56437be4f2",
+    "bytes": 1340909
+  },
+  "ice.png": {
+    "sha256": "5e849141b1af83a288f7d1a4298815cc381df3b57be8a6c73dbde9d7e96e8864",
+    "bytes": 292
+  },
+  "terrain.png": {
+    "sha256": "f6ba00cfa6ca8d4040e00fe44fd5e2510f292375a7794ff07e74632bd2cea9ab",
+    "bytes": 289380
+  },
+  "Terrain1-raw.png": {
+    "sha256": "7e4a1c06801dbf49cd8b18e338df0dca6952e52b7232b4d9e880cdfca7f2420c",
+    "bytes": 1427051
+  },
+  "originals/terrain28/preparation-receipt.json": {
+    "sha256": "21bff4c76b9ed081a360f49dd22c355ca8aed670894b3604ea04fc6325871639",
+    "bytes": 6473
+  },
+  "originals/terrain31-review/parent-source-review-certificate.json": {
+    "sha256": "fe1eea06fa288652a41d2c14b7be3a0e242d59b092c744a6766d8b08eeb79cf6",
+    "bytes": 3906
+  },
+  "originals/terrain31-review/parsed-verdict.json": {
+    "sha256": "7a975bbfde8861aa0cd08e11d2174c53e4b3c2da2ba40e00cc8f1360372bc4bb",
+    "bytes": 9725
+  },
+  "originals/ice33/ice-preparation-receipt.json": {
+    "sha256": "1a3b59cccf4760d8eb2bc5f74198d58249dd8b4374b3e7a54e45de00d9ef0945",
+    "bytes": 9766
+  },
+  "originals/ice33/source-ready-contract.md": {
+    "sha256": "5891f0b922a358b20466b7c94d5998b61b0070dd2ec001a5f30097d1d49b0edf",
+    "bytes": 5379
+  },
+  "originals/approval/all-ten-ledges-owner.json": {
+    "sha256": "b42e4a9282d77c6f63d70335ef6dee8dcd2a50e5f8a4e373116b52d0c37218d3",
+    "bytes": 1119
+  },
+  "originals/approval/original-pilot-owner.json": {
+    "sha256": "f068c68c0e231b761ca0c1e4d6ac92c60a4c19324a13be2b17e0c7011e492fef",
+    "bytes": 1242
+  },
+  "originals/approval/bounded-ground-application.json": {
+    "sha256": "6f67488e1c6b5064d8fb24b80283a011969923c7397e5e0cb348f446a32e0f72",
+    "bytes": 1320
+  },
+  "originals/ice34-review/parent-source-review-certificate.json": {
+    "sha256": "0caa0a15c7050896f0707d5fe966bce28bb267ab8b266f71bbcc94fa5b861f5d",
+    "bytes": 2401
+  },
+  "originals/ice34-review/parsed-verdict.json": {
+    "sha256": "745f81ee2d2b543453e6d8f61da56282889234262ffc985e0fabe2001bc32044",
+    "bytes": 9196
+  },
+  "originals/terrain27/image-ledger.json": {
+    "sha256": "252eaa56186e49fa535efa6b146a0b181c9385226e2c54ed5ad62bb0e70fd0f3",
+    "bytes": 5399
+  },
+  "originals/terrain27/T01-native-tool-result.json": {
+    "sha256": "ee82298e93dd969d9cabaefa38fc11470681ed583311bed7c19f10f5c513b192",
+    "bytes": 1759
+  },
+  "originals/terrain27/T01-dispatched-arguments.json": {
+    "sha256": "9a3a3729f3d58b82e33c75051e740563db82a83d7be39a22ac4412eb39c8fd93",
+    "bytes": 1516
+  },
+  "originals/terrain30/current-source-contract.md": {
+    "sha256": "8c36ee4bfd4bb2efe513d838de5f71f22467b7a0fd98121e27a52dfae7da3f1a",
+    "bytes": 4560
+  },
+  "originals/terrain30/direct-phase-proof.json": {
+    "sha256": "897224c59f8ceecf8c24885e5e4ef85f521858151e326a49dd644da40db8004b",
+    "bytes": 3147283
+  },
+  "originals/ice32/image-ledger.json": {
+    "sha256": "6445b1371ee18826c3c34b2b99ee76412381c29012f3f9243013089a3d5f1b9b",
+    "bytes": 7424
+  },
+  "originals/ice32/I01-dispatched-arguments.json": {
+    "sha256": "6ef9f6001e379019305c762f5b9486a848310990457cb1c4d15a4e430982971e",
+    "bytes": 1710
+  },
+  "originals/ice32/I01-native-tool-result.json": {
+    "sha256": "59a57a6b6998a63d03aef767ee02faa1b233e184261eac13c51e0c1b47ed7cf5",
+    "bytes": 1964
+  },
+  "originals/terrain23/terrain-ice-appendix.json": {
+    "sha256": "4728adba9788cb4fabdb53a2b636d2e67f81e4c1fca5a848729e75cc86652ff8",
+    "bytes": 8201
+  },
+  "originals/terrain23/consumer-audit.md": {
+    "sha256": "8034f37274823de0cae4699ff92ec321c16119f2a128fc1e834ac44ee6c2f4a3",
+    "bytes": 6918
+  }
+}

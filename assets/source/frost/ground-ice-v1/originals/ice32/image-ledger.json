@@ -1,0 +1,139 @@
+{
+  "ceilingTotal": 10,
+  "initial": {
+    "ledges": 1,
+    "terrain": 1,
+    "ice": 1
+  },
+  "maxima": {
+    "ledges": 4,
+    "terrain": 3,
+    "ice": 3
+  },
+  "heldReserves": {
+    "ledges": 2,
+    "terrain": 2,
+    "ice": 2
+  },
+  "calls": [
+    {
+      "id": "F243-L01",
+      "role": "ledges",
+      "status": "REJECTED_RGB_PAINTED_CHECKERBOARD_AND_UNEVEN_TOPS",
+      "request": "/home/leew/.hermes/cache/scratch/f243-pilot7/ledge-request.json",
+      "requestSha256": "54a75a312a61848cac18bd5f17b1e1382f0c3beb3b7eb41638dd592b9a2745a0",
+      "referenceHashes": {
+        "/home/leew/.hermes/cache/scratch/f243-pilot7/ledge-layout-NONART-guide.png": "4b5a287d4321ce2dc0d967f8013d429c204939ea0f3448cfde22a3d72abcd511",
+        "/home/leew/.hermes/cache/scratch/ttt-frost-fit243/public/assets/cove/bay1-b-v1/platform.png": "e1809f4f247e693c96968ce7661e2e2126d46d28567b032e534634ee6a2b94cc",
+        "/home/leew/.hermes/cache/scratch/f243-fit2/rest-late-completed-native.png": "d2796f006e1c5aca9e73b0534936e7aae455ac5927182f4f8a2608d047b96d3e"
+      },
+      "at": "2026-11-05T21:33:04.742551+00:00",
+      "result": "/home/leew/.hermes/cache/scratch/f243-pilot7/L01-native-tool-result.json",
+      "requestId": "ba815954-3022-42d0-bff1-4a6bb15b8fb5",
+      "source": "/home/leew/.hermes/cache/scratch/f243-pilot7/ledge-family1-returned-raw.png",
+      "sha256": "eadb2eec2a18754810b11554b36dd90d9d354d635e2362e4475190195bb40cdc",
+      "returnedAt": "2026-11-05T21:34:00.769494+00:00",
+      "disposition": "/home/leew/.hermes/cache/scratch/f243-pilot7/L01-parent-source-disposition.json"
+    },
+    {
+      "id": "F243-L02",
+      "role": "ledges",
+      "slot": "ONE explicitly authorized held ledge reserve",
+      "status": "REJECTED_SOURCE_GATE_PROFILE_TOP_AND_MATTE",
+      "request": "/home/leew/.hermes/cache/scratch/f243-ledge8/L02-request.json",
+      "requestSha256": "49ddee84c7f09873d58d7492a5e609935b04e335641247aec204fa3d55a7566e",
+      "keyContractSha256": "d780f352055d25fc8c2a06cd86395ce825089a20c8252e54ff1d3f96677fa57c",
+      "keyPredicate": "R>=224 B>=224 G<=31 A255, exterior4connected only, preserveallRGB",
+      "approval": "/home/leew/.hermes/cache/scratch/f243-ledge8/human-recovery-approval.json",
+      "referenceHashes": {
+        "/home/leew/.hermes/cache/scratch/f243-pilot7/ledge-layout-NONART-guide.png": "4b5a287d4321ce2dc0d967f8013d429c204939ea0f3448cfde22a3d72abcd511",
+        "/home/leew/.hermes/cache/scratch/f243-pilot7/ledge-family1-returned-raw.png": "eadb2eec2a18754810b11554b36dd90d9d354d635e2362e4475190195bb40cdc",
+        "/home/leew/.hermes/cache/scratch/ttt-frost-fit243/public/assets/cove/bay1-b-v1/platform.png": "e1809f4f247e693c96968ce7661e2e2126d46d28567b032e534634ee6a2b94cc"
+      },
+      "at": "2026-11-05T21:52:59.555062+00:00",
+      "source": "/home/leew/.hermes/cache/scratch/f243-ledge8/L02-returned-raw.png",
+      "sha256": "0d5f65932786dbbc1dcbbd8187bf0592b8d1a19b45de822fda9ba0abb22ea25e",
+      "requestId": "0f33cbea-6d96-4e63-be6e-aefb34cd03bc",
+      "result": "/home/leew/.hermes/cache/scratch/f243-ledge8/L02-native-tool-result.json",
+      "returnedAt": "2026-11-05T21:54:02.309065+00:00",
+      "disposition": "/home/leew/.hermes/cache/scratch/f243-ledge8/L02-parent-final-disposition.json"
+    },
+    {
+      "id": "F243-T01",
+      "role": "terrain",
+      "slot": "originalconditionalTerrain1initialslot",
+      "status": "RETURNED_SOURCE_PENDING_FIT",
+      "request": "/home/leew/.hermes/cache/scratch/f243-terrain23/terrain1-request.json",
+      "requestSha256": "238407943cdaf6132a503690b6b28f73230a3fb57c32aaef7b559e8e84357127",
+      "referenceHashes": {
+        "/home/leew/.hermes/cache/scratch/f243-rollout18/capture-01-426-ground1-gem6.png": "ccc9792070735c2dcefd0b82c17e3d29310a94c0fb1a6bb082a80eaba638eafd",
+        "/home/leew/.hermes/cache/scratch/ttt-frost-fit243/public/assets/frost/ledge-trial-v1/ledge-v4-210.png": "bdcfa27e460280365a5c6a6dfe77fa8b120ba44312c4c02669a70f3764081065"
+      },
+      "sourceCheck": "/home/leew/.hermes/cache/scratch/f243-terrain25/source-check-result.json",
+      "checkerReview": "/home/leew/.hermes/cache/scratch/f243-terrain26-review/parent-delta-review-certificate.json",
+      "contractReview": "/home/leew/.hermes/cache/scratch/f243-terrain24-review/parent-preexecution-review-certificate.json",
+      "ownerContinuation": "/home/leew/.hermes/cache/scratch/f243-terrain22/owner-ledges-acceptance.json",
+      "returnedSource": "/home/leew/.hermes/cache/scratch/f243-terrain27/T01-returned-raw.png",
+      "sha256": "7e4a1c06801dbf49cd8b18e338df0dca6952e52b7232b4d9e880cdfca7f2420c",
+      "actualDimensions": [
+        1254,
+        1254
+      ],
+      "actualMode": "RGB",
+      "toolResult": "/home/leew/.hermes/cache/scratch/f243-terrain27/T01-native-tool-result.json",
+      "requestId": "82f62399-ddfd-4714-bafb-750ec766a5d1",
+      "reportedQuality": "low",
+      "requestedQuality": "medium",
+      "currentSourceApplication": {
+        "status": "PILOT_ELIGIBLE_DIRECT_SOURCE_REVIEW_PASS",
+        "contract": "/home/leew/.hermes/cache/scratch/f243-terrain30/current-source-contract.md",
+        "review": "/home/leew/.hermes/cache/scratch/f243-terrain31-review/parent-source-review-certificate.json",
+        "oldMirrorVisualFailure": "preserved",
+        "nativeOwner": "UNRUN"
+      }
+    },
+    {
+      "id": "F243-I01",
+      "role": "ice",
+      "slot": "ORIGINAL_Ice1_INITIAL_notreserve",
+      "status": "RETURNED_PENDING_WHOLE8_SOURCE_FIT",
+      "request": "/home/leew/.hermes/cache/scratch/f243-terrain30/ice1-request.json",
+      "requestSHA256": "6ef9f6001e379019305c762f5b9486a848310990457cb1c4d15a4e430982971e",
+      "referenceHashes": {
+        "/home/leew/.hermes/cache/scratch/f243-terrain27/T01-returned-raw.png": "7e4a1c06801dbf49cd8b18e338df0dca6952e52b7232b4d9e880cdfca7f2420c",
+        "/home/leew/.hermes/cache/scratch/ttt-frost-fit243/public/assets/frost/ledge-trial-v1/ledge-v4-210.png": "bdcfa27e460280365a5c6a6dfe77fa8b120ba44312c4c02669a70f3764081065"
+      },
+      "sourceEligibilityReview": "/home/leew/.hermes/cache/scratch/f243-terrain31-review/parent-source-review-certificate.json",
+      "terrainReadiness": "PILOT_ELIGIBLE_DIRECT_WHOLE_SOURCE",
+      "raw": "/home/leew/.hermes/cache/scratch/f243-ice32/I01-returned-raw.png",
+      "rawSHA256": "28068fc63a0c736e46e993867c356500e509a8d89d4b60ca93934f56437be4f2",
+      "returnedWidth": 1254,
+      "returnedHeight": 1254,
+      "PNGbitDepth": 8,
+      "PNGcolourType": 2,
+      "requestID": "f27fc672-59b3-43be-abb7-f75019863923",
+      "actualOutputVsRequest": "Actual1254squareRGB;requested1024medium,providerreported1254low;noautomaticretry",
+      "toolResult": "/home/leew/.hermes/cache/scratch/f243-ice32/I01-native-tool-result.json"
+    }
+  ],
+  "spent": 4,
+  "newActualAttempt": "F243-I01 countedoncebeforeactualtoolinvocation,noautomaticretry",
+  "spendByRole": {
+    "ledges": 2,
+    "terrain": 1,
+    "ice": 1
+  },
+  "remainingConditionalInitial": {},
+  "remainingHeldReserves": {
+    "ledges": 2,
+    "terrain": 2,
+    "ice": 2
+  },
+  "gate": "I01RETURNED;inspectwhole8preparationandactualblue/icecoherence;ALL6reservesHELD",
+  "all10Ledges": "acceptedandfrozen",
+  "previousLedger": {
+    "path": "/home/leew/.hermes/cache/scratch/f243-terrain27/image-ledger.json",
+    "sha256": "252eaa56186e49fa535efa6b146a0b181c9385226e2c54ed5ad62bb0e70fd0f3",
+    "unchanged": true
+  }
+}

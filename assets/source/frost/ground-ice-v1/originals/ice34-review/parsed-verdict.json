@@ -1,0 +1,154 @@
+{
+  "sourceCodeVerdict": "PASS",
+  "iceReadiness": "PASS_FOR_BOUNDED_PILOT",
+  "twoRoleRecommendation": "Close source planning for both roles. Terrain T01 keeps the complete 440 field direct-repeated at worldColumn mod440. Ice I01 keeps the whole 8\u00d78 field with a 16-column whole mirror (p=worldColumn mod16; sourceX=p<8?p:15-p). Neither role repeats vertically. Next step: an ordinary bounded ground+ice integration pilot, limited to the original envelope (upper 3380..3830, bowl 2060..2490) until the owner expands it. It needs separate integration and native-execution authorization from the parent or owner. This review grants none of these: no paid reserve, refinement, retry or alternative, no native/browser execution, rollout, merge, deploy or closure.",
+  "mandatoryFindings": [],
+  "nonblockingNotes": [
+    "Preparation path (prepare-ice-source.mjs:34-40): the raw image is bound with its expected hash 28068fc6\u2026. It decodes as a 1254\u00d71254, 3-channel image and goes through the shared wholeImageAtHeight(raw,8). That is an equal-axis 8/1254 = 4/627 scale, gives width ceil(1254\u00b78/1254)=8, and applies no crop, key, repair or stretch. The script decodes again and runs a second in-memory sampler with RGBA+PNG deepEqual, then a decode roundtrip of the prepared PNG, then an alpha=255 loop over both raw and prepared. The sampler closure is the timbers-art/spelling-stickers pair I reviewed before. The script binds it to bc206e42\u2026 and 7f2a39ba\u2026, which match the bindings from the earlier pass.",
+    "Mirror check (lines 42-47): the phase function and the expected formula are written independently (x%16<8 ? x%8 : 7-x%8) and agree. Every pixel is compared after a decode of the encoded PNG: 16\u00b78 + 128\u00b78 = 1152. Edge texels are duplicated at 7/8 and 15/16, which is expected for a whole mirror.",
+    "Request/result binding (lines 26-33): the dispatched arguments deepEqual the bound 6ef9f600\u2026 request, and the receipt records the same file hash for both. Result prompt equality is checked, and requested 1024/medium vs reported 1254/low are kept as separate facts. The ledger is asserted at 4/10, roles 2/1/1, reserves 2/2/2, remainingConditionalInitial={}. Reference hashes come from ledger.calls[F243-I01].referenceHashes. The receipt shows the T01 raw and V4 with expected hashes.",
+    "Weak spot in line 16: the shared-helper binding only reads the helpers if parent-source-review-certificate.json lists them. Nothing asserts that both entries were found. The receipt shows both were read with expected hashes, so this is a hardening gap, not a defect. The certificate itself, the parsed verdict, the terrain28 receipt, direct-phase-proof, current-bindings, the native result and the ice32 ledger are bound by recorded hash (expected=null), not by a prior expected value.",
+    "seal-source-ready.mjs, via the lossless view: it only re-hashes receipt.checkedInputs. It does not re-decode ice-material-8.png against receipt.prepared, and it does not re-verify the pair or strip. artifact-index then hashes the outputs. The parent's independent rehash covers the outputs. The seal writes findings, contract and handoff text from receipt/palette fields; I found no logic that changes pixels.",
+    "Palette sheet (lines 56-66): glyph text sits on a white background. The materials are pasted at native size plus one labelled 12\u00d7 nearest-neighbour view, and their pixels are copied without change. Text regions do not overlap the pasted materials. This is a flat software swatch only.",
+    "Visual check through Read: the I01 raw is a complete opaque cyan field of broad diagonal ice masses with pale glints. I see no rock, snow cap, margin, UI or matte, and the T01 layout was not reproduced. At 8\u00d78 and in the 16\u00d78 mirror the glints become soft, lighter cyan cells, and there is a visible regular 16px cadence. This is a disclosed request variance.",
+    "Contrast is mostly chroma, not luminance. Ice relative luminance runs 0.29..0.52 (mean 0.372). That overlaps the T01 fringe range (0.34..0.82) and the upper end of the body range (max 0.38). Blue-minus-red is about 190 for ice against about 61 for fringe and about 41 for body. The ice is also much more saturated than the muted slate/snow T01 palette. Style harmony and colour-vision-robust readability therefore belong to the native/human gates, not to source fit. The descriptive probes set no thresholds.",
+    "Scope: the contract and handoff describe the full 6-segment / 3-band geometry. That is source applicability, not rollout. Band [160,360) lies entirely outside the pilot envelope. The envelopes only partly overlap [1550,2350) (bowl 2060..2490) and [3450,3650) (upper 3380..3830). The pilot should apply ice only within envelope \u2229 band. Full-band observations proposed in the terrain23 consumer audit are not extra permission.",
+    "Integration carry-forward: the cache/preview identity must key the I01 prepared identity plus the mirror16 recipe, next to direct440 terrain. Ice goes over the nominal first 8 rows with terrain underneath, inside half-open physical bands, clipped top..top+8, then by the final ground clip. Nothing above contact or outside a band. The >6..8 visible rows figure is a model statement and has not been seen in a native render.",
+    "No hash was computed and no test was run by this review. All hashes cited above are the packet's own records."
+  ],
+  "actualReadCoverage": [
+    {
+      "path": "f243-ice33/prepare-ice-source.mjs",
+      "depth": "FULL",
+      "intervals": [
+        [
+          1,
+          73
+        ]
+      ]
+    },
+    {
+      "path": "f243-ice33/seal-source-ready.mjs",
+      "depth": "FULL_VIA_LOSSLESS_VIEW_ONLY (original not opened directly; original lines 1-26 covered through view lines 1-36, with long lines 12/14/16 in 4/6/3 parts per lossless-view-binding mapping)",
+      "intervals": [
+        [
+          1,
+          26
+        ]
+      ]
+    },
+    {
+      "path": "f243-ice34-review/seal-source-ready.lossless-review.txt",
+      "depth": "FULL",
+      "intervals": [
+        [
+          1,
+          36
+        ],
+        "terminal blank line 37"
+      ]
+    },
+    {
+      "path": "f243-ice34-review/lossless-view-binding.json",
+      "depth": "FULL",
+      "intervals": [
+        [
+          1,
+          189
+        ]
+      ]
+    },
+    {
+      "path": "f243-ice33/source-ready-contract.md",
+      "depth": "FULL",
+      "intervals": [
+        [
+          1,
+          22
+        ],
+        "EOF"
+      ]
+    },
+    {
+      "path": "f243-ice33/worker-handoff.md",
+      "depth": "FULL",
+      "intervals": [
+        [
+          1,
+          13
+        ],
+        "EOF"
+      ]
+    },
+    {
+      "path": "f243-ice33/source-fit-findings.json",
+      "depth": "FULL",
+      "intervals": [
+        [
+          1,
+          93
+        ]
+      ]
+    },
+    {
+      "path": "f243-ice33/ice-preparation-receipt.json",
+      "depth": "FULL",
+      "intervals": [
+        [
+          1,
+          288
+        ]
+      ]
+    },
+    {
+      "path": "f243-ice33/ice-preparation.stdout",
+      "depth": "FULL",
+      "intervals": [
+        [
+          1,
+          40
+        ],
+        [
+          40,
+          185
+        ]
+      ]
+    },
+    {
+      "path": "f243-ice33/artifact-index.json",
+      "depth": "FULL",
+      "intervals": [
+        [
+          1,
+          195
+        ]
+      ]
+    },
+    {
+      "path": "f243-ice32/I01-returned-raw.png",
+      "depth": "IMAGE_VIEWED",
+      "intervals": "whole"
+    },
+    {
+      "path": "f243-ice33/SOURCE-ONLY-palette-edge-comparison.png",
+      "depth": "IMAGE_VIEWED",
+      "intervals": "whole"
+    }
+  ],
+  "dataOnlySealed": [
+    "f243-ice33/ice-palette-cells.json (64 cells; summaries cross-checked through stdout)",
+    "f243-ice33/executed-commands.json",
+    "f243-ice33/ice-material-8.png, ice-whole-mirror-pair-16x8.png, ice-whole-mirror-strip-128x8.png (seen only inside the palette sheet)",
+    "f243-ice32/I01-dispatched-arguments.json, I01-native-tool-result.json, image-ledger.json (through script assertions and receipt hashes)",
+    "f243-terrain31-review certificate and parsed verdict; terrain28/30/23 inputs reviewed previously and unchanged by recorded hash"
+  ],
+  "remainingGates": [
+    "Separately authorized bounded integration inside the original pilot envelope (upper 3380..3830, bowl 2060..2490), plus normal-host native execution consent",
+    "Actual direct-mode contour appearance and ice coverage: no paint above contact or outside bands, nominal 8 rows with >6..8 visible, both procedural material/grip cues removed or bypassed in pilot scope only",
+    "Native antialiasing, fractional camera and compositor checks",
+    "Required loading/Retry; cache/preview identity invalidation (direct440 terrain, mirror16 ice, recipe version); first-warm",
+    "Actor/ice-boundary readability (including chroma-only contrast and saturation harmony) and ordinary traversal",
+    "Five held tests UNRUN: sprite-processing, finish-grounding, prepare-timbers-art, prepare-timbers-tree, specials",
+    "Owner/human acceptance; production, merge, deploy and closure not granted; all six reserves stay HELD"
+  ]
+}

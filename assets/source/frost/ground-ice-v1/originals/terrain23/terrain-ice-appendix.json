@@ -1,0 +1,562 @@
+{
+  "points": [
+    [
+      0,
+      500
+    ],
+    [
+      160,
+      500
+    ],
+    [
+      360,
+      560
+    ],
+    [
+      700,
+      560
+    ],
+    [
+      780,
+      500
+    ],
+    [
+      880,
+      500
+    ],
+    [
+      960,
+      440
+    ],
+    [
+      1060,
+      440
+    ],
+    [
+      1140,
+      380
+    ],
+    [
+      1400,
+      380
+    ],
+    [
+      1550,
+      380
+    ],
+    [
+      1750,
+      450
+    ],
+    [
+      1970,
+      520
+    ],
+    [
+      2190,
+      560
+    ],
+    [
+      2350,
+      560
+    ],
+    [
+      2500,
+      560
+    ],
+    [
+      2600,
+      540
+    ],
+    [
+      2800,
+      540
+    ],
+    [
+      3000,
+      540
+    ],
+    [
+      3080,
+      492
+    ],
+    [
+      3220,
+      492
+    ],
+    [
+      3300,
+      444
+    ],
+    [
+      3450,
+      444
+    ],
+    [
+      3650,
+      480
+    ],
+    [
+      4200,
+      480
+    ],
+    [
+      4380,
+      480
+    ],
+    [
+      4460,
+      432
+    ],
+    [
+      4580,
+      432
+    ],
+    [
+      4660,
+      384
+    ],
+    [
+      4780,
+      384
+    ],
+    [
+      4860,
+      336
+    ],
+    [
+      4980,
+      336
+    ],
+    [
+      5060,
+      288
+    ],
+    [
+      5180,
+      288
+    ],
+    [
+      5260,
+      240
+    ],
+    [
+      5600,
+      240
+    ]
+  ],
+  "surfaces": [
+    {
+      "index": 0,
+      "x1": 0,
+      "y1": 500,
+      "x2": 160,
+      "y2": 500,
+      "material": "snow",
+      "friction": 1
+    },
+    {
+      "index": 1,
+      "x1": 160,
+      "y1": 500,
+      "x2": 360,
+      "y2": 560,
+      "material": "ice",
+      "friction": 0.45
+    },
+    {
+      "index": 2,
+      "x1": 360,
+      "y1": 560,
+      "x2": 700,
+      "y2": 560,
+      "material": "snow",
+      "friction": 1
+    },
+    {
+      "index": 3,
+      "x1": 700,
+      "y1": 560,
+      "x2": 780,
+      "y2": 500,
+      "material": "snow",
+      "friction": 1
+    },
+    {
+      "index": 4,
+      "x1": 780,
+      "y1": 500,
+      "x2": 880,
+      "y2": 500,
+      "material": "snow",
+      "friction": 1
+    },
+    {
+      "index": 5,
+      "x1": 880,
+      "y1": 500,
+      "x2": 960,
+      "y2": 440,
+      "material": "snow",
+      "friction": 1
+    },
+    {
+      "index": 6,
+      "x1": 960,
+      "y1": 440,
+      "x2": 1060,
+      "y2": 440,
+      "material": "snow",
+      "friction": 1
+    },
+    {
+      "index": 7,
+      "x1": 1060,
+      "y1": 440,
+      "x2": 1140,
+      "y2": 380,
+      "material": "snow",
+      "friction": 1
+    },
+    {
+      "index": 8,
+      "x1": 1140,
+      "y1": 380,
+      "x2": 1400,
+      "y2": 380,
+      "material": "snow",
+      "friction": 1
+    },
+    {
+      "index": 9,
+      "x1": 1400,
+      "y1": 380,
+      "x2": 1550,
+      "y2": 380,
+      "material": "snow",
+      "friction": 1
+    },
+    {
+      "index": 10,
+      "x1": 1550,
+      "y1": 380,
+      "x2": 1750,
+      "y2": 450,
+      "material": "ice",
+      "friction": 0.45
+    },
+    {
+      "index": 11,
+      "x1": 1750,
+      "y1": 450,
+      "x2": 1970,
+      "y2": 520,
+      "material": "ice",
+      "friction": 0.45
+    },
+    {
+      "index": 12,
+      "x1": 1970,
+      "y1": 520,
+      "x2": 2190,
+      "y2": 560,
+      "material": "ice",
+      "friction": 0.45
+    },
+    {
+      "index": 13,
+      "x1": 2190,
+      "y1": 560,
+      "x2": 2350,
+      "y2": 560,
+      "material": "ice",
+      "friction": 0.45
+    },
+    {
+      "index": 14,
+      "x1": 2350,
+      "y1": 560,
+      "x2": 2500,
+      "y2": 560,
+      "material": "snow",
+      "friction": 1
+    },
+    {
+      "index": 15,
+      "x1": 2500,
+      "y1": 560,
+      "x2": 2600,
+      "y2": 540,
+      "material": "snow",
+      "friction": 1
+    },
+    {
+      "index": 16,
+      "x1": 2600,
+      "y1": 540,
+      "x2": 2800,
+      "y2": 540,
+      "material": "snow",
+      "friction": 1
+    },
+    {
+      "index": 17,
+      "x1": 2800,
+      "y1": 540,
+      "x2": 3000,
+      "y2": 540,
+      "material": "snow",
+      "friction": 1
+    },
+    {
+      "index": 18,
+      "x1": 3000,
+      "y1": 540,
+      "x2": 3080,
+      "y2": 492,
+      "material": "snow",
+      "friction": 1
+    },
+    {
+      "index": 19,
+      "x1": 3080,
+      "y1": 492,
+      "x2": 3220,
+      "y2": 492,
+      "material": "snow",
+      "friction": 1
+    },
+    {
+      "index": 20,
+      "x1": 3220,
+      "y1": 492,
+      "x2": 3300,
+      "y2": 444,
+      "material": "snow",
+      "friction": 1
+    },
+    {
+      "index": 21,
+      "x1": 3300,
+      "y1": 444,
+      "x2": 3450,
+      "y2": 444,
+      "material": "snow",
+      "friction": 1
+    },
+    {
+      "index": 22,
+      "x1": 3450,
+      "y1": 444,
+      "x2": 3650,
+      "y2": 480,
+      "material": "ice",
+      "friction": 0.45
+    },
+    {
+      "index": 23,
+      "x1": 3650,
+      "y1": 480,
+      "x2": 4200,
+      "y2": 480,
+      "material": "snow",
+      "friction": 1
+    },
+    {
+      "index": 24,
+      "x1": 4200,
+      "y1": 480,
+      "x2": 4380,
+      "y2": 480,
+      "material": "snow",
+      "friction": 1
+    },
+    {
+      "index": 25,
+      "x1": 4380,
+      "y1": 480,
+      "x2": 4460,
+      "y2": 432,
+      "material": "snow",
+      "friction": 1
+    },
+    {
+      "index": 26,
+      "x1": 4460,
+      "y1": 432,
+      "x2": 4580,
+      "y2": 432,
+      "material": "snow",
+      "friction": 1
+    },
+    {
+      "index": 27,
+      "x1": 4580,
+      "y1": 432,
+      "x2": 4660,
+      "y2": 384,
+      "material": "snow",
+      "friction": 1
+    },
+    {
+      "index": 28,
+      "x1": 4660,
+      "y1": 384,
+      "x2": 4780,
+      "y2": 384,
+      "material": "snow",
+      "friction": 1
+    },
+    {
+      "index": 29,
+      "x1": 4780,
+      "y1": 384,
+      "x2": 4860,
+      "y2": 336,
+      "material": "snow",
+      "friction": 1
+    },
+    {
+      "index": 30,
+      "x1": 4860,
+      "y1": 336,
+      "x2": 4980,
+      "y2": 336,
+      "material": "snow",
+      "friction": 1
+    },
+    {
+      "index": 31,
+      "x1": 4980,
+      "y1": 336,
+      "x2": 5060,
+      "y2": 288,
+      "material": "snow",
+      "friction": 1
+    },
+    {
+      "index": 32,
+      "x1": 5060,
+      "y1": 288,
+      "x2": 5180,
+      "y2": 288,
+      "material": "snow",
+      "friction": 1
+    },
+    {
+      "index": 33,
+      "x1": 5180,
+      "y1": 288,
+      "x2": 5260,
+      "y2": 240,
+      "material": "snow",
+      "friction": 1
+    },
+    {
+      "index": 34,
+      "x1": 5260,
+      "y1": 240,
+      "x2": 5600,
+      "y2": 240,
+      "material": "snow",
+      "friction": 1
+    }
+  ],
+  "iceSegments": [
+    1,
+    10,
+    11,
+    12,
+    13,
+    22
+  ],
+  "bands": [
+    [
+      160,
+      360
+    ],
+    [
+      1550,
+      2350
+    ],
+    [
+      3450,
+      3650
+    ]
+  ],
+  "endpoints": [
+    {
+      "x": 160,
+      "y": 500,
+      "kind": "entry",
+      "leftSurface": 0,
+      "rightSurface": 1,
+      "physicsAtExact": 0,
+      "rasterAtExact": 1,
+      "leftMaterial": "snow",
+      "rightMaterial": "ice"
+    },
+    {
+      "x": 360,
+      "y": 560,
+      "kind": "exit",
+      "leftSurface": 1,
+      "rightSurface": 2,
+      "physicsAtExact": 1,
+      "rasterAtExact": 2,
+      "leftMaterial": "ice",
+      "rightMaterial": "snow"
+    },
+    {
+      "x": 1550,
+      "y": 380,
+      "kind": "entry",
+      "leftSurface": 9,
+      "rightSurface": 10,
+      "physicsAtExact": 9,
+      "rasterAtExact": 10,
+      "leftMaterial": "snow",
+      "rightMaterial": "ice"
+    },
+    {
+      "x": 2350,
+      "y": 560,
+      "kind": "exit",
+      "leftSurface": 13,
+      "rightSurface": 14,
+      "physicsAtExact": 13,
+      "rasterAtExact": 14,
+      "leftMaterial": "ice",
+      "rightMaterial": "snow"
+    },
+    {
+      "x": 3450,
+      "y": 444,
+      "kind": "entry",
+      "leftSurface": 21,
+      "rightSurface": 22,
+      "physicsAtExact": 21,
+      "rasterAtExact": 22,
+      "leftMaterial": "snow",
+      "rightMaterial": "ice"
+    },
+    {
+      "x": 3650,
+      "y": 480,
+      "kind": "exit",
+      "leftSurface": 22,
+      "rightSurface": 23,
+      "physicsAtExact": 22,
+      "rasterAtExact": 23,
+      "leftMaterial": "ice",
+      "rightMaterial": "snow"
+    }
+  ],
+  "world": {
+    "width": 5600,
+    "height": 680
+  },
+  "geometryAdjustments": [],
+  "supportAdjustments": [],
+  "pickupAdjustments": []
+}

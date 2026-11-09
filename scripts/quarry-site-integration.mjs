@@ -1,3 +1,4 @@
+import { beforeFrostTrial } from './frost-trial-preservation.mjs';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
@@ -25,6 +26,7 @@ assert.deepEqual(Object.keys(record.files).sort(), Object.keys(pins).sort());
  * and its bounded hunks before returning that historical side.
  */
 export function projectQuarrySiteSource(path, bytes, side = 'quarry', read = readFileSync) {
+  bytes = beforeFrostTrial(path, bytes);
   const entry = record.files[path];
   if (!entry) return bytes;
   assert.ok(['quarry', 'sunset', 'shared'].includes(side), 'known integration projection');

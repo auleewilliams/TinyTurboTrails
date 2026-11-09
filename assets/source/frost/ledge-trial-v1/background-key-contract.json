@@ -1,0 +1,55 @@
+{
+  "attempt": "F243-L02",
+  "predicate": {
+    "RGB": [
+      255,
+      0,
+      255
+    ],
+    "allowed_channel_variation": 31,
+    "RGB_bounds": {
+      "R": [
+        224,
+        255
+      ],
+      "G": [
+        0,
+        31
+      ],
+      "B": [
+        224,
+        255
+      ]
+    },
+    "alpha_required": 255
+  },
+  "connectivity": 4,
+  "seeds": "all image-border key pixels",
+  "change": "alpha 255 -> 0 ONLY for exact predicate pixels reachable from border; RGB byte-exact",
+  "preserve": "all other RGBA bytes including enclosed magenta; RGB input interpreted as alpha255, never overwritten",
+  "raw": "immutable, file SHA256 and decoded hashes before/after",
+  "failure_conditions": [
+    "out-of-predicate/non-key image border",
+    "enclosed remaining magenta",
+    "nonopaque input alpha",
+    "outside-bound near-magenta or ambiguous matte suspicion",
+    "paint touches image border",
+    "checkerboard/non-key exterior",
+    "ambiguous six whole-sprite separation",
+    "source/native envelope or opaque flat row failure"
+  ],
+  "no_cleanup": [
+    "predicate widening",
+    "RGB repair",
+    "foreground alpha repair",
+    "enclosed-key removal",
+    "component/speck dropping",
+    "notch/mask",
+    "body/end crop",
+    "assembly",
+    "anisotropic scaling"
+  ],
+  "matte_policy": "predeclared clipped per-channel +/-31 predicate only; any unresolved color-matte or foreground/key-touch interpretation FAILS review, no automatic cleanup",
+  "white_snow_outside_predicate": true,
+  "proof": "scratch diagnostic only until all six source gates and human review pass"
+}

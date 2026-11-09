@@ -1,0 +1,27 @@
+# Frost whole-ledge diagnostic trial (#243)
+
+The owner approved the six remaining placements on 2026-11-06 after accepting returns 4/5/9/10 in the preview. All ten fixed Frost supports now use the existing whole L02 art. This extends the same diagnostic exception for chunky rounded rims, deep bodies, fringe and disclosed modelled intersections. It makes zero image calls. Terrain and ice generation, merge, deployment and issue closure remain outside this approval.
+
+| Return | Whole variant | Native image |
+| --- | --- | --- |
+| 1 | V1 | 140×24 |
+| 2 | V3 | 190×33 |
+| 3/6/7/8 | Exact accepted V4 bitmap, shared with return 5 | 210×33 |
+| 4 (accepted) | V2 | 180×24 |
+| 5 (accepted) | V4 | 210×33 |
+| 9 (accepted) | V6 | 200×33 |
+| 10 (accepted) | V5 | 200×33 |
+
+The accepted four PNG bytes and manifest fields are unchanged. Return 10 retains the already accepted X3416 adjustment; its original X3440 baseline stays in the historical presentation receipt. The complete authored Frost level, pickups, values/counts, firs, checkpoints, letters, terrain, friction, physics, input, camera and draw order are unchanged by this extension. Quarry, Sunset, shared art and the HUD keep their existing implementation.
+
+The immutable master remains `assets/source/frost/ledge-trial-v1/proposed-key63-NONCOMPLIANT-UNAPPROVED.png`, SHA256 `6e45cee8032aef41d3eceb5bfe28baa04772172bcbc02363257795baa70d18b2`. Historical filenames, raw/request/provider metadata, proof, diagnosis, original approval and preparation receipts retain their bytes and FAIL fields. The additive `extension/` records bind the new owner receipt, approved model contract and exact presentation delta. The public proposal is [issue 243, comment 6681009136](https://github.com/auleewilliams/TinyTurboTrails/issues/243#issuecomment-6681009136).
+
+`/usr/bin/node scripts/prepare-frost-trial.mjs` prepares the two additional whole components: rect (187,116,456,78) to V1 140×24 and rect (102,425,628,107) to V3 190×33. It uses the existing shared `wholeImageAtWidth` equal-axis premultiplied sampler and PNG codec, retaining complete paint/body/ends and only transparent ceil-row padding. It reads and verifies the accepted four PNGs and historical preparation; the default command leaves those files untouched. Returns 3/6/7/8 reference the one existing V4 image. There is no repair, notch, anisotropic scaling, runtime fitting or foreground-order change. `prepareFrostTrial()` still reproduces the original four outputs for independent regression checks; `prepareFrostExtension()` produces the complete current map and additive receipt.
+
+The actual Frost validator requires all ten exact IDs, variants, image names and dimensions. The existing loader retry path, renderer lookup and cached map path consume that complete map. Tests execute the actual compact-HUD, landmark and owner-HUD fixture import graphs. A strict shared normalizer projects only exact sealed extension bytes to the accepted-four baseline before historical guards run; it does not normalize unrelated edits. Original hash catalogs stay unchanged. Tests pin accepted fields/PNG/RGBA bytes, deterministic new preparation, the complete Frost level projection, required-image failures and source-aware evidence callers.
+
+Source/model failures remain disclosed risks, not a readability verdict: return 1 ground reaches −4px/39 alpha-hit cells; return 8 ground reaches −0.65px/2 cells; lower supported partial-foot samples reach −6px; gem 6 has 27 intersecting alpha253 core cells. Henry and gems draw after the ledges. No zero-intersection gate or source/layout repair is introduced. Actual camera/subpixel rasterization, moving compositor frames and human readability still require the parent native review.
+
+Focused writer checks, their full stdout/stderr/exits, the failure ledger, complete source/dist hash maps and verified public-asset copies are in `/home/leew/.hermes/cache/scratch/f243-rollout18`. Typecheck and the production `tsc --noEmit && vite build` use `/usr/bin/node` 22.22.1, zlib 1.3.1 and inherited fixed TMPDIR. The five named held tests and broad suites remain unrun. The writer launches no listener or browser, performs no network calls and makes no commit/push.
+
+The new remaining-six harness is `/home/leew/.hermes/cache/scratch/f243-rollout18/run-native-once.py --execute-once`, run by the parent on the normal host with the existing fixed TMPDIR after frozen readback and fresh review. It owns one bounded preview server and one Chromium cohort: 426×240 completed logical canvas images and actual 320 CSS compositor images, ordinary page height 400, retries 0, 120s per width, 45s per drive, 330s outer native bound and 360s server ceiling. `purpose-identity-map.json` predeclares 20 required images plus four failure reserves, without replacements: six full-foot neutral rests, ground 1 with actual uncollected onscreen gem 6 before collection, ground 8 moving in both directions, and a supported partial-foot pose on accepted 5 below new 6, at each width. Safe interior goals account for contact interval [L+9,R−9], stopping tolerance and drift. Moving input continues until image ACK before advancing; rest poses remain neutral/stable through capture. Exact source/frame/body RGB and actual gem253 pre/post-draw-to-final evidence are required. Raw state and failed images are retained before assertions. Old cohort plans, locks and results are immutable. The harness is prepared and model-checked, not native-executed or readability-certified.

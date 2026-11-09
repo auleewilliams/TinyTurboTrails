@@ -80,7 +80,7 @@ const twoFrames = (page: Page) => page.evaluate(() => new Promise<void>(resolve 
 for (const level of LEVELS) test(`owner HUD order real-font fixture: ${level.id} identity marks and real glyph clearance`, async ({ page }, info) => {
   // Explicit layout states, not scene mutation or a claim of input-driven gameplay.
   const names = ['world/camera.ts', 'game/platforms.ts', 'game/movement.ts', 'game/education.ts', 'art/interface-kit.ts', 'game/hud.ts', 'world/scenery.ts',
-    'world/quarry-floor.ts', 'world/quarry-rollout.ts', 'world/quarry-preview-pieces.ts', 'world/quarry-shelves.ts', 'world/cove-terrain.ts', 'world/site-terrain.ts', 'world/plains-contour.ts', 'world/timbers-terrain.ts', 'world/timbers-tree.ts', 'world/surface-materials.ts', 'world/assets.ts', 'world/trail-presentation.ts', 'world/ambient-weather.ts', 'world/renderer.ts'];
+    'world/quarry-floor.ts', 'world/quarry-rollout.ts', 'world/quarry-preview-pieces.ts', 'world/quarry-shelves.ts', 'world/cove-terrain.ts', 'world/site-terrain.ts', 'world/plains-contour.ts', 'world/timbers-terrain.ts', 'world/timbers-tree.ts', 'world/frost-ledges.ts', 'world/frost-ground.ts', 'world/surface-materials.ts', 'world/assets.ts', 'world/trail-presentation.ts', 'world/ambient-weather.ts', 'world/renderer.ts'];
   const transport = createHudResponseObserver();
   page.on('response', transport.observe);
   const errors: string[] = []; page.on('pageerror', error => errors.push(error.message));
@@ -125,7 +125,7 @@ for (const level of LEVELS) test(`owner HUD order real-font fixture: ${level.id}
         camera.update(level.start.x, ground - 34);
         drawWorld(ctx, assets, level, camera, undefined, undefined, platformBodiesAt(level.platforms, 0), 0, true);
         const henryRect = { x: level.start.x - camera.position.x - manifest.anchor.x, y: ground - camera.position.y - manifest.anchor.y, width: 48, height: 48 };
-        if (ribbonBandPose) { henryRect.x = 110 - manifest.anchor.x; henryRect.y = 230 - manifest.anchor.y; }
+        if (ribbonBandPose) { henryRect.x = 110 - manifest.anchor.x; henryRect.y = TRAIL_RIBBON.railY - 24; }
         ctx.drawImage(henry, frame.x, frame.y, frame.width, frame.height, henryRect.x, henryRect.y, 48, 48);
         drawWorldForeground(ctx, assets, level, camera);
         const hud = new HudPresentation(); if (state > 0) hud.consume([{ type: 'checkpoint', entityId: level.checkpoints[0].id }]);
@@ -144,6 +144,10 @@ for (const level of LEVELS) test(`owner HUD order real-font fixture: ${level.id}
         }
         const quiet = { left: BAG_PLAQUE.x + PLAQUE_TEXT_SLICE.left, right: BAG_PLAQUE.x + BAG_PLAQUE.width - PLAQUE_TEXT_SLICE.right,
           top: BAG_PLAQUE.y + PLAQUE_TEXT_SLICE.top, bottom: BAG_PLAQUE.y + BAG_PLAQUE.height - PLAQUE_TEXT_SLICE.bottom };
+        const ribbonClear = [HUD_PLAQUES.gems, HUD_PLAQUES.hearts, ...(run.specialTotal ? [HUD_PLAQUES.stars] : []), BAG_PLAQUE,
+          ...texts.map(t => ({ x: t.left, y: t.top, width: t.right - t.left, height: t.bottom - t.top }))]
+          .every(r => !overlaps(TRAIL_RIBBON, { left: r.x, right: r.x + r.width, top: r.y, bottom: r.y + r.height }));
+        if (!ribbonClear || TRAIL_RIBBON.y !== 5) throw new Error('Top ribbon overlaps HUD artwork or glyphs');
         const clearance = {
           pouch: opaque.length > 0 && opaque.every(pixel => pixel.x >= quiet.left && pixel.x < quiet.right && pixel.y >= quiet.top && pixel.y < quiet.bottom),
           marks: marks.length === 4 && marks.filter(mark => mark.color === HUD_COLORS.hit).length === state,

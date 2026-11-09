@@ -1,0 +1,288 @@
+{
+  "source": {
+    "path": "/home/leew/.hermes/cache/scratch/f243-ice32/I01-returned-raw.png",
+    "width": 1254,
+    "height": 1254,
+    "channels": 3,
+    "pngSha256": "28068fc63a0c736e46e993867c356500e509a8d89d4b60ca93934f56437be4f2",
+    "rgbaSha256": "b0d862950ecab2a3f63c2503760d79656ea8e17c3f1648a1c58aad1ea49c3fae",
+    "alphaMin": 255,
+    "alphaMax": 255
+  },
+  "prepared": {
+    "path": "/home/leew/.hermes/cache/scratch/f243-ice33/ice-material-8.png",
+    "width": 8,
+    "height": 8,
+    "channels": 4,
+    "pngSha256": "5e849141b1af83a288f7d1a4298815cc381df3b57be8a6c73dbde9d7e96e8864",
+    "rgbaSha256": "dfe69e31908d459e67cc0fcf3d5c416de80151207cb8222b32741a49e648d7e5",
+    "alphaMin": 255,
+    "alphaMax": 255
+  },
+  "recipe": {
+    "module": "/home/leew/.hermes/cache/scratch/ttt-frost-fit243/scripts/timbers-art.mjs",
+    "function": "wholeImageAtHeight",
+    "height": 8,
+    "uniformBothAxes": "8/1254 =4/627",
+    "wholeExtent": [
+      0,
+      0,
+      1254,
+      1254
+    ],
+    "repairs": [],
+    "verticalRepeat": false
+  },
+  "checks": {
+    "secondInMemorySharedSamplerRgbaAndPngIdentical": true,
+    "decodePreparedRgbaIdentical": true,
+    "allRawAndPreparedAlpha255": true,
+    "mirrorPairAndStripPixelsCompared": 1152,
+    "phase": "p=worldColumn mod16; sourceX=p<8?p:15-p",
+    "edgeTexels": "duplicated at7/8 and15/16",
+    "readability": "UNRUN"
+  },
+  "provider": {
+    "requestId": "f27fc672-59b3-43be-abb7-f75019863923",
+    "model": "gpt-image-2-medium",
+    "provider": "openai-codex",
+    "requestedSize": "1024x1024",
+    "requestedQuality": "medium",
+    "reportedSize": "1254x1254",
+    "reportedQuality": "low"
+  },
+  "geometry": {
+    "path": "/home/leew/.hermes/cache/scratch/f243-terrain23/terrain-ice-appendix.json",
+    "sha256": "4728adba9788cb4fabdb53a2b636d2e67f81e4c1fca5a848729e75cc86652ff8",
+    "iceSegments": [
+      1,
+      10,
+      11,
+      12,
+      13,
+      22
+    ],
+    "bands": [
+      [
+        160,
+        360
+      ],
+      [
+        1550,
+        2350
+      ],
+      [
+        3450,
+        3650
+      ]
+    ],
+    "endpoints": [
+      {
+        "x": 160,
+        "y": 500,
+        "kind": "entry",
+        "leftSurface": 0,
+        "rightSurface": 1,
+        "physicsAtExact": 0,
+        "rasterAtExact": 1,
+        "leftMaterial": "snow",
+        "rightMaterial": "ice"
+      },
+      {
+        "x": 360,
+        "y": 560,
+        "kind": "exit",
+        "leftSurface": 1,
+        "rightSurface": 2,
+        "physicsAtExact": 1,
+        "rasterAtExact": 2,
+        "leftMaterial": "ice",
+        "rightMaterial": "snow"
+      },
+      {
+        "x": 1550,
+        "y": 380,
+        "kind": "entry",
+        "leftSurface": 9,
+        "rightSurface": 10,
+        "physicsAtExact": 9,
+        "rasterAtExact": 10,
+        "leftMaterial": "snow",
+        "rightMaterial": "ice"
+      },
+      {
+        "x": 2350,
+        "y": 560,
+        "kind": "exit",
+        "leftSurface": 13,
+        "rightSurface": 14,
+        "physicsAtExact": 13,
+        "rasterAtExact": 14,
+        "leftMaterial": "ice",
+        "rightMaterial": "snow"
+      },
+      {
+        "x": 3450,
+        "y": 444,
+        "kind": "entry",
+        "leftSurface": 21,
+        "rightSurface": 22,
+        "physicsAtExact": 21,
+        "rasterAtExact": 22,
+        "leftMaterial": "snow",
+        "rightMaterial": "ice"
+      },
+      {
+        "x": 3650,
+        "y": 480,
+        "kind": "exit",
+        "leftSurface": 22,
+        "rightSurface": 23,
+        "physicsAtExact": 22,
+        "rasterAtExact": 23,
+        "leftMaterial": "ice",
+        "rightMaterial": "snow"
+      }
+    ]
+  },
+  "ledger": {
+    "spent": 4,
+    "total": 10,
+    "byRole": {
+      "ledges": 2,
+      "terrain": 1,
+      "ice": 1
+    },
+    "remainingHeldReserves": {
+      "ledges": 2,
+      "terrain": 2,
+      "ice": 2
+    },
+    "newCallsThisWorker": 0
+  },
+  "runtime": {
+    "executable": "/usr/bin/node",
+    "node": "v22.22.1",
+    "zlib": "1.3.1",
+    "TMPDIR": "/home/leew/.hermes/cache/scratch/f243-ice33"
+  },
+  "terrain": {
+    "width": 440,
+    "height": 440,
+    "pngSha256": "f6ba00cfa6ca8d4040e00fe44fd5e2510f292375a7794ff07e74632bd2cea9ab",
+    "rgbaSha256": "7379c999ee4db35b3e7f2cd320ed3944928288aa6d6e7f4119894acccbe899ee",
+    "rgbaBytes": 774400,
+    "alphaMin": 255,
+    "alphaMax": 255,
+    "nonOpaque": 0
+  },
+  "checkedInputs": {
+    "/home/leew/.hermes/cache/scratch/f243-terrain31-review/parent-source-review-certificate.json": {
+      "sha256": "fe1eea06fa288652a41d2c14b7be3a0e242d59b092c744a6766d8b08eeb79cf6",
+      "bytes": 3906,
+      "expected": null
+    },
+    "/home/leew/.hermes/cache/scratch/f243-terrain31-review/parsed-verdict.json": {
+      "sha256": "7a975bbfde8861aa0cd08e11d2174c53e4b3c2da2ba40e00cc8f1360372bc4bb",
+      "bytes": 9725,
+      "expected": null
+    },
+    "/home/leew/.hermes/cache/scratch/ttt-frost-fit243/scripts/timbers-art.mjs": {
+      "sha256": "bc206e421bf523df63793155455a80d182ddf36b898fa9aed251c0e3df78163f",
+      "bytes": 4490,
+      "expected": "bc206e421bf523df63793155455a80d182ddf36b898fa9aed251c0e3df78163f"
+    },
+    "/home/leew/.hermes/cache/scratch/ttt-frost-fit243/scripts/spelling-stickers.mjs": {
+      "sha256": "7f2a39ba40211a6974aa3f0191f17a653a7ae3c92bf36e0a184f111089c8c732",
+      "bytes": 6704,
+      "expected": "7f2a39ba40211a6974aa3f0191f17a653a7ae3c92bf36e0a184f111089c8c732"
+    },
+    "/home/leew/.hermes/cache/scratch/f243-terrain28/preparation-receipt.json": {
+      "sha256": "21bff4c76b9ed081a360f49dd22c355ca8aed670894b3604ea04fc6325871639",
+      "bytes": 6473,
+      "expected": null
+    },
+    "/home/leew/.hermes/cache/scratch/f243-terrain30/current-source-contract.md": {
+      "sha256": "8c36ee4bfd4bb2efe513d838de5f71f22467b7a0fd98121e27a52dfae7da3f1a",
+      "bytes": 4560,
+      "expected": "8c36ee4bfd4bb2efe513d838de5f71f22467b7a0fd98121e27a52dfae7da3f1a"
+    },
+    "/home/leew/.hermes/cache/scratch/f243-terrain30/direct-phase-proof.json": {
+      "sha256": "897224c59f8ceecf8c24885e5e4ef85f521858151e326a49dd644da40db8004b",
+      "bytes": 3147283,
+      "expected": null
+    },
+    "/home/leew/.hermes/cache/scratch/f243-terrain30/current-bindings.json": {
+      "sha256": "bbd31c37bb8d68ec349e440ea5889e1e434651e6e5fe6279ee4b822733290b4c",
+      "bytes": 12255,
+      "expected": null
+    },
+    "/home/leew/.hermes/cache/scratch/f243-terrain23/consumer-audit.md": {
+      "sha256": "8034f37274823de0cae4699ff92ec321c16119f2a128fc1e834ac44ee6c2f4a3",
+      "bytes": 6918,
+      "expected": "8034f37274823de0cae4699ff92ec321c16119f2a128fc1e834ac44ee6c2f4a3"
+    },
+    "/home/leew/.hermes/cache/scratch/f243-terrain23/terrain-ice-appendix.json": {
+      "sha256": "4728adba9788cb4fabdb53a2b636d2e67f81e4c1fca5a848729e75cc86652ff8",
+      "bytes": 8201,
+      "expected": "4728adba9788cb4fabdb53a2b636d2e67f81e4c1fca5a848729e75cc86652ff8"
+    },
+    "/home/leew/.hermes/cache/scratch/ttt-frost-fit243/src/world/frost-ridge.ts": {
+      "sha256": "05378e7a8e0523c735a74a65cfae8cdd300120782f5ea31fef8d39dcb205a4b2",
+      "bytes": 3813,
+      "expected": "05378e7a8e0523c735a74a65cfae8cdd300120782f5ea31fef8d39dcb205a4b2"
+    },
+    "/home/leew/.hermes/cache/scratch/f243-terrain22/owner-ledges-acceptance.json": {
+      "sha256": "b42e4a9282d77c6f63d70335ef6dee8dcd2a50e5f8a4e373116b52d0c37218d3",
+      "bytes": 1119,
+      "expected": null
+    },
+    "/home/leew/.hermes/cache/scratch/f243-terrain30/ice1-request.json": {
+      "sha256": "6ef9f6001e379019305c762f5b9486a848310990457cb1c4d15a4e430982971e",
+      "bytes": 1710,
+      "expected": "6ef9f6001e379019305c762f5b9486a848310990457cb1c4d15a4e430982971e"
+    },
+    "/home/leew/.hermes/cache/scratch/f243-ice32/I01-dispatched-arguments.json": {
+      "sha256": "6ef9f6001e379019305c762f5b9486a848310990457cb1c4d15a4e430982971e",
+      "bytes": 1710,
+      "expected": null
+    },
+    "/home/leew/.hermes/cache/scratch/f243-ice32/I01-native-tool-result.json": {
+      "sha256": "59a57a6b6998a63d03aef767ee02faa1b233e184261eac13c51e0c1b47ed7cf5",
+      "bytes": 1964,
+      "expected": null
+    },
+    "/home/leew/.hermes/cache/scratch/f243-ice32/image-ledger.json": {
+      "sha256": "6445b1371ee18826c3c34b2b99ee76412381c29012f3f9243013089a3d5f1b9b",
+      "bytes": 7424,
+      "expected": null
+    },
+    "/home/leew/.hermes/cache/scratch/f243-terrain27/image-ledger.json": {
+      "sha256": "252eaa56186e49fa535efa6b146a0b181c9385226e2c54ed5ad62bb0e70fd0f3",
+      "bytes": 5399,
+      "expected": "252eaa56186e49fa535efa6b146a0b181c9385226e2c54ed5ad62bb0e70fd0f3"
+    },
+    "/home/leew/.hermes/cache/scratch/f243-terrain27/T01-returned-raw.png": {
+      "sha256": "7e4a1c06801dbf49cd8b18e338df0dca6952e52b7232b4d9e880cdfca7f2420c",
+      "bytes": 1427051,
+      "expected": "7e4a1c06801dbf49cd8b18e338df0dca6952e52b7232b4d9e880cdfca7f2420c"
+    },
+    "/home/leew/.hermes/cache/scratch/ttt-frost-fit243/public/assets/frost/ledge-trial-v1/ledge-v4-210.png": {
+      "sha256": "bdcfa27e460280365a5c6a6dfe77fa8b120ba44312c4c02669a70f3764081065",
+      "bytes": 14199,
+      "expected": "bdcfa27e460280365a5c6a6dfe77fa8b120ba44312c4c02669a70f3764081065"
+    },
+    "/home/leew/.hermes/cache/scratch/f243-ice32/I01-returned-raw.png": {
+      "sha256": "28068fc63a0c736e46e993867c356500e509a8d89d4b60ca93934f56437be4f2",
+      "bytes": 1340909,
+      "expected": "28068fc63a0c736e46e993867c356500e509a8d89d4b60ca93934f56437be4f2"
+    },
+    "/home/leew/.hermes/cache/scratch/f243-terrain28/terrain-material-440.png": {
+      "sha256": "f6ba00cfa6ca8d4040e00fe44fd5e2510f292375a7794ff07e74632bd2cea9ab",
+      "bytes": 289380,
+      "expected": "f6ba00cfa6ca8d4040e00fe44fd5e2510f292375a7794ff07e74632bd2cea9ab"
+    }
+  },
+  "elapsedMs": 1767,
+  "maxRssKiB": 163128
+}

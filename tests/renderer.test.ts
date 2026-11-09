@@ -1,5 +1,5 @@
 import { readFileSync } from 'node:fs';
-import { expect, it, vi } from 'vitest';
+import { afterEach, expect, it, vi } from 'vitest';
 import { drawAsset, drawPlatforms, drawGem, drawLandingBands, drawSurfaceGrip, drawWorld } from '../src/world/renderer';
 import type { WorldAsset, WorldAssets } from '../src/world/assets';
 import type { HenryAssets } from '../src/art/henry';
@@ -75,7 +75,12 @@ function recordingContext(): { ctx: CanvasRenderingContext2D; images: unknown[][
 
 const floorManifest = JSON.parse(readFileSync(new URL('../public/assets/quarry/floor-v1/manifest.json', import.meta.url), 'utf8'));
 const floorImage = { naturalWidth: 820, naturalHeight: 107 } as HTMLImageElement;
-const worldAssets: WorldAssets = { quarryFloor: { manifest: floorManifest, image: floorImage }, atlas: {} as HTMLImageElement, gems: {} as HTMLImageElement, manifest, slimes: {} as HTMLImageElement };
+const frostGroundManifest = JSON.parse(readFileSync(new URL('../public/assets/frost/ground-ice-v1/manifest.json', import.meta.url), 'utf8'));
+afterEach(() => vi.unstubAllGlobals());
+function prepareFrostCanvas(): void {
+  vi.stubGlobal('document', { createElement: () => ({ getContext: () => recordingContext().ctx }) });
+}
+const worldAssets: WorldAssets = { frostGround: { manifest: frostGroundManifest, terrain: { src: '/assets/frost/ground-ice-v1/terrain.png', naturalWidth: 440, naturalHeight: 440 } as HTMLImageElement, ice: { src: '/assets/frost/ground-ice-v1/ice.png', naturalWidth: 8, naturalHeight: 8 } as HTMLImageElement }, quarryFloor: { manifest: floorManifest, image: floorImage }, atlas: {} as HTMLImageElement, gems: {} as HTMLImageElement, manifest, slimes: {} as HTMLImageElement };
 
 it('hides stationary Timbers path markers while preserving actual moving-platform cues', () => {
   const fixed = TREETOP_TIMBERS.platforms![0];
@@ -102,6 +107,7 @@ it('draws Timbers bushes from the reused scenery sheet on their branch planes wi
 });
 
 it.each(LEVELS)('$name renders terrain landing bands without text boards or posts', level => {
+  prepareFrostCanvas();
   const positions = level.id === 'plains' ? [700, 810] : level.id === 'quarry' ? [350, 450]
     : level.id === 'timbers' ? [900, 1100, 1820, 3320] : [level.start.x];
   for (const x of positions) {
@@ -129,6 +135,7 @@ it.each(LEVELS)('$name renders terrain landing bands without text boards or post
 });
 
 it.each([SUNSET_SITE, FROST_RIDGE, SANDY_COVE])('pans $name without seams, repeated hills or a duplicate sun', level => {
+  prepareFrostCanvas();
   const panorama = { naturalWidth: 720, naturalHeight: 240 } as HTMLImageElement;
   const assets = { ...worldAssets, panorama };
   const span = level.width - 426;

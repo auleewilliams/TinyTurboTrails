@@ -113,14 +113,20 @@ it('normalizes only exact approved presentation deltas and rejects unrelated sou
   const {readFileSync}=await import('node:fs');
   const {createHash}=await import('node:crypto');
   const {beforeOwnerHud}=createRequire(import.meta.url)('../scripts/hud-owner-preservation.mjs');
+  const {beforeFrostGround}=createRequire(import.meta.url)('../scripts/frost-ground-preservation.mjs');
   const {beforeWaterLanding}=createRequire(import.meta.url)('../scripts/water-landing-preservation.mjs');
   const record=JSON.parse(readFileSync(new URL('../assets/source/cove/water-landing/presentation.json',import.meta.url),'utf8'));
   for(const [path,entry]of Object.entries(record.files) as [string,{baselineSha256:string}][]) {
     const bytes=readFileSync(new URL('../'+path,import.meta.url));
-    expect(createHash('sha256').update(beforeWaterLanding(path,beforeOwnerHud(path,bytes))).digest('hex')).toBe(entry.baselineSha256);
-    for(const bad of [Buffer.concat([bytes,Buffer.from('\n// unrelated edit')]),Buffer.from(bytes.toString().replace('this.player.x','this.player.x + 1'))]) {
+    expect(createHash('sha256').update(beforeWaterLanding(path,beforeOwnerHud(path,beforeFrostGround(path,bytes)))).digest('hex')).toBe(entry.baselineSha256);
+    const cacheEdits=path==='src/game/adventure-scene.ts' ? [
+      Buffer.from(bytes.toString().replace('previous.identity !== identity','previous.identity === identity')),
+      Buffer.from(bytes.toString().replace('?.canvas;','?.canvasChanged;')),
+    ] : [];
+    for(const bad of cacheEdits)expect(bad.equals(bytes),'cache negative control changes input').toBe(false);
+    for(const bad of [Buffer.concat([bytes,Buffer.from('\n// unrelated edit')]),Buffer.from(bytes.toString().replace('this.player.x','this.player.x + 1')),...cacheEdits]) {
       if(bad.equals(bytes))continue;
-      expect(()=>beforeWaterLanding(path,beforeOwnerHud(path,bad))).toThrow();
+      expect(()=>beforeWaterLanding(path,beforeOwnerHud(path,beforeFrostGround(path,bad)))).toThrow();
     }
   }
   const movement=readFileSync(new URL('../src/game/movement.ts',import.meta.url));

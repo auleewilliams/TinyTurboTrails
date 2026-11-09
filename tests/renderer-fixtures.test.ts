@@ -8,6 +8,7 @@ import { SANDY_COVE } from '../src/world/sandy-cove';
 import { platformBodyAt } from '../src/game/platforms';
 import { SUNSET_SITE } from '../src/world/sunset-site';
 import { QUARRY_RUN } from '../src/world/quarry-run';
+import { FROST_RIDGE } from '../src/world/frost-ridge';
 
 // Exercise each complete renderer module list with the real import stripping.
 // Missing real production dependencies must remain visible to their guards.
@@ -42,7 +43,8 @@ for (const [file, title] of [
         } catch { queueMicrotask(() => this.onerror()); }
       }
     }
-    const fixture = new Function('MAX_HEALTH', 'fetch', 'Image', 'document', `${code}\nreturn { initialize: async level => { ${initialize} return assets; }, loadWorldAssets, loadQuarryFloor, loadQuarryRollout, loadQuarryPreviewPieces, loadQuarryShelves, drawPlatforms, drawWorld, missing: [${imports.map(name => `typeof ${name} === 'undefined' && ${JSON.stringify(name)}`).join(',')}].filter(Boolean), height: typeof surfaceY === 'undefined' ? undefined : surfaceY, camera: typeof Camera === 'undefined' ? undefined : Camera };`)(MAX_HEALTH, fetchAsset, FixtureImage, { createElement: () => ({}) });
+    const ribbonCalls: unknown[][] = [];
+    const fixture = new Function('MAX_HEALTH', 'fetch', 'Image', 'document', `${code}\nreturn { initialize: async level => { ${initialize} return assets; }, loadWorldAssets, loadQuarryFloor, loadQuarryRollout, loadQuarryPreviewPieces, loadQuarryShelves, drawPlatforms, drawWorld, missing: [${imports.map(name => `typeof ${name} === 'undefined' && ${JSON.stringify(name)}`).join(',')}].filter(Boolean), height: typeof surfaceY === 'undefined' ? undefined : surfaceY, camera: typeof Camera === 'undefined' ? undefined : Camera };`)(MAX_HEALTH, fetchAsset, FixtureImage, { createElement: () => ({ getContext: () => new Proxy({ drawImage: (...args: unknown[]) => ribbonCalls.push(args) }, { get: (target, name) => name in target ? target[name as keyof typeof target] : () => {}, set: () => true }) }) });
     expect(fixture.missing).toEqual([]);
     expect(names).toContain('game/movement.ts');
     expect(names).toContain('game/platforms.ts');
@@ -67,7 +69,7 @@ for (const [file, title] of [
         const kitInitialization = actual.match(/const quarry = level.id === 'quarry' \? \{[\s\S]*?\} : \{\};/)![0];
         const assetInitialization = actual.match(/const assets = [^;]+;/)![0];
         const atlasOnly = await fixture.loadWorldAssets(QUARRY_RUN.atlas);
-        const initialize = new Function('level', 'base', 'window', transformSync('fixture.ts', `const initialize = async () => { const { atlas, manifest, gems, backdrops, materials, panorama, coveTerrain, coveMaterials, siteTerrain, timbersTerrain, timbersTree } = base; ${kitInitialization} ${assetInitialization} return assets; };`, {}).code + '\nreturn initialize();');
+        const initialize = new Function('level', 'base', 'window', transformSync('fixture.ts', `const initialize = async () => { const { atlas, manifest, gems, backdrops, materials, panorama, coveTerrain, coveMaterials, siteTerrain, timbersTerrain, timbersTree, frostLedges, frostGround } = base; ${kitInitialization} ${assetInitialization} return assets; };`, {}).code + '\nreturn initialize();');
         const loaded = await initialize(QUARRY_RUN, atlasOnly, fixture);
         expect(loaded.quarryFloor).toBeDefined(); expect(loaded.quarryShelves).toBeDefined(); expect(loaded.quarryPreview).toBeDefined(); expect(loaded.quarryRollout).toBeDefined();
         calls.length = 0;
@@ -81,6 +83,24 @@ for (const [file, title] of [
     fixture.drawWorld(ctx, siteAssets, SUNSET_SITE, { position: { x: .25, y: .5 } }, undefined, undefined, SUNSET_SITE.platforms!.map(p => platformBodyAt(p, 0)), 0, true);
     expect(calls.some(call => call[0] === siteAssets.siteTerrain.ground)).toBe(true);
     expect(calls.some(call => call[0] === siteAssets.siteTerrain.ferry)).toBe(true);
+    const frostAssets = await fixture.initialize(FROST_RIDGE);
+    expect(frostAssets.frostLedges).toBeDefined();
+    expect(frostAssets.frostGround).toBeDefined();
+    expect(Object.keys(frostAssets.frostLedges.platforms).sort()).toEqual(FROST_RIDGE.platforms!.map(p => p.id).sort());
+    calls.length = 0;
+    fixture.drawWorld(ctx, frostAssets, FROST_RIDGE, { position: { x: 3400.25, y: 280.5 } }, undefined, undefined, FROST_RIDGE.platforms!.map(p => platformBodyAt(p, 0)), 0, true);
+    for (const [id, image] of Object.entries(frostAssets.frostLedges.platforms)) {
+      const support = FROST_RIDGE.platforms!.find(p => p.id === id)!;
+      expect(calls.filter(call => call[0] === image)).toEqual([[image, support.from.x - 3400.25, support.from.y - 280.5]]);
+    }
+    expect(ribbonCalls.filter(c => c[0] === frostAssets.frostGround.terrain)).toHaveLength(5600);
+    expect(ribbonCalls.filter(c => c[0] === frostAssets.frostGround.ice)).toHaveLength(1200);
+    expect(calls.some(c => c[0] === frostAssets.frostGround.ribbon.windows[0].canvas)).toBe(true);
+    expect(() => fixture.drawWorld(ctx, { ...frostAssets, frostGround: undefined }, FROST_RIDGE, { position: { x: 3400.25, y: 280.5 } })).toThrow('Missing required Frost ground');
+    // The actual cached map path passes every authored zero-time body, including Frost.
+    const previewSource = readFileSync(new URL('../src/game/adventure-scene.ts', import.meta.url), 'utf8');
+    expect(previewSource).toContain("level.verticalCamera || level.progressAxis === 'y' ? platformBodiesAt(level.platforms, 0) : []");
+
     expect(typeof fixture.camera).toBe('function');
     expect(code).toContain('function drawTimberTrunk');
     expect(code).toContain('function drawSiteFrame');
@@ -104,7 +124,7 @@ it('builder-kit fixture includes the real terrain dependency and keeps its runti
 
 it('function-string fixtures carry and execute the actual Cove and Sunset helper dependency graphs', () => {
   const list = source.match(/const RENDERER_SOURCE = \[([^\]]+)\]\.map/)![1].split(',').map(name => name.trim());
-  const names = ['world/quarry-floor.ts', 'world/quarry-rollout.ts', 'world/quarry-preview-pieces.ts', 'world/quarry-shelves.ts', 'world/cove-terrain.ts', 'world/site-terrain.ts', 'world/plains-contour.ts', 'world/timbers-terrain.ts', 'world/timbers-tree.ts', 'world/trail-presentation.ts', 'world/ambient-weather.ts', 'world/surface-materials.ts', 'world/renderer.ts'];
+  const names = ['world/quarry-floor.ts', 'world/quarry-rollout.ts', 'world/quarry-preview-pieces.ts', 'world/quarry-shelves.ts', 'world/cove-terrain.ts', 'world/site-terrain.ts', 'world/plains-contour.ts', 'world/timbers-terrain.ts', 'world/timbers-tree.ts', 'world/frost-ledges.ts', 'world/frost-ground.ts', 'world/trail-presentation.ts', 'world/ambient-weather.ts', 'world/surface-materials.ts', 'world/renderer.ts'];
   const code = names.map(name => transformSync(name, readFileSync(new URL('../src/' + name, import.meta.url), 'utf8')
     .replace(/^import .*;\n/gm, '').replace(/\bexport /g, ''), {}).code).join('\n');
   const helpers = new Function(`${code}\nreturn { ${list.join(',')}, SITE_FIXED_SUPPORT_IDS };`)() as Record<string, unknown>;

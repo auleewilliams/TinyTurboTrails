@@ -60,7 +60,9 @@ it.each(['frost', 'cove'])('ships a complete %s atlas with grounded anchors', as
   expect(png[25]).toBe(6);
   // Phase6 broad source bases: stone/checkpoint row41, tree row42; spring/slime unchanged.
   const coveAnchorY: Record<string, number> = { stone: 42, slime: 44, spring: 39, tree: 43, checkpoint: 42 };
+  // Only Frost's checkpoint uses the measured snow-foot edge41; other Frost bases stay44.
+  const frostAnchorY: Record<string, number> = { stone: 44, slime: 44, spring: 44, tree: 44, checkpoint: 41 };
   for (const kind of ['stone', 'slime', 'spring', 'tree', 'checkpoint']) {
-    expect(manifest.anchors[kind].y).toBe(biome === 'cove' ? coveAnchorY[kind] : 44);
+    expect(manifest.anchors[kind].y).toBe((biome === 'cove' ? coveAnchorY : frostAnchorY)[kind]);
   }
 });

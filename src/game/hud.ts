@@ -6,8 +6,8 @@ import { drawKitFrame, PLAQUE_TEXT_SLICE, type InterfaceKit } from '../art/inter
 
 export const HUD_COLORS = { panel: '#10252cee', ink: '#e9f2df', full: '#ff5d5d', empty: '#31434a', hit: '#ffda75' } as const;
 const HEART = ['01100110', '11111111', '11111111', '01111110', '00111100', '00011000'];
-// Keep clear of Henry in low valleys, with five pixels inset at bottom-right.
-export const TRAIL_RIBBON = { x: 285, y: 221, width: 136, height: 14, startX: 292, finishX: 412, railY: 228 } as const;
+// Compact top lane: four pixels clear of optional stars and the pouch.
+export const TRAIL_RIBBON = { x: 211, y: 5, width: 110, height: 14, startX: 218, finishX: 312, railY: 12 } as const;
 /** Shorter plaques retain native kit edges while giving counters less visual weight. */
 export const HUD_PLAQUES = {
   gems: { x: 5, y: 5, width: 60, height: 20 },

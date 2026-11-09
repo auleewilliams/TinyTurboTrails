@@ -1,0 +1,17 @@
+{
+  "recipe": "frost-ground-ice-v1-direct440-mirror16",
+  "terrain": {
+    "image": "terrain.png",
+    "width": 440,
+    "height": 440,
+    "sourceSHA256": "7e4a1c06801dbf49cd8b18e338df0dca6952e52b7232b4d9e880cdfca7f2420c",
+    "pngSHA256": "f6ba00cfa6ca8d4040e00fe44fd5e2510f292375a7794ff07e74632bd2cea9ab"
+  },
+  "ice": {
+    "image": "ice.png",
+    "width": 8,
+    "height": 8,
+    "sourceSHA256": "28068fc63a0c736e46e993867c356500e509a8d89d4b60ca93934f56437be4f2",
+    "pngSHA256": "5e849141b1af83a288f7d1a4298815cc381df3b57be8a6c73dbde9d7e96e8864"
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "src/game/hud.ts": {
+    "beforeSHA256": "8eb429ec2fd997095485bfab8a1a9254781d11748b566ff3aba390e6fb42d402",
+    "currentSHA256": "7bb8f50cf89207e98050f3c27e5fb3b4b02e4788b12948e056d2d0ced9f644c8",
+    "changes": [
+      {
+        "before": "// Keep clear of Henry in low valleys, with five pixels inset at bottom-right.\nexport const TRAIL_RIBBON = { x: 285, y: 221, width: 136, height: 14, startX: 292, finishX: 412, railY: 228 } as const;",
+        "after": "// Compact top lane: four pixels clear of optional stars and the pouch.\nexport const TRAIL_RIBBON = { x: 211, y: 5, width: 110, height: 14, startX: 218, finishX: 312, railY: 12 } as const;"
+      }
+    ]
+  },
+  "tests/browser.spec.ts": {
+    "beforeSHA256": "2ec8f21968ea7480dc0342bb1fcb448784f5d06779690f4693b2eefe07c3293a",
+    "currentSHA256": "1336305a68077c213c951bf5a45c8aebffa8d3d867ce02465d687f2567ed9eb2",
+    "changes": [
+      {
+        "before": "henryRect.y = 230 - manifest.anchor.y;",
+        "after": "henryRect.y = TRAIL_RIBBON.railY - 24;"
+      },
+      {
+        "before": "// The actual sprite rectangle is clear of both top lanes and the bottom ribbon.",
+        "after": "// The actual sprite rectangle is clear of the top HUD and its compact ribbon."
+      },
+      {
+        "before": "// layout fixture. Its feet occupy the rail band; horizontal clearance is\n  // therefore necessary, rather than passing because the sprite is above it.",
+        "after": "// layout fixture. Its sprite spans the relocated rail band; horizontal\n  // clearance is therefore necessary rather than passing on vertical separation."
+      },
+      {
+        "before": "await page.addInitScript(() => {\n    const fill=CanvasRenderingContext2D.prototype.fillRect;",
+        "after": "await page.addInitScript(ribbon => {\n    const fill=CanvasRenderingContext2D.prototype.fillRect;"
+      },
+      {
+        "before": "if(x===413&&y===223&&width===3&&height===2)",
+        "after": "if(x===ribbon.finishX+1&&y===ribbon.y+2&&width===3&&height===2)"
+      },
+      {
+        "before": "if(y===228&&width===3&&height===4)",
+        "after": "if(y===ribbon.railY&&width===3&&height===4)"
+      },
+      {
+        "before": "  });\n  await openAdventure(page, '/?debug=1');\n  await page.getByRole('button', { name: 'Play PLAINS', exact: true }).click();\n  const canvas = page.locator('#game');\n  await expect(canvas).toHaveAttribute('data-hud-hint', 'Arrows / A-D: move');",
+        "after": "  }, TRAIL_RIBBON);\n  await openAdventure(page, '/?debug=1');\n  await page.getByRole('button', { name: 'Play PLAINS', exact: true }).click();\n  const canvas = page.locator('#game');\n  await expect(canvas).toHaveAttribute('data-hud-hint', 'Arrows / A-D: move');"
+      },
+      {
+        "before": "        const clearance = {",
+        "after": "        const ribbonClear = [HUD_PLAQUES.gems, HUD_PLAQUES.hearts, ...(run.specialTotal ? [HUD_PLAQUES.stars] : []), BAG_PLAQUE,\n          ...texts.map(t => ({ x: t.left, y: t.top, width: t.right - t.left, height: t.bottom - t.top }))]\n          .every(r => !overlaps(TRAIL_RIBBON, { left: r.x, right: r.x + r.width, top: r.y, bottom: r.y + r.height }));\n        if (!ribbonClear || TRAIL_RIBBON.y !== 5) throw new Error('Top ribbon overlaps HUD artwork or glyphs');\n        const clearance = {"
+      }
+    ]
+  },
+  "tests/hud-owner-layout.spec.ts": {
+    "beforeSHA256": "2c7a06c75aadb3c5c0f4abcd69a486bc12e3c0fcb5786fd59eb8e82e21a6b275",
+    "currentSHA256": "df5e7a115aefa4d74de304c2435dc6560206d0a1c5f398f348e6437b76953cbf",
+    "changes": [
+      {
+        "before": "henryRect.y = 230 - manifest.anchor.y;",
+        "after": "henryRect.y = TRAIL_RIBBON.railY - 24;"
+      },
+      {
+        "before": "        const clearance = {",
+        "after": "        const ribbonClear = [HUD_PLAQUES.gems, HUD_PLAQUES.hearts, ...(run.specialTotal ? [HUD_PLAQUES.stars] : []), BAG_PLAQUE,\n          ...texts.map(t => ({ x: t.left, y: t.top, width: t.right - t.left, height: t.bottom - t.top }))]\n          .every(r => !overlaps(TRAIL_RIBBON, { left: r.x, right: r.x + r.width, top: r.y, bottom: r.y + r.height }));\n        if (!ribbonClear || TRAIL_RIBBON.y !== 5) throw new Error('Top ribbon overlaps HUD artwork or glyphs');\n        const clearance = {"
+      }
+    ]
+  }
+}

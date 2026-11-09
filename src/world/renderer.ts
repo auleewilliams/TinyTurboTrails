@@ -1,3 +1,4 @@
+import { clipFrostLegacy, drawFrostGround } from './frost-ground';
 import { drawQuarryFloor } from './quarry-floor';
 import { drawQuarryRollout } from './quarry-rollout';
 import { drawQuarryPreviewPiece } from './quarry-preview-pieces';
@@ -16,6 +17,7 @@ import { drawCoveGround, drawCovePlatform } from './cove-terrain';
 import { drawSiteGround, drawSitePlatform } from './site-terrain';
 import { drawTimbersGround, drawTimbersPlatform } from './timbers-terrain';
 import { drawTimbersTree } from './timbers-tree';
+import { drawFrostLedge } from './frost-ledges';
 import type { SlimeAccessory } from './slimes';
 
 /** Scenes without run state draw the whole entity list; a run hides what it has consumed. */
@@ -69,15 +71,24 @@ export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, le
     if (level.id === 'cove' && assets.coveTerrain) drawCoveGround(ctx, assets.coveTerrain, level, offset, first.x1, last.x2);
     else if (level.id === 'sunset' && assets.siteTerrain) drawSiteGround(ctx, assets.siteTerrain, offset);
     else if (level.id === 'timbers' && assets.timbersTerrain) drawTimbersGround(ctx, assets.timbersTerrain, level, offset);
-    else drawTerrainMaterial(ctx, level, offset, assets, first.x1, last.x2);
+    else {
+      if (level.id === 'frost') { ctx.save(); clipFrostLegacy(ctx, level, offset); }
+      drawTerrainMaterial(ctx, level, offset, assets, first.x1, last.x2);
+      if (level.id === 'frost') ctx.restore();
+    }
+    drawFrostGround(ctx, assets.frostGround, level, offset);
     ctx.restore();
   }
   }
   if (level.theme.material === 'wood' && !(level.id === 'timbers' && assets.timbersTerrain)) drawTerrainTiles(ctx, assets, level, offset);
+  if (level.id === 'frost') { ctx.save(); clipFrostLegacy(ctx, level, offset); }
   if (level.id !== 'quarry' && !(level.id === 'sunset' && assets.siteTerrain) && !(level.id === 'cove' && assets.coveTerrain) && !(level.id === 'timbers' && assets.timbersTerrain)) drawTerrainEdge(ctx, level, offset, assets.plainsContour ? plainsContourRange(level) : undefined);
+  if (level.id === 'frost') ctx.restore();
   drawPlainsContourGround(ctx, assets, level, offset);
+  if (level.id === 'frost') { ctx.save(); clipFrostLegacy(ctx, level, offset); }
   drawSurfaceMaterials(ctx, level, offset, assets.coveMaterials, runSeconds, reducedMotion);
   for (const surface of level.surfaces) drawSurfaceGrip(ctx, surface, offset);
+  if (level.id === 'frost') ctx.restore();
   drawPlatforms(ctx, level, offset, platforms, assets);
   drawLandingBands(ctx, level, offset);
   // Decorative silhouettes sit behind every collectible, hazard and checkpoint.
@@ -110,14 +121,17 @@ export function drawWorld(ctx: CanvasRenderingContext2D, assets: WorldAssets, le
         ctx.restore();
       } else drawAsset(ctx, assets, entity.asset as WorldAsset, x, y, 1);
       if (position.checkpointActive) {
+        // Frost's snow foot ends at source edge 41. Keep the pennant/check
+        // attached to the pole when its source-derived anchor differs from 44.
+        const checkpointY = level.id === 'frost' ? y + 44 - (manifest.anchors?.checkpoint?.y ?? cell) : y;
         // A bright pennant and check remain visible after the celebration ends.
         ctx.fillStyle = '#ffda75';
-        ctx.fillRect(x - 5, y - 38, 22, 13);
+        ctx.fillRect(x - 5, checkpointY - 38, 22, 13);
         ctx.strokeStyle = '#10252c';
         ctx.lineWidth = 2;
-        ctx.strokeRect(x - 5, y - 38, 22, 13);
+        ctx.strokeRect(x - 5, checkpointY - 38, 22, 13);
         ctx.beginPath();
-        ctx.moveTo(x, y - 32); ctx.lineTo(x + 4, y - 28); ctx.lineTo(x + 12, y - 35); ctx.stroke();
+        ctx.moveTo(x, checkpointY - 32); ctx.lineTo(x + 4, checkpointY - 28); ctx.lineTo(x + 12, checkpointY - 35); ctx.stroke();
       }
     }
   }
@@ -297,6 +311,7 @@ export function drawPlatforms(ctx: CanvasRenderingContext2D, level: LevelData, o
       for (let rock = 8; rock < body.width - 6; rock += 23) ctx.fillRect(x + rock, y + 5, 9, 2);
       continue;
     }
+    if (level.id === 'frost' && assets?.frostLedges && drawFrostLedge(ctx, assets.frostLedges, body, offset)) continue;
     if (level.id === 'frost' && platform.from.x === platform.to.x && platform.from.y === platform.to.y) {
       const x = body.x - offset.x, y = body.y - offset.y;
       ctx.fillStyle = '#7997b0'; ctx.fillRect(x, y, body.width, body.height);

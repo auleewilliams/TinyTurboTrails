@@ -1,0 +1,210 @@
+{
+  "runtime": {
+    "executable": "/usr/bin/node",
+    "node": "v22.22.1",
+    "zlib": "1.3.1",
+    "TMPDIR": "/home/leew/.hermes/cache/scratch/f243-terrain28"
+  },
+  "source": {
+    "width": 1254,
+    "height": 1254,
+    "pngSha256": "7e4a1c06801dbf49cd8b18e338df0dca6952e52b7232b4d9e880cdfca7f2420c",
+    "rgbaSha256": "cb857664aac13c8e446e51e4627b8596d4d001f43ef1796baa3b35a047c2c59d",
+    "rgbaBytes": 6290064,
+    "alphaMin": 255,
+    "alphaMax": 255,
+    "nonOpaque": 0
+  },
+  "sourceStructure": {
+    "chunks": [
+      {
+        "type": "IHDR",
+        "bytes": 13
+      },
+      {
+        "type": "caBX",
+        "bytes": 23654
+      },
+      {
+        "type": "IDAT",
+        "bytes": 1403328
+      },
+      {
+        "type": "IEND",
+        "bytes": 0
+      }
+    ],
+    "width": 1254,
+    "height": 1254,
+    "bitDepth": 8,
+    "colorType": 2
+  },
+  "prepared": {
+    "width": 440,
+    "height": 440,
+    "pngSha256": "f6ba00cfa6ca8d4040e00fe44fd5e2510f292375a7794ff07e74632bd2cea9ab",
+    "rgbaSha256": "7379c999ee4db35b3e7f2cd320ed3944928288aa6d6e7f4119894acccbe899ee",
+    "rgbaBytes": 774400,
+    "alphaMin": 255,
+    "alphaMax": 255,
+    "nonOpaque": 0
+  },
+  "preparedStructure": {
+    "chunks": [
+      {
+        "type": "IHDR",
+        "bytes": 13
+      },
+      {
+        "type": "IDAT",
+        "bytes": 289323
+      },
+      {
+        "type": "IEND",
+        "bytes": 0
+      }
+    ],
+    "width": 440,
+    "height": 440,
+    "bitDepth": 8,
+    "colorType": 6
+  },
+  "recipe": {
+    "module": "scripts/timbers-art.mjs",
+    "export": "wholeImageAtHeight",
+    "targetHeight": 440,
+    "scaleBothAxes": "440/1254 = 220/627",
+    "sourceExtent": [
+      0,
+      0,
+      1254,
+      1254
+    ],
+    "outputExtent": [
+      0,
+      0,
+      440,
+      440
+    ],
+    "alterations": [],
+    "encoding": "shared encodePng, RGBA8, unfiltered, zlib level9"
+  },
+  "provider": {
+    "model": "gpt-image-2-medium",
+    "provider": "openai-codex",
+    "requestId": "82f62399-ddfd-4714-bafb-750ec766a5d1",
+    "requestedSize": "1024x1024",
+    "requestedQuality": "medium",
+    "reportedSize": "1254x1254",
+    "reportedQuality": "low"
+  },
+  "checks": {
+    "status": "PASS_FOCUSED_PREPARATION_AND_MATHEMATICAL_MODEL_ONLY",
+    "independentSecondInMemorySharedPath": true,
+    "completeSourceRoundTripRgba": true,
+    "completePreparedRoundTripRgba": true,
+    "deterministicSourceAndPreparedEncoding": true,
+    "pngCrcChecks": true,
+    "columns": 5600,
+    "joins": 34,
+    "minOrigin": 240,
+    "maxDepth": 440,
+    "backedCells": 1261748,
+    "partialPixels": 2496,
+    "aboveContourArea": 0,
+    "roundedOriginNegativeControlHoleColumns": 1314,
+    "exactClipping": "Analytic continuous line/pixel-cell area, then 8-bit alpha quantization; zero area above contour. Browser AA is UNRUN.",
+    "nativeAntialias": "UNRUN",
+    "cache": "UNRUN",
+    "firstWarm": "UNRUN",
+    "actorReadability": "UNRUN",
+    "iceBoundaryReadability": "UNRUN",
+    "heldTests": [
+      {
+        "name": "sprite-processing",
+        "status": "UNRUN"
+      },
+      {
+        "name": "finish-grounding",
+        "status": "UNRUN"
+      },
+      {
+        "name": "prepare-timbers-art",
+        "status": "UNRUN"
+      },
+      {
+        "name": "prepare-timbers-tree",
+        "status": "UNRUN"
+      },
+      {
+        "name": "specials",
+        "status": "UNRUN"
+      }
+    ]
+  },
+  "checkedInputs": {
+    "/home/leew/.hermes/cache/scratch/ttt-frost-fit243/scripts/timbers-art.mjs": {
+      "bytes": 4490,
+      "sha256": "bc206e421bf523df63793155455a80d182ddf36b898fa9aed251c0e3df78163f",
+      "expected": "bc206e421bf523df63793155455a80d182ddf36b898fa9aed251c0e3df78163f"
+    },
+    "/home/leew/.hermes/cache/scratch/ttt-frost-fit243/scripts/spelling-stickers.mjs": {
+      "bytes": 6704,
+      "sha256": "7f2a39ba40211a6974aa3f0191f17a653a7ae3c92bf36e0a184f111089c8c732",
+      "expected": "7f2a39ba40211a6974aa3f0191f17a653a7ae3c92bf36e0a184f111089c8c732"
+    },
+    "/home/leew/.hermes/cache/scratch/ttt-frost-fit243/src/world/frost-ridge.ts": {
+      "bytes": 3813,
+      "sha256": "05378e7a8e0523c735a74a65cfae8cdd300120782f5ea31fef8d39dcb205a4b2",
+      "expected": "05378e7a8e0523c735a74a65cfae8cdd300120782f5ea31fef8d39dcb205a4b2"
+    },
+    "/home/leew/.hermes/cache/scratch/ttt-frost-fit243/src/game/movement.ts": {
+      "bytes": 10936,
+      "sha256": "3f918871245baad33cccdbf60ba0520eee750d4c8fc785a53d8d08fc3fe7a58d",
+      "expected": "3f918871245baad33cccdbf60ba0520eee750d4c8fc785a53d8d08fc3fe7a58d"
+    },
+    "/home/leew/.hermes/cache/scratch/f243-terrain23/terrain-ice-contract.md": {
+      "bytes": 11679,
+      "sha256": "1af36b24ae9a540b6d914b3efc29ec69f821a144a3caeb36d63f2af7dbd1349c",
+      "expected": null
+    },
+    "/home/leew/.hermes/cache/scratch/f243-terrain23/representation.json": {
+      "bytes": 1014,
+      "sha256": "3b6d491881242e24e36d08f27e6579fd1817ada204edb68031bdd0b75e5db6ab",
+      "expected": null
+    },
+    "/home/leew/.hermes/cache/scratch/f243-terrain23/terrain-ice-appendix.json": {
+      "bytes": 8201,
+      "sha256": "4728adba9788cb4fabdb53a2b636d2e67f81e4c1fca5a848729e75cc86652ff8",
+      "expected": null
+    },
+    "/home/leew/.hermes/cache/scratch/f243-terrain23/consumer-audit.md": {
+      "bytes": 6918,
+      "sha256": "8034f37274823de0cae4699ff92ec321c16119f2a128fc1e834ac44ee6c2f4a3",
+      "expected": null
+    },
+    "/home/leew/.hermes/cache/scratch/f243-terrain23/terrain1-request.json": {
+      "bytes": 1519,
+      "sha256": "238407943cdaf6132a503690b6b28f73230a3fb57c32aaef7b559e8e84357127",
+      "expected": null
+    },
+    "/home/leew/.hermes/cache/scratch/f243-terrain27/T01-native-tool-result.json": {
+      "bytes": 1759,
+      "sha256": "ee82298e93dd969d9cabaefa38fc11470681ed583311bed7c19f10f5c513b192",
+      "expected": null
+    },
+    "/home/leew/.hermes/cache/scratch/f243-terrain27/T01-dispatched-arguments.json": {
+      "bytes": 1516,
+      "sha256": "9a3a3729f3d58b82e33c75051e740563db82a83d7be39a22ac4412eb39c8fd93",
+      "expected": null
+    },
+    "/home/leew/.hermes/cache/scratch/f243-terrain27/T01-returned-raw.png": {
+      "bytes": 1427051,
+      "sha256": "7e4a1c06801dbf49cd8b18e338df0dca6952e52b7232b4d9e880cdfca7f2420c",
+      "expected": "7e4a1c06801dbf49cd8b18e338df0dca6952e52b7232b4d9e880cdfca7f2420c"
+    }
+  },
+  "sourceRoundTripEncodedSha256": "bddc5ace3110873e262c421982506748a5d5464fefa47ca661f64e98fd077bc1",
+  "elapsedMs": 5972,
+  "maxRssKiB": 141628
+}
