@@ -1,3 +1,4 @@
+import { hudFixtureRectanglesOverlap } from './hud-fixture-geometry';
 import { frostGroundWindows, frostGroundIdentity, validateFrostGround, loadFrostGround, clipFrostLegacy, frostGroundColumn, drawFrostGround } from '../src/world/frost-ground';
 import { validateFrostLedges, loadFrostLedges, drawFrostLedge } from '../src/world/frost-ledges';
 import { SITE_FIXED_SUPPORT_IDS, validateSiteTerrain, validateSiteLayout, loadSiteTerrain, drawSiteGround, drawSitePlatform } from '../src/world/site-terrain';
@@ -4649,7 +4650,7 @@ for (const level of LEVELS) test(`compact HUD renderer fixture: ${level.id} iden
       expect(sample.clearance).toEqual({ pouch: true, marks: true, icons: true, bag: true, hintAndNotice: true });
       // The actual sprite rectangle is clear of the top HUD and its compact ribbon.
       expect(sample.henryRect.y).toBeGreaterThan(59);
-      expect(sample.henryRect.x + sample.henryRect.width).toBeLessThan(TRAIL_RIBBON.x);
+      expect(hudFixtureRectanglesOverlap(sample.henryRect, TRAIL_RIBBON)).toBe(false);
       await expectClearViewport(page);
       samples.push({ viewport, ...sample, hint, notice });
       await page.screenshot({ path: info.outputPath(`fixture-${level.id}-bag${state}-${viewport.width}.png`) });
