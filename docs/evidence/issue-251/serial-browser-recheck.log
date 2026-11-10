@@ -1,0 +1,642 @@
+
+> tiny-turbo-trails@0.1.0 test:browser
+> playwright test --last-failed --workers=1
+
+[WebServer] (node:1309996) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:1310009) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 20 tests using 1 worker
+(node:1310056) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+·(node:1310427) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+······T(node:1311450) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+·T(node:1311831) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+··········
+
+  1) [webkit] › tests/cove-rollout.spec.ts:28:71 › Cove B Hollow/Pools ordinary input rests at 426px 
+
+    Test timeout of 120000ms exceeded.
+
+    Error: page.waitForFunction: Test timeout of 120000ms exceeded.
+
+       at timbers-browser-pilot.ts:93
+
+      91 |       frames: 0, stable: 0, previousY: NaN, phase: 0, error: '', done: false, seenPlaying: false, observedX: NaN, observedY: NaN, history: [] });
+      92 |   }, stages);
+    > 93 |   await page.waitForFunction(() => {
+         |              ^
+      94 |     const pilot = (window as unknown as { timberKeyboardPilot: { done: boolean; error: string } }).timberKeyboardPilot;
+      95 |     return pilot.done || Boolean(pilot.error);
+      96 |   }, undefined, { timeout });
+        at runTimberStages (/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/timbers-browser-pilot.ts:93:14)
+        at driveCove (/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/cove-browser-pilot.ts:20:16)
+        at /home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/cove-rollout.spec.ts:41:5
+
+    attachment #1: source-checkpoint (application/json) ────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/source-checkpoint-f20638370c5064ffa6897e964e71f6a9ec136c57.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: hollow-under-forward-native (image/png) ─────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/hollow-under-forward-native-dac66a09c66e7c35100334d3b7c5159e71d9ad98.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #3: hollow-under-forward-observed (application/json) ────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/hollow-under-forward-observed-70ff72cc8c8d810d20af5b2978a8a760fb838ff3.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #4: hollow-under-forward-css (image/png) ────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/hollow-under-forward-css-625d2281104566297615a02d23983c82637fef1f.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #5: hollow-under-forward-decoded-css-size (application/json) ────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/hollow-under-forward-decoded-css-size-0977c24eea2d69cd92fb1440ed18ccf757eeec3c.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #6: hollow-under-forward-associated-reward (application/json) ───────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/hollow-under-forward-associated-reward-3b85dcc24d57d4389c88e8a42ef3e703ceec138d.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #7: hollow-under-reverse-native (image/png) ─────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/hollow-under-reverse-native-59e06845a04be5b00e957dbbe6b5c6e420e99a9c.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #8: hollow-under-reverse-observed (application/json) ────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/hollow-under-reverse-observed-77f32612095f6a519e7e6de5a224147d1029af1b.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #9: hollow-under-reverse-css (image/png) ────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/hollow-under-reverse-css-2b61645b623f1c304f3f167f7905900d2171d5fe.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #10: hollow-under-reverse-decoded-css-size (application/json) ───────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/hollow-under-reverse-decoded-css-size-0977c24eea2d69cd92fb1440ed18ccf757eeec3c.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #11: hollow-under-reverse-associated-reward (application/json) ──────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/hollow-under-reverse-associated-reward-09ea3d85f1c3c74394a7f457830edc03c130e0db.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #12: hollow-on-native (image/png) ───────────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/hollow-on-native-1fa2d5e473110538161a833ec24294ad543384f3.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #13: rollout-image-281a90e554750e80adc94a22e950f87918847bef443dda856d89804573707ae0 (image/png) 
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/rollout-image-281a90e554750e80adc94a22e950f87918847bef443dda856d89804573707ae0-6103d29ec65b91f6aacb629e0223c08089e5e03e.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #14: rollout-image-54c26a29b1d02165890e0198a807b71ae150ee819b6a30e56a9d2d1fc7c1f5ad (image/png) 
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/rollout-image-54c26a29b1d02165890e0198a807b71ae150ee819b6a30e56a9d2d1fc7c1f5ad-f6fbee8a689ec6723974b703f9ee07994c1d93c7.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #15: hollow-on-observed (application/json) ──────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/hollow-on-observed-64628a52eadcafa7c50ec85200b2df095579d9dd.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #16: hollow-on-css (image/png) ──────────────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/hollow-on-css-dfc1a29b146199e10dcccd497f4787847dd0b42f.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #17: hollow-on-decoded-css-size (application/json) ──────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/hollow-on-decoded-css-size-0977c24eea2d69cd92fb1440ed18ccf757eeec3c.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #18: hollow-on-associated-reward (application/json) ─────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/hollow-on-associated-reward-e6bae6f701081c53bc683b957625d6881dd8c350.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #19: actual-letter-A-collected (application/json) ───────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/actual-letter-A-collected-d83e59a9eebb2de07b5f419815b85a06c0470418.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #20: hollow-lower-native (image/png) ────────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/hollow-lower-native-c89db163643c296ee98a4e65a9953289c9dd3e62.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #21: hollow-lower-observed (application/json) ───────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/hollow-lower-observed-20742407e4c753b02f11d6433fa67f22a978cf22.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #22: hollow-lower-css (image/png) ───────────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/hollow-lower-css-73397bf3d4b3ffea9ca82baca873f5e92f9022ab.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #23: hollow-lower-decoded-css-size (application/json) ───────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/hollow-lower-decoded-css-size-0977c24eea2d69cd92fb1440ed18ccf757eeec3c.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #24: pool1-under-forward-native (image/png) ─────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool1-under-forward-native-eae5e3d82658af01073abaeed1fd9857a0f65e1c.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #25: pool1-under-forward-observed (application/json) ────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool1-under-forward-observed-2e7a1a695400ce59ba76606d7dea5c27a7a4e7be.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #26: pool1-under-forward-css (image/png) ────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool1-under-forward-css-9976da71021412256a2f029693efe106ee946abd.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #27: pool1-under-forward-decoded-css-size (application/json) ────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool1-under-forward-decoded-css-size-0977c24eea2d69cd92fb1440ed18ccf757eeec3c.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #28: pool1-under-forward-associated-reward (application/json) ───────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool1-under-forward-associated-reward-2228c2eb5f682005cdede4d3a74432c3bd87cd3e.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #29: pool1-under-reverse-native (image/png) ─────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool1-under-reverse-native-83579eda13e989680bc86089ca209d865c46802f.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #30: pool1-under-reverse-observed (application/json) ────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool1-under-reverse-observed-e0e81acdb56f196046bdcd17718a16ca39f2119b.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #31: pool1-under-reverse-css (image/png) ────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool1-under-reverse-css-d289caf16a089c9ebd5c981c5aec661fae20065e.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #32: pool1-under-reverse-decoded-css-size (application/json) ────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool1-under-reverse-decoded-css-size-0977c24eea2d69cd92fb1440ed18ccf757eeec3c.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #33: pool1-under-reverse-associated-reward (application/json) ───────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool1-under-reverse-associated-reward-f18cba66da84053e67af04aabff70e6f184d11fd.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #34: pool1-on-native (image/png) ────────────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool1-on-native-d78398f1576ae2f9a4ce0c79834ee6c7ab28ccf0.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #35: rollout-image-4697b8f8146a0aedf0a87e2c7a898aff45a358b1757f96908841fa5cfefc71d2 (image/png) 
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/rollout-image-4697b8f8146a0aedf0a87e2c7a898aff45a358b1757f96908841fa5cfefc71d2-00345c24fffd20ccf6a15fa4104a0bc1228e76e9.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #36: rollout-image-a6f4a9e048719fe041fca68b62d3f76fd517a74baf2fdb6dfff46a1677664c68 (image/png) 
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/rollout-image-a6f4a9e048719fe041fca68b62d3f76fd517a74baf2fdb6dfff46a1677664c68-6fabf0eb6329e479e9c1d5390e3358e60d094894.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #37: pool1-on-observed (application/json) ───────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool1-on-observed-06dbdc09a7d5e7ada159d64d2639962e111e6189.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #38: pool1-on-css (image/png) ───────────────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool1-on-css-7b64928e17f6ab159729142ba173b9df40d0072f.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #39: pool1-on-decoded-css-size (application/json) ───────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool1-on-decoded-css-size-0977c24eea2d69cd92fb1440ed18ccf757eeec3c.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #40: pool1-on-associated-reward (application/json) ──────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool1-on-associated-reward-770ff39c7278fa647e29c1130d181b98c7a6a8e3.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #41: pool1-lower-native (image/png) ─────────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool1-lower-native-088cc48ba204be2a0bd43bc8868a925dbc6ab34e.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #42: pool1-lower-observed (application/json) ────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool1-lower-observed-4a818dffbb1c30ca24eb81655d95763be92e2cfc.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #43: pool1-lower-css (image/png) ────────────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool1-lower-css-4ada902317c9505ce8d62bcad92030f7db4855f8.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #44: pool1-lower-decoded-css-size (application/json) ────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool1-lower-decoded-css-size-0977c24eea2d69cd92fb1440ed18ccf757eeec3c.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #45: pool2-under-forward-native (image/png) ─────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool2-under-forward-native-4cd5e840ae1efd7c4a097a6e05e8e6b559e2df7d.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #46: pool2-under-forward-observed (application/json) ────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool2-under-forward-observed-23dd4a8f6ede3ff8fc019d3a754322b1fbcd6f12.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #47: pool2-under-forward-css (image/png) ────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool2-under-forward-css-3bf28aa2de26ab173d57511bdd53aa261b3859b9.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #48: pool2-under-forward-decoded-css-size (application/json) ────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool2-under-forward-decoded-css-size-0977c24eea2d69cd92fb1440ed18ccf757eeec3c.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #49: pool2-under-forward-associated-reward (application/json) ───────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool2-under-forward-associated-reward-698f0c4a7e91cbb26e51718cbad126307a7092dc.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #50: pool2-under-reverse-native (image/png) ─────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool2-under-reverse-native-58f0952136092cf9a5eaebf70c9a58de6e2c7c0e.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #51: pool2-under-reverse-observed (application/json) ────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool2-under-reverse-observed-d24417d2be91fb3c033d4be6846927449a7ba283.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #52: pool2-under-reverse-css (image/png) ────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool2-under-reverse-css-f4db6f6c250dfff45d88ce89a118a103a9cb4a80.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #53: pool2-under-reverse-decoded-css-size (application/json) ────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool2-under-reverse-decoded-css-size-0977c24eea2d69cd92fb1440ed18ccf757eeec3c.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #54: pool2-under-reverse-associated-reward (application/json) ───────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool2-under-reverse-associated-reward-974bc9dd972ae8d1a7962b3d1628d313d3721f1b.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #55: pool2-on-native (image/png) ────────────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool2-on-native-27d5829a7d14ff06b76eb8ef802e402831bd81c1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #56: rollout-image-fac8f77aef0ff8122e4875750a16d4490ab03eea6420d838a511e36fc79e0980 (image/png) 
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/rollout-image-fac8f77aef0ff8122e4875750a16d4490ab03eea6420d838a511e36fc79e0980-369868b6dca9a4b2037b1851818415eabc1c29a6.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #57: rollout-image-e43c00ac7b6c7652fd7e1a74722f4304483d6ff0b89b9358c72bc79b3466569b (image/png) 
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/rollout-image-e43c00ac7b6c7652fd7e1a74722f4304483d6ff0b89b9358c72bc79b3466569b-77f0794d80c15eeff6ec7d798a154a49a497b1c1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #58: pool2-on-observed (application/json) ───────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool2-on-observed-07e1f19f0afc6293bd1fe811a0cea275ef7dbe7f.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #59: pool2-on-css (image/png) ───────────────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool2-on-css-40d75d09eb0bc4c3034f6ad6fe352077a6e615e2.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #60: pool2-on-decoded-css-size (application/json) ───────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool2-on-decoded-css-size-0977c24eea2d69cd92fb1440ed18ccf757eeec3c.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #61: pool2-on-associated-reward (application/json) ──────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool2-on-associated-reward-305710b0f632610dbf55e91574f97adf70a6fd3d.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #62: pool3-under-forward-native (image/png) ─────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool3-under-forward-native-fe9d0a043c8e1a2a90b75d4bd9f23cd0dcc23c48.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #63: pool3-under-forward-observed (application/json) ────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool3-under-forward-observed-6e1c3f012e15465fa4b18ed6c2651ea09c7ff141.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #64: pool3-under-forward-css (image/png) ────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool3-under-forward-css-c7906bca5310bc3bb492e48923e96abe399307f8.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #65: pool3-under-forward-decoded-css-size (application/json) ────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool3-under-forward-decoded-css-size-0977c24eea2d69cd92fb1440ed18ccf757eeec3c.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #66: pool3-under-reverse-native (image/png) ─────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool3-under-reverse-native-9ca2c163cd79ba153994befbc197a60d5c9e3ffe.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #67: pool3-under-reverse-observed (application/json) ────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool3-under-reverse-observed-bf6abc71b6adfde96443948657b74e0dead1dba4.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #68: pool3-under-reverse-css (image/png) ────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool3-under-reverse-css-4958287819fade6b115e732c2b233a8d35e38c63.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #69: pool3-under-reverse-decoded-css-size (application/json) ────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool3-under-reverse-decoded-css-size-0977c24eea2d69cd92fb1440ed18ccf757eeec3c.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #70: screenshot (image/png) ─────────────────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/error-context.md
+
+    attachment #72: trace (application/zip) ────────────────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [webkit] › tests/cove-rollout.spec.ts:28:71 › Cove B Hollow/Pools ordinary input rests at 320px 
+
+    Test timeout of 120000ms exceeded.
+
+    Error: page.waitForFunction: Test timeout of 120000ms exceeded.
+
+       at timbers-browser-pilot.ts:93
+
+      91 |       frames: 0, stable: 0, previousY: NaN, phase: 0, error: '', done: false, seenPlaying: false, observedX: NaN, observedY: NaN, history: [] });
+      92 |   }, stages);
+    > 93 |   await page.waitForFunction(() => {
+         |              ^
+      94 |     const pilot = (window as unknown as { timberKeyboardPilot: { done: boolean; error: string } }).timberKeyboardPilot;
+      95 |     return pilot.done || Boolean(pilot.error);
+      96 |   }, undefined, { timeout });
+        at runTimberStages (/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/timbers-browser-pilot.ts:93:14)
+        at driveCove (/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/cove-browser-pilot.ts:20:16)
+        at /home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/cove-rollout.spec.ts:41:5
+
+    attachment #1: source-checkpoint (application/json) ────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/source-checkpoint-38a8eb570b6062a5165641d8cfd335899afe4b4b.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: hollow-under-forward-native (image/png) ─────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/hollow-under-forward-native-df79236c5a3ad48527cc76de1c57fe22ff38a87c.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #3: hollow-under-forward-observed (application/json) ────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/hollow-under-forward-observed-72f2597ef8291769c6b03d373f91153b4c4154aa.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #4: hollow-under-forward-css (image/png) ────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/hollow-under-forward-css-0077c5ef7d49031a4c2dbe588c3d46c02ed06430.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #5: hollow-under-forward-decoded-css-size (application/json) ────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/hollow-under-forward-decoded-css-size-2e68267b3a6a048bbad6a713ba2afab0786c8057.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #6: hollow-under-forward-associated-reward (application/json) ───────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/hollow-under-forward-associated-reward-3262c5c994847c48578529e6c68ce92b32033b92.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #7: hollow-under-reverse-native (image/png) ─────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/hollow-under-reverse-native-0e4fb710689c63c8564a5ccde135a61ad9d37c9a.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #8: hollow-under-reverse-observed (application/json) ────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/hollow-under-reverse-observed-347f2ca18d75c4fecd92dfd59dd4e52693246daa.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #9: hollow-under-reverse-css (image/png) ────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/hollow-under-reverse-css-f7d11dc42c0b77c7aafd478a0783a7f0bed6c11a.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #10: hollow-under-reverse-decoded-css-size (application/json) ───────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/hollow-under-reverse-decoded-css-size-2e68267b3a6a048bbad6a713ba2afab0786c8057.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #11: hollow-under-reverse-associated-reward (application/json) ──────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/hollow-under-reverse-associated-reward-fabfd3d87d89b8c03a99f6810c403e02ab23e7b5.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #12: hollow-on-native (image/png) ───────────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/hollow-on-native-7aa8d20ee9e5bc65491584beda48a49458843ca9.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #13: rollout-image-a19e16067b6ed9f8ddfd82dd500e750fc0a01557621f1bf53c370788e87adc10 (image/png) 
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/rollout-image-a19e16067b6ed9f8ddfd82dd500e750fc0a01557621f1bf53c370788e87adc10-38d19b88d6f1334f8c1d14ac2630fc6f6b51291d.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #14: rollout-image-a107f2e0eb6c54e837913cf936461b51254d07634f8550bbb1f5f7b4f0ddabac (image/png) 
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/rollout-image-a107f2e0eb6c54e837913cf936461b51254d07634f8550bbb1f5f7b4f0ddabac-43b60c71d841172ab1e1ee8fc4080a3f29c788b0.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #15: hollow-on-observed (application/json) ──────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/hollow-on-observed-7e4b1ab6f56c83e4168bdcd0db39c426308cbd6e.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #16: hollow-on-css (image/png) ──────────────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/hollow-on-css-3c7426eb9f433574714ce0c51c7ae2c1058f4f29.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #17: hollow-on-decoded-css-size (application/json) ──────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/hollow-on-decoded-css-size-2e68267b3a6a048bbad6a713ba2afab0786c8057.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #18: hollow-on-associated-reward (application/json) ─────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/hollow-on-associated-reward-68fa2c73c458183cae122b4fd0b6cf591393acf0.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #19: actual-letter-A-collected (application/json) ───────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/actual-letter-A-collected-651a71a8a641984bad31f8e0b8c8a9d293ac3fd8.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #20: hollow-lower-native (image/png) ────────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/hollow-lower-native-ddff5fe4b7d69a645f2359bef04cd59f7dae743b.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #21: hollow-lower-observed (application/json) ───────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/hollow-lower-observed-449f8fe42b4142f6338852753339b7cd25ed312f.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #22: hollow-lower-css (image/png) ───────────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/hollow-lower-css-c05fa03f792ff87e24bb82e37b2a02427f513869.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #23: hollow-lower-decoded-css-size (application/json) ───────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/hollow-lower-decoded-css-size-2e68267b3a6a048bbad6a713ba2afab0786c8057.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #24: pool1-under-forward-native (image/png) ─────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool1-under-forward-native-e0bf7cecd2e7c0db20190c630e0234a27d2dc8a0.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #25: pool1-under-forward-observed (application/json) ────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool1-under-forward-observed-e97c8638a33906e56fc938c4377996680fd07020.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #26: pool1-under-forward-css (image/png) ────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool1-under-forward-css-9178411c10a244b47e712af5061aaaa6eed50add.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #27: pool1-under-forward-decoded-css-size (application/json) ────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool1-under-forward-decoded-css-size-2e68267b3a6a048bbad6a713ba2afab0786c8057.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #28: pool1-under-forward-associated-reward (application/json) ───────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool1-under-forward-associated-reward-b60280283895b268c66a8027a9dc54bcce43e946.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #29: pool1-under-reverse-native (image/png) ─────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool1-under-reverse-native-616626bd6abde9da99f466f674c5a4633a8e4610.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #30: pool1-under-reverse-observed (application/json) ────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool1-under-reverse-observed-52698123d08b8d23e14fb07400c2b962deb52a9e.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #31: pool1-under-reverse-css (image/png) ────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool1-under-reverse-css-f8e041d309e4b1a3ce2e4a254669c8c38b2e8fd7.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #32: pool1-under-reverse-decoded-css-size (application/json) ────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool1-under-reverse-decoded-css-size-2e68267b3a6a048bbad6a713ba2afab0786c8057.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #33: pool1-under-reverse-associated-reward (application/json) ───────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool1-under-reverse-associated-reward-4746a8a60323753c4c5e2399de3fa53cbde424ea.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #34: pool1-on-native (image/png) ────────────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool1-on-native-09774e0ce3a8049a48a1a889bdab19025c6a0f82.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #35: rollout-image-05b5068bda3e2c0e21262fa121eb406ceea58750998044d826e73753747b3c98 (image/png) 
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/rollout-image-05b5068bda3e2c0e21262fa121eb406ceea58750998044d826e73753747b3c98-5f0b05f4b8a20455a76f382f0fa4384e2ba40e58.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #36: rollout-image-22256e671efa0469a5b96444170ea69d30eef0b07b464e9d6bfff17e8990c5d1 (image/png) 
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/rollout-image-22256e671efa0469a5b96444170ea69d30eef0b07b464e9d6bfff17e8990c5d1-c81492571fa562c611cd55be3f6ccef68ce8db8f.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #37: pool1-on-observed (application/json) ───────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool1-on-observed-f2584745d21a6700aa15ce020ab725535078edcb.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #38: pool1-on-css (image/png) ───────────────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool1-on-css-75954543a6720e6f8503fa58f9e757a69a6cdc8a.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #39: pool1-on-decoded-css-size (application/json) ───────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool1-on-decoded-css-size-2e68267b3a6a048bbad6a713ba2afab0786c8057.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #40: pool1-on-associated-reward (application/json) ──────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool1-on-associated-reward-4de6caa2c5bedf79efc3183f9cc86bcc47196882.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #41: pool1-lower-native (image/png) ─────────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool1-lower-native-8e2fa91e7886e1aa258cc52740122471d27a5019.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #42: pool1-lower-observed (application/json) ────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool1-lower-observed-94d612e27f83df57fe77f3fe527a477b82310a69.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #43: pool1-lower-css (image/png) ────────────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool1-lower-css-f7fbbeac55da06c6d0973356707509ec909d62d2.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #44: pool1-lower-decoded-css-size (application/json) ────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool1-lower-decoded-css-size-2e68267b3a6a048bbad6a713ba2afab0786c8057.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #45: pool2-under-forward-native (image/png) ─────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool2-under-forward-native-e61655c7f1edf660bff3e3ecf1d542af80910aba.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #46: pool2-under-forward-observed (application/json) ────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool2-under-forward-observed-7e16cd4c1231d8269b84ff94245813af8692ac2a.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #47: pool2-under-forward-css (image/png) ────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool2-under-forward-css-d4836bc2c6ddc08a2264238eb5fe1a0e876ffecd.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #48: pool2-under-forward-decoded-css-size (application/json) ────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool2-under-forward-decoded-css-size-2e68267b3a6a048bbad6a713ba2afab0786c8057.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #49: pool2-under-forward-associated-reward (application/json) ───────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool2-under-forward-associated-reward-d40fa852108f1fa9ae4f93bd23daf40b53999521.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #50: pool2-under-reverse-native (image/png) ─────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool2-under-reverse-native-e9e6ec594fb70092f269094a4458e7249e012599.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #51: pool2-under-reverse-observed (application/json) ────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool2-under-reverse-observed-69694c8d7664f228b113208a90751c38229e4d13.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #52: pool2-under-reverse-css (image/png) ────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool2-under-reverse-css-bb32858bebea9f5a123a139ec5014f90a2f3d7f0.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #53: pool2-under-reverse-decoded-css-size (application/json) ────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool2-under-reverse-decoded-css-size-2e68267b3a6a048bbad6a713ba2afab0786c8057.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #54: pool2-under-reverse-associated-reward (application/json) ───────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool2-under-reverse-associated-reward-805cca652ad6cf775ca4778bed5dc4db4fc7925d.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #55: pool2-on-native (image/png) ────────────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool2-on-native-cd01674f4b646a9aba975f7e1c50661001ad1861.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #56: rollout-image-ed943b52a24110f4eacaeecffd73e50cfaa8eeebed159c23e03a6cc3b1e7d6e4 (image/png) 
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/rollout-image-ed943b52a24110f4eacaeecffd73e50cfaa8eeebed159c23e03a6cc3b1e7d6e4-1dfbd091f15a1bf9da0e06bf6c10c04cd4eec4f6.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #57: rollout-image-b350d67686ebf61f218b080d531d5ec6cd8c96c50aa8b43a6a6c1e470d94a85e (image/png) 
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/rollout-image-b350d67686ebf61f218b080d531d5ec6cd8c96c50aa8b43a6a6c1e470d94a85e-b0f9741b72b07c73501a99aab6dd73439367fa7d.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #58: pool2-on-observed (application/json) ───────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool2-on-observed-ecf940b0fa08045e885292b3a63964f8e2d920d8.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #59: pool2-on-css (image/png) ───────────────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool2-on-css-075932a68daa0bcaf9104656ca41ccd015cb9542.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #60: pool2-on-decoded-css-size (application/json) ───────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool2-on-decoded-css-size-2e68267b3a6a048bbad6a713ba2afab0786c8057.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #61: pool2-on-associated-reward (application/json) ──────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool2-on-associated-reward-1baadbfc0cd368cebf80e66805d62c53111c37b4.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #62: pool3-under-forward-native (image/png) ─────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool3-under-forward-native-956eab681c995c1f16a8b9b951f36f421a8321a8.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #63: pool3-under-forward-observed (application/json) ────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool3-under-forward-observed-446fe81e38f10b322b3ef81766f58f6259d80390.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #64: pool3-under-forward-css (image/png) ────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool3-under-forward-css-1cac53f94d66ef444e3e041a6e51567513333fdf.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #65: pool3-under-forward-decoded-css-size (application/json) ────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool3-under-forward-decoded-css-size-2e68267b3a6a048bbad6a713ba2afab0786c8057.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #66: pool3-under-reverse-native (image/png) ─────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool3-under-reverse-native-0647d82b958a403be99e1dd1085aa5de4496d7f9.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #67: pool3-under-reverse-observed (application/json) ────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool3-under-reverse-observed-058da15a94c4ae916fd0b2d4ffcf091e8b8e0d78.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #68: pool3-under-reverse-css (image/png) ────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool3-under-reverse-css-87964aa050664c53a328bbf060f71718d0ba6a63.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #69: pool3-under-reverse-decoded-css-size (application/json) ────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool3-under-reverse-decoded-css-size-2e68267b3a6a048bbad6a713ba2afab0786c8057.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #70: screenshot (image/png) ─────────────────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/error-context.md
+
+    attachment #72: trace (application/zip) ────────────────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    [webkit] › tests/cove-rollout.spec.ts:28:71 › Cove B Hollow/Pools ordinary input rests at 426px 
+    [webkit] › tests/cove-rollout.spec.ts:28:71 › Cove B Hollow/Pools ordinary input rests at 320px 
+  18 passed (18.8m)

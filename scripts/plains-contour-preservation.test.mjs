@@ -4,6 +4,7 @@ import { createHash } from 'node:crypto';
 import { test } from 'node:test';
 import { beforePlainsContour as beforePlains } from './plains-contour-preservation.mjs';
 import { beforeSiteArt } from './site-art-preservation.mjs';
+import { beforeTouchPresentation } from './touch-presentation.mjs';
 const beforePlainsContour = (path, bytes) => beforePlains(path, beforeSiteArt(path, bytes));
 const read = path => readFileSync(new URL(`../${path}`, import.meta.url));
 const hash = bytes => createHash('sha256').update(bytes).digest('hex');
@@ -55,7 +56,7 @@ test('renderer/linkage and typed API corruptions reject rather than normalize a 
   reject('src/world/assets.ts', text => text.replace('naturalWidth !== 80', 'naturalWidth !== 81'));
   reject('src/world/trail-presentation.ts', text => text.replace('ctx.lineWidth = 7', 'ctx.lineWidth = 8'));
 });
-test('unlisted physics/HUD/other-trail bytes remain untouched and are rejected by byte oracles', () => {
+test('exact tablet instructions project before physics/HUD/other-trail byte oracles; corruptions reject', () => {
   for (const [path, from, to] of [
     ['src/game/movement.ts', 'gravity: 1500', 'gravity: 1499'],
     ['src/game/hud.ts', 'export ', '// corruption\nexport '],
@@ -63,7 +64,9 @@ test('unlisted physics/HUD/other-trail bytes remain untouched and are rejected b
   ]) {
     const original = read(path), bad = Buffer.from(original.toString('utf8').replace(from, to));
     assert.notDeepEqual(bad, original);
-    assert.equal(beforePlainsContour(path, original), original, 'unknown paths remain identity');
+    const tabletProjection = beforeTouchPresentation(path, original);
+    if (tabletProjection === original) assert.equal(beforePlainsContour(path, original), original, 'unknown paths remain identity');
+    else assert.deepEqual(beforePlainsContour(path, original), tabletProjection, 'only the exact tablet feature projects before historical checks');
     assert.equal(beforePlainsContour(path, bad), bad, 'no blanket exception');
     assert.throws(() => assert.equal(hash(beforePlainsContour(path, bad)), hash(original), `${path}: existing hash oracle`), intendedAssertion);
   }

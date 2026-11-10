@@ -1,0 +1,49 @@
+{
+  "baselineRevision": "e18c293c308b44d211d67a851e23c510fddc7f46",
+  "sourceState": "Uncommitted local tablet prototype, not a published commit or deployment.",
+  "sha256": {
+    "src/core/input.ts": "688cc005e1e4eb0d946841e7f8748a6896f0551616e9f055fcd45a8f0275a7ae",
+    "src/core/viewport.ts": "7148b683ea83bb6cc15214adb527b8ca703d0ddfdeabfa6b9cce8e4d388acd44",
+    "src/main.ts": "e2052c400211ed8b9edcf5bd2d343d59a3f2402991938352e59d515eed04e372",
+    "src/style.css": "9ef6cb233dd7696dae82b80d823e215cb0369934a449fa149e85f0b6148d37b2",
+    "src/game/touch-controls.ts": "4cdc6dfbfa22ea87a447a97f476df6c48ce2978fb6dec1502aaa2afca50e82f3",
+    "src/game/hud.ts": "485ab7391f8059b8ff8a878d01ae8c3504b15e2c0482e355851453663b2f4cfe",
+    "src/game/adventure-scene.ts": "bb95659a1e9953e9de43ad8befca8c73e4981a829391a226662d723f58a0238c",
+    "src/game/pause-menu.ts": "4e6a4d88dd0534f0a21ff5c3a9de79804e76987652178fb97d425d70ade8e5f0",
+    "src/game/menu-overlay.ts": "ecc2b627468990e5ace815d62318146eab78ce8fc8a0d44fe7d96453c8520bb6",
+    "index.html": "22fc3e24e967e72f946027ea6fd35c41c1e7a1cd1ac321c773e35c7934ab8e81",
+    "assets/source/touch-controls/presentation.json": "79022841550dc6fe8d8c125a9736d2fa1e53f4b61751723b3f0ffbe564102b0e"
+  },
+  "artifactsSha256": {
+    "tablet-gameplay.png": "f21b56a49f7b1e531e8f84283bd98a5735b3fcaa27aab4482d49b7af7d13ff6b",
+    "tablet-pause.png": "c2a94ca48f2a98bb2cdf41b05838f59cbcee76ffcbbb1a932a734f5d5ca135e4",
+    "tablet-mockups.html": "fed1566a8116908d2585daf4cc715825372882f975355738408bf0985bf69bc9"
+  },
+  "verification": {
+    "unitPassed": 2163,
+    "scriptPassed": 143,
+    "typecheck": "passed",
+    "productionBuild": "passed",
+    "focusedBrowser": {
+      "passed": 16,
+      "skipped": 2
+    },
+    "fullBrowser": {
+      "passed": 865,
+      "failed": 20,
+      "skipped": 3,
+      "workers": 4
+    },
+    "serialRecheck": {
+      "passed": 18,
+      "failed": 2,
+      "workers": 1
+    },
+    "baseComparison": {
+      "revision": "e18c293c308b44d211d67a851e23c510fddc7f46",
+      "sameTwoCoveCasesFailed": true
+    },
+    "mockupInteractions": "passed",
+    "physicalIPadTest": "not performed"
+  }
+}

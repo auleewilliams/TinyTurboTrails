@@ -38,19 +38,28 @@ Docker/nginx deployment and rollback. Public internet hosting is outside scope.
 
 ## Controls
 
-Play is supported on desktop/laptop only for now, using a keyboard or standard
-controller. Pointer input supports menus, Pause/settings and optional
-word-building, but provides no movement or jump controls. Phone/tablet play and
-touch gameplay are outside the current support boundary. Resizable desktop
+Desktop/laptop play is supported using a keyboard or standard controller.
+An experimental tablet touch prototype targets a 13-inch iPad Air in landscape,
+with Safari as the initial browser. Physical iPad usability and performance have
+not yet been validated; phone support and a portrait-specific redesign are deferred.
+Pointer input supports menus, Pause/settings and optional word-building. Resizable desktop
 windows and fullscreen preserve the 426×240 camera's proportions. See the
 [device and browser policy](docs/REQUIREMENTS.md#supported-devices-and-input).
+
+The adventure automatically shows touch controls on touch-capable devices. Open
+`/?touch=1` to try them with a mouse on desktop, or `/?touch=0` to start with them
+off. The **Touch: on/off** button changes the session's choice. Hold **◀ / ▶** to
+move and **Jump** to jump higher; movement and jump work together. Controls sit
+below the full game camera and disappear in menus, activities and Pause. Pause,
+focus loss and resizing release held touch controls. No choice is persisted.
+See [tablet mockups and verification](docs/evidence/issue-251/README.md).
 
 | Action | Keyboard | Standard controller | Pointer |
 | --- | --- | --- | --- |
 | Choose trail / finish action | Left/Right or A/D | D-pad / left stick | Click landmark / action |
 | Play / confirm | Space; Tab and Enter on buttons | Any face button | Play / action button |
-| Move | Left/Right or A/D | D-pad / left stick | Not supported |
-| Jump | Space | Any face button | Not supported |
+| Move | Left/Right or A/D | D-pad / left stick | Experimental tablet: hold ◀ / ▶ |
+| Jump | Space | Any face button | Experimental tablet: hold Jump |
 | Pause / resume | Escape; Tab + Enter/Space on Pause / Resume | Start | Pause / Resume button |
 | Sound on/off | M; pause-menu Sound button | Choose Sound while paused, then a face button | Pause → Sound |
 | Rumble on/off | Pause-menu Controller rumble button | Choose Rumble while paused, then a face button | Pause → Rumble |

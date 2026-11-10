@@ -1,0 +1,130 @@
+{
+  "stats": {
+    "startTime": "2026-11-09T10:48:25.367Z",
+    "duration": 38549.536,
+    "expected": 7,
+    "skipped": 2,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "cases": [
+    {
+      "title": "tablet controls hold, cancel and clear across pause, focus, resize and mode changes",
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 6245,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "touch-capable tablets enable the controls automatically and can tap menus",
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 4282,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "two native touch contacts can run and jump together",
+      "project": "chromium",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 3103,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "tablet controls hold, cancel and clear across pause, focus, resize and mode changes",
+      "project": "firefox",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 7065,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "touch-capable tablets enable the controls automatically and can tap menus",
+      "project": "firefox",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 4115,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "two native touch contacts can run and jump together",
+      "project": "firefox",
+      "expectedStatus": "skipped",
+      "status": "skipped",
+      "results": [
+        {
+          "status": "skipped",
+          "duration": 4,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "tablet controls hold, cancel and clear across pause, focus, resize and mode changes",
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 7972,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "touch-capable tablets enable the controls automatically and can tap menus",
+      "project": "webkit",
+      "expectedStatus": "passed",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 4543,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "two native touch contacts can run and jump together",
+      "project": "webkit",
+      "expectedStatus": "skipped",
+      "status": "skipped",
+      "results": [
+        {
+          "status": "skipped",
+          "duration": 12,
+          "errors": []
+        }
+      ]
+    }
+  ],
+  "note": "Summary of the focused run before the keyboard-toggle refinement. Full report retained in /tmp/ttt-touch-focused-report.json during implementation."
+}

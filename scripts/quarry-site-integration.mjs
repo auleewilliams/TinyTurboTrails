@@ -2,6 +2,7 @@ import { beforeFrostTrial } from './frost-trial-preservation.mjs';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
+import { beforeTouchPresentation } from './touch-presentation.mjs';
 const hash = bytes => createHash('sha256').update(bytes).digest('hex');
 const raw = readFileSync(new URL('../assets/source/quarry/sunset-main-sync-v1/receipt.json', import.meta.url));
 assert.equal(hash(raw), '6cee2c638afc8586f0a0e0c8d459470c86c35f8e9cc3175b6e045e78d4d9ee1c', 'sealed Quarry/Sunset integration receipt');
@@ -26,6 +27,7 @@ assert.deepEqual(Object.keys(record.files).sort(), Object.keys(pins).sort());
  * and its bounded hunks before returning that historical side.
  */
 export function projectQuarrySiteSource(path, bytes, side = 'quarry', read = readFileSync) {
+  bytes = beforeTouchPresentation(path, bytes);
   bytes = beforeFrostTrial(path, bytes);
   const entry = record.files[path];
   if (!entry) return bytes;

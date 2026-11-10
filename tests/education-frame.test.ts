@@ -8,6 +8,43 @@ import { LEVELS, TREETOP_TIMBERS } from '../src/world/levels';
 import type { Player } from '../src/game/movement';
 import type { RunState } from '../src/game/interactions';
 
+it('retains a brief map confirmation until a simulation step even while touch controls are hidden', () => {
+  const scene = new AdventureScene({} as never, {} as never,
+    Object.fromEntries(LEVELS.map(level => [level.atlas, {} as never])), new SilentAudio(), TREETOP_TIMBERS);
+  const clock = new SimulationClock();
+  const neutral = { horizontal: 0, jumpHeld: false, jumpPressed: false, pausePressed: false, mutePressed: false };
+  const source = readFileSync(new URL('../src/main.ts', import.meta.url), 'utf8');
+  const syncStart = source.indexOf('  const syncTouchControls =');
+  const syncEnd = source.indexOf('  const refreshPause =', syncStart);
+  const frameStart = source.indexOf('  const frame = (now:');
+  const frameEnd = source.indexOf("\n  window.addEventListener('resize'", frameStart);
+  const harness = `
+    let focused = true, userPaused = false, inputSource = 'keyboard';
+    let pendingJump = false, educationRevision = 0, request = 0, pressed = false;
+    const input = { poll: () => ({ ...neutral, jumpPressed: pressed }), clear: () => {} };
+    const educationScene = () => scene;
+    const scenes = { activeScene: scene, update: (seconds, controls) => scene.update(seconds, controls), render: () => {} };
+    const touch = { update: () => {} }, touchMode = false, assetState = 'ready', adventure = true;
+    const refreshPause = () => {}, refreshRumble = () => {}, previewStatus = () => '';
+    const clearGameplayInput = () => { input.clear(); pendingJump = false; };
+    const pauseButton = { style: {} }, status = {}, context = {}, menu = { update: () => {} }, pauseMenu = {};
+    const requestAnimationFrame = () => 0;
+    ${source.slice(syncStart, syncEnd)}
+    ${source.slice(frameStart, frameEnd)}
+    return { frame, press: value => { pressed = value; } };
+  `;
+  const driver = new Function('scene', 'clock', 'neutral', 'AdventureScene',
+    transformSync('touch-confirm-harness.ts', harness, {}).code)(scene, clock, neutral, AdventureScene) as {
+      frame(now: number): void; press(value: boolean): void;
+    };
+  driver.frame(0);
+  driver.press(true); driver.frame(1);
+  driver.press(false); driver.frame(2);
+  expect(scene.screenState).toBe('title');
+  driver.frame(17);
+  expect(scene.screenState).toBe('playing');
+});
+
 it('discards activity clock debt when the finish activity opens and pointer return closes before the next rendered frame', () => {
   const scene = new AdventureScene({} as never, {} as never,
     Object.fromEntries(LEVELS.map(level => [level.atlas, {} as never])), new SilentAudio(), TREETOP_TIMBERS);
@@ -31,6 +68,7 @@ it('discards activity clock debt when the finish activity opens and pointer retu
     const refreshPause = () => clock.setPaused(!focused || userPaused || scene.educationOverlay.open);
     const clearGameplayInput = () => { input.clear(); pendingJump = false; };
     const refreshRumble = () => {};
+    const syncTouchControls = () => {};
     const pauseButton = { style: {} };
     const assetState = 'loading', adventure = true, context = {}, menu = { update: () => {} }, pauseMenu = {};
     const requestAnimationFrame = () => 0;

@@ -4,7 +4,7 @@ import { mountAudioPreview } from './audio-preview';
 import { SimulationClock } from './core/clock';
 import { BrowserInput, type InputFrame, type InputSource } from './core/input';
 import { SceneHost } from './core/scene';
-import { fitGameViewport } from './core/viewport';
+import { fitGameViewport, fitTouchViewport } from './core/viewport';
 import { FoundationScene } from './foundation-scene';
 import { loadTitleArtwork } from './art/title';
 import { loadHenry, loadHenryPreview } from './art/henry';
@@ -15,6 +15,7 @@ import { WorldPreviewScene } from './world/preview-scene';
 import { GameplayPreviewScene, loadGameplayAssets } from './game/gameplay-preview';
 import { AdventureScene } from './game/adventure-scene';
 import { MenuOverlay } from './game/menu-overlay';
+import { TouchControls } from './game/touch-controls';
 import { PauseMenu, drawFocusPause } from './game/pause-menu';
 import { loadImage } from './art/henry';
 import { loadSpellingAssets } from './art/spelling';
@@ -27,6 +28,9 @@ const feedbackControls = document.querySelector<HTMLElement>('.feedback-controls
 const status = document.querySelector<HTMLParagraphElement>('#status')!;
 const pauseButton = document.querySelector<HTMLButtonElement>('#pause')!;
 const retryButton = document.querySelector<HTMLButtonElement>('#retry')!;
+const touchToggle = document.querySelector<HTMLButtonElement>('#touch-toggle')!;
+const touchRail = document.querySelector<HTMLElement>('#touch-rail')!;
+const touchElement = document.querySelector<HTMLElement>('#touch-controls')!;
 const context = canvas.getContext('2d');
 
 if (!context) {
@@ -40,6 +44,7 @@ if (!context) {
   const rumble = input.rumble;
   const scenes = new SceneHost(() => { audio.stop(); rumble.stop(); });
   const menu = new MenuOverlay(canvas);
+  const touch = new TouchControls(touchElement, input);
   let focused = !document.hidden && document.hasFocus();
   let userPaused = false;
   let muted = false;
@@ -57,6 +62,10 @@ if (!context) {
   const worldPreview = requestedScene === 'world';
   const gameplayPreview = requestedScene === 'gameplay';
   const adventure = requestedScene === 'adventure';
+  const touchMedia = window.matchMedia('(any-pointer: coarse)');
+  const touchParameter = new URLSearchParams(location.search).get('touch');
+  let touchPreference: boolean | null = touchParameter === '1' ? true : touchParameter === '0' ? false : null;
+  let touchMode = false;
   document.body.classList.toggle('adventure-view', adventure);
   const debugAdventure = new URLSearchParams(location.search).get('debug') === '1';
   let assetState: 'loading' | 'ready' | 'failed' = artPreview || movementPreview || worldPreview || gameplayPreview || adventure ? 'loading' : 'ready';
@@ -70,7 +79,14 @@ if (!context) {
     return ` · ${state}${scene.educationDescription ? ` · ${scene.educationDescription}` : ''}${scene.screenState === 'finish' ? ` · Gems ${scene.gemTotal}/${scene.trailGemTotal}` : ''}${debugAdventure ? ` · X ${Math.round(scene.playerX)} Y ${Math.round(scene.playerY)} V ${Math.round(scene.playerVelocityX)} F ${scene.playerFacing}` : ''}`;
   };
 
-  const previewStatus = (): string => `${artPreview ? 'Art' : movementPreview ? 'Movement' : worldPreview ? 'World' : gameplayPreview ? 'Gameplay' : adventure ? 'Adventure' : 'Foundation'} preview${adventure ? adventureStatus() : ''} · ${inputSource === 'controller' ? 'Start' : 'Escape'} to ${educationScene()?.educationOverlay.open ? 'leave activity' : 'pause'} · ${muted ? 'Muted · M to unmute' : 'M to mute'}`;
+  const pauseControl = (): string => inputSource === 'touch' ? 'Tap Pause' : inputSource === 'controller' ? 'Start' : 'Escape';
+  const previewStatus = (): string => `${artPreview ? 'Art' : movementPreview ? 'Movement' : worldPreview ? 'World' : gameplayPreview ? 'Gameplay' : adventure ? 'Adventure' : 'Foundation'} preview${adventure ? adventureStatus() : ''} · ${pauseControl()} to ${educationScene()?.educationOverlay.open ? 'leave activity' : 'pause'} · ${inputSource === 'touch' ? 'Sound in Pause' : muted ? 'Muted · M to unmute' : 'M to mute'}`;
+
+  const syncTouchControls = (): void => {
+    const scene = educationScene();
+    const playing = scene?.screenState === 'playing' && !scene.educationOverlay.open;
+    touch.update(touchMode && focused && !userPaused && assetState === 'ready' && playing);
+  };
 
   const refreshPause = (): void => {
     input.setFocused(focused);
@@ -85,20 +101,46 @@ if (!context) {
     status.textContent = assetState === 'failed' ? 'Artwork could not load. Reload to retry.'
       : assetState === 'loading' ? 'Loading artwork…'
       : !focused ? 'Paused · Return to the game to continue'
-      : userPaused ? `Paused · ${inputSource === 'controller' ? 'Start' : 'Escape'} to resume`
+      : userPaused ? `Paused · ${inputSource === 'touch' ? 'Tap Resume' : inputSource === 'controller' ? 'Start' : 'Escape'} to resume`
       : previewStatus();
     retryButton.hidden = assetState !== 'failed' || userPaused;
     pauseButton.style.visibility = !focused || userPaused || educationScene()?.educationOverlay.open ? 'hidden' : '';
     document.querySelector<HTMLElement>('.audio-preview')?.toggleAttribute('inert', userPaused || !focused);
     document.body.classList.toggle('asset-unavailable', assetState !== 'ready');
+    syncTouchControls();
   };
 
   const resize = (): void => {
-    const size = fitGameViewport(main.clientWidth, main.clientHeight, feedbackControls.getBoundingClientRect());
+    // Rotation and viewport changes release gestures before the controls move.
+    touch.update(false);
+    const padding = getComputedStyle(main);
+    const size = touchMode
+      ? fitTouchViewport(main.clientWidth, main.clientHeight, touchRail.getBoundingClientRect().height, {
+        left: parseFloat(padding.paddingLeft), right: parseFloat(padding.paddingRight),
+        top: parseFloat(padding.paddingTop), bottom: parseFloat(padding.paddingBottom),
+      })
+      : fitGameViewport(main.clientWidth, main.clientHeight, feedbackControls.getBoundingClientRect());
     canvas.style.width = `${size.width}px`;
     canvas.style.height = `${size.height}px`;
     canvas.style.left = `${size.left}px`;
     canvas.style.top = `${size.top}px`;
+  };
+  const applyTouchMode = (): void => {
+    touchMode = adventure && (touchPreference ?? touchMedia.matches);
+    document.body.classList.toggle('touch-mode', touchMode);
+    touchRail.hidden = !touchMode;
+    touchToggle.hidden = !adventure || (!touchMedia.matches && touchParameter === null);
+    touchToggle.setAttribute('aria-pressed', String(touchMode));
+    touchToggle.textContent = `Touch: ${touchMode ? 'on' : 'off'}`;
+    input.clear(); pendingJump = false;
+    if (touchMode) input.useTouch();
+    resize(); refreshPause();
+  };
+  const toggleTouch = (): void => { touchPreference = !touchMode; applyTouchMode(); };
+  const touchToggleKeyDown = (event: KeyboardEvent): void => {
+    if (event.code !== 'Space' && event.code !== 'Enter') return;
+    event.preventDefault(); event.stopPropagation();
+    if (!event.repeat) toggleTouch();
   };
   const clearGameplayInput = (): void => {
     input.clear(); pendingJump = false;
@@ -146,6 +188,7 @@ if (!context) {
   const refreshRumble = (): void => rumble.setGameplay(scenes.activeScene instanceof AdventureScene && scenes.activeScene.screenState === 'playing' && !scenes.activeScene.educationOverlay.open);
 
   const frame = (now: number): void => {
+    syncTouchControls();
     let controls: InputFrame = input.poll();
     if (inputSource !== (controls.source ?? 'keyboard')) { inputSource = controls.source ?? 'keyboard'; refreshPause(); }
     if (focused) {
@@ -184,11 +227,12 @@ if (!context) {
     context.imageSmoothingEnabled = false;
     scenes.render(context);
     const scene = scenes.activeScene instanceof AdventureScene ? scenes.activeScene : undefined;
+    syncTouchControls();
     pauseButton.style.visibility = !focused || userPaused || scene?.educationOverlay.open ? 'hidden' : '';
     const trailPaused = focused && userPaused;
-    menu.update(scene, !focused || userPaused, trailPaused ? pauseMenu.targets : []);
+    menu.update(scene, !focused || userPaused, trailPaused ? pauseMenu.targets : [], inputSource);
     if (trailPaused) pauseMenu.draw(context, inputSource, ui);
-    else if (!focused || userPaused) drawFocusPause(context, controls.source ?? 'keyboard', ui);
+    else if (!focused || userPaused) drawFocusPause(context, inputSource, ui);
     request = requestAnimationFrame(frame);
   };
 
@@ -197,6 +241,10 @@ if (!context) {
   const layoutObserver = new ResizeObserver(resize);
   layoutObserver.observe(main);
   layoutObserver.observe(feedbackControls);
+  layoutObserver.observe(touchRail);
+  touchToggle.addEventListener('click', toggleTouch);
+  touchToggle.addEventListener('keydown', touchToggleKeyDown);
+  touchMedia.addEventListener('change', applyTouchMode);
   window.addEventListener('blur', blur);
   window.addEventListener('focus', focus);
   document.addEventListener('visibilitychange', visibility);
@@ -204,6 +252,7 @@ if (!context) {
   pauseButton.addEventListener('click', openPause);
   pauseButton.addEventListener('keydown', pauseKeyDown);
   retryButton.addEventListener('click', retryLoading);
+  applyTouchMode();
   scenes.change(new FoundationScene());
   if (!adventure && !new URLSearchParams(location.search).has('audio')) audio.startMusic();
   if (adventure) {
@@ -286,12 +335,16 @@ if (!context) {
     window.removeEventListener('focus', focus);
     document.removeEventListener('visibilitychange', visibility);
     input.dispose();
+    touch.dispose();
     scenes.dispose();
     menu.dispose();
     canvas.removeEventListener('pointerdown', unlockAudio);
     pauseButton.removeEventListener('click', openPause);
     pauseButton.removeEventListener('keydown', pauseKeyDown);
     retryButton.removeEventListener('click', retryLoading);
+    touchToggle.removeEventListener('click', toggleTouch);
+    touchToggle.removeEventListener('keydown', touchToggleKeyDown);
+    touchMedia.removeEventListener('change', applyTouchMode);
     removeAudioPreview();
     audio.dispose();
   });

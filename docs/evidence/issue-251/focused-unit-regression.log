@@ -1,0 +1,13 @@
+
+> tiny-turbo-trails@0.1.0 test
+> vitest run tests/education-frame.test.ts tests/input.test.ts tests/touch-controls.test.ts tests/viewport.test.ts
+
+
+ RUN  v5.1.0 /home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e
+
+
+ Test Files  4 passed (4)
+      Tests  39 passed (39)
+   Start at  11:04:02
+   Duration  859ms (transform 38%, import 35%, tests 19%, worker 7%)
+

@@ -1,6 +1,7 @@
 import { BrowserRumble } from './rumble';
 
-export type InputSource = 'keyboard' | 'controller';
+export type InputSource = 'keyboard' | 'controller' | 'touch';
+export type TouchAction = 'left' | 'right' | 'jump';
 
 export interface InputFrame {
   source?: InputSource;
@@ -31,12 +32,39 @@ export class BrowserInput {
   private focused = true;
   private source: InputSource = 'keyboard';
   private previousPadAction = '';
+  private touchPointers = new Map<number, TouchAction>();
+  private touchJumpPressed = false;
 
   constructor(private readonly target: Window, private readonly interact: () => void) {
     target.addEventListener('keydown', this.keyboardInteraction, true);
     target.addEventListener('keydown', this.keyDown);
     target.addEventListener('keyup', this.keyUp);
     target.addEventListener('gamepaddisconnected', this.clear);
+    target.addEventListener('pointerdown', this.pointerInteraction, true);
+  }
+
+  private pointerInteraction = (event: PointerEvent): void => {
+    if (!this.focused || event.pointerType !== 'touch') return;
+    this.useTouch(); this.interact();
+  };
+
+  useTouch(): void { this.source = 'touch'; }
+
+  touchHeld(action: TouchAction): boolean {
+    return Array.from(this.touchPointers.values()).includes(action);
+  }
+
+  pressTouch(pointer: number, action: TouchAction): void {
+    if (!this.focused || this.touchPointers.has(pointer)) return;
+    if (action === 'jump' && !this.touchHeld('jump')) this.touchJumpPressed = true;
+    this.touchPointers.set(pointer, action);
+    this.useTouch(); this.interact();
+  }
+
+  releaseTouch(pointer: number, cancelled = false): void {
+    const action = this.touchPointers.get(pointer);
+    this.touchPointers.delete(pointer);
+    if (cancelled && action === 'jump' && !this.touchHeld('jump')) this.touchJumpPressed = false;
   }
 
   // Observe native menu keyboard gestures without sending them through gameplay bindings.
@@ -64,6 +92,8 @@ export class BrowserInput {
     this.held.clear();
     this.freshMovement = [];
     this.pressed.clear();
+    this.touchPointers.clear();
+    this.touchJumpPressed = false;
     this.previousPadJump = false;
     this.previousPadPause = false;
     this.previousPadActivity = false;
@@ -85,7 +115,7 @@ export class BrowserInput {
 
   poll(): InputFrame {
     if (!this.focused) {
-      return { horizontal: 0, jumpHeld: false, jumpPressed: false, pausePressed: false, mutePressed: false };
+      return { source: this.source, horizontal: 0, jumpHeld: false, jumpPressed: false, pausePressed: false, mutePressed: false };
     }
     const pads = this.target.navigator.getGamepads?.() ?? [];
     const pad = Array.from(pads).find((item) => item?.connected && item.mapping === 'standard');
@@ -103,7 +133,7 @@ export class BrowserInput {
     }
     const padActivity = Boolean(axis || left || right || jump || pause || activity);
     const padAction = `${Math.sign(axis)},${left},${right},${jump},${pause},${activity}`;
-    if (!pad) this.source = 'keyboard';
+    if (!pad && this.source === 'controller') this.source = 'keyboard';
     else if (padActivity && padAction !== this.previousPadAction) this.source = 'controller';
     this.previousPadAction = padAction;
     const padJumpPressed = jump && !this.previousPadJump;
@@ -113,9 +143,10 @@ export class BrowserInput {
       - Number(this.held.has('ArrowLeft') || this.held.has('KeyA'));
     const frame = {
       source: this.source,
-      horizontal: Math.max(-1, Math.min(1, keyboardAxis + axis + Number(right) - Number(left))),
-      jumpHeld: this.held.has('Space') || jump,
-      jumpPressed: this.pressed.has('Space') || padJumpPressed,
+      horizontal: Math.max(-1, Math.min(1, keyboardAxis + axis + Number(right) - Number(left)
+        + Number(this.touchHeld('right')) - Number(this.touchHeld('left')))),
+      jumpHeld: this.held.has('Space') || jump || this.touchHeld('jump'),
+      jumpPressed: this.pressed.has('Space') || padJumpPressed || this.touchJumpPressed,
       pausePressed: this.pressed.has('Escape') || padPausePressed,
       mutePressed: this.pressed.has('KeyM'),
       trailsPressed: this.pressed.has('KeyT'),
@@ -123,6 +154,7 @@ export class BrowserInput {
     };
     this.freshMovement = [...this.pressed].filter(code => ['ArrowLeft', 'ArrowRight', 'KeyA', 'KeyD'].includes(code));
     this.pressed.clear();
+    this.touchJumpPressed = false;
     this.previousPadJump = jump;
     this.previousPadPause = pause;
     this.previousPadActivity = activity;
@@ -135,6 +167,7 @@ export class BrowserInput {
     this.target.removeEventListener('keydown', this.keyDown);
     this.target.removeEventListener('keyup', this.keyUp);
     this.target.removeEventListener('gamepaddisconnected', this.clear);
+    this.target.removeEventListener('pointerdown', this.pointerInteraction, true);
     this.clear();
   }
 }

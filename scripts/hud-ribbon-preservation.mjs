@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
+import { beforeTouchPresentation } from './touch-presentation.mjs';
 const hash = bytes => createHash('sha256').update(bytes).digest('hex');
 const raw = readFileSync(new URL('../assets/source/hud-top-ribbon/presentation-delta.json', import.meta.url));
 assert.equal(hash(raw), 'dd9d329d7e4f74cb676f7ff3df18da328b1138f9fce7fe4cc60e738bbecfc883', 'sealed top ribbon relocation');
@@ -10,6 +11,7 @@ const fixtureRaw = readFileSync(new URL('../assets/source/hud-top-ribbon/fixture
 assert.equal(hash(fixtureRaw), '5b27ef44503692c4d5f0498bf69e384e0f247a3dd8f25cceaf9b551f26f98b6c', 'sealed fixture-only oracle correction');
 export const hudFixtureRecord = JSON.parse(fixtureRaw);
 export function beforeHudFixture(path, bytes) {
+  bytes = beforeTouchPresentation(path, bytes);
   const entry = hudFixtureRecord.files[path];
   if (!entry || hash(bytes) !== entry.currentSHA256) return bytes;
   let text = bytes.toString();

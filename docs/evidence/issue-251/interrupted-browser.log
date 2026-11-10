@@ -1,0 +1,239 @@
+
+> tiny-turbo-trails@0.1.0 test:browser
+> playwright test --workers=2
+
+[WebServer] (node:1254937) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:1254950) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 888 tests using 2 workers
+(node:1255005) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:1255006) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+··············chromium: 156.0.8078.4
+·····················································F(node:1257093) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+···F(node:1257302) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+F(node:1257416) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+·······
+·····································
+
+  1) [chromium] › tests/browser.spec.ts:2703:3 › milestone FROST RIDGE: pointer selection, full route, return, replay and next 
+
+    Error: expect(locator).not.toContainText(expected) failed
+
+    Locator: locator('#status')
+    Expected substring: not "Finish"
+    Received string: "Adventure preview · Finish · Gems 36/39 · X 5523 Y 206 V 220 F 1 · Escape to pause · M to mute"
+    Timeout: 5000ms
+
+    Call log:
+      - Expect "not toContainText" locator('#status') with timeout 5000ms
+      - waiting for locator('#status')
+        14 × locator resolved to <p id="status" role="status">Adventure preview · Finish · Gems 36/39 · X 5523 …</p>
+           - unexpected value "Adventure preview · Finish · Gems 36/39 · X 5523 Y 206 V 220 F 1 · Escape to pause · M to mute"
+
+
+      2839 |       } else {
+      2840 |         await page.keyboard.down('Space');
+    > 2841 |         await expect(page.locator('#status')).not.toContainText('Finish');
+           |                                                   ^
+      2842 |         await page.keyboard.up('Space');
+      2843 |       }
+      2844 |     };
+        at finishAction (/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/browser.spec.ts:2841:51)
+        at /home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/browser.spec.ts:2864:5
+
+    attachment #1: ribbon-start-426 (image/png) ────────────────────────────────────────────────────
+    test-results/browser-milestone-FROST-RI-f1d68-oute-return-replay-and-next-chromium/attachments/ribbon-start-426-4222b18e939c933557bbd74ec32ca438da74ed0d.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: ribbon-start-320 (image/png) ────────────────────────────────────────────────────
+    test-results/browser-milestone-FROST-RI-f1d68-oute-return-replay-and-next-chromium/attachments/ribbon-start-320-88f414c807330f6f5ac63788b5ad545f6a77faa0.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #3: ribbon-checkpoint-426 (image/png) ───────────────────────────────────────────────
+    test-results/browser-milestone-FROST-RI-f1d68-oute-return-replay-and-next-chromium/attachments/ribbon-checkpoint-426-6e07cb29837ad82342c0e62c780e137b5b55bd7b.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #4: ribbon-checkpoint-320 (image/png) ───────────────────────────────────────────────
+    test-results/browser-milestone-FROST-RI-f1d68-oute-return-replay-and-next-chromium/attachments/ribbon-checkpoint-320-79856ae85c26c7ded9d38b52d1be7214afa9bb8a.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #5: finish-results-426 (image/png) ──────────────────────────────────────────────────
+    test-results/browser-milestone-FROST-RI-f1d68-oute-return-replay-and-next-chromium/attachments/finish-results-426-c0a8adcc7816c03ed86db7bcf19beeb863428c1f.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #6: finish-results-320 (image/png) ──────────────────────────────────────────────────
+    test-results/browser-milestone-FROST-RI-f1d68-oute-return-replay-and-next-chromium/attachments/finish-results-320-364f8f6e76d4a68909e93041243c3a92b458ccea.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #8: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/browser-milestone-FROST-RI-f1d68-oute-return-replay-and-next-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/browser-milestone-FROST-RI-f1d68-oute-return-replay-and-next-chromium/error-context.md
+
+    attachment #10: trace (application/zip) ────────────────────────────────────────────────────────
+    test-results/browser-milestone-FROST-RI-f1d68-oute-return-replay-and-next-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/browser-milestone-FROST-RI-f1d68-oute-return-replay-and-next-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [chromium] › tests/browser.spec.ts:2896:1 › overworld input stays usable and missing decorative sheets do not block a full route 
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: locator('#status')
+    Expected substring: "Playing"
+    Received string:    "Adventure preview · Title · Start to pause · M to mute"
+    Timeout: 5000ms
+
+    Call log:
+      - Expect "toContainText" locator('#status') with timeout 5000ms
+      - waiting for locator('#status')
+        14 × locator resolved to <p id="status" role="status">Adventure preview · Title · Start to pause · M to…</p>
+           - unexpected value "Adventure preview · Title · Start to pause · M to mute"
+
+
+      2909 |     state.trailPad.buttons[15].pressed = false; state.trailPad.buttons[0].pressed = true;
+      2910 |   });
+    > 2911 |   await expect(page.locator('#status')).toContainText('Playing');
+           |                                         ^
+      2912 |   await page.route('**/assets/trails/materials.png', route => route.abort());
+      2913 |   await page.route('**/assets/trails/backdrops.webp', route => route.abort());
+      2914 |   await openAdventure(page, '/?scene=adventure&debug=1');
+        at /home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/browser.spec.ts:2911:41
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/browser-overworld-input-st-a35aa-s-do-not-block-a-full-route-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/browser-overworld-input-st-a35aa-s-do-not-block-a-full-route-chromium/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/browser-overworld-input-st-a35aa-s-do-not-block-a-full-route-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/browser-overworld-input-st-a35aa-s-do-not-block-a-full-route-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [chromium] › tests/browser.spec.ts:2965:1 › every destination accepts keyboard and standard-controller selection and start 
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: locator('#status')
+    Expected substring: "Playing"
+    Received string:    "Adventure preview · Title · X 60 Y 172 V 0 F 1 · Escape to pause · M to mute"
+    Timeout: 5000ms
+
+    Call log:
+      - Expect "toContainText" locator('#status') with timeout 5000ms
+      - waiting for locator('#status')
+        14 × locator resolved to <p id="status" role="status">Adventure preview · Title · X 60 Y 172 V 0 F 1 · …</p>
+           - unexpected value "Adventure preview · Title · X 60 Y 172 V 0 F 1 · Escape to pause · M to mute"
+
+
+      2980 |     if (controller) await page.evaluate(() => { (window as unknown as { trailPad: { buttons: { pressed: boolean }[] } }).trailPad.buttons[0].pressed = true; });
+      2981 |     else await page.keyboard.press('Space', { delay: 60 });
+    > 2982 |     await expect(page.locator('#status')).toContainText('Playing');
+           |                                           ^
+      2983 |     await expect(page.locator('#status')).toContainText(`X ${level.start.x}`);
+      2984 |   }
+      2985 | });
+        at /home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/browser.spec.ts:2982:43
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/browser-every-destination--346f0-troller-selection-and-start-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/browser-every-destination--346f0-troller-selection-and-start-chromium/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/browser-every-destination--346f0-troller-selection-and-start-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/browser-every-destination--346f0-troller-selection-and-start-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) [chromium] › tests/browser.spec.ts:4012:3 › educational manual assembly pointer Space places actual letters and earns only after TREE 
+
+    Test was interrupted.
+
+    Error: page.waitForFunction: Test ended.
+
+       at timbers-browser-pilot.ts:93
+
+      91 |       frames: 0, stable: 0, previousY: NaN, phase: 0, error: '', done: false, seenPlaying: false, observedX: NaN, observedY: NaN, history: [] });
+      92 |   }, stages);
+    > 93 |   await page.waitForFunction(() => {
+         |              ^
+      94 |     const pilot = (window as unknown as { timberKeyboardPilot: { done: boolean; error: string } }).timberKeyboardPilot;
+      95 |     return pilot.done || Boolean(pilot.error);
+      96 |   }, undefined, { timeout });
+        at runTimberStages (/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/timbers-browser-pilot.ts:93:14)
+        at /home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/browser.spec.ts:4015:12
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/browser-educational-manual-e145a-s-and-earns-only-after-TREE-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/browser-educational-manual-e145a-s-and-earns-only-after-TREE-chromium/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/browser-educational-manual-e145a-s-and-earns-only-after-TREE-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/browser-educational-manual-e145a-s-and-earns-only-after-TREE-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  5) [chromium] › tests/browser.spec.ts:4012:3 › educational manual assembly keyboard Space places actual letters and earns only after TREE 
+
+    Test was interrupted.
+
+    Error: page.waitForFunction: Test ended.
+
+       at timbers-browser-pilot.ts:93
+
+      91 |       frames: 0, stable: 0, previousY: NaN, phase: 0, error: '', done: false, seenPlaying: false, observedX: NaN, observedY: NaN, history: [] });
+      92 |   }, stages);
+    > 93 |   await page.waitForFunction(() => {
+         |              ^
+      94 |     const pilot = (window as unknown as { timberKeyboardPilot: { done: boolean; error: string } }).timberKeyboardPilot;
+      95 |     return pilot.done || Boolean(pilot.error);
+      96 |   }, undefined, { timeout });
+        at runTimberStages (/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/timbers-browser-pilot.ts:93:14)
+        at /home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/browser.spec.ts:4015:12
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/browser-educational-manual-8a285-s-and-earns-only-after-TREE-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/browser-educational-manual-8a285-s-and-earns-only-after-TREE-chromium/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/browser-educational-manual-8a285-s-and-earns-only-after-TREE-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/browser-educational-manual-8a285-s-and-earns-only-after-TREE-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3 failed
+    [chromium] › tests/browser.spec.ts:2703:3 › milestone FROST RIDGE: pointer selection, full route, return, replay and next 
+    [chromium] › tests/browser.spec.ts:2896:1 › overworld input stays usable and missing decorative sheets do not block a full route 
+    [chromium] › tests/browser.spec.ts:2965:1 › every destination accepts keyboard and standard-controller selection and start 
+  2 interrupted
+    [chromium] › tests/browser.spec.ts:4012:3 › educational manual assembly pointer Space places actual letters and earns only after TREE 
+    [chromium] › tests/browser.spec.ts:4012:3 › educational manual assembly keyboard Space places actual letters and earns only after TREE 
+  769 did not run
+  114 passed (5.3m)

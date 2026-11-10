@@ -1,5 +1,16 @@
 import { expect, it } from 'vitest';
-import { fitGameViewport, fitViewport } from '../src/core/viewport';
+import { fitGameViewport, fitTouchViewport, fitViewport } from '../src/core/viewport';
+
+it.each([[1366, 1024], [1366, 920], [1024, 1366], [1024, 768], [852, 480]])
+('keeps the tablet camera above a measured touch rail and inside safe insets at %ix%i', (width, height) => {
+  const insets = { top: 12, right: 20, bottom: 20, left: 20 };
+  const size = fitTouchViewport(width, height, 112, insets);
+  expect(size.width / size.height).toBeCloseTo(426 / 240);
+  expect(size.left).toBeGreaterThanOrEqual(insets.left);
+  expect(size.top).toBeGreaterThanOrEqual(insets.top);
+  expect(size.left + size.width).toBeLessThanOrEqual(width - insets.right + 1e-9);
+  expect(size.top + size.height).toBeLessThanOrEqual(height - insets.bottom - 112 + 1e-9);
+});
 
 const controls = { width: 114, height: 36 };
 
