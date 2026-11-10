@@ -1,0 +1,265 @@
+{
+  "scope": "Post-rebase affected browser checks, one worker; earlier full-run evidence remains historical.",
+  "stats": {
+    "startTime": "2026-11-10T08:11:25.575Z",
+    "duration": 148662.919,
+    "expected": 19,
+    "skipped": 2,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "cases": [
+    {
+      "title": "uniform viewport fit keeps map, gameplay, pause and finish clear after resizing",
+      "project": "chromium",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 14907,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "app fullscreen retains feedback controls and native map and pause targets",
+      "project": "chromium",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 1479,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "kit text clears generated rims for keyboard and controller prompts at native and small sizes",
+      "project": "chromium",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 2781,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "kit text clears generated rims on the real assembly and finish results",
+      "project": "chromium",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 4991,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "uniform viewport fit keeps map, gameplay, pause and finish clear after resizing",
+      "project": "firefox",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 15060,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "app fullscreen retains feedback controls and native map and pause targets",
+      "project": "firefox",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 2190,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "kit text clears generated rims for keyboard and controller prompts at native and small sizes",
+      "project": "firefox",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 4152,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "kit text clears generated rims on the real assembly and finish results",
+      "project": "firefox",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 6140,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "uniform viewport fit keeps map, gameplay, pause and finish clear after resizing",
+      "project": "webkit",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 31699,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "app fullscreen retains feedback controls and native map and pause targets",
+      "project": "webkit",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 3519,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "kit text clears generated rims for keyboard and controller prompts at native and small sizes",
+      "project": "webkit",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 6810,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "kit text clears generated rims on the real assembly and finish results",
+      "project": "webkit",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 10504,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "tablet controls hold, cancel and clear across pause, focus, resize and mode changes",
+      "project": "chromium",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 4308,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "touch-capable tablets enable the controls automatically and can tap menus",
+      "project": "chromium",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 1683,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "two native touch contacts can run and jump together",
+      "project": "chromium",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 1708,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "tablet controls hold, cancel and clear across pause, focus, resize and mode changes",
+      "project": "firefox",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 6441,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "touch-capable tablets enable the controls automatically and can tap menus",
+      "project": "firefox",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 2063,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "two native touch contacts can run and jump together",
+      "project": "firefox",
+      "status": "skipped",
+      "results": [
+        {
+          "status": "skipped",
+          "duration": 3,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "tablet controls hold, cancel and clear across pause, focus, resize and mode changes",
+      "project": "webkit",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 8708,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "touch-capable tablets enable the controls automatically and can tap menus",
+      "project": "webkit",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 3460,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "two native touch contacts can run and jump together",
+      "project": "webkit",
+      "status": "skipped",
+      "results": [
+        {
+          "status": "skipped",
+          "duration": 4,
+          "errors": []
+        }
+      ]
+    }
+  ]
+}

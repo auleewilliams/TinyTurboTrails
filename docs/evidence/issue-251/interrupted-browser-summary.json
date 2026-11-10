@@ -1,0 +1,71 @@
+{
+  "run": "Full browser run interrupted after map-confirm regression was identified; not a completed suite.",
+  "stats": {
+    "startTime": "2026-11-09T10:58:42.070Z",
+    "duration": 320846.20399999997,
+    "expected": 114,
+    "skipped": 771,
+    "unexpected": 3,
+    "flaky": 0
+  },
+  "failures": [
+    {
+      "title": "milestone FROST RIDGE: pointer selection, full route, return, replay and next",
+      "project": "chromium",
+      "results": [
+        {
+          "status": "failed",
+          "errors": [
+            {
+              "location": {
+                "file": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/browser.spec.ts",
+                "column": 51,
+                "line": 2841
+              },
+              "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).not.\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('#status')\nExpected substring: not \u001b[32m\"Finish\"\u001b[39m\nReceived string: \u001b[31m\"Adventure preview \u00b7 \u001b[7mFinish\u001b[27m \u00b7 Gems 36/39 \u00b7 X 5523 Y 206 V 220 F 1 \u00b7 Escape to pause \u00b7 M to mute\"\u001b[39m\nTimeout: 5000ms\n\nCall log:\n\u001b[2m  - Expect \"not toContainText\" locator('#status') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('#status')\u001b[22m\n\u001b[2m    14 \u00d7 locator resolved to <p id=\"status\" role=\"status\">Adventure preview \u00b7 Finish \u00b7 Gems 36/39 \u00b7 X 5523 \u2026</p>\u001b[22m\n\u001b[2m       - unexpected value \"Adventure preview \u00b7 Finish \u00b7 Gems 36/39 \u00b7 X 5523 Y 206 V 220 F 1 \u00b7 Escape to pause \u00b7 M to mute\"\u001b[22m\n\n\n  2839 |       } else {\n  2840 |         await page.keyboard.down('Space');\n> 2841 |         await expect(page.locator('#status')).not.toContainText('Finish');\n       |                                                   ^\n  2842 |         await page.keyboard.up('Space');\n  2843 |       }\n  2844 |     };\n    at finishAction (/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/browser.spec.ts:2841:51)\n    at /home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/browser.spec.ts:2864:5"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "overworld input stays usable and missing decorative sheets do not block a full route",
+      "project": "chromium",
+      "results": [
+        {
+          "status": "failed",
+          "errors": [
+            {
+              "location": {
+                "file": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/browser.spec.ts",
+                "column": 41,
+                "line": 2911
+              },
+              "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('#status')\nExpected substring: \u001b[32m\"Playing\"\u001b[39m\nReceived string:    \u001b[31m\"Adventure preview \u00b7 Title \u00b7 Start to pause \u00b7 M to mute\"\u001b[39m\nTimeout: 5000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" locator('#status') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('#status')\u001b[22m\n\u001b[2m    14 \u00d7 locator resolved to <p id=\"status\" role=\"status\">Adventure preview \u00b7 Title \u00b7 Start to pause \u00b7 M to\u2026</p>\u001b[22m\n\u001b[2m       - unexpected value \"Adventure preview \u00b7 Title \u00b7 Start to pause \u00b7 M to mute\"\u001b[22m\n\n\n  2909 |     state.trailPad.buttons[15].pressed = false; state.trailPad.buttons[0].pressed = true;\n  2910 |   });\n> 2911 |   await expect(page.locator('#status')).toContainText('Playing');\n       |                                         ^\n  2912 |   await page.route('**/assets/trails/materials.png', route => route.abort());\n  2913 |   await page.route('**/assets/trails/backdrops.webp', route => route.abort());\n  2914 |   await openAdventure(page, '/?scene=adventure&debug=1');\n    at /home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/browser.spec.ts:2911:41"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "every destination accepts keyboard and standard-controller selection and start",
+      "project": "chromium",
+      "results": [
+        {
+          "status": "failed",
+          "errors": [
+            {
+              "location": {
+                "file": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/browser.spec.ts",
+                "column": 43,
+                "line": 2982
+              },
+              "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('#status')\nExpected substring: \u001b[32m\"Playing\"\u001b[39m\nReceived string:    \u001b[31m\"Adventure preview \u00b7 Title \u00b7 X 60 Y 172 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute\"\u001b[39m\nTimeout: 5000ms\n\nCall log:\n\u001b[2m  - Expect \"toContainText\" locator('#status') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('#status')\u001b[22m\n\u001b[2m    14 \u00d7 locator resolved to <p id=\"status\" role=\"status\">Adventure preview \u00b7 Title \u00b7 X 60 Y 172 V 0 F 1 \u00b7 \u2026</p>\u001b[22m\n\u001b[2m       - unexpected value \"Adventure preview \u00b7 Title \u00b7 X 60 Y 172 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute\"\u001b[22m\n\n\n  2980 |     if (controller) await page.evaluate(() => { (window as unknown as { trailPad: { buttons: { pressed: boolean }[] } }).trailPad.buttons[0].pressed = true; });\n  2981 |     else await page.keyboard.press('Space', { delay: 60 });\n> 2982 |     await expect(page.locator('#status')).toContainText('Playing');\n       |                                           ^\n  2983 |     await expect(page.locator('#status')).toContainText(`X ${level.start.x}`);\n  2984 |   }\n  2985 | });\n    at /home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/browser.spec.ts:2982:43"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "originalEvidenceDirectory": "/tmp/ttt-touch-browser-interrupted-evidence"
+}

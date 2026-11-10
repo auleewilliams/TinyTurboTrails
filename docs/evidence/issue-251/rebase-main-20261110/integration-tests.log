@@ -1,0 +1,58 @@
+TAP version 13
+# Subtest: full rollout projects only complete presentation bytes to independent 77 identities
+ok 1 - full rollout projects only complete presentation bytes to independent 77 identities
+  ---
+  duration_ms: 57.990475
+  type: 'test'
+  ...
+# Subtest: rollout never normalizes level, physics, images, approvals or unrelated sources
+ok 2 - rollout never normalizes level, physics, images, approvals or unrelated sources
+  ---
+  duration_ms: 1.418016
+  type: 'test'
+  ...
+# Subtest: exact HUD changes reverse before unchanged historical guards; unrelated mutations reject
+ok 3 - exact HUD changes reverse before unchanged historical guards; unrelated mutations reject
+  ---
+  duration_ms: 56.59641
+  type: 'test'
+  ...
+# Subtest: projects only the complete shared ribbon and real observer deltas
+ok 4 - projects only the complete shared ribbon and real observer deltas
+  ---
+  duration_ms: 88.230981
+  type: 'test'
+  ...
+# Subtest: composed Plains consumer preserves unknown HUD and physics bytes while owner entry normalizes HUD
+ok 5 - composed Plains consumer preserves unknown HUD and physics bytes while owner entry normalizes HUD
+  ---
+  duration_ms: 15.616649
+  type: 'test'
+  ...
+# Subtest: Frost rollout consumes exactly the two authorized ribbon observer migrations
+ok 6 - Frost rollout consumes exactly the two authorized ribbon observer migrations
+  ---
+  duration_ms: 59.11495
+  type: 'test'
+  ...
+# Subtest: fixture correction composes only exact browser bytes before the sealed ribbon and Frost observer guards
+ok 7 - fixture correction composes only exact browser bytes before the sealed ribbon and Frost observer guards
+  ---
+  duration_ms: 176.164288
+  type: 'test'
+  ...
+# Subtest: touch instructions reverse exactly without accepting unrelated HUD or gameplay edits
+ok 8 - touch instructions reverse exactly without accepting unrelated HUD or gameplay edits
+  ---
+  duration_ms: 56.093228
+  type: 'test'
+  ...
+1..8
+# tests 8
+# suites 0
+# pass 8
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 761.317831

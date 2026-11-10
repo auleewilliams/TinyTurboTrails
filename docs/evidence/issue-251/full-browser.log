@@ -1,0 +1,1770 @@
+
+> tiny-turbo-trails@0.1.0 test:browser
+> playwright test --workers=4
+
+[WebServer] (node:1264376) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:1264390) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 888 tests using 4 workers
+(node:1264439) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:1264440) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:1264438) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:1264437) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+············chromium: 156.0.8078.4
+····································································
+················································································
+················································································
+·····················································(node:1270863) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+··(node:1270973) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:1271064) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+°·°·····(node:1271834) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+·······firefox: 157.0
+··········
+················································································
+················································································
+········································F··(node:1282289) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+·····································
+·····························(node:1285578) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+·(node:1285750) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+··(node:1285842) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+·°···(node:1286215) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+·······webkit: 27.2
+···························T·(node:1288841) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+·······
+··············T·(node:1290632) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+·········T··(node:1291654) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+········································T(node:1294780) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+········F(node:1295765) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+··
+···························T(node:1298106) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+··················F(node:1300249) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+···T(node:1300607) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+····F(node:1301045) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+T(node:1301116) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+··········FF(node:1302044) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:1302051) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+F(node:1302217) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+F(node:1302374) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+··T(node:1302650) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+······
+······················F(node:1304820) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+········F···(node:1305491) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+·········FF(node:1306476) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:1306483) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+··································
+········
+
+  1) [firefox] › tests/site-steel-preview.spec.ts:12:33 › Sunset steel preview uses ordinary ground, underpass and dock input at 426px 
+
+    Error: {"active":false,"paused":false,"frozen":false,"pauseAt":-1,"stage":0,"frames":201,"stable":0,"previousY":346,"startY":346,"phase":1,"error":"drop 0 phase 1 stalled Adventure preview · Playing · Letter bag: 1/4 · X 500 Y 346 V 0 F 1 · Escape to pause · M to mute","done":false,"seenPlaying":true,"advanceMs":0,"stages":[{"kind":"drop","edge":470,"direction":1,"x":520,"y":380}],"history":[],"recoveries":[],"observedX":500,"observedY":346}
+
+    expect(received).toMatchObject(expected)
+
+    - Expected  - 2
+    + Received  + 2
+
+      Object {
+    -   "done": true,
+    -   "error": "",
+    +   "done": false,
+    +   "error": "drop 0 phase 1 stalled Adventure preview · Playing · Letter bag: 1/4 · X 500 Y 346 V 0 F 1 · Escape to pause · M to mute",
+      }
+
+       at sunset-browser-pilot.ts:28
+
+      26 |   }
+      27 |   const result = await runTimberStages(page, bounded);
+    > 28 |   expect(result, JSON.stringify(result)).toMatchObject({ done: true, error: '' });
+         |                                          ^
+      29 |   return result;
+      30 | }
+      31 |
+        at driveSunset (/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/sunset-browser-pilot.ts:28:42)
+        at drive (/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/site-steel-preview.spec.ts:50:33)
+        at /home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/site-steel-preview.spec.ts:109:5
+
+    attachment #1: rollout-image-cc53c17665abea6a0e7099167c6489bbc46c92ad2edfc3307101d5fc17e38866 (image/png) 
+    test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-firefox/attachments/rollout-image-cc53c17665abea6a0e7099167c6489bbc46c92ad2edfc3307101d5fc17e38866-c67026a877c87a6b4eafee56ddd38df6a2820a36.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: ground-lip (application/json) ───────────────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-firefox/attachments/ground-lip-e188f256a7d896c16cd9592dbac3214634bb3a04.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #3: ground-lip-css (image/png) ──────────────────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-firefox/attachments/ground-lip-css-078f9ae62896d43b5c4c799f813ef4f985802d66.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #4: rollout-image-da41bf51dbb8558144fc1cb5f42197c9f3804e4976c4264d86fffef4f273821f (image/png) 
+    test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-firefox/attachments/rollout-image-da41bf51dbb8558144fc1cb5f42197c9f3804e4976c4264d86fffef4f273821f-6a60d2818c516ca8a6b437c3366954135a787f32.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #5: first-jump (application/json) ───────────────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-firefox/attachments/first-jump-936e95a415d96f0b958bfe03d9c3817b04ee0334.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #6: first-jump-css (image/png) ──────────────────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-firefox/attachments/first-jump-css-f6e3f64f83cba4b5f79da0bf4d1906546226cba7.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #7: rollout-image-bead193f0171fd62e7ab883b1f93a04080f7095b0d9f2e78cc961d2d1ef61fb6 (image/png) 
+    test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-firefox/attachments/rollout-image-bead193f0171fd62e7ab883b1f93a04080f7095b0d9f2e78cc961d2d1ef61fb6-1454010a1543f73859d35adbb72f5b603a51be00.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #8: stacked-underpass (application/json) ────────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-firefox/attachments/stacked-underpass-81e4c9278d4ff9e94ec53fffac8c9078f2a59e20.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #9: stacked-underpass-css (image/png) ───────────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-firefox/attachments/stacked-underpass-css-78d26421f09dea53783f1b87971469679c5b7dc1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #10: rollout-image-9dee9fc8704a0716478550ba6ffd8446a602e24d7e9465f7105d2f1a82918352 (image/png) 
+    test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-firefox/attachments/rollout-image-9dee9fc8704a0716478550ba6ffd8446a602e24d7e9465f7105d2f1a82918352-cd621634ad53a0087ca971d91e11a8c40e07ac8f.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #11: high-deck (application/json) ───────────────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-firefox/attachments/high-deck-9abd04893cf34750db498a05cd2a95deb6920546.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #12: high-deck-css (image/png) ──────────────────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-firefox/attachments/high-deck-css-e5dc3e3755c8c3b4cbfbd26229257d11675ebdb1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #13: rollout-image-d953497e5443115864dfbeff915d0d027290b82410db0e578240452868542547 (image/png) 
+    test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-firefox/attachments/rollout-image-d953497e5443115864dfbeff915d0d027290b82410db0e578240452868542547-4393fd5c3e97b01eff3aba83981bbaef6989a32c.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #14: board-outward (application/json) ───────────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-firefox/attachments/board-outward-d67f875a67027bae3a66c3f5b9b50496a8c0e694.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #15: board-outward-css (image/png) ──────────────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-firefox/attachments/board-outward-css-adab97ef4a819c2f4373729ad462c991b7e6fff2.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #16: rollout-image-a3593b306e917e554ff83cd60eb3bb4b3a6f3cc0246a2f44747977c2833e9164 (image/png) 
+    test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-firefox/attachments/rollout-image-a3593b306e917e554ff83cd60eb3bb4b3a6f3cc0246a2f44747977c2833e9164-4c68dca854a7af25d99744a3246313d14b714e65.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #17: ride-outward (application/json) ────────────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-firefox/attachments/ride-outward-e211810ea6af2cd6c1f8e098ba696bf1e459fbcf.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #18: ride-outward-css (image/png) ───────────────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-firefox/attachments/ride-outward-css-793a2f92bbf9ced5d0bd1ec27db38baf05c98600.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #19: rollout-image-44e620c87e0b5232724eb6514518473e7f1a677e339b6cfe188b1b118a1ab771 (image/png) 
+    test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-firefox/attachments/rollout-image-44e620c87e0b5232724eb6514518473e7f1a677e339b6cfe188b1b118a1ab771-45e4409f47a1fd0a9d6d8975a6a97a8130d7da5f.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #20: leave-at-far-dock (application/json) ───────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-firefox/attachments/leave-at-far-dock-ba28810fa5468dbb81647a5f269fbfdfe7aeb46b.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #21: leave-at-far-dock-css (image/png) ──────────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-firefox/attachments/leave-at-far-dock-css-80ebfbd1d56ae771584e3950d64eec4e09411c59.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #22: rollout-image-e7f805a4bb56e6ef13abedc52ecea565071db7038c2c9dee29f4d17413f2af03 (image/png) 
+    test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-firefox/attachments/rollout-image-e7f805a4bb56e6ef13abedc52ecea565071db7038c2c9dee29f4d17413f2af03-6733ea2b7ca167c7e1a477ce9f57cba30ff6d100.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #23: board-return (application/json) ────────────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-firefox/attachments/board-return-15be980aa9049504cd3f10b42e73ab67d9e3a2f2.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #24: board-return-css (image/png) ───────────────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-firefox/attachments/board-return-css-940ce138533893cd1fafb27c9c6c02822e36ff49.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #25: rollout-image-baf00a2226462c14d9c8dd672bdafde0584f513d3be3ada96dd70aaa18813993 (image/png) 
+    test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-firefox/attachments/rollout-image-baf00a2226462c14d9c8dd672bdafde0584f513d3be3ada96dd70aaa18813993-9b6af8a87f1acd5802530c8b73eb5818b21dfe05.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #26: ride-return (application/json) ─────────────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-firefox/attachments/ride-return-bf58382104eefaee2378000e03f4dbc6059dcd1e.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #27: ride-return-css (image/png) ────────────────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-firefox/attachments/ride-return-css-d8a4a2787cb323c75d81ea2b3b9ac923db20cae7.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #28: rollout-image-4836102a3e02e2cf865412e9da7851433c3c3585c722e58640b4d17eee2425ef (image/png) 
+    test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-firefox/attachments/rollout-image-4836102a3e02e2cf865412e9da7851433c3c3585c722e58640b4d17eee2425ef-1d28041060c6376365d7f39cda92077b87385ff8.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #29: leave-at-near-dock (application/json) ──────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-firefox/attachments/leave-at-near-dock-309a53057e12f2ad8a568aeaa5a886afcff58a84.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #30: leave-at-near-dock-css (image/png) ─────────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-firefox/attachments/leave-at-near-dock-css-b0f4bcf8b611ec0ae0aa16d2614747cf54b8e211.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #31: source-build-input-provenance (application/json) ───────────────────────────────
+    test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-firefox/attachments/source-build-input-provenance-9e41c86539bb687786ffbc7c3777cc80447599cb.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #32: screenshot (image/png) ─────────────────────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-firefox/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-firefox/error-context.md
+
+    attachment #34: trace (application/zip) ────────────────────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-firefox/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-firefox/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [webkit] › tests/browser.spec.ts:842:1 › terrain joins stay solid while scrolling in both directions at integer and fractional scales 
+
+    Test timeout of 120000ms exceeded.
+
+    Error: page.evaluate: Test timeout of 120000ms exceeded.
+
+      848 |   // Run the real renderer on a separate canvas so sprites and HUD cannot hide seams.
+      849 |   await page.addScriptTag({ content: `${RENDERER_SOURCE}\nwindow.drawTerrainTestWorld = ${drawWorld.toString()};` });
+    > 850 |   const result = await page.evaluate(async ({ level, maxSpeed }) => {
+          |                             ^
+      851 |     const manifest = await (await fetch('/assets/plains/manifest.json')).json();
+      852 |     const atlas = new Image();
+      853 |     atlas.src = `/assets/plains/${manifest.image}`;
+        at /home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/browser.spec.ts:850:29
+
+    Error Context: test-results/browser-terrain-joins-stay-42fb1-teger-and-fractional-scales-webkit/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/browser-terrain-joins-stay-42fb1-teger-and-fractional-scales-webkit/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/browser-terrain-joins-stay-42fb1-teger-and-fractional-scales-webkit/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [webkit] › tests/browser.spec.ts:1283:1 › title picker selects Quarry Run and starts the selected route 
+
+    Test timeout of 30000ms exceeded.
+
+    Error: page.waitForFunction: Test timeout of 30000ms exceeded.
+
+      5561 |     Object.assign(pilot, { route, index: 0, stageFrames: 0, jumped: false, active: true, frozen: false, error: '' });
+      5562 |   }, route);
+    > 5563 |   await page.waitForFunction(() => !(window as unknown as { quarryPilot: { active: boolean } }).quarryPilot.active, undefined, { timeout: 110_000 });
+           |              ^
+      5564 |   const result = await page.evaluate(() => {
+      5565 |     const { index, error, observations } = (window as unknown as { quarryPilot: { index: number; error: string; observations: object[] } }).quarryPilot;
+      5566 |     return { index, error, observations };
+        at driveQuarry (/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/browser.spec.ts:5563:14)
+        at /home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/browser.spec.ts:1285:3
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/browser-title-picker-selec-5fcb9-d-starts-the-selected-route-webkit/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/browser-title-picker-selec-5fcb9-d-starts-the-selected-route-webkit/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/browser-title-picker-selec-5fcb9-d-starts-the-selected-route-webkit/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/browser-title-picker-selec-5fcb9-d-starts-the-selected-route-webkit/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) [webkit] › tests/browser.spec.ts:2703:3 › milestone SUNSET SITE: pointer selection, full route, return, replay and next 
+
+    Test timeout of 100000ms exceeded.
+
+    TimeoutError: page.waitForFunction: Timeout 45000ms exceeded.
+
+       at timbers-browser-pilot.ts:93
+
+      91 |       frames: 0, stable: 0, previousY: NaN, phase: 0, error: '', done: false, seenPlaying: false, observedX: NaN, observedY: NaN, history: [] });
+      92 |   }, stages);
+    > 93 |   await page.waitForFunction(() => {
+         |              ^
+      94 |     const pilot = (window as unknown as { timberKeyboardPilot: { done: boolean; error: string } }).timberKeyboardPilot;
+      95 |     return pilot.done || Boolean(pilot.error);
+      96 |   }, undefined, { timeout });
+        at runTimberStages (/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/timbers-browser-pilot.ts:93:14)
+        at driveSunset (/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/sunset-browser-pilot.ts:27:18)
+        at traverse (/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/browser.spec.ts:2777:9)
+        at /home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/browser.spec.ts:2875:5
+
+    attachment #1: ribbon-start-426 (image/png) ────────────────────────────────────────────────────
+    test-results/browser-milestone-SUNSET-S-ed5b2-oute-return-replay-and-next-webkit/attachments/ribbon-start-426-7bb044fd05b23d32e96f59868a34f89ebf32ae7a.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: ribbon-start-320 (image/png) ────────────────────────────────────────────────────
+    test-results/browser-milestone-SUNSET-S-ed5b2-oute-return-replay-and-next-webkit/attachments/ribbon-start-320-d3d8cd09725ebb46f66e81cf0ee264450fc2fc81.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #3: ribbon-checkpoint-426 (image/png) ───────────────────────────────────────────────
+    test-results/browser-milestone-SUNSET-S-ed5b2-oute-return-replay-and-next-webkit/attachments/ribbon-checkpoint-426-7c618b4a82f838cb231908b108b3bbd879c79120.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #4: ribbon-checkpoint-320 (image/png) ───────────────────────────────────────────────
+    test-results/browser-milestone-SUNSET-S-ed5b2-oute-return-replay-and-next-webkit/attachments/ribbon-checkpoint-320-d2b6f9a94353adc9752126200b4d9d230bd099fe.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #5: ribbon-lower-yard-426 (image/png) ───────────────────────────────────────────────
+    test-results/browser-milestone-SUNSET-S-ed5b2-oute-return-replay-and-next-webkit/attachments/ribbon-lower-yard-426-44970838b9410c4a2c0c3c6886d7eb95316f71b9.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #6: ribbon-lower-yard-320 (image/png) ───────────────────────────────────────────────
+    test-results/browser-milestone-SUNSET-S-ed5b2-oute-return-replay-and-next-webkit/attachments/ribbon-lower-yard-320-b19011b729f941c7e6f3708351bc45e262fed5c8.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #7: finish-results-426 (image/png) ──────────────────────────────────────────────────
+    test-results/browser-milestone-SUNSET-S-ed5b2-oute-return-replay-and-next-webkit/attachments/finish-results-426-7c6fd731b07fa71267374f97598a482233f34f4c.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #8: finish-results-320 (image/png) ──────────────────────────────────────────────────
+    test-results/browser-milestone-SUNSET-S-ed5b2-oute-return-replay-and-next-webkit/attachments/finish-results-320-2012374c150712e274f77cd4d6e705dbf9f44b8f.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #10: map-results-426 (image/png) ────────────────────────────────────────────────────
+    test-results/browser-milestone-SUNSET-S-ed5b2-oute-return-replay-and-next-webkit/attachments/map-results-426-bdc6db8be695f5bd908afa69c32512eeca7cb56d.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #11: map-results-320 (image/png) ────────────────────────────────────────────────────
+    test-results/browser-milestone-SUNSET-S-ed5b2-oute-return-replay-and-next-webkit/attachments/map-results-320-8eff97422d8473c8f910a3741570a53475ddc88a.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #13: screenshot (image/png) ─────────────────────────────────────────────────────────
+    test-results/browser-milestone-SUNSET-S-ed5b2-oute-return-replay-and-next-webkit/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/browser-milestone-SUNSET-S-ed5b2-oute-return-replay-and-next-webkit/error-context.md
+
+    attachment #15: trace (application/zip) ────────────────────────────────────────────────────────
+    test-results/browser-milestone-SUNSET-S-ed5b2-oute-return-replay-and-next-webkit/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/browser-milestone-SUNSET-S-ed5b2-oute-return-replay-and-next-webkit/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  5) [webkit] › tests/browser.spec.ts:3794:1 › diagnostic fullscreen frame geometry across repeated native transitions 
+
+    Test timeout of 30000ms exceeded.
+
+    Error: page.evaluate: Test timeout of 30000ms exceeded.
+
+      3837 |     (window as unknown as { fullscreenDiagnostic: { mark(cycle: number, phase: string): void } }).fullscreenDiagnostic.mark(cycle, phase);
+      3838 |   }, { cycle, phase });
+    > 3839 |   const captureFrames = async (): Promise<void> => page.evaluate(() => new Promise<void>(resolve => {
+           |                                                         ^
+      3840 |     let frames = 0;
+      3841 |     const next = (): void => { if (++frames === 32) resolve(); else requestAnimationFrame(next); };
+      3842 |     requestAnimationFrame(next);
+        at captureFrames (/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/browser.spec.ts:3839:57)
+        at /home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/browser.spec.ts:3859:13
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/browser-diagnostic-fullscr-dbc3c-repeated-native-transitions-webkit/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/browser-diagnostic-fullscr-dbc3c-repeated-native-transitions-webkit/error-context.md
+
+    attachment #3: fullscreen-frames (application/json) ────────────────────────────────────────────
+    test-results/browser-diagnostic-fullscr-dbc3c-repeated-native-transitions-webkit/attachments/fullscreen-frames-0590a25d6aff5392982aa1be144493efecd97ce8.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/browser-diagnostic-fullscr-dbc3c-repeated-native-transitions-webkit/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/browser-diagnostic-fullscr-dbc3c-repeated-native-transitions-webkit/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  6) [webkit] › tests/browser.spec.ts:4315:3 › all-trail spelling frost: input-only missing-letter retrace, manual assembly and session sticker 
+
+    TimeoutError: page.waitForFunction: Timeout 45000ms exceeded.
+
+       at timbers-browser-pilot.ts:93
+
+      91 |       frames: 0, stable: 0, previousY: NaN, phase: 0, error: '', done: false, seenPlaying: false, observedX: NaN, observedY: NaN, history: [] });
+      92 |   }, stages);
+    > 93 |   await page.waitForFunction(() => {
+         |              ^
+      94 |     const pilot = (window as unknown as { timberKeyboardPilot: { done: boolean; error: string } }).timberKeyboardPilot;
+      95 |     return pilot.done || Boolean(pilot.error);
+      96 |   }, undefined, { timeout });
+        at runTimberStages (/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/timbers-browser-pilot.ts:93:14)
+        at driveSunset (/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/sunset-browser-pilot.ts:27:18)
+        at drive (/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/browser.spec.ts:4365:9)
+        at /home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/browser.spec.ts:4428:5
+
+    attachment #1: missing-assembly-426 (image/png) ────────────────────────────────────────────────
+    test-results/browser-all-trail-spelling-0f2c5-ssembly-and-session-sticker-webkit/attachments/missing-assembly-426-444656637db27c16e0c1af3b190d3eeff463f93d.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: missing-assembly-320 (image/png) ────────────────────────────────────────────────
+    test-results/browser-all-trail-spelling-0f2c5-ssembly-and-session-sticker-webkit/attachments/missing-assembly-320-78d833317dd7deb8015c7252c8dd02c953414eb7.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #3: beside-finish-426 (image/png) ───────────────────────────────────────────────────
+    test-results/browser-all-trail-spelling-0f2c5-ssembly-and-session-sticker-webkit/attachments/beside-finish-426-5dfef10378e3e76bb0465e5a2a9168b4d08f2144.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #4: beside-finish-320 (image/png) ───────────────────────────────────────────────────
+    test-results/browser-all-trail-spelling-0f2c5-ssembly-and-session-sticker-webkit/attachments/beside-finish-320-214a37d17932f890a13ba58e85dd095a719cbc2d.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #5: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/browser-all-trail-spelling-0f2c5-ssembly-and-session-sticker-webkit/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/browser-all-trail-spelling-0f2c5-ssembly-and-session-sticker-webkit/error-context.md
+
+    attachment #7: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/browser-all-trail-spelling-0f2c5-ssembly-and-session-sticker-webkit/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/browser-all-trail-spelling-0f2c5-ssembly-and-session-sticker-webkit/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  7) [webkit] › tests/browser.spec.ts:5114:1 › landmark labels: native label hits and controller selection survive resize and browser fullscreen 
+
+    Test timeout of 30000ms exceeded.
+
+    attachment #5: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/browser-landmark-labels-na-3ac75-size-and-browser-fullscreen-webkit/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/browser-landmark-labels-na-3ac75-size-and-browser-fullscreen-webkit/error-context.md
+
+    attachment #8: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/browser-landmark-labels-na-3ac75-size-and-browser-fullscreen-webkit/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/browser-landmark-labels-na-3ac75-size-and-browser-fullscreen-webkit/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  8) [webkit] › tests/cove-rollout.spec.ts:28:71 › Cove B Hollow/Pools ordinary input rests at 426px 
+
+    Test timeout of 120000ms exceeded.
+
+    Error: page.waitForFunction: Test timeout of 120000ms exceeded.
+
+       at timbers-browser-pilot.ts:93
+
+      91 |       frames: 0, stable: 0, previousY: NaN, phase: 0, error: '', done: false, seenPlaying: false, observedX: NaN, observedY: NaN, history: [] });
+      92 |   }, stages);
+    > 93 |   await page.waitForFunction(() => {
+         |              ^
+      94 |     const pilot = (window as unknown as { timberKeyboardPilot: { done: boolean; error: string } }).timberKeyboardPilot;
+      95 |     return pilot.done || Boolean(pilot.error);
+      96 |   }, undefined, { timeout });
+        at runTimberStages (/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/timbers-browser-pilot.ts:93:14)
+        at driveCove (/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/cove-browser-pilot.ts:20:16)
+        at /home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/cove-rollout.spec.ts:41:5
+
+    attachment #1: source-checkpoint (application/json) ────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/source-checkpoint-b4ab2d3376d811b3a8e8ad6ac67bc6a080dd000a.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: hollow-under-forward-native (image/png) ─────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/hollow-under-forward-native-8b2c6ccab03ccf164ee2d5236b1ff908a3b94baf.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #3: hollow-under-forward-observed (application/json) ────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/hollow-under-forward-observed-0f684dd890094214574f8266192d98c29fe740ed.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #4: hollow-under-forward-css (image/png) ────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/hollow-under-forward-css-9cf17ee49979ed8a0c709db8ca154a5128aa2426.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #5: hollow-under-forward-decoded-css-size (application/json) ────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/hollow-under-forward-decoded-css-size-0977c24eea2d69cd92fb1440ed18ccf757eeec3c.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #6: hollow-under-forward-associated-reward (application/json) ───────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/hollow-under-forward-associated-reward-3b85dcc24d57d4389c88e8a42ef3e703ceec138d.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #7: hollow-under-reverse-native (image/png) ─────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/hollow-under-reverse-native-a40aedfd8107d615931d7b6d164db065ec51eaa8.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #8: hollow-under-reverse-observed (application/json) ────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/hollow-under-reverse-observed-77f32612095f6a519e7e6de5a224147d1029af1b.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #9: hollow-under-reverse-css (image/png) ────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/hollow-under-reverse-css-cfde3c435ddd2e0d411cff1a0306bd27fcb618e7.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #10: hollow-under-reverse-decoded-css-size (application/json) ───────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/hollow-under-reverse-decoded-css-size-0977c24eea2d69cd92fb1440ed18ccf757eeec3c.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #11: hollow-under-reverse-associated-reward (application/json) ──────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/hollow-under-reverse-associated-reward-09ea3d85f1c3c74394a7f457830edc03c130e0db.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #12: hollow-on-native (image/png) ───────────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/hollow-on-native-0bc180b81291099ffc21efb024a72c48c4a39ec8.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #13: rollout-image-c811e06a77ca2b4ea9fbd3e498af1f348a7868fe197ae5bd5d2c20e2919e1cfc (image/png) 
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/rollout-image-c811e06a77ca2b4ea9fbd3e498af1f348a7868fe197ae5bd5d2c20e2919e1cfc-0d0c2fac5f8322cfcc527d9750aed564802574a9.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #14: rollout-image-b11ebaef6aca28760e3fa11ecf441fc8aedb54ff029c4f7e3f2125dbedead5ea (image/png) 
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/rollout-image-b11ebaef6aca28760e3fa11ecf441fc8aedb54ff029c4f7e3f2125dbedead5ea-55e623132859cea6e65a4d83b71bd3a1bf5c41d3.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #15: hollow-on-observed (application/json) ──────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/hollow-on-observed-bcca22356f0526318f3f6cbeb12717dbdaed2966.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #16: hollow-on-css (image/png) ──────────────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/hollow-on-css-771c7ba0d222fbca75ff0ac83d43f3f040dfbe64.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #17: hollow-on-decoded-css-size (application/json) ──────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/hollow-on-decoded-css-size-0977c24eea2d69cd92fb1440ed18ccf757eeec3c.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #18: hollow-on-associated-reward (application/json) ─────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/hollow-on-associated-reward-e6bae6f701081c53bc683b957625d6881dd8c350.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #19: actual-letter-A-collected (application/json) ───────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/actual-letter-A-collected-d83e59a9eebb2de07b5f419815b85a06c0470418.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #20: hollow-lower-native (image/png) ────────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/hollow-lower-native-1ccf4f1250e07e69df67e39aa793ad838133a7fb.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #21: hollow-lower-observed (application/json) ───────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/hollow-lower-observed-d15f7cecb61d41aacb3dc5cfc0c1cd13d1878976.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #22: hollow-lower-css (image/png) ───────────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/hollow-lower-css-2c915ae7a24cdfd9cebe42fc110af5da253bcf48.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #23: hollow-lower-decoded-css-size (application/json) ───────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/hollow-lower-decoded-css-size-0977c24eea2d69cd92fb1440ed18ccf757eeec3c.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #24: pool1-under-forward-native (image/png) ─────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool1-under-forward-native-516712ae7fb62a4b4826232c59b446432d7cfd88.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #25: pool1-under-forward-observed (application/json) ────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool1-under-forward-observed-7fbc90a89938000c180b5b827cba632ed17d2f0e.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #26: pool1-under-forward-css (image/png) ────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool1-under-forward-css-6dfc6fac508e5265a70d5c59f59258b022db3503.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #27: pool1-under-forward-decoded-css-size (application/json) ────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool1-under-forward-decoded-css-size-0977c24eea2d69cd92fb1440ed18ccf757eeec3c.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #28: pool1-under-forward-associated-reward (application/json) ───────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool1-under-forward-associated-reward-2228c2eb5f682005cdede4d3a74432c3bd87cd3e.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #29: pool1-under-reverse-native (image/png) ─────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool1-under-reverse-native-e272df7aee23b3871dae8164de8dce201f264e29.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #30: pool1-under-reverse-observed (application/json) ────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool1-under-reverse-observed-d57ab2f4ff4c4312091d35e6ef27f4f3ffe6c587.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #31: pool1-under-reverse-css (image/png) ────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool1-under-reverse-css-deb36c180da482bb6b0af62f75a00dbbb92ed5dd.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #32: pool1-under-reverse-decoded-css-size (application/json) ────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool1-under-reverse-decoded-css-size-0977c24eea2d69cd92fb1440ed18ccf757eeec3c.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #33: pool1-under-reverse-associated-reward (application/json) ───────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool1-under-reverse-associated-reward-f18cba66da84053e67af04aabff70e6f184d11fd.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #34: pool1-on-native (image/png) ────────────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool1-on-native-ff56ae0ced81dd109a828cab079cdd7d27b1466a.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #35: rollout-image-edc66cf3783bcf71ced2782944641fbe34a77bc6be694239f7b5101117807119 (image/png) 
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/rollout-image-edc66cf3783bcf71ced2782944641fbe34a77bc6be694239f7b5101117807119-a99a0f5919393c117e16728d26a182f20661c10b.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #36: rollout-image-34199498a0f674e134854b4f11f58b05ed6aeb38400e2bd6390ce870fff5e673 (image/png) 
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/rollout-image-34199498a0f674e134854b4f11f58b05ed6aeb38400e2bd6390ce870fff5e673-22f47dd3604b3e85f8305ee36d57ae8f04ddb913.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #37: pool1-on-observed (application/json) ───────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool1-on-observed-7e955d18a58336bc88db47e4edb2985aec33af29.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #38: pool1-on-css (image/png) ───────────────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool1-on-css-2d2e5483a537f11141e480049757d5b841db4287.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #39: pool1-on-decoded-css-size (application/json) ───────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool1-on-decoded-css-size-0977c24eea2d69cd92fb1440ed18ccf757eeec3c.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #40: pool1-on-associated-reward (application/json) ──────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool1-on-associated-reward-770ff39c7278fa647e29c1130d181b98c7a6a8e3.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #41: pool1-lower-native (image/png) ─────────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool1-lower-native-d8cf20068abea4ba90ae6447de87ac0d23458287.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #42: pool1-lower-observed (application/json) ────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool1-lower-observed-84df9cbca7d264dea884d1ce5cc31884db80126a.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #43: pool1-lower-css (image/png) ────────────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool1-lower-css-cc8f57156eb946f7045551efe7eb5c7c7f0d6d8d.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #44: pool1-lower-decoded-css-size (application/json) ────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool1-lower-decoded-css-size-0977c24eea2d69cd92fb1440ed18ccf757eeec3c.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #45: pool2-under-forward-native (image/png) ─────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool2-under-forward-native-557bfc0b7c0a4f0700e068e1ca31b8f49b4d2bc5.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #46: pool2-under-forward-observed (application/json) ────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool2-under-forward-observed-d48d5496481a48a0ab07e6c07661e442e1b2a1b8.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #47: pool2-under-forward-css (image/png) ────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool2-under-forward-css-825dae94c69ad65cae0f0674d2930961c624f453.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #48: pool2-under-forward-decoded-css-size (application/json) ────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool2-under-forward-decoded-css-size-0977c24eea2d69cd92fb1440ed18ccf757eeec3c.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #49: pool2-under-forward-associated-reward (application/json) ───────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool2-under-forward-associated-reward-698f0c4a7e91cbb26e51718cbad126307a7092dc.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #50: pool2-under-reverse-native (image/png) ─────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool2-under-reverse-native-05d627b35bff32ea00c7185c616d5adba4a07940.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #51: pool2-under-reverse-observed (application/json) ────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool2-under-reverse-observed-ede631ce89c15d79fbf26f83c74396614aa43863.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #52: pool2-under-reverse-css (image/png) ────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool2-under-reverse-css-d799acc137c206f9148f02d2e7b6fd7ec0d898f6.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #53: pool2-under-reverse-decoded-css-size (application/json) ────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool2-under-reverse-decoded-css-size-0977c24eea2d69cd92fb1440ed18ccf757eeec3c.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #54: pool2-under-reverse-associated-reward (application/json) ───────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool2-under-reverse-associated-reward-974bc9dd972ae8d1a7962b3d1628d313d3721f1b.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #55: pool2-on-native (image/png) ────────────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool2-on-native-eeba16148d320ddf62b21c9adfdee0949030225c.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #56: rollout-image-5d243ee07cedc9dedab09ac48fd70e2b1712b40823977bf9ab1e1c5fda2fed0e (image/png) 
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/rollout-image-5d243ee07cedc9dedab09ac48fd70e2b1712b40823977bf9ab1e1c5fda2fed0e-74a8bf7ee6ad26e96beaec289b44c4f0d13604cb.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #57: rollout-image-40b8f1498cea5493c2ca43e4db9f8c23888f4b51d30a31adf238b2d863967a94 (image/png) 
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/rollout-image-40b8f1498cea5493c2ca43e4db9f8c23888f4b51d30a31adf238b2d863967a94-4eb68ba0c499eae1373ad8b3965cd13ae4a57289.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #58: pool2-on-observed (application/json) ───────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool2-on-observed-6f8a31b6176249e0888475c5aa4a8ffa8254a15a.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #59: pool2-on-css (image/png) ───────────────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool2-on-css-b59b1c415f971e6e65e7db68b91238779776c03b.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #60: pool2-on-decoded-css-size (application/json) ───────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool2-on-decoded-css-size-0977c24eea2d69cd92fb1440ed18ccf757eeec3c.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #61: pool2-on-associated-reward (application/json) ──────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/attachments/pool2-on-associated-reward-305710b0f632610dbf55e91574f97adf70a6fd3d.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #62: screenshot (image/png) ─────────────────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/error-context.md
+
+    attachment #64: trace (application/zip) ────────────────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/cove-rollout-Cove-B-Hollow-3b5ba-dinary-input-rests-at-426px-webkit/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  9) [webkit] › tests/cove-rollout.spec.ts:28:71 › Cove B Bays ordinary input rests at 426px ───────
+
+    Error: {"active":false,"paused":false,"pauseAt":-1,"stage":1,"frames":201,"stable":0,"previousY":null,"startY":null,"phase":0,"error":"walk 1 stalled Adventure preview · Playing · Letter bag: 2/4 · X 3331 Y 310 V -36 F -1 · Escape to pause · M to mute","done":false,"seenPlaying":true,"stages":[{"kind":"walk","x":3320},{"kind":"walk","x":3360}],"history":[{"stage":0,"status":"Adventure preview · Playing · Letter bag: 2/4 · X 3322 Y 310 V 0 F -1 · Escape to pause · M to mute"}],"recoveries":[],"observedX":3331,"observedY":310}
+
+    expect(received).toMatchObject(expected)
+
+    - Expected  - 2
+    + Received  + 2
+
+      Object {
+    -   "done": true,
+    -   "error": "",
+    +   "done": false,
+    +   "error": "walk 1 stalled Adventure preview · Playing · Letter bag: 2/4 · X 3331 Y 310 V -36 F -1 · Escape to pause · M to mute",
+      }
+
+       at cove-browser-pilot.ts:21
+
+      19 |   }
+      20 |   const result=await runTimberStages(page,bounded);
+    > 21 |   expect(result,JSON.stringify(result)).toMatchObject({done:true,error:''});return result;
+         |                                         ^
+      22 | }
+      23 | export async function startCove(page:Page,controller=false):Promise<void> {
+      24 |   await installCovePilot(page);
+        at driveCove (/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/cove-browser-pilot.ts:21:41)
+        at /home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/cove-rollout.spec.ts:41:5
+
+    attachment #1: source-checkpoint (application/json) ────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Bays-ordinary-input-rests-at-426px-webkit/attachments/source-checkpoint-82dbb6443573fc266326301c735bb35592766ace.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: frozen-bay1-on-native (image/png) ───────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Bays-ordinary-input-rests-at-426px-webkit/attachments/frozen-bay1-on-native-61dbee2c8ecf07519b823c6bf7895d3b2702399e.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #3: frozen-bay1-on-observed (application/json) ──────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Bays-ordinary-input-rests-at-426px-webkit/attachments/frozen-bay1-on-observed-32a5e24434b928338f35cdf318fef4e4cf2daf88.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #4: frozen-bay1-on-css (image/png) ──────────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Bays-ordinary-input-rests-at-426px-webkit/attachments/frozen-bay1-on-css-d67c544477a53433a8111bce47c12e8c2bd83708.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #5: frozen-bay1-on-decoded-css-size (application/json) ──────────────────────────────
+    test-results/cove-rollout-Cove-B-Bays-ordinary-input-rests-at-426px-webkit/attachments/frozen-bay1-on-decoded-css-size-775ee2500d49830b99e2b1fc558ee90b475daea0.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #6: frozen-bay2-on-native (image/png) ───────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Bays-ordinary-input-rests-at-426px-webkit/attachments/frozen-bay2-on-native-4f95a4a2081ab885ac3148d6c00b1297abff1aee.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #7: frozen-bay2-on-observed (application/json) ──────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Bays-ordinary-input-rests-at-426px-webkit/attachments/frozen-bay2-on-observed-fc5df9db6f67e1e6583b4ccfcc498550ad9525b4.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #8: frozen-bay2-on-css (image/png) ──────────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Bays-ordinary-input-rests-at-426px-webkit/attachments/frozen-bay2-on-css-55d9518daa175b1968b9ad556bb490a30b8b9f64.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #9: frozen-bay2-on-decoded-css-size (application/json) ──────────────────────────────
+    test-results/cove-rollout-Cove-B-Bays-ordinary-input-rests-at-426px-webkit/attachments/frozen-bay2-on-decoded-css-size-775ee2500d49830b99e2b1fc558ee90b475daea0.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #10: screenshot (image/png) ─────────────────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Bays-ordinary-input-rests-at-426px-webkit/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/cove-rollout-Cove-B-Bays-ordinary-input-rests-at-426px-webkit/error-context.md
+
+    attachment #12: trace (application/zip) ────────────────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Bays-ordinary-input-rests-at-426px-webkit/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/cove-rollout-Cove-B-Bays-ordinary-input-rests-at-426px-webkit/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  10) [webkit] › tests/cove-rollout.spec.ts:28:71 › Cove B Hollow/Pools ordinary input rests at 320px 
+
+    Test timeout of 120000ms exceeded.
+
+    Error: page.waitForFunction: Test timeout of 120000ms exceeded.
+
+       at timbers-browser-pilot.ts:93
+
+      91 |       frames: 0, stable: 0, previousY: NaN, phase: 0, error: '', done: false, seenPlaying: false, observedX: NaN, observedY: NaN, history: [] });
+      92 |   }, stages);
+    > 93 |   await page.waitForFunction(() => {
+         |              ^
+      94 |     const pilot = (window as unknown as { timberKeyboardPilot: { done: boolean; error: string } }).timberKeyboardPilot;
+      95 |     return pilot.done || Boolean(pilot.error);
+      96 |   }, undefined, { timeout });
+        at runTimberStages (/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/timbers-browser-pilot.ts:93:14)
+        at driveCove (/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/cove-browser-pilot.ts:20:16)
+        at /home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/cove-rollout.spec.ts:41:5
+
+    attachment #1: source-checkpoint (application/json) ────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/source-checkpoint-44a4c18e5844cc90bbf2a1124cbc0f97c89b5b8a.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: hollow-under-forward-native (image/png) ─────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/hollow-under-forward-native-076626730bb6fe5c79b3a61d6578b46a11298e00.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #3: hollow-under-forward-observed (application/json) ────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/hollow-under-forward-observed-7b1a443d01d150192cb234be93c3d356f713d40f.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #4: hollow-under-forward-css (image/png) ────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/hollow-under-forward-css-3535a5977fae40bdfcb4517a784b1980f8f6c6a1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #5: hollow-under-forward-decoded-css-size (application/json) ────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/hollow-under-forward-decoded-css-size-2e68267b3a6a048bbad6a713ba2afab0786c8057.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #6: hollow-under-forward-associated-reward (application/json) ───────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/hollow-under-forward-associated-reward-3262c5c994847c48578529e6c68ce92b32033b92.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #7: hollow-under-reverse-native (image/png) ─────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/hollow-under-reverse-native-5e1db156838cc10cd462b3666b753e62c2de6b37.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #8: hollow-under-reverse-observed (application/json) ────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/hollow-under-reverse-observed-c1cb8a2a185563560c51d9b769f75299f5a76f2a.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #9: hollow-under-reverse-css (image/png) ────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/hollow-under-reverse-css-350536635bbe8da0cb7cfdd23dc3397aa26f4392.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #10: hollow-under-reverse-decoded-css-size (application/json) ───────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/hollow-under-reverse-decoded-css-size-2e68267b3a6a048bbad6a713ba2afab0786c8057.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #11: hollow-under-reverse-associated-reward (application/json) ──────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/hollow-under-reverse-associated-reward-fabfd3d87d89b8c03a99f6810c403e02ab23e7b5.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #12: hollow-on-native (image/png) ───────────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/hollow-on-native-66eb3aa15ee633eb30a6a12be6c5005d010eaa35.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #13: rollout-image-682453649d00c779eec79663bc1834c0ba1146b19de9816ae2c8990f3e00aeab (image/png) 
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/rollout-image-682453649d00c779eec79663bc1834c0ba1146b19de9816ae2c8990f3e00aeab-50bd13c16c128e549a5bcf9184e1bb057b656a05.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #14: rollout-image-053a6a0bb5b03bc350d04af7e81eab3b44dbb725f233abf9ee976b3595c2a321 (image/png) 
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/rollout-image-053a6a0bb5b03bc350d04af7e81eab3b44dbb725f233abf9ee976b3595c2a321-568425202b9938ab33d8e6b204dbbb5591763e29.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #15: hollow-on-observed (application/json) ──────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/hollow-on-observed-f8dffa24ee2202002e0f84839fdb87dee5d49d93.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #16: hollow-on-css (image/png) ──────────────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/hollow-on-css-ac219fe3a3f4f136fee9f703725e4420e85b4956.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #17: hollow-on-decoded-css-size (application/json) ──────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/hollow-on-decoded-css-size-2e68267b3a6a048bbad6a713ba2afab0786c8057.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #18: hollow-on-associated-reward (application/json) ─────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/hollow-on-associated-reward-68fa2c73c458183cae122b4fd0b6cf591393acf0.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #19: actual-letter-A-collected (application/json) ───────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/actual-letter-A-collected-651a71a8a641984bad31f8e0b8c8a9d293ac3fd8.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #20: hollow-lower-native (image/png) ────────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/hollow-lower-native-a33273e2c043e244aa933955dbbdf583ee9eb619.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #21: hollow-lower-observed (application/json) ───────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/hollow-lower-observed-8506c8431cc1148d7b6cc7b1f1d003ef29fb0ab5.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #22: hollow-lower-css (image/png) ───────────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/hollow-lower-css-385f66bb69d775438be49626c0bc6badb5771645.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #23: hollow-lower-decoded-css-size (application/json) ───────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/hollow-lower-decoded-css-size-2e68267b3a6a048bbad6a713ba2afab0786c8057.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #24: pool1-under-forward-native (image/png) ─────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool1-under-forward-native-920acdc855009adf9d1e6ab2323c6f7e5fcda7c0.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #25: pool1-under-forward-observed (application/json) ────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool1-under-forward-observed-691621f9eddba26f7c0445e38a7e369338303b2d.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #26: pool1-under-forward-css (image/png) ────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool1-under-forward-css-f5eb042b7f729233ea95ef417eb9125441a70e1f.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #27: pool1-under-forward-decoded-css-size (application/json) ────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool1-under-forward-decoded-css-size-2e68267b3a6a048bbad6a713ba2afab0786c8057.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #28: pool1-under-forward-associated-reward (application/json) ───────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool1-under-forward-associated-reward-b60280283895b268c66a8027a9dc54bcce43e946.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #29: pool1-under-reverse-native (image/png) ─────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool1-under-reverse-native-c0e9faba31d781dac0c6c31f35220a4343ad3ea0.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #30: pool1-under-reverse-observed (application/json) ────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool1-under-reverse-observed-84dc7aabd4b6023dd550c9b5e639c874b1d10724.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #31: pool1-under-reverse-css (image/png) ────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool1-under-reverse-css-1d90cbdedd7980ad7e9a872a014243ab3e734da5.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #32: pool1-under-reverse-decoded-css-size (application/json) ────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool1-under-reverse-decoded-css-size-2e68267b3a6a048bbad6a713ba2afab0786c8057.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #33: pool1-under-reverse-associated-reward (application/json) ───────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool1-under-reverse-associated-reward-4746a8a60323753c4c5e2399de3fa53cbde424ea.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #34: pool1-on-native (image/png) ────────────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool1-on-native-8207acfef0a7e03b6f91c2997c3961509529845b.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #35: rollout-image-3a9e9c6518a2f4f59beb2c16a9ca3b2199146f31af6f5c46e5faf41f64d6a35e (image/png) 
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/rollout-image-3a9e9c6518a2f4f59beb2c16a9ca3b2199146f31af6f5c46e5faf41f64d6a35e-a42becca08ba1fa272a5a884e7e67290fa85fcd7.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #36: rollout-image-1e9385274f889f802b4de31f9cc6ad69d367e6a3350ecca768695cd0facff3e1 (image/png) 
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/rollout-image-1e9385274f889f802b4de31f9cc6ad69d367e6a3350ecca768695cd0facff3e1-d34e11cfb1d405ac55d778ecfa311f6bb097badc.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #37: pool1-on-observed (application/json) ───────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool1-on-observed-2c1437a3b63085b4d37fd50f192e7f0bb59421e3.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #38: pool1-on-css (image/png) ───────────────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool1-on-css-409c3c6c720fff1aa0afd6f086762eb8f7f9b3b3.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #39: pool1-on-decoded-css-size (application/json) ───────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool1-on-decoded-css-size-2e68267b3a6a048bbad6a713ba2afab0786c8057.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #40: pool1-on-associated-reward (application/json) ──────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool1-on-associated-reward-4de6caa2c5bedf79efc3183f9cc86bcc47196882.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #41: pool1-lower-native (image/png) ─────────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool1-lower-native-938afe7a54259c86dbd2f6334d3ffa209c4319dd.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #42: pool1-lower-observed (application/json) ────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool1-lower-observed-87558e782752456e02f0e0b589985aecf475d1ed.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #43: pool1-lower-css (image/png) ────────────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool1-lower-css-73db6b3389a4a364d34e3085c407ab6c47f31e88.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #44: pool1-lower-decoded-css-size (application/json) ────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool1-lower-decoded-css-size-2e68267b3a6a048bbad6a713ba2afab0786c8057.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #45: pool2-under-forward-native (image/png) ─────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool2-under-forward-native-d10aa3f1378b0fb101686304ca2a631ef98f83db.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #46: pool2-under-forward-observed (application/json) ────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool2-under-forward-observed-5a33363829dee38c2f72f6cbf064cd5051430af6.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #47: pool2-under-forward-css (image/png) ────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool2-under-forward-css-b911ce1a8d1e7796a5a0606d7864929dd31d1f82.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #48: pool2-under-forward-decoded-css-size (application/json) ────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool2-under-forward-decoded-css-size-2e68267b3a6a048bbad6a713ba2afab0786c8057.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #49: pool2-under-forward-associated-reward (application/json) ───────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool2-under-forward-associated-reward-d40fa852108f1fa9ae4f93bd23daf40b53999521.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #50: pool2-under-reverse-native (image/png) ─────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool2-under-reverse-native-5beb46e9f7bbde86d4f1f842b630d6fe61f76f86.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #51: pool2-under-reverse-observed (application/json) ────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool2-under-reverse-observed-85944bf235964909a891644a3bdd41f83911a5b9.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #52: pool2-under-reverse-css (image/png) ────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool2-under-reverse-css-24f2f7423041c469f1d450039c01861539daf6a0.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #53: pool2-under-reverse-decoded-css-size (application/json) ────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool2-under-reverse-decoded-css-size-2e68267b3a6a048bbad6a713ba2afab0786c8057.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #54: pool2-under-reverse-associated-reward (application/json) ───────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool2-under-reverse-associated-reward-805cca652ad6cf775ca4778bed5dc4db4fc7925d.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #55: pool2-on-native (image/png) ────────────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool2-on-native-438a9b9677e53d95af7a0e00570cb5ceafcae7a2.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #56: rollout-image-5f9440dc2dfc359abff83717d52c5ed092aba4fab9fe185dc72c800c78e66bb3 (image/png) 
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/rollout-image-5f9440dc2dfc359abff83717d52c5ed092aba4fab9fe185dc72c800c78e66bb3-abff9bde9ac8bd1f98de858f9490a5a2ea564413.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #57: rollout-image-ee4687fb31ab86f6df178ec3fc2782960563de86859cb0c9ae56362db1726df2 (image/png) 
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/rollout-image-ee4687fb31ab86f6df178ec3fc2782960563de86859cb0c9ae56362db1726df2-900f2d04553445cc3909484e3b2414cc42c3e56c.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #58: pool2-on-observed (application/json) ───────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool2-on-observed-fb9ed559f222832c100c379e7b1e49d40aa1f799.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #59: screenshot (image/png) ─────────────────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #60: pool2-on-css (image/png) ───────────────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool2-on-css-3b88de772437f1106cfff16ecf15a72b9107016c.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #61: pool2-on-decoded-css-size (application/json) ───────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool2-on-decoded-css-size-2e68267b3a6a048bbad6a713ba2afab0786c8057.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #62: pool2-on-associated-reward (application/json) ──────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/attachments/pool2-on-associated-reward-1baadbfc0cd368cebf80e66805d62c53111c37b4.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/error-context.md
+
+    attachment #64: trace (application/zip) ────────────────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/cove-rollout-Cove-B-Hollow-cc490-dinary-input-rests-at-320px-webkit/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  11) [webkit] › tests/cove-rollout.spec.ts:28:71 › Cove B Bays ordinary input rests at 320px ──────
+
+    Error: {"active":false,"paused":false,"pauseAt":-1,"stage":1,"frames":201,"stable":0,"previousY":null,"startY":null,"phase":0,"error":"walk 1 stalled Adventure preview · Playing · Letter bag: 2/4 · X 3331 Y 310 V -36 F -1 · Escape to pause · M to mute","done":false,"seenPlaying":true,"stages":[{"kind":"walk","x":3320},{"kind":"walk","x":3360}],"history":[{"stage":0,"status":"Adventure preview · Playing · Letter bag: 2/4 · X 3322 Y 310 V 0 F -1 · Escape to pause · M to mute"}],"recoveries":[],"observedX":3331,"observedY":310}
+
+    expect(received).toMatchObject(expected)
+
+    - Expected  - 2
+    + Received  + 2
+
+      Object {
+    -   "done": true,
+    -   "error": "",
+    +   "done": false,
+    +   "error": "walk 1 stalled Adventure preview · Playing · Letter bag: 2/4 · X 3331 Y 310 V -36 F -1 · Escape to pause · M to mute",
+      }
+
+       at cove-browser-pilot.ts:21
+
+      19 |   }
+      20 |   const result=await runTimberStages(page,bounded);
+    > 21 |   expect(result,JSON.stringify(result)).toMatchObject({done:true,error:''});return result;
+         |                                         ^
+      22 | }
+      23 | export async function startCove(page:Page,controller=false):Promise<void> {
+      24 |   await installCovePilot(page);
+        at driveCove (/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/cove-browser-pilot.ts:21:41)
+        at /home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/cove-rollout.spec.ts:41:5
+
+    attachment #1: source-checkpoint (application/json) ────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Bays-ordinary-input-rests-at-320px-webkit/attachments/source-checkpoint-ab4405142be88969eb5427d60a113fa11e8f494d.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: frozen-bay1-on-native (image/png) ───────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Bays-ordinary-input-rests-at-320px-webkit/attachments/frozen-bay1-on-native-4bedc22077b6fe558e0295f040c736875de09183.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #3: frozen-bay1-on-observed (application/json) ──────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Bays-ordinary-input-rests-at-320px-webkit/attachments/frozen-bay1-on-observed-7df9fa7d21b097b1409a0c2c1c6f227ecfd606c9.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #4: frozen-bay1-on-css (image/png) ──────────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Bays-ordinary-input-rests-at-320px-webkit/attachments/frozen-bay1-on-css-8ce25398be47d3bb927a2a0c9e0ad1ddc5e0d48b.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #5: frozen-bay1-on-decoded-css-size (application/json) ──────────────────────────────
+    test-results/cove-rollout-Cove-B-Bays-ordinary-input-rests-at-320px-webkit/attachments/frozen-bay1-on-decoded-css-size-3141fef3b120355af446447ed189340780c3bc4b.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #6: frozen-bay2-on-native (image/png) ───────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Bays-ordinary-input-rests-at-320px-webkit/attachments/frozen-bay2-on-native-200a142df83281bcc75859830931c1663c82a02e.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #7: frozen-bay2-on-observed (application/json) ──────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Bays-ordinary-input-rests-at-320px-webkit/attachments/frozen-bay2-on-observed-946ab774f1cb5f7d29854d81ebefc7860151a036.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #8: frozen-bay2-on-css (image/png) ──────────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Bays-ordinary-input-rests-at-320px-webkit/attachments/frozen-bay2-on-css-dec0abf7353bab0b50e42386e991c75a6bb2c69e.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #9: frozen-bay2-on-decoded-css-size (application/json) ──────────────────────────────
+    test-results/cove-rollout-Cove-B-Bays-ordinary-input-rests-at-320px-webkit/attachments/frozen-bay2-on-decoded-css-size-3141fef3b120355af446447ed189340780c3bc4b.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #10: screenshot (image/png) ─────────────────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Bays-ordinary-input-rests-at-320px-webkit/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/cove-rollout-Cove-B-Bays-ordinary-input-rests-at-320px-webkit/error-context.md
+
+    attachment #12: trace (application/zip) ────────────────────────────────────────────────────────
+    test-results/cove-rollout-Cove-B-Bays-ordinary-input-rests-at-320px-webkit/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/cove-rollout-Cove-B-Bays-ordinary-input-rests-at-320px-webkit/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  12) [webkit] › tests/frost-ridge.spec.ts:37:1 › Frost actual finish returns over every snow ledge and manually assembles SNOW 
+
+    Test timeout of 120000ms exceeded.
+
+    Error: page.waitForFunction: Test timeout of 120000ms exceeded.
+
+       at timbers-browser-pilot.ts:93
+
+      91 |       frames: 0, stable: 0, previousY: NaN, phase: 0, error: '', done: false, seenPlaying: false, observedX: NaN, observedY: NaN, history: [] });
+      92 |   }, stages);
+    > 93 |   await page.waitForFunction(() => {
+         |              ^
+      94 |     const pilot = (window as unknown as { timberKeyboardPilot: { done: boolean; error: string } }).timberKeyboardPilot;
+      95 |     return pilot.done || Boolean(pilot.error);
+      96 |   }, undefined, { timeout });
+        at runTimberStages (/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/timbers-browser-pilot.ts:93:14)
+        at driveSunset (/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/sunset-browser-pilot.ts:27:18)
+        at /home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/frost-ridge.spec.ts:51:14
+
+    attachment #5: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/frost-ridge-Frost-actual-f-eaa3a-and-manually-assembles-SNOW-webkit/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/frost-ridge-Frost-actual-f-eaa3a-and-manually-assembles-SNOW-webkit/error-context.md
+
+    attachment #7: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/frost-ridge-Frost-actual-f-eaa3a-and-manually-assembles-SNOW-webkit/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/frost-ridge-Frost-actual-f-eaa3a-and-manually-assembles-SNOW-webkit/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  13) [webkit] › tests/plains-contour-pilot.spec.ts:97:33 › Plains contour ordinary input 426: rest jump joins and return 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+    Call Log:
+    - Timeout 20000ms exceeded while waiting on the predicate
+
+      41 |     if (c.error) throw new Error(c.error);
+      42 |     return c.results.some(r => r.id === id);
+    > 43 |   }, id), { timeout: createContourControllerKernel().goalBudget(goal.mode) }).toBe(true);
+         |                                                                               ^
+      44 |   return { id };
+      45 | }
+      46 | async function walkToFlat(page: Page, target: number) {
+        at driveGoal (/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/plains-contour-pilot.spec.ts:43:79)
+        at /home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/plains-contour-pilot.spec.ts:142:55
+
+    attachment #1: raw-frame-contact-input-history (application/json) ──────────────────────────────
+    test-results/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-webkit/attachments/raw-frame-contact-input-history-afeb92c857089f32f31f3895a3c0f135bea7eb13.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-webkit/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-webkit/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-webkit/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/plains-contour-pilot-Plain-952be--rest-jump-joins-and-return-webkit/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  14) [webkit] › tests/plains-contour-pilot.spec.ts:97:33 › Plains contour ordinary input 320: rest jump joins and return 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+    Call Log:
+    - Timeout 20000ms exceeded while waiting on the predicate
+
+      41 |     if (c.error) throw new Error(c.error);
+      42 |     return c.results.some(r => r.id === id);
+    > 43 |   }, id), { timeout: createContourControllerKernel().goalBudget(goal.mode) }).toBe(true);
+         |                                                                               ^
+      44 |   return { id };
+      45 | }
+      46 | async function walkToFlat(page: Page, target: number) {
+        at driveGoal (/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/plains-contour-pilot.spec.ts:43:79)
+        at /home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/plains-contour-pilot.spec.ts:142:55
+
+    attachment #1: raw-frame-contact-input-history (application/json) ──────────────────────────────
+    test-results/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-webkit/attachments/raw-frame-contact-input-history-56533084d6bf0fd466d922c36533071be56400ca.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-webkit/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-webkit/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-webkit/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/plains-contour-pilot-Plain-8f78d--rest-jump-joins-and-return-webkit/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  15) [webkit] › tests/plains-contour-pilot.spec.ts:184:52 › Plains required contour image error offers ordinary Retry loading 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+    Call Log:
+    - Timeout 20000ms exceeded while waiting on the predicate
+
+      41 |     if (c.error) throw new Error(c.error);
+      42 |     return c.results.some(r => r.id === id);
+    > 43 |   }, id), { timeout: createContourControllerKernel().goalBudget(goal.mode) }).toBe(true);
+         |                                                                               ^
+      44 |   return { id };
+      45 | }
+      46 | async function walkToFlat(page: Page, target: number) {
+        at driveGoal (/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/plains-contour-pilot.spec.ts:43:79)
+        at /home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/plains-contour-pilot.spec.ts:204:5
+
+    attachment #1: raw-frame-contact-input-history (application/json) ──────────────────────────────
+    test-results/plains-contour-pilot-Plain-75107-fers-ordinary-Retry-loading-webkit/attachments/raw-frame-contact-input-history-35f965634fb83f75cc0733ea444b25cbe4a2d10f.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/plains-contour-pilot-Plain-75107-fers-ordinary-Retry-loading-webkit/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/plains-contour-pilot-Plain-75107-fers-ordinary-Retry-loading-webkit/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/plains-contour-pilot-Plain-75107-fers-ordinary-Retry-loading-webkit/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/plains-contour-pilot-Plain-75107-fers-ordinary-Retry-loading-webkit/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  16) [webkit] › tests/plains-contour-pilot.spec.ts:184:52 › Plains required contour soil error offers ordinary Retry loading 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+    Call Log:
+    - Timeout 20000ms exceeded while waiting on the predicate
+
+      41 |     if (c.error) throw new Error(c.error);
+      42 |     return c.results.some(r => r.id === id);
+    > 43 |   }, id), { timeout: createContourControllerKernel().goalBudget(goal.mode) }).toBe(true);
+         |                                                                               ^
+      44 |   return { id };
+      45 | }
+      46 | async function walkToFlat(page: Page, target: number) {
+        at driveGoal (/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/plains-contour-pilot.spec.ts:43:79)
+        at /home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/plains-contour-pilot.spec.ts:204:5
+
+    attachment #1: raw-frame-contact-input-history (application/json) ──────────────────────────────
+    test-results/plains-contour-pilot-Plain-d2556-fers-ordinary-Retry-loading-webkit/attachments/raw-frame-contact-input-history-61eca59e915fc9853f0df88459d97903e1136d53.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/plains-contour-pilot-Plain-d2556-fers-ordinary-Retry-loading-webkit/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/plains-contour-pilot-Plain-d2556-fers-ordinary-Retry-loading-webkit/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/plains-contour-pilot-Plain-d2556-fers-ordinary-Retry-loading-webkit/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/plains-contour-pilot-Plain-d2556-fers-ordinary-Retry-loading-webkit/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  17) [webkit] › tests/site-steel-preview.spec.ts:12:33 › Sunset steel preview uses ordinary ground, underpass and dock input at 426px 
+
+    Error: expect(received).toBeLessThanOrEqual(expected)
+
+    Expected: <= 540
+    Received:    621
+
+    Call Log:
+    - Timeout 5000ms exceeded while waiting on the predicate
+
+      102 |     await drive('board-return', [walk(620)]);
+      103 |     await capture('board-return');
+    > 104 |     await expect.poll(playerX, { timeout: 5000 }).toBeLessThanOrEqual(540);
+          |                                                   ^
+      105 |     await capture('ride-return');
+      106 |     await drive('leave-at-near-dock', [walk(440)]);
+      107 |     await capture('leave-at-near-dock');
+        at /home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/site-steel-preview.spec.ts:104:51
+
+    attachment #1: rollout-image-b75bee7e4ee5e09a5483d48430b29184c282ecc90094ac64028d77c9f267e364 (image/png) 
+    test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-webkit/attachments/rollout-image-b75bee7e4ee5e09a5483d48430b29184c282ecc90094ac64028d77c9f267e364-bc02a3621b5013ba80a4f975853fa42e34137673.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: ground-lip (application/json) ───────────────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-webkit/attachments/ground-lip-3d63c29de322184bfdf8727252905b0cef9101fc.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #3: ground-lip-css (image/png) ──────────────────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-webkit/attachments/ground-lip-css-f3499286cc35ab2cf9be6d026d8f61af933b4a6c.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #4: rollout-image-e4e4c1c68a767d4e10fbfbafbb920687d0c0cb64c12e748a7780d24284239d18 (image/png) 
+    test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-webkit/attachments/rollout-image-e4e4c1c68a767d4e10fbfbafbb920687d0c0cb64c12e748a7780d24284239d18-75a3cf70365024e2e7145ba89c44a822452dfb8c.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #5: first-jump (application/json) ───────────────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-webkit/attachments/first-jump-a0ad47a792d5afbfb403cd56a1609bdcc1b91f85.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #6: first-jump-css (image/png) ──────────────────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-webkit/attachments/first-jump-css-75a3cf70365024e2e7145ba89c44a822452dfb8c.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #7: rollout-image-ffe3a7b51f0440236076c6b1a38d4f30f7b293fc60501b9dc1b317f4268ef8c3 (image/png) 
+    test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-webkit/attachments/rollout-image-ffe3a7b51f0440236076c6b1a38d4f30f7b293fc60501b9dc1b317f4268ef8c3-40004bc0b6679990f1d6743c8e3e4ef8faa0bb84.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #8: stacked-underpass (application/json) ────────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-webkit/attachments/stacked-underpass-529d46e862a0f308b18f37cbae2cc814571b7820.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #9: stacked-underpass-css (image/png) ───────────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-webkit/attachments/stacked-underpass-css-3524c33c402a8bd568cdf970f5e03e81702ebdee.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #10: rollout-image-28b52b14983d32ab62ab7e5bacbfbcd4b34d06ce7cd4d23dfe83df5fe7e3903d (image/png) 
+    test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-webkit/attachments/rollout-image-28b52b14983d32ab62ab7e5bacbfbcd4b34d06ce7cd4d23dfe83df5fe7e3903d-5d1cc373d046a344659fd022987ac7f551c58647.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #11: high-deck (application/json) ───────────────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-webkit/attachments/high-deck-c07d11c47b519923a66c455e5857614aa1086b87.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #12: high-deck-css (image/png) ──────────────────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-webkit/attachments/high-deck-css-4cadba440a8b7d93b237869d948201c5885afb44.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #13: rollout-image-cf24e9d06fe234b9cc436322d8ce1bfce2950cbec1b587d9d1912b063acc3d6b (image/png) 
+    test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-webkit/attachments/rollout-image-cf24e9d06fe234b9cc436322d8ce1bfce2950cbec1b587d9d1912b063acc3d6b-badacd15e21ba5c02e36407fbdfcbd818a025b3b.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #14: board-outward (application/json) ───────────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-webkit/attachments/board-outward-03a0ccec6fbf946ca6c0c22beb20e6e5a915a605.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #15: board-outward-css (image/png) ──────────────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-webkit/attachments/board-outward-css-8f3079760f3f8684cef583746a0abdb02d37b60a.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #16: rollout-image-9bfbb78e59540680f9f25496caaaf061d27fbb3277a6d9d326e6b60922333c2e (image/png) 
+    test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-webkit/attachments/rollout-image-9bfbb78e59540680f9f25496caaaf061d27fbb3277a6d9d326e6b60922333c2e-0e9ec6744501fe0a0e5c3d8b2882a3b1a9371c49.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #17: ride-outward (application/json) ────────────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-webkit/attachments/ride-outward-bbbf389a6b2b706a9e97715ed2b9aefb92a4fbc2.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #18: ride-outward-css (image/png) ───────────────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-webkit/attachments/ride-outward-css-bd07e08d250a29bd2c0deec102dd3c83e7332813.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #19: rollout-image-2ce4559a72e0c610ee4766b20bd1b47a50b15ca6ae144a84d054456a703cd378 (image/png) 
+    test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-webkit/attachments/rollout-image-2ce4559a72e0c610ee4766b20bd1b47a50b15ca6ae144a84d054456a703cd378-60bd5667c9927e45e2f3525b433becfeaa59b4cf.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #20: leave-at-far-dock (application/json) ───────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-webkit/attachments/leave-at-far-dock-6899dc2f1fe8373fab927866237a4e4f4a140e78.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #21: leave-at-far-dock-css (image/png) ──────────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-webkit/attachments/leave-at-far-dock-css-7da4bd2b4d5dffa4441af5e5b892e37718b83e87.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #22: rollout-image-89b123b0a2d6cf6e3263ebe84fefe5e7d949614a07f9c15562854b805d7f7faf (image/png) 
+    test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-webkit/attachments/rollout-image-89b123b0a2d6cf6e3263ebe84fefe5e7d949614a07f9c15562854b805d7f7faf-f4f0ec0be076475547c672122f0e534496c8976b.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #23: board-return (application/json) ────────────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-webkit/attachments/board-return-e1d89877cf89a2b56ca4eb0dc0234c0154c46893.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #24: board-return-css (image/png) ───────────────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-webkit/attachments/board-return-css-788a33c0586821518df0421bfb808e0a9e0eaa6f.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #25: source-build-input-provenance (application/json) ───────────────────────────────
+    test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-webkit/attachments/source-build-input-provenance-5d1ffb960b6eea0ff7333ffe85d5e265354d3053.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #26: screenshot (image/png) ─────────────────────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-webkit/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-webkit/error-context.md
+
+    attachment #28: trace (application/zip) ────────────────────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-webkit/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/site-steel-preview-Sunset--228f7-ass-and-dock-input-at-426px-webkit/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  18) [webkit] › tests/site-steel-preview.spec.ts:12:33 › Sunset steel preview uses ordinary ground, underpass and dock input at 320px 
+
+    Error: {"active":false,"paused":false,"frozen":false,"pauseAt":-1,"stage":0,"frames":201,"stable":0,"previousY":346,"startY":346,"phase":1,"error":"drop 0 phase 1 stalled Adventure preview · Playing · Letter bag: 1/4 · X 503 Y 346 V 0 F 1 · Escape to pause · M to mute","done":false,"seenPlaying":true,"advanceMs":0,"stages":[{"kind":"drop","edge":470,"direction":1,"x":520,"y":380}],"history":[],"recoveries":[],"observedX":503,"observedY":346}
+
+    expect(received).toMatchObject(expected)
+
+    - Expected  - 2
+    + Received  + 2
+
+      Object {
+    -   "done": true,
+    -   "error": "",
+    +   "done": false,
+    +   "error": "drop 0 phase 1 stalled Adventure preview · Playing · Letter bag: 1/4 · X 503 Y 346 V 0 F 1 · Escape to pause · M to mute",
+      }
+
+       at sunset-browser-pilot.ts:28
+
+      26 |   }
+      27 |   const result = await runTimberStages(page, bounded);
+    > 28 |   expect(result, JSON.stringify(result)).toMatchObject({ done: true, error: '' });
+         |                                          ^
+      29 |   return result;
+      30 | }
+      31 |
+        at driveSunset (/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/sunset-browser-pilot.ts:28:42)
+        at drive (/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/site-steel-preview.spec.ts:50:33)
+        at /home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/site-steel-preview.spec.ts:109:5
+
+    attachment #1: rollout-image-f69719e63d0c5e868458a9a4550e6e97e3878fb28b5a7e0fa066d32d2a8ab952 (image/png) 
+    test-results/site-steel-preview-Sunset--ec554-ass-and-dock-input-at-320px-webkit/attachments/rollout-image-f69719e63d0c5e868458a9a4550e6e97e3878fb28b5a7e0fa066d32d2a8ab952-04c4fed9a21f20ee1d8fa6d649784ac894e0d53c.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: ground-lip (application/json) ───────────────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--ec554-ass-and-dock-input-at-320px-webkit/attachments/ground-lip-54c0aa700a6cddc39887516a9870afbf816779a2.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #3: ground-lip-css (image/png) ──────────────────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--ec554-ass-and-dock-input-at-320px-webkit/attachments/ground-lip-css-709f9149e8d116d87c13855b3ee2b7a5572c7c33.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #4: rollout-image-040d6240e3be99c95dc1041a1fdabb06256198fb508cc96c8ed68cf0453abb8e (image/png) 
+    test-results/site-steel-preview-Sunset--ec554-ass-and-dock-input-at-320px-webkit/attachments/rollout-image-040d6240e3be99c95dc1041a1fdabb06256198fb508cc96c8ed68cf0453abb8e-6ae4bfdc70a4d35fb66c0020d7502c804fb144f2.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #5: first-jump (application/json) ───────────────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--ec554-ass-and-dock-input-at-320px-webkit/attachments/first-jump-f21d1c427b416485f690b5f39e2fda58d76b0e01.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #6: first-jump-css (image/png) ──────────────────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--ec554-ass-and-dock-input-at-320px-webkit/attachments/first-jump-css-c16be615d2433805380c0a2eb3eb02eb7d6626fe.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #7: rollout-image-f67a089e7f589d0d36ded35ff2b00a9e020f93c20f0b0d479c820b09fd669b5c (image/png) 
+    test-results/site-steel-preview-Sunset--ec554-ass-and-dock-input-at-320px-webkit/attachments/rollout-image-f67a089e7f589d0d36ded35ff2b00a9e020f93c20f0b0d479c820b09fd669b5c-d2c6763dea9d7bd600e9faf5fc112e677d72a0e1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #8: stacked-underpass (application/json) ────────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--ec554-ass-and-dock-input-at-320px-webkit/attachments/stacked-underpass-6d72680dc584ab8add9ab2a3fbf875ce6a74d36a.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #9: stacked-underpass-css (image/png) ───────────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--ec554-ass-and-dock-input-at-320px-webkit/attachments/stacked-underpass-css-10be747284ef00ed087775b919b1467ec5f90a0c.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #10: rollout-image-2b565a8ddd34709c27a2b8bee46dbc9e4bfd1db78ae96b92630e664a893891ce (image/png) 
+    test-results/site-steel-preview-Sunset--ec554-ass-and-dock-input-at-320px-webkit/attachments/rollout-image-2b565a8ddd34709c27a2b8bee46dbc9e4bfd1db78ae96b92630e664a893891ce-e4c0d126029f1a6e0ecd87983b2cb88ddd3c2e5d.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #11: high-deck (application/json) ───────────────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--ec554-ass-and-dock-input-at-320px-webkit/attachments/high-deck-5a4416c5e3aa794fb6afe565ebd6de0b7df73ec9.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #12: high-deck-css (image/png) ──────────────────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--ec554-ass-and-dock-input-at-320px-webkit/attachments/high-deck-css-4c7b8329f48eedda7ee621d67c9bbb03ab6e64ce.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #13: rollout-image-bf8756a880d849c28a09f7d43e57a163cc73264453fa9168a15471ab624a0556 (image/png) 
+    test-results/site-steel-preview-Sunset--ec554-ass-and-dock-input-at-320px-webkit/attachments/rollout-image-bf8756a880d849c28a09f7d43e57a163cc73264453fa9168a15471ab624a0556-a57d38f4cfa8d3cce99e25f33b6a3e70c9b10df8.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #14: board-outward (application/json) ───────────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--ec554-ass-and-dock-input-at-320px-webkit/attachments/board-outward-531b2fd93fb6a3fb7b65f7a232c52a307b99708a.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #15: board-outward-css (image/png) ──────────────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--ec554-ass-and-dock-input-at-320px-webkit/attachments/board-outward-css-056f80895a02c0ce35fd9f56b052cdb1279171bb.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #16: rollout-image-5f13a4c7c32ffde4daea275976113b439bdacbfc1ce0df13ec798b2c28b070dd (image/png) 
+    test-results/site-steel-preview-Sunset--ec554-ass-and-dock-input-at-320px-webkit/attachments/rollout-image-5f13a4c7c32ffde4daea275976113b439bdacbfc1ce0df13ec798b2c28b070dd-467166526b2748ba2f202b9a5ac9c31e45fb75ee.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #17: ride-outward (application/json) ────────────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--ec554-ass-and-dock-input-at-320px-webkit/attachments/ride-outward-3f58c2fb5f87f3dcbf75d893c3dfd412d7f63fac.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #18: ride-outward-css (image/png) ───────────────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--ec554-ass-and-dock-input-at-320px-webkit/attachments/ride-outward-css-098381cf8c5230e5c5a4797701ce3c7d794eaa78.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #19: rollout-image-c65535f8e040cff9aba870543458974ad4d0bcc5905082e0c02195295cbd5635 (image/png) 
+    test-results/site-steel-preview-Sunset--ec554-ass-and-dock-input-at-320px-webkit/attachments/rollout-image-c65535f8e040cff9aba870543458974ad4d0bcc5905082e0c02195295cbd5635-446f6c32508e6a8056b92c1a7f2a2d99f703a45c.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #20: leave-at-far-dock (application/json) ───────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--ec554-ass-and-dock-input-at-320px-webkit/attachments/leave-at-far-dock-a4ae2ef2bdbdedab98aed7a0c09feac530553b92.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #21: leave-at-far-dock-css (image/png) ──────────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--ec554-ass-and-dock-input-at-320px-webkit/attachments/leave-at-far-dock-css-6a56445da607ea5cae55271332f31f9819ab9e05.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #22: rollout-image-39d511af32e993f362db3aaf68a065314599f792e7f886377c1882ccfb30af49 (image/png) 
+    test-results/site-steel-preview-Sunset--ec554-ass-and-dock-input-at-320px-webkit/attachments/rollout-image-39d511af32e993f362db3aaf68a065314599f792e7f886377c1882ccfb30af49-3d291c81f3299f01dece471b00ebee2f44883207.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #23: board-return (application/json) ────────────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--ec554-ass-and-dock-input-at-320px-webkit/attachments/board-return-e3b1fb5c935b6d607132bb482080fa4140d75431.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #24: board-return-css (image/png) ───────────────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--ec554-ass-and-dock-input-at-320px-webkit/attachments/board-return-css-b97012e47582f724b203c1ef5d72e2ebc4ad8ef5.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #25: rollout-image-23ca9802d9e0d3f7ed4e5b7a61fefe52529e206ec7c8e8523ef1674f1051e64d (image/png) 
+    test-results/site-steel-preview-Sunset--ec554-ass-and-dock-input-at-320px-webkit/attachments/rollout-image-23ca9802d9e0d3f7ed4e5b7a61fefe52529e206ec7c8e8523ef1674f1051e64d-37b86874d2e65dd5435f550567009d35567b24e5.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #26: ride-return (application/json) ─────────────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--ec554-ass-and-dock-input-at-320px-webkit/attachments/ride-return-6a48933804767b8f5d7a6c8dd3d8447fa5a17f63.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #27: ride-return-css (image/png) ────────────────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--ec554-ass-and-dock-input-at-320px-webkit/attachments/ride-return-css-11aa1a4e820ae7ec803240e15985eb9f4b881f0c.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #28: rollout-image-f888778fec264c1f589ec3bf234169bca9bc9bca0eede0d666ecf90886946a29 (image/png) 
+    test-results/site-steel-preview-Sunset--ec554-ass-and-dock-input-at-320px-webkit/attachments/rollout-image-f888778fec264c1f589ec3bf234169bca9bc9bca0eede0d666ecf90886946a29-bde042d0064cf0f7801ad92f54b9b31d0b9ce8b5.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #29: leave-at-near-dock (application/json) ──────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--ec554-ass-and-dock-input-at-320px-webkit/attachments/leave-at-near-dock-3b1c533519bb4f29a38abc8fbc420f0b099bb898.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #30: leave-at-near-dock-css (image/png) ─────────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--ec554-ass-and-dock-input-at-320px-webkit/attachments/leave-at-near-dock-css-5c1ab70a0088d37c4bf4a7ec0f9e2d0ba875da8e.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #31: source-build-input-provenance (application/json) ───────────────────────────────
+    test-results/site-steel-preview-Sunset--ec554-ass-and-dock-input-at-320px-webkit/attachments/source-build-input-provenance-35563a1837d393b3721b7c30c306c18bf9e26801.json
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #32: screenshot (image/png) ─────────────────────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--ec554-ass-and-dock-input-at-320px-webkit/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/site-steel-preview-Sunset--ec554-ass-and-dock-input-at-320px-webkit/error-context.md
+
+    attachment #34: trace (application/zip) ────────────────────────────────────────────────────────
+    test-results/site-steel-preview-Sunset--ec554-ass-and-dock-input-at-320px-webkit/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/site-steel-preview-Sunset--ec554-ass-and-dock-input-at-320px-webkit/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  19) [webkit] › tests/slime-squash.spec.ts:7:3 › slime squash through real keyboard controls leaves a flattened costume 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+    Call Log:
+    - Timeout 5000ms exceeded while waiting on the predicate
+
+      81 |     }
+      82 |     await page.evaluate(() => { (window as unknown as { squashPilot: { active: boolean } }).squashPilot.active = true; });
+    > 83 |     await expect.poll(() => page.evaluate(() => (window as unknown as { squashPilot: { ready: boolean } }).squashPilot.ready)).toBe(true);
+         |                                                                                                                                ^
+      84 |     await page.locator('canvas').screenshot({ path: info.outputPath('slime-upright.png') });
+      85 |     await page.evaluate(() => { (window as unknown as { squashPilot: { frozen: boolean } }).squashPilot.frozen = false; });
+      86 |     await expect(page.locator('canvas')).toHaveAttribute('data-squashed', 'true', { timeout: 15_000 });
+        at /home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/slime-squash.spec.ts:83:128
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/slime-squash-slime-squash--4bcd3--leaves-a-flattened-costume-webkit/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/slime-squash-slime-squash--4bcd3--leaves-a-flattened-costume-webkit/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/slime-squash-slime-squash--4bcd3--leaves-a-flattened-costume-webkit/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/slime-squash-slime-squash--4bcd3--leaves-a-flattened-costume-webkit/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  20) [webkit] › tests/slime-squash.spec.ts:7:3 › slime squash through real controller controls leaves a flattened costume 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+    Call Log:
+    - Timeout 5000ms exceeded while waiting on the predicate
+
+      81 |     }
+      82 |     await page.evaluate(() => { (window as unknown as { squashPilot: { active: boolean } }).squashPilot.active = true; });
+    > 83 |     await expect.poll(() => page.evaluate(() => (window as unknown as { squashPilot: { ready: boolean } }).squashPilot.ready)).toBe(true);
+         |                                                                                                                                ^
+      84 |     await page.locator('canvas').screenshot({ path: info.outputPath('slime-upright.png') });
+      85 |     await page.evaluate(() => { (window as unknown as { squashPilot: { frozen: boolean } }).squashPilot.frozen = false; });
+      86 |     await expect(page.locator('canvas')).toHaveAttribute('data-squashed', 'true', { timeout: 15_000 });
+        at /home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/slime-squash.spec.ts:83:128
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/slime-squash-slime-squash--1d551--leaves-a-flattened-costume-webkit/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/slime-squash-slime-squash--1d551--leaves-a-flattened-costume-webkit/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/slime-squash-slime-squash--1d551--leaves-a-flattened-costume-webkit/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/slime-squash-slime-squash--1d551--leaves-a-flattened-costume-webkit/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  20 failed
+    [firefox] › tests/site-steel-preview.spec.ts:12:33 › Sunset steel preview uses ordinary ground, underpass and dock input at 426px 
+    [webkit] › tests/browser.spec.ts:842:1 › terrain joins stay solid while scrolling in both directions at integer and fractional scales 
+    [webkit] › tests/browser.spec.ts:1283:1 › title picker selects Quarry Run and starts the selected route 
+    [webkit] › tests/browser.spec.ts:2703:3 › milestone SUNSET SITE: pointer selection, full route, return, replay and next 
+    [webkit] › tests/browser.spec.ts:3794:1 › diagnostic fullscreen frame geometry across repeated native transitions 
+    [webkit] › tests/browser.spec.ts:4315:3 › all-trail spelling frost: input-only missing-letter retrace, manual assembly and session sticker 
+    [webkit] › tests/browser.spec.ts:5114:1 › landmark labels: native label hits and controller selection survive resize and browser fullscreen 
+    [webkit] › tests/cove-rollout.spec.ts:28:71 › Cove B Hollow/Pools ordinary input rests at 426px 
+    [webkit] › tests/cove-rollout.spec.ts:28:71 › Cove B Bays ordinary input rests at 426px ────────
+    [webkit] › tests/cove-rollout.spec.ts:28:71 › Cove B Hollow/Pools ordinary input rests at 320px 
+    [webkit] › tests/cove-rollout.spec.ts:28:71 › Cove B Bays ordinary input rests at 320px ────────
+    [webkit] › tests/frost-ridge.spec.ts:37:1 › Frost actual finish returns over every snow ledge and manually assembles SNOW 
+    [webkit] › tests/plains-contour-pilot.spec.ts:97:33 › Plains contour ordinary input 426: rest jump joins and return 
+    [webkit] › tests/plains-contour-pilot.spec.ts:97:33 › Plains contour ordinary input 320: rest jump joins and return 
+    [webkit] › tests/plains-contour-pilot.spec.ts:184:52 › Plains required contour image error offers ordinary Retry loading 
+    [webkit] › tests/plains-contour-pilot.spec.ts:184:52 › Plains required contour soil error offers ordinary Retry loading 
+    [webkit] › tests/site-steel-preview.spec.ts:12:33 › Sunset steel preview uses ordinary ground, underpass and dock input at 426px 
+    [webkit] › tests/site-steel-preview.spec.ts:12:33 › Sunset steel preview uses ordinary ground, underpass and dock input at 320px 
+    [webkit] › tests/slime-squash.spec.ts:7:3 › slime squash through real keyboard controls leaves a flattened costume 
+    [webkit] › tests/slime-squash.spec.ts:7:3 › slime squash through real controller controls leaves a flattened costume 
+  3 skipped
+  865 passed (1.0h)

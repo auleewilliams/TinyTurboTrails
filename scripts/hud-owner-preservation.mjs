@@ -1,11 +1,15 @@
 import { beforeHudRibbon } from './hud-ribbon-preservation.mjs';
+import { beforeFrostTrial } from './frost-trial-preservation.mjs';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
+import { beforeTouchPresentation } from './touch-presentation.mjs';
 const root = new URL('../assets/source/hud-owner-layout/', import.meta.url);
 const hash = bytes => createHash('sha256').update(bytes).digest('hex');
 /** Reverse only the two exact owner-HUD deltas before existing immutable oracles. */
 export function beforeOwnerHud(path, bytes) {
+  bytes = beforeTouchPresentation(path, bytes);
+  bytes = beforeFrostTrial(path, bytes);
   bytes = beforeHudRibbon(path, bytes);
   if (path !== 'src/game/hud.ts' && path !== 'src/game/adventure-scene.ts') return bytes;
   const recordBytes = readFileSync(new URL('presentation.json', root));

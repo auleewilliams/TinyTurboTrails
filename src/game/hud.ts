@@ -123,6 +123,7 @@ export function areaName(level: LevelData, index: number): string {
   return AREAS[level.id]?.[index] ?? level.name;
 }
 export function controlHints(source: InputSource): readonly string[] {
+  if (source === 'touch') return ['Hold ◀ / ▶: move', 'Hold Jump: higher', 'Tap Resume', 'Pause: sound'];
   return source === 'controller'
     ? ['Stick / D-pad: move', 'Buttons 1–4: jump', 'Start: resume', 'Pause: sound / rumble']
     : ['Arrows / A-D: move', 'Space: jump', 'Escape: resume', 'M: mute'];
@@ -138,7 +139,12 @@ export function drawControlCues(ctx: CanvasRenderingContext2D, source: InputSour
     ctx.fillStyle = '#e9f2df'; ctx.fillText(text, x + width / 2, baseline);
   };
   ctx.fillStyle = '#e9f2df';
-  if (source === 'controller') {
+  if (source === 'touch') {
+    ctx.fillText('Hold ◀ / ▶ to move', 124, y);
+    ctx.fillText('Hold Jump for higher jumps', 294, y);
+    ctx.fillText('Tap Resume to play', 124, y + 24);
+    ctx.fillText('Tap Sound to toggle', 294, y + 24);
+  } else if (source === 'controller') {
     ctx.fillText('Stick / D-pad: move', 124, y);
     // Four equally lit positions match the four accepted standard face buttons.
     for (const [dx, dy] of [[0, -5], [-5, 0], [5, 0], [0, 5]]) ctx.fillRect(246 + dx, y - 5 + dy, 3, 3);

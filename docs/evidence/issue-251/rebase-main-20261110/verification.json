@@ -1,0 +1,33 @@
+{
+  "originalFeatureCommit": "affbf439f5d4ad88bc9ae2e557a4143b3c81cfb5",
+  "rebaseTarget": "b67369e7c2c0b488c096d5933b1df8a9024d4ee9",
+  "sourceState": "Resolved rebase worktree verified before rebase --continue; runtime hashes identify the checked source.",
+  "checks": {
+    "unitPassed": 2234,
+    "scriptPassed": 161,
+    "integrationPassed": 8,
+    "typecheck": "passed",
+    "build": "passed",
+    "browserPassed": 19,
+    "browserSkipped": 2,
+    "fullBrowserSuiteOnRebasedSource": "not run locally; CI follows push",
+    "physicalIPad": "not performed"
+  },
+  "sha256": {
+    "src/core/input.ts": "688cc005e1e4eb0d946841e7f8748a6896f0551616e9f055fcd45a8f0275a7ae",
+    "src/core/viewport.ts": "7148b683ea83bb6cc15214adb527b8ca703d0ddfdeabfa6b9cce8e4d388acd44",
+    "src/main.ts": "e2052c400211ed8b9edcf5bd2d343d59a3f2402991938352e59d515eed04e372",
+    "src/style.css": "9ef6cb233dd7696dae82b80d823e215cb0369934a449fa149e85f0b6148d37b2",
+    "src/game/hud.ts": "2a6dca51d63ae2db24da6d6074dc5b731a86f449de6f6b3068ca4ee9b3092044",
+    "src/game/adventure-scene.ts": "f31d3310529d699683b44305a49e6edeeef3579b6efb6e81d0333e7a5f2ba2c4",
+    "src/game/pause-menu.ts": "4e6a4d88dd0534f0a21ff5c3a9de79804e76987652178fb97d425d70ade8e5f0",
+    "src/game/menu-overlay.ts": "ecc2b627468990e5ace815d62318146eab78ce8fc8a0d44fe7d96453c8520bb6",
+    "index.html": "22fc3e24e967e72f946027ea6fd35c41c1e7a1cd1ac321c773e35c7934ab8e81",
+    "tests/browser.spec.ts": "a74a6f03dfdddec0ac2e8f7c37cb7ec32547ecf0ad9af08984e85c258437c4fb",
+    "src/game/touch-controls.ts": "4cdc6dfbfa22ea87a447a97f476df6c48ce2978fb6dec1502aaa2afca50e82f3",
+    "scripts/touch-presentation.mjs": "f3b59434aa5b148c8f01424d3fe70c3999e45a92d726d087187bf88d8e7ac061",
+    "scripts/frost-ground-rollout-preservation.mjs": "bc49dac7a0ffcbdae645583d687a4115d9d71ce11e9a4a2b47d9fd23113703f0",
+    "scripts/hud-ribbon-preservation.mjs": "731be8a60d453402eac8b85e33ecee615b15596434a4977fdb40e37384554b0f",
+    "scripts/hud-owner-preservation.mjs": "ea27f74ea9c5edf90c65818aeb8a318119ec9d4096e7020f9f4b1305f04ba2aa"
+  }
+}

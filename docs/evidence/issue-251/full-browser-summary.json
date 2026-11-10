@@ -1,0 +1,661 @@
+{
+  "scope": "Complete 888-case browser run, 4 workers; original failures preserved separately from subsequent serial rechecks.",
+  "stats": {
+    "startTime": "2026-11-09T11:13:58.111Z",
+    "duration": 3672394.828,
+    "expected": 865,
+    "skipped": 3,
+    "unexpected": 20,
+    "flaky": 0
+  },
+  "projects": {
+    "chromium": {
+      "expected": 296
+    },
+    "firefox": {
+      "skipped": 2,
+      "expected": 293,
+      "unexpected": 1
+    },
+    "webkit": {
+      "expected": 276,
+      "unexpected": 19,
+      "skipped": 1
+    }
+  },
+  "tabletCases": [
+    {
+      "title": "tablet controls hold, cancel and clear across pause, focus, resize and mode changes",
+      "project": "chromium",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 6874,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "touch-capable tablets enable the controls automatically and can tap menus",
+      "project": "chromium",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 3956,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "two native touch contacts can run and jump together",
+      "project": "chromium",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 3057,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "tablet controls hold, cancel and clear across pause, focus, resize and mode changes",
+      "project": "firefox",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 9335,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "touch-capable tablets enable the controls automatically and can tap menus",
+      "project": "firefox",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 4501,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "two native touch contacts can run and jump together",
+      "project": "firefox",
+      "status": "skipped",
+      "results": [
+        {
+          "status": "skipped",
+          "duration": 9,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "tablet controls hold, cancel and clear across pause, focus, resize and mode changes",
+      "project": "webkit",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 11115,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "touch-capable tablets enable the controls automatically and can tap menus",
+      "project": "webkit",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "duration": 5129,
+          "errors": []
+        }
+      ]
+    },
+    {
+      "title": "two native touch contacts can run and jump together",
+      "project": "webkit",
+      "status": "skipped",
+      "results": [
+        {
+          "status": "skipped",
+          "duration": 4,
+          "errors": []
+        }
+      ]
+    }
+  ],
+  "failures": [
+    {
+      "title": "terrain joins stay solid while scrolling in both directions at integer and fractional scales",
+      "project": "webkit",
+      "status": "unexpected",
+      "results": [
+        {
+          "status": "timedOut",
+          "duration": 130310,
+          "errors": [
+            {
+              "message": "\u001b[31mTest timeout of 120000ms exceeded.\u001b[39m"
+            },
+            {
+              "location": {
+                "file": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/browser.spec.ts",
+                "column": 29,
+                "line": 850
+              },
+              "message": "Error: page.evaluate: Test timeout of 120000ms exceeded.\n\n  848 |   // Run the real renderer on a separate canvas so sprites and HUD cannot hide seams.\n  849 |   await page.addScriptTag({ content: `${RENDERER_SOURCE}\\nwindow.drawTerrainTestWorld = ${drawWorld.toString()};` });\n> 850 |   const result = await page.evaluate(async ({ level, maxSpeed }) => {\n      |                             ^\n  851 |     const manifest = await (await fetch('/assets/plains/manifest.json')).json();\n  852 |     const atlas = new Image();\n  853 |     atlas.src = `/assets/plains/${manifest.image}`;\n    at /home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/browser.spec.ts:850:29"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "title picker selects Quarry Run and starts the selected route",
+      "project": "webkit",
+      "status": "unexpected",
+      "results": [
+        {
+          "status": "timedOut",
+          "duration": 32093,
+          "errors": [
+            {
+              "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+            },
+            {
+              "location": {
+                "file": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/browser.spec.ts",
+                "column": 14,
+                "line": 5563
+              },
+              "message": "Error: page.waitForFunction: Test timeout of 30000ms exceeded.\n\n  5561 |     Object.assign(pilot, { route, index: 0, stageFrames: 0, jumped: false, active: true, frozen: false, error: '' });\n  5562 |   }, route);\n> 5563 |   await page.waitForFunction(() => !(window as unknown as { quarryPilot: { active: boolean } }).quarryPilot.active, undefined, { timeout: 110_000 });\n       |              ^\n  5564 |   const result = await page.evaluate(() => {\n  5565 |     const { index, error, observations } = (window as unknown as { quarryPilot: { index: number; error: string; observations: object[] } }).quarryPilot;\n  5566 |     return { index, error, observations };\n    at driveQuarry (/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/browser.spec.ts:5563:14)\n    at /home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/browser.spec.ts:1285:3"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "milestone SUNSET SITE: pointer selection, full route, return, replay and next",
+      "project": "webkit",
+      "status": "unexpected",
+      "results": [
+        {
+          "status": "timedOut",
+          "duration": 106552,
+          "errors": [
+            {
+              "message": "\u001b[31mTest timeout of 100000ms exceeded.\u001b[39m"
+            },
+            {
+              "location": {
+                "file": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/timbers-browser-pilot.ts",
+                "column": 14,
+                "line": 93
+              },
+              "message": "TimeoutError: page.waitForFunction: Timeout 45000ms exceeded.\n\n   at timbers-browser-pilot.ts:93\n\n  91 |       frames: 0, stable: 0, previousY: NaN, phase: 0, error: '', done: false, seenPlaying: false, observedX: NaN, observedY: NaN, history: [] });\n  92 |   }, stages);\n> 93 |   await page.waitForFunction(() => {\n     |              ^\n  94 |     const pilot = (window as unknown as { timberKeyboardPilot: { done: boolean; error: string } }).timberKeyboardPilot;\n  95 |     return pilot.done || Boolean(pilot.error);\n  96 |   }, undefined, { timeout });\n    at runTimberStages (/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/timbers-browser-pilot.ts:93:14)\n    at driveSunset (/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/sunset-browser-pilot.ts:27:18)\n    at traverse (/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/browser.spec.ts:2777:9)\n    at /home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/browser.spec.ts:2875:5"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "diagnostic fullscreen frame geometry across repeated native transitions",
+      "project": "webkit",
+      "status": "unexpected",
+      "results": [
+        {
+          "status": "timedOut",
+          "duration": 32943,
+          "errors": [
+            {
+              "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+            },
+            {
+              "location": {
+                "file": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/browser.spec.ts",
+                "column": 57,
+                "line": 3839
+              },
+              "message": "Error: page.evaluate: Test timeout of 30000ms exceeded.\n\n  3837 |     (window as unknown as { fullscreenDiagnostic: { mark(cycle: number, phase: string): void } }).fullscreenDiagnostic.mark(cycle, phase);\n  3838 |   }, { cycle, phase });\n> 3839 |   const captureFrames = async (): Promise<void> => page.evaluate(() => new Promise<void>(resolve => {\n       |                                                         ^\n  3840 |     let frames = 0;\n  3841 |     const next = (): void => { if (++frames === 32) resolve(); else requestAnimationFrame(next); };\n  3842 |     requestAnimationFrame(next);\n    at captureFrames (/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/browser.spec.ts:3839:57)\n    at /home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/browser.spec.ts:3859:13"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "all-trail spelling frost: input-only missing-letter retrace, manual assembly and session sticker",
+      "project": "webkit",
+      "status": "unexpected",
+      "results": [
+        {
+          "status": "failed",
+          "duration": 90825,
+          "errors": [
+            {
+              "location": {
+                "file": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/timbers-browser-pilot.ts",
+                "column": 14,
+                "line": 93
+              },
+              "message": "TimeoutError: page.waitForFunction: Timeout 45000ms exceeded.\n\n   at timbers-browser-pilot.ts:93\n\n  91 |       frames: 0, stable: 0, previousY: NaN, phase: 0, error: '', done: false, seenPlaying: false, observedX: NaN, observedY: NaN, history: [] });\n  92 |   }, stages);\n> 93 |   await page.waitForFunction(() => {\n     |              ^\n  94 |     const pilot = (window as unknown as { timberKeyboardPilot: { done: boolean; error: string } }).timberKeyboardPilot;\n  95 |     return pilot.done || Boolean(pilot.error);\n  96 |   }, undefined, { timeout });\n    at runTimberStages (/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/timbers-browser-pilot.ts:93:14)\n    at driveSunset (/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/sunset-browser-pilot.ts:27:18)\n    at drive (/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/browser.spec.ts:4365:9)\n    at /home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/browser.spec.ts:4428:5"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "landmark labels: native label hits and controller selection survive resize and browser fullscreen",
+      "project": "webkit",
+      "status": "unexpected",
+      "results": [
+        {
+          "status": "timedOut",
+          "duration": 36604,
+          "errors": [
+            {
+              "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Cove B Hollow/Pools ordinary input rests at 426px",
+      "project": "webkit",
+      "status": "unexpected",
+      "results": [
+        {
+          "status": "timedOut",
+          "duration": 123773,
+          "errors": [
+            {
+              "message": "\u001b[31mTest timeout of 120000ms exceeded.\u001b[39m"
+            },
+            {
+              "location": {
+                "file": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/timbers-browser-pilot.ts",
+                "column": 14,
+                "line": 93
+              },
+              "message": "Error: page.waitForFunction: Test timeout of 120000ms exceeded.\n\n   at timbers-browser-pilot.ts:93\n\n  91 |       frames: 0, stable: 0, previousY: NaN, phase: 0, error: '', done: false, seenPlaying: false, observedX: NaN, observedY: NaN, history: [] });\n  92 |   }, stages);\n> 93 |   await page.waitForFunction(() => {\n     |              ^\n  94 |     const pilot = (window as unknown as { timberKeyboardPilot: { done: boolean; error: string } }).timberKeyboardPilot;\n  95 |     return pilot.done || Boolean(pilot.error);\n  96 |   }, undefined, { timeout });\n    at runTimberStages (/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/timbers-browser-pilot.ts:93:14)\n    at driveCove (/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/cove-browser-pilot.ts:20:16)\n    at /home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/cove-rollout.spec.ts:41:5"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Cove B Bays ordinary input rests at 426px",
+      "project": "webkit",
+      "status": "unexpected",
+      "results": [
+        {
+          "status": "failed",
+          "duration": 81884,
+          "errors": [
+            {
+              "location": {
+                "file": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/cove-browser-pilot.ts",
+                "column": 41,
+                "line": 21
+              },
+              "message": "Error: {\"active\":false,\"paused\":false,\"pauseAt\":-1,\"stage\":1,\"frames\":201,\"stable\":0,\"previousY\":null,\"startY\":null,\"phase\":0,\"error\":\"walk 1 stalled Adventure preview \u00b7 Playing \u00b7 Letter bag: 2/4 \u00b7 X 3331 Y 310 V -36 F -1 \u00b7 Escape to pause \u00b7 M to mute\",\"done\":false,\"seenPlaying\":true,\"stages\":[{\"kind\":\"walk\",\"x\":3320},{\"kind\":\"walk\",\"x\":3360}],\"history\":[{\"stage\":0,\"status\":\"Adventure preview \u00b7 Playing \u00b7 Letter bag: 2/4 \u00b7 X 3322 Y 310 V 0 F -1 \u00b7 Escape to pause \u00b7 M to mute\"}],\"recoveries\":[],\"observedX\":3331,\"observedY\":310}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoMatchObject\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\n\u001b[32m- Expected  - 2\u001b[39m\n\u001b[31m+ Received  + 2\u001b[39m\n\n\u001b[2m  Object {\u001b[22m\n\u001b[32m-   \"done\": true,\u001b[39m\n\u001b[32m-   \"error\": \"\",\u001b[39m\n\u001b[31m+   \"done\": false,\u001b[39m\n\u001b[31m+   \"error\": \"walk 1 stalled Adventure preview \u00b7 Playing \u00b7 Letter bag: 2/4 \u00b7 X 3331 Y 310 V -36 F -1 \u00b7 Escape to pause \u00b7 M to mute\",\u001b[39m\n\u001b[2m  }\u001b[22m\n\n   at cove-browser-pilot.ts:21\n\n  19 |   }\n  20 |   const result=await runTimberStages(page,bounded);\n> 21 |   expect(result,JSON.stringify(result)).toMatchObject({done:true,error:''});return result;\n     |                                         ^\n  22 | }\n  23 | export async function startCove(page:Page,controller=false):Promise<void> {\n  24 |   await installCovePilot(page);\n    at driveCove (/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/cove-browser-pilot.ts:21:41)\n    at /home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/cove-rollout.spec.ts:41:5"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Cove B Hollow/Pools ordinary input rests at 320px",
+      "project": "webkit",
+      "status": "unexpected",
+      "results": [
+        {
+          "status": "timedOut",
+          "duration": 125093,
+          "errors": [
+            {
+              "message": "\u001b[31mTest timeout of 120000ms exceeded.\u001b[39m"
+            },
+            {
+              "location": {
+                "file": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/timbers-browser-pilot.ts",
+                "column": 14,
+                "line": 93
+              },
+              "message": "Error: page.waitForFunction: Test timeout of 120000ms exceeded.\n\n   at timbers-browser-pilot.ts:93\n\n  91 |       frames: 0, stable: 0, previousY: NaN, phase: 0, error: '', done: false, seenPlaying: false, observedX: NaN, observedY: NaN, history: [] });\n  92 |   }, stages);\n> 93 |   await page.waitForFunction(() => {\n     |              ^\n  94 |     const pilot = (window as unknown as { timberKeyboardPilot: { done: boolean; error: string } }).timberKeyboardPilot;\n  95 |     return pilot.done || Boolean(pilot.error);\n  96 |   }, undefined, { timeout });\n    at runTimberStages (/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/timbers-browser-pilot.ts:93:14)\n    at driveCove (/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/cove-browser-pilot.ts:20:16)\n    at /home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/cove-rollout.spec.ts:41:5"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Cove B Bays ordinary input rests at 320px",
+      "project": "webkit",
+      "status": "unexpected",
+      "results": [
+        {
+          "status": "failed",
+          "duration": 77187,
+          "errors": [
+            {
+              "location": {
+                "file": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/cove-browser-pilot.ts",
+                "column": 41,
+                "line": 21
+              },
+              "message": "Error: {\"active\":false,\"paused\":false,\"pauseAt\":-1,\"stage\":1,\"frames\":201,\"stable\":0,\"previousY\":null,\"startY\":null,\"phase\":0,\"error\":\"walk 1 stalled Adventure preview \u00b7 Playing \u00b7 Letter bag: 2/4 \u00b7 X 3331 Y 310 V -36 F -1 \u00b7 Escape to pause \u00b7 M to mute\",\"done\":false,\"seenPlaying\":true,\"stages\":[{\"kind\":\"walk\",\"x\":3320},{\"kind\":\"walk\",\"x\":3360}],\"history\":[{\"stage\":0,\"status\":\"Adventure preview \u00b7 Playing \u00b7 Letter bag: 2/4 \u00b7 X 3322 Y 310 V 0 F -1 \u00b7 Escape to pause \u00b7 M to mute\"}],\"recoveries\":[],\"observedX\":3331,\"observedY\":310}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoMatchObject\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\n\u001b[32m- Expected  - 2\u001b[39m\n\u001b[31m+ Received  + 2\u001b[39m\n\n\u001b[2m  Object {\u001b[22m\n\u001b[32m-   \"done\": true,\u001b[39m\n\u001b[32m-   \"error\": \"\",\u001b[39m\n\u001b[31m+   \"done\": false,\u001b[39m\n\u001b[31m+   \"error\": \"walk 1 stalled Adventure preview \u00b7 Playing \u00b7 Letter bag: 2/4 \u00b7 X 3331 Y 310 V -36 F -1 \u00b7 Escape to pause \u00b7 M to mute\",\u001b[39m\n\u001b[2m  }\u001b[22m\n\n   at cove-browser-pilot.ts:21\n\n  19 |   }\n  20 |   const result=await runTimberStages(page,bounded);\n> 21 |   expect(result,JSON.stringify(result)).toMatchObject({done:true,error:''});return result;\n     |                                         ^\n  22 | }\n  23 | export async function startCove(page:Page,controller=false):Promise<void> {\n  24 |   await installCovePilot(page);\n    at driveCove (/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/cove-browser-pilot.ts:21:41)\n    at /home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/cove-rollout.spec.ts:41:5"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Frost actual finish returns over every snow ledge and manually assembles SNOW",
+      "project": "webkit",
+      "status": "unexpected",
+      "results": [
+        {
+          "status": "timedOut",
+          "duration": 124166,
+          "errors": [
+            {
+              "message": "\u001b[31mTest timeout of 120000ms exceeded.\u001b[39m"
+            },
+            {
+              "location": {
+                "file": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/timbers-browser-pilot.ts",
+                "column": 14,
+                "line": 93
+              },
+              "message": "Error: page.waitForFunction: Test timeout of 120000ms exceeded.\n\n   at timbers-browser-pilot.ts:93\n\n  91 |       frames: 0, stable: 0, previousY: NaN, phase: 0, error: '', done: false, seenPlaying: false, observedX: NaN, observedY: NaN, history: [] });\n  92 |   }, stages);\n> 93 |   await page.waitForFunction(() => {\n     |              ^\n  94 |     const pilot = (window as unknown as { timberKeyboardPilot: { done: boolean; error: string } }).timberKeyboardPilot;\n  95 |     return pilot.done || Boolean(pilot.error);\n  96 |   }, undefined, { timeout });\n    at runTimberStages (/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/timbers-browser-pilot.ts:93:14)\n    at driveSunset (/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/sunset-browser-pilot.ts:27:18)\n    at /home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/frost-ridge.spec.ts:51:14"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Plains contour ordinary input 426: rest jump joins and return",
+      "project": "webkit",
+      "status": "unexpected",
+      "results": [
+        {
+          "status": "failed",
+          "duration": 25226,
+          "errors": [
+            {
+              "location": {
+                "file": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/plains-contour-pilot.spec.ts",
+                "column": 79,
+                "line": 43
+              },
+              "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n\nCall Log:\n- Timeout 20000ms exceeded while waiting on the predicate\n\n  41 |     if (c.error) throw new Error(c.error);\n  42 |     return c.results.some(r => r.id === id);\n> 43 |   }, id), { timeout: createContourControllerKernel().goalBudget(goal.mode) }).toBe(true);\n     |                                                                               ^\n  44 |   return { id };\n  45 | }\n  46 | async function walkToFlat(page: Page, target: number) {\n    at driveGoal (/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/plains-contour-pilot.spec.ts:43:79)\n    at /home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/plains-contour-pilot.spec.ts:142:55"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Plains contour ordinary input 320: rest jump joins and return",
+      "project": "webkit",
+      "status": "unexpected",
+      "results": [
+        {
+          "status": "failed",
+          "duration": 25830,
+          "errors": [
+            {
+              "location": {
+                "file": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/plains-contour-pilot.spec.ts",
+                "column": 79,
+                "line": 43
+              },
+              "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n\nCall Log:\n- Timeout 20000ms exceeded while waiting on the predicate\n\n  41 |     if (c.error) throw new Error(c.error);\n  42 |     return c.results.some(r => r.id === id);\n> 43 |   }, id), { timeout: createContourControllerKernel().goalBudget(goal.mode) }).toBe(true);\n     |                                                                               ^\n  44 |   return { id };\n  45 | }\n  46 | async function walkToFlat(page: Page, target: number) {\n    at driveGoal (/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/plains-contour-pilot.spec.ts:43:79)\n    at /home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/plains-contour-pilot.spec.ts:142:55"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Plains required contour image error offers ordinary Retry loading",
+      "project": "webkit",
+      "status": "unexpected",
+      "results": [
+        {
+          "status": "failed",
+          "duration": 25706,
+          "errors": [
+            {
+              "location": {
+                "file": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/plains-contour-pilot.spec.ts",
+                "column": 79,
+                "line": 43
+              },
+              "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n\nCall Log:\n- Timeout 20000ms exceeded while waiting on the predicate\n\n  41 |     if (c.error) throw new Error(c.error);\n  42 |     return c.results.some(r => r.id === id);\n> 43 |   }, id), { timeout: createContourControllerKernel().goalBudget(goal.mode) }).toBe(true);\n     |                                                                               ^\n  44 |   return { id };\n  45 | }\n  46 | async function walkToFlat(page: Page, target: number) {\n    at driveGoal (/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/plains-contour-pilot.spec.ts:43:79)\n    at /home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/plains-contour-pilot.spec.ts:204:5"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Plains required contour soil error offers ordinary Retry loading",
+      "project": "webkit",
+      "status": "unexpected",
+      "results": [
+        {
+          "status": "failed",
+          "duration": 27114,
+          "errors": [
+            {
+              "location": {
+                "file": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/plains-contour-pilot.spec.ts",
+                "column": 79,
+                "line": 43
+              },
+              "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n\nCall Log:\n- Timeout 20000ms exceeded while waiting on the predicate\n\n  41 |     if (c.error) throw new Error(c.error);\n  42 |     return c.results.some(r => r.id === id);\n> 43 |   }, id), { timeout: createContourControllerKernel().goalBudget(goal.mode) }).toBe(true);\n     |                                                                               ^\n  44 |   return { id };\n  45 | }\n  46 | async function walkToFlat(page: Page, target: number) {\n    at driveGoal (/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/plains-contour-pilot.spec.ts:43:79)\n    at /home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/plains-contour-pilot.spec.ts:204:5"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Sunset steel preview uses ordinary ground, underpass and dock input at 426px",
+      "project": "firefox",
+      "status": "unexpected",
+      "results": [
+        {
+          "status": "failed",
+          "duration": 38772,
+          "errors": [
+            {
+              "location": {
+                "file": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/sunset-browser-pilot.ts",
+                "column": 42,
+                "line": 28
+              },
+              "message": "Error: {\"active\":false,\"paused\":false,\"frozen\":false,\"pauseAt\":-1,\"stage\":0,\"frames\":201,\"stable\":0,\"previousY\":346,\"startY\":346,\"phase\":1,\"error\":\"drop 0 phase 1 stalled Adventure preview \u00b7 Playing \u00b7 Letter bag: 1/4 \u00b7 X 500 Y 346 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute\",\"done\":false,\"seenPlaying\":true,\"advanceMs\":0,\"stages\":[{\"kind\":\"drop\",\"edge\":470,\"direction\":1,\"x\":520,\"y\":380}],\"history\":[],\"recoveries\":[],\"observedX\":500,\"observedY\":346}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoMatchObject\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\n\u001b[32m- Expected  - 2\u001b[39m\n\u001b[31m+ Received  + 2\u001b[39m\n\n\u001b[2m  Object {\u001b[22m\n\u001b[32m-   \"done\": true,\u001b[39m\n\u001b[32m-   \"error\": \"\",\u001b[39m\n\u001b[31m+   \"done\": false,\u001b[39m\n\u001b[31m+   \"error\": \"drop 0 phase 1 stalled Adventure preview \u00b7 Playing \u00b7 Letter bag: 1/4 \u00b7 X 500 Y 346 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute\",\u001b[39m\n\u001b[2m  }\u001b[22m\n\n   at sunset-browser-pilot.ts:28\n\n  26 |   }\n  27 |   const result = await runTimberStages(page, bounded);\n> 28 |   expect(result, JSON.stringify(result)).toMatchObject({ done: true, error: '' });\n     |                                          ^\n  29 |   return result;\n  30 | }\n  31 |\n    at driveSunset (/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/sunset-browser-pilot.ts:28:42)\n    at drive (/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/site-steel-preview.spec.ts:50:33)\n    at /home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/site-steel-preview.spec.ts:109:5"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Sunset steel preview uses ordinary ground, underpass and dock input at 426px",
+      "project": "webkit",
+      "status": "unexpected",
+      "results": [
+        {
+          "status": "failed",
+          "duration": 43414,
+          "errors": [
+            {
+              "location": {
+                "file": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/site-steel-preview.spec.ts",
+                "column": 51,
+                "line": 104
+              },
+              "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeLessThanOrEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: <= \u001b[32m540\u001b[39m\nReceived:    \u001b[31m621\u001b[39m\n\nCall Log:\n- Timeout 5000ms exceeded while waiting on the predicate\n\n  102 |     await drive('board-return', [walk(620)]);\n  103 |     await capture('board-return');\n> 104 |     await expect.poll(playerX, { timeout: 5000 }).toBeLessThanOrEqual(540);\n      |                                                   ^\n  105 |     await capture('ride-return');\n  106 |     await drive('leave-at-near-dock', [walk(440)]);\n  107 |     await capture('leave-at-near-dock');\n    at /home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/site-steel-preview.spec.ts:104:51"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Sunset steel preview uses ordinary ground, underpass and dock input at 320px",
+      "project": "webkit",
+      "status": "unexpected",
+      "results": [
+        {
+          "status": "failed",
+          "duration": 48298,
+          "errors": [
+            {
+              "location": {
+                "file": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/sunset-browser-pilot.ts",
+                "column": 42,
+                "line": 28
+              },
+              "message": "Error: {\"active\":false,\"paused\":false,\"frozen\":false,\"pauseAt\":-1,\"stage\":0,\"frames\":201,\"stable\":0,\"previousY\":346,\"startY\":346,\"phase\":1,\"error\":\"drop 0 phase 1 stalled Adventure preview \u00b7 Playing \u00b7 Letter bag: 1/4 \u00b7 X 503 Y 346 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute\",\"done\":false,\"seenPlaying\":true,\"advanceMs\":0,\"stages\":[{\"kind\":\"drop\",\"edge\":470,\"direction\":1,\"x\":520,\"y\":380}],\"history\":[],\"recoveries\":[],\"observedX\":503,\"observedY\":346}\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoMatchObject\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\n\u001b[32m- Expected  - 2\u001b[39m\n\u001b[31m+ Received  + 2\u001b[39m\n\n\u001b[2m  Object {\u001b[22m\n\u001b[32m-   \"done\": true,\u001b[39m\n\u001b[32m-   \"error\": \"\",\u001b[39m\n\u001b[31m+   \"done\": false,\u001b[39m\n\u001b[31m+   \"error\": \"drop 0 phase 1 stalled Adventure preview \u00b7 Playing \u00b7 Letter bag: 1/4 \u00b7 X 503 Y 346 V 0 F 1 \u00b7 Escape to pause \u00b7 M to mute\",\u001b[39m\n\u001b[2m  }\u001b[22m\n\n   at sunset-browser-pilot.ts:28\n\n  26 |   }\n  27 |   const result = await runTimberStages(page, bounded);\n> 28 |   expect(result, JSON.stringify(result)).toMatchObject({ done: true, error: '' });\n     |                                          ^\n  29 |   return result;\n  30 | }\n  31 |\n    at driveSunset (/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/sunset-browser-pilot.ts:28:42)\n    at drive (/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/site-steel-preview.spec.ts:50:33)\n    at /home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/site-steel-preview.spec.ts:109:5"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "slime squash through real keyboard controls leaves a flattened costume",
+      "project": "webkit",
+      "status": "unexpected",
+      "results": [
+        {
+          "status": "failed",
+          "duration": 8646,
+          "errors": [
+            {
+              "location": {
+                "file": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/slime-squash.spec.ts",
+                "column": 128,
+                "line": 83
+              },
+              "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n\nCall Log:\n- Timeout 5000ms exceeded while waiting on the predicate\n\n  81 |     }\n  82 |     await page.evaluate(() => { (window as unknown as { squashPilot: { active: boolean } }).squashPilot.active = true; });\n> 83 |     await expect.poll(() => page.evaluate(() => (window as unknown as { squashPilot: { ready: boolean } }).squashPilot.ready)).toBe(true);\n     |                                                                                                                                ^\n  84 |     await page.locator('canvas').screenshot({ path: info.outputPath('slime-upright.png') });\n  85 |     await page.evaluate(() => { (window as unknown as { squashPilot: { frozen: boolean } }).squashPilot.frozen = false; });\n  86 |     await expect(page.locator('canvas')).toHaveAttribute('data-squashed', 'true', { timeout: 15_000 });\n    at /home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/slime-squash.spec.ts:83:128"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "slime squash through real controller controls leaves a flattened costume",
+      "project": "webkit",
+      "status": "unexpected",
+      "results": [
+        {
+          "status": "failed",
+          "duration": 8237,
+          "errors": [
+            {
+              "location": {
+                "file": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/slime-squash.spec.ts",
+                "column": 128,
+                "line": 83
+              },
+              "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n\nCall Log:\n- Timeout 5000ms exceeded while waiting on the predicate\n\n  81 |     }\n  82 |     await page.evaluate(() => { (window as unknown as { squashPilot: { active: boolean } }).squashPilot.active = true; });\n> 83 |     await expect.poll(() => page.evaluate(() => (window as unknown as { squashPilot: { ready: boolean } }).squashPilot.ready)).toBe(true);\n     |                                                                                                                                ^\n  84 |     await page.locator('canvas').screenshot({ path: info.outputPath('slime-upright.png') });\n  85 |     await page.evaluate(() => { (window as unknown as { squashPilot: { frozen: boolean } }).squashPilot.frozen = false; });\n  86 |     await expect(page.locator('canvas')).toHaveAttribute('data-squashed', 'true', { timeout: 15_000 });\n    at /home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/slime-squash.spec.ts:83:128"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "originalEvidenceDirectory": "/tmp/ttt-touch-full-browser-evidence",
+  "skips": [
+    {
+      "title": "audio stays locked until interaction and supports all effects, mute, pause and stop",
+      "project": "firefox",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Native AudioContext cannot run on this host; requires an audio backend.",
+          "location": {
+            "file": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/audio.spec.ts",
+            "line": 22,
+            "column": 8
+          }
+        }
+      ],
+      "resultAnnotations": [
+        [
+          {
+            "type": "skip",
+            "description": "Native AudioContext cannot run on this host; requires an audio backend.",
+            "location": {
+              "file": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/audio.spec.ts",
+              "line": 22,
+              "column": 8
+            }
+          }
+        ]
+      ]
+    },
+    {
+      "title": "two native touch contacts can run and jump together",
+      "project": "firefox",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Native multi-contact injection uses Chromium CDP; other engines cover pointer input and tap menus separately.",
+          "location": {
+            "file": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/browser.spec.ts",
+            "line": 193,
+            "column": 10
+          }
+        }
+      ],
+      "resultAnnotations": [
+        [
+          {
+            "type": "skip",
+            "description": "Native multi-contact injection uses Chromium CDP; other engines cover pointer input and tap menus separately.",
+            "location": {
+              "file": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/browser.spec.ts",
+              "line": 193,
+              "column": 10
+            }
+          }
+        ]
+      ]
+    },
+    {
+      "title": "two native touch contacts can run and jump together",
+      "project": "webkit",
+      "annotations": [
+        {
+          "type": "skip",
+          "description": "Native multi-contact injection uses Chromium CDP; other engines cover pointer input and tap menus separately.",
+          "location": {
+            "file": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/browser.spec.ts",
+            "line": 193,
+            "column": 10
+          }
+        }
+      ],
+      "resultAnnotations": [
+        [
+          {
+            "type": "skip",
+            "description": "Native multi-contact injection uses Chromium CDP; other engines cover pointer input and tap menus separately.",
+            "location": {
+              "file": "/home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e/tests/browser.spec.ts",
+              "line": 193,
+              "column": 10
+            }
+          }
+        ]
+      ]
+    }
+  ]
+}

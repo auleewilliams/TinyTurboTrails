@@ -1,5 +1,6 @@
 import { beforeHudRibbon } from './hud-ribbon-preservation.mjs';
 import { beforeFrostCheckpoints } from './frost-checkpoint-preservation.mjs';
+import { beforeTouchPresentation } from './touch-presentation.mjs';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
@@ -9,6 +10,7 @@ assert.equal(hash(raw), '144c7a617f48a6cc23536f71b23755ab6d83dcb4c5b5a2c31aea7c9
 export const frostRolloutRecord = JSON.parse(raw);
 /** Exact authorized presentation/test bytes project to 77 before immutable pilot guards. */
 export function beforeFrostRollout(path, bytes) {
+  bytes = beforeTouchPresentation(path, bytes);
   // Frost owns only the observer migrations; HUD source belongs to beforeOwnerHud.
   if (path === 'tests/browser.spec.ts' || path === 'tests/hud-owner-layout.spec.ts') {
     bytes = beforeHudRibbon(path, bytes);

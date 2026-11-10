@@ -1,0 +1,58 @@
+TAP version 13
+# Subtest: only five exact approved deltas reverse completely to the immutable source-head bytes
+ok 1 - only five exact approved deltas reverse completely to the immutable source-head bytes
+  ---
+  duration_ms: 24.39719
+  type: 'test'
+  ...
+# Subtest: every approved path rejects even unrelated trailing bytes through intended assertions
+ok 2 - every approved path rejects even unrelated trailing bytes through intended assertions
+  ---
+  duration_ms: 5.688408
+  type: 'test'
+  ...
+# Subtest: metadata/path/anchor corruptions cannot hide behind the authorized grass declaration
+ok 3 - metadata/path/anchor corruptions cannot hide behind the authorized grass declaration
+  ---
+  duration_ms: 3.041757
+  type: 'test'
+  ...
+# Subtest: checkpoint, authorized flower mutations, other entity, terrain and bush changes are rejected
+ok 4 - checkpoint, authorized flower mutations, other entity, terrain and bush changes are rejected
+  ---
+  duration_ms: 9.917312
+  type: 'test'
+  ...
+# Subtest: renderer/linkage and typed API corruptions reject rather than normalize a broader delta
+ok 5 - renderer/linkage and typed API corruptions reject rather than normalize a broader delta
+  ---
+  duration_ms: 2.73731
+  type: 'test'
+  ...
+# Subtest: exact tablet instructions project before physics/HUD/other-trail byte oracles; corruptions reject
+ok 6 - exact tablet instructions project before physics/HUD/other-trail byte oracles; corruptions reject
+  ---
+  duration_ms: 4.077933
+  type: 'test'
+  ...
+# Subtest: C soil declaration/path/dimensions are an exact approved delta, not a broader exception
+ok 7 - C soil declaration/path/dimensions are an exact approved delta, not a broader exception
+  ---
+  duration_ms: 2.031414
+  type: 'test'
+  ...
+# Subtest: touch instructions reverse exactly without accepting unrelated HUD or gameplay edits
+ok 8 - touch instructions reverse exactly without accepting unrelated HUD or gameplay edits
+  ---
+  duration_ms: 40.924499
+  type: 'test'
+  ...
+1..8
+# tests 8
+# suites 0
+# pass 8
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 439.104039

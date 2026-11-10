@@ -99,8 +99,8 @@ export class PauseMenu {
     }
     ctx.fillStyle = '#e9f2df'; ctx.font = '10px monospace';
     if (this.confirming) {
-      ctx.fillText(source === 'controller' ? 'D-pad: choose · Buttons 1–4: select' : '← → Choose · Space / Enter: select', 213, 205);
-      ctx.fillText(`T: leave · ${source === 'controller' ? 'Start' : 'Escape'}: cancel`, 213, 222);
+      ctx.fillText(source === 'touch' ? 'Tap Keep playing or Return to Trails' : source === 'controller' ? 'D-pad: choose · Buttons 1–4: select' : '← → Choose · Space / Enter: select', 213, 205);
+      ctx.fillText(source === 'touch' ? 'Leaving resets this run' : `T: leave · ${source === 'controller' ? 'Start' : 'Escape'}: cancel`, 213, 222);
     }
     ctx.restore();
   }

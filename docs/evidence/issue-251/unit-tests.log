@@ -1,0 +1,16 @@
+
+> tiny-turbo-trails@0.1.0 test
+> vitest run --maxWorkers=1
+
+
+ RUN  v5.1.0 /home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e
+
+
+ Test Files  121 passed (121)
+      Tests  2163 passed (2163)
+   Start at  11:07:10
+   Duration  268.21s (tests 94%, import 5%, worker 1%)
+
+    Isolate  121 workers spawned · ~394ms startup each (spawn + environment, per file)
+             at least ~47.24s faster with isolate: false — reuses workers across files instead of one per file
+

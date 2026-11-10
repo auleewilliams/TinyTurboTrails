@@ -1,6 +1,73 @@
 import { expect, it } from 'vitest';
 import { BrowserInput } from '../src/core/input';
 
+it('combines independent touch fingers, retains a short jump edge and only emits it once', () => {
+  const target = Object.assign(new EventTarget(), { navigator: { getGamepads: () => [] } });
+  let interactions = 0;
+  const input = new BrowserInput(target as unknown as Window, () => { interactions++; });
+  input.pressTouch(10, 'right');
+  input.pressTouch(20, 'jump');
+  expect(input.poll()).toMatchObject({ source: 'touch', horizontal: 1, jumpHeld: true, jumpPressed: true });
+  expect(input.poll()).toMatchObject({ source: 'touch', horizontal: 1, jumpHeld: true, jumpPressed: false });
+  input.releaseTouch(20);
+  expect(input.poll()).toMatchObject({ horizontal: 1, jumpHeld: false });
+  input.pressTouch(30, 'jump'); input.releaseTouch(30);
+  expect(input.poll()).toMatchObject({ jumpPressed: true, jumpHeld: false });
+  expect(input.poll().jumpPressed).toBe(false);
+  input.releaseTouch(10);
+  expect(input.poll()).toMatchObject({ source: 'touch', horizontal: 0 });
+  expect(interactions).toBe(3);
+  input.dispose();
+});
+
+it('keeps an action held until its final finger releases and cancels opposing directions', () => {
+  const target = Object.assign(new EventTarget(), { navigator: { getGamepads: () => [] } });
+  const input = new BrowserInput(target as unknown as Window, () => {});
+  input.pressTouch(1, 'left'); input.pressTouch(2, 'right');
+  input.pressTouch(3, 'jump'); input.pressTouch(4, 'jump');
+  expect(input.poll()).toMatchObject({ horizontal: 0, jumpHeld: true, jumpPressed: true });
+  input.releaseTouch(2); input.releaseTouch(3);
+  expect(input.poll()).toMatchObject({ horizontal: -1, jumpHeld: true, jumpPressed: false });
+  input.releaseTouch(4);
+  expect(input.poll().jumpHeld).toBe(false);
+  input.dispose();
+});
+
+it('cancels pending touch jumps and clears held fingers across pause/focus boundaries', () => {
+  const target = Object.assign(new EventTarget(), { navigator: { getGamepads: () => [] } });
+  const input = new BrowserInput(target as unknown as Window, () => {});
+  input.pressTouch(1, 'jump'); input.releaseTouch(1, true);
+  expect(input.poll()).toMatchObject({ jumpHeld: false, jumpPressed: false });
+  input.pressTouch(2, 'right'); input.pressTouch(3, 'jump');
+  input.clearForResume();
+  expect(input.poll()).toMatchObject({ horizontal: 0, jumpHeld: false, jumpPressed: false });
+  input.setFocused(false); input.pressTouch(4, 'left');
+  input.setFocused(true);
+  expect(input.poll()).toMatchObject({ horizontal: 0, jumpHeld: false, jumpPressed: false });
+  input.releaseTouch(2); input.releaseTouch(3);
+  input.pressTouch(5, 'left');
+  expect(input.poll().horizontal).toBe(-1);
+  input.dispose();
+});
+
+it('switches from touch to keyboard and controller on use, retaining touch with no controller', () => {
+  const buttons = Array.from({ length: 17 }, () => ({ pressed: false }));
+  const pad = { connected: true, mapping: 'standard', axes: [0, 0], buttons };
+  const target = Object.assign(new EventTarget(), { navigator: { getGamepads: () => pad.connected ? [pad] : [] } });
+  const input = new BrowserInput(target as unknown as Window, () => {});
+  target.dispatchEvent(Object.assign(new Event('pointerdown'), { pointerType: 'touch' }));
+  expect(input.poll().source).toBe('touch');
+  target.dispatchEvent(Object.assign(new Event('keydown'), { code: 'ArrowRight', repeat: false }));
+  expect(input.poll().source).toBe('keyboard');
+  buttons[0].pressed = true;
+  expect(input.poll().source).toBe('controller');
+  input.pressTouch(1, 'left');
+  expect(input.poll().source).toBe('touch');
+  pad.connected = false;
+  expect(input.poll().source).toBe('touch');
+  input.dispose();
+});
+
 it('emits T once per press, ignores repeats and clears it on focus loss', () => {
   const target = Object.assign(new EventTarget(), { navigator: { getGamepads: () => [] } });
   const input = new BrowserInput(target as unknown as Window, () => {});

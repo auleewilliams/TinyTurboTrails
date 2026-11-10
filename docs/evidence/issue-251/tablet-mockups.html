@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tiny Turbo Trails — tablet controls</title>
+  <style>
+    :root { font-family: var(--font-sans, system-ui, sans-serif); color: var(--foreground, #e9f2df); }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    .views { display: flex; gap: 8px; margin-bottom: 12px; }
+    button { font: inherit; border: 1px solid var(--border, #42545e); color: var(--foreground, #e9f2df); background: var(--secondary, #17333b); padding: 10px 18px; border-radius: var(--radius, 8px); cursor: pointer; }
+    button[aria-pressed="true"] { background: var(--primary, #ffda75); color: var(--primary-foreground, #0c1922); }
+    button:focus-visible { outline: 2px solid var(--ring, #ffda75); outline-offset: 3px; }
+    figure { margin: 0; }
+    img { display: block; width: 100%; height: auto; border: 1px solid var(--border, #42545e); border-radius: var(--radius, 8px); }
+    [hidden] { display: none; }
+    figcaption { color: var(--muted-foreground, #aebfc2); font-size: 13px; line-height: 1.5; margin-top: 10px; }
+    .notes { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-top: 16px; }
+    .notes p { margin: 0; padding: 16px; background: var(--card, #12242e); border-radius: var(--radius, 8px); font-size: 14px; line-height: 1.5; }
+    strong { display: block; margin-bottom: 4px; }
+    .detail { font-size: 12px; line-height: 1.5; color: var(--muted-foreground, #aebfc2); margin: 12px 0 0; }
+  </style>
+</head>
+<body>
+  <div class="views" role="group" aria-label="Tablet mockup views">
+    <button type="button" aria-pressed="true" data-view="gameplay">Gameplay</button>
+    <button type="button" aria-pressed="false" data-view="pause">Paused</button>
+  </div>
+  <figure id="gameplay">
+    <img src="tablet-gameplay.png" alt="Landscape tablet gameplay with large Left and Right buttons below the left edge of the camera, Jump below the right, and Pause in the middle. The entire game camera stays clear.">
+    <figcaption>Gameplay: hold movement with one finger and Jump with another. The complete camera stays above the controls.</figcaption>
+  </figure>
+  <figure id="pause" hidden>
+    <img src="tablet-pause.png" alt="Tablet pause screen with large Resume, Return to Trails and settings buttons. Gameplay controls are hidden and touch-specific instructions appear below the settings.">
+    <figcaption>Paused: gameplay controls disappear and held inputs clear. Resume and settings reuse the existing illustrated interface.</figcaption>
+  </figure>
+  <div class="notes">
+    <p><strong>Room for both hands</strong>80 px direction buttons and a 144 × 80 px Jump button, outside the playfield.</p>
+    <p><strong>Existing artwork</strong>The current button and selected-button assets provide normal and held states. No new generated art.</p>
+  </div>
+  <p class="detail">Running prototype captures from automated WebKit at a representative 1366 × 1024 CSS-pixel viewport. Target: 13-inch iPad Air in landscape. These previews scale to fit this conversation; physical iPad reach, comfort and performance remain untested.</p>
+  <script>
+    const buttons = document.querySelectorAll('[data-view]');
+    buttons.forEach(button => button.addEventListener('click', () => {
+      buttons.forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+      document.querySelectorAll('figure').forEach(figure => { figure.hidden = figure.id !== button.dataset.view; });
+    }));
+  </script>
+</body>
+</html>

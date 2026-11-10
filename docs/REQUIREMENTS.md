@@ -68,15 +68,19 @@ the level's own theme colors.
 
 ## Supported devices and input
 
-Desktop/laptop only for now, as agreed in
+Stable support remains desktop/laptop, as agreed in
 [the owner decision for #215](https://github.com/auleewilliams/TinyTurboTrails/issues/215#issuecomment-6402075594).
 Gameplay uses the existing keyboard or standard-controller move/jump bindings.
-Pointer input operates menus, Pause/settings and optional word-building; it does
-not provide movement or jumping. Pointer-operable menus do not establish
-phone/tablet gameplay support.
+Pointer input operates menus, Pause/settings and optional word-building.
+The experimental touch controls below add tablet movement and jumping; pointer
+menus alone do not establish phone/tablet gameplay support.
 
-Phone/tablet play, touch movement/jump controls and mobile-specific portrait
-redesign are out of scope for now. Narrow or tall desktop windows remain layout
+Issue #251 authorizes an experimental tablet touch prototype, initially targeting
+the 13-inch iPad Air in landscape with Safari as the proposed browser. Left/right
+and held-jump controls occupy a separate footer beneath the unchanged camera.
+This does not establish physical iPad acceptance or expand the stable supported
+device matrix. Phone support and mobile-specific portrait redesign remain deferred.
+Narrow or tall desktop windows remain layout
 checks, not phone/tablet acceptance. Keep the existing aspect-preserving camera,
 resizing and fullscreen behavior; this decision adds no minimum screen resolution
 or orientation lock. See [desktop check guidance](BROWSER-REPORTING.md#desktop-support-check-guidance)
@@ -109,7 +113,7 @@ the complete game, native menu targets and controls, with no document overflow.
 ## Out of scope
 
 No mining, building, crafting, loops, charged dashes, additional biome artwork
-beyond the shipped trail presentation, touch controls,
+beyond the shipped trail presentation, phone-specific touch support,
 public hosting or persistent progress. Public hosting means a public domain, TLS or exposure
 beyond the home LAN; running the built container on a home server for LAN-only
 access (issue #77) is self-hosting, not public hosting, and is in scope. Nothing

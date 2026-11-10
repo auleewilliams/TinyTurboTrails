@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#162d38" />
     <title>Tiny Turbo Trails</title>
   </head>
@@ -11,7 +11,17 @@
       <canvas id="game" width="426" height="240" tabindex="-1" aria-label="Tiny Turbo Trails game">This game requires a browser with Canvas 2D support.</canvas>
       <p id="status" role="status">Loading Tiny Turbo Trails…</p>
       <div class="feedback-controls">
+        <button id="touch-toggle" type="button" aria-label="Touch controls" aria-pressed="false" hidden>Touch: off</button>
         <button id="pause" type="button" aria-label="Pause"><span aria-hidden="true">Ⅱ</span> Pause</button>
+      </div>
+      <div id="touch-rail" hidden>
+        <div id="touch-controls" role="group" aria-label="Movement and jump" hidden>
+          <div class="touch-directions">
+            <button type="button" data-touch="left" aria-label="Move left"><span aria-hidden="true">◀</span></button>
+            <button type="button" data-touch="right" aria-label="Move right"><span aria-hidden="true">▶</span></button>
+          </div>
+          <button type="button" data-touch="jump" aria-label="Jump"><span aria-hidden="true">↑</span> Jump</button>
+        </div>
       </div>
       <button id="retry" type="button" hidden>Retry loading</button>
     </main>

@@ -1,4 +1,5 @@
 import type { AdventureScene } from './adventure-scene';
+import type { InputSource } from '../core/input';
 import type { MenuTarget } from './overworld';
 
 /** Native buttons mirror Canvas hit areas, providing tab/Enter and accessible names. */
@@ -40,7 +41,7 @@ export class MenuOverlay {
       if (this.suppressClick) { event.preventDefault(); event.stopPropagation(); this.suppressClick = false; }
     }, true);
   }
-  update(scene: AdventureScene | undefined, paused: boolean, pauseTargets: MenuTarget[] = []): void {
+  update(scene: AdventureScene | undefined, paused: boolean, pauseTargets: MenuTarget[] = [], source: InputSource = 'keyboard'): void {
     document.body.classList.toggle('map-visible', (scene?.screenState === 'title' || scene?.screenState === 'finish') && !paused);
     const activityOpen = Boolean(scene?.educationOverlay.open && !paused);
     // Leaving the activity removes its focused button: return focus to the results' default action.
@@ -57,8 +58,9 @@ export class MenuOverlay {
     this.element.setAttribute('aria-label', paused
       ? pauseTargets[0]?.label === 'Keep playing' ? 'Return to Trails confirmation' : 'Pause navigation'
       : activityOpen ? scene!.educationOverlay.title : 'Trail navigation');
-    if (pauseOpen) this.element.setAttribute('aria-description',
-      'Left/Right or A/D, controller stick or D-pad: choose. Space/Enter on a focused button or any standard face button: select. Escape/Start: resume or cancel. M: sound.');
+    if (pauseOpen) this.element.setAttribute('aria-description', source === 'touch'
+      ? 'Tap a button to choose. Resume continues the game. Sound toggles audio.'
+      : 'Left/Right or A/D, controller stick or D-pad: choose. Space/Enter on a focused button or any standard face button: select. Escape/Start: resume or cancel. M: sound.');
     else this.element.removeAttribute('aria-description');
     const signature = JSON.stringify([
       activityOpen ? scene?.educationOverlay.revision : undefined,

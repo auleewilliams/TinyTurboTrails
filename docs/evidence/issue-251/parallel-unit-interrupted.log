@@ -1,0 +1,12 @@
+
+> tiny-turbo-trails@0.1.0 test
+> vitest run --maxWorkers=2
+
+
+ RUN  v5.1.0 /home/leew/.t3/worktrees/TinyTurboTrails/t3-2d68845e
+
+ ❯ tests/finish-layout.test.ts (15 tests | 3 failed) 26765ms
+   ❯ finish screen composition (15)
+     × keeps Henry and the stars clear of the text with 42 gems 5119ms
+     × keeps Henry and the stars clear of the text with 999 gems 5289ms
+     × fits separate gem and star results on the result row for every star count 5855ms

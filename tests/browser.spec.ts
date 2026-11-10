@@ -57,6 +57,170 @@ const VIEWPORT_CASES = [
   { width: 426, height: 240 }, { width: 320, height: 240 }, { width: 390, height: 844 },
 ];
 
+test.describe('tablet touch prototype', () => {
+  test.use({ viewport: { width: 1366, height: 1024 } });
+
+  const position = async (page: Page): Promise<{ x: number; y: number }> => {
+    const status = await page.locator('#status').textContent();
+    const match = status?.match(/X (-?\d+) Y (-?\d+)/);
+    if (!match) throw new Error(`Missing debug position: ${status}`);
+    return { x: Number(match[1]), y: Number(match[2]) };
+  };
+  const hold = async (page: Page, name: string): Promise<void> => {
+    const bounds = await page.getByRole('button', { name, exact: true }).boundingBox();
+    if (!bounds) throw new Error(`Missing control: ${name}`);
+    await page.mouse.move(bounds.x + bounds.width / 2, bounds.y + bounds.height / 2);
+    await page.mouse.down();
+  };
+  const clearCamera = async (page: Page): Promise<void> => {
+    const layout = await page.evaluate(() => {
+      const game = document.querySelector('canvas')!.getBoundingClientRect();
+      const rail = document.querySelector('#touch-rail')!.getBoundingClientRect();
+      const targets = Array.from(document.querySelectorAll<HTMLButtonElement>('#touch-controls button, .feedback-controls button:not([hidden])'));
+      return { aspect: game.width / game.height, clear: game.bottom <= rail.top,
+        inside: game.left >= 0 && game.right <= innerWidth && game.top >= 0,
+        overflow: document.documentElement.scrollWidth > innerWidth || document.documentElement.scrollHeight > innerHeight,
+        targets: targets.filter(button => button.getClientRects().length > 0 && getComputedStyle(button).visibility !== 'hidden').map(button => {
+          const box = button.getBoundingClientRect();
+          return box.width >= 44 && box.height >= 44 && box.bottom <= innerHeight
+            && box.left >= 0 && box.right <= innerWidth
+            && document.elementFromPoint(box.x + box.width / 2, box.y + box.height / 2) === button;
+        }) };
+    });
+    expect(layout.aspect).toBeCloseTo(426 / 240, 3);
+    expect(layout.clear && layout.inside).toBe(true);
+    expect(layout.overflow).toBe(false);
+    expect(layout.targets.every(Boolean)).toBe(true);
+  };
+
+  test('tablet controls hold, cancel and clear across pause, focus, resize and mode changes', async ({ page }, info) => {
+    const errors: string[] = [];
+    page.on('pageerror', error => errors.push(error.message));
+    await openAdventure(page, '/?touch=1&debug=1');
+    await expect(page.locator('#touch-controls')).toBeHidden();
+    await page.getByRole('button', { name: 'Play PLAINS', exact: true }).click();
+    await expect(page.locator('#touch-controls')).toBeVisible();
+    await clearCamera(page);
+    const start = await position(page);
+    await hold(page, 'Move right');
+    await expect.poll(async () => (await position(page)).x).toBeGreaterThan(start.x + 5);
+    // Pointer capture retains the action when a thumb drifts off the control.
+    await page.mouse.move(500, 900);
+    await expect(page.locator('[data-touch="right"]')).toHaveAttribute('data-held', 'true');
+    await page.mouse.up();
+    await page.waitForTimeout(300);
+    const standing = await position(page);
+    await hold(page, 'Jump');
+    await expect.poll(async () => (await position(page)).y).toBeLessThan(standing.y - 5);
+    await expect(page.locator('[data-touch="jump"]')).toHaveAttribute('data-held', 'true');
+    await page.mouse.up();
+    await expect.poll(async () => (await position(page)).y).toBe(standing.y);
+
+    await page.locator('[data-touch="right"]').evaluate(button => {
+      button.addEventListener('pointerdown', event => {
+        (button as HTMLElement).dataset.testPointer = String((event as PointerEvent).pointerId);
+      }, { once: true });
+    });
+    await hold(page, 'Move right');
+    await page.locator('[data-touch="right"]').evaluate(button => button.dispatchEvent(new PointerEvent('pointercancel', {
+      pointerId: Number((button as HTMLElement).dataset.testPointer), bubbles: true,
+    })));
+    await expect(page.locator('[data-touch="right"]')).toHaveAttribute('data-held', 'false');
+    await page.mouse.up();
+    await page.waitForTimeout(300);
+    await info.attach('tablet-gameplay', { body: await page.screenshot({ path: info.outputPath('tablet-gameplay.png') }), contentType: 'image/png' });
+    await page.locator('#pause').click();
+    await expect(page.getByRole('button', { name: 'Resume', exact: true })).toBeVisible();
+    await expect(page.locator('#touch-controls')).toBeHidden();
+    await clearCamera(page);
+    await info.attach('tablet-pause', { body: await page.screenshot({ path: info.outputPath('tablet-pause.png') }), contentType: 'image/png' });
+    await page.getByRole('button', { name: 'Resume', exact: true }).click();
+    await expect(page.locator('#touch-controls')).toBeVisible();
+    const resumed = await position(page);
+    await page.waitForTimeout(150);
+    expect(await position(page)).toEqual(resumed);
+
+    await hold(page, 'Move right');
+    await page.evaluate(() => window.dispatchEvent(new Event('blur')));
+    await expect(page.locator('#touch-controls')).toBeHidden();
+    await page.mouse.up();
+    await page.evaluate(() => window.dispatchEvent(new Event('focus')));
+    await expect(page.locator('#touch-controls')).toBeVisible();
+    await expect(page.locator('[data-touch="right"]')).toHaveAttribute('data-held', 'false');
+
+    await hold(page, 'Move right');
+    await page.setViewportSize({ width: 1024, height: 1366 });
+    await expect(page.locator('[data-touch="right"]')).toHaveAttribute('data-held', 'false');
+    await page.mouse.up();
+    await clearCamera(page);
+    await page.getByRole('button', { name: 'Touch controls', exact: true }).click();
+    await expect(page.locator('#touch-rail')).toBeHidden();
+    await page.getByRole('button', { name: 'Touch controls', exact: true }).click();
+    await expect(page.locator('#touch-controls')).toBeVisible();
+    await page.getByRole('button', { name: 'Touch controls', exact: true }).focus();
+    await page.keyboard.press('Space');
+    await expect(page.locator('#touch-rail')).toBeHidden();
+    await page.keyboard.press('Enter');
+    await expect(page.locator('#touch-controls')).toBeVisible();
+    await hold(page, 'Move right');
+    await page.locator('#pause').evaluate(button => (button as HTMLButtonElement).click());
+    await expect(page.locator('#touch-controls')).toBeHidden();
+    await expect(page.locator('[data-touch="right"]')).toHaveAttribute('data-held', 'false');
+    await page.mouse.up();
+    await page.getByRole('button', { name: 'Resume', exact: true }).click();
+    await page.keyboard.down('ArrowLeft');
+    await expect(page.locator('#status')).toContainText('Escape to pause');
+    await page.keyboard.up('ArrowLeft');
+    expect(errors).toEqual([]);
+  });
+
+  test('touch-capable tablets enable the controls automatically and can tap menus', async ({ browser }, info) => {
+    const context = await browser.newContext({ viewport: { width: 1366, height: 1024 }, hasTouch: true });
+    const page = await context.newPage();
+    try {
+      await openAdventure(page, '/?debug=1');
+      await expect(page.locator('#touch-toggle')).toHaveAttribute('aria-pressed', 'true');
+      await page.getByRole('button', { name: 'Play PLAINS', exact: true }).tap();
+      await expect(page.locator('#touch-controls')).toBeVisible();
+      await clearCamera(page);
+      await page.locator('#pause').tap();
+      await expect(page.locator('#touch-controls')).toBeHidden();
+      await page.getByRole('button', { name: 'Sound', exact: true }).tap();
+      await page.getByRole('button', { name: 'Resume', exact: true }).tap();
+      await expect(page.locator('#touch-controls')).toBeVisible();
+      await info.attach('tablet-touch-capability', { body: JSON.stringify(await page.evaluate(() => ({ coarse: matchMedia('(any-pointer: coarse)').matches, touchPoints: navigator.maxTouchPoints }))), contentType: 'application/json' });
+    } finally { await context.close(); }
+  });
+
+  test('two native touch contacts can run and jump together', async ({ browser, browserName }) => {
+    test.skip(browserName !== 'chromium', 'Native multi-contact injection uses Chromium CDP; other engines cover pointer input and tap menus separately.');
+    const context = await browser.newContext({ viewport: { width: 1366, height: 1024 }, hasTouch: true });
+    const page = await context.newPage();
+    try {
+      await openAdventure(page, '/?debug=1');
+      await page.getByRole('button', { name: 'Play PLAINS', exact: true }).tap();
+      await expect(page.locator('#touch-controls')).toBeVisible();
+      const start = await position(page);
+      const right = (await page.locator('[data-touch="right"]').boundingBox())!;
+      const jump = (await page.locator('[data-touch="jump"]').boundingBox())!;
+      const session = await context.newCDPSession(page);
+      const a = { id: 1, x: right.x + right.width / 2, y: right.y + right.height / 2 };
+      const b = { id: 2, x: jump.x + jump.width / 2, y: jump.y + jump.height / 2 };
+      await session.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [a] });
+      await expect(page.locator('[data-touch="right"]')).toHaveAttribute('data-held', 'true');
+      await session.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [a, b] });
+      await expect(page.locator('[data-touch="jump"]')).toHaveAttribute('data-held', 'true');
+      await expect.poll(async () => (await position(page)).x).toBeGreaterThan(start.x + 5);
+      await expect.poll(async () => (await position(page)).y).toBeLessThan(start.y - 5);
+      await session.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [b] });
+      await expect(page.locator('[data-touch="jump"]')).toHaveAttribute('data-held', 'false');
+      await expect(page.locator('[data-touch="right"]')).toHaveAttribute('data-held', 'true');
+      await session.send('Input.dispatchTouchEvent', { type: 'touchCancel', touchPoints: [] });
+      await expect(page.locator('[data-touch="right"]')).toHaveAttribute('data-held', 'false');
+    } finally { await context.close(); }
+  });
+});
+
 async function expectClearViewport(page: Page): Promise<void> {
   const geometry = await page.evaluate(() => {
     const canvas = document.querySelector<HTMLCanvasElement>('#game')!;

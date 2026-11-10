@@ -1,0 +1,66 @@
+{
+  "scope": "Negative control: original detached base with unchanged tracked sources, same installed dependencies linked during the check, same WebKit project, single worker, original deadlines/assertions.",
+  "baseRevision": "e18c293c308b44d211d67a851e23c510fddc7f46",
+  "workingTreeCleanAfterRemovingDependencyLink": true,
+  "sameDependencyLockAsPrototype": true,
+  "dependencyLockSha256": "ddb78f17787e5fa1de2ab18d2e93ac76fde32e2eea3744089a41707bd6b43206",
+  "stats": {
+    "startTime": "2026-11-09T12:38:17.467Z",
+    "duration": 270672.81,
+    "expected": 0,
+    "skipped": 0,
+    "unexpected": 2,
+    "flaky": 0
+  },
+  "cases": [
+    {
+      "title": "Cove B Hollow/Pools ordinary input rests at 426px",
+      "project": "webkit",
+      "status": "unexpected",
+      "results": [
+        {
+          "status": "timedOut",
+          "duration": 123039,
+          "errors": [
+            {
+              "message": "\u001b[31mTest timeout of 120000ms exceeded.\u001b[39m"
+            },
+            {
+              "location": {
+                "file": "/tmp/tiny-turbo-touch-baseline-JSlsNG/tests/timbers-browser-pilot.ts",
+                "column": 14,
+                "line": 93
+              },
+              "message": "Error: page.waitForFunction: Test timeout of 120000ms exceeded.\n\n   at timbers-browser-pilot.ts:93\n\n  91 |       frames: 0, stable: 0, previousY: NaN, phase: 0, error: '', done: false, seenPlaying: false, observedX: NaN, observedY: NaN, history: [] });\n  92 |   }, stages);\n> 93 |   await page.waitForFunction(() => {\n     |              ^\n  94 |     const pilot = (window as unknown as { timberKeyboardPilot: { done: boolean; error: string } }).timberKeyboardPilot;\n  95 |     return pilot.done || Boolean(pilot.error);\n  96 |   }, undefined, { timeout });\n    at runTimberStages (/tmp/tiny-turbo-touch-baseline-JSlsNG/tests/timbers-browser-pilot.ts:93:14)\n    at driveCove (/tmp/tiny-turbo-touch-baseline-JSlsNG/tests/cove-browser-pilot.ts:20:16)\n    at /tmp/tiny-turbo-touch-baseline-JSlsNG/tests/cove-rollout.spec.ts:41:5"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Cove B Hollow/Pools ordinary input rests at 320px",
+      "project": "webkit",
+      "status": "unexpected",
+      "results": [
+        {
+          "status": "timedOut",
+          "duration": 122689,
+          "errors": [
+            {
+              "message": "\u001b[31mTest timeout of 120000ms exceeded.\u001b[39m"
+            },
+            {
+              "location": {
+                "file": "/tmp/tiny-turbo-touch-baseline-JSlsNG/tests/timbers-browser-pilot.ts",
+                "column": 14,
+                "line": 93
+              },
+              "message": "Error: page.waitForFunction: Test timeout of 120000ms exceeded.\n\n   at timbers-browser-pilot.ts:93\n\n  91 |       frames: 0, stable: 0, previousY: NaN, phase: 0, error: '', done: false, seenPlaying: false, observedX: NaN, observedY: NaN, history: [] });\n  92 |   }, stages);\n> 93 |   await page.waitForFunction(() => {\n     |              ^\n  94 |     const pilot = (window as unknown as { timberKeyboardPilot: { done: boolean; error: string } }).timberKeyboardPilot;\n  95 |     return pilot.done || Boolean(pilot.error);\n  96 |   }, undefined, { timeout });\n    at runTimberStages (/tmp/tiny-turbo-touch-baseline-JSlsNG/tests/timbers-browser-pilot.ts:93:14)\n    at driveCove (/tmp/tiny-turbo-touch-baseline-JSlsNG/tests/cove-browser-pilot.ts:20:16)\n    at /tmp/tiny-turbo-touch-baseline-JSlsNG/tests/cove-rollout.spec.ts:41:5"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "originalEvidenceDirectory": "/tmp/ttt-touch-baseline-browser-evidence"
+}
