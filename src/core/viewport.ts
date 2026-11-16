@@ -5,10 +5,10 @@ export interface ViewportSize { width: number; height: number }
 export interface GameViewport extends ViewportSize { left: number; top: number }
 export interface ViewportInsets { left: number; right: number; top: number; bottom: number }
 
-/** The tablet controls occupy a separate footer; the complete camera stays above it. */
-export function fitTouchViewport(width: number, height: number, railHeight: number, insets: ViewportInsets): GameViewport {
+/** Touch controls overlay the largest uniformly fitted camera inside the safe area. */
+export function fitTouchViewport(width: number, height: number, insets: ViewportInsets): GameViewport {
   const availableWidth = Math.max(0, width - insets.left - insets.right);
-  const availableHeight = Math.max(0, height - insets.top - insets.bottom - railHeight);
+  const availableHeight = Math.max(0, height - insets.top - insets.bottom);
   const size = fitViewport(availableWidth, availableHeight);
   return { ...size, left: insets.left + (availableWidth - size.width) / 2,
     top: insets.top + (availableHeight - size.height) / 2 };

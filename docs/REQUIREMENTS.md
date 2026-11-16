@@ -77,7 +77,16 @@ menus alone do not establish phone/tablet gameplay support.
 
 Issue #251 authorizes an experimental tablet touch prototype, initially targeting
 the 13-inch iPad Air in landscape with Safari as the proposed browser. Left/right
-and held-jump controls occupy a separate footer beneath the unchanged camera.
+and held-jump controls overlay the bottom-left and bottom-right of the unchanged
+camera, using the existing illustrated buttons with translucent backgrounds and
+opaque icons. Touch mode reserves no footer: fit the full camera uniformly inside
+the device safe area and anchor controls to that rectangle on every resize.
+Leave the bottom-centre unobstructed—no full-width control panel or utility
+buttons. Pause and Touch use the existing lower-right letterbox when it fits;
+otherwise they dock at upper-right, below the HUD in play and in the top strip
+for menus/activities. No camera area is reserved for utilities.
+Corner and thumb occlusion is deliberate; low landings and recovery visibility,
+especially on vertical trails, require native observation.
 This does not establish physical iPad acceptance or expand the stable supported
 device matrix. Phone support and mobile-specific portrait redesign remain deferred.
 Narrow or tall desktop windows remain layout
@@ -93,7 +102,7 @@ immediately preceding major version of each. Bundled Playwright engines are auto
 
 ## Viewport presentation
 
-Fit the existing 426×240 camera with the largest uniform scale that leaves the
+For desktop mode, fit the existing 426×240 camera with the largest uniform scale that leaves the
 visible Pause button clear of the entire canvas. Sound and rumble move into the
 shared pause surface, with independent On/Off text and accessible toggle state. Fractional
 scaling is approved: pixel widths can vary at non-integer scales, but artwork

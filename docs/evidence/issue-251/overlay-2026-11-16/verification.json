@@ -1,0 +1,131 @@
+{
+  "purpose": "Bounded owner-test overlay preview evidence, not full-suite or physical-device certification",
+  "baseline": "ee0708f3fe4cad519b4143b7ef8379ccb9b35516",
+  "testedCommit": null,
+  "sourceProvenance": "Native cohort ran on the uncommitted corrected checkpoint before preview commit; the finalization below changes only provenance text, not runtime, tests, assets, configuration or the served build.",
+  "testedChangedPathSHA256": {
+    "README.md": "1c3c763ff6e8f93b8268fbd110f3b9ac9519d140689e935f2783d4ca5e42058a",
+    "assets/source/touch-controls/README.md": "71c461888c8aea2f4a538b9af143150251fdf0d3d41ce91e3e7545ce3c258a94",
+    "docs/REQUIREMENTS.md": "792978f1624500911aa2223e420ca0273dc4a5787637e41d157d4eef91f5b2cb",
+    "scripts/touch-presentation.mjs": "f09a8bf493c6eded48d204ae81c881c419dbc87daea6ad9687f6554cde8ec62e",
+    "scripts/touch-presentation.test.mjs": "652afa4e14c67ace41de9f2b3efb8fe24f93b6190e38103b3d7ea68674ab70cc",
+    "src/core/viewport.ts": "da5d88fc9852ca818ec9c519a9a97cc7ae6af549bba737566cea107a44fe29e7",
+    "src/main.ts": "072d82f693dc228540fef564fdcedd14a2170d4036a7aac35d66f6b937609020",
+    "src/style.css": "5e35ac84190745a2b4e0053e1a31800890332a0360ac878c0eeafa4b3fcbd427",
+    "tests/browser.spec.ts": "c874dc62242165aef45625b4e8885edabf24922f60778b02cff9e5def0fe919d",
+    "tests/touch-controls.test.ts": "27fc4e11f66ef6593b088be993a88b3fbdaae03540f8f437268646b9aac62600",
+    "tests/viewport.test.ts": "500e19525ff74249df0eee5f7372adb3d16f74cab6836706318fb4ec93c6c7f6",
+    "assets/source/touch-controls/overlay-presentation.json": "5b225d6ab3d9364ffff9b14e4e67c84c15769816ecc839f87529c169162b07ea"
+  },
+  "documentationOnlySuccessor": {
+    "changedPaths": [
+      "assets/source/touch-controls/README.md"
+    ],
+    "pinnedPaths": 4958,
+    "allOtherSourceAndAssetsUnchanged": true,
+    "nativeServedBuildUnchanged": true,
+    "beforeDocSHA256": "71c461888c8aea2f4a538b9af143150251fdf0d3d41ce91e3e7545ce3c258a94",
+    "afterDocSHA256": "450b40327be2ee64bb1f4053951379792cd4f88c9c3c5ffe6b69dfd34f4e5e54"
+  },
+  "nativeCases": [
+    {
+      "project": "webkit",
+      "title": "bottom-corner overlay stays on the full vertical-trail camera at 1024x600",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "retry": 0
+        }
+      ]
+    },
+    {
+      "project": "webkit",
+      "title": "bottom-corner overlay stays on the full vertical-trail camera at 1366x1024",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "retry": 0
+        }
+      ]
+    },
+    {
+      "project": "chromium",
+      "title": "tablet controls hold, cancel and clear across pause, focus, resize and mode changes",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "retry": 0
+        }
+      ]
+    },
+    {
+      "project": "chromium",
+      "title": "touch-capable tablets enable the controls automatically and can tap menus",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "retry": 0
+        }
+      ]
+    },
+    {
+      "project": "chromium",
+      "title": "two native touch contacts can run and jump together",
+      "status": "expected",
+      "results": [
+        {
+          "status": "passed",
+          "retry": 0
+        }
+      ]
+    }
+  ],
+  "runtime": {
+    "node": "26.7.0",
+    "zlib": "1.3.2.1-motley-42c2f19",
+    "browserEngines": [
+      "WebKit",
+      "Chromium"
+    ]
+  },
+  "independentChecks": {
+    "unitAssertions": 68,
+    "scriptAssertions": 21,
+    "scriptFiles": 7,
+    "typecheck": "passed",
+    "build": "passed",
+    "codeReview": "corrected code passed fresh opposite-family review; final provenance text/evidence reviewed separately"
+  },
+  "captures": [
+    {
+      "path": "docs/evidence/issue-251/overlay-2026-11-16/timbers-compact.png",
+      "originalNativeAttachmentSHA256": "4ba1bccddee49e5401ec3ff054079279a2d93ab05b34123d35d4c158c8ec375a",
+      "bytes": 260927,
+      "purpose": "WebKit1024x600 dock, low landing"
+    },
+    {
+      "path": "docs/evidence/issue-251/overlay-2026-11-16/timbers-tablet.png",
+      "originalNativeAttachmentSHA256": "201c0e7939cae55578f663c01fb8f8bdaba9bf499f151d566b82ba1a6aa60d1c",
+      "bytes": 277442,
+      "purpose": "WebKit1366x1024 natural letterbox, low landing"
+    },
+    {
+      "path": "docs/evidence/issue-251/overlay-2026-11-16/pause-tablet.png",
+      "originalNativeAttachmentSHA256": "67f4e5db6bcab5311dc9b461e5004febe1f62fef7b14b0037c405a610a9af784",
+      "bytes": 102077,
+      "purpose": "Chromium1366x1024 Paused, gameplay controls hidden"
+    }
+  ],
+  "limits": [
+    "Physical13-inch iPad Air/Safari, actual iPadOS/browser versions, real thumbs, audio/interruptions/performance remain unverified.",
+    "Intentional corner and thumb obstruction; compact Pause dock partly covers a checkpoint/gem edge, without obscuring Henry or the observed low support tops.",
+    "Ordinary return/re-entry from roots is not a checkpoint/pit recovery event.",
+    "Five held local tests and a wider cross-engine/full browser matrix were not executed; no waiver or full-suite pass claimed.",
+    "No merge, release or live deployment authorized.",
+    "Historical footer captures and failed authentication/CODE BLOCKED evidence retain original outcomes."
+  ]
+}

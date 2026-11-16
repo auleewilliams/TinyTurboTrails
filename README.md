@@ -49,8 +49,13 @@ windows and fullscreen preserve the 426×240 camera's proportions. See the
 The adventure automatically shows touch controls on touch-capable devices. Open
 `/?touch=1` to try them with a mouse on desktop, or `/?touch=0` to start with them
 off. The **Touch: on/off** button changes the session's choice. Hold **◀ / ▶** to
-move and **Jump** to jump higher; movement and jump work together. Controls sit
-below the full game camera and disappear in menus, activities and Pause. Pause,
+move and **Jump** to jump higher; movement and jump work together. Translucent illustrated controls sit
+inside the camera’s bottom corners: movement at left and Jump at right. The full
+camera uses its largest uniform safe-area fit; no footer is reserved. Controls
+deliberately cover small corner areas, and thumbs can obscure landings. They
+disappear in menus, activities and Pause. The bottom-centre stays unobstructed,
+including by Pause and Touch. Utilities use the existing lower-right letterbox when it fits; otherwise they dock at
+upper-right, below the HUD during play and in the top strip for menus/activities. Pause,
 focus loss and resizing release held touch controls. No choice is persisted.
 See [tablet mockups and verification](docs/evidence/issue-251/README.md).
 

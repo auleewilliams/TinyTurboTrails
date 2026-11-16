@@ -113,9 +113,10 @@ if (!context) {
   const resize = (): void => {
     // Rotation and viewport changes release gestures before the controls move.
     touch.update(false);
+    pendingJump = false;
     const padding = getComputedStyle(main);
     const size = touchMode
-      ? fitTouchViewport(main.clientWidth, main.clientHeight, touchRail.getBoundingClientRect().height, {
+      ? fitTouchViewport(main.clientWidth, main.clientHeight, {
         left: parseFloat(padding.paddingLeft), right: parseFloat(padding.paddingRight),
         top: parseFloat(padding.paddingTop), bottom: parseFloat(padding.paddingBottom),
       })
@@ -124,6 +125,14 @@ if (!context) {
     canvas.style.height = `${size.height}px`;
     canvas.style.left = `${size.left}px`;
     canvas.style.top = `${size.top}px`;
+    // Both overlay and utility controls follow the actual fitted camera, including letterboxing.
+    main.style.setProperty('--camera-left', `${size.left}px`);
+    main.style.setProperty('--camera-top', `${size.top}px`);
+    main.style.setProperty('--camera-width', `${size.width}px`);
+    main.style.setProperty('--camera-height', `${size.height}px`);
+    feedbackControls.classList.toggle('touch-letterbox', touchMode
+      && main.clientHeight - parseFloat(padding.paddingBottom) - size.top - size.height
+        >= feedbackControls.getBoundingClientRect().height + 16);
   };
   const applyTouchMode = (): void => {
     touchMode = adventure && (touchPreference ?? touchMedia.matches);
@@ -241,7 +250,7 @@ if (!context) {
   const layoutObserver = new ResizeObserver(resize);
   layoutObserver.observe(main);
   layoutObserver.observe(feedbackControls);
-  layoutObserver.observe(touchRail);
+  // The rail follows the camera; observing it would feed layout changes back into input clearing.
   touchToggle.addEventListener('click', toggleTouch);
   touchToggle.addEventListener('keydown', touchToggleKeyDown);
   touchMedia.addEventListener('change', applyTouchMode);
