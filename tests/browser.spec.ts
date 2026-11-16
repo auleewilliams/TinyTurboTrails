@@ -24,7 +24,7 @@ import { installQuarryPilotScript, type QuarryLandingTarget, type QuarryLandingS
 import { QUARRY_DESCENT, QUARRY_RETURN, QUARRY_STARS, type QuarryWaypoint } from './quarry-route';
 import { installPlainsRewardPilot } from './plains-pilot';
 import { bay1KeyboardPilotInit } from './cove-bay1-input';
-import { installTimberKeyboardPilot, runTimberStages, TIMBER_ONLY_E2_ASCENT, TIMBER_ASCENT_RIGHT } from './timbers-browser-pilot';
+import { installTimberKeyboardPilot, runTimberStages, TIMBER_ONLY_E2_ASCENT, TIMBER_ASCENT_RIGHT, TIMBER_DESCENT_ALL, TIMBER_REASCENT } from './timbers-browser-pilot';
 import { drawTerrainMaterial, drawTerrainEdge, drawTrailBackdrop } from '../src/world/trail-presentation';
 import { installRetracePilotScript } from './retrace-pilot';
 import { observedDamage, sustainedControllerMovement, type ActuatorCall, type HealthObservation } from './rumble-observation';
@@ -76,22 +76,113 @@ test.describe('tablet touch prototype', () => {
     const layout = await page.evaluate(() => {
       const game = document.querySelector('canvas')!.getBoundingClientRect();
       const rail = document.querySelector('#touch-rail')!.getBoundingClientRect();
-      const targets = Array.from(document.querySelectorAll<HTMLButtonElement>('#touch-controls button, .feedback-controls button:not([hidden])'));
-      return { aspect: game.width / game.height, clear: game.bottom <= rail.top,
-        inside: game.left >= 0 && game.right <= innerWidth && game.top >= 0,
+      const main = document.querySelector('main')!;
+      const padding = getComputedStyle(main);
+      const availableWidth = main.clientWidth - parseFloat(padding.paddingLeft) - parseFloat(padding.paddingRight);
+      const availableHeight = main.clientHeight - parseFloat(padding.paddingTop) - parseFloat(padding.paddingBottom);
+      const scale = Math.min(availableWidth / 426, availableHeight / 240);
+      const targets = Array.from(document.querySelectorAll<HTMLButtonElement>('#touch-controls button, .feedback-controls button:not([hidden])'))
+        .filter(button => button.getClientRects().length > 0 && getComputedStyle(button).visibility !== 'hidden');
+      const boxes = targets.map(button => button.getBoundingClientRect());
+      const separate = (a: DOMRect, b: DOMRect) => a.right <= b.left || b.right <= a.left || a.bottom <= b.top || b.bottom <= a.top;
+      const left = document.querySelector('[data-touch="left"]')!.getBoundingClientRect();
+      const right = document.querySelector('[data-touch="right"]')!.getBoundingClientRect();
+      const jump = document.querySelector('[data-touch="jump"]')!.getBoundingClientRect();
+      const controlPadding = getComputedStyle(document.querySelector('#touch-controls')!);
+      const utilities = targets.filter(button => !button.hasAttribute('data-touch')).map(button => button.getBoundingClientRect());
+      const menuButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('.trail-menu button'))
+        .filter(button => button.getClientRects().length > 0 && getComputedStyle(button).visibility !== 'hidden');
+      const bottomCentre = new DOMRect(game.left + game.width / 3, game.top + game.height * 2 / 3, game.width / 3, game.height / 3);
+      const hudBand = new DOMRect(game.left, game.top, game.width, game.height * 59 / 240);
+      const nearBottom = (box: DOMRect) => Math.abs(game.bottom - box.bottom - parseFloat(controlPadding.paddingBottom)) < .1;
+      const playing = document.querySelector('#touch-controls')!.getClientRects().length > 0;
+      const paint = targets.filter(button => button.hasAttribute('data-touch')).map(button => {
+        const background = getComputedStyle(button, '::before');
+        const ancestors: Element[] = [];
+        for (let element: Element | null = button; element; element = element.parentElement) ancestors.push(element);
+        return {
+          held: button.dataset.held === 'true', backgroundOpacity: Number(background.opacity),
+          buttonBackground: getComputedStyle(button).backgroundColor,
+          image: background.borderImageSource, outline: parseFloat(getComputedStyle(button).outlineWidth),
+          glyphsOpaque: [...ancestors, ...button.querySelectorAll('span')].every(element => Number(getComputedStyle(element).opacity) === 1),
+        };
+      });
+      return { aspect: game.width / game.height, maximumWidth: scale * 426, width: game.width,
+        anchored: Math.abs(rail.left - game.left) < .1 && Math.abs(rail.top - game.top) < .1
+          && Math.abs(rail.width - game.width) < .1 && Math.abs(rail.height - game.height) < .1,
+        playing, paint,
+        utilitiesAvailable: targets.some(button => button.id === 'touch-toggle')
+          && (!playing || targets.some(button => button.id === 'pause')),
+        utilitiesClear: utilities.every(box => separate(box, bottomCentre) && (!playing || separate(box, hudBand))),
+        corners: !playing || (Math.abs(left.left - game.left - parseFloat(controlPadding.paddingLeft)) < .1
+          && left.right <= right.left && right.right < game.left + game.width / 2
+          && jump.left > game.left + game.width / 2
+          && Math.abs(game.right - jump.right - parseFloat(controlPadding.paddingRight)) < .1
+          && [left, right, jump].every(box => nearBottom(box) && box.width >= (innerWidth > 767 ? 80 : 56) && box.height >= (innerWidth > 767 ? 80 : 64))),
+        inside: game.left >= 0 && game.right <= innerWidth + .1 && game.top >= 0 && game.bottom <= innerHeight + .1,
         overflow: document.documentElement.scrollWidth > innerWidth || document.documentElement.scrollHeight > innerHeight,
-        targets: targets.filter(button => button.getClientRects().length > 0 && getComputedStyle(button).visibility !== 'hidden').map(button => {
-          const box = button.getBoundingClientRect();
+        targets: targets.map((button, index) => {
+          const box = boxes[index];
           return box.width >= 44 && box.height >= 44 && box.bottom <= innerHeight
             && box.left >= 0 && box.right <= innerWidth
+            && boxes.every((other, otherIndex) => index === otherIndex || separate(box, other))
+            && document.elementFromPoint(box.x + box.width / 2, box.y + box.height / 2) === button;
+        }),
+        menus: menuButtons.every(button => {
+          const box = button.getBoundingClientRect();
+          return boxes.every(control => separate(control, box))
             && document.elementFromPoint(box.x + box.width / 2, box.y + box.height / 2) === button;
         }) };
     });
     expect(layout.aspect).toBeCloseTo(426 / 240, 3);
-    expect(layout.clear && layout.inside).toBe(true);
+    expect(layout.width).toBeCloseTo(layout.maximumWidth, 1);
+    expect(layout.anchored && layout.corners && layout.inside && layout.menus && layout.utilitiesClear && layout.utilitiesAvailable).toBe(true);
+    if (layout.playing) expect(layout.paint).toHaveLength(3);
+    for (const paint of layout.paint) {
+      expect(paint.glyphsOpaque).toBe(true);
+      expect(paint.buttonBackground).toBe('rgba(0, 0, 0, 0)');
+      expect(paint.backgroundOpacity).toBeCloseTo(paint.held ? .9 : .58, 2);
+      expect(paint.image).toContain(paint.held ? 'button-selected.png' : 'button.png');
+      if (paint.held) expect(paint.outline).toBeGreaterThanOrEqual(3);
+    }
     expect(layout.overflow).toBe(false);
     expect(layout.targets.every(Boolean)).toBe(true);
   };
+
+  for (const viewport of [{ width: 1366, height: 1024 }, { width: 1024, height: 600 }]) {
+    test(`bottom-corner overlay stays on the full vertical-trail camera at ${viewport.width}x${viewport.height}`, async ({ page }, info) => {
+      test.setTimeout(90_000);
+      await installTimberKeyboardPilot(page);
+      await page.setViewportSize(viewport);
+      await openAdventure(page, '/?touch=1&debug=1');
+      await clearCamera(page);
+      await page.getByRole('button', { name: 'Open stickers', exact: true }).click();
+      await expect(page.locator('.trail-menu')).toHaveAttribute('role', 'dialog');
+      await clearCamera(page);
+      await page.getByRole('button', { name: 'Return to map', exact: true }).click();
+      await clearCamera(page);
+      await page.getByRole('button', { name: 'TREETOP TIMBERS', exact: true }).click();
+      await page.getByRole('button', { name: 'Play TREETOP TIMBERS', exact: true }).click();
+      await expect(page.locator('#touch-controls')).toBeVisible();
+      await clearCamera(page);
+      await info.attach('vertical-trail-overlay-start', { body: await page.screenshot(), contentType: 'image/png' });
+      expect(await runTimberStages(page, TIMBER_ASCENT_RIGHT.slice(0, 5))).toMatchObject({ done: true, error: '' });
+      await clearCamera(page);
+      await info.attach('low-landing-y900-overlay', { body: await page.screenshot(), contentType: 'image/png' });
+      expect(await runTimberStages(page, TIMBER_DESCENT_ALL.slice(18))).toMatchObject({ done: true, error: '' });
+      await clearCamera(page);
+      await info.attach('return-to-roots-overlay', { body: await page.screenshot(), contentType: 'image/png' });
+      expect(await runTimberStages(page, TIMBER_REASCENT.slice(0, 5))).toMatchObject({ done: true, error: '' });
+      await clearCamera(page);
+      await info.attach('re-entry-from-roots-overlay', { body: await page.screenshot(), contentType: 'image/png' });
+      await page.locator('#pause').click();
+      await clearCamera(page);
+      await expect(page.locator('#touch-controls')).toBeHidden();
+      await page.getByRole('button', { name: 'Return to Trails', exact: true }).click();
+      await expect(page.getByRole('button', { name: 'Keep playing', exact: true })).toBeVisible();
+      await clearCamera(page);
+    });
+  }
 
   test('tablet controls hold, cancel and clear across pause, focus, resize and mode changes', async ({ page }, info) => {
     const errors: string[] = [];
@@ -107,12 +198,14 @@ test.describe('tablet touch prototype', () => {
     // Pointer capture retains the action when a thumb drifts off the control.
     await page.mouse.move(500, 900);
     await expect(page.locator('[data-touch="right"]')).toHaveAttribute('data-held', 'true');
+    await clearCamera(page);
     await page.mouse.up();
     await page.waitForTimeout(300);
     const standing = await position(page);
     await hold(page, 'Jump');
     await expect.poll(async () => (await position(page)).y).toBeLessThan(standing.y - 5);
     await expect(page.locator('[data-touch="jump"]')).toHaveAttribute('data-held', 'true');
+    await clearCamera(page);
     await page.mouse.up();
     await expect.poll(async () => (await position(page)).y).toBe(standing.y);
 
