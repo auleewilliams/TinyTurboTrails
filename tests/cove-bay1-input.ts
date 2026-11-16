@@ -50,7 +50,11 @@ export function bay1KeyboardPilotInit(stages: TimberPilotStage[]): void {
           else if(pilot.frames>200) pilot.error=`travel ${pilot.stage} stalled ${status}`;
         } else if (stage.kind === 'walk') {
           const projected = x + Math.sign(vx) * vx ** 2 / 2400;
-          const direction = projected < stage.x! - 3 ? 1 : projected > stage.x! + 3 ? -1 : 0;
+          const approach = projected < stage.x! - 3 ? 1 : projected > stage.x! + 3 ? -1 : 0;
+          // Neutral uses the braking assumed by projected; reversing at speed
+          // uses weaker acceleration and can oscillate off a support. Once slow
+          // enough to settle, allow reversal so slope drift cannot prevent it.
+          const direction = approach * vx < 0 && Math.abs(vx) >= 20 ? 0 : approach;
           send('ArrowRight', direction > 0); send('ArrowLeft', direction < 0); send('Space', false);
           pilot.frames++;
           if (Math.abs(x - stage.x!) < 4 && Math.abs(vx) < 20) next(status);
