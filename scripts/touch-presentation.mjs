@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
+import { beforeLetterFade } from './letter-fade-preservation.mjs';
 
 const hash = bytes => createHash('sha256').update(bytes).digest('hex');
 const recordBytes = readFileSync(new URL('../assets/source/touch-controls/presentation.json', import.meta.url));
@@ -28,7 +29,7 @@ export function beforeTouchOverlay(path, bytes) {
 
 /** Only exact new feature bytes project; corrupt/old input reaches the original oracle unchanged. */
 export function beforeTouchPresentation(path, bytes) {
-  bytes = beforeTouchOverlay(path, bytes);
+  bytes = beforeTouchOverlay(path, beforeLetterFade(path, bytes));
   const entry = record.files[path];
   if (!entry || hash(bytes) !== entry.currentSha256) return bytes;
   let source = bytes.toString();
