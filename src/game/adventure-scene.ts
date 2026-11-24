@@ -298,9 +298,10 @@ export class AdventureScene implements Scene {
     drawCollectionBag(ctx, this.education, this.spelling?.pouch, this.ui);
     for (const flight of this.letterFlights) {
       const t = flight.age / 0.65;
-      const x = this.reducedMotion ? BAG_PICKUP.x : flight.x + (BAG_PICKUP.x - flight.x) * t;
-      const y = this.reducedMotion ? BAG_PICKUP.reducedY : flight.y + (BAG_PICKUP.y - flight.y) * t - Math.sin(t * Math.PI) * 25;
-      ctx.globalAlpha = 1 - t * 0.5;
+      // Reduced motion fades the tile where it was caught; parking it on the pouch hid it in the pouch art.
+      const x = this.reducedMotion ? flight.x : flight.x + (BAG_PICKUP.x - flight.x) * t;
+      const y = this.reducedMotion ? flight.y : flight.y + (BAG_PICKUP.y - flight.y) * t - Math.sin(t * Math.PI) * 25;
+      ctx.globalAlpha = this.reducedMotion ? 1 - t : 1 - t * 0.5;
       drawLetterTile(ctx, this.spelling?.tile, flight.letter, x - 11, y - 18, 22, 24);
     }
     ctx.restore();

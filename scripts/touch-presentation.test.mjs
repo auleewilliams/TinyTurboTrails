@@ -4,6 +4,7 @@ import { createHash } from 'node:crypto';
 import { test } from 'node:test';
 import { beforeTouchOverlay, beforeTouchPresentation } from './touch-presentation.mjs';
 import { beforeOwnerHud } from './hud-owner-preservation.mjs';
+import { beforeLetterFade } from './letter-fade-preservation.mjs';
 
 test('touch instructions reverse exactly without accepting unrelated HUD or gameplay edits', () => {
   const hash = bytes => createHash('sha256').update(bytes).digest('hex');
@@ -32,7 +33,8 @@ test('overlay projects only exact complete files before the original tablet guar
   assert.equal(overlay.baselineRevision, 'ee0708f3fe4cad519b4143b7ef8379ccb9b35516');
   assert.deepEqual(Object.keys(overlay.files).sort(), ['src/core/viewport.ts', 'src/main.ts', 'src/style.css', 'tests/browser.spec.ts']);
   for (const [path, entry] of Object.entries(overlay.files)) {
-    const bytes = readFileSync(new URL('../' + path, import.meta.url));
+    // Later sealed layers project first; this guard checks the shipped overlay bytes.
+    const bytes = beforeLetterFade(path, readFileSync(new URL('../' + path, import.meta.url)));
     const prior = beforeTouchOverlay(path, bytes);
     assert.equal(hash(prior), entry.baselineSha256);
     assert.equal(beforeTouchOverlay(path, prior), prior);

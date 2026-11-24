@@ -41,17 +41,13 @@ for (const reduced of [false,true]) it(`real pickup renderer follows the moved b
   const call=calls[0];
   const midCtx={save(){},restore(){},fillRect(){},fillText(){},globalAlpha:1};
   draw.call({hasWordActivity:true,education:collection,spelling:{},ui:undefined,reducedMotion:reduced,letterFlights:[{age:.325,x:100,y:100,letter:'A'}]},midCtx);
-  const mid=calls[1];expect(midCtx.globalAlpha).toBe(.75);
-  expect(Number(mid[3])).toBeCloseTo((reduced?342:221)-11,12);
-  expect(Number(mid[4])).toBeCloseTo((reduced?25:(100+18)/2-25)-18,12);
+  const mid=calls[1];expect(midCtx.globalAlpha).toBe(reduced?.5:.75);
+  expect(Number(mid[3])).toBeCloseTo((reduced?100:221)-11,12);
+  expect(Number(mid[4])).toBeCloseTo((reduced?100:(100+18)/2-25)-18,12);
   expect(mid.slice(5)).toEqual([22,24]);
-  if(reduced) {
-    const top=Number(call[4]),bottom=top+Number(call[6]);
-    expect(top).toBeGreaterThanOrEqual(7); expect(bottom).toBeLessThanOrEqual(31);
-    expect(bottom+6).toBeLessThanOrEqual(37); // tile ends before relocated notice, even with extra6px clearance
-  }
-  expect([call[3],call[5],call[6]]).toEqual([342-11,22,24]);
-  expect(Number(call[4])).toBeCloseTo((reduced?25:18)-18,12);
+  // Reduced motion: no travel, the caught tile fades where it was rather than hiding on the pouch art.
+  expect([call[3],call[5],call[6]]).toEqual([(reduced?100:342)-11,22,24]);
+  expect(Number(call[4])).toBeCloseTo((reduced?100:18)-18,12);
 });
 
 it('retains the real top ribbon, activated checkpoints and finish flag', () => {

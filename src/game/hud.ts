@@ -16,8 +16,8 @@ export const HUD_PLAQUES = {
 } as const;
 // The 24px pouch needs 28px of backing to keep its opaque pixels inside the kit rim.
 export const BAG_PLAQUE = { x: 325, y: 5, width: 96, height: 28 } as const;
-/** Letter baseline targets; reduced motion keeps the whole24px tile over the pouch. */
-export const BAG_PICKUP = { x: BAG_PLAQUE.x + 17, y: BAG_PLAQUE.y + 13, reducedY: BAG_PLAQUE.y + 20 } as const;
+/** Letter flight baseline target over the pouch. */
+export const BAG_PICKUP = { x: BAG_PLAQUE.x + 17, y: BAG_PLAQUE.y + 13 } as const;
 export const HUD_NOTICE_Y = BAG_PLAQUE.y + BAG_PLAQUE.height + 4;
 function plaque(ctx: CanvasRenderingContext2D, ui: InterfaceKit | undefined, { x, y, width, height }: { x: number; y: number; width: number; height: number }): void {
   drawKitFrame(ctx, ui, 'plaque', x, y, width, height, { fill: HUD_COLORS.panel }, PLAQUE_TEXT_SLICE);

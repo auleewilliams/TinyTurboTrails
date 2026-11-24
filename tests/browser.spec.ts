@@ -4642,17 +4642,24 @@ async function observeSpellingArtwork(page: Page): Promise<void> {
   });
 }
 
-test('builder-kit reduced-motion pickup stays beside its pouch at native and small viewports', async ({ page }, info) => {
+test('builder-kit reduced-motion pickup fades where it was caught, clear of the pouch, at native and small viewports', async ({ page }, info) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await observeSpellingArtwork(page);
   await page.addInitScript(bay1KeyboardPilotInit, []);
   await page.addInitScript(() => {
-    let queued=false;
+    // A tile drawn after the pouch in the same frame is the collection cue, not a world pickup.
+    let afterPouch=false,queued=false;const flights:{rect:number[];alpha:number}[]=[];
+    Object.assign(window,{reducedPickupFlights:flights});
     const draw=CanvasRenderingContext2D.prototype.drawImage;
     CanvasRenderingContext2D.prototype.drawImage=function(this:CanvasRenderingContext2D,...args:Parameters<typeof draw>) {
       Reflect.apply(draw,this,args);
-      if(!queued&&this.canvas.id==='game'&&args[0] instanceof HTMLImageElement&&args[0].src.endsWith('/assets/spelling/tile.png')
-        &&(args as unknown[]).length===5&&args[1]===331&&args[2]===7) {
+      if(this.canvas.id!=='game'||!(args[0] instanceof HTMLImageElement))return;
+      const src=args[0].src;
+      if(src.endsWith('/assets/spelling/pouch.png')){afterPouch=true;return;}
+      if(!src.endsWith('/assets/spelling/tile.png')){afterPouch=false;return;}
+      if(!afterPouch||(args as unknown[]).length!==5)return;
+      flights.push({rect:(args as unknown[]).slice(1) as number[],alpha:this.globalAlpha});
+      if(!queued){
         queued=true;const canvas=this.canvas;
         queueMicrotask(()=>Object.assign(window,{reducedPickupWitness:{kind:'ordinary keyboard input, native RAF; observed full render frame',
           png:canvas.toDataURL(),native:[canvas.width,canvas.height],css:{width:canvas.getBoundingClientRect().width,height:canvas.getBoundingClientRect().height},
@@ -4672,8 +4679,21 @@ test('builder-kit reduced-motion pickup stays beside its pouch at native and sma
     await info.attach(`reduced-motion-observed-${width}`,{body:JSON.stringify({...witness,png:undefined}),contentType:'application/json'});
     expect(witness.status).toContain('T → bag');expect(witness.native).toEqual([426,240]);expect(witness.css.width).toBe(width);
     expect(witness.art['pouch.png'].rect).toEqual([330,7,24,24]);
-    expect(witness.art['tile.png'].rect).toEqual([331,7,22,24]);
-    expect(7+24).toBeLessThan(37); // complete stationary tile stays above the notice lane
+    await expect(page.locator('#status')).not.toContainText('→ bag');
+    const flights=await page.evaluate(()=>(window as unknown as {reducedPickupFlights:{rect:number[];alpha:number}[]}).reducedPickupFlights.splice(0));
+    await info.attach(`reduced-motion-flights-${width}`,{body:JSON.stringify(flights),contentType:'application/json'});
+    expect(flights.length).toBeGreaterThan(3);
+    const [x,y,w,h]=flights[0].rect;
+    expect([w,h]).toEqual([22,24]);
+    // Stationary: every frame of the cue uses the caught position; only opacity changes.
+    for (const flight of flights) expect(flight.rect).toEqual(flights[0].rect);
+    // Renders can repeat between simulation steps, so opacity never rises and ends well faded.
+    for (let i=1;i<flights.length;i++) expect(flights[i].alpha).toBeLessThanOrEqual(flights[i-1].alpha);
+    expect(flights[0].alpha).toBeGreaterThan(.9);expect(flights.at(-1)!.alpha).toBeLessThan(.2);
+    // Fully on camera and clear of the pouch art it previously disappeared into.
+    expect(x).toBeGreaterThanOrEqual(0);expect(x+w).toBeLessThanOrEqual(426);
+    expect(y).toBeGreaterThanOrEqual(0);expect(y+h).toBeLessThanOrEqual(240);
+    expect(x+w<=330||x>=354||y+h<=7||y>=31).toBe(true);
     await expectClearViewport(page);
     const css=await page.locator('#game').screenshot();
     await info.attach(`reduced-motion-css-${width}`,{body:css,contentType:'image/png'});

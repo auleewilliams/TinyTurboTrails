@@ -312,7 +312,8 @@ checkpoint/health/pit recovery, replay, map return and trail changes in memory;
 reload clears it. No browser storage, new gates or changes to gems/stars/totals.
 
 The in-trail HUD shows a bag and collected count. Four pickups can be collected
-in any order; a brief letter flight gives feedback. Collection never fills the
+in any order; a brief letter flight to the bag gives feedback (with reduced
+motion the tile fades where it was caught instead). Collection never fills the
 word or awards a sticker. Finishing shows the ordinary celebration and results;
 only the deliberate Build your word action opens the optional activity, and skipping it
 keeps completion and every collected letter. In the activity,
